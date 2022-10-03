@@ -6,4 +6,7 @@ type Contact {
     "Indicates that phone_number in E.164 format"
     phone_valid: Boolean
     types: [Type]! @relation
+    created_at: DateTime!
+    updated_at: DateTime!
+    deleted_at: DateTime
 }

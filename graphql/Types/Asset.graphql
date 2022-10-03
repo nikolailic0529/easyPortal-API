@@ -35,6 +35,9 @@ type Asset {
     quoteRequest: QuoteRequest @relation
     changed_at: DateTime
     synced_at: DateTime!
+    created_at: DateTime!
+    updated_at: DateTime!
+    deleted_at: DateTime
 
     changeRequest: ChangeRequest @relation
     changeRequests(

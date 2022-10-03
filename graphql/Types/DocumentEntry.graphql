@@ -61,4 +61,7 @@ type DocumentEntry {
     language: Language @relation
     psp_id: ID
     psp: Psp @relation
+    created_at: DateTime!
+    updated_at: DateTime!
+    deleted_at: DateTime
 }

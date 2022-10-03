@@ -4,4 +4,6 @@ type MeSearch {
     name: String!
     conditions: String!
     created_at: DateTime!
+    updated_at: DateTime!
+    deleted_at: DateTime
 }

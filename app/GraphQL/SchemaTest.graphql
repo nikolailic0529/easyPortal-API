@@ -5652,8 +5652,20 @@ input SortByClauseAssetsSort {
     """
     Property clause.
     """
+    created_at: SortByTypeDirection
+    @sortByOperatorProperty
+
+    """
+    Property clause.
+    """
     customer: SortByClauseCompaniesSort
     @sortByProperty
+
+    """
+    Property clause.
+    """
+    deleted_at: SortByTypeDirection
+    @sortByOperatorProperty
 
     """
     Property clause.
@@ -5708,6 +5720,12 @@ input SortByClauseAssetsSort {
     """
     type: SortByClauseTypesSort
     @sortByProperty
+
+    """
+    Property clause.
+    """
+    updated_at: SortByTypeDirection
+    @sortByOperatorProperty
 
     """
     Property clause.
@@ -5777,6 +5795,12 @@ input SortByClauseChangeRequestsSort {
     Property clause.
     """
     created_at: SortByTypeDirection
+    @sortByOperatorProperty
+
+    """
+    Property clause.
+    """
+    deleted_at: SortByTypeDirection
     @sortByOperatorProperty
 
     """
@@ -5858,6 +5882,18 @@ input SortByClauseCompaniesSort {
     """
     Property clause.
     """
+    created_at: SortByTypeDirection
+    @sortByOperatorProperty
+
+    """
+    Property clause.
+    """
+    deleted_at: SortByTypeDirection
+    @sortByOperatorProperty
+
+    """
+    Property clause.
+    """
     headquarter: SortByClauseCompanyLocationsSort
     @sortByProperty
 
@@ -5878,6 +5914,12 @@ input SortByClauseCompaniesSort {
     """
     quotes_count: SortByTypeDirection
     @sortByOperatorProperty
+
+    """
+    Property clause.
+    """
+    updated_at: SortByTypeDirection
+    @sortByOperatorProperty
 }
 
 """
@@ -5895,6 +5937,18 @@ input SortByClauseCompanyLocationsSort {
 Sort clause for input ContactsSort (only one property allowed at a time).
 """
 input SortByClauseContactsSort {
+    """
+    Property clause.
+    """
+    created_at: SortByTypeDirection
+    @sortByOperatorProperty
+
+    """
+    Property clause.
+    """
+    deleted_at: SortByTypeDirection
+    @sortByOperatorProperty
+
     """
     Property clause.
     """
@@ -5917,6 +5971,12 @@ input SortByClauseContactsSort {
     Property clause.
     """
     phone_valid: SortByTypeDirection
+    @sortByOperatorProperty
+
+    """
+    Property clause.
+    """
+    updated_at: SortByTypeDirection
     @sortByOperatorProperty
 }
 
@@ -6000,6 +6060,18 @@ input SortByClauseDistributorsSort {
     """
     Property clause.
     """
+    created_at: SortByTypeDirection
+    @sortByOperatorProperty
+
+    """
+    Property clause.
+    """
+    deleted_at: SortByTypeDirection
+    @sortByOperatorProperty
+
+    """
+    Property clause.
+    """
     id: SortByTypeDirection
     @sortByOperatorProperty
 
@@ -6007,6 +6079,12 @@ input SortByClauseDistributorsSort {
     Property clause.
     """
     name: SortByTypeDirection
+    @sortByOperatorProperty
+
+    """
+    Property clause.
+    """
+    updated_at: SortByTypeDirection
     @sortByOperatorProperty
 }
 
@@ -6041,6 +6119,12 @@ input SortByClauseDocumentEntriesSort {
     """
     Property clause.
     """
+    created_at: SortByTypeDirection
+    @sortByOperatorProperty
+
+    """
+    Property clause.
+    """
     currency: SortByClauseCurrenciesSort
     @sortByProperty
 
@@ -6048,6 +6132,12 @@ input SortByClauseDocumentEntriesSort {
     Property clause.
     """
     currency_id: SortByTypeDirection
+    @sortByOperatorProperty
+
+    """
+    Property clause.
+    """
+    deleted_at: SortByTypeDirection
     @sortByOperatorProperty
 
     """
@@ -6205,6 +6295,12 @@ input SortByClauseDocumentEntriesSort {
     """
     start: SortByTypeDirection
     @sortByOperatorProperty
+
+    """
+    Property clause.
+    """
+    updated_at: SortByTypeDirection
+    @sortByOperatorProperty
 }
 
 """
@@ -6294,6 +6390,12 @@ input SortByClauseDocumentsSort {
     """
     Property clause.
     """
+    created_at: SortByTypeDirection
+    @sortByOperatorProperty
+
+    """
+    Property clause.
+    """
     currency: SortByClauseCurrenciesSort
     @sortByProperty
 
@@ -6302,6 +6404,12 @@ input SortByClauseDocumentsSort {
     """
     customer: SortByClauseCompaniesSort
     @sortByProperty
+
+    """
+    Property clause.
+    """
+    deleted_at: SortByTypeDirection
+    @sortByOperatorProperty
 
     """
     Property clause.
@@ -6362,6 +6470,12 @@ input SortByClauseDocumentsSort {
     """
     start: SortByTypeDirection
     @sortByOperatorProperty
+
+    """
+    Property clause.
+    """
+    updated_at: SortByTypeDirection
+    @sortByOperatorProperty
 }
 
 """
@@ -6394,6 +6508,18 @@ input SortByClauseLocationsSort {
     """
     Property clause.
     """
+    created_at: SortByTypeDirection
+    @sortByOperatorProperty
+
+    """
+    Property clause.
+    """
+    deleted_at: SortByTypeDirection
+    @sortByOperatorProperty
+
+    """
+    Property clause.
+    """
     line_one: SortByTypeDirection
     @sortByOperatorProperty
 
@@ -6414,6 +6540,12 @@ input SortByClauseLocationsSort {
     """
     state: SortByTypeDirection
     @sortByOperatorProperty
+
+    """
+    Property clause.
+    """
+    updated_at: SortByTypeDirection
+    @sortByOperatorProperty
 }
 
 """
@@ -6429,6 +6561,12 @@ input SortByClauseMeSearchSort {
     """
     Property clause.
     """
+    deleted_at: SortByTypeDirection
+    @sortByOperatorProperty
+
+    """
+    Property clause.
+    """
     key: SortByTypeDirection
     @sortByOperatorProperty
 
@@ -6436,6 +6574,12 @@ input SortByClauseMeSearchSort {
     Property clause.
     """
     name: SortByTypeDirection
+    @sortByOperatorProperty
+
+    """
+    Property clause.
+    """
+    updated_at: SortByTypeDirection
     @sortByOperatorProperty
 }
 
@@ -6447,6 +6591,12 @@ input SortByClauseNotesSort {
     Property clause.
     """
     created_at: SortByTypeDirection
+    @sortByOperatorProperty
+
+    """
+    Property clause.
+    """
+    deleted_at: SortByTypeDirection
     @sortByOperatorProperty
 
     """
@@ -6504,6 +6654,18 @@ input SortByClauseOemGroupsSort {
     """
     Property clause.
     """
+    created_at: SortByTypeDirection
+    @sortByOperatorProperty
+
+    """
+    Property clause.
+    """
+    deleted_at: SortByTypeDirection
+    @sortByOperatorProperty
+
+    """
+    Property clause.
+    """
     id: SortByTypeDirection
     @sortByOperatorProperty
 
@@ -6517,6 +6679,12 @@ input SortByClauseOemGroupsSort {
     Property clause.
     """
     name: SortByTypeDirection
+    @sortByOperatorProperty
+
+    """
+    Property clause.
+    """
+    updated_at: SortByTypeDirection
     @sortByOperatorProperty
 }
 
@@ -6550,6 +6718,18 @@ input SortByClauseOrganizationsSort {
     """
     Property clause.
     """
+    created_at: SortByTypeDirection
+    @sortByOperatorProperty
+
+    """
+    Property clause.
+    """
+    deleted_at: SortByTypeDirection
+    @sortByOperatorProperty
+
+    """
+    Property clause.
+    """
     email: SortByTypeDirection
     @sortByOperatorProperty
 
@@ -6557,6 +6737,12 @@ input SortByClauseOrganizationsSort {
     Property clause.
     """
     name: SortByTypeDirection
+    @sortByOperatorProperty
+
+    """
+    Property clause.
+    """
+    updated_at: SortByTypeDirection
     @sortByOperatorProperty
 
     """
@@ -6762,6 +6948,18 @@ input SortByClauseUsersSort {
     """
     Property clause.
     """
+    created_at: SortByTypeDirection
+    @sortByOperatorProperty
+
+    """
+    Property clause.
+    """
+    deleted_at: SortByTypeDirection
+    @sortByOperatorProperty
+
+    """
+    Property clause.
+    """
     email: SortByTypeDirection
     @sortByOperatorProperty
 
@@ -6781,6 +6979,12 @@ input SortByClauseUsersSort {
     Property clause.
     """
     given_name: SortByTypeDirection
+    @sortByOperatorProperty
+
+    """
+    Property clause.
+    """
+    updated_at: SortByTypeDirection
     @sortByOperatorProperty
 }
 
@@ -6945,6 +7149,8 @@ input UserUpdateInput {
 
 interface Company {
     changed_at: DateTime
+    created_at: DateTime!
+    deleted_at: DateTime
     id: ID!
 
     kpi: Kpi
@@ -6956,6 +7162,7 @@ interface Company {
     @relation
 
     synced_at: DateTime!
+    updated_at: DateTime!
 }
 
 interface Payload {
@@ -7570,12 +7777,14 @@ type Asset {
     @relation
 
     coverages_count: Int!
+    created_at: DateTime!
 
     customer: Customer
     @relation
 
     customer_id: ID
     data_quality: String
+    deleted_at: DateTime
     id: ID!
 
     location: Location
@@ -7616,6 +7825,7 @@ type Asset {
     @relation
 
     type_id: ID
+    updated_at: DateTime!
 
     warranties: [AssetWarranty!]!
     @relation(
@@ -8144,6 +8354,7 @@ type ChangeRequest {
     bcc: [String!]
     cc: [String!]
     created_at: DateTime!
+    deleted_at: DateTime
 
     files: [File!]!
     @relation
@@ -8317,6 +8528,8 @@ type CompanyLocationsAggregated {
 }
 
 type Contact {
+    created_at: DateTime!
+    deleted_at: DateTime
     email: Email
     id: ID!
     name: String
@@ -8329,6 +8542,8 @@ type Contact {
 
     types: [Type]!
     @relation
+
+    updated_at: DateTime!
 }
 
 """
@@ -8702,6 +8917,9 @@ implements
     contracts_count: Int!
     @orgProperty
 
+    created_at: DateTime!
+    deleted_at: DateTime
+
     headquarter: CompanyLocation
     @relation
 
@@ -8810,6 +9028,7 @@ implements
     @relation
 
     synced_at: DateTime!
+    updated_at: DateTime!
 }
 
 type CustomerChangeRequestCreatePayload
@@ -8966,8 +9185,11 @@ type DispatchApplicationServicePayload {
 }
 
 type Distributor {
+    created_at: DateTime!
+    deleted_at: DateTime
     id: ID!
     name: String!
+    updated_at: DateTime!
 }
 
 """
@@ -9121,6 +9343,7 @@ type Document {
     )
 
     contacts_count: Int!
+    created_at: DateTime!
 
     currency: Currency
     @relation
@@ -9131,6 +9354,7 @@ type Document {
     @relation
 
     customer_id: ID
+    deleted_at: DateTime
 
     distributor: Distributor
     @relation
@@ -9278,6 +9502,7 @@ type Document {
     @relation
 
     type_id: ID
+    updated_at: DateTime!
 }
 
 """
@@ -9370,11 +9595,13 @@ type DocumentEntry {
 
     asset_id: ID
     asset_type_id: ID
+    created_at: DateTime!
 
     currency: Currency
     @relation
 
     currency_id: ID
+    deleted_at: DateTime
     document_id: ID!
     end: Date
     environment_id: String
@@ -9450,6 +9677,7 @@ type DocumentEntry {
     service_group_id: ID
     service_level_id: ID
     start: Date
+    updated_at: DateTime!
 }
 
 """
@@ -9680,6 +9908,8 @@ type Location {
     @relation
 
     country_id: ID!
+    created_at: DateTime!
+    deleted_at: DateTime
     id: ID!
     latitude: Float
     line_one: String!
@@ -9687,6 +9917,7 @@ type Location {
     longitude: Float
     postcode: String!
     state: String!
+    updated_at: DateTime!
 }
 
 type Map {
@@ -9843,9 +10074,11 @@ type MeMutation {
 type MeSearch {
     conditions: String!
     created_at: DateTime!
+    deleted_at: DateTime
     id: ID!
     key: String!
     name: String!
+    updated_at: DateTime!
 }
 
 """
@@ -10455,6 +10688,7 @@ type Mutation {
 
 type Note {
     created_at: DateTime!
+    deleted_at: DateTime
 
     files: [File!]!
     @relation
@@ -10528,9 +10762,12 @@ type Oem {
 }
 
 type OemGroup {
+    created_at: DateTime!
+    deleted_at: DateTime
     id: ID!
     key: String!
     name: String!
+    updated_at: DateTime!
 }
 
 """
@@ -11046,10 +11283,13 @@ type Organization {
     )
     @relation
 
+    created_at: DateTime!
+
     currency: Currency
     @relation
 
     currency_id: ID
+    deleted_at: DateTime
     email: Email
     id: ID!
 
@@ -11088,6 +11328,7 @@ type Organization {
 
     timezone: String
     type: OrganizationType!
+    updated_at: DateTime!
 
     """
     @require <authMe(["administer","org-administer"])> User must be authenticated and have any of these permissions.
@@ -13344,7 +13585,9 @@ implements
         relation: "contracts"
     )
 
+    created_at: DateTime!
     customers_count: Int!
+    deleted_at: DateTime
 
     headquarter: CompanyLocation
     @relation
@@ -13451,6 +13694,7 @@ implements
     @relation
 
     synced_at: DateTime!
+    updated_at: DateTime!
 }
 
 """
@@ -13651,6 +13895,8 @@ type User {
     academic_title: String
     company: String
     contact_email: Email
+    created_at: DateTime!
+    deleted_at: DateTime
     email: Email!
     email_verified: Boolean!
     enabled: Boolean!
@@ -13719,6 +13965,7 @@ type User {
     photo: Url
     timezone: String
     title: String
+    updated_at: DateTime!
 }
 
 type UserMutation {

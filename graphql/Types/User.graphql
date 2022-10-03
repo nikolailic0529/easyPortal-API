@@ -16,6 +16,9 @@ type User {
     photo: Url
     locale: String
     timezone: String
+    created_at: DateTime!
+    updated_at: DateTime!
+    deleted_at: DateTime
 
     invitations_count: Int!
     @authOrg

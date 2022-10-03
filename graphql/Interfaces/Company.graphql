@@ -3,6 +3,9 @@ interface Company {
     name: String!
     changed_at: DateTime
     synced_at: DateTime!
+    created_at: DateTime!
+    updated_at: DateTime!
+    deleted_at: DateTime
     kpi: Kpi @orgRelation
     statuses: [Status!]! @relation
 }

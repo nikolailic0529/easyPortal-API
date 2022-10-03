@@ -6,6 +6,9 @@ type Document {
     number: String
     start: Date
     end: Date
+    created_at: DateTime!
+    updated_at: DateTime!
+    deleted_at: DateTime
 
     price: Float
     @field(

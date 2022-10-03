@@ -3,4 +3,7 @@ input ContactsSort {
     email: Email
     phone_number: PhoneNumber
     phone_valid: Boolean
+    created_at: DateTime!
+    updated_at: DateTime!
+    deleted_at: DateTime
 }

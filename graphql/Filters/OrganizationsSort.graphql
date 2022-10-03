@@ -2,4 +2,7 @@ input OrganizationsSort {
     name: String!
     website_url: Url
     email: Email
+    created_at: DateTime!
+    updated_at: DateTime!
+    deleted_at: DateTime
 }

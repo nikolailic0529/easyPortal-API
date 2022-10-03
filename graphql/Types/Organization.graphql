@@ -12,6 +12,9 @@ type Organization {
     currency: Currency @relation
     analytics_code: String
     timezone: String
+    created_at: DateTime!
+    updated_at: DateTime!
+    deleted_at: DateTime
 
     branding: OrganizationBranding!
     @field(resolver: "App\\GraphQL\\Queries\\Organization@branding")

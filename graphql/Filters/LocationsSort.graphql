@@ -5,4 +5,7 @@ input LocationsSort {
     line_two: String!
     country: CountriesSort!
     city: CitiesSort!
+    created_at: DateTime!
+    updated_at: DateTime!
+    deleted_at: DateTime
 }
