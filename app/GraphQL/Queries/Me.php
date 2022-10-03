@@ -2,17 +2,14 @@
 
 namespace App\GraphQL\Queries;
 
-use App\Models\Audits\Audit;
 use App\Models\Organization;
 use App\Models\OrganizationUser;
 use App\Models\Team;
 use App\Models\User;
-use App\Services\Audit\Enums\Action;
 use App\Services\Auth\Auth;
 use App\Services\Organization\CurrentOrganization;
 use App\Services\Organization\Eloquent\OwnedByScope;
 use App\Utils\Eloquent\GlobalScopes\GlobalScopes;
-use DateTimeInterface;
 use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Support\Collection;
 
@@ -51,28 +48,6 @@ class Me {
         }
 
         return $me;
-    }
-
-    public function previousSignIn(?User $user): ?DateTimeInterface {
-        $value = null;
-
-        if ($user) {
-            $value = GlobalScopes::callWithout(
-                OwnedByScope::class,
-                static function () use ($user): ?DateTimeInterface {
-                    return Audit::query()
-                        ->where('user_id', '=', $user->getKey())
-                        ->where('action', '=', Action::authSignedIn())
-                        ->orderByDesc('created_at')
-                        ->limit(1)
-                        ->offset(1)
-                        ->first()
-                        ?->created_at;
-                },
-            );
-        }
-
-        return $value;
     }
 
     public function team(User $user): ?Team {

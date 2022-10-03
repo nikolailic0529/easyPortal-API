@@ -31,7 +31,6 @@ type Me {
     @field(resolver: "App\\GraphQL\\Queries\\Me@enabled")
 
     previous_sign_in: DateTime
-    @field(resolver: "App\\GraphQL\\Queries\\Me@previousSignIn")
 
     searches (
         where: MeSearchQuery @searchBy

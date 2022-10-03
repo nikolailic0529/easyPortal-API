@@ -10002,11 +10002,7 @@ type Me {
     permissions: [String!]
     phone: PhoneNumber
     photo: Url
-
     previous_sign_in: DateTime
-    @field(
-        resolver: "App\\GraphQL\\Queries\\Me@previousSignIn"
-    )
 
     root: Boolean!
     @field(

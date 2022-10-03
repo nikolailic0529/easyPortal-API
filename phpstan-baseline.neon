@@ -2016,16 +2016,6 @@ parameters:
 			path: app/GraphQL/Queries/Me.php
 
 		-
-			message: "#^Cannot call method subDay\\(\\) on Carbon\\\\CarbonImmutable\\|null\\.$#"
-			count: 1
-			path: app/GraphQL/Queries/MeTest.php
-
-		-
-			message: "#^Cannot clone non\\-object variable \\$date of type Carbon\\\\CarbonImmutable\\|null\\.$#"
-			count: 2
-			path: app/GraphQL/Queries/MeTest.php
-
-		-
 			message: "#^Method App\\\\GraphQL\\\\Queries\\\\MeTest\\:\\:dataProviderInvoke\\(\\) should return array\\<string, array\\{LastDragon_ru\\\\LaraASP\\\\Testing\\\\Constraints\\\\Response\\\\Response, App\\\\Models\\\\Organization\\|\\(callable\\(Tests\\\\TestCase\\)\\: App\\\\Models\\\\Organization\\|null\\)\\|null, App\\\\Models\\\\User\\|\\(callable\\(Tests\\\\TestCase, App\\\\Models\\\\Organization\\|null\\)\\: App\\\\Models\\\\User\\|null\\)\\|null\\}\\> but returns array\\<array\\>\\.$#"
 			count: 1
 			path: app/GraphQL/Queries/MeTest.php
