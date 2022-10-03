@@ -7068,12 +7068,6 @@ type Application {
         order: [SortByClauseApplicationLogsSort!]
         @sortBy
 
-        trashed: Trashed
-        @authMe(
-            permissions: ["administer"]
-        )
-        @paginatedTrashed
-
         where: SearchByConditionApplicationLogsQuery
         @searchBy
     ): [ApplicationLog!]!
@@ -7252,14 +7246,7 @@ type ApplicationLogsAggregated {
             apply: ["min:0"]
         )
         @paginatedOffset
-
-        trashed: Trashed
-        @authMe(
-            permissions: ["administer"]
-        )
-        @paginatedTrashed
     ): [AggregatedGroupByTypeGroup!]!
-    @authAny
     @cached(
         mode: Threshold
     )
@@ -7469,9 +7456,16 @@ type Asset {
     @paginatedRelation
 
     changeRequestsAggregated(
+        trashed: Trashed
+        @authMe(
+            permissions: ["administer"]
+        )
+        @paginatedTrashed
+
         where: SearchByConditionChangeRequestsQuery
         @searchBy
     ): ChangeRequestsAggregated
+    @authAny
     @aggregated(
         relation: "changeRequests"
     )
@@ -7714,14 +7708,7 @@ type AssetsAggregated {
             apply: ["min:0"]
         )
         @paginatedOffset
-
-        trashed: Trashed
-        @authMe(
-            permissions: ["administer"]
-        )
-        @paginatedTrashed
     ): [AggregatedGroupByTypeGroup!]!
-    @authAny
     @cached(
         mode: Threshold
     )
@@ -7819,14 +7806,7 @@ type AuditsAggregated {
             apply: ["min:0"]
         )
         @paginatedOffset
-
-        trashed: Trashed
-        @authMe(
-            permissions: ["administer"]
-        )
-        @paginatedTrashed
     ): [AggregatedGroupByTypeGroup!]!
-    @authAny
     @cached(
         mode: Threshold
     )
@@ -8129,14 +8109,7 @@ type ChangeRequestsAggregated {
             apply: ["min:0"]
         )
         @paginatedOffset
-
-        trashed: Trashed
-        @authMe(
-            permissions: ["administer"]
-        )
-        @paginatedTrashed
     ): [AggregatedGroupByTypeGroup!]!
-    @authAny
     @cached(
         mode: Threshold
     )
@@ -8367,6 +8340,12 @@ implements
     @require <authMe(["assets-view"])> User must be authenticated and have any of these permissions.
     """
     assetsAggregated(
+        trashed: Trashed
+        @authMe(
+            permissions: ["administer"]
+        )
+        @paginatedTrashed
+
         where: SearchByConditionAssetsQuery
         @searchBy
     ): AssetsAggregated
@@ -8413,9 +8392,16 @@ implements
     @paginatedRelation
 
     changeRequestsAggregated(
+        trashed: Trashed
+        @authMe(
+            permissions: ["administer"]
+        )
+        @paginatedTrashed
+
         where: SearchByConditionChangeRequestsQuery
         @searchBy
     ): ChangeRequestsAggregated
+    @authAny
     @aggregated(
         relation: "changeRequests"
     )
@@ -8474,6 +8460,12 @@ implements
     @require <authMe(["contracts-view"])> User must be authenticated and have any of these permissions.
     """
     contractsAggregated(
+        trashed: Trashed
+        @authMe(
+            permissions: ["administer"]
+        )
+        @paginatedTrashed
+
         where: SearchByConditionDocumentsQuery
         @searchBy
     ): DocumentsAggregated
@@ -8548,6 +8540,12 @@ implements
     @require <authMe(["quotes-view"])> User must be authenticated and have any of these permissions.
     """
     quotesAggregated(
+        trashed: Trashed
+        @authMe(
+            permissions: ["administer"]
+        )
+        @paginatedTrashed
+
         where: SearchByConditionDocumentsQuery
         @searchBy
     ): DocumentsAggregated
@@ -8669,14 +8667,7 @@ type CustomersAggregated {
             apply: ["min:0"]
         )
         @paginatedOffset
-
-        trashed: Trashed
-        @authMe(
-            permissions: ["administer"]
-        )
-        @paginatedTrashed
     ): [AggregatedGroupByTypeGroup!]!
-    @authAny
     @cached(
         mode: Threshold
     )
@@ -8763,14 +8754,7 @@ type DistributorsAggregated {
             apply: ["min:0"]
         )
         @paginatedOffset
-
-        trashed: Trashed
-        @authMe(
-            permissions: ["administer"]
-        )
-        @paginatedTrashed
     ): [AggregatedGroupByTypeGroup!]!
-    @authAny
     @cached(
         mode: Threshold
     )
@@ -8826,9 +8810,16 @@ type Document {
     @paginatedRelation
 
     changeRequestsAggregated(
+        trashed: Trashed
+        @authMe(
+            permissions: ["administer"]
+        )
+        @paginatedTrashed
+
         where: SearchByConditionChangeRequestsQuery
         @searchBy
     ): ChangeRequestsAggregated
+    @authAny
     @aggregated(
         relation: "changeRequests"
     )
@@ -8895,9 +8886,16 @@ type Document {
     @paginatedRelation
 
     entriesAggregated(
+        trashed: Trashed
+        @authMe(
+            permissions: ["administer"]
+        )
+        @paginatedTrashed
+
         where: SearchByConditionDocumentEntriesQuery
         @searchBy
     ): DocumentEntriesAggregated
+    @authAny
     @aggregated(
         relation: "entries"
     )
@@ -8945,9 +8943,16 @@ type Document {
     @paginatedRelation
 
     notesAggregated(
+        trashed: Trashed
+        @authMe(
+            permissions: ["administer"]
+        )
+        @paginatedTrashed
+
         where: SearchByConditionNotesQuery
         @searchBy
     ): NotesAggregated
+    @authAny
     @aggregated(
         relation: "notes"
     )
@@ -9021,14 +9026,7 @@ type DocumentEntriesAggregated {
             apply: ["min:0"]
         )
         @paginatedOffset
-
-        trashed: Trashed
-        @authMe(
-            permissions: ["administer"]
-        )
-        @paginatedTrashed
     ): [AggregatedGroupByTypeGroup!]!
-    @authAny
     @cached(
         mode: Threshold
     )
@@ -9200,14 +9198,7 @@ type DocumentsAggregated {
             apply: ["min:0"]
         )
         @paginatedOffset
-
-        trashed: Trashed
-        @authMe(
-            permissions: ["administer"]
-        )
-        @paginatedTrashed
     ): [AggregatedGroupByTypeGroup!]!
-    @authAny
     @cached(
         mode: Threshold
     )
@@ -10150,14 +10141,7 @@ type NotesAggregated {
             apply: ["min:0"]
         )
         @paginatedOffset
-
-        trashed: Trashed
-        @authMe(
-            permissions: ["administer"]
-        )
-        @paginatedTrashed
     ): [AggregatedGroupByTypeGroup!]!
-    @authAny
     @cached(
         mode: Threshold
     )
@@ -10220,14 +10204,7 @@ type OemGroupsAggregated {
             apply: ["min:0"]
         )
         @paginatedOffset
-
-        trashed: Trashed
-        @authMe(
-            permissions: ["administer"]
-        )
-        @paginatedTrashed
     ): [AggregatedGroupByTypeGroup!]!
-    @authAny
     @cached(
         mode: Threshold
     )
@@ -10615,12 +10592,6 @@ type Organization {
         order: [SortByClauseAuditsSort!]
         @sortBy
 
-        trashed: Trashed
-        @authMe(
-            permissions: ["administer"]
-        )
-        @paginatedTrashed
-
         where: SearchByConditionAuditsQuery
         @searchBy
     ): [Audit!]!
@@ -10690,6 +10661,12 @@ type Organization {
     @require <authMe(["administer","org-administer"])> User must be authenticated and have any of these permissions.
     """
     changeRequestsAggregated(
+        trashed: Trashed
+        @authMe(
+            permissions: ["administer"]
+        )
+        @paginatedTrashed
+
         where: SearchByConditionChangeRequestsQuery
         @searchBy
     ): ChangeRequestsAggregated
@@ -10793,6 +10770,12 @@ type Organization {
     @require <authMe(["administer","org-administer"])> User must be authenticated and have any of these permissions.
     """
     usersAggregated(
+        trashed: Trashed
+        @authMe(
+            permissions: ["administer"]
+        )
+        @paginatedTrashed
+
         where: SearchByConditionUsersQuery
         @searchBy
     ): UsersAggregated
@@ -10950,14 +10933,7 @@ type OrganizationsAggregated {
             apply: ["min:0"]
         )
         @paginatedOffset
-
-        trashed: Trashed
-        @authMe(
-            permissions: ["administer"]
-        )
-        @paginatedTrashed
     ): [AggregatedGroupByTypeGroup!]!
-    @authAny
     @cached(
         mode: Threshold
     )
@@ -11044,14 +11020,7 @@ type ProductsAggregated {
             apply: ["min:0"]
         )
         @paginatedOffset
-
-        trashed: Trashed
-        @authMe(
-            permissions: ["administer"]
-        )
-        @paginatedTrashed
     ): [AggregatedGroupByTypeGroup!]!
-    @authAny
     @cached(
         mode: Threshold
     )
@@ -11210,6 +11179,12 @@ type Query {
     @require <authMe(["assets-view"])> User must be authenticated and have any of these permissions.
     """
     assetsAggregated(
+        trashed: Trashed
+        @authMe(
+            permissions: ["administer"]
+        )
+        @paginatedTrashed
+
         where: SearchByConditionAssetsQuery
         @searchBy
     ): AssetsAggregated
@@ -11297,12 +11272,6 @@ type Query {
 
         order: [SortByClauseAuditsSort!]
         @sortBy
-
-        trashed: Trashed
-        @authMe(
-            permissions: ["administer"]
-        )
-        @paginatedTrashed
 
         where: SearchByConditionAuditsQuery
         @searchBy
@@ -11493,6 +11462,12 @@ type Query {
     @require <authMe(["contracts-view"])> User must be authenticated and have any of these permissions.
     """
     contractsAggregated(
+        trashed: Trashed
+        @authMe(
+            permissions: ["administer"]
+        )
+        @paginatedTrashed
+
         where: SearchByConditionDocumentsQuery
         @searchBy
     ): DocumentsAggregated
@@ -11704,6 +11679,12 @@ type Query {
     @require <authMe(["customers-view"])> User must be authenticated and have any of these permissions.
     """
     customersAggregated(
+        trashed: Trashed
+        @authMe(
+            permissions: ["administer"]
+        )
+        @paginatedTrashed
+
         where: SearchByConditionCompaniesQuery
         @searchBy
     ): CustomersAggregated
@@ -11812,6 +11793,12 @@ type Query {
     @require <authMe(["assets-view","contracts-view","quotes-view"])> User must be authenticated and have any of these permissions.
     """
     distributorsAggregated(
+        trashed: Trashed
+        @authMe(
+            permissions: ["administer"]
+        )
+        @paginatedTrashed
+
         where: SearchByConditionDistributorsQuery
         @searchBy
     ): DistributorsAggregated
@@ -11945,6 +11932,12 @@ type Query {
     @require <authMe> User must be authenticated.
     """
     oemGroupsAggregated(
+        trashed: Trashed
+        @authMe(
+            permissions: ["administer"]
+        )
+        @paginatedTrashed
+
         where: SearchByConditionOemGroupsQuery
         @searchBy
     ): OemGroupsAggregated
@@ -12045,6 +12038,12 @@ type Query {
     @require <authMe(["administer"])> User must be authenticated and have any of these permissions.
     """
     organizationsAggregated(
+        trashed: Trashed
+        @authMe(
+            permissions: ["administer"]
+        )
+        @paginatedTrashed
+
         where: SearchByConditionOrganizationsQuery
         @searchBy
     ): OrganizationsAggregated
@@ -12115,6 +12114,12 @@ type Query {
     @require <authMe> User must be authenticated.
     """
     productsAggregated(
+        trashed: Trashed
+        @authMe(
+            permissions: ["administer"]
+        )
+        @paginatedTrashed
+
         where: SearchByConditionProductsQuery
         @searchBy
     ): ProductsAggregated
@@ -12247,6 +12252,12 @@ type Query {
     @require <authMe(["quotes-view"])> User must be authenticated and have any of these permissions.
     """
     quotesAggregated(
+        trashed: Trashed
+        @authMe(
+            permissions: ["administer"]
+        )
+        @paginatedTrashed
+
         where: SearchByConditionDocumentsQuery
         @searchBy
     ): DocumentsAggregated
@@ -12362,6 +12373,12 @@ type Query {
     @require <authMe> User must be authenticated.
     """
     resellersAggregated(
+        trashed: Trashed
+        @authMe(
+            permissions: ["administer"]
+        )
+        @paginatedTrashed
+
         where: SearchByConditionCompaniesQuery
         @searchBy
     ): ResellersAggregated
@@ -12605,6 +12622,12 @@ type Query {
     @require <authMe(["administer"])> User must be authenticated and have any of these permissions.
     """
     usersAggregated(
+        trashed: Trashed
+        @authMe(
+            permissions: ["administer"]
+        )
+        @paginatedTrashed
+
         where: SearchByConditionUsersQuery
         @searchBy
     ): UsersAggregated
@@ -12834,6 +12857,12 @@ implements
     @require <authMe(["assets-view"])> User must be authenticated and have any of these permissions.
     """
     assetsAggregated(
+        trashed: Trashed
+        @authMe(
+            permissions: ["administer"]
+        )
+        @paginatedTrashed
+
         where: SearchByConditionAssetsQuery
         @searchBy
     ): AssetsAggregated
@@ -12901,6 +12930,12 @@ implements
     @require <authMe(["contracts-view"])> User must be authenticated and have any of these permissions.
     """
     contractsAggregated(
+        trashed: Trashed
+        @authMe(
+            permissions: ["administer"]
+        )
+        @paginatedTrashed
+
         where: SearchByConditionDocumentsQuery
         @searchBy
     ): DocumentsAggregated
@@ -12974,6 +13009,12 @@ implements
     @require <authMe(["quotes-view"])> User must be authenticated and have any of these permissions.
     """
     quotesAggregated(
+        trashed: Trashed
+        @authMe(
+            permissions: ["administer"]
+        )
+        @paginatedTrashed
+
         where: SearchByConditionDocumentsQuery
         @searchBy
     ): DocumentsAggregated
@@ -13021,14 +13062,7 @@ type ResellersAggregated {
             apply: ["min:0"]
         )
         @paginatedOffset
-
-        trashed: Trashed
-        @authMe(
-            permissions: ["administer"]
-        )
-        @paginatedTrashed
     ): [AggregatedGroupByTypeGroup!]!
-    @authAny
     @cached(
         mode: Threshold
     )
@@ -13384,14 +13418,7 @@ type UsersAggregated {
             apply: ["min:0"]
         )
         @paginatedOffset
-
-        trashed: Trashed
-        @authMe(
-            permissions: ["administer"]
-        )
-        @paginatedTrashed
     ): [AggregatedGroupByTypeGroup!]!
-    @authAny
     @cached(
         mode: Threshold
     )

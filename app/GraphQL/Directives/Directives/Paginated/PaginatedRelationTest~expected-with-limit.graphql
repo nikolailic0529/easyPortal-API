@@ -204,9 +204,16 @@ type Customer {
     @paginatedRelation
 
     locationsAggregated(
+        trashed: Trashed
+        @authMe(
+            permissions: ["administer"]
+        )
+        @paginatedTrashed
+
         where: SearchByConditionCustomerSearch
         @searchBy
     ): CustomerLocationsAggregated
+    @authAny
     @aggregated(
         relation: "locations"
     )
@@ -248,14 +255,7 @@ type CustomerLocationsAggregated {
             apply: ["min:0"]
         )
         @paginatedOffset
-
-        trashed: Trashed
-        @authMe(
-            permissions: ["administer"]
-        )
-        @paginatedTrashed
     ): [AggregatedGroupByTypeGroup!]!
-    @authAny
     @cached(
         mode: Threshold
     )
