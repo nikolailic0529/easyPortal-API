@@ -40,11 +40,15 @@ type Document {
     entries_count: Int!
     language_id: ID
     language: Language @relation
+
+    contacts_count: Int!
     contacts (
         where: ContactsQuery @searchBy
         order: ContactsSort @sortBy
-    ): [Contact!]! @relation
-    contacts_count: Int!
+    ): [Contact!]!
+    @relation
+    @paginatedRelation
+
     distributor_id: ID
     distributor: Distributor @relation
     assets_count: Int

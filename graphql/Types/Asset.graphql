@@ -19,11 +19,15 @@ type Asset {
     reseller: Reseller @relation
     status_id: ID
     status: Status @relation
+
+    contacts_count: Int!
     contacts(
         where: ContactsQuery @searchBy
         order: ContactsSort @sortBy
-    ): [Contact!]! @relation
-    contacts_count: Int!
+    ): [Contact!]!
+    @relation
+    @paginatedRelation
+
     coverages_count: Int!
     coverages: [Coverage!] @relation
     tags: [Tag!]! @relation

@@ -271,6 +271,34 @@ input AggregatedGroupByClauseCompaniesQuery {
 }
 
 """
+Group clause for `input CompanyLocationsQuery` (only one property allowed at a time).
+"""
+input AggregatedGroupByClauseCompanyLocationsQuery {
+    """
+    Relationship clause.
+    """
+    location: [SortByClauseLocationsSort!]
+    @aggregatedGroupByOperatorRelation
+
+    """
+    Property clause.
+    """
+    location_id: AggregatedGroupByTypeDirection
+    @aggregatedGroupByOperatorAsString
+}
+
+"""
+Group clause for `input ContactsQuery` (only one property allowed at a time).
+"""
+input AggregatedGroupByClauseContactsQuery {
+    """
+    Property clause.
+    """
+    name: AggregatedGroupByTypeDirection
+    @aggregatedGroupByOperatorAsString
+}
+
+"""
 Group clause for `input DistributorsQuery` (only one property allowed at a time).
 """
 input AggregatedGroupByClauseDistributorsQuery {
@@ -570,6 +598,23 @@ input AggregatedGroupByClauseDocumentsQuery {
     Property clause.
     """
     type_id: AggregatedGroupByTypeDirection
+    @aggregatedGroupByOperatorAsString
+}
+
+"""
+Group clause for `input MeSearchQuery` (only one property allowed at a time).
+"""
+input AggregatedGroupByClauseMeSearchQuery {
+    """
+    Property clause.
+    """
+    key: AggregatedGroupByTypeDirection
+    @aggregatedGroupByOperatorAsString
+
+    """
+    Property clause.
+    """
+    name: AggregatedGroupByTypeDirection
     @aggregatedGroupByOperatorAsString
 }
 
@@ -7473,13 +7518,51 @@ type Asset {
     changed_at: DateTime
 
     contacts(
+        limit: Int! = 25
+        @rules(
+            apply: [
+                "min:1"
+                "App\\GraphQL\\Directives\\Directives\\Paginated\\LimitRule"
+            ]
+        )
+        @paginatedLimit
+
+        offset: Int! = 0
+        @rules(
+            apply: ["min:0"]
+        )
+        @paginatedOffset
+
         order: [SortByClauseContactsSort!]
         @sortBy
+
+        trashed: Trashed
+        @authMe(
+            permissions: ["administer"]
+        )
+        @paginatedTrashed
 
         where: SearchByConditionContactsQuery
         @searchBy
     ): [Contact!]!
+    @authAny
     @relation
+    @paginatedRelation
+
+    contactsAggregated(
+        trashed: Trashed
+        @authMe(
+            permissions: ["administer"]
+        )
+        @paginatedTrashed
+
+        where: SearchByConditionContactsQuery
+        @searchBy
+    ): ContactsAggregated
+    @authAny
+    @aggregated(
+        relation: "contacts"
+    )
 
     contacts_count: Int!
 
@@ -8182,6 +8265,57 @@ type CompanyLocation {
     @relation
 }
 
+"""
+Aggregated data for `type CompanyLocation`.
+"""
+type CompanyLocationsAggregated {
+    count: Int!
+    @aggregatedCount
+    @cached(
+        mode: Threshold
+    )
+
+    groups(
+        groupBy: AggregatedGroupByClauseCompanyLocationsQuery!
+        @aggregatedGroupBy(
+            order: "CompanyLocationsSort"
+            where: "CompanyLocationsQuery"
+        )
+
+        limit: Int! = 25
+        @rules(
+            apply: [
+                "min:1"
+                "App\\GraphQL\\Directives\\Directives\\Paginated\\LimitRule"
+            ]
+        )
+        @paginatedLimit
+
+        offset: Int! = 0
+        @rules(
+            apply: ["min:0"]
+        )
+        @paginatedOffset
+    ): [AggregatedGroupByTypeGroup!]!
+    @cached(
+        mode: Threshold
+    )
+    @paginated(
+        builder: "App\\GraphQL\\Directives\\Directives\\Aggregated\\Builder"
+    )
+
+    groupsAggregated(
+        groupBy: AggregatedGroupByClauseCompanyLocationsQuery!
+        @aggregatedGroupBy(
+            order: "CompanyLocationsSort"
+            where: "CompanyLocationsQuery"
+        )
+    ): AggregatedGroupByTypeGroupsAggregated
+    @aggregated(
+        builder: "App\\GraphQL\\Directives\\Directives\\Aggregated\\Builder"
+    )
+}
+
 type Contact {
     email: Email
     id: ID!
@@ -8195,6 +8329,57 @@ type Contact {
 
     types: [Type]!
     @relation
+}
+
+"""
+Aggregated data for `type Contact`.
+"""
+type ContactsAggregated {
+    count: Int!
+    @aggregatedCount
+    @cached(
+        mode: Threshold
+    )
+
+    groups(
+        groupBy: AggregatedGroupByClauseContactsQuery!
+        @aggregatedGroupBy(
+            order: "ContactsSort"
+            where: "ContactsQuery"
+        )
+
+        limit: Int! = 25
+        @rules(
+            apply: [
+                "min:1"
+                "App\\GraphQL\\Directives\\Directives\\Paginated\\LimitRule"
+            ]
+        )
+        @paginatedLimit
+
+        offset: Int! = 0
+        @rules(
+            apply: ["min:0"]
+        )
+        @paginatedOffset
+    ): [AggregatedGroupByTypeGroup!]!
+    @cached(
+        mode: Threshold
+    )
+    @paginated(
+        builder: "App\\GraphQL\\Directives\\Directives\\Aggregated\\Builder"
+    )
+
+    groupsAggregated(
+        groupBy: AggregatedGroupByClauseContactsQuery!
+        @aggregatedGroupBy(
+            order: "ContactsSort"
+            where: "ContactsQuery"
+        )
+    ): AggregatedGroupByTypeGroupsAggregated
+    @aggregated(
+        builder: "App\\GraphQL\\Directives\\Directives\\Aggregated\\Builder"
+    )
 }
 
 type ContractChangeRequestCreatePayload
@@ -8409,13 +8594,51 @@ implements
     changed_at: DateTime
 
     contacts(
+        limit: Int! = 25
+        @rules(
+            apply: [
+                "min:1"
+                "App\\GraphQL\\Directives\\Directives\\Paginated\\LimitRule"
+            ]
+        )
+        @paginatedLimit
+
+        offset: Int! = 0
+        @rules(
+            apply: ["min:0"]
+        )
+        @paginatedOffset
+
         order: [SortByClauseContactsSort!]
         @sortBy
+
+        trashed: Trashed
+        @authMe(
+            permissions: ["administer"]
+        )
+        @paginatedTrashed
 
         where: SearchByConditionContactsQuery
         @searchBy
     ): [Contact!]!
+    @authAny
     @relation
+    @paginatedRelation
+
+    contactsAggregated(
+        trashed: Trashed
+        @authMe(
+            permissions: ["administer"]
+        )
+        @paginatedTrashed
+
+        where: SearchByConditionContactsQuery
+        @searchBy
+    ): ContactsAggregated
+    @authAny
+    @aggregated(
+        relation: "contacts"
+    )
 
     contacts_count: Int!
 
@@ -8488,6 +8711,21 @@ implements
     @orgRelation
 
     locations(
+        limit: Int! = 25
+        @rules(
+            apply: [
+                "min:1"
+                "App\\GraphQL\\Directives\\Directives\\Paginated\\LimitRule"
+            ]
+        )
+        @paginatedLimit
+
+        offset: Int! = 0
+        @rules(
+            apply: ["min:0"]
+        )
+        @paginatedOffset
+
         order: [SortByClauseCompanyLocationsSort!]
         @sortBy
 
@@ -8495,6 +8733,15 @@ implements
         @searchBy
     ): [CompanyLocation!]!
     @relation
+    @paginatedRelation
+
+    locationsAggregated(
+        where: SearchByConditionCompanyLocationsQuery
+        @searchBy
+    ): CompanyLocationsAggregated
+    @aggregated(
+        relation: "locations"
+    )
 
     locations_count: Int!
     name: String!
@@ -8827,13 +9074,51 @@ type Document {
     changed_at: DateTime
 
     contacts(
+        limit: Int! = 25
+        @rules(
+            apply: [
+                "min:1"
+                "App\\GraphQL\\Directives\\Directives\\Paginated\\LimitRule"
+            ]
+        )
+        @paginatedLimit
+
+        offset: Int! = 0
+        @rules(
+            apply: ["min:0"]
+        )
+        @paginatedOffset
+
         order: [SortByClauseContactsSort!]
         @sortBy
+
+        trashed: Trashed
+        @authMe(
+            permissions: ["administer"]
+        )
+        @paginatedTrashed
 
         where: SearchByConditionContactsQuery
         @searchBy
     ): [Contact!]!
+    @authAny
     @relation
+    @paginatedRelation
+
+    contactsAggregated(
+        trashed: Trashed
+        @authMe(
+            permissions: ["administer"]
+        )
+        @paginatedTrashed
+
+        where: SearchByConditionContactsQuery
+        @searchBy
+    ): ContactsAggregated
+    @authAny
+    @aggregated(
+        relation: "contacts"
+    )
 
     contacts_count: Int!
 
@@ -9498,6 +9783,21 @@ type Me {
     )
 
     searches(
+        limit: Int! = 25
+        @rules(
+            apply: [
+                "min:1"
+                "App\\GraphQL\\Directives\\Directives\\Paginated\\LimitRule"
+            ]
+        )
+        @paginatedLimit
+
+        offset: Int! = 0
+        @rules(
+            apply: ["min:0"]
+        )
+        @paginatedOffset
+
         order: [SortByClauseMeSearchSort!]
         @sortBy
 
@@ -9505,6 +9805,15 @@ type Me {
         @searchBy
     ): [MeSearch!]!
     @relation
+    @paginatedRelation
+
+    searchesAggregated(
+        where: SearchByConditionMeSearchQuery
+        @searchBy
+    ): MeSearchesAggregated
+    @aggregated(
+        relation: "searches"
+    )
 
     team: Team
     @field(
@@ -9537,6 +9846,57 @@ type MeSearch {
     id: ID!
     key: String!
     name: String!
+}
+
+"""
+Aggregated data for `type MeSearch`.
+"""
+type MeSearchesAggregated {
+    count: Int!
+    @aggregatedCount
+    @cached(
+        mode: Threshold
+    )
+
+    groups(
+        groupBy: AggregatedGroupByClauseMeSearchQuery!
+        @aggregatedGroupBy(
+            order: "MeSearchSort"
+            where: "MeSearchQuery"
+        )
+
+        limit: Int! = 25
+        @rules(
+            apply: [
+                "min:1"
+                "App\\GraphQL\\Directives\\Directives\\Paginated\\LimitRule"
+            ]
+        )
+        @paginatedLimit
+
+        offset: Int! = 0
+        @rules(
+            apply: ["min:0"]
+        )
+        @paginatedOffset
+    ): [AggregatedGroupByTypeGroup!]!
+    @cached(
+        mode: Threshold
+    )
+    @paginated(
+        builder: "App\\GraphQL\\Directives\\Directives\\Aggregated\\Builder"
+    )
+
+    groupsAggregated(
+        groupBy: AggregatedGroupByClauseMeSearchQuery!
+        @aggregatedGroupBy(
+            order: "MeSearchSort"
+            where: "MeSearchQuery"
+        )
+    ): AggregatedGroupByTypeGroupsAggregated
+    @aggregated(
+        builder: "App\\GraphQL\\Directives\\Directives\\Aggregated\\Builder"
+    )
 }
 
 type MeUpdatePayload
@@ -12879,13 +13239,51 @@ implements
     changed_at: DateTime
 
     contacts(
+        limit: Int! = 25
+        @rules(
+            apply: [
+                "min:1"
+                "App\\GraphQL\\Directives\\Directives\\Paginated\\LimitRule"
+            ]
+        )
+        @paginatedLimit
+
+        offset: Int! = 0
+        @rules(
+            apply: ["min:0"]
+        )
+        @paginatedOffset
+
         order: [SortByClauseContactsSort!]
         @sortBy
+
+        trashed: Trashed
+        @authMe(
+            permissions: ["administer"]
+        )
+        @paginatedTrashed
 
         where: SearchByConditionContactsQuery
         @searchBy
     ): [Contact!]!
+    @authAny
     @relation
+    @paginatedRelation
+
+    contactsAggregated(
+        trashed: Trashed
+        @authMe(
+            permissions: ["administer"]
+        )
+        @paginatedTrashed
+
+        where: SearchByConditionContactsQuery
+        @searchBy
+    ): ContactsAggregated
+    @authAny
+    @aggregated(
+        relation: "contacts"
+    )
 
     contacts_count: Int!
 
@@ -12957,6 +13355,21 @@ implements
     @orgRelation
 
     locations(
+        limit: Int! = 25
+        @rules(
+            apply: [
+                "min:1"
+                "App\\GraphQL\\Directives\\Directives\\Paginated\\LimitRule"
+            ]
+        )
+        @paginatedLimit
+
+        offset: Int! = 0
+        @rules(
+            apply: ["min:0"]
+        )
+        @paginatedOffset
+
         order: [SortByClauseCompanyLocationsSort!]
         @sortBy
 
@@ -12964,6 +13377,15 @@ implements
         @searchBy
     ): [CompanyLocation!]!
     @relation
+    @paginatedRelation
+
+    locationsAggregated(
+        where: SearchByConditionCompanyLocationsQuery
+        @searchBy
+    ): CompanyLocationsAggregated
+    @aggregated(
+        relation: "locations"
+    )
 
     locations_count: Int!
     name: String!

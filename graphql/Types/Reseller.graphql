@@ -15,7 +15,9 @@ type Reseller implements Company {
     contacts (
         where: ContactsQuery @searchBy
         order: ContactsSort @sortBy
-    ): [Contact!]! @relation
+    ): [Contact!]!
+    @relation
+    @paginatedRelation
 
     # Locations
     headquarter: CompanyLocation @relation
@@ -26,6 +28,7 @@ type Reseller implements Company {
         order: CompanyLocationsSort @sortBy
     ): [CompanyLocation!]!
     @relation
+    @paginatedRelation
 
     # Contracts
     contracts (

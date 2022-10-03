@@ -15,7 +15,9 @@ type Customer implements Company {
     contacts (
         where: ContactsQuery @searchBy
         order: ContactsSort @sortBy
-    ): [Contact!]! @relation
+    ): [Contact!]!
+    @relation
+    @paginatedRelation
 
     # Locations
     locations_count: Int!
@@ -24,6 +26,7 @@ type Customer implements Company {
         order: CompanyLocationsSort @sortBy
     ): [CompanyLocation!]!
     @relation
+    @paginatedRelation
 
     headquarter: CompanyLocation @relation
 
