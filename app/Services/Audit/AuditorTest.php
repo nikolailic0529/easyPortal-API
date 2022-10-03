@@ -11,6 +11,7 @@ use App\Services\Audit\Enums\Action;
 use App\Utils\Eloquent\Model;
 use Closure;
 use Illuminate\Auth\AuthManager;
+use Illuminate\Auth\Events\Login;
 use Illuminate\Auth\Events\PasswordReset;
 use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Contracts\Events\Dispatcher;
@@ -78,7 +79,7 @@ class AuditorTest extends TestCase {
                         Authenticatable $auditUser = null,
                     ) use (
                         $model,
-                        $changes
+                        $changes,
                     ): bool {
                         return $auditAction === Action::modelUpdated()
                             && $auditModel === $model
@@ -134,14 +135,23 @@ class AuditorTest extends TestCase {
      *
      */
     public function testLogin(): void {
-        $user = User::factory()->make();
+        $user = User::factory()->create();
+
         $this->override(Auditor::class, static function (MockInterface $mock): void {
             $mock
                 ->shouldReceive('create')
                 ->once()
-                ->with(Action::authSignedIn(), ['guard' => 'web']);
+                ->with(Action::authSignedIn(), ['guard' => 'test'])
+                ->andReturns();
+            $mock
+                ->shouldReceive('create')
+                ->once()
+                ->andReturns();
         });
-        Auth::guard('web')->login($user);
+
+        $this->app->make(Dispatcher::class)->dispatch(
+            new Login('test', $user, false),
+        );
     }
 
     /**

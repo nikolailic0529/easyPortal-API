@@ -175,6 +175,7 @@ return [
          * Application Service Providers...
          */
         App\Services\I18n\Provider::class,
+        App\Services\Audit\Provider::class,
         App\Services\Maintenance\Provider::class,
         App\Services\Queue\Provider::class,
         App\Services\Auth\Provider::class,
