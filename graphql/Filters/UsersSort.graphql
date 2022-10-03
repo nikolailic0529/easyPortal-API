@@ -3,6 +3,7 @@ input UsersSort {
     given_name: String!
     family_name: String!
     enabled: Boolean!
+    previous_sign_in: DateTime
     created_at: DateTime!
     updated_at: DateTime!
     deleted_at: DateTime

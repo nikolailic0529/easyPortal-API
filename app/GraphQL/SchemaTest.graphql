@@ -4561,6 +4561,12 @@ input SearchByConditionUsersQuery {
     """
     not: SearchByConditionUsersQuery
     @searchByOperatorNot
+
+    """
+    Property condition.
+    """
+    previous_sign_in: SearchByScalarDateTimeOrNull
+    @searchByProperty
 }
 
 """
@@ -6979,6 +6985,12 @@ input SortByClauseUsersSort {
     Property clause.
     """
     given_name: SortByTypeDirection
+    @sortByOperatorProperty
+
+    """
+    Property clause.
+    """
+    previous_sign_in: SortByTypeDirection
     @sortByOperatorProperty
 
     """
@@ -13959,6 +13971,7 @@ type User {
 
     phone: PhoneNumber
     photo: Url
+    previous_sign_in: DateTime
     timezone: String
     title: String
     updated_at: DateTime!
