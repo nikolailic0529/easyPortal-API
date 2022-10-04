@@ -61,6 +61,7 @@ use LogicException;
  * @property string|null                       $mobile_phone
  * @property string|null                       $job_title
  * @property string|null                       $company
+ * @property CarbonInterface|null              $previous_sign_in
  * @property CarbonInterface|null              $synced_at
  * @property CarbonImmutable                   $created_at
  * @property CarbonImmutable                   $updated_at
@@ -95,12 +96,13 @@ class User extends Model implements
     use SyncHasMany;
 
     protected const CASTS = [
-        'type'           => UserType::class,
-        'permissions'    => 'array',
-        'email_verified' => 'bool',
-        'phone_verified' => 'bool',
-        'enabled'        => 'bool',
-        'synced_at'      => 'datetime',
+        'type'             => UserType::class,
+        'permissions'      => 'array',
+        'email_verified'   => 'bool',
+        'phone_verified'   => 'bool',
+        'enabled'          => 'bool',
+        'synced_at'        => 'datetime',
+        'previous_sign_in' => 'datetime',
     ] + parent::CASTS;
 
     /**

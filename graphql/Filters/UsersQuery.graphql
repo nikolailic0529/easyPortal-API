@@ -4,4 +4,5 @@ input UsersQuery {
     given_name: String!
     family_name: String!
     enabled: Boolean!
+    previous_sign_in: DateTime
 }

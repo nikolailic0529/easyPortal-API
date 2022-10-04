@@ -2,14 +2,12 @@
 
 namespace App\GraphQL\Queries;
 
-use App\Models\Audits\Audit;
 use App\Models\Enums\UserType;
 use App\Models\Organization;
 use App\Models\OrganizationUser;
 use App\Models\Team;
 use App\Models\User;
 use App\Models\UserSearch;
-use App\Services\Audit\Enums\Action;
 use Closure;
 use Illuminate\Support\Facades\Date;
 use LastDragon_ru\LaraASP\Testing\Constraints\Response\Response;
@@ -226,21 +224,9 @@ class MeTest extends TestCase {
                         '"2021-10-18T10:15:00+00:00"',
                     )),
                     static function (): User {
-                        $user = User::factory()->make();
-                        $date = Date::make('2021-10-19T10:15:00+00:00');
-
-                        Audit::factory()->create([
-                            'action'     => Action::authSignedIn(),
-                            'user_id'    => $user->getKey(),
-                            'created_at' => (clone $date)->subDay(),
+                        return User::factory()->make([
+                            'previous_sign_in' => Date::make('2021-10-18T10:15:00+00:00'),
                         ]);
-                        Audit::factory()->create([
-                            'action'     => Action::authSignedIn(),
-                            'user_id'    => $user->getKey(),
-                            'created_at' => (clone $date),
-                        ]);
-
-                        return $user;
                     },
                 ],
             ]),

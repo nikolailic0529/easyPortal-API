@@ -76,6 +76,7 @@ class UsersTest extends TestCase {
                         phone
                         locale
                         timezone
+                        previous_sign_in
                         invitations_count
                         invitations {
                             id
@@ -163,6 +164,7 @@ class UsersTest extends TestCase {
                                     'company'             => 'company1',
                                     'locale'              => 'de_AT',
                                     'timezone'            => 'Europe/Guernsey',
+                                    'previous_sign_in'    => '2022-10-03T00:00:00+00:00',
                                     'invitations_count'   => 1,
                                     'invitations'         => [
                                         [
@@ -244,24 +246,25 @@ class UsersTest extends TestCase {
                                     'expired_at'      => '2021-01-01T00:00:00+00:00',
                                 ])
                                 ->create([
-                                    'id'             => 'ae85870f-1593-4eb5-ae08-ee00f0688d00',
-                                    'given_name'     => 'keycloak',
-                                    'family_name'    => 'user',
-                                    'email'          => 'test1@example.com',
-                                    'email_verified' => true,
-                                    'enabled'        => true,
-                                    'type'           => UserType::keycloak(),
-                                    'title'          => 'Mr',
-                                    'academic_title' => 'Professor',
-                                    'phone'          => '+1-202-555-0198',
-                                    'office_phone'   => '+1-202-555-0197',
-                                    'mobile_phone'   => '+1-202-555-0147',
-                                    'contact_email'  => 'test@gmail.com',
-                                    'job_title'      => 'Manger',
-                                    'photo'          => 'https://example.com/photo.jpg',
-                                    'company'        => 'company1',
-                                    'locale'         => 'de_AT',
-                                    'timezone'       => 'Europe/Guernsey',
+                                    'id'               => 'ae85870f-1593-4eb5-ae08-ee00f0688d00',
+                                    'given_name'       => 'keycloak',
+                                    'family_name'      => 'user',
+                                    'email'            => 'test1@example.com',
+                                    'email_verified'   => true,
+                                    'enabled'          => true,
+                                    'type'             => UserType::keycloak(),
+                                    'title'            => 'Mr',
+                                    'academic_title'   => 'Professor',
+                                    'phone'            => '+1-202-555-0198',
+                                    'office_phone'     => '+1-202-555-0197',
+                                    'mobile_phone'     => '+1-202-555-0147',
+                                    'contact_email'    => 'test@gmail.com',
+                                    'job_title'        => 'Manger',
+                                    'photo'            => 'https://example.com/photo.jpg',
+                                    'company'          => 'company1',
+                                    'locale'           => 'de_AT',
+                                    'timezone'         => 'Europe/Guernsey',
+                                    'previous_sign_in' => '2022-10-03T00:00:00+00:00',
                                 ]);
 
                             OrganizationUser::factory()->create([
@@ -311,6 +314,7 @@ class UsersTest extends TestCase {
                                 'company'             => 'company1',
                                 'locale'              => 'de_AT',
                                 'timezone'            => 'Europe/Guernsey',
+                                'previous_sign_in'    => null,
                                 'invitations_count'   => 1,
                                 'invitations'         => [
                                     [
@@ -370,6 +374,7 @@ class UsersTest extends TestCase {
                                 'company'             => 'company2',
                                 'locale'              => 'de_DE',
                                 'timezone'            => 'Europe/Berlin',
+                                'previous_sign_in'    => null,
                                 'invitations_count'   => 1,
                                 'invitations'         => [
                                     [
