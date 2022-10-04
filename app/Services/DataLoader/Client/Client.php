@@ -38,6 +38,7 @@ use function assert;
 use function explode;
 use function implode;
 use function is_scalar;
+use function is_string;
 use function json_encode;
 use function reset;
 use function sha1;
@@ -262,11 +263,12 @@ class Client {
     }
 
     public function runCustomerWarrantyCheck(string $id): bool {
+        $error  = null;
         $input  = new TriggerCoverageStatusCheck(['customerId' => $id]);
-        $result = $this->triggerCoverageStatusCheck($input);
+        $result = $this->triggerCoverageStatusCheck($input, $error);
 
         if (!$result) {
-            throw new CustomerWarrantyCheckFailed($id);
+            throw new CustomerWarrantyCheckFailed($id, $error);
         }
 
         return $result;
@@ -333,11 +335,12 @@ class Client {
     }
 
     public function runAssetWarrantyCheck(string $id): bool {
+        $error  = null;
         $input  = new TriggerCoverageStatusCheck(['assetId' => $id]);
-        $result = $this->triggerCoverageStatusCheck($input);
+        $result = $this->triggerCoverageStatusCheck($input, $error);
 
         if (!$result) {
-            throw new AssetWarrantyCheckFailed($id);
+            throw new AssetWarrantyCheckFailed($id, $error);
         }
 
         return $result;
@@ -781,8 +784,8 @@ class Client {
         )) ?: null;
     }
 
-    protected function triggerCoverageStatusCheck(TriggerCoverageStatusCheck $input): bool {
-        return (bool) $this->normalizer->boolean($this->value(
+    protected function triggerCoverageStatusCheck(TriggerCoverageStatusCheck $input, string &$error = null): bool {
+        $value  = $this->value(
             'data.triggerCoverageStatusCheck',
             /** @lang GraphQL */ <<<'GRAPHQL'
             mutation triggerCoverageStatusCheck($input: TriggerCoverageStatusCheck!) {
@@ -792,7 +795,13 @@ class Client {
             [
                 'input' => $input->toArray(),
             ],
-        ));
+        );
+        $result = $this->normalizer->boolean($value);
+        $error  = $result !== true && $value && is_string($value)
+            ? ($this->normalizer->string($value) ?: null)
+            : null;
+
+        return (bool) $result;
     }
     // </editor-fold>
 
