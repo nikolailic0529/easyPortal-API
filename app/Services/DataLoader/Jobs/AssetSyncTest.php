@@ -58,7 +58,8 @@ class AssetSyncTest extends TestCase {
         $job      = $this->app->make(AssetSync::class)->init($asset);
         $actual   = $this->app->call($job);
         $expected = [
-            'result' => true,
+            'warranty' => true,
+            'result'   => true,
         ];
 
         self::assertEquals($expected, $actual);
@@ -68,6 +69,55 @@ class AssetSyncTest extends TestCase {
      * @covers ::__invoke
      */
     public function testInvokeFailed(): void {
+        $asset     = Asset::factory()->make();
+        $exception = new Exception();
+
+        $this->override(ExceptionHandler::class, static function (MockInterface $mock) use ($exception): void {
+            $mock
+                ->shouldReceive('report')
+                ->with($exception)
+                ->once()
+                ->andReturns();
+        });
+
+        $this->override(Client::class, static function (MockInterface $mock) use ($asset): void {
+            $mock
+                ->shouldReceive('runAssetWarrantyCheck')
+                ->with($asset->getKey())
+                ->once()
+                ->andReturn(true);
+        });
+
+        $this->override(IteratorImporter::class, static function (MockInterface $mock) use ($exception): void {
+            $mock
+                ->shouldReceive('setIterator')
+                ->once()
+                ->andReturnSelf();
+            $mock
+                ->shouldReceive('setWithDocuments')
+                ->with(true)
+                ->once()
+                ->andReturnSelf();
+            $mock
+                ->shouldReceive('start')
+                ->once()
+                ->andThrow($exception);
+        });
+
+        $job      = $this->app->make(AssetSync::class)->init($asset);
+        $actual   = $this->app->call($job);
+        $expected = [
+            'warranty' => true,
+            'result'   => false,
+        ];
+
+        self::assertEquals($expected, $actual);
+    }
+
+    /**
+     * @covers ::__invoke
+     */
+    public function testInvokeWarrantyFailed(): void {
         $asset     = Asset::factory()->make();
         $exception = new Exception();
 
@@ -90,19 +140,53 @@ class AssetSyncTest extends TestCase {
         $this->override(IteratorImporter::class, static function (MockInterface $mock): void {
             $mock
                 ->shouldReceive('setIterator')
-                ->once()
-                ->andReturnSelf();
-            $mock
-                ->shouldReceive('setWithDocuments')
-                ->with(true)
-                ->once()
-                ->andReturnSelf();
+                ->never();
         });
 
         $job      = $this->app->make(AssetSync::class)->init($asset);
         $actual   = $this->app->call($job);
         $expected = [
-            'result' => false,
+            'warranty' => false,
+            'result'   => false,
+        ];
+
+        self::assertEquals($expected, $actual);
+    }
+
+    /**
+     * @covers ::__invoke
+     */
+    public function testInvokeWarrantyNoSkuOrSerialNumber(): void {
+        $this->override(ExceptionHandler::class, static function (MockInterface $mock): void {
+            $mock
+                ->shouldReceive('report')
+                ->never();
+        });
+
+        $this->override(Client::class, static function (MockInterface $mock): void {
+            $mock
+                ->shouldReceive('runAssetWarrantyCheck')
+                ->never();
+        });
+
+        $this->override(IteratorImporter::class, static function (MockInterface $mock): void {
+            $mock
+                ->shouldReceive('start')
+                ->never();
+        });
+
+        $asset = Asset::factory()->make();
+        $asset->setAttribute(
+            $this->faker->boolean() ? 'serial_number' : 'product_id',
+            null,
+        );
+        $asset->save();
+
+        $job      = $this->app->make(AssetSync::class)->init($asset);
+        $actual   = $this->app->call($job);
+        $expected = [
+            'warranty' => false,
+            'result'   => false,
         ];
 
         self::assertEquals($expected, $actual);

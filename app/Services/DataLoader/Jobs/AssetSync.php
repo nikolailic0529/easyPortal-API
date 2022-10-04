@@ -22,19 +22,38 @@ class AssetSync extends Sync {
     }
 
     /**
-     * @return array{result: bool}
+     * @return array{result: bool, warranty: bool}
      */
     public function __invoke(ExceptionHandler $handler, Client $client, IteratorImporter $importer): array {
         return GlobalScopes::callWithoutAll(function () use ($handler, $client, $importer): array {
+            $warranty = $this->checkWarranty($handler, $client);
+            $result   = $warranty
+                && $this->syncProperties($handler, $importer);
+
             return [
-                'result' => $this->syncProperties($handler, $client, $importer),
+                'warranty' => $warranty,
+                'result'   => $result,
             ];
         });
     }
 
+    protected function checkWarranty(ExceptionHandler $handler, Client $client): bool {
+        try {
+            $key    = $this->getObjectId();
+            $asset  = Asset::query()->whereKey($key)->first();
+            $result = ($asset === null || ($asset->serial_number && $asset->product_id))
+                && $client->runAssetWarrantyCheck($key);
+
+            return $result;
+        } catch (Exception $exception) {
+            $handler->report($exception);
+        }
+
+        return false;
+    }
+
     protected function syncProperties(
         ExceptionHandler $handler,
-        Client $client,
         IteratorImporter $importer,
     ): bool {
         try {
@@ -43,8 +62,7 @@ class AssetSync extends Sync {
                 ->setIterator($iterator)
                 ->setWithDocuments(true);
 
-            return $client->runAssetWarrantyCheck($this->getObjectId())
-                && $importer->start();
+            return $importer->start();
         } catch (Exception $exception) {
             $handler->report($exception);
         }

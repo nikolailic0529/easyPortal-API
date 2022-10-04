@@ -7,7 +7,11 @@ use Throwable;
 use function sprintf;
 
 class CustomerWarrantyCheckFailed extends WarrantyCheckFailed {
-    public function __construct(string $key, Throwable $previous = null,) {
+    public function __construct(string $key, string $reason = null, Throwable $previous = null) {
         parent::__construct(sprintf('Warranty Check for Customer `%s` failed.', $key), $previous);
+
+        $this->setContext([
+            'reason' => $reason,
+        ]);
     }
 }

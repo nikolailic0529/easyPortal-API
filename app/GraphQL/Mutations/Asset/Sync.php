@@ -14,7 +14,7 @@ class Sync {
     }
 
     /**
-     * @return array{result: bool}
+     * @return array{result: bool, warranty: bool}
      */
     public function __invoke(Asset $asset): array {
         $job    = $this->container->make(AssetSync::class)->init($asset);

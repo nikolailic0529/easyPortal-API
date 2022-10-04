@@ -9,4 +9,5 @@ extend type AssetMutation {
 
 type AssetSyncPayload implements Payload {
     result: Boolean!
+    warranty: Boolean!
 }
