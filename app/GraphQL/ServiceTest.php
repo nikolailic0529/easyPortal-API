@@ -4,21 +4,26 @@ namespace App\GraphQL;
 
 use App\Models\User;
 use GraphQL\Type\Introspection;
+use Illuminate\Contracts\Config\Repository;
 use LastDragon_ru\LaraASP\Testing\Constraints\Response\Response;
 use LastDragon_ru\LaraASP\Testing\Constraints\Response\StatusCodes\Forbidden;
 use LastDragon_ru\LaraASP\Testing\Constraints\Response\StatusCodes\Ok;
 use LastDragon_ru\LaraASP\Testing\Providers\ArrayDataProvider;
 use LastDragon_ru\LaraASP\Testing\Providers\MergeDataProvider;
+use Symfony\Component\Finder\Finder;
 use Tests\GraphQL\GraphQLError;
 use Tests\GraphQL\GraphQLSuccess;
 use Tests\Providers\Users\RootUserProvider;
 use Tests\Providers\Users\UserProvider;
 use Tests\TestCase;
+use Tests\WithGraphQLSchema;
 use Tests\WithOrganization;
 use Tests\WithSettings;
 use Tests\WithUser;
 
 use function array_map;
+use function dirname;
+use function preg_quote;
 
 /**
  * @internal
@@ -29,6 +34,8 @@ use function array_map;
  * @phpstan-import-type SettingsFactory from WithSettings
  */
 class ServiceTest extends TestCase {
+    use WithGraphQLSchema;
+
     // <editor-fold desc="Tests">
     // =========================================================================
     /**
@@ -67,6 +74,38 @@ class ServiceTest extends TestCase {
         $this
             ->get('/graphql-playground')
             ->assertThat($expected);
+    }
+
+    public function testSchema(): void {
+        self::assertDefaultGraphQLSchemaEquals($this->getGraphQLSchemaExpected());
+    }
+
+    /**
+     * @dataProvider dataProviderForbiddenDirectives
+     */
+    public function testForbiddenDirectives(string $directive, ?string $replacement, ?string $regexp): void {
+        $path = $this->app->make(Repository::class)->get('lighthouse.schema.register');
+        $path = dirname($path);
+
+        if (!$regexp) {
+            $name   = preg_quote($directive, '/');
+            $regexp = "/(^|\s+){$name}($|\s+)/ui";
+        }
+
+        $finder = Finder::create()->in($path)->files()->contains($regexp)->sortByName();
+        $usages = [];
+
+        foreach ($finder as $file) {
+            $usages[$file->getPathname()] = true;
+        }
+
+        if ($replacement) {
+            $replacement = "Directive {$directive} is forbidden, {$replacement} should be used instead.";
+        } else {
+            $replacement = "Directive {$directive} is forbidden.";
+        }
+
+        self::assertEquals([], $usages, $replacement);
     }
     // </editor-fold>
 
@@ -149,6 +188,39 @@ class ServiceTest extends TestCase {
                 ],
             ]),
         ]))->getData();
+    }
+
+    /**
+     * @return array<mixed>
+     */
+    public function dataProviderForbiddenDirectives(): array {
+        return [
+            ['@guard', '@authMe', null],
+            ['@orderBy', '@sortBy', null],
+            ['@whereConditions', '@searchBy', null],
+            ['@whereHasConditions', '@searchBy', null],
+            ['@spread', null, null],
+            ['@hash', null, null],
+            ['@globalId', null, null],
+            ['@trim', null, null],
+            ['@rename', null, null],
+            ['@paginate', '@paginated', null],
+            ['@hasMany(type: xxx)', '@relation @paginatedRelation', '/@hasMany\(.*?type:.*?\)/ui'],
+            ['@belongsToMany(type: xxx)', '@relation @paginatedRelation', '/@belongsToMany\(.*?type:.*?\)/ui'],
+            ['@morphMany(type: xxx)', '@relation @paginatedRelation', '/@morphMany\(.*?type:.*?\)/ui'],
+            ['@belongsTo', '@relation', null],
+            ['@belongsToMany', '@relation', null],
+            ['@hasOne', '@relation', null],
+            ['@hasMany', '@relation', null],
+            ['@morphMany', '@relation', null],
+            ['@morphOne', '@relation', null],
+            ['@morphTo', '@relation', null],
+            ['@morphToMany', '@relation', null],
+            ['@paginatedLimit', null, null],
+            ['@paginatedOffset', null, null],
+            ['@cache', '@cached', null],
+            ['@cacheKey', '@cached', null],
+        ];
     }
     // </editor-fold>
 }
