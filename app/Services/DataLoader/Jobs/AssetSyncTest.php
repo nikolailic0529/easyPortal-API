@@ -171,8 +171,18 @@ class AssetSyncTest extends TestCase {
 
         $this->override(IteratorImporter::class, static function (MockInterface $mock): void {
             $mock
+                ->shouldReceive('setIterator')
+                ->once()
+                ->andReturnSelf();
+            $mock
+                ->shouldReceive('setWithDocuments')
+                ->with(true)
+                ->once()
+                ->andReturnSelf();
+            $mock
                 ->shouldReceive('start')
-                ->never();
+                ->once()
+                ->andReturn(true);
         });
 
         $asset = Asset::factory()->make();
@@ -186,7 +196,7 @@ class AssetSyncTest extends TestCase {
         $actual   = $this->app->call($job);
         $expected = [
             'warranty' => false,
-            'result'   => false,
+            'result'   => true,
         ];
 
         self::assertEquals($expected, $actual);
