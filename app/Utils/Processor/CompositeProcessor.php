@@ -165,7 +165,7 @@ abstract class CompositeProcessor extends Processor {
                 $operations[] = [
                     'name'    => $operation->getName(),
                     'state'   => $operation->getProcessor($state)->setStore($store->setKey($key))->getState(),
-                    'current' => $operation->getName() === $state->getCurrentOperationName(),
+                    'current' => $key === $state->index,
                 ];
             }
 
