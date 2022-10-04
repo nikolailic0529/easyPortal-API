@@ -2,12 +2,14 @@
 
 namespace Tests;
 
+use GraphQL\Type\Schema;
 use LastDragon_ru\LaraASP\GraphQL\Testing\GraphQLAssertions;
 use LastDragon_ru\LaraASP\GraphQL\Utils\ArgumentFactory;
 use Nuwave\Lighthouse\Execution\Arguments\Argument;
 use SplFileInfo;
 
 use function file_put_contents;
+use function is_string;
 
 /**
  * @mixin TestCase
@@ -15,14 +17,19 @@ use function file_put_contents;
 trait WithGraphQLSchema {
     use GraphQLAssertions;
 
-    protected function getGraphQLSchemaExpected(string $schema = '.graphql', string $source = null): string {
-        $data = $this->getTestData();
+    protected function getGraphQLSchemaExpected(string $schema = '.graphql', Schema|string $source = null): string {
+        $data    = $this->getTestData();
+        $content = $data->file($schema)->isFile()
+            ? $data->content($schema)
+            : null;
 
-        if ($data->content($schema) === '') {
-            if ($source !== null) {
+        if (!$content) {
+            if (is_string($source)) {
                 $source = $this->getGraphQLSchema($data->content($source));
-            } else {
+            } elseif ($source === null) {
                 $source = $this->getDefaultGraphQLSchema();
+            } else {
+                // empty
             }
 
             self::assertNotFalse(file_put_contents($data->path($schema), $this->printGraphQLSchema($source)));

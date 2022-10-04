@@ -4,6 +4,7 @@ namespace App\GraphQL;
 
 use App\Models\User;
 use GraphQL\Type\Introspection;
+use GraphQL\Utils\BuildClientSchema;
 use Illuminate\Contracts\Config\Repository;
 use LastDragon_ru\LaraASP\Testing\Constraints\Response\Response;
 use LastDragon_ru\LaraASP\Testing\Constraints\Response\StatusCodes\Forbidden;
@@ -76,8 +77,24 @@ class ServiceTest extends TestCase {
             ->assertThat($expected);
     }
 
-    public function testSchema(): void {
-        self::assertDefaultGraphQLSchemaEquals($this->getGraphQLSchemaExpected());
+    public function testSchemaPublic(): void {
+        $actual   = BuildClientSchema::build(
+            Introspection::fromSchema(
+                $this->getDefaultGraphQLSchema(),
+            ),
+        );
+        $expected = $this->getGraphQLSchemaExpected('~public.graphql', $actual);
+
+        self::assertGraphQLSchemaEquals(
+            $expected,
+            $actual,
+        );
+    }
+
+    public function testSchemaInternal(): void {
+        self::assertDefaultGraphQLSchemaEquals(
+            $this->getGraphQLSchemaExpected('~internal.graphql'),
+        );
     }
 
     /**

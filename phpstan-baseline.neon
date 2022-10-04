@@ -2131,6 +2131,11 @@ parameters:
 			path: app/GraphQL/ServiceTest.php
 
 		-
+			message: "#^Parameter \\#1 \\$introspectionQuery of static method GraphQL\\\\Utils\\\\BuildClientSchema\\:\\:build\\(\\) expects array\\<string, array\\>, array\\<string, array\\>\\|null given\\.$#"
+			count: 1
+			path: app/GraphQL/ServiceTest.php
+
+		-
 			message: "#^Return type \\(array\\<string, array\\>\\) of method App\\\\GraphQL\\\\Validators\\\\CreateContractNoteInputValidator\\:\\:rules\\(\\) should be covariant with return type \\(array\\<string, array\\<int, mixed\\>\\>\\) of method Nuwave\\\\Lighthouse\\\\Support\\\\Contracts\\\\ArgumentSetValidation\\:\\:rules\\(\\)$#"
 			count: 2
 			path: app/GraphQL/Validators/CreateContractNoteInputValidator.php
