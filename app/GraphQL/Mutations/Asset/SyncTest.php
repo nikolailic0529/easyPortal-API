@@ -69,6 +69,7 @@ class SyncTest extends TestCase {
                     asset(id: $id) {
                         sync {
                             result
+                            warranty
                         }
                     }
                 }',
@@ -96,11 +97,12 @@ class SyncTest extends TestCase {
                     new GraphQLSuccess(
                         'asset',
                         new JsonFragment('sync', [
-                            'result' => true,
+                            'result'   => true,
+                            'warranty' => true,
                         ]),
                     ),
-                    static function (self $test, Organization $organization): string {
-                        $asset = Asset::factory()->ownedBy($organization)->create();
+                    static function (self $test, Organization $org): string {
+                        $asset = Asset::factory()->ownedBy($org)->create();
 
                         $test->override(AssetSync::class, static function (MockInterface $mock) use ($asset): void {
                             $mock->makePartial();
@@ -115,7 +117,8 @@ class SyncTest extends TestCase {
                                 ->shouldReceive('__invoke')
                                 ->once()
                                 ->andReturn([
-                                    'result' => true,
+                                    'warranty' => true,
+                                    'result'   => true,
                                 ]);
                         });
 

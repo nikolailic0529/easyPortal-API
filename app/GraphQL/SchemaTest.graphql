@@ -7936,6 +7936,7 @@ implements
     & Payload
 {
     result: Boolean!
+    warranty: Boolean!
 }
 
 type AssetWarranty {
