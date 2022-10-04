@@ -39,7 +39,12 @@ class AssetSync extends Sync {
 
     protected function checkWarranty(ExceptionHandler $handler, Client $client): bool {
         try {
-            return $client->runAssetWarrantyCheck($this->getObjectId());
+            $key    = $this->getObjectId();
+            $asset  = Asset::query()->whereKey($key)->first();
+            $result = ($asset === null || ($asset->serial_number && $asset->product_id))
+                && $client->runAssetWarrantyCheck($key);
+
+            return $result;
         } catch (Exception $exception) {
             $handler->report($exception);
         }

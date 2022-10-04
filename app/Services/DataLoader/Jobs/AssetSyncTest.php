@@ -152,5 +152,44 @@ class AssetSyncTest extends TestCase {
 
         self::assertEquals($expected, $actual);
     }
+
+    /**
+     * @covers ::__invoke
+     */
+    public function testInvokeWarrantyNoSkuOrSerialNumber(): void {
+        $this->override(ExceptionHandler::class, static function (MockInterface $mock): void {
+            $mock
+                ->shouldReceive('report')
+                ->never();
+        });
+
+        $this->override(Client::class, static function (MockInterface $mock): void {
+            $mock
+                ->shouldReceive('runAssetWarrantyCheck')
+                ->never();
+        });
+
+        $this->override(IteratorImporter::class, static function (MockInterface $mock): void {
+            $mock
+                ->shouldReceive('start')
+                ->never();
+        });
+
+        $asset = Asset::factory()->make();
+        $asset->setAttribute(
+            $this->faker->boolean() ? 'serial_number' : 'product_id',
+            null,
+        );
+        $asset->save();
+
+        $job      = $this->app->make(AssetSync::class)->init($asset);
+        $actual   = $this->app->call($job);
+        $expected = [
+            'warranty' => false,
+            'result'   => false,
+        ];
+
+        self::assertEquals($expected, $actual);
+    }
     // </editor-fold>
 }
