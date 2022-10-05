@@ -3,6 +3,7 @@
 namespace App\Services\Keycloak\Importer;
 
 use App\Models\User;
+use App\Services\Keycloak\Client\Types\User as KeycloakUser;
 use App\Utils\Eloquent\Callbacks\GetKey;
 use Illuminate\Support\Collection;
 
@@ -28,7 +29,7 @@ class UsersImporterChunkData {
     private Collection $usersByEmail;
 
     /**
-     * @param array<\App\Services\Keycloak\Client\Types\User> $users
+     * @param array<KeycloakUser> $users
      */
     public function __construct(array $users) {
         foreach ($users as $user) {

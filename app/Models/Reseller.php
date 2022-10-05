@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Data\Status;
 use App\Models\Relations\HasAssets;
 use App\Models\Relations\HasContacts;
 use App\Models\Relations\HasCustomers;
@@ -11,6 +12,7 @@ use App\Models\Relations\HasLocations;
 use App\Models\Relations\HasStatuses;
 use App\Services\Organization\Eloquent\OwnedByReseller;
 use App\Services\Organization\Eloquent\OwnedByResellerImpl;
+use App\Utils\Eloquent\CascadeDeletes\CascadeDelete;
 use App\Utils\Eloquent\Concerns\SyncBelongsToMany;
 use App\Utils\Eloquent\Model;
 use App\Utils\Eloquent\Pivot;
@@ -19,6 +21,7 @@ use Database\Factories\ResellerFactory;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 /**
  * Reseller.
@@ -90,17 +93,39 @@ class Reseller extends Model implements OwnedByReseller {
      */
     protected $casts = self::CASTS;
 
+    // <editor-fold desc="Relations">
+    // =========================================================================
+    /**
+     * @private required to delete associated {@see Organization} record.
+     *
+     * @return BelongsTo<Organization, self>
+     */
+    #[CascadeDelete]
+    public function organization(): BelongsTo {
+        return $this->belongsTo(Organization::class, $this->getKeyName());
+    }
+    // </editor-fold>
+
+    // <editor-fold desc="HasStatuses">
+    // =========================================================================
     protected function getStatusesPivot(): Pivot {
         return new ResellerStatus();
     }
+    // </editor-fold>
 
+    // <editor-fold desc="HasCustomers">
+    // =========================================================================
     protected function getCustomersPivot(): Pivot {
         return new ResellerCustomer();
     }
+    // </editor-fold>
 
+    // <editor-fold desc="HasLocations">
+    // =========================================================================
     protected function getLocationsModel(): Model {
         return new ResellerLocation();
     }
+    // </editor-fold>
 
     // <editor-fold desc="OwnedByOrganization">
     // =========================================================================

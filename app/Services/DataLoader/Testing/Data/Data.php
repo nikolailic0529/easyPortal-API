@@ -2,20 +2,26 @@
 
 namespace App\Services\DataLoader\Testing\Data;
 
+use App\Models\Data\Type as TypeModel;
 use App\Models\Document as DocumentModel;
-use App\Models\Type as TypeModel;
 use App\Services\DataLoader\Client\Client;
 use App\Services\DataLoader\Normalizer\Normalizer;
 use App\Services\DataLoader\Testing\Data\Client as DataClient;
+use App\Utils\Eloquent\GlobalScopes\GlobalScopes;
+use App\Utils\Iterators\Contracts\ObjectIterator;
+use App\Utils\Iterators\ObjectsIterator;
 use Closure;
 use Faker\Generator;
 use Illuminate\Console\Command;
 use Illuminate\Contracts\Config\Repository;
 use Illuminate\Contracts\Console\Kernel;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Foundation\Application;
 use LastDragon_ru\LaraASP\Testing\Utils\WithTestData;
 use Symfony\Component\Filesystem\Filesystem;
 
+use function array_combine;
+use function is_string;
 use function json_encode;
 use function ksort;
 use function mb_stripos;
@@ -107,7 +113,7 @@ abstract class Data {
         if ($context[ClientDumpContext::DISTRIBUTORS] ?? null) {
             foreach ((array) $context[ClientDumpContext::DISTRIBUTORS] as $distributor) {
                 $result = $result
-                    && $this->kernel->call('ep:data-loader-distributor-update', [
+                    && $this->kernel->call('ep:data-loader-distributor-sync', [
                         'id' => $distributor,
                     ]) === Command::SUCCESS;
             }
@@ -116,7 +122,7 @@ abstract class Data {
         if ($context[ClientDumpContext::RESELLERS] ?? null) {
             foreach ((array) $context[ClientDumpContext::RESELLERS] as $reseller) {
                 $result = $result
-                    && $this->kernel->call('ep:data-loader-reseller-update', [
+                    && $this->kernel->call('ep:data-loader-reseller-sync', [
                         'id' => $reseller,
                     ]) === Command::SUCCESS;
             }
@@ -125,7 +131,7 @@ abstract class Data {
         if ($context[ClientDumpContext::CUSTOMERS] ?? null) {
             foreach ((array) $context[ClientDumpContext::CUSTOMERS] as $customer) {
                 $result = $result
-                    && $this->kernel->call('ep:data-loader-customer-update', [
+                    && $this->kernel->call('ep:data-loader-customer-sync', [
                         'id' => $customer,
                     ]) === Command::SUCCESS;
             }
@@ -134,9 +140,8 @@ abstract class Data {
         if ($context[ClientDumpContext::ASSETS] ?? null) {
             foreach ((array) $context[ClientDumpContext::ASSETS] as $asset) {
                 $result = $result
-                    && $this->kernel->call('ep:data-loader-asset-update', [
-                        'id'          => $asset,
-                        '--documents' => true,
+                    && $this->kernel->call('ep:data-loader-asset-sync', [
+                        'id' => $asset,
                     ]) === Command::SUCCESS;
             }
         }
@@ -145,6 +150,11 @@ abstract class Data {
             $owner = (new DocumentModel())->getMorphClass();
 
             foreach ((array) $context[ClientDumpContext::TYPES] as $key) {
+                // Valid?
+                if (!is_string($key)) {
+                    continue;
+                }
+
                 // Create
                 $key  = $this->normalizer->string($key);
                 $type = TypeModel::query()->where('object_type', '=', $owner)->where('key', '=', $key)->first();
@@ -193,6 +203,7 @@ abstract class Data {
         $this->app->bind(Client::class, function () use ($path, $cleaner): Client {
             return $this->app->make(DataClient::class)
                 ->setCleaner($cleaner)
+                ->setLimit(static::LIMIT)
                 ->setData(static::class)
                 ->setPath($path);
         });
@@ -203,6 +214,34 @@ abstract class Data {
         } finally {
             unset($this->app[Client::class]);
         }
+    }
+
+    /**
+     * @template T of \App\Utils\Eloquent\Model
+     *
+     * @param class-string<T> $model
+     * @param array<string>   $keys
+     *
+     * @return ObjectIterator<T|string>
+     */
+    protected static function getModelsIterator(string $model, array $keys): ObjectIterator {
+        $data   = array_combine($keys, $keys);
+        $models = GlobalScopes::callWithoutAll(static function () use ($model, $keys): Collection {
+            $model  = new $model();
+            $models = $model::query()
+                ->whereIn($model->getKeyName(), $keys)
+                ->get();
+
+            return $models;
+        });
+
+        foreach ($models as $m) {
+            $data[$m->getKey()] = $m;
+        }
+
+        return new ObjectsIterator(
+            $data,
+        );
     }
 
     /**

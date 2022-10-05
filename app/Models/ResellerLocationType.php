@@ -4,7 +4,9 @@ namespace App\Models;
 
 use App\Utils\Eloquent\Pivot;
 use Carbon\CarbonImmutable;
+use Database\Factories\ResellerLocationTypeFactory;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 /**
  * ResellerLocationType.
@@ -15,11 +17,14 @@ use Illuminate\Database\Eloquent\Builder;
  * @property CarbonImmutable      $created_at
  * @property CarbonImmutable      $updated_at
  * @property CarbonImmutable|null $deleted_at
+ * @method static ResellerLocationTypeFactory factory(...$parameters)
  * @method static Builder|ResellerLocationType newModelQuery()
  * @method static Builder|ResellerLocationType newQuery()
  * @method static Builder|ResellerLocationType query()
  */
 class ResellerLocationType extends Pivot {
+    use HasFactory;
+
     /**
      * @phpcsSuppress SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint
      *

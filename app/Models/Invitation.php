@@ -2,13 +2,13 @@
 
 namespace App\Models;
 
+use App\Models\Data\Team;
 use App\Models\Relations\HasOrganization;
 use App\Models\Relations\HasRole;
 use App\Models\Relations\HasTeam;
 use App\Models\Relations\HasUser;
 use App\Services\Organization\Eloquent\OwnedByOrganization;
 use App\Services\Organization\Eloquent\OwnedByOrganizationImpl;
-use App\Utils\Eloquent\CascadeDeletes\CascadeDelete;
 use App\Utils\Eloquent\Model;
 use Carbon\CarbonImmutable;
 use Database\Factories\InvitationFactory;
@@ -70,7 +70,9 @@ class Invitation extends Model implements OwnedByOrganization {
      */
     protected $casts = self::CASTS;
 
-    #[CascadeDelete(false)]
+    /**
+     * @return BelongsTo<User, self>
+     */
     public function sender(): BelongsTo {
         return $this->belongsTo(User::class);
     }

@@ -2,7 +2,7 @@
 
 namespace App\Rules;
 
-use App\Models\Location;
+use App\Models\Data\Location;
 use Illuminate\Contracts\Validation\Rule;
 
 use function is_int;

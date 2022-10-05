@@ -74,16 +74,19 @@ class ObjectIteratorIteratorTest extends TestCase {
      * @covers ::onAfterChunk
      */
     public function testEvents(): void {
-        $init   = Mockery::spy(static function (): void {
+        $init    = Mockery::spy(static function (): void {
             // empty
         });
-        $finish = Mockery::spy(static function (): void {
+        $finish  = Mockery::spy(static function (): void {
             // empty
         });
-        $before = Mockery::spy(static function (): void {
+        $before  = Mockery::spy(static function (): void {
             // empty
         });
-        $after  = Mockery::spy(static function (): void {
+        $after   = Mockery::spy(static function (): void {
+            // empty
+        });
+        $prepare = Mockery::spy(static function (): void {
             // empty
         });
 
@@ -103,6 +106,7 @@ class ObjectIteratorIteratorTest extends TestCase {
         $iterator = $iterator
             ->onInit(Closure::fromCallable($init))
             ->onFinish(Closure::fromCallable($finish))
+            ->onPrepareChunk(Closure::fromCallable($prepare))
             ->onBeforeChunk(Closure::fromCallable($before))
             ->onAfterChunk(Closure::fromCallable($after))
             ->setChunkSize(2)
@@ -115,6 +119,19 @@ class ObjectIteratorIteratorTest extends TestCase {
             ->once();
         $finish
             ->shouldHaveBeenCalled()
+            ->once();
+        $prepare
+            ->shouldHaveBeenCalled()
+            ->with([
+                0 => 1,
+                1 => 2,
+            ])
+            ->once();
+        $prepare
+            ->shouldHaveBeenCalled()
+            ->with([
+                2 => 3,
+            ])
             ->once();
         $before
             ->shouldHaveBeenCalled()

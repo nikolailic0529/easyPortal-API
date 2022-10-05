@@ -93,7 +93,11 @@ class ResellerFactory extends CompanyFactory {
                 $reseller->customers_count = 0;
             }
 
-            $reseller->save();
+            if ($reseller->trashed()) {
+                $reseller->restore();
+            } else {
+                $reseller->save();
+            }
 
             $this->dispatcher->dispatch(new ResellerUpdated($reseller, $company));
 

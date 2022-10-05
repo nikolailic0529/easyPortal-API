@@ -5,13 +5,14 @@ namespace App\Services\Recalculator\Queue\Tasks;
 use App\Services\Queue\Concerns\WithModelKey;
 use Illuminate\Contracts\Queue\ShouldBeUnique;
 use Illuminate\Contracts\Queue\ShouldBeUniqueUntilProcessing;
+use Illuminate\Database\Eloquent\Model;
 
 /**
  * Recalculate one Model.
  */
 class ModelRecalculate extends Recalculate implements ShouldBeUnique, ShouldBeUniqueUntilProcessing {
     /**
-     * @use WithModelKey<\Illuminate\Database\Eloquent\Model>
+     * @use WithModelKey<Model>
      */
     use WithModelKey;
 

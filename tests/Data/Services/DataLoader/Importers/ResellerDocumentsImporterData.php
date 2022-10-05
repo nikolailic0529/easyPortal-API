@@ -2,7 +2,7 @@
 
 namespace Tests\Data\Services\DataLoader\Importers;
 
-use App\Services\DataLoader\Importer\Importers\Resellers\DocumentsImporter;
+use App\Services\DataLoader\Processors\Importer\Importers\Resellers\DocumentsImporter;
 use App\Services\DataLoader\Testing\Data\DocumentsData;
 
 class ResellerDocumentsImporterData extends DocumentsData {

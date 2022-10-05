@@ -21,7 +21,6 @@ parameters:
         - "#^Dynamic call to static method Illuminate\\\\Database\\\\Eloquent\\\\Builder(\\<[^>]+\\>)?\\:\\:[^(]+\\(\\)\\.$#"
         - "#^Dynamic call to static method Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\[^\\\\]+(\\<[^>]+\\>)?\\:\\:[^(]+\\(\\)\\.$#"
         - "#^Dynamic call to static method Symfony\\\\Component\\\\HttpFoundation\\\\Response\\:\\:isSuccessful\\(\\)\\.$#"
-        - "#^Dynamic call to static method App\\\\Utils\\\\Eloquent\\\\ModelTraits\\:\\:restore\\(\\)\\.$#"
         - "#^Dynamic call to static method Illuminate\\\\Database\\\\Connection\\:\\:[^(]+\\(\\)\\.$#"
 
         # Sometimes it is needed...

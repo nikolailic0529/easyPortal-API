@@ -1,0 +1,458 @@
+{
+    "selector": "data.getResellers",
+    "query": "query items($limit: Int, $lastId: String, $from: String) {\n    getResellers(limit: $limit, lastId: $lastId, fromTimestamp: $from) {\n        id\nname\nstatus\nupdatedAt\ncompanyType\ncompanyContactPersons {\n    phoneNumber\n    name\n    type\n    mail\n}\nlocations {\n    country\n    countryCode\n    latitude\n    longitude\n    city\n    zip\n    address\n    locationType\n}\ncompanyKpis {\n    totalAssets\nactiveAssets\nactiveAssetsPercentage\nactiveCustomers\nnewActiveCustomers\nactiveContracts\nactiveContractTotalAmount\nnewActiveContracts\nexpiringContracts\nactiveQuotes\nactiveQuotesTotalAmount\nnewActiveQuotes\nexpiringQuotes\nexpiredQuotes\nexpiredContracts\norderedQuotes\nacceptedQuotes\nrequestedQuotes\nreceivedQuotes\nrejectedQuotes\nawaitingQuotes\nactiveAssetsOnContract\nactiveAssetsOnWarranty\nactiveExposedAssets\nserviceRevenueTotalAmount\nserviceRevenueTotalAmountChange\n}\nkeycloakName\nkeycloakGroupId\nkeycloakClientScopeName\nbrandingData {\n    brandingMode\n    defaultLogoUrl\n    defaultMainColor\n    favIconUrl\n    logoUrl\n    mainColor\n    mainImageOnTheRight\n    resellerAnalyticsCode\n    secondaryColor\n    secondaryColorDefault\n    useDefaultFavIcon\n    mainHeadingText {\n        language_code\n        text\n    }\n    underlineText {\n        language_code\n        text\n    }\n}\n    }\n}",
+    "variables": {
+        "from": null,
+        "lastId": "008a65ba-701e-44a7-8923-8d228c97bf7e",
+        "limit": 5
+    },
+    "response": {
+        "data": {
+            "getResellers": [
+                {
+                    "id": "009e19b8-90e1-4a0a-bd2b-d68f9af5db90",
+                    "name": "Ward Group",
+                    "companyType": "RESELLER",
+                    "updatedAt": "1662157003322",
+                    "keycloakName": null,
+                    "keycloakGroupId": null,
+                    "keycloakClientScopeName": null,
+                    "companyContactPersons": [
+                        {
+                            "phoneNumber": "+18785273832",
+                            "name": "Dr. Benny Bruen I",
+                            "mail": "mallory.wolff@hotmail.com",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+19805169064",
+                            "name": "Abigayle DuBuque",
+                            "mail": "dell57@sawayn.com",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+16099893070",
+                            "name": "Shawna Kling",
+                            "mail": "rickie.kozey@lubowitz.com",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+18477317671",
+                            "name": "Nichole Abbott",
+                            "mail": "blick.mervin@gmail.com",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+13197150124",
+                            "name": "Dr. Clifford Labadie Sr.",
+                            "mail": "friedrich.gaylord@gmail.com",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+12703401645",
+                            "name": "Dr. Anissa Hauck II",
+                            "mail": "cronin.reuben@walsh.com",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+14325278160",
+                            "name": "Palma Powlowski III",
+                            "mail": "kadin.koch@gmail.com",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+12084444351",
+                            "name": "Bobby Anderson DVM",
+                            "mail": "kelvin.senger@yahoo.com",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+17858798489",
+                            "name": "Dr. Stephen Quigley III",
+                            "mail": "amina90@gutmann.com",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": null,
+                            "name": "Yvonne Turcotte",
+                            "mail": "everardo.goyette@bernhard.com",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+17656290337",
+                            "name": "Marcelino Hagenes",
+                            "mail": "jroberts@gmail.com",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+17543081516",
+                            "name": "Mrs. Kailey Kris I",
+                            "mail": "alysa33@cole.com",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+16099893070",
+                            "name": "Reginald Wyman",
+                            "mail": "sydnee.schuppe@ryan.com",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+16786814764",
+                            "name": "Lizzie Collier IV",
+                            "mail": "lshanahan@gmail.com",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+14698771374",
+                            "name": "Janae Veum",
+                            "mail": "ottilie88@hotmail.com",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+15413933741",
+                            "name": "Reuben Jacobson",
+                            "mail": "ekilback@lang.com",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+17548720575",
+                            "name": "Candida Cummings",
+                            "mail": "hazle.pagac@gmail.com",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+17812187509",
+                            "name": "Eveline Orn",
+                            "mail": "leonard.huel@gottlieb.com",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+16034235897",
+                            "name": "Blaise Schimmel",
+                            "mail": "skoch@gmail.com",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+19376494074",
+                            "name": "Mrs. Tamia Beier Sr.",
+                            "mail": "laila15@wiza.com",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": null,
+                            "name": "Kennedi Prohaska",
+                            "mail": "mallory.wolff@hotmail.com",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": null,
+                            "name": "Lucinda Luettgen",
+                            "mail": "cronin.reuben@walsh.com",
+                            "type": "Contact Person"
+                        }
+                    ],
+                    "locations": [
+                        {
+                            "zip": "44523",
+                            "address": "885 Flavie Crossing",
+                            "city": "Ullrichborough",
+                            "locationType": null,
+                            "country": "Samoa",
+                            "latitude": "5.73113",
+                            "longitude": "111.102223",
+                            "countryCode": "CF"
+                        }
+                    ],
+                    "brandingData": null,
+                    "companyKpis": {
+                        "totalAssets": 0,
+                        "activeAssets": 0,
+                        "activeAssetsPercentage": 0.0,
+                        "activeCustomers": 0,
+                        "newActiveCustomers": 0,
+                        "activeContracts": 0,
+                        "activeContractTotalAmount": 0.0,
+                        "newActiveContracts": 0,
+                        "expiringContracts": 0,
+                        "activeQuotes": 0,
+                        "activeQuotesTotalAmount": 0.0,
+                        "newActiveQuotes": 0,
+                        "expiringQuotes": 0,
+                        "expiredQuotes": 0,
+                        "expiredContracts": 0,
+                        "orderedQuotes": null,
+                        "acceptedQuotes": null,
+                        "requestedQuotes": null,
+                        "receivedQuotes": null,
+                        "rejectedQuotes": null,
+                        "awaitingQuotes": null,
+                        "activeAssetsOnContract": null,
+                        "activeAssetsOnWarranty": null,
+                        "activeExposedAssets": null,
+                        "serviceRevenueTotalAmount": null,
+                        "serviceRevenueTotalAmountChange": null
+                    },
+                    "status": [
+                        "INACTIVE"
+                    ]
+                },
+                {
+                    "id": "009f8d61-de1c-4cbc-a158-4c3b855889cd",
+                    "name": "Reynolds, Barrows and Witting",
+                    "companyType": "RESELLER",
+                    "updatedAt": "1662157003353",
+                    "keycloakName": null,
+                    "keycloakGroupId": null,
+                    "keycloakClientScopeName": null,
+                    "companyContactPersons": [
+                        {
+                            "phoneNumber": null,
+                            "name": "Yvonne Turcotte",
+                            "mail": "dave.emard@little.org",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+15045868424",
+                            "name": "Prof. Kacey McGlynn V",
+                            "mail": "wgrady@jaskolski.info",
+                            "type": "Contact Person"
+                        }
+                    ],
+                    "locations": [
+                        {
+                            "zip": "35589-6869",
+                            "address": "28071 Abagail Manor Apt. 208",
+                            "city": "Douglashaven",
+                            "locationType": null,
+                            "country": "Samoa",
+                            "latitude": "-58.728685",
+                            "longitude": "-156.7231",
+                            "countryCode": "CF"
+                        }
+                    ],
+                    "brandingData": null,
+                    "companyKpis": {
+                        "totalAssets": 0,
+                        "activeAssets": 0,
+                        "activeAssetsPercentage": 0.0,
+                        "activeCustomers": 0,
+                        "newActiveCustomers": 0,
+                        "activeContracts": 0,
+                        "activeContractTotalAmount": 0.0,
+                        "newActiveContracts": 0,
+                        "expiringContracts": 0,
+                        "activeQuotes": 0,
+                        "activeQuotesTotalAmount": 0.0,
+                        "newActiveQuotes": 0,
+                        "expiringQuotes": 0,
+                        "expiredQuotes": 0,
+                        "expiredContracts": 0,
+                        "orderedQuotes": null,
+                        "acceptedQuotes": null,
+                        "requestedQuotes": null,
+                        "receivedQuotes": null,
+                        "rejectedQuotes": null,
+                        "awaitingQuotes": null,
+                        "activeAssetsOnContract": null,
+                        "activeAssetsOnWarranty": null,
+                        "activeExposedAssets": null,
+                        "serviceRevenueTotalAmount": null,
+                        "serviceRevenueTotalAmountChange": null
+                    },
+                    "status": [
+                        "INACTIVE"
+                    ]
+                },
+                {
+                    "id": "00ab758b-3c8d-4ce7-8d59-1b96f49dbf83",
+                    "name": "Veum and Sons",
+                    "companyType": "RESELLER",
+                    "updatedAt": "1662157003384",
+                    "keycloakName": null,
+                    "keycloakGroupId": null,
+                    "keycloakClientScopeName": null,
+                    "companyContactPersons": [
+                        {
+                            "phoneNumber": "+15305056400",
+                            "name": "Drew Bednar",
+                            "mail": "rau.quentin@yahoo.com",
+                            "type": "Contact Person"
+                        }
+                    ],
+                    "locations": [
+                        {
+                            "zip": "81138-5950",
+                            "address": "48619 Russell Key Suite 717",
+                            "city": "Lake Graysonton",
+                            "locationType": null,
+                            "country": "Montserrat",
+                            "latitude": "22.680561",
+                            "longitude": "90.315223",
+                            "countryCode": "OM"
+                        }
+                    ],
+                    "brandingData": null,
+                    "companyKpis": {
+                        "totalAssets": 0,
+                        "activeAssets": 0,
+                        "activeAssetsPercentage": 0.0,
+                        "activeCustomers": 0,
+                        "newActiveCustomers": 0,
+                        "activeContracts": 0,
+                        "activeContractTotalAmount": 0.0,
+                        "newActiveContracts": 0,
+                        "expiringContracts": 0,
+                        "activeQuotes": 0,
+                        "activeQuotesTotalAmount": 0.0,
+                        "newActiveQuotes": 0,
+                        "expiringQuotes": 0,
+                        "expiredQuotes": 0,
+                        "expiredContracts": 0,
+                        "orderedQuotes": null,
+                        "acceptedQuotes": null,
+                        "requestedQuotes": null,
+                        "receivedQuotes": null,
+                        "rejectedQuotes": null,
+                        "awaitingQuotes": null,
+                        "activeAssetsOnContract": null,
+                        "activeAssetsOnWarranty": null,
+                        "activeExposedAssets": null,
+                        "serviceRevenueTotalAmount": null,
+                        "serviceRevenueTotalAmountChange": null
+                    },
+                    "status": [
+                        "INACTIVE"
+                    ]
+                },
+                {
+                    "id": "00b36fdb-7835-40d5-b942-686d764e9baa",
+                    "name": "Hamill-Bauch",
+                    "companyType": "RESELLER",
+                    "updatedAt": "1662157003400",
+                    "keycloakName": null,
+                    "keycloakGroupId": null,
+                    "keycloakClientScopeName": null,
+                    "companyContactPersons": [
+                        {
+                            "phoneNumber": "+14233025870",
+                            "name": "Prof. Ray Pagac DVM",
+                            "mail": "ian48@yahoo.com",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+14233025870",
+                            "name": "Marlee Lindgren",
+                            "mail": "yschmeler@gmail.com",
+                            "type": "Contact Person"
+                        }
+                    ],
+                    "locations": [
+                        {
+                            "zip": "87115",
+                            "address": "898 McCullough Roads Suite 550",
+                            "city": "Port Celine",
+                            "locationType": null,
+                            "country": "Mozambique",
+                            "latitude": "-38.951741",
+                            "longitude": "-124.400604",
+                            "countryCode": "KN"
+                        }
+                    ],
+                    "brandingData": null,
+                    "companyKpis": {
+                        "totalAssets": 0,
+                        "activeAssets": 0,
+                        "activeAssetsPercentage": 0.0,
+                        "activeCustomers": 0,
+                        "newActiveCustomers": 0,
+                        "activeContracts": 0,
+                        "activeContractTotalAmount": 0.0,
+                        "newActiveContracts": 0,
+                        "expiringContracts": 0,
+                        "activeQuotes": 0,
+                        "activeQuotesTotalAmount": 0.0,
+                        "newActiveQuotes": 0,
+                        "expiringQuotes": 0,
+                        "expiredQuotes": 0,
+                        "expiredContracts": 0,
+                        "orderedQuotes": null,
+                        "acceptedQuotes": null,
+                        "requestedQuotes": null,
+                        "receivedQuotes": null,
+                        "rejectedQuotes": null,
+                        "awaitingQuotes": null,
+                        "activeAssetsOnContract": null,
+                        "activeAssetsOnWarranty": null,
+                        "activeExposedAssets": null,
+                        "serviceRevenueTotalAmount": null,
+                        "serviceRevenueTotalAmountChange": null
+                    },
+                    "status": [
+                        "INACTIVE"
+                    ]
+                },
+                {
+                    "id": "00b8d679-b5fc-49f3-b4de-167ad2f34e93",
+                    "name": "Wehner-Ryan",
+                    "companyType": "RESELLER",
+                    "updatedAt": "1662157003431",
+                    "keycloakName": null,
+                    "keycloakGroupId": null,
+                    "keycloakClientScopeName": null,
+                    "companyContactPersons": [
+                        {
+                            "phoneNumber": "+19563943431",
+                            "name": "Kacie Crona MD",
+                            "mail": "kaylee28@yahoo.com",
+                            "type": "Contact Person"
+                        }
+                    ],
+                    "locations": [
+                        {
+                            "zip": "08432-9537",
+                            "address": "263 Kaela Harbor Apt. 285",
+                            "city": "Port Bethanyfort",
+                            "locationType": null,
+                            "country": "Montserrat",
+                            "latitude": "28.72777",
+                            "longitude": "-106.815304",
+                            "countryCode": "OM"
+                        }
+                    ],
+                    "brandingData": null,
+                    "companyKpis": {
+                        "totalAssets": 0,
+                        "activeAssets": 0,
+                        "activeAssetsPercentage": 0.0,
+                        "activeCustomers": 0,
+                        "newActiveCustomers": 0,
+                        "activeContracts": 0,
+                        "activeContractTotalAmount": 0.0,
+                        "newActiveContracts": 0,
+                        "expiringContracts": 0,
+                        "activeQuotes": 0,
+                        "activeQuotesTotalAmount": 0.0,
+                        "newActiveQuotes": 0,
+                        "expiringQuotes": 0,
+                        "expiredQuotes": 0,
+                        "expiredContracts": 0,
+                        "orderedQuotes": null,
+                        "acceptedQuotes": null,
+                        "requestedQuotes": null,
+                        "receivedQuotes": null,
+                        "rejectedQuotes": null,
+                        "awaitingQuotes": null,
+                        "activeAssetsOnContract": null,
+                        "activeAssetsOnWarranty": null,
+                        "activeExposedAssets": null,
+                        "serviceRevenueTotalAmount": null,
+                        "serviceRevenueTotalAmountChange": null
+                    },
+                    "status": [
+                        "INACTIVE"
+                    ]
+                }
+            ]
+        }
+    }
+}

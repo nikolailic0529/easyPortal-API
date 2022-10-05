@@ -3,9 +3,9 @@
 namespace App\Services\DataLoader\Factory\Concerns;
 
 use App\Models\Asset as AssetModel;
-use App\Models\Oem;
-use App\Models\ServiceGroup;
-use App\Models\ServiceLevel;
+use App\Models\Data\Oem;
+use App\Models\Data\ServiceGroup;
+use App\Models\Data\ServiceLevel;
 use App\Services\DataLoader\Schema\Document;
 use App\Services\DataLoader\Schema\ViewAssetDocument;
 use App\Services\DataLoader\Schema\ViewDocument;

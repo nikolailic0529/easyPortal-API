@@ -48,9 +48,9 @@ abstract class Resolver implements Singleton, KeyRetriever {
     }
 
     /**
-     * @return Collection<int, TModel>
+     * @return EloquentCollection<int, TModel>
      */
-    public function getResolved(): Collection {
+    public function getResolved(): EloquentCollection {
         return $this->getCache()->getAll();
     }
 
@@ -111,10 +111,29 @@ abstract class Resolver implements Singleton, KeyRetriever {
     }
 
     /**
+     * @param Collection<array-key, ?TModel>|array<?TModel>|TModel $models
+     */
+    public function add(Collection|array|Model $models): static {
+        if ($models instanceof Model) {
+            $models = [$models];
+        }
+
+        $cache = $this->getCache();
+
+        foreach ($models as $model) {
+            if ($model && $cache->get($this->getKey($model)) === null) {
+                $this->put($model);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
      * @param array<mixed>                                              $keys
      * @param Closure(EloquentCollection<array-key, TModel>): void|null $callback
      */
-    protected function prefetch(array $keys, Closure|null $callback = null): static {
+    public function prefetch(array $keys, Closure|null $callback = null): static {
         // Possible?
         $builder = $this->getFindQuery();
 
@@ -171,7 +190,7 @@ abstract class Resolver implements Singleton, KeyRetriever {
     }
 
     /**
-     * @param TModel|Collection<array-key, TModel>|array<TModel> $object
+     * @param TModel|Collection<array-key, ?TModel>|array<?TModel> $object
      */
     protected function put(Model|Collection|array $object): void {
         $cache = $this->getCache();

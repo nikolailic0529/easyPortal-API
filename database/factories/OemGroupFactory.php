@@ -2,7 +2,7 @@
 
 namespace Database\Factories;
 
-use App\Models\Oem;
+use App\Models\Data\Oem;
 use App\Models\OemGroup;
 use App\Utils\Eloquent\Testing\Database\Factory;
 use Illuminate\Database\Eloquent\Model;

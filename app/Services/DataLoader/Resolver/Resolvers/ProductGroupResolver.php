@@ -2,7 +2,7 @@
 
 namespace App\Services\DataLoader\Resolver\Resolvers;
 
-use App\Models\ProductGroup;
+use App\Models\Data\ProductGroup;
 use App\Services\DataLoader\Cache\Key;
 use App\Services\DataLoader\Container\SingletonPersistent;
 use App\Services\DataLoader\Normalizer\Normalizer;
@@ -23,13 +23,6 @@ class ProductGroupResolver extends Resolver implements SingletonPersistent {
      */
     public function get(string $key, Closure $factory = null): ?ProductGroup {
         return $this->resolve($this->getUniqueKey($key), $factory);
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function prefetch(array $keys, Closure|null $callback = null): static {
-        return parent::prefetch($keys, $callback);
     }
 
     protected function getPreloadedItems(): Collection {

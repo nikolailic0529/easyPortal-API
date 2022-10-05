@@ -1,0 +1,15 @@
+[
+    {
+        "event": "App\\Services\\DataLoader\\Events\\DataImported",
+        "data": {
+            "App\\Models\\Distributor": [],
+            "App\\Models\\Reseller": [],
+            "App\\Models\\Customer": [],
+            "App\\Models\\Document": {
+                "00122a07-53e5-4c70-ba6b-bf51fcdd6695": "00122a07-53e5-4c70-ba6b-bf51fcdd6695"
+            },
+            "App\\Models\\Data\\Location": [],
+            "App\\Models\\Asset": []
+        }
+    }
+]

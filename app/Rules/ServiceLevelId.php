@@ -2,7 +2,7 @@
 
 namespace App\Rules;
 
-use App\Models\ServiceLevel;
+use App\Models\Data\ServiceLevel;
 use Illuminate\Contracts\Validation\Rule;
 
 use function trans;

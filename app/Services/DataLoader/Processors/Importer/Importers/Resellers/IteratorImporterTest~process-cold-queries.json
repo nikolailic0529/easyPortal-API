@@ -1,0 +1,1799 @@
+[
+    {
+        "query": "select `resellers`.* from `resellers` where ((`resellers`.`id` = ?) or (`resellers`.`id` = ?) or (`resellers`.`id` = ?) or (`resellers`.`id` = ?) or (`resellers`.`id` = ?))",
+        "bindings": [
+            "54f7dd6b-5234-4760-947d-c95e10751e18",
+            "bd0eec0c-4d48-4840-9ce0-237316c727e1",
+            "0917f385-4b97-4313-b255-043ad94683a7",
+            "d152bb2f-deae-4106-aac2-6d1aa1517232",
+            "6a3f5b75-5dc9-4517-aa18-a410644d33fb"
+        ]
+    },
+    {
+        "query": "select `types`.* from `types` where `types`.`deleted_at` is null",
+        "bindings": []
+    },
+    {
+        "query": "select `types`.* from `types` where (`key` = ? and `object_type` = ?) and `types`.`deleted_at` is null limit 1",
+        "bindings": [
+            "contact person",
+            "contact"
+        ]
+    },
+    {
+        "query": "insert into `types` (`object_type`, `key`, `name`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?)",
+        "bindings": [
+            "Contact",
+            "Contact Person",
+            "Contact Person",
+            "b5d04d0f-2e36-57ab-9258-00ab1183d24b",
+            "2022-02-02 00:00:02",
+            "2022-02-02 00:00:02"
+        ]
+    },
+    {
+        "query": "select `reseller_locations`.* from `reseller_locations` where `reseller_locations`.`reseller_id` = ? and `reseller_locations`.`reseller_id` is not null and `reseller_locations`.`deleted_at` is null",
+        "bindings": [
+            "54f7dd6b-5234-4760-947d-c95e10751e18"
+        ]
+    },
+    {
+        "query": "select `countries`.* from `countries` where `countries`.`deleted_at` is null",
+        "bindings": []
+    },
+    {
+        "query": "select `countries`.* from `countries` where (`code` = ?) and `countries`.`deleted_at` is null limit 1",
+        "bindings": [
+            "tr"
+        ]
+    },
+    {
+        "query": "insert into `countries` (`code`, `name`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
+        "bindings": [
+            "TR",
+            "Togo",
+            "fa8933b9-3099-5db8-bf4d-ff966a29cbac",
+            "2022-02-02 00:00:03",
+            "2022-02-02 00:00:03"
+        ]
+    },
+    {
+        "query": "select `cities`.* from `cities` where `cities`.`deleted_at` is null",
+        "bindings": []
+    },
+    {
+        "query": "select `cities`.* from `cities` where (`country_id` = ? and `key` = ?) and `cities`.`deleted_at` is null limit 1",
+        "bindings": [
+            "fa8933b9-3099-5db8-bf4d-ff966a29cbac",
+            "lillieside"
+        ]
+    },
+    {
+        "query": "insert into `cities` (`key`, `name`, `country_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?)",
+        "bindings": [
+            "Lillieside",
+            "Lillieside",
+            "fa8933b9-3099-5db8-bf4d-ff966a29cbac",
+            "11f3bc05-0011-5e9e-9c41-611453871a33",
+            "2022-02-02 00:00:04",
+            "2022-02-02 00:00:04"
+        ]
+    },
+    {
+        "query": "select `locations`.* from `locations` where (`city_id` = ? and `country_id` = ? and CONCAT(`line_one`, IF(`line_two` != '', CONCAT(' ', `line_two`), '')) = ? and `postcode` = ?) and `locations`.`deleted_at` is null limit 1",
+        "bindings": [
+            "11f3bc05-0011-5e9e-9c41-611453871a33",
+            "fa8933b9-3099-5db8-bf4d-ff966a29cbac",
+            "92923 amelie pass apt. 033",
+            "01164-5209"
+        ]
+    },
+    {
+        "query": "insert into `locations` (`country_id`, `city_id`, `postcode`, `state`, `line_one`, `line_two`, `latitude`, `longitude`, `geohash`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "bindings": [
+            "fa8933b9-3099-5db8-bf4d-ff966a29cbac",
+            "11f3bc05-0011-5e9e-9c41-611453871a33",
+            "01164-5209",
+            "",
+            "92923 Amelie Pass Apt. 033",
+            "",
+            "56.408079",
+            "169.093202",
+            "zf00zucbvhjc",
+            "5aa0a4b1-bced-5673-97e3-59163887bf9e",
+            "2022-02-02 00:00:05",
+            "2022-02-02 00:00:05"
+        ]
+    },
+    {
+        "query": "insert into `kpis` (`assets_total`, `assets_active`, `assets_active_percent`, `assets_active_on_contract`, `assets_active_on_warranty`, `assets_active_exposed`, `customers_active`, `customers_active_new`, `contracts_active`, `contracts_active_amount`, `contracts_active_new`, `contracts_expiring`, `contracts_expired`, `quotes_active`, `quotes_active_amount`, `quotes_active_new`, `quotes_expiring`, `quotes_expired`, `quotes_ordered`, `quotes_accepted`, `quotes_requested`, `quotes_received`, `quotes_rejected`, `quotes_awaiting`, `service_revenue_total_amount`, `service_revenue_total_amount_change`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "bindings": [
+            0,
+            0,
+            0.0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0.0,
+            0,
+            0,
+            0,
+            0,
+            0.0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0.0,
+            0.0,
+            "bcdbae7c-fb69-56ee-8806-dbea01f689f0",
+            "2022-02-02 00:00:06",
+            "2022-02-02 00:00:06"
+        ]
+    },
+    {
+        "query": "insert into `resellers` (`id`, `name`, `changed_at`, `statuses_count`, `contacts_count`, `locations_count`, `kpi_id`, `synced_at`, `assets_count`, `customers_count`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "bindings": [
+            "54f7dd6b-5234-4760-947d-c95e10751e18",
+            "Schiller-Graham",
+            "2022-07-07 00:56:28",
+            0,
+            1,
+            1,
+            "bcdbae7c-fb69-56ee-8806-dbea01f689f0",
+            "2022-02-02 00:00:07",
+            0,
+            0,
+            "2022-02-02 00:00:08",
+            "2022-02-02 00:00:08"
+        ]
+    },
+    {
+        "query": "insert into `contacts` (`object_type`, `object_id`, `name`, `phone_number`, `email`, `phone_valid`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "bindings": [
+            "Reseller",
+            "54f7dd6b-5234-4760-947d-c95e10751e18",
+            "Dr. Beaulah Beatty",
+            "+12818455048",
+            "russel.batz@lindgren.biz",
+            true,
+            "436f2868-fe4e-51dd-985c-46ade470e6ca",
+            "2022-02-02 00:00:09",
+            "2022-02-02 00:00:09"
+        ]
+    },
+    {
+        "query": "insert into `contact_types` (`type_id`, `contact_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
+        "bindings": [
+            "b5d04d0f-2e36-57ab-9258-00ab1183d24b",
+            "436f2868-fe4e-51dd-985c-46ade470e6ca",
+            "826bb9d7-8cab-5dff-b28e-9f264dcdccb8",
+            "2022-02-02 00:00:10",
+            "2022-02-02 00:00:10"
+        ]
+    },
+    {
+        "query": "insert into `reseller_locations` (`reseller_id`, `location_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
+        "bindings": [
+            "54f7dd6b-5234-4760-947d-c95e10751e18",
+            "5aa0a4b1-bced-5673-97e3-59163887bf9e",
+            "20763d4e-b39b-54ef-a098-eb685f79e9e2",
+            "2022-02-02 00:00:11",
+            "2022-02-02 00:00:11"
+        ]
+    },
+    {
+        "query": "select `organizations`.* from `organizations` where `organizations`.`id` = ? limit 1",
+        "bindings": [
+            "54f7dd6b-5234-4760-947d-c95e10751e18"
+        ]
+    },
+    {
+        "query": "insert into `organizations` (`id`, `type`, `name`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
+        "bindings": [
+            "54f7dd6b-5234-4760-947d-c95e10751e18",
+            "Reseller",
+            "Schiller-Graham",
+            "2022-02-02 00:00:12",
+            "2022-02-02 00:00:12"
+        ]
+    },
+    {
+        "query": "select `reseller_locations`.* from `reseller_locations` where `reseller_locations`.`reseller_id` = ? and `reseller_locations`.`reseller_id` is not null and `reseller_locations`.`deleted_at` is null",
+        "bindings": [
+            "bd0eec0c-4d48-4840-9ce0-237316c727e1"
+        ]
+    },
+    {
+        "query": "select `countries`.* from `countries` where (`code` = ?) and `countries`.`deleted_at` is null limit 1",
+        "bindings": [
+            "je"
+        ]
+    },
+    {
+        "query": "insert into `countries` (`code`, `name`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
+        "bindings": [
+            "JE",
+            "Sierra Leone",
+            "94748ae2-6d22-5748-bc6b-6df949a50a8f",
+            "2022-02-02 00:00:17",
+            "2022-02-02 00:00:17"
+        ]
+    },
+    {
+        "query": "select `cities`.* from `cities` where (`country_id` = ? and `key` = ?) and `cities`.`deleted_at` is null limit 1",
+        "bindings": [
+            "94748ae2-6d22-5748-bc6b-6df949a50a8f",
+            "schowaltershire"
+        ]
+    },
+    {
+        "query": "insert into `cities` (`key`, `name`, `country_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?)",
+        "bindings": [
+            "Schowaltershire",
+            "Schowaltershire",
+            "94748ae2-6d22-5748-bc6b-6df949a50a8f",
+            "5145bcf5-e135-5673-ae31-ce66f8e32d30",
+            "2022-02-02 00:00:18",
+            "2022-02-02 00:00:18"
+        ]
+    },
+    {
+        "query": "select `locations`.* from `locations` where (`city_id` = ? and `country_id` = ? and CONCAT(`line_one`, IF(`line_two` != '', CONCAT(' ', `line_two`), '')) = ? and `postcode` = ?) and `locations`.`deleted_at` is null limit 1",
+        "bindings": [
+            "5145bcf5-e135-5673-ae31-ce66f8e32d30",
+            "94748ae2-6d22-5748-bc6b-6df949a50a8f",
+            "867 altenwerth mountains",
+            "04525-9760"
+        ]
+    },
+    {
+        "query": "insert into `locations` (`country_id`, `city_id`, `postcode`, `state`, `line_one`, `line_two`, `latitude`, `longitude`, `geohash`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "bindings": [
+            "94748ae2-6d22-5748-bc6b-6df949a50a8f",
+            "5145bcf5-e135-5673-ae31-ce66f8e32d30",
+            "04525-9760",
+            "",
+            "867 Altenwerth Mountains",
+            "",
+            "57.885055",
+            "-159.900803",
+            "b6q333euchrd",
+            "591ed88c-0c38-5768-a0e0-a121d945ec5e",
+            "2022-02-02 00:00:19",
+            "2022-02-02 00:00:19"
+        ]
+    },
+    {
+        "query": "insert into `kpis` (`assets_total`, `assets_active`, `assets_active_percent`, `assets_active_on_contract`, `assets_active_on_warranty`, `assets_active_exposed`, `customers_active`, `customers_active_new`, `contracts_active`, `contracts_active_amount`, `contracts_active_new`, `contracts_expiring`, `contracts_expired`, `quotes_active`, `quotes_active_amount`, `quotes_active_new`, `quotes_expiring`, `quotes_expired`, `quotes_ordered`, `quotes_accepted`, `quotes_requested`, `quotes_received`, `quotes_rejected`, `quotes_awaiting`, `service_revenue_total_amount`, `service_revenue_total_amount_change`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "bindings": [
+            0,
+            0,
+            0.0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0.0,
+            0,
+            0,
+            0,
+            0,
+            0.0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0.0,
+            0.0,
+            "e0bd33bd-22ce-5806-b545-ef5647397000",
+            "2022-02-02 00:00:20",
+            "2022-02-02 00:00:20"
+        ]
+    },
+    {
+        "query": "insert into `resellers` (`id`, `name`, `changed_at`, `statuses_count`, `contacts_count`, `locations_count`, `kpi_id`, `synced_at`, `assets_count`, `customers_count`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "bindings": [
+            "bd0eec0c-4d48-4840-9ce0-237316c727e1",
+            "Carroll Group",
+            "2022-07-07 01:14:43",
+            0,
+            2,
+            1,
+            "e0bd33bd-22ce-5806-b545-ef5647397000",
+            "2022-02-02 00:00:21",
+            0,
+            0,
+            "2022-02-02 00:00:22",
+            "2022-02-02 00:00:22"
+        ]
+    },
+    {
+        "query": "insert into `contacts` (`object_type`, `object_id`, `name`, `phone_number`, `email`, `phone_valid`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "bindings": [
+            "Reseller",
+            "bd0eec0c-4d48-4840-9ce0-237316c727e1",
+            "Berenice Rohan",
+            null,
+            "ehand@hotmail.com",
+            null,
+            "d37416ba-00b5-519e-ba3f-0c305af39b45",
+            "2022-02-02 00:00:23",
+            "2022-02-02 00:00:23"
+        ]
+    },
+    {
+        "query": "insert into `contact_types` (`type_id`, `contact_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
+        "bindings": [
+            "b5d04d0f-2e36-57ab-9258-00ab1183d24b",
+            "d37416ba-00b5-519e-ba3f-0c305af39b45",
+            "777a9332-9779-5890-9668-3d183168f1bd",
+            "2022-02-02 00:00:24",
+            "2022-02-02 00:00:24"
+        ]
+    },
+    {
+        "query": "insert into `contacts` (`object_type`, `object_id`, `name`, `phone_number`, `email`, `phone_valid`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "bindings": [
+            "Reseller",
+            "bd0eec0c-4d48-4840-9ce0-237316c727e1",
+            "Roma Carroll",
+            null,
+            "hudson.damien@hotmail.com",
+            null,
+            "dfcc7b1e-8a97-58a4-9188-ee2fd1b8f411",
+            "2022-02-02 00:00:25",
+            "2022-02-02 00:00:25"
+        ]
+    },
+    {
+        "query": "insert into `contact_types` (`type_id`, `contact_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
+        "bindings": [
+            "b5d04d0f-2e36-57ab-9258-00ab1183d24b",
+            "dfcc7b1e-8a97-58a4-9188-ee2fd1b8f411",
+            "c7f50e72-66f3-5efb-8552-0522c2d9d833",
+            "2022-02-02 00:00:26",
+            "2022-02-02 00:00:26"
+        ]
+    },
+    {
+        "query": "insert into `reseller_locations` (`reseller_id`, `location_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
+        "bindings": [
+            "bd0eec0c-4d48-4840-9ce0-237316c727e1",
+            "591ed88c-0c38-5768-a0e0-a121d945ec5e",
+            "5ea7d469-d0f1-5752-b02e-a14afe0b5669",
+            "2022-02-02 00:00:27",
+            "2022-02-02 00:00:27"
+        ]
+    },
+    {
+        "query": "select `organizations`.* from `organizations` where `organizations`.`id` = ? limit 1",
+        "bindings": [
+            "bd0eec0c-4d48-4840-9ce0-237316c727e1"
+        ]
+    },
+    {
+        "query": "insert into `organizations` (`id`, `type`, `name`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
+        "bindings": [
+            "bd0eec0c-4d48-4840-9ce0-237316c727e1",
+            "Reseller",
+            "Carroll Group",
+            "2022-02-02 00:00:28",
+            "2022-02-02 00:00:28"
+        ]
+    },
+    {
+        "query": "select `statuses`.* from `statuses` where `statuses`.`deleted_at` is null",
+        "bindings": []
+    },
+    {
+        "query": "select `statuses`.* from `statuses` where (`key` = ? and `object_type` = ?) and `statuses`.`deleted_at` is null limit 1",
+        "bindings": [
+            "inactive",
+            "reseller"
+        ]
+    },
+    {
+        "query": "insert into `statuses` (`object_type`, `key`, `name`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?)",
+        "bindings": [
+            "Reseller",
+            "INACTIVE",
+            "Inactive",
+            "ff3eb52d-9121-556f-8391-4b1944f3ae5f",
+            "2022-02-02 00:00:33",
+            "2022-02-02 00:00:33"
+        ]
+    },
+    {
+        "query": "select `reseller_locations`.* from `reseller_locations` where `reseller_locations`.`reseller_id` = ? and `reseller_locations`.`reseller_id` is not null and `reseller_locations`.`deleted_at` is null",
+        "bindings": [
+            "0917f385-4b97-4313-b255-043ad94683a7"
+        ]
+    },
+    {
+        "query": "select `cities`.* from `cities` where (`country_id` = ? and `key` = ?) and `cities`.`deleted_at` is null limit 1",
+        "bindings": [
+            "fa8933b9-3099-5db8-bf4d-ff966a29cbac",
+            "lake waino"
+        ]
+    },
+    {
+        "query": "insert into `cities` (`key`, `name`, `country_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?)",
+        "bindings": [
+            "Lake Waino",
+            "Lake Waino",
+            "fa8933b9-3099-5db8-bf4d-ff966a29cbac",
+            "f9f37d61-70e0-538d-a34e-8093aa5b042b",
+            "2022-02-02 00:00:34",
+            "2022-02-02 00:00:34"
+        ]
+    },
+    {
+        "query": "select `locations`.* from `locations` where (`city_id` = ? and `country_id` = ? and CONCAT(`line_one`, IF(`line_two` != '', CONCAT(' ', `line_two`), '')) = ? and `postcode` = ?) and `locations`.`deleted_at` is null limit 1",
+        "bindings": [
+            "f9f37d61-70e0-538d-a34e-8093aa5b042b",
+            "fa8933b9-3099-5db8-bf4d-ff966a29cbac",
+            "61188 bogan plains",
+            "24395-8960"
+        ]
+    },
+    {
+        "query": "insert into `locations` (`country_id`, `city_id`, `postcode`, `state`, `line_one`, `line_two`, `latitude`, `longitude`, `geohash`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "bindings": [
+            "fa8933b9-3099-5db8-bf4d-ff966a29cbac",
+            "f9f37d61-70e0-538d-a34e-8093aa5b042b",
+            "24395-8960",
+            "",
+            "61188 Bogan Plains",
+            "",
+            "-17.178237",
+            "118.358743",
+            "qsunm2f1w8e2",
+            "c66f0b10-fd90-55cd-b281-86bbadb09c15",
+            "2022-02-02 00:00:35",
+            "2022-02-02 00:00:35"
+        ]
+    },
+    {
+        "query": "insert into `kpis` (`assets_total`, `assets_active`, `assets_active_percent`, `assets_active_on_contract`, `assets_active_on_warranty`, `assets_active_exposed`, `customers_active`, `customers_active_new`, `contracts_active`, `contracts_active_amount`, `contracts_active_new`, `contracts_expiring`, `contracts_expired`, `quotes_active`, `quotes_active_amount`, `quotes_active_new`, `quotes_expiring`, `quotes_expired`, `quotes_ordered`, `quotes_accepted`, `quotes_requested`, `quotes_received`, `quotes_rejected`, `quotes_awaiting`, `service_revenue_total_amount`, `service_revenue_total_amount_change`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "bindings": [
+            0,
+            0,
+            0.0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0.0,
+            0,
+            0,
+            0,
+            0,
+            0.0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0.0,
+            0.0,
+            "93ea5d2a-6969-5f57-b4df-460788fb9259",
+            "2022-02-02 00:00:36",
+            "2022-02-02 00:00:36"
+        ]
+    },
+    {
+        "query": "insert into `resellers` (`id`, `name`, `changed_at`, `statuses_count`, `contacts_count`, `locations_count`, `kpi_id`, `synced_at`, `assets_count`, `customers_count`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "bindings": [
+            "0917f385-4b97-4313-b255-043ad94683a7",
+            "Goodwin, Littel and Kuphal",
+            "2022-07-07 22:30:40",
+            1,
+            1,
+            1,
+            "93ea5d2a-6969-5f57-b4df-460788fb9259",
+            "2022-02-02 00:00:37",
+            0,
+            0,
+            "2022-02-02 00:00:38",
+            "2022-02-02 00:00:38"
+        ]
+    },
+    {
+        "query": "insert into `reseller_statuses` (`status_id`, `reseller_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
+        "bindings": [
+            "ff3eb52d-9121-556f-8391-4b1944f3ae5f",
+            "0917f385-4b97-4313-b255-043ad94683a7",
+            "5bbd00b5-5fdf-5cdd-9171-91688c616871",
+            "2022-02-02 00:00:39",
+            "2022-02-02 00:00:39"
+        ]
+    },
+    {
+        "query": "insert into `contacts` (`object_type`, `object_id`, `name`, `phone_number`, `email`, `phone_valid`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "bindings": [
+            "Reseller",
+            "0917f385-4b97-4313-b255-043ad94683a7",
+            "Cathrine Hintz III",
+            "+18436851764",
+            "bfadel@sawayn.com",
+            true,
+            "f14f333a-ca99-5e57-86d4-ba0b1c67ba65",
+            "2022-02-02 00:00:40",
+            "2022-02-02 00:00:40"
+        ]
+    },
+    {
+        "query": "insert into `contact_types` (`type_id`, `contact_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
+        "bindings": [
+            "b5d04d0f-2e36-57ab-9258-00ab1183d24b",
+            "f14f333a-ca99-5e57-86d4-ba0b1c67ba65",
+            "9b40fce2-ad3b-5e59-acdf-2c598563b245",
+            "2022-02-02 00:00:41",
+            "2022-02-02 00:00:41"
+        ]
+    },
+    {
+        "query": "insert into `reseller_locations` (`reseller_id`, `location_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
+        "bindings": [
+            "0917f385-4b97-4313-b255-043ad94683a7",
+            "c66f0b10-fd90-55cd-b281-86bbadb09c15",
+            "b0f7ecf1-260c-574c-b475-d1b0c12ea6b5",
+            "2022-02-02 00:00:42",
+            "2022-02-02 00:00:42"
+        ]
+    },
+    {
+        "query": "select `organizations`.* from `organizations` where `organizations`.`id` = ? limit 1",
+        "bindings": [
+            "0917f385-4b97-4313-b255-043ad94683a7"
+        ]
+    },
+    {
+        "query": "insert into `organizations` (`id`, `type`, `name`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
+        "bindings": [
+            "0917f385-4b97-4313-b255-043ad94683a7",
+            "Reseller",
+            "Goodwin, Littel and Kuphal",
+            "2022-02-02 00:00:43",
+            "2022-02-02 00:00:43"
+        ]
+    },
+    {
+        "query": "select `reseller_locations`.* from `reseller_locations` where `reseller_locations`.`reseller_id` = ? and `reseller_locations`.`reseller_id` is not null and `reseller_locations`.`deleted_at` is null",
+        "bindings": [
+            "d152bb2f-deae-4106-aac2-6d1aa1517232"
+        ]
+    },
+    {
+        "query": "select `countries`.* from `countries` where (`code` = ?) and `countries`.`deleted_at` is null limit 1",
+        "bindings": [
+            "cg"
+        ]
+    },
+    {
+        "query": "insert into `countries` (`code`, `name`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
+        "bindings": [
+            "CG",
+            "Bermuda",
+            "27207a8f-e884-59d9-a9b2-2e368eb40734",
+            "2022-02-02 00:00:48",
+            "2022-02-02 00:00:48"
+        ]
+    },
+    {
+        "query": "select `cities`.* from `cities` where (`country_id` = ? and `key` = ?) and `cities`.`deleted_at` is null limit 1",
+        "bindings": [
+            "27207a8f-e884-59d9-a9b2-2e368eb40734",
+            "cormiertown"
+        ]
+    },
+    {
+        "query": "insert into `cities` (`key`, `name`, `country_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?)",
+        "bindings": [
+            "Cormiertown",
+            "Cormiertown",
+            "27207a8f-e884-59d9-a9b2-2e368eb40734",
+            "80a476a6-339e-55f8-a633-1738d3d34ee9",
+            "2022-02-02 00:00:49",
+            "2022-02-02 00:00:49"
+        ]
+    },
+    {
+        "query": "select `locations`.* from `locations` where (`city_id` = ? and `country_id` = ? and CONCAT(`line_one`, IF(`line_two` != '', CONCAT(' ', `line_two`), '')) = ? and `postcode` = ?) and `locations`.`deleted_at` is null limit 1",
+        "bindings": [
+            "80a476a6-339e-55f8-a633-1738d3d34ee9",
+            "27207a8f-e884-59d9-a9b2-2e368eb40734",
+            "995 schimmel lake",
+            "94260-7996"
+        ]
+    },
+    {
+        "query": "insert into `locations` (`country_id`, `city_id`, `postcode`, `state`, `line_one`, `line_two`, `latitude`, `longitude`, `geohash`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "bindings": [
+            "27207a8f-e884-59d9-a9b2-2e368eb40734",
+            "80a476a6-339e-55f8-a633-1738d3d34ee9",
+            "94260-7996",
+            "",
+            "995 Schimmel Lake",
+            "",
+            "-67.449621",
+            "136.412223",
+            "ph1021hm7pmf",
+            "5d39b779-d39d-59d4-ace5-3730aec5cf02",
+            "2022-02-02 00:00:50",
+            "2022-02-02 00:00:50"
+        ]
+    },
+    {
+        "query": "insert into `kpis` (`assets_total`, `assets_active`, `assets_active_percent`, `assets_active_on_contract`, `assets_active_on_warranty`, `assets_active_exposed`, `customers_active`, `customers_active_new`, `contracts_active`, `contracts_active_amount`, `contracts_active_new`, `contracts_expiring`, `contracts_expired`, `quotes_active`, `quotes_active_amount`, `quotes_active_new`, `quotes_expiring`, `quotes_expired`, `quotes_ordered`, `quotes_accepted`, `quotes_requested`, `quotes_received`, `quotes_rejected`, `quotes_awaiting`, `service_revenue_total_amount`, `service_revenue_total_amount_change`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "bindings": [
+            0,
+            0,
+            0.0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0.0,
+            0,
+            0,
+            0,
+            0,
+            0.0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0.0,
+            0.0,
+            "0fbf6e51-1fcf-5d3a-a4a4-da843c833a6b",
+            "2022-02-02 00:00:51",
+            "2022-02-02 00:00:51"
+        ]
+    },
+    {
+        "query": "insert into `resellers` (`id`, `name`, `changed_at`, `statuses_count`, `contacts_count`, `locations_count`, `kpi_id`, `synced_at`, `assets_count`, `customers_count`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "bindings": [
+            "d152bb2f-deae-4106-aac2-6d1aa1517232",
+            "Gleason Group",
+            "2022-07-07 01:16:33",
+            0,
+            0,
+            1,
+            "0fbf6e51-1fcf-5d3a-a4a4-da843c833a6b",
+            "2022-02-02 00:00:52",
+            0,
+            0,
+            "2022-02-02 00:00:53",
+            "2022-02-02 00:00:53"
+        ]
+    },
+    {
+        "query": "insert into `reseller_locations` (`reseller_id`, `location_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
+        "bindings": [
+            "d152bb2f-deae-4106-aac2-6d1aa1517232",
+            "5d39b779-d39d-59d4-ace5-3730aec5cf02",
+            "3302d396-2393-5681-b289-0e1cd8140a5d",
+            "2022-02-02 00:00:54",
+            "2022-02-02 00:00:54"
+        ]
+    },
+    {
+        "query": "select `organizations`.* from `organizations` where `organizations`.`id` = ? limit 1",
+        "bindings": [
+            "d152bb2f-deae-4106-aac2-6d1aa1517232"
+        ]
+    },
+    {
+        "query": "insert into `organizations` (`id`, `type`, `name`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
+        "bindings": [
+            "d152bb2f-deae-4106-aac2-6d1aa1517232",
+            "Reseller",
+            "Gleason Group",
+            "2022-02-02 00:00:55",
+            "2022-02-02 00:00:55"
+        ]
+    },
+    {
+        "query": "select `reseller_locations`.* from `reseller_locations` where `reseller_locations`.`reseller_id` = ? and `reseller_locations`.`reseller_id` is not null and `reseller_locations`.`deleted_at` is null",
+        "bindings": [
+            "6a3f5b75-5dc9-4517-aa18-a410644d33fb"
+        ]
+    },
+    {
+        "query": "select `cities`.* from `cities` where (`country_id` = ? and `key` = ?) and `cities`.`deleted_at` is null limit 1",
+        "bindings": [
+            "fa8933b9-3099-5db8-bf4d-ff966a29cbac",
+            "north margarettefort"
+        ]
+    },
+    {
+        "query": "insert into `cities` (`key`, `name`, `country_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?)",
+        "bindings": [
+            "North Margarettefort",
+            "North Margarettefort",
+            "fa8933b9-3099-5db8-bf4d-ff966a29cbac",
+            "f0ab8a6c-eb51-57f2-bcef-bfb28809ce6b",
+            "2022-02-02 00:01:00",
+            "2022-02-02 00:01:00"
+        ]
+    },
+    {
+        "query": "select `locations`.* from `locations` where (`city_id` = ? and `country_id` = ? and CONCAT(`line_one`, IF(`line_two` != '', CONCAT(' ', `line_two`), '')) = ? and `postcode` = ?) and `locations`.`deleted_at` is null limit 1",
+        "bindings": [
+            "f0ab8a6c-eb51-57f2-bcef-bfb28809ce6b",
+            "fa8933b9-3099-5db8-bf4d-ff966a29cbac",
+            "53960 elinore loaf",
+            "01804"
+        ]
+    },
+    {
+        "query": "insert into `locations` (`country_id`, `city_id`, `postcode`, `state`, `line_one`, `line_two`, `latitude`, `longitude`, `geohash`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "bindings": [
+            "fa8933b9-3099-5db8-bf4d-ff966a29cbac",
+            "f0ab8a6c-eb51-57f2-bcef-bfb28809ce6b",
+            "01804",
+            "",
+            "53960 Elinore Loaf",
+            "",
+            "65.566242",
+            "-121.883281",
+            "c79kfrzr19qs",
+            "2b030b5c-da21-5787-be07-92539737873d",
+            "2022-02-02 00:01:01",
+            "2022-02-02 00:01:01"
+        ]
+    },
+    {
+        "query": "insert into `kpis` (`assets_total`, `assets_active`, `assets_active_percent`, `assets_active_on_contract`, `assets_active_on_warranty`, `assets_active_exposed`, `customers_active`, `customers_active_new`, `contracts_active`, `contracts_active_amount`, `contracts_active_new`, `contracts_expiring`, `contracts_expired`, `quotes_active`, `quotes_active_amount`, `quotes_active_new`, `quotes_expiring`, `quotes_expired`, `quotes_ordered`, `quotes_accepted`, `quotes_requested`, `quotes_received`, `quotes_rejected`, `quotes_awaiting`, `service_revenue_total_amount`, `service_revenue_total_amount_change`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "bindings": [
+            0,
+            0,
+            0.0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0.0,
+            0,
+            0,
+            0,
+            0,
+            0.0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0.0,
+            0.0,
+            "69288e87-8b8d-548d-8e77-9478a96922fc",
+            "2022-02-02 00:01:02",
+            "2022-02-02 00:01:02"
+        ]
+    },
+    {
+        "query": "insert into `resellers` (`id`, `name`, `changed_at`, `statuses_count`, `contacts_count`, `locations_count`, `kpi_id`, `synced_at`, `assets_count`, `customers_count`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "bindings": [
+            "6a3f5b75-5dc9-4517-aa18-a410644d33fb",
+            "Swaniawski, Pagac and Towne",
+            "2022-07-07 01:00:05",
+            0,
+            1,
+            1,
+            "69288e87-8b8d-548d-8e77-9478a96922fc",
+            "2022-02-02 00:01:03",
+            0,
+            0,
+            "2022-02-02 00:01:04",
+            "2022-02-02 00:01:04"
+        ]
+    },
+    {
+        "query": "insert into `contacts` (`object_type`, `object_id`, `name`, `phone_number`, `email`, `phone_valid`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "bindings": [
+            "Reseller",
+            "6a3f5b75-5dc9-4517-aa18-a410644d33fb",
+            "Mr. Brad Ledner",
+            "+13852851138",
+            "bridget.simonis@gmail.com",
+            true,
+            "8396ac64-b68d-5fb8-92ab-aca16251ddf1",
+            "2022-02-02 00:01:05",
+            "2022-02-02 00:01:05"
+        ]
+    },
+    {
+        "query": "insert into `contact_types` (`type_id`, `contact_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
+        "bindings": [
+            "b5d04d0f-2e36-57ab-9258-00ab1183d24b",
+            "8396ac64-b68d-5fb8-92ab-aca16251ddf1",
+            "d05349b9-ef9c-5418-a906-ebeb4bc5331b",
+            "2022-02-02 00:01:06",
+            "2022-02-02 00:01:06"
+        ]
+    },
+    {
+        "query": "insert into `reseller_locations` (`reseller_id`, `location_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
+        "bindings": [
+            "6a3f5b75-5dc9-4517-aa18-a410644d33fb",
+            "2b030b5c-da21-5787-be07-92539737873d",
+            "061fd18e-8cbc-5d58-a5e4-65f5b304381f",
+            "2022-02-02 00:01:07",
+            "2022-02-02 00:01:07"
+        ]
+    },
+    {
+        "query": "select `organizations`.* from `organizations` where `organizations`.`id` = ? limit 1",
+        "bindings": [
+            "6a3f5b75-5dc9-4517-aa18-a410644d33fb"
+        ]
+    },
+    {
+        "query": "insert into `organizations` (`id`, `type`, `name`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
+        "bindings": [
+            "6a3f5b75-5dc9-4517-aa18-a410644d33fb",
+            "Reseller",
+            "Swaniawski, Pagac and Towne",
+            "2022-02-02 00:01:08",
+            "2022-02-02 00:01:08"
+        ]
+    },
+    {
+        "query": "select `resellers`.* from `resellers` where ((`resellers`.`id` = ?) or (`resellers`.`id` = ?) or (`resellers`.`id` = ?) or (`resellers`.`id` = ?) or (`resellers`.`id` = ?))",
+        "bindings": [
+            "d5306966-ab8b-4893-bc85-d7722998b900",
+            "a77f6f96-9c33-4e08-9838-ea291d572138",
+            "3c01bf74-b2b8-437d-8492-75a061282101",
+            "2d1c8169-8f80-41bd-8d37-e10936d25546",
+            "c017d376-0055-42a9-80d8-ac90cef3f0c5"
+        ]
+    },
+    {
+        "query": "select `reseller_locations`.* from `reseller_locations` where `reseller_locations`.`reseller_id` = ? and `reseller_locations`.`reseller_id` is not null and `reseller_locations`.`deleted_at` is null",
+        "bindings": [
+            "d5306966-ab8b-4893-bc85-d7722998b900"
+        ]
+    },
+    {
+        "query": "select `cities`.* from `cities` where (`country_id` = ? and `key` = ?) and `cities`.`deleted_at` is null limit 1",
+        "bindings": [
+            "27207a8f-e884-59d9-a9b2-2e368eb40734",
+            "cronafurt"
+        ]
+    },
+    {
+        "query": "insert into `cities` (`key`, `name`, `country_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?)",
+        "bindings": [
+            "Cronafurt",
+            "Cronafurt",
+            "27207a8f-e884-59d9-a9b2-2e368eb40734",
+            "efab05a5-280b-5acf-b4ce-acf46a5377c8",
+            "2022-02-02 00:01:13",
+            "2022-02-02 00:01:13"
+        ]
+    },
+    {
+        "query": "select `locations`.* from `locations` where (`city_id` = ? and `country_id` = ? and CONCAT(`line_one`, IF(`line_two` != '', CONCAT(' ', `line_two`), '')) = ? and `postcode` = ?) and `locations`.`deleted_at` is null limit 1",
+        "bindings": [
+            "efab05a5-280b-5acf-b4ce-acf46a5377c8",
+            "27207a8f-e884-59d9-a9b2-2e368eb40734",
+            "34951 kamron glen",
+            "49842-3047"
+        ]
+    },
+    {
+        "query": "insert into `locations` (`country_id`, `city_id`, `postcode`, `state`, `line_one`, `line_two`, `latitude`, `longitude`, `geohash`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "bindings": [
+            "27207a8f-e884-59d9-a9b2-2e368eb40734",
+            "efab05a5-280b-5acf-b4ce-acf46a5377c8",
+            "49842-3047",
+            "",
+            "34951 Kamron Glen",
+            "",
+            "-37.109815",
+            "-177.067199",
+            "216hfsreejnf",
+            "6473071e-dbcd-5557-901b-0774a2148ca0",
+            "2022-02-02 00:01:14",
+            "2022-02-02 00:01:14"
+        ]
+    },
+    {
+        "query": "insert into `kpis` (`assets_total`, `assets_active`, `assets_active_percent`, `assets_active_on_contract`, `assets_active_on_warranty`, `assets_active_exposed`, `customers_active`, `customers_active_new`, `contracts_active`, `contracts_active_amount`, `contracts_active_new`, `contracts_expiring`, `contracts_expired`, `quotes_active`, `quotes_active_amount`, `quotes_active_new`, `quotes_expiring`, `quotes_expired`, `quotes_ordered`, `quotes_accepted`, `quotes_requested`, `quotes_received`, `quotes_rejected`, `quotes_awaiting`, `service_revenue_total_amount`, `service_revenue_total_amount_change`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "bindings": [
+            0,
+            0,
+            0.0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0.0,
+            0,
+            0,
+            0,
+            0,
+            0.0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0.0,
+            0.0,
+            "fd722bd5-891d-5890-9c7d-bb56f5b8c0d4",
+            "2022-02-02 00:01:15",
+            "2022-02-02 00:01:15"
+        ]
+    },
+    {
+        "query": "insert into `resellers` (`id`, `name`, `changed_at`, `statuses_count`, `contacts_count`, `locations_count`, `kpi_id`, `synced_at`, `assets_count`, `customers_count`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "bindings": [
+            "d5306966-ab8b-4893-bc85-d7722998b900",
+            "Tromp-Ullrich",
+            "2022-07-07 01:16:52",
+            0,
+            3,
+            1,
+            "fd722bd5-891d-5890-9c7d-bb56f5b8c0d4",
+            "2022-02-02 00:01:16",
+            0,
+            0,
+            "2022-02-02 00:01:17",
+            "2022-02-02 00:01:17"
+        ]
+    },
+    {
+        "query": "insert into `contacts` (`object_type`, `object_id`, `name`, `phone_number`, `email`, `phone_valid`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "bindings": [
+            "Reseller",
+            "d5306966-ab8b-4893-bc85-d7722998b900",
+            "Roma Carroll",
+            null,
+            "linnea16@gmail.com",
+            null,
+            "93d77a6b-7ee5-50e3-b2eb-d93ea7f32459",
+            "2022-02-02 00:01:18",
+            "2022-02-02 00:01:18"
+        ]
+    },
+    {
+        "query": "insert into `contact_types` (`type_id`, `contact_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
+        "bindings": [
+            "b5d04d0f-2e36-57ab-9258-00ab1183d24b",
+            "93d77a6b-7ee5-50e3-b2eb-d93ea7f32459",
+            "26755b67-92e1-51a2-8854-734709195a30",
+            "2022-02-02 00:01:19",
+            "2022-02-02 00:01:19"
+        ]
+    },
+    {
+        "query": "insert into `contacts` (`object_type`, `object_id`, `name`, `phone_number`, `email`, `phone_valid`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "bindings": [
+            "Reseller",
+            "d5306966-ab8b-4893-bc85-d7722998b900",
+            "Evan Bergnaum",
+            "+18308424460",
+            "ddicki@yahoo.com",
+            true,
+            "0e02d9de-9c17-5c14-b944-240c1cff7aea",
+            "2022-02-02 00:01:20",
+            "2022-02-02 00:01:20"
+        ]
+    },
+    {
+        "query": "insert into `contact_types` (`type_id`, `contact_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
+        "bindings": [
+            "b5d04d0f-2e36-57ab-9258-00ab1183d24b",
+            "0e02d9de-9c17-5c14-b944-240c1cff7aea",
+            "f02881ec-867d-5ed4-bfb3-f500485cc6fe",
+            "2022-02-02 00:01:21",
+            "2022-02-02 00:01:21"
+        ]
+    },
+    {
+        "query": "insert into `contacts` (`object_type`, `object_id`, `name`, `phone_number`, `email`, `phone_valid`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "bindings": [
+            "Reseller",
+            "d5306966-ab8b-4893-bc85-d7722998b900",
+            "Devonte Corwin",
+            "+16296882911",
+            "britney98@lynch.com",
+            true,
+            "58c71aa8-73a4-5eb9-ba39-c298861c02c5",
+            "2022-02-02 00:01:22",
+            "2022-02-02 00:01:22"
+        ]
+    },
+    {
+        "query": "insert into `contact_types` (`type_id`, `contact_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
+        "bindings": [
+            "b5d04d0f-2e36-57ab-9258-00ab1183d24b",
+            "58c71aa8-73a4-5eb9-ba39-c298861c02c5",
+            "091cdb06-2138-56a5-adf2-5bfd7801c457",
+            "2022-02-02 00:01:23",
+            "2022-02-02 00:01:23"
+        ]
+    },
+    {
+        "query": "insert into `reseller_locations` (`reseller_id`, `location_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
+        "bindings": [
+            "d5306966-ab8b-4893-bc85-d7722998b900",
+            "6473071e-dbcd-5557-901b-0774a2148ca0",
+            "e423a158-e4c2-5dc6-8728-c3b1fa4c00cf",
+            "2022-02-02 00:01:24",
+            "2022-02-02 00:01:24"
+        ]
+    },
+    {
+        "query": "select `organizations`.* from `organizations` where `organizations`.`id` = ? limit 1",
+        "bindings": [
+            "d5306966-ab8b-4893-bc85-d7722998b900"
+        ]
+    },
+    {
+        "query": "insert into `organizations` (`id`, `type`, `name`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
+        "bindings": [
+            "d5306966-ab8b-4893-bc85-d7722998b900",
+            "Reseller",
+            "Tromp-Ullrich",
+            "2022-02-02 00:01:25",
+            "2022-02-02 00:01:25"
+        ]
+    },
+    {
+        "query": "select `reseller_locations`.* from `reseller_locations` where `reseller_locations`.`reseller_id` = ? and `reseller_locations`.`reseller_id` is not null and `reseller_locations`.`deleted_at` is null",
+        "bindings": [
+            "a77f6f96-9c33-4e08-9838-ea291d572138"
+        ]
+    },
+    {
+        "query": "select `cities`.* from `cities` where (`country_id` = ? and `key` = ?) and `cities`.`deleted_at` is null limit 1",
+        "bindings": [
+            "fa8933b9-3099-5db8-bf4d-ff966a29cbac",
+            "leannonton"
+        ]
+    },
+    {
+        "query": "insert into `cities` (`key`, `name`, `country_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?)",
+        "bindings": [
+            "Leannonton",
+            "Leannonton",
+            "fa8933b9-3099-5db8-bf4d-ff966a29cbac",
+            "11902425-dd8b-5af4-a320-f32be8c97e74",
+            "2022-02-02 00:01:30",
+            "2022-02-02 00:01:30"
+        ]
+    },
+    {
+        "query": "select `locations`.* from `locations` where (`city_id` = ? and `country_id` = ? and CONCAT(`line_one`, IF(`line_two` != '', CONCAT(' ', `line_two`), '')) = ? and `postcode` = ?) and `locations`.`deleted_at` is null limit 1",
+        "bindings": [
+            "11902425-dd8b-5af4-a320-f32be8c97e74",
+            "fa8933b9-3099-5db8-bf4d-ff966a29cbac",
+            "428 lebsack forks suite 068",
+            "17422"
+        ]
+    },
+    {
+        "query": "insert into `locations` (`country_id`, `city_id`, `postcode`, `state`, `line_one`, `line_two`, `latitude`, `longitude`, `geohash`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "bindings": [
+            "fa8933b9-3099-5db8-bf4d-ff966a29cbac",
+            "11902425-dd8b-5af4-a320-f32be8c97e74",
+            "17422",
+            "",
+            "428 Lebsack Forks Suite 068",
+            "",
+            "-81.415463",
+            "14.471399",
+            "h3d2c6cb819j",
+            "10116d6d-f04b-5b60-8674-640e94d3133c",
+            "2022-02-02 00:01:31",
+            "2022-02-02 00:01:31"
+        ]
+    },
+    {
+        "query": "insert into `kpis` (`assets_total`, `assets_active`, `assets_active_percent`, `assets_active_on_contract`, `assets_active_on_warranty`, `assets_active_exposed`, `customers_active`, `customers_active_new`, `contracts_active`, `contracts_active_amount`, `contracts_active_new`, `contracts_expiring`, `contracts_expired`, `quotes_active`, `quotes_active_amount`, `quotes_active_new`, `quotes_expiring`, `quotes_expired`, `quotes_ordered`, `quotes_accepted`, `quotes_requested`, `quotes_received`, `quotes_rejected`, `quotes_awaiting`, `service_revenue_total_amount`, `service_revenue_total_amount_change`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "bindings": [
+            0,
+            0,
+            0.0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0.0,
+            0,
+            0,
+            0,
+            0,
+            0.0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0.0,
+            0.0,
+            "bcac22af-bbbf-5df8-b46b-9b62f08031c0",
+            "2022-02-02 00:01:32",
+            "2022-02-02 00:01:32"
+        ]
+    },
+    {
+        "query": "insert into `resellers` (`id`, `name`, `changed_at`, `statuses_count`, `contacts_count`, `locations_count`, `kpi_id`, `synced_at`, `assets_count`, `customers_count`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "bindings": [
+            "a77f6f96-9c33-4e08-9838-ea291d572138",
+            "Runolfsdottir-Roob",
+            "2022-07-07 01:12:08",
+            0,
+            2,
+            1,
+            "bcac22af-bbbf-5df8-b46b-9b62f08031c0",
+            "2022-02-02 00:01:33",
+            0,
+            0,
+            "2022-02-02 00:01:34",
+            "2022-02-02 00:01:34"
+        ]
+    },
+    {
+        "query": "insert into `contacts` (`object_type`, `object_id`, `name`, `phone_number`, `email`, `phone_valid`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "bindings": [
+            "Reseller",
+            "a77f6f96-9c33-4e08-9838-ea291d572138",
+            "Virginia Mueller",
+            "+12406799164",
+            "dorothy.boyer@hotmail.com",
+            true,
+            "32877d50-79a7-5ee2-8d8b-a5b48aa8bab0",
+            "2022-02-02 00:01:35",
+            "2022-02-02 00:01:35"
+        ]
+    },
+    {
+        "query": "insert into `contact_types` (`type_id`, `contact_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
+        "bindings": [
+            "b5d04d0f-2e36-57ab-9258-00ab1183d24b",
+            "32877d50-79a7-5ee2-8d8b-a5b48aa8bab0",
+            "0dfc8015-3d3f-5b15-84c5-ebdba39575b1",
+            "2022-02-02 00:01:36",
+            "2022-02-02 00:01:36"
+        ]
+    },
+    {
+        "query": "insert into `contacts` (`object_type`, `object_id`, `name`, `phone_number`, `email`, `phone_valid`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "bindings": [
+            "Reseller",
+            "a77f6f96-9c33-4e08-9838-ea291d572138",
+            "Giuseppe Heidenreich",
+            "+12406799164",
+            "alba.cremin@gmail.com",
+            true,
+            "a5cea900-3534-5595-b6e5-4fa444bcac7b",
+            "2022-02-02 00:01:37",
+            "2022-02-02 00:01:37"
+        ]
+    },
+    {
+        "query": "insert into `contact_types` (`type_id`, `contact_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
+        "bindings": [
+            "b5d04d0f-2e36-57ab-9258-00ab1183d24b",
+            "a5cea900-3534-5595-b6e5-4fa444bcac7b",
+            "64e2ee69-15e4-5ec2-aa9b-9e780cd60380",
+            "2022-02-02 00:01:38",
+            "2022-02-02 00:01:38"
+        ]
+    },
+    {
+        "query": "insert into `reseller_locations` (`reseller_id`, `location_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
+        "bindings": [
+            "a77f6f96-9c33-4e08-9838-ea291d572138",
+            "10116d6d-f04b-5b60-8674-640e94d3133c",
+            "1b514571-95b3-5ebd-b7fc-8ae283e4bc58",
+            "2022-02-02 00:01:39",
+            "2022-02-02 00:01:39"
+        ]
+    },
+    {
+        "query": "select `organizations`.* from `organizations` where `organizations`.`id` = ? limit 1",
+        "bindings": [
+            "a77f6f96-9c33-4e08-9838-ea291d572138"
+        ]
+    },
+    {
+        "query": "insert into `organizations` (`id`, `type`, `name`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
+        "bindings": [
+            "a77f6f96-9c33-4e08-9838-ea291d572138",
+            "Reseller",
+            "Runolfsdottir-Roob",
+            "2022-02-02 00:01:40",
+            "2022-02-02 00:01:40"
+        ]
+    },
+    {
+        "query": "select `reseller_locations`.* from `reseller_locations` where `reseller_locations`.`reseller_id` = ? and `reseller_locations`.`reseller_id` is not null and `reseller_locations`.`deleted_at` is null",
+        "bindings": [
+            "3c01bf74-b2b8-437d-8492-75a061282101"
+        ]
+    },
+    {
+        "query": "select `cities`.* from `cities` where (`country_id` = ? and `key` = ?) and `cities`.`deleted_at` is null limit 1",
+        "bindings": [
+            "fa8933b9-3099-5db8-bf4d-ff966a29cbac",
+            "jeanneborough"
+        ]
+    },
+    {
+        "query": "insert into `cities` (`key`, `name`, `country_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?)",
+        "bindings": [
+            "Jeanneborough",
+            "Jeanneborough",
+            "fa8933b9-3099-5db8-bf4d-ff966a29cbac",
+            "5b70658a-6909-5e91-bef5-70074ae622e5",
+            "2022-02-02 00:01:45",
+            "2022-02-02 00:01:45"
+        ]
+    },
+    {
+        "query": "select `locations`.* from `locations` where (`city_id` = ? and `country_id` = ? and CONCAT(`line_one`, IF(`line_two` != '', CONCAT(' ', `line_two`), '')) = ? and `postcode` = ?) and `locations`.`deleted_at` is null limit 1",
+        "bindings": [
+            "5b70658a-6909-5e91-bef5-70074ae622e5",
+            "fa8933b9-3099-5db8-bf4d-ff966a29cbac",
+            "8738 layne mountain",
+            "12667-3020"
+        ]
+    },
+    {
+        "query": "insert into `locations` (`country_id`, `city_id`, `postcode`, `state`, `line_one`, `line_two`, `latitude`, `longitude`, `geohash`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "bindings": [
+            "fa8933b9-3099-5db8-bf4d-ff966a29cbac",
+            "5b70658a-6909-5e91-bef5-70074ae622e5",
+            "12667-3020",
+            "",
+            "8738 Layne Mountain",
+            "",
+            "20.527279",
+            "-26.484917",
+            "e7thv2fk0dns",
+            "2ae4ffe0-f42e-5074-a85b-82986bf7e81c",
+            "2022-02-02 00:01:46",
+            "2022-02-02 00:01:46"
+        ]
+    },
+    {
+        "query": "insert into `kpis` (`assets_total`, `assets_active`, `assets_active_percent`, `assets_active_on_contract`, `assets_active_on_warranty`, `assets_active_exposed`, `customers_active`, `customers_active_new`, `contracts_active`, `contracts_active_amount`, `contracts_active_new`, `contracts_expiring`, `contracts_expired`, `quotes_active`, `quotes_active_amount`, `quotes_active_new`, `quotes_expiring`, `quotes_expired`, `quotes_ordered`, `quotes_accepted`, `quotes_requested`, `quotes_received`, `quotes_rejected`, `quotes_awaiting`, `service_revenue_total_amount`, `service_revenue_total_amount_change`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "bindings": [
+            0,
+            0,
+            0.0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0.0,
+            0,
+            0,
+            0,
+            0,
+            0.0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0.0,
+            0.0,
+            "edb37cab-f0d1-532a-be64-5d2bf981400d",
+            "2022-02-02 00:01:47",
+            "2022-02-02 00:01:47"
+        ]
+    },
+    {
+        "query": "insert into `resellers` (`id`, `name`, `changed_at`, `statuses_count`, `contacts_count`, `locations_count`, `kpi_id`, `synced_at`, `assets_count`, `customers_count`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "bindings": [
+            "3c01bf74-b2b8-437d-8492-75a061282101",
+            "Dickens, Considine and Reichert",
+            "2022-07-07 00:51:55",
+            0,
+            1,
+            1,
+            "edb37cab-f0d1-532a-be64-5d2bf981400d",
+            "2022-02-02 00:01:48",
+            0,
+            0,
+            "2022-02-02 00:01:49",
+            "2022-02-02 00:01:49"
+        ]
+    },
+    {
+        "query": "insert into `contacts` (`object_type`, `object_id`, `name`, `phone_number`, `email`, `phone_valid`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "bindings": [
+            "Reseller",
+            "3c01bf74-b2b8-437d-8492-75a061282101",
+            "Brice Brown",
+            "+19087584301",
+            "lebsack.antonia@gmail.com",
+            true,
+            "f9f81e8d-218c-5d23-94d1-45093cebcb54",
+            "2022-02-02 00:01:50",
+            "2022-02-02 00:01:50"
+        ]
+    },
+    {
+        "query": "insert into `contact_types` (`type_id`, `contact_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
+        "bindings": [
+            "b5d04d0f-2e36-57ab-9258-00ab1183d24b",
+            "f9f81e8d-218c-5d23-94d1-45093cebcb54",
+            "fccdd5bb-bac0-5b98-ae08-6acb31bed76b",
+            "2022-02-02 00:01:51",
+            "2022-02-02 00:01:51"
+        ]
+    },
+    {
+        "query": "insert into `reseller_locations` (`reseller_id`, `location_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
+        "bindings": [
+            "3c01bf74-b2b8-437d-8492-75a061282101",
+            "2ae4ffe0-f42e-5074-a85b-82986bf7e81c",
+            "d8d8d756-7e33-5fc2-bd98-9743e2ed089e",
+            "2022-02-02 00:01:52",
+            "2022-02-02 00:01:52"
+        ]
+    },
+    {
+        "query": "select `organizations`.* from `organizations` where `organizations`.`id` = ? limit 1",
+        "bindings": [
+            "3c01bf74-b2b8-437d-8492-75a061282101"
+        ]
+    },
+    {
+        "query": "insert into `organizations` (`id`, `type`, `name`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
+        "bindings": [
+            "3c01bf74-b2b8-437d-8492-75a061282101",
+            "Reseller",
+            "Dickens, Considine and Reichert",
+            "2022-02-02 00:01:53",
+            "2022-02-02 00:01:53"
+        ]
+    },
+    {
+        "query": "select `reseller_locations`.* from `reseller_locations` where `reseller_locations`.`reseller_id` = ? and `reseller_locations`.`reseller_id` is not null and `reseller_locations`.`deleted_at` is null",
+        "bindings": [
+            "2d1c8169-8f80-41bd-8d37-e10936d25546"
+        ]
+    },
+    {
+        "query": "select `cities`.* from `cities` where (`country_id` = ? and `key` = ?) and `cities`.`deleted_at` is null limit 1",
+        "bindings": [
+            "fa8933b9-3099-5db8-bf4d-ff966a29cbac",
+            "courtneyville"
+        ]
+    },
+    {
+        "query": "insert into `cities` (`key`, `name`, `country_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?)",
+        "bindings": [
+            "Courtneyville",
+            "Courtneyville",
+            "fa8933b9-3099-5db8-bf4d-ff966a29cbac",
+            "8679113e-2c7e-550a-bedd-eb81545f543a",
+            "2022-02-02 00:01:58",
+            "2022-02-02 00:01:58"
+        ]
+    },
+    {
+        "query": "select `locations`.* from `locations` where (`city_id` = ? and `country_id` = ? and CONCAT(`line_one`, IF(`line_two` != '', CONCAT(' ', `line_two`), '')) = ? and `postcode` = ?) and `locations`.`deleted_at` is null limit 1",
+        "bindings": [
+            "8679113e-2c7e-550a-bedd-eb81545f543a",
+            "fa8933b9-3099-5db8-bf4d-ff966a29cbac",
+            "67568 leffler islands",
+            "97493-1531"
+        ]
+    },
+    {
+        "query": "insert into `locations` (`country_id`, `city_id`, `postcode`, `state`, `line_one`, `line_two`, `latitude`, `longitude`, `geohash`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "bindings": [
+            "fa8933b9-3099-5db8-bf4d-ff966a29cbac",
+            "8679113e-2c7e-550a-bedd-eb81545f543a",
+            "97493-1531",
+            "",
+            "67568 Leffler Islands",
+            "",
+            "-19.557842",
+            "-68.967496",
+            "6kwbwxe7kf58",
+            "4136f651-2506-50f5-bf0a-d48345ea13de",
+            "2022-02-02 00:01:59",
+            "2022-02-02 00:01:59"
+        ]
+    },
+    {
+        "query": "insert into `kpis` (`assets_total`, `assets_active`, `assets_active_percent`, `assets_active_on_contract`, `assets_active_on_warranty`, `assets_active_exposed`, `customers_active`, `customers_active_new`, `contracts_active`, `contracts_active_amount`, `contracts_active_new`, `contracts_expiring`, `contracts_expired`, `quotes_active`, `quotes_active_amount`, `quotes_active_new`, `quotes_expiring`, `quotes_expired`, `quotes_ordered`, `quotes_accepted`, `quotes_requested`, `quotes_received`, `quotes_rejected`, `quotes_awaiting`, `service_revenue_total_amount`, `service_revenue_total_amount_change`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "bindings": [
+            0,
+            0,
+            0.0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0.0,
+            0,
+            0,
+            0,
+            0,
+            0.0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0.0,
+            0.0,
+            "71633ce0-592f-5fb6-a188-92c2c85b7147",
+            "2022-02-02 00:02:00",
+            "2022-02-02 00:02:00"
+        ]
+    },
+    {
+        "query": "insert into `resellers` (`id`, `name`, `changed_at`, `statuses_count`, `contacts_count`, `locations_count`, `kpi_id`, `synced_at`, `assets_count`, `customers_count`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "bindings": [
+            "2d1c8169-8f80-41bd-8d37-e10936d25546",
+            "Orn-Gibson",
+            "2022-07-07 00:49:20",
+            0,
+            2,
+            1,
+            "71633ce0-592f-5fb6-a188-92c2c85b7147",
+            "2022-02-02 00:02:01",
+            0,
+            0,
+            "2022-02-02 00:02:02",
+            "2022-02-02 00:02:02"
+        ]
+    },
+    {
+        "query": "insert into `contacts` (`object_type`, `object_id`, `name`, `phone_number`, `email`, `phone_valid`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "bindings": [
+            "Reseller",
+            "2d1c8169-8f80-41bd-8d37-e10936d25546",
+            "Ronaldo Hackett",
+            "+17274434024",
+            "teresa28@hane.info",
+            true,
+            "89e00d66-3230-5f41-a737-b6ed131d7cd4",
+            "2022-02-02 00:02:03",
+            "2022-02-02 00:02:03"
+        ]
+    },
+    {
+        "query": "insert into `contact_types` (`type_id`, `contact_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
+        "bindings": [
+            "b5d04d0f-2e36-57ab-9258-00ab1183d24b",
+            "89e00d66-3230-5f41-a737-b6ed131d7cd4",
+            "7f8a9cfe-74bc-5008-946e-37a4a13d1aef",
+            "2022-02-02 00:02:04",
+            "2022-02-02 00:02:04"
+        ]
+    },
+    {
+        "query": "insert into `contacts` (`object_type`, `object_id`, `name`, `phone_number`, `email`, `phone_valid`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "bindings": [
+            "Reseller",
+            "2d1c8169-8f80-41bd-8d37-e10936d25546",
+            "Adrienne Schiller",
+            "+14063266439",
+            "dullrich@ziemann.com",
+            true,
+            "cd4b0d78-0649-58e0-9d9f-7a8dee9025d0",
+            "2022-02-02 00:02:05",
+            "2022-02-02 00:02:05"
+        ]
+    },
+    {
+        "query": "insert into `contact_types` (`type_id`, `contact_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
+        "bindings": [
+            "b5d04d0f-2e36-57ab-9258-00ab1183d24b",
+            "cd4b0d78-0649-58e0-9d9f-7a8dee9025d0",
+            "f9cd62d6-0b7d-5ee5-b6ba-3b713c2ff2d4",
+            "2022-02-02 00:02:06",
+            "2022-02-02 00:02:06"
+        ]
+    },
+    {
+        "query": "insert into `reseller_locations` (`reseller_id`, `location_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
+        "bindings": [
+            "2d1c8169-8f80-41bd-8d37-e10936d25546",
+            "4136f651-2506-50f5-bf0a-d48345ea13de",
+            "d801a257-07d1-5086-ad4c-9df6142a1060",
+            "2022-02-02 00:02:07",
+            "2022-02-02 00:02:07"
+        ]
+    },
+    {
+        "query": "select `organizations`.* from `organizations` where `organizations`.`id` = ? limit 1",
+        "bindings": [
+            "2d1c8169-8f80-41bd-8d37-e10936d25546"
+        ]
+    },
+    {
+        "query": "insert into `organizations` (`id`, `type`, `name`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
+        "bindings": [
+            "2d1c8169-8f80-41bd-8d37-e10936d25546",
+            "Reseller",
+            "Orn-Gibson",
+            "2022-02-02 00:02:08",
+            "2022-02-02 00:02:08"
+        ]
+    },
+    {
+        "query": "select `reseller_locations`.* from `reseller_locations` where `reseller_locations`.`reseller_id` = ? and `reseller_locations`.`reseller_id` is not null and `reseller_locations`.`deleted_at` is null",
+        "bindings": [
+            "c017d376-0055-42a9-80d8-ac90cef3f0c5"
+        ]
+    },
+    {
+        "query": "select `cities`.* from `cities` where (`country_id` = ? and `key` = ?) and `cities`.`deleted_at` is null limit 1",
+        "bindings": [
+            "fa8933b9-3099-5db8-bf4d-ff966a29cbac",
+            "parkerchester"
+        ]
+    },
+    {
+        "query": "insert into `cities` (`key`, `name`, `country_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?)",
+        "bindings": [
+            "Parkerchester",
+            "Parkerchester",
+            "fa8933b9-3099-5db8-bf4d-ff966a29cbac",
+            "c9458bab-a2bc-5d27-b36b-65b03681f9c5",
+            "2022-02-02 00:02:13",
+            "2022-02-02 00:02:13"
+        ]
+    },
+    {
+        "query": "select `locations`.* from `locations` where (`city_id` = ? and `country_id` = ? and CONCAT(`line_one`, IF(`line_two` != '', CONCAT(' ', `line_two`), '')) = ? and `postcode` = ?) and `locations`.`deleted_at` is null limit 1",
+        "bindings": [
+            "c9458bab-a2bc-5d27-b36b-65b03681f9c5",
+            "fa8933b9-3099-5db8-bf4d-ff966a29cbac",
+            "1596 ona trail apt. 974",
+            "91632-5661"
+        ]
+    },
+    {
+        "query": "insert into `locations` (`country_id`, `city_id`, `postcode`, `state`, `line_one`, `line_two`, `latitude`, `longitude`, `geohash`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "bindings": [
+            "fa8933b9-3099-5db8-bf4d-ff966a29cbac",
+            "c9458bab-a2bc-5d27-b36b-65b03681f9c5",
+            "91632-5661",
+            "",
+            "1596 Ona Trail Apt. 974",
+            "",
+            "-3.762645",
+            "-66.278628",
+            "6x2feg13h00u",
+            "8c0ccdf4-702c-54ce-9547-53da1b81fb3a",
+            "2022-02-02 00:02:14",
+            "2022-02-02 00:02:14"
+        ]
+    },
+    {
+        "query": "insert into `kpis` (`assets_total`, `assets_active`, `assets_active_percent`, `assets_active_on_contract`, `assets_active_on_warranty`, `assets_active_exposed`, `customers_active`, `customers_active_new`, `contracts_active`, `contracts_active_amount`, `contracts_active_new`, `contracts_expiring`, `contracts_expired`, `quotes_active`, `quotes_active_amount`, `quotes_active_new`, `quotes_expiring`, `quotes_expired`, `quotes_ordered`, `quotes_accepted`, `quotes_requested`, `quotes_received`, `quotes_rejected`, `quotes_awaiting`, `service_revenue_total_amount`, `service_revenue_total_amount_change`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "bindings": [
+            0,
+            0,
+            0.0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0.0,
+            0,
+            0,
+            0,
+            0,
+            0.0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0.0,
+            0.0,
+            "c5e70f81-46f0-549d-a9fc-31fb21303e6c",
+            "2022-02-02 00:02:15",
+            "2022-02-02 00:02:15"
+        ]
+    },
+    {
+        "query": "insert into `resellers` (`id`, `name`, `changed_at`, `statuses_count`, `contacts_count`, `locations_count`, `kpi_id`, `synced_at`, `assets_count`, `customers_count`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "bindings": [
+            "c017d376-0055-42a9-80d8-ac90cef3f0c5",
+            "Rice LLC",
+            "2022-07-07 01:15:02",
+            0,
+            2,
+            1,
+            "c5e70f81-46f0-549d-a9fc-31fb21303e6c",
+            "2022-02-02 00:02:16",
+            0,
+            0,
+            "2022-02-02 00:02:17",
+            "2022-02-02 00:02:17"
+        ]
+    },
+    {
+        "query": "insert into `contacts` (`object_type`, `object_id`, `name`, `phone_number`, `email`, `phone_valid`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "bindings": [
+            "Reseller",
+            "c017d376-0055-42a9-80d8-ac90cef3f0c5",
+            "Teresa Becker",
+            "+17405169989",
+            "ledner.elmo@botsford.com",
+            true,
+            "d0218571-ff72-5ffa-b0b0-ee539edb9fdd",
+            "2022-02-02 00:02:18",
+            "2022-02-02 00:02:18"
+        ]
+    },
+    {
+        "query": "insert into `contact_types` (`type_id`, `contact_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
+        "bindings": [
+            "b5d04d0f-2e36-57ab-9258-00ab1183d24b",
+            "d0218571-ff72-5ffa-b0b0-ee539edb9fdd",
+            "984a3e61-56b7-5a5f-99cb-c91359919cc6",
+            "2022-02-02 00:02:19",
+            "2022-02-02 00:02:19"
+        ]
+    },
+    {
+        "query": "insert into `contacts` (`object_type`, `object_id`, `name`, `phone_number`, `email`, `phone_valid`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "bindings": [
+            "Reseller",
+            "c017d376-0055-42a9-80d8-ac90cef3f0c5",
+            "Richie Bergstrom",
+            null,
+            "olin35@gorczany.com",
+            null,
+            "c358f350-6327-539c-bd2b-6d2e0452b9b0",
+            "2022-02-02 00:02:20",
+            "2022-02-02 00:02:20"
+        ]
+    },
+    {
+        "query": "insert into `contact_types` (`type_id`, `contact_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
+        "bindings": [
+            "b5d04d0f-2e36-57ab-9258-00ab1183d24b",
+            "c358f350-6327-539c-bd2b-6d2e0452b9b0",
+            "8008917a-e94b-567f-aee7-e187ad70eea3",
+            "2022-02-02 00:02:21",
+            "2022-02-02 00:02:21"
+        ]
+    },
+    {
+        "query": "insert into `reseller_locations` (`reseller_id`, `location_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
+        "bindings": [
+            "c017d376-0055-42a9-80d8-ac90cef3f0c5",
+            "8c0ccdf4-702c-54ce-9547-53da1b81fb3a",
+            "69843c8b-4fef-51d3-a8b5-c9f894fe83d2",
+            "2022-02-02 00:02:22",
+            "2022-02-02 00:02:22"
+        ]
+    },
+    {
+        "query": "select `organizations`.* from `organizations` where `organizations`.`id` = ? limit 1",
+        "bindings": [
+            "c017d376-0055-42a9-80d8-ac90cef3f0c5"
+        ]
+    },
+    {
+        "query": "insert into `organizations` (`id`, `type`, `name`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
+        "bindings": [
+            "c017d376-0055-42a9-80d8-ac90cef3f0c5",
+            "Reseller",
+            "Rice LLC",
+            "2022-02-02 00:02:23",
+            "2022-02-02 00:02:23"
+        ]
+    },
+    {
+        "query": "select `resellers`.* from `resellers` where ((`resellers`.`id` = ?))",
+        "bindings": [
+            "00000000-0000-0000-0000-000000000000"
+        ]
+    },
+    {
+        "query": "select `reseller_locations`.* from `reseller_locations` where `reseller_locations`.`reseller_id` in (?) and `reseller_locations`.`deleted_at` is null",
+        "bindings": [
+            "00000000-0000-0000-0000-000000000000"
+        ]
+    },
+    {
+        "query": "select `contacts`.* from `contacts` where `contacts`.`object_id` in (?) and `contacts`.`object_type` = ? and `contacts`.`deleted_at` is null",
+        "bindings": [
+            "00000000-0000-0000-0000-000000000000",
+            "Reseller"
+        ]
+    },
+    {
+        "query": "select `kpis`.* from `kpis` where 0 = 1 and `kpis`.`deleted_at` is null",
+        "bindings": []
+    },
+    {
+        "query": "select `organizations`.* from `organizations` where `organizations`.`id` = ? and `organizations`.`deleted_at` is null limit 1",
+        "bindings": [
+            "00000000-0000-0000-0000-000000000000"
+        ]
+    },
+    {
+        "query": "update `resellers` set `deleted_at` = ?, `resellers`.`updated_at` = ? where `id` = ?",
+        "bindings": [
+            "2022-02-02 00:02:27",
+            "2022-02-02 00:02:27",
+            "00000000-0000-0000-0000-000000000000"
+        ]
+    }
+]

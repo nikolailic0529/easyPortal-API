@@ -2,8 +2,7 @@
 
 namespace App\Models\Relations;
 
-use App\Models\Status;
-use App\Utils\Eloquent\CascadeDeletes\CascadeDelete;
+use App\Models\Data\Status;
 use App\Utils\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use InvalidArgumentException;
@@ -17,7 +16,6 @@ trait HasStatusNullable {
     /**
      * @return BelongsTo<Status, self>
      */
-    #[CascadeDelete(false)]
     public function status(): BelongsTo {
         return $this->belongsTo(Status::class);
     }

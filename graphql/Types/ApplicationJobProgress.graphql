@@ -1,4 +1,12 @@
 type ApplicationJobProgress {
+    name: String
     total: Int
-    value: Int!
+    processed: Int
+    success: Int
+    failed: Int
+    updated: Int
+    created: Int
+    deleted: Int
+    current: Boolean
+    operations: [ApplicationJobProgress!]
 }

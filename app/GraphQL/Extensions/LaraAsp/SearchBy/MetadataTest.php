@@ -4,8 +4,8 @@ namespace App\GraphQL\Extensions\LaraAsp\SearchBy;
 
 use App\Models\Asset;
 use App\Models\Customer;
+use App\Models\Data\Product;
 use App\Models\Document;
-use App\Models\Product;
 use Tests\TestCase;
 
 /**

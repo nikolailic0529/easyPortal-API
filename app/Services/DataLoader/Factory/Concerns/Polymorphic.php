@@ -2,7 +2,7 @@
 
 namespace App\Services\DataLoader\Factory\Concerns;
 
-use App\Models\Type;
+use App\Models\Data\Type;
 use App\Utils\Eloquent\Model;
 use Closure;
 use Illuminate\Database\Eloquent\Collection;
@@ -19,7 +19,12 @@ trait Polymorphic {
     /**
      * @template O of \App\Utils\Eloquent\Model
      * @template T of \App\Services\DataLoader\Schema\Type
-     * @template M of \App\Models\Contact|\App\Models\Location|\App\Models\CustomerLocation|\App\Models\ResellerLocation
+     * @template M of (
+     *      \App\Models\Contact|
+     *      \App\Models\Data\Location|
+     *      \App\Models\CustomerLocation|
+     *      \App\Models\ResellerLocation
+     *      )
      *
      * @param O                   $owner
      * @param array<T>            $objects

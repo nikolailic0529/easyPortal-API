@@ -3,16 +3,16 @@
 namespace App\Services\DataLoader\Factory\Factories;
 
 use App\Models\Asset as AssetModel;
+use App\Models\Data\ProductGroup;
+use App\Models\Data\ProductLine;
+use App\Models\Data\Psp;
+use App\Models\Data\ServiceGroup;
+use App\Models\Data\ServiceLevel;
+use App\Models\Data\Status;
+use App\Models\Data\Type as TypeModel;
 use App\Models\Document as DocumentModel;
 use App\Models\DocumentEntry as DocumentEntryModel;
 use App\Models\OemGroup;
-use App\Models\ProductGroup;
-use App\Models\ProductLine;
-use App\Models\Psp;
-use App\Models\ServiceGroup;
-use App\Models\ServiceLevel;
-use App\Models\Status;
-use App\Models\Type as TypeModel;
 use App\Services\DataLoader\Exceptions\AssetNotFound;
 use App\Services\DataLoader\Exceptions\FailedToProcessDocumentEntry;
 use App\Services\DataLoader\Exceptions\FailedToProcessDocumentEntryNoAsset;
@@ -41,8 +41,8 @@ use App\Services\DataLoader\Finders\AssetFinder;
 use App\Services\DataLoader\Finders\CustomerFinder;
 use App\Services\DataLoader\Finders\DistributorFinder;
 use App\Services\DataLoader\Finders\ResellerFinder;
-use App\Services\DataLoader\Importer\ImporterChunkData;
 use App\Services\DataLoader\Normalizer\Normalizer;
+use App\Services\DataLoader\Processors\Importer\ImporterChunkData;
 use App\Services\DataLoader\Resolver\Resolvers\AssetResolver;
 use App\Services\DataLoader\Resolver\Resolvers\CurrencyResolver;
 use App\Services\DataLoader\Resolver\Resolvers\CustomerResolver;
@@ -291,7 +291,8 @@ class DocumentFactory extends ModelFactory {
                 $model->entries_count = 0;
             }
 
-            // We cannot save document if assets doesn't exist
+            // We cannot save Document if asset doesn't exist.
+            // We cannot restore Document because Asset may have outdated data.
             if ($object->asset->exists) {
                 $model->save();
             }
@@ -372,7 +373,11 @@ class DocumentFactory extends ModelFactory {
             $model->statuses    = $this->documentStatuses($model, $document);
 
             // Save
-            $model->save();
+            if ($model->trashed()) {
+                $model->restore();
+            } else {
+                $model->save();
+            }
 
             // Return
             return $model;

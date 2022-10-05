@@ -2,7 +2,7 @@
 
 namespace App\Rules;
 
-use App\Models\Oem;
+use App\Models\Data\Oem;
 use Illuminate\Contracts\Validation\Rule;
 
 use function trans;

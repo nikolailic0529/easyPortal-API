@@ -1,8 +1,8 @@
 <?php declare(strict_types = 1);
 
 use App\Models\Customer;
+use App\Models\Data\Type;
 use App\Models\Reseller;
-use App\Models\Type;
 use LastDragon_ru\LaraASP\Migrator\Migrations\RawMigration;
 
 return new class() extends RawMigration {

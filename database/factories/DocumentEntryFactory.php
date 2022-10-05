@@ -3,10 +3,10 @@
 namespace Database\Factories;
 
 use App\Models\Asset;
-use App\Models\Currency;
+use App\Models\Data\Currency;
+use App\Models\Data\Product;
 use App\Models\Document;
 use App\Models\DocumentEntry;
-use App\Models\Product;
 use App\Utils\Eloquent\Testing\Database\Factory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Date;

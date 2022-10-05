@@ -14,19 +14,17 @@ These jobs load all objects from Cosmos and needed only for one time while initi
 | `ep-data-loader-assets-importer`       | No        |
 | `ep-data-loader-documents-importer`    | No        |
 
+### Synchronizers
 
-### Updaters
+These jobs create new, update existing, delete removed objects and they are required to sync changes with Cosmos.
 
-These jobs update/create changed/new objects and required to sync changes with Cosmos.
-
-| Job                                   | Parallel? | 
-|---------------------------------------|-----------|
-| `ep-data-loader-distributors-updater` | No        |
-| `ep-data-loader-resellers-updater`    | No        |
-| `ep-data-loader-customers-updater`    | No        |
-| `ep-data-loader-assets-updater`       | No        |
-| `ep-data-loader-documents-updater`    | No        |
-
+| Job                                        | Parallel? | 
+|--------------------------------------------|-----------|
+| `ep-data-loader-distributors-synchronizer` | No        |
+| `ep-data-loader-resellers-synchronizer`    | No        |
+| `ep-data-loader-customers-synchronizer`    | No        |
+| `ep-data-loader-assets-synchronizer`       | No        |
+| `ep-data-loader-documents-synchronizer`    | No        |
 
 ## Commands
 
@@ -35,7 +33,6 @@ There are also a few commands that allow to import/update objects, please use fo
 ```shell
 php artisan list | grep ep:data-loader
 ```
-
 
 ## Limitations/Issues/Notes
 

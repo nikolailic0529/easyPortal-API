@@ -4,8 +4,8 @@ namespace App\GraphQL\Queries\Customers;
 
 use App\Models\Customer;
 use App\Models\CustomerLocation;
+use App\Models\Data\Location;
 use App\Models\Kpi;
-use App\Models\Location;
 use App\Models\Organization;
 use App\Models\Reseller;
 use App\Models\User;
@@ -334,7 +334,7 @@ class CustomersTest extends TestCase {
                                 'id' => $organization,
                             ]);
 
-                            /** @var Location $location */
+                            /** @var \App\Models\Data\Location $location */
                             $location = Location::factory()->create([
                                 'id'        => 'f9396bc1-2f2f-4c58-2f2f-7a224ac20944',
                                 'state'     => 'state1',

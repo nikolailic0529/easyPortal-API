@@ -5,7 +5,6 @@ namespace Tests;
 use App\Services\Audit\Auditor;
 use App\Services\Logger\Logger;
 use App\Services\Settings\Storage;
-use App\Utils\Eloquent\GlobalScopes\GlobalScopes;
 use App\Utils\Eloquent\GlobalScopes\State;
 use Closure;
 use DateTimeInterface;
@@ -13,7 +12,6 @@ use Illuminate\Console\Command;
 use Illuminate\Contracts\Config\Repository;
 use Illuminate\Contracts\Console\Kernel;
 use Illuminate\Contracts\Foundation\Application;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\Relation;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Support\Arr;
@@ -40,6 +38,7 @@ use function file_put_contents;
 use function implode;
 use function is_array;
 use function pathinfo;
+use function trim;
 
 use const PATHINFO_EXTENSION;
 
@@ -61,6 +60,7 @@ abstract class TestCase extends BaseTestCase {
     use FakeDisks;
     use WithTempFile;
     use WithEvents;
+    use WithModels;
     use WithDeprecations;
 
     /**
@@ -90,9 +90,10 @@ abstract class TestCase extends BaseTestCase {
             State::reset();
         });
 
-        // Some tests may use custom UUIDs, we need to reset it
-        $this->beforeApplicationDestroyed(static function (): void {
-            Str::createUuidsNormally();
+        // Some tests may use custom UUIDs/Dates, we need to reset it
+        $this->beforeApplicationDestroyed(function (): void {
+            $this->resetUuidFactory();
+            $this->resetDateFactory();
         });
 
         // We cache AST for all tests because AST generation takes ~80% of the time.
@@ -147,30 +148,18 @@ abstract class TestCase extends BaseTestCase {
         $this->databaseRefreshTestDatabase();
     }
 
-    /**
-     * @param array<class-string<Model>,int> $expected
-     */
-    protected function assertModelsCount(array $expected): void {
-        $actual = [];
-
-        foreach ($expected as $model => $count) {
-            $actual[$model] = GlobalScopes::callWithoutAll(static function () use ($model): int {
-                return $model::query()->count();
-            });
-        }
-
-        self::assertEquals($expected, $actual);
-    }
-
     protected function assertCommandDescription(string $command, string $expected = '.txt'): void {
-        $buffer = new BufferedOutput();
-        $kernel = $this->app->make(Kernel::class);
-        $format = pathinfo($expected, PATHINFO_EXTENSION);
-        $result = $kernel->call('help', ['command_name' => $command, '--format' => $format], $buffer);
-        $actual = $buffer->fetch();
-        $data   = $this->getTestData();
+        $data    = $this->getTestData();
+        $buffer  = new BufferedOutput();
+        $kernel  = $this->app->make(Kernel::class);
+        $format  = pathinfo($expected, PATHINFO_EXTENSION);
+        $result  = $kernel->call('help', ['command_name' => $command, '--format' => $format], $buffer);
+        $actual  = $buffer->fetch();
+        $content = $data->file($expected)->isFile()
+            ? trim($data->content($expected))
+            : null;
 
-        if ($data->content($expected) === '') {
+        if (!$content) {
             self::assertNotFalse(file_put_contents($data->path($expected), $actual));
         }
 

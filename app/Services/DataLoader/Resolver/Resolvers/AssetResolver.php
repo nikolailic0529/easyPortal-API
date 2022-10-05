@@ -3,6 +3,7 @@
 namespace App\Services\DataLoader\Resolver\Resolvers;
 
 use App\Models\Asset;
+use App\Services\DataLoader\Normalizer\Normalizer;
 use App\Services\DataLoader\Resolver\Resolver;
 use Closure;
 use Illuminate\Database\Eloquent\Builder;
@@ -12,7 +13,7 @@ use Illuminate\Database\Eloquent\Builder;
  */
 class AssetResolver extends Resolver {
     /**
-     * @param Closure(\App\Services\DataLoader\Normalizer\Normalizer=): Asset|null $factory
+     * @param Closure(Normalizer=): Asset|null $factory
      *
      * @return ($factory is null ? Asset|null : Asset)
      */
@@ -20,14 +21,7 @@ class AssetResolver extends Resolver {
         return $this->resolve($id, $factory);
     }
 
-    /**
-     * @inheritDoc
-     */
-    public function prefetch(array $keys, Closure|null $callback = null): static {
-        return parent::prefetch($keys, $callback);
-    }
-
     protected function getFindQuery(): ?Builder {
-        return Asset::query();
+        return Asset::withTrashed();
     }
 }

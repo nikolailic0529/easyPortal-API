@@ -2,8 +2,7 @@
 
 namespace App\Models\Relations;
 
-use App\Models\Currency;
-use App\Utils\Eloquent\CascadeDeletes\CascadeDelete;
+use App\Models\Data\Currency;
 use App\Utils\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
@@ -14,7 +13,6 @@ trait HasCurrency {
     /**
      * @return BelongsTo<Currency, self>
      */
-    #[CascadeDelete(false)]
     public function currency(): BelongsTo {
         return $this->belongsTo(Currency::class);
     }

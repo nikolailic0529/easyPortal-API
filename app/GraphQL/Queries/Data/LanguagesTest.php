@@ -2,7 +2,7 @@
 
 namespace App\GraphQL\Queries\Data;
 
-use App\Models\Language;
+use App\Models\Data\Language;
 use Closure;
 use LastDragon_ru\LaraASP\Testing\Constraints\Response\Response;
 use LastDragon_ru\LaraASP\Testing\Providers\ArrayDataProvider;

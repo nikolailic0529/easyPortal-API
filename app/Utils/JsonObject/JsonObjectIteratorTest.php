@@ -2,6 +2,7 @@
 
 namespace App\Utils\JsonObject;
 
+use stdClass;
 use Tests\TestCase;
 
 /**
@@ -16,8 +17,8 @@ class JsonObjectIteratorTest extends TestCase {
      *
      * @dataProvider dataProviderGetIterator
      *
-     * @param array<mixed>                 $expected
-     * @param JsonObject|array<JsonObject> $items
+     * @param array<mixed>                              $expected
+     * @param JsonObject|array<JsonObject>|array<mixed> $items
      */
     public function testGetIterator(array $expected, JsonObject|array $items): void {
         $actual   = [];
@@ -37,7 +38,7 @@ class JsonObjectIteratorTest extends TestCase {
     // <editor-fold desc="DataProviders">
     // =========================================================================
     /**
-     * @return non-empty-array<string, array{array<mixed>, JsonObject|array<JsonObject>}>
+     * @return non-empty-array<string, array{array<mixed>, JsonObject|array<JsonObject>|array<mixed>}>
      */
     public function dataProviderGetIterator(): array {
         $a = new JsonObjectIteratorTest_Object([
@@ -49,6 +50,13 @@ class JsonObjectIteratorTest extends TestCase {
                 $a,
             ],
         ]);
+        $c = new class($a) extends stdClass {
+            public function __construct(
+                public mixed $c,
+            ) {
+                // empty
+            }
+        };
 
         return [
             'JsonObject'        => [
@@ -76,6 +84,15 @@ class JsonObjectIteratorTest extends TestCase {
                     ],
                 ],
                 [$b],
+            ],
+            'array<mixed>'      => [
+                [
+                    [
+                        'key'   => 0,
+                        'value' => $c,
+                    ],
+                ],
+                [$c],
             ],
         ];
     }

@@ -10,7 +10,7 @@ class DocumentLoaderData extends AssetsData {
 
     protected function generateData(string $path): bool {
         return $this->dumpClientResponses($path, function (): bool {
-            $result  = $this->kernel->call('ep:data-loader-document-update', [
+            $result  = $this->kernel->call('ep:data-loader-document-sync', [
                 'id' => static::DOCUMENT,
             ]);
             $success = $result === Command::SUCCESS;

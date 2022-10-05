@@ -6,6 +6,7 @@ use App\Services\Queue\Concerns\WithModelKeys;
 use App\Services\Queue\Job;
 use Closure;
 use Exception;
+use Illuminate\Contracts\Container\Container;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Queue;
@@ -28,13 +29,24 @@ class DispatcherTest extends TestCase {
      * @param Exception|array{task: class-string<Job>, keys: array<mixed>}|null $expected
      * @param Closure(static):mixed                                             $factory
      */
-    public function testDispatch(Exception|array|null $expected, Closure $factory): void {
+    public function testDispatch(Exception|array|null $expected, Closure $factory, bool $dispatchable): void {
         if ($expected instanceof Exception) {
             self::expectExceptionObject($expected);
         }
 
         $models     = $factory($this);
-        $dispatcher = new class($this->app) extends Dispatcher {
+        $dispatcher = new class($this->app, $dispatchable) extends Dispatcher {
+            public function __construct(
+                Container $container,
+                protected bool $dispatchable,
+            ) {
+                parent::__construct($container);
+            }
+
+            protected function isDispatchable(string $model): bool {
+                return $this->dispatchable;
+            }
+
             protected function dispatchModel(string $model, int|string $key): void {
                 $this->getContainer()->make(DispatcherTest_ModelTask::class)
                     ->init($model, [$key])
@@ -89,6 +101,7 @@ class DispatcherTest extends TestCase {
                 static function (): mixed {
                     return new Collection();
                 },
+                true,
             ],
             'no key'            => [
                 null,
@@ -97,6 +110,18 @@ class DispatcherTest extends TestCase {
                         // empty
                     };
                 },
+                true,
+            ],
+            'non dispatchable'  => [
+                null,
+                static function () use ($model): mixed {
+                    return new Collection([
+                        (clone $model)->forceFill([
+                            $model->getKeyName() => '792bdfe0-2fa9-4214-8871-bd28c6b99760',
+                        ]),
+                    ]);
+                },
+                false,
             ],
             'Collection (many)' => [
                 [
@@ -119,6 +144,7 @@ class DispatcherTest extends TestCase {
                         ]),
                     ]);
                 },
+                true,
             ],
             'Collection (one)'  => [
                 [
@@ -134,6 +160,7 @@ class DispatcherTest extends TestCase {
                         ]),
                     ]);
                 },
+                true,
             ],
             'Model'             => [
                 [
@@ -147,6 +174,7 @@ class DispatcherTest extends TestCase {
                         $model->getKeyName() => '40fbe33c-c94c-4410-85ca-c554eeba99ca',
                     ]);
                 },
+                true,
             ],
             'array (many)'      => [
                 [
@@ -166,6 +194,7 @@ class DispatcherTest extends TestCase {
                         ],
                     ];
                 },
+                true,
             ],
             'array (one)'       => [
                 [
@@ -182,6 +211,7 @@ class DispatcherTest extends TestCase {
                         ],
                     ];
                 },
+                true,
             ],
         ];
     }

@@ -9,7 +9,6 @@ use App\Services\DataLoader\Resolver\Resolver;
 use Closure;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Collection;
 
 /**
  * @extends Resolver<Contact>
@@ -26,10 +25,6 @@ class ContactResolver extends Resolver {
             $factory,
             $model->exists,
         );
-    }
-
-    public function put(Model|Collection|array $object): void {
-        parent::put($object);
     }
 
     protected function getFindQuery(): ?Builder {

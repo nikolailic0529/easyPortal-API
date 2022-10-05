@@ -3,16 +3,15 @@
 namespace App\Services\DataLoader\Testing;
 
 use App\Models\Asset;
-use App\Models\Coverage;
 use App\Models\Customer;
 use App\Models\CustomerLocation;
+use App\Models\Data\Coverage;
+use App\Models\Data\Location;
+use App\Models\Data\Status;
+use App\Models\Data\Type as TypeModel;
 use App\Models\Document as DocumentModel;
-use App\Models\Location;
 use App\Models\Reseller;
 use App\Models\ResellerLocation;
-use App\Models\Status;
-use App\Models\Tag;
-use App\Models\Type as TypeModel;
 use App\Services\DataLoader\Client\Client;
 use App\Services\DataLoader\Finders\AssetFinder as AssetFinderContract;
 use App\Services\DataLoader\Finders\CustomerFinder as CustomerFinderContract;
@@ -44,14 +43,14 @@ use function is_null;
 trait Helper {
     // <editor-fold desc="General">
     // =========================================================================
-    protected function latitude(string|float|null $latitude): ?string {
+    protected function latitude(string|null $latitude): ?string {
         $model           = new Location();
         $model->latitude = $latitude;
 
         return $model->latitude;
     }
 
-    protected function longitude(string|float|null $longitude): ?string {
+    protected function longitude(string|null $longitude): ?string {
         $model            = new Location();
         $model->longitude = $longitude;
 
@@ -93,7 +92,7 @@ trait Helper {
         $tags = [];
 
         foreach ($model->tags ?? [] as $tag) {
-            /** @var Tag $tag */
+            /** @var \App\Models\Data\Tag $tag */
             $tags["{$tag->name}"] = [
                 'name' => $tag->name,
             ];
@@ -130,7 +129,7 @@ trait Helper {
 
         if ($coverages) {
             foreach ($coverages as $coverage) {
-                /** @var Coverage $coverage */
+                /** @var \App\Models\Data\Coverage $coverage */
 
                 $result["{$coverage->key}"] = [
                     'key'  => $coverage->key,
@@ -200,10 +199,8 @@ trait Helper {
             $persons = (array) $object->contactPersons;
         } elseif ($object instanceof Company) {
             $persons = $object->companyContactPersons;
-        } elseif ($object instanceof ViewAsset) {
-            $persons = (array) $object->latestContactPersons;
         } else {
-            // empty
+            $persons = (array) $object->latestContactPersons;
         }
 
         foreach ($persons as $person) {
@@ -322,8 +319,8 @@ trait Helper {
             'line_one'    => $location->line_one,
             'line_two'    => $location->line_two,
             'types'       => [],
-            'latitude'    => $location->latitude,
-            'longitude'   => $location->longitude,
+            'latitude'    => $this->latitude($location->latitude),
+            'longitude'   => $this->longitude($location->longitude),
         ];
     }
     //</editor-fold>
@@ -430,7 +427,9 @@ trait Helper {
         $this->overrideUuidFactory('fbce8f60-847f-4ecb-9ba7-898bbda41dd2');
 
         $this->override(Client::class, function () use ($data): Client {
-            return $this->app->make(FakeClient::class)->setData($data);
+            return $this->app->make(FakeClient::class)
+                ->setLimit($data::LIMIT)
+                ->setData($data);
         });
 
         // Restore

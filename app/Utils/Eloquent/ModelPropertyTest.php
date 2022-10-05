@@ -4,8 +4,8 @@ namespace App\Utils\Eloquent;
 
 use App\Models\Asset;
 use App\Models\Customer;
-use App\Models\Oem;
-use App\Models\Type;
+use App\Models\Data\Oem;
+use App\Models\Data\Type;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Support\Collection;
 use LastDragon_ru\LaraASP\Eloquent\Exceptions\PropertyIsNotRelation;

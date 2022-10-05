@@ -18,6 +18,7 @@
     "babenkoivan/elastic-scout-driver-plus": "^3.0",
     "barryvdh/laravel-snappy": "^1.0.0",
     "biiiiiigmonster/hasin": "^2.0.0",
+    "composer/class-map-generator": "^1.0",
     "dragonmantank/cron-expression": "^3.1",
     "fruitcake/laravel-cors": "^3.0",
     "guzzlehttp/guzzle": "^7.0.1",

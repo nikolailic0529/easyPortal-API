@@ -2,9 +2,9 @@
 
 namespace App\GraphQL\Mutations\Me;
 
+use App\Models\Data\Team;
 use App\Models\Organization;
 use App\Models\OrganizationUser;
-use App\Models\Team;
 use App\Models\User;
 use App\Services\Keycloak\Client\Client;
 use App\Services\Keycloak\Client\Types\User as KeycloakUser;

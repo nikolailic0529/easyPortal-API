@@ -2,7 +2,7 @@
 
 namespace Database\Seeders;
 
-use App\Models\Team;
+use App\Models\Data\Team;
 use LastDragon_ru\LaraASP\Migrator\Seeders\SmartSeeder;
 
 class TeamSeeder extends SmartSeeder {

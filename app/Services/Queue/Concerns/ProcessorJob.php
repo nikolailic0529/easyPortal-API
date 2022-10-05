@@ -8,6 +8,9 @@ use App\Services\Queue\Exceptions\JobStopped;
 use App\Services\Queue\Job;
 use App\Services\Queue\Progress;
 use App\Services\Service;
+use App\Utils\Processor\CompositeProcessor;
+use App\Utils\Processor\CompositeState;
+use App\Utils\Processor\Contracts\MixedProcessor;
 use App\Utils\Processor\Contracts\Processor;
 use App\Utils\Processor\ServiceStore;
 use Illuminate\Contracts\Container\Container;
@@ -50,12 +53,29 @@ trait ProcessorJob {
 
     public function getProgressCallback(): callable {
         return function (Container $container, QueueableConfigurator $configurator): ?Progress {
-            $progress = null;
-            $config   = $configurator->config($this);
-            $state    = $this->getProcessor($container, $config)->getState();
+            /** @var MixedProcessor $processor fixme(phpstan): https://github.com/phpstan/phpstan/issues/4570 */
+            $processor = $this->getProcessor($container, $configurator->config($this));
+            $progress  = null;
+            $state     = $processor->getState();
 
             if ($state) {
-                $progress = new Progress($state->total, $state->processed);
+                $operations = null;
+
+                if ($state instanceof CompositeState && $processor instanceof CompositeProcessor) {
+                    foreach ($processor->getOperationsState($state) as $key => $operation) {
+                        $operations[$key] = new Progress(
+                            $operation['state'],
+                            $operation['name'],
+                            $operation['current'],
+                            null,
+                        );
+                    }
+                }
+
+                $progress = new Progress(
+                    state     : $state,
+                    operations: $operations,
+                );
             }
 
             return $progress;

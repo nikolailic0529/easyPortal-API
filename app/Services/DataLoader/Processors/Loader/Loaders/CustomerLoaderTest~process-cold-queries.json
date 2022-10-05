@@ -1,0 +1,231 @@
+[
+    {
+        "query": "select `customers`.* from `customers` where `customers`.`id` = ? and `customers`.`deleted_at` is null limit 1",
+        "bindings": [
+            "04e2ec4e-9bb1-47c7-98f0-6096cd178974"
+        ]
+    },
+    {
+        "query": "select `customers`.* from `customers` where ((`customers`.`id` = ?))",
+        "bindings": [
+            "04e2ec4e-9bb1-47c7-98f0-6096cd178974"
+        ]
+    },
+    {
+        "query": "select `statuses`.* from `statuses` where `statuses`.`deleted_at` is null",
+        "bindings": []
+    },
+    {
+        "query": "select `statuses`.* from `statuses` where (`key` = ? and `object_type` = ?) and `statuses`.`deleted_at` is null limit 1",
+        "bindings": [
+            "inactive",
+            "customer"
+        ]
+    },
+    {
+        "query": "insert into `statuses` (`object_type`, `key`, `name`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?)",
+        "bindings": [
+            "Customer",
+            "INACTIVE",
+            "Inactive",
+            "f350c0e2-d7d5-5d95-8c8c-f277dc7740e7",
+            "2022-02-02 00:00:03",
+            "2022-02-02 00:00:03"
+        ]
+    },
+    {
+        "query": "select `types`.* from `types` where `types`.`deleted_at` is null",
+        "bindings": []
+    },
+    {
+        "query": "select `types`.* from `types` where (`key` = ? and `object_type` = ?) and `types`.`deleted_at` is null limit 1",
+        "bindings": [
+            "contact person",
+            "contact"
+        ]
+    },
+    {
+        "query": "insert into `types` (`object_type`, `key`, `name`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?)",
+        "bindings": [
+            "Contact",
+            "Contact Person",
+            "Contact Person",
+            "eff80036-c3b7-5820-9ee7-5ed602a3fa8c",
+            "2022-02-02 00:00:04",
+            "2022-02-02 00:00:04"
+        ]
+    },
+    {
+        "query": "select `customer_locations`.* from `customer_locations` where `customer_locations`.`customer_id` = ? and `customer_locations`.`customer_id` is not null and `customer_locations`.`deleted_at` is null",
+        "bindings": [
+            "04e2ec4e-9bb1-47c7-98f0-6096cd178974"
+        ]
+    },
+    {
+        "query": "select `countries`.* from `countries` where `countries`.`deleted_at` is null",
+        "bindings": []
+    },
+    {
+        "query": "select `countries`.* from `countries` where (`code` = ?) and `countries`.`deleted_at` is null limit 1",
+        "bindings": [
+            "gg"
+        ]
+    },
+    {
+        "query": "insert into `countries` (`code`, `name`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
+        "bindings": [
+            "GG",
+            "Malaysia",
+            "2103bfd2-ec0b-5bd7-96c0-109c7728abc9",
+            "2022-02-02 00:00:05",
+            "2022-02-02 00:00:05"
+        ]
+    },
+    {
+        "query": "select `cities`.* from `cities` where `cities`.`deleted_at` is null",
+        "bindings": []
+    },
+    {
+        "query": "select `cities`.* from `cities` where (`country_id` = ? and `key` = ?) and `cities`.`deleted_at` is null limit 1",
+        "bindings": [
+            "2103bfd2-ec0b-5bd7-96c0-109c7728abc9",
+            "mohrfort"
+        ]
+    },
+    {
+        "query": "insert into `cities` (`key`, `name`, `country_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?)",
+        "bindings": [
+            "Mohrfort",
+            "Mohrfort",
+            "2103bfd2-ec0b-5bd7-96c0-109c7728abc9",
+            "d4432598-2707-5345-af35-faf81dcb43a7",
+            "2022-02-02 00:00:06",
+            "2022-02-02 00:00:06"
+        ]
+    },
+    {
+        "query": "select `locations`.* from `locations` where (`city_id` = ? and `country_id` = ? and CONCAT(`line_one`, IF(`line_two` != '', CONCAT(' ', `line_two`), '')) = ? and `postcode` = ?) and `locations`.`deleted_at` is null limit 1",
+        "bindings": [
+            "d4432598-2707-5345-af35-faf81dcb43a7",
+            "2103bfd2-ec0b-5bd7-96c0-109c7728abc9",
+            "207 wunsch freeway apt. 075",
+            "81254-3335"
+        ]
+    },
+    {
+        "query": "insert into `locations` (`country_id`, `city_id`, `postcode`, `state`, `line_one`, `line_two`, `latitude`, `longitude`, `geohash`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "bindings": [
+            "2103bfd2-ec0b-5bd7-96c0-109c7728abc9",
+            "d4432598-2707-5345-af35-faf81dcb43a7",
+            "81254-3335",
+            "",
+            "207 Wunsch Freeway Apt. 075",
+            "",
+            "78.513635",
+            "34.350461",
+            "uvbqtsvppf25",
+            "5e500e66-a38e-5b91-8809-bbeeafa3ce40",
+            "2022-02-02 00:00:07",
+            "2022-02-02 00:00:07"
+        ]
+    },
+    {
+        "query": "insert into `kpis` (`assets_total`, `assets_active`, `assets_active_percent`, `assets_active_on_contract`, `assets_active_on_warranty`, `assets_active_exposed`, `customers_active`, `customers_active_new`, `contracts_active`, `contracts_active_amount`, `contracts_active_new`, `contracts_expiring`, `contracts_expired`, `quotes_active`, `quotes_active_amount`, `quotes_active_new`, `quotes_expiring`, `quotes_expired`, `quotes_ordered`, `quotes_accepted`, `quotes_requested`, `quotes_received`, `quotes_rejected`, `quotes_awaiting`, `service_revenue_total_amount`, `service_revenue_total_amount_change`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "bindings": [
+            0,
+            0,
+            0.0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0.0,
+            0,
+            0,
+            0,
+            0,
+            0.0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0.0,
+            0.0,
+            "5be6c2ad-c211-5e7c-ad6e-c2715cf59541",
+            "2022-02-02 00:00:08",
+            "2022-02-02 00:00:08"
+        ]
+    },
+    {
+        "query": "select `reseller_customers`.* from `reseller_customers` where `reseller_customers`.`customer_id` = ? and `reseller_customers`.`customer_id` is not null and `reseller_customers`.`deleted_at` is null",
+        "bindings": [
+            "04e2ec4e-9bb1-47c7-98f0-6096cd178974"
+        ]
+    },
+    {
+        "query": "insert into `customers` (`id`, `name`, `changed_at`, `statuses_count`, `contacts_count`, `locations_count`, `kpi_id`, `synced_at`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "bindings": [
+            "04e2ec4e-9bb1-47c7-98f0-6096cd178974",
+            "Wuckert LLC",
+            "2022-07-07 02:59:03",
+            1,
+            1,
+            1,
+            "5be6c2ad-c211-5e7c-ad6e-c2715cf59541",
+            "2022-02-02 00:00:09",
+            "2022-02-02 00:00:10",
+            "2022-02-02 00:00:10"
+        ]
+    },
+    {
+        "query": "insert into `customer_statuses` (`status_id`, `customer_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
+        "bindings": [
+            "f350c0e2-d7d5-5d95-8c8c-f277dc7740e7",
+            "04e2ec4e-9bb1-47c7-98f0-6096cd178974",
+            "32d75fac-c03f-583b-93ef-c33da4962cd9",
+            "2022-02-02 00:00:11",
+            "2022-02-02 00:00:11"
+        ]
+    },
+    {
+        "query": "insert into `contacts` (`object_type`, `object_id`, `name`, `phone_number`, `email`, `phone_valid`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "bindings": [
+            "Customer",
+            "04e2ec4e-9bb1-47c7-98f0-6096cd178974",
+            "Melany Schulist II",
+            "+15679442292",
+            "suzanne64@conn.com",
+            true,
+            "0701bffb-7dd8-5c19-8f2f-431ce387ae2d",
+            "2022-02-02 00:00:12",
+            "2022-02-02 00:00:12"
+        ]
+    },
+    {
+        "query": "insert into `contact_types` (`type_id`, `contact_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
+        "bindings": [
+            "eff80036-c3b7-5820-9ee7-5ed602a3fa8c",
+            "0701bffb-7dd8-5c19-8f2f-431ce387ae2d",
+            "3279c35a-f28d-5576-acbd-99e76281f455",
+            "2022-02-02 00:00:13",
+            "2022-02-02 00:00:13"
+        ]
+    },
+    {
+        "query": "insert into `customer_locations` (`customer_id`, `location_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
+        "bindings": [
+            "04e2ec4e-9bb1-47c7-98f0-6096cd178974",
+            "5e500e66-a38e-5b91-8809-bbeeafa3ce40",
+            "d1f188be-5af5-5ef1-aac0-3fe0fe00f0de",
+            "2022-02-02 00:00:14",
+            "2022-02-02 00:00:14"
+        ]
+    }
+]

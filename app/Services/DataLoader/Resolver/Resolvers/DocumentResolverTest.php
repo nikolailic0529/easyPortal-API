@@ -29,6 +29,9 @@ class DocumentResolverTest extends TestCase {
         $a = Document::factory()->create();
         $b = Document::factory()->create();
 
+        self::assertTrue($b->delete());
+        self::assertTrue($b->trashed());
+
         // Run
         $provider = $this->app->make(DocumentResolver::class);
         $actual   = $provider->get($a->getKey(), $factory);

@@ -3,6 +3,7 @@
 namespace App\Services\DataLoader\Resolver\Resolvers;
 
 use App\Models\Logs\AnalyzeAsset;
+use App\Services\DataLoader\Normalizer\Normalizer;
 use App\Services\DataLoader\Resolver\Resolver;
 use Closure;
 use Illuminate\Database\Eloquent\Builder;
@@ -11,15 +12,13 @@ use Illuminate\Database\Eloquent\Builder;
  * @extends Resolver<AnalyzeAsset>
  */
 class AnalyzeAssetResolver extends Resolver {
+    /**
+     * @param Closure(Normalizer=): AnalyzeAsset|null $factory
+     *
+     * @return ($factory is null ? AnalyzeAsset|null : AnalyzeAsset)
+     */
     public function get(string|int $id, Closure $factory = null): ?AnalyzeAsset {
         return $this->resolve($id, $factory);
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function prefetch(array $keys, Closure|null $callback = null): static {
-        return parent::prefetch($keys, $callback);
     }
 
     protected function getFindQuery(): ?Builder {

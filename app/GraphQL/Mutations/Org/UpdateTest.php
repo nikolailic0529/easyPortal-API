@@ -2,13 +2,14 @@
 
 namespace App\GraphQL\Mutations\Org;
 
-use App\Models\Currency;
+use App\Models\Data\Currency;
 use App\Models\Reseller;
 use App\Services\DataLoader\Client\Client;
 use App\Services\DataLoader\Schema\InputTranslationText;
 use App\Services\I18n\Eloquent\TranslatedString;
 use Closure;
 use Illuminate\Http\UploadedFile;
+use Illuminate\Support\Facades\Date;
 use LastDragon_ru\LaraASP\Testing\Constraints\Response\Response;
 use LastDragon_ru\LaraASP\Testing\Providers\ArrayDataProvider;
 use LastDragon_ru\LaraASP\Testing\Providers\CompositeDataProvider;
@@ -375,12 +376,12 @@ class UpdateTest extends TestCase {
                     [],
                     static function (): array {
                         $currency = Currency::factory()->create([
-                            'id' => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24982',
+                            'id'         => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24982',
+                            'deleted_at' => Date::now(),
                         ]);
-                        $currency->delete();
 
                         return [
-                            'currency_id' => $currency->id,
+                            'currency_id' => $currency->getKey(),
                         ];
                     },
                 ],

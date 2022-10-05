@@ -1,6 +1,6 @@
 [
     "update `documents` set `synced_at` = ?, `documents`.`updated_at` = ? where `id` = ?",
-    "select `assets`.* from `assets` where ((`assets`.`id` = ?)) and `assets`.`deleted_at` is null",
+    "select `assets`.* from `assets` where ((`assets`.`id` = ?))",
     "select `oems`.* from `oems` where `oems`.`id` in (?) and `oems`.`deleted_at` is null",
     "update `documents` set `synced_at` = ?, `documents`.`updated_at` = ? where `id` = ?"
 ]

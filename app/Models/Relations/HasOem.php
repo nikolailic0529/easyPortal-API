@@ -2,11 +2,11 @@
 
 namespace App\Models\Relations;
 
-use App\Models\Oem;
+use App\Models\Data\Oem;
 use App\Utils\Eloquent\Model;
 
 /**
- * @property Oem $oem
+ * @property \App\Models\Data\Oem $oem
  *
  * @mixin Model
  */

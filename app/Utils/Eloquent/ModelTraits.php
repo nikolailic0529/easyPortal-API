@@ -5,10 +5,10 @@ namespace App\Utils\Eloquent;
 use App\Utils\Eloquent\CascadeDeletes\CascadeDeletes;
 use App\Utils\Eloquent\Concerns\HideGeneratedAttributes;
 use App\Utils\Eloquent\Concerns\QualifiedModelQuery;
+use App\Utils\Eloquent\Concerns\SoftDeletes;
 use App\Utils\Eloquent\Concerns\StringKey;
 use App\Utils\Eloquent\Concerns\UuidAsPrimaryKey;
 use App\Utils\Eloquent\SmartSave\SmartSave;
-use Illuminate\Database\Eloquent\SoftDeletes;
 use Staudenmeir\EloquentHasManyDeep\HasRelationships;
 
 /**

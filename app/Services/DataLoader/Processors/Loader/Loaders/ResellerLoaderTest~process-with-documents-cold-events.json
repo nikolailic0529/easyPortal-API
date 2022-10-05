@@ -1,0 +1,58 @@
+[
+    {
+        "event": "App\\Services\\DataLoader\\Events\\DataImported",
+        "data": {
+            "App\\Models\\Distributor": {
+                "a985a692-c063-499a-ab2f-0a2adef86a3f": "a985a692-c063-499a-ab2f-0a2adef86a3f",
+                "1af1c44e-8112-4e72-9654-b11c705e9372": "1af1c44e-8112-4e72-9654-b11c705e9372"
+            },
+            "App\\Models\\Reseller": {
+                "22d7dbf2-977a-49d8-8e4c-cacdaae616b2": "22d7dbf2-977a-49d8-8e4c-cacdaae616b2"
+            },
+            "App\\Models\\Customer": {
+                "f273feb9-4043-4ce2-9633-2dab7a75c566": "f273feb9-4043-4ce2-9633-2dab7a75c566"
+            },
+            "App\\Models\\Document": {
+                "f7873540-59c2-4019-9522-5e7b299257b1": "f7873540-59c2-4019-9522-5e7b299257b1"
+            },
+            "App\\Models\\Data\\Location": {
+                "16995a0f-8bd3-57aa-aa7a-30d48cf1ef12": "16995a0f-8bd3-57aa-aa7a-30d48cf1ef12"
+            },
+            "App\\Models\\Asset": {
+                "50c0418d-2c76-45cc-82a2-423f77894b9e": "50c0418d-2c76-45cc-82a2-423f77894b9e",
+                "7ffdf6ab-b688-4ceb-97c9-5407099ed80b": "7ffdf6ab-b688-4ceb-97c9-5407099ed80b",
+                "c30973dd-e7cd-40ae-8bda-021880774e11": "c30973dd-e7cd-40ae-8bda-021880774e11",
+                "d24fbc79-3d01-48fb-b2f8-8e0272620b4a": "d24fbc79-3d01-48fb-b2f8-8e0272620b4a",
+                "e1410592-d765-43ee-8564-fffa0f8e1f6d": "e1410592-d765-43ee-8564-fffa0f8e1f6d"
+            }
+        }
+    },
+    {
+        "event": "App\\Services\\DataLoader\\Events\\DataImported",
+        "data": {
+            "App\\Models\\Distributor": [],
+            "App\\Models\\Reseller": {
+                "22d7dbf2-977a-49d8-8e4c-cacdaae616b2": "22d7dbf2-977a-49d8-8e4c-cacdaae616b2"
+            },
+            "App\\Models\\Customer": [],
+            "App\\Models\\Document": {
+                "00000000-0000-0000-0000-000000000000": "00000000-0000-0000-0000-000000000000"
+            },
+            "App\\Models\\Data\\Location": [],
+            "App\\Models\\Asset": []
+        }
+    },
+    {
+        "event": "App\\Services\\DataLoader\\Events\\DataImported",
+        "data": {
+            "App\\Models\\Distributor": [],
+            "App\\Models\\Reseller": {
+                "22d7dbf2-977a-49d8-8e4c-cacdaae616b2": "22d7dbf2-977a-49d8-8e4c-cacdaae616b2"
+            },
+            "App\\Models\\Customer": [],
+            "App\\Models\\Document": [],
+            "App\\Models\\Data\\Location": [],
+            "App\\Models\\Asset": []
+        }
+    }
+]

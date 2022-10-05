@@ -355,8 +355,8 @@ class ProcessorCommandTest extends TestCase {
                   ep:test-processor-process [options]
 
                 Options:
-                      --state[=STATE]  initial state, allows to continue processing (overwrites other options except `--chunk`)
-                      --chunk[=CHUNK]  chunk size
+                      --state[=STATE]  Initial state, allows to continue processing (overwrites other options except `--chunk`)
+                      --chunk[=CHUNK]  Chunk size
 
                 HELP,
                 ProcessorCommand__ProcessorProcess::class,
@@ -370,9 +370,9 @@ class ProcessorCommandTest extends TestCase {
                   ep:test-processor-limitable-process [options]
 
                 Options:
-                      --state[=STATE]  initial state, allows to continue processing (overwrites other options except `--chunk`)
-                      --chunk[=CHUNK]  chunk size
-                      --limit[=LIMIT]  max ProcessorLimitable to process
+                      --state[=STATE]  Initial state, allows to continue processing (overwrites other options except `--chunk`)
+                      --chunk[=CHUNK]  Chunk size
+                      --limit[=LIMIT]  Maximum number of ProcessorLimitable to process
 
                 HELP,
                 ProcessorCommand__ProcessorLimitableProcess::class,
@@ -386,9 +386,9 @@ class ProcessorCommandTest extends TestCase {
                   ep:test-processor-offsetable-process [options]
 
                 Options:
-                      --state[=STATE]    initial state, allows to continue processing (overwrites other options except `--chunk`)
-                      --chunk[=CHUNK]    chunk size
-                      --offset[=OFFSET]  start processing from given offset
+                      --state[=STATE]    Initial state, allows to continue processing (overwrites other options except `--chunk`)
+                      --chunk[=CHUNK]    Chunk size
+                      --offset[=OFFSET]  Start processing from given offset
 
                 HELP,
                 ProcessorCommand__ProcessorOffsetableProcess::class,
@@ -402,10 +402,10 @@ class ProcessorCommandTest extends TestCase {
                   ep:test-iterator-processor-process [options]
 
                 Options:
-                      --state[=STATE]    initial state, allows to continue processing (overwrites other options except `--chunk`)
-                      --chunk[=CHUNK]    chunk size
-                      --limit[=LIMIT]    max IteratorProcessor to process
-                      --offset[=OFFSET]  start processing from given offset
+                      --state[=STATE]    Initial state, allows to continue processing (overwrites other options except `--chunk`)
+                      --chunk[=CHUNK]    Chunk size
+                      --limit[=LIMIT]    Maximum number of IteratorProcessor to process
+                      --offset[=OFFSET]  Start processing from given offset
 
                 HELP,
                 ProcessorCommand__IteratorProcessorProcess::class,
@@ -419,18 +419,17 @@ class ProcessorCommandTest extends TestCase {
                   ep:test-eloquent-processor-process [options] [--] [<id>...]
 
                 Arguments:
-                  id                     process only these EloquentProcessor (if empty all EloquentProcessor will be processed)
+                  id                     Process only these EloquentProcessor (if empty all EloquentProcessor will be processed)
 
                 Options:
-                      --state[=STATE]    initial state, allows to continue processing (overwrites other options except `--chunk`)
-                      --chunk[=CHUNK]    chunk size
-                      --limit[=LIMIT]    max EloquentProcessor to process
-                      --offset[=OFFSET]  start processing from given offset
+                      --state[=STATE]    Initial state, allows to continue processing (overwrites other options except `--chunk`)
+                      --chunk[=CHUNK]    Chunk size
+                      --limit[=LIMIT]    Maximum number of EloquentProcessor to process
+                      --offset[=OFFSET]  Start processing from given offset
 
                 HELP,
                 ProcessorCommand__EloquentProcessorProcess::class,
             ],
-            // @phpcs:enable
         ];
     }
     // </editor-fold>

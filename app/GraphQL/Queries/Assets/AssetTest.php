@@ -7,20 +7,20 @@ use App\Models\AssetWarranty;
 use App\Models\ChangeRequest;
 use App\Models\Customer;
 use App\Models\CustomerLocation;
+use App\Models\Data\Location;
+use App\Models\Data\Oem;
+use App\Models\Data\Product;
+use App\Models\Data\ServiceGroup;
+use App\Models\Data\ServiceLevel;
+use App\Models\Data\Status;
+use App\Models\Data\Type;
 use App\Models\Document;
 use App\Models\DocumentEntry;
-use App\Models\Location;
-use App\Models\Oem;
 use App\Models\Organization;
-use App\Models\Product;
 use App\Models\QuoteRequest;
 use App\Models\Reseller;
 use App\Models\ResellerCustomer;
 use App\Models\ResellerLocation;
-use App\Models\ServiceGroup;
-use App\Models\ServiceLevel;
-use App\Models\Status;
-use App\Models\Type;
 use App\Models\User;
 use Closure;
 use Illuminate\Support\Facades\Date;
@@ -1036,9 +1036,10 @@ class AssetTest extends TestCase {
                                     'phone_valid' => false,
                                 ])
                                 ->create([
-                                    'id'         => 'f9396bc1-2f2f-4c57-bb8d-7a224ac20952',
-                                    'message'    => null,
-                                    'created_at' => Date::now(),
+                                    'id'          => 'f9396bc1-2f2f-4c57-bb8d-7a224ac20952',
+                                    'message'     => null,
+                                    'customer_id' => $customer,
+                                    'created_at'  => Date::now(),
                                 ]);
                             // Change Requests
                             ChangeRequest::factory()

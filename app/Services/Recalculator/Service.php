@@ -4,7 +4,7 @@ namespace App\Services\Recalculator;
 
 use App\Models\Asset;
 use App\Models\Customer;
-use App\Models\Location;
+use App\Models\Data\Location;
 use App\Models\Reseller;
 use App\Queues;
 use App\Services\Recalculator\Processor\ChunkData;

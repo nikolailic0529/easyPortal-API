@@ -6,7 +6,6 @@ use Closure;
 use LastDragon_ru\LaraASP\Core\Observer\Dispatcher;
 use Throwable;
 
-
 /**
  * @template TError of Throwable
  */

@@ -7,7 +7,6 @@ use App\Services\Service;
 use App\Utils\Console\WithOptions;
 use App\Utils\Iterators\Contracts\Limitable;
 use App\Utils\Iterators\Contracts\Offsetable;
-use App\Utils\Processor\CompositeOperation;
 use App\Utils\Processor\CompositeProcessor;
 use App\Utils\Processor\CompositeState;
 use App\Utils\Processor\Contracts\Processor;
@@ -26,7 +25,6 @@ use function filter_var;
 use function floor;
 use function implode;
 use function is_a;
-use function is_array;
 use function max;
 use function memory_get_usage;
 use function min;
@@ -83,7 +81,6 @@ abstract class ProcessorCommand extends Command {
         // [▓▓░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░]   3%
         // ! 999:99:99 T: 115 000 000 P:   5 000 000 S:   5 000 000 F:         123
         // ~ 000:25:15 M:  143.05 MiB S:      e706aa47-4c00-4ffa-a1ac-bb10f4ada3b6
-        $progress->minSecondsBetweenRedraws(0.25);
         $progress->setBarWidth(64 - 3);
         $progress->setFormat(implode(PHP_EOL, [
             '%operation-name:-63.63s% %operation-index:2.2s% / %operation-total:2.2s%',
@@ -187,25 +184,29 @@ abstract class ProcessorCommand extends Command {
     }
 
     private function getDefaultCommandSignature(): string {
+        // Default
         $processor = $this->getProcessorClass();
         $signature = [
             '${command}',
-            '{--state= : initial state, allows to continue processing (overwrites other options except `--chunk`)}',
-            '{--chunk= : chunk size}',
+            '{--state= : Initial state, allows to continue processing (overwrites other options except `--chunk`)}',
+            '{--chunk= : Chunk size}',
         ];
 
+        // Limit & Offset
         if (is_a($processor, Limitable::class, true)) {
-            $signature[] = '{--limit= : max ${objects} to process}';
+            $signature[] = '{--limit= : Maximum number of ${objects} to process}';
         }
 
         if (is_a($processor, Offsetable::class, true)) {
-            $signature[] = '{--offset= : start processing from given offset}';
+            $signature[] = '{--offset= : Start processing from given offset}';
         }
 
+        // Eloquent?
         if (is_a($processor, EloquentProcessor::class, true)) {
-            $signature[] = '{id?* : process only these ${objects} (if empty all ${objects} will be processed)}';
+            $signature[] = '{id?* : Process only these ${objects} (if empty all ${objects} will be processed)}';
         }
 
+        // Return
         return implode("\n", $this->getCommandSignature($signature));
     }
 
@@ -344,7 +345,7 @@ abstract class ProcessorCommand extends Command {
         CompositeProcessor $processor,
         CompositeState $state,
     ): void {
-        $operations = $this->getCompositeProcessorOperations($processor, $state);
+        $operations = $processor->getOperationsState($state);
         $integer    = static function (mixed $value, string $style = null) use ($formatter): string {
             $value = filter_var($value, FILTER_VALIDATE_INT);
 
@@ -363,17 +364,17 @@ abstract class ProcessorCommand extends Command {
         };
         $summary    = [];
 
-        foreach ($operations as $index => $operation) {
-            $operationName  = $operation->getName();
-            $operationState = $state->operations[$index] ?? null;
+        foreach ($operations as $operation) {
+            $operationName  = $operation['name'];
+            $operationState = $operation['state'];
 
-            if (is_array($operationState)) {
+            if ($operationState instanceof State) {
                 $summary[] = [
                     $operationName,
-                    $integer($operationState['total'] ?? null),
-                    $integer($operationState['processed'] ?? null),
-                    $integer($operationState['success'] ?? null, 'info'),
-                    $integer($operationState['failed'] ?? null, 'comment'),
+                    $integer($operationState->total),
+                    $integer($operationState->processed),
+                    $integer($operationState->success, 'info'),
+                    $integer($operationState->failed, 'comment'),
                 ];
             } else {
                 $summary[] = [
@@ -391,42 +392,6 @@ abstract class ProcessorCommand extends Command {
             ['Operation', 'Total', 'Processed', 'Success', 'Failed'],
             $summary,
         );
-    }
-
-    /**
-     * @param CompositeProcessor<CompositeState> $processor
-     *
-     * @return array<int, CompositeOperation<CompositeState>>
-     */
-    private function getCompositeProcessorOperations(
-        CompositeProcessor $processor,
-        CompositeState $state,
-    ): array {
-        return (new class() extends CompositeProcessor {
-            /**
-             * @noinspection PhpMissingParentConstructorInspection
-             * @phpstan-ignore-next-line
-             */
-            public function __construct() {
-                // empty
-            }
-
-            /**
-             * @param CompositeProcessor<CompositeState> $processor
-             *
-             * @return array<CompositeOperation<CompositeState>>
-             */
-            public function getProcessorOperations(CompositeProcessor $processor, CompositeState $state): array {
-                return $processor->getOperations($state);
-            }
-
-            /**
-             * @inheritDoc
-             */
-            protected function getOperations(CompositeState $state): array {
-                return [];
-            }
-        })->getProcessorOperations($processor, $state);
     }
 
     protected function getService(): ?Service {

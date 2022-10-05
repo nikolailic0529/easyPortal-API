@@ -2,17 +2,17 @@
 
 namespace App\Services\I18n;
 
-use App\Models\Country;
-use App\Models\Coverage;
-use App\Models\Currency;
-use App\Models\Language;
-use App\Models\Oem;
+use App\Models\Data\Country;
+use App\Models\Data\Coverage;
+use App\Models\Data\Currency;
+use App\Models\Data\Language;
+use App\Models\Data\Oem;
+use App\Models\Data\ServiceGroup;
+use App\Models\Data\ServiceLevel;
+use App\Models\Data\Status;
+use App\Models\Data\Type;
 use App\Models\Permission;
 use App\Models\QuoteRequestDuration;
-use App\Models\ServiceGroup;
-use App\Models\ServiceLevel;
-use App\Models\Status;
-use App\Models\Type;
 use App\Services\I18n\Contracts\Translatable;
 use App\Services\Service as BaseService;
 use Illuminate\Database\Eloquent\Model;

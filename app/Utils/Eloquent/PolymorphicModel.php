@@ -2,7 +2,6 @@
 
 namespace App\Utils\Eloquent;
 
-use App\Utils\Eloquent\CascadeDeletes\CascadeDelete;
 use Illuminate\Database\Eloquent\Relations\MorphTo;
 
 /**
@@ -11,7 +10,6 @@ use Illuminate\Database\Eloquent\Relations\MorphTo;
  * @property Model  $object
  */
 abstract class PolymorphicModel extends Model {
-    #[CascadeDelete(false)]
     public function object(): MorphTo {
         return $this->morphTo('object');
     }

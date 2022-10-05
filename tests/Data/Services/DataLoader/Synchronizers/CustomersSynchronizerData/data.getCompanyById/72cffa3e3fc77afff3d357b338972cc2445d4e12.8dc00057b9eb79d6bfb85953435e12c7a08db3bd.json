@@ -1,0 +1,168 @@
+{
+    "selector": "data.getCompanyById",
+    "query": "query getCompanyById($id: String!) {\n    getCompanyById(id: $id) {\n        id\nname\nstatus\nupdatedAt\ncompanyType\ncompanyContactPersons {\n    phoneNumber\n    name\n    type\n    mail\n}\nlocations {\n    country\n    countryCode\n    latitude\n    longitude\n    city\n    zip\n    address\n    locationType\n}\ncompanyKpis {\n    totalAssets\nactiveAssets\nactiveAssetsPercentage\nactiveCustomers\nnewActiveCustomers\nactiveContracts\nactiveContractTotalAmount\nnewActiveContracts\nexpiringContracts\nactiveQuotes\nactiveQuotesTotalAmount\nnewActiveQuotes\nexpiringQuotes\nexpiredQuotes\nexpiredContracts\norderedQuotes\nacceptedQuotes\nrequestedQuotes\nreceivedQuotes\nrejectedQuotes\nawaitingQuotes\nactiveAssetsOnContract\nactiveAssetsOnWarranty\nactiveExposedAssets\nserviceRevenueTotalAmount\nserviceRevenueTotalAmountChange\n}\nkeycloakName\nkeycloakGroupId\nkeycloakClientScopeName\nbrandingData {\n    brandingMode\n    defaultLogoUrl\n    defaultMainColor\n    favIconUrl\n    logoUrl\n    mainColor\n    mainImageOnTheRight\n    resellerAnalyticsCode\n    secondaryColor\n    secondaryColorDefault\n    useDefaultFavIcon\n    mainHeadingText {\n        language_code\n        text\n    }\n    underlineText {\n        language_code\n        text\n    }\n}\n    }\n}",
+    "variables": {
+        "id": "9d9e320d-4e44-4518-a4e6-6bfe7f1c7dd8"
+    },
+    "response": {
+        "data": {
+            "getCompanyById": [
+                {
+                    "id": "9d9e320d-4e44-4518-a4e6-6bfe7f1c7dd8",
+                    "name": "Dare-Heidenreich",
+                    "companyType": "RESELLER",
+                    "updatedAt": "1662148573860",
+                    "keycloakName": null,
+                    "keycloakGroupId": null,
+                    "keycloakClientScopeName": null,
+                    "companyContactPersons": [
+                        {
+                            "phoneNumber": "+17702266958",
+                            "name": "Annetta Goyette",
+                            "mail": "spencer.hailey@cruickshank.biz",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+13516370450",
+                            "name": "Maia Mohr Jr.",
+                            "mail": "utreutel@hotmail.com",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+13059973459",
+                            "name": "Ms. Emmie Luettgen IV",
+                            "mail": "shields.wendell@klocko.com",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+14695264193",
+                            "name": "Kailey Jacobs III",
+                            "mail": "tmayert@yahoo.com",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+12512245541",
+                            "name": "Brown Schuppe DDS",
+                            "mail": "daugherty.jabari@hotmail.com",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+12298347164",
+                            "name": "Kaylie Lind",
+                            "mail": "preilly@wiegand.com",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+16092098639",
+                            "name": "Prof. Christ Schuster V",
+                            "mail": "harber.loy@hotmail.com",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+18203625650",
+                            "name": "Prof. Damaris Morar",
+                            "mail": "janelle.rau@yahoo.com",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+15649995644",
+                            "name": "Liliane Stanton",
+                            "mail": "howe.maryam@kessler.info",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": null,
+                            "name": "Haylee Konopelski",
+                            "mail": "khansen@hotmail.com",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+12816065814",
+                            "name": "Dr. Amaya Conroy",
+                            "mail": "ebert.twila@hotmail.com",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+16573250189",
+                            "name": "Antonetta Glover",
+                            "mail": "uhodkiewicz@gmail.com",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+15716356961",
+                            "name": "Rosetta Reilly",
+                            "mail": "dusty.crist@yahoo.com",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+17069875155",
+                            "name": "Gwen Cruickshank",
+                            "mail": "nicolas.berry@kirlin.biz",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+17748481569",
+                            "name": "Elisa Herzog",
+                            "mail": "oberbrunner.juana@gmail.com",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": null,
+                            "name": "Erica Sawayn",
+                            "mail": "spencer.hailey@cruickshank.biz",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+14074067676",
+                            "name": "Mckayla Mayer",
+                            "mail": "theodora.lowe@ankunding.com",
+                            "type": "Contact Person"
+                        }
+                    ],
+                    "locations": [
+                        {
+                            "zip": "49901",
+                            "address": "54015 Maria Mission",
+                            "city": "West Esta",
+                            "locationType": null,
+                            "country": "Anguilla",
+                            "latitude": "30.011737",
+                            "longitude": "-143.285437",
+                            "countryCode": "AX"
+                        }
+                    ],
+                    "brandingData": null,
+                    "companyKpis": {
+                        "totalAssets": 14006,
+                        "activeAssets": 49,
+                        "activeAssetsPercentage": 0.34985006425817505,
+                        "activeCustomers": 200,
+                        "newActiveCustomers": 1,
+                        "activeContracts": 378,
+                        "activeContractTotalAmount": 845808.1099999996,
+                        "newActiveContracts": 0,
+                        "expiringContracts": 57,
+                        "activeQuotes": 130,
+                        "activeQuotesTotalAmount": 607884.0800000003,
+                        "newActiveQuotes": 0,
+                        "expiringQuotes": 0,
+                        "expiredQuotes": 130,
+                        "expiredContracts": 378,
+                        "orderedQuotes": null,
+                        "acceptedQuotes": null,
+                        "requestedQuotes": null,
+                        "receivedQuotes": null,
+                        "rejectedQuotes": null,
+                        "awaitingQuotes": null,
+                        "activeAssetsOnContract": null,
+                        "activeAssetsOnWarranty": null,
+                        "activeExposedAssets": null,
+                        "serviceRevenueTotalAmount": null,
+                        "serviceRevenueTotalAmountChange": null
+                    },
+                    "status": null
+                }
+            ]
+        }
+    }
+}

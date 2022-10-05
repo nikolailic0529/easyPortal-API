@@ -1,7 +1,7 @@
 <?php declare(strict_types = 1);
 
-use App\Models\ServiceGroup;
-use App\Models\ServiceLevel;
+use App\Models\Data\ServiceGroup;
+use App\Models\Data\ServiceLevel;
 use Illuminate\Database\Migrations\Migration;
 
 return new class() extends Migration {

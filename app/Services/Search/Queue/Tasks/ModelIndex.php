@@ -3,7 +3,9 @@
 namespace App\Services\Search\Queue\Tasks;
 
 use App\Services\Queue\Concerns\WithModelKey;
+use App\Services\Search\Eloquent\Searchable;
 use Illuminate\Contracts\Queue\ShouldBeUnique;
+use Illuminate\Database\Eloquent\Model;
 
 /**
  * Update Search Index for one Model.
@@ -13,7 +15,7 @@ use Illuminate\Contracts\Queue\ShouldBeUnique;
  */
 class ModelIndex extends Index implements ShouldBeUnique {
     /**
-     * @use WithModelKey<\Illuminate\Database\Eloquent\Model&\App\Services\Search\Eloquent\Searchable>
+     * @use WithModelKey<Model&Searchable>
      */
     use WithModelKey;
 

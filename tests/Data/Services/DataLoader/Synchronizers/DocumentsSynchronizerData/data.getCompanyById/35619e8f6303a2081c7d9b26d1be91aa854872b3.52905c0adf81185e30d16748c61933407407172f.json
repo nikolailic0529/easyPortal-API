@@ -1,0 +1,216 @@
+{
+    "selector": "data.getCompanyById",
+    "query": "query getCompanyById($id: String!) {\n    getCompanyById(id: $id) {\n        id\nname\nstatus\nupdatedAt\ncompanyType\ncompanyContactPersons {\n    phoneNumber\n    name\n    type\n    mail\n}\nlocations {\n    country\n    countryCode\n    latitude\n    longitude\n    city\n    zip\n    address\n    locationType\n}\ncompanyKpis {\n    totalAssets\nactiveAssets\nactiveAssetsPercentage\nactiveCustomers\nnewActiveCustomers\nactiveContracts\nactiveContractTotalAmount\nnewActiveContracts\nexpiringContracts\nactiveQuotes\nactiveQuotesTotalAmount\nnewActiveQuotes\nexpiringQuotes\nexpiredQuotes\nexpiredContracts\norderedQuotes\nacceptedQuotes\nrequestedQuotes\nreceivedQuotes\nrejectedQuotes\nawaitingQuotes\nactiveAssetsOnContract\nactiveAssetsOnWarranty\nactiveExposedAssets\nserviceRevenueTotalAmount\nserviceRevenueTotalAmountChange\n}\ncompanyResellerKpis {\n    resellerId\n    totalAssets\nactiveAssets\nactiveAssetsPercentage\nactiveCustomers\nnewActiveCustomers\nactiveContracts\nactiveContractTotalAmount\nnewActiveContracts\nexpiringContracts\nactiveQuotes\nactiveQuotesTotalAmount\nnewActiveQuotes\nexpiringQuotes\nexpiredQuotes\nexpiredContracts\norderedQuotes\nacceptedQuotes\nrequestedQuotes\nreceivedQuotes\nrejectedQuotes\nawaitingQuotes\nactiveAssetsOnContract\nactiveAssetsOnWarranty\nactiveExposedAssets\nserviceRevenueTotalAmount\nserviceRevenueTotalAmountChange\n}\n    }\n}",
+    "variables": {
+        "id": "99a3cd0d-ea2a-4803-95f4-5757f3580fed"
+    },
+    "response": {
+        "data": {
+            "getCompanyById": [
+                {
+                    "id": "99a3cd0d-ea2a-4803-95f4-5757f3580fed",
+                    "name": "Simonis LLC",
+                    "companyType": "CUSTOMER",
+                    "updatedAt": "1662156824339",
+                    "keycloakName": null,
+                    "keycloakGroupId": null,
+                    "keycloakClientScopeName": null,
+                    "companyContactPersons": [
+                        {
+                            "phoneNumber": "+12318490372",
+                            "name": "Arnoldo Quitzon",
+                            "mail": null,
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+19414892464",
+                            "name": "Candida Sanford",
+                            "mail": "donavon53@heathcote.com",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+13869924551",
+                            "name": "Devan Schulist",
+                            "mail": "lturner@yahoo.com",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": null,
+                            "name": "Harry Simonis",
+                            "mail": "pziemann@pollich.info",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+15648363849",
+                            "name": "Ruben Kuhlman",
+                            "mail": "ward.jackie@gorczany.org",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+17867223881",
+                            "name": "Dennis Hoppe",
+                            "mail": "clyde.leuschke@gmail.com",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+17633007904",
+                            "name": "Laverna Bahringer",
+                            "mail": "celia.berge@oreilly.net",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+17074470594",
+                            "name": "Bryce Bednar",
+                            "mail": "christa.vonrueden@stark.com",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+15203531908",
+                            "name": "Layne Russel",
+                            "mail": null,
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+18652621365",
+                            "name": "Devan Schulist",
+                            "mail": null,
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+15166996375",
+                            "name": "Alena Fisher",
+                            "mail": null,
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+15085049829",
+                            "name": "Gardner Volkman",
+                            "mail": "elmore06@yahoo.com",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+19568636149",
+                            "name": "Dr. Douglas Torphy IV",
+                            "mail": "alysa18@hotmail.com",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+17572935960",
+                            "name": "Ms. Taya Zboncak",
+                            "mail": "rwest@gmail.com",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+17654597756",
+                            "name": "Lilla Schulist",
+                            "mail": null,
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+12697896180",
+                            "name": "Fay Klein MD",
+                            "mail": "",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+12697896180",
+                            "name": "Mrs. Tomasa Kunde PhD",
+                            "mail": "dexter27@yahoo.com",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+18289002952",
+                            "name": "Lera Haley",
+                            "mail": "",
+                            "type": "Contact Person"
+                        }
+                    ],
+                    "locations": [
+                        {
+                            "zip": "00759-9735",
+                            "address": "419 Reilly Cliffs Suite 591",
+                            "city": "Hyattburgh",
+                            "locationType": null,
+                            "country": "Nicaragua",
+                            "latitude": "46.191755",
+                            "longitude": "137.154568",
+                            "countryCode": "JO"
+                        },
+                        {
+                            "zip": "00759-9735",
+                            "address": "419 Reilly Cliffs Suite 591",
+                            "city": "Hyattburgh",
+                            "locationType": null,
+                            "country": "Nicaragua",
+                            "latitude": "46.191755",
+                            "longitude": "137.154568",
+                            "countryCode": "JO"
+                        }
+                    ],
+                    "companyKpis": {
+                        "totalAssets": 52,
+                        "activeAssets": 1,
+                        "activeAssetsPercentage": 1.9230769230769231,
+                        "activeCustomers": null,
+                        "newActiveCustomers": null,
+                        "activeContracts": 4,
+                        "activeContractTotalAmount": 9940.53,
+                        "newActiveContracts": null,
+                        "expiringContracts": 1,
+                        "activeQuotes": 9,
+                        "activeQuotesTotalAmount": 57022.39,
+                        "newActiveQuotes": 0,
+                        "expiringQuotes": 0,
+                        "expiredQuotes": 0,
+                        "expiredContracts": 0,
+                        "orderedQuotes": null,
+                        "acceptedQuotes": null,
+                        "requestedQuotes": null,
+                        "receivedQuotes": null,
+                        "rejectedQuotes": null,
+                        "awaitingQuotes": null,
+                        "activeAssetsOnContract": null,
+                        "activeAssetsOnWarranty": null,
+                        "activeExposedAssets": null,
+                        "serviceRevenueTotalAmount": null,
+                        "serviceRevenueTotalAmountChange": null
+                    },
+                    "companyResellerKpis": [
+                        {
+                            "resellerId": "594184e7-24d4-4614-8db4-fe132adb86f4",
+                            "totalAssets": 52,
+                            "activeAssets": 1,
+                            "activeAssetsPercentage": 1.9230769230769231,
+                            "activeCustomers": null,
+                            "newActiveCustomers": null,
+                            "activeContracts": 4,
+                            "activeContractTotalAmount": 9940.53,
+                            "newActiveContracts": null,
+                            "expiringContracts": 1,
+                            "activeQuotes": 9,
+                            "activeQuotesTotalAmount": 57022.39,
+                            "newActiveQuotes": 0,
+                            "expiringQuotes": 0,
+                            "expiredQuotes": 0,
+                            "expiredContracts": 0,
+                            "orderedQuotes": null,
+                            "acceptedQuotes": null,
+                            "requestedQuotes": null,
+                            "receivedQuotes": null,
+                            "rejectedQuotes": null,
+                            "awaitingQuotes": null,
+                            "activeAssetsOnContract": null,
+                            "activeAssetsOnWarranty": null,
+                            "activeExposedAssets": null,
+                            "serviceRevenueTotalAmount": null,
+                            "serviceRevenueTotalAmountChange": null
+                        }
+                    ],
+                    "status": [
+                        "ACTIVE"
+                    ]
+                }
+            ]
+        }
+    }
+}

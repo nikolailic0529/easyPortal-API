@@ -4,9 +4,9 @@ namespace App\GraphQL\Queries\Assets;
 
 use App\GraphQL\Directives\Directives\Aggregated\BuilderValue;
 use App\Models\Asset;
-use App\Models\Coverage;
 use App\Models\Customer;
-use App\Models\Type;
+use App\Models\Data\Coverage;
+use App\Models\Data\Type;
 use App\Utils\Eloquent\Callbacks\GetKey;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;

@@ -3,6 +3,7 @@
 namespace App\Services\DataLoader\Resolver\Resolvers;
 
 use App\Models\Logs\AnalyzeAsset;
+use App\Models\Logs\Model;
 use Closure;
 use LastDragon_ru\LaraASP\Testing\Database\QueryLog\WithQueryLog;
 use Mockery;
@@ -21,10 +22,9 @@ class AnalyzeAssetResolverTest extends TestCase {
      * @covers ::get
      */
     public function testGet(): void {
-        self::markTestSkipped('getQueryLog cannot work with the non-default connection.');
-
         // Prepare
-        $factory = static function (): AnalyzeAsset {
+        $connection = Model::CONNECTION;
+        $factory    = static function (): AnalyzeAsset {
             return AnalyzeAsset::factory()->make();
         };
 
@@ -36,11 +36,11 @@ class AnalyzeAssetResolverTest extends TestCase {
         $actual   = $provider->get($a->getKey(), $factory);
 
         // Basic
-        self::assertNotNull($actual);
+        self::assertNotEmpty($actual);
         self::assertEquals($a->getKey(), $actual->getKey());
 
         // Second call should return same instance
-        $queries = $this->getQueryLog()->flush();
+        $queries = $this->getQueryLog($connection)->flush();
 
         self::assertSame($actual, $provider->get($a->getKey(), $factory));
         self::assertSame($actual, $provider->get(" {$a->getKey()} ", $factory));
@@ -54,20 +54,19 @@ class AnalyzeAssetResolverTest extends TestCase {
         $uuid    = $this->faker->uuid();
         $spy     = Mockery::spy(static function () use ($uuid): AnalyzeAsset {
             return AnalyzeAsset::factory()->make([
-                'id'          => $uuid,
+                'id' => $uuid,
             ]);
         });
-        $queries = $this->getQueryLog()->flush();
+        $queries = $this->getQueryLog($connection)->flush();
         $created = $provider->get($uuid, Closure::fromCallable($spy));
 
         $spy->shouldHaveBeenCalled();
 
-        self::assertNotNull($created);
         self::assertEquals($uuid, $created->getKey());
         self::assertCount(1, $queries);
 
         // The created object should be in cache
-        $queries = $this->getQueryLog()->flush();
+        $queries = $this->getQueryLog($connection)->flush();
 
         self::assertSame($created, $provider->get($uuid, $factory));
         self::assertCount(0, $queries);

@@ -16,7 +16,7 @@ use function is_object;
  */
 class JsonObjectIterator implements IteratorAggregate {
     /**
-     * @param JsonObject|array<JsonObject> $object
+     * @param JsonObject|array<JsonObject>|array<mixed> $object
      */
     public function __construct(
         protected JsonObject|array $object,

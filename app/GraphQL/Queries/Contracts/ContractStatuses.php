@@ -2,8 +2,8 @@
 
 namespace App\GraphQL\Queries\Contracts;
 
+use App\Models\Data\Status;
 use App\Models\Document;
-use App\Models\Status;
 use Illuminate\Contracts\Config\Repository;
 use Illuminate\Database\Eloquent\Builder;
 

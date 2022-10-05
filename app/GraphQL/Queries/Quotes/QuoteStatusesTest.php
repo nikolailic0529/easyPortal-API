@@ -2,8 +2,8 @@
 
 namespace App\GraphQL\Queries\Quotes;
 
+use App\Models\Data\Status;
 use App\Models\Document;
-use App\Models\Status;
 use Closure;
 use LastDragon_ru\LaraASP\Testing\Constraints\Response\Response;
 use LastDragon_ru\LaraASP\Testing\Providers\ArrayDataProvider;

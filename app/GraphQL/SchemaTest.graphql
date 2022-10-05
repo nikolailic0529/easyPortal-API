@@ -2901,18 +2901,6 @@ input SearchByConditionContactsQuery {
     @searchByOperatorAnyOf
 
     """
-    Relationship condition.
-    """
-    assets: SearchByComplexRelationAssetsQuery
-    @searchByOperatorRelation
-
-    """
-    Relationship condition.
-    """
-    customers: SearchByComplexRelationCompaniesQuery
-    @searchByOperatorRelation
-
-    """
     Property condition.
     """
     email: SearchByScalarEmailOrNull
@@ -7423,8 +7411,16 @@ type ApplicationJob {
 }
 
 type ApplicationJobProgress {
+    created: Int
+    current: Boolean
+    deleted: Int
+    failed: Int
+    name: String
+    operations: [ApplicationJobProgress!]
+    processed: Int
+    success: Int
     total: Int
-    value: Int!
+    updated: Int
 }
 
 type ApplicationJobState {
@@ -8353,7 +8349,7 @@ implements
     """
     Organization who send the Invite.
     """
-    org: Org!
+    org: Org
 
     result: Boolean!
 
@@ -8379,7 +8375,7 @@ type ChangeRequest {
     to: [String!]!
     updated_at: DateTime!
 
-    user: User!
+    user: User
     @relation
 
     user_id: ID!
@@ -10707,7 +10703,7 @@ type Note {
     pinned: Boolean!
     updated_at: DateTime!
 
-    user: User!
+    user: User
     @relation
 
     user_id: ID!
@@ -11698,7 +11694,7 @@ type Query {
         permissions: ["assets-view"]
     )
     @all(
-        model: "App\\Models\\Coverage"
+        model: "App\\Models\\Data\\Coverage"
     )
     @cached
 
@@ -12736,7 +12732,7 @@ type Query {
     @authOrg
     @authMe
     @aggregated(
-        model: "App\\Models\\Product"
+        model: "App\\Models\\Data\\Product"
     )
 
     """
@@ -13341,14 +13337,14 @@ type QuoteRequest {
     type_custom: String
     type_id: ID
 
-    user: User!
+    user: User
     @relation
 
     user_id: ID!
 }
 
 type QuoteRequestAsset {
-    asset: Asset!
+    asset: Asset
     @relation
 
     asset_id: ID!
@@ -13375,7 +13371,7 @@ implements
 }
 
 type QuoteRequestDocument {
-    document: Document!
+    document: Document
     @relation
 
     document_id: ID!

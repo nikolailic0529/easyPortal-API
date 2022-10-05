@@ -2,7 +2,7 @@
 
 namespace App\Services\Recalculator\Processor\Processors;
 
-use App\Models\Location;
+use App\Models\Data\Location;
 use App\Models\LocationCustomer;
 use App\Models\LocationReseller;
 use App\Services\Recalculator\Processor\Processor;

@@ -4,9 +4,9 @@ namespace App\Services\DataLoader\Collector;
 
 use App\Models\Asset;
 use App\Models\Customer;
+use App\Models\Data\Location;
 use App\Models\Distributor;
 use App\Models\Document;
-use App\Models\Location;
 use App\Models\Reseller;
 use App\Utils\Eloquent\Model;
 use Mockery;
@@ -133,6 +133,50 @@ class DataTest extends TestCase {
 
         $data->collectObjectChange($object);
         $data->collectObjectChange($object);
+
+        self::assertFalse($data->isDirty());
+    }
+
+    /**
+     * @covers ::collectObjectDeletion
+     */
+    public function testCollectObjectDeletionModel(): void {
+        $model = Mockery::mock(Model::class);
+        $data  = Mockery::mock(Data::class);
+        $data->shouldAllowMockingProtectedMethods();
+        $data->makePartial();
+        $data
+            ->shouldReceive('isModelChanged')
+            ->never();
+        $data
+            ->shouldReceive('collect')
+            ->with($model)
+            ->twice();
+
+        self::assertFalse($data->isDirty());
+
+        $data->collectObjectDeletion($model);
+        $data->collectObjectDeletion($model);
+
+        self::assertTrue($data->isDirty());
+    }
+
+    /**
+     * @covers ::collectObjectDeletion
+     */
+    public function testCollectObjectDeletionObject(): void {
+        $object = new stdClass();
+        $data   = Mockery::mock(Data::class);
+        $data->shouldAllowMockingProtectedMethods();
+        $data->makePartial();
+        $data
+            ->shouldReceive('isModelChanged')
+            ->never();
+
+        self::assertFalse($data->isDirty());
+
+        $data->collectObjectDeletion($object);
+        $data->collectObjectDeletion($object);
 
         self::assertFalse($data->isDirty());
     }

@@ -2,7 +2,7 @@
 
 namespace App\Utils\Iterators\Eloquent;
 
-use App\Models\Type;
+use App\Models\Data\Type;
 use App\Utils\Eloquent\Callbacks\GetKey;
 use Closure;
 use Illuminate\Database\Eloquent\Model;

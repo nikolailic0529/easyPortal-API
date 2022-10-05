@@ -4,14 +4,13 @@ namespace App\Services\DataLoader\Factory\Factories;
 
 use App\Models\Asset;
 use App\Models\AssetWarranty;
-use App\Models\Coverage;
+use App\Models\Data\Coverage;
+use App\Models\Data\Location;
+use App\Models\Data\Oem;
+use App\Models\Data\Product;
+use App\Models\Data\Status;
+use App\Models\Data\Type as TypeModel;
 use App\Models\Document;
-use App\Models\Location;
-use App\Models\Oem;
-use App\Models\Product;
-use App\Models\Status;
-use App\Models\Tag;
-use App\Models\Type as TypeModel;
 use App\Services\DataLoader\Exceptions\AssetLocationNotFound;
 use App\Services\DataLoader\Exceptions\FailedToCreateAssetWarranty;
 use App\Services\DataLoader\Exceptions\FailedToProcessAssetViewDocument;
@@ -258,7 +257,11 @@ class AssetFactory extends ModelFactory {
             }
 
             // Save
-            $model->save();
+            if ($model->trashed()) {
+                $model->restore();
+            } else {
+                $model->save();
+            }
 
             // Cleanup
             unset($model->warranties);
@@ -576,10 +579,10 @@ class AssetFactory extends ModelFactory {
     }
 
     /**
-     * @return EloquentCollection<array-key, Tag>
+     * @return EloquentCollection<array-key, \App\Models\Data\Tag>
      */
     protected function assetTags(ViewAsset $asset): EloquentCollection {
-        /** @var EloquentCollection<array-key, Tag> $tags */
+        /** @var EloquentCollection<array-key, \App\Models\Data\Tag> $tags */
         $tags = new EloquentCollection();
         $name = $this->getNormalizer()->string($asset->assetTag);
 
@@ -594,7 +597,7 @@ class AssetFactory extends ModelFactory {
      * @return EloquentCollection<array-key, Coverage>
      */
     protected function assetCoverages(ViewAsset $asset): EloquentCollection {
-        /** @var EloquentCollection<array-key, Coverage> $statuses */
+        /** @var EloquentCollection<array-key, \App\Models\Data\Coverage> $statuses */
         $statuses   = new EloquentCollection();
         $normalizer = $this->getNormalizer();
 

@@ -1,0 +1,276 @@
+{
+    "selector": "data.getCompanyById",
+    "query": "query getCompanyById($id: String!) {\n    getCompanyById(id: $id) {\n        id\nname\nstatus\nupdatedAt\ncompanyType\ncompanyContactPersons {\n    phoneNumber\n    name\n    type\n    mail\n}\nlocations {\n    country\n    countryCode\n    latitude\n    longitude\n    city\n    zip\n    address\n    locationType\n}\ncompanyKpis {\n    totalAssets\nactiveAssets\nactiveAssetsPercentage\nactiveCustomers\nnewActiveCustomers\nactiveContracts\nactiveContractTotalAmount\nnewActiveContracts\nexpiringContracts\nactiveQuotes\nactiveQuotesTotalAmount\nnewActiveQuotes\nexpiringQuotes\nexpiredQuotes\nexpiredContracts\norderedQuotes\nacceptedQuotes\nrequestedQuotes\nreceivedQuotes\nrejectedQuotes\nawaitingQuotes\nactiveAssetsOnContract\nactiveAssetsOnWarranty\nactiveExposedAssets\nserviceRevenueTotalAmount\nserviceRevenueTotalAmountChange\n}\nkeycloakName\nkeycloakGroupId\nkeycloakClientScopeName\nbrandingData {\n    brandingMode\n    defaultLogoUrl\n    defaultMainColor\n    favIconUrl\n    logoUrl\n    mainColor\n    mainImageOnTheRight\n    resellerAnalyticsCode\n    secondaryColor\n    secondaryColorDefault\n    useDefaultFavIcon\n    mainHeadingText {\n        language_code\n        text\n    }\n    underlineText {\n        language_code\n        text\n    }\n}\n    }\n}",
+    "variables": {
+        "id": "9f6b1030-5d5d-4f0b-b743-2ef69eaf4a44"
+    },
+    "response": {
+        "data": {
+            "getCompanyById": [
+                {
+                    "id": "9f6b1030-5d5d-4f0b-b743-2ef69eaf4a44",
+                    "name": "Romaguera and Sons",
+                    "companyType": "RESELLER",
+                    "updatedAt": "1662148598767",
+                    "keycloakName": null,
+                    "keycloakGroupId": null,
+                    "keycloakClientScopeName": null,
+                    "companyContactPersons": [
+                        {
+                            "phoneNumber": null,
+                            "name": "Noelia Harvey",
+                            "mail": "hbalistreri@zieme.biz",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": null,
+                            "name": "Tanner Mann",
+                            "mail": "shyanne.schinner@yahoo.com",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+12815621158",
+                            "name": "Buddy Klein",
+                            "mail": "marcos95@hotmail.com",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+13612512265",
+                            "name": "Mrs. Loyce Denesik PhD",
+                            "mail": "ckilback@hotmail.com",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+16813554653",
+                            "name": "Brandyn Bahringer",
+                            "mail": "herminia.leuschke@yahoo.com",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+13164875593",
+                            "name": "Evangeline Medhurst",
+                            "mail": "tia.littel@moen.org",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+17016519458",
+                            "name": "Dominique Feeney",
+                            "mail": "ffriesen@gmail.com",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+16603402142",
+                            "name": "Melyssa Rodriguez",
+                            "mail": "oconnell.ashlee@nienow.net",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+13173564033",
+                            "name": "Mr. Alfonzo Robel DVM",
+                            "mail": "jtillman@gmail.com",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+12154671822",
+                            "name": "Anibal Johnson",
+                            "mail": "timothy.schneider@yahoo.com",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+15034076781",
+                            "name": "Ms. Claudine Johns",
+                            "mail": "williamson.lamont@hotmail.com",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+12284413647",
+                            "name": "Heber Dickinson",
+                            "mail": "jacobson.norbert@hotmail.com",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+16787102122",
+                            "name": "Dr. Shane Bartoletti Sr.",
+                            "mail": "mayer.frankie@halvorson.com",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+17543355682",
+                            "name": "Ms. Frances Miller II",
+                            "mail": "moore.donald@yahoo.com",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+14303608158",
+                            "name": "Queen Botsford PhD",
+                            "mail": "charlene05@okeefe.com",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+12837832854",
+                            "name": "Michel Wehner",
+                            "mail": "hswift@hotmail.com",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+17476623167",
+                            "name": "Prof. Blanca Cruickshank",
+                            "mail": "jrunolfsdottir@gmail.com",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+12838212607",
+                            "name": "Mrs. Marge Hettinger DDS",
+                            "mail": "odie.witting@herzog.com",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+13346864978",
+                            "name": "Payton Hessel",
+                            "mail": "alvah90@gmail.com",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+12144688139",
+                            "name": "Hans Pfeffer",
+                            "mail": "clifford42@yahoo.com",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+17318673597",
+                            "name": "Mr. Keshawn Konopelski",
+                            "mail": "janae92@wisozk.info",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+19868740603",
+                            "name": "Autumn Schroeder",
+                            "mail": "carey41@hegmann.com",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+19038394144",
+                            "name": "Prof. Troy Schowalter IV",
+                            "mail": "nia.strosin@nicolas.com",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+15744361288",
+                            "name": "Lowell Baumbach",
+                            "mail": "haley.kasandra@gmail.com",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+18637965305",
+                            "name": "Lawrence Keebler",
+                            "mail": "ruth.champlin@yahoo.com",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+12837832854",
+                            "name": "Miss Kara Auer",
+                            "mail": "alphonso.zieme@blanda.com",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+17706251195",
+                            "name": "Abraham Huel PhD",
+                            "mail": "ezieme@cormier.com",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+13015859544",
+                            "name": "Mr. Reagan Erdman",
+                            "mail": "rbalistreri@smitham.net",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+13479654703",
+                            "name": "Ova Zulauf",
+                            "mail": "rschaden@schuppe.com",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+16828323895",
+                            "name": "Xavier Renner",
+                            "mail": "ghahn@yahoo.com",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": null,
+                            "name": "Alek Green IV",
+                            "mail": "hbalistreri@zieme.biz",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": null,
+                            "name": "Prudence Schaefer",
+                            "mail": "hbalistreri@zieme.biz",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": null,
+                            "name": null,
+                            "mail": "hbalistreri@zieme.biz",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+16177807915",
+                            "name": "Prof. Filomena Rippin",
+                            "mail": "deja.hauck@hotmail.com",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+14302010175",
+                            "name": "Frederique Luettgen",
+                            "mail": "franz21@abernathy.biz",
+                            "type": "Contact Person"
+                        }
+                    ],
+                    "locations": [
+                        {
+                            "zip": "09572",
+                            "address": "321 Maya Flats",
+                            "city": "Altenwerthland",
+                            "locationType": null,
+                            "country": "Nicaragua",
+                            "latitude": "61.495452",
+                            "longitude": "81.020936",
+                            "countryCode": "JO"
+                        }
+                    ],
+                    "brandingData": null,
+                    "companyKpis": {
+                        "totalAssets": 20865,
+                        "activeAssets": 9,
+                        "activeAssetsPercentage": 0.043134435657800146,
+                        "activeCustomers": 138,
+                        "newActiveCustomers": 0,
+                        "activeContracts": 335,
+                        "activeContractTotalAmount": 2851120.5500000003,
+                        "newActiveContracts": 0,
+                        "expiringContracts": 11,
+                        "activeQuotes": 69,
+                        "activeQuotesTotalAmount": 291342.20999999996,
+                        "newActiveQuotes": 0,
+                        "expiringQuotes": 0,
+                        "expiredQuotes": 69,
+                        "expiredContracts": 335,
+                        "orderedQuotes": null,
+                        "acceptedQuotes": null,
+                        "requestedQuotes": null,
+                        "receivedQuotes": null,
+                        "rejectedQuotes": null,
+                        "awaitingQuotes": null,
+                        "activeAssetsOnContract": null,
+                        "activeAssetsOnWarranty": null,
+                        "activeExposedAssets": null,
+                        "serviceRevenueTotalAmount": null,
+                        "serviceRevenueTotalAmountChange": null
+                    },
+                    "status": null
+                }
+            ]
+        }
+    }
+}

@@ -5,7 +5,9 @@ namespace App\Models;
 use App\Utils\Eloquent\Pivot;
 use App\Utils\Eloquent\SmartSave\Upsertable;
 use Carbon\CarbonImmutable;
+use Database\Factories\LocationResellerFactory;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 /**
  * LocationReseller.
@@ -17,11 +19,14 @@ use Illuminate\Database\Eloquent\Builder;
  * @property CarbonImmutable      $created_at
  * @property CarbonImmutable      $updated_at
  * @property CarbonImmutable|null $deleted_at
+ * @method static LocationResellerFactory factory(...$parameters)
  * @method static Builder|LocationReseller newModelQuery()
  * @method static Builder|LocationReseller newQuery()
  * @method static Builder|LocationReseller query()
  */
 class LocationReseller extends Pivot implements Upsertable {
+    use HasFactory;
+
     /**
      * @phpcsSuppress SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint
      *

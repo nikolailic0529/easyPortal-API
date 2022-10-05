@@ -10,7 +10,6 @@ use App\Services\Auth\Contracts\Rootable;
 use App\Services\I18n\Contracts\HasTimezonePreference;
 use App\Services\Organization\Eloquent\OwnedByScope;
 use App\Services\Organization\HasOrganization;
-use App\Utils\Eloquent\CascadeDeletes\CascadeDelete;
 use App\Utils\Eloquent\Concerns\SyncBelongsToMany;
 use App\Utils\Eloquent\Concerns\SyncHasMany;
 use App\Utils\Eloquent\GlobalScopes\GlobalScopes;
@@ -187,7 +186,6 @@ class User extends Model implements
     /**
      * @return HasMany<UserSearch>
      */
-    #[CascadeDelete(false)]
     public function searches(): HasMany {
         return $this->hasMany(UserSearch::class);
     }
@@ -195,7 +193,6 @@ class User extends Model implements
     /**
      * @return BelongsTo<Organization, User>
      */
-    #[CascadeDelete(false)]
     public function organization(): BelongsTo {
         return $this->belongsTo(Organization::class);
     }
@@ -207,7 +204,6 @@ class User extends Model implements
     /**
      * @return HasMany<Invitation>
      */
-    #[CascadeDelete(false)]
     public function invitations(): HasMany {
         return $this->hasMany(Invitation::class);
     }
@@ -215,7 +211,6 @@ class User extends Model implements
     /**
      * @return HasMany<OrganizationUser>
      */
-    #[CascadeDelete(true)]
     public function organizations(): HasMany {
         return $this->hasMany(OrganizationUser::class);
     }

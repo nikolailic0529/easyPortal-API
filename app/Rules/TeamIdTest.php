@@ -2,9 +2,10 @@
 
 namespace App\Rules;
 
-use App\Models\Team;
+use App\Models\Data\Team;
 use Closure;
 use Illuminate\Contracts\Validation\Factory;
+use Illuminate\Support\Facades\Date;
 use Tests\TestCase;
 
 /**
@@ -77,9 +78,9 @@ class TeamIdTest extends TestCase {
                 false,
                 static function (): string {
                     $team = Team::factory()->create([
-                        'id' => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24982',
+                        'id'         => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24982',
+                        'deleted_at' => Date::now(),
                     ]);
-                    $team->delete();
 
                     return $team->getKey();
                 },

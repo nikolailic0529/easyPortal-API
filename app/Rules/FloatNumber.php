@@ -6,6 +6,7 @@ use Illuminate\Contracts\Validation\Rule;
 
 use function filter_var;
 use function trans;
+
 use const FILTER_VALIDATE_FLOAT;
 
 class FloatNumber implements Rule {

@@ -3,7 +3,7 @@
 namespace App\GraphQL\Queries\Data;
 
 use App\Models\Contact;
-use App\Models\Type;
+use App\Models\Data\Type;
 use Illuminate\Database\Eloquent\Builder;
 
 class ContactTypes {

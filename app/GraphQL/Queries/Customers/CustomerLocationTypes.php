@@ -3,7 +3,7 @@
 namespace App\GraphQL\Queries\Customers;
 
 use App\Models\CustomerLocation;
-use App\Models\Type;
+use App\Models\Data\Type;
 use Illuminate\Database\Eloquent\Builder;
 
 class CustomerLocationTypes {

@@ -2,8 +2,7 @@
 
 namespace Tests\Helpers;
 
-use Composer\Autoload\ClassMapGenerator;
-use Illuminate\Database\Eloquent\Model;
+use Composer\ClassMapGenerator\ClassMapGenerator;
 use Illuminate\Support\Collection;
 use ReflectionClass;
 
@@ -16,12 +15,12 @@ use function str_ends_with;
  */
 class ClassMap {
     /**
-     * @var array<class-string,ReflectionClass>
+     * @var array<class-string<object>,ReflectionClass<object>>
      */
     protected static array $classes;
 
     /**
-     * @return Collection<class-string,ReflectionClass>
+     * @return Collection<class-string<object>,ReflectionClass<object>>
      */
     public static function get(): Collection {
         // Cached?
@@ -33,7 +32,7 @@ class ClassMap {
     }
 
     /**
-     * @return array<Model>
+     * @return array<class-string<object>,ReflectionClass<object>>
      */
     protected static function load(): array {
         self::$classes = [];

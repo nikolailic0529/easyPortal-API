@@ -2,7 +2,7 @@
 
 namespace App\Rules;
 
-use App\Models\Team;
+use App\Models\Data\Team;
 use Illuminate\Contracts\Validation\Rule;
 
 use function trans;

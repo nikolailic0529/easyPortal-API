@@ -2,8 +2,8 @@
 
 namespace App\Models\Scopes;
 
+use App\Models\Data\Status;
 use App\Models\Document;
-use App\Models\Status;
 use App\Services\Search\Builders\Builder as SearchBuilder;
 use App\Services\Search\Contracts\ScopeWithMetadata;
 use App\Services\Search\Properties\Uuid;
@@ -70,7 +70,7 @@ class DocumentStatusScope extends DisableableScope implements ScopeWithMetadata 
     }
 
     /**
-     * @param Collection<array-key, Status>|Status|string $status
+     * @param Collection<array-key, \App\Models\Data\Status>|\App\Models\Data\Status|string $status
      */
     public function isHidden(Collection|Status|string $status): bool {
         $hidden   = $this->getStatusesIds();

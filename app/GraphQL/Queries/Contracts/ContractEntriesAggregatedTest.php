@@ -2,12 +2,12 @@
 
 namespace App\GraphQL\Queries\Contracts;
 
+use App\Models\Data\ServiceGroup;
+use App\Models\Data\ServiceLevel;
+use App\Models\Data\Type;
 use App\Models\Document;
 use App\Models\DocumentEntry;
 use App\Models\Organization;
-use App\Models\ServiceGroup;
-use App\Models\ServiceLevel;
-use App\Models\Type;
 use App\Models\User;
 use Closure;
 use LastDragon_ru\LaraASP\Testing\Constraints\Response\Response;

@@ -7,7 +7,6 @@ use App\Models\Customer;
 use App\Services\DataLoader\Collector\Data;
 use App\Services\DataLoader\Events\DataImported;
 use App\Services\Recalculator\Recalculator;
-use App\Services\Recalculator\Service;
 use Illuminate\Contracts\Events\Dispatcher;
 use Mockery\MockInterface;
 use Tests\TestCase;
@@ -40,14 +39,6 @@ class DataImportedListenerTest extends TestCase {
             ->collect(Asset::factory()->make())
             ->collect(Customer::factory()->make());
         $event = new DataImported($data);
-
-        $this->override(Service::class, static function (MockInterface $mock): void {
-            $mock
-                ->shouldReceive('isRecalculableModel')
-                ->atLeast()
-                ->once()
-                ->andReturns(true);
-        });
 
         $this->override(Recalculator::class, static function (MockInterface $mock) use ($data): void {
             foreach ($data->getData() as $model => $keys) {

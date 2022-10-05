@@ -1,0 +1,206 @@
+{
+    "selector": "data.getCompanyById",
+    "query": "query getCompanyById($id: String!) {\n    getCompanyById(id: $id) {\n        id\nname\nstatus\nupdatedAt\ncompanyType\ncompanyContactPersons {\n    phoneNumber\n    name\n    type\n    mail\n}\nlocations {\n    country\n    countryCode\n    latitude\n    longitude\n    city\n    zip\n    address\n    locationType\n}\ncompanyKpis {\n    totalAssets\nactiveAssets\nactiveAssetsPercentage\nactiveCustomers\nnewActiveCustomers\nactiveContracts\nactiveContractTotalAmount\nnewActiveContracts\nexpiringContracts\nactiveQuotes\nactiveQuotesTotalAmount\nnewActiveQuotes\nexpiringQuotes\nexpiredQuotes\nexpiredContracts\norderedQuotes\nacceptedQuotes\nrequestedQuotes\nreceivedQuotes\nrejectedQuotes\nawaitingQuotes\nactiveAssetsOnContract\nactiveAssetsOnWarranty\nactiveExposedAssets\nserviceRevenueTotalAmount\nserviceRevenueTotalAmountChange\n}\nkeycloakName\nkeycloakGroupId\nkeycloakClientScopeName\nbrandingData {\n    brandingMode\n    defaultLogoUrl\n    defaultMainColor\n    favIconUrl\n    logoUrl\n    mainColor\n    mainImageOnTheRight\n    resellerAnalyticsCode\n    secondaryColor\n    secondaryColorDefault\n    useDefaultFavIcon\n    mainHeadingText {\n        language_code\n        text\n    }\n    underlineText {\n        language_code\n        text\n    }\n}\n    }\n}",
+    "variables": {
+        "id": "a9233c9c-4634-493a-9f12-bef4d1cf3c5e"
+    },
+    "response": {
+        "data": {
+            "getCompanyById": [
+                {
+                    "id": "a9233c9c-4634-493a-9f12-bef4d1cf3c5e",
+                    "name": "Rath and Sons",
+                    "companyType": "RESELLER",
+                    "updatedAt": "1662148696321",
+                    "keycloakName": null,
+                    "keycloakGroupId": null,
+                    "keycloakClientScopeName": null,
+                    "companyContactPersons": [
+                        {
+                            "phoneNumber": "+12109535708",
+                            "name": "Mrs. Alana Cummings I",
+                            "mail": null,
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+16602130883",
+                            "name": "Mrs. Violet Lebsack DVM",
+                            "mail": null,
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+13479875683",
+                            "name": "Jordi Shanahan",
+                            "mail": null,
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+14407670546",
+                            "name": "Garett Rau",
+                            "mail": null,
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+14407670546",
+                            "name": "Prof. Bridie Volkman III",
+                            "mail": null,
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+14407670546",
+                            "name": "Frankie Schiller",
+                            "mail": null,
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+16787903749",
+                            "name": "Estell Hane",
+                            "mail": null,
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+16808061216",
+                            "name": "Mr. Branson Hane DDS",
+                            "mail": null,
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": null,
+                            "name": "Tristin Williamson I",
+                            "mail": null,
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+13515473156",
+                            "name": "Corrine Runte",
+                            "mail": null,
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+14094804845",
+                            "name": "Ena Hammes",
+                            "mail": null,
+                            "type": "Contact Person"
+                        }
+                    ],
+                    "locations": [
+                        {
+                            "zip": "91575-5332",
+                            "address": "47308 Abbigail Crescent Suite 693",
+                            "city": "South Tyreekshire",
+                            "locationType": null,
+                            "country": "Lesotho",
+                            "latitude": "-79.171615",
+                            "longitude": "-86.486036",
+                            "countryCode": "TD"
+                        },
+                        {
+                            "zip": "91575-5332",
+                            "address": "47308 Abbigail Crescent Suite 693",
+                            "city": "South Tyreekshire",
+                            "locationType": null,
+                            "country": "Lesotho",
+                            "latitude": "-79.171615",
+                            "longitude": "-86.486036",
+                            "countryCode": "TD"
+                        }
+                    ],
+                    "brandingData": {
+                        "mainColor": "#a4a7a9",
+                        "secondaryColor": "#f9c110",
+                        "defaultMainColor": null,
+                        "secondaryColorDefault": null,
+                        "defaultLogoUrl": null,
+                        "favIconUrl": null,
+                        "useDefaultFavIcon": null,
+                        "resellerAnalyticsCode": null,
+                        "brandingMode": null,
+                        "mainImageOnTheRight": null,
+                        "logoUrl": "http://www.harvey.biz/consequatur-sit-tempora-cum-et-optio.html",
+                        "mainHeadingText": [
+                            {
+                                "language_code": "en_GB",
+                                "text": "Deleniti animi assumenda voluptate molestias nesciunt modi quis numquam."
+                            },
+                            {
+                                "language_code": "en",
+                                "text": "Deleniti animi assumenda voluptate molestias nesciunt modi quis numquam."
+                            },
+                            {
+                                "language_code": "fr_FR",
+                                "text": "Deleniti animi assumenda voluptate molestias nesciunt modi quis numquam."
+                            },
+                            {
+                                "language_code": "fr",
+                                "text": "Deleniti animi assumenda voluptate molestias nesciunt modi quis numquam."
+                            },
+                            {
+                                "language_code": "de_DE",
+                                "text": "Et et quo inventore dicta et."
+                            },
+                            {
+                                "language_code": "de",
+                                "text": "Et et quo inventore dicta et."
+                            }
+                        ],
+                        "underlineText": [
+                            {
+                                "language_code": "en_GB",
+                                "text": "Nostrum id ullam blanditiis qui dolorem porro sunt."
+                            },
+                            {
+                                "language_code": "en",
+                                "text": "Nostrum id ullam blanditiis qui dolorem porro sunt."
+                            },
+                            {
+                                "language_code": "fr_FR",
+                                "text": "Nostrum id ullam blanditiis qui dolorem porro sunt."
+                            },
+                            {
+                                "language_code": "fr",
+                                "text": "Nostrum id ullam blanditiis qui dolorem porro sunt."
+                            },
+                            {
+                                "language_code": "de_DE",
+                                "text": "Rem quia sed rem ut quo est."
+                            },
+                            {
+                                "language_code": "de",
+                                "text": "Rem quia sed rem ut quo est."
+                            }
+                        ]
+                    },
+                    "companyKpis": {
+                        "totalAssets": 15627,
+                        "activeAssets": 35,
+                        "activeAssetsPercentage": 0.22397133166954628,
+                        "activeCustomers": 155,
+                        "newActiveCustomers": 0,
+                        "activeContracts": 288,
+                        "activeContractTotalAmount": 970093.1400000006,
+                        "newActiveContracts": 0,
+                        "expiringContracts": 39,
+                        "activeQuotes": 47,
+                        "activeQuotesTotalAmount": 490006.39999999787,
+                        "newActiveQuotes": 0,
+                        "expiringQuotes": 2,
+                        "expiredQuotes": 47,
+                        "expiredContracts": 288,
+                        "orderedQuotes": null,
+                        "acceptedQuotes": null,
+                        "requestedQuotes": null,
+                        "receivedQuotes": null,
+                        "rejectedQuotes": null,
+                        "awaitingQuotes": null,
+                        "activeAssetsOnContract": null,
+                        "activeAssetsOnWarranty": null,
+                        "activeExposedAssets": null,
+                        "serviceRevenueTotalAmount": null,
+                        "serviceRevenueTotalAmountChange": null
+                    },
+                    "status": null
+                }
+            ]
+        }
+    }
+}

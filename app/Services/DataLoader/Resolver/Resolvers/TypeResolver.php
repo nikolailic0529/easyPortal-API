@@ -2,7 +2,7 @@
 
 namespace App\Services\DataLoader\Resolver\Resolvers;
 
-use App\Models\Type;
+use App\Models\Data\Type;
 use App\Services\DataLoader\Cache\Key;
 use App\Services\DataLoader\Container\SingletonPersistent;
 use App\Services\DataLoader\Normalizer\Normalizer;
@@ -17,7 +17,7 @@ use Illuminate\Support\Collection;
  */
 class TypeResolver extends Resolver implements SingletonPersistent {
     /**
-     * @param Closure(Normalizer=): Type|null $factory
+     * @param Closure(Normalizer=): \App\Models\Data\Type|null $factory
      *
      * @return ($factory is null ? Type|null : Type)
      */

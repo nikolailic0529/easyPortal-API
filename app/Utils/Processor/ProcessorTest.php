@@ -182,6 +182,7 @@ class ProcessorTest extends TestCase {
         $iterator
             ->shouldReceive('setIndex')
             ->with($state->index)
+            ->atLeast()
             ->once()
             ->andReturnSelf();
         $iterator

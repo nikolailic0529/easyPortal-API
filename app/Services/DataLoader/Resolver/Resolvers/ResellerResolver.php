@@ -3,6 +3,7 @@
 namespace App\Services\DataLoader\Resolver\Resolvers;
 
 use App\Models\Reseller;
+use App\Services\DataLoader\Normalizer\Normalizer;
 use App\Services\DataLoader\Resolver\Resolver;
 use Closure;
 use Illuminate\Database\Eloquent\Builder;
@@ -12,7 +13,7 @@ use Illuminate\Database\Eloquent\Builder;
  */
 class ResellerResolver extends Resolver {
     /**
-     * @param Closure(\App\Services\DataLoader\Normalizer\Normalizer=): Reseller|null $factory
+     * @param Closure(Normalizer=): Reseller|null $factory
      *
      * @return ($factory is null ? Reseller|null : Reseller)
      */
@@ -21,13 +22,6 @@ class ResellerResolver extends Resolver {
     }
 
     protected function getFindQuery(): ?Builder {
-        return Reseller::query();
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function prefetch(array $keys, Closure|null $callback = null): static {
-        return parent::prefetch($keys, $callback);
+        return Reseller::withTrashed();
     }
 }

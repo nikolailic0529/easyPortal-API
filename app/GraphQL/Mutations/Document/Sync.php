@@ -3,7 +3,7 @@
 namespace App\GraphQL\Mutations\Document;
 
 use App\Models\Document;
-use App\Services\DataLoader\Jobs\DocumentSync;
+use App\Services\DataLoader\Queue\Tasks\DocumentSync;
 use Illuminate\Contracts\Container\Container;
 
 class Sync {

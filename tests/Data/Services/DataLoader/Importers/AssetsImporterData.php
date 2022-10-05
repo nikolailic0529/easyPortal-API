@@ -8,8 +8,7 @@ use Illuminate\Console\Command;
 class AssetsImporterData extends AssetsData {
     protected function generateData(string $path): bool {
         return $this->dumpClientResponses($path, function (): bool {
-            $result  = $this->kernel->call('ep:data-loader-assets-import', [
-                '--limit' => static::LIMIT,
+            $result  = $this->kernel->call('ep:data-loader-assets-sync', [
                 '--chunk' => static::CHUNK,
             ]);
             $success = $result === Command::SUCCESS;

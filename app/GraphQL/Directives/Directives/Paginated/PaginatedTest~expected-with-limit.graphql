@@ -470,7 +470,7 @@ type Query {
     ): TypesAggregated
     @authAny
     @aggregated(
-        model: "App\\Models\\Type"
+        model: "App\\Models\\Data\\Type"
     )
 }
 

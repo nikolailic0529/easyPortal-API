@@ -5,13 +5,11 @@ namespace App\Services\Recalculator\Listeners;
 use App\Events\Subscriber;
 use App\Services\DataLoader\Events\DataImported;
 use App\Services\Recalculator\Recalculator;
-use App\Services\Recalculator\Service;
 use Illuminate\Contracts\Events\Dispatcher;
 use Illuminate\Database\Eloquent\Model;
 
 class DataImportedListener implements Subscriber {
     public function __construct(
-        protected Service $service,
         protected Recalculator $recalculator,
     ) {
         // empty
@@ -32,12 +30,6 @@ class DataImportedListener implements Subscriber {
      * @param array<string|int>   $keys
      */
     private function update(string $model, array $keys): void {
-        // Recalculable?
-        if (!$this->service->isRecalculableModel($model)) {
-            return;
-        }
-
-        // Dispatch
         $this->recalculator->dispatch([
             'model' => $model,
             'keys'  => $keys,

@@ -26,7 +26,6 @@ use App\Services\DataLoader\Testing\Data\Fake\Company as CompanyValue;
 use App\Services\DataLoader\Testing\Data\Fake\CountryCode as CountryCodeValue;
 use App\Services\DataLoader\Testing\Data\Fake\CountryName as CountryNameValue;
 use App\Services\DataLoader\Testing\Data\Fake\Email as EmailValue;
-use App\Services\DataLoader\Testing\Data\Fake\ImageUrl as ImageUrlValue;
 use App\Services\DataLoader\Testing\Data\Fake\Latitude as LatitudeValue;
 use App\Services\DataLoader\Testing\Data\Fake\Longitude as LongitudeValue;
 use App\Services\DataLoader\Testing\Data\Fake\Name as NameValue;
@@ -34,6 +33,7 @@ use App\Services\DataLoader\Testing\Data\Fake\Number as NumberValue;
 use App\Services\DataLoader\Testing\Data\Fake\Phone as PhoneValue;
 use App\Services\DataLoader\Testing\Data\Fake\Postcode as PostcodeValue;
 use App\Services\DataLoader\Testing\Data\Fake\Text as TextValue;
+use App\Services\DataLoader\Testing\Data\Fake\Url as UrlValue;
 use App\Services\DataLoader\Testing\Data\Fake\Uuid as UuidValue;
 use App\Services\DataLoader\Testing\Data\Fake\Value;
 use Exception;
@@ -72,7 +72,7 @@ class ClientDataCleaner {
         protected PhoneValue $phone,
         protected EmailValue $email,
         protected NameValue $name,
-        protected ImageUrlValue $imageUrl,
+        protected UrlValue $url,
     ) {
         // empty
     }
@@ -140,11 +140,11 @@ class ClientDataCleaner {
             $object->latitude    = $this->map($object->latitude, $this->latitude);
             $object->longitude   = $this->map($object->longitude, $this->longitude);
         } elseif ($object instanceof BrandingData) {
-            $object->defaultLogoUrl      = $this->map($object->defaultLogoUrl, $this->imageUrl);
-            $object->favIconUrl          = $this->map($object->favIconUrl, $this->imageUrl);
-            $object->useDefaultFavIcon   = $this->map($object->useDefaultFavIcon, $this->imageUrl);
-            $object->mainImageOnTheRight = $this->map($object->mainImageOnTheRight, $this->imageUrl);
-            $object->logoUrl             = $this->map($object->logoUrl, $this->imageUrl);
+            $object->defaultLogoUrl      = $this->map($object->defaultLogoUrl, $this->url);
+            $object->favIconUrl          = $this->map($object->favIconUrl, $this->url);
+            $object->useDefaultFavIcon   = $this->map($object->useDefaultFavIcon, $this->url);
+            $object->mainImageOnTheRight = $this->map($object->mainImageOnTheRight, $this->url);
+            $object->logoUrl             = $this->map($object->logoUrl, $this->url);
         } elseif ($object instanceof TranslationText) {
             $object->text = $this->map($object->text, $this->text);
         } elseif ($object instanceof DocumentEntry) {

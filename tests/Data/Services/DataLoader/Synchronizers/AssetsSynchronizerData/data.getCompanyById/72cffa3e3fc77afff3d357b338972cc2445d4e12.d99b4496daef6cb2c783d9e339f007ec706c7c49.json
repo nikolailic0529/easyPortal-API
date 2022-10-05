@@ -1,0 +1,150 @@
+{
+    "selector": "data.getCompanyById",
+    "query": "query getCompanyById($id: String!) {\n    getCompanyById(id: $id) {\n        id\nname\nstatus\nupdatedAt\ncompanyType\ncompanyContactPersons {\n    phoneNumber\n    name\n    type\n    mail\n}\nlocations {\n    country\n    countryCode\n    latitude\n    longitude\n    city\n    zip\n    address\n    locationType\n}\ncompanyKpis {\n    totalAssets\nactiveAssets\nactiveAssetsPercentage\nactiveCustomers\nnewActiveCustomers\nactiveContracts\nactiveContractTotalAmount\nnewActiveContracts\nexpiringContracts\nactiveQuotes\nactiveQuotesTotalAmount\nnewActiveQuotes\nexpiringQuotes\nexpiredQuotes\nexpiredContracts\norderedQuotes\nacceptedQuotes\nrequestedQuotes\nreceivedQuotes\nrejectedQuotes\nawaitingQuotes\nactiveAssetsOnContract\nactiveAssetsOnWarranty\nactiveExposedAssets\nserviceRevenueTotalAmount\nserviceRevenueTotalAmountChange\n}\nkeycloakName\nkeycloakGroupId\nkeycloakClientScopeName\nbrandingData {\n    brandingMode\n    defaultLogoUrl\n    defaultMainColor\n    favIconUrl\n    logoUrl\n    mainColor\n    mainImageOnTheRight\n    resellerAnalyticsCode\n    secondaryColor\n    secondaryColorDefault\n    useDefaultFavIcon\n    mainHeadingText {\n        language_code\n        text\n    }\n    underlineText {\n        language_code\n        text\n    }\n}\n    }\n}",
+    "variables": {
+        "id": "0fd07b17-3314-40b5-ac32-7189051f773b"
+    },
+    "response": {
+        "data": {
+            "getCompanyById": [
+                {
+                    "id": "0fd07b17-3314-40b5-ac32-7189051f773b",
+                    "name": "Conroy Ltd",
+                    "companyType": "RESELLER",
+                    "updatedAt": "1662157011025",
+                    "keycloakName": null,
+                    "keycloakGroupId": null,
+                    "keycloakClientScopeName": null,
+                    "companyContactPersons": [
+                        {
+                            "phoneNumber": "+19144477518",
+                            "name": "Gilda Rowe",
+                            "mail": "kirlin.lillian@hotmail.com",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+19144477518",
+                            "name": "Gilda Rowe",
+                            "mail": "qhamill@little.biz",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+19144477518",
+                            "name": "Emelia Brown",
+                            "mail": "kirlin.lillian@hotmail.com",
+                            "type": "Contact Person"
+                        }
+                    ],
+                    "locations": [
+                        {
+                            "zip": "42680-6069",
+                            "address": "8523 Bartell Roads Suite 567",
+                            "city": "McLaughlintown",
+                            "locationType": null,
+                            "country": "Iraq",
+                            "latitude": "5.243096",
+                            "longitude": "146.864506",
+                            "countryCode": "JP"
+                        }
+                    ],
+                    "brandingData": {
+                        "mainColor": "#24303e",
+                        "secondaryColor": "#38b5aa",
+                        "defaultMainColor": null,
+                        "secondaryColorDefault": null,
+                        "defaultLogoUrl": null,
+                        "favIconUrl": null,
+                        "useDefaultFavIcon": null,
+                        "resellerAnalyticsCode": null,
+                        "brandingMode": null,
+                        "mainImageOnTheRight": null,
+                        "logoUrl": "http://www.shields.com/quidem-minus-sit-voluptatem-officiis-repellendus-consequuntur.html",
+                        "mainHeadingText": [
+                            {
+                                "language_code": "en_GB",
+                                "text": "Deleniti animi assumenda voluptate molestias nesciunt modi quis numquam."
+                            },
+                            {
+                                "language_code": "en",
+                                "text": "Deleniti animi assumenda voluptate molestias nesciunt modi quis numquam."
+                            },
+                            {
+                                "language_code": "fr_FR",
+                                "text": "Qui vel aliquam rerum aliquam debitis dicta quo voluptatem."
+                            },
+                            {
+                                "language_code": "fr",
+                                "text": "Qui vel aliquam rerum aliquam debitis dicta quo voluptatem."
+                            },
+                            {
+                                "language_code": "de_DE",
+                                "text": "Et et quo inventore dicta et."
+                            },
+                            {
+                                "language_code": "de",
+                                "text": "Et et quo inventore dicta et."
+                            }
+                        ],
+                        "underlineText": [
+                            {
+                                "language_code": "en_GB",
+                                "text": "Nesciunt eum blanditiis reiciendis nemo iure mollitia id."
+                            },
+                            {
+                                "language_code": "en",
+                                "text": "Nesciunt eum blanditiis reiciendis nemo iure mollitia id."
+                            },
+                            {
+                                "language_code": "fr_FR",
+                                "text": "Nesciunt eum blanditiis reiciendis nemo iure mollitia id."
+                            },
+                            {
+                                "language_code": "fr",
+                                "text": "Nesciunt eum blanditiis reiciendis nemo iure mollitia id."
+                            },
+                            {
+                                "language_code": "de_DE",
+                                "text": "Accusamus qui quos necessitatibus blanditiis nihil minima voluptas."
+                            },
+                            {
+                                "language_code": "de",
+                                "text": "Accusamus qui quos necessitatibus blanditiis nihil minima voluptas."
+                            }
+                        ]
+                    },
+                    "companyKpis": {
+                        "totalAssets": 15780,
+                        "activeAssets": 77,
+                        "activeAssetsPercentage": 0.4879594423320659,
+                        "activeCustomers": 147,
+                        "newActiveCustomers": 0,
+                        "activeContracts": 217,
+                        "activeContractTotalAmount": 343609.47,
+                        "newActiveContracts": 0,
+                        "expiringContracts": 25,
+                        "activeQuotes": 48,
+                        "activeQuotesTotalAmount": 360512.47,
+                        "newActiveQuotes": 0,
+                        "expiringQuotes": 0,
+                        "expiredQuotes": 48,
+                        "expiredContracts": 217,
+                        "orderedQuotes": null,
+                        "acceptedQuotes": null,
+                        "requestedQuotes": null,
+                        "receivedQuotes": null,
+                        "rejectedQuotes": null,
+                        "awaitingQuotes": null,
+                        "activeAssetsOnContract": null,
+                        "activeAssetsOnWarranty": null,
+                        "activeExposedAssets": null,
+                        "serviceRevenueTotalAmount": null,
+                        "serviceRevenueTotalAmountChange": null
+                    },
+                    "status": [
+                        "ACTIVE"
+                    ]
+                }
+            ]
+        }
+    }
+}

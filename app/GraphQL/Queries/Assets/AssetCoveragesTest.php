@@ -2,7 +2,7 @@
 
 namespace App\GraphQL\Queries\Assets;
 
-use App\Models\Coverage;
+use App\Models\Data\Coverage;
 use Closure;
 use LastDragon_ru\LaraASP\Testing\Constraints\Response\Response;
 use LastDragon_ru\LaraASP\Testing\Providers\ArrayDataProvider;

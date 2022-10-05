@@ -2,8 +2,8 @@
 
 namespace App\Services\DataLoader\Resolver\Resolvers;
 
-use App\Models\Oem;
-use App\Models\Product;
+use App\Models\Data\Oem;
+use App\Models\Data\Product;
 use App\Services\DataLoader\Cache\Key;
 use App\Services\DataLoader\Container\SingletonPersistent;
 use App\Services\DataLoader\Normalizer\Normalizer;
@@ -24,13 +24,6 @@ class ProductResolver extends Resolver implements SingletonPersistent {
      */
     public function get(Oem $oem, string $sku, Closure $factory = null): ?Product {
         return $this->resolve($this->getUniqueKey($oem, $sku), $factory);
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function prefetch(array $keys, Closure|null $callback = null): static {
-        return parent::prefetch($keys, $callback);
     }
 
     protected function getPreloadedItems(): Collection {

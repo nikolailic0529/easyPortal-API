@@ -3,16 +3,16 @@
 namespace App\Services\DataLoader\Factory\Factories;
 
 use App\Models\Asset;
+use App\Models\Data\Oem;
+use App\Models\Data\ProductGroup;
+use App\Models\Data\ProductLine;
+use App\Models\Data\Psp;
+use App\Models\Data\ServiceGroup;
+use App\Models\Data\ServiceLevel;
+use App\Models\Data\Type as TypeModel;
 use App\Models\Document as DocumentModel;
 use App\Models\DocumentEntry as DocumentEntryModel;
-use App\Models\Oem;
 use App\Models\OemGroup;
-use App\Models\ProductGroup;
-use App\Models\ProductLine;
-use App\Models\Psp;
-use App\Models\ServiceGroup;
-use App\Models\ServiceLevel;
-use App\Models\Type as TypeModel;
 use App\Services\DataLoader\Exceptions\FailedToProcessDocumentEntryNoAsset;
 use App\Services\DataLoader\Factory\AssetDocumentObject;
 use App\Services\DataLoader\Normalizer\Normalizer;
@@ -247,6 +247,38 @@ class DocumentFactoryTest extends TestCase {
 
         self::assertNotNull($created);
         self::assertNull($created->type_id);
+    }
+
+    /**
+     * @covers ::createFromAssetDocumentObject
+     */
+    public function testCreateFromAssetDocumentObjectTrashed(): void {
+        // Mock
+        $this->overrideFinders();
+
+        // Prepare
+        $factory  = $this->app->make(DocumentFactoryTest_Factory::class);
+        $json     = $this->getTestData()->json('~asset-document-full.json');
+        $asset    = new ViewAsset($json);
+        $model    = Asset::factory()->create([
+            'id' => $asset->id,
+        ]);
+        $object   = new AssetDocumentObject([
+            'asset'    => $model,
+            'document' => reset($asset->assetDocument),
+        ]);
+        $document = DocumentModel::factory()->create([
+            'id' => $object->document->document->id ?? null,
+        ]);
+
+        self::assertTrue($document->delete());
+        self::assertTrue($document->trashed());
+
+        // Test
+        $created = $factory->createFromAssetDocumentObject($object);
+
+        self::assertNotNull($created);
+        self::assertTrue($created->trashed());
     }
 
     /**
@@ -1144,6 +1176,31 @@ class DocumentFactoryTest extends TestCase {
 
         self::assertNotNull($created);
         self::assertNull($created->type_id);
+    }
+
+    /**
+     * @covers ::createFromDocument
+     */
+    public function testCreateFromDocumentTrashed(): void {
+        // Mock
+        $this->overrideFinders();
+
+        // Prepare
+        $factory  = $this->app->make(DocumentFactoryTest_Factory::class);
+        $json     = $this->getTestData()->json('~createFromDocument-document-type-null.json');
+        $object   = new Document($json);
+        $document = DocumentModel::factory()->create([
+            'id' => $object->id,
+        ]);
+
+        self::assertTrue($document->delete());
+        self::assertTrue($document->trashed());
+
+        // Test
+        $created = $factory->createFromDocument($object);
+
+        self::assertNotNull($created);
+        self::assertFalse($created->trashed());
     }
     // </editor-fold>
 

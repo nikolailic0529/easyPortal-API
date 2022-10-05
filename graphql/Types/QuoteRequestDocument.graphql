@@ -1,7 +1,7 @@
 type QuoteRequestDocument {
     id: ID!
     document_id: ID!
-    document: Document! @relation
+    document: Document @relation
     duration_id: ID!
     duration: QuoteRequestDuration! @relation
 }

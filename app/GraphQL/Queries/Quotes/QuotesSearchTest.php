@@ -2,9 +2,9 @@
 
 namespace App\GraphQL\Queries\Quotes;
 
+use App\Models\Data\Type;
 use App\Models\Document;
 use App\Models\Organization;
-use App\Models\Type;
 use Closure;
 use Illuminate\Database\Eloquent\Collection;
 use LastDragon_ru\LaraASP\Testing\Constraints\Response\Response;

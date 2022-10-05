@@ -29,6 +29,9 @@ class ResellerResolverTest extends TestCase {
         $a = Reseller::factory()->create();
         $b = Reseller::factory()->create();
 
+        self::assertTrue($b->delete());
+        self::assertTrue($b->trashed());
+
         // Run
         $provider = $this->app->make(ResellerResolver::class);
         $actual   = $provider->get($a->getKey(), $factory);

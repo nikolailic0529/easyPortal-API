@@ -2,7 +2,7 @@
 
 namespace App\Utils\Processor;
 
-use App\Utils\Processor\Contracts\Processor;
+use App\Utils\Processor\Contracts\MixedProcessor;
 use Closure;
 
 /**
@@ -10,8 +10,8 @@ use Closure;
  */
 class CompositeOperation {
     /**
-     * @param Closure(TState): Processor<mixed, mixed, State> $factory
-     * @param Closure(TState, bool): void|null                $handler
+     * @param Closure(TState): MixedProcessor  $factory
+     * @param Closure(TState, bool): void|null $handler
      */
     public function __construct(
         protected string $name,
@@ -27,10 +27,8 @@ class CompositeOperation {
 
     /**
      * @param TState $state
-     *
-     * @return Processor<mixed, mixed, State>
      */
-    public function getProcessor(CompositeState $state): Processor {
+    public function getProcessor(CompositeState $state): MixedProcessor {
         return ($this->factory)($state);
     }
 

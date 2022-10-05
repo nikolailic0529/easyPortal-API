@@ -59,14 +59,24 @@ class CollectorTest extends TestCase {
         $a
             ->shouldReceive('collectObjectChange')
             ->with($model)
-            ->twice()
+            ->once()
+            ->andReturns();
+        $a
+            ->shouldReceive('collectObjectDeletion')
+            ->with($model)
+            ->once()
             ->andReturns();
 
         $b = Mockery::mock(Data::class);
         $b
             ->shouldReceive('collectObjectChange')
             ->with($model)
-            ->twice()
+            ->once()
+            ->andReturns();
+        $b
+            ->shouldReceive('collectObjectDeletion')
+            ->with($model)
+            ->once()
             ->andReturns();
 
         // Prepare

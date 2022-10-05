@@ -2,8 +2,7 @@
 
 namespace App\Models\Relations;
 
-use App\Models\Type;
-use App\Utils\Eloquent\CascadeDeletes\CascadeDelete;
+use App\Models\Data\Type;
 use App\Utils\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use InvalidArgumentException;
@@ -17,7 +16,6 @@ trait HasTypeNullable {
     /**
      * @return BelongsTo<Type, self>
      */
-    #[CascadeDelete(false)]
     public function type(): BelongsTo {
         return $this->belongsTo(Type::class);
     }

@@ -1,0 +1,12 @@
+{
+    "selector": "data.getCompanyById",
+    "query": "query getCompanyById($id: String!) {\n    getCompanyById(id: $id) {\n        id\nname\nstatus\nupdatedAt\ncompanyType\n    }\n}",
+    "variables": {
+        "id": "00000000-0000-0000-0000-000000000000"
+    },
+    "response": {
+        "data": {
+            "getCompanyById": []
+        }
+    }
+}

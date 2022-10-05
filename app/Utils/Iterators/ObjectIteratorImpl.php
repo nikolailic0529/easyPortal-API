@@ -5,6 +5,7 @@ namespace App\Utils\Iterators;
 use App\Utils\Iterators\Concerns\InitialState;
 use App\Utils\Iterators\Concerns\Properties;
 use App\Utils\Iterators\Concerns\Subjects;
+use App\Utils\Iterators\Contracts\MixedIterator;
 use App\Utils\Iterators\Contracts\ObjectIterator;
 use App\Utils\Iterators\Exceptions\InfiniteLoopDetected;
 use Closure;
@@ -21,15 +22,15 @@ use function reset;
  *
  * @implements ObjectIterator<TItem>
  */
-abstract class ObjectIteratorImpl implements ObjectIterator {
+abstract class ObjectIteratorImpl implements ObjectIterator, MixedIterator {
     /**
-     * @phpstan-use \App\Utils\Iterators\Concerns\Subjects<TItem>
+     * @phpstan-use Subjects<TItem>
      */
     use Subjects;
     use Properties;
 
     /**
-     * @phpstan-use \App\Utils\Iterators\Concerns\InitialState<TItem>
+     * @phpstan-use InitialState<TItem>
      */
     use InitialState;
 

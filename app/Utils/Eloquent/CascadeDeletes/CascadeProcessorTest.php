@@ -2,6 +2,7 @@
 
 namespace App\Utils\Eloquent\CascadeDeletes;
 
+use App\Utils\Eloquent\Contracts\DataModel;
 use App\Utils\Eloquent\Pivot;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -9,12 +10,12 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\Relations\Relation;
 use Illuminate\Support\Collection;
+use LogicException;
 use Mockery;
 use Tests\TestCase;
 
 use function array_keys;
 use function count;
-use function sprintf;
 
 /**
  * @internal
@@ -43,13 +44,25 @@ class CascadeProcessorTest extends TestCase {
             ->once()
             ->andReturn($relations);
         $processor
-            ->shouldReceive('runDelete')
+            ->shouldReceive('run')
             ->times(count($relations))
             ->andReturns();
 
         $processor->delete($model);
 
         self::assertTrue(true);
+    }
+
+    /**
+     * @covers ::delete
+     */
+    public function testDeleteDataModel(): void {
+        self::expectException(LogicException::class);
+
+        $model     = Mockery::mock(Model::class, DataModel::class);
+        $processor = new CascadeProcessor();
+
+        $processor->delete($model);
     }
 
     /**
@@ -66,29 +79,40 @@ class CascadeProcessorTest extends TestCase {
         };
         $model     = new class() extends Model {
             /**
-             * @noinspection PhpMissingReturnTypeInspection
+             * @phpstan-ignore-next-line
              * @inheritDoc
              */
             public function relationWithoutTypehint() {
                 return Mockery::mock(BelongsTo::class);
             }
 
-            #[CascadeDelete(true)]
+            /**
+             * @return BelongsTo<Model, self>
+             */
+            #[CascadeDelete]
             public function relationWithTypehint(): BelongsTo {
                 return Mockery::mock(BelongsTo::class);
             }
 
-            #[CascadeDelete(false)]
+            /**
+             * @return BelongsTo<Model, self>
+             */
             public function relationWithTypehintIgnored(): BelongsTo {
                 return Mockery::mock(BelongsTo::class);
             }
 
-            #[CascadeDelete(true)]
+            /**
+             * @return BelongsTo<Model, self>
+             */
+            #[CascadeDelete]
             protected function relationProtected(): BelongsTo {
                 return Mockery::mock(BelongsTo::class);
             }
 
-            #[CascadeDelete(true)]
+            /**
+             * @return BelongsTo<Model, self>|HasOne<Model>
+             */
+            #[CascadeDelete]
             public function relationWithUnionTypehint(): BelongsTo|HasOne {
                 return Mockery::mock(BelongsTo::class);
             }
@@ -104,37 +128,9 @@ class CascadeProcessorTest extends TestCase {
     }
 
     /**
-     * @covers ::getRelations
+     * @covers ::run
      */
-    public function testGetRelationsNoAttribute(): void {
-        $processor = new class() extends CascadeProcessor {
-            /**
-             * @inheritDoc
-             */
-            public function getRelations(Model $model): array {
-                return parent::getRelations($model);
-            }
-        };
-        $model     = new class() extends Model {
-            public function relationWithoutAttribute(): BelongsTo {
-                return Mockery::mock(BelongsTo::class);
-            }
-        };
-
-        self::expectErrorMessage(sprintf(
-            'Relation `%s::%s()` must have `%s` attribute.',
-            $model::class,
-            'relationWithoutAttribute',
-            CascadeDelete::class,
-        ));
-
-        $processor->getRelations($model);
-    }
-
-    /**
-     * @covers ::runDelete
-     */
-    public function testRunDelete(): void {
+    public function testRun(): void {
         $relation = Mockery::mock(Relation::class);
 
         $model = Mockery::mock(Model::class);
@@ -157,7 +153,7 @@ class CascadeProcessorTest extends TestCase {
             ->once()
             ->andReturn([$child]);
 
-        $processor->runDelete($model, 'relation', $relation);
+        $processor->run($model, 'relation', $relation);
     }
 
     /**

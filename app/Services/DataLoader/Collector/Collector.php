@@ -27,21 +27,19 @@ class Collector implements Singleton, OnModelSaved, OnModelDeleted {
         }
     }
 
-    protected function modelChanged(Model $model): void {
-        foreach ($this->subscribers as $subscriber) {
-            $subscriber->collectObjectChange($model);
-        }
-    }
-
     public function subscribe(Data $subscriber): void {
         $this->subscribers[$subscriber] = $subscriber;
     }
 
     public function modelDeleted(Model $model): void {
-        $this->modelChanged($model);
+        foreach ($this->subscribers as $subscriber) {
+            $subscriber->collectObjectDeletion($model);
+        }
     }
 
     public function modelSaved(Model $model): void {
-        $this->modelChanged($model);
+        foreach ($this->subscribers as $subscriber) {
+            $subscriber->collectObjectChange($model);
+        }
     }
 }

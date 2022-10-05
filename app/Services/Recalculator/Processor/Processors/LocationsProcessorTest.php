@@ -4,7 +4,7 @@ namespace App\Services\Recalculator\Processor\Processors;
 
 use App\Models\Asset;
 use App\Models\Customer;
-use App\Models\Location;
+use App\Models\Data\Location;
 use App\Models\LocationCustomer;
 use App\Models\LocationReseller;
 use App\Models\Reseller;

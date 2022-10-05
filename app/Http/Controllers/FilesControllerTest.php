@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Data\Type;
 use App\Models\Document;
 use App\Models\Note;
 use App\Models\Organization;
-use App\Models\Type;
 use App\Models\User;
 use App\Services\Filesystem\ModelDiskFactory;
 use Closure;

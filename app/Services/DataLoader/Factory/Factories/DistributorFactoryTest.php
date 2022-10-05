@@ -2,6 +2,7 @@
 
 namespace App\Services\DataLoader\Factory\Factories;
 
+use App\Models\Distributor;
 use App\Services\DataLoader\Schema\Company;
 use App\Services\DataLoader\Schema\Type;
 use App\Services\DataLoader\Testing\Helper;
@@ -20,7 +21,7 @@ class DistributorFactoryTest extends TestCase {
     use WithQueryLog;
     use Helper;
 
-    // <editor-fold desc='Tests'>
+    // <editor-fold desc="Tests">
     // =========================================================================
     /**
      * @covers ::find
@@ -111,9 +112,32 @@ class DistributorFactoryTest extends TestCase {
 
         self::assertCount(1, $queries);
     }
+
+    /**
+     * @covers ::create
+     * @covers ::createFromCompany
+     */
+    public function testCreateFromCompanyTrashed(): void {
+        // Prepare
+        $factory = $this->app->make(DistributorFactory::class);
+        $json    = $this->getTestData()->json('~distributor-full.json');
+        $company = new Company($json);
+        $model   = Distributor::factory()->create([
+            'id' => $company->id,
+        ]);
+
+        self::assertTrue($model->delete());
+        self::assertTrue($model->trashed());
+
+        // Test
+        $created = $factory->create($company);
+
+        self::assertNotNull($created);
+        self::assertFalse($created->trashed());
+    }
     // </editor-fold>
 
-    // <editor-fold desc='DataProviders'>
+    // <editor-fold desc="DataProviders">
     // =========================================================================
     /**
      * @return array<mixed>

@@ -2,6 +2,13 @@
 
 namespace App\Models;
 
+use App\Models\Data\Coverage;
+use App\Models\Data\Location;
+use App\Models\Data\Oem;
+use App\Models\Data\Product;
+use App\Models\Data\Status;
+use App\Models\Data\Tag;
+use App\Models\Data\Type;
 use App\Models\Relations\HasChangeRequests;
 use App\Models\Relations\HasContacts;
 use App\Models\Relations\HasCustomerNullable;
@@ -17,7 +24,6 @@ use App\Services\Search\Eloquent\Searchable;
 use App\Services\Search\Eloquent\SearchableImpl;
 use App\Services\Search\Properties\Relation;
 use App\Services\Search\Properties\Text;
-use App\Utils\Eloquent\CascadeDeletes\CascadeDelete;
 use App\Utils\Eloquent\Concerns\SyncHasMany;
 use App\Utils\Eloquent\Model;
 use App\Utils\Eloquent\Pivot;
@@ -120,7 +126,9 @@ class Asset extends Model implements OwnedByReseller, Searchable {
 
     // <editor-fold desc="Relations">
     // =========================================================================
-    #[CascadeDelete(false)]
+    /**
+     * @return BelongsTo<Location, self>
+     */
     public function location(): BelongsTo {
         return $this->belongsTo(Location::class);
     }
@@ -129,7 +137,9 @@ class Asset extends Model implements OwnedByReseller, Searchable {
         $this->location()->associate($location);
     }
 
-    #[CascadeDelete(true)]
+    /**
+     * @return HasMany<AssetWarranty>
+     */
     public function warranties(): HasMany {
         return $this->hasMany(AssetWarranty::class);
     }
@@ -142,7 +152,9 @@ class Asset extends Model implements OwnedByReseller, Searchable {
         $this->warranty_end = self::getWarrantyEnd($this->warranties);
     }
 
-    #[CascadeDelete(false)]
+    /**
+     * @return HasMany<AssetWarranty>
+     */
     public function contractWarranties(): HasMany {
         return $this->hasMany(AssetWarranty::class)->where(static function (Builder $builder): void {
             $builder->orWhere(static function (Builder $builder): void {
@@ -157,7 +169,9 @@ class Asset extends Model implements OwnedByReseller, Searchable {
         });
     }
 
-    #[CascadeDelete(false)]
+    /**
+     * @return HasManyThrough<Document>
+     */
     protected function documents(): HasManyThrough {
         return $this->hasManyThrough(
             Document::class,
@@ -169,7 +183,9 @@ class Asset extends Model implements OwnedByReseller, Searchable {
         );
     }
 
-    #[CascadeDelete(false)]
+    /**
+     * @return HasManyThrough<Document>
+     */
     public function contracts(): HasManyThrough {
         return $this
             ->documents()
@@ -179,7 +195,9 @@ class Asset extends Model implements OwnedByReseller, Searchable {
             });
     }
 
-    #[CascadeDelete(false)]
+    /**
+     * @return HasManyThrough<Document>
+     */
     public function quotes(): HasManyThrough {
         return $this
             ->documents()
@@ -193,7 +211,9 @@ class Asset extends Model implements OwnedByReseller, Searchable {
         return new AssetTag();
     }
 
-    #[CascadeDelete(true)]
+    /**
+     * @return BelongsToMany<Coverage>
+     */
     public function coverages(): BelongsToMany {
         $pivot = new AssetCoverage();
 
@@ -212,7 +232,9 @@ class Asset extends Model implements OwnedByReseller, Searchable {
         $this->coverages_count = count($this->coverages);
     }
 
-    #[CascadeDelete(false)]
+    /**
+     * @return HasOneThrough<QuoteRequest>
+     */
     public function quoteRequest(): HasOneThrough {
         $request = new QuoteRequest();
 
@@ -221,7 +243,9 @@ class Asset extends Model implements OwnedByReseller, Searchable {
             ->orderByDesc($request->qualifyColumn($request->getCreatedAtColumn()));
     }
 
-    #[CascadeDelete(false)]
+    /**
+     * @return HasOne<ChangeRequest>
+     */
     public function changeRequest(): HasOne {
         $request = new ChangeRequest();
 

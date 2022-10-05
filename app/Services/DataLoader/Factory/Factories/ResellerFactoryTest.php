@@ -2,6 +2,7 @@
 
 namespace App\Services\DataLoader\Factory\Factories;
 
+use App\Models\Reseller;
 use App\Services\DataLoader\Events\ResellerUpdated;
 use App\Services\DataLoader\Normalizer\Normalizer;
 use App\Services\DataLoader\Schema\Company;
@@ -306,6 +307,29 @@ class ResellerFactoryTest extends TestCase {
 
         // Events
         Event::assertDispatchedTimes(ResellerUpdated::class, 1);
+    }
+
+    /**
+     * @covers ::create
+     * @covers ::createFromCompany
+     */
+    public function testCreateFromCompanyTrashed(): void {
+        // Prepare
+        $factory = $this->app->make(ResellerFactory::class);
+        $json    = $this->getTestData()->json('~reseller-full.json');
+        $company = new Company($json);
+        $model   = Reseller::factory()->create([
+            'id' => $company->id,
+        ]);
+
+        self::assertTrue($model->delete());
+        self::assertTrue($model->trashed());
+
+        // Test
+        $created = $factory->create($company);
+
+        self::assertNotNull($created);
+        self::assertFalse($created->trashed());
     }
     // </editor-fold>
 

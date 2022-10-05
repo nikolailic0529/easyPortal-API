@@ -2,7 +2,7 @@
 
 namespace Database\Factories;
 
-use App\Models\Location;
+use App\Models\Data\Location;
 use App\Models\Reseller;
 use App\Models\ResellerLocation;
 use App\Utils\Eloquent\Testing\Database\Factory;

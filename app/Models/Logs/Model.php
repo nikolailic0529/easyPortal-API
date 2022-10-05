@@ -2,10 +2,14 @@
 
 namespace App\Models\Logs;
 
+use App\Utils\Eloquent\Concerns\StringKey;
 use App\Utils\Eloquent\Concerns\UuidAsPrimaryKey;
+use App\Utils\Eloquent\SmartSave\SmartSave;
 use LastDragon_ru\LaraASP\Eloquent\Model as LaraASPModel;
 
 abstract class Model extends LaraASPModel {
+    use StringKey;
+    use SmartSave;
     use UuidAsPrimaryKey;
 
     public const    CONNECTION = 'logs';

@@ -5,24 +5,24 @@ namespace App\GraphQL\Queries\Customers;
 use App\Models\Asset;
 use App\Models\AssetWarranty;
 use App\Models\ChangeRequest;
-use App\Models\Currency;
 use App\Models\Customer;
 use App\Models\CustomerLocation;
+use App\Models\Data\Currency;
+use App\Models\Data\Language;
+use App\Models\Data\Location;
+use App\Models\Data\Oem;
+use App\Models\Data\Product;
+use App\Models\Data\ServiceGroup;
+use App\Models\Data\ServiceLevel;
+use App\Models\Data\Status;
+use App\Models\Data\Type;
 use App\Models\Distributor;
 use App\Models\Document;
 use App\Models\DocumentEntry;
 use App\Models\Kpi;
-use App\Models\Language;
-use App\Models\Location;
-use App\Models\Oem;
 use App\Models\Organization;
-use App\Models\Product;
 use App\Models\Reseller;
 use App\Models\ResellerLocation;
-use App\Models\ServiceGroup;
-use App\Models\ServiceLevel;
-use App\Models\Status;
-use App\Models\Type;
 use App\Models\User;
 use Closure;
 use LastDragon_ru\LaraASP\Testing\Constraints\Response\Response;
@@ -1596,7 +1596,7 @@ class CustomerTest extends TestCase {
                                 'id' => $organization,
                             ]);
 
-                            /** @var Location $location */
+                            /** @var \App\Models\Data\Location $location */
                             $location = Location::factory()->create([
                                 'id'        => 'f9396bc1-2f2f-4c58-2f2f-7a224ac20944',
                                 'state'     => 'state1',

@@ -286,6 +286,14 @@ class ModelProcessor extends EloquentProcessor {
 
     // <editor-fold desc="Helpers">
     // =========================================================================
+    /**
+     * @template T
+     *
+     * @param TState       $state
+     * @param Closure(): T $callback
+     *
+     * @return (T is void ? null : T)
+     */
     protected function call(State $state, Closure $callback): mixed {
         return $this->callWithoutScoutQueue(function () use ($state, $callback): mixed {
             return parent::call($state, $callback);

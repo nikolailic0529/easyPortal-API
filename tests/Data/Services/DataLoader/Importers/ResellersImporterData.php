@@ -8,8 +8,7 @@ use Illuminate\Console\Command;
 class ResellersImporterData extends Data {
     protected function generateData(string $path): bool {
         return $this->dumpClientResponses($path, function (): bool {
-            $result  = $this->kernel->call('ep:data-loader-resellers-import', [
-                '--limit' => static::LIMIT,
+            $result  = $this->kernel->call('ep:data-loader-resellers-sync', [
                 '--chunk' => static::CHUNK,
             ]);
             $success = $result === Command::SUCCESS;

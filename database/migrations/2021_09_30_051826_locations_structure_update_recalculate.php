@@ -1,7 +1,7 @@
 <?php declare(strict_types = 1);
 
 use App\Models\Customer;
-use App\Models\Location;
+use App\Models\Data\Location;
 use App\Models\Reseller;
 use App\Services\Recalculator\Migrations\Recalculate;
 

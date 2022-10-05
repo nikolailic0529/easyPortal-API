@@ -2,11 +2,11 @@
 
 namespace App\GraphQL\Queries\Administration;
 
+use App\Models\Data\Team;
 use App\Models\Enums\UserType;
 use App\Models\Organization;
 use App\Models\OrganizationUser;
 use App\Models\Role;
-use App\Models\Team;
 use App\Models\User;
 use Closure;
 use Illuminate\Support\Facades\Date;

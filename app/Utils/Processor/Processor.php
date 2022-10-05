@@ -10,6 +10,7 @@ use App\Utils\Iterators\Contracts\Errorable;
 use App\Utils\Iterators\Contracts\Limitable;
 use App\Utils\Iterators\Contracts\ObjectIterator;
 use App\Utils\Iterators\Contracts\Offsetable;
+use App\Utils\Processor\Contracts\MixedProcessor;
 use App\Utils\Processor\Contracts\Processor as ProcessorContract;
 use App\Utils\Processor\Contracts\StateStore;
 use Closure;
@@ -53,7 +54,7 @@ use function min;
  *
  * @implements ProcessorContract<TItem, TChunkData, TState>
  */
-abstract class Processor implements ProcessorContract {
+abstract class Processor implements ProcessorContract, MixedProcessor {
     use ChunkSize;
 
     private ?StateStore $store   = null;
@@ -600,7 +601,7 @@ abstract class Processor implements ProcessorContract {
      * @param TState       $state
      * @param Closure(): T $callback
      *
-     * @return T|null
+     * @return (T is void ? null : T)
      */
     protected function call(State $state, Closure $callback): mixed {
         $result = null;

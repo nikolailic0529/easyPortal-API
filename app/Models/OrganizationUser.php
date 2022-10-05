@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Data\Team;
 use App\Models\Relations\HasOrganization;
 use App\Models\Relations\HasRole;
 use App\Models\Relations\HasTeam;
@@ -9,7 +10,7 @@ use App\Models\Relations\HasUser;
 use App\Services\Audit\Concerns\Auditable;
 use App\Services\Organization\Eloquent\OwnedByOrganization;
 use App\Services\Organization\Eloquent\OwnedByOrganizationImpl;
-use App\Utils\Eloquent\Model;
+use App\Utils\Eloquent\Pivot;
 use App\Utils\Eloquent\SmartSave\Upsertable;
 use Carbon\CarbonImmutable;
 use Database\Factories\OrganizationUserFactory;
@@ -38,7 +39,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  * @method static Builder|OrganizationUser newQuery()
  * @method static Builder|OrganizationUser query()
  */
-class OrganizationUser extends Model implements OwnedByOrganization, Auditable, Upsertable {
+class OrganizationUser extends Pivot implements OwnedByOrganization, Auditable, Upsertable {
     use HasFactory;
     use OwnedByOrganizationImpl;
     use HasOrganization;

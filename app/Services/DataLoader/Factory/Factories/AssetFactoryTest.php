@@ -6,16 +6,16 @@ use App\Exceptions\ErrorReport;
 use App\Models\Asset;
 use App\Models\AssetWarranty;
 use App\Models\Customer;
+use App\Models\Data\Location;
+use App\Models\Data\Oem;
+use App\Models\Data\Product;
+use App\Models\Data\ServiceGroup;
+use App\Models\Data\ServiceLevel;
+use App\Models\Data\Status;
+use App\Models\Data\Type as TypeModel;
 use App\Models\Document;
 use App\Models\DocumentEntry as DocumentEntryModel;
-use App\Models\Location;
-use App\Models\Oem;
-use App\Models\Product;
 use App\Models\Reseller;
-use App\Models\ServiceGroup;
-use App\Models\ServiceLevel;
-use App\Models\Status;
-use App\Models\Type as TypeModel;
 use App\Services\DataLoader\Container\Container;
 use App\Services\DataLoader\Exceptions\CustomerNotFound;
 use App\Services\DataLoader\Exceptions\FailedToProcessAssetViewDocument;
@@ -134,16 +134,16 @@ class AssetFactoryTest extends TestCase {
         self::assertNull($created->product->eos ?? null);
         self::assertEquals($asset->eosDate, (string) ($created->product->eos ?? null));
         self::assertEquals($asset->eolDate, $this->getDatetime($created->product->eol ?? null));
-        self::assertEquals($asset->assetType, $created->type->key);
-        self::assertEquals($asset->status, $created->status->key);
-        self::assertEquals($asset->customerId, $created->customer->getKey());
+        self::assertEquals($asset->assetType, $created->type->key ?? null);
+        self::assertEquals($asset->status, $created->status->key ?? null);
+        self::assertEquals($asset->customerId, $created->customer?->getKey());
         self::assertNotNull($created->warranty_end);
         self::assertEquals($created->warranties->pluck('end')->max(), $created->warranty_end);
         self::assertEquals(
             $this->getAssetLocation($asset),
             $this->getLocation($created->location),
         );
-        self::assertEquals(count($asset->assetCoverage), $created->coverages_count);
+        self::assertEquals(count($asset->assetCoverage ?? []), $created->coverages_count);
         self::assertEquals(
             $this->getContacts($asset),
             $this->getModelContacts($created),
@@ -152,7 +152,7 @@ class AssetFactoryTest extends TestCase {
             $this->getAssetTags($asset),
             $this->getModelTags($created),
         );
-        self::assertEquals(count($asset->assetCoverage), $created->coverages_count);
+        self::assertEquals(count($asset->assetCoverage ?? []), $created->coverages_count);
         self::assertEquals(
             $this->getAssetCoverages($asset),
             $this->getModelCoverages($created),
@@ -271,8 +271,8 @@ class AssetFactoryTest extends TestCase {
         self::assertEquals($asset->assetSku, $updated->product->sku ?? null);
         self::assertEquals($asset->eosDate, $this->getDatetime($updated->product->eos ?? null));
         self::assertEquals($asset->eolDate, $this->getDatetime($updated->product->eol ?? null));
-        self::assertEquals($asset->assetType, $updated->type->key);
-        self::assertEquals($asset->customerId, $updated->customer->getKey());
+        self::assertEquals($asset->assetType, $updated->type->key ?? null);
+        self::assertEquals($asset->customerId, $updated->customer?->getKey());
         self::assertNotNull($updated->warranty_end);
         self::assertEquals($updated->warranties->pluck('end')->max(), $updated->warranty_end);
         self::assertEquals(
@@ -287,7 +287,7 @@ class AssetFactoryTest extends TestCase {
             $this->getAssetTags($asset),
             $this->getModelTags($updated),
         );
-        self::assertEquals(count($asset->assetCoverage), $updated->coverages_count);
+        self::assertEquals(count($asset->assetCoverage ?? []), $updated->coverages_count);
         self::assertEquals(
             $this->getAssetCoverages($asset),
             $this->getModelCoverages($updated),
@@ -317,6 +317,32 @@ class AssetFactoryTest extends TestCase {
     /**
      * @covers ::createFromAsset
      */
+    public function testCreateFromAssetTrashed(): void {
+        // Mock
+        $this->overrideResellerFinder();
+        $this->overrideCustomerFinder();
+
+        // Prepare
+        $factory = $this->app->make(AssetFactory::class);
+        $json    = $this->getTestData()->json('~asset-full.json');
+        $asset   = new ViewAsset($json);
+        $model   = Asset::factory()->create([
+            'id' => $asset->id,
+        ]);
+
+        self::assertTrue($model->delete());
+        self::assertTrue($model->trashed());
+
+        // Test
+        $created = $factory->create($asset);
+
+        self::assertNotNull($created);
+        self::assertFalse($created->trashed());
+    }
+
+    /**
+     * @covers ::createFromAsset
+     */
     public function testCreateFromAssetAssetOnly(): void {
         // Prepare
         $container = $this->app->make(Container::class);
@@ -338,14 +364,14 @@ class AssetFactoryTest extends TestCase {
         self::assertNull($created->product->eos ?? null);
         self::assertEquals($asset->eosDate, (string) ($created->product->eos ?? null));
         self::assertEquals($asset->eolDate, (string) ($created->product->eol ?? null));
-        self::assertEquals($asset->assetType, $created->type->key);
+        self::assertEquals($asset->assetType, $created->type->key ?? null);
         self::assertNull($created->customer_id);
         self::assertNull($created->location_id);
         self::assertEquals(
             $this->getModelContacts($created),
             $this->getContacts($asset),
         );
-        self::assertEquals(count($asset->assetCoverage), $created->coverages_count);
+        self::assertEquals(count($asset->assetCoverage ?? []), $created->coverages_count);
         self::assertEquals(
             $this->getAssetCoverages($asset),
             $this->getModelCoverages($created),
@@ -870,7 +896,7 @@ class AssetFactoryTest extends TestCase {
         });
 
         self::assertNotNull($b);
-        self::assertEquals($b->serviceGroup->sku, $serviceGroupSku);
+        self::assertEquals($b->serviceGroup->sku ?? null, $serviceGroupSku);
 
         // No service
         /** @var AssetWarranty $c */
@@ -1435,8 +1461,8 @@ class AssetFactoryTest extends TestCase {
             'customer_id' => null,
             'asset_id'    => $asset,
             'type_id'     => $type,
-            'start'       => Date::make($this->faker->dateTime())->startOfDay(),
-            'end'         => Date::make($this->faker->dateTime())->startOfDay(),
+            'start'       => Date::make($this->faker->dateTime())?->startOfDay(),
+            'end'         => Date::make($this->faker->dateTime())?->startOfDay(),
         ]);
         $warrantyShouldBeReused  = (new Collection([
             AssetWarranty::factory()->create([
@@ -1459,16 +1485,16 @@ class AssetFactoryTest extends TestCase {
             ->sort(new KeysComparator())
             ->first();
         $entryShouldBeCreated    = new CoverageEntry([
-            'coverageStartDate' => $warrantyShouldBeReused->start->format('Y-m-d'),
-            'coverageEndDate'   => $warrantyShouldBeReused->end->format('Y-m-d'),
+            'coverageStartDate' => $warrantyShouldBeReused?->start?->format('Y-m-d'),
+            'coverageEndDate'   => $warrantyShouldBeReused?->end?->format('Y-m-d'),
             'type'              => $type->key,
             'status'            => $status->key,
             'description'       => "(created) {$this->faker->text()}",
         ]);
         $entryShouldBeUpdated    = new CoverageEntry([
-            'coverageStartDate' => $warrantyShouldBeUpdated->start->format('Y-m-d'),
-            'coverageEndDate'   => $warrantyShouldBeUpdated->end->format('Y-m-d'),
-            'type'              => $warrantyShouldBeUpdated->type->key,
+            'coverageStartDate' => $warrantyShouldBeUpdated->start?->format('Y-m-d'),
+            'coverageEndDate'   => $warrantyShouldBeUpdated->end?->format('Y-m-d'),
+            'type'              => $warrantyShouldBeUpdated->type?->key,
             'status'            => $status->key,
             'description'       => "(updated) {$this->faker->text()}",
         ]);

@@ -2,8 +2,7 @@
 
 namespace App\Models\Relations;
 
-use App\Models\Location;
-use App\Utils\Eloquent\CascadeDeletes\CascadeDelete;
+use App\Models\Data\Location;
 use App\Utils\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
@@ -14,7 +13,6 @@ trait HasLocation {
     /**
      * @return BelongsTo<Location, self>
      */
-    #[CascadeDelete(false)]
     public function location(): BelongsTo {
         return $this->belongsTo(Location::class);
     }

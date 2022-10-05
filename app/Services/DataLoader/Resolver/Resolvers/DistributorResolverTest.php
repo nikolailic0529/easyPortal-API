@@ -27,6 +27,9 @@ class DistributorResolverTest extends TestCase {
         $a = Distributor::factory()->create();
         $b = Distributor::factory()->create();
 
+        self::assertTrue($b->delete());
+        self::assertTrue($b->trashed());
+
         // Run
         $provider = $this->app->make(DistributorResolver::class);
         $actual   = $provider->get($a->getKey(), $factory);

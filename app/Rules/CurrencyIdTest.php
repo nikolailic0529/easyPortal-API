@@ -2,7 +2,7 @@
 
 namespace App\Rules;
 
-use App\Models\Currency;
+use App\Models\Data\Currency;
 use Closure;
 use Illuminate\Contracts\Validation\Factory;
 use Illuminate\Support\Facades\Date;

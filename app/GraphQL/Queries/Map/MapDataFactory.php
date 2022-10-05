@@ -3,10 +3,10 @@
 namespace App\GraphQL\Queries\Map;
 
 use App\Models\Asset;
-use App\Models\City;
-use App\Models\Country;
 use App\Models\Customer;
-use App\Models\Location;
+use App\Models\Data\City;
+use App\Models\Data\Country;
+use App\Models\Data\Location;
 use App\Models\Organization;
 use App\Models\Reseller;
 use App\Models\User;

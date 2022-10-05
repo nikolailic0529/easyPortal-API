@@ -4,11 +4,11 @@ namespace App\GraphQL\Queries;
 
 use App\Models\Asset;
 use App\Models\Customer;
+use App\Models\Data\Status;
+use App\Models\Data\Type;
 use App\Models\Document;
 use App\Models\Organization;
 use App\Models\Reseller;
-use App\Models\Status;
-use App\Models\Type;
 use App\Models\User;
 use Closure;
 use Illuminate\Database\Eloquent\Collection;

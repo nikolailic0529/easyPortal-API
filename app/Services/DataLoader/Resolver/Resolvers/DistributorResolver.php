@@ -3,7 +3,7 @@
 namespace App\Services\DataLoader\Resolver\Resolvers;
 
 use App\Models\Distributor;
-use App\Services\DataLoader\Container\SingletonPersistent;
+use App\Services\DataLoader\Normalizer\Normalizer;
 use App\Services\DataLoader\Resolver\Resolver;
 use Closure;
 use Illuminate\Database\Eloquent\Builder;
@@ -12,9 +12,9 @@ use Illuminate\Support\Collection;
 /**
  * @extends Resolver<Distributor>
  */
-class DistributorResolver extends Resolver implements SingletonPersistent {
+class DistributorResolver extends Resolver {
     /**
-     * @param Closure(\App\Services\DataLoader\Normalizer\Normalizer=): Distributor|null $factory
+     * @param Closure(Normalizer=): Distributor|null $factory
      *
      * @return ($factory is null ? Distributor|null : Distributor)
      */
@@ -23,17 +23,10 @@ class DistributorResolver extends Resolver implements SingletonPersistent {
     }
 
     protected function getPreloadedItems(): Collection {
-        return Distributor::query()->get();
+        return Distributor::withTrashed()->get();
     }
 
     protected function getFindQuery(): ?Builder {
-        return Distributor::query();
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function prefetch(array $keys, Closure|null $callback = null): static {
-        return parent::prefetch($keys, $callback);
+        return Distributor::withTrashed();
     }
 }

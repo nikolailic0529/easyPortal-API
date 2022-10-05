@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Data\Oem;
 use App\Models\Relations\HasOem;
 use App\Utils\Eloquent\Model;
 use Carbon\CarbonImmutable;

@@ -3,17 +3,10 @@
 namespace Tests\Data\Services\DataLoader\Importers;
 
 use App\Models\Reseller;
-use App\Services\DataLoader\Importer\Importers\Resellers\IteratorImporter;
+use App\Services\DataLoader\Processors\Importer\Importers\Resellers\IteratorImporter;
 use App\Services\DataLoader\Testing\Data\ClientDumpContext;
 use App\Services\DataLoader\Testing\Data\Data;
 use App\Utils\Iterators\Contracts\ObjectIterator;
-use App\Utils\Iterators\ObjectsIterator;
-
-use function array_fill_keys;
-use function array_flip;
-use function array_rand;
-use function count;
-use function round;
 
 class ResellersIteratorImporterData extends Data {
     public const RESELLERS = [
@@ -52,24 +45,22 @@ class ResellersIteratorImporterData extends Data {
     }
 
     /**
+     * @inheritDoc
+     */
+    public function restore(string $path, array $context): bool {
+        $result = parent::restore($path, $context);
+
+        Reseller::factory()->create([
+            'id' => '00000000-0000-0000-0000-000000000000',
+        ]);
+
+        return $result;
+    }
+
+    /**
      * @return ObjectIterator<Reseller|string>
      */
     public static function getIterator(): ObjectIterator {
-        $resellers = static::RESELLERS;
-        $models    = array_fill_keys(
-            (array) array_rand(array_flip($resellers), (int) round(count($resellers) / 2)),
-            true,
-        );
-        $model     = new Reseller();
-
-        foreach ($resellers as $key => $id) {
-            $resellers[$key] = isset($models[$id])
-                ? (clone $model)->forceFill([$model->getKeyName() => $id])
-                : $id;
-        }
-
-        return new ObjectsIterator(
-            $resellers,
-        );
+        return static::getModelsIterator(Reseller::class, static::RESELLERS);
     }
 }

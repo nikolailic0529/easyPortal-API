@@ -1,0 +1,411 @@
+{
+    "selector": "data.getAssets",
+    "query": "query getAssets($id: String!) {\n    getAssets(args: [{key: \"id\", value: $id}]) {\n        id\nserialNumber\n\nassetSku\nassetSkuDescription\nassetTag\nassetType\nstatus\nvendor\n\neolDate\neosDate\n\ncountry\ncountryCode\nlatitude\nlongitude\nzip\ncity\naddress\naddress2\n\ncustomerId\nresellerId\n\nupdatedAt\n\nlatestContactPersons {\n    phoneNumber\n    name\n    type\n    mail\n}\n\nassetCoverage\ncoverageStatusCheck {\n    coverageStatus\n    coverageStatusUpdatedAt\n    coverageEntries {\n        coverageStartDate\n        coverageEndDate\n        type\n        description\n        status\n        serviceSku\n    }\n}\n\ndataQualityScore\n        assetDocument {\n    startDate\n    endDate\n    documentNumber\n\n    document {\n        id\n        type\n        documentNumber\n\n        startDate\n        endDate\n\n        currencyCode\n        languageCode\n        totalNetPrice\n\n        updatedAt\n\n        vendorSpecificFields {\n            vendor\n            groupId\n            groupDescription\n            said\n        }\n\n        contactPersons {\n            phoneNumber\n            name\n            type\n            mail\n        }\n\n        customerId\n        resellerId\n        distributorId\n    }\n\n    serviceGroupSku\n    serviceGroupSkuDescription\n    serviceLevelSku\n    serviceLevelSkuDescription\n    serviceFullDescription\n\n    customer {\n      id\n    }\n\n    reseller {\n      id\n    }\n}\n    }\n}",
+    "variables": {
+        "id": "52e428f9-f41e-4c27-8845-c60cb0a4189b"
+    },
+    "response": {
+        "data": {
+            "getAssets": [
+                {
+                    "id": "52e428f9-f41e-4c27-8845-c60cb0a4189b",
+                    "resellerId": "9d9e320d-4e44-4518-a4e6-6bfe7f1c7dd8",
+                    "customerId": "2389fc8b-064b-4b7d-bc0b-fa19056bc602",
+                    "serialNumber": "036407c5-aa4b-3720-8d0d-cc0bf5f0bbf5",
+                    "assetSkuDescription": "VMw vSphere Std 1P 1yr E-LTU",
+                    "assetTag": null,
+                    "assetType": null,
+                    "vendor": "HPE",
+                    "assetSku": "BD710AAE",
+                    "eolDate": null,
+                    "eosDate": null,
+                    "zip": "10306-2332",
+                    "city": "North Goldafurt",
+                    "address": "740 Camylle Path",
+                    "address2": null,
+                    "country": "Nicaragua",
+                    "latitude": "35.533082",
+                    "longitude": "115.479994",
+                    "countryCode": "JO",
+                    "status": "ACTIVE",
+                    "updatedAt": "1662160846789",
+                    "assetCoverage": [
+                        "ARCHIVED",
+                        "CONFLICT"
+                    ],
+                    "dataQualityScore": "80",
+                    "assetDocument": [
+                        {
+                            "serviceGroupSku": null,
+                            "serviceGroupSkuDescription": null,
+                            "serviceLevelSku": "HU4A1AC",
+                            "serviceLevelSkuDescription": "HPE Remote Tech Support",
+                            "serviceFullDescription": null,
+                            "documentNumber": "979ae103-57a6-32b6-9e5f-d6d02e92129c",
+                            "document": {
+                                "id": "001f7fd7-fe51-40b7-a0eb-b6e95206ca28",
+                                "type": "Contract",
+                                "documentNumber": "979ae103-57a6-32b6-9e5f-d6d02e92129c",
+                                "startDate": "2022-06-01",
+                                "endDate": "2023-05-31",
+                                "currencyCode": "EUR",
+                                "totalNetPrice": "5250.96",
+                                "languageCode": null,
+                                "updatedAt": "1654262846658",
+                                "vendorSpecificFields": {
+                                    "vendor": "HPE",
+                                    "said": "86dcd597-1b79-350c-8bf0-4f38c70144a3",
+                                    "groupId": null,
+                                    "groupDescription": null
+                                },
+                                "contactPersons": [
+                                    {
+                                        "phoneNumber": null,
+                                        "name": null,
+                                        "mail": null,
+                                        "type": "EndUser Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+18286440797",
+                                        "name": "Mr. Coleman Kilback III",
+                                        "mail": "abrekke@gmail.com",
+                                        "type": "Distributor Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+17143437274",
+                                        "name": "Jarred Adams",
+                                        "mail": "nicole08@gmail.com",
+                                        "type": "Reseller Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+16055960826",
+                                        "name": "Elissa Hagenes",
+                                        "mail": null,
+                                        "type": "Hardware System Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+16055960826",
+                                        "name": "Elissa Hagenes",
+                                        "mail": null,
+                                        "type": "Software System Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+16055960826",
+                                        "name": "Elissa Hagenes",
+                                        "mail": null,
+                                        "type": "System Manager Contact"
+                                    }
+                                ],
+                                "resellerId": "9d9e320d-4e44-4518-a4e6-6bfe7f1c7dd8",
+                                "customerId": "2389fc8b-064b-4b7d-bc0b-fa19056bc602",
+                                "distributorId": "1af1c44e-8112-4e72-9654-b11c705e9372"
+                            },
+                            "startDate": null,
+                            "endDate": null,
+                            "reseller": {
+                                "id": "9d9e320d-4e44-4518-a4e6-6bfe7f1c7dd8"
+                            },
+                            "customer": {
+                                "id": "2389fc8b-064b-4b7d-bc0b-fa19056bc602"
+                            }
+                        },
+                        {
+                            "serviceGroupSku": null,
+                            "serviceGroupSkuDescription": null,
+                            "serviceLevelSku": "HA156AC",
+                            "serviceLevelSkuDescription": "HPE Software Updates SVC",
+                            "serviceFullDescription": null,
+                            "documentNumber": "6b20a5b8-27cd-314f-9714-e33d20ae46a9",
+                            "document": {
+                                "id": "47d96f71-825c-4de2-b876-e2af7447a91e",
+                                "type": "Quote renewal",
+                                "documentNumber": "6b20a5b8-27cd-314f-9714-e33d20ae46a9",
+                                "startDate": "2022-06-01",
+                                "endDate": "2023-05-31",
+                                "currencyCode": "EUR",
+                                "totalNetPrice": "5213.04",
+                                "languageCode": null,
+                                "updatedAt": "1654272007794",
+                                "vendorSpecificFields": {
+                                    "vendor": "HPE",
+                                    "said": null,
+                                    "groupId": null,
+                                    "groupDescription": null
+                                },
+                                "contactPersons": [
+                                    {
+                                        "phoneNumber": "+17143437274",
+                                        "name": "Jarred Adams",
+                                        "mail": "nicole08@gmail.com",
+                                        "type": "Customer Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+18286440797",
+                                        "name": "Mr. Coleman Kilback III",
+                                        "mail": "abrekke@gmail.com",
+                                        "type": "Renewal Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+16055960826",
+                                        "name": "Elissa Hagenes",
+                                        "mail": "daisha.graham@yahoo.com",
+                                        "type": "EndUser Contact"
+                                    }
+                                ],
+                                "resellerId": "9d9e320d-4e44-4518-a4e6-6bfe7f1c7dd8",
+                                "customerId": "2389fc8b-064b-4b7d-bc0b-fa19056bc602",
+                                "distributorId": "1af1c44e-8112-4e72-9654-b11c705e9372"
+                            },
+                            "startDate": null,
+                            "endDate": null,
+                            "reseller": {
+                                "id": "9d9e320d-4e44-4518-a4e6-6bfe7f1c7dd8"
+                            },
+                            "customer": {
+                                "id": "2389fc8b-064b-4b7d-bc0b-fa19056bc602"
+                            }
+                        },
+                        {
+                            "serviceGroupSku": null,
+                            "serviceGroupSkuDescription": null,
+                            "serviceLevelSku": "HA156AC",
+                            "serviceLevelSkuDescription": "HPE Software Updates Service",
+                            "serviceFullDescription": null,
+                            "documentNumber": "a52d4867-d6e8-3bc4-a107-cedebfae5a1c",
+                            "document": {
+                                "id": "475e246a-6bec-4704-bb94-7ea0fb17f9a9",
+                                "type": "Contract",
+                                "documentNumber": "a52d4867-d6e8-3bc4-a107-cedebfae5a1c",
+                                "startDate": "2021-06-01",
+                                "endDate": "2022-05-31",
+                                "currencyCode": "EUR",
+                                "totalNetPrice": "5250.960000000001",
+                                "languageCode": null,
+                                "updatedAt": "1654262846658",
+                                "vendorSpecificFields": {
+                                    "vendor": "HPE",
+                                    "said": null,
+                                    "groupId": null,
+                                    "groupDescription": null
+                                },
+                                "contactPersons": [
+                                    {
+                                        "phoneNumber": "+16055960826",
+                                        "name": "Delfina Crona",
+                                        "mail": null,
+                                        "type": "EndUser Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+18286440797",
+                                        "name": "Mr. Coleman Kilback III",
+                                        "mail": "abrekke@gmail.com",
+                                        "type": "Distributor Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+17143437274",
+                                        "name": "Jarred Adams",
+                                        "mail": "nicole08@gmail.com",
+                                        "type": "Reseller Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+16055960826",
+                                        "name": "Delfina Crona",
+                                        "mail": null,
+                                        "type": "Hardware System Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+16055960826",
+                                        "name": "Delfina Crona",
+                                        "mail": null,
+                                        "type": "Software System Contact"
+                                    },
+                                    {
+                                        "phoneNumber": null,
+                                        "name": null,
+                                        "mail": null,
+                                        "type": "System Manager Contact"
+                                    }
+                                ],
+                                "resellerId": "9d9e320d-4e44-4518-a4e6-6bfe7f1c7dd8",
+                                "customerId": "2389fc8b-064b-4b7d-bc0b-fa19056bc602",
+                                "distributorId": "1af1c44e-8112-4e72-9654-b11c705e9372"
+                            },
+                            "startDate": null,
+                            "endDate": null,
+                            "reseller": {
+                                "id": "9d9e320d-4e44-4518-a4e6-6bfe7f1c7dd8"
+                            },
+                            "customer": {
+                                "id": "2389fc8b-064b-4b7d-bc0b-fa19056bc602"
+                            }
+                        },
+                        {
+                            "serviceGroupSku": null,
+                            "serviceGroupSkuDescription": null,
+                            "serviceLevelSku": "HU4A1AC",
+                            "serviceLevelSkuDescription": "HPE Remote Tech Support",
+                            "serviceFullDescription": null,
+                            "documentNumber": "6b20a5b8-27cd-314f-9714-e33d20ae46a9",
+                            "document": {
+                                "id": "47d96f71-825c-4de2-b876-e2af7447a91e",
+                                "type": "Quote renewal",
+                                "documentNumber": "6b20a5b8-27cd-314f-9714-e33d20ae46a9",
+                                "startDate": "2022-06-01",
+                                "endDate": "2023-05-31",
+                                "currencyCode": "EUR",
+                                "totalNetPrice": "5213.04",
+                                "languageCode": null,
+                                "updatedAt": "1654272007794",
+                                "vendorSpecificFields": {
+                                    "vendor": "HPE",
+                                    "said": null,
+                                    "groupId": null,
+                                    "groupDescription": null
+                                },
+                                "contactPersons": [
+                                    {
+                                        "phoneNumber": "+17143437274",
+                                        "name": "Jarred Adams",
+                                        "mail": "nicole08@gmail.com",
+                                        "type": "Customer Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+18286440797",
+                                        "name": "Mr. Coleman Kilback III",
+                                        "mail": "abrekke@gmail.com",
+                                        "type": "Renewal Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+16055960826",
+                                        "name": "Elissa Hagenes",
+                                        "mail": "daisha.graham@yahoo.com",
+                                        "type": "EndUser Contact"
+                                    }
+                                ],
+                                "resellerId": "9d9e320d-4e44-4518-a4e6-6bfe7f1c7dd8",
+                                "customerId": "2389fc8b-064b-4b7d-bc0b-fa19056bc602",
+                                "distributorId": "1af1c44e-8112-4e72-9654-b11c705e9372"
+                            },
+                            "startDate": null,
+                            "endDate": null,
+                            "reseller": {
+                                "id": "9d9e320d-4e44-4518-a4e6-6bfe7f1c7dd8"
+                            },
+                            "customer": {
+                                "id": "2389fc8b-064b-4b7d-bc0b-fa19056bc602"
+                            }
+                        },
+                        {
+                            "serviceGroupSku": null,
+                            "serviceGroupSkuDescription": null,
+                            "serviceLevelSku": "HA156AC",
+                            "serviceLevelSkuDescription": "HPE Software Updates Service",
+                            "serviceFullDescription": null,
+                            "documentNumber": "979ae103-57a6-32b6-9e5f-d6d02e92129c",
+                            "document": {
+                                "id": "001f7fd7-fe51-40b7-a0eb-b6e95206ca28",
+                                "type": "Contract",
+                                "documentNumber": "979ae103-57a6-32b6-9e5f-d6d02e92129c",
+                                "startDate": "2022-06-01",
+                                "endDate": "2023-05-31",
+                                "currencyCode": "EUR",
+                                "totalNetPrice": "5250.96",
+                                "languageCode": null,
+                                "updatedAt": "1654262846658",
+                                "vendorSpecificFields": {
+                                    "vendor": "HPE",
+                                    "said": "86dcd597-1b79-350c-8bf0-4f38c70144a3",
+                                    "groupId": null,
+                                    "groupDescription": null
+                                },
+                                "contactPersons": [
+                                    {
+                                        "phoneNumber": null,
+                                        "name": null,
+                                        "mail": null,
+                                        "type": "EndUser Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+18286440797",
+                                        "name": "Mr. Coleman Kilback III",
+                                        "mail": "abrekke@gmail.com",
+                                        "type": "Distributor Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+17143437274",
+                                        "name": "Jarred Adams",
+                                        "mail": "nicole08@gmail.com",
+                                        "type": "Reseller Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+16055960826",
+                                        "name": "Elissa Hagenes",
+                                        "mail": null,
+                                        "type": "Hardware System Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+16055960826",
+                                        "name": "Elissa Hagenes",
+                                        "mail": null,
+                                        "type": "Software System Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+16055960826",
+                                        "name": "Elissa Hagenes",
+                                        "mail": null,
+                                        "type": "System Manager Contact"
+                                    }
+                                ],
+                                "resellerId": "9d9e320d-4e44-4518-a4e6-6bfe7f1c7dd8",
+                                "customerId": "2389fc8b-064b-4b7d-bc0b-fa19056bc602",
+                                "distributorId": "1af1c44e-8112-4e72-9654-b11c705e9372"
+                            },
+                            "startDate": null,
+                            "endDate": null,
+                            "reseller": {
+                                "id": "9d9e320d-4e44-4518-a4e6-6bfe7f1c7dd8"
+                            },
+                            "customer": {
+                                "id": "2389fc8b-064b-4b7d-bc0b-fa19056bc602"
+                            }
+                        }
+                    ],
+                    "latestContactPersons": [
+                        {
+                            "phoneNumber": null,
+                            "name": null,
+                            "mail": null,
+                            "type": "EndUser Contact"
+                        },
+                        {
+                            "phoneNumber": "+18286440797",
+                            "name": "Mr. Coleman Kilback III",
+                            "mail": "abrekke@gmail.com",
+                            "type": "Distributor Contact"
+                        },
+                        {
+                            "phoneNumber": "+17143437274",
+                            "name": "Jarred Adams",
+                            "mail": "nicole08@gmail.com",
+                            "type": "Reseller Contact"
+                        }
+                    ],
+                    "coverageStatusCheck": {
+                        "coverageStatus": "COVERED",
+                        "coverageStatusUpdatedAt": "1662160846789",
+                        "coverageEntries": [
+                            {
+                                "coverageStartDate": "2020-06-01",
+                                "coverageEndDate": "2023-05-31",
+                                "type": "Contract",
+                                "status": "Active",
+                                "description": "H7J34AC-HPE Foundation Care 24x7 SVC",
+                                "serviceSku": null
+                            }
+                        ]
+                    }
+                }
+            ]
+        }
+    }
+}

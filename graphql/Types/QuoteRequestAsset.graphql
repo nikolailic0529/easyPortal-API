@@ -1,7 +1,7 @@
 type QuoteRequestAsset {
     id: ID!
     asset_id: ID!
-    asset: Asset! @relation
+    asset: Asset @relation
     duration_id: ID!
     duration: QuoteRequestDuration! @relation
     service_level_custom: String

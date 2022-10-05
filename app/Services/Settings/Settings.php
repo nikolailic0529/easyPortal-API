@@ -24,7 +24,6 @@ use function array_unique;
 use function array_values;
 use function explode;
 use function is_null;
-use function is_string;
 use function trim;
 
 class Settings {
@@ -93,18 +92,14 @@ class Settings {
 
             // Changed?
             $name           = $setting->getName();
-            $value          = is_string($settings[$name])
-                ? $this->parseValue($setting, $settings[$name])
-                : $this->serializeValue($setting, $settings[$name]);
+            $value          = $this->parseValue($setting, $settings[$name]);
             $updated[$name] = new Value($setting, $value);
         }
 
         // Save
         if ($updated) {
             $this->saveSettings($updated);
-
-            $this->app->make(ConfigUpdate::class)->dispatch();
-            $this->dispatcher->dispatch(new SettingsUpdated());
+            $this->notify();
         }
 
         // Return
@@ -322,5 +317,10 @@ class Settings {
      */
     protected function getStore(): string {
         return Constants::class;
+    }
+
+    protected function notify(): void {
+        $this->app->make(ConfigUpdate::class)->dispatch();
+        $this->dispatcher->dispatch(new SettingsUpdated());
     }
 }

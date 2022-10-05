@@ -3,7 +3,7 @@
 namespace App\GraphQL\Queries\Contracts;
 
 use App\GraphQL\Directives\Directives\Aggregated\BuilderValue;
-use App\Models\Currency;
+use App\Models\Data\Currency;
 use App\Models\Document;
 use App\Utils\Eloquent\Callbacks\GetKey;
 use Illuminate\Contracts\Config\Repository;

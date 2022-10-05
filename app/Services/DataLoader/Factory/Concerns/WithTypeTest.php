@@ -3,7 +3,7 @@
 namespace App\Services\DataLoader\Factory\Concerns;
 
 use App\Models\Customer;
-use App\Models\Type as TypeModel;
+use App\Models\Data\Type as TypeModel;
 use App\Services\DataLoader\Factory\DependentModelFactory;
 use App\Services\DataLoader\Normalizer\Normalizer;
 use App\Services\DataLoader\Resolver\Resolvers\TypeResolver;

@@ -3,10 +3,10 @@
 namespace Database\Factories;
 
 use App\Models\Asset;
+use App\Models\Data\ServiceLevel;
 use App\Models\QuoteRequest;
 use App\Models\QuoteRequestAsset;
 use App\Models\QuoteRequestDuration;
-use App\Models\ServiceLevel;
 use App\Utils\Eloquent\Testing\Database\Factory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Date;

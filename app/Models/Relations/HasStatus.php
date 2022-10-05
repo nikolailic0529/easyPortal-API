@@ -2,7 +2,7 @@
 
 namespace App\Models\Relations;
 
-use App\Models\Status;
+use App\Models\Data\Status;
 use App\Utils\Eloquent\Model;
 
 /**

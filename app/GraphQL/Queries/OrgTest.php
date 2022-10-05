@@ -3,10 +3,10 @@
 namespace App\GraphQL\Queries;
 
 use App\Models\ChangeRequest;
-use App\Models\Currency;
+use App\Models\Data\Currency;
+use App\Models\Data\Location;
 use App\Models\Enums\OrganizationType;
 use App\Models\Kpi;
-use App\Models\Location;
 use App\Models\Organization;
 use App\Models\Reseller;
 use App\Models\ResellerLocation;

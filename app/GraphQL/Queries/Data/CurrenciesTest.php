@@ -2,7 +2,7 @@
 
 namespace App\GraphQL\Queries\Data;
 
-use App\Models\Currency;
+use App\Models\Data\Currency;
 use Closure;
 use Illuminate\Translation\Translator;
 use LastDragon_ru\LaraASP\Testing\Constraints\Response\Response;

@@ -53,7 +53,7 @@ abstract class Dispatcher {
 
         sort($keys);
 
-        if (!$model || !$keys) {
+        if (!$model || !$keys || !$this->isDispatchable($model)) {
             return;
         }
 
@@ -75,4 +75,11 @@ abstract class Dispatcher {
      * @param array<string|int>    $keys
      */
     abstract protected function dispatchModels(string $model, array $keys): void;
+
+    /**
+     * @param class-string<Model> $model
+     */
+    protected function isDispatchable(string $model): bool {
+        return true;
+    }
 }

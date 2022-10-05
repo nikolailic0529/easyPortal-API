@@ -12,6 +12,7 @@ use Mockery;
 use Tests\TestCase;
 
 use function count;
+use function is_int;
 use function iterator_to_array;
 
 /**
@@ -28,8 +29,16 @@ class ClosureIteratorIteratorTest extends TestCase {
     public function testGetIterator(): void {
         $iterator = new ClosureIteratorIterator(
             new ObjectsIterator([1, 2, 3, 4, 5, 6, 7, 8, 9, 0]),
-            static function (int $item): ?int {
-                return $item !== 5 ? $item * 10 : null;
+            static function (mixed $item): mixed {
+                if ($item === 5) {
+                    $item = null;
+                }
+
+                if (is_int($item)) {
+                    $item = $item * 10;
+                }
+
+                return $item;
             },
         );
 
@@ -91,12 +100,16 @@ class ClosureIteratorIteratorTest extends TestCase {
 
         $iterator = (new ClosureIteratorIterator(
             new ObjectsIterator([1, 2, 3, 4, 5, 6, 7, 8, 9, 0]),
-            static function (int $item): int {
+            static function (mixed $item): mixed {
                 if ($item === 4) {
                     throw new Exception('test');
                 }
 
-                return $item * 10;
+                if (is_int($item)) {
+                    $item = $item * 10;
+                }
+
+                return $item;
             },
         ))
             ->onInit(Closure::fromCallable($init))
@@ -152,7 +165,7 @@ class ClosureIteratorIteratorTest extends TestCase {
     public function testChunkConvertError(): void {
         $items    = [1, 2, 3, 4, 5];
         $error    = new Exception();
-        $convert  = static function (int $item) use ($error): int {
+        $convert  = static function (mixed $item) use ($error): mixed {
             if ($item === 3) {
                 throw $error;
             }
@@ -182,7 +195,7 @@ class ClosureIteratorIteratorTest extends TestCase {
         $error    = new class() extends Exception implements IteratorFatalError {
             // empty
         };
-        $convert  = static function (int $item) use ($error): int {
+        $convert  = static function (mixed $item) use ($error): mixed {
             if ($item === 3) {
                 throw $error;
             }

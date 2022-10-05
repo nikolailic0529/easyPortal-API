@@ -1,0 +1,206 @@
+{
+    "selector": "data.getCompanyById",
+    "query": "query getCompanyById($id: String!) {\n    getCompanyById(id: $id) {\n        id\nname\nstatus\nupdatedAt\ncompanyType\ncompanyContactPersons {\n    phoneNumber\n    name\n    type\n    mail\n}\nlocations {\n    country\n    countryCode\n    latitude\n    longitude\n    city\n    zip\n    address\n    locationType\n}\ncompanyKpis {\n    totalAssets\nactiveAssets\nactiveAssetsPercentage\nactiveCustomers\nnewActiveCustomers\nactiveContracts\nactiveContractTotalAmount\nnewActiveContracts\nexpiringContracts\nactiveQuotes\nactiveQuotesTotalAmount\nnewActiveQuotes\nexpiringQuotes\nexpiredQuotes\nexpiredContracts\norderedQuotes\nacceptedQuotes\nrequestedQuotes\nreceivedQuotes\nrejectedQuotes\nawaitingQuotes\nactiveAssetsOnContract\nactiveAssetsOnWarranty\nactiveExposedAssets\nserviceRevenueTotalAmount\nserviceRevenueTotalAmountChange\n}\nkeycloakName\nkeycloakGroupId\nkeycloakClientScopeName\nbrandingData {\n    brandingMode\n    defaultLogoUrl\n    defaultMainColor\n    favIconUrl\n    logoUrl\n    mainColor\n    mainImageOnTheRight\n    resellerAnalyticsCode\n    secondaryColor\n    secondaryColorDefault\n    useDefaultFavIcon\n    mainHeadingText {\n        language_code\n        text\n    }\n    underlineText {\n        language_code\n        text\n    }\n}\n    }\n}",
+    "variables": {
+        "id": "a9233c9c-4634-493a-9f12-bef4d1cf3c5e"
+    },
+    "response": {
+        "data": {
+            "getCompanyById": [
+                {
+                    "id": "a9233c9c-4634-493a-9f12-bef4d1cf3c5e",
+                    "name": "Kuhic-Rau",
+                    "companyType": "RESELLER",
+                    "updatedAt": "1662148696321",
+                    "keycloakName": null,
+                    "keycloakGroupId": null,
+                    "keycloakClientScopeName": null,
+                    "companyContactPersons": [
+                        {
+                            "phoneNumber": "+13855173022",
+                            "name": "Courtney Kreiger",
+                            "mail": null,
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+18726397613",
+                            "name": "Johnathan Pouros",
+                            "mail": null,
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+12106790901",
+                            "name": "Brooke Durgan",
+                            "mail": null,
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+13317874317",
+                            "name": "Ari O'Connell IV",
+                            "mail": null,
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+13317874317",
+                            "name": "Raquel Denesik",
+                            "mail": null,
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+13317874317",
+                            "name": "Mrs. Karelle Kirlin",
+                            "mail": null,
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+12705661220",
+                            "name": "Esta Cassin DVM",
+                            "mail": null,
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+19208867883",
+                            "name": "Noemy Roob MD",
+                            "mail": null,
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": null,
+                            "name": "Lera Haley",
+                            "mail": null,
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+15317359080",
+                            "name": "Ayana Wehner",
+                            "mail": null,
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+18457457825",
+                            "name": "Moses Graham",
+                            "mail": null,
+                            "type": "Contact Person"
+                        }
+                    ],
+                    "locations": [
+                        {
+                            "zip": "64668",
+                            "address": "152 Volkman Orchard",
+                            "city": "South Fritzfurt",
+                            "locationType": null,
+                            "country": "Nicaragua",
+                            "latitude": "35.660695",
+                            "longitude": "86.404886",
+                            "countryCode": "JO"
+                        },
+                        {
+                            "zip": "64668",
+                            "address": "152 Volkman Orchard",
+                            "city": "South Fritzfurt",
+                            "locationType": null,
+                            "country": "Nicaragua",
+                            "latitude": "35.660695",
+                            "longitude": "86.404886",
+                            "countryCode": "JO"
+                        }
+                    ],
+                    "brandingData": {
+                        "mainColor": "#a4a7a9",
+                        "secondaryColor": "#f9c110",
+                        "defaultMainColor": null,
+                        "secondaryColorDefault": null,
+                        "defaultLogoUrl": null,
+                        "favIconUrl": null,
+                        "useDefaultFavIcon": null,
+                        "resellerAnalyticsCode": null,
+                        "brandingMode": null,
+                        "mainImageOnTheRight": null,
+                        "logoUrl": "http://yost.biz/voluptatum-quidem-aut-ipsa-repellat.html",
+                        "mainHeadingText": [
+                            {
+                                "language_code": "en_GB",
+                                "text": "Officiis ut occaecati ratione sit ea."
+                            },
+                            {
+                                "language_code": "en",
+                                "text": "Officiis ut occaecati ratione sit ea."
+                            },
+                            {
+                                "language_code": "fr_FR",
+                                "text": "Officiis ut occaecati ratione sit ea."
+                            },
+                            {
+                                "language_code": "fr",
+                                "text": "Officiis ut occaecati ratione sit ea."
+                            },
+                            {
+                                "language_code": "de_DE",
+                                "text": "Sunt numquam enim blanditiis dolorum aperiam magni."
+                            },
+                            {
+                                "language_code": "de",
+                                "text": "Sunt numquam enim blanditiis dolorum aperiam magni."
+                            }
+                        ],
+                        "underlineText": [
+                            {
+                                "language_code": "en_GB",
+                                "text": "Commodi architecto eius voluptatem sed dolore."
+                            },
+                            {
+                                "language_code": "en",
+                                "text": "Commodi architecto eius voluptatem sed dolore."
+                            },
+                            {
+                                "language_code": "fr_FR",
+                                "text": "Commodi architecto eius voluptatem sed dolore."
+                            },
+                            {
+                                "language_code": "fr",
+                                "text": "Commodi architecto eius voluptatem sed dolore."
+                            },
+                            {
+                                "language_code": "de_DE",
+                                "text": "Voluptas est ut autem doloribus et quaerat."
+                            },
+                            {
+                                "language_code": "de",
+                                "text": "Voluptas est ut autem doloribus et quaerat."
+                            }
+                        ]
+                    },
+                    "companyKpis": {
+                        "totalAssets": 15627,
+                        "activeAssets": 35,
+                        "activeAssetsPercentage": 0.22397133166954628,
+                        "activeCustomers": 155,
+                        "newActiveCustomers": 0,
+                        "activeContracts": 288,
+                        "activeContractTotalAmount": 970093.1400000006,
+                        "newActiveContracts": 0,
+                        "expiringContracts": 39,
+                        "activeQuotes": 47,
+                        "activeQuotesTotalAmount": 490006.39999999787,
+                        "newActiveQuotes": 0,
+                        "expiringQuotes": 2,
+                        "expiredQuotes": 47,
+                        "expiredContracts": 288,
+                        "orderedQuotes": null,
+                        "acceptedQuotes": null,
+                        "requestedQuotes": null,
+                        "receivedQuotes": null,
+                        "rejectedQuotes": null,
+                        "awaitingQuotes": null,
+                        "activeAssetsOnContract": null,
+                        "activeAssetsOnWarranty": null,
+                        "activeExposedAssets": null,
+                        "serviceRevenueTotalAmount": null,
+                        "serviceRevenueTotalAmountChange": null
+                    },
+                    "status": null
+                }
+            ]
+        }
+    }
+}

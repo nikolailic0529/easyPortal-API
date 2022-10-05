@@ -2,16 +2,15 @@
 
 namespace App\Services\DataLoader\Resolver\Resolvers;
 
-use App\Models\City;
-use App\Models\Country;
-use App\Models\Location;
+use App\Models\Data\City;
+use App\Models\Data\Country;
+use App\Models\Data\Location;
 use App\Services\DataLoader\Cache\Key;
 use App\Services\DataLoader\Normalizer\Normalizer;
 use App\Services\DataLoader\Resolver\Resolver;
 use Closure;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
 
 /**
@@ -35,17 +34,6 @@ class LocationResolver extends Resolver {
             $this->getUniqueKey($country, $city, $postcode, $lineOne, $lineTwo),
             $factory,
         );
-    }
-
-    public function put(Model|Collection|array $object): void {
-        parent::put($object);
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function prefetch(array $keys, Closure|null $callback = null): static {
-        return parent::prefetch($keys, $callback);
     }
 
     protected function getFindQuery(): ?Builder {

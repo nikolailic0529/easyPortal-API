@@ -4,7 +4,7 @@ namespace App\GraphQL\Queries\Customers;
 
 use App\Models\Customer;
 use App\Models\CustomerLocation;
-use App\Models\Location;
+use App\Models\Data\Location;
 use App\Models\Organization;
 use App\Models\Reseller;
 use Closure;

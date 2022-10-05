@@ -3,8 +3,8 @@
 namespace App\Services\Settings\Types;
 
 use App\Models\CustomerLocation;
+use App\Models\Data\Type as TypeModel;
 use App\Models\ResellerLocation;
-use App\Models\Type as TypeModel;
 use Illuminate\Support\Collection;
 use Illuminate\Validation\Rule;
 
