@@ -39,7 +39,7 @@ Legend:
 * [Translation](./docs/Application-Translation.md)
 * [Cache](./docs/Application-Cache.md)
 * [GraphQL Cache](./docs/Application-GraphQL-Cache.md)
-* [Data Loader](./docs/DataLoader.md)
+* [Data Loader](docs/DataLoader/README.md)
 * [Keycloak Settings](docs/Keycloak/README.md)
 
 ### API
