@@ -26,6 +26,27 @@ These jobs create new, update existing, delete removed objects and they are requ
 | `ep-data-loader-assets-synchronizer`       | No        |
 | `ep-data-loader-documents-synchronizer`    | No        |
 
+All jobs have the following workflow:
+
+![image](./assets/SynchronizerWorkflow.drawio.svg)
+
+with two steps:
+
+1) Sync objects: load all new/update existing objects from Cosmos (execute always) and create/update them;
+2) Sync outdated objects: check outdated objects (= objects that were not synced for a while) from the database and update/delete them;
+
+To control which objects should be processed on each step, the service has a few settings:
+
+![image](./assets/SynchronizerSettings.png)
+
+| #   | Setting           | Description                                                                                          |
+|-----|-------------------|------------------------------------------------------------------------------------------------------|
+| 1   | `EXPIRE`          | Expiration interval.                                                                                 |
+| 2   | `OUTDATED`        | Outdated objects will be processed only if enabled.                                                  |
+| 3   | `OUTDATED_LIMIT`  | Maximum number of outdated objects to process. Be careful, it may create a lot of queries to Cosmos. |
+| 4   | `OUTDATED_EXPIRE` | Outdated interval.                                                                                   |
+
+
 ## Commands
 
 There are also a few commands that allow to import/update objects, please use following command to find all of them:
