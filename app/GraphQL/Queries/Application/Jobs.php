@@ -13,6 +13,7 @@ use ReflectionClass;
 
 use function array_values;
 use function trans;
+use function usort;
 
 class Jobs {
     public function __construct(
@@ -55,6 +56,11 @@ class Jobs {
                 $jobs[$class]['settings'][] = $setting->getName();
             }
         }
+
+        // Sort
+        usort($jobs, static function (array $a, array $b): int {
+            return $a['name'] <=> $b['name'];
+        });
 
         // Return
         return array_values($jobs);

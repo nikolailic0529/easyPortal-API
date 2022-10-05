@@ -16,6 +16,7 @@ use ReflectionClass;
 use function array_values;
 use function reset;
 use function trans;
+use function usort;
 
 class Services {
     public function __construct(
@@ -75,6 +76,11 @@ class Services {
         foreach ($states as $name => $state) {
             $services[$name]['state'] = reset($state) ?: null;
         }
+
+        // Sort
+        usort($services, static function (array $a, array $b): int {
+            return $a['name'] <=> $b['name'];
+        });
 
         // Return
         return array_values($services);
