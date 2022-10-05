@@ -555,7 +555,7 @@ input AggregatedGroupByClauseDocumentsQuery {
     """
     Relationship clause.
     """
-    oemGroup: [SortByClauseOemGroupsQuery!]
+    oemGroup: [SortByClauseOemGroupsSort!]
     @aggregatedGroupByOperatorRelation
 
     """
@@ -5554,11 +5554,6 @@ input SetApplicationLocaleInput {
     )
 }
 
-input SignInInput {
-    email: Email!
-    password: String!
-}
-
 """
 Sort clause for input ApplicationLogsSort (only one property allowed at a time).
 """
@@ -6444,7 +6439,7 @@ input SortByClauseDocumentsSort {
     """
     Property clause.
     """
-    oemGroup: SortByClauseOemGroupsQuery
+    oemGroup: SortByClauseOemGroupsSort
     @sortByProperty
 
     """
@@ -6615,29 +6610,6 @@ input SortByClauseNotesSort {
     Property clause.
     """
     user_id: SortByTypeDirection
-    @sortByOperatorProperty
-}
-
-"""
-Sort clause for input OemGroupsQuery (only one property allowed at a time).
-"""
-input SortByClauseOemGroupsQuery {
-    """
-    Property clause.
-    """
-    id: SortByTypeDirection
-    @sortByOperatorProperty
-
-    """
-    Property clause.
-    """
-    key: SortByTypeDirection
-    @sortByOperatorProperty
-
-    """
-    Property clause.
-    """
-    name: SortByTypeDirection
     @sortByOperatorProperty
 }
 
@@ -9563,36 +9535,6 @@ type DocumentEntriesAggregated {
     @aggregated(
         builder: "App\\GraphQL\\Directives\\Directives\\Aggregated\\Builder"
     )
-
-    serviceGroups: [DocumentEntriesAggregatedServiceGroup!]!
-    @deprecated(
-        reason: "Please use `groups` query instead."
-    )
-    @field(
-        resolver: "App\\GraphQL\\Queries\\Contracts\\ContractEntriesAggregated@serviceGroups"
-    )
-    @cached
-
-    serviceLevels: [DocumentEntriesAggregatedServiceLevel!]!
-    @deprecated(
-        reason: "Please use `groups` query instead."
-    )
-    @field(
-        resolver: "App\\GraphQL\\Queries\\Contracts\\ContractEntriesAggregated@serviceLevels"
-    )
-    @cached
-}
-
-type DocumentEntriesAggregatedServiceGroup {
-    count: Int!
-    serviceGroup: ServiceGroup
-    service_group_id: ID
-}
-
-type DocumentEntriesAggregatedServiceLevel {
-    count: Int!
-    serviceLevel: ServiceLevel
-    service_level_id: ID
 }
 
 type DocumentEntry {
@@ -10550,25 +10492,6 @@ type Mutation {
     ): SetApplicationLocalePayload
     @field(
         resolver: "App\\GraphQL\\Mutations\\Application\\SetApplicationLocale"
-    )
-
-    """
-    Sign In for local users.
-
-    @require <authGuest> Current visitor must be a guest.
-    """
-    signIn(
-        input: SignInInput
-    ): SignInPayload
-    @deprecated(
-        reason: "Please use `mutation { auth { signIn } }`."
-    )
-    @throttle(
-        name: "auth"
-    )
-    @authGuest
-    @field(
-        resolver: "App\\GraphQL\\Mutations\\Auth\\SignIn"
     )
 
     """
@@ -13824,13 +13747,6 @@ type ServiceLevel {
 
 type SetApplicationLocalePayload {
     result: Boolean!
-}
-
-type SignInPayload {
-    me: Me
-    @field(
-        resolver: "App\\GraphQL\\Queries\\Me"
-    )
 }
 
 type Status {
