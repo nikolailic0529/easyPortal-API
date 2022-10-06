@@ -2,6 +2,8 @@
 
 namespace App\Services\DataLoader\Client;
 
+use App\Services\DataLoader\Client\GraphQL\GraphQL;
+
 use function array_merge;
 
 /**
@@ -18,18 +20,17 @@ class Query {
      */
     public function __construct(
         protected Client $client,
-        protected string $selector,
-        protected string $query,
+        protected GraphQL $query,
         protected array $variables,
     ) {
         // empty
     }
 
     public function getSelector(): string {
-        return $this->selector;
+        return $this->getQuery()->getSelector();
     }
 
-    public function getQuery(): string {
+    public function getQuery(): GraphQL {
         return $this->query;
     }
 
@@ -55,7 +56,11 @@ class Query {
     public function __invoke(array $variables): array {
         $this->lastVariables = $variables;
         $variables           = array_merge($this->variables, $variables);
-        $result              = $this->client->call($this->selector, $this->query, $variables);
+        $result              = $this->client->call(
+            "data.{$this->query->getSelector()}",
+            (string) $this->query,
+            $variables,
+        );
 
         return $result;
     }

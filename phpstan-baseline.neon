@@ -3201,11 +3201,6 @@ parameters:
 			path: app/Services/DataLoader/Client/Client.php
 
 		-
-			message: "#^Parameter \\#1 \\$string of function sha1 expects string, string\\|false given\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Client/Client.php
-
-		-
 			message: "#^Parameter \\#1 \\$url of method Illuminate\\\\Http\\\\Client\\\\PendingRequest\\:\\:post\\(\\) expects string, string\\|null given\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Client/Client.php
