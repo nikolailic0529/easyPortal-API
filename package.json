@@ -20,6 +20,8 @@
         "semantic-release": "^19.0.2"
     },
     "dependencies": {
+        "@graphql-inspector/cli": "^3.4.0",
+        "graphql": "^16.6.0",
         "patch-package": "^6.4.7"
     }
 }

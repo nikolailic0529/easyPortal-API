@@ -7,15 +7,42 @@ use LastDragon_ru\LaraASP\GraphQL\Testing\GraphQLAssertions;
 use LastDragon_ru\LaraASP\GraphQL\Utils\ArgumentFactory;
 use Nuwave\Lighthouse\Execution\Arguments\Argument;
 use SplFileInfo;
+use Symfony\Component\Process\Process;
 
 use function file_put_contents;
 use function is_string;
+use function trim;
 
 /**
  * @mixin TestCase
  */
 trait WithGraphQLSchema {
     use GraphQLAssertions;
+
+    public function assertGraphQLSchemaCompatible(
+        SplFileInfo|string $expected,
+        SplFileInfo|string $actual,
+        string $message = '',
+    ): void {
+        // Prepare
+        $expected = $expected instanceof SplFileInfo ? $expected : $this->getTempFile($expected, '.graphql');
+        $actual   = $actual instanceof SplFileInfo ? $actual : $this->getTempFile($actual, '.graphql');
+
+        if ((int) $expected->getSize() === 0) {
+            file_put_contents($expected->getPathname(), $actual);
+        }
+
+        // Test
+        $process = new Process([
+            'graphql-inspector',
+            'diff',
+            $expected->getPathname(),
+            $actual->getPathname(),
+        ]);
+        $process->run();
+
+        self::assertTrue($process->isSuccessful(), trim("{$message}\n\n{$process->getOutput()}"));
+    }
 
     protected function getGraphQLSchemaExpected(string $schema = '.graphql', Schema|string $source = null): string {
         $data    = $this->getTestData();
