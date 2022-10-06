@@ -2,6 +2,7 @@
 
 namespace Tests;
 
+use Closure;
 use GraphQL\Type\Schema;
 use LastDragon_ru\LaraASP\GraphQL\Testing\GraphQLAssertions;
 use LastDragon_ru\LaraASP\GraphQL\Utils\ArgumentFactory;
@@ -18,6 +19,40 @@ use function trim;
  */
 trait WithGraphQLSchema {
     use GraphQLAssertions;
+
+    /**
+     * @param Closure(string):string|null $closure
+     */
+    public function assertGraphQLQueryValid(
+        SplFileInfo|string $query,
+        SplFileInfo|string $schema,
+        string $message = '',
+        Closure $closure = null,
+    ): void {
+        // Prepare
+        $query  = $query instanceof SplFileInfo ? $query : $this->getTempFile($query, '.graphql');
+        $schema = $schema instanceof SplFileInfo ? $schema : $this->getTempFile($schema, '.graphql');
+
+        if ($query->isDir()) {
+            $query = "{$query->getPathname()}/**/*.graphql";
+        } else {
+            $query = $query->getPathname();
+        }
+
+        // Test
+        $process = new Process([
+            'graphql-inspector',
+            'validate',
+            $query,
+            $schema->getPathname(),
+        ]);
+        $process->run();
+
+        $message = trim("{$message}\n\n{$process->getOutput()}\n\n{$process->getErrorOutput()}");
+        $message = $closure ? $closure($message) : $message;
+
+        self::assertTrue($process->isSuccessful(), $message);
+    }
 
     public function assertGraphQLSchemaCompatible(
         SplFileInfo|string $expected,
