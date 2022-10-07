@@ -10,6 +10,7 @@ use Nuwave\Lighthouse\Execution\Arguments\Argument;
 use SplFileInfo;
 use Symfony\Component\Process\Process;
 
+use function array_merge;
 use function file_put_contents;
 use function is_string;
 use function trim;
@@ -40,24 +41,25 @@ trait WithGraphQLSchema {
         }
 
         // Test
-        $process = new Process([
-            'graphql-inspector',
-            'validate',
-            $query,
-            $schema->getPathname(),
-        ]);
-        $process->run();
-
-        $message = trim("{$message}\n\n{$process->getOutput()}\n\n{$process->getErrorOutput()}");
-        $message = $closure ? $closure($message) : $message;
-
-        self::assertTrue($process->isSuccessful(), $message);
+        $this->runGraphqlInspector(
+            [
+                'validate',
+                $query,
+                $schema->getPathname(),
+            ],
+            $message,
+            $closure,
+        );
     }
 
+    /**
+     * @param Closure(string):string|null $closure
+     */
     public function assertGraphQLSchemaCompatible(
         SplFileInfo|string $expected,
         SplFileInfo|string $actual,
         string $message = '',
+        Closure $closure = null,
     ): void {
         // Prepare
         $expected = $expected instanceof SplFileInfo ? $expected : $this->getTempFile($expected, '.graphql');
@@ -68,15 +70,15 @@ trait WithGraphQLSchema {
         }
 
         // Test
-        $process = new Process([
-            'graphql-inspector',
-            'diff',
-            $expected->getPathname(),
-            $actual->getPathname(),
-        ]);
-        $process->run();
-
-        self::assertTrue($process->isSuccessful(), trim("{$message}\n\n{$process->getOutput()}"));
+        $this->runGraphqlInspector(
+            [
+                'diff',
+                $expected->getPathname(),
+                $actual->getPathname(),
+            ],
+            $message,
+            $closure,
+        );
     }
 
     protected function getGraphQLSchemaExpected(string $schema = '.graphql', Schema|string $source = null): string {
@@ -113,5 +115,19 @@ trait WithGraphQLSchema {
         $argument = $factory->getArgument($type, $value);
 
         return $argument;
+    }
+
+    /**
+     * @param array<string>               $args
+     * @param Closure(string):string|null $closure
+     */
+    private function runGraphqlInspector(array $args, string $message, Closure $closure = null): void {
+        $process = new Process(array_merge(['graphql-inspector'], $args));
+        $process->run();
+
+        $message = trim("{$message}\n\n{$process->getOutput()}\n\n{$process->getErrorOutput()}");
+        $message = $closure ? $closure($message) : $message;
+
+        self::assertTrue($process->isSuccessful(), $message);
     }
 }
