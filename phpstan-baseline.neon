@@ -446,11 +446,6 @@ parameters:
 			path: app/GraphQL/Directives/Directives/Org/LoaderTest.php
 
 		-
-			message: "#^Method App\\\\GraphQL\\\\Directives\\\\Directives\\\\Org\\\\Property\\:\\:handleBuilder\\(\\) should return T of Illuminate\\\\Database\\\\Eloquent\\\\Builder\\|Illuminate\\\\Database\\\\Query\\\\Builder but returns Illuminate\\\\Database\\\\Eloquent\\\\Builder\\<Illuminate\\\\Database\\\\Eloquent\\\\Model\\>\\|T of Illuminate\\\\Database\\\\Eloquent\\\\Builder\\.$#"
-			count: 1
-			path: app/GraphQL/Directives/Directives/Org/Property.php
-
-		-
 			message: "#^Anonymous function should return App\\\\Models\\\\Organization but returns App\\\\Models\\\\Organization\\|null\\.$#"
 			count: 1
 			path: app/GraphQL/Directives/Directives/Org/PropertyTest.php
@@ -2376,11 +2371,6 @@ parameters:
 			path: app/Models/Asset.php
 
 		-
-			message: "#^Parameter \\#1 \\$items of class Illuminate\\\\Support\\\\Collection constructor expects Illuminate\\\\Contracts\\\\Support\\\\Arrayable\\<TKey of \\(int\\|string\\), mixed\\>\\|iterable\\<TKey of \\(int\\|string\\), mixed\\>\\|null, iterable given\\.$#"
-			count: 1
-			path: app/Models/Asset.php
-
-		-
 			message: "#^Parameter \\#1 \\$model of method App\\\\Models\\\\Asset\\:\\:syncMorphManyDelete\\(\\) expects App\\\\Utils\\\\Eloquent\\\\PolymorphicModel, Illuminate\\\\Database\\\\Eloquent\\\\Model given\\.$#"
 			count: 1
 			path: app/Models/Asset.php
@@ -2503,11 +2493,6 @@ parameters:
 		-
 			message: "#^Parameter \\#1 \\$column of method Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\HasMany\\<App\\\\Models\\\\Document\\>\\:\\:where\\(\\) expects array\\<int\\|string, mixed\\>\\|\\(Closure\\(Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\HasMany\\<App\\\\Models\\\\Document\\>\\)\\: void\\)\\|\\(Closure\\(Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\HasMany\\<App\\\\Models\\\\Document\\>\\)\\: Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\HasMany\\<App\\\\Models\\\\Document\\>\\)\\|Illuminate\\\\Database\\\\Query\\\\Expression\\|string, Closure\\(Illuminate\\\\Database\\\\Eloquent\\\\Builder\\)\\: Illuminate\\\\Database\\\\Eloquent\\\\Builder\\<App\\\\Models\\\\Document\\> given\\.$#"
 			count: 2
-			path: app/Models/Customer.php
-
-		-
-			message: "#^Parameter \\#1 \\$items of class Illuminate\\\\Support\\\\Collection constructor expects Illuminate\\\\Contracts\\\\Support\\\\Arrayable\\<TKey of \\(int\\|string\\), mixed\\>\\|iterable\\<TKey of \\(int\\|string\\), mixed\\>\\|null, iterable given\\.$#"
-			count: 1
 			path: app/Models/Customer.php
 
 		-
@@ -2767,11 +2752,6 @@ parameters:
 
 		-
 			message: "#^Parameter \\#1 \\$callback of method Illuminate\\\\Database\\\\Eloquent\\\\Collection\\<\\(int\\|string\\),Illuminate\\\\Database\\\\Eloquent\\\\Model\\>\\:\\:map\\(\\) expects callable\\(Illuminate\\\\Database\\\\Eloquent\\\\Model, \\(int\\|string\\)\\)\\: App\\\\Utils\\\\Eloquent\\\\Model, Closure\\(App\\\\Utils\\\\Eloquent\\\\Model\\)\\: App\\\\Utils\\\\Eloquent\\\\Model given\\.$#"
-			count: 1
-			path: app/Models/Document.php
-
-		-
-			message: "#^Parameter \\#1 \\$items of class Illuminate\\\\Support\\\\Collection constructor expects Illuminate\\\\Contracts\\\\Support\\\\Arrayable\\<TKey of \\(int\\|string\\), mixed\\>\\|iterable\\<TKey of \\(int\\|string\\), mixed\\>\\|null, iterable given\\.$#"
 			count: 1
 			path: app/Models/Document.php
 
@@ -5016,16 +4996,6 @@ parameters:
 			path: app/Services/Maintenance/MaintenanceTest.php
 
 		-
-			message: "#^Call to an undefined method Illuminate\\\\Database\\\\Eloquent\\\\Builder\\<TModel of Illuminate\\\\Database\\\\Eloquent\\\\Model\\>\\:\\:orWhereNull\\(\\)\\.$#"
-			count: 1
-			path: app/Services/Organization/Eloquent/OwnedByScope.php
-
-		-
-			message: "#^Call to an undefined method Illuminate\\\\Database\\\\Eloquent\\\\Builder\\<TModel of Illuminate\\\\Database\\\\Eloquent\\\\Model\\>\\:\\:whereRaw\\(\\)\\.$#"
-			count: 1
-			path: app/Services/Organization/Eloquent/OwnedByScope.php
-
-		-
 			message: "#^Class App\\\\Services\\\\Organization\\\\Eloquent\\\\OwnedByScopeTest_Scope extends generic class App\\\\Services\\\\Organization\\\\Eloquent\\\\OwnedByScope but does not specify its types\\: TModel$#"
 			count: 1
 			path: app/Services/Organization/Eloquent/OwnedByScopeTest.php
@@ -5476,11 +5446,6 @@ parameters:
 			path: app/Services/Search/ConfigurationTest.php
 
 		-
-			message: "#^Parameter \\#1 \\$items of class Illuminate\\\\Support\\\\Collection constructor expects Illuminate\\\\Contracts\\\\Support\\\\Arrayable\\<TKey of \\(int\\|string\\), mixed\\>\\|iterable\\<TKey of \\(int\\|string\\), mixed\\>\\|null, iterable given\\.$#"
-			count: 1
-			path: app/Services/Search/ConfigurationTest.php
-
-		-
 			message: "#^Parameter \\#1 \\$models of method App\\\\Services\\\\Queue\\\\Utils\\\\Dispatcher\\<App\\\\Services\\\\Search\\\\Eloquent\\\\Searchable&Illuminate\\\\Database\\\\Eloquent\\\\Model\\>\\:\\:dispatch\\(\\) expects \\(App\\\\Services\\\\Search\\\\Eloquent\\\\Searchable&Illuminate\\\\Database\\\\Eloquent\\\\Model\\)\\|array\\{model\\: class\\-string\\<App\\\\Services\\\\Search\\\\Eloquent\\\\Searchable&Illuminate\\\\Database\\\\Eloquent\\\\Model\\>, keys\\: array\\<int\\|string\\>\\}\\|Illuminate\\\\Support\\\\Collection\\<\\(int\\|string\\), App\\\\Services\\\\Search\\\\Eloquent\\\\Searchable&Illuminate\\\\Database\\\\Eloquent\\\\Model\\>, Illuminate\\\\Database\\\\Eloquent\\\\Collection\\<\\(int\\|string\\), class@anonymous/app/Services/Search/ConfigurationTest\\.php\\:437\\> given\\.$#"
 			count: 2
 			path: app/Services/Search/ConfigurationTest.php
@@ -5558,11 +5523,6 @@ parameters:
 		-
 			message: "#^Method class@anonymous/app/Services/Search/Elastic/SearchRequestFactoryTest\\.php\\:86\\:\\:getSearchProperties\\(\\) return type has no value type specified in iterable type array\\.$#"
 			count: 1
-			path: app/Services/Search/Elastic/SearchRequestFactoryTest.php
-
-		-
-			message: "#^Parameter \\#1 \\$items of class Illuminate\\\\Support\\\\Collection constructor expects Illuminate\\\\Contracts\\\\Support\\\\Arrayable\\<TKey of \\(int\\|string\\), mixed\\>\\|iterable\\<TKey of \\(int\\|string\\), mixed\\>\\|null, iterable given\\.$#"
-			count: 5
 			path: app/Services/Search/Elastic/SearchRequestFactoryTest.php
 
 		-
@@ -5746,11 +5706,6 @@ parameters:
 			path: app/Services/Search/Eloquent/SearchableImplTest.php
 
 		-
-			message: "#^Parameter \\#1 \\$items of class Illuminate\\\\Support\\\\Collection constructor expects Illuminate\\\\Contracts\\\\Support\\\\Arrayable\\<TKey of \\(int\\|string\\), mixed\\>\\|iterable\\<TKey of \\(int\\|string\\), mixed\\>\\|null, iterable given\\.$#"
-			count: 9
-			path: app/Services/Search/Eloquent/SearchableImplTest.php
-
-		-
 			message: "#^Parameter \\#1 \\$model of method App\\\\Services\\\\Search\\\\Processors\\\\ModelProcessor\\<App\\\\Services\\\\Search\\\\Eloquent\\\\Searchable&Illuminate\\\\Database\\\\Eloquent\\\\Model,App\\\\Services\\\\Search\\\\Processors\\\\ModelProcessorState\\<App\\\\Services\\\\Search\\\\Eloquent\\\\Searchable&Illuminate\\\\Database\\\\Eloquent\\\\Model\\>\\>\\:\\:setModel\\(\\) expects class\\-string\\<App\\\\Services\\\\Search\\\\Eloquent\\\\Searchable&Illuminate\\\\Database\\\\Eloquent\\\\Model\\>, string given\\.$#"
 			count: 8
 			path: app/Services/Search/Eloquent/SearchableImplTest.php
@@ -5826,11 +5781,6 @@ parameters:
 			path: app/Services/Search/Eloquent/UnionModel.php
 
 		-
-			message: "#^Parameter \\#1 \\$items of class Illuminate\\\\Support\\\\Collection constructor expects Illuminate\\\\Contracts\\\\Support\\\\Arrayable\\<TKey of \\(int\\|string\\), mixed\\>\\|iterable\\<TKey of \\(int\\|string\\), mixed\\>\\|null, iterable given\\.$#"
-			count: 1
-			path: app/Services/Search/Eloquent/UnionModel.php
-
-		-
 			message: "#^Parameter \\#1 \\$models of method App\\\\Services\\\\Queue\\\\Utils\\\\Dispatcher\\<App\\\\Services\\\\Search\\\\Eloquent\\\\Searchable&Illuminate\\\\Database\\\\Eloquent\\\\Model\\>\\:\\:dispatch\\(\\) expects \\(App\\\\Services\\\\Search\\\\Eloquent\\\\Searchable&Illuminate\\\\Database\\\\Eloquent\\\\Model\\)\\|array\\{model\\: class\\-string\\<App\\\\Services\\\\Search\\\\Eloquent\\\\Searchable&Illuminate\\\\Database\\\\Eloquent\\\\Model\\>, keys\\: array\\<int\\|string\\>\\}\\|Illuminate\\\\Support\\\\Collection\\<\\(int\\|string\\), App\\\\Services\\\\Search\\\\Eloquent\\\\Searchable&Illuminate\\\\Database\\\\Eloquent\\\\Model\\>, Illuminate\\\\Database\\\\Eloquent\\\\Collection\\<\\(int\\|string\\), static\\(App\\\\Services\\\\Search\\\\Eloquent\\\\UnionModel\\)\\> given\\.$#"
 			count: 2
 			path: app/Services/Search/Eloquent/UnionModel.php
@@ -5847,11 +5797,6 @@ parameters:
 
 		-
 			message: "#^Method App\\\\Services\\\\Search\\\\GraphQL\\\\ModelConverterTest_Model\\:\\:getSearchProperties\\(\\) return type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: app/Services/Search/GraphQL/ModelConverterTest.php
-
-		-
-			message: "#^Parameter \\#1 \\$items of class Illuminate\\\\Support\\\\Collection constructor expects Illuminate\\\\Contracts\\\\Support\\\\Arrayable\\<TKey of \\(int\\|string\\), mixed\\>\\|iterable\\<TKey of \\(int\\|string\\), mixed\\>\\|null, iterable given\\.$#"
 			count: 1
 			path: app/Services/Search/GraphQL/ModelConverterTest.php
 
@@ -5978,11 +5923,6 @@ parameters:
 		-
 			message: "#^Parameter \\#1 \\$callback of method Illuminate\\\\Support\\\\Collection\\<\\(int\\|string\\),mixed\\>\\:\\:map\\(\\) expects callable\\(mixed, \\(int\\|string\\)\\)\\: int\\|string, App\\\\Utils\\\\Eloquent\\\\Callbacks\\\\GetKey given\\.$#"
 			count: 1
-			path: app/Services/Search/Processors/ModelProcessorTest.php
-
-		-
-			message: "#^Parameter \\#1 \\$items of class Illuminate\\\\Support\\\\Collection constructor expects Illuminate\\\\Contracts\\\\Support\\\\Arrayable\\<TKey of \\(int\\|string\\), mixed\\>\\|iterable\\<TKey of \\(int\\|string\\), mixed\\>\\|null, iterable given\\.$#"
-			count: 2
 			path: app/Services/Search/Processors/ModelProcessorTest.php
 
 		-
@@ -6336,11 +6276,6 @@ parameters:
 			path: app/Utils/Description.php
 
 		-
-			message: "#^Call to an undefined method Illuminate\\\\Database\\\\Eloquent\\\\Builder\\<T of Illuminate\\\\Database\\\\Eloquent\\\\Model\\>\\:\\:orderBy\\(\\)\\.$#"
-			count: 1
-			path: app/Utils/Eloquent/Callbacks/OrderByKey.php
-
-		-
 			message: "#^Anonymous function should return Illuminate\\\\Database\\\\Eloquent\\\\Model\\|null but returns mixed\\.$#"
 			count: 1
 			path: app/Utils/Eloquent/CascadeDeletes/CascadeProcessor.php
@@ -6516,7 +6451,7 @@ parameters:
 			path: app/Utils/Iterators/Eloquent/EloquentIteratorTest.php
 
 		-
-			message: "#^Call to an undefined method Illuminate\\\\Database\\\\Eloquent\\\\Builder\\<TItem of Illuminate\\\\Database\\\\Eloquent\\\\Model\\>\\:\\:whereIn\\(\\)\\.$#"
+			message: "#^Method App\\\\Utils\\\\Iterators\\\\Eloquent\\\\ModelsIterator\\:\\:chunkConvert\\(\\) should return array\\<TItem of Illuminate\\\\Database\\\\Eloquent\\\\Model\\> but returns array\\<Illuminate\\\\Database\\\\Eloquent\\\\Model\\>\\.$#"
 			count: 1
 			path: app/Utils/Iterators/Eloquent/ModelsIterator.php
 
@@ -6632,11 +6567,6 @@ parameters:
 
 		-
 			message: "#^Call to an undefined method Illuminate\\\\Database\\\\Eloquent\\\\Builder\\:\\:withoutTrashed\\(\\)\\.$#"
-			count: 1
-			path: app/Utils/Processor/EloquentProcessor.php
-
-		-
-			message: "#^Call to an undefined method Illuminate\\\\Database\\\\Eloquent\\\\Builder\\<TItem of Illuminate\\\\Database\\\\Eloquent\\\\Model\\>\\:\\:count\\(\\)\\.$#"
 			count: 1
 			path: app/Utils/Processor/EloquentProcessor.php
 

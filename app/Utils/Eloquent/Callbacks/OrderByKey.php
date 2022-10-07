@@ -30,7 +30,7 @@ class OrderByKey {
         }
 
         if (!$ordered) {
-            $builder = $builder->orderBy($base->unions ? $keyName : $fullKeyName);
+            $builder->orderBy($base->unions ? $keyName : $fullKeyName);
         }
 
         return $builder;

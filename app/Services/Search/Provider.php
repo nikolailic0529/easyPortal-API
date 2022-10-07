@@ -94,8 +94,8 @@ class Provider extends ServiceProvider {
 
     protected function registerElasticClient(): void {
         $this->app->singleton(Client::class, static function (Container $container) {
-            $config = $container->make(Repository::class)->get('elastic.client');
-            $config = array_filter($config, static fn(mixed $value): bool => $value !== null);
+            $config = $container->make(Repository::class)->get('elastic.client') ?? [];
+            $config = array_filter($config, static fn(mixed $value): bool => $value !== null) ?? [];
             $logger = $config['logger'] ?? null;
 
             if (is_string($logger)) {
