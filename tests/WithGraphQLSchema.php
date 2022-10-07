@@ -122,7 +122,7 @@ trait WithGraphQLSchema {
      * @param Closure(string):string|null $closure
      */
     private function runGraphqlInspector(array $args, string $message, Closure $closure = null): void {
-        $process = new Process(array_merge(['graphql-inspector'], $args));
+        $process = new Process(array_merge(['npx', 'graphql-inspector'], $args));
         $process->run();
 
         $message = trim("{$message}\n\n{$process->getOutput()}\n\n{$process->getErrorOutput()}");
