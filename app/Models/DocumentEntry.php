@@ -18,6 +18,7 @@ use App\Models\Relations\HasLanguage;
 use App\Models\Relations\HasProduct;
 use App\Models\Relations\HasServiceGroup;
 use App\Models\Relations\HasServiceLevel;
+use App\Utils\Eloquent\Casts\Origin;
 use App\Utils\Eloquent\Model;
 use Carbon\CarbonImmutable;
 use Database\Factories\DocumentEntryFactory;
@@ -45,9 +46,13 @@ use function sprintf;
  * @property CarbonImmutable|null $end
  * @property string|null          $currency_id
  * @property string|null          $list_price
+ * @property string|null          $list_price_origin
  * @property string|null          $monthly_list_price
+ * @property string|null          $monthly_list_price_origin
  * @property string|null          $monthly_retail_price
+ * @property string|null          $monthly_retail_price_origin
  * @property string|null          $renewal
+ * @property string|null          $renewal_origin
  * @property string|null          $oem_said
  * @property string|null          $oem_sar_number
  * @property string|null          $psp_id
@@ -84,12 +89,16 @@ class DocumentEntry extends Model {
     use HasLanguage;
 
     protected const CASTS = [
-        'monthly_retail_price' => 'decimal:2',
-        'monthly_list_price'   => 'decimal:2',
-        'list_price'           => 'decimal:2',
-        'renewal'              => 'decimal:2',
-        'start'                => 'date',
-        'end'                  => 'date',
+        'monthly_retail_price'        => 'decimal:2',
+        'monthly_retail_price_origin' => Origin::class,
+        'monthly_list_price'          => 'decimal:2',
+        'monthly_list_price_origin'   => Origin::class,
+        'list_price'                  => 'decimal:2',
+        'list_price_origin'           => Origin::class,
+        'renewal'                     => 'decimal:2',
+        'renewal_origin'              => Origin::class,
+        'start'                       => 'date',
+        'end'                         => 'date',
     ] + parent::CASTS;
 
     /**

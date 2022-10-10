@@ -54,6 +54,7 @@ class DocumentFactory extends Factory {
             'start'          => $this->faker->dateTime(),
             'end'            => $this->faker->dateTime(),
             'price'          => (string) $this->faker->randomFloat(2),
+            'price_origin'   => (string) $this->faker->randomFloat(2),
             'currency_id'    => null,
             'changed_at'     => null,
             'synced_at'      => Date::now(),
