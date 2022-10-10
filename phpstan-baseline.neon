@@ -6296,6 +6296,11 @@ parameters:
 			path: app/Utils/Eloquent/CascadeDeletes/CascadeProcessorTest.php
 
 		-
+			message: "#^Method App\\\\Utils\\\\Eloquent\\\\Casts\\\\Origin\\:\\:set\\(\\) has parameter \\$attributes with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: app/Utils/Eloquent/Casts/Origin.php
+
+		-
 			message: "#^Parameter \\#1 \\$builder \\(Illuminate\\\\Database\\\\Eloquent\\\\Builder\\<TModel of Illuminate\\\\Database\\\\Eloquent\\\\Model\\>\\) of method App\\\\Utils\\\\Eloquent\\\\GlobalScopes\\\\DisableableScope\\:\\:apply\\(\\) should be contravariant with parameter \\$builder \\(Illuminate\\\\Database\\\\Eloquent\\\\Builder\\) of method Illuminate\\\\Database\\\\Eloquent\\\\Scope\\:\\:apply\\(\\)$#"
 			count: 1
 			path: app/Utils/Eloquent/GlobalScopes/DisableableScope.php
