@@ -16,16 +16,20 @@ class OriginTest extends TestCase {
      * @covers ::set
      */
     public function testSet(): void {
-        $cast  = new Origin();
         $value = $this->faker->randomNumber();
-        $model = Mockery::mock(Model::class);
-        $model
-            ->shouldReceive('setAttribute')
-            ->with('attr', $value)
-            ->once()
-            ->andReturns();
+        $model = new class() extends Model {
+            /**
+             * @phpcsSuppress SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingAnyTypeHint
+             */
+            protected $casts = [
+                'attr_origin' => Origin::class,
+            ];
+        };
 
-        self::assertEquals($value, $cast->set($model, 'attr_origin', $value, []));
+        $model->setAttribute('attr_origin', $value);
+
+        self::assertEquals($value, $model->getAttribute('attr_origin'));
+        self::assertEquals($value, $model->getAttribute('attr'));
     }
 
     /**

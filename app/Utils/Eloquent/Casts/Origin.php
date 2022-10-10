@@ -25,9 +25,8 @@ class Origin implements CastsInboundAttributes {
      * @inheritDoc
      */
     public function set($model, string $key, $value, array $attributes): mixed {
-        if (str_ends_with($key, static::SUFFIX)) {
-            $model->setAttribute(Str::beforeLast($key, static::SUFFIX), $value);
-        } else {
+        // Origin attribute?
+        if (!str_ends_with($key, static::SUFFIX)) {
             throw new LogicException(sprintf(
                 'The `%s` should have `%s` suffix.',
                 $key,
@@ -35,6 +34,15 @@ class Origin implements CastsInboundAttributes {
             ));
         }
 
-        return $value;
+        // Laravel doesn't allow to set another attribute in mutator :(
+        $attr  = Str::beforeLast($key, static::SUFFIX);
+        $clone = clone $model;
+
+        $clone->setAttribute($attr, $value);
+
+        return [
+            $key  => $value,
+            $attr => $clone->getAttributes()[$attr] ?? null,
+        ];
     }
 }
