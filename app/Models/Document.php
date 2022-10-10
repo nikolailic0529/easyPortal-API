@@ -60,7 +60,7 @@ use function count;
  * @property string|null                    $number
  * @property CarbonImmutable|null           $start
  * @property CarbonImmutable|null           $end
- * @property string|null                    $price
+ * @property-read string|null               $price
  * @property string|null                    $price_origin
  * @property string|null                    $currency_id
  * @property string|null                    $language_id

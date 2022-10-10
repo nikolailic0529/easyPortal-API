@@ -45,13 +45,13 @@ use function sprintf;
  * @property CarbonImmutable|null $start
  * @property CarbonImmutable|null $end
  * @property string|null          $currency_id
- * @property string|null          $list_price
+ * @property-read string|null     $list_price
  * @property string|null          $list_price_origin
- * @property string|null          $monthly_list_price
+ * @property-read string|null     $monthly_list_price
  * @property string|null          $monthly_list_price_origin
- * @property string|null          $monthly_retail_price
+ * @property-read string|null     $monthly_retail_price
  * @property string|null          $monthly_retail_price_origin
- * @property string|null          $renewal
+ * @property-read string|null     $renewal
  * @property string|null          $renewal_origin
  * @property string|null          $oem_said
  * @property string|null          $oem_sar_number

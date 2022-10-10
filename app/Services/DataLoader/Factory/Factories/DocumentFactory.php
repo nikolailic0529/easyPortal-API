@@ -282,7 +282,7 @@ class DocumentFactory extends ModelFactory {
                 $model->distributor   = $this->distributor($document);
                 $model->start         = $normalizer->datetime($document->startDate);
                 $model->end           = $normalizer->datetime($document->endDate);
-                $model->price         = $normalizer->decimal($document->totalNetPrice);
+                $model->price_origin  = $normalizer->decimal($document->totalNetPrice);
                 $model->number        = $normalizer->string($document->documentNumber) ?: null;
                 $model->changed_at    = $normalizer->datetime($document->updatedAt);
                 $model->contacts      = $this->objectContacts($model, (array) $document->contactPersons);
@@ -353,24 +353,24 @@ class DocumentFactory extends ModelFactory {
             $created    = !$model->exists;
             $normalizer = $this->getNormalizer();
 
-            $model->id          = $normalizer->uuid($document->id);
-            $model->oem         = $this->documentOem($document);
-            $model->oemGroup    = $this->documentOemGroup($document);
-            $model->oem_said    = $normalizer->string($document->vendorSpecificFields->said ?? null);
-            $model->type        = $this->documentType($document);
-            $model->reseller    = $this->reseller($document);
-            $model->customer    = $this->customer($document);
-            $model->currency    = $this->currency($document->currencyCode);
-            $model->language    = $this->language($document->languageCode);
-            $model->distributor = $this->distributor($document);
-            $model->start       = $normalizer->datetime($document->startDate);
-            $model->end         = $normalizer->datetime($document->endDate);
-            $model->price       = $normalizer->decimal($document->totalNetPrice);
-            $model->number      = $normalizer->string($document->documentNumber) ?: null;
-            $model->changed_at  = $normalizer->datetime($document->updatedAt);
-            $model->contacts    = $this->objectContacts($model, (array) $document->contactPersons);
-            $model->synced_at   = Date::now();
-            $model->statuses    = $this->documentStatuses($model, $document);
+            $model->id           = $normalizer->uuid($document->id);
+            $model->oem          = $this->documentOem($document);
+            $model->oemGroup     = $this->documentOemGroup($document);
+            $model->oem_said     = $normalizer->string($document->vendorSpecificFields->said ?? null);
+            $model->type         = $this->documentType($document);
+            $model->reseller     = $this->reseller($document);
+            $model->customer     = $this->customer($document);
+            $model->currency     = $this->currency($document->currencyCode);
+            $model->language     = $this->language($document->languageCode);
+            $model->distributor  = $this->distributor($document);
+            $model->start        = $normalizer->datetime($document->startDate);
+            $model->end          = $normalizer->datetime($document->endDate);
+            $model->price_origin = $normalizer->decimal($document->totalNetPrice);
+            $model->number       = $normalizer->string($document->documentNumber) ?: null;
+            $model->changed_at   = $normalizer->datetime($document->updatedAt);
+            $model->contacts     = $this->objectContacts($model, (array) $document->contactPersons);
+            $model->synced_at    = Date::now();
+            $model->statuses     = $this->documentStatuses($model, $document);
 
             // Save
             if ($model->trashed()) {
@@ -497,30 +497,30 @@ class DocumentFactory extends ModelFactory {
         DocumentEntry $documentEntry,
         ?DocumentEntryModel $entry,
     ): DocumentEntryModel {
-        $asset                       = $this->documentEntryAsset($model, $documentEntry);
-        $entry                     ??= new DocumentEntryModel();
-        $normalizer                  = $this->getNormalizer();
-        $entry->asset                = $asset;
-        $entry->assetType            = $this->documentEntryAssetType($model, $documentEntry);
-        $entry->product_id           = $asset->product_id ?? null;
-        $entry->productLine          = $this->documentEntryProductLine($model, $documentEntry);
-        $entry->productGroup         = $this->documentEntryProductGroup($model, $documentEntry);
-        $entry->serial_number        = $asset->serial_number ?? null;
-        $entry->start                = $normalizer->datetime($documentEntry->startDate);
-        $entry->end                  = $normalizer->datetime($documentEntry->endDate);
-        $entry->currency             = $this->currency($documentEntry->currencyCode);
-        $entry->list_price           = $normalizer->decimal($documentEntry->listPrice);
-        $entry->monthly_list_price   = $normalizer->decimal($documentEntry->lineItemListPrice);
-        $entry->monthly_retail_price = $normalizer->decimal($documentEntry->lineItemMonthlyRetailPrice);
-        $entry->renewal              = $normalizer->decimal($documentEntry->estimatedValueRenewal);
-        $entry->oem_said             = $normalizer->string($documentEntry->said);
-        $entry->oem_sar_number       = $normalizer->string($documentEntry->sarNumber);
-        $entry->environment_id       = $normalizer->string($documentEntry->environmentId);
-        $entry->equipment_number     = $normalizer->string($documentEntry->equipmentNumber);
-        $entry->language             = $this->language($documentEntry->languageCode);
-        $entry->serviceGroup         = $this->documentEntryServiceGroup($model, $documentEntry);
-        $entry->serviceLevel         = $this->documentEntryServiceLevel($model, $documentEntry);
-        $entry->psp                  = $this->documentEntryPsp($model, $documentEntry);
+        $asset                              = $this->documentEntryAsset($model, $documentEntry);
+        $entry                            ??= new DocumentEntryModel();
+        $normalizer                         = $this->getNormalizer();
+        $entry->asset                       = $asset;
+        $entry->assetType                   = $this->documentEntryAssetType($model, $documentEntry);
+        $entry->product_id                  = $asset->product_id ?? null;
+        $entry->productLine                 = $this->documentEntryProductLine($model, $documentEntry);
+        $entry->productGroup                = $this->documentEntryProductGroup($model, $documentEntry);
+        $entry->serial_number               = $asset->serial_number ?? null;
+        $entry->start                       = $normalizer->datetime($documentEntry->startDate);
+        $entry->end                         = $normalizer->datetime($documentEntry->endDate);
+        $entry->currency                    = $this->currency($documentEntry->currencyCode);
+        $entry->list_price_origin           = $normalizer->decimal($documentEntry->listPrice);
+        $entry->monthly_list_price_origin   = $normalizer->decimal($documentEntry->lineItemListPrice);
+        $entry->monthly_retail_price_origin = $normalizer->decimal($documentEntry->lineItemMonthlyRetailPrice);
+        $entry->renewal_origin              = $normalizer->decimal($documentEntry->estimatedValueRenewal);
+        $entry->oem_said                    = $normalizer->string($documentEntry->said);
+        $entry->oem_sar_number              = $normalizer->string($documentEntry->sarNumber);
+        $entry->environment_id              = $normalizer->string($documentEntry->environmentId);
+        $entry->equipment_number            = $normalizer->string($documentEntry->equipmentNumber);
+        $entry->language                    = $this->language($documentEntry->languageCode);
+        $entry->serviceGroup                = $this->documentEntryServiceGroup($model, $documentEntry);
+        $entry->serviceLevel                = $this->documentEntryServiceLevel($model, $documentEntry);
+        $entry->psp                         = $this->documentEntryPsp($model, $documentEntry);
 
         return $entry;
     }
