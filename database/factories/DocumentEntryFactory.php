@@ -52,14 +52,22 @@ class DocumentEntryFactory extends Factory {
             },
             'start'                       => $this->faker->dateTime(),
             'end'                         => $this->faker->dateTime(),
-            'list_price'                  => number_format($this->faker->randomFloat(2), 2, '.', ''),
             'list_price_origin'           => number_format($this->faker->randomFloat(2), 2, '.', ''),
-            'monthly_list_price'          => number_format($this->faker->randomFloat(2), 2, '.', ''),
+            'list_price'                  => static function (array $attributes): mixed {
+                return $attributes['list_price_origin'] ?? null;
+            },
             'monthly_list_price_origin'   => number_format($this->faker->randomFloat(2), 2, '.', ''),
-            'monthly_retail_price'        => number_format($this->faker->randomFloat(2), 2, '.', ''),
+            'monthly_list_price'          => static function (array $attributes): mixed {
+                return $attributes['monthly_list_price_origin'] ?? null;
+            },
             'monthly_retail_price_origin' => number_format($this->faker->randomFloat(2), 2, '.', ''),
-            'renewal'                     => number_format($this->faker->randomFloat(2), 2, '.', ''),
+            'monthly_retail_price'        => static function (array $attributes): mixed {
+                return $attributes['monthly_retail_price_origin'] ?? null;
+            },
             'renewal_origin'              => number_format($this->faker->randomFloat(2), 2, '.', ''),
+            'renewal'                     => static function (array $attributes): mixed {
+                return $attributes['renewal_origin'] ?? null;
+            },
             'oem_said'                    => null,
             'oem_sar_number'              => null,
             'environment_id'              => null,

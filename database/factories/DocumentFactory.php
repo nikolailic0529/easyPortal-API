@@ -11,6 +11,8 @@ use App\Utils\Eloquent\Testing\Database\Factory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Date;
 
+use function number_format;
+
 /**
  * @method Document create($attributes = [], ?Model $parent = null)
  * @method Document make($attributes = [], ?Model $parent = null)
@@ -53,8 +55,10 @@ class DocumentFactory extends Factory {
             'number'         => $this->faker->uuid(),
             'start'          => $this->faker->dateTime(),
             'end'            => $this->faker->dateTime(),
-            'price'          => (string) $this->faker->randomFloat(2),
-            'price_origin'   => (string) $this->faker->randomFloat(2),
+            'price_origin'   => number_format($this->faker->randomFloat(2), 2, '.', ''),
+            'price'          => static function (array $attributes): mixed {
+                return $attributes['price_origin'] ?? null;
+            },
             'currency_id'    => null,
             'changed_at'     => null,
             'synced_at'      => Date::now(),
