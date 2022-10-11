@@ -5286,6 +5286,11 @@ parameters:
 			path: app/Services/Recalculator/Processor/Processors/CustomersProcessorTest.php
 
 		-
+			message: "#^Parameter \\#1 \\$items of class App\\\\Services\\\\Recalculator\\\\Processor\\\\Processors\\\\DocumentsChunkData constructor expects array\\<App\\\\Models\\\\Document\\>\\|Illuminate\\\\Support\\\\Collection\\<\\(int\\|string\\), App\\\\Models\\\\Document\\>, Illuminate\\\\Database\\\\Eloquent\\\\Collection\\<\\(int\\|string\\), Illuminate\\\\Database\\\\Eloquent\\\\Model\\> given\\.$#"
+			count: 1
+			path: app/Services/Recalculator/Processor/Processors/DocumentsProcessor.php
+
+		-
 			message: "#^Method App\\\\Services\\\\Recalculator\\\\Processor\\\\Processors\\\\LocationsChunkData\\:\\:getLocationCustomers\\(\\) should return array\\<string, array\\<string\\>\\> but returns array\\<string\\>\\.$#"
 			count: 1
 			path: app/Services/Recalculator/Processor/Processors/LocationsChunkData.php
@@ -5356,6 +5361,11 @@ parameters:
 			path: app/Services/Recalculator/Queue/Jobs/CustomersRecalculator.php
 
 		-
+			message: "#^Method App\\\\Services\\\\Recalculator\\\\Queue\\\\Jobs\\\\DocumentsRecalculator\\:\\:makeProcessor\\(\\) should return App\\\\Utils\\\\Processor\\\\EloquentProcessor\\<App\\\\Models\\\\Document, null, App\\\\Utils\\\\Processor\\\\EloquentState\\<App\\\\Models\\\\Document\\>\\> but returns App\\\\Services\\\\Recalculator\\\\Processor\\\\Processors\\\\DocumentsProcessor\\.$#"
+			count: 1
+			path: app/Services/Recalculator/Queue/Jobs/DocumentsRecalculator.php
+
+		-
 			message: "#^Method App\\\\Services\\\\Recalculator\\\\Queue\\\\Jobs\\\\LocationsRecalculator\\:\\:makeProcessor\\(\\) should return App\\\\Utils\\\\Processor\\\\EloquentProcessor\\<App\\\\Models\\\\Data\\\\Location, null, App\\\\Utils\\\\Processor\\\\EloquentState\\<App\\\\Models\\\\Data\\\\Location\\>\\> but returns App\\\\Services\\\\Recalculator\\\\Processor\\\\Processors\\\\LocationsProcessor\\.$#"
 			count: 1
 			path: app/Services/Recalculator/Queue/Jobs/LocationsRecalculator.php
@@ -5406,12 +5416,12 @@ parameters:
 			path: app/Services/Recalculator/Queue/Tasks/Recalculate.php
 
 		-
-			message: "#^Static property App\\\\Services\\\\Recalculator\\\\Service\\:\\:\\$processors \\(array\\<class\\-string\\<Illuminate\\\\Database\\\\Eloquent\\\\Model\\>, class\\-string\\<App\\\\Services\\\\Recalculator\\\\Processor\\\\Processor\\<Illuminate\\\\Database\\\\Eloquent\\\\Model, App\\\\Services\\\\Recalculator\\\\Processor\\\\ChunkData\\<Illuminate\\\\Database\\\\Eloquent\\\\Model\\>, App\\\\Utils\\\\Processor\\\\EloquentState\\<Illuminate\\\\Database\\\\Eloquent\\\\Model\\>\\>\\>\\>\\) does not accept default value of type array\\{App\\\\Models\\\\Asset\\: 'App\\\\\\\\Services\\\\\\\\Recalculator\\\\\\\\Processor\\\\\\\\Processors\\\\\\\\AssetsProcessor', App\\\\Models\\\\Reseller\\: 'App\\\\\\\\Services\\\\\\\\Recalculator\\\\\\\\Processor\\\\\\\\Processors\\\\\\\\ResellersProcessor', App\\\\Models\\\\Customer\\: 'App\\\\\\\\Services\\\\\\\\Recalculator\\\\\\\\Processor\\\\\\\\Processors\\\\\\\\CustomersProcessor', App\\\\Models\\\\Data\\\\Location\\: 'App\\\\\\\\Services\\\\\\\\Recalculator\\\\\\\\Processor\\\\\\\\Processors\\\\\\\\LocationsProcessor'\\}\\.$#"
+			message: "#^Static property App\\\\Services\\\\Recalculator\\\\Service\\:\\:\\$processors \\(array\\<class\\-string\\<Illuminate\\\\Database\\\\Eloquent\\\\Model\\>, class\\-string\\<App\\\\Services\\\\Recalculator\\\\Processor\\\\Processor\\<Illuminate\\\\Database\\\\Eloquent\\\\Model, App\\\\Services\\\\Recalculator\\\\Processor\\\\ChunkData\\<Illuminate\\\\Database\\\\Eloquent\\\\Model\\>, App\\\\Utils\\\\Processor\\\\EloquentState\\<Illuminate\\\\Database\\\\Eloquent\\\\Model\\>\\>\\>\\>\\) does not accept default value of type array\\{App\\\\Models\\\\Asset\\: 'App\\\\\\\\Services\\\\\\\\Recalculator\\\\\\\\Processor\\\\\\\\Processors\\\\\\\\AssetsProcessor', App\\\\Models\\\\Reseller\\: 'App\\\\\\\\Services\\\\\\\\Recalculator\\\\\\\\Processor\\\\\\\\Processors\\\\\\\\ResellersProcessor', App\\\\Models\\\\Customer\\: 'App\\\\\\\\Services\\\\\\\\Recalculator\\\\\\\\Processor\\\\\\\\Processors\\\\\\\\CustomersProcessor', App\\\\Models\\\\Data\\\\Location\\: 'App\\\\\\\\Services\\\\\\\\Recalculator\\\\\\\\Processor\\\\\\\\Processors\\\\\\\\LocationsProcessor', App\\\\Models\\\\Document\\: 'App\\\\\\\\Services\\\\\\\\Recalculator\\\\\\\\Processor\\\\\\\\Processors\\\\\\\\DocumentsProcessor'\\}\\.$#"
 			count: 1
 			path: app/Services/Recalculator/Service.php
 
 		-
-			message: "#^Static property App\\\\Services\\\\Recalculator\\\\Service\\:\\:\\$recalculable \\(array\\<class\\-string\\<Illuminate\\\\Database\\\\Eloquent\\\\Model\\>, class\\-string\\<App\\\\Services\\\\Recalculator\\\\Queue\\\\Jobs\\\\Recalculator\\<Illuminate\\\\Database\\\\Eloquent\\\\Model\\>\\>\\>\\) does not accept default value of type array\\{App\\\\Models\\\\Asset\\: 'App\\\\\\\\Services\\\\\\\\Recalculator\\\\\\\\Queue\\\\\\\\Jobs\\\\\\\\AssetsRecalculator', App\\\\Models\\\\Reseller\\: 'App\\\\\\\\Services\\\\\\\\Recalculator\\\\\\\\Queue\\\\\\\\Jobs\\\\\\\\ResellersRecalculator', App\\\\Models\\\\Customer\\: 'App\\\\\\\\Services\\\\\\\\Recalculator\\\\\\\\Queue\\\\\\\\Jobs\\\\\\\\CustomersRecalculator', App\\\\Models\\\\Data\\\\Location\\: 'App\\\\\\\\Services\\\\\\\\Recalculator\\\\\\\\Queue\\\\\\\\Jobs\\\\\\\\LocationsRecalculator'\\}\\.$#"
+			message: "#^Static property App\\\\Services\\\\Recalculator\\\\Service\\:\\:\\$recalculable \\(array\\<class\\-string\\<Illuminate\\\\Database\\\\Eloquent\\\\Model\\>, class\\-string\\<App\\\\Services\\\\Recalculator\\\\Queue\\\\Jobs\\\\Recalculator\\<Illuminate\\\\Database\\\\Eloquent\\\\Model\\>\\>\\>\\) does not accept default value of type array\\{App\\\\Models\\\\Asset\\: 'App\\\\\\\\Services\\\\\\\\Recalculator\\\\\\\\Queue\\\\\\\\Jobs\\\\\\\\AssetsRecalculator', App\\\\Models\\\\Reseller\\: 'App\\\\\\\\Services\\\\\\\\Recalculator\\\\\\\\Queue\\\\\\\\Jobs\\\\\\\\ResellersRecalculator', App\\\\Models\\\\Customer\\: 'App\\\\\\\\Services\\\\\\\\Recalculator\\\\\\\\Queue\\\\\\\\Jobs\\\\\\\\CustomersRecalculator', App\\\\Models\\\\Data\\\\Location\\: 'App\\\\\\\\Services\\\\\\\\Recalculator\\\\\\\\Queue\\\\\\\\Jobs\\\\\\\\LocationsRecalculator', App\\\\Models\\\\Document\\: 'App\\\\\\\\Services\\\\\\\\Recalculator\\\\\\\\Queue\\\\\\\\Jobs\\\\\\\\DocumentsRecalculator'\\}\\.$#"
 			count: 1
 			path: app/Services/Recalculator/Service.php
 
