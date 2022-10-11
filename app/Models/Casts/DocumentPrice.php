@@ -6,6 +6,7 @@ use App\Models\Document;
 use App\Models\DocumentEntry;
 use App\Utils\Eloquent\Callbacks\GetKey;
 use Illuminate\Contracts\Database\Eloquent\CastsInboundAttributes;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Config;
 use LogicException;
 
@@ -24,6 +25,20 @@ class DocumentPrice implements CastsInboundAttributes {
             return null;
         }
 
+        // Visible?
+        if (!$this->isVisible($model)) {
+            return null;
+        }
+
+        // Numeric?
+        if (!is_numeric($value)) {
+            throw new LogicException('The `$value` is not numeric.');
+        }
+
+        return number_format((float) $value, 2, '.', '');
+    }
+
+    protected function isVisible(Model $model): bool {
         // Document?
         $document = null;
 
@@ -39,7 +54,7 @@ class DocumentPrice implements CastsInboundAttributes {
         }
 
         if ($document === null) {
-            return null;
+            return false;
         }
 
         // Hidden?
@@ -49,15 +64,11 @@ class DocumentPrice implements CastsInboundAttributes {
             $actual = $document->statuses->map(new GetKey())->all();
 
             if (array_intersect($statuses, $actual)) {
-                return null;
+                return false;
             }
         }
 
-        // Numeric?
-        if (!is_numeric($value)) {
-            throw new LogicException('The `$value` is not numeric.');
-        }
-
-        return number_format((float) $value, 2, '.', '');
+        // Return
+        return true;
     }
 }
