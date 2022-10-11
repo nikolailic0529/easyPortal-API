@@ -72,7 +72,7 @@ class DocumentResolverTest extends TestCase {
 
         self::assertNotEmpty($created);
         self::assertEquals($uuid, $created->getKey());
-        self::assertCount(2, $queries);
+        self::assertCount(1, $queries);
 
         // The created object should be in cache
         $queries = $this->getQueryLog()->flush();

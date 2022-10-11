@@ -44,10 +44,13 @@ class DocumentPrice implements CastsInboundAttributes {
 
         // Hidden?
         $statuses = (array) Config::get('ep.document_statuses_no_price');
-        $actual   = $document->statuses->map(new GetKey())->all();
 
-        if (array_intersect($statuses, $actual)) {
-            return null;
+        if ($statuses && ($document->exists || $document->relationLoaded('statuses'))) {
+            $actual = $document->statuses->map(new GetKey())->all();
+
+            if (array_intersect($statuses, $actual)) {
+                return null;
+            }
         }
 
         // Numeric?
