@@ -614,7 +614,7 @@ class DocumentFactoryTest extends TestCase {
         self::assertEquals($asset->getKey(), $entry->asset_id);
         self::assertEquals($assetType->key, $entry->assetType->key ?? null);
         self::assertEquals((new Asset())->getMorphClass(), $entry->assetType->object_type ?? null);
-        self::assertNull($entry->document_id);
+        self::assertEquals($document->getKey(), $entry->document_id);
         self::assertEquals($asset->serial_number, $entry->serial_number);
         self::assertEquals($asset->product, $entry->product);
         self::assertEquals($productLine->getKey(), $entry->product_line_id);

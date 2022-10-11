@@ -481,13 +481,14 @@
         ]
     },
     {
-        "query": "insert into `documents` (`id`, `oem_id`, `oem_group_id`, `oem_said`, `type_id`, `reseller_id`, `customer_id`, `currency_id`, `language_id`, `distributor_id`, `start`, `end`, `price_origin`, `price`, `number`, `changed_at`, `contacts_count`, `synced_at`, `assets_count`, `entries_count`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `documents` (`id`, `oem_id`, `oem_group_id`, `oem_said`, `type_id`, `statuses_count`, `reseller_id`, `customer_id`, `currency_id`, `language_id`, `distributor_id`, `start`, `end`, `price_origin`, `price`, `number`, `changed_at`, `contacts_count`, `synced_at`, `assets_count`, `entries_count`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "5580da08-150d-4fa1-8a1e-d26a8953c677",
             "4e41a5c3-9089-5987-acdf-f3fbbed278e0",
             null,
             "2b2c112e-041e-3fc0-8dfc-70289c6336ab",
             "2d111a75-b546-5c91-b607-e42a084fd34c",
+            0,
             "9d9e320d-4e44-4518-a4e6-6bfe7f1c7dd8",
             "019a3b56-b701-4599-8452-2cf9f1f54b26",
             "aed4ffe9-89fe-5820-b083-33fa27303400",
@@ -614,12 +615,6 @@
         ]
     },
     {
-        "query": "select `statuses`.*, `document_statuses`.`document_id` as `pivot_document_id`, `document_statuses`.`status_id` as `pivot_status_id`, `document_statuses`.`created_at` as `pivot_created_at`, `document_statuses`.`updated_at` as `pivot_updated_at` from `statuses` inner join `document_statuses` on `statuses`.`id` = `document_statuses`.`status_id` where `document_statuses`.`deleted_at` is null and `document_statuses`.`document_id` in (?) and `statuses`.`deleted_at` is null",
-        "bindings": [
-            "5580da08-150d-4fa1-8a1e-d26a8953c677"
-        ]
-    },
-    {
         "query": "select `products`.* from `products` where (`oem_id` = ? and `sku` = ?) and `products`.`deleted_at` is null limit 1",
         "bindings": [
             "4e41a5c3-9089-5987-acdf-f3fbbed278e0",
@@ -743,13 +738,14 @@
         ]
     },
     {
-        "query": "insert into `documents` (`id`, `oem_id`, `oem_group_id`, `oem_said`, `type_id`, `reseller_id`, `customer_id`, `currency_id`, `language_id`, `distributor_id`, `start`, `end`, `price_origin`, `price`, `number`, `changed_at`, `contacts_count`, `synced_at`, `assets_count`, `entries_count`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `documents` (`id`, `oem_id`, `oem_group_id`, `oem_said`, `type_id`, `statuses_count`, `reseller_id`, `customer_id`, `currency_id`, `language_id`, `distributor_id`, `start`, `end`, `price_origin`, `price`, `number`, `changed_at`, `contacts_count`, `synced_at`, `assets_count`, `entries_count`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "35c8836a-df8e-4064-a079-1b66e3e520a3",
             "4e41a5c3-9089-5987-acdf-f3fbbed278e0",
             null,
             "71582e9d-4fb4-327f-9fc5-c3c7bf03dc4c",
             "2d111a75-b546-5c91-b607-e42a084fd34c",
+            0,
             "9d9e320d-4e44-4518-a4e6-6bfe7f1c7dd8",
             "019a3b56-b701-4599-8452-2cf9f1f54b26",
             "aed4ffe9-89fe-5820-b083-33fa27303400",
@@ -873,12 +869,6 @@
             "acf5ea50-4d97-5410-a410-2675262b8269",
             "2022-02-02 00:01:21",
             "2022-02-02 00:01:21"
-        ]
-    },
-    {
-        "query": "select `statuses`.*, `document_statuses`.`document_id` as `pivot_document_id`, `document_statuses`.`status_id` as `pivot_status_id`, `document_statuses`.`created_at` as `pivot_created_at`, `document_statuses`.`updated_at` as `pivot_updated_at` from `statuses` inner join `document_statuses` on `statuses`.`id` = `document_statuses`.`status_id` where `document_statuses`.`deleted_at` is null and `document_statuses`.`document_id` in (?) and `statuses`.`deleted_at` is null",
-        "bindings": [
-            "35c8836a-df8e-4064-a079-1b66e3e520a3"
         ]
     },
     {
@@ -1053,13 +1043,14 @@
         ]
     },
     {
-        "query": "insert into `documents` (`id`, `oem_id`, `oem_group_id`, `oem_said`, `type_id`, `reseller_id`, `customer_id`, `currency_id`, `language_id`, `distributor_id`, `start`, `end`, `price_origin`, `price`, `number`, `changed_at`, `contacts_count`, `synced_at`, `assets_count`, `entries_count`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `documents` (`id`, `oem_id`, `oem_group_id`, `oem_said`, `type_id`, `statuses_count`, `reseller_id`, `customer_id`, `currency_id`, `language_id`, `distributor_id`, `start`, `end`, `price_origin`, `price`, `number`, `changed_at`, `contacts_count`, `synced_at`, `assets_count`, `entries_count`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "13a73961-05bc-4cac-99c5-0c405cad757a",
             "4e41a5c3-9089-5987-acdf-f3fbbed278e0",
             null,
             "f4acdaf2-968e-3e0b-821e-0b1596c90d4b",
             "2d111a75-b546-5c91-b607-e42a084fd34c",
+            0,
             "9d9e320d-4e44-4518-a4e6-6bfe7f1c7dd8",
             "019a3b56-b701-4599-8452-2cf9f1f54b26",
             "aed4ffe9-89fe-5820-b083-33fa27303400",
@@ -1183,12 +1174,6 @@
             "868ea9fa-2a89-5262-8d42-51d4c802982b",
             "2022-02-02 00:02:07",
             "2022-02-02 00:02:07"
-        ]
-    },
-    {
-        "query": "select `statuses`.*, `document_statuses`.`document_id` as `pivot_document_id`, `document_statuses`.`status_id` as `pivot_status_id`, `document_statuses`.`created_at` as `pivot_created_at`, `document_statuses`.`updated_at` as `pivot_updated_at` from `statuses` inner join `document_statuses` on `statuses`.`id` = `document_statuses`.`status_id` where `document_statuses`.`deleted_at` is null and `document_statuses`.`document_id` in (?) and `statuses`.`deleted_at` is null",
-        "bindings": [
-            "13a73961-05bc-4cac-99c5-0c405cad757a"
         ]
     },
     {

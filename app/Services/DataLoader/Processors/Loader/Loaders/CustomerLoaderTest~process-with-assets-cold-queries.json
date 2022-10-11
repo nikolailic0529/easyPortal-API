@@ -534,13 +534,14 @@
         ]
     },
     {
-        "query": "insert into `documents` (`id`, `oem_id`, `oem_group_id`, `oem_said`, `type_id`, `reseller_id`, `customer_id`, `currency_id`, `language_id`, `distributor_id`, `start`, `end`, `price_origin`, `price`, `number`, `changed_at`, `contacts_count`, `synced_at`, `assets_count`, `entries_count`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `documents` (`id`, `oem_id`, `oem_group_id`, `oem_said`, `type_id`, `statuses_count`, `reseller_id`, `customer_id`, `currency_id`, `language_id`, `distributor_id`, `start`, `end`, `price_origin`, `price`, `number`, `changed_at`, `contacts_count`, `synced_at`, `assets_count`, `entries_count`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "e711207a-5311-400d-951a-688429703e8d",
             "4e41a5c3-9089-5987-acdf-f3fbbed278e0",
             null,
             "6954c802-b997-39fc-ac98-738584ca7765",
             "ade629fc-638b-5727-abfd-d44ccb67b670",
+            0,
             "9f6b1030-5d5d-4f0b-b743-2ef69eaf4a44",
             "03ee438b-b478-4b4b-86bd-a495f3ab2880",
             "eef63f6c-6c0a-5942-b916-6252bef6de3c",
@@ -664,12 +665,6 @@
             "51b211d1-f7cf-5c55-a4c5-07ae38476a17",
             "2022-02-02 00:01:10",
             "2022-02-02 00:01:10"
-        ]
-    },
-    {
-        "query": "select `statuses`.*, `document_statuses`.`document_id` as `pivot_document_id`, `document_statuses`.`status_id` as `pivot_status_id`, `document_statuses`.`created_at` as `pivot_created_at`, `document_statuses`.`updated_at` as `pivot_updated_at` from `statuses` inner join `document_statuses` on `statuses`.`id` = `document_statuses`.`status_id` where `document_statuses`.`deleted_at` is null and `document_statuses`.`document_id` in (?) and `statuses`.`deleted_at` is null",
-        "bindings": [
-            "e711207a-5311-400d-951a-688429703e8d"
         ]
     },
     {
@@ -2098,13 +2093,14 @@
         "bindings": []
     },
     {
-        "query": "insert into `documents` (`id`, `oem_id`, `oem_group_id`, `oem_said`, `type_id`, `reseller_id`, `customer_id`, `currency_id`, `language_id`, `distributor_id`, `start`, `end`, `price_origin`, `price`, `number`, `changed_at`, `contacts_count`, `synced_at`, `assets_count`, `entries_count`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `documents` (`id`, `oem_id`, `oem_group_id`, `oem_said`, `type_id`, `statuses_count`, `reseller_id`, `customer_id`, `currency_id`, `language_id`, `distributor_id`, `start`, `end`, `price_origin`, `price`, `number`, `changed_at`, `contacts_count`, `synced_at`, `assets_count`, `entries_count`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "ef9bbb19-5dd9-4222-a739-97659a654468",
             "4e41a5c3-9089-5987-acdf-f3fbbed278e0",
             null,
             "712e7f1b-46fd-3e75-829b-266c03bda56b",
             "ade629fc-638b-5727-abfd-d44ccb67b670",
+            0,
             "594184e7-24d4-4614-8db4-fe132adb86f4",
             "b34a93c8-cc76-4346-bdf0-9d67bdb943d1",
             "eef63f6c-6c0a-5942-b916-6252bef6de3c",
@@ -2204,12 +2200,6 @@
             "73b84cf4-6426-5ef9-a710-2a57586c0a3f",
             "2022-02-02 00:04:35",
             "2022-02-02 00:04:35"
-        ]
-    },
-    {
-        "query": "select `statuses`.*, `document_statuses`.`document_id` as `pivot_document_id`, `document_statuses`.`status_id` as `pivot_status_id`, `document_statuses`.`created_at` as `pivot_created_at`, `document_statuses`.`updated_at` as `pivot_updated_at` from `statuses` inner join `document_statuses` on `statuses`.`id` = `document_statuses`.`status_id` where `document_statuses`.`deleted_at` is null and `document_statuses`.`document_id` in (?) and `statuses`.`deleted_at` is null",
-        "bindings": [
-            "ef9bbb19-5dd9-4222-a739-97659a654468"
         ]
     },
     {

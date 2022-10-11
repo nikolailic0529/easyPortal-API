@@ -194,14 +194,6 @@
         "bindings": []
     },
     {
-        "query": "select `currencies`.* from `currencies` where `currencies`.`deleted_at` is null",
-        "bindings": []
-    },
-    {
-        "query": "select `distributors`.* from `distributors`",
-        "bindings": []
-    },
-    {
         "query": "select `statuses`.* from `statuses` where `statuses`.`deleted_at` is null",
         "bindings": []
     },
@@ -219,16 +211,24 @@
             "ACTIVE",
             "Active",
             "94837e21-81d6-5ecb-af10-d1665d965d4b",
-            "2022-02-02 00:00:06",
-            "2022-02-02 00:00:06"
+            "2022-02-02 00:00:02",
+            "2022-02-02 00:00:02"
         ]
+    },
+    {
+        "query": "select `currencies`.* from `currencies` where `currencies`.`deleted_at` is null",
+        "bindings": []
+    },
+    {
+        "query": "select `distributors`.* from `distributors`",
+        "bindings": []
     },
     {
         "query": "update `documents` set `oem_group_id` = ?, `statuses_count` = ?, `synced_at` = ?, `documents`.`updated_at` = ? where `id` = ?",
         "bindings": [
             "1bb57a0b-4eb5-51d2-a72e-524680092713",
             1,
-            "2022-02-02 00:00:05",
+            "2022-02-02 00:00:06",
             "2022-02-02 00:00:11",
             "00122a07-53e5-4c70-ba6b-bf51fcdd6695"
         ]
@@ -864,8 +864,8 @@
             "EXPIRED",
             "Expired",
             "b7061987-9cd7-5e6b-b842-370f2015cbee",
-            "2022-02-02 00:03:00",
-            "2022-02-02 00:03:00"
+            "2022-02-02 00:02:56",
+            "2022-02-02 00:02:56"
         ]
     },
     {
@@ -873,7 +873,7 @@
         "bindings": [
             "d98236c2-bcdd-5dad-a674-17845804b0a9",
             1,
-            "2022-02-02 00:02:59",
+            "2022-02-02 00:03:00",
             "2022-02-02 00:03:05",
             "00223bec-e67b-4a38-b7df-eb012489f82e"
         ]
@@ -1137,8 +1137,9 @@
         ]
     },
     {
-        "query": "insert into `document_entries` (`asset_id`, `asset_type_id`, `product_id`, `product_line_id`, `product_group_id`, `serial_number`, `start`, `end`, `currency_id`, `list_price_origin`, `list_price`, `monthly_list_price_origin`, `monthly_list_price`, `monthly_retail_price_origin`, `monthly_retail_price`, `renewal_origin`, `renewal`, `oem_said`, `oem_sar_number`, `environment_id`, `equipment_number`, `language_id`, `service_group_id`, `service_level_id`, `psp_id`, `id`, `document_id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `document_entries` (`document_id`, `asset_id`, `asset_type_id`, `product_id`, `product_line_id`, `product_group_id`, `serial_number`, `start`, `end`, `currency_id`, `list_price_origin`, `list_price`, `monthly_list_price_origin`, `monthly_list_price`, `monthly_retail_price_origin`, `monthly_retail_price`, `renewal_origin`, `renewal`, `oem_said`, `oem_sar_number`, `environment_id`, `equipment_number`, `language_id`, `service_group_id`, `service_level_id`, `psp_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
+            "00258a69-ebd7-4f2a-a83b-29ceec199da3",
             "0bcfe7de-5742-4a86-ab36-b5587e5c2d8d",
             null,
             "14322e29-6adb-5636-8925-4208fe44adfb",
@@ -1165,7 +1166,6 @@
             null,
             null,
             "ddda9ae5-051b-5cbe-9760-85294ca27102",
-            "00258a69-ebd7-4f2a-a83b-29ceec199da3",
             "2022-02-02 00:04:57",
             "2022-02-02 00:04:57"
         ]
@@ -1834,15 +1834,15 @@
             "ORDERED",
             "Ordered",
             "480029f1-66b8-56f7-9448-447780f58c7f",
-            "2022-02-02 00:06:58",
-            "2022-02-02 00:06:58"
+            "2022-02-02 00:06:54",
+            "2022-02-02 00:06:54"
         ]
     },
     {
         "query": "update `documents` set `statuses_count` = ?, `synced_at` = ?, `documents`.`updated_at` = ? where `id` = ?",
         "bindings": [
             1,
-            "2022-02-02 00:06:57",
+            "2022-02-02 00:06:58",
             "2022-02-02 00:07:03",
             "0057594a-40eb-4e60-99f0-a16e64f42df2"
         ]

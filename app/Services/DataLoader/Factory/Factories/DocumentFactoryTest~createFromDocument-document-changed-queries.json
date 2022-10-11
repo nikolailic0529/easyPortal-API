@@ -1,7 +1,7 @@
 [
-    "update `documents` set `oem_group_id` = ?, `oem_said` = ?, `currency_id` = ?, `language_id` = ?, `distributor_id` = ?, `start` = ?, `price_origin` = ?, `price` = ?, `changed_at` = ?, `contacts_count` = ?, `synced_at` = ?, `statuses_count` = ?, `documents`.`updated_at` = ? where `id` = ?",
-    "update `contacts` set `deleted_at` = ?, `contacts`.`updated_at` = ? where `id` = ?",
+    "update `documents` set `oem_group_id` = ?, `oem_said` = ?, `statuses_count` = ?, `currency_id` = ?, `language_id` = ?, `distributor_id` = ?, `start` = ?, `price_origin` = ?, `price` = ?, `changed_at` = ?, `contacts_count` = ?, `synced_at` = ?, `documents`.`updated_at` = ? where `id` = ?",
     "update `document_statuses` set `deleted_at` = ?, `document_statuses`.`updated_at` = ? where `id` = ?",
+    "update `contacts` set `deleted_at` = ?, `contacts`.`updated_at` = ? where `id` = ?",
     "select `assets`.* from `assets` where ((`assets`.`id` = ?))",
     "select `oems`.* from `oems` where `oems`.`id` in (?) and `oems`.`deleted_at` is null",
     "update `documents` set `synced_at` = ?, `entries_count` = ?, `assets_count` = ?, `documents`.`updated_at` = ? where `id` = ?",

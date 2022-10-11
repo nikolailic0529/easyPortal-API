@@ -49,10 +49,12 @@ class DocumentDeletedTest extends TestCase {
         $status            = Status::factory()->create();
         $contractVisible   = Document::factory()->create([
             'type_id' => $type,
+            'price'   => null,
             'end'     => Date::now(),
         ]);
         $contractInvisible = Document::factory()->create([
             'type_id' => $type,
+            'price'   => null,
             'end'     => Date::now()->subDay(),
         ]);
         $quote             = Document::factory()->create();

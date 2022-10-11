@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Casts\DocumentPrice;
 use App\Models\Data\Currency;
 use App\Models\Data\Language;
 use App\Models\Data\Oem;
@@ -120,7 +121,7 @@ class Document extends Model implements OwnedByReseller, Searchable {
     protected const CASTS = [
         'changed_at'   => 'datetime',
         'synced_at'    => 'datetime',
-        'price'        => 'decimal:2',
+        'price'        => DocumentPrice::class,
         'price_origin' => Origin::class,
         'start'        => 'date',
         'end'          => 'date',

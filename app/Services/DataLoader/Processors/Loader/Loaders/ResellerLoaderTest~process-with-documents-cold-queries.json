@@ -165,14 +165,6 @@
         ]
     },
     {
-        "query": "select `currencies`.* from `currencies` where `currencies`.`deleted_at` is null",
-        "bindings": []
-    },
-    {
-        "query": "select `distributors`.* from `distributors`",
-        "bindings": []
-    },
-    {
         "query": "select `statuses`.* from `statuses` where (`key` = ? and `object_type` = ?) and `statuses`.`deleted_at` is null limit 1",
         "bindings": [
             "active",
@@ -186,16 +178,24 @@
             "ACTIVE",
             "Active",
             "1c50916b-d4d4-5579-b7a2-490b82979450",
-            "2022-02-02 00:00:31",
-            "2022-02-02 00:00:31"
+            "2022-02-02 00:00:27",
+            "2022-02-02 00:00:27"
         ]
+    },
+    {
+        "query": "select `currencies`.* from `currencies` where `currencies`.`deleted_at` is null",
+        "bindings": []
+    },
+    {
+        "query": "select `distributors`.* from `distributors`",
+        "bindings": []
     },
     {
         "query": "update `documents` set `oem_group_id` = ?, `statuses_count` = ?, `synced_at` = ?, `documents`.`updated_at` = ? where `id` = ?",
         "bindings": [
             "5a87dcde-3a7c-55d8-afc0-1e2942c232fd",
             1,
-            "2022-02-02 00:00:30",
+            "2022-02-02 00:00:31",
             "2022-02-02 00:00:36",
             "f7873540-59c2-4019-9522-5e7b299257b1"
         ]

@@ -205,14 +205,6 @@
         ]
     },
     {
-        "query": "select `currencies`.* from `currencies` where `currencies`.`deleted_at` is null",
-        "bindings": []
-    },
-    {
-        "query": "select `distributors`.* from `distributors`",
-        "bindings": []
-    },
-    {
         "query": "select `statuses`.* from `statuses` where (`key` = ? and `object_type` = ?) and `statuses`.`deleted_at` is null limit 1",
         "bindings": [
             "expired",
@@ -226,16 +218,24 @@
             "EXPIRED",
             "Expired",
             "1c50916b-d4d4-5579-b7a2-490b82979450",
-            "2022-02-02 00:00:31",
-            "2022-02-02 00:00:31"
+            "2022-02-02 00:00:27",
+            "2022-02-02 00:00:27"
         ]
+    },
+    {
+        "query": "select `currencies`.* from `currencies` where `currencies`.`deleted_at` is null",
+        "bindings": []
+    },
+    {
+        "query": "select `distributors`.* from `distributors`",
+        "bindings": []
     },
     {
         "query": "update `documents` set `oem_group_id` = ?, `statuses_count` = ?, `synced_at` = ?, `documents`.`updated_at` = ? where `id` = ?",
         "bindings": [
             "5a87dcde-3a7c-55d8-afc0-1e2942c232fd",
             1,
-            "2022-02-02 00:00:30",
+            "2022-02-02 00:00:31",
             "2022-02-02 00:00:36",
             "76148cc9-ada8-4219-b2c9-ba75ce8423fe"
         ]
@@ -355,8 +355,8 @@
             "ACTIVE",
             "Active",
             "b4b052f6-d18f-5e1a-a7b9-40735e81b263",
-            "2022-02-02 00:01:26",
-            "2022-02-02 00:01:26"
+            "2022-02-02 00:01:22",
+            "2022-02-02 00:01:22"
         ]
     },
     {
@@ -364,7 +364,7 @@
         "bindings": [
             "5a87dcde-3a7c-55d8-afc0-1e2942c232fd",
             1,
-            "2022-02-02 00:01:25",
+            "2022-02-02 00:01:26",
             "2022-02-02 00:01:31",
             "7d8fb7d1-092f-43e3-9437-09706ef9cbf6"
         ]
@@ -484,15 +484,15 @@
             "ORDERED",
             "Ordered",
             "5c0c285f-93d2-5996-8c57-995bd6033628",
-            "2022-02-02 00:02:21",
-            "2022-02-02 00:02:21"
+            "2022-02-02 00:02:17",
+            "2022-02-02 00:02:17"
         ]
     },
     {
         "query": "update `documents` set `statuses_count` = ?, `synced_at` = ?, `documents`.`updated_at` = ? where `id` = ?",
         "bindings": [
             1,
-            "2022-02-02 00:02:20",
+            "2022-02-02 00:02:21",
             "2022-02-02 00:02:26",
             "f3a8ba95-ce52-49bb-ba31-3402337e421d"
         ]

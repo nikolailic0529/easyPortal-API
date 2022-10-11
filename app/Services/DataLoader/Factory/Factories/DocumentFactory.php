@@ -65,6 +65,7 @@ use App\Services\DataLoader\Schema\DocumentEntry;
 use App\Services\DataLoader\Schema\Type;
 use App\Services\DataLoader\Schema\ViewDocument;
 use Illuminate\Contracts\Debug\ExceptionHandler;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Collection as EloquentCollection;
 use Illuminate\Support\Facades\Date;
 use InvalidArgumentException;
@@ -270,11 +271,14 @@ class DocumentFactory extends ModelFactory {
             // The asset may contain outdated documents so to prevent conflicts
             // we should not update existing documents.
             if ($created) {
+                /** @var Collection<int, Status> $statuses */
+                $statuses             = new Collection();
                 $model->id            = $normalizer->uuid($document->id);
                 $model->oem           = $this->documentOem($document);
                 $model->oemGroup      = $this->documentOemGroup($document);
                 $model->oem_said      = $normalizer->string($document->vendorSpecificFields->said ?? null);
                 $model->type          = $this->documentType($document);
+                $model->statuses      = $statuses;
                 $model->reseller      = $this->reseller($document);
                 $model->customer      = $this->customer($document);
                 $model->currency      = $this->currency($document->currencyCode);
@@ -358,6 +362,7 @@ class DocumentFactory extends ModelFactory {
             $model->oemGroup     = $this->documentOemGroup($document);
             $model->oem_said     = $normalizer->string($document->vendorSpecificFields->said ?? null);
             $model->type         = $this->documentType($document);
+            $model->statuses     = $this->documentStatuses($model, $document);
             $model->reseller     = $this->reseller($document);
             $model->customer     = $this->customer($document);
             $model->currency     = $this->currency($document->currencyCode);
@@ -370,7 +375,6 @@ class DocumentFactory extends ModelFactory {
             $model->changed_at   = $normalizer->datetime($document->updatedAt);
             $model->contacts     = $this->objectContacts($model, (array) $document->contactPersons);
             $model->synced_at    = Date::now();
-            $model->statuses     = $this->documentStatuses($model, $document);
 
             // Save
             if ($model->trashed()) {
@@ -500,6 +504,7 @@ class DocumentFactory extends ModelFactory {
         $asset                              = $this->documentEntryAsset($model, $documentEntry);
         $entry                            ??= new DocumentEntryModel();
         $normalizer                         = $this->getNormalizer();
+        $entry->document                    = $model;
         $entry->asset                       = $asset;
         $entry->assetType                   = $this->documentEntryAssetType($model, $documentEntry);
         $entry->product_id                  = $asset->product_id ?? null;

@@ -56,6 +56,7 @@ class DocumentResolverTest extends TestCase {
         $spy     = Mockery::spy(static function () use ($uuid): Document {
             return Document::factory()->make([
                 'id'          => $uuid,
+                'price'       => null,
                 'oem_id'      => $uuid,
                 'type_id'     => $uuid,
                 'product_id'  => $uuid,
@@ -71,7 +72,7 @@ class DocumentResolverTest extends TestCase {
 
         self::assertNotEmpty($created);
         self::assertEquals($uuid, $created->getKey());
-        self::assertCount(1, $queries);
+        self::assertCount(2, $queries);
 
         // The created object should be in cache
         $queries = $this->getQueryLog()->flush();

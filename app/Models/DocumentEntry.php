@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Casts\DocumentPrice;
 use App\Models\Data\Currency;
 use App\Models\Data\Language;
 use App\Models\Data\Product;
@@ -89,13 +90,13 @@ class DocumentEntry extends Model {
     use HasLanguage;
 
     protected const CASTS = [
-        'monthly_retail_price'        => 'decimal:2',
+        'monthly_retail_price'        => DocumentPrice::class,
         'monthly_retail_price_origin' => Origin::class,
-        'monthly_list_price'          => 'decimal:2',
+        'monthly_list_price'          => DocumentPrice::class,
         'monthly_list_price_origin'   => Origin::class,
-        'list_price'                  => 'decimal:2',
+        'list_price'                  => DocumentPrice::class,
         'list_price_origin'           => Origin::class,
-        'renewal'                     => 'decimal:2',
+        'renewal'                     => DocumentPrice::class,
         'renewal_origin'              => Origin::class,
         'start'                       => 'date',
         'end'                         => 'date',
