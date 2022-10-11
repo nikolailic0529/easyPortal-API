@@ -13,6 +13,8 @@ use Illuminate\Contracts\Debug\ExceptionHandler;
 use Illuminate\Contracts\Events\Dispatcher;
 use Throwable;
 
+use function sleep;
+
 /**
  * @template TItem of \Illuminate\Database\Eloquent\Model
  * @template TChunkData of \App\Services\Recalculator\Processor\ChunkData<TItem>
@@ -30,6 +32,8 @@ abstract class Processor extends EloquentProcessor {
         parent::__construct($exceptionHandler, $dispatcher, $config);
     }
 
+    // <editor-fold desc="Process">
+    // =========================================================================
     protected function item(State $state, mixed $data, mixed $item): void {
         $data->setModel($item);
 
@@ -67,4 +71,12 @@ abstract class Processor extends EloquentProcessor {
             ? new ModelsRecalculated($state->model, $data->getDirtyKeys())
             : null;
     }
+    // </editor-fold>
+
+    // <editor-fold desc="ChunkSize">
+    // =========================================================================
+    public function getDefaultChunkSize(): int {
+        return 100;
+    }
+    // </editor-fold>
 }
