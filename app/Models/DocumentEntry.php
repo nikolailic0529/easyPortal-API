@@ -65,7 +65,7 @@ use function sprintf;
  * @property Asset|null           $asset
  * @property Type|null            $assetType
  * @property Currency|null        $currency
- * @property Document             $document
+ * @property Document|null        $document
  * @property Language|null        $language
  * @property Product|null         $product
  * @property ProductLine|null     $productLine
