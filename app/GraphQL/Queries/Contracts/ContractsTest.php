@@ -18,7 +18,6 @@ use App\Models\Data\ServiceLevel;
 use App\Models\Data\Type;
 use App\Models\Distributor;
 use App\Models\Document;
-use App\Models\DocumentEntry;
 use App\Models\OemGroup;
 use App\Models\Organization;
 use App\Models\Reseller;
@@ -33,13 +32,10 @@ use Tests\DataProviders\GraphQL\Organizations\AuthOrgDataProvider;
 use Tests\DataProviders\GraphQL\Organizations\OrgRootDataProvider;
 use Tests\DataProviders\GraphQL\Users\OrgUserDataProvider;
 use Tests\GraphQL\GraphQLPaginated;
-use Tests\GraphQL\JsonFragment;
 use Tests\TestCase;
 use Tests\WithOrganization;
 use Tests\WithSettings;
 use Tests\WithUser;
-
-use function json_encode;
 
 /**
  * @internal
@@ -327,8 +323,7 @@ class ContractsTest extends TestCase {
                     'ok' => [
                         new GraphQLPaginated('contracts'),
                         [
-                            'ep.document_statuses_hidden' => [],
-                            'ep.contract_types'           => [
+                            'ep.contract_types' => [
                                 'f9834bc1-2f2f-4c57-bb8d-7a224ac24985',
                             ],
                         ],
@@ -351,7 +346,7 @@ class ContractsTest extends TestCase {
                     'contracts-view',
                 ]),
                 new ArrayDataProvider([
-                    'ok'                                   => [
+                    'ok'             => [
                         new GraphQLPaginated(
                             'contracts',
                             [
@@ -796,13 +791,12 @@ class ContractsTest extends TestCase {
                                 ->create();
                         },
                     ],
-                    'no types'                             => [
+                    'no types'       => [
                         new GraphQLPaginated('contracts', [
                             // empty
                         ]),
                         [
-                            'ep.document_statuses_hidden' => [],
-                            'ep.contract_types'           => [
+                            'ep.contract_types' => [
                                 // empty
                             ],
                         ],
@@ -814,13 +808,12 @@ class ContractsTest extends TestCase {
                             ]);
                         },
                     ],
-                    'type not match'                       => [
+                    'type not match' => [
                         new GraphQLPaginated('contracts', [
                             // empty
                         ]),
                         [
-                            'ep.document_statuses_hidden' => [],
-                            'ep.contract_types'           => [
+                            'ep.contract_types' => [
                                 'f9834bc1-2f2f-4c57-bb8d-7a224ac24985',
                             ],
                         ],
@@ -829,172 +822,6 @@ class ContractsTest extends TestCase {
                                 'reseller_id' => Reseller::factory()->create([
                                     'id' => $organization,
                                 ]),
-                            ]);
-                        },
-                    ],
-                    'hiding price'                         => [
-                        new GraphQLPaginated(
-                            'contracts',
-                            new JsonFragment('0.price', json_encode(null)),
-                            [
-                                'count'            => 1,
-                                'groups'           => [
-                                    [
-                                        'count' => 1,
-                                        'key'   => '2021-01-01',
-                                    ],
-                                ],
-                                'groupsAggregated' => [
-                                    'count' => 1,
-                                ],
-                            ],
-                        ),
-                        [
-                            'ep.document_statuses_no_price' => [
-                                '9d4ef4aa-68c7-4c80-a09c-240f58fdd222',
-                            ],
-                            'ep.contract_types'             => [
-                                '0fc4416c-f4a7-4860-951e-7190874ebd69',
-                            ],
-                        ],
-                        static function (TestCase $test, Organization $org): void {
-                            $type = Type::factory()->create([
-                                'id' => '0fc4416c-f4a7-4860-951e-7190874ebd69',
-                            ]);
-
-                            Document::factory()
-                                ->ownedBy($org)
-                                ->for($type)
-                                ->hasStatuses(1, [
-                                    'id' => '9d4ef4aa-68c7-4c80-a09c-240f58fdd222',
-                                ])
-                                ->create([
-                                    'start' => '2021-01-01',
-                                    'price' => 100,
-                                ]);
-                        },
-                    ],
-                    'entries: hiding `renewal`'            => [
-                        new GraphQLPaginated(
-                            'contracts',
-                            new JsonFragment('0.entries.0.renewal', json_encode(null)),
-                        ),
-                        [
-                            'ep.document_statuses_no_price' => [
-                                'db02949a-0d28-400d-88e7-15f7c6433ff3',
-                            ],
-                            'ep.contract_types'             => [
-                                'f83c8bef-5dba-49e0-a6d5-f58726bdb71c',
-                            ],
-                        ],
-                        static function (TestCase $test, Organization $org): void {
-                            $type     = Type::factory()->create([
-                                'id' => 'f83c8bef-5dba-49e0-a6d5-f58726bdb71c',
-                            ]);
-                            $document = Document::factory()
-                                ->ownedBy($org)
-                                ->for($type)
-                                ->hasStatuses(1, [
-                                    'id' => 'db02949a-0d28-400d-88e7-15f7c6433ff3',
-                                ])
-                                ->create();
-
-                            DocumentEntry::factory()->create([
-                                'document_id' => $document,
-                                'renewal'     => 100,
-                            ]);
-                        },
-                    ],
-                    'entry: hiding `list_price`'           => [
-                        new GraphQLPaginated(
-                            'contracts',
-                            new JsonFragment('0.entries.0.list_price', json_encode(null)),
-                        ),
-                        [
-                            'ep.document_statuses_no_price' => [
-                                'db02949a-0d28-400d-88e7-15f7c6433ff3',
-                            ],
-                            'ep.contract_types'             => [
-                                'f83c8bef-5dba-49e0-a6d5-f58726bdb71c',
-                            ],
-                        ],
-                        static function (TestCase $test, Organization $org): void {
-                            $type     = Type::factory()->create([
-                                'id' => 'f83c8bef-5dba-49e0-a6d5-f58726bdb71c',
-                            ]);
-                            $document = Document::factory()
-                                ->ownedBy($org)
-                                ->for($type)
-                                ->hasStatuses(1, [
-                                    'id' => 'db02949a-0d28-400d-88e7-15f7c6433ff3',
-                                ])
-                                ->create();
-
-                            DocumentEntry::factory()->create([
-                                'document_id' => $document,
-                                'list_price'  => 100,
-                            ]);
-                        },
-                    ],
-                    'entry: hiding `monthly_list_price`'   => [
-                        new GraphQLPaginated(
-                            'contracts',
-                            new JsonFragment('0.entries.0.monthly_list_price', json_encode(null)),
-                        ),
-                        [
-                            'ep.document_statuses_no_price' => [
-                                'db02949a-0d28-400d-88e7-15f7c6433ff3',
-                            ],
-                            'ep.contract_types'             => [
-                                'f83c8bef-5dba-49e0-a6d5-f58726bdb71c',
-                            ],
-                        ],
-                        static function (TestCase $test, Organization $org): void {
-                            $type     = Type::factory()->create([
-                                'id' => 'f83c8bef-5dba-49e0-a6d5-f58726bdb71c',
-                            ]);
-                            $document = Document::factory()
-                                ->ownedBy($org)
-                                ->for($type)
-                                ->hasStatuses(1, [
-                                    'id' => 'db02949a-0d28-400d-88e7-15f7c6433ff3',
-                                ])
-                                ->create();
-
-                            DocumentEntry::factory()->create([
-                                'document_id'        => $document,
-                                'monthly_list_price' => 100,
-                            ]);
-                        },
-                    ],
-                    'entry: hiding `monthly_retail_price`' => [
-                        new GraphQLPaginated(
-                            'contracts',
-                            new JsonFragment('0.entries.0.monthly_retail_price', json_encode(null)),
-                        ),
-                        [
-                            'ep.document_statuses_no_price' => [
-                                'db02949a-0d28-400d-88e7-15f7c6433ff3',
-                            ],
-                            'ep.contract_types'             => [
-                                'f83c8bef-5dba-49e0-a6d5-f58726bdb71c',
-                            ],
-                        ],
-                        static function (TestCase $test, Organization $org): void {
-                            $type     = Type::factory()->create([
-                                'id' => 'f83c8bef-5dba-49e0-a6d5-f58726bdb71c',
-                            ]);
-                            $document = Document::factory()
-                                ->ownedBy($org)
-                                ->for($type)
-                                ->hasStatuses(1, [
-                                    'id' => 'db02949a-0d28-400d-88e7-15f7c6433ff3',
-                                ])
-                                ->create();
-
-                            DocumentEntry::factory()->create([
-                                'document_id'          => $document,
-                                'monthly_retail_price' => 100,
                             ]);
                         },
                     ],

@@ -18,7 +18,6 @@ use App\Models\Data\ServiceLevel;
 use App\Models\Data\Type;
 use App\Models\Distributor;
 use App\Models\Document;
-use App\Models\DocumentEntry;
 use App\Models\OemGroup;
 use App\Models\Organization;
 use App\Models\Reseller;
@@ -40,7 +39,6 @@ use Tests\WithSettings;
 use Tests\WithUser;
 
 use function count;
-use function json_encode;
 
 /**
  * @internal
@@ -754,8 +752,7 @@ class QuotesTest extends TestCase {
                     'ok' => [
                         new GraphQLPaginated('quotes'),
                         [
-                            'ep.document_statuses_hidden' => [],
-                            'ep.quote_types'              => [
+                            'ep.quote_types' => [
                                 'f9834bc1-2f2f-4c57-bb8d-7a224ac24985',
                             ],
                         ],
@@ -833,11 +830,10 @@ class QuotesTest extends TestCase {
                             new JsonFragment('0.id', '"2bf6d64b-df97-401c-9abd-dc2dd747e2b0"'),
                         ),
                         [
-                            'ep.document_statuses_hidden' => [],
-                            'ep.contract_types'           => [
+                            'ep.contract_types' => [
                                 'f9834bc1-2f2f-4c57-bb8d-7a224ac24985',
                             ],
-                            'ep.quote_types'              => [
+                            'ep.quote_types'    => [
                                 // empty
                             ],
                         ],
@@ -867,8 +863,7 @@ class QuotesTest extends TestCase {
                             ],
                         ]),
                         [
-                            'ep.document_statuses_hidden' => [],
-                            'ep.quote_types'              => [
+                            'ep.quote_types' => [
                                 'f9834bc1-2f2f-4c57-bb8d-7a224ac24985',
                             ],
                         ],
@@ -885,72 +880,11 @@ class QuotesTest extends TestCase {
                             ],
                         ]),
                         [
-                            'ep.document_statuses_hidden' => [],
-                            'ep.contract_types'           => [],
-                            'ep.quote_types'              => [],
+                            'ep.contract_types' => [],
+                            'ep.quote_types'    => [],
                         ],
                         static function (TestCase $test, Organization $org): void {
                             Document::factory()->ownedBy($org)->create();
-                        },
-                    ],
-                    'hiding price'                              => [
-                        new GraphQLPaginated(
-                            'quotes',
-                            new JsonFragment('0.price', json_encode(null)),
-                        ),
-                        [
-                            'ep.document_statuses_no_price' => [
-                                '3ae0b8d3-eab6-4022-8937-7baf8e2ef563',
-                            ],
-                            'ep.quote_types'                => [
-                                '2f976425-dd92-4941-a0ff-ec6bf96400d4',
-                            ],
-                        ],
-                        static function (TestCase $test, Organization $org): void {
-                            $type = Type::factory()->create([
-                                'id' => '2f976425-dd92-4941-a0ff-ec6bf96400d4',
-                            ]);
-
-                            Document::factory()
-                                ->ownedBy($org)
-                                ->for($type)
-                                ->hasStatuses(1, [
-                                    'id' => '3ae0b8d3-eab6-4022-8937-7baf8e2ef563',
-                                ])
-                                ->create([
-                                    'price' => 100,
-                                ]);
-                        },
-                    ],
-                    'entries: hiding list_price'                => [
-                        new GraphQLPaginated(
-                            'quotes',
-                            new JsonFragment('0.entries.0.list_price', json_encode(null)),
-                        ),
-                        [
-                            'ep.document_statuses_no_price' => [
-                                'a1204a76-458c-42f5-b2e1-538f885fec5d',
-                            ],
-                            'ep.quote_types'                => [
-                                '19f27fa9-e531-4ebc-a053-d8daa1e5b359',
-                            ],
-                        ],
-                        static function (TestCase $test, Organization $org): void {
-                            $type     = Type::factory()->create([
-                                'id' => '19f27fa9-e531-4ebc-a053-d8daa1e5b359',
-                            ]);
-                            $document = Document::factory()
-                                ->ownedBy($org)
-                                ->for($type)
-                                ->hasStatuses(1, [
-                                    'id' => 'a1204a76-458c-42f5-b2e1-538f885fec5d',
-                                ])
-                                ->create();
-
-                            DocumentEntry::factory()->create([
-                                'document_id' => $document,
-                                'list_price'  => 100,
-                            ]);
                         },
                     ],
                 ]),

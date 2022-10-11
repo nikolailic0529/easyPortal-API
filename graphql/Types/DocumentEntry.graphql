@@ -1,39 +1,10 @@
 type DocumentEntry {
     id: ID!
     document_id: ID!
-
     list_price: Float
-    @field(
-        resolver: "App\\GraphQL\\Queries\\Documents\\Price"
-    )
-    @with(
-        relation: "document.statuses"
-    )
-
     monthly_list_price: Float
-    @field(
-        resolver: "App\\GraphQL\\Queries\\Documents\\Price"
-    )
-    @with(
-        relation: "document.statuses"
-    )
-
     monthly_retail_price: Float
-    @field(
-        resolver: "App\\GraphQL\\Queries\\Documents\\Price"
-    )
-    @with(
-        relation: "document.statuses"
-    )
-
     renewal: Float
-    @field(
-        resolver: "App\\GraphQL\\Queries\\Documents\\Price"
-    )
-    @with(
-        relation: "document.statuses"
-    )
-
     serial_number: String
     oem_said: String
     oem_sar_number: String

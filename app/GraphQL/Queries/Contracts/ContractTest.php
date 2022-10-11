@@ -35,12 +35,9 @@ use Tests\DataProviders\GraphQL\Organizations\AuthOrgDataProvider;
 use Tests\DataProviders\GraphQL\Organizations\OrgRootDataProvider;
 use Tests\DataProviders\GraphQL\Users\OrgUserDataProvider;
 use Tests\GraphQL\GraphQLSuccess;
-use Tests\GraphQL\JsonFragment;
 use Tests\TestCase;
 use Tests\WithOrganization;
 use Tests\WithUser;
-
-use function json_encode;
 
 /**
  * @internal
@@ -76,9 +73,8 @@ class ContractTest extends TestCase {
             $contractId = $contract->getKey();
 
             $this->setSettings([
-                'ep.document_statuses_no_price' => ['479ddc80-35fd-442c-9634-0b9c51063e45'],
-                'ep.document_statuses_hidden'   => [],
-                'ep.contract_types'             => [$contract->type_id],
+                'ep.document_statuses_hidden' => [],
+                'ep.contract_types'           => [$contract->type_id],
             ]);
         }
 
@@ -447,7 +443,7 @@ class ContractTest extends TestCase {
                     'contracts-view',
                 ]),
                 new ArrayDataProvider([
-                    'ok'                                     => [
+                    'ok' => [
                         new GraphQLSuccess('contract', [
                             'id'                => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24981',
                             'oem_id'            => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24982',
@@ -852,124 +848,6 @@ class ContractTest extends TestCase {
                                 'asset_type_id'        => $assetType,
                                 'language_id'          => $language,
                                 'psp_id'               => $psp,
-                            ]);
-
-                            return $document;
-                        },
-                    ],
-                    'hiding price'                           => [
-                        new GraphQLSuccess('contract', new JsonFragment('price', json_encode(null))),
-                        static function (TestCase $test, Organization $org): Document {
-                            $type = Type::factory()->create([
-                                'id' => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24985',
-                            ]);
-
-                            return Document::factory()
-                                ->ownedBy($org)
-                                ->for($type)
-                                ->hasStatuses(1, [
-                                    'id' => '479ddc80-35fd-442c-9634-0b9c51063e45',
-                                ])
-                                ->create([
-                                    'price' => '100',
-                                ]);
-                        },
-                    ],
-                    'entries: hiding `renewal`'              => [
-                        new GraphQLSuccess(
-                            'contract',
-                            new JsonFragment('entries.0.renewal', json_encode(null)),
-                        ),
-                        static function (TestCase $test, Organization $org): Document {
-                            $type     = Type::factory()->create([
-                                'id' => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24985',
-                            ]);
-                            $document = Document::factory()
-                                ->ownedBy($org)
-                                ->for($type)
-                                ->hasStatuses(1, [
-                                    'id' => '479ddc80-35fd-442c-9634-0b9c51063e45',
-                                ])
-                                ->create();
-
-                            DocumentEntry::factory()->create([
-                                'document_id' => $document,
-                                'renewal'     => 100,
-                            ]);
-
-                            return $document;
-                        },
-                    ],
-                    'entries: hiding `list_price`'           => [
-                        new GraphQLSuccess(
-                            'contract',
-                            new JsonFragment('entries.0.list_price', json_encode(null)),
-                        ),
-                        static function (TestCase $test, Organization $org): Document {
-                            $type     = Type::factory()->create([
-                                'id' => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24985',
-                            ]);
-                            $document = Document::factory()
-                                ->ownedBy($org)
-                                ->for($type)
-                                ->hasStatuses(1, [
-                                    'id' => '479ddc80-35fd-442c-9634-0b9c51063e45',
-                                ])
-                                ->create();
-
-                            DocumentEntry::factory()->create([
-                                'document_id' => $document,
-                                'list_price'  => 100,
-                            ]);
-
-                            return $document;
-                        },
-                    ],
-                    'entries: hiding `monthly_list_price`'   => [
-                        new GraphQLSuccess(
-                            'contract',
-                            new JsonFragment('entries.0.monthly_list_price', json_encode(null)),
-                        ),
-                        static function (TestCase $test, Organization $org): Document {
-                            $type     = Type::factory()->create([
-                                'id' => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24985',
-                            ]);
-                            $document = Document::factory()
-                                ->ownedBy($org)
-                                ->for($type)
-                                ->hasStatuses(1, [
-                                    'id' => '479ddc80-35fd-442c-9634-0b9c51063e45',
-                                ])
-                                ->create();
-
-                            DocumentEntry::factory()->create([
-                                'document_id'        => $document,
-                                'monthly_list_price' => 100,
-                            ]);
-
-                            return $document;
-                        },
-                    ],
-                    'entries: hiding `monthly_retail_price`' => [
-                        new GraphQLSuccess(
-                            'contract',
-                            new JsonFragment('entries.0.monthly_retail_price', json_encode(null)),
-                        ),
-                        static function (TestCase $test, Organization $org): Document {
-                            $type     = Type::factory()->create([
-                                'id' => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24985',
-                            ]);
-                            $document = Document::factory()
-                                ->ownedBy($org)
-                                ->for($type)
-                                ->hasStatuses(1, [
-                                    'id' => '479ddc80-35fd-442c-9634-0b9c51063e45',
-                                ])
-                                ->create();
-
-                            DocumentEntry::factory()->create([
-                                'document_id'          => $document,
-                                'monthly_retail_price' => 100,
                             ]);
 
                             return $document;

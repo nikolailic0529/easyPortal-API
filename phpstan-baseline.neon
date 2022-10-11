@@ -1976,11 +1976,6 @@ parameters:
 			path: app/GraphQL/Queries/Data/TagsTest.php
 
 		-
-			message: "#^Cannot access property \\$statuses on App\\\\Models\\\\Document\\|null\\.$#"
-			count: 1
-			path: app/GraphQL/Queries/Documents/Price.php
-
-		-
 			message: "#^Call to an undefined method Illuminate\\\\Database\\\\Eloquent\\\\Model\\|Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\HasMany\\:\\:getQualifiedKeyName\\(\\)\\.$#"
 			count: 1
 			path: app/GraphQL/Queries/Map/Assets.php
