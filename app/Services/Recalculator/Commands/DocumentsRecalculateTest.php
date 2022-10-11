@@ -42,4 +42,11 @@ class DocumentsRecalculateTest extends TestCase {
             ->expectsOutput('Done.')
             ->assertSuccessful();
     }
+
+    /**
+     * @coversNothing
+     */
+    public function testHelp(): void {
+        self::assertCommandDescription('ep:recalculator-documents-recalculate');
+    }
 }

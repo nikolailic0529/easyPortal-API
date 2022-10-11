@@ -42,4 +42,11 @@ class LocationsRecalculateTest extends TestCase {
             ->expectsOutput('Done.')
             ->assertSuccessful();
     }
+
+    /**
+     * @coversNothing
+     */
+    public function testHelp(): void {
+        self::assertCommandDescription('ep:recalculator-locations-recalculate');
+    }
 }
