@@ -345,6 +345,8 @@ interface Constants {
 
     /**
      * Price of Contracts/Quotes with these Statuses will not be visible on the Portal.
+     *
+     * If changed Documents must be recalculated!
      */
     #[Setting('ep.document_statuses_no_price')]
     #[Group('ep')]
