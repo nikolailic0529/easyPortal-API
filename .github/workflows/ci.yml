@@ -34,6 +34,8 @@ jobs:
     uses: ./.github/workflows/phpunit.yml
     needs:
       - settings
+      - phpstan
+      - phpcs
     with:
       php-versions: ${{ needs.settings.outputs.php-versions }}
       php-extensions: ${{ needs.settings.outputs.php-extensions }}
