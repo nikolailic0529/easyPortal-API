@@ -1,0 +1,136 @@
+{
+    "selector": "data.getAssets",
+    "query": "query getAssets($id: String!) {\n    getAssets(args: [{key: \"id\", value: $id}]) {\n        id\nserialNumber\n\nassetSku\nassetSkuDescription\nassetTag\nassetType\nstatus\nvendor\n\neolDate\neosDate\n\ncountry\ncountryCode\nlatitude\nlongitude\nzip\ncity\naddress\naddress2\n\ncustomerId\nresellerId\n\nupdatedAt\n\nlatestContactPersons {\n    phoneNumber\n    name\n    type\n    mail\n}\n\nassetCoverage\ncoverageStatusCheck {\n    coverageStatus\n    coverageStatusUpdatedAt\n    coverageEntries {\n        coverageStartDate\n        coverageEndDate\n        type\n        description\n        status\n        serviceSku\n    }\n}\n\ndataQualityScore\n        assetDocument {\n    startDate\n    endDate\n    documentNumber\n\n    document {\n        id\n        type\n        documentNumber\n\n        startDate\n        endDate\n\n        currencyCode\n        languageCode\n\n        updatedAt\n\n        vendorSpecificFields {\n            vendor\n            groupId\n            groupDescription\n            said\n        }\n\n        contactPersons {\n            phoneNumber\n            name\n            type\n            mail\n        }\n\n        customerId\n        resellerId\n        distributorId\n    }\n\n    serviceGroupSku\n    serviceGroupSkuDescription\n    serviceLevelSku\n    serviceLevelSkuDescription\n    serviceFullDescription\n\n    customer {\n      id\n    }\n\n    reseller {\n      id\n    }\n}\n    }\n}",
+    "variables": {
+        "id": "65f75240-d24a-4e73-aeb0-d8afb3d792fc"
+    },
+    "response": {
+        "data": {
+            "getAssets": [
+                {
+                    "id": "65f75240-d24a-4e73-aeb0-d8afb3d792fc",
+                    "resellerId": "a9233c9c-4634-493a-9f12-bef4d1cf3c5e",
+                    "customerId": "60e73b13-f741-4c73-a32d-a23fa438d9ad",
+                    "serialNumber": null,
+                    "assetSkuDescription": "HPE SV VSA 2014 10TB E-LTU",
+                    "assetTag": null,
+                    "assetType": null,
+                    "vendor": "HPE",
+                    "assetSku": "Q0J77AAE",
+                    "eolDate": null,
+                    "eosDate": null,
+                    "zip": "80413-6370",
+                    "city": "Issacview",
+                    "address": "4648 Schmeler Street Suite 534",
+                    "address2": null,
+                    "country": "Nicaragua",
+                    "latitude": "12.262138",
+                    "longitude": "13.437156",
+                    "countryCode": "JO",
+                    "status": "ACTIVE",
+                    "updatedAt": "1662141372930",
+                    "assetCoverage": [
+                        "ARCHIVED"
+                    ],
+                    "dataQualityScore": "20",
+                    "assetDocument": [
+                        {
+                            "serviceGroupSku": null,
+                            "serviceGroupSkuDescription": null,
+                            "serviceLevelSku": "HA156AC",
+                            "serviceLevelSkuDescription": "HPE Software Updates Service",
+                            "serviceFullDescription": null,
+                            "documentNumber": "0b1342ca-569e-307b-9d46-ee9f3b164b6a",
+                            "document": {
+                                "id": "00122a07-53e5-4c70-ba6b-bf51fcdd6695",
+                                "type": "Contract",
+                                "documentNumber": "0b1342ca-569e-307b-9d46-ee9f3b164b6a",
+                                "startDate": "2018-06-26",
+                                "endDate": "2023-06-25",
+                                "currencyCode": "EUR",
+                                "languageCode": null,
+                                "updatedAt": "1654262846658",
+                                "vendorSpecificFields": {
+                                    "vendor": "HPE",
+                                    "said": "e8c50c38-0e2d-3c1c-8378-68c5b27cffb8",
+                                    "groupId": null,
+                                    "groupDescription": null
+                                },
+                                "contactPersons": [
+                                    {
+                                        "phoneNumber": "+13045586760",
+                                        "name": "Dr. Monserrate Erdman MD",
+                                        "mail": null,
+                                        "type": "EndUser Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+15719483669",
+                                        "name": "Prof. Abdiel Swaniawski Jr.",
+                                        "mail": "toni.shields@keeling.com",
+                                        "type": "Distributor Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+13233141169",
+                                        "name": "Edgardo Deckow",
+                                        "mail": "torey45@yahoo.com",
+                                        "type": "Reseller Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+13045586760",
+                                        "name": "Dr. Monserrate Erdman MD",
+                                        "mail": null,
+                                        "type": "Hardware System Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+13045586760",
+                                        "name": "Dr. Monserrate Erdman MD",
+                                        "mail": null,
+                                        "type": "Software System Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+13462051906",
+                                        "name": "Mrs. Ocie Okuneva DDS",
+                                        "mail": null,
+                                        "type": "System Manager Contact"
+                                    }
+                                ],
+                                "resellerId": "a9233c9c-4634-493a-9f12-bef4d1cf3c5e",
+                                "customerId": "60e73b13-f741-4c73-a32d-a23fa438d9ad",
+                                "distributorId": "1af1c44e-8112-4e72-9654-b11c705e9372"
+                            },
+                            "startDate": null,
+                            "endDate": null,
+                            "reseller": {
+                                "id": "a9233c9c-4634-493a-9f12-bef4d1cf3c5e"
+                            },
+                            "customer": {
+                                "id": "60e73b13-f741-4c73-a32d-a23fa438d9ad"
+                            }
+                        }
+                    ],
+                    "latestContactPersons": [
+                        {
+                            "phoneNumber": "+13045586760",
+                            "name": "Dr. Monserrate Erdman MD",
+                            "mail": null,
+                            "type": "EndUser Contact"
+                        },
+                        {
+                            "phoneNumber": "+15719483669",
+                            "name": "Prof. Abdiel Swaniawski Jr.",
+                            "mail": "toni.shields@keeling.com",
+                            "type": "Distributor Contact"
+                        },
+                        {
+                            "phoneNumber": "+13233141169",
+                            "name": "Edgardo Deckow",
+                            "mail": "torey45@yahoo.com",
+                            "type": "Reseller Contact"
+                        }
+                    ],
+                    "coverageStatusCheck": null
+                }
+            ]
+        }
+    }
+}

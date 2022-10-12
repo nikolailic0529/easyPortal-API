@@ -11,7 +11,7 @@
                     "id": "7b9dae48-2613-4478-9b2f-842dd7c1db71",
                     "name": "Thompson Ltd",
                     "companyType": "CUSTOMER",
-                    "updatedAt": "1662156767390",
+                    "updatedAt": "1664810459986",
                     "keycloakName": null,
                     "keycloakGroupId": null,
                     "keycloakClientScopeName": null,
@@ -53,8 +53,8 @@
                     ],
                     "companyKpis": {
                         "totalAssets": 31,
-                        "activeAssets": 0,
-                        "activeAssetsPercentage": 0.0,
+                        "activeAssets": 9,
+                        "activeAssetsPercentage": 29.03225806451613,
                         "activeCustomers": null,
                         "newActiveCustomers": null,
                         "activeContracts": 1,
@@ -83,8 +83,8 @@
                         {
                             "resellerId": "9d9e320d-4e44-4518-a4e6-6bfe7f1c7dd8",
                             "totalAssets": 31,
-                            "activeAssets": 0,
-                            "activeAssetsPercentage": 0.0,
+                            "activeAssets": 9,
+                            "activeAssetsPercentage": 29.03225806451613,
                             "activeCustomers": null,
                             "newActiveCustomers": null,
                             "activeContracts": 1,
@@ -111,7 +111,7 @@
                         }
                     ],
                     "status": [
-                        "INACTIVE"
+                        "ACTIVE"
                     ]
                 }
             ]

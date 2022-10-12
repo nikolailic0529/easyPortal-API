@@ -1,0 +1,136 @@
+{
+    "selector": "data.getAssets",
+    "query": "query getAssets($id: String!) {\n    getAssets(args: [{key: \"id\", value: $id}]) {\n        id\nserialNumber\n\nassetSku\nassetSkuDescription\nassetTag\nassetType\nstatus\nvendor\n\neolDate\neosDate\n\ncountry\ncountryCode\nlatitude\nlongitude\nzip\ncity\naddress\naddress2\n\ncustomerId\nresellerId\n\nupdatedAt\n\nlatestContactPersons {\n    phoneNumber\n    name\n    type\n    mail\n}\n\nassetCoverage\ncoverageStatusCheck {\n    coverageStatus\n    coverageStatusUpdatedAt\n    coverageEntries {\n        coverageStartDate\n        coverageEndDate\n        type\n        description\n        status\n        serviceSku\n    }\n}\n\ndataQualityScore\n        assetDocument {\n    startDate\n    endDate\n    documentNumber\n\n    document {\n        id\n        type\n        documentNumber\n\n        startDate\n        endDate\n\n        currencyCode\n        languageCode\n\n        updatedAt\n\n        vendorSpecificFields {\n            vendor\n            groupId\n            groupDescription\n            said\n        }\n\n        contactPersons {\n            phoneNumber\n            name\n            type\n            mail\n        }\n\n        customerId\n        resellerId\n        distributorId\n    }\n\n    serviceGroupSku\n    serviceGroupSkuDescription\n    serviceLevelSku\n    serviceLevelSkuDescription\n    serviceFullDescription\n\n    customer {\n      id\n    }\n\n    reseller {\n      id\n    }\n}\n    }\n}",
+    "variables": {
+        "id": "7d6da4fd-8d68-4847-9362-224c1de5b626"
+    },
+    "response": {
+        "data": {
+            "getAssets": [
+                {
+                    "id": "7d6da4fd-8d68-4847-9362-224c1de5b626",
+                    "resellerId": "77ec115b-9723-4582-ad45-2b3a83286b1f",
+                    "customerId": "dda6bc2c-7b09-48e6-9739-9b2732e9cd98",
+                    "serialNumber": null,
+                    "assetSkuDescription": "HP ML350 Gen9 8LFF HP Drive Kit",
+                    "assetTag": null,
+                    "assetType": null,
+                    "vendor": "HPE",
+                    "assetSku": "726547-B21",
+                    "eolDate": null,
+                    "eosDate": null,
+                    "zip": "38316",
+                    "city": "South Narcisoton",
+                    "address": "27407 Wiegand Cape",
+                    "address2": null,
+                    "country": "Nicaragua",
+                    "latitude": "-80.2368",
+                    "longitude": "69.297178",
+                    "countryCode": "JO",
+                    "status": "ACTIVE",
+                    "updatedAt": "1662142225912",
+                    "assetCoverage": [
+                        "ARCHIVED"
+                    ],
+                    "dataQualityScore": "20",
+                    "assetDocument": [
+                        {
+                            "serviceGroupSku": null,
+                            "serviceGroupSkuDescription": null,
+                            "serviceLevelSku": "HA151AC",
+                            "serviceLevelSkuDescription": "HPE Hardware Maintenance Onsite Support",
+                            "serviceFullDescription": null,
+                            "documentNumber": "a9009f62-3df4-3d07-96d4-2c542baba14a",
+                            "document": {
+                                "id": "019a6207-1cbc-441b-9d74-0b4cb55899fc",
+                                "type": "Contract",
+                                "documentNumber": "a9009f62-3df4-3d07-96d4-2c542baba14a",
+                                "startDate": "2021-02-01",
+                                "endDate": "2022-01-31",
+                                "currencyCode": "EUR",
+                                "languageCode": null,
+                                "updatedAt": "1654262846658",
+                                "vendorSpecificFields": {
+                                    "vendor": "HPE",
+                                    "said": null,
+                                    "groupId": null,
+                                    "groupDescription": null
+                                },
+                                "contactPersons": [
+                                    {
+                                        "phoneNumber": "+14589232620",
+                                        "name": "Mrs. Monique Thompson",
+                                        "mail": null,
+                                        "type": "EndUser Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+15719483669",
+                                        "name": "Prof. Abdiel Swaniawski Jr.",
+                                        "mail": "toni.shields@keeling.com",
+                                        "type": "Distributor Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+12135991364",
+                                        "name": "Lacey Nienow",
+                                        "mail": "chauncey.hodkiewicz@gmail.com",
+                                        "type": "Reseller Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+14589232620",
+                                        "name": "Mrs. Monique Thompson",
+                                        "mail": null,
+                                        "type": "Hardware System Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+14589232620",
+                                        "name": "Mrs. Monique Thompson",
+                                        "mail": null,
+                                        "type": "Software System Contact"
+                                    },
+                                    {
+                                        "phoneNumber": null,
+                                        "name": null,
+                                        "mail": null,
+                                        "type": "System Manager Contact"
+                                    }
+                                ],
+                                "resellerId": "77ec115b-9723-4582-ad45-2b3a83286b1f",
+                                "customerId": "dda6bc2c-7b09-48e6-9739-9b2732e9cd98",
+                                "distributorId": "1af1c44e-8112-4e72-9654-b11c705e9372"
+                            },
+                            "startDate": null,
+                            "endDate": null,
+                            "reseller": {
+                                "id": "77ec115b-9723-4582-ad45-2b3a83286b1f"
+                            },
+                            "customer": {
+                                "id": "dda6bc2c-7b09-48e6-9739-9b2732e9cd98"
+                            }
+                        }
+                    ],
+                    "latestContactPersons": [
+                        {
+                            "phoneNumber": "+14589232620",
+                            "name": "Mrs. Monique Thompson",
+                            "mail": null,
+                            "type": "EndUser Contact"
+                        },
+                        {
+                            "phoneNumber": "+15719483669",
+                            "name": "Prof. Abdiel Swaniawski Jr.",
+                            "mail": "toni.shields@keeling.com",
+                            "type": "Distributor Contact"
+                        },
+                        {
+                            "phoneNumber": "+12135991364",
+                            "name": "Lacey Nienow",
+                            "mail": "chauncey.hodkiewicz@gmail.com",
+                            "type": "Reseller Contact"
+                        }
+                    ],
+                    "coverageStatusCheck": null
+                }
+            ]
+        }
+    }
+}

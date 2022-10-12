@@ -11,7 +11,7 @@
                     "id": "412e9b0e-95e8-474a-a8e1-4f526886eb55",
                     "name": "Luettgen, Jones and Schulist",
                     "companyType": "CUSTOMER",
-                    "updatedAt": "1662156667740",
+                    "updatedAt": "1664810329447",
                     "keycloakName": null,
                     "keycloakGroupId": null,
                     "keycloakClientScopeName": null,
@@ -53,14 +53,14 @@
                     ],
                     "companyKpis": {
                         "totalAssets": 81,
-                        "activeAssets": 0,
-                        "activeAssetsPercentage": 0.0,
+                        "activeAssets": 28,
+                        "activeAssetsPercentage": 34.5679012345679,
                         "activeCustomers": null,
                         "newActiveCustomers": null,
                         "activeContracts": 2,
                         "activeContractTotalAmount": 0.0,
                         "newActiveContracts": null,
-                        "expiringContracts": 0,
+                        "expiringContracts": 1,
                         "activeQuotes": 0,
                         "activeQuotesTotalAmount": 0.0,
                         "newActiveQuotes": 0,
@@ -83,14 +83,14 @@
                         {
                             "resellerId": "27faa47d-ab2a-4755-b36b-729114c056d2",
                             "totalAssets": 81,
-                            "activeAssets": 0,
-                            "activeAssetsPercentage": 0.0,
+                            "activeAssets": 28,
+                            "activeAssetsPercentage": 34.5679012345679,
                             "activeCustomers": null,
                             "newActiveCustomers": null,
                             "activeContracts": 2,
                             "activeContractTotalAmount": 0.0,
                             "newActiveContracts": null,
-                            "expiringContracts": 0,
+                            "expiringContracts": 1,
                             "activeQuotes": 0,
                             "activeQuotesTotalAmount": 0.0,
                             "newActiveQuotes": 0,
@@ -111,7 +111,7 @@
                         }
                     ],
                     "status": [
-                        "INACTIVE"
+                        "ACTIVE"
                     ]
                 }
             ]

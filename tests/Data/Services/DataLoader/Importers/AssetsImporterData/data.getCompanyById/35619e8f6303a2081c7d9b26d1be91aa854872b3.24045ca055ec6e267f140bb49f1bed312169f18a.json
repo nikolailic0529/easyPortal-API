@@ -11,7 +11,7 @@
                     "id": "bcbc5086-501e-4c1b-ac49-4a969408353d",
                     "name": "Kuhlman-Cummings",
                     "companyType": "CUSTOMER",
-                    "updatedAt": "1662156885127",
+                    "updatedAt": "1664810595013",
                     "keycloakName": null,
                     "keycloakGroupId": null,
                     "keycloakClientScopeName": null,
@@ -47,8 +47,8 @@
                     ],
                     "companyKpis": {
                         "totalAssets": 166,
-                        "activeAssets": 0,
-                        "activeAssetsPercentage": 0.0,
+                        "activeAssets": 90,
+                        "activeAssetsPercentage": 54.21686746987952,
                         "activeCustomers": null,
                         "newActiveCustomers": null,
                         "activeContracts": 1,
@@ -77,8 +77,8 @@
                         {
                             "resellerId": "0fd07b17-3314-40b5-ac32-7189051f773b",
                             "totalAssets": 166,
-                            "activeAssets": 0,
-                            "activeAssetsPercentage": 0.0,
+                            "activeAssets": 90,
+                            "activeAssetsPercentage": 54.21686746987952,
                             "activeCustomers": null,
                             "newActiveCustomers": null,
                             "activeContracts": 1,
@@ -105,7 +105,7 @@
                         }
                     ],
                     "status": [
-                        "INACTIVE"
+                        "ACTIVE"
                     ]
                 }
             ]

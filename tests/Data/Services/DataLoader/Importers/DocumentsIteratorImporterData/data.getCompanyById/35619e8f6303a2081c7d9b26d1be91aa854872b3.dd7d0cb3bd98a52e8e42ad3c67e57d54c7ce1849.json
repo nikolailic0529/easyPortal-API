@@ -11,7 +11,7 @@
                     "id": "43a3e79c-d9f3-4cfd-be5d-edcf133e8f83",
                     "name": "Tromp, Weber and Bergstrom",
                     "companyType": "CUSTOMER",
-                    "updatedAt": "1662156671101",
+                    "updatedAt": "1664810335787",
                     "keycloakName": null,
                     "keycloakGroupId": null,
                     "keycloakClientScopeName": null,
@@ -53,8 +53,8 @@
                     ],
                     "companyKpis": {
                         "totalAssets": 273,
-                        "activeAssets": 0,
-                        "activeAssetsPercentage": 0.0,
+                        "activeAssets": 33,
+                        "activeAssetsPercentage": 12.087912087912088,
                         "activeCustomers": null,
                         "newActiveCustomers": null,
                         "activeContracts": 2,
@@ -83,8 +83,8 @@
                         {
                             "resellerId": "6974b5ee-0cb7-4121-9f8f-1995322b540d",
                             "totalAssets": 273,
-                            "activeAssets": 0,
-                            "activeAssetsPercentage": 0.0,
+                            "activeAssets": 33,
+                            "activeAssetsPercentage": 12.087912087912088,
                             "activeCustomers": null,
                             "newActiveCustomers": null,
                             "activeContracts": 2,
@@ -111,7 +111,7 @@
                         }
                     ],
                     "status": [
-                        "INACTIVE"
+                        "ACTIVE"
                     ]
                 }
             ]

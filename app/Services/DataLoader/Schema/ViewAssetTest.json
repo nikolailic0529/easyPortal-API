@@ -31,7 +31,6 @@
                 "type": "MultiNational Quote",
                 "startDate": "1583020800000",
                 "endDate": "1614470400000",
-                "totalNetPrice": "3,292.16",
                 "vendorSpecificFields": {
                     "vendor": "HPE"
                 },

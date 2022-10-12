@@ -377,7 +377,7 @@
                     "currencyCode": "EUR",
                     "totalNetPrice": "2352.24",
                     "languageCode": null,
-                    "updatedAt": "1654262846658",
+                    "updatedAt": "1664800095096",
                     "resellerId": "27faa47d-ab2a-4755-b36b-729114c056d2",
                     "customerId": "93da84d9-a8ee-483a-b604-9289d41fd601",
                     "distributorId": "1af1c44e-8112-4e72-9654-b11c705e9372",
@@ -478,7 +478,8 @@
                         }
                     ],
                     "status": [
-                        "EXPIRED"
+                        "EXPIRED",
+                        "RENEWED"
                     ]
                 },
                 {

@@ -11,7 +11,7 @@
                     "id": "7a99318f-3ba2-4dc5-bd93-54ddfb70ff79",
                     "name": "Kuhic, Fadel and Kuvalis",
                     "companyType": "CUSTOMER",
-                    "updatedAt": "1662156766140",
+                    "updatedAt": "1664810458004",
                     "keycloakName": null,
                     "keycloakGroupId": null,
                     "keycloakClientScopeName": null,
@@ -143,12 +143,12 @@
                     ],
                     "companyKpis": {
                         "totalAssets": 612,
-                        "activeAssets": 0,
-                        "activeAssetsPercentage": 0.0,
+                        "activeAssets": 174,
+                        "activeAssetsPercentage": 28.431372549019606,
                         "activeCustomers": null,
                         "newActiveCustomers": null,
-                        "activeContracts": 11,
-                        "activeContractTotalAmount": 44798.51999999999,
+                        "activeContracts": 10,
+                        "activeContractTotalAmount": 44798.52,
                         "newActiveContracts": null,
                         "expiringContracts": 3,
                         "activeQuotes": 1,
@@ -156,7 +156,7 @@
                         "newActiveQuotes": 0,
                         "expiringQuotes": 0,
                         "expiredQuotes": 0,
-                        "expiredContracts": 21,
+                        "expiredContracts": 22,
                         "orderedQuotes": null,
                         "acceptedQuotes": null,
                         "requestedQuotes": null,
@@ -173,11 +173,11 @@
                         {
                             "resellerId": "77ec115b-9723-4582-ad45-2b3a83286b1f",
                             "totalAssets": 612,
-                            "activeAssets": 0,
-                            "activeAssetsPercentage": 0.0,
+                            "activeAssets": 174,
+                            "activeAssetsPercentage": 28.431372549019606,
                             "activeCustomers": null,
                             "newActiveCustomers": null,
-                            "activeContracts": 11,
+                            "activeContracts": 10,
                             "activeContractTotalAmount": 44798.52,
                             "newActiveContracts": null,
                             "expiringContracts": 3,
@@ -186,7 +186,7 @@
                             "newActiveQuotes": 0,
                             "expiringQuotes": 0,
                             "expiredQuotes": 0,
-                            "expiredContracts": 21,
+                            "expiredContracts": 22,
                             "orderedQuotes": null,
                             "acceptedQuotes": null,
                             "requestedQuotes": null,
@@ -201,7 +201,7 @@
                         }
                     ],
                     "status": [
-                        "INACTIVE"
+                        "ACTIVE"
                     ]
                 }
             ]

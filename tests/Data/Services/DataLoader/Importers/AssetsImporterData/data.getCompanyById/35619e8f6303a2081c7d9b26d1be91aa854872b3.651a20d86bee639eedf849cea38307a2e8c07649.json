@@ -11,7 +11,7 @@
                     "id": "982e95de-6963-4065-a315-4ef9eb6565c0",
                     "name": "Shields-Swift",
                     "companyType": "CUSTOMER",
-                    "updatedAt": "1662156821898",
+                    "updatedAt": "1664810519553",
                     "keycloakName": null,
                     "keycloakGroupId": null,
                     "keycloakClientScopeName": null,
@@ -71,14 +71,14 @@
                     ],
                     "companyKpis": {
                         "totalAssets": 1468,
-                        "activeAssets": 0,
-                        "activeAssetsPercentage": 0.0,
+                        "activeAssets": 324,
+                        "activeAssetsPercentage": 22.070844686648503,
                         "activeCustomers": null,
                         "newActiveCustomers": null,
                         "activeContracts": 8,
                         "activeContractTotalAmount": 0.0,
                         "newActiveContracts": null,
-                        "expiringContracts": 3,
+                        "expiringContracts": 4,
                         "activeQuotes": 0,
                         "activeQuotesTotalAmount": 0.0,
                         "newActiveQuotes": 0,
@@ -101,14 +101,14 @@
                         {
                             "resellerId": "a9233c9c-4634-493a-9f12-bef4d1cf3c5e",
                             "totalAssets": 1468,
-                            "activeAssets": 0,
-                            "activeAssetsPercentage": 0.0,
+                            "activeAssets": 324,
+                            "activeAssetsPercentage": 22.070844686648503,
                             "activeCustomers": null,
                             "newActiveCustomers": null,
                             "activeContracts": 8,
                             "activeContractTotalAmount": 0.0,
                             "newActiveContracts": null,
-                            "expiringContracts": 3,
+                            "expiringContracts": 4,
                             "activeQuotes": 0,
                             "activeQuotesTotalAmount": 0.0,
                             "newActiveQuotes": 0,
@@ -129,7 +129,7 @@
                         }
                     ],
                     "status": [
-                        "INACTIVE"
+                        "ACTIVE"
                     ]
                 }
             ]

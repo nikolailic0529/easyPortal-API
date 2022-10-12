@@ -11,7 +11,7 @@
                     "id": "abff5334-a446-4511-bf53-1bc85ad03255",
                     "name": "Bernier, Upton and Swaniawski",
                     "companyType": "CUSTOMER",
-                    "updatedAt": "1662156855344",
+                    "updatedAt": "1664810559938",
                     "keycloakName": null,
                     "keycloakGroupId": null,
                     "keycloakClientScopeName": null,
@@ -59,8 +59,8 @@
                     ],
                     "companyKpis": {
                         "totalAssets": 6,
-                        "activeAssets": 0,
-                        "activeAssetsPercentage": 0.0,
+                        "activeAssets": 3,
+                        "activeAssetsPercentage": 50.0,
                         "activeCustomers": null,
                         "newActiveCustomers": null,
                         "activeContracts": 1,
@@ -89,8 +89,8 @@
                         {
                             "resellerId": "594184e7-24d4-4614-8db4-fe132adb86f4",
                             "totalAssets": 6,
-                            "activeAssets": 0,
-                            "activeAssetsPercentage": 0.0,
+                            "activeAssets": 3,
+                            "activeAssetsPercentage": 50.0,
                             "activeCustomers": null,
                             "newActiveCustomers": null,
                             "activeContracts": 1,
@@ -117,7 +117,7 @@
                         }
                     ],
                     "status": [
-                        "INACTIVE"
+                        "ACTIVE"
                     ]
                 }
             ]

@@ -11,7 +11,7 @@
                     "id": "13c8f977-00bb-4906-bd59-2bf457cf39cb",
                     "name": "Moen Inc",
                     "companyType": "CUSTOMER",
-                    "updatedAt": "1662156591017",
+                    "updatedAt": "1664810222075",
                     "keycloakName": null,
                     "keycloakGroupId": null,
                     "keycloakClientScopeName": null,
@@ -125,8 +125,8 @@
                     ],
                     "companyKpis": {
                         "totalAssets": 926,
-                        "activeAssets": 0,
-                        "activeAssetsPercentage": 0.0,
+                        "activeAssets": 226,
+                        "activeAssetsPercentage": 24.406047516198704,
                         "activeCustomers": null,
                         "newActiveCustomers": null,
                         "activeContracts": 1,
@@ -155,8 +155,8 @@
                         {
                             "resellerId": "27faa47d-ab2a-4755-b36b-729114c056d2",
                             "totalAssets": 926,
-                            "activeAssets": 0,
-                            "activeAssetsPercentage": 0.0,
+                            "activeAssets": 226,
+                            "activeAssetsPercentage": 24.406047516198704,
                             "activeCustomers": null,
                             "newActiveCustomers": null,
                             "activeContracts": 1,
@@ -183,7 +183,7 @@
                         }
                     ],
                     "status": [
-                        "INACTIVE"
+                        "ACTIVE"
                     ]
                 }
             ]

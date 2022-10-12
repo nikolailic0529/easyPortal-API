@@ -11,7 +11,7 @@
                     "id": "9f561198-8b1a-414e-a30b-2695d0dde25d",
                     "name": "Hudson-Mertz",
                     "companyType": "CUSTOMER",
-                    "updatedAt": "1662156833139",
+                    "updatedAt": "1664810532881",
                     "keycloakName": null,
                     "keycloakGroupId": null,
                     "keycloakClientScopeName": null,
@@ -61,8 +61,8 @@
                     ],
                     "companyKpis": {
                         "totalAssets": 198,
-                        "activeAssets": 0,
-                        "activeAssetsPercentage": 0.0,
+                        "activeAssets": 20,
+                        "activeAssetsPercentage": 10.1010101010101,
                         "activeCustomers": null,
                         "newActiveCustomers": null,
                         "activeContracts": 4,
@@ -91,8 +91,8 @@
                         {
                             "resellerId": "594184e7-24d4-4614-8db4-fe132adb86f4",
                             "totalAssets": 198,
-                            "activeAssets": 0,
-                            "activeAssetsPercentage": 0.0,
+                            "activeAssets": 20,
+                            "activeAssetsPercentage": 10.1010101010101,
                             "activeCustomers": null,
                             "newActiveCustomers": null,
                             "activeContracts": 4,
@@ -119,7 +119,7 @@
                         }
                     ],
                     "status": [
-                        "INACTIVE"
+                        "ACTIVE"
                     ]
                 }
             ]

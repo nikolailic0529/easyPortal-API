@@ -1,0 +1,136 @@
+{
+    "selector": "data.getAssets",
+    "query": "query getAssets($id: String!) {\n    getAssets(args: [{key: \"id\", value: $id}]) {\n        id\nserialNumber\n\nassetSku\nassetSkuDescription\nassetTag\nassetType\nstatus\nvendor\n\neolDate\neosDate\n\ncountry\ncountryCode\nlatitude\nlongitude\nzip\ncity\naddress\naddress2\n\ncustomerId\nresellerId\n\nupdatedAt\n\nlatestContactPersons {\n    phoneNumber\n    name\n    type\n    mail\n}\n\nassetCoverage\ncoverageStatusCheck {\n    coverageStatus\n    coverageStatusUpdatedAt\n    coverageEntries {\n        coverageStartDate\n        coverageEndDate\n        type\n        description\n        status\n        serviceSku\n    }\n}\n\ndataQualityScore\n        assetDocument {\n    startDate\n    endDate\n    documentNumber\n\n    document {\n        id\n        type\n        documentNumber\n\n        startDate\n        endDate\n\n        currencyCode\n        languageCode\n\n        updatedAt\n\n        vendorSpecificFields {\n            vendor\n            groupId\n            groupDescription\n            said\n        }\n\n        contactPersons {\n            phoneNumber\n            name\n            type\n            mail\n        }\n\n        customerId\n        resellerId\n        distributorId\n    }\n\n    serviceGroupSku\n    serviceGroupSkuDescription\n    serviceLevelSku\n    serviceLevelSkuDescription\n    serviceFullDescription\n\n    customer {\n      id\n    }\n\n    reseller {\n      id\n    }\n}\n    }\n}",
+    "variables": {
+        "id": "dbe7eabc-c664-48de-ad54-bb08824dc5d9"
+    },
+    "response": {
+        "data": {
+            "getAssets": [
+                {
+                    "id": "dbe7eabc-c664-48de-ad54-bb08824dc5d9",
+                    "resellerId": "a9233c9c-4634-493a-9f12-bef4d1cf3c5e",
+                    "customerId": "e6df5cce-dc30-441f-b653-f1e59df4261f",
+                    "serialNumber": null,
+                    "assetSkuDescription": "HPE B-series 16Gb SFP+SW XCVR",
+                    "assetTag": null,
+                    "assetType": null,
+                    "vendor": "HPE",
+                    "assetSku": "QK724A",
+                    "eolDate": null,
+                    "eosDate": null,
+                    "zip": "16806",
+                    "city": "Schummbury",
+                    "address": "1726 Caitlyn Lake",
+                    "address2": null,
+                    "country": "Nicaragua",
+                    "latitude": "-83.894279",
+                    "longitude": "44.050992",
+                    "countryCode": "JO",
+                    "status": "ACTIVE",
+                    "updatedAt": "1662147383594",
+                    "assetCoverage": [
+                        "ARCHIVED"
+                    ],
+                    "dataQualityScore": "20",
+                    "assetDocument": [
+                        {
+                            "serviceGroupSku": null,
+                            "serviceGroupSkuDescription": null,
+                            "serviceLevelSku": "HA151AC",
+                            "serviceLevelSkuDescription": "HPE Hardware Maintenance Onsite Support",
+                            "serviceFullDescription": null,
+                            "documentNumber": "16ab24b5-9b9c-3a72-9b05-146712eff3cf",
+                            "document": {
+                                "id": "01507408-4666-4b49-b80d-aee66192dcaf",
+                                "type": "Contract",
+                                "documentNumber": "16ab24b5-9b9c-3a72-9b05-146712eff3cf",
+                                "startDate": "2019-10-29",
+                                "endDate": "2024-10-31",
+                                "currencyCode": "EUR",
+                                "languageCode": null,
+                                "updatedAt": "1654262846658",
+                                "vendorSpecificFields": {
+                                    "vendor": "HPE",
+                                    "said": "e61c5e4f-3899-3c0e-bfe4-1222e12454d6",
+                                    "groupId": null,
+                                    "groupDescription": null
+                                },
+                                "contactPersons": [
+                                    {
+                                        "phoneNumber": "+17314126007",
+                                        "name": "Alfonzo Brekke",
+                                        "mail": null,
+                                        "type": "EndUser Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+15719483669",
+                                        "name": "Prof. Abdiel Swaniawski Jr.",
+                                        "mail": "toni.shields@keeling.com",
+                                        "type": "Distributor Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+13233141169",
+                                        "name": "Edgardo Deckow",
+                                        "mail": "torey45@yahoo.com",
+                                        "type": "Reseller Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+17314126007",
+                                        "name": "Alfonzo Brekke",
+                                        "mail": null,
+                                        "type": "Hardware System Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+17314126007",
+                                        "name": "Alfonzo Brekke",
+                                        "mail": null,
+                                        "type": "Software System Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+17314126007",
+                                        "name": "Nichole Swaniawski",
+                                        "mail": null,
+                                        "type": "System Manager Contact"
+                                    }
+                                ],
+                                "resellerId": "a9233c9c-4634-493a-9f12-bef4d1cf3c5e",
+                                "customerId": "e6df5cce-dc30-441f-b653-f1e59df4261f",
+                                "distributorId": "1af1c44e-8112-4e72-9654-b11c705e9372"
+                            },
+                            "startDate": null,
+                            "endDate": null,
+                            "reseller": {
+                                "id": "a9233c9c-4634-493a-9f12-bef4d1cf3c5e"
+                            },
+                            "customer": {
+                                "id": "e6df5cce-dc30-441f-b653-f1e59df4261f"
+                            }
+                        }
+                    ],
+                    "latestContactPersons": [
+                        {
+                            "phoneNumber": "+17314126007",
+                            "name": "Alfonzo Brekke",
+                            "mail": null,
+                            "type": "EndUser Contact"
+                        },
+                        {
+                            "phoneNumber": "+15719483669",
+                            "name": "Prof. Abdiel Swaniawski Jr.",
+                            "mail": "toni.shields@keeling.com",
+                            "type": "Distributor Contact"
+                        },
+                        {
+                            "phoneNumber": "+13233141169",
+                            "name": "Edgardo Deckow",
+                            "mail": "torey45@yahoo.com",
+                            "type": "Reseller Contact"
+                        }
+                    ],
+                    "coverageStatusCheck": null
+                }
+            ]
+        }
+    }
+}

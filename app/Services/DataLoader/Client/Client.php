@@ -1182,7 +1182,6 @@ class Client {
 
                     currencyCode
                     languageCode
-                    totalNetPrice
 
                     updatedAt
 

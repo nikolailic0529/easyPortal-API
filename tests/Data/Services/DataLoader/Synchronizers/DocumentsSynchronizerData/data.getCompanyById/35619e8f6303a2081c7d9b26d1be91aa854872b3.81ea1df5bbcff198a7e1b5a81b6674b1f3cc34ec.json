@@ -11,7 +11,7 @@
                     "id": "d19dfa8f-ac30-4d67-acab-a2aeaf89f56a",
                     "name": "Gislason LLC",
                     "companyType": "CUSTOMER",
-                    "updatedAt": "1662156918336",
+                    "updatedAt": "1664810635388",
                     "keycloakName": null,
                     "keycloakGroupId": null,
                     "keycloakClientScopeName": null,
@@ -65,14 +65,14 @@
                     ],
                     "companyKpis": {
                         "totalAssets": 680,
-                        "activeAssets": 0,
-                        "activeAssetsPercentage": 0.0,
+                        "activeAssets": 401,
+                        "activeAssetsPercentage": 58.970588235294116,
                         "activeCustomers": null,
                         "newActiveCustomers": null,
                         "activeContracts": 8,
                         "activeContractTotalAmount": 175649.98999999982,
                         "newActiveContracts": null,
-                        "expiringContracts": 0,
+                        "expiringContracts": 1,
                         "activeQuotes": 2,
                         "activeQuotesTotalAmount": 34824.16999999999,
                         "newActiveQuotes": 0,
@@ -95,14 +95,14 @@
                         {
                             "resellerId": "594184e7-24d4-4614-8db4-fe132adb86f4",
                             "totalAssets": 680,
-                            "activeAssets": 0,
-                            "activeAssetsPercentage": 0.0,
+                            "activeAssets": 401,
+                            "activeAssetsPercentage": 58.970588235294116,
                             "activeCustomers": null,
                             "newActiveCustomers": null,
                             "activeContracts": 8,
                             "activeContractTotalAmount": 175649.98999999982,
                             "newActiveContracts": null,
-                            "expiringContracts": 0,
+                            "expiringContracts": 1,
                             "activeQuotes": 2,
                             "activeQuotesTotalAmount": 34824.16999999999,
                             "newActiveQuotes": 0,
@@ -123,7 +123,7 @@
                         }
                     ],
                     "status": [
-                        "INACTIVE"
+                        "ACTIVE"
                     ]
                 }
             ]

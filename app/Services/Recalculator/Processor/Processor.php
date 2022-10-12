@@ -13,8 +13,6 @@ use Illuminate\Contracts\Debug\ExceptionHandler;
 use Illuminate\Contracts\Events\Dispatcher;
 use Throwable;
 
-use function sleep;
-
 /**
  * @template TItem of \Illuminate\Database\Eloquent\Model
  * @template TChunkData of \App\Services\Recalculator\Processor\ChunkData<TItem>

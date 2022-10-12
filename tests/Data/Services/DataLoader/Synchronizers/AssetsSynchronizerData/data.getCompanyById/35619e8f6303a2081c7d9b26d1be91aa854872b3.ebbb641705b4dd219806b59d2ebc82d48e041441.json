@@ -11,7 +11,7 @@
                     "id": "d4d40692-3385-4423-b580-04b645b9c163",
                     "name": "Boehm Ltd",
                     "companyType": "CUSTOMER",
-                    "updatedAt": "1662156923950",
+                    "updatedAt": "1664810641060",
                     "keycloakName": null,
                     "keycloakGroupId": null,
                     "keycloakClientScopeName": null,
@@ -77,8 +77,8 @@
                     ],
                     "companyKpis": {
                         "totalAssets": 1475,
-                        "activeAssets": 0,
-                        "activeAssetsPercentage": 0.0,
+                        "activeAssets": 614,
+                        "activeAssetsPercentage": 41.62711864406779,
                         "activeCustomers": null,
                         "newActiveCustomers": null,
                         "activeContracts": 10,
@@ -107,8 +107,8 @@
                         {
                             "resellerId": "a9233c9c-4634-493a-9f12-bef4d1cf3c5e",
                             "totalAssets": 1475,
-                            "activeAssets": 0,
-                            "activeAssetsPercentage": 0.0,
+                            "activeAssets": 614,
+                            "activeAssetsPercentage": 41.62711864406779,
                             "activeCustomers": null,
                             "newActiveCustomers": null,
                             "activeContracts": 10,
@@ -135,7 +135,7 @@
                         }
                     ],
                     "status": [
-                        "INACTIVE"
+                        "ACTIVE"
                     ]
                 }
             ]

@@ -11,7 +11,7 @@
                     "id": "a056ea79-1a52-4a40-ba03-2e0258ff6368",
                     "name": "Barrows, Heidenreich and Mills",
                     "companyType": "CUSTOMER",
-                    "updatedAt": "1662156834764",
+                    "updatedAt": "1664810534943",
                     "keycloakName": null,
                     "keycloakGroupId": null,
                     "keycloakClientScopeName": null,
@@ -71,8 +71,8 @@
                     ],
                     "companyKpis": {
                         "totalAssets": 368,
-                        "activeAssets": 0,
-                        "activeAssetsPercentage": 0.0,
+                        "activeAssets": 170,
+                        "activeAssetsPercentage": 46.19565217391305,
                         "activeCustomers": null,
                         "newActiveCustomers": null,
                         "activeContracts": 4,
@@ -101,8 +101,8 @@
                         {
                             "resellerId": "77ec115b-9723-4582-ad45-2b3a83286b1f",
                             "totalAssets": 368,
-                            "activeAssets": 0,
-                            "activeAssetsPercentage": 0.0,
+                            "activeAssets": 170,
+                            "activeAssetsPercentage": 46.19565217391305,
                             "activeCustomers": null,
                             "newActiveCustomers": null,
                             "activeContracts": 4,
@@ -129,7 +129,7 @@
                         }
                     ],
                     "status": [
-                        "INACTIVE"
+                        "ACTIVE"
                     ]
                 }
             ]

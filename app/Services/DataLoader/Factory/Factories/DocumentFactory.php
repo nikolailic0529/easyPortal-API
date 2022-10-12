@@ -286,7 +286,7 @@ class DocumentFactory extends ModelFactory {
                 $model->distributor   = $this->distributor($document);
                 $model->start         = $normalizer->datetime($document->startDate);
                 $model->end           = $normalizer->datetime($document->endDate);
-                $model->price_origin  = $normalizer->decimal($document->totalNetPrice);
+                $model->price_origin  = null;
                 $model->number        = $normalizer->string($document->documentNumber) ?: null;
                 $model->changed_at    = $normalizer->datetime($document->updatedAt);
                 $model->contacts      = $this->objectContacts($model, (array) $document->contactPersons);

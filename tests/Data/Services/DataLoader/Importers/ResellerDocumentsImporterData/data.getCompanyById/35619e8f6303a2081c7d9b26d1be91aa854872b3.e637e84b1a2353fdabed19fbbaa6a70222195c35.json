@@ -11,7 +11,7 @@
                     "id": "93da84d9-a8ee-483a-b604-9289d41fd601",
                     "name": "Yundt-Price",
                     "companyType": "CUSTOMER",
-                    "updatedAt": "1662156813616",
+                    "updatedAt": "1664810509772",
                     "keycloakName": null,
                     "keycloakGroupId": null,
                     "keycloakClientScopeName": null,
@@ -71,8 +71,8 @@
                     ],
                     "companyKpis": {
                         "totalAssets": 1212,
-                        "activeAssets": 0,
-                        "activeAssetsPercentage": 0.0,
+                        "activeAssets": 504,
+                        "activeAssetsPercentage": 41.584158415841586,
                         "activeCustomers": null,
                         "newActiveCustomers": null,
                         "activeContracts": 0,
@@ -101,8 +101,8 @@
                         {
                             "resellerId": "27faa47d-ab2a-4755-b36b-729114c056d2",
                             "totalAssets": 1212,
-                            "activeAssets": 0,
-                            "activeAssetsPercentage": 0.0,
+                            "activeAssets": 504,
+                            "activeAssetsPercentage": 41.584158415841586,
                             "activeCustomers": null,
                             "newActiveCustomers": null,
                             "activeContracts": 0,
@@ -129,7 +129,7 @@
                         }
                     ],
                     "status": [
-                        "INACTIVE"
+                        "ACTIVE"
                     ]
                 }
             ]

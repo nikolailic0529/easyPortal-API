@@ -11,7 +11,7 @@
                     "id": "26bc0f70-72ba-4a51-b1dd-6a6f27e414a3",
                     "name": "Wehner-Donnelly",
                     "companyType": "CUSTOMER",
-                    "updatedAt": "1662156621155",
+                    "updatedAt": "1664810265340",
                     "keycloakName": null,
                     "keycloakGroupId": null,
                     "keycloakClientScopeName": null,
@@ -53,8 +53,8 @@
                     ],
                     "companyKpis": {
                         "totalAssets": 34,
-                        "activeAssets": 0,
-                        "activeAssetsPercentage": 0.0,
+                        "activeAssets": 14,
+                        "activeAssetsPercentage": 41.17647058823529,
                         "activeCustomers": null,
                         "newActiveCustomers": null,
                         "activeContracts": 0,
@@ -83,8 +83,8 @@
                         {
                             "resellerId": "27faa47d-ab2a-4755-b36b-729114c056d2",
                             "totalAssets": 34,
-                            "activeAssets": 0,
-                            "activeAssetsPercentage": 0.0,
+                            "activeAssets": 14,
+                            "activeAssetsPercentage": 41.17647058823529,
                             "activeCustomers": null,
                             "newActiveCustomers": null,
                             "activeContracts": 0,
@@ -111,7 +111,7 @@
                         }
                     ],
                     "status": [
-                        "INACTIVE"
+                        "ACTIVE"
                     ]
                 }
             ]

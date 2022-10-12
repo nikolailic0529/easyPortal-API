@@ -11,7 +11,7 @@
                     "id": "033bcf58-0dcd-42b6-8765-51b5815b747f",
                     "name": "Hyatt, Rohan and Sipes",
                     "companyType": "CUSTOMER",
-                    "updatedAt": "1662156563427",
+                    "updatedAt": "1664810185205",
                     "keycloakName": null,
                     "keycloakGroupId": null,
                     "keycloakClientScopeName": null,
@@ -53,8 +53,8 @@
                     ],
                     "companyKpis": {
                         "totalAssets": 26,
-                        "activeAssets": 0,
-                        "activeAssetsPercentage": 0.0,
+                        "activeAssets": 3,
+                        "activeAssetsPercentage": 11.538461538461538,
                         "activeCustomers": null,
                         "newActiveCustomers": null,
                         "activeContracts": 1,
@@ -83,8 +83,8 @@
                         {
                             "resellerId": "9d9e320d-4e44-4518-a4e6-6bfe7f1c7dd8",
                             "totalAssets": 26,
-                            "activeAssets": 0,
-                            "activeAssetsPercentage": 0.0,
+                            "activeAssets": 3,
+                            "activeAssetsPercentage": 11.538461538461538,
                             "activeCustomers": null,
                             "newActiveCustomers": null,
                             "activeContracts": 1,
@@ -111,7 +111,7 @@
                         }
                     ],
                     "status": [
-                        "INACTIVE"
+                        "ACTIVE"
                     ]
                 }
             ]

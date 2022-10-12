@@ -11,7 +11,7 @@
                     "id": "1b002a0b-d6e6-41ee-9365-316ecd32530c",
                     "name": "Sauer, Green and Stracke",
                     "companyType": "CUSTOMER",
-                    "updatedAt": "1662156602158",
+                    "updatedAt": "1664810235059",
                     "keycloakName": null,
                     "keycloakGroupId": null,
                     "keycloakClientScopeName": null,
@@ -77,14 +77,14 @@
                     ],
                     "companyKpis": {
                         "totalAssets": 503,
-                        "activeAssets": 0,
-                        "activeAssetsPercentage": 0.0,
+                        "activeAssets": 145,
+                        "activeAssetsPercentage": 28.82703777335984,
                         "activeCustomers": null,
                         "newActiveCustomers": null,
                         "activeContracts": 8,
                         "activeContractTotalAmount": 62005.829999999994,
                         "newActiveContracts": null,
-                        "expiringContracts": 0,
+                        "expiringContracts": 5,
                         "activeQuotes": 0,
                         "activeQuotesTotalAmount": 0.0,
                         "newActiveQuotes": 0,
@@ -107,14 +107,14 @@
                         {
                             "resellerId": "0fd07b17-3314-40b5-ac32-7189051f773b",
                             "totalAssets": 503,
-                            "activeAssets": 0,
-                            "activeAssetsPercentage": 0.0,
+                            "activeAssets": 145,
+                            "activeAssetsPercentage": 28.82703777335984,
                             "activeCustomers": null,
                             "newActiveCustomers": null,
                             "activeContracts": 8,
                             "activeContractTotalAmount": 62005.82999999999,
                             "newActiveContracts": null,
-                            "expiringContracts": 0,
+                            "expiringContracts": 5,
                             "activeQuotes": 0,
                             "activeQuotesTotalAmount": 0.0,
                             "newActiveQuotes": 0,
@@ -135,7 +135,7 @@
                         }
                     ],
                     "status": [
-                        "INACTIVE"
+                        "ACTIVE"
                     ]
                 }
             ]

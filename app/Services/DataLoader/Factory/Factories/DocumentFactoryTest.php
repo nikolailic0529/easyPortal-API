@@ -141,8 +141,8 @@ class DocumentFactoryTest extends TestCase {
         self::assertEquals($asset->resellerId, $created->reseller_id);
         self::assertEquals($object->document->document->distributorId, $created->distributor_id);
         self::assertEquals('0056523287', $created->number);
-        self::assertEquals('1292.16', $created->price);
-        self::assertEquals('1292.16', $created->price_origin);
+        self::assertNull($created->price);
+        self::assertNull($created->price_origin);
         self::assertNull($this->getDatetime($created->start));
         self::assertEquals('1614470400000', $this->getDatetime($created->end));
         self::assertNull($this->getDatetime($created->changed_at));

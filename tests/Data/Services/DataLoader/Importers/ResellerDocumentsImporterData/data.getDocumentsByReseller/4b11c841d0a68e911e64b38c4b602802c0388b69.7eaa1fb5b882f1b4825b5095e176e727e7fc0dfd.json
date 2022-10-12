@@ -19,7 +19,7 @@
                     "currencyCode": "EUR",
                     "totalNetPrice": null,
                     "languageCode": null,
-                    "updatedAt": "1654262846658",
+                    "updatedAt": "1664800077052",
                     "resellerId": "27faa47d-ab2a-4755-b36b-729114c056d2",
                     "customerId": "412e9b0e-95e8-474a-a8e1-4f526886eb55",
                     "distributorId": "1af1c44e-8112-4e72-9654-b11c705e9372",
@@ -95,7 +95,8 @@
                         }
                     ],
                     "status": [
-                        "ACTIVE"
+                        "ACTIVE",
+                        "EXPIRES_IN_90_DAYS"
                     ]
                 },
                 {
@@ -295,7 +296,7 @@
                     "currencyCode": "EUR",
                     "totalNetPrice": "1306.6799999999998",
                     "languageCode": null,
-                    "updatedAt": "1654262846658",
+                    "updatedAt": "1664800095600",
                     "resellerId": "27faa47d-ab2a-4755-b36b-729114c056d2",
                     "customerId": "13c8f977-00bb-4906-bd59-2bf457cf39cb",
                     "distributorId": "1af1c44e-8112-4e72-9654-b11c705e9372",
@@ -471,7 +472,8 @@
                         }
                     ],
                     "status": [
-                        "EXPIRED"
+                        "EXPIRED",
+                        "RENEWED"
                     ]
                 },
                 {
@@ -483,7 +485,7 @@
                     "currencyCode": "EUR",
                     "totalNetPrice": "19650.47999999999",
                     "languageCode": null,
-                    "updatedAt": "1655165179693",
+                    "updatedAt": "1664800095850",
                     "resellerId": "27faa47d-ab2a-4755-b36b-729114c056d2",
                     "customerId": "93da84d9-a8ee-483a-b604-9289d41fd601",
                     "distributorId": "1af1c44e-8112-4e72-9654-b11c705e9372",
@@ -659,7 +661,8 @@
                         }
                     ],
                     "status": [
-                        "EXPIRED"
+                        "EXPIRED",
+                        "RENEWED"
                     ]
                 },
                 {

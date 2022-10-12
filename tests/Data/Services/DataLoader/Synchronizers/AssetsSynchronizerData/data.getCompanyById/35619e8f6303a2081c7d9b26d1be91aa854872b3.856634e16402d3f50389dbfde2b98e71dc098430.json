@@ -11,7 +11,7 @@
                     "id": "45e609ab-3a89-429e-9462-16db018a7fde",
                     "name": "Rolfson, Deckow and Schoen",
                     "companyType": "CUSTOMER",
-                    "updatedAt": "1662156674985",
+                    "updatedAt": "1664810341960",
                     "keycloakName": null,
                     "keycloakGroupId": null,
                     "keycloakClientScopeName": null,
@@ -77,8 +77,8 @@
                     ],
                     "companyKpis": {
                         "totalAssets": 639,
-                        "activeAssets": 0,
-                        "activeAssetsPercentage": 0.0,
+                        "activeAssets": 274,
+                        "activeAssetsPercentage": 42.87949921752739,
                         "activeCustomers": null,
                         "newActiveCustomers": null,
                         "activeContracts": 11,
@@ -107,8 +107,8 @@
                         {
                             "resellerId": "a9233c9c-4634-493a-9f12-bef4d1cf3c5e",
                             "totalAssets": 639,
-                            "activeAssets": 0,
-                            "activeAssetsPercentage": 0.0,
+                            "activeAssets": 274,
+                            "activeAssetsPercentage": 42.87949921752739,
                             "activeCustomers": null,
                             "newActiveCustomers": null,
                             "activeContracts": 11,
@@ -135,7 +135,7 @@
                         }
                     ],
                     "status": [
-                        "INACTIVE"
+                        "ACTIVE"
                     ]
                 }
             ]

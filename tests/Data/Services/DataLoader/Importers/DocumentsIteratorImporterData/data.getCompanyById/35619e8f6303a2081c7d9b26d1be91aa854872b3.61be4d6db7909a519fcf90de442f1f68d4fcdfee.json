@@ -11,7 +11,7 @@
                     "id": "8e3ba44b-5949-4503-991b-ddf8b785177c",
                     "name": "Hudson-Ondricka",
                     "companyType": "CUSTOMER",
-                    "updatedAt": "1662156802560",
+                    "updatedAt": "1664810498394",
                     "keycloakName": null,
                     "keycloakGroupId": null,
                     "keycloakClientScopeName": null,
@@ -53,8 +53,8 @@
                     ],
                     "companyKpis": {
                         "totalAssets": 16,
-                        "activeAssets": 0,
-                        "activeAssetsPercentage": 0.0,
+                        "activeAssets": 2,
+                        "activeAssetsPercentage": 12.5,
                         "activeCustomers": null,
                         "newActiveCustomers": null,
                         "activeContracts": 2,
@@ -64,7 +64,7 @@
                         "activeQuotes": 1,
                         "activeQuotesTotalAmount": 2432.88,
                         "newActiveQuotes": 0,
-                        "expiringQuotes": 0,
+                        "expiringQuotes": 1,
                         "expiredQuotes": 0,
                         "expiredContracts": 3,
                         "orderedQuotes": null,
@@ -83,8 +83,8 @@
                         {
                             "resellerId": "594184e7-24d4-4614-8db4-fe132adb86f4",
                             "totalAssets": 16,
-                            "activeAssets": 0,
-                            "activeAssetsPercentage": 0.0,
+                            "activeAssets": 2,
+                            "activeAssetsPercentage": 12.5,
                             "activeCustomers": null,
                             "newActiveCustomers": null,
                             "activeContracts": 2,
@@ -94,7 +94,7 @@
                             "activeQuotes": 1,
                             "activeQuotesTotalAmount": 2432.88,
                             "newActiveQuotes": 0,
-                            "expiringQuotes": 0,
+                            "expiringQuotes": 1,
                             "expiredQuotes": 0,
                             "expiredContracts": 3,
                             "orderedQuotes": null,
@@ -111,7 +111,7 @@
                         }
                     ],
                     "status": [
-                        "INACTIVE"
+                        "ACTIVE"
                     ]
                 }
             ]

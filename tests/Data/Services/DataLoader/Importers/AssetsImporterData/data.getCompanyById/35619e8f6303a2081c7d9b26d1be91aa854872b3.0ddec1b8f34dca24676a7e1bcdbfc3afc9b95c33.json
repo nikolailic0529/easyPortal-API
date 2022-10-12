@@ -11,7 +11,7 @@
                     "id": "76eee954-e2a5-4ca9-b87d-a4aadedde9fd",
                     "name": "Witting LLC",
                     "companyType": "CUSTOMER",
-                    "updatedAt": "1662156760805",
+                    "updatedAt": "1664810451325",
                     "keycloakName": null,
                     "keycloakGroupId": null,
                     "keycloakClientScopeName": null,
@@ -59,8 +59,8 @@
                     ],
                     "companyKpis": {
                         "totalAssets": 559,
-                        "activeAssets": 0,
-                        "activeAssetsPercentage": 0.0,
+                        "activeAssets": 189,
+                        "activeAssetsPercentage": 33.810375670840784,
                         "activeCustomers": null,
                         "newActiveCustomers": null,
                         "activeContracts": 6,
@@ -89,8 +89,8 @@
                         {
                             "resellerId": "a9233c9c-4634-493a-9f12-bef4d1cf3c5e",
                             "totalAssets": 559,
-                            "activeAssets": 0,
-                            "activeAssetsPercentage": 0.0,
+                            "activeAssets": 189,
+                            "activeAssetsPercentage": 33.810375670840784,
                             "activeCustomers": null,
                             "newActiveCustomers": null,
                             "activeContracts": 6,
@@ -117,7 +117,7 @@
                         }
                     ],
                     "status": [
-                        "INACTIVE"
+                        "ACTIVE"
                     ]
                 }
             ]
