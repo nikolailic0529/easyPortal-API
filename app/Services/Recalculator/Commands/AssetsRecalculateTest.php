@@ -42,4 +42,11 @@ class AssetsRecalculateTest extends TestCase {
             ->expectsOutput('Done.')
             ->assertSuccessful();
     }
+
+    /**
+     * @coversNothing
+     */
+    public function testHelp(): void {
+        self::assertCommandDescription('ep:recalculator-assets-recalculate');
+    }
 }

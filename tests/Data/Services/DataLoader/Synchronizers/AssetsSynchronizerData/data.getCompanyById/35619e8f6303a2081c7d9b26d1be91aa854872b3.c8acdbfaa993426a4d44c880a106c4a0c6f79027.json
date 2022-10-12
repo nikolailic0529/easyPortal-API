@@ -11,7 +11,7 @@
                     "id": "888848ed-fdc8-42c6-b932-15a6f2400b45",
                     "name": "Rau, Upton and Blanda",
                     "companyType": "CUSTOMER",
-                    "updatedAt": "1662156793114",
+                    "updatedAt": "1664810486193",
                     "keycloakName": null,
                     "keycloakGroupId": null,
                     "keycloakClientScopeName": null,
@@ -71,14 +71,14 @@
                     ],
                     "companyKpis": {
                         "totalAssets": 185,
-                        "activeAssets": 0,
-                        "activeAssetsPercentage": 0.0,
+                        "activeAssets": 95,
+                        "activeAssetsPercentage": 51.35135135135135,
                         "activeCustomers": null,
                         "newActiveCustomers": null,
                         "activeContracts": 1,
                         "activeContractTotalAmount": 18649.019999999982,
                         "newActiveContracts": null,
-                        "expiringContracts": 0,
+                        "expiringContracts": 1,
                         "activeQuotes": 0,
                         "activeQuotesTotalAmount": 0.0,
                         "newActiveQuotes": 0,
@@ -101,14 +101,14 @@
                         {
                             "resellerId": "9f6b1030-5d5d-4f0b-b743-2ef69eaf4a44",
                             "totalAssets": 185,
-                            "activeAssets": 0,
-                            "activeAssetsPercentage": 0.0,
+                            "activeAssets": 95,
+                            "activeAssetsPercentage": 51.35135135135135,
                             "activeCustomers": null,
                             "newActiveCustomers": null,
                             "activeContracts": 1,
                             "activeContractTotalAmount": 18649.019999999982,
                             "newActiveContracts": null,
-                            "expiringContracts": 0,
+                            "expiringContracts": 1,
                             "activeQuotes": 0,
                             "activeQuotesTotalAmount": 0.0,
                             "newActiveQuotes": 0,
@@ -129,7 +129,7 @@
                         }
                     ],
                     "status": [
-                        "INACTIVE"
+                        "ACTIVE"
                     ]
                 }
             ]

@@ -11,7 +11,7 @@
                     "id": "e6df5cce-dc30-441f-b653-f1e59df4261f",
                     "name": "Cummings Group",
                     "companyType": "CUSTOMER",
-                    "updatedAt": "1662156958159",
+                    "updatedAt": "1664810680437",
                     "keycloakName": null,
                     "keycloakGroupId": null,
                     "keycloakClientScopeName": null,
@@ -53,8 +53,8 @@
                     ],
                     "companyKpis": {
                         "totalAssets": 10,
-                        "activeAssets": 0,
-                        "activeAssetsPercentage": 0.0,
+                        "activeAssets": 3,
+                        "activeAssetsPercentage": 30.0,
                         "activeCustomers": null,
                         "newActiveCustomers": null,
                         "activeContracts": 1,
@@ -83,8 +83,8 @@
                         {
                             "resellerId": "a9233c9c-4634-493a-9f12-bef4d1cf3c5e",
                             "totalAssets": 10,
-                            "activeAssets": 0,
-                            "activeAssetsPercentage": 0.0,
+                            "activeAssets": 3,
+                            "activeAssetsPercentage": 30.0,
                             "activeCustomers": null,
                             "newActiveCustomers": null,
                             "activeContracts": 1,
@@ -111,7 +111,7 @@
                         }
                     ],
                     "status": [
-                        "INACTIVE"
+                        "ACTIVE"
                     ]
                 }
             ]

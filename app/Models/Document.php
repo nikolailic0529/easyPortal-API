@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Casts\DocumentPrice;
 use App\Models\Data\Currency;
 use App\Models\Data\Language;
 use App\Models\Data\Oem;
@@ -29,6 +30,7 @@ use App\Services\Search\Eloquent\SearchableImpl;
 use App\Services\Search\Properties\Date;
 use App\Services\Search\Properties\Relation;
 use App\Services\Search\Properties\Text;
+use App\Utils\Eloquent\Casts\Origin;
 use App\Utils\Eloquent\Concerns\SyncHasMany;
 use App\Utils\Eloquent\Model;
 use App\Utils\Eloquent\Pivot;
@@ -59,7 +61,8 @@ use function count;
  * @property string|null                    $number
  * @property CarbonImmutable|null           $start
  * @property CarbonImmutable|null           $end
- * @property string|null                    $price
+ * @property-read string|null               $price
+ * @property string|null                    $price_origin
  * @property string|null                    $currency_id
  * @property string|null                    $language_id
  * @property int                            $assets_count
@@ -116,11 +119,12 @@ class Document extends Model implements OwnedByReseller, Searchable {
     use DocumentTypeQueries;
 
     protected const CASTS = [
-        'changed_at' => 'datetime',
-        'synced_at'  => 'datetime',
-        'price'      => 'decimal:2',
-        'start'      => 'date',
-        'end'        => 'date',
+        'changed_at'   => 'datetime',
+        'synced_at'    => 'datetime',
+        'price'        => DocumentPrice::class,
+        'price_origin' => Origin::class,
+        'start'        => 'date',
+        'end'          => 'date',
     ] + parent::CASTS;
 
     /**

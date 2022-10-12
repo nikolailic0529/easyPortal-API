@@ -11,7 +11,7 @@
                     "id": "0c8e4738-9851-438b-acbb-a680be9bafea",
                     "name": "Ryan-Sauer",
                     "companyType": "CUSTOMER",
-                    "updatedAt": "1662156577961",
+                    "updatedAt": "1664810203465",
                     "keycloakName": null,
                     "keycloakGroupId": null,
                     "keycloakClientScopeName": null,
@@ -107,14 +107,14 @@
                     ],
                     "companyKpis": {
                         "totalAssets": 5608,
-                        "activeAssets": 0,
-                        "activeAssetsPercentage": 0.0,
+                        "activeAssets": 201,
+                        "activeAssetsPercentage": 3.5841654778887304,
                         "activeCustomers": null,
                         "newActiveCustomers": null,
                         "activeContracts": 11,
-                        "activeContractTotalAmount": 158764.97000000026,
+                        "activeContractTotalAmount": 158764.97000000023,
                         "newActiveContracts": null,
-                        "expiringContracts": 0,
+                        "expiringContracts": 10,
                         "activeQuotes": 0,
                         "activeQuotesTotalAmount": 0.0,
                         "newActiveQuotes": 0,
@@ -137,14 +137,14 @@
                         {
                             "resellerId": "9f6b1030-5d5d-4f0b-b743-2ef69eaf4a44",
                             "totalAssets": 5608,
-                            "activeAssets": 0,
-                            "activeAssetsPercentage": 0.0,
+                            "activeAssets": 201,
+                            "activeAssetsPercentage": 3.5841654778887304,
                             "activeCustomers": null,
                             "newActiveCustomers": null,
                             "activeContracts": 11,
-                            "activeContractTotalAmount": 158764.97000000023,
+                            "activeContractTotalAmount": 158764.97000000026,
                             "newActiveContracts": null,
-                            "expiringContracts": 0,
+                            "expiringContracts": 10,
                             "activeQuotes": 0,
                             "activeQuotesTotalAmount": 0.0,
                             "newActiveQuotes": 0,
@@ -165,7 +165,7 @@
                         }
                     ],
                     "status": [
-                        "INACTIVE"
+                        "ACTIVE"
                     ]
                 }
             ]

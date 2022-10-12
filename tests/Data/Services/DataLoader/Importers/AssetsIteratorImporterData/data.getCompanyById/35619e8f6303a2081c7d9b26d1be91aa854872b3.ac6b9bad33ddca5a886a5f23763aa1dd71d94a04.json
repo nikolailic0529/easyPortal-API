@@ -11,7 +11,7 @@
                     "id": "e25e1111-5815-455f-af8b-93665f76b62c",
                     "name": "Dooley Group",
                     "companyType": "CUSTOMER",
-                    "updatedAt": "1662156951278",
+                    "updatedAt": "1664810672449",
                     "keycloakName": null,
                     "keycloakGroupId": null,
                     "keycloakClientScopeName": null,
@@ -59,14 +59,14 @@
                     ],
                     "companyKpis": {
                         "totalAssets": 115,
-                        "activeAssets": 0,
-                        "activeAssetsPercentage": 0.0,
+                        "activeAssets": 62,
+                        "activeAssetsPercentage": 53.91304347826087,
                         "activeCustomers": null,
                         "newActiveCustomers": null,
                         "activeContracts": 4,
                         "activeContractTotalAmount": 46851.859999999986,
                         "newActiveContracts": null,
-                        "expiringContracts": 0,
+                        "expiringContracts": 2,
                         "activeQuotes": 0,
                         "activeQuotesTotalAmount": 0.0,
                         "newActiveQuotes": 0,
@@ -89,14 +89,14 @@
                         {
                             "resellerId": "9f6b1030-5d5d-4f0b-b743-2ef69eaf4a44",
                             "totalAssets": 115,
-                            "activeAssets": 0,
-                            "activeAssetsPercentage": 0.0,
+                            "activeAssets": 62,
+                            "activeAssetsPercentage": 53.91304347826087,
                             "activeCustomers": null,
                             "newActiveCustomers": null,
                             "activeContracts": 4,
                             "activeContractTotalAmount": 46851.859999999986,
                             "newActiveContracts": null,
-                            "expiringContracts": 0,
+                            "expiringContracts": 2,
                             "activeQuotes": 0,
                             "activeQuotesTotalAmount": 0.0,
                             "newActiveQuotes": 0,
@@ -117,7 +117,7 @@
                         }
                     ],
                     "status": [
-                        "INACTIVE"
+                        "ACTIVE"
                     ]
                 }
             ]

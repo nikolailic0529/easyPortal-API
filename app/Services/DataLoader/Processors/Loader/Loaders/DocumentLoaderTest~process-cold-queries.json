@@ -84,6 +84,28 @@
         "bindings": []
     },
     {
+        "query": "select `statuses`.* from `statuses` where `statuses`.`deleted_at` is null",
+        "bindings": []
+    },
+    {
+        "query": "select `statuses`.* from `statuses` where (`key` = ? and `object_type` = ?) and `statuses`.`deleted_at` is null limit 1",
+        "bindings": [
+            "active",
+            "document"
+        ]
+    },
+    {
+        "query": "insert into `statuses` (`object_type`, `key`, `name`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?)",
+        "bindings": [
+            "Document",
+            "ACTIVE",
+            "Active",
+            "1762fa5f-baf9-50c5-bddf-612f9e606d5e",
+            "2022-02-02 00:00:03",
+            "2022-02-02 00:00:03"
+        ]
+    },
+    {
         "query": "select `currencies`.* from `currencies` where `currencies`.`deleted_at` is null",
         "bindings": []
     },
@@ -98,9 +120,9 @@
         "bindings": [
             "EUR",
             "EUR",
-            "1762fa5f-baf9-50c5-bddf-612f9e606d5e",
-            "2022-02-02 00:00:03",
-            "2022-02-02 00:00:03"
+            "20c76148-4ae4-592b-8452-6b7416d9f67a",
+            "2022-02-02 00:00:04",
+            "2022-02-02 00:00:04"
         ]
     },
     {
@@ -120,9 +142,9 @@
             "Contact",
             "EndUser Contact",
             "End User Contact",
-            "20c76148-4ae4-592b-8452-6b7416d9f67a",
-            "2022-02-02 00:00:07",
-            "2022-02-02 00:00:07"
+            "95c7f4c2-b90c-522a-bc3a-0895aed08a17",
+            "2022-02-02 00:00:08",
+            "2022-02-02 00:00:08"
         ]
     },
     {
@@ -138,9 +160,9 @@
             "Contact",
             "Distributor Contact",
             "Distributor Contact",
-            "95c7f4c2-b90c-522a-bc3a-0895aed08a17",
-            "2022-02-02 00:00:08",
-            "2022-02-02 00:00:08"
+            "7748f7a8-735b-5d16-b9dc-ab0ff0adf2f5",
+            "2022-02-02 00:00:09",
+            "2022-02-02 00:00:09"
         ]
     },
     {
@@ -156,9 +178,9 @@
             "Contact",
             "Reseller Contact",
             "Reseller Contact",
-            "7748f7a8-735b-5d16-b9dc-ab0ff0adf2f5",
-            "2022-02-02 00:00:09",
-            "2022-02-02 00:00:09"
+            "f6df3f43-52e5-51d6-89f6-137572c8e547",
+            "2022-02-02 00:00:10",
+            "2022-02-02 00:00:10"
         ]
     },
     {
@@ -174,9 +196,9 @@
             "Contact",
             "Hardware System Contact",
             "Hardware System Contact",
-            "f6df3f43-52e5-51d6-89f6-137572c8e547",
-            "2022-02-02 00:00:10",
-            "2022-02-02 00:00:10"
+            "5843b334-8762-5dbf-bfdf-41caca78e497",
+            "2022-02-02 00:00:11",
+            "2022-02-02 00:00:11"
         ]
     },
     {
@@ -192,9 +214,9 @@
             "Contact",
             "Software System Contact",
             "Software System Contact",
-            "5843b334-8762-5dbf-bfdf-41caca78e497",
-            "2022-02-02 00:00:11",
-            "2022-02-02 00:00:11"
+            "3a92e571-2604-5ae9-8dc6-5d592a27f47d",
+            "2022-02-02 00:00:12",
+            "2022-02-02 00:00:12"
         ]
     },
     {
@@ -210,56 +232,45 @@
             "Contact",
             "System Manager Contact",
             "System Manager Contact",
-            "3a92e571-2604-5ae9-8dc6-5d592a27f47d",
-            "2022-02-02 00:00:12",
-            "2022-02-02 00:00:12"
-        ]
-    },
-    {
-        "query": "select `statuses`.* from `statuses` where `statuses`.`deleted_at` is null",
-        "bindings": []
-    },
-    {
-        "query": "select `statuses`.* from `statuses` where (`key` = ? and `object_type` = ?) and `statuses`.`deleted_at` is null limit 1",
-        "bindings": [
-            "active",
-            "document"
-        ]
-    },
-    {
-        "query": "insert into `statuses` (`object_type`, `key`, `name`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?)",
-        "bindings": [
-            "Document",
-            "ACTIVE",
-            "Active",
             "bd22fbdc-a1c9-5a69-aa3c-185f15d09a75",
-            "2022-02-02 00:00:14",
-            "2022-02-02 00:00:14"
+            "2022-02-02 00:00:13",
+            "2022-02-02 00:00:13"
         ]
     },
     {
-        "query": "insert into `documents` (`id`, `oem_id`, `oem_group_id`, `oem_said`, `type_id`, `reseller_id`, `customer_id`, `currency_id`, `language_id`, `distributor_id`, `start`, `end`, `price`, `number`, `changed_at`, `contacts_count`, `synced_at`, `statuses_count`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `documents` (`id`, `oem_id`, `oem_group_id`, `oem_said`, `type_id`, `statuses_count`, `reseller_id`, `customer_id`, `currency_id`, `language_id`, `distributor_id`, `start`, `end`, `price_origin`, `price`, `number`, `changed_at`, `contacts_count`, `synced_at`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "00122a07-53e5-4c70-ba6b-bf51fcdd6695",
             "4e41a5c3-9089-5987-acdf-f3fbbed278e0",
             "c62f10e7-c6a5-515b-ad9e-2a45b83df6d1",
             "35968779-82cc-3215-b5bb-59cbf12763a8",
             "6085327e-5386-5ab6-841f-173a19976a13",
+            1,
             "a9233c9c-4634-493a-9f12-bef4d1cf3c5e",
             "60e73b13-f741-4c73-a32d-a23fa438d9ad",
-            "1762fa5f-baf9-50c5-bddf-612f9e606d5e",
+            "20c76148-4ae4-592b-8452-6b7416d9f67a",
             null,
             "1af1c44e-8112-4e72-9654-b11c705e9372",
             "2018-06-26 00:00:00",
             "2023-06-25 00:00:00",
             null,
+            null,
             "788ff597-ccae-318e-b320-0dc4244cb0fb",
             "2022-06-03 13:27:26",
             4,
-            "2022-02-02 00:00:13",
-            1,
+            "2022-02-02 00:00:14",
             "2022-02-02 00:00:15",
             "2022-02-02 00:00:15"
+        ]
+    },
+    {
+        "query": "insert into `document_statuses` (`status_id`, `document_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
+        "bindings": [
+            "1762fa5f-baf9-50c5-bddf-612f9e606d5e",
+            "00122a07-53e5-4c70-ba6b-bf51fcdd6695",
+            "13df27a4-ca33-512d-95a4-4ccca8e1b631",
+            "2022-02-02 00:00:16",
+            "2022-02-02 00:00:16"
         ]
     },
     {
@@ -271,29 +282,29 @@
             "+18654718658",
             null,
             true,
-            "13df27a4-ca33-512d-95a4-4ccca8e1b631",
-            "2022-02-02 00:00:16",
-            "2022-02-02 00:00:16"
+            "06bc9e0d-1f82-5e91-a4fb-101ef88846b5",
+            "2022-02-02 00:00:17",
+            "2022-02-02 00:00:17"
         ]
     },
     {
         "query": "insert into `contact_types` (`contact_id`, `created_at`, `id`, `type_id`, `updated_at`) values (?, ?, ?, ?, ?), (?, ?, ?, ?, ?), (?, ?, ?, ?, ?)",
         "bindings": [
-            "13df27a4-ca33-512d-95a4-4ccca8e1b631",
-            "2022-02-02 00:00:17",
             "06bc9e0d-1f82-5e91-a4fb-101ef88846b5",
-            "20c76148-4ae4-592b-8452-6b7416d9f67a",
-            "2022-02-02 00:00:17",
-            "13df27a4-ca33-512d-95a4-4ccca8e1b631",
             "2022-02-02 00:00:18",
             "f4fec66b-d952-5302-8850-12abe69909c7",
-            "f6df3f43-52e5-51d6-89f6-137572c8e547",
+            "95c7f4c2-b90c-522a-bc3a-0895aed08a17",
             "2022-02-02 00:00:18",
-            "13df27a4-ca33-512d-95a4-4ccca8e1b631",
+            "06bc9e0d-1f82-5e91-a4fb-101ef88846b5",
             "2022-02-02 00:00:19",
             "1b0b2674-17cc-59f9-bdf9-ec6b1bc313f8",
             "5843b334-8762-5dbf-bfdf-41caca78e497",
-            "2022-02-02 00:00:19"
+            "2022-02-02 00:00:19",
+            "06bc9e0d-1f82-5e91-a4fb-101ef88846b5",
+            "2022-02-02 00:00:20",
+            "284eb658-4a4c-54d9-8f83-f9507a0fd230",
+            "3a92e571-2604-5ae9-8dc6-5d592a27f47d",
+            "2022-02-02 00:00:20"
         ]
     },
     {
@@ -305,19 +316,19 @@
             "+14793040351",
             "schmidt.rasheed@yahoo.com",
             true,
-            "284eb658-4a4c-54d9-8f83-f9507a0fd230",
-            "2022-02-02 00:00:20",
-            "2022-02-02 00:00:20"
+            "ec7d273c-2a0c-5c6c-b50e-a2d5bc83e341",
+            "2022-02-02 00:00:21",
+            "2022-02-02 00:00:21"
         ]
     },
     {
         "query": "insert into `contact_types` (`type_id`, `contact_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
-            "95c7f4c2-b90c-522a-bc3a-0895aed08a17",
-            "284eb658-4a4c-54d9-8f83-f9507a0fd230",
+            "7748f7a8-735b-5d16-b9dc-ab0ff0adf2f5",
             "ec7d273c-2a0c-5c6c-b50e-a2d5bc83e341",
-            "2022-02-02 00:00:21",
-            "2022-02-02 00:00:21"
+            "f998a876-f9a0-5039-b01c-5afa799cdc53",
+            "2022-02-02 00:00:22",
+            "2022-02-02 00:00:22"
         ]
     },
     {
@@ -329,19 +340,19 @@
             "+17405885277",
             "okirlin@streich.com",
             true,
-            "f998a876-f9a0-5039-b01c-5afa799cdc53",
-            "2022-02-02 00:00:22",
-            "2022-02-02 00:00:22"
+            "dfd2d017-e9cf-59d7-af0c-0f97faff8422",
+            "2022-02-02 00:00:23",
+            "2022-02-02 00:00:23"
         ]
     },
     {
         "query": "insert into `contact_types` (`type_id`, `contact_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
-            "7748f7a8-735b-5d16-b9dc-ab0ff0adf2f5",
-            "f998a876-f9a0-5039-b01c-5afa799cdc53",
+            "f6df3f43-52e5-51d6-89f6-137572c8e547",
             "dfd2d017-e9cf-59d7-af0c-0f97faff8422",
-            "2022-02-02 00:00:23",
-            "2022-02-02 00:00:23"
+            "ca492704-c5bf-5659-8208-a8baf4d5480a",
+            "2022-02-02 00:00:24",
+            "2022-02-02 00:00:24"
         ]
     },
     {
@@ -353,26 +364,16 @@
             "+12396846789",
             null,
             true,
-            "ca492704-c5bf-5659-8208-a8baf4d5480a",
-            "2022-02-02 00:00:24",
-            "2022-02-02 00:00:24"
-        ]
-    },
-    {
-        "query": "insert into `contact_types` (`type_id`, `contact_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
-        "bindings": [
-            "3a92e571-2604-5ae9-8dc6-5d592a27f47d",
-            "ca492704-c5bf-5659-8208-a8baf4d5480a",
             "c2cbf46f-9dd9-5064-b879-3022d5a2c310",
             "2022-02-02 00:00:25",
             "2022-02-02 00:00:25"
         ]
     },
     {
-        "query": "insert into `document_statuses` (`status_id`, `document_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
+        "query": "insert into `contact_types` (`type_id`, `contact_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "bd22fbdc-a1c9-5a69-aa3c-185f15d09a75",
-            "00122a07-53e5-4c70-ba6b-bf51fcdd6695",
+            "c2cbf46f-9dd9-5064-b879-3022d5a2c310",
             "b09740f4-f7f1-575f-8518-32e69a1fe78c",
             "2022-02-02 00:00:26",
             "2022-02-02 00:00:26"
@@ -531,7 +532,7 @@
     {
         "query": "insert into `contact_types` (`type_id`, `contact_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
-            "20c76148-4ae4-592b-8452-6b7416d9f67a",
+            "95c7f4c2-b90c-522a-bc3a-0895aed08a17",
             "5cdb9cf9-2ed2-5fb4-8aaa-15a9597e1765",
             "aabc8766-1ba5-5190-9313-61000c5bb10f",
             "2022-02-02 00:00:35",
@@ -555,7 +556,7 @@
     {
         "query": "insert into `contact_types` (`type_id`, `contact_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
-            "95c7f4c2-b90c-522a-bc3a-0895aed08a17",
+            "7748f7a8-735b-5d16-b9dc-ab0ff0adf2f5",
             "11960e90-6be6-5f26-8551-17f5b0b15c8f",
             "3b321ef5-c418-5f79-bc0a-4296b39b579b",
             "2022-02-02 00:00:37",
@@ -579,7 +580,7 @@
     {
         "query": "insert into `contact_types` (`type_id`, `contact_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
-            "7748f7a8-735b-5d16-b9dc-ab0ff0adf2f5",
+            "f6df3f43-52e5-51d6-89f6-137572c8e547",
             "7c738ddf-c772-5bd4-a301-5a4a8dd861a6",
             "0fec8543-e073-538c-99b9-975b5f9fc711",
             "2022-02-02 00:00:39",
@@ -708,7 +709,7 @@
     {
         "query": "insert into `contact_types` (`type_id`, `contact_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
-            "20c76148-4ae4-592b-8452-6b7416d9f67a",
+            "95c7f4c2-b90c-522a-bc3a-0895aed08a17",
             "bfb7f2d2-0852-52ed-b307-d352a5c6de5a",
             "5998002f-c0eb-50f1-999d-ed59797a61ef",
             "2022-02-02 00:00:55",
@@ -732,7 +733,7 @@
     {
         "query": "insert into `contact_types` (`type_id`, `contact_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
-            "95c7f4c2-b90c-522a-bc3a-0895aed08a17",
+            "7748f7a8-735b-5d16-b9dc-ab0ff0adf2f5",
             "401a6b6f-f919-58cd-8c4d-c5d641b83960",
             "018a4be1-e096-5319-9d26-7a11f50d3a3f",
             "2022-02-02 00:00:57",
@@ -756,7 +757,7 @@
     {
         "query": "insert into `contact_types` (`type_id`, `contact_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
-            "7748f7a8-735b-5d16-b9dc-ab0ff0adf2f5",
+            "f6df3f43-52e5-51d6-89f6-137572c8e547",
             "5785ba44-8989-5853-98bf-f7cb01af6548",
             "a88b9c9a-6a63-5952-8f29-7281a5562963",
             "2022-02-02 00:00:59",
@@ -893,7 +894,7 @@
     {
         "query": "insert into `contact_types` (`type_id`, `contact_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
-            "20c76148-4ae4-592b-8452-6b7416d9f67a",
+            "95c7f4c2-b90c-522a-bc3a-0895aed08a17",
             "abdc3b92-9333-5950-85a1-7b2cd945a1a9",
             "ae66a563-5e50-542a-b1f7-8c9d35718c68",
             "2022-02-02 00:01:23",
@@ -917,7 +918,7 @@
     {
         "query": "insert into `contact_types` (`type_id`, `contact_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
-            "95c7f4c2-b90c-522a-bc3a-0895aed08a17",
+            "7748f7a8-735b-5d16-b9dc-ab0ff0adf2f5",
             "3225cd57-1f95-5d08-bbf3-5df5c8f8cf4f",
             "85a4f9a1-bee2-52e6-868a-5b0af2bbdf0d",
             "2022-02-02 00:01:25",
@@ -941,7 +942,7 @@
     {
         "query": "insert into `contact_types` (`type_id`, `contact_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
-            "7748f7a8-735b-5d16-b9dc-ab0ff0adf2f5",
+            "f6df3f43-52e5-51d6-89f6-137572c8e547",
             "f42fd4a4-236b-53c8-bbe9-2d076119eb3b",
             "838b604c-18c0-581a-9174-75140edbc835",
             "2022-02-02 00:01:27",
@@ -1070,7 +1071,7 @@
     {
         "query": "insert into `contact_types` (`type_id`, `contact_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
-            "20c76148-4ae4-592b-8452-6b7416d9f67a",
+            "95c7f4c2-b90c-522a-bc3a-0895aed08a17",
             "94dd6e86-92a8-51f6-b2e6-7f835a6e39df",
             "b0b8eb25-58c5-54ea-9b85-42af181ee7eb",
             "2022-02-02 00:01:43",
@@ -1094,7 +1095,7 @@
     {
         "query": "insert into `contact_types` (`type_id`, `contact_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
-            "95c7f4c2-b90c-522a-bc3a-0895aed08a17",
+            "7748f7a8-735b-5d16-b9dc-ab0ff0adf2f5",
             "4b7d3841-9537-5b92-a275-fd629f8bcc76",
             "0899c7ae-80b2-5378-aa7b-fb1762981720",
             "2022-02-02 00:01:45",
@@ -1118,7 +1119,7 @@
     {
         "query": "insert into `contact_types` (`type_id`, `contact_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
-            "7748f7a8-735b-5d16-b9dc-ab0ff0adf2f5",
+            "f6df3f43-52e5-51d6-89f6-137572c8e547",
             "c967a04a-8fd7-5ca2-b0aa-2ad55ff58f02",
             "ff1b805c-2207-58b4-8582-cf5df4fcea33",
             "2022-02-02 00:01:47",
@@ -1160,12 +1161,12 @@
         ]
     },
     {
-        "query": "insert into `document_entries` (`asset_id`, `asset_type_id`, `created_at`, `currency_id`, `document_id`, `end`, `environment_id`, `equipment_number`, `id`, `language_id`, `list_price`, `monthly_list_price`, `monthly_retail_price`, `oem_said`, `oem_sar_number`, `product_group_id`, `product_id`, `product_line_id`, `psp_id`, `renewal`, `serial_number`, `service_group_id`, `service_level_id`, `start`, `updated_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `document_entries` (`asset_id`, `asset_type_id`, `created_at`, `currency_id`, `document_id`, `end`, `environment_id`, `equipment_number`, `id`, `language_id`, `list_price`, `list_price_origin`, `monthly_list_price`, `monthly_list_price_origin`, `monthly_retail_price`, `monthly_retail_price_origin`, `oem_said`, `oem_sar_number`, `product_group_id`, `product_id`, `product_line_id`, `psp_id`, `renewal`, `renewal_origin`, `serial_number`, `service_group_id`, `service_level_id`, `start`, `updated_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "773b201c-3f74-46f1-a84f-9d478731f202",
             null,
             "2022-02-02 00:02:17",
-            "1762fa5f-baf9-50c5-bddf-612f9e606d5e",
+            "20c76148-4ae4-592b-8452-6b7416d9f67a",
             "00122a07-53e5-4c70-ba6b-bf51fcdd6695",
             null,
             null,
@@ -1178,7 +1179,11 @@
             null,
             null,
             null,
+            null,
+            null,
+            null,
             "46b4153d-5bdc-5ccf-9773-0cb545c422fa",
+            null,
             null,
             null,
             null,
@@ -1190,7 +1195,7 @@
             "43d802ba-087e-48a5-99f5-fd0f6a9c444d",
             null,
             "2022-02-02 00:02:18",
-            "1762fa5f-baf9-50c5-bddf-612f9e606d5e",
+            "20c76148-4ae4-592b-8452-6b7416d9f67a",
             "00122a07-53e5-4c70-ba6b-bf51fcdd6695",
             null,
             null,
@@ -1203,7 +1208,11 @@
             null,
             null,
             null,
+            null,
+            null,
+            null,
             "46b4153d-5bdc-5ccf-9773-0cb545c422fa",
+            null,
             null,
             null,
             null,
@@ -1215,7 +1224,7 @@
             "65f75240-d24a-4e73-aeb0-d8afb3d792fc",
             null,
             "2022-02-02 00:02:19",
-            "1762fa5f-baf9-50c5-bddf-612f9e606d5e",
+            "20c76148-4ae4-592b-8452-6b7416d9f67a",
             "00122a07-53e5-4c70-ba6b-bf51fcdd6695",
             null,
             null,
@@ -1228,7 +1237,11 @@
             null,
             null,
             null,
+            null,
+            null,
+            null,
             "46b4153d-5bdc-5ccf-9773-0cb545c422fa",
+            null,
             null,
             null,
             null,
@@ -1240,7 +1253,7 @@
             "1cc12c44-7e2e-4f7b-b281-4c237976a254",
             null,
             "2022-02-02 00:02:20",
-            "1762fa5f-baf9-50c5-bddf-612f9e606d5e",
+            "20c76148-4ae4-592b-8452-6b7416d9f67a",
             "00122a07-53e5-4c70-ba6b-bf51fcdd6695",
             null,
             null,
@@ -1253,7 +1266,11 @@
             null,
             null,
             null,
+            null,
+            null,
+            null,
             "46b4153d-5bdc-5ccf-9773-0cb545c422fa",
+            null,
             null,
             null,
             null,

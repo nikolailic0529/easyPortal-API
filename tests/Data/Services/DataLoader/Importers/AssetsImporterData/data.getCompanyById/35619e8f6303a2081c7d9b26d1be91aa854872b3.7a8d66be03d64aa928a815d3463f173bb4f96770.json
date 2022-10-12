@@ -11,7 +11,7 @@
                     "id": "a4390aca-ea05-402c-8f33-a2b6b3b9318c",
                     "name": "Harris PLC",
                     "companyType": "CUSTOMER",
-                    "updatedAt": "1662156841936",
+                    "updatedAt": "1664810543142",
                     "keycloakName": null,
                     "keycloakGroupId": null,
                     "keycloakClientScopeName": null,
@@ -65,8 +65,8 @@
                     ],
                     "companyKpis": {
                         "totalAssets": 82,
-                        "activeAssets": 0,
-                        "activeAssetsPercentage": 0.0,
+                        "activeAssets": 27,
+                        "activeAssetsPercentage": 32.926829268292686,
                         "activeCustomers": null,
                         "newActiveCustomers": null,
                         "activeContracts": 5,
@@ -95,8 +95,8 @@
                         {
                             "resellerId": "9d9e320d-4e44-4518-a4e6-6bfe7f1c7dd8",
                             "totalAssets": 82,
-                            "activeAssets": 0,
-                            "activeAssetsPercentage": 0.0,
+                            "activeAssets": 27,
+                            "activeAssetsPercentage": 32.926829268292686,
                             "activeCustomers": null,
                             "newActiveCustomers": null,
                             "activeContracts": 5,
@@ -123,7 +123,7 @@
                         }
                     ],
                     "status": [
-                        "INACTIVE"
+                        "ACTIVE"
                     ]
                 }
             ]

@@ -44,7 +44,7 @@ class AssetsSynchronizerTest extends TestCase {
 
         self::assertQueryLogEquals('~process-cold-queries.json', $queries);
         self::assertModelsCount([
-            Asset::class => 24,
+            Asset::class => 25,
         ]);
         self::assertDispatchedEventsEquals(
             '~process-cold-events.json',

@@ -11,7 +11,7 @@
                     "id": "dda6bc2c-7b09-48e6-9739-9b2732e9cd98",
                     "name": "Jenkins Group",
                     "companyType": "CUSTOMER",
-                    "updatedAt": "1662156941089",
+                    "updatedAt": "1664810661435",
                     "keycloakName": null,
                     "keycloakGroupId": null,
                     "keycloakClientScopeName": null,
@@ -47,8 +47,8 @@
                     ],
                     "companyKpis": {
                         "totalAssets": 71,
-                        "activeAssets": 0,
-                        "activeAssetsPercentage": 0.0,
+                        "activeAssets": 21,
+                        "activeAssetsPercentage": 29.577464788732392,
                         "activeCustomers": null,
                         "newActiveCustomers": null,
                         "activeContracts": 1,
@@ -77,8 +77,8 @@
                         {
                             "resellerId": "77ec115b-9723-4582-ad45-2b3a83286b1f",
                             "totalAssets": 71,
-                            "activeAssets": 0,
-                            "activeAssetsPercentage": 0.0,
+                            "activeAssets": 21,
+                            "activeAssetsPercentage": 29.577464788732392,
                             "activeCustomers": null,
                             "newActiveCustomers": null,
                             "activeContracts": 1,
@@ -105,7 +105,7 @@
                         }
                     ],
                     "status": [
-                        "INACTIVE"
+                        "ACTIVE"
                     ]
                 }
             ]

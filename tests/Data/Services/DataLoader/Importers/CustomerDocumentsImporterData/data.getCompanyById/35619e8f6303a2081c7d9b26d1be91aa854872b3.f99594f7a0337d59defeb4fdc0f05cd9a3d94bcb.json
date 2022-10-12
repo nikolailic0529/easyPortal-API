@@ -11,7 +11,7 @@
                     "id": "3adf6426-735c-4f52-9f28-e3ad593e707c",
                     "name": "Lebsack-Rippin",
                     "companyType": "CUSTOMER",
-                    "updatedAt": "1662156656422",
+                    "updatedAt": "1664810315333",
                     "keycloakName": null,
                     "keycloakGroupId": null,
                     "keycloakClientScopeName": null,
@@ -77,8 +77,8 @@
                     ],
                     "companyKpis": {
                         "totalAssets": 26,
-                        "activeAssets": 0,
-                        "activeAssetsPercentage": 0.0,
+                        "activeAssets": 13,
+                        "activeAssetsPercentage": 50.0,
                         "activeCustomers": null,
                         "newActiveCustomers": null,
                         "activeContracts": 0,
@@ -107,8 +107,8 @@
                         {
                             "resellerId": "a9233c9c-4634-493a-9f12-bef4d1cf3c5e",
                             "totalAssets": 26,
-                            "activeAssets": 0,
-                            "activeAssetsPercentage": 0.0,
+                            "activeAssets": 13,
+                            "activeAssetsPercentage": 50.0,
                             "activeCustomers": null,
                             "newActiveCustomers": null,
                             "activeContracts": 0,
@@ -135,7 +135,7 @@
                         }
                     ],
                     "status": [
-                        "INACTIVE"
+                        "ACTIVE"
                     ]
                 }
             ]

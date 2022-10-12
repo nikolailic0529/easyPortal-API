@@ -11,7 +11,6 @@ class ViewDocument extends Type implements TypeWithId {
     public ?string                     $startDate;
     public ?string                     $endDate;
     public ?string                     $currencyCode;
-    public ?string                     $totalNetPrice;
     public ?string                     $languageCode;
     public ?string                     $updatedAt;
     public DocumentVendorSpecificField $vendorSpecificFields;

@@ -1,0 +1,405 @@
+{
+    "selector": "data.getAssets",
+    "query": "query getAssets($id: String!) {\n    getAssets(args: [{key: \"id\", value: $id}]) {\n        id\nserialNumber\n\nassetSku\nassetSkuDescription\nassetTag\nassetType\nstatus\nvendor\n\neolDate\neosDate\n\ncountry\ncountryCode\nlatitude\nlongitude\nzip\ncity\naddress\naddress2\n\ncustomerId\nresellerId\n\nupdatedAt\n\nlatestContactPersons {\n    phoneNumber\n    name\n    type\n    mail\n}\n\nassetCoverage\ncoverageStatusCheck {\n    coverageStatus\n    coverageStatusUpdatedAt\n    coverageEntries {\n        coverageStartDate\n        coverageEndDate\n        type\n        description\n        status\n        serviceSku\n    }\n}\n\ndataQualityScore\n        assetDocument {\n    startDate\n    endDate\n    documentNumber\n\n    document {\n        id\n        type\n        documentNumber\n\n        startDate\n        endDate\n\n        currencyCode\n        languageCode\n\n        updatedAt\n\n        vendorSpecificFields {\n            vendor\n            groupId\n            groupDescription\n            said\n        }\n\n        contactPersons {\n            phoneNumber\n            name\n            type\n            mail\n        }\n\n        customerId\n        resellerId\n        distributorId\n    }\n\n    serviceGroupSku\n    serviceGroupSkuDescription\n    serviceLevelSku\n    serviceLevelSkuDescription\n    serviceFullDescription\n\n    customer {\n      id\n    }\n\n    reseller {\n      id\n    }\n}\n    }\n}",
+    "variables": {
+        "id": "52e428f9-f41e-4c27-8845-c60cb0a4189b"
+    },
+    "response": {
+        "data": {
+            "getAssets": [
+                {
+                    "id": "52e428f9-f41e-4c27-8845-c60cb0a4189b",
+                    "resellerId": "9d9e320d-4e44-4518-a4e6-6bfe7f1c7dd8",
+                    "customerId": "2389fc8b-064b-4b7d-bc0b-fa19056bc602",
+                    "serialNumber": "a6e7fd91-3b65-3dc2-930a-8f68b93f4eab",
+                    "assetSkuDescription": "VMw vSphere Std 1P 1yr E-LTU",
+                    "assetTag": null,
+                    "assetType": null,
+                    "vendor": "HPE",
+                    "assetSku": "BD710AAE",
+                    "eolDate": null,
+                    "eosDate": null,
+                    "zip": "80577-9918",
+                    "city": "Lake Saige",
+                    "address": "658 Johnpaul Dam Apt. 768",
+                    "address2": null,
+                    "country": "Ethiopia",
+                    "latitude": "4.784107",
+                    "longitude": "-102.116421",
+                    "countryCode": "KP",
+                    "status": "ACTIVE",
+                    "updatedAt": "1664800394630",
+                    "assetCoverage": [
+                        "COVERED"
+                    ],
+                    "dataQualityScore": "80",
+                    "assetDocument": [
+                        {
+                            "serviceGroupSku": null,
+                            "serviceGroupSkuDescription": null,
+                            "serviceLevelSku": "HU4A1AC",
+                            "serviceLevelSkuDescription": "HPE Remote Tech Support",
+                            "serviceFullDescription": null,
+                            "documentNumber": "a8e6e9e4-ff55-3c83-9779-03a32e2cb9ff",
+                            "document": {
+                                "id": "001f7fd7-fe51-40b7-a0eb-b6e95206ca28",
+                                "type": "Contract",
+                                "documentNumber": "a8e6e9e4-ff55-3c83-9779-03a32e2cb9ff",
+                                "startDate": "2022-06-01",
+                                "endDate": "2023-05-31",
+                                "currencyCode": "EUR",
+                                "languageCode": null,
+                                "updatedAt": "1654262846658",
+                                "vendorSpecificFields": {
+                                    "vendor": "HPE",
+                                    "said": "b464d1f9-8e70-318b-9831-a884b2a9407f",
+                                    "groupId": null,
+                                    "groupDescription": null
+                                },
+                                "contactPersons": [
+                                    {
+                                        "phoneNumber": null,
+                                        "name": null,
+                                        "mail": null,
+                                        "type": "EndUser Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+15803172486",
+                                        "name": "Godfrey Grimes II",
+                                        "mail": "keichmann@sanford.net",
+                                        "type": "Distributor Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+19368049305",
+                                        "name": "Libbie Lemke",
+                                        "mail": "bahringer.arnoldo@beier.com",
+                                        "type": "Reseller Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+13015687089",
+                                        "name": "Mr. Erwin Swaniawski",
+                                        "mail": null,
+                                        "type": "Hardware System Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+13015687089",
+                                        "name": "Mr. Erwin Swaniawski",
+                                        "mail": null,
+                                        "type": "Software System Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+13015687089",
+                                        "name": "Mr. Erwin Swaniawski",
+                                        "mail": null,
+                                        "type": "System Manager Contact"
+                                    }
+                                ],
+                                "resellerId": "9d9e320d-4e44-4518-a4e6-6bfe7f1c7dd8",
+                                "customerId": "2389fc8b-064b-4b7d-bc0b-fa19056bc602",
+                                "distributorId": "1af1c44e-8112-4e72-9654-b11c705e9372"
+                            },
+                            "startDate": null,
+                            "endDate": null,
+                            "reseller": {
+                                "id": "9d9e320d-4e44-4518-a4e6-6bfe7f1c7dd8"
+                            },
+                            "customer": {
+                                "id": "2389fc8b-064b-4b7d-bc0b-fa19056bc602"
+                            }
+                        },
+                        {
+                            "serviceGroupSku": null,
+                            "serviceGroupSkuDescription": null,
+                            "serviceLevelSku": "HA156AC",
+                            "serviceLevelSkuDescription": "HPE Software Updates SVC",
+                            "serviceFullDescription": null,
+                            "documentNumber": "fa555212-3f9a-300e-8832-0ca8349e3918",
+                            "document": {
+                                "id": "47d96f71-825c-4de2-b876-e2af7447a91e",
+                                "type": "Quote renewal",
+                                "documentNumber": "fa555212-3f9a-300e-8832-0ca8349e3918",
+                                "startDate": "2022-06-01",
+                                "endDate": "2023-05-31",
+                                "currencyCode": "EUR",
+                                "languageCode": null,
+                                "updatedAt": "1654272007794",
+                                "vendorSpecificFields": {
+                                    "vendor": "HPE",
+                                    "said": null,
+                                    "groupId": null,
+                                    "groupDescription": null
+                                },
+                                "contactPersons": [
+                                    {
+                                        "phoneNumber": "+19368049305",
+                                        "name": "Libbie Lemke",
+                                        "mail": "bahringer.arnoldo@beier.com",
+                                        "type": "Customer Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+15803172486",
+                                        "name": "Godfrey Grimes II",
+                                        "mail": "keichmann@sanford.net",
+                                        "type": "Renewal Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+13015687089",
+                                        "name": "Mr. Erwin Swaniawski",
+                                        "mail": "mstrosin@gmail.com",
+                                        "type": "EndUser Contact"
+                                    }
+                                ],
+                                "resellerId": "9d9e320d-4e44-4518-a4e6-6bfe7f1c7dd8",
+                                "customerId": "2389fc8b-064b-4b7d-bc0b-fa19056bc602",
+                                "distributorId": "1af1c44e-8112-4e72-9654-b11c705e9372"
+                            },
+                            "startDate": null,
+                            "endDate": null,
+                            "reseller": {
+                                "id": "9d9e320d-4e44-4518-a4e6-6bfe7f1c7dd8"
+                            },
+                            "customer": {
+                                "id": "2389fc8b-064b-4b7d-bc0b-fa19056bc602"
+                            }
+                        },
+                        {
+                            "serviceGroupSku": null,
+                            "serviceGroupSkuDescription": null,
+                            "serviceLevelSku": "HA156AC",
+                            "serviceLevelSkuDescription": "HPE Software Updates Service",
+                            "serviceFullDescription": null,
+                            "documentNumber": "a52e2d10-b530-3cc3-8111-a03e770b16d3",
+                            "document": {
+                                "id": "475e246a-6bec-4704-bb94-7ea0fb17f9a9",
+                                "type": "Contract",
+                                "documentNumber": "a52e2d10-b530-3cc3-8111-a03e770b16d3",
+                                "startDate": "2021-06-01",
+                                "endDate": "2022-05-31",
+                                "currencyCode": "EUR",
+                                "languageCode": null,
+                                "updatedAt": "1654262846658",
+                                "vendorSpecificFields": {
+                                    "vendor": "HPE",
+                                    "said": null,
+                                    "groupId": null,
+                                    "groupDescription": null
+                                },
+                                "contactPersons": [
+                                    {
+                                        "phoneNumber": "+13015687089",
+                                        "name": "Diana Cassin",
+                                        "mail": null,
+                                        "type": "EndUser Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+15803172486",
+                                        "name": "Godfrey Grimes II",
+                                        "mail": "keichmann@sanford.net",
+                                        "type": "Distributor Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+19368049305",
+                                        "name": "Libbie Lemke",
+                                        "mail": "bahringer.arnoldo@beier.com",
+                                        "type": "Reseller Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+13015687089",
+                                        "name": "Diana Cassin",
+                                        "mail": null,
+                                        "type": "Hardware System Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+13015687089",
+                                        "name": "Diana Cassin",
+                                        "mail": null,
+                                        "type": "Software System Contact"
+                                    },
+                                    {
+                                        "phoneNumber": null,
+                                        "name": null,
+                                        "mail": null,
+                                        "type": "System Manager Contact"
+                                    }
+                                ],
+                                "resellerId": "9d9e320d-4e44-4518-a4e6-6bfe7f1c7dd8",
+                                "customerId": "2389fc8b-064b-4b7d-bc0b-fa19056bc602",
+                                "distributorId": "1af1c44e-8112-4e72-9654-b11c705e9372"
+                            },
+                            "startDate": null,
+                            "endDate": null,
+                            "reseller": {
+                                "id": "9d9e320d-4e44-4518-a4e6-6bfe7f1c7dd8"
+                            },
+                            "customer": {
+                                "id": "2389fc8b-064b-4b7d-bc0b-fa19056bc602"
+                            }
+                        },
+                        {
+                            "serviceGroupSku": null,
+                            "serviceGroupSkuDescription": null,
+                            "serviceLevelSku": "HU4A1AC",
+                            "serviceLevelSkuDescription": "HPE Remote Tech Support",
+                            "serviceFullDescription": null,
+                            "documentNumber": "fa555212-3f9a-300e-8832-0ca8349e3918",
+                            "document": {
+                                "id": "47d96f71-825c-4de2-b876-e2af7447a91e",
+                                "type": "Quote renewal",
+                                "documentNumber": "fa555212-3f9a-300e-8832-0ca8349e3918",
+                                "startDate": "2022-06-01",
+                                "endDate": "2023-05-31",
+                                "currencyCode": "EUR",
+                                "languageCode": null,
+                                "updatedAt": "1654272007794",
+                                "vendorSpecificFields": {
+                                    "vendor": "HPE",
+                                    "said": null,
+                                    "groupId": null,
+                                    "groupDescription": null
+                                },
+                                "contactPersons": [
+                                    {
+                                        "phoneNumber": "+19368049305",
+                                        "name": "Libbie Lemke",
+                                        "mail": "bahringer.arnoldo@beier.com",
+                                        "type": "Customer Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+15803172486",
+                                        "name": "Godfrey Grimes II",
+                                        "mail": "keichmann@sanford.net",
+                                        "type": "Renewal Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+13015687089",
+                                        "name": "Mr. Erwin Swaniawski",
+                                        "mail": "mstrosin@gmail.com",
+                                        "type": "EndUser Contact"
+                                    }
+                                ],
+                                "resellerId": "9d9e320d-4e44-4518-a4e6-6bfe7f1c7dd8",
+                                "customerId": "2389fc8b-064b-4b7d-bc0b-fa19056bc602",
+                                "distributorId": "1af1c44e-8112-4e72-9654-b11c705e9372"
+                            },
+                            "startDate": null,
+                            "endDate": null,
+                            "reseller": {
+                                "id": "9d9e320d-4e44-4518-a4e6-6bfe7f1c7dd8"
+                            },
+                            "customer": {
+                                "id": "2389fc8b-064b-4b7d-bc0b-fa19056bc602"
+                            }
+                        },
+                        {
+                            "serviceGroupSku": null,
+                            "serviceGroupSkuDescription": null,
+                            "serviceLevelSku": "HA156AC",
+                            "serviceLevelSkuDescription": "HPE Software Updates Service",
+                            "serviceFullDescription": null,
+                            "documentNumber": "a8e6e9e4-ff55-3c83-9779-03a32e2cb9ff",
+                            "document": {
+                                "id": "001f7fd7-fe51-40b7-a0eb-b6e95206ca28",
+                                "type": "Contract",
+                                "documentNumber": "a8e6e9e4-ff55-3c83-9779-03a32e2cb9ff",
+                                "startDate": "2022-06-01",
+                                "endDate": "2023-05-31",
+                                "currencyCode": "EUR",
+                                "languageCode": null,
+                                "updatedAt": "1654262846658",
+                                "vendorSpecificFields": {
+                                    "vendor": "HPE",
+                                    "said": "b464d1f9-8e70-318b-9831-a884b2a9407f",
+                                    "groupId": null,
+                                    "groupDescription": null
+                                },
+                                "contactPersons": [
+                                    {
+                                        "phoneNumber": null,
+                                        "name": null,
+                                        "mail": null,
+                                        "type": "EndUser Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+15803172486",
+                                        "name": "Godfrey Grimes II",
+                                        "mail": "keichmann@sanford.net",
+                                        "type": "Distributor Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+19368049305",
+                                        "name": "Libbie Lemke",
+                                        "mail": "bahringer.arnoldo@beier.com",
+                                        "type": "Reseller Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+13015687089",
+                                        "name": "Mr. Erwin Swaniawski",
+                                        "mail": null,
+                                        "type": "Hardware System Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+13015687089",
+                                        "name": "Mr. Erwin Swaniawski",
+                                        "mail": null,
+                                        "type": "Software System Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+13015687089",
+                                        "name": "Mr. Erwin Swaniawski",
+                                        "mail": null,
+                                        "type": "System Manager Contact"
+                                    }
+                                ],
+                                "resellerId": "9d9e320d-4e44-4518-a4e6-6bfe7f1c7dd8",
+                                "customerId": "2389fc8b-064b-4b7d-bc0b-fa19056bc602",
+                                "distributorId": "1af1c44e-8112-4e72-9654-b11c705e9372"
+                            },
+                            "startDate": null,
+                            "endDate": null,
+                            "reseller": {
+                                "id": "9d9e320d-4e44-4518-a4e6-6bfe7f1c7dd8"
+                            },
+                            "customer": {
+                                "id": "2389fc8b-064b-4b7d-bc0b-fa19056bc602"
+                            }
+                        }
+                    ],
+                    "latestContactPersons": [
+                        {
+                            "phoneNumber": null,
+                            "name": null,
+                            "mail": null,
+                            "type": "EndUser Contact"
+                        },
+                        {
+                            "phoneNumber": "+15803172486",
+                            "name": "Godfrey Grimes II",
+                            "mail": "keichmann@sanford.net",
+                            "type": "Distributor Contact"
+                        },
+                        {
+                            "phoneNumber": "+19368049305",
+                            "name": "Libbie Lemke",
+                            "mail": "bahringer.arnoldo@beier.com",
+                            "type": "Reseller Contact"
+                        }
+                    ],
+                    "coverageStatusCheck": {
+                        "coverageStatus": "COVERED",
+                        "coverageStatusUpdatedAt": "1664800394630",
+                        "coverageEntries": [
+                            {
+                                "coverageStartDate": "2020-06-01",
+                                "coverageEndDate": "2023-05-31",
+                                "type": "Contract",
+                                "status": "Active",
+                                "description": "H7J34AC-HPE Foundation Care 24x7 SVC",
+                                "serviceSku": null
+                            }
+                        ]
+                    }
+                }
+            ]
+        }
+    }
+}

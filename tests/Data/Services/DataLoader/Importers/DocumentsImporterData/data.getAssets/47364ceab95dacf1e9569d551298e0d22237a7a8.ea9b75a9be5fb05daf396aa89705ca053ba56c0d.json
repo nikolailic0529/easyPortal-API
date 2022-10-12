@@ -1,0 +1,413 @@
+{
+    "selector": "data.getAssets",
+    "query": "query getAssets($id: String!) {\n    getAssets(args: [{key: \"id\", value: $id}]) {\n        id\nserialNumber\n\nassetSku\nassetSkuDescription\nassetTag\nassetType\nstatus\nvendor\n\neolDate\neosDate\n\ncountry\ncountryCode\nlatitude\nlongitude\nzip\ncity\naddress\naddress2\n\ncustomerId\nresellerId\n\nupdatedAt\n\nlatestContactPersons {\n    phoneNumber\n    name\n    type\n    mail\n}\n\nassetCoverage\ncoverageStatusCheck {\n    coverageStatus\n    coverageStatusUpdatedAt\n    coverageEntries {\n        coverageStartDate\n        coverageEndDate\n        type\n        description\n        status\n        serviceSku\n    }\n}\n\ndataQualityScore\n        assetDocument {\n    startDate\n    endDate\n    documentNumber\n\n    document {\n        id\n        type\n        documentNumber\n\n        startDate\n        endDate\n\n        currencyCode\n        languageCode\n\n        updatedAt\n\n        vendorSpecificFields {\n            vendor\n            groupId\n            groupDescription\n            said\n        }\n\n        contactPersons {\n            phoneNumber\n            name\n            type\n            mail\n        }\n\n        customerId\n        resellerId\n        distributorId\n    }\n\n    serviceGroupSku\n    serviceGroupSkuDescription\n    serviceLevelSku\n    serviceLevelSkuDescription\n    serviceFullDescription\n\n    customer {\n      id\n    }\n\n    reseller {\n      id\n    }\n}\n    }\n}",
+    "variables": {
+        "id": "a8220e5c-a6c1-41ed-81cd-6eb4d040f6ea"
+    },
+    "response": {
+        "data": {
+            "getAssets": [
+                {
+                    "id": "a8220e5c-a6c1-41ed-81cd-6eb4d040f6ea",
+                    "resellerId": "9f6b1030-5d5d-4f0b-b743-2ef69eaf4a44",
+                    "customerId": "162f9467-bc06-44c8-ad2f-12d7270e4c6a",
+                    "serialNumber": "d49ecea2-cbf1-322b-b20b-0cb2f27171d7",
+                    "assetSkuDescription": "HPE 600GB SAS 10K SFF SC DS HDD",
+                    "assetTag": null,
+                    "assetType": null,
+                    "vendor": "HPE",
+                    "assetSku": "872477-B21",
+                    "eolDate": null,
+                    "eosDate": null,
+                    "zip": "26334-9412",
+                    "city": "Gusikowskihaven",
+                    "address": "887 Horacio Lakes",
+                    "address2": null,
+                    "country": "Ethiopia",
+                    "latitude": "20.392415",
+                    "longitude": "-117.376507",
+                    "countryCode": "KP",
+                    "status": "ACTIVE",
+                    "updatedAt": "1664809863411",
+                    "assetCoverage": [
+                        "COVERED"
+                    ],
+                    "dataQualityScore": "80",
+                    "assetDocument": [
+                        {
+                            "serviceGroupSku": null,
+                            "serviceGroupSkuDescription": null,
+                            "serviceLevelSku": "HU4A2AC",
+                            "serviceLevelSkuDescription": "HPE Hardware Tech Support",
+                            "serviceFullDescription": null,
+                            "documentNumber": "f6565a24-977c-30d3-aa8d-106068a2398d",
+                            "document": {
+                                "id": "b7fe2f93-777f-4957-a95e-9c2b9542e8cc",
+                                "type": "Contract",
+                                "documentNumber": "f6565a24-977c-30d3-aa8d-106068a2398d",
+                                "startDate": "2022-03-26",
+                                "endDate": "2023-03-31",
+                                "currencyCode": "EUR",
+                                "languageCode": null,
+                                "updatedAt": "1654262846658",
+                                "vendorSpecificFields": {
+                                    "vendor": "HPE",
+                                    "said": "f69c0ebb-9eb7-3f74-870c-d50b1e2ce499",
+                                    "groupId": null,
+                                    "groupDescription": null
+                                },
+                                "contactPersons": [
+                                    {
+                                        "phoneNumber": null,
+                                        "name": null,
+                                        "mail": null,
+                                        "type": "EndUser Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+15803172486",
+                                        "name": "Godfrey Grimes II",
+                                        "mail": "keichmann@sanford.net",
+                                        "type": "Distributor Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+12404814914",
+                                        "name": "Mr. Jakob Kertzmann Jr.",
+                                        "mail": "schaden.isadore@lubowitz.com",
+                                        "type": "Reseller Contact"
+                                    },
+                                    {
+                                        "phoneNumber": null,
+                                        "name": "Dr. Pink Kohler",
+                                        "mail": "zora.glover@hotmail.com",
+                                        "type": "Hardware System Contact"
+                                    },
+                                    {
+                                        "phoneNumber": null,
+                                        "name": "Dr. Pink Kohler",
+                                        "mail": "zora.glover@hotmail.com",
+                                        "type": "Software System Contact"
+                                    },
+                                    {
+                                        "phoneNumber": null,
+                                        "name": "Dr. Pink Kohler",
+                                        "mail": "zora.glover@hotmail.com",
+                                        "type": "System Manager Contact"
+                                    }
+                                ],
+                                "resellerId": "9f6b1030-5d5d-4f0b-b743-2ef69eaf4a44",
+                                "customerId": "162f9467-bc06-44c8-ad2f-12d7270e4c6a",
+                                "distributorId": "1af1c44e-8112-4e72-9654-b11c705e9372"
+                            },
+                            "startDate": null,
+                            "endDate": null,
+                            "reseller": {
+                                "id": "9f6b1030-5d5d-4f0b-b743-2ef69eaf4a44"
+                            },
+                            "customer": {
+                                "id": "162f9467-bc06-44c8-ad2f-12d7270e4c6a"
+                            }
+                        },
+                        {
+                            "serviceGroupSku": null,
+                            "serviceGroupSkuDescription": null,
+                            "serviceLevelSku": "HU4A2AC",
+                            "serviceLevelSkuDescription": "HPE Hardware Tech Support",
+                            "serviceFullDescription": null,
+                            "documentNumber": "8f04729b-ec3a-35ea-9636-71f1279beddb",
+                            "document": {
+                                "id": "0103f123-d0c3-4710-b84b-86c38ff225d0",
+                                "type": "Quote renewal",
+                                "documentNumber": "8f04729b-ec3a-35ea-9636-71f1279beddb",
+                                "startDate": "2022-03-26",
+                                "endDate": "2023-03-31",
+                                "currencyCode": "EUR",
+                                "languageCode": null,
+                                "updatedAt": "1654272002299",
+                                "vendorSpecificFields": {
+                                    "vendor": "HPE",
+                                    "said": null,
+                                    "groupId": null,
+                                    "groupDescription": null
+                                },
+                                "contactPersons": [
+                                    {
+                                        "phoneNumber": "+12404814914",
+                                        "name": "Mr. Jakob Kertzmann Jr.",
+                                        "mail": "schaden.isadore@lubowitz.com",
+                                        "type": "Customer Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+15803172486",
+                                        "name": "Godfrey Grimes II",
+                                        "mail": "keichmann@sanford.net",
+                                        "type": "Renewal Contact"
+                                    },
+                                    {
+                                        "phoneNumber": null,
+                                        "name": null,
+                                        "mail": null,
+                                        "type": "EndUser Contact"
+                                    }
+                                ],
+                                "resellerId": "9f6b1030-5d5d-4f0b-b743-2ef69eaf4a44",
+                                "customerId": "162f9467-bc06-44c8-ad2f-12d7270e4c6a",
+                                "distributorId": "1af1c44e-8112-4e72-9654-b11c705e9372"
+                            },
+                            "startDate": null,
+                            "endDate": null,
+                            "reseller": {
+                                "id": "9f6b1030-5d5d-4f0b-b743-2ef69eaf4a44"
+                            },
+                            "customer": {
+                                "id": "162f9467-bc06-44c8-ad2f-12d7270e4c6a"
+                            }
+                        },
+                        {
+                            "serviceGroupSku": null,
+                            "serviceGroupSkuDescription": null,
+                            "serviceLevelSku": "HU4A2AC",
+                            "serviceLevelSkuDescription": "(Gewährleistung) HPE Hardware Tech Support",
+                            "serviceFullDescription": null,
+                            "documentNumber": "8f04729b-ec3a-35ea-9636-71f1279beddb",
+                            "document": {
+                                "id": "0103f123-d0c3-4710-b84b-86c38ff225d0",
+                                "type": "Quote renewal",
+                                "documentNumber": "8f04729b-ec3a-35ea-9636-71f1279beddb",
+                                "startDate": "2022-03-26",
+                                "endDate": "2023-03-31",
+                                "currencyCode": "EUR",
+                                "languageCode": null,
+                                "updatedAt": "1654272002299",
+                                "vendorSpecificFields": {
+                                    "vendor": "HPE",
+                                    "said": null,
+                                    "groupId": null,
+                                    "groupDescription": null
+                                },
+                                "contactPersons": [
+                                    {
+                                        "phoneNumber": "+12404814914",
+                                        "name": "Mr. Jakob Kertzmann Jr.",
+                                        "mail": "schaden.isadore@lubowitz.com",
+                                        "type": "Customer Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+15803172486",
+                                        "name": "Godfrey Grimes II",
+                                        "mail": "keichmann@sanford.net",
+                                        "type": "Renewal Contact"
+                                    },
+                                    {
+                                        "phoneNumber": null,
+                                        "name": null,
+                                        "mail": null,
+                                        "type": "EndUser Contact"
+                                    }
+                                ],
+                                "resellerId": "9f6b1030-5d5d-4f0b-b743-2ef69eaf4a44",
+                                "customerId": "162f9467-bc06-44c8-ad2f-12d7270e4c6a",
+                                "distributorId": "1af1c44e-8112-4e72-9654-b11c705e9372"
+                            },
+                            "startDate": null,
+                            "endDate": null,
+                            "reseller": {
+                                "id": "9f6b1030-5d5d-4f0b-b743-2ef69eaf4a44"
+                            },
+                            "customer": {
+                                "id": "162f9467-bc06-44c8-ad2f-12d7270e4c6a"
+                            }
+                        },
+                        {
+                            "serviceGroupSku": null,
+                            "serviceGroupSkuDescription": null,
+                            "serviceLevelSku": "HA151AC",
+                            "serviceLevelSkuDescription": "HPE Hardware Maintenance Onsite Support",
+                            "serviceFullDescription": null,
+                            "documentNumber": "7fd77f3e-2b2b-3f85-bdb3-2899c4c8dd79",
+                            "document": {
+                                "id": "c502abcd-1680-43ff-8343-3692d945ceae",
+                                "type": "Contract",
+                                "documentNumber": "7fd77f3e-2b2b-3f85-bdb3-2899c4c8dd79",
+                                "startDate": "2019-03-26",
+                                "endDate": "2022-03-25",
+                                "currencyCode": "EUR",
+                                "languageCode": null,
+                                "updatedAt": "1654262846658",
+                                "vendorSpecificFields": {
+                                    "vendor": "HPE",
+                                    "said": null,
+                                    "groupId": null,
+                                    "groupDescription": null
+                                },
+                                "contactPersons": [
+                                    {
+                                        "phoneNumber": null,
+                                        "name": "Sonia Gulgowski",
+                                        "mail": null,
+                                        "type": "EndUser Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+18055389501",
+                                        "name": "Arjun Metz Sr.",
+                                        "mail": "tstroman@carter.net",
+                                        "type": "Distributor Contact"
+                                    },
+                                    {
+                                        "phoneNumber": null,
+                                        "name": null,
+                                        "mail": null,
+                                        "type": "Reseller Contact"
+                                    },
+                                    {
+                                        "phoneNumber": null,
+                                        "name": "Sonia Gulgowski",
+                                        "mail": null,
+                                        "type": "Hardware System Contact"
+                                    },
+                                    {
+                                        "phoneNumber": null,
+                                        "name": "Sonia Gulgowski",
+                                        "mail": null,
+                                        "type": "Software System Contact"
+                                    },
+                                    {
+                                        "phoneNumber": null,
+                                        "name": "Dr. Pink Kohler",
+                                        "mail": "zora.glover@hotmail.com",
+                                        "type": "System Manager Contact"
+                                    }
+                                ],
+                                "resellerId": "9f6b1030-5d5d-4f0b-b743-2ef69eaf4a44",
+                                "customerId": "162f9467-bc06-44c8-ad2f-12d7270e4c6a",
+                                "distributorId": "1af1c44e-8112-4e72-9654-b11c705e9372"
+                            },
+                            "startDate": null,
+                            "endDate": null,
+                            "reseller": {
+                                "id": "9f6b1030-5d5d-4f0b-b743-2ef69eaf4a44"
+                            },
+                            "customer": {
+                                "id": "162f9467-bc06-44c8-ad2f-12d7270e4c6a"
+                            }
+                        },
+                        {
+                            "serviceGroupSku": null,
+                            "serviceGroupSkuDescription": null,
+                            "serviceLevelSku": "HU4A2AC",
+                            "serviceLevelSkuDescription": "HPE Hardware Tech Support",
+                            "serviceFullDescription": null,
+                            "documentNumber": "f6565a24-977c-30d3-aa8d-106068a2398d",
+                            "document": {
+                                "id": "b7fe2f93-777f-4957-a95e-9c2b9542e8cc",
+                                "type": "Contract",
+                                "documentNumber": "f6565a24-977c-30d3-aa8d-106068a2398d",
+                                "startDate": "2022-03-26",
+                                "endDate": "2023-03-31",
+                                "currencyCode": "EUR",
+                                "languageCode": null,
+                                "updatedAt": "1654262846658",
+                                "vendorSpecificFields": {
+                                    "vendor": "HPE",
+                                    "said": "f69c0ebb-9eb7-3f74-870c-d50b1e2ce499",
+                                    "groupId": null,
+                                    "groupDescription": null
+                                },
+                                "contactPersons": [
+                                    {
+                                        "phoneNumber": null,
+                                        "name": null,
+                                        "mail": null,
+                                        "type": "EndUser Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+15803172486",
+                                        "name": "Godfrey Grimes II",
+                                        "mail": "keichmann@sanford.net",
+                                        "type": "Distributor Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+12404814914",
+                                        "name": "Mr. Jakob Kertzmann Jr.",
+                                        "mail": "schaden.isadore@lubowitz.com",
+                                        "type": "Reseller Contact"
+                                    },
+                                    {
+                                        "phoneNumber": null,
+                                        "name": "Dr. Pink Kohler",
+                                        "mail": "zora.glover@hotmail.com",
+                                        "type": "Hardware System Contact"
+                                    },
+                                    {
+                                        "phoneNumber": null,
+                                        "name": "Dr. Pink Kohler",
+                                        "mail": "zora.glover@hotmail.com",
+                                        "type": "Software System Contact"
+                                    },
+                                    {
+                                        "phoneNumber": null,
+                                        "name": "Dr. Pink Kohler",
+                                        "mail": "zora.glover@hotmail.com",
+                                        "type": "System Manager Contact"
+                                    }
+                                ],
+                                "resellerId": "9f6b1030-5d5d-4f0b-b743-2ef69eaf4a44",
+                                "customerId": "162f9467-bc06-44c8-ad2f-12d7270e4c6a",
+                                "distributorId": "1af1c44e-8112-4e72-9654-b11c705e9372"
+                            },
+                            "startDate": null,
+                            "endDate": null,
+                            "reseller": {
+                                "id": "9f6b1030-5d5d-4f0b-b743-2ef69eaf4a44"
+                            },
+                            "customer": {
+                                "id": "162f9467-bc06-44c8-ad2f-12d7270e4c6a"
+                            }
+                        }
+                    ],
+                    "latestContactPersons": [
+                        {
+                            "phoneNumber": null,
+                            "name": null,
+                            "mail": null,
+                            "type": "EndUser Contact"
+                        },
+                        {
+                            "phoneNumber": "+15803172486",
+                            "name": "Godfrey Grimes II",
+                            "mail": "keichmann@sanford.net",
+                            "type": "Distributor Contact"
+                        },
+                        {
+                            "phoneNumber": "+12404814914",
+                            "name": "Mr. Jakob Kertzmann Jr.",
+                            "mail": "schaden.isadore@lubowitz.com",
+                            "type": "Reseller Contact"
+                        }
+                    ],
+                    "coverageStatusCheck": {
+                        "coverageStatus": "COVERED",
+                        "coverageStatusUpdatedAt": "1664809863411",
+                        "coverageEntries": [
+                            {
+                                "coverageStartDate": "2019-03-26",
+                                "coverageEndDate": "2023-03-31",
+                                "type": "Contract",
+                                "status": "Active",
+                                "description": "H7J35AC-HPE Foundation Care 24x7 wDMR SVC",
+                                "serviceSku": null
+                            },
+                            {
+                                "coverageStartDate": "2019-03-18",
+                                "coverageEndDate": "2022-04-16",
+                                "type": "FactoryWarranty",
+                                "status": "Expired",
+                                "description": "HA155BW-Wty: HPE Parts Exchange Support",
+                                "serviceSku": null
+                            }
+                        ]
+                    }
+                }
+            ]
+        }
+    }
+}

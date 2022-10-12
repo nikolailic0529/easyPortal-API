@@ -11,7 +11,7 @@
                     "id": "03ee438b-b478-4b4b-86bd-a495f3ab2880",
                     "name": "Torphy and Sons",
                     "companyType": "CUSTOMER",
-                    "updatedAt": "1662156564364",
+                    "updatedAt": "1664810186392",
                     "keycloakName": null,
                     "keycloakGroupId": null,
                     "keycloakClientScopeName": null,
@@ -53,14 +53,14 @@
                     ],
                     "companyKpis": {
                         "totalAssets": 10,
-                        "activeAssets": 0,
-                        "activeAssetsPercentage": 0.0,
+                        "activeAssets": 5,
+                        "activeAssetsPercentage": 50.0,
                         "activeCustomers": null,
                         "newActiveCustomers": null,
                         "activeContracts": 1,
                         "activeContractTotalAmount": 615.1999999999999,
                         "newActiveContracts": null,
-                        "expiringContracts": 0,
+                        "expiringContracts": 1,
                         "activeQuotes": 0,
                         "activeQuotesTotalAmount": 0.0,
                         "newActiveQuotes": 0,
@@ -83,14 +83,14 @@
                         {
                             "resellerId": "9f6b1030-5d5d-4f0b-b743-2ef69eaf4a44",
                             "totalAssets": 10,
-                            "activeAssets": 0,
-                            "activeAssetsPercentage": 0.0,
+                            "activeAssets": 5,
+                            "activeAssetsPercentage": 50.0,
                             "activeCustomers": null,
                             "newActiveCustomers": null,
                             "activeContracts": 1,
                             "activeContractTotalAmount": 615.1999999999999,
                             "newActiveContracts": null,
-                            "expiringContracts": 0,
+                            "expiringContracts": 1,
                             "activeQuotes": 0,
                             "activeQuotesTotalAmount": 0.0,
                             "newActiveQuotes": 0,
@@ -111,7 +111,7 @@
                         }
                     ],
                     "status": [
-                        "INACTIVE"
+                        "ACTIVE"
                     ]
                 }
             ]

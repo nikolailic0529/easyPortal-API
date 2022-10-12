@@ -1,0 +1,136 @@
+{
+    "selector": "data.getAssets",
+    "query": "query getAssets($id: String!) {\n    getAssets(args: [{key: \"id\", value: $id}]) {\n        id\nserialNumber\n\nassetSku\nassetSkuDescription\nassetTag\nassetType\nstatus\nvendor\n\neolDate\neosDate\n\ncountry\ncountryCode\nlatitude\nlongitude\nzip\ncity\naddress\naddress2\n\ncustomerId\nresellerId\n\nupdatedAt\n\nlatestContactPersons {\n    phoneNumber\n    name\n    type\n    mail\n}\n\nassetCoverage\ncoverageStatusCheck {\n    coverageStatus\n    coverageStatusUpdatedAt\n    coverageEntries {\n        coverageStartDate\n        coverageEndDate\n        type\n        description\n        status\n        serviceSku\n    }\n}\n\ndataQualityScore\n        assetDocument {\n    startDate\n    endDate\n    documentNumber\n\n    document {\n        id\n        type\n        documentNumber\n\n        startDate\n        endDate\n\n        currencyCode\n        languageCode\n\n        updatedAt\n\n        vendorSpecificFields {\n            vendor\n            groupId\n            groupDescription\n            said\n        }\n\n        contactPersons {\n            phoneNumber\n            name\n            type\n            mail\n        }\n\n        customerId\n        resellerId\n        distributorId\n    }\n\n    serviceGroupSku\n    serviceGroupSkuDescription\n    serviceLevelSku\n    serviceLevelSkuDescription\n    serviceFullDescription\n\n    customer {\n      id\n    }\n\n    reseller {\n      id\n    }\n}\n    }\n}",
+    "variables": {
+        "id": "eb17e7f1-46f9-4f57-a8e6-212fd485d66e"
+    },
+    "response": {
+        "data": {
+            "getAssets": [
+                {
+                    "id": "eb17e7f1-46f9-4f57-a8e6-212fd485d66e",
+                    "resellerId": "a9233c9c-4634-493a-9f12-bef4d1cf3c5e",
+                    "customerId": "bdb67f91-481e-44f4-abb5-e64b1289295e",
+                    "serialNumber": null,
+                    "assetSkuDescription": "HPE NS 4x10GbE 2p FIO Adptr Kit",
+                    "assetTag": null,
+                    "assetType": null,
+                    "vendor": "HPE",
+                    "assetSku": "Q8B89B",
+                    "eolDate": null,
+                    "eosDate": null,
+                    "zip": "25450",
+                    "city": "North Keyon",
+                    "address": "9487 Lowe Turnpike Apt. 680",
+                    "address2": null,
+                    "country": "Nicaragua",
+                    "latitude": "-82.832253",
+                    "longitude": "168.317207",
+                    "countryCode": "JO",
+                    "status": "ACTIVE",
+                    "updatedAt": "1662148329035",
+                    "assetCoverage": [
+                        "ARCHIVED"
+                    ],
+                    "dataQualityScore": "20",
+                    "assetDocument": [
+                        {
+                            "serviceGroupSku": null,
+                            "serviceGroupSkuDescription": null,
+                            "serviceLevelSku": "HT7A0AC",
+                            "serviceLevelSkuDescription": "HPE Hardware and Software Support",
+                            "serviceFullDescription": null,
+                            "documentNumber": "224a0cb6-faf0-3e72-aab4-61d416c10381",
+                            "document": {
+                                "id": "017dc0c6-13c8-42fd-903d-64cc43564f13",
+                                "type": "Contract",
+                                "documentNumber": "224a0cb6-faf0-3e72-aab4-61d416c10381",
+                                "startDate": "2021-12-01",
+                                "endDate": "2024-10-29",
+                                "currencyCode": "EUR",
+                                "languageCode": null,
+                                "updatedAt": "1656406898120",
+                                "vendorSpecificFields": {
+                                    "vendor": "HPE",
+                                    "said": "78b01850-5bbb-323e-9ceb-e4a491d54b68",
+                                    "groupId": null,
+                                    "groupDescription": null
+                                },
+                                "contactPersons": [
+                                    {
+                                        "phoneNumber": "+16809247969",
+                                        "name": "Janis Conroy",
+                                        "mail": null,
+                                        "type": "EndUser Contact"
+                                    },
+                                    {
+                                        "phoneNumber": null,
+                                        "name": null,
+                                        "mail": null,
+                                        "type": "Distributor Contact"
+                                    },
+                                    {
+                                        "phoneNumber": null,
+                                        "name": null,
+                                        "mail": null,
+                                        "type": "Reseller Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+16809247969",
+                                        "name": "Janis Conroy",
+                                        "mail": null,
+                                        "type": "Hardware System Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+16809247969",
+                                        "name": "Janis Conroy",
+                                        "mail": null,
+                                        "type": "Software System Contact"
+                                    },
+                                    {
+                                        "phoneNumber": null,
+                                        "name": "Dr. Clemens Crooks",
+                                        "mail": null,
+                                        "type": "System Manager Contact"
+                                    }
+                                ],
+                                "resellerId": "a9233c9c-4634-493a-9f12-bef4d1cf3c5e",
+                                "customerId": "bdb67f91-481e-44f4-abb5-e64b1289295e",
+                                "distributorId": "1af1c44e-8112-4e72-9654-b11c705e9372"
+                            },
+                            "startDate": null,
+                            "endDate": null,
+                            "reseller": {
+                                "id": "a9233c9c-4634-493a-9f12-bef4d1cf3c5e"
+                            },
+                            "customer": {
+                                "id": "bdb67f91-481e-44f4-abb5-e64b1289295e"
+                            }
+                        }
+                    ],
+                    "latestContactPersons": [
+                        {
+                            "phoneNumber": "+16809247969",
+                            "name": "Janis Conroy",
+                            "mail": null,
+                            "type": "EndUser Contact"
+                        },
+                        {
+                            "phoneNumber": null,
+                            "name": null,
+                            "mail": null,
+                            "type": "Distributor Contact"
+                        },
+                        {
+                            "phoneNumber": null,
+                            "name": null,
+                            "mail": null,
+                            "type": "Reseller Contact"
+                        }
+                    ],
+                    "coverageStatusCheck": null
+                }
+            ]
+        }
+    }
+}

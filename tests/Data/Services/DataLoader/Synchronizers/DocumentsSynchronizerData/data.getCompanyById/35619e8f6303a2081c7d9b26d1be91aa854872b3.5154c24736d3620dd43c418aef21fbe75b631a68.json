@@ -11,7 +11,7 @@
                     "id": "7487e9db-b207-4451-affa-02e30639a0fb",
                     "name": "Miller, O'Keefe and Kuphal",
                     "companyType": "CUSTOMER",
-                    "updatedAt": "1662156757617",
+                    "updatedAt": "1664810447823",
                     "keycloakName": null,
                     "keycloakGroupId": null,
                     "keycloakClientScopeName": null,
@@ -65,8 +65,8 @@
                     ],
                     "companyKpis": {
                         "totalAssets": 149,
-                        "activeAssets": 0,
-                        "activeAssetsPercentage": 0.0,
+                        "activeAssets": 59,
+                        "activeAssetsPercentage": 39.59731543624161,
                         "activeCustomers": null,
                         "newActiveCustomers": null,
                         "activeContracts": 3,
@@ -95,8 +95,8 @@
                         {
                             "resellerId": "9d9e320d-4e44-4518-a4e6-6bfe7f1c7dd8",
                             "totalAssets": 149,
-                            "activeAssets": 0,
-                            "activeAssetsPercentage": 0.0,
+                            "activeAssets": 59,
+                            "activeAssetsPercentage": 39.59731543624161,
                             "activeCustomers": null,
                             "newActiveCustomers": null,
                             "activeContracts": 3,
@@ -123,7 +123,7 @@
                         }
                     ],
                     "status": [
-                        "INACTIVE"
+                        "ACTIVE"
                     ]
                 }
             ]

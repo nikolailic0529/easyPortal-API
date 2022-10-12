@@ -11,7 +11,7 @@
                     "id": "27faa47d-ab2a-4755-b36b-729114c056d2",
                     "name": "Bradtke, Kuhn and Glover",
                     "companyType": "RESELLER",
-                    "updatedAt": "1662157024215",
+                    "updatedAt": "1664810758473",
                     "keycloakName": null,
                     "keycloakGroupId": null,
                     "keycloakClientScopeName": null,
@@ -38,16 +38,16 @@
                     "brandingData": null,
                     "companyKpis": {
                         "totalAssets": 3161,
-                        "activeAssets": 0,
-                        "activeAssetsPercentage": 0.0,
+                        "activeAssets": 707,
+                        "activeAssetsPercentage": 22.366339765896868,
                         "activeCustomers": 17,
                         "newActiveCustomers": 0,
                         "activeContracts": 8,
                         "activeContractTotalAmount": 1363.32,
                         "newActiveContracts": 0,
-                        "expiringContracts": 0,
+                        "expiringContracts": 1,
                         "activeQuotes": 3,
-                        "activeQuotesTotalAmount": 7251.959999999999,
+                        "activeQuotesTotalAmount": 7251.960000000001,
                         "newActiveQuotes": 0,
                         "expiringQuotes": 0,
                         "expiredQuotes": 3,
@@ -65,7 +65,7 @@
                         "serviceRevenueTotalAmountChange": null
                     },
                     "status": [
-                        "INACTIVE"
+                        "ACTIVE"
                     ]
                 }
             ]

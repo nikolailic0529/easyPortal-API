@@ -11,7 +11,7 @@
                     "id": "2ea19e60-bd2d-4c94-a723-4aa95dba74f2",
                     "name": "Greenholt Inc",
                     "companyType": "CUSTOMER",
-                    "updatedAt": "1662156637139",
+                    "updatedAt": "1664810285853",
                     "keycloakName": null,
                     "keycloakGroupId": null,
                     "keycloakClientScopeName": null,
@@ -53,8 +53,8 @@
                     ],
                     "companyKpis": {
                         "totalAssets": 6,
-                        "activeAssets": 0,
-                        "activeAssetsPercentage": 0.0,
+                        "activeAssets": 3,
+                        "activeAssetsPercentage": 50.0,
                         "activeCustomers": null,
                         "newActiveCustomers": null,
                         "activeContracts": 0,
@@ -83,8 +83,8 @@
                         {
                             "resellerId": "9f6b1030-5d5d-4f0b-b743-2ef69eaf4a44",
                             "totalAssets": 6,
-                            "activeAssets": 0,
-                            "activeAssetsPercentage": 0.0,
+                            "activeAssets": 3,
+                            "activeAssetsPercentage": 50.0,
                             "activeCustomers": null,
                             "newActiveCustomers": null,
                             "activeContracts": 0,
@@ -111,7 +111,7 @@
                         }
                     ],
                     "status": [
-                        "INACTIVE"
+                        "ACTIVE"
                     ]
                 }
             ]

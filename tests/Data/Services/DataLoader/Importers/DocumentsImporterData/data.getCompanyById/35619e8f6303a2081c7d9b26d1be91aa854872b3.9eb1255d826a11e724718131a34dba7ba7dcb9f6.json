@@ -11,7 +11,7 @@
                     "id": "bc84641c-4ae8-4e26-af89-258224be1ee1",
                     "name": "Heaney, Ritchie and Terry",
                     "companyType": "CUSTOMER",
-                    "updatedAt": "1662156884799",
+                    "updatedAt": "1664810594260",
                     "keycloakName": null,
                     "keycloakGroupId": null,
                     "keycloakClientScopeName": null,
@@ -47,8 +47,8 @@
                     ],
                     "companyKpis": {
                         "totalAssets": 38,
-                        "activeAssets": 0,
-                        "activeAssetsPercentage": 0.0,
+                        "activeAssets": 15,
+                        "activeAssetsPercentage": 39.473684210526315,
                         "activeCustomers": null,
                         "newActiveCustomers": null,
                         "activeContracts": 2,
@@ -77,8 +77,8 @@
                         {
                             "resellerId": "9f6b1030-5d5d-4f0b-b743-2ef69eaf4a44",
                             "totalAssets": 38,
-                            "activeAssets": 0,
-                            "activeAssetsPercentage": 0.0,
+                            "activeAssets": 15,
+                            "activeAssetsPercentage": 39.473684210526315,
                             "activeCustomers": null,
                             "newActiveCustomers": null,
                             "activeContracts": 2,
@@ -105,7 +105,7 @@
                         }
                     ],
                     "status": [
-                        "INACTIVE"
+                        "ACTIVE"
                     ]
                 }
             ]

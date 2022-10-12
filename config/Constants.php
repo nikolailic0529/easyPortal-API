@@ -23,6 +23,7 @@ use App\Services\Maintenance\Jobs\StartCronJob as MaintenanceStartCronJob;
 use App\Services\Maintenance\Jobs\TelescopeCleaner as MaintenanceTelescopeCleaner;
 use App\Services\Recalculator\Queue\Jobs\AssetsRecalculator as RecalculatorAssetsRecalculator;
 use App\Services\Recalculator\Queue\Jobs\CustomersRecalculator as RecalculatorCustomersRecalculator;
+use App\Services\Recalculator\Queue\Jobs\DocumentsRecalculator as RecalculatorDocumentsRecalculator;
 use App\Services\Recalculator\Queue\Jobs\LocationsRecalculator as RecalculatorLocationsRecalculator;
 use App\Services\Recalculator\Queue\Jobs\ResellersRecalculator as RecalculatorResellersRecalculator;
 use App\Services\Search\Queue\Jobs\AssetsIndexer as SearchAssetsIndexer;
@@ -344,6 +345,8 @@ interface Constants {
 
     /**
      * Price of Contracts/Quotes with these Statuses will not be visible on the Portal.
+     *
+     * If changed Documents must be recalculated!
      */
     #[Setting('ep.document_statuses_no_price')]
     #[Group('ep')]
@@ -2065,6 +2068,24 @@ interface Constants {
     #[Group('jobs')]
     #[Type(CronExpression::class)]
     public const EP_RECALCULATOR_ASSETS_RECALCULATOR_CRON = '0 0 1 * *';
+    // </editor-fold>
+
+    // <editor-fold desc="EP_RECALCULATOR_DOCUMENTS_RECALCULATOR">
+    // -------------------------------------------------------------------------
+    /**
+     * Enabled?
+     */
+    #[Service(RecalculatorDocumentsRecalculator::class, 'enabled')]
+    #[Group('jobs')]
+    public const EP_RECALCULATOR_DOCUMENTS_RECALCULATOR_ENABLED = false;
+
+    /**
+     * Cron expression.
+     */
+    #[Service(RecalculatorDocumentsRecalculator::class, 'cron')]
+    #[Group('jobs')]
+    #[Type(CronExpression::class)]
+    public const EP_RECALCULATOR_DOCUMENTS_RECALCULATOR_CRON = '0 0 1 * *';
     // </editor-fold>
     // </editor-fold>
 }

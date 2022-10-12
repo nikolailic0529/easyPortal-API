@@ -53,10 +53,9 @@
     {
         "query": "select `types`.*, `contact_types`.`contact_id` as `pivot_contact_id`, `contact_types`.`type_id` as `pivot_type_id`, `contact_types`.`created_at` as `pivot_created_at`, `contact_types`.`updated_at` as `pivot_updated_at` from `types` inner join `contact_types` on `types`.`id` = `contact_types`.`type_id` where `contact_types`.`deleted_at` is null and `contact_types`.`contact_id` in (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) and `types`.`deleted_at` is null",
         "bindings": [
+            "06bc9e0d-1f82-5e91-a4fb-101ef88846b5",
             "1144a493-a8f7-5d65-8c73-cd4f74fe314b",
             "12482d8c-0090-5ab9-b933-545ad840484a",
-            "13df27a4-ca33-512d-95a4-4ccca8e1b631",
-            "284eb658-4a4c-54d9-8f83-f9507a0fd230",
             "2e1fdcb4-18bf-5349-92df-87911d7ecb39",
             "415803cc-b49e-5033-a639-65bc0920bbb1",
             "489a1253-814e-5258-b238-fdedf9a9fb9f",
@@ -65,11 +64,12 @@
             "7116180b-5f21-573b-ac0c-656543f0f0e6",
             "7f2d0b64-dc9e-56d0-b76b-58c000840b01",
             "aeb75086-198f-5ff5-8100-06bf37105c09",
+            "c2cbf46f-9dd9-5064-b879-3022d5a2c310",
             "c4a22828-05b7-5086-ac66-bbb33aeddd37",
-            "ca492704-c5bf-5659-8208-a8baf4d5480a",
+            "dfd2d017-e9cf-59d7-af0c-0f97faff8422",
             "e61ed796-d98b-525d-a422-6ae25969cb43",
             "ea851f94-2570-558c-a187-5ce87d26152c",
-            "f998a876-f9a0-5039-b01c-5afa799cdc53",
+            "ec7d273c-2a0c-5c6c-b50e-a2d5bc83e341",
             "fcbf624d-7f9a-5aa7-9dc9-3a3badd0b0cc"
         ]
     },
@@ -90,15 +90,15 @@
         "bindings": []
     },
     {
+        "query": "select `statuses`.* from `statuses` where `statuses`.`deleted_at` is null",
+        "bindings": []
+    },
+    {
         "query": "select `currencies`.* from `currencies` where `currencies`.`deleted_at` is null",
         "bindings": []
     },
     {
         "query": "select `distributors`.* from `distributors`",
-        "bindings": []
-    },
-    {
-        "query": "select `statuses`.* from `statuses` where `statuses`.`deleted_at` is null",
         "bindings": []
     },
     {

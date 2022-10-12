@@ -11,7 +11,7 @@
                     "id": "fc43a19f-45b7-41b6-92e3-6fd2b1200286",
                     "name": "Lowe, Larkin and Ward",
                     "companyType": "CUSTOMER",
-                    "updatedAt": "1662156996191",
+                    "updatedAt": "1664810721534",
                     "keycloakName": null,
                     "keycloakGroupId": null,
                     "keycloakClientScopeName": null,
@@ -47,8 +47,8 @@
                     ],
                     "companyKpis": {
                         "totalAssets": 19,
-                        "activeAssets": 0,
-                        "activeAssetsPercentage": 0.0,
+                        "activeAssets": 5,
+                        "activeAssetsPercentage": 26.31578947368421,
                         "activeCustomers": null,
                         "newActiveCustomers": null,
                         "activeContracts": 1,
@@ -77,8 +77,8 @@
                         {
                             "resellerId": "0fd07b17-3314-40b5-ac32-7189051f773b",
                             "totalAssets": 19,
-                            "activeAssets": 0,
-                            "activeAssetsPercentage": 0.0,
+                            "activeAssets": 5,
+                            "activeAssetsPercentage": 26.31578947368421,
                             "activeCustomers": null,
                             "newActiveCustomers": null,
                             "activeContracts": 1,
@@ -105,7 +105,7 @@
                         }
                     ],
                     "status": [
-                        "INACTIVE"
+                        "ACTIVE"
                     ]
                 }
             ]

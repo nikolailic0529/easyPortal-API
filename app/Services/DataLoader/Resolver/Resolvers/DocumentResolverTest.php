@@ -56,6 +56,7 @@ class DocumentResolverTest extends TestCase {
         $spy     = Mockery::spy(static function () use ($uuid): Document {
             return Document::factory()->make([
                 'id'          => $uuid,
+                'price'       => null,
                 'oem_id'      => $uuid,
                 'type_id'     => $uuid,
                 'product_id'  => $uuid,

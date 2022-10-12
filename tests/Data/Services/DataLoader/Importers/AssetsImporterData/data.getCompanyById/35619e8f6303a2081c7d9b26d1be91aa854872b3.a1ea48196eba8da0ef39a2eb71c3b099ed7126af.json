@@ -11,7 +11,7 @@
                     "id": "164093f3-c8fe-43d6-8580-46558eb6665f",
                     "name": "Koepp-Prosacco",
                     "companyType": "CUSTOMER",
-                    "updatedAt": "1662156594674",
+                    "updatedAt": "1664810226076",
                     "keycloakName": null,
                     "keycloakGroupId": null,
                     "keycloakClientScopeName": null,
@@ -59,14 +59,14 @@
                     ],
                     "companyKpis": {
                         "totalAssets": 30,
-                        "activeAssets": 0,
-                        "activeAssetsPercentage": 0.0,
+                        "activeAssets": 10,
+                        "activeAssetsPercentage": 33.33333333333333,
                         "activeCustomers": null,
                         "newActiveCustomers": null,
                         "activeContracts": 1,
                         "activeContractTotalAmount": 16926.390000000003,
                         "newActiveContracts": null,
-                        "expiringContracts": 0,
+                        "expiringContracts": 1,
                         "activeQuotes": 0,
                         "activeQuotesTotalAmount": 0.0,
                         "newActiveQuotes": 0,
@@ -89,14 +89,14 @@
                         {
                             "resellerId": "9f6b1030-5d5d-4f0b-b743-2ef69eaf4a44",
                             "totalAssets": 30,
-                            "activeAssets": 0,
-                            "activeAssetsPercentage": 0.0,
+                            "activeAssets": 10,
+                            "activeAssetsPercentage": 33.33333333333333,
                             "activeCustomers": null,
                             "newActiveCustomers": null,
                             "activeContracts": 1,
                             "activeContractTotalAmount": 16926.390000000003,
                             "newActiveContracts": null,
-                            "expiringContracts": 0,
+                            "expiringContracts": 1,
                             "activeQuotes": 0,
                             "activeQuotesTotalAmount": 0.0,
                             "newActiveQuotes": 0,
@@ -117,7 +117,7 @@
                         }
                     ],
                     "status": [
-                        "INACTIVE"
+                        "ACTIVE"
                     ]
                 }
             ]

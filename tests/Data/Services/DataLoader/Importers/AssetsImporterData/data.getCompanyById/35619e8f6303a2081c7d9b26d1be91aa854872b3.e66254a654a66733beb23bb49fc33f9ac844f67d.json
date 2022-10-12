@@ -11,7 +11,7 @@
                     "id": "a46afc79-df1d-4ed7-b152-374d6b57b106",
                     "name": "Bayer PLC",
                     "companyType": "CUSTOMER",
-                    "updatedAt": "1662156842108",
+                    "updatedAt": "1664810543345",
                     "keycloakName": null,
                     "keycloakGroupId": null,
                     "keycloakClientScopeName": null,
@@ -59,14 +59,14 @@
                     ],
                     "companyKpis": {
                         "totalAssets": 297,
-                        "activeAssets": 0,
-                        "activeAssetsPercentage": 0.0,
+                        "activeAssets": 29,
+                        "activeAssetsPercentage": 9.764309764309765,
                         "activeCustomers": null,
                         "newActiveCustomers": null,
                         "activeContracts": 2,
                         "activeContractTotalAmount": 16293.859999999999,
                         "newActiveContracts": null,
-                        "expiringContracts": 0,
+                        "expiringContracts": 2,
                         "activeQuotes": 0,
                         "activeQuotesTotalAmount": 0.0,
                         "newActiveQuotes": 0,
@@ -89,14 +89,14 @@
                         {
                             "resellerId": "9f6b1030-5d5d-4f0b-b743-2ef69eaf4a44",
                             "totalAssets": 297,
-                            "activeAssets": 0,
-                            "activeAssetsPercentage": 0.0,
+                            "activeAssets": 29,
+                            "activeAssetsPercentage": 9.764309764309765,
                             "activeCustomers": null,
                             "newActiveCustomers": null,
                             "activeContracts": 2,
                             "activeContractTotalAmount": 16293.859999999999,
                             "newActiveContracts": null,
-                            "expiringContracts": 0,
+                            "expiringContracts": 2,
                             "activeQuotes": 0,
                             "activeQuotesTotalAmount": 0.0,
                             "newActiveQuotes": 0,
@@ -117,7 +117,7 @@
                         }
                     ],
                     "status": [
-                        "INACTIVE"
+                        "ACTIVE"
                     ]
                 }
             ]

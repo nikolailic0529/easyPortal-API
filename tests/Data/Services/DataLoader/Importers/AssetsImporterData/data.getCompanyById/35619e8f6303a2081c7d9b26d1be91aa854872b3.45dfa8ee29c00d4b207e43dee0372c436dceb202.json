@@ -11,7 +11,7 @@
                     "id": "f00d6934-1faa-4e3f-9de9-7f63eb6695a8",
                     "name": "Goodwin Ltd",
                     "companyType": "CUSTOMER",
-                    "updatedAt": "1662156972628",
+                    "updatedAt": "1664810697104",
                     "keycloakName": null,
                     "keycloakGroupId": null,
                     "keycloakClientScopeName": null,
@@ -59,8 +59,8 @@
                     ],
                     "companyKpis": {
                         "totalAssets": 306,
-                        "activeAssets": 0,
-                        "activeAssetsPercentage": 0.0,
+                        "activeAssets": 7,
+                        "activeAssetsPercentage": 2.287581699346405,
                         "activeCustomers": null,
                         "newActiveCustomers": null,
                         "activeContracts": 2,
@@ -89,8 +89,8 @@
                         {
                             "resellerId": "c0d99925-8b3b-47d8-9db2-9d3a5f5520a2",
                             "totalAssets": 306,
-                            "activeAssets": 0,
-                            "activeAssetsPercentage": 0.0,
+                            "activeAssets": 7,
+                            "activeAssetsPercentage": 2.287581699346405,
                             "activeCustomers": null,
                             "newActiveCustomers": null,
                             "activeContracts": 2,
@@ -117,7 +117,7 @@
                         }
                     ],
                     "status": [
-                        "INACTIVE"
+                        "ACTIVE"
                     ]
                 }
             ]

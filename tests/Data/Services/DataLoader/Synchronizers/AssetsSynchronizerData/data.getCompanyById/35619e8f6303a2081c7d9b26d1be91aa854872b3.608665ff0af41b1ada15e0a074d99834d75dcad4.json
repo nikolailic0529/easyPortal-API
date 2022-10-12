@@ -11,7 +11,7 @@
                     "id": "5a2421d6-ff79-4777-a090-fd0af98ff5f9",
                     "name": "Wintheiser-Willms",
                     "companyType": "CUSTOMER",
-                    "updatedAt": "1662156710151",
+                    "updatedAt": "1664810400026",
                     "keycloakName": null,
                     "keycloakGroupId": null,
                     "keycloakClientScopeName": null,
@@ -53,8 +53,8 @@
                     ],
                     "companyKpis": {
                         "totalAssets": 80,
-                        "activeAssets": 0,
-                        "activeAssetsPercentage": 0.0,
+                        "activeAssets": 13,
+                        "activeAssetsPercentage": 16.25,
                         "activeCustomers": null,
                         "newActiveCustomers": null,
                         "activeContracts": 1,
@@ -83,8 +83,8 @@
                         {
                             "resellerId": "594184e7-24d4-4614-8db4-fe132adb86f4",
                             "totalAssets": 80,
-                            "activeAssets": 0,
-                            "activeAssetsPercentage": 0.0,
+                            "activeAssets": 13,
+                            "activeAssetsPercentage": 16.25,
                             "activeCustomers": null,
                             "newActiveCustomers": null,
                             "activeContracts": 1,
@@ -111,7 +111,7 @@
                         }
                     ],
                     "status": [
-                        "INACTIVE"
+                        "ACTIVE"
                     ]
                 }
             ]

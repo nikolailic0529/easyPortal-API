@@ -5,16 +5,19 @@ namespace App\Services\Recalculator;
 use App\Models\Asset;
 use App\Models\Customer;
 use App\Models\Data\Location;
+use App\Models\Document;
 use App\Models\Reseller;
 use App\Queues;
 use App\Services\Recalculator\Processor\ChunkData;
 use App\Services\Recalculator\Processor\Processor;
 use App\Services\Recalculator\Processor\Processors\AssetsProcessor;
 use App\Services\Recalculator\Processor\Processors\CustomersProcessor;
+use App\Services\Recalculator\Processor\Processors\DocumentsProcessor;
 use App\Services\Recalculator\Processor\Processors\LocationsProcessor;
 use App\Services\Recalculator\Processor\Processors\ResellersProcessor;
 use App\Services\Recalculator\Queue\Jobs\AssetsRecalculator;
 use App\Services\Recalculator\Queue\Jobs\CustomersRecalculator;
+use App\Services\Recalculator\Queue\Jobs\DocumentsRecalculator;
 use App\Services\Recalculator\Queue\Jobs\LocationsRecalculator;
 use App\Services\Recalculator\Queue\Jobs\Recalculator;
 use App\Services\Recalculator\Queue\Jobs\ResellersRecalculator;
@@ -33,6 +36,7 @@ class Service extends BaseService {
         Reseller::class => ResellersRecalculator::class,
         Customer::class => CustomersRecalculator::class,
         Location::class => LocationsRecalculator::class,
+        Document::class => DocumentsRecalculator::class,
     ];
 
     /**
@@ -43,6 +47,7 @@ class Service extends BaseService {
         Reseller::class => ResellersProcessor::class,
         Customer::class => CustomersProcessor::class,
         Location::class => LocationsProcessor::class,
+        Document::class => DocumentsProcessor::class,
     ];
 
     /**

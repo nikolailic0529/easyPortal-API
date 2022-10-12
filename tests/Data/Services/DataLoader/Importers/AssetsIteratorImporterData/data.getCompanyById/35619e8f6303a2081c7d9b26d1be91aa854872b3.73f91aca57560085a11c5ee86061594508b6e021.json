@@ -11,7 +11,7 @@
                     "id": "4a4955d5-6c40-456c-94fe-25f41ffb25ef",
                     "name": "Wuckert, Smith and Keeling",
                     "companyType": "CUSTOMER",
-                    "updatedAt": "1662156682883",
+                    "updatedAt": "1664810353755",
                     "keycloakName": null,
                     "keycloakGroupId": null,
                     "keycloakClientScopeName": null,
@@ -53,14 +53,14 @@
                     ],
                     "companyKpis": {
                         "totalAssets": 123,
-                        "activeAssets": 0,
-                        "activeAssetsPercentage": 0.0,
+                        "activeAssets": 35,
+                        "activeAssetsPercentage": 28.455284552845526,
                         "activeCustomers": null,
                         "newActiveCustomers": null,
                         "activeContracts": 2,
                         "activeContractTotalAmount": 62445.490000000034,
                         "newActiveContracts": null,
-                        "expiringContracts": 0,
+                        "expiringContracts": 2,
                         "activeQuotes": 0,
                         "activeQuotesTotalAmount": 0.0,
                         "newActiveQuotes": 0,
@@ -83,14 +83,14 @@
                         {
                             "resellerId": "9f6b1030-5d5d-4f0b-b743-2ef69eaf4a44",
                             "totalAssets": 123,
-                            "activeAssets": 0,
-                            "activeAssetsPercentage": 0.0,
+                            "activeAssets": 35,
+                            "activeAssetsPercentage": 28.455284552845526,
                             "activeCustomers": null,
                             "newActiveCustomers": null,
                             "activeContracts": 2,
                             "activeContractTotalAmount": 62445.490000000034,
                             "newActiveContracts": null,
-                            "expiringContracts": 0,
+                            "expiringContracts": 2,
                             "activeQuotes": 0,
                             "activeQuotesTotalAmount": 0.0,
                             "newActiveQuotes": 0,
@@ -111,7 +111,7 @@
                         }
                     ],
                     "status": [
-                        "INACTIVE"
+                        "ACTIVE"
                     ]
                 }
             ]

@@ -11,7 +11,7 @@
                     "id": "5a50b0d5-3066-4135-9e81-f03d2550845a",
                     "name": "Lowe-Toy",
                     "companyType": "CUSTOMER",
-                    "updatedAt": "1662156710307",
+                    "updatedAt": "1664810400273",
                     "keycloakName": null,
                     "keycloakGroupId": null,
                     "keycloakClientScopeName": null,
@@ -53,14 +53,14 @@
                     ],
                     "companyKpis": {
                         "totalAssets": 14,
-                        "activeAssets": 0,
-                        "activeAssetsPercentage": 0.0,
+                        "activeAssets": 5,
+                        "activeAssetsPercentage": 35.714285714285715,
                         "activeCustomers": null,
                         "newActiveCustomers": null,
                         "activeContracts": 1,
                         "activeContractTotalAmount": 8605.800000000001,
                         "newActiveContracts": null,
-                        "expiringContracts": 0,
+                        "expiringContracts": 1,
                         "activeQuotes": 0,
                         "activeQuotesTotalAmount": 0.0,
                         "newActiveQuotes": 0,
@@ -83,14 +83,14 @@
                         {
                             "resellerId": "594184e7-24d4-4614-8db4-fe132adb86f4",
                             "totalAssets": 14,
-                            "activeAssets": 0,
-                            "activeAssetsPercentage": 0.0,
+                            "activeAssets": 5,
+                            "activeAssetsPercentage": 35.714285714285715,
                             "activeCustomers": null,
                             "newActiveCustomers": null,
                             "activeContracts": 1,
                             "activeContractTotalAmount": 8605.800000000001,
                             "newActiveContracts": null,
-                            "expiringContracts": 0,
+                            "expiringContracts": 1,
                             "activeQuotes": 0,
                             "activeQuotesTotalAmount": 0.0,
                             "newActiveQuotes": 0,
@@ -111,7 +111,7 @@
                         }
                     ],
                     "status": [
-                        "INACTIVE"
+                        "ACTIVE"
                     ]
                 }
             ]

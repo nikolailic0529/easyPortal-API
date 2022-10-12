@@ -11,7 +11,7 @@
                     "id": "a2a32196-e319-4d35-a821-5e00fbc6feb2",
                     "name": "Harber, Zboncak and Cartwright",
                     "companyType": "CUSTOMER",
-                    "updatedAt": "1662156838967",
+                    "updatedAt": "1664810539767",
                     "keycloakName": null,
                     "keycloakGroupId": null,
                     "keycloakClientScopeName": null,
@@ -71,8 +71,8 @@
                     ],
                     "companyKpis": {
                         "totalAssets": 914,
-                        "activeAssets": 0,
-                        "activeAssetsPercentage": 0.0,
+                        "activeAssets": 423,
+                        "activeAssetsPercentage": 46.2800875273523,
                         "activeCustomers": null,
                         "newActiveCustomers": null,
                         "activeContracts": 15,
@@ -101,8 +101,8 @@
                         {
                             "resellerId": "77ec115b-9723-4582-ad45-2b3a83286b1f",
                             "totalAssets": 914,
-                            "activeAssets": 0,
-                            "activeAssetsPercentage": 0.0,
+                            "activeAssets": 423,
+                            "activeAssetsPercentage": 46.2800875273523,
                             "activeCustomers": null,
                             "newActiveCustomers": null,
                             "activeContracts": 15,
@@ -129,7 +129,7 @@
                         }
                     ],
                     "status": [
-                        "INACTIVE"
+                        "ACTIVE"
                     ]
                 }
             ]

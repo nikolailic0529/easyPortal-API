@@ -141,7 +141,8 @@ class DocumentFactoryTest extends TestCase {
         self::assertEquals($asset->resellerId, $created->reseller_id);
         self::assertEquals($object->document->document->distributorId, $created->distributor_id);
         self::assertEquals('0056523287', $created->number);
-        self::assertEquals('1292.16', $created->price);
+        self::assertNull($created->price);
+        self::assertNull($created->price_origin);
         self::assertNull($this->getDatetime($created->start));
         self::assertEquals('1614470400000', $this->getDatetime($created->end));
         self::assertNull($this->getDatetime($created->changed_at));
@@ -614,7 +615,7 @@ class DocumentFactoryTest extends TestCase {
         self::assertEquals($asset->getKey(), $entry->asset_id);
         self::assertEquals($assetType->key, $entry->assetType->key ?? null);
         self::assertEquals((new Asset())->getMorphClass(), $entry->assetType->object_type ?? null);
-        self::assertNull($entry->document_id);
+        self::assertEquals($document->getKey(), $entry->document_id);
         self::assertEquals($asset->serial_number, $entry->serial_number);
         self::assertEquals($asset->product, $entry->product);
         self::assertEquals($productLine->getKey(), $entry->product_line_id);
@@ -625,11 +626,15 @@ class DocumentFactoryTest extends TestCase {
         self::assertEquals($serviceLevelSku, $entry->serviceLevel->sku ?? null);
         self::assertEquals($currencyCode, $entry->currency->code ?? null);
         self::assertEquals($listPrice, $entry->list_price);
+        self::assertEquals($listPrice, $entry->list_price_origin);
         self::assertEquals($renewal, $entry->renewal);
+        self::assertEquals($renewal, $entry->renewal_origin);
         self::assertEquals($start, $entry->start);
         self::assertEquals($end, $entry->end);
         self::assertEquals($monthlyListPrice, $entry->monthly_list_price);
+        self::assertEquals($monthlyListPrice, $entry->monthly_list_price_origin);
         self::assertEquals($monthlyRetailPrice, $entry->monthly_retail_price);
+        self::assertEquals($monthlyRetailPrice, $entry->monthly_retail_price_origin);
         self::assertEquals($said, $entry->oem_said);
         self::assertEquals($sarNumber, $entry->oem_sar_number);
         self::assertEquals($environmentId, $entry->environment_id);
@@ -1056,6 +1061,7 @@ class DocumentFactoryTest extends TestCase {
         self::assertCount(1, $created->statuses);
         self::assertEquals($this->getStatuses($object), $this->getModelStatuses($created));
         self::assertEquals('1292.16', $created->price);
+        self::assertEquals('1292.16', $created->price_origin);
         self::assertNull($this->getDatetime($created->start));
         self::assertEquals('1614470400000', $this->getDatetime($created->end));
         self::assertNull($this->getDatetime($created->changed_at));
@@ -1080,6 +1086,7 @@ class DocumentFactoryTest extends TestCase {
 
         self::assertNotNull($e);
         self::assertEquals('48.00', $e->list_price);
+        self::assertEquals('48.00', $e->list_price_origin);
         self::assertEquals($created->getKey(), $e->document_id);
         self::assertEquals('c0200a6c-1b8a-4365-9f1b-32d753194335', $e->asset_id);
         self::assertEquals('H7J34AC', $e->serviceGroup->sku ?? null);
@@ -1088,11 +1095,14 @@ class DocumentFactoryTest extends TestCase {
         self::assertEquals('HPE Hardware Maintenance Onsite Support', $e->serviceLevel->name ?? null);
         self::assertEquals('HPE', $e->serviceLevel->oem->key ?? null);
         self::assertEquals('145.00', $e->renewal);
+        self::assertEquals('145.00', $e->renewal_origin);
         self::assertNull($this->getDatetime($e->end));
         self::assertEquals('1614470400000', $this->getDatetime($e->start));
         self::assertEquals('Hardware', $e->assetType->key ?? null);
         self::assertEquals('45.00', $e->monthly_list_price);
+        self::assertEquals('45.00', $e->monthly_list_price_origin);
         self::assertEquals('55.00', $e->monthly_retail_price);
+        self::assertEquals('55.00', $e->monthly_retail_price_origin);
         self::assertNull($e->oem_said);
         self::assertEquals('SAR#1', $e->oem_sar_number);
         self::assertNull($e->environment_id);

@@ -11,7 +11,7 @@
                     "id": "5c8cc781-bbc2-45d8-842c-0b55ed518400",
                     "name": "Hoeger, Mosciski and Koepp",
                     "companyType": "CUSTOMER",
-                    "updatedAt": "1662156713944",
+                    "updatedAt": "1664810404759",
                     "keycloakName": null,
                     "keycloakGroupId": null,
                     "keycloakClientScopeName": null,
@@ -89,8 +89,8 @@
                     ],
                     "companyKpis": {
                         "totalAssets": 5,
-                        "activeAssets": 0,
-                        "activeAssetsPercentage": 0.0,
+                        "activeAssets": 1,
+                        "activeAssetsPercentage": 20.0,
                         "activeCustomers": null,
                         "newActiveCustomers": null,
                         "activeContracts": 1,
@@ -119,8 +119,8 @@
                         {
                             "resellerId": "27faa47d-ab2a-4755-b36b-729114c056d2",
                             "totalAssets": 5,
-                            "activeAssets": 0,
-                            "activeAssetsPercentage": 0.0,
+                            "activeAssets": 1,
+                            "activeAssetsPercentage": 20.0,
                             "activeCustomers": null,
                             "newActiveCustomers": null,
                             "activeContracts": 1,
@@ -147,7 +147,7 @@
                         }
                     ],
                     "status": [
-                        "INACTIVE"
+                        "ACTIVE"
                     ]
                 }
             ]

@@ -11,7 +11,7 @@
                     "id": "019a3b56-b701-4599-8452-2cf9f1f54b26",
                     "name": "Baumbach-Bartoletti",
                     "companyType": "CUSTOMER",
-                    "updatedAt": "1662156560904",
+                    "updatedAt": "1664810181409",
                     "keycloakName": null,
                     "keycloakGroupId": null,
                     "keycloakClientScopeName": null,
@@ -53,8 +53,8 @@
                     ],
                     "companyKpis": {
                         "totalAssets": 170,
-                        "activeAssets": 0,
-                        "activeAssetsPercentage": 0.0,
+                        "activeAssets": 38,
+                        "activeAssetsPercentage": 22.35294117647059,
                         "activeCustomers": null,
                         "newActiveCustomers": null,
                         "activeContracts": 8,
@@ -83,8 +83,8 @@
                         {
                             "resellerId": "9d9e320d-4e44-4518-a4e6-6bfe7f1c7dd8",
                             "totalAssets": 170,
-                            "activeAssets": 0,
-                            "activeAssetsPercentage": 0.0,
+                            "activeAssets": 38,
+                            "activeAssetsPercentage": 22.35294117647059,
                             "activeCustomers": null,
                             "newActiveCustomers": null,
                             "activeContracts": 8,
@@ -111,7 +111,7 @@
                         }
                     ],
                     "status": [
-                        "INACTIVE"
+                        "ACTIVE"
                     ]
                 }
             ]

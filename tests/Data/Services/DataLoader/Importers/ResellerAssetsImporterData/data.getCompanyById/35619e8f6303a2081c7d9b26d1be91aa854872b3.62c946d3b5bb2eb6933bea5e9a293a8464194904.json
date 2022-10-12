@@ -11,7 +11,7 @@
                     "id": "fe97f500-c6e4-4968-a312-25d21318297b",
                     "name": "Gerhold Ltd",
                     "companyType": "CUSTOMER",
-                    "updatedAt": "1662156999849",
+                    "updatedAt": "1664810727126",
                     "keycloakName": null,
                     "keycloakGroupId": null,
                     "keycloakClientScopeName": null,
@@ -77,8 +77,8 @@
                     ],
                     "companyKpis": {
                         "totalAssets": 587,
-                        "activeAssets": 0,
-                        "activeAssetsPercentage": 0.0,
+                        "activeAssets": 311,
+                        "activeAssetsPercentage": 52.98126064735945,
                         "activeCustomers": null,
                         "newActiveCustomers": null,
                         "activeContracts": 0,
@@ -107,8 +107,8 @@
                         {
                             "resellerId": "27faa47d-ab2a-4755-b36b-729114c056d2",
                             "totalAssets": 587,
-                            "activeAssets": 0,
-                            "activeAssetsPercentage": 0.0,
+                            "activeAssets": 311,
+                            "activeAssetsPercentage": 52.98126064735945,
                             "activeCustomers": null,
                             "newActiveCustomers": null,
                             "activeContracts": 0,
@@ -135,7 +135,7 @@
                         }
                     ],
                     "status": [
-                        "INACTIVE"
+                        "ACTIVE"
                     ]
                 }
             ]

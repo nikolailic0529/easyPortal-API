@@ -11,7 +11,7 @@
                     "id": "35c87f11-f024-402b-9a9e-49b21d29e804",
                     "name": "Mayert, Watsica and Kilback",
                     "companyType": "CUSTOMER",
-                    "updatedAt": "1662156648297",
+                    "updatedAt": "1664810302048",
                     "keycloakName": null,
                     "keycloakGroupId": null,
                     "keycloakClientScopeName": null,
@@ -53,8 +53,8 @@
                     ],
                     "companyKpis": {
                         "totalAssets": 159,
-                        "activeAssets": 0,
-                        "activeAssetsPercentage": 0.0,
+                        "activeAssets": 51,
+                        "activeAssetsPercentage": 32.075471698113205,
                         "activeCustomers": null,
                         "newActiveCustomers": null,
                         "activeContracts": 3,
@@ -83,8 +83,8 @@
                         {
                             "resellerId": "9d9e320d-4e44-4518-a4e6-6bfe7f1c7dd8",
                             "totalAssets": 159,
-                            "activeAssets": 0,
-                            "activeAssetsPercentage": 0.0,
+                            "activeAssets": 51,
+                            "activeAssetsPercentage": 32.075471698113205,
                             "activeCustomers": null,
                             "newActiveCustomers": null,
                             "activeContracts": 3,
@@ -111,7 +111,7 @@
                         }
                     ],
                     "status": [
-                        "INACTIVE"
+                        "ACTIVE"
                     ]
                 }
             ]

@@ -11,7 +11,7 @@
                     "id": "f90e66c6-f90f-4b54-80d8-322ebbb0627e",
                     "name": "Kohler, Bogan and Kub",
                     "companyType": "CUSTOMER",
-                    "updatedAt": "1662156988504",
+                    "updatedAt": "1664810715174",
                     "keycloakName": null,
                     "keycloakGroupId": null,
                     "keycloakClientScopeName": null,
@@ -77,14 +77,14 @@
                     ],
                     "companyKpis": {
                         "totalAssets": 715,
-                        "activeAssets": 0,
-                        "activeAssetsPercentage": 0.0,
+                        "activeAssets": 134,
+                        "activeAssetsPercentage": 18.74125874125874,
                         "activeCustomers": null,
                         "newActiveCustomers": null,
                         "activeContracts": 15,
-                        "activeContractTotalAmount": 84536.14,
+                        "activeContractTotalAmount": 84536.14000000001,
                         "newActiveContracts": null,
-                        "expiringContracts": 0,
+                        "expiringContracts": 13,
                         "activeQuotes": 0,
                         "activeQuotesTotalAmount": 0.0,
                         "newActiveQuotes": 0,
@@ -107,14 +107,14 @@
                         {
                             "resellerId": "77ec115b-9723-4582-ad45-2b3a83286b1f",
                             "totalAssets": 715,
-                            "activeAssets": 0,
-                            "activeAssetsPercentage": 0.0,
+                            "activeAssets": 134,
+                            "activeAssetsPercentage": 18.74125874125874,
                             "activeCustomers": null,
                             "newActiveCustomers": null,
                             "activeContracts": 15,
                             "activeContractTotalAmount": 84536.14,
                             "newActiveContracts": null,
-                            "expiringContracts": 0,
+                            "expiringContracts": 13,
                             "activeQuotes": 0,
                             "activeQuotesTotalAmount": 0.0,
                             "newActiveQuotes": 0,
@@ -135,7 +135,7 @@
                         }
                     ],
                     "status": [
-                        "INACTIVE"
+                        "ACTIVE"
                     ]
                 }
             ]

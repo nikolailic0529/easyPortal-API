@@ -11,7 +11,7 @@
                     "id": "14ca4c5c-1886-4919-a4ad-16a6650ef41d",
                     "name": "Jerde-Predovic",
                     "companyType": "CUSTOMER",
-                    "updatedAt": "1662156592458",
+                    "updatedAt": "1664810223680",
                     "keycloakName": null,
                     "keycloakGroupId": null,
                     "keycloakClientScopeName": null,
@@ -83,8 +83,8 @@
                     ],
                     "companyKpis": {
                         "totalAssets": 74,
-                        "activeAssets": 0,
-                        "activeAssetsPercentage": 0.0,
+                        "activeAssets": 22,
+                        "activeAssetsPercentage": 29.72972972972973,
                         "activeCustomers": null,
                         "newActiveCustomers": null,
                         "activeContracts": 0,
@@ -113,8 +113,8 @@
                         {
                             "resellerId": "27faa47d-ab2a-4755-b36b-729114c056d2",
                             "totalAssets": 74,
-                            "activeAssets": 0,
-                            "activeAssetsPercentage": 0.0,
+                            "activeAssets": 22,
+                            "activeAssetsPercentage": 29.72972972972973,
                             "activeCustomers": null,
                             "newActiveCustomers": null,
                             "activeContracts": 0,
@@ -141,7 +141,7 @@
                         }
                     ],
                     "status": [
-                        "INACTIVE"
+                        "ACTIVE"
                     ]
                 }
             ]

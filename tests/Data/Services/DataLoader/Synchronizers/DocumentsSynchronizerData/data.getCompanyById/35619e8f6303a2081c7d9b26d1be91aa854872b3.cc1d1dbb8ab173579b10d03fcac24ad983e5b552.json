@@ -11,7 +11,7 @@
                     "id": "e09c5523-28e6-4860-99ed-0d6cfdb655e8",
                     "name": "Hyatt-West",
                     "companyType": "CUSTOMER",
-                    "updatedAt": "1662156947888",
+                    "updatedAt": "1664810668117",
                     "keycloakName": null,
                     "keycloakGroupId": null,
                     "keycloakClientScopeName": null,
@@ -47,8 +47,8 @@
                     ],
                     "companyKpis": {
                         "totalAssets": 84,
-                        "activeAssets": 0,
-                        "activeAssetsPercentage": 0.0,
+                        "activeAssets": 23,
+                        "activeAssetsPercentage": 27.380952380952383,
                         "activeCustomers": null,
                         "newActiveCustomers": null,
                         "activeContracts": 2,
@@ -77,8 +77,8 @@
                         {
                             "resellerId": "0fd07b17-3314-40b5-ac32-7189051f773b",
                             "totalAssets": 84,
-                            "activeAssets": 0,
-                            "activeAssetsPercentage": 0.0,
+                            "activeAssets": 23,
+                            "activeAssetsPercentage": 27.380952380952383,
                             "activeCustomers": null,
                             "newActiveCustomers": null,
                             "activeContracts": 2,
@@ -105,7 +105,7 @@
                         }
                     ],
                     "status": [
-                        "INACTIVE"
+                        "ACTIVE"
                     ]
                 }
             ]

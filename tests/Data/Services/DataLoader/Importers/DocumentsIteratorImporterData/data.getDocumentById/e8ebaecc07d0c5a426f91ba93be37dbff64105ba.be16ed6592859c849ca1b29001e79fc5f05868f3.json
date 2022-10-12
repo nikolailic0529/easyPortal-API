@@ -15,7 +15,7 @@
                 "currencyCode": "CHF",
                 "totalNetPrice": "3927.4399999999996",
                 "languageCode": null,
-                "updatedAt": "1654262846658",
+                "updatedAt": "1664800095018",
                 "resellerId": "0fd07b17-3314-40b5-ac32-7189051f773b",
                 "customerId": "e09c5523-28e6-4860-99ed-0d6cfdb655e8",
                 "distributorId": "a985a692-c063-499a-ab2f-0a2adef86a3f",
@@ -191,7 +191,8 @@
                     }
                 ],
                 "status": [
-                    "EXPIRED"
+                    "EXPIRED",
+                    "RENEWED"
                 ]
             }
         }

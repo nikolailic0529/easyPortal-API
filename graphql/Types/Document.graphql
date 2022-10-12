@@ -9,15 +9,7 @@ type Document {
     created_at: DateTime!
     updated_at: DateTime!
     deleted_at: DateTime
-
     price: Float
-    @field(
-        resolver: "App\\GraphQL\\Queries\\Documents\\Price"
-    )
-    @with(
-        relation: "statuses"
-    )
-
     currency_id: ID
     currency: Currency @relation
     customer: Customer @relation

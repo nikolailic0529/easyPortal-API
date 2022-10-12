@@ -1,0 +1,136 @@
+{
+    "selector": "data.getAssets",
+    "query": "query getAssets($id: String!) {\n    getAssets(args: [{key: \"id\", value: $id}]) {\n        id\nserialNumber\n\nassetSku\nassetSkuDescription\nassetTag\nassetType\nstatus\nvendor\n\neolDate\neosDate\n\ncountry\ncountryCode\nlatitude\nlongitude\nzip\ncity\naddress\naddress2\n\ncustomerId\nresellerId\n\nupdatedAt\n\nlatestContactPersons {\n    phoneNumber\n    name\n    type\n    mail\n}\n\nassetCoverage\ncoverageStatusCheck {\n    coverageStatus\n    coverageStatusUpdatedAt\n    coverageEntries {\n        coverageStartDate\n        coverageEndDate\n        type\n        description\n        status\n        serviceSku\n    }\n}\n\ndataQualityScore\n        assetDocument {\n    startDate\n    endDate\n    documentNumber\n\n    document {\n        id\n        type\n        documentNumber\n\n        startDate\n        endDate\n\n        currencyCode\n        languageCode\n\n        updatedAt\n\n        vendorSpecificFields {\n            vendor\n            groupId\n            groupDescription\n            said\n        }\n\n        contactPersons {\n            phoneNumber\n            name\n            type\n            mail\n        }\n\n        customerId\n        resellerId\n        distributorId\n    }\n\n    serviceGroupSku\n    serviceGroupSkuDescription\n    serviceLevelSku\n    serviceLevelSkuDescription\n    serviceFullDescription\n\n    customer {\n      id\n    }\n\n    reseller {\n      id\n    }\n}\n    }\n}",
+    "variables": {
+        "id": "ee66f787-8e08-4479-9edb-f53a7fa27354"
+    },
+    "response": {
+        "data": {
+            "getAssets": [
+                {
+                    "id": "ee66f787-8e08-4479-9edb-f53a7fa27354",
+                    "resellerId": "77ec115b-9723-4582-ad45-2b3a83286b1f",
+                    "customerId": "bd9402e4-3980-4337-bea0-c64720767d1f",
+                    "serialNumber": null,
+                    "assetSkuDescription": "HPE 2U CMA for Easy Install Rail Kit",
+                    "assetTag": null,
+                    "assetType": null,
+                    "vendor": "HPE",
+                    "assetSku": "733664-B21",
+                    "eolDate": null,
+                    "eosDate": null,
+                    "zip": "53967",
+                    "city": "Emmettville",
+                    "address": "9935 Eduardo Centers",
+                    "address2": null,
+                    "country": "Ethiopia",
+                    "latitude": "-72.651537",
+                    "longitude": "-139.755262",
+                    "countryCode": "KP",
+                    "status": "ACTIVE",
+                    "updatedAt": "1662148533576",
+                    "assetCoverage": [
+                        "ARCHIVED"
+                    ],
+                    "dataQualityScore": "20",
+                    "assetDocument": [
+                        {
+                            "serviceGroupSku": null,
+                            "serviceGroupSkuDescription": null,
+                            "serviceLevelSku": "HA151AC",
+                            "serviceLevelSkuDescription": "HPE Hardware Maintenance Onsite Support",
+                            "serviceFullDescription": null,
+                            "documentNumber": "9f5dadf9-d8e6-3388-97b4-e221c6dd3d3d",
+                            "document": {
+                                "id": "012b886e-7457-4179-8503-1da20ce4c7d1",
+                                "type": "Contract",
+                                "documentNumber": "9f5dadf9-d8e6-3388-97b4-e221c6dd3d3d",
+                                "startDate": "2018-06-16",
+                                "endDate": "2023-06-15",
+                                "currencyCode": "EUR",
+                                "languageCode": null,
+                                "updatedAt": "1654262846658",
+                                "vendorSpecificFields": {
+                                    "vendor": "HPE",
+                                    "said": "2be856df-5563-33c7-9668-6eaf2fc2661d",
+                                    "groupId": null,
+                                    "groupDescription": null
+                                },
+                                "contactPersons": [
+                                    {
+                                        "phoneNumber": "+18459795683",
+                                        "name": "Stephany Reynolds",
+                                        "mail": null,
+                                        "type": "EndUser Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+16607583859",
+                                        "name": "Prof. Martine Heathcote",
+                                        "mail": "renee.wolff@ortiz.com",
+                                        "type": "Distributor Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+18439411482",
+                                        "name": "Maxie Gislason",
+                                        "mail": "fadel.cassidy@yahoo.com",
+                                        "type": "Reseller Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+18459795683",
+                                        "name": "Stephany Reynolds",
+                                        "mail": null,
+                                        "type": "Hardware System Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+18459795683",
+                                        "name": "Stephany Reynolds",
+                                        "mail": null,
+                                        "type": "Software System Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+18459795683",
+                                        "name": "Stephany Reynolds",
+                                        "mail": null,
+                                        "type": "System Manager Contact"
+                                    }
+                                ],
+                                "resellerId": "77ec115b-9723-4582-ad45-2b3a83286b1f",
+                                "customerId": "bd9402e4-3980-4337-bea0-c64720767d1f",
+                                "distributorId": "1af1c44e-8112-4e72-9654-b11c705e9372"
+                            },
+                            "startDate": null,
+                            "endDate": null,
+                            "reseller": {
+                                "id": "77ec115b-9723-4582-ad45-2b3a83286b1f"
+                            },
+                            "customer": {
+                                "id": "bd9402e4-3980-4337-bea0-c64720767d1f"
+                            }
+                        }
+                    ],
+                    "latestContactPersons": [
+                        {
+                            "phoneNumber": "+18459795683",
+                            "name": "Stephany Reynolds",
+                            "mail": null,
+                            "type": "EndUser Contact"
+                        },
+                        {
+                            "phoneNumber": "+16607583859",
+                            "name": "Prof. Martine Heathcote",
+                            "mail": "renee.wolff@ortiz.com",
+                            "type": "Distributor Contact"
+                        },
+                        {
+                            "phoneNumber": "+18439411482",
+                            "name": "Maxie Gislason",
+                            "mail": "fadel.cassidy@yahoo.com",
+                            "type": "Reseller Contact"
+                        }
+                    ],
+                    "coverageStatusCheck": null
+                }
+            ]
+        }
+    }
+}

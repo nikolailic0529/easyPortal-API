@@ -98,9 +98,8 @@ class ContractsAggregatedTest extends TestCase {
      * @return array<mixed>
      */
     public function dataProviderQuery(): array {
-        $noPriceStatus = '685d912c-bf6a-4745-96d8-b3cb74f42c1b';
-        $hiddenStatus  = '5d9b319b-f69f-4ef1-94dc-749f89c0fe3d';
-        $params        = [
+        $hiddenStatus = '5d9b319b-f69f-4ef1-94dc-749f89c0fe3d';
+        $params       = [
             'where' => [
                 'anyOf' => [
                     [
@@ -116,12 +115,11 @@ class ContractsAggregatedTest extends TestCase {
                 ],
             ],
         ];
-        $factory       = static function (
+        $factory      = static function (
             TestCase $test,
             Organization $org,
         ) use (
             $hiddenStatus,
-            $noPriceStatus,
         ): void {
             // Type
             $type = Type::factory()->create([
@@ -215,19 +213,6 @@ class ContractsAggregatedTest extends TestCase {
                     'currency_id' => $currencyA,
                     'price'       => 5,
                 ]);
-
-            // No Price Status
-            Document::factory()
-                ->hasStatuses(1, [
-                    'id' => $noPriceStatus,
-                ])
-                ->create([
-                    'type_id'     => $type,
-                    'reseller_id' => $resellerA,
-                    'customer_id' => $customerA,
-                    'currency_id' => $currencyA,
-                    'price'       => 5,
-                ]);
         };
 
         return (new MergeDataProvider([
@@ -239,7 +224,7 @@ class ContractsAggregatedTest extends TestCase {
                 new ArrayDataProvider([
                     'ok' => [
                         new GraphQLSuccess('contractsAggregated', [
-                            'count'  => 5,
+                            'count'  => 4,
                             'prices' => [
                                 [
                                     'count'       => 1,
@@ -258,7 +243,7 @@ class ContractsAggregatedTest extends TestCase {
                                     ],
                                 ],
                                 [
-                                    'count'       => 3,
+                                    'count'       => 2,
                                     'amount'      => 25,
                                     'currency_id' => 'fd6be569-3b51-4c8c-a132-3b57b1b8624a',
                                     'currency'    => [
@@ -270,13 +255,10 @@ class ContractsAggregatedTest extends TestCase {
                             ],
                         ]),
                         [
-                            'ep.document_statuses_no_price' => [
-                                $noPriceStatus,
-                            ],
-                            'ep.document_statuses_hidden'   => [
+                            'ep.document_statuses_hidden' => [
                                 $hiddenStatus,
                             ],
-                            'ep.contract_types'             => [
+                            'ep.contract_types'           => [
                                 'f9834bc1-2f2f-4c57-bb8d-7a224ac24985',
                             ],
                         ],
@@ -291,12 +273,12 @@ class ContractsAggregatedTest extends TestCase {
                     'contracts-view',
                 ]),
                 new ArrayDataProvider([
-                    'ok'               => [
+                    'ok'             => [
                         new GraphQLSuccess('contractsAggregated', [
-                            'count'  => 2,
+                            'count'  => 1,
                             'prices' => [
                                 [
-                                    'count'       => 2,
+                                    'count'       => 1,
                                     'amount'      => 10,
                                     'currency_id' => 'fd6be569-3b51-4c8c-a132-3b57b1b8624a',
                                     'currency'    => [
@@ -308,20 +290,17 @@ class ContractsAggregatedTest extends TestCase {
                             ],
                         ]),
                         [
-                            'ep.document_statuses_no_price' => [
-                                $noPriceStatus,
-                            ],
-                            'ep.document_statuses_hidden'   => [
+                            'ep.document_statuses_hidden' => [
                                 $hiddenStatus,
                             ],
-                            'ep.contract_types'             => [
+                            'ep.contract_types'           => [
                                 'f9834bc1-2f2f-4c57-bb8d-7a224ac24985',
                             ],
                         ],
                         $factory,
                         $params,
                     ],
-                    'no types'         => [
+                    'no types'       => [
                         new GraphQLSuccess('contractsAggregated', [
                             'count'  => 0,
                             'prices' => [],
@@ -337,7 +316,7 @@ class ContractsAggregatedTest extends TestCase {
                         $factory,
                         $params,
                     ],
-                    'type not match'   => [
+                    'type not match' => [
                         new GraphQLSuccess('contractsAggregated', [
                             'count'  => 0,
                             'prices' => [],
@@ -348,36 +327,6 @@ class ContractsAggregatedTest extends TestCase {
                             ],
                             'ep.contract_types'           => [
                                 'da436d68-a6b5-424e-a25e-8394b697d191',
-                            ],
-                        ],
-                        $factory,
-                        $params,
-                    ],
-                    'no hidden prices' => [
-                        new GraphQLSuccess('contractsAggregated', [
-                            'count'  => 2,
-                            'prices' => [
-                                [
-                                    'count'       => 2,
-                                    'amount'      => 15,
-                                    'currency_id' => 'fd6be569-3b51-4c8c-a132-3b57b1b8624a',
-                                    'currency'    => [
-                                        'id'   => 'fd6be569-3b51-4c8c-a132-3b57b1b8624a',
-                                        'name' => 'A',
-                                        'code' => 'A',
-                                    ],
-                                ],
-                            ],
-                        ]),
-                        [
-                            'ep.document_statuses_no_price' => [
-                                // empty
-                            ],
-                            'ep.document_statuses_hidden'   => [
-                                $hiddenStatus,
-                            ],
-                            'ep.contract_types'             => [
-                                'f9834bc1-2f2f-4c57-bb8d-7a224ac24985',
                             ],
                         ],
                         $factory,

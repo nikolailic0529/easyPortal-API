@@ -11,7 +11,7 @@
                     "id": "9fa30fea-e452-4d53-b5d9-93d5331c8ba6",
                     "name": "Jacobs, Simonis and Hill",
                     "companyType": "CUSTOMER",
-                    "updatedAt": "1662156833717",
+                    "updatedAt": "1664810533615",
                     "keycloakName": null,
                     "keycloakGroupId": null,
                     "keycloakClientScopeName": null,
@@ -53,8 +53,8 @@
                     ],
                     "companyKpis": {
                         "totalAssets": 17,
-                        "activeAssets": 0,
-                        "activeAssetsPercentage": 0.0,
+                        "activeAssets": 5,
+                        "activeAssetsPercentage": 29.411764705882355,
                         "activeCustomers": null,
                         "newActiveCustomers": null,
                         "activeContracts": 2,
@@ -83,8 +83,8 @@
                         {
                             "resellerId": "594184e7-24d4-4614-8db4-fe132adb86f4",
                             "totalAssets": 17,
-                            "activeAssets": 0,
-                            "activeAssetsPercentage": 0.0,
+                            "activeAssets": 5,
+                            "activeAssetsPercentage": 29.411764705882355,
                             "activeCustomers": null,
                             "newActiveCustomers": null,
                             "activeContracts": 2,
@@ -111,7 +111,7 @@
                         }
                     ],
                     "status": [
-                        "INACTIVE"
+                        "ACTIVE"
                     ]
                 }
             ]
