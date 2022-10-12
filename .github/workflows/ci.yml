@@ -72,8 +72,13 @@ jobs:
       - name: Checkout previous
         uses: actions/checkout@v3
         with:
+          fetch-depth: 2
           path: "${{ env.GRAPHQL_PREVIOUS }}"
-          ref: "${{ env.GRAPHQL_IS_PR && github.event.pull_request.base.ref || 'HEAD~1' }}"
+          ref: "${{ env.GRAPHQL_IS_PR && github.event.pull_request.base.ref || '' }}"
+      - name: Switch to previous
+        run: |
+          cd "${{ env.GRAPHQL_PREVIOUS }}"
+          git checkout HEAD~1
       - name: Check
         if: hashFiles(env.GRAPHQL_PREVIOUS_SCHEMA)
         run: |
