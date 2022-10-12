@@ -4,6 +4,7 @@ namespace App\Services\DataLoader\Commands;
 
 use App\Models\Logs\AnalyzeAsset;
 use App\Services\DataLoader\Client\Client;
+use App\Services\DataLoader\Client\GraphQL\GraphQL;
 use App\Services\DataLoader\Client\QueryIterator;
 use App\Services\DataLoader\Resolver\Resolvers\AnalyzeAssetResolver;
 use App\Services\DataLoader\Resolver\Resolvers\AssetResolver;
@@ -278,26 +279,33 @@ class AssetsAnalyze extends Command {
     protected function getIterator(Client $client, ?string $lastId, int $chunk): QueryIterator {
         return $client
             ->getLastIdBasedIterator(
-                'getAssets',
-                /** @lang GraphQL */ <<<'GRAPHQL'
-                query items($limit: Int, $lastId: String) {
-                    getAssets(limit: $limit, lastId: $lastId) {
-                        id
-                        reseller {
-                          id
-                          companyTypes {
-                            type
-                          }
-                        }
-                        customer {
-                          id
-                          companyTypes {
-                            type
-                          }
-                        }
+                new class() extends GraphQL {
+                    public function getSelector(): string {
+                        return 'getAssets';
                     }
-                }
-                GRAPHQL,
+
+                    public function __toString(): string {
+                        return /** @lang GraphQL */ <<<'GRAPHQL'
+                            query items($limit: Int, $lastId: String) {
+                                getAssets(limit: $limit, lastId: $lastId) {
+                                    id
+                                    reseller {
+                                      id
+                                      companyTypes {
+                                        type
+                                      }
+                                    }
+                                    customer {
+                                      id
+                                      companyTypes {
+                                        type
+                                      }
+                                    }
+                                }
+                            }
+                        GRAPHQL;
+                    }
+                },
                 [],
                 static function (array $data): ViewAsset {
                     return new ViewAsset($data);

@@ -3,6 +3,7 @@
 namespace App\Services\DataLoader\Testing\Concerns;
 
 use App\Services\DataLoader\Client\Client;
+use App\Services\DataLoader\Client\GraphQL\GraphQL;
 use App\Services\DataLoader\Testing\ClientIterator;
 use App\Utils\Iterators\Contracts\ObjectIterator;
 use Closure;
@@ -32,15 +33,13 @@ trait WithLimit {
      * @return ObjectIterator<T>
      */
     public function getOffsetBasedIterator(
-        string $selector,
-        string $graphql,
+        GraphQL $graphql,
         array $variables,
         Closure $retriever,
         int $limit = null,
         string|int|null $offset = null,
     ): ObjectIterator {
         return (new ClientIterator(parent::getOffsetBasedIterator(
-            $selector,
             $graphql,
             $variables,
             $retriever,
@@ -59,15 +58,13 @@ trait WithLimit {
      * @return ObjectIterator<T>
      */
     public function getLastIdBasedIterator(
-        string $selector,
-        string $graphql,
+        GraphQL $graphql,
         array $variables,
         Closure $retriever,
         int $limit = null,
         string $lastId = null,
     ): ObjectIterator {
         return (new ClientIterator(parent::getLastIdBasedIterator(
-            $selector,
             $graphql,
             $variables,
             $retriever,
