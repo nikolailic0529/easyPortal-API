@@ -63,7 +63,7 @@ trait WithGraphQLSchema {
     ): void {
         // Prepare
         $expected = $expected instanceof SplFileInfo ? $expected : $this->getTempFile($expected, '.graphql');
-        $actual   = $actual instanceof SplFileInfo ? $actual : $this->getTempFile($actual, '.graphql');
+        $schema   = $actual instanceof SplFileInfo ? $actual : $this->getTempFile($actual, '.graphql');
 
         if ((int) $expected->getSize() === 0) {
             file_put_contents($expected->getPathname(), $actual);
@@ -74,7 +74,7 @@ trait WithGraphQLSchema {
             [
                 'diff',
                 $expected->getPathname(),
-                $actual->getPathname(),
+                $schema->getPathname(),
             ],
             $message,
             $closure,
