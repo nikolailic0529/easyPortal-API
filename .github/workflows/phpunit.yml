@@ -55,12 +55,14 @@ jobs:
           --health-timeout=5s
           --health-retries=5
       elastic:
-        image: elasticsearch:7.17.5
+        image: elasticsearch:8.5.0
         ports:
           - 9200:9200
         env:
-          discovery.type: single-node
           ES_JAVA_OPTS: -Xms128m -Xmx256m
+          discovery.type: single-node
+          xpack.security.enabled: false
+          xpack.security.enrollment.enabled: false
         options: >-
           --health-cmd="curl http://localhost:9200/_cluster/health"
           --health-interval=10s
