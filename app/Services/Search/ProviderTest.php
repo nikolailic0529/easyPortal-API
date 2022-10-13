@@ -5,7 +5,7 @@ namespace App\Services\Search;
 use App\Services\Search\Builders\Builder as SearchBuilder;
 use App\Services\Search\Elastic\SearchRequestFactory;
 use App\Services\Search\Eloquent\SearchableImpl as SearchSearchable;
-use ElasticScoutDriver\Factories\SearchRequestFactoryInterface;
+use Elastic\ScoutDriver\Factories\SearchParametersFactoryInterface;
 use Illuminate\Database\Eloquent\Model;
 use Laravel\Scout\Builder as ScoutBuilder;
 use Laravel\Scout\Searchable as ScoutSearchable;
@@ -37,7 +37,7 @@ class ProviderTest extends TestCase {
             },
         ]));
 
-        self::assertInstanceOf(SearchRequestFactory::class, $this->app->make(SearchRequestFactoryInterface::class));
+        self::assertInstanceOf(SearchRequestFactory::class, $this->app->make(SearchParametersFactoryInterface::class));
 
         self::assertTrue($this->app->bound(ColumnResolver::class));
     }

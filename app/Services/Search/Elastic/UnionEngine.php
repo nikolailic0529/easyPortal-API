@@ -3,9 +3,10 @@
 namespace App\Services\Search\Elastic;
 
 use App\Services\Search\Builders\UnionBuilder;
-use ElasticScoutDriverPlus\Decorators\Hit;
-use ElasticScoutDriverPlus\Decorators\SearchResult;
+use Elastic\ScoutDriverPlus\Decorators\Hit;
+use Elastic\ScoutDriverPlus\Decorators\SearchResult;
 use Generator;
+use Illuminate\Database\Eloquent\Collection as EloquentCollection;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
 use Illuminate\Support\LazyCollection;
@@ -14,6 +15,7 @@ use Laravel\Scout\Builder;
 use Laravel\Scout\Engines\Engine;
 use LogicException;
 
+use function assert;
 use function sprintf;
 
 class UnionEngine extends Engine {
@@ -26,50 +28,55 @@ class UnionEngine extends Engine {
     // <editor-fold desc="Search">
     // =========================================================================
     /**
-     * @phpcsSuppress SlevomatCodingStandard.TypeHints.ParameterTypeHint.MissingNativeTypeHint
+     * @phpcsSuppress SlevomatCodingStandard.TypeHints.ParameterTypeHint.MissingAnyTypeHint
      *
-     * @param SearchResult $results
+     * @return Collection<array-key, string>
      */
     public function mapIds($results): Collection {
         // TODO: Probably we need to add Model class?
+        assert($results instanceof SearchResult);
+
         return (new Collection($results->hits()))
-            ->map(static function (Hit $match): string {
+            ->map(static function (mixed $match): string {
+                assert($match instanceof Hit);
+
                 return $match->document()->id();
             });
     }
 
     /**
-     * @phpcsSuppress SlevomatCodingStandard.TypeHints.ParameterTypeHint.MissingNativeTypeHint
+     * @phpcsSuppress SlevomatCodingStandard.TypeHints.ParameterTypeHint.MissingAnyTypeHint
      *
-     * @param SearchResult $results
-     * @param Model        $model
+     * @return EloquentCollection<array-key, Model>
      */
-    public function map(Builder $builder, $results, $model): Collection {
+    public function map(Builder $builder, $results, $model): EloquentCollection {
+        assert($results instanceof SearchResult);
+
         return $results->models();
     }
 
     /**
-     * @phpcsSuppress SlevomatCodingStandard.TypeHints.ParameterTypeHint.MissingNativeTypeHint
+     * @phpcsSuppress SlevomatCodingStandard.TypeHints.ParameterTypeHint.MissingAnyTypeHint
      *
-     * @param SearchResult $results
-     * @param Model        $model
+     * @return LazyCollection<array-key, Model>
      */
     public function lazyMap(Builder $builder, $results, $model): LazyCollection {
+        assert($results instanceof SearchResult);
+
         return new LazyCollection(static function () use ($results): Generator {
             foreach ($results as $query) {
-                /** @var Hit $query */
                 yield $query->model();
             }
         });
     }
 
     /**
-     * @phpcsSuppress SlevomatCodingStandard.TypeHints.ParameterTypeHint.MissingNativeTypeHint
-     *
-     * @param SearchResult $results
+     * @phpcsSuppress SlevomatCodingStandard.TypeHints.ParameterTypeHint.MissingAnyTypeHint
      */
-    public function getTotalCount($results): ?int {
-        return $results->total();
+    public function getTotalCount($results): int {
+        assert($results instanceof SearchResult);
+
+        return (int) $results->total();
     }
 
     /**
@@ -111,35 +118,35 @@ class UnionEngine extends Engine {
     // <editor-fold desc="Not supported">
     // =========================================================================
     /**
-     * {@inheritDoc}
+     * @inheritdoc
      */
     public function update($models) {
         throw new LogicException('Not supported.');
     }
 
     /**
-     * {@inheritDoc}
+     * @inheritdoc
      */
     public function delete($models) {
         throw new LogicException('Not supported.');
     }
 
     /**
-     * {@inheritDoc}
+     * @inheritdoc
      */
     public function flush($model) {
         throw new LogicException('Not supported.');
     }
 
     /**
-     * {@inheritDoc}
+     * @inheritdoc
      */
     public function createIndex($name, array $options = []) {
         throw new LogicException('Not supported.');
     }
 
     /**
-     * {@inheritDoc}
+     * @inheritdoc
      */
     public function deleteIndex($name) {
         throw new LogicException('Not supported.');

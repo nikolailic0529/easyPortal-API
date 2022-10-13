@@ -6,10 +6,10 @@ use App\Services\Search\Builders\Builder as SearchBuilder;
 use App\Services\Search\Builders\UnionBuilder as SearchCombinedBuilder;
 use App\Services\Search\Eloquent\Searchable;
 use App\Services\Search\Properties\Value;
-use ElasticAdapter\Search\SearchRequest;
-use ElasticScoutDriver\Factories\SearchRequestFactory as BaseSearchRequestFactory;
-use ElasticScoutDriverPlus\Builders\BoolQueryBuilder;
-use ElasticScoutDriverPlus\Builders\SearchRequestBuilder;
+use Elastic\Adapter\Search\SearchParameters;
+use Elastic\ScoutDriver\Factories\SearchParametersFactory;
+use Elastic\ScoutDriverPlus\Builders\BoolQueryBuilder;
+use Elastic\ScoutDriverPlus\Builders\SearchParametersBuilder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
 use Laravel\Scout\Builder as ScoutBuilder;
@@ -32,11 +32,11 @@ use function trim;
 
 use const PREG_SPLIT_NO_EMPTY;
 
-class SearchRequestFactory extends BaseSearchRequestFactory {
+class SearchRequestFactory extends SearchParametersFactory {
     /**
      * @inheritDoc
      */
-    public function makeFromBuilder(ScoutBuilder $builder, array $options = []): SearchRequest {
+    public function makeFromBuilder(ScoutBuilder $builder, array $options = []): SearchParameters {
         $request = parent::makeFromBuilder($builder, $options);
         $from    = $this->makeOffset($builder, $options);
 
@@ -53,7 +53,7 @@ class SearchRequestFactory extends BaseSearchRequestFactory {
     public function makeFromUnionBuilder(
         SearchCombinedBuilder $builder,
         array $options = [],
-    ): SearchRequestBuilder {
+    ): SearchParametersBuilder {
         // Query
         $query = new BoolQueryBuilder();
 
@@ -91,24 +91,18 @@ class SearchRequestFactory extends BaseSearchRequestFactory {
         $search = null;
 
         foreach ($builder->getModels() as $model => $settings) {
-            // Join
             if (!$search) {
-                $search = new SearchRequestBuilder($query, new $model());
-            } else {
-                $search->join($model);
+                $search = (new SearchParametersBuilder(new $model()))->query($query);
             }
 
-            // Boost
-            if (isset($settings['boost'])) {
-                $search->boostIndex($model, $settings['boost']);
-            }
+            $search->join($model, $settings['boost'] ?? null);
         }
 
         // Empty?
         if (!$search) {
             throw new LogicException(sprintf(
                 'Failed to create `%s` instance. No models?',
-                SearchRequestBuilder::class,
+                SearchParametersBuilder::class,
             ));
         }
 

@@ -2,6 +2,7 @@
 
 namespace App\Services\Search\GraphQL;
 
+use App\Services\Search\Eloquent\Searchable;
 use App\Services\Search\Eloquent\SearchableImpl;
 use App\Services\Search\Properties\Properties;
 use App\Services\Search\Properties\Relation;
@@ -56,13 +57,13 @@ class ModelConverterTest extends TestCase {
  * @internal
  * @noinspection PhpMultipleClassesDeclarationsInOneFile
  */
-class ModelConverterTest_Model extends Model {
+class ModelConverterTest_Model extends Model implements Searchable {
     use SearchableImpl;
 
     /**
      * @inheritDoc
      */
-    protected static function getSearchProperties(): array {
+    public static function getSearchProperties(): array {
         return [
             'name'  => new Text('name'),
             'test'  => new Text('value'),

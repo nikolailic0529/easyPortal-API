@@ -6,8 +6,10 @@ use App\Services\Search\Builders\Builder;
 use App\Services\Search\Builders\UnionBuilder;
 use App\Services\Search\Configuration;
 use App\Services\Search\Contracts\Scope;
+use App\Services\Search\Eloquent\Searchable;
 use App\Services\Search\Eloquent\SearchableImpl;
 use App\Services\Search\Eloquent\UnionModel;
+use App\Services\Search\Properties\Property;
 use App\Services\Search\Properties\Text;
 use App\Services\Search\Properties\Uuid;
 use App\Services\Search\Properties\Value;
@@ -16,12 +18,15 @@ use Illuminate\Database\Eloquent\Model;
 use Laravel\Scout\Builder as ScoutBuilder;
 use stdClass;
 use Tests\TestCase;
+use Tests\WithSearch;
 
 /**
  * @internal
  * @coversDefaultClass \App\Services\Search\Elastic\SearchRequestFactory
  */
 class SearchRequestFactoryTest extends TestCase {
+    use WithSearch;
+
     // <editor-fold desc="Tests">
     // =========================================================================
     /**
@@ -30,23 +35,28 @@ class SearchRequestFactoryTest extends TestCase {
      *
      * @dataProvider dataProviderMakeFromBuilder
      *
-     * @param array<mixed> $expected
+     * @param array<mixed>                             $expected
+     * @param Closure(Builder<Model>): array<Property> $prepare
      */
     public function testMakeFromBuilder(array $expected, Closure $prepare): void {
         $factory = $this->app->make(SearchRequestFactory::class);
-        $model   = new class() extends Model {
+        $model   = new class() extends Model implements Searchable {
             use SearchableImpl;
 
             /**
-             * @var array<mixed>
+             * @var array<Property>
              */
             public static array $searchProperties;
 
             /**
              * @inheritDoc
              */
-            protected static function getSearchProperties(): array {
+            public static function getSearchProperties(): array {
                 return self::$searchProperties;
+            }
+
+            public function searchableAs(): string {
+                return 'index';
             }
         };
         $builder = $this->app->make(Builder::class, [
@@ -54,7 +64,7 @@ class SearchRequestFactoryTest extends TestCase {
             'model' => $model,
         ]);
 
-        $model::$searchProperties = (array) $prepare($builder) ?: ['a' => new Text('a', true)];
+        $model::$searchProperties = $prepare($builder) ?: ['a' => new Text('a', true)];
 
         self::assertEquals($expected, $factory->makeFromBuilder($builder)->toArray());
     }
@@ -69,13 +79,13 @@ class SearchRequestFactoryTest extends TestCase {
             'query' => 'a[b]c',
             'model' => $model,
         ]);
-        $a       = new class() extends Model {
+        $a       = new class() extends Model implements Searchable {
             use SearchableImpl;
 
             /**
              * @inheritDoc
              */
-            protected static function getSearchProperties(): array {
+            public static function getSearchProperties(): array {
                 return ['a' => new Text('a', true)];
             }
 
@@ -83,13 +93,13 @@ class SearchRequestFactoryTest extends TestCase {
                 return 'a';
             }
         };
-        $b       = new class() extends Model {
+        $b       = new class() extends Model implements Searchable {
             use SearchableImpl;
 
             /**
              * @inheritDoc
              */
-            protected static function getSearchProperties(): array {
+            public static function getSearchProperties(): array {
                 return ['a' => new Text('a', true)];
             }
 
@@ -114,10 +124,11 @@ class SearchRequestFactoryTest extends TestCase {
                 'perPage' => 10,
                 'page'    => 5,
             ])
-            ->buildSearchRequest()
+            ->buildSearchParameters()
             ->toArray();
         $expected = [
-            'body' => [
+            'index' => 'a,b',
+            'body'  => [
                 'query'         => [
                     'bool' => [
                         'should' => [
@@ -203,13 +214,13 @@ class SearchRequestFactoryTest extends TestCase {
             'query' => 'a[b]c',
             'model' => $model,
         ]);
-        $a       = new class() extends Model {
+        $a       = new class() extends Model implements Searchable {
             use SearchableImpl;
 
             /**
              * @inheritDoc
              */
-            protected static function getSearchProperties(): array {
+            public static function getSearchProperties(): array {
                 return ['a' => new Text('a', true)];
             }
 
@@ -226,10 +237,11 @@ class SearchRequestFactoryTest extends TestCase {
         // Test
         $actual   = $this->app->make(SearchRequestFactory::class)
             ->makeFromUnionBuilder($builder)
-            ->buildSearchRequest()
+            ->buildSearchParameters()
             ->toArray();
         $expected = [
-            'body' => [
+            'index' => 'a',
+            'body'  => [
                 'query' => [
                     'bool' => [
                         'should' => [
@@ -270,22 +282,22 @@ class SearchRequestFactoryTest extends TestCase {
      *
      * @dataProvider dataProviderEscapeQueryString
      *
-     * @param array<mixed> $expected
-     * @param array<mixed> $properties
+     * @param array<mixed>    $expected
+     * @param array<Property> $properties
      */
     public function testMakeQuery(array $expected, array $properties, string $query): void {
-        $model   = new class() extends Model {
+        $model   = new class() extends Model implements Searchable {
             use SearchableImpl;
 
             /**
-             * @var array<mixed>
+             * @var array<Property>
              */
             public static array $properties = [];
 
             /**
              * @inheritDoc
              */
-            protected static function getSearchProperties(): array {
+            public static function getSearchProperties(): array {
                 return self::$properties;
             }
         };
@@ -361,7 +373,8 @@ class SearchRequestFactoryTest extends TestCase {
         return [
             'where'                 => [
                 [
-                    'body' => [
+                    'index' => 'index',
+                    'body'  => [
                         'query' => [
                             'bool' => [
                                 'must'   => $must,
@@ -380,7 +393,8 @@ class SearchRequestFactoryTest extends TestCase {
             ],
             'whereIn'               => [
                 [
-                    'body' => [
+                    'index' => 'index',
+                    'body'  => [
                         'query' => [
                             'bool' => [
                                 'must'   => $must,
@@ -403,7 +417,8 @@ class SearchRequestFactoryTest extends TestCase {
             ],
             'whereNot'              => [
                 [
-                    'body' => [
+                    'index' => 'index',
+                    'body'  => [
                         'query' => [
                             'bool' => [
                                 'must'   => $must,
@@ -428,7 +443,8 @@ class SearchRequestFactoryTest extends TestCase {
             ],
             'where + whereNot'      => [
                 [
-                    'body' => [
+                    'index' => 'index',
+                    'body'  => [
                         'query' => [
                             'bool' => [
                                 'must'   => $must,
@@ -457,7 +473,8 @@ class SearchRequestFactoryTest extends TestCase {
             ],
             'whereNotIn'            => [
                 [
-                    'body' => [
+                    'index' => 'index',
+                    'body'  => [
                         'query' => [
                             'bool' => [
                                 'must'   => $must,
@@ -486,7 +503,8 @@ class SearchRequestFactoryTest extends TestCase {
             ],
             'whereNot + whereNotIn' => [
                 [
-                    'body' => [
+                    'index' => 'index',
+                    'body'  => [
                         'query' => [
                             'bool' => [
                                 'must'   => $must,
@@ -515,7 +533,8 @@ class SearchRequestFactoryTest extends TestCase {
             ],
             'order'                 => [
                 [
-                    'body' => [
+                    'index' => 'index',
+                    'body'  => [
                         'query' => [
                             'bool' => [
                                 'must' => $must,
@@ -552,7 +571,8 @@ class SearchRequestFactoryTest extends TestCase {
             ],
             'offset'                => [
                 [
-                    'body' => [
+                    'index' => 'index',
+                    'body'  => [
                         'query' => [
                             'bool' => [
                                 'must' => $must,

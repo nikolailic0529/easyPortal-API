@@ -5,6 +5,7 @@ namespace App\Services\Search;
 use App\Services\Search\Builders\Builder as SearchBuilder;
 use App\Services\Search\Commands\FulltextIndexesRebuild;
 use App\Services\Search\Commands\IndexesRebuild;
+use App\Services\Search\Elastic\ClientBuilder;
 use App\Services\Search\Elastic\SearchRequestFactory;
 use App\Services\Search\GraphQL\ModelConverter;
 use App\Services\Search\GraphQL\ScoutColumnResolver;
@@ -14,13 +15,11 @@ use App\Services\Search\Queue\Jobs\AssetsIndexer;
 use App\Services\Search\Queue\Jobs\CustomersIndexer;
 use App\Services\Search\Queue\Jobs\DocumentsIndexer;
 use App\Services\Search\Queue\Tasks\ModelsIndex;
-use ElasticScoutDriver\Factories\SearchRequestFactoryInterface;
-use Elasticsearch\Client;
-use Elasticsearch\ClientBuilder;
-use Illuminate\Contracts\Config\Repository;
+use Elastic\Client\ClientBuilderInterface;
+use Elastic\Elasticsearch\Client;
+use Elastic\ScoutDriver\Factories\SearchParametersFactoryInterface;
 use Illuminate\Contracts\Container\Container;
 use Illuminate\Contracts\Events\Dispatcher;
-use Illuminate\Log\LogManager;
 use Illuminate\Support\ServiceProvider;
 use Laravel\Scout\Builder as ScoutBuilder;
 use Laravel\Scout\Scout;
@@ -30,10 +29,6 @@ use LastDragon_ru\LaraASP\Queue\Concerns\ProviderWithSchedule;
 use Nuwave\Lighthouse\Schema\Source\SchemaSourceProvider;
 use Nuwave\Lighthouse\Schema\TypeRegistry;
 use Nuwave\Lighthouse\Testing\TestSchemaProvider;
-use Psr\Log\LoggerInterface;
-
-use function array_filter;
-use function is_string;
 
 class Provider extends ServiceProvider {
     use ProviderWithCommands;
@@ -59,7 +54,7 @@ class Provider extends ServiceProvider {
     protected function registerBindings(): void {
         $this->app->singleton(Indexer::class);
         $this->app->bind(ScoutBuilder::class, SearchBuilder::class);
-        $this->app->bind(SearchRequestFactoryInterface::class, SearchRequestFactory::class);
+        $this->app->bind(SearchParametersFactoryInterface::class, SearchRequestFactory::class);
         $this->app->bind(ColumnResolver::class, ScoutColumnResolver::class);
     }
 
@@ -93,26 +88,9 @@ class Provider extends ServiceProvider {
     }
 
     protected function registerElasticClient(): void {
-        $this->app->singleton(Client::class, static function (Container $container) {
-            $config = $container->make(Repository::class)->get('elastic.client') ?? [];
-            $config = array_filter($config, static fn(mixed $value): bool => $value !== null) ?? [];
-            $logger = $config['logger'] ?? null;
-
-            if (is_string($logger)) {
-                $logger = $container->make(LogManager::class)->channel($logger);
-            } elseif ($logger === true) {
-                $logger = $container->make(LoggerInterface::class);
-            } else {
-                $logger = null;
-            }
-
-            if ($logger instanceof LoggerInterface) {
-                $config['logger'] = $logger;
-            } else {
-                unset($config['logger']);
-            }
-
-            return ClientBuilder::fromConfig($config);
+        $this->app->singleton(ClientBuilderInterface::class, ClientBuilder::class);
+        $this->app->bind(Client::class, static function (Container $container): Client {
+            return $container->make(ClientBuilderInterface::class)->default();
         });
     }
     // </editor-fold>

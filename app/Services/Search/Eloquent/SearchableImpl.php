@@ -4,6 +4,7 @@ namespace App\Services\Search\Eloquent;
 
 use App\Services\Search\Builders\Builder as SearchBuilder;
 use App\Services\Search\Configuration;
+use App\Services\Search\Eloquent\Searchable as EloquentSearchable;
 use App\Services\Search\Indexer;
 use App\Services\Search\Processors\ModelProcessor;
 use App\Services\Search\Properties\Properties;
@@ -13,6 +14,7 @@ use App\Services\Search\Properties\Value;
 use App\Utils\Eloquent\ModelProperty;
 use Carbon\CarbonInterface;
 use DateTimeInterface;
+use Elastic\ScoutDriverPlus\Searchable;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection as EloquentCollection;
 use Illuminate\Database\Eloquent\Model;
@@ -20,7 +22,6 @@ use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Date;
 use Laravel\Scout\Engines\Engine;
 use Laravel\Scout\ModelObserver;
-use Laravel\Scout\Searchable as ScoutSearchable;
 use LogicException;
 
 use function app;
@@ -40,7 +41,7 @@ use function is_scalar;
  * @method Engine searchableUsing()
  */
 trait SearchableImpl {
-    use ScoutSearchable {
+    use Searchable {
         search as protected scoutSearch;
         searchable as protected scoutSearchable;
         unsearchable as protected scoutUnsearchable;
@@ -142,7 +143,7 @@ trait SearchableImpl {
     }
 
     /**
-     * @param EloquentCollection<array-key, static> $models
+     * @param EloquentCollection<array-key, Model&EloquentSearchable> $models
      */
     public function queueMakeSearchable(EloquentCollection $models): void {
         if (config('scout.queue')) {
@@ -153,7 +154,7 @@ trait SearchableImpl {
     }
 
     /**
-     * @param EloquentCollection<array-key, static> $models
+     * @param EloquentCollection<array-key, Model&EloquentSearchable> $models
      */
     public function queueRemoveFromSearch(EloquentCollection $models): void {
         if (config('scout.queue')) {
@@ -297,25 +298,6 @@ trait SearchableImpl {
         }
 
         return $value;
-    }
-    // </editor-fold>
-
-    // <editor-fold desc="\ElasticScoutDriverPlus\Searchable">
-    // =========================================================================
-    /**
-     * @see \ElasticScoutDriverPlus\Searchable::shardRouting()
-     */
-    public function shardRouting(): string|int|null {
-        return null;
-    }
-
-    /**
-     * @see \ElasticScoutDriverPlus\Searchable::searchableWith()
-     *
-     * @return array<string>|string|null
-     */
-    public function searchableWith(): array|string|null {
-        return null;
     }
     // </editor-fold>
 }

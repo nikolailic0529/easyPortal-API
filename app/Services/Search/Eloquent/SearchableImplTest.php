@@ -11,6 +11,7 @@ use App\Services\Search\Contracts\ScopeWithMetadata;
 use App\Services\Search\Indexer;
 use App\Services\Search\Processors\ModelProcessor;
 use App\Services\Search\Properties\Properties;
+use App\Services\Search\Properties\Property;
 use App\Services\Search\Properties\Relation;
 use App\Services\Search\Properties\Text;
 use App\Services\Search\Properties\Uuid;
@@ -40,7 +41,7 @@ class SearchableImplTest extends TestCase {
      */
     public function testSearchIndexShouldBeUpdated(): void {
         // Model should be updated if property was changed
-        $model = new class() extends Model {
+        $model = new class() extends Model implements Searchable {
             use SearchableImpl;
 
             public function getDirty(): mixed {
@@ -50,7 +51,7 @@ class SearchableImplTest extends TestCase {
             /**
              * @inheritDoc
              */
-            protected static function getSearchProperties(): array {
+            public static function getSearchProperties(): array {
                 return ['a' => new Text('a')];
             }
         };
@@ -58,7 +59,7 @@ class SearchableImplTest extends TestCase {
         self::assertTrue($model->searchIndexShouldBeUpdated());
 
         // Relations should be ignored
-        $model = new class() extends Model {
+        $model = new class() extends Model implements Searchable {
             use SearchableImpl;
 
             public function getDirty(): mixed {
@@ -68,7 +69,7 @@ class SearchableImplTest extends TestCase {
             /**
              * @inheritDoc
              */
-            protected static function getSearchProperties(): array {
+            public static function getSearchProperties(): array {
                 return ['a.b' => new Text('a')];
             }
         };
@@ -101,7 +102,7 @@ class SearchableImplTest extends TestCase {
         ]);
 
         // Model
-        $model = new class() extends ServiceGroup {
+        $model = new class() extends ServiceGroup implements Searchable {
             use SearchableImpl;
 
             public function getForeignKey(): string {
@@ -111,7 +112,7 @@ class SearchableImplTest extends TestCase {
             /**
              * @inheritDoc
              */
-            protected static function getSearchProperties(): array {
+            public static function getSearchProperties(): array {
                 return [
                     'sku'     => new Text('sku'),
                     'oem'     => new Relation('oem', [
@@ -264,13 +265,13 @@ class SearchableImplTest extends TestCase {
      */
     public function testMakeAllSearchableUsing(): void {
         // Model
-        $model = new class() extends Model {
+        $model = new class() extends Model implements Searchable {
             use SearchableImpl;
 
             /**
              * @inheritDoc
              */
-            protected static function getSearchProperties(): array {
+            public static function getSearchProperties(): array {
                 return [
                     'a' => new Text('a.name'),
                     'b' => new Text('b.name'),
@@ -296,7 +297,7 @@ class SearchableImplTest extends TestCase {
      * @dataProvider dataProviderToSearchableValue
      */
     public function testToSearchableValue(mixed $expected, mixed $value): void {
-        $model = new class() extends Model {
+        $model = new class() extends Model implements Searchable {
             use SearchableImpl {
                 toSearchableValue as public;
             }
@@ -304,7 +305,7 @@ class SearchableImplTest extends TestCase {
             /**
              * @inheritDoc
              */
-            protected static function getSearchProperties(): array {
+            public static function getSearchProperties(): array {
                 return [];
             }
         };
@@ -360,7 +361,7 @@ class SearchableImplTest extends TestCase {
             ->once()
             ->andReturns();
 
-        $model = Mockery::mock(SearchableImplTest_Model::class);
+        $model = Mockery::mock(SearchableImplTest_Model::class, Searchable::class);
         $model->makePartial();
         $model
             ->shouldReceive('searchableUsing')
@@ -433,18 +434,18 @@ class SearchableImplTest extends TestCase {
      * @covers ::shouldBeSearchable
      */
     public function testShouldBeSearchable(): void {
-        $model = new class() extends Model {
+        $model = new class() extends Model implements Searchable {
             use SearchableImpl;
 
             /**
-             * @var array<mixed>
+             * @var array<Property>
              */
             public static array $searchProperties;
 
             /**
              * @inheritDoc
              */
-            protected static function getSearchProperties(): array {
+            public static function getSearchProperties(): array {
                 return self::$searchProperties;
             }
         };
@@ -464,7 +465,7 @@ class SearchableImplTest extends TestCase {
      * @covers ::getSearchConfiguration
      */
     public function testGetSearchConfiguration(): void {
-        $model  = new class() extends Model {
+        $model  = new class() extends Model implements Searchable {
             use SearchableImpl;
 
             /**
@@ -477,13 +478,12 @@ class SearchableImplTest extends TestCase {
             /**
              * @inheritDoc
              */
-            protected static function getSearchProperties(): array {
+            public static function getSearchProperties(): array {
                 return ['a' => new Text('a')];
             }
         };
         $config = $model->getSearchConfiguration();
 
-        self::assertInstanceOf(Configuration::class, $config);
         self::assertEquals(
             [
                 Configuration::getMetadataName() => [
@@ -503,7 +503,7 @@ class SearchableImplTest extends TestCase {
      * @covers ::scoutSearchableAs
      */
     public function testSearchableAs(): void {
-        $model = new class() extends Model {
+        $model = new class() extends Model implements Searchable {
             use SearchableImpl {
                 scoutSearchableAs as public;
             }
@@ -511,7 +511,7 @@ class SearchableImplTest extends TestCase {
             /**
              * @inheritDoc
              */
-            protected static function getSearchProperties(): array {
+            public static function getSearchProperties(): array {
                 return [];
             }
         };

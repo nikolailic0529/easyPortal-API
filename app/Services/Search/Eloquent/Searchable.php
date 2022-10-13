@@ -5,6 +5,7 @@ namespace App\Services\Search\Eloquent;
 use App\Services\Search\Builders\Builder as SearchBuilder;
 use App\Services\Search\Configuration;
 use App\Services\Search\Properties\Property;
+use Illuminate\Database\Eloquent\Model;
 
 /**
  * Required to phpstan.
@@ -25,7 +26,7 @@ interface Searchable {
     public function getSearchConfiguration(): Configuration;
 
     /**
-     * @return SearchBuilder<static>
+     * @return SearchBuilder<Model&static>
      */
     public static function search(string $query = ''): SearchBuilder;
 
