@@ -58,6 +58,7 @@ use function count;
  * @property CarbonImmutable|null                $warranty_end
  * @property CarbonImmutable|null                $warranty_changed_at
  * @property string|null                         $data_quality
+ * @property int|null                            $contacts_active_quantity
  * @property int                                 $contacts_count
  * @property int                                 $coverages_count
  * @property CarbonImmutable|null                $changed_at
