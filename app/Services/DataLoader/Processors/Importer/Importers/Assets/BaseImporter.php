@@ -7,7 +7,6 @@ use App\Models\Customer;
 use App\Models\Document;
 use App\Models\Reseller;
 use App\Services\DataLoader\Factory\Factories\AssetFactory;
-use App\Services\DataLoader\Factory\Factories\DocumentFactory;
 use App\Services\DataLoader\Factory\ModelFactory;
 use App\Services\DataLoader\Finders\CustomerFinder;
 use App\Services\DataLoader\Finders\DistributorFinder;
@@ -107,12 +106,7 @@ abstract class BaseImporter extends Importer {
     }
 
     protected function makeFactory(State $state): ModelFactory {
-        $factory = $this->getContainer()->make(AssetFactory::class);
-        $factory = $factory->setDocumentFactory(
-            $this->getContainer()->make(DocumentFactory::class),
-        );
-
-        return $factory;
+        return $this->getContainer()->make(AssetFactory::class);
     }
 
     protected function makeResolver(State $state): Resolver {

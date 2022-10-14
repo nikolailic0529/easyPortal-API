@@ -82,8 +82,6 @@ class AssetFactory extends ModelFactory {
     use WithServiceLevel;
     use WithAssetDocument;
 
-    protected ?DocumentFactory $documentFactory = null;
-
     public function __construct(
         ExceptionHandler $exceptionHandler,
         Normalizer $normalizer,
@@ -93,6 +91,7 @@ class AssetFactory extends ModelFactory {
         protected ProductResolver $productResolver,
         protected CustomerResolver $customerResolver,
         protected ResellerResolver $resellerResolver,
+        protected DocumentFactory $documentFactory,
         protected LocationFactory $locationFactory,
         protected ContactFactory $contactFactory,
         protected StatusResolver $statusResolver,
@@ -128,14 +127,8 @@ class AssetFactory extends ModelFactory {
         return $this->contactFactory;
     }
 
-    public function getDocumentFactory(): ?DocumentFactory {
+    public function getDocumentFactory(): DocumentFactory {
         return $this->documentFactory;
-    }
-
-    public function setDocumentFactory(?DocumentFactory $factory): static {
-        $this->documentFactory = $factory;
-
-        return $this;
     }
 
     protected function getCoverageResolver(): CoverageResolver {
@@ -238,7 +231,7 @@ class AssetFactory extends ModelFactory {
             }
 
             // Documents
-            if ($this->getDocumentFactory() && isset($asset->assetDocument)) {
+            if (isset($asset->assetDocument)) {
                 try {
                     // Prefetch
                     if (!$created) {
@@ -482,19 +475,16 @@ class AssetFactory extends ModelFactory {
      */
     protected function assetDocumentDocuments(Asset $model, Collection $assetDocuments): Collection {
         // Prefetch
-        $resolver = $this->getDocumentFactory()?->getDocumentResolver();
+        $resolver = $this->getDocumentFactory()->getDocumentResolver();
+        $keys     = [];
 
-        if ($resolver) {
-            $keys = [];
-
-            foreach ($assetDocuments as $assetDocument) {
-                if (isset($assetDocument->document->id)) {
-                    $keys[$assetDocument->document->id] = $assetDocument->document->id;
-                }
+        foreach ($assetDocuments as $assetDocument) {
+            if (isset($assetDocument->document->id)) {
+                $keys[$assetDocument->document->id] = $assetDocument->document->id;
             }
-
-            $resolver->prefetch($keys);
         }
+
+        $resolver->prefetch($keys);
 
         // Convert
         /** @var EloquentCollection<string, Document> $documents */
@@ -519,7 +509,7 @@ class AssetFactory extends ModelFactory {
         $factory  = $this->getDocumentFactory();
         $document = null;
 
-        if ($factory && isset($assetDocument->document->id)) {
+        if (isset($assetDocument->document->id)) {
             try {
                 $document = $factory->create(new AssetDocumentObject([
                     'asset'    => $model,
