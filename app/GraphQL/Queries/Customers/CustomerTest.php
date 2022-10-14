@@ -471,6 +471,8 @@ class CustomerTest extends TestCase {
                                 name
                             }
                             oem_said
+                            oem_amp_id
+                            oem_sar_number
                             oemGroup {
                                 id
                                 key
@@ -691,6 +693,8 @@ class CustomerTest extends TestCase {
                                 name
                             }
                             oem_said
+                            oem_amp_id
+                            oem_sar_number
                             oemGroup {
                                 id
                                 key
@@ -1811,6 +1815,8 @@ class CustomerTest extends TestCase {
                                             'name' => 'oem1',
                                         ],
                                         'oem_said'       => null,
+                                        'oem_amp_id'     => 'AMP-ID-123',
+                                        'oem_sar_number' => 'SAR-123',
                                         'oemGroup'       => null,
                                         'type'           => [
                                             'id'   => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24985',
@@ -2122,6 +2128,8 @@ class CustomerTest extends TestCase {
                                 ->create([
                                     'id'             => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24981',
                                     'oem_said'       => null,
+                                    'oem_amp_id'     => 'AMP-ID-123',
+                                    'oem_sar_number' => 'SAR-123',
                                     'number'         => '1323',
                                     'price'          => 100,
                                     'start'          => '2021-01-01',
@@ -2388,6 +2396,8 @@ class CustomerTest extends TestCase {
                 ->create([
                     'id'             => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24981',
                     'oem_said'       => '225d982d-926d-3db4-ba0b-81ab17b790b0',
+                    'oem_amp_id'     => 'AMP-ID-123',
+                    'oem_sar_number' => 'SAR-123',
                     'number'         => '1323',
                     'price'          => 100,
                     'start'          => '2021-01-01',
@@ -2425,6 +2435,8 @@ class CustomerTest extends TestCase {
                         'name' => 'oem1',
                     ],
                     'oem_said'       => '225d982d-926d-3db4-ba0b-81ab17b790b0',
+                    'oem_amp_id'     => 'AMP-ID-123',
+                    'oem_sar_number' => 'SAR-123',
                     'oemGroup'       => null,
                     'type'           => [
                         'id'   => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24985',

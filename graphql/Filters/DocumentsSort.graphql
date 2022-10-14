@@ -4,6 +4,9 @@ input DocumentsSort {
     end: Date!
     price: Float
     number: String
+    oem_said: String
+    oem_amp_id: String
+    oem_sar_number: String
     oem: OemsSort
     currency: CurrenciesSort
     language: LanguagesSort

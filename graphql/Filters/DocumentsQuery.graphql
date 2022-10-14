@@ -5,6 +5,8 @@ input DocumentsQuery {
     oem_said: String
     oemGroup: OemGroupsQuery
     oem_group_id: ID
+    oem_amp_id: String
+    oem_sar_number: String
     type_id: ID
     number: String
     start: Date!

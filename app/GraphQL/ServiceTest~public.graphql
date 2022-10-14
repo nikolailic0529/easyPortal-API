@@ -471,6 +471,11 @@ input AggregatedGroupByClauseDocumentsQuery {
     """
     Property clause.
     """
+    oem_amp_id: AggregatedGroupByTypeDirection
+
+    """
+    Property clause.
+    """
     oem_group_id: AggregatedGroupByTypeDirection
 
     """
@@ -482,6 +487,11 @@ input AggregatedGroupByClauseDocumentsQuery {
     Property clause.
     """
     oem_said: AggregatedGroupByTypeDirection
+
+    """
+    Property clause.
+    """
+    oem_sar_number: AggregatedGroupByTypeDirection
 
     """
     Relationship clause.
@@ -2877,6 +2887,11 @@ input SearchByConditionDocumentsQuery {
     """
     Property condition.
     """
+    oem_amp_id: SearchByScalarStringOrNull
+
+    """
+    Property condition.
+    """
     oem_group_id: SearchByScalarIDOrNull
 
     """
@@ -2888,6 +2903,11 @@ input SearchByConditionDocumentsQuery {
     Property condition.
     """
     oem_said: SearchByScalarStringOrNull
+
+    """
+    Property condition.
+    """
+    oem_sar_number: SearchByScalarStringOrNull
 
     """
     Relationship condition.
@@ -5330,6 +5350,21 @@ input SortByClauseDocumentsSort {
     """
     Property clause.
     """
+    oem_amp_id: SortByTypeDirection
+
+    """
+    Property clause.
+    """
+    oem_said: SortByTypeDirection
+
+    """
+    Property clause.
+    """
+    oem_sar_number: SortByTypeDirection
+
+    """
+    Property clause.
+    """
     price: SortByTypeDirection
 
     """
@@ -7131,9 +7166,11 @@ type Document {
     number: String
     oem: Oem
     oemGroup: OemGroup
+    oem_amp_id: String
     oem_group_id: ID
     oem_id: ID
     oem_said: String
+    oem_sar_number: String
     price: Float
     reseller: Reseller
     reseller_id: ID
