@@ -220,6 +220,11 @@ class CascadeProcessorTest extends TestCase {
         $item = Mockery::mock(Model::class);
         $item->makePartial();
         $item
+            ->shouldReceive('isRelation')
+            ->with('pivot')
+            ->twice()
+            ->andReturn(true);
+        $item
             ->shouldReceive('getRelationValue')
             ->with('pivot')
             ->twice()
