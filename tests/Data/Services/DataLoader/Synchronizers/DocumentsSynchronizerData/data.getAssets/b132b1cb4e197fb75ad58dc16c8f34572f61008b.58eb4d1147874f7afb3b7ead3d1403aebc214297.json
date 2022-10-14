@@ -1,0 +1,489 @@
+{
+    "selector": "data.getAssets",
+    "query": "query getAssets($id: String!) {\n    getAssets(args: [{key: \"id\", value: $id}]) {\n        id\nserialNumber\n\nassetSku\nassetSkuDescription\nassetTag\nassetType\nstatus\nvendor\n\neolDate\neosDate\n\ncountry\ncountryCode\nlatitude\nlongitude\nzip\ncity\naddress\naddress2\n\ncustomerId\nresellerId\n\nupdatedAt\n\nlatestContactPersons {\n    phoneNumber\n    name\n    type\n    mail\n}\n\nassetCoverage\ncoverageStatusCheck {\n    coverageStatus\n    coverageStatusUpdatedAt\n    coverageEntries {\n        coverageStartDate\n        coverageEndDate\n        type\n        description\n        status\n        serviceSku\n    }\n}\n\ndataQualityScore\n        assetDocument {\n    startDate\n    endDate\n    documentNumber\n\n    document {\n        id\n        type\n        documentNumber\n\n        startDate\n        endDate\n\n        currencyCode\n        languageCode\n\n        updatedAt\n\n        vendorSpecificFields {\n            vendor\n            groupId\n            groupDescription\n            said\n            ampId\n            sar\n        }\n\n        contactPersons {\n            phoneNumber\n            name\n            type\n            mail\n        }\n\n        customerId\n        resellerId\n        distributorId\n    }\n\n    serviceGroupSku\n    serviceGroupSkuDescription\n    serviceLevelSku\n    serviceLevelSkuDescription\n    serviceFullDescription\n\n    customer {\n      id\n    }\n\n    reseller {\n      id\n    }\n}\n    }\n}",
+    "variables": {
+        "id": "e551bbce-7cf9-404a-9a00-daa4372b6372"
+    },
+    "response": {
+        "data": {
+            "getAssets": [
+                {
+                    "id": "e551bbce-7cf9-404a-9a00-daa4372b6372",
+                    "resellerId": "0fd07b17-3314-40b5-ac32-7189051f773b",
+                    "customerId": "e09c5523-28e6-4860-99ed-0d6cfdb655e8",
+                    "serialNumber": "e5df020f-4a4f-31ec-92c9-9599155b1138",
+                    "assetSkuDescription": "HP DL380p Gen8 E5-2650 HPM EU Svr",
+                    "assetTag": null,
+                    "assetType": null,
+                    "vendor": "HPE",
+                    "assetSku": "642106-421",
+                    "eolDate": null,
+                    "eosDate": null,
+                    "zip": "62008-7154",
+                    "city": "Winfieldmouth",
+                    "address": "517 Hauck Pike Apt. 322",
+                    "address2": null,
+                    "country": "Serbia",
+                    "latitude": "65.982178",
+                    "longitude": "28.823974",
+                    "countryCode": "PT",
+                    "status": "ACTIVE",
+                    "updatedAt": "1664816437400",
+                    "assetCoverage": [
+                        "COVERED"
+                    ],
+                    "dataQualityScore": "80",
+                    "assetDocument": [
+                        {
+                            "serviceGroupSku": null,
+                            "serviceGroupSkuDescription": null,
+                            "serviceLevelSku": "HL935AC",
+                            "serviceLevelSkuDescription": "HPE Collaborative Remote Support",
+                            "serviceFullDescription": null,
+                            "documentNumber": "86750dd7-5a40-3375-b2d7-2910d6687578",
+                            "document": {
+                                "id": "013db1c0-c4b2-4f3a-830b-58de8b40ccc8",
+                                "type": "Contract",
+                                "documentNumber": "86750dd7-5a40-3375-b2d7-2910d6687578",
+                                "startDate": "2021-04-01",
+                                "endDate": "2022-03-31",
+                                "currencyCode": "CHF",
+                                "languageCode": null,
+                                "updatedAt": "1654262846658",
+                                "vendorSpecificFields": {
+                                    "vendor": "HPE",
+                                    "sar": "MUL012",
+                                    "ampId": "87-SMD501 1013",
+                                    "said": null,
+                                    "groupId": null,
+                                    "groupDescription": null
+                                },
+                                "contactPersons": [
+                                    {
+                                        "phoneNumber": "+19856644063",
+                                        "name": "Bonnie Glover",
+                                        "mail": null,
+                                        "type": "EndUser Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+16159650927",
+                                        "name": "Madelyn Maggio DVM",
+                                        "mail": "kozey.kathlyn@gmail.com",
+                                        "type": "Distributor Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+14068657337",
+                                        "name": "Donavon Langworth",
+                                        "mail": "vonrueden.haskell@yahoo.com",
+                                        "type": "Reseller Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+19856644063",
+                                        "name": "Bonnie Glover",
+                                        "mail": null,
+                                        "type": "Hardware System Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+19856644063",
+                                        "name": "Bonnie Glover",
+                                        "mail": null,
+                                        "type": "Software System Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+19856644063",
+                                        "name": "Bonnie Glover",
+                                        "mail": null,
+                                        "type": "System Manager Contact"
+                                    }
+                                ],
+                                "resellerId": "0fd07b17-3314-40b5-ac32-7189051f773b",
+                                "customerId": "e09c5523-28e6-4860-99ed-0d6cfdb655e8",
+                                "distributorId": "a985a692-c063-499a-ab2f-0a2adef86a3f"
+                            },
+                            "startDate": null,
+                            "endDate": null,
+                            "reseller": {
+                                "id": "0fd07b17-3314-40b5-ac32-7189051f773b"
+                            },
+                            "customer": {
+                                "id": "e09c5523-28e6-4860-99ed-0d6cfdb655e8"
+                            }
+                        },
+                        {
+                            "serviceGroupSku": null,
+                            "serviceGroupSkuDescription": null,
+                            "serviceLevelSku": "HA151AC",
+                            "serviceLevelSkuDescription": "HPE Hardware Maintenance Onsite Support",
+                            "serviceFullDescription": null,
+                            "documentNumber": "86750dd7-5a40-3375-b2d7-2910d6687578",
+                            "document": {
+                                "id": "013db1c0-c4b2-4f3a-830b-58de8b40ccc8",
+                                "type": "Contract",
+                                "documentNumber": "86750dd7-5a40-3375-b2d7-2910d6687578",
+                                "startDate": "2021-04-01",
+                                "endDate": "2022-03-31",
+                                "currencyCode": "CHF",
+                                "languageCode": null,
+                                "updatedAt": "1654262846658",
+                                "vendorSpecificFields": {
+                                    "vendor": "HPE",
+                                    "sar": "MUL012",
+                                    "ampId": "87-SMD501 1013",
+                                    "said": null,
+                                    "groupId": null,
+                                    "groupDescription": null
+                                },
+                                "contactPersons": [
+                                    {
+                                        "phoneNumber": "+19856644063",
+                                        "name": "Bonnie Glover",
+                                        "mail": null,
+                                        "type": "EndUser Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+16159650927",
+                                        "name": "Madelyn Maggio DVM",
+                                        "mail": "kozey.kathlyn@gmail.com",
+                                        "type": "Distributor Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+14068657337",
+                                        "name": "Donavon Langworth",
+                                        "mail": "vonrueden.haskell@yahoo.com",
+                                        "type": "Reseller Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+19856644063",
+                                        "name": "Bonnie Glover",
+                                        "mail": null,
+                                        "type": "Hardware System Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+19856644063",
+                                        "name": "Bonnie Glover",
+                                        "mail": null,
+                                        "type": "Software System Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+19856644063",
+                                        "name": "Bonnie Glover",
+                                        "mail": null,
+                                        "type": "System Manager Contact"
+                                    }
+                                ],
+                                "resellerId": "0fd07b17-3314-40b5-ac32-7189051f773b",
+                                "customerId": "e09c5523-28e6-4860-99ed-0d6cfdb655e8",
+                                "distributorId": "a985a692-c063-499a-ab2f-0a2adef86a3f"
+                            },
+                            "startDate": null,
+                            "endDate": null,
+                            "reseller": {
+                                "id": "0fd07b17-3314-40b5-ac32-7189051f773b"
+                            },
+                            "customer": {
+                                "id": "e09c5523-28e6-4860-99ed-0d6cfdb655e8"
+                            }
+                        },
+                        {
+                            "serviceGroupSku": null,
+                            "serviceGroupSkuDescription": null,
+                            "serviceLevelSku": "HU4A1AC",
+                            "serviceLevelSkuDescription": "HPE Remote Tech Support",
+                            "serviceFullDescription": null,
+                            "documentNumber": "9186484a-256d-34df-87be-6df6701dfb0d",
+                            "document": {
+                                "id": "1aa11495-76ae-4d38-841d-15d6b419e1a7",
+                                "type": "Contract",
+                                "documentNumber": "9186484a-256d-34df-87be-6df6701dfb0d",
+                                "startDate": "2022-04-01",
+                                "endDate": "2023-03-31",
+                                "currencyCode": "CHF",
+                                "languageCode": null,
+                                "updatedAt": "1654262846658",
+                                "vendorSpecificFields": {
+                                    "vendor": "HPE",
+                                    "sar": null,
+                                    "ampId": "87-SMD501 1013",
+                                    "said": "a96c0b72-be93-3ee5-ad89-c11923845c27",
+                                    "groupId": null,
+                                    "groupDescription": null
+                                },
+                                "contactPersons": [
+                                    {
+                                        "phoneNumber": null,
+                                        "name": null,
+                                        "mail": null,
+                                        "type": "EndUser Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+16159650927",
+                                        "name": "Madelyn Maggio DVM",
+                                        "mail": "kozey.kathlyn@gmail.com",
+                                        "type": "Distributor Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+14068657337",
+                                        "name": "Donavon Langworth",
+                                        "mail": "vonrueden.haskell@yahoo.com",
+                                        "type": "Reseller Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+19856644063",
+                                        "name": "Bonnie Glover",
+                                        "mail": null,
+                                        "type": "Hardware System Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+19856644063",
+                                        "name": "Bonnie Glover",
+                                        "mail": null,
+                                        "type": "Software System Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+19856644063",
+                                        "name": "Bonnie Glover",
+                                        "mail": null,
+                                        "type": "System Manager Contact"
+                                    }
+                                ],
+                                "resellerId": "0fd07b17-3314-40b5-ac32-7189051f773b",
+                                "customerId": "e09c5523-28e6-4860-99ed-0d6cfdb655e8",
+                                "distributorId": "a985a692-c063-499a-ab2f-0a2adef86a3f"
+                            },
+                            "startDate": null,
+                            "endDate": null,
+                            "reseller": {
+                                "id": "0fd07b17-3314-40b5-ac32-7189051f773b"
+                            },
+                            "customer": {
+                                "id": "e09c5523-28e6-4860-99ed-0d6cfdb655e8"
+                            }
+                        },
+                        {
+                            "serviceGroupSku": null,
+                            "serviceGroupSkuDescription": null,
+                            "serviceLevelSku": "HA158AC",
+                            "serviceLevelSkuDescription": "HPE Software Technical Unlimited Support",
+                            "serviceFullDescription": null,
+                            "documentNumber": "86750dd7-5a40-3375-b2d7-2910d6687578",
+                            "document": {
+                                "id": "013db1c0-c4b2-4f3a-830b-58de8b40ccc8",
+                                "type": "Contract",
+                                "documentNumber": "86750dd7-5a40-3375-b2d7-2910d6687578",
+                                "startDate": "2021-04-01",
+                                "endDate": "2022-03-31",
+                                "currencyCode": "CHF",
+                                "languageCode": null,
+                                "updatedAt": "1654262846658",
+                                "vendorSpecificFields": {
+                                    "vendor": "HPE",
+                                    "sar": "MUL012",
+                                    "ampId": "87-SMD501 1013",
+                                    "said": null,
+                                    "groupId": null,
+                                    "groupDescription": null
+                                },
+                                "contactPersons": [
+                                    {
+                                        "phoneNumber": "+19856644063",
+                                        "name": "Bonnie Glover",
+                                        "mail": null,
+                                        "type": "EndUser Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+16159650927",
+                                        "name": "Madelyn Maggio DVM",
+                                        "mail": "kozey.kathlyn@gmail.com",
+                                        "type": "Distributor Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+14068657337",
+                                        "name": "Donavon Langworth",
+                                        "mail": "vonrueden.haskell@yahoo.com",
+                                        "type": "Reseller Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+19856644063",
+                                        "name": "Bonnie Glover",
+                                        "mail": null,
+                                        "type": "Hardware System Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+19856644063",
+                                        "name": "Bonnie Glover",
+                                        "mail": null,
+                                        "type": "Software System Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+19856644063",
+                                        "name": "Bonnie Glover",
+                                        "mail": null,
+                                        "type": "System Manager Contact"
+                                    }
+                                ],
+                                "resellerId": "0fd07b17-3314-40b5-ac32-7189051f773b",
+                                "customerId": "e09c5523-28e6-4860-99ed-0d6cfdb655e8",
+                                "distributorId": "a985a692-c063-499a-ab2f-0a2adef86a3f"
+                            },
+                            "startDate": null,
+                            "endDate": null,
+                            "reseller": {
+                                "id": "0fd07b17-3314-40b5-ac32-7189051f773b"
+                            },
+                            "customer": {
+                                "id": "e09c5523-28e6-4860-99ed-0d6cfdb655e8"
+                            }
+                        },
+                        {
+                            "serviceGroupSku": null,
+                            "serviceGroupSkuDescription": null,
+                            "serviceLevelSku": "HU4A1AC",
+                            "serviceLevelSkuDescription": "HPE Remote Tech Support",
+                            "serviceFullDescription": null,
+                            "documentNumber": "09f57f18-c247-39c8-af44-d81b8f467d64",
+                            "document": {
+                                "id": "5a0f88f8-07e4-4a9a-b266-aa01f23f82cd",
+                                "type": "Quote renewal",
+                                "documentNumber": "09f57f18-c247-39c8-af44-d81b8f467d64",
+                                "startDate": "2022-04-01",
+                                "endDate": "2023-03-31",
+                                "currencyCode": "CHF",
+                                "languageCode": null,
+                                "updatedAt": "1654272008215",
+                                "vendorSpecificFields": {
+                                    "vendor": "HPE",
+                                    "sar": null,
+                                    "ampId": null,
+                                    "said": null,
+                                    "groupId": null,
+                                    "groupDescription": null
+                                },
+                                "contactPersons": [
+                                    {
+                                        "phoneNumber": "+14068657337",
+                                        "name": "Donavon Langworth",
+                                        "mail": "vonrueden.haskell@yahoo.com",
+                                        "type": "Customer Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+16159650927",
+                                        "name": "Madelyn Maggio DVM",
+                                        "mail": "kozey.kathlyn@gmail.com",
+                                        "type": "Renewal Contact"
+                                    },
+                                    {
+                                        "phoneNumber": null,
+                                        "name": null,
+                                        "mail": null,
+                                        "type": "EndUser Contact"
+                                    }
+                                ],
+                                "resellerId": "0fd07b17-3314-40b5-ac32-7189051f773b",
+                                "customerId": "e09c5523-28e6-4860-99ed-0d6cfdb655e8",
+                                "distributorId": "a985a692-c063-499a-ab2f-0a2adef86a3f"
+                            },
+                            "startDate": null,
+                            "endDate": null,
+                            "reseller": {
+                                "id": "0fd07b17-3314-40b5-ac32-7189051f773b"
+                            },
+                            "customer": {
+                                "id": "e09c5523-28e6-4860-99ed-0d6cfdb655e8"
+                            }
+                        }
+                    ],
+                    "latestContactPersons": [
+                        {
+                            "phoneNumber": null,
+                            "name": null,
+                            "mail": null,
+                            "type": "EndUser Contact"
+                        },
+                        {
+                            "phoneNumber": "+16159650927",
+                            "name": "Madelyn Maggio DVM",
+                            "mail": "kozey.kathlyn@gmail.com",
+                            "type": "Distributor Contact"
+                        },
+                        {
+                            "phoneNumber": "+14068657337",
+                            "name": "Donavon Langworth",
+                            "mail": "vonrueden.haskell@yahoo.com",
+                            "type": "Reseller Contact"
+                        }
+                    ],
+                    "coverageStatusCheck": {
+                        "coverageStatus": "COVERED",
+                        "coverageStatusUpdatedAt": "1664816437400",
+                        "coverageEntries": [
+                            {
+                                "coverageStartDate": "2021-04-01",
+                                "coverageEndDate": "2023-03-31",
+                                "type": "Contract",
+                                "status": "Active",
+                                "description": "H7J34AC-HPE Foundation Care 24x7 SVC",
+                                "serviceSku": null
+                            },
+                            {
+                                "coverageStartDate": "2018-04-20",
+                                "coverageEndDate": "2019-04-19",
+                                "type": "FixedSupportService",
+                                "status": "Expired",
+                                "description": "HPE 1Y PW FC 24x7 DL380p Gen8 w/IC SVC",
+                                "serviceSku": "U6VJ0PE"
+                            },
+                            {
+                                "coverageStartDate": "2017-04-20",
+                                "coverageEndDate": "2018-04-19",
+                                "type": "FixedSupportService",
+                                "status": "Expired",
+                                "description": "HPE 1Y PW FC 24x7 DL380p Gen8 w/IC SVC",
+                                "serviceSku": "U6VJ0PE"
+                            },
+                            {
+                                "coverageStartDate": "2014-03-21",
+                                "coverageEndDate": "2017-04-19",
+                                "type": "FixedSupportService",
+                                "status": "Expired",
+                                "description": "HPE 3Y 4H 24x7 DL38x(p) HW Support",
+                                "serviceSku": "U4545E"
+                            },
+                            {
+                                "coverageStartDate": "2021-04-20",
+                                "coverageEndDate": "2022-04-19",
+                                "type": "FixedSupportService",
+                                "status": "Expired",
+                                "description": "HPE 1Y PW FC 24x7 DL380p Gen8 SVC",
+                                "serviceSku": "U6VD5PE"
+                            },
+                            {
+                                "coverageStartDate": "2019-04-20",
+                                "coverageEndDate": "2020-04-19",
+                                "type": "FixedSupportService",
+                                "status": "Expired",
+                                "description": "HPE 1Y PW FC 24x7 DL380p Gen8 w/IC SVC",
+                                "serviceSku": "U6VJ0PE"
+                            },
+                            {
+                                "coverageStartDate": "2020-04-20",
+                                "coverageEndDate": "2021-04-19",
+                                "type": "FixedSupportService",
+                                "status": "Expired",
+                                "description": "HPE 1Y PW FC 24x7 DL380p Gen8 SVC",
+                                "serviceSku": "U6VD5PE"
+                            },
+                            {
+                                "coverageStartDate": "2018-10-26",
+                                "coverageEndDate": "2018-10-26",
+                                "type": "FactoryWarranty",
+                                "status": "Expired",
+                                "description": "",
+                                "serviceSku": null
+                            }
+                        ]
+                    }
+                }
+            ]
+        }
+    }
+}

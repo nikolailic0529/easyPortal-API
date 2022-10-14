@@ -1,0 +1,138 @@
+{
+    "selector": "data.getAssets",
+    "query": "query getAssets($id: String!) {\n    getAssets(args: [{key: \"id\", value: $id}]) {\n        id\nserialNumber\n\nassetSku\nassetSkuDescription\nassetTag\nassetType\nstatus\nvendor\n\neolDate\neosDate\n\ncountry\ncountryCode\nlatitude\nlongitude\nzip\ncity\naddress\naddress2\n\ncustomerId\nresellerId\n\nupdatedAt\n\nlatestContactPersons {\n    phoneNumber\n    name\n    type\n    mail\n}\n\nassetCoverage\ncoverageStatusCheck {\n    coverageStatus\n    coverageStatusUpdatedAt\n    coverageEntries {\n        coverageStartDate\n        coverageEndDate\n        type\n        description\n        status\n        serviceSku\n    }\n}\n\ndataQualityScore\n        assetDocument {\n    startDate\n    endDate\n    documentNumber\n\n    document {\n        id\n        type\n        documentNumber\n\n        startDate\n        endDate\n\n        currencyCode\n        languageCode\n\n        updatedAt\n\n        vendorSpecificFields {\n            vendor\n            groupId\n            groupDescription\n            said\n            ampId\n            sar\n        }\n\n        contactPersons {\n            phoneNumber\n            name\n            type\n            mail\n        }\n\n        customerId\n        resellerId\n        distributorId\n    }\n\n    serviceGroupSku\n    serviceGroupSkuDescription\n    serviceLevelSku\n    serviceLevelSkuDescription\n    serviceFullDescription\n\n    customer {\n      id\n    }\n\n    reseller {\n      id\n    }\n}\n    }\n}",
+    "variables": {
+        "id": "c521a3d8-b3a5-4791-82eb-26c4a73fe20e"
+    },
+    "response": {
+        "data": {
+            "getAssets": [
+                {
+                    "id": "c521a3d8-b3a5-4791-82eb-26c4a73fe20e",
+                    "resellerId": "594184e7-24d4-4614-8db4-fe132adb86f4",
+                    "customerId": "9f561198-8b1a-414e-a30b-2695d0dde25d",
+                    "serialNumber": null,
+                    "assetSkuDescription": "HPE 3PAR 8200 Transition AI SW E-LTU",
+                    "assetTag": null,
+                    "assetType": null,
+                    "vendor": "HPE",
+                    "assetSku": "L7E73AAE",
+                    "eolDate": null,
+                    "eosDate": null,
+                    "zip": "42026",
+                    "city": "Gusikowskihaven",
+                    "address": "257 Alex Walk Apt. 442",
+                    "address2": null,
+                    "country": "Ethiopia",
+                    "latitude": "-23.77171",
+                    "longitude": "175.258234",
+                    "countryCode": "KP",
+                    "status": "ACTIVE",
+                    "updatedAt": "1662145810596",
+                    "assetCoverage": [
+                        "ARCHIVED"
+                    ],
+                    "dataQualityScore": "20",
+                    "assetDocument": [
+                        {
+                            "serviceGroupSku": null,
+                            "serviceGroupSkuDescription": null,
+                            "serviceLevelSku": "HA156AC",
+                            "serviceLevelSkuDescription": "HPE Software Updates Service",
+                            "serviceFullDescription": null,
+                            "documentNumber": "64291b51-4025-3488-9d2e-f517899bda60",
+                            "document": {
+                                "id": "00273116-0826-4d23-a8ff-4d1996890fd9",
+                                "type": "Contract",
+                                "documentNumber": "64291b51-4025-3488-9d2e-f517899bda60",
+                                "startDate": "2019-05-02",
+                                "endDate": "2022-05-01",
+                                "currencyCode": "EUR",
+                                "languageCode": null,
+                                "updatedAt": "1654262846658",
+                                "vendorSpecificFields": {
+                                    "vendor": "HPE",
+                                    "sar": "83P908671001STD36",
+                                    "ampId": "83-B852963",
+                                    "said": null,
+                                    "groupId": null,
+                                    "groupDescription": null
+                                },
+                                "contactPersons": [
+                                    {
+                                        "phoneNumber": null,
+                                        "name": "Dr. Elisabeth McGlynn",
+                                        "mail": null,
+                                        "type": "EndUser Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+18055389501",
+                                        "name": "Arjun Metz Sr.",
+                                        "mail": "tstroman@carter.net",
+                                        "type": "Distributor Contact"
+                                    },
+                                    {
+                                        "phoneNumber": null,
+                                        "name": null,
+                                        "mail": null,
+                                        "type": "Reseller Contact"
+                                    },
+                                    {
+                                        "phoneNumber": null,
+                                        "name": "Dr. Elisabeth McGlynn",
+                                        "mail": null,
+                                        "type": "Hardware System Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+13613250682",
+                                        "name": "Ludie Schowalter",
+                                        "mail": "caterina.harvey@fahey.com",
+                                        "type": "Software System Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+13174756798",
+                                        "name": "Kaycee Schroeder MD",
+                                        "mail": "caterina.harvey@fahey.com",
+                                        "type": "System Manager Contact"
+                                    }
+                                ],
+                                "resellerId": "594184e7-24d4-4614-8db4-fe132adb86f4",
+                                "customerId": "9f561198-8b1a-414e-a30b-2695d0dde25d",
+                                "distributorId": "1af1c44e-8112-4e72-9654-b11c705e9372"
+                            },
+                            "startDate": null,
+                            "endDate": null,
+                            "reseller": {
+                                "id": "594184e7-24d4-4614-8db4-fe132adb86f4"
+                            },
+                            "customer": {
+                                "id": "9f561198-8b1a-414e-a30b-2695d0dde25d"
+                            }
+                        }
+                    ],
+                    "latestContactPersons": [
+                        {
+                            "phoneNumber": null,
+                            "name": "Dr. Elisabeth McGlynn",
+                            "mail": null,
+                            "type": "EndUser Contact"
+                        },
+                        {
+                            "phoneNumber": "+18055389501",
+                            "name": "Arjun Metz Sr.",
+                            "mail": "tstroman@carter.net",
+                            "type": "Distributor Contact"
+                        },
+                        {
+                            "phoneNumber": null,
+                            "name": null,
+                            "mail": null,
+                            "type": "Reseller Contact"
+                        }
+                    ],
+                    "coverageStatusCheck": null
+                }
+            ]
+        }
+    }
+}

@@ -1,0 +1,395 @@
+{
+    "selector": "data.getAssets",
+    "query": "query getAssets($id: String!) {\n    getAssets(args: [{key: \"id\", value: $id}]) {\n        id\nserialNumber\n\nassetSku\nassetSkuDescription\nassetTag\nassetType\nstatus\nvendor\n\neolDate\neosDate\n\ncountry\ncountryCode\nlatitude\nlongitude\nzip\ncity\naddress\naddress2\n\ncustomerId\nresellerId\n\nupdatedAt\n\nlatestContactPersons {\n    phoneNumber\n    name\n    type\n    mail\n}\n\nassetCoverage\ncoverageStatusCheck {\n    coverageStatus\n    coverageStatusUpdatedAt\n    coverageEntries {\n        coverageStartDate\n        coverageEndDate\n        type\n        description\n        status\n        serviceSku\n    }\n}\n\ndataQualityScore\n        assetDocument {\n    startDate\n    endDate\n    documentNumber\n\n    document {\n        id\n        type\n        documentNumber\n\n        startDate\n        endDate\n\n        currencyCode\n        languageCode\n\n        updatedAt\n\n        vendorSpecificFields {\n            vendor\n            groupId\n            groupDescription\n            said\n            ampId\n            sar\n        }\n\n        contactPersons {\n            phoneNumber\n            name\n            type\n            mail\n        }\n\n        customerId\n        resellerId\n        distributorId\n    }\n\n    serviceGroupSku\n    serviceGroupSkuDescription\n    serviceLevelSku\n    serviceLevelSkuDescription\n    serviceFullDescription\n\n    customer {\n      id\n    }\n\n    reseller {\n      id\n    }\n}\n    }\n}",
+    "variables": {
+        "id": "e6ba9ff2-f9bc-4740-a659-eff7802ad602"
+    },
+    "response": {
+        "data": {
+            "getAssets": [
+                {
+                    "id": "e6ba9ff2-f9bc-4740-a659-eff7802ad602",
+                    "resellerId": "a9233c9c-4634-493a-9f12-bef4d1cf3c5e",
+                    "customerId": "cd58bd18-ed5b-418c-aed4-a3a58c4de3d8",
+                    "serialNumber": "3c6f6da2-6a74-3d11-ad40-5abcf00fb673",
+                    "assetSkuDescription": "HPE NS HF20 Hybrid CTO Base Array",
+                    "assetTag": null,
+                    "assetType": null,
+                    "vendor": "HPE",
+                    "assetSku": "Q8H72A",
+                    "eolDate": null,
+                    "eosDate": null,
+                    "zip": "98248-5561",
+                    "city": "Joymouth",
+                    "address": "44525 Leif Mission Suite 253",
+                    "address2": null,
+                    "country": "Sri Lanka",
+                    "latitude": "14.322119",
+                    "longitude": "121.974904",
+                    "countryCode": "CI",
+                    "status": "ACTIVE",
+                    "updatedAt": "1664816535612",
+                    "assetCoverage": [
+                        "COVERED"
+                    ],
+                    "dataQualityScore": "80",
+                    "assetDocument": [
+                        {
+                            "serviceGroupSku": null,
+                            "serviceGroupSkuDescription": null,
+                            "serviceLevelSku": "HU4A1AC",
+                            "serviceLevelSkuDescription": "HPE Remote Tech Support",
+                            "serviceFullDescription": null,
+                            "documentNumber": "807bd097-87dd-3999-9006-45dffed4587f",
+                            "document": {
+                                "id": "d8ca428d-d461-41c5-a7db-5f8fc105a489",
+                                "type": "Quote renewal",
+                                "documentNumber": "807bd097-87dd-3999-9006-45dffed4587f",
+                                "startDate": "2022-08-03",
+                                "endDate": "2025-08-02",
+                                "currencyCode": "EUR",
+                                "languageCode": null,
+                                "updatedAt": "1655253429008",
+                                "vendorSpecificFields": {
+                                    "vendor": "HPE",
+                                    "sar": null,
+                                    "ampId": null,
+                                    "said": null,
+                                    "groupId": null,
+                                    "groupDescription": null
+                                },
+                                "contactPersons": [
+                                    {
+                                        "phoneNumber": "+19097287743",
+                                        "name": "Joy Klein",
+                                        "mail": "bogan.madeline@waters.net",
+                                        "type": "Customer Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+12088560128",
+                                        "name": "Dr. Devyn Deckow",
+                                        "mail": "johnson.felicity@aufderhar.com",
+                                        "type": "Renewal Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+19409282065",
+                                        "name": "Leilani Orn",
+                                        "mail": null,
+                                        "type": "EndUser Contact"
+                                    }
+                                ],
+                                "resellerId": "a9233c9c-4634-493a-9f12-bef4d1cf3c5e",
+                                "customerId": "cd58bd18-ed5b-418c-aed4-a3a58c4de3d8",
+                                "distributorId": "1af1c44e-8112-4e72-9654-b11c705e9372"
+                            },
+                            "startDate": null,
+                            "endDate": null,
+                            "reseller": {
+                                "id": "a9233c9c-4634-493a-9f12-bef4d1cf3c5e"
+                            },
+                            "customer": {
+                                "id": "cd58bd18-ed5b-418c-aed4-a3a58c4de3d8"
+                            }
+                        },
+                        {
+                            "serviceGroupSku": null,
+                            "serviceGroupSkuDescription": null,
+                            "serviceLevelSku": "HA156AC",
+                            "serviceLevelSkuDescription": "HPE Software Updates SVC",
+                            "serviceFullDescription": null,
+                            "documentNumber": "e9e9d84a-cdc2-3da3-a92f-4aa6a77409ba",
+                            "document": {
+                                "id": "91d2b6b3-9595-410b-a5f5-0c099c5f43c0",
+                                "type": "Quote renewal",
+                                "documentNumber": "e9e9d84a-cdc2-3da3-a92f-4aa6a77409ba",
+                                "startDate": "2022-08-03",
+                                "endDate": "2025-08-02",
+                                "currencyCode": "EUR",
+                                "languageCode": null,
+                                "updatedAt": "1656178995932",
+                                "vendorSpecificFields": {
+                                    "vendor": "HPE",
+                                    "sar": null,
+                                    "ampId": null,
+                                    "said": null,
+                                    "groupId": null,
+                                    "groupDescription": null
+                                },
+                                "contactPersons": [
+                                    {
+                                        "phoneNumber": "+19097287743",
+                                        "name": "Joy Klein",
+                                        "mail": "bogan.madeline@waters.net",
+                                        "type": "Customer Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+12088560128",
+                                        "name": "Dr. Devyn Deckow",
+                                        "mail": "johnson.felicity@aufderhar.com",
+                                        "type": "Renewal Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+19409282065",
+                                        "name": "Leilani Orn",
+                                        "mail": null,
+                                        "type": "EndUser Contact"
+                                    }
+                                ],
+                                "resellerId": "a9233c9c-4634-493a-9f12-bef4d1cf3c5e",
+                                "customerId": "cd58bd18-ed5b-418c-aed4-a3a58c4de3d8",
+                                "distributorId": "1af1c44e-8112-4e72-9654-b11c705e9372"
+                            },
+                            "startDate": null,
+                            "endDate": null,
+                            "reseller": {
+                                "id": "a9233c9c-4634-493a-9f12-bef4d1cf3c5e"
+                            },
+                            "customer": {
+                                "id": "cd58bd18-ed5b-418c-aed4-a3a58c4de3d8"
+                            }
+                        },
+                        {
+                            "serviceGroupSku": null,
+                            "serviceGroupSkuDescription": null,
+                            "serviceLevelSku": "HA156AC",
+                            "serviceLevelSkuDescription": "HPE Software Updates SVC",
+                            "serviceFullDescription": null,
+                            "documentNumber": "f10f60e6-a3f8-33bc-b867-aa1936824d11",
+                            "document": {
+                                "id": "0821f5a6-95f1-493f-a527-c62a45ca1e13",
+                                "type": "Quote renewal",
+                                "documentNumber": "f10f60e6-a3f8-33bc-b867-aa1936824d11",
+                                "startDate": "2022-08-03",
+                                "endDate": "2024-08-02",
+                                "currencyCode": "EUR",
+                                "languageCode": null,
+                                "updatedAt": "1655253429008",
+                                "vendorSpecificFields": {
+                                    "vendor": "HPE",
+                                    "sar": null,
+                                    "ampId": null,
+                                    "said": null,
+                                    "groupId": null,
+                                    "groupDescription": null
+                                },
+                                "contactPersons": [
+                                    {
+                                        "phoneNumber": "+19097287743",
+                                        "name": "Joy Klein",
+                                        "mail": "bogan.madeline@waters.net",
+                                        "type": "Customer Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+12088560128",
+                                        "name": "Dr. Devyn Deckow",
+                                        "mail": "johnson.felicity@aufderhar.com",
+                                        "type": "Renewal Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+19409282065",
+                                        "name": "Leilani Orn",
+                                        "mail": null,
+                                        "type": "EndUser Contact"
+                                    }
+                                ],
+                                "resellerId": "a9233c9c-4634-493a-9f12-bef4d1cf3c5e",
+                                "customerId": "cd58bd18-ed5b-418c-aed4-a3a58c4de3d8",
+                                "distributorId": "1af1c44e-8112-4e72-9654-b11c705e9372"
+                            },
+                            "startDate": null,
+                            "endDate": null,
+                            "reseller": {
+                                "id": "a9233c9c-4634-493a-9f12-bef4d1cf3c5e"
+                            },
+                            "customer": {
+                                "id": "cd58bd18-ed5b-418c-aed4-a3a58c4de3d8"
+                            }
+                        },
+                        {
+                            "serviceGroupSku": null,
+                            "serviceGroupSkuDescription": null,
+                            "serviceLevelSku": "HT7A0AC",
+                            "serviceLevelSkuDescription": "HPE Hardware and Software Support",
+                            "serviceFullDescription": null,
+                            "documentNumber": "08e948b2-c29f-395f-8bb6-0caacba06471",
+                            "document": {
+                                "id": "57757ec9-2350-4494-8327-a69e148615d2",
+                                "type": "Contract",
+                                "documentNumber": "08e948b2-c29f-395f-8bb6-0caacba06471",
+                                "startDate": "2019-08-03",
+                                "endDate": "2022-08-02",
+                                "currencyCode": "EUR",
+                                "languageCode": null,
+                                "updatedAt": "1657233030626",
+                                "vendorSpecificFields": {
+                                    "vendor": "HPE",
+                                    "sar": null,
+                                    "ampId": "83-A07967",
+                                    "said": "254a9335-9393-31b4-bc52-27a4d019c13a",
+                                    "groupId": null,
+                                    "groupDescription": null
+                                },
+                                "contactPersons": [
+                                    {
+                                        "phoneNumber": "+19409282065",
+                                        "name": "Mrs. Donna Olson",
+                                        "mail": null,
+                                        "type": "EndUser Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+15748017097",
+                                        "name": "Maureen Hodkiewicz Sr.",
+                                        "mail": "theresia.kub@yahoo.com",
+                                        "type": "Distributor Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+19097287743",
+                                        "name": "Joy Klein",
+                                        "mail": "bogan.madeline@waters.net",
+                                        "type": "Reseller Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+19409282065",
+                                        "name": "Mrs. Donna Olson",
+                                        "mail": null,
+                                        "type": "Hardware System Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+19409282065",
+                                        "name": "Mrs. Donna Olson",
+                                        "mail": null,
+                                        "type": "Software System Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+18728156731",
+                                        "name": "Leilani Orn",
+                                        "mail": null,
+                                        "type": "System Manager Contact"
+                                    }
+                                ],
+                                "resellerId": "a9233c9c-4634-493a-9f12-bef4d1cf3c5e",
+                                "customerId": "cd58bd18-ed5b-418c-aed4-a3a58c4de3d8",
+                                "distributorId": "1af1c44e-8112-4e72-9654-b11c705e9372"
+                            },
+                            "startDate": null,
+                            "endDate": null,
+                            "reseller": {
+                                "id": "a9233c9c-4634-493a-9f12-bef4d1cf3c5e"
+                            },
+                            "customer": {
+                                "id": "cd58bd18-ed5b-418c-aed4-a3a58c4de3d8"
+                            }
+                        },
+                        {
+                            "serviceGroupSku": null,
+                            "serviceGroupSkuDescription": null,
+                            "serviceLevelSku": "HU4A1AC",
+                            "serviceLevelSkuDescription": "HPE Remote Tech Support",
+                            "serviceFullDescription": null,
+                            "documentNumber": "e9e9d84a-cdc2-3da3-a92f-4aa6a77409ba",
+                            "document": {
+                                "id": "91d2b6b3-9595-410b-a5f5-0c099c5f43c0",
+                                "type": "Quote renewal",
+                                "documentNumber": "e9e9d84a-cdc2-3da3-a92f-4aa6a77409ba",
+                                "startDate": "2022-08-03",
+                                "endDate": "2025-08-02",
+                                "currencyCode": "EUR",
+                                "languageCode": null,
+                                "updatedAt": "1656178995932",
+                                "vendorSpecificFields": {
+                                    "vendor": "HPE",
+                                    "sar": null,
+                                    "ampId": null,
+                                    "said": null,
+                                    "groupId": null,
+                                    "groupDescription": null
+                                },
+                                "contactPersons": [
+                                    {
+                                        "phoneNumber": "+19097287743",
+                                        "name": "Joy Klein",
+                                        "mail": "bogan.madeline@waters.net",
+                                        "type": "Customer Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+12088560128",
+                                        "name": "Dr. Devyn Deckow",
+                                        "mail": "johnson.felicity@aufderhar.com",
+                                        "type": "Renewal Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+19409282065",
+                                        "name": "Leilani Orn",
+                                        "mail": null,
+                                        "type": "EndUser Contact"
+                                    }
+                                ],
+                                "resellerId": "a9233c9c-4634-493a-9f12-bef4d1cf3c5e",
+                                "customerId": "cd58bd18-ed5b-418c-aed4-a3a58c4de3d8",
+                                "distributorId": "1af1c44e-8112-4e72-9654-b11c705e9372"
+                            },
+                            "startDate": null,
+                            "endDate": null,
+                            "reseller": {
+                                "id": "a9233c9c-4634-493a-9f12-bef4d1cf3c5e"
+                            },
+                            "customer": {
+                                "id": "cd58bd18-ed5b-418c-aed4-a3a58c4de3d8"
+                            }
+                        }
+                    ],
+                    "latestContactPersons": [
+                        {
+                            "phoneNumber": "+19409282065",
+                            "name": "Mrs. Donna Olson",
+                            "mail": null,
+                            "type": "EndUser Contact"
+                        },
+                        {
+                            "phoneNumber": "+15748017097",
+                            "name": "Maureen Hodkiewicz Sr.",
+                            "mail": "theresia.kub@yahoo.com",
+                            "type": "Distributor Contact"
+                        },
+                        {
+                            "phoneNumber": "+19097287743",
+                            "name": "Joy Klein",
+                            "mail": "bogan.madeline@waters.net",
+                            "type": "Reseller Contact"
+                        }
+                    ],
+                    "coverageStatusCheck": {
+                        "coverageStatus": "COVERED",
+                        "coverageStatusUpdatedAt": "1664816535612",
+                        "coverageEntries": [
+                            {
+                                "coverageStartDate": "2022-08-03",
+                                "coverageEndDate": "2023-08-02",
+                                "type": "Contract",
+                                "status": "Active",
+                                "description": "HU4B5AC-HPE Tech Care Basic Exch SVC",
+                                "serviceSku": null
+                            },
+                            {
+                                "coverageStartDate": "2019-08-03",
+                                "coverageEndDate": "2022-08-02",
+                                "type": "Contract",
+                                "status": "Expired",
+                                "description": "HT7A1AC-HPE NS NBD Parts Exchange Support",
+                                "serviceSku": null
+                            },
+                            {
+                                "coverageStartDate": "2019-07-30",
+                                "coverageEndDate": "2020-08-28",
+                                "type": "FactoryWarranty",
+                                "status": "Expired",
+                                "description": "HA155BW-Wty: HPE Parts Exchange Support, HA158AW-Wty: HPE Support for Initial Setup",
+                                "serviceSku": null
+                            }
+                        ]
+                    }
+                }
+            ]
+        }
+    }
+}

@@ -206,6 +206,8 @@ abstract class GraphQL implements Stringable, JsonSerializable {
                         groupId
                         groupDescription
                         said
+                        ampId
+                        sar
                     }
 
                     contactPersons {
@@ -258,6 +260,8 @@ abstract class GraphQL implements Stringable, JsonSerializable {
                 groupId
                 groupDescription
                 said
+                ampId
+                sar
             }
 
             contactPersons {

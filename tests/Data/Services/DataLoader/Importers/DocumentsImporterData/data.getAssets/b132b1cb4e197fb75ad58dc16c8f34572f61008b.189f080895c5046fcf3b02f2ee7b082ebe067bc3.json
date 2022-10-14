@@ -1,0 +1,366 @@
+{
+    "selector": "data.getAssets",
+    "query": "query getAssets($id: String!) {\n    getAssets(args: [{key: \"id\", value: $id}]) {\n        id\nserialNumber\n\nassetSku\nassetSkuDescription\nassetTag\nassetType\nstatus\nvendor\n\neolDate\neosDate\n\ncountry\ncountryCode\nlatitude\nlongitude\nzip\ncity\naddress\naddress2\n\ncustomerId\nresellerId\n\nupdatedAt\n\nlatestContactPersons {\n    phoneNumber\n    name\n    type\n    mail\n}\n\nassetCoverage\ncoverageStatusCheck {\n    coverageStatus\n    coverageStatusUpdatedAt\n    coverageEntries {\n        coverageStartDate\n        coverageEndDate\n        type\n        description\n        status\n        serviceSku\n    }\n}\n\ndataQualityScore\n        assetDocument {\n    startDate\n    endDate\n    documentNumber\n\n    document {\n        id\n        type\n        documentNumber\n\n        startDate\n        endDate\n\n        currencyCode\n        languageCode\n\n        updatedAt\n\n        vendorSpecificFields {\n            vendor\n            groupId\n            groupDescription\n            said\n            ampId\n            sar\n        }\n\n        contactPersons {\n            phoneNumber\n            name\n            type\n            mail\n        }\n\n        customerId\n        resellerId\n        distributorId\n    }\n\n    serviceGroupSku\n    serviceGroupSkuDescription\n    serviceLevelSku\n    serviceLevelSkuDescription\n    serviceFullDescription\n\n    customer {\n      id\n    }\n\n    reseller {\n      id\n    }\n}\n    }\n}",
+    "variables": {
+        "id": "6f8141b5-3df1-4269-9b6d-9bf9c4d181e1"
+    },
+    "response": {
+        "data": {
+            "getAssets": [
+                {
+                    "id": "6f8141b5-3df1-4269-9b6d-9bf9c4d181e1",
+                    "resellerId": "77ec115b-9723-4582-ad45-2b3a83286b1f",
+                    "customerId": "dda6bc2c-7b09-48e6-9739-9b2732e9cd98",
+                    "serialNumber": "a99d6972-dcee-3bd7-8259-03017a49f46d",
+                    "assetSkuDescription": "HPE 16GB 2Rx4 PC4-2133P-R Kit",
+                    "assetTag": null,
+                    "assetType": null,
+                    "vendor": "HPE",
+                    "assetSku": "726719-B21",
+                    "eolDate": null,
+                    "eosDate": null,
+                    "zip": "84318-3938",
+                    "city": "New Johathan",
+                    "address": "77317 Kreiger Mall Apt. 313",
+                    "address2": null,
+                    "country": "Ethiopia",
+                    "latitude": "68.714949",
+                    "longitude": "75.026531",
+                    "countryCode": "KP",
+                    "status": "ACTIVE",
+                    "updatedAt": "1664803219063",
+                    "assetCoverage": [
+                        "COVERED"
+                    ],
+                    "dataQualityScore": "80",
+                    "assetDocument": [
+                        {
+                            "serviceGroupSku": null,
+                            "serviceGroupSkuDescription": null,
+                            "serviceLevelSku": "HA151AC",
+                            "serviceLevelSkuDescription": "HPE Hardware Maintenance Onsite Support",
+                            "serviceFullDescription": null,
+                            "documentNumber": "b161cfc2-7600-33e3-be62-ff1d8dd38501",
+                            "document": {
+                                "id": "620d9263-9ba9-4872-8899-01067188a1f1",
+                                "type": "Quote renewal",
+                                "documentNumber": "b161cfc2-7600-33e3-be62-ff1d8dd38501",
+                                "startDate": "2021-02-28",
+                                "endDate": "2023-01-31",
+                                "currencyCode": "EUR",
+                                "languageCode": null,
+                                "updatedAt": "1654272008419",
+                                "vendorSpecificFields": {
+                                    "vendor": "HPE",
+                                    "sar": null,
+                                    "ampId": null,
+                                    "said": null,
+                                    "groupId": null,
+                                    "groupDescription": null
+                                },
+                                "contactPersons": [
+                                    {
+                                        "phoneNumber": "+19802975848",
+                                        "name": "Mike Stark",
+                                        "mail": "yroberts@schamberger.biz",
+                                        "type": "Customer Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+16607583859",
+                                        "name": "Prof. Martine Heathcote",
+                                        "mail": "renee.wolff@ortiz.com",
+                                        "type": "Renewal Contact"
+                                    },
+                                    {
+                                        "phoneNumber": null,
+                                        "name": null,
+                                        "mail": null,
+                                        "type": "EndUser Contact"
+                                    }
+                                ],
+                                "resellerId": "77ec115b-9723-4582-ad45-2b3a83286b1f",
+                                "customerId": "dda6bc2c-7b09-48e6-9739-9b2732e9cd98",
+                                "distributorId": "1af1c44e-8112-4e72-9654-b11c705e9372"
+                            },
+                            "startDate": null,
+                            "endDate": null,
+                            "reseller": {
+                                "id": "77ec115b-9723-4582-ad45-2b3a83286b1f"
+                            },
+                            "customer": {
+                                "id": "dda6bc2c-7b09-48e6-9739-9b2732e9cd98"
+                            }
+                        },
+                        {
+                            "serviceGroupSku": null,
+                            "serviceGroupSkuDescription": null,
+                            "serviceLevelSku": "HU4A2AC",
+                            "serviceLevelSkuDescription": "HPE Hardware Tech Support",
+                            "serviceFullDescription": null,
+                            "documentNumber": "0ea816ed-cbf6-367c-be6c-116203f2b168",
+                            "document": {
+                                "id": "9beb11dd-9c90-46f6-b56f-2b21671f7896",
+                                "type": "Contract",
+                                "documentNumber": "0ea816ed-cbf6-367c-be6c-116203f2b168",
+                                "startDate": "2022-02-01",
+                                "endDate": "2023-01-31",
+                                "currencyCode": "EUR",
+                                "languageCode": null,
+                                "updatedAt": "1656406898120",
+                                "vendorSpecificFields": {
+                                    "vendor": "HPE",
+                                    "sar": "83P999694001STD48",
+                                    "ampId": "83-Z00163",
+                                    "said": "26c497b4-6dc1-3c26-a80b-2663a9e07b12",
+                                    "groupId": null,
+                                    "groupDescription": null
+                                },
+                                "contactPersons": [
+                                    {
+                                        "phoneNumber": "+13014185212",
+                                        "name": "Ola Kuhlman",
+                                        "mail": null,
+                                        "type": "EndUser Contact"
+                                    },
+                                    {
+                                        "phoneNumber": null,
+                                        "name": null,
+                                        "mail": null,
+                                        "type": "Distributor Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+19802975848",
+                                        "name": "Mike Stark",
+                                        "mail": "yroberts@schamberger.biz",
+                                        "type": "Reseller Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+13014185212",
+                                        "name": "Ola Kuhlman",
+                                        "mail": null,
+                                        "type": "Hardware System Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+13014185212",
+                                        "name": "Ola Kuhlman",
+                                        "mail": null,
+                                        "type": "Software System Contact"
+                                    },
+                                    {
+                                        "phoneNumber": null,
+                                        "name": null,
+                                        "mail": null,
+                                        "type": "System Manager Contact"
+                                    }
+                                ],
+                                "resellerId": "77ec115b-9723-4582-ad45-2b3a83286b1f",
+                                "customerId": "dda6bc2c-7b09-48e6-9739-9b2732e9cd98",
+                                "distributorId": "1af1c44e-8112-4e72-9654-b11c705e9372"
+                            },
+                            "startDate": null,
+                            "endDate": null,
+                            "reseller": {
+                                "id": "77ec115b-9723-4582-ad45-2b3a83286b1f"
+                            },
+                            "customer": {
+                                "id": "dda6bc2c-7b09-48e6-9739-9b2732e9cd98"
+                            }
+                        },
+                        {
+                            "serviceGroupSku": null,
+                            "serviceGroupSkuDescription": null,
+                            "serviceLevelSku": "HU4A1AC",
+                            "serviceLevelSkuDescription": "HPE Remote Tech Support",
+                            "serviceFullDescription": null,
+                            "documentNumber": "0ea816ed-cbf6-367c-be6c-116203f2b168",
+                            "document": {
+                                "id": "9beb11dd-9c90-46f6-b56f-2b21671f7896",
+                                "type": "Contract",
+                                "documentNumber": "0ea816ed-cbf6-367c-be6c-116203f2b168",
+                                "startDate": "2022-02-01",
+                                "endDate": "2023-01-31",
+                                "currencyCode": "EUR",
+                                "languageCode": null,
+                                "updatedAt": "1656406898120",
+                                "vendorSpecificFields": {
+                                    "vendor": "HPE",
+                                    "sar": "83P999694001STD48",
+                                    "ampId": "83-Z00163",
+                                    "said": "26c497b4-6dc1-3c26-a80b-2663a9e07b12",
+                                    "groupId": null,
+                                    "groupDescription": null
+                                },
+                                "contactPersons": [
+                                    {
+                                        "phoneNumber": "+13014185212",
+                                        "name": "Ola Kuhlman",
+                                        "mail": null,
+                                        "type": "EndUser Contact"
+                                    },
+                                    {
+                                        "phoneNumber": null,
+                                        "name": null,
+                                        "mail": null,
+                                        "type": "Distributor Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+19802975848",
+                                        "name": "Mike Stark",
+                                        "mail": "yroberts@schamberger.biz",
+                                        "type": "Reseller Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+13014185212",
+                                        "name": "Ola Kuhlman",
+                                        "mail": null,
+                                        "type": "Hardware System Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+13014185212",
+                                        "name": "Ola Kuhlman",
+                                        "mail": null,
+                                        "type": "Software System Contact"
+                                    },
+                                    {
+                                        "phoneNumber": null,
+                                        "name": null,
+                                        "mail": null,
+                                        "type": "System Manager Contact"
+                                    }
+                                ],
+                                "resellerId": "77ec115b-9723-4582-ad45-2b3a83286b1f",
+                                "customerId": "dda6bc2c-7b09-48e6-9739-9b2732e9cd98",
+                                "distributorId": "1af1c44e-8112-4e72-9654-b11c705e9372"
+                            },
+                            "startDate": null,
+                            "endDate": null,
+                            "reseller": {
+                                "id": "77ec115b-9723-4582-ad45-2b3a83286b1f"
+                            },
+                            "customer": {
+                                "id": "dda6bc2c-7b09-48e6-9739-9b2732e9cd98"
+                            }
+                        },
+                        {
+                            "serviceGroupSku": null,
+                            "serviceGroupSkuDescription": null,
+                            "serviceLevelSku": "HA151AC",
+                            "serviceLevelSkuDescription": "HPE Hardware Maintenance Onsite Support",
+                            "serviceFullDescription": null,
+                            "documentNumber": "cebde020-ce45-303c-9e44-0f5d89066323",
+                            "document": {
+                                "id": "019a6207-1cbc-441b-9d74-0b4cb55899fc",
+                                "type": "Contract",
+                                "documentNumber": "cebde020-ce45-303c-9e44-0f5d89066323",
+                                "startDate": "2021-02-01",
+                                "endDate": "2022-01-31",
+                                "currencyCode": "EUR",
+                                "languageCode": null,
+                                "updatedAt": "1654262846658",
+                                "vendorSpecificFields": {
+                                    "vendor": "HPE",
+                                    "sar": "83P999694001STD48",
+                                    "ampId": "83-Z00163",
+                                    "said": null,
+                                    "groupId": null,
+                                    "groupDescription": null
+                                },
+                                "contactPersons": [
+                                    {
+                                        "phoneNumber": "+13014185212",
+                                        "name": "Ola Kuhlman",
+                                        "mail": null,
+                                        "type": "EndUser Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+16607583859",
+                                        "name": "Prof. Martine Heathcote",
+                                        "mail": "renee.wolff@ortiz.com",
+                                        "type": "Distributor Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+19802975848",
+                                        "name": "Mike Stark",
+                                        "mail": "yroberts@schamberger.biz",
+                                        "type": "Reseller Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+13014185212",
+                                        "name": "Ola Kuhlman",
+                                        "mail": null,
+                                        "type": "Hardware System Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+13014185212",
+                                        "name": "Ola Kuhlman",
+                                        "mail": null,
+                                        "type": "Software System Contact"
+                                    },
+                                    {
+                                        "phoneNumber": null,
+                                        "name": null,
+                                        "mail": null,
+                                        "type": "System Manager Contact"
+                                    }
+                                ],
+                                "resellerId": "77ec115b-9723-4582-ad45-2b3a83286b1f",
+                                "customerId": "dda6bc2c-7b09-48e6-9739-9b2732e9cd98",
+                                "distributorId": "1af1c44e-8112-4e72-9654-b11c705e9372"
+                            },
+                            "startDate": null,
+                            "endDate": null,
+                            "reseller": {
+                                "id": "77ec115b-9723-4582-ad45-2b3a83286b1f"
+                            },
+                            "customer": {
+                                "id": "dda6bc2c-7b09-48e6-9739-9b2732e9cd98"
+                            }
+                        }
+                    ],
+                    "latestContactPersons": [
+                        {
+                            "phoneNumber": "+13014185212",
+                            "name": "Ola Kuhlman",
+                            "mail": null,
+                            "type": "EndUser Contact"
+                        },
+                        {
+                            "phoneNumber": null,
+                            "name": null,
+                            "mail": null,
+                            "type": "Distributor Contact"
+                        },
+                        {
+                            "phoneNumber": "+19802975848",
+                            "name": "Mike Stark",
+                            "mail": "yroberts@schamberger.biz",
+                            "type": "Reseller Contact"
+                        }
+                    ],
+                    "coverageStatusCheck": {
+                        "coverageStatus": "COVERED",
+                        "coverageStatusUpdatedAt": "1664803219063",
+                        "coverageEntries": [
+                            {
+                                "coverageStartDate": "2021-02-01",
+                                "coverageEndDate": "2023-01-31",
+                                "type": "Contract",
+                                "status": "Expiring",
+                                "description": "H7J34AC-HPE Foundation Care 24x7 SVC",
+                                "serviceSku": null
+                            },
+                            {
+                                "coverageStartDate": "2020-08-26",
+                                "coverageEndDate": "2020-08-26",
+                                "type": "FactoryWarranty",
+                                "status": "Expired",
+                                "description": "",
+                                "serviceSku": null
+                            }
+                        ]
+                    }
+                }
+            ]
+        }
+    }
+}

@@ -1,0 +1,138 @@
+{
+    "selector": "data.getAssets",
+    "query": "query getAssets($id: String!) {\n    getAssets(args: [{key: \"id\", value: $id}]) {\n        id\nserialNumber\n\nassetSku\nassetSkuDescription\nassetTag\nassetType\nstatus\nvendor\n\neolDate\neosDate\n\ncountry\ncountryCode\nlatitude\nlongitude\nzip\ncity\naddress\naddress2\n\ncustomerId\nresellerId\n\nupdatedAt\n\nlatestContactPersons {\n    phoneNumber\n    name\n    type\n    mail\n}\n\nassetCoverage\ncoverageStatusCheck {\n    coverageStatus\n    coverageStatusUpdatedAt\n    coverageEntries {\n        coverageStartDate\n        coverageEndDate\n        type\n        description\n        status\n        serviceSku\n    }\n}\n\ndataQualityScore\n        assetDocument {\n    startDate\n    endDate\n    documentNumber\n\n    document {\n        id\n        type\n        documentNumber\n\n        startDate\n        endDate\n\n        currencyCode\n        languageCode\n\n        updatedAt\n\n        vendorSpecificFields {\n            vendor\n            groupId\n            groupDescription\n            said\n            ampId\n            sar\n        }\n\n        contactPersons {\n            phoneNumber\n            name\n            type\n            mail\n        }\n\n        customerId\n        resellerId\n        distributorId\n    }\n\n    serviceGroupSku\n    serviceGroupSkuDescription\n    serviceLevelSku\n    serviceLevelSkuDescription\n    serviceFullDescription\n\n    customer {\n      id\n    }\n\n    reseller {\n      id\n    }\n}\n    }\n}",
+    "variables": {
+        "id": "877829e0-4aa2-4432-a942-c86466c1af11"
+    },
+    "response": {
+        "data": {
+            "getAssets": [
+                {
+                    "id": "877829e0-4aa2-4432-a942-c86466c1af11",
+                    "resellerId": "9d9e320d-4e44-4518-a4e6-6bfe7f1c7dd8",
+                    "customerId": "941463a2-eb9b-47f6-aa69-ee4cce71532d",
+                    "serialNumber": null,
+                    "assetSkuDescription": "HPE 2U CMA for Easy Install Rail Kit",
+                    "assetTag": null,
+                    "assetType": null,
+                    "vendor": "HPE",
+                    "assetSku": "733664-B21",
+                    "eolDate": null,
+                    "eosDate": null,
+                    "zip": "70533-2574",
+                    "city": "West Richmond",
+                    "address": "11846 Turner Circles",
+                    "address2": null,
+                    "country": "Nicaragua",
+                    "latitude": "5.130375",
+                    "longitude": "-29.98307",
+                    "countryCode": "JO",
+                    "status": "ACTIVE",
+                    "updatedAt": "1662142599980",
+                    "assetCoverage": [
+                        "ARCHIVED"
+                    ],
+                    "dataQualityScore": "20",
+                    "assetDocument": [
+                        {
+                            "serviceGroupSku": null,
+                            "serviceGroupSkuDescription": null,
+                            "serviceLevelSku": "HA151AC",
+                            "serviceLevelSkuDescription": "HPE Hardware Maintenance Onsite Support",
+                            "serviceFullDescription": null,
+                            "documentNumber": "ca946838-38de-3ed7-b8a2-e3a9086c69c1",
+                            "document": {
+                                "id": "00fbfa2d-d5f7-4a66-8e1c-589a0d2528a3",
+                                "type": "Contract",
+                                "documentNumber": "ca946838-38de-3ed7-b8a2-e3a9086c69c1",
+                                "startDate": "2017-11-16",
+                                "endDate": "2020-11-15",
+                                "currencyCode": "EUR",
+                                "languageCode": null,
+                                "updatedAt": "1654262846658",
+                                "vendorSpecificFields": {
+                                    "vendor": "HPE",
+                                    "sar": "83P377600001-02",
+                                    "ampId": "83-Z00326",
+                                    "said": null,
+                                    "groupId": null,
+                                    "groupDescription": null
+                                },
+                                "contactPersons": [
+                                    {
+                                        "phoneNumber": "+18208449038",
+                                        "name": "Florian Kovacek",
+                                        "mail": null,
+                                        "type": "EndUser Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+18286440797",
+                                        "name": "Mr. Coleman Kilback III",
+                                        "mail": "abrekke@gmail.com",
+                                        "type": "Distributor Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+13183339140",
+                                        "name": "Mrs. Rachael Beatty MD",
+                                        "mail": "tturner@oreilly.com",
+                                        "type": "Reseller Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+18208449038",
+                                        "name": "Florian Kovacek",
+                                        "mail": null,
+                                        "type": "Hardware System Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+18208449038",
+                                        "name": "Florian Kovacek",
+                                        "mail": null,
+                                        "type": "Software System Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+18208449038",
+                                        "name": "Florian Kovacek",
+                                        "mail": null,
+                                        "type": "System Manager Contact"
+                                    }
+                                ],
+                                "resellerId": "9d9e320d-4e44-4518-a4e6-6bfe7f1c7dd8",
+                                "customerId": "941463a2-eb9b-47f6-aa69-ee4cce71532d",
+                                "distributorId": "1af1c44e-8112-4e72-9654-b11c705e9372"
+                            },
+                            "startDate": null,
+                            "endDate": null,
+                            "reseller": {
+                                "id": "9d9e320d-4e44-4518-a4e6-6bfe7f1c7dd8"
+                            },
+                            "customer": {
+                                "id": "941463a2-eb9b-47f6-aa69-ee4cce71532d"
+                            }
+                        }
+                    ],
+                    "latestContactPersons": [
+                        {
+                            "phoneNumber": "+18208449038",
+                            "name": "Florian Kovacek",
+                            "mail": null,
+                            "type": "EndUser Contact"
+                        },
+                        {
+                            "phoneNumber": "+18286440797",
+                            "name": "Mr. Coleman Kilback III",
+                            "mail": "abrekke@gmail.com",
+                            "type": "Distributor Contact"
+                        },
+                        {
+                            "phoneNumber": "+13183339140",
+                            "name": "Mrs. Rachael Beatty MD",
+                            "mail": "tturner@oreilly.com",
+                            "type": "Reseller Contact"
+                        }
+                    ],
+                    "coverageStatusCheck": null
+                }
+            ]
+        }
+    }
+}

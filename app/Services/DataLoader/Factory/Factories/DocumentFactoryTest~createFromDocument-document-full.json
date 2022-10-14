@@ -14,7 +14,9 @@
         "vendor": "HPE",
         "said": "1234 4678 9012",
         "groupId": "abc-de",
-        "groupDescription": "description"
+        "groupDescription": "description",
+        "sar": "SAR-10",
+        "ampId": "12-AMP-ID"
     },
     "documentNumber": "0056523287",
     "contactPersons": [

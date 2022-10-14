@@ -1,0 +1,395 @@
+{
+    "selector": "data.getAssets",
+    "query": "query getAssets($id: String!) {\n    getAssets(args: [{key: \"id\", value: $id}]) {\n        id\nserialNumber\n\nassetSku\nassetSkuDescription\nassetTag\nassetType\nstatus\nvendor\n\neolDate\neosDate\n\ncountry\ncountryCode\nlatitude\nlongitude\nzip\ncity\naddress\naddress2\n\ncustomerId\nresellerId\n\nupdatedAt\n\nlatestContactPersons {\n    phoneNumber\n    name\n    type\n    mail\n}\n\nassetCoverage\ncoverageStatusCheck {\n    coverageStatus\n    coverageStatusUpdatedAt\n    coverageEntries {\n        coverageStartDate\n        coverageEndDate\n        type\n        description\n        status\n        serviceSku\n    }\n}\n\ndataQualityScore\n        assetDocument {\n    startDate\n    endDate\n    documentNumber\n\n    document {\n        id\n        type\n        documentNumber\n\n        startDate\n        endDate\n\n        currencyCode\n        languageCode\n\n        updatedAt\n\n        vendorSpecificFields {\n            vendor\n            groupId\n            groupDescription\n            said\n            ampId\n            sar\n        }\n\n        contactPersons {\n            phoneNumber\n            name\n            type\n            mail\n        }\n\n        customerId\n        resellerId\n        distributorId\n    }\n\n    serviceGroupSku\n    serviceGroupSkuDescription\n    serviceLevelSku\n    serviceLevelSkuDescription\n    serviceFullDescription\n\n    customer {\n      id\n    }\n\n    reseller {\n      id\n    }\n}\n    }\n}",
+    "variables": {
+        "id": "6c62235f-d17a-4180-a91e-ecbb0525e295"
+    },
+    "response": {
+        "data": {
+            "getAssets": [
+                {
+                    "id": "6c62235f-d17a-4180-a91e-ecbb0525e295",
+                    "resellerId": "594184e7-24d4-4614-8db4-fe132adb86f4",
+                    "customerId": "99a3cd0d-ea2a-4803-95f4-5757f3580fed",
+                    "serialNumber": "b2fd9162-677e-32d5-b1a9-2d5dd1373956",
+                    "assetSkuDescription": "HPE DL360 Gen9 8SFF CTO Server",
+                    "assetTag": null,
+                    "assetType": null,
+                    "vendor": "HPE",
+                    "assetSku": "755258-B21",
+                    "eolDate": null,
+                    "eosDate": null,
+                    "zip": "19212-4867",
+                    "city": "Austenmouth",
+                    "address": "3981 Colleen Heights",
+                    "address2": null,
+                    "country": "Ethiopia",
+                    "latitude": "-85.77866",
+                    "longitude": "-19.531226",
+                    "countryCode": "KP",
+                    "status": "ACTIVE",
+                    "updatedAt": "1664802961157",
+                    "assetCoverage": [
+                        "COVERED"
+                    ],
+                    "dataQualityScore": "80",
+                    "assetDocument": [
+                        {
+                            "serviceGroupSku": null,
+                            "serviceGroupSkuDescription": null,
+                            "serviceLevelSku": "HU4A1AC",
+                            "serviceLevelSkuDescription": "HPE Remote Tech Support",
+                            "serviceFullDescription": null,
+                            "documentNumber": "1d2b3813-3c09-33ec-b224-bb86e2a1d0e6",
+                            "document": {
+                                "id": "3b28b220-5a8b-418d-9b67-0c6af0a8a04c",
+                                "type": "Quote New Business",
+                                "documentNumber": "1d2b3813-3c09-33ec-b224-bb86e2a1d0e6",
+                                "startDate": "2022-11-01",
+                                "endDate": "2023-10-31",
+                                "currencyCode": "EUR",
+                                "languageCode": null,
+                                "updatedAt": "1655487019897",
+                                "vendorSpecificFields": {
+                                    "vendor": "HPE",
+                                    "sar": null,
+                                    "ampId": null,
+                                    "said": null,
+                                    "groupId": null,
+                                    "groupDescription": null
+                                },
+                                "contactPersons": [
+                                    {
+                                        "phoneNumber": "+19518642916",
+                                        "name": "Marilie Cruickshank",
+                                        "mail": "armand.blanda@luettgen.org",
+                                        "type": "Customer Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+19203650584",
+                                        "name": "Prof. Jamey Lesch III",
+                                        "mail": "barton.madelynn@hotmail.com",
+                                        "type": "Renewal Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+12793477922",
+                                        "name": "Erik Ruecker",
+                                        "mail": "russel.makenna@von.com",
+                                        "type": "EndUser Contact"
+                                    }
+                                ],
+                                "resellerId": "594184e7-24d4-4614-8db4-fe132adb86f4",
+                                "customerId": "99a3cd0d-ea2a-4803-95f4-5757f3580fed",
+                                "distributorId": "1af1c44e-8112-4e72-9654-b11c705e9372"
+                            },
+                            "startDate": null,
+                            "endDate": null,
+                            "reseller": {
+                                "id": "594184e7-24d4-4614-8db4-fe132adb86f4"
+                            },
+                            "customer": {
+                                "id": "99a3cd0d-ea2a-4803-95f4-5757f3580fed"
+                            }
+                        },
+                        {
+                            "serviceGroupSku": null,
+                            "serviceGroupSkuDescription": null,
+                            "serviceLevelSku": "HU4A2AC",
+                            "serviceLevelSkuDescription": "HPE Hardware Tech Support",
+                            "serviceFullDescription": null,
+                            "documentNumber": "dbb19085-6df7-353d-a2d8-2a3608a2f7c8",
+                            "document": {
+                                "id": "910c97e1-7fc0-4a15-99f5-e1bd6dac30b6",
+                                "type": "Quote New Business",
+                                "documentNumber": "dbb19085-6df7-353d-a2d8-2a3608a2f7c8",
+                                "startDate": "2022-11-01",
+                                "endDate": "2024-10-31",
+                                "currencyCode": "EUR",
+                                "languageCode": null,
+                                "updatedAt": "1656028897059",
+                                "vendorSpecificFields": {
+                                    "vendor": "HPE",
+                                    "sar": null,
+                                    "ampId": null,
+                                    "said": null,
+                                    "groupId": null,
+                                    "groupDescription": null
+                                },
+                                "contactPersons": [
+                                    {
+                                        "phoneNumber": "+19518642916",
+                                        "name": "Marilie Cruickshank",
+                                        "mail": "armand.blanda@luettgen.org",
+                                        "type": "Customer Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+19203650584",
+                                        "name": "Prof. Jamey Lesch III",
+                                        "mail": "barton.madelynn@hotmail.com",
+                                        "type": "Renewal Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+12793477922",
+                                        "name": "Erik Ruecker",
+                                        "mail": "russel.makenna@von.com",
+                                        "type": "EndUser Contact"
+                                    }
+                                ],
+                                "resellerId": "594184e7-24d4-4614-8db4-fe132adb86f4",
+                                "customerId": "99a3cd0d-ea2a-4803-95f4-5757f3580fed",
+                                "distributorId": "1af1c44e-8112-4e72-9654-b11c705e9372"
+                            },
+                            "startDate": null,
+                            "endDate": null,
+                            "reseller": {
+                                "id": "594184e7-24d4-4614-8db4-fe132adb86f4"
+                            },
+                            "customer": {
+                                "id": "99a3cd0d-ea2a-4803-95f4-5757f3580fed"
+                            }
+                        },
+                        {
+                            "serviceGroupSku": null,
+                            "serviceGroupSkuDescription": null,
+                            "serviceLevelSku": "HU4A1AC",
+                            "serviceLevelSkuDescription": "HPE Remote Tech Support",
+                            "serviceFullDescription": null,
+                            "documentNumber": "dbb19085-6df7-353d-a2d8-2a3608a2f7c8",
+                            "document": {
+                                "id": "910c97e1-7fc0-4a15-99f5-e1bd6dac30b6",
+                                "type": "Quote New Business",
+                                "documentNumber": "dbb19085-6df7-353d-a2d8-2a3608a2f7c8",
+                                "startDate": "2022-11-01",
+                                "endDate": "2024-10-31",
+                                "currencyCode": "EUR",
+                                "languageCode": null,
+                                "updatedAt": "1656028897059",
+                                "vendorSpecificFields": {
+                                    "vendor": "HPE",
+                                    "sar": null,
+                                    "ampId": null,
+                                    "said": null,
+                                    "groupId": null,
+                                    "groupDescription": null
+                                },
+                                "contactPersons": [
+                                    {
+                                        "phoneNumber": "+19518642916",
+                                        "name": "Marilie Cruickshank",
+                                        "mail": "armand.blanda@luettgen.org",
+                                        "type": "Customer Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+19203650584",
+                                        "name": "Prof. Jamey Lesch III",
+                                        "mail": "barton.madelynn@hotmail.com",
+                                        "type": "Renewal Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+12793477922",
+                                        "name": "Erik Ruecker",
+                                        "mail": "russel.makenna@von.com",
+                                        "type": "EndUser Contact"
+                                    }
+                                ],
+                                "resellerId": "594184e7-24d4-4614-8db4-fe132adb86f4",
+                                "customerId": "99a3cd0d-ea2a-4803-95f4-5757f3580fed",
+                                "distributorId": "1af1c44e-8112-4e72-9654-b11c705e9372"
+                            },
+                            "startDate": null,
+                            "endDate": null,
+                            "reseller": {
+                                "id": "594184e7-24d4-4614-8db4-fe132adb86f4"
+                            },
+                            "customer": {
+                                "id": "99a3cd0d-ea2a-4803-95f4-5757f3580fed"
+                            }
+                        },
+                        {
+                            "serviceGroupSku": null,
+                            "serviceGroupSkuDescription": null,
+                            "serviceLevelSku": "HU4A1AC",
+                            "serviceLevelSkuDescription": "HPE Remote Tech Support",
+                            "serviceFullDescription": null,
+                            "documentNumber": "13c47a7c-cccc-353c-b77e-877ba8638f96",
+                            "document": {
+                                "id": "e164fc90-4afa-4840-85b6-01c393674ebe",
+                                "type": "Contract",
+                                "documentNumber": "13c47a7c-cccc-353c-b77e-877ba8638f96",
+                                "startDate": "2022-05-01",
+                                "endDate": "2022-10-31",
+                                "currencyCode": "EUR",
+                                "languageCode": null,
+                                "updatedAt": "1655493076122",
+                                "vendorSpecificFields": {
+                                    "vendor": "HPE",
+                                    "sar": null,
+                                    "ampId": "83-B015802",
+                                    "said": "2ead8bb0-2ab6-3b4a-bbaf-f0d2293aff0a",
+                                    "groupId": null,
+                                    "groupDescription": null
+                                },
+                                "contactPersons": [
+                                    {
+                                        "phoneNumber": null,
+                                        "name": null,
+                                        "mail": null,
+                                        "type": "EndUser Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+19203650584",
+                                        "name": "Prof. Jamey Lesch III",
+                                        "mail": "barton.madelynn@hotmail.com",
+                                        "type": "Distributor Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+19518642916",
+                                        "name": "Marilie Cruickshank",
+                                        "mail": "armand.blanda@luettgen.org",
+                                        "type": "Reseller Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+16818700445",
+                                        "name": "Zane Emard I",
+                                        "mail": null,
+                                        "type": "Hardware System Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+16818700445",
+                                        "name": "Zane Emard I",
+                                        "mail": null,
+                                        "type": "Software System Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+16818700445",
+                                        "name": "Zane Emard I",
+                                        "mail": null,
+                                        "type": "System Manager Contact"
+                                    }
+                                ],
+                                "resellerId": "594184e7-24d4-4614-8db4-fe132adb86f4",
+                                "customerId": "99a3cd0d-ea2a-4803-95f4-5757f3580fed",
+                                "distributorId": "1af1c44e-8112-4e72-9654-b11c705e9372"
+                            },
+                            "startDate": null,
+                            "endDate": null,
+                            "reseller": {
+                                "id": "594184e7-24d4-4614-8db4-fe132adb86f4"
+                            },
+                            "customer": {
+                                "id": "99a3cd0d-ea2a-4803-95f4-5757f3580fed"
+                            }
+                        },
+                        {
+                            "serviceGroupSku": null,
+                            "serviceGroupSkuDescription": null,
+                            "serviceLevelSku": "HU4A1AC",
+                            "serviceLevelSkuDescription": "HPE Remote Tech Support",
+                            "serviceFullDescription": null,
+                            "documentNumber": "8030c4ce-a426-364a-b25f-7bf001735cb1",
+                            "document": {
+                                "id": "fe14c36b-370b-42b8-82f2-b979aec6bda9",
+                                "type": "Quote New Business",
+                                "documentNumber": "8030c4ce-a426-364a-b25f-7bf001735cb1",
+                                "startDate": "2022-05-01",
+                                "endDate": "2023-05-31",
+                                "currencyCode": "EUR",
+                                "languageCode": null,
+                                "updatedAt": "1654254524322",
+                                "vendorSpecificFields": {
+                                    "vendor": "HPE",
+                                    "sar": null,
+                                    "ampId": null,
+                                    "said": null,
+                                    "groupId": null,
+                                    "groupDescription": null
+                                },
+                                "contactPersons": [
+                                    {
+                                        "phoneNumber": "+19518642916",
+                                        "name": "Marilie Cruickshank",
+                                        "mail": "armand.blanda@luettgen.org",
+                                        "type": "Customer Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+19203650584",
+                                        "name": "Prof. Jamey Lesch III",
+                                        "mail": "barton.madelynn@hotmail.com",
+                                        "type": "Renewal Contact"
+                                    },
+                                    {
+                                        "phoneNumber": null,
+                                        "name": null,
+                                        "mail": null,
+                                        "type": "EndUser Contact"
+                                    }
+                                ],
+                                "resellerId": "594184e7-24d4-4614-8db4-fe132adb86f4",
+                                "customerId": "99a3cd0d-ea2a-4803-95f4-5757f3580fed",
+                                "distributorId": "1af1c44e-8112-4e72-9654-b11c705e9372"
+                            },
+                            "startDate": null,
+                            "endDate": null,
+                            "reseller": {
+                                "id": "594184e7-24d4-4614-8db4-fe132adb86f4"
+                            },
+                            "customer": {
+                                "id": "99a3cd0d-ea2a-4803-95f4-5757f3580fed"
+                            }
+                        }
+                    ],
+                    "latestContactPersons": [
+                        {
+                            "phoneNumber": null,
+                            "name": null,
+                            "mail": null,
+                            "type": "EndUser Contact"
+                        },
+                        {
+                            "phoneNumber": "+19203650584",
+                            "name": "Prof. Jamey Lesch III",
+                            "mail": "barton.madelynn@hotmail.com",
+                            "type": "Distributor Contact"
+                        },
+                        {
+                            "phoneNumber": "+19518642916",
+                            "name": "Marilie Cruickshank",
+                            "mail": "armand.blanda@luettgen.org",
+                            "type": "Reseller Contact"
+                        }
+                    ],
+                    "coverageStatusCheck": {
+                        "coverageStatus": "COVERED",
+                        "coverageStatusUpdatedAt": "1664802961157",
+                        "coverageEntries": [
+                            {
+                                "coverageStartDate": "2022-05-01",
+                                "coverageEndDate": "2022-10-31",
+                                "type": "Contract",
+                                "status": "Expiring",
+                                "description": "HU4A6AC-HPE Tech Care Essential SVC",
+                                "serviceSku": null
+                            },
+                            {
+                                "coverageStartDate": "2017-04-29",
+                                "coverageEndDate": "2022-04-30",
+                                "type": "Contract",
+                                "status": "Expired",
+                                "description": "H7J34AC-HPE Foundation Care 24x7 SVC",
+                                "serviceSku": null
+                            },
+                            {
+                                "coverageStartDate": "2017-04-21",
+                                "coverageEndDate": "2020-05-20",
+                                "type": "FactoryWarranty",
+                                "status": "Expired",
+                                "description": "HA151AW-Wty: HPE HW Maintenance Onsite Support, HA158AW-Wty: HPE Support for Initial Setup",
+                                "serviceSku": null
+                            }
+                        ]
+                    }
+                }
+            ]
+        }
+    }
+}
