@@ -59,6 +59,7 @@ class ResellersSynchronizerTest extends TestCase {
 
         $this->app->make(ResellersSynchronizer::class)
             ->setChunkSize(ResellersSynchronizerData::CHUNK)
+            ->setWithOutdated(false)
             ->start();
 
         self::assertQueryLogEquals('~process-hot-queries.json', $queries);

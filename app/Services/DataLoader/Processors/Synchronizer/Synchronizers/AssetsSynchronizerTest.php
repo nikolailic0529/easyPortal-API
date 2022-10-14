@@ -59,6 +59,7 @@ class AssetsSynchronizerTest extends TestCase {
 
         $this->app->make(AssetsSynchronizer::class)
             ->setChunkSize(AssetsSynchronizerData::CHUNK)
+            ->setWithOutdated(false)
             ->start();
 
         self::assertQueryLogEquals('~process-hot-queries.json', $queries);
