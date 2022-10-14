@@ -65,6 +65,8 @@ use function count;
  * @property string|null                    $price_origin
  * @property string|null                    $currency_id
  * @property string|null                    $language_id
+ * @property string|null                    $oem_amp_id
+ * @property string|null                    $oem_sar_number
  * @property int                            $assets_count
  * @property int                            $entries_count
  * @property int                            $contacts_count
