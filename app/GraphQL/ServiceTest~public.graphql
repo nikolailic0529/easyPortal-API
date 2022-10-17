@@ -1875,11 +1875,6 @@ input SearchByConditionAssetWarrantiesQuery {
     reseller_id: SearchByScalarIDOrNull
 
     """
-    Relationship condition.
-    """
-    serviceLevels: SearchByComplexRelationServiceLevelsQuery
-
-    """
     Property condition.
     """
     service_group_id: SearchByScalarIDOrNull
@@ -6537,7 +6532,6 @@ type AssetWarranty {
     reseller: Reseller
     reseller_id: ID
     serviceGroup: ServiceGroup
-    serviceLevels: [ServiceLevel!]!
     start: Date
     status: Status
     status_id: String

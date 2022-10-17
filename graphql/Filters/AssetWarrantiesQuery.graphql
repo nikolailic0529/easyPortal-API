@@ -10,5 +10,4 @@ input AssetWarrantiesQuery {
     reseller_id: ID
     reseller: CompaniesQuery
     service_group_id: ID
-    serviceLevels: ServiceLevelsQuery
 }

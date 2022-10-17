@@ -14,5 +14,4 @@ type AssetWarranty {
     reseller_id: ID
     reseller: Reseller @relation
     serviceGroup: ServiceGroup @relation
-    serviceLevels: [ServiceLevel!]! @relation
 }
