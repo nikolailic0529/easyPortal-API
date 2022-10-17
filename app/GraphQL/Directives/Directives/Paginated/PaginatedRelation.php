@@ -11,8 +11,8 @@ use Illuminate\Contracts\Container\Container;
 use LogicException;
 use Nuwave\Lighthouse\Schema\AST\DocumentAST;
 use Nuwave\Lighthouse\Schema\DirectiveLocator;
-use Nuwave\Lighthouse\Schema\Directives\RelationDirective;
 
+use function assert;
 use function sprintf;
 
 abstract class PaginatedRelation extends Base {
@@ -60,27 +60,12 @@ abstract class PaginatedRelation extends Base {
      * @return array<string>
      */
     public function getBuilderArguments(): array {
-        $directive = $this->directives->associatedOfType($this->definitionNode, RelationDirective::class)->first();
-        $relation  = (new class() extends RelationDirective {
-            /**
-             * @noinspection PhpMissingParentConstructorInspection
-             * @phpstan-ignore-next-line
-             */
-            public function __construct() {
-                // no need to call parent
-            }
+        $directive = $this->directives->associatedOfType($this->definitionNode, Relation::class)->first();
 
-            public static function definition(): string {
-                return '';
-            }
-
-            public function getRelation(RelationDirective $directive): string {
-                return $directive->relation();
-            }
-        })->getRelation($directive);
+        assert($directive instanceof Relation, 'Directive is always exist.');
 
         return [
-            'relation' => $relation,
+            'relation' => $directive->getRelation(),
         ];
     }
 }

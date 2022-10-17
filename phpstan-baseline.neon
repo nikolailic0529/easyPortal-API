@@ -556,11 +556,6 @@ parameters:
 			path: app/GraphQL/Directives/Directives/Paginated/PaginatedOffsetTest.php
 
 		-
-			message: "#^Parameter \\#1 \\$directive of method class@anonymous/app/GraphQL/Directives/Directives/Paginated/PaginatedRelation\\.php\\:64\\:\\:getRelation\\(\\) expects Nuwave\\\\Lighthouse\\\\Schema\\\\Directives\\\\RelationDirective, mixed given\\.$#"
-			count: 1
-			path: app/GraphQL/Directives/Directives/Paginated/PaginatedRelation.php
-
-		-
 			message: "#^Method App\\\\GraphQL\\\\Directives\\\\Directives\\\\Paginated\\\\PaginatedTest_Resolver\\:\\:__invoke\\(\\) return type with generic class Illuminate\\\\Database\\\\Eloquent\\\\Builder does not specify its types\\: TModelClass$#"
 			count: 1
 			path: app/GraphQL/Directives/Directives/Paginated/PaginatedTest.php

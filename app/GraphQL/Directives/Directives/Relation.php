@@ -69,4 +69,8 @@ abstract class Relation extends RelationDirective {
 
         return $decorator;
     }
+
+    public function getRelation(): string {
+        return parent::relation();
+    }
 }
