@@ -69,6 +69,16 @@ Group clause for `input AssetsQuery` (only one property allowed at a time).
 """
 input AggregatedGroupByClauseAssetsQuery {
     """
+    Property clause.
+    """
+    contacts_active_quantity: AggregatedGroupByTypeDirection
+
+    """
+    Property clause.
+    """
+    coverages_count: AggregatedGroupByTypeDirection
+
+    """
     Relationship clause.
     """
     customer: [SortByClauseCompaniesSort!]
@@ -221,7 +231,17 @@ input AggregatedGroupByClauseCompaniesQuery {
     """
     Property clause.
     """
+    contacts_count: AggregatedGroupByTypeDirection
+
+    """
+    Property clause.
+    """
     name: AggregatedGroupByTypeDirection
+
+    """
+    Property clause.
+    """
+    statuses_count: AggregatedGroupByTypeDirection
 }
 
 """
@@ -409,6 +429,11 @@ Group clause for `input DocumentsQuery` (only one property allowed at a time).
 """
 input AggregatedGroupByClauseDocumentsQuery {
     """
+    Property clause.
+    """
+    contacts_count: AggregatedGroupByTypeDirection
+
+    """
     Relationship clause.
     """
     currency: [SortByClauseCurrenciesSort!]
@@ -442,6 +467,11 @@ input AggregatedGroupByClauseDocumentsQuery {
     Property clause.
     """
     end: AggregatedGroupByTypeDirection
+
+    """
+    Property clause.
+    """
+    entries_count: AggregatedGroupByTypeDirection
 
     """
     Relationship clause.
@@ -507,6 +537,11 @@ input AggregatedGroupByClauseDocumentsQuery {
     Property clause.
     """
     start: AggregatedGroupByTypeDirection
+
+    """
+    Property clause.
+    """
+    statuses_count: AggregatedGroupByTypeDirection
 
     """
     Property clause.

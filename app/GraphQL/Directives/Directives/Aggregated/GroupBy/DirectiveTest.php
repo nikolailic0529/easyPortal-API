@@ -65,6 +65,10 @@ class DirectiveTest extends TestCase {
                     'name' => 'flag',
                     'type' => Type::nonNull(Type::boolean()),
                 ],
+                [
+                    'name' => 'value',
+                    'type' => Type::int(),
+                ],
             ],
         ]);
         $b = new InputObjectType([

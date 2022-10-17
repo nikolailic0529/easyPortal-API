@@ -167,6 +167,7 @@ class Manipulator extends BuilderManipulator {
             : $node->fields;
         $supported = [
             Type::ID     => $this->getAsStringDirective(),
+            Type::INT    => $this->getAsStringDirective(),
             Type::STRING => $this->getAsStringDirective(),
             'Date'       => $this->getAsDateDirective(),
         ];
