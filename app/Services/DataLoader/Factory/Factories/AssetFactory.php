@@ -193,23 +193,24 @@ class AssetFactory extends ModelFactory {
         $created = false;
         $factory = $this->factory(function (Asset $model) use (&$created, $asset): Asset {
             // Asset
-            $created              = !$model->exists;
-            $normalizer           = $this->getNormalizer();
-            $model->id            = $normalizer->uuid($asset->id);
-            $model->oem           = $this->assetOem($asset);
-            $model->type          = $this->assetType($asset);
-            $model->status        = $this->assetStatus($asset);
-            $model->product       = $this->assetProduct($asset);
-            $model->reseller      = $this->reseller($asset);
-            $model->customer      = $this->customer($asset);
-            $model->location      = $this->assetLocation($asset);
-            $model->changed_at    = $normalizer->datetime($asset->updatedAt);
-            $model->serial_number = $normalizer->string($asset->serialNumber);
-            $model->data_quality  = $normalizer->string($asset->dataQualityScore);
-            $model->contacts      = $this->objectContacts($model, (array) $asset->latestContactPersons);
-            $model->tags          = $this->assetTags($asset);
-            $model->coverages     = $this->assetCoverages($asset);
-            $model->synced_at     = Date::now();
+            $created                         = !$model->exists;
+            $normalizer                      = $this->getNormalizer();
+            $model->id                       = $normalizer->uuid($asset->id);
+            $model->oem                      = $this->assetOem($asset);
+            $model->type                     = $this->assetType($asset);
+            $model->status                   = $this->assetStatus($asset);
+            $model->product                  = $this->assetProduct($asset);
+            $model->reseller                 = $this->reseller($asset);
+            $model->customer                 = $this->customer($asset);
+            $model->location                 = $this->assetLocation($asset);
+            $model->changed_at               = $normalizer->datetime($asset->updatedAt);
+            $model->serial_number            = $normalizer->string($asset->serialNumber);
+            $model->data_quality             = $normalizer->string($asset->dataQualityScore);
+            $model->contacts_active_quantity = $normalizer->int($asset->activeContractQuantitySum);
+            $model->contacts                 = $this->objectContacts($model, (array) $asset->latestContactPersons);
+            $model->tags                     = $this->assetTags($asset);
+            $model->coverages                = $this->assetCoverages($asset);
+            $model->synced_at                = Date::now();
 
             // Warranties
             if ($created) {

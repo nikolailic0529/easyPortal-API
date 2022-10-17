@@ -125,6 +125,7 @@ class AssetFactoryTest extends TestCase {
         self::assertEquals($asset->resellerId, $created->reseller_id);
         self::assertEquals($asset->serialNumber, $created->serial_number);
         self::assertEquals($asset->dataQualityScore, $created->data_quality);
+        self::assertEquals($asset->activeContractQuantitySum, $created->contacts_active_quantity);
         self::assertEquals($asset->updatedAt, $this->getDatetime($created->changed_at));
         self::assertEquals($asset->vendor, $created->oem->key ?? null);
         self::assertEquals($asset->assetSkuDescription, $created->product->name ?? null);
@@ -262,6 +263,7 @@ class AssetFactoryTest extends TestCase {
         self::assertNull($updated->reseller_id);
         self::assertEquals($asset->serialNumber, $updated->serial_number);
         self::assertEquals($asset->dataQualityScore, $updated->data_quality);
+        self::assertEquals($asset->activeContractQuantitySum, $updated->contacts_active_quantity);
         self::assertEquals($asset->updatedAt, $this->getDatetime($updated->changed_at));
         self::assertEquals($asset->vendor, $updated->oem->key ?? null);
         self::assertNotNull($created->product);
@@ -356,6 +358,7 @@ class AssetFactoryTest extends TestCase {
         self::assertEquals($asset->id, $created->getKey());
         self::assertEquals($asset->serialNumber, $created->serial_number);
         self::assertEquals($asset->dataQualityScore, $created->data_quality);
+        self::assertEquals($asset->activeContractQuantitySum, $created->contacts_active_quantity);
         self::assertEquals($asset->vendor, $created->oem->key ?? null);
         self::assertEquals($asset->assetSkuDescription, $created->product->name ?? null);
         self::assertEquals($asset->assetSku, $created->product->sku ?? null);

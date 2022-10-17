@@ -15,6 +15,7 @@
     ],
     "assetTag": "Software",
     "dataQualityScore": "120",
+    "activeContractQuantitySum": null,
     "latestContactPersons": [
         {
             "phoneNumber": "+49 (591) 12345-67",

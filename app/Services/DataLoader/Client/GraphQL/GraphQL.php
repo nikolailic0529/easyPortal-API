@@ -178,6 +178,7 @@ abstract class GraphQL implements Stringable, JsonSerializable {
             }
 
             dataQualityScore
+            activeContractQuantitySum
             GRAPHQL;
     }
 

@@ -600,6 +600,7 @@ type VendorSpecificField {
 }
 
 type ViewAsset {
+    activeContractQuantitySum: Int
     address: String
     address2: String
     assetCoverage: [String]

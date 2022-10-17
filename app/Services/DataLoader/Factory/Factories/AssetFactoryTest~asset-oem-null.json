@@ -24,6 +24,7 @@
         "ARCHIVED"
     ],
     "dataQualityScore": "80",
+    "activeContractQuantitySum": null,
     "latestContactPersons": null,
     "coverageStatusCheck": null
 }

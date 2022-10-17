@@ -32,6 +32,7 @@ class ViewAsset extends Type implements TypeWithId {
      */
     public ?array $assetCoverage;
     public string $dataQualityScore;
+    public ?int   $activeContractQuantitySum;
 
     /**
      * @var array<ViewAssetDocument>

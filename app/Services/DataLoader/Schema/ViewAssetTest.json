@@ -24,6 +24,7 @@
         "COVERED_ON_CONTRACT"
     ],
     "dataQualityScore": "130",
+    "activeContractQuantitySum": 123,
     "assetDocument": [
         {
             "document": {
