@@ -102,6 +102,8 @@ class ContractsTest extends TestCase {
                             name
                         }
                         oem_said
+                        oem_amp_id
+                        oem_sar_number
                         oemGroup {
                             id
                             key
@@ -371,6 +373,8 @@ class ContractsTest extends TestCase {
                                         'name' => 'oem1',
                                     ],
                                     'oem_said'          => '1234-5678-9012',
+                                    'oem_amp_id'        => 'AMP-ID-123',
+                                    'oem_sar_number'    => 'SAR-123',
                                     'oemGroup'          => [
                                         'id'   => '52f2faec-5a80-4cdb-8cee-669b942ae1ef',
                                         'key'  => 'key',
@@ -764,6 +768,8 @@ class ContractsTest extends TestCase {
                                 ->create([
                                     'id'             => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24981',
                                     'oem_said'       => '1234-5678-9012',
+                                    'oem_amp_id'     => 'AMP-ID-123',
+                                    'oem_sar_number' => 'SAR-123',
                                     'number'         => '1323',
                                     'price'          => 100,
                                     'start'          => '2021-01-01',

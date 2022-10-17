@@ -34,17 +34,5 @@
             "2022-09-16 00:01:33",
             "efc39adf-0497-40a3-a6e6-bbd692f87516"
         ]
-    },
-    {
-        "query": "select count(*) as aggregate from `distributors` where `synced_at` < ? and `distributors`.`deleted_at` is null",
-        "bindings": [
-            "2022-09-16T00:00:16+00:00"
-        ]
-    },
-    {
-        "query": "select `distributors`.* from `distributors` where `synced_at` < ? and `distributors`.`deleted_at` is null order by `distributors`.`id` asc limit 5 offset 0",
-        "bindings": [
-            "2022-09-16T00:00:16+00:00"
-        ]
     }
 ]

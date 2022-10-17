@@ -17,6 +17,8 @@ type Document {
     oem_said: String
     oem_group_id: ID
     oemGroup: OemGroup @relation
+    oem_amp_id: String
+    oem_sar_number: String
     reseller_id: ID
     reseller: Reseller @relation
     type: Type @relation

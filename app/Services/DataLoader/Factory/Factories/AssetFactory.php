@@ -82,8 +82,6 @@ class AssetFactory extends ModelFactory {
     use WithServiceLevel;
     use WithAssetDocument;
 
-    protected ?DocumentFactory $documentFactory = null;
-
     public function __construct(
         ExceptionHandler $exceptionHandler,
         Normalizer $normalizer,
@@ -93,6 +91,7 @@ class AssetFactory extends ModelFactory {
         protected ProductResolver $productResolver,
         protected CustomerResolver $customerResolver,
         protected ResellerResolver $resellerResolver,
+        protected DocumentFactory $documentFactory,
         protected LocationFactory $locationFactory,
         protected ContactFactory $contactFactory,
         protected StatusResolver $statusResolver,
@@ -128,14 +127,8 @@ class AssetFactory extends ModelFactory {
         return $this->contactFactory;
     }
 
-    public function getDocumentFactory(): ?DocumentFactory {
+    public function getDocumentFactory(): DocumentFactory {
         return $this->documentFactory;
-    }
-
-    public function setDocumentFactory(?DocumentFactory $factory): static {
-        $this->documentFactory = $factory;
-
-        return $this;
     }
 
     protected function getCoverageResolver(): CoverageResolver {
@@ -200,23 +193,24 @@ class AssetFactory extends ModelFactory {
         $created = false;
         $factory = $this->factory(function (Asset $model) use (&$created, $asset): Asset {
             // Asset
-            $created              = !$model->exists;
-            $normalizer           = $this->getNormalizer();
-            $model->id            = $normalizer->uuid($asset->id);
-            $model->oem           = $this->assetOem($asset);
-            $model->type          = $this->assetType($asset);
-            $model->status        = $this->assetStatus($asset);
-            $model->product       = $this->assetProduct($asset);
-            $model->reseller      = $this->reseller($asset);
-            $model->customer      = $this->customer($asset);
-            $model->location      = $this->assetLocation($asset);
-            $model->changed_at    = $normalizer->datetime($asset->updatedAt);
-            $model->serial_number = $normalizer->string($asset->serialNumber);
-            $model->data_quality  = $normalizer->string($asset->dataQualityScore);
-            $model->contacts      = $this->objectContacts($model, (array) $asset->latestContactPersons);
-            $model->tags          = $this->assetTags($asset);
-            $model->coverages     = $this->assetCoverages($asset);
-            $model->synced_at     = Date::now();
+            $created                         = !$model->exists;
+            $normalizer                      = $this->getNormalizer();
+            $model->id                       = $normalizer->uuid($asset->id);
+            $model->oem                      = $this->assetOem($asset);
+            $model->type                     = $this->assetType($asset);
+            $model->status                   = $this->assetStatus($asset);
+            $model->product                  = $this->assetProduct($asset);
+            $model->reseller                 = $this->reseller($asset);
+            $model->customer                 = $this->customer($asset);
+            $model->location                 = $this->assetLocation($asset);
+            $model->changed_at               = $normalizer->datetime($asset->updatedAt);
+            $model->serial_number            = $normalizer->string($asset->serialNumber);
+            $model->data_quality             = $normalizer->string($asset->dataQualityScore);
+            $model->contacts_active_quantity = $normalizer->int($asset->activeContractQuantitySum);
+            $model->contacts                 = $this->objectContacts($model, (array) $asset->latestContactPersons);
+            $model->tags                     = $this->assetTags($asset);
+            $model->coverages                = $this->assetCoverages($asset);
+            $model->synced_at                = Date::now();
 
             // Warranties
             if ($created) {
@@ -238,7 +232,7 @@ class AssetFactory extends ModelFactory {
             }
 
             // Documents
-            if ($this->getDocumentFactory() && isset($asset->assetDocument)) {
+            if (isset($asset->assetDocument)) {
                 try {
                     // Prefetch
                     if (!$created) {
@@ -482,19 +476,16 @@ class AssetFactory extends ModelFactory {
      */
     protected function assetDocumentDocuments(Asset $model, Collection $assetDocuments): Collection {
         // Prefetch
-        $resolver = $this->getDocumentFactory()?->getDocumentResolver();
+        $resolver = $this->getDocumentFactory()->getDocumentResolver();
+        $keys     = [];
 
-        if ($resolver) {
-            $keys = [];
-
-            foreach ($assetDocuments as $assetDocument) {
-                if (isset($assetDocument->document->id)) {
-                    $keys[$assetDocument->document->id] = $assetDocument->document->id;
-                }
+        foreach ($assetDocuments as $assetDocument) {
+            if (isset($assetDocument->document->id)) {
+                $keys[$assetDocument->document->id] = $assetDocument->document->id;
             }
-
-            $resolver->prefetch($keys);
         }
+
+        $resolver->prefetch($keys);
 
         // Convert
         /** @var EloquentCollection<string, Document> $documents */
@@ -519,7 +510,7 @@ class AssetFactory extends ModelFactory {
         $factory  = $this->getDocumentFactory();
         $document = null;
 
-        if ($factory && isset($assetDocument->document->id)) {
+        if (isset($assetDocument->document->id)) {
             try {
                 $document = $factory->create(new AssetDocumentObject([
                     'asset'    => $model,

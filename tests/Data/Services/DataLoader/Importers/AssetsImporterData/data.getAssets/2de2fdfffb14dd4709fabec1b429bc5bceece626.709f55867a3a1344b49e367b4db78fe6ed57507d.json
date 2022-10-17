@@ -1,0 +1,1248 @@
+{
+    "selector": "data.getAssets",
+    "query": "query items($limit: Int, $lastId: String, $from: String) {\n    getAssets(limit: $limit, lastId: $lastId, fromTimestamp: $from) {\n        id\nserialNumber\n\nassetSku\nassetSkuDescription\nassetTag\nassetType\nstatus\nvendor\n\neolDate\neosDate\n\ncountry\ncountryCode\nlatitude\nlongitude\nzip\ncity\naddress\naddress2\n\ncustomerId\nresellerId\n\nupdatedAt\n\nlatestContactPersons {\n    phoneNumber\n    name\n    type\n    mail\n}\n\nassetCoverage\ncoverageStatusCheck {\n    coverageStatus\n    coverageStatusUpdatedAt\n    coverageEntries {\n        coverageStartDate\n        coverageEndDate\n        type\n        description\n        status\n        serviceSku\n    }\n}\n\ndataQualityScore\nactiveContractQuantitySum\n        assetDocument {\n    startDate\n    endDate\n    documentNumber\n\n    document {\n        id\n        type\n        documentNumber\n\n        startDate\n        endDate\n\n        currencyCode\n        languageCode\n\n        updatedAt\n\n        vendorSpecificFields {\n            vendor\n            groupId\n            groupDescription\n            said\n            ampId\n            sar\n        }\n\n        contactPersons {\n            phoneNumber\n            name\n            type\n            mail\n        }\n\n        customerId\n        resellerId\n        distributorId\n    }\n\n    serviceGroupSku\n    serviceGroupSkuDescription\n    serviceLevelSku\n    serviceLevelSkuDescription\n    serviceFullDescription\n\n    customer {\n      id\n    }\n\n    reseller {\n      id\n    }\n}\n    }\n}",
+    "variables": {
+        "from": null,
+        "lastId": "00084cd4-8ecd-45a5-b1ab-9b2b49298458",
+        "limit": 5
+    },
+    "response": {
+        "data": {
+            "getAssets": [
+                {
+                    "id": "0008a118-546d-4dc9-938c-14156ee81b56",
+                    "resellerId": "a9233c9c-4634-493a-9f12-bef4d1cf3c5e",
+                    "customerId": "d07000c8-54a2-425f-8c9e-48f3bac378d3",
+                    "serialNumber": "8564f1e2-2c1b-3b7e-a06a-9226b105596f",
+                    "assetSkuDescription": "HP 32GB 4Rx4 PC3L-10600L-9 Kit",
+                    "assetTag": null,
+                    "assetType": null,
+                    "vendor": "HPE",
+                    "assetSku": "647903-B21",
+                    "eolDate": null,
+                    "eosDate": null,
+                    "zip": "95014-9372",
+                    "city": "Lake Elmoreview",
+                    "address": "9438 Cummings Prairie",
+                    "address2": null,
+                    "country": "Bahamas",
+                    "latitude": null,
+                    "longitude": null,
+                    "countryCode": null,
+                    "status": "ACTIVE",
+                    "updatedAt": "1662137653525",
+                    "assetCoverage": [
+                        "ARCHIVED"
+                    ],
+                    "dataQualityScore": "80",
+                    "activeContractQuantitySum": 0,
+                    "assetDocument": [
+                        {
+                            "serviceGroupSku": null,
+                            "serviceGroupSkuDescription": null,
+                            "serviceLevelSku": "HU4A1AC",
+                            "serviceLevelSkuDescription": "HPE Remote Tech Support",
+                            "serviceFullDescription": null,
+                            "documentNumber": "df49f88a-9b56-3442-b764-809073d43d05",
+                            "document": {
+                                "id": "89357e60-0d86-4e87-a3e2-76977cd998fe",
+                                "type": "Contract",
+                                "documentNumber": "df49f88a-9b56-3442-b764-809073d43d05",
+                                "startDate": "2022-01-01",
+                                "endDate": "2022-12-31",
+                                "currencyCode": "EUR",
+                                "languageCode": null,
+                                "updatedAt": "1656406898120",
+                                "vendorSpecificFields": {
+                                    "vendor": "HPE",
+                                    "sar": "BERLINHYP-SERVER-01",
+                                    "ampId": "83-A08960",
+                                    "said": "0d0d61aa-bf42-37d1-b817-85029e5a1832",
+                                    "groupId": null,
+                                    "groupDescription": null
+                                },
+                                "contactPersons": [
+                                    {
+                                        "phoneNumber": null,
+                                        "name": null,
+                                        "mail": null,
+                                        "type": "EndUser Contact"
+                                    },
+                                    {
+                                        "phoneNumber": null,
+                                        "name": null,
+                                        "mail": null,
+                                        "type": "Distributor Contact"
+                                    },
+                                    {
+                                        "phoneNumber": null,
+                                        "name": null,
+                                        "mail": null,
+                                        "type": "Reseller Contact"
+                                    },
+                                    {
+                                        "phoneNumber": null,
+                                        "name": null,
+                                        "mail": null,
+                                        "type": "Hardware System Contact"
+                                    },
+                                    {
+                                        "phoneNumber": null,
+                                        "name": null,
+                                        "mail": null,
+                                        "type": "Software System Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+14803655860",
+                                        "name": "Celestine Bergnaum",
+                                        "mail": null,
+                                        "type": "System Manager Contact"
+                                    }
+                                ],
+                                "resellerId": "a9233c9c-4634-493a-9f12-bef4d1cf3c5e",
+                                "customerId": "d07000c8-54a2-425f-8c9e-48f3bac378d3",
+                                "distributorId": "1af1c44e-8112-4e72-9654-b11c705e9372"
+                            },
+                            "startDate": null,
+                            "endDate": null,
+                            "reseller": {
+                                "id": "a9233c9c-4634-493a-9f12-bef4d1cf3c5e"
+                            },
+                            "customer": {
+                                "id": "d07000c8-54a2-425f-8c9e-48f3bac378d3"
+                            }
+                        },
+                        {
+                            "serviceGroupSku": null,
+                            "serviceGroupSkuDescription": null,
+                            "serviceLevelSku": "HA151AC",
+                            "serviceLevelSkuDescription": "HPE Hardware Maintenance Onsite Support",
+                            "serviceFullDescription": null,
+                            "documentNumber": "b83a7bda-d62e-3386-ac9c-77f0ad23d91e",
+                            "document": {
+                                "id": "6c4a62f6-14c8-43b3-8e04-1b9e55c83633",
+                                "type": "Contract",
+                                "documentNumber": "b83a7bda-d62e-3386-ac9c-77f0ad23d91e",
+                                "startDate": "2021-01-01",
+                                "endDate": "2021-12-31",
+                                "currencyCode": "EUR",
+                                "languageCode": null,
+                                "updatedAt": "1654262846658",
+                                "vendorSpecificFields": {
+                                    "vendor": "HPE",
+                                    "sar": "BERLINHYP-SERVER-01",
+                                    "ampId": "83-A08960",
+                                    "said": null,
+                                    "groupId": null,
+                                    "groupDescription": null
+                                },
+                                "contactPersons": [
+                                    {
+                                        "phoneNumber": "+19037080508",
+                                        "name": "Cyril Gleason",
+                                        "mail": null,
+                                        "type": "EndUser Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+16677202270",
+                                        "name": "Alejandrin Kutch",
+                                        "mail": "freddie86@gmail.com",
+                                        "type": "Distributor Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+17609277946",
+                                        "name": "Jalen Kuvalis",
+                                        "mail": "howard67@baumbach.com",
+                                        "type": "Reseller Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+19037080508",
+                                        "name": "Cyril Gleason",
+                                        "mail": null,
+                                        "type": "Hardware System Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+19037080508",
+                                        "name": "Cyril Gleason",
+                                        "mail": null,
+                                        "type": "Software System Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+14803655860",
+                                        "name": "Celestine Bergnaum",
+                                        "mail": null,
+                                        "type": "System Manager Contact"
+                                    }
+                                ],
+                                "resellerId": "a9233c9c-4634-493a-9f12-bef4d1cf3c5e",
+                                "customerId": "d07000c8-54a2-425f-8c9e-48f3bac378d3",
+                                "distributorId": "1af1c44e-8112-4e72-9654-b11c705e9372"
+                            },
+                            "startDate": null,
+                            "endDate": null,
+                            "reseller": {
+                                "id": "a9233c9c-4634-493a-9f12-bef4d1cf3c5e"
+                            },
+                            "customer": {
+                                "id": "d07000c8-54a2-425f-8c9e-48f3bac378d3"
+                            }
+                        },
+                        {
+                            "serviceGroupSku": null,
+                            "serviceGroupSkuDescription": null,
+                            "serviceLevelSku": "HU4A2AC",
+                            "serviceLevelSkuDescription": "HPE Hardware Tech Support",
+                            "serviceFullDescription": null,
+                            "documentNumber": "df49f88a-9b56-3442-b764-809073d43d05",
+                            "document": {
+                                "id": "89357e60-0d86-4e87-a3e2-76977cd998fe",
+                                "type": "Contract",
+                                "documentNumber": "df49f88a-9b56-3442-b764-809073d43d05",
+                                "startDate": "2022-01-01",
+                                "endDate": "2022-12-31",
+                                "currencyCode": "EUR",
+                                "languageCode": null,
+                                "updatedAt": "1656406898120",
+                                "vendorSpecificFields": {
+                                    "vendor": "HPE",
+                                    "sar": "BERLINHYP-SERVER-01",
+                                    "ampId": "83-A08960",
+                                    "said": "0d0d61aa-bf42-37d1-b817-85029e5a1832",
+                                    "groupId": null,
+                                    "groupDescription": null
+                                },
+                                "contactPersons": [
+                                    {
+                                        "phoneNumber": null,
+                                        "name": null,
+                                        "mail": null,
+                                        "type": "EndUser Contact"
+                                    },
+                                    {
+                                        "phoneNumber": null,
+                                        "name": null,
+                                        "mail": null,
+                                        "type": "Distributor Contact"
+                                    },
+                                    {
+                                        "phoneNumber": null,
+                                        "name": null,
+                                        "mail": null,
+                                        "type": "Reseller Contact"
+                                    },
+                                    {
+                                        "phoneNumber": null,
+                                        "name": null,
+                                        "mail": null,
+                                        "type": "Hardware System Contact"
+                                    },
+                                    {
+                                        "phoneNumber": null,
+                                        "name": null,
+                                        "mail": null,
+                                        "type": "Software System Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+14803655860",
+                                        "name": "Celestine Bergnaum",
+                                        "mail": null,
+                                        "type": "System Manager Contact"
+                                    }
+                                ],
+                                "resellerId": "a9233c9c-4634-493a-9f12-bef4d1cf3c5e",
+                                "customerId": "d07000c8-54a2-425f-8c9e-48f3bac378d3",
+                                "distributorId": "1af1c44e-8112-4e72-9654-b11c705e9372"
+                            },
+                            "startDate": null,
+                            "endDate": null,
+                            "reseller": {
+                                "id": "a9233c9c-4634-493a-9f12-bef4d1cf3c5e"
+                            },
+                            "customer": {
+                                "id": "d07000c8-54a2-425f-8c9e-48f3bac378d3"
+                            }
+                        },
+                        {
+                            "serviceGroupSku": null,
+                            "serviceGroupSkuDescription": null,
+                            "serviceLevelSku": "HU4A1AC",
+                            "serviceLevelSkuDescription": "HPE Remote Tech Support",
+                            "serviceFullDescription": null,
+                            "documentNumber": "628a9379-1057-36db-8f1e-fe2a93cafd41",
+                            "document": {
+                                "id": "d27e325d-4f26-44bd-b38f-0587d2ba4ebe",
+                                "type": "Quote renewal",
+                                "documentNumber": "628a9379-1057-36db-8f1e-fe2a93cafd41",
+                                "startDate": "2022-08-20",
+                                "endDate": "2023-12-31",
+                                "currencyCode": "EUR",
+                                "languageCode": null,
+                                "updatedAt": "1655740822399",
+                                "vendorSpecificFields": {
+                                    "vendor": "HPE",
+                                    "sar": null,
+                                    "ampId": null,
+                                    "said": null,
+                                    "groupId": null,
+                                    "groupDescription": null
+                                },
+                                "contactPersons": [
+                                    {
+                                        "phoneNumber": "+17609277946",
+                                        "name": "Jalen Kuvalis",
+                                        "mail": "howard67@baumbach.com",
+                                        "type": "Customer Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+16156903369",
+                                        "name": "Myah Vandervort",
+                                        "mail": "larson.josephine@romaguera.com",
+                                        "type": "Renewal Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+17274867295",
+                                        "name": "Russell Abbott DDS",
+                                        "mail": "hintz.garth@gmail.com",
+                                        "type": "EndUser Contact"
+                                    }
+                                ],
+                                "resellerId": "a9233c9c-4634-493a-9f12-bef4d1cf3c5e",
+                                "customerId": "d07000c8-54a2-425f-8c9e-48f3bac378d3",
+                                "distributorId": "1af1c44e-8112-4e72-9654-b11c705e9372"
+                            },
+                            "startDate": null,
+                            "endDate": null,
+                            "reseller": {
+                                "id": "a9233c9c-4634-493a-9f12-bef4d1cf3c5e"
+                            },
+                            "customer": {
+                                "id": "d07000c8-54a2-425f-8c9e-48f3bac378d3"
+                            }
+                        },
+                        {
+                            "serviceGroupSku": null,
+                            "serviceGroupSkuDescription": null,
+                            "serviceLevelSku": "HU4A2AC",
+                            "serviceLevelSkuDescription": "HPE Hardware Tech Support",
+                            "serviceFullDescription": null,
+                            "documentNumber": "628a9379-1057-36db-8f1e-fe2a93cafd41",
+                            "document": {
+                                "id": "d27e325d-4f26-44bd-b38f-0587d2ba4ebe",
+                                "type": "Quote renewal",
+                                "documentNumber": "628a9379-1057-36db-8f1e-fe2a93cafd41",
+                                "startDate": "2022-08-20",
+                                "endDate": "2023-12-31",
+                                "currencyCode": "EUR",
+                                "languageCode": null,
+                                "updatedAt": "1655740822399",
+                                "vendorSpecificFields": {
+                                    "vendor": "HPE",
+                                    "sar": null,
+                                    "ampId": null,
+                                    "said": null,
+                                    "groupId": null,
+                                    "groupDescription": null
+                                },
+                                "contactPersons": [
+                                    {
+                                        "phoneNumber": "+17609277946",
+                                        "name": "Jalen Kuvalis",
+                                        "mail": "howard67@baumbach.com",
+                                        "type": "Customer Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+16156903369",
+                                        "name": "Myah Vandervort",
+                                        "mail": "larson.josephine@romaguera.com",
+                                        "type": "Renewal Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+17274867295",
+                                        "name": "Russell Abbott DDS",
+                                        "mail": "hintz.garth@gmail.com",
+                                        "type": "EndUser Contact"
+                                    }
+                                ],
+                                "resellerId": "a9233c9c-4634-493a-9f12-bef4d1cf3c5e",
+                                "customerId": "d07000c8-54a2-425f-8c9e-48f3bac378d3",
+                                "distributorId": "1af1c44e-8112-4e72-9654-b11c705e9372"
+                            },
+                            "startDate": null,
+                            "endDate": null,
+                            "reseller": {
+                                "id": "a9233c9c-4634-493a-9f12-bef4d1cf3c5e"
+                            },
+                            "customer": {
+                                "id": "d07000c8-54a2-425f-8c9e-48f3bac378d3"
+                            }
+                        }
+                    ],
+                    "latestContactPersons": [
+                        {
+                            "phoneNumber": null,
+                            "name": null,
+                            "mail": null,
+                            "type": "EndUser Contact"
+                        },
+                        {
+                            "phoneNumber": null,
+                            "name": null,
+                            "mail": null,
+                            "type": "Distributor Contact"
+                        },
+                        {
+                            "phoneNumber": null,
+                            "name": null,
+                            "mail": null,
+                            "type": "Reseller Contact"
+                        }
+                    ],
+                    "coverageStatusCheck": null
+                },
+                {
+                    "id": "0009c170-8b16-4322-af6c-0275e2e7fa4e",
+                    "resellerId": "77ec115b-9723-4582-ad45-2b3a83286b1f",
+                    "customerId": "11795862-5654-4f6d-bf4a-da0361b515ed",
+                    "serialNumber": "4ad79a5e-44a6-3a9a-9be0-b6075f693b57",
+                    "assetSkuDescription": "HP M6710 450GB 6G SAS 10K 2.5in HDD",
+                    "assetTag": null,
+                    "assetType": null,
+                    "vendor": "HPE",
+                    "assetSku": "QR494A",
+                    "eolDate": null,
+                    "eosDate": null,
+                    "zip": "14417",
+                    "city": "Port Zulastad",
+                    "address": "54420 Willard Pines",
+                    "address2": null,
+                    "country": "Bahamas",
+                    "latitude": null,
+                    "longitude": null,
+                    "countryCode": null,
+                    "status": "ACTIVE",
+                    "updatedAt": "1662137653589",
+                    "assetCoverage": [
+                        "ARCHIVED"
+                    ],
+                    "dataQualityScore": "80",
+                    "activeContractQuantitySum": 0,
+                    "assetDocument": [
+                        {
+                            "serviceGroupSku": null,
+                            "serviceGroupSkuDescription": null,
+                            "serviceLevelSku": "HU4A2AC",
+                            "serviceLevelSkuDescription": "HP M6710 450GB 6G SAS 10K 2.5in HDD",
+                            "serviceFullDescription": null,
+                            "documentNumber": "2b36553a-7ee9-3a07-8c50-eecbc42dca34",
+                            "document": {
+                                "id": "d93f46f4-bc5c-4f9c-83f8-5fd18df15607",
+                                "type": "Contract",
+                                "documentNumber": "2b36553a-7ee9-3a07-8c50-eecbc42dca34",
+                                "startDate": "2021-10-01",
+                                "endDate": "2021-12-31",
+                                "currencyCode": "EUR",
+                                "languageCode": null,
+                                "updatedAt": "1654262846658",
+                                "vendorSpecificFields": {
+                                    "vendor": "HPE",
+                                    "sar": "83P946729001STD48",
+                                    "ampId": "83-V00616",
+                                    "said": null,
+                                    "groupId": null,
+                                    "groupDescription": null
+                                },
+                                "contactPersons": [
+                                    {
+                                        "phoneNumber": "+18136977641",
+                                        "name": "Letitia Harris",
+                                        "mail": null,
+                                        "type": "EndUser Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+16677202270",
+                                        "name": "Alejandrin Kutch",
+                                        "mail": "freddie86@gmail.com",
+                                        "type": "Distributor Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+16616717540",
+                                        "name": "Raphaelle Stark",
+                                        "mail": "ryder61@damore.com",
+                                        "type": "Reseller Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+18136977641",
+                                        "name": "Letitia Harris",
+                                        "mail": null,
+                                        "type": "Hardware System Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+18136977641",
+                                        "name": "Letitia Harris",
+                                        "mail": null,
+                                        "type": "Software System Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+14406196041",
+                                        "name": "Chadd Leannon",
+                                        "mail": null,
+                                        "type": "System Manager Contact"
+                                    }
+                                ],
+                                "resellerId": "77ec115b-9723-4582-ad45-2b3a83286b1f",
+                                "customerId": "11795862-5654-4f6d-bf4a-da0361b515ed",
+                                "distributorId": "1af1c44e-8112-4e72-9654-b11c705e9372"
+                            },
+                            "startDate": null,
+                            "endDate": null,
+                            "reseller": {
+                                "id": "77ec115b-9723-4582-ad45-2b3a83286b1f"
+                            },
+                            "customer": {
+                                "id": "11795862-5654-4f6d-bf4a-da0361b515ed"
+                            }
+                        },
+                        {
+                            "serviceGroupSku": null,
+                            "serviceGroupSkuDescription": null,
+                            "serviceLevelSku": "HU4A1AC",
+                            "serviceLevelSkuDescription": "HP M6710 450GB 6G SAS 10K 2.5in HDD",
+                            "serviceFullDescription": null,
+                            "documentNumber": "2b36553a-7ee9-3a07-8c50-eecbc42dca34",
+                            "document": {
+                                "id": "d93f46f4-bc5c-4f9c-83f8-5fd18df15607",
+                                "type": "Contract",
+                                "documentNumber": "2b36553a-7ee9-3a07-8c50-eecbc42dca34",
+                                "startDate": "2021-10-01",
+                                "endDate": "2021-12-31",
+                                "currencyCode": "EUR",
+                                "languageCode": null,
+                                "updatedAt": "1654262846658",
+                                "vendorSpecificFields": {
+                                    "vendor": "HPE",
+                                    "sar": "83P946729001STD48",
+                                    "ampId": "83-V00616",
+                                    "said": null,
+                                    "groupId": null,
+                                    "groupDescription": null
+                                },
+                                "contactPersons": [
+                                    {
+                                        "phoneNumber": "+18136977641",
+                                        "name": "Letitia Harris",
+                                        "mail": null,
+                                        "type": "EndUser Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+16677202270",
+                                        "name": "Alejandrin Kutch",
+                                        "mail": "freddie86@gmail.com",
+                                        "type": "Distributor Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+16616717540",
+                                        "name": "Raphaelle Stark",
+                                        "mail": "ryder61@damore.com",
+                                        "type": "Reseller Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+18136977641",
+                                        "name": "Letitia Harris",
+                                        "mail": null,
+                                        "type": "Hardware System Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+18136977641",
+                                        "name": "Letitia Harris",
+                                        "mail": null,
+                                        "type": "Software System Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+14406196041",
+                                        "name": "Chadd Leannon",
+                                        "mail": null,
+                                        "type": "System Manager Contact"
+                                    }
+                                ],
+                                "resellerId": "77ec115b-9723-4582-ad45-2b3a83286b1f",
+                                "customerId": "11795862-5654-4f6d-bf4a-da0361b515ed",
+                                "distributorId": "1af1c44e-8112-4e72-9654-b11c705e9372"
+                            },
+                            "startDate": null,
+                            "endDate": null,
+                            "reseller": {
+                                "id": "77ec115b-9723-4582-ad45-2b3a83286b1f"
+                            },
+                            "customer": {
+                                "id": "11795862-5654-4f6d-bf4a-da0361b515ed"
+                            }
+                        }
+                    ],
+                    "latestContactPersons": [
+                        {
+                            "phoneNumber": "+18136977641",
+                            "name": "Letitia Harris",
+                            "mail": null,
+                            "type": "EndUser Contact"
+                        },
+                        {
+                            "phoneNumber": "+16677202270",
+                            "name": "Alejandrin Kutch",
+                            "mail": "freddie86@gmail.com",
+                            "type": "Distributor Contact"
+                        },
+                        {
+                            "phoneNumber": "+16616717540",
+                            "name": "Raphaelle Stark",
+                            "mail": "ryder61@damore.com",
+                            "type": "Reseller Contact"
+                        }
+                    ],
+                    "coverageStatusCheck": null
+                },
+                {
+                    "id": "0009de52-4eaf-49a8-9135-4326dc9df8cb",
+                    "resellerId": "77ec115b-9723-4582-ad45-2b3a83286b1f",
+                    "customerId": "a2a32196-e319-4d35-a821-5e00fbc6feb2",
+                    "serialNumber": "c74f8af0-0366-3dd5-b87a-964c3cbfcc11",
+                    "assetSkuDescription": "HPE 400GB SAS 12G MU SFF SC DS SSD",
+                    "assetTag": null,
+                    "assetType": null,
+                    "vendor": "HPE",
+                    "assetSku": "872374-B21",
+                    "eolDate": null,
+                    "eosDate": null,
+                    "zip": "49538",
+                    "city": "Port Brionna",
+                    "address": "16624 Polly Prairie",
+                    "address2": null,
+                    "country": "Bahamas",
+                    "latitude": null,
+                    "longitude": null,
+                    "countryCode": null,
+                    "status": "ACTIVE",
+                    "updatedAt": "1662137653618",
+                    "assetCoverage": [
+                        "ARCHIVED"
+                    ],
+                    "dataQualityScore": "80",
+                    "activeContractQuantitySum": 0,
+                    "assetDocument": [
+                        {
+                            "serviceGroupSku": null,
+                            "serviceGroupSkuDescription": null,
+                            "serviceLevelSku": "HA151AC",
+                            "serviceLevelSkuDescription": "HPE Hardware Maintenance Onsite Support",
+                            "serviceFullDescription": null,
+                            "documentNumber": "8a4dce47-5b54-35e7-9e91-e9c7e96732ed",
+                            "document": {
+                                "id": "3c8c0da4-2907-4fed-8fd5-6dca06fbc9ea",
+                                "type": "Contract",
+                                "documentNumber": "8a4dce47-5b54-35e7-9e91-e9c7e96732ed",
+                                "startDate": "2018-10-01",
+                                "endDate": "2023-09-30",
+                                "currencyCode": "EUR",
+                                "languageCode": null,
+                                "updatedAt": "1654262846658",
+                                "vendorSpecificFields": {
+                                    "vendor": "HPE",
+                                    "sar": null,
+                                    "ampId": "83-A01802",
+                                    "said": "a8123ee8-84c6-385a-809c-6c90a02a847e",
+                                    "groupId": null,
+                                    "groupDescription": null
+                                },
+                                "contactPersons": [
+                                    {
+                                        "phoneNumber": "+16814949609",
+                                        "name": "Mr. Adrian Rosenbaum DDS",
+                                        "mail": null,
+                                        "type": "EndUser Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+16677202270",
+                                        "name": "Alejandrin Kutch",
+                                        "mail": "freddie86@gmail.com",
+                                        "type": "Distributor Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+14104923355",
+                                        "name": "Chanelle Klein",
+                                        "mail": "ebba27@hermiston.net",
+                                        "type": "Reseller Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+16814949609",
+                                        "name": "Mr. Adrian Rosenbaum DDS",
+                                        "mail": null,
+                                        "type": "Hardware System Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+16814949609",
+                                        "name": "Mr. Adrian Rosenbaum DDS",
+                                        "mail": null,
+                                        "type": "Software System Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+13106936439",
+                                        "name": "Amanda Wisoky",
+                                        "mail": null,
+                                        "type": "System Manager Contact"
+                                    }
+                                ],
+                                "resellerId": "77ec115b-9723-4582-ad45-2b3a83286b1f",
+                                "customerId": "a2a32196-e319-4d35-a821-5e00fbc6feb2",
+                                "distributorId": "1af1c44e-8112-4e72-9654-b11c705e9372"
+                            },
+                            "startDate": null,
+                            "endDate": null,
+                            "reseller": {
+                                "id": "77ec115b-9723-4582-ad45-2b3a83286b1f"
+                            },
+                            "customer": {
+                                "id": "a2a32196-e319-4d35-a821-5e00fbc6feb2"
+                            }
+                        }
+                    ],
+                    "latestContactPersons": [
+                        {
+                            "phoneNumber": "+16814949609",
+                            "name": "Mr. Adrian Rosenbaum DDS",
+                            "mail": null,
+                            "type": "EndUser Contact"
+                        },
+                        {
+                            "phoneNumber": "+16677202270",
+                            "name": "Alejandrin Kutch",
+                            "mail": "freddie86@gmail.com",
+                            "type": "Distributor Contact"
+                        },
+                        {
+                            "phoneNumber": "+14104923355",
+                            "name": "Chanelle Klein",
+                            "mail": "ebba27@hermiston.net",
+                            "type": "Reseller Contact"
+                        }
+                    ],
+                    "coverageStatusCheck": null
+                },
+                {
+                    "id": "000a6be5-be43-4291-b0b3-a560814bdfdf",
+                    "resellerId": "9d9e320d-4e44-4518-a4e6-6bfe7f1c7dd8",
+                    "customerId": "a4390aca-ea05-402c-8f33-a2b6b3b9318c",
+                    "serialNumber": "b638b964-d05c-3aa7-bf5b-dca85fed7bd6",
+                    "assetSkuDescription": "HP 3PAR 8000 480GB SAS cMLC SFF SSD",
+                    "assetTag": null,
+                    "assetType": null,
+                    "vendor": "HPE",
+                    "assetSku": "K2P88A",
+                    "eolDate": null,
+                    "eosDate": null,
+                    "zip": "85086-4093",
+                    "city": "Hirthestad",
+                    "address": "20221 Bahringer Center Suite 161",
+                    "address2": null,
+                    "country": "Bahamas",
+                    "latitude": null,
+                    "longitude": null,
+                    "countryCode": null,
+                    "status": "ACTIVE",
+                    "updatedAt": "1662137653634",
+                    "assetCoverage": [
+                        "ARCHIVED"
+                    ],
+                    "dataQualityScore": "80",
+                    "activeContractQuantitySum": 0,
+                    "assetDocument": [
+                        {
+                            "serviceGroupSku": null,
+                            "serviceGroupSkuDescription": null,
+                            "serviceLevelSku": "HA151AC",
+                            "serviceLevelSkuDescription": "HPE Hardware Maintenance Onsite Support",
+                            "serviceFullDescription": null,
+                            "documentNumber": "951f72c1-ab71-3610-aef5-825b83fd9c07",
+                            "document": {
+                                "id": "73a8938d-da15-4990-a026-b1477a8f3568",
+                                "type": "Contract",
+                                "documentNumber": "951f72c1-ab71-3610-aef5-825b83fd9c07",
+                                "startDate": "2020-03-12",
+                                "endDate": "2023-04-30",
+                                "currencyCode": "EUR",
+                                "languageCode": null,
+                                "updatedAt": "1654262846658",
+                                "vendorSpecificFields": {
+                                    "vendor": "HPE",
+                                    "sar": null,
+                                    "ampId": "83-T01407",
+                                    "said": "e7053a0e-d430-38a4-84e2-43419cb641d3",
+                                    "groupId": null,
+                                    "groupDescription": null
+                                },
+                                "contactPersons": [
+                                    {
+                                        "phoneNumber": "+14357640797",
+                                        "name": "Mr. Adelbert Zieme",
+                                        "mail": null,
+                                        "type": "EndUser Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+18437664388",
+                                        "name": "Alvena Johnson V",
+                                        "mail": "ckilback@medhurst.com",
+                                        "type": "Distributor Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+16126911770",
+                                        "name": "Braxton Gottlieb",
+                                        "mail": "oconner.domenick@yahoo.com",
+                                        "type": "Reseller Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+14357640797",
+                                        "name": "Mr. Adelbert Zieme",
+                                        "mail": null,
+                                        "type": "Hardware System Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+14357640797",
+                                        "name": "Mr. Adelbert Zieme",
+                                        "mail": null,
+                                        "type": "Software System Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+14357640797",
+                                        "name": "Bradly Jast",
+                                        "mail": null,
+                                        "type": "System Manager Contact"
+                                    }
+                                ],
+                                "resellerId": "9d9e320d-4e44-4518-a4e6-6bfe7f1c7dd8",
+                                "customerId": "a4390aca-ea05-402c-8f33-a2b6b3b9318c",
+                                "distributorId": "1af1c44e-8112-4e72-9654-b11c705e9372"
+                            },
+                            "startDate": null,
+                            "endDate": null,
+                            "reseller": {
+                                "id": "9d9e320d-4e44-4518-a4e6-6bfe7f1c7dd8"
+                            },
+                            "customer": {
+                                "id": "a4390aca-ea05-402c-8f33-a2b6b3b9318c"
+                            }
+                        }
+                    ],
+                    "latestContactPersons": [
+                        {
+                            "phoneNumber": "+14357640797",
+                            "name": "Mr. Adelbert Zieme",
+                            "mail": null,
+                            "type": "EndUser Contact"
+                        },
+                        {
+                            "phoneNumber": "+18437664388",
+                            "name": "Alvena Johnson V",
+                            "mail": "ckilback@medhurst.com",
+                            "type": "Distributor Contact"
+                        },
+                        {
+                            "phoneNumber": "+16126911770",
+                            "name": "Braxton Gottlieb",
+                            "mail": "oconner.domenick@yahoo.com",
+                            "type": "Reseller Contact"
+                        }
+                    ],
+                    "coverageStatusCheck": null
+                },
+                {
+                    "id": "000b9596-d41b-4ddc-86ac-72738c1bda40",
+                    "resellerId": "a9233c9c-4634-493a-9f12-bef4d1cf3c5e",
+                    "customerId": "113876e1-d07b-4e47-b64d-78bbe29dd1e2",
+                    "serialNumber": "75dfdf9f-6aa6-3641-8773-21223fc99a01",
+                    "assetSkuDescription": "Aruba Cntrlr RFProtect 4 AP Lic E-LTU",
+                    "assetTag": null,
+                    "assetType": null,
+                    "vendor": "Aruba",
+                    "assetSku": "JW505AAE",
+                    "eolDate": null,
+                    "eosDate": null,
+                    "zip": "94653-1753",
+                    "city": "East Angus",
+                    "address": "2457 Justyn Square",
+                    "address2": null,
+                    "country": "Bahamas",
+                    "latitude": null,
+                    "longitude": null,
+                    "countryCode": null,
+                    "status": "ACTIVE",
+                    "updatedAt": "1662137653650",
+                    "assetCoverage": [
+                        "ARCHIVED"
+                    ],
+                    "dataQualityScore": "80",
+                    "activeContractQuantitySum": 0,
+                    "assetDocument": [
+                        {
+                            "serviceGroupSku": null,
+                            "serviceGroupSkuDescription": null,
+                            "serviceLevelSku": "HA158AC",
+                            "serviceLevelSkuDescription": "Telefonische SW Unterstützung",
+                            "serviceFullDescription": null,
+                            "documentNumber": "d3889fb7-9eb8-381b-90db-7898f17f1643",
+                            "document": {
+                                "id": "3f39a0b5-1c93-4884-b236-39da95264cab",
+                                "type": "Contract",
+                                "documentNumber": "d3889fb7-9eb8-381b-90db-7898f17f1643",
+                                "startDate": "2021-07-24",
+                                "endDate": "2022-07-23",
+                                "currencyCode": "EUR",
+                                "languageCode": null,
+                                "updatedAt": "1656028898288",
+                                "vendorSpecificFields": {
+                                    "vendor": "HPE",
+                                    "sar": null,
+                                    "ampId": null,
+                                    "said": null,
+                                    "groupId": null,
+                                    "groupDescription": null
+                                },
+                                "contactPersons": [
+                                    {
+                                        "phoneNumber": "+15205677271",
+                                        "name": "Raina Senger",
+                                        "mail": null,
+                                        "type": "EndUser Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+16677202270",
+                                        "name": "Alejandrin Kutch",
+                                        "mail": "freddie86@gmail.com",
+                                        "type": "Distributor Contact"
+                                    },
+                                    {
+                                        "phoneNumber": null,
+                                        "name": null,
+                                        "mail": null,
+                                        "type": "Reseller Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+15205677271",
+                                        "name": "Raina Senger",
+                                        "mail": null,
+                                        "type": "Hardware System Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+15205677271",
+                                        "name": "Raina Senger",
+                                        "mail": null,
+                                        "type": "Software System Contact"
+                                    },
+                                    {
+                                        "phoneNumber": null,
+                                        "name": null,
+                                        "mail": null,
+                                        "type": "System Manager Contact"
+                                    }
+                                ],
+                                "resellerId": "a9233c9c-4634-493a-9f12-bef4d1cf3c5e",
+                                "customerId": "113876e1-d07b-4e47-b64d-78bbe29dd1e2",
+                                "distributorId": "1af1c44e-8112-4e72-9654-b11c705e9372"
+                            },
+                            "startDate": null,
+                            "endDate": null,
+                            "reseller": {
+                                "id": "a9233c9c-4634-493a-9f12-bef4d1cf3c5e"
+                            },
+                            "customer": {
+                                "id": "113876e1-d07b-4e47-b64d-78bbe29dd1e2"
+                            }
+                        },
+                        {
+                            "serviceGroupSku": null,
+                            "serviceGroupSkuDescription": null,
+                            "serviceLevelSku": "HA156AC",
+                            "serviceLevelSkuDescription": "HPE Software Updates Service",
+                            "serviceFullDescription": null,
+                            "documentNumber": "cf40c114-db41-3746-a6fe-fb7a19e09b35",
+                            "document": {
+                                "id": "f4c60847-6f84-4064-817f-6bd6b1c376de",
+                                "type": "Contract",
+                                "documentNumber": "cf40c114-db41-3746-a6fe-fb7a19e09b35",
+                                "startDate": "2022-07-24",
+                                "endDate": "2023-07-23",
+                                "currencyCode": "EUR",
+                                "languageCode": null,
+                                "updatedAt": "1654262846658",
+                                "vendorSpecificFields": {
+                                    "vendor": "HPE",
+                                    "sar": null,
+                                    "ampId": null,
+                                    "said": "4b1f674d-d659-30da-9dda-1e37b71bca7f",
+                                    "groupId": null,
+                                    "groupDescription": null
+                                },
+                                "contactPersons": [
+                                    {
+                                        "phoneNumber": null,
+                                        "name": null,
+                                        "mail": null,
+                                        "type": "EndUser Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+16156903369",
+                                        "name": "Myah Vandervort",
+                                        "mail": "larson.josephine@romaguera.com",
+                                        "type": "Distributor Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+16149558565",
+                                        "name": "Prof. Carmine Runolfsdottir DDS",
+                                        "mail": "anita.kautzer@hessel.com",
+                                        "type": "Reseller Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+15205677271",
+                                        "name": "Raina Senger",
+                                        "mail": null,
+                                        "type": "Hardware System Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+15205677271",
+                                        "name": "Raina Senger",
+                                        "mail": null,
+                                        "type": "Software System Contact"
+                                    },
+                                    {
+                                        "phoneNumber": null,
+                                        "name": null,
+                                        "mail": null,
+                                        "type": "System Manager Contact"
+                                    }
+                                ],
+                                "resellerId": "a9233c9c-4634-493a-9f12-bef4d1cf3c5e",
+                                "customerId": "113876e1-d07b-4e47-b64d-78bbe29dd1e2",
+                                "distributorId": "1af1c44e-8112-4e72-9654-b11c705e9372"
+                            },
+                            "startDate": null,
+                            "endDate": null,
+                            "reseller": {
+                                "id": "a9233c9c-4634-493a-9f12-bef4d1cf3c5e"
+                            },
+                            "customer": {
+                                "id": "113876e1-d07b-4e47-b64d-78bbe29dd1e2"
+                            }
+                        },
+                        {
+                            "serviceGroupSku": null,
+                            "serviceGroupSkuDescription": null,
+                            "serviceLevelSku": "HA156AC",
+                            "serviceLevelSkuDescription": "HPE Software Updates Service",
+                            "serviceFullDescription": null,
+                            "documentNumber": "d3889fb7-9eb8-381b-90db-7898f17f1643",
+                            "document": {
+                                "id": "3f39a0b5-1c93-4884-b236-39da95264cab",
+                                "type": "Contract",
+                                "documentNumber": "d3889fb7-9eb8-381b-90db-7898f17f1643",
+                                "startDate": "2021-07-24",
+                                "endDate": "2022-07-23",
+                                "currencyCode": "EUR",
+                                "languageCode": null,
+                                "updatedAt": "1656028898288",
+                                "vendorSpecificFields": {
+                                    "vendor": "HPE",
+                                    "sar": null,
+                                    "ampId": null,
+                                    "said": null,
+                                    "groupId": null,
+                                    "groupDescription": null
+                                },
+                                "contactPersons": [
+                                    {
+                                        "phoneNumber": "+15205677271",
+                                        "name": "Raina Senger",
+                                        "mail": null,
+                                        "type": "EndUser Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+16677202270",
+                                        "name": "Alejandrin Kutch",
+                                        "mail": "freddie86@gmail.com",
+                                        "type": "Distributor Contact"
+                                    },
+                                    {
+                                        "phoneNumber": null,
+                                        "name": null,
+                                        "mail": null,
+                                        "type": "Reseller Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+15205677271",
+                                        "name": "Raina Senger",
+                                        "mail": null,
+                                        "type": "Hardware System Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+15205677271",
+                                        "name": "Raina Senger",
+                                        "mail": null,
+                                        "type": "Software System Contact"
+                                    },
+                                    {
+                                        "phoneNumber": null,
+                                        "name": null,
+                                        "mail": null,
+                                        "type": "System Manager Contact"
+                                    }
+                                ],
+                                "resellerId": "a9233c9c-4634-493a-9f12-bef4d1cf3c5e",
+                                "customerId": "113876e1-d07b-4e47-b64d-78bbe29dd1e2",
+                                "distributorId": "1af1c44e-8112-4e72-9654-b11c705e9372"
+                            },
+                            "startDate": null,
+                            "endDate": null,
+                            "reseller": {
+                                "id": "a9233c9c-4634-493a-9f12-bef4d1cf3c5e"
+                            },
+                            "customer": {
+                                "id": "113876e1-d07b-4e47-b64d-78bbe29dd1e2"
+                            }
+                        },
+                        {
+                            "serviceGroupSku": null,
+                            "serviceGroupSkuDescription": null,
+                            "serviceLevelSku": "HA158AC",
+                            "serviceLevelSkuDescription": "Telefonische SW Unterstützung",
+                            "serviceFullDescription": null,
+                            "documentNumber": "9c983ead-0c32-3aa9-a471-75f97792fdec",
+                            "document": {
+                                "id": "d5637e2e-2c8e-478c-9d1c-3c71e3fb6f6e",
+                                "type": "Quote renewal",
+                                "documentNumber": "9c983ead-0c32-3aa9-a471-75f97792fdec",
+                                "startDate": "2022-07-24",
+                                "endDate": "2023-07-23",
+                                "currencyCode": "EUR",
+                                "languageCode": null,
+                                "updatedAt": "1654272011512",
+                                "vendorSpecificFields": {
+                                    "vendor": "HPE",
+                                    "sar": null,
+                                    "ampId": null,
+                                    "said": null,
+                                    "groupId": null,
+                                    "groupDescription": null
+                                },
+                                "contactPersons": [
+                                    {
+                                        "phoneNumber": "+16149558565",
+                                        "name": "Prof. Carmine Runolfsdottir DDS",
+                                        "mail": "anita.kautzer@hessel.com",
+                                        "type": "Customer Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+16156903369",
+                                        "name": "Myah Vandervort",
+                                        "mail": "larson.josephine@romaguera.com",
+                                        "type": "Renewal Contact"
+                                    },
+                                    {
+                                        "phoneNumber": null,
+                                        "name": null,
+                                        "mail": null,
+                                        "type": "EndUser Contact"
+                                    }
+                                ],
+                                "resellerId": "a9233c9c-4634-493a-9f12-bef4d1cf3c5e",
+                                "customerId": "113876e1-d07b-4e47-b64d-78bbe29dd1e2",
+                                "distributorId": "1af1c44e-8112-4e72-9654-b11c705e9372"
+                            },
+                            "startDate": null,
+                            "endDate": null,
+                            "reseller": {
+                                "id": "a9233c9c-4634-493a-9f12-bef4d1cf3c5e"
+                            },
+                            "customer": {
+                                "id": "113876e1-d07b-4e47-b64d-78bbe29dd1e2"
+                            }
+                        },
+                        {
+                            "serviceGroupSku": null,
+                            "serviceGroupSkuDescription": null,
+                            "serviceLevelSku": "HA156AC",
+                            "serviceLevelSkuDescription": "HPE Software Updates SVC",
+                            "serviceFullDescription": null,
+                            "documentNumber": "9c983ead-0c32-3aa9-a471-75f97792fdec",
+                            "document": {
+                                "id": "d5637e2e-2c8e-478c-9d1c-3c71e3fb6f6e",
+                                "type": "Quote renewal",
+                                "documentNumber": "9c983ead-0c32-3aa9-a471-75f97792fdec",
+                                "startDate": "2022-07-24",
+                                "endDate": "2023-07-23",
+                                "currencyCode": "EUR",
+                                "languageCode": null,
+                                "updatedAt": "1654272011512",
+                                "vendorSpecificFields": {
+                                    "vendor": "HPE",
+                                    "sar": null,
+                                    "ampId": null,
+                                    "said": null,
+                                    "groupId": null,
+                                    "groupDescription": null
+                                },
+                                "contactPersons": [
+                                    {
+                                        "phoneNumber": "+16149558565",
+                                        "name": "Prof. Carmine Runolfsdottir DDS",
+                                        "mail": "anita.kautzer@hessel.com",
+                                        "type": "Customer Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+16156903369",
+                                        "name": "Myah Vandervort",
+                                        "mail": "larson.josephine@romaguera.com",
+                                        "type": "Renewal Contact"
+                                    },
+                                    {
+                                        "phoneNumber": null,
+                                        "name": null,
+                                        "mail": null,
+                                        "type": "EndUser Contact"
+                                    }
+                                ],
+                                "resellerId": "a9233c9c-4634-493a-9f12-bef4d1cf3c5e",
+                                "customerId": "113876e1-d07b-4e47-b64d-78bbe29dd1e2",
+                                "distributorId": "1af1c44e-8112-4e72-9654-b11c705e9372"
+                            },
+                            "startDate": null,
+                            "endDate": null,
+                            "reseller": {
+                                "id": "a9233c9c-4634-493a-9f12-bef4d1cf3c5e"
+                            },
+                            "customer": {
+                                "id": "113876e1-d07b-4e47-b64d-78bbe29dd1e2"
+                            }
+                        }
+                    ],
+                    "latestContactPersons": [
+                        {
+                            "phoneNumber": null,
+                            "name": null,
+                            "mail": null,
+                            "type": "EndUser Contact"
+                        },
+                        {
+                            "phoneNumber": "+16156903369",
+                            "name": "Myah Vandervort",
+                            "mail": "larson.josephine@romaguera.com",
+                            "type": "Distributor Contact"
+                        },
+                        {
+                            "phoneNumber": "+16149558565",
+                            "name": "Prof. Carmine Runolfsdottir DDS",
+                            "mail": "anita.kautzer@hessel.com",
+                            "type": "Reseller Contact"
+                        }
+                    ],
+                    "coverageStatusCheck": null
+                }
+            ]
+        }
+    }
+}

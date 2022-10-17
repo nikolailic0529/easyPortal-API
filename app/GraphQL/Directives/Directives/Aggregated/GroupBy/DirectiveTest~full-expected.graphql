@@ -43,6 +43,18 @@ input AggregatedGroupByClauseProperties {
     @aggregatedGroupByOperatorAsString
 
     """
+    Property clause.
+    """
+    intScalar: AggregatedGroupByTypeDirection
+    @aggregatedGroupByOperatorAsString
+
+    """
+    Property clause.
+    """
+    intScalarNotNull: AggregatedGroupByTypeDirection
+    @aggregatedGroupByOperatorAsString
+
+    """
     Relationship clause.
     """
     nested: [SortByClauseNested!]

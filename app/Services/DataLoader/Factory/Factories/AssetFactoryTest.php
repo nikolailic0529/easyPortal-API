@@ -21,7 +21,6 @@ use App\Services\DataLoader\Exceptions\CustomerNotFound;
 use App\Services\DataLoader\Exceptions\FailedToProcessAssetViewDocument;
 use App\Services\DataLoader\Exceptions\FailedToProcessViewAssetCoverageEntry;
 use App\Services\DataLoader\Exceptions\ResellerNotFound;
-use App\Services\DataLoader\Factory\AssetDocumentObject;
 use App\Services\DataLoader\Normalizer\Normalizer;
 use App\Services\DataLoader\Resolver\Resolvers\CoverageResolver;
 use App\Services\DataLoader\Resolver\Resolvers\StatusResolver;
@@ -106,7 +105,6 @@ class AssetFactoryTest extends TestCase {
 
         // Prepare
         $container = $this->app->make(Container::class);
-        $documents = $container->make(DocumentFactory::class);
 
         // Load
         $json    = $this->getTestData()->json('~asset-full.json');
@@ -115,7 +113,7 @@ class AssetFactoryTest extends TestCase {
 
         // Test
         /** @var AssetFactory $factory */
-        $factory  = $container->make(AssetFactory::class)->setDocumentFactory($documents);
+        $factory  = $container->make(AssetFactory::class);
         $created  = $factory->create($asset);
         $actual   = array_column($queries->get(), 'query');
         $expected = $this->getTestData()->json('~createFromAsset-create-expected.json');
@@ -127,6 +125,7 @@ class AssetFactoryTest extends TestCase {
         self::assertEquals($asset->resellerId, $created->reseller_id);
         self::assertEquals($asset->serialNumber, $created->serial_number);
         self::assertEquals($asset->dataQualityScore, $created->data_quality);
+        self::assertEquals($asset->activeContractQuantitySum, $created->contacts_active_quantity);
         self::assertEquals($asset->updatedAt, $this->getDatetime($created->changed_at));
         self::assertEquals($asset->vendor, $created->oem->key ?? null);
         self::assertEquals($asset->assetSkuDescription, $created->product->name ?? null);
@@ -249,7 +248,7 @@ class AssetFactoryTest extends TestCase {
 
         // Asset should be updated
         /** @var AssetFactory $factory */
-        $factory  = $container->make(AssetFactory::class)->setDocumentFactory($documents);
+        $factory  = $container->make(AssetFactory::class);
         $json     = $this->getTestData()->json('~asset-changed.json');
         $asset    = new ViewAsset($json);
         $queries  = $this->getQueryLog()->flush();
@@ -264,6 +263,7 @@ class AssetFactoryTest extends TestCase {
         self::assertNull($updated->reseller_id);
         self::assertEquals($asset->serialNumber, $updated->serial_number);
         self::assertEquals($asset->dataQualityScore, $updated->data_quality);
+        self::assertEquals($asset->activeContractQuantitySum, $updated->contacts_active_quantity);
         self::assertEquals($asset->updatedAt, $this->getDatetime($updated->changed_at));
         self::assertEquals($asset->vendor, $updated->oem->key ?? null);
         self::assertNotNull($created->product);
@@ -301,7 +301,7 @@ class AssetFactoryTest extends TestCase {
 
         // No changes
         /** @var AssetFactory $factory */
-        $factory = $container->make(AssetFactory::class)->setDocumentFactory($documents);
+        $factory = $container->make(AssetFactory::class);
         $json    = $this->getTestData()->json('~asset-changed.json');
         $asset   = new ViewAsset($json);
         $queries = $this->getQueryLog()->flush();
@@ -358,6 +358,7 @@ class AssetFactoryTest extends TestCase {
         self::assertEquals($asset->id, $created->getKey());
         self::assertEquals($asset->serialNumber, $created->serial_number);
         self::assertEquals($asset->dataQualityScore, $created->data_quality);
+        self::assertEquals($asset->activeContractQuantitySum, $created->contacts_active_quantity);
         self::assertEquals($asset->vendor, $created->oem->key ?? null);
         self::assertEquals($asset->assetSkuDescription, $created->product->name ?? null);
         self::assertEquals($asset->assetSku, $created->product->sku ?? null);
@@ -568,6 +569,10 @@ class AssetFactoryTest extends TestCase {
             public function assetDocumentDocument(Asset $model, ViewAssetDocument $assetDocument): ?Document {
                 return parent::assetDocumentDocument($model, $assetDocument);
             }
+
+            public function getDocumentFactory(): DocumentFactory {
+                return Mockery::mock(DocumentFactory::class);
+            }
         };
 
         // Test
@@ -600,7 +605,7 @@ class AssetFactoryTest extends TestCase {
             /** @noinspection PhpMissingParentConstructorInspection */
             public function __construct(
                 protected ExceptionHandler $exceptionHandler,
-                protected ?DocumentFactory $documentFactory,
+                protected DocumentFactory $documentFactory,
             ) {
                 // empty
             }
@@ -648,8 +653,7 @@ class AssetFactoryTest extends TestCase {
     public function testAssetDocumentsWarrantiesExtended(): void {
         // Prepare
         $container       = $this->app->make(Container::class);
-        $documents       = $container->make(DocumentFactory::class);
-        $factory         = $container->make(AssetFactoryTest_Factory::class)->setDocumentFactory($documents);
+        $factory         = $container->make(AssetFactoryTest_Factory::class);
         $date            = Date::now();
         $model           = Asset::factory()->create();
         $resellerA       = Reseller::factory()->create();
@@ -933,14 +937,10 @@ class AssetFactoryTest extends TestCase {
                 'id' => $this->faker->uuid(),
             ],
         ]);
-        $documents     = Mockery::mock(DocumentFactory::class);
+
+        $documents = Mockery::mock(DocumentFactory::class);
         $documents
             ->shouldReceive('create')
-            ->withArgs(static function (mixed $object) use ($asset, $assetDocument): bool {
-                return $object instanceof AssetDocumentObject
-                    && $object->document === $assetDocument
-                    && $object->asset === $asset;
-            })
             ->once()
             ->andReturn($document);
 
@@ -967,7 +967,7 @@ class AssetFactoryTest extends TestCase {
         $factory
             ->shouldReceive('getDocumentFactory')
             ->once()
-            ->andReturn(null);
+            ->andReturns();
 
         self::assertNull($factory->assetDocumentDocument($asset, $document));
     }

@@ -1,0 +1,424 @@
+{
+    "selector": "data.getAssets",
+    "query": "query getAssets($id: String!) {\n    getAssets(args: [{key: \"id\", value: $id}]) {\n        id\nserialNumber\n\nassetSku\nassetSkuDescription\nassetTag\nassetType\nstatus\nvendor\n\neolDate\neosDate\n\ncountry\ncountryCode\nlatitude\nlongitude\nzip\ncity\naddress\naddress2\n\ncustomerId\nresellerId\n\nupdatedAt\n\nlatestContactPersons {\n    phoneNumber\n    name\n    type\n    mail\n}\n\nassetCoverage\ncoverageStatusCheck {\n    coverageStatus\n    coverageStatusUpdatedAt\n    coverageEntries {\n        coverageStartDate\n        coverageEndDate\n        type\n        description\n        status\n        serviceSku\n    }\n}\n\ndataQualityScore\nactiveContractQuantitySum\n        assetDocument {\n    startDate\n    endDate\n    documentNumber\n\n    document {\n        id\n        type\n        documentNumber\n\n        startDate\n        endDate\n\n        currencyCode\n        languageCode\n\n        updatedAt\n\n        vendorSpecificFields {\n            vendor\n            groupId\n            groupDescription\n            said\n            ampId\n            sar\n        }\n\n        contactPersons {\n            phoneNumber\n            name\n            type\n            mail\n        }\n\n        customerId\n        resellerId\n        distributorId\n    }\n\n    serviceGroupSku\n    serviceGroupSkuDescription\n    serviceLevelSku\n    serviceLevelSkuDescription\n    serviceFullDescription\n\n    customer {\n      id\n    }\n\n    reseller {\n      id\n    }\n}\n    }\n}",
+    "variables": {
+        "id": "ff871b44-43b7-4b8c-a4dd-c4a2576f5098"
+    },
+    "response": {
+        "data": {
+            "getAssets": [
+                {
+                    "id": "ff871b44-43b7-4b8c-a4dd-c4a2576f5098",
+                    "resellerId": "0fd07b17-3314-40b5-ac32-7189051f773b",
+                    "customerId": "0501ec0a-652e-4276-81fa-8e651a098b18",
+                    "serialNumber": "5c3f8bd8-6e03-3c37-a8cc-48ab3a469f18",
+                    "assetSkuDescription": "HP 750W CS Plat PL Ht Plg Pwr Supply Kit",
+                    "assetTag": null,
+                    "assetType": null,
+                    "vendor": "HPE",
+                    "assetSku": "656363-B21",
+                    "eolDate": null,
+                    "eosDate": null,
+                    "zip": "41177-1014",
+                    "city": "Port Stephen",
+                    "address": "44009 Katelin Estate Suite 863",
+                    "address2": null,
+                    "country": "Bahrain",
+                    "latitude": "-88.683198",
+                    "longitude": "-143.752696",
+                    "countryCode": "HN",
+                    "status": "ACTIVE",
+                    "updatedAt": "1664819364403",
+                    "assetCoverage": [
+                        "COVERED"
+                    ],
+                    "dataQualityScore": "80",
+                    "activeContractQuantitySum": 0,
+                    "assetDocument": [
+                        {
+                            "serviceGroupSku": null,
+                            "serviceGroupSkuDescription": null,
+                            "serviceLevelSku": "HU4A2AC",
+                            "serviceLevelSkuDescription": "HPE Hardware Tech Support",
+                            "serviceFullDescription": null,
+                            "documentNumber": "fccb0b05-d81f-3195-93a5-467b5b95463c",
+                            "document": {
+                                "id": "00c7d149-de7f-4e05-a0b7-c6db95c03b61",
+                                "type": "Contract",
+                                "documentNumber": "fccb0b05-d81f-3195-93a5-467b5b95463c",
+                                "startDate": "2022-03-01",
+                                "endDate": "2023-02-28",
+                                "currencyCode": "CHF",
+                                "languageCode": null,
+                                "updatedAt": "1654262846658",
+                                "vendorSpecificFields": {
+                                    "vendor": "HPE",
+                                    "sar": null,
+                                    "ampId": "87-SMD500 469C",
+                                    "said": "481213b6-89a6-3bbd-a7a1-535d23c49ed1",
+                                    "groupId": null,
+                                    "groupDescription": null
+                                },
+                                "contactPersons": [
+                                    {
+                                        "phoneNumber": null,
+                                        "name": null,
+                                        "mail": null,
+                                        "type": "EndUser Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+19409340919",
+                                        "name": "Dr. Jamie Eichmann Jr.",
+                                        "mail": "jspinka@gmail.com",
+                                        "type": "Distributor Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+13139729501",
+                                        "name": "Raheem O'Connell",
+                                        "mail": "bosco.art@hayes.com",
+                                        "type": "Reseller Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+18459422200",
+                                        "name": "Abraham Conn",
+                                        "mail": null,
+                                        "type": "Hardware System Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+18459422200",
+                                        "name": "Abraham Conn",
+                                        "mail": null,
+                                        "type": "Software System Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+18205020418",
+                                        "name": "Christiana McKenzie Jr.",
+                                        "mail": null,
+                                        "type": "System Manager Contact"
+                                    }
+                                ],
+                                "resellerId": "0fd07b17-3314-40b5-ac32-7189051f773b",
+                                "customerId": "0501ec0a-652e-4276-81fa-8e651a098b18",
+                                "distributorId": "a985a692-c063-499a-ab2f-0a2adef86a3f"
+                            },
+                            "startDate": null,
+                            "endDate": null,
+                            "reseller": {
+                                "id": "0fd07b17-3314-40b5-ac32-7189051f773b"
+                            },
+                            "customer": {
+                                "id": "0501ec0a-652e-4276-81fa-8e651a098b18"
+                            }
+                        },
+                        {
+                            "serviceGroupSku": null,
+                            "serviceGroupSkuDescription": null,
+                            "serviceLevelSku": "HU4A1AC",
+                            "serviceLevelSkuDescription": "HPE Remote Tech Support",
+                            "serviceFullDescription": null,
+                            "documentNumber": "3709cff9-155c-3cc2-9b26-10e221c3bd46",
+                            "document": {
+                                "id": "e0a3a736-37d0-4a27-848e-01dc169ec322",
+                                "type": "Quote renewal",
+                                "documentNumber": "3709cff9-155c-3cc2-9b26-10e221c3bd46",
+                                "startDate": "2022-03-01",
+                                "endDate": "2023-02-28",
+                                "currencyCode": "CHF",
+                                "languageCode": null,
+                                "updatedAt": "1654272011877",
+                                "vendorSpecificFields": {
+                                    "vendor": "HPE",
+                                    "sar": null,
+                                    "ampId": null,
+                                    "said": null,
+                                    "groupId": null,
+                                    "groupDescription": null
+                                },
+                                "contactPersons": [
+                                    {
+                                        "phoneNumber": "+13139729501",
+                                        "name": "Raheem O'Connell",
+                                        "mail": "bosco.art@hayes.com",
+                                        "type": "Customer Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+19409340919",
+                                        "name": "Dr. Jamie Eichmann Jr.",
+                                        "mail": "jspinka@gmail.com",
+                                        "type": "Renewal Contact"
+                                    },
+                                    {
+                                        "phoneNumber": null,
+                                        "name": null,
+                                        "mail": null,
+                                        "type": "EndUser Contact"
+                                    }
+                                ],
+                                "resellerId": "0fd07b17-3314-40b5-ac32-7189051f773b",
+                                "customerId": "0501ec0a-652e-4276-81fa-8e651a098b18",
+                                "distributorId": "a985a692-c063-499a-ab2f-0a2adef86a3f"
+                            },
+                            "startDate": null,
+                            "endDate": null,
+                            "reseller": {
+                                "id": "0fd07b17-3314-40b5-ac32-7189051f773b"
+                            },
+                            "customer": {
+                                "id": "0501ec0a-652e-4276-81fa-8e651a098b18"
+                            }
+                        },
+                        {
+                            "serviceGroupSku": null,
+                            "serviceGroupSkuDescription": null,
+                            "serviceLevelSku": "HU4A2AC",
+                            "serviceLevelSkuDescription": "HPE Hardware Tech Support",
+                            "serviceFullDescription": null,
+                            "documentNumber": "3709cff9-155c-3cc2-9b26-10e221c3bd46",
+                            "document": {
+                                "id": "e0a3a736-37d0-4a27-848e-01dc169ec322",
+                                "type": "Quote renewal",
+                                "documentNumber": "3709cff9-155c-3cc2-9b26-10e221c3bd46",
+                                "startDate": "2022-03-01",
+                                "endDate": "2023-02-28",
+                                "currencyCode": "CHF",
+                                "languageCode": null,
+                                "updatedAt": "1654272011877",
+                                "vendorSpecificFields": {
+                                    "vendor": "HPE",
+                                    "sar": null,
+                                    "ampId": null,
+                                    "said": null,
+                                    "groupId": null,
+                                    "groupDescription": null
+                                },
+                                "contactPersons": [
+                                    {
+                                        "phoneNumber": "+13139729501",
+                                        "name": "Raheem O'Connell",
+                                        "mail": "bosco.art@hayes.com",
+                                        "type": "Customer Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+19409340919",
+                                        "name": "Dr. Jamie Eichmann Jr.",
+                                        "mail": "jspinka@gmail.com",
+                                        "type": "Renewal Contact"
+                                    },
+                                    {
+                                        "phoneNumber": null,
+                                        "name": null,
+                                        "mail": null,
+                                        "type": "EndUser Contact"
+                                    }
+                                ],
+                                "resellerId": "0fd07b17-3314-40b5-ac32-7189051f773b",
+                                "customerId": "0501ec0a-652e-4276-81fa-8e651a098b18",
+                                "distributorId": "a985a692-c063-499a-ab2f-0a2adef86a3f"
+                            },
+                            "startDate": null,
+                            "endDate": null,
+                            "reseller": {
+                                "id": "0fd07b17-3314-40b5-ac32-7189051f773b"
+                            },
+                            "customer": {
+                                "id": "0501ec0a-652e-4276-81fa-8e651a098b18"
+                            }
+                        },
+                        {
+                            "serviceGroupSku": null,
+                            "serviceGroupSkuDescription": null,
+                            "serviceLevelSku": "HA151AC",
+                            "serviceLevelSkuDescription": "HPE Hardware Maintenance Onsite Support",
+                            "serviceFullDescription": null,
+                            "documentNumber": "ea866f8b-0f33-38ea-92ad-846458f17c98",
+                            "document": {
+                                "id": "b443553a-a2af-42be-b2f2-ed08be793223",
+                                "type": "Contract",
+                                "documentNumber": "ea866f8b-0f33-38ea-92ad-846458f17c98",
+                                "startDate": "2021-03-01",
+                                "endDate": "2022-02-28",
+                                "currencyCode": "CHF",
+                                "languageCode": null,
+                                "updatedAt": "1654262846658",
+                                "vendorSpecificFields": {
+                                    "vendor": "HPE",
+                                    "sar": "INF108",
+                                    "ampId": "87-SMD500 469C",
+                                    "said": null,
+                                    "groupId": null,
+                                    "groupDescription": null
+                                },
+                                "contactPersons": [
+                                    {
+                                        "phoneNumber": "+18459422200",
+                                        "name": "Abraham Conn",
+                                        "mail": null,
+                                        "type": "EndUser Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+19409340919",
+                                        "name": "Dr. Jamie Eichmann Jr.",
+                                        "mail": "jspinka@gmail.com",
+                                        "type": "Distributor Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+13139729501",
+                                        "name": "Raheem O'Connell",
+                                        "mail": "bosco.art@hayes.com",
+                                        "type": "Reseller Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+18459422200",
+                                        "name": "Abraham Conn",
+                                        "mail": null,
+                                        "type": "Hardware System Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+18459422200",
+                                        "name": "Abraham Conn",
+                                        "mail": null,
+                                        "type": "Software System Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+18205020418",
+                                        "name": "Christiana McKenzie Jr.",
+                                        "mail": null,
+                                        "type": "System Manager Contact"
+                                    }
+                                ],
+                                "resellerId": "0fd07b17-3314-40b5-ac32-7189051f773b",
+                                "customerId": "0501ec0a-652e-4276-81fa-8e651a098b18",
+                                "distributorId": "a985a692-c063-499a-ab2f-0a2adef86a3f"
+                            },
+                            "startDate": null,
+                            "endDate": null,
+                            "reseller": {
+                                "id": "0fd07b17-3314-40b5-ac32-7189051f773b"
+                            },
+                            "customer": {
+                                "id": "0501ec0a-652e-4276-81fa-8e651a098b18"
+                            }
+                        },
+                        {
+                            "serviceGroupSku": null,
+                            "serviceGroupSkuDescription": null,
+                            "serviceLevelSku": "HU4A1AC",
+                            "serviceLevelSkuDescription": "HPE Remote Tech Support",
+                            "serviceFullDescription": null,
+                            "documentNumber": "fccb0b05-d81f-3195-93a5-467b5b95463c",
+                            "document": {
+                                "id": "00c7d149-de7f-4e05-a0b7-c6db95c03b61",
+                                "type": "Contract",
+                                "documentNumber": "fccb0b05-d81f-3195-93a5-467b5b95463c",
+                                "startDate": "2022-03-01",
+                                "endDate": "2023-02-28",
+                                "currencyCode": "CHF",
+                                "languageCode": null,
+                                "updatedAt": "1654262846658",
+                                "vendorSpecificFields": {
+                                    "vendor": "HPE",
+                                    "sar": null,
+                                    "ampId": "87-SMD500 469C",
+                                    "said": "481213b6-89a6-3bbd-a7a1-535d23c49ed1",
+                                    "groupId": null,
+                                    "groupDescription": null
+                                },
+                                "contactPersons": [
+                                    {
+                                        "phoneNumber": null,
+                                        "name": null,
+                                        "mail": null,
+                                        "type": "EndUser Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+19409340919",
+                                        "name": "Dr. Jamie Eichmann Jr.",
+                                        "mail": "jspinka@gmail.com",
+                                        "type": "Distributor Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+13139729501",
+                                        "name": "Raheem O'Connell",
+                                        "mail": "bosco.art@hayes.com",
+                                        "type": "Reseller Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+18459422200",
+                                        "name": "Abraham Conn",
+                                        "mail": null,
+                                        "type": "Hardware System Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+18459422200",
+                                        "name": "Abraham Conn",
+                                        "mail": null,
+                                        "type": "Software System Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+18205020418",
+                                        "name": "Christiana McKenzie Jr.",
+                                        "mail": null,
+                                        "type": "System Manager Contact"
+                                    }
+                                ],
+                                "resellerId": "0fd07b17-3314-40b5-ac32-7189051f773b",
+                                "customerId": "0501ec0a-652e-4276-81fa-8e651a098b18",
+                                "distributorId": "a985a692-c063-499a-ab2f-0a2adef86a3f"
+                            },
+                            "startDate": null,
+                            "endDate": null,
+                            "reseller": {
+                                "id": "0fd07b17-3314-40b5-ac32-7189051f773b"
+                            },
+                            "customer": {
+                                "id": "0501ec0a-652e-4276-81fa-8e651a098b18"
+                            }
+                        }
+                    ],
+                    "latestContactPersons": [
+                        {
+                            "phoneNumber": null,
+                            "name": null,
+                            "mail": null,
+                            "type": "EndUser Contact"
+                        },
+                        {
+                            "phoneNumber": "+19409340919",
+                            "name": "Dr. Jamie Eichmann Jr.",
+                            "mail": "jspinka@gmail.com",
+                            "type": "Distributor Contact"
+                        },
+                        {
+                            "phoneNumber": "+13139729501",
+                            "name": "Raheem O'Connell",
+                            "mail": "bosco.art@hayes.com",
+                            "type": "Reseller Contact"
+                        }
+                    ],
+                    "coverageStatusCheck": {
+                        "coverageStatus": "COVERED",
+                        "coverageStatusUpdatedAt": "1664819364403",
+                        "coverageEntries": [
+                            {
+                                "coverageStartDate": "2021-03-01",
+                                "coverageEndDate": "2023-02-28",
+                                "type": "Contract",
+                                "status": "Active",
+                                "description": "H7J34AC-HPE Foundation Care 24x7 SVC",
+                                "serviceSku": null
+                            },
+                            {
+                                "coverageStartDate": "2015-05-15",
+                                "coverageEndDate": "2018-06-13",
+                                "type": "FactoryWarranty",
+                                "status": "Expired",
+                                "description": "HA155BW-Wty: HPE Parts Exchange Support",
+                                "serviceSku": null
+                            }
+                        ]
+                    }
+                }
+            ]
+        }
+    }
+}

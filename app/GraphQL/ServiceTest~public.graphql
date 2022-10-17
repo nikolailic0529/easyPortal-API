@@ -69,6 +69,16 @@ Group clause for `input AssetsQuery` (only one property allowed at a time).
 """
 input AggregatedGroupByClauseAssetsQuery {
     """
+    Property clause.
+    """
+    contacts_active_quantity: AggregatedGroupByTypeDirection
+
+    """
+    Property clause.
+    """
+    coverages_count: AggregatedGroupByTypeDirection
+
+    """
     Relationship clause.
     """
     customer: [SortByClauseCompaniesSort!]
@@ -221,7 +231,17 @@ input AggregatedGroupByClauseCompaniesQuery {
     """
     Property clause.
     """
+    contacts_count: AggregatedGroupByTypeDirection
+
+    """
+    Property clause.
+    """
     name: AggregatedGroupByTypeDirection
+
+    """
+    Property clause.
+    """
+    statuses_count: AggregatedGroupByTypeDirection
 }
 
 """
@@ -409,6 +429,11 @@ Group clause for `input DocumentsQuery` (only one property allowed at a time).
 """
 input AggregatedGroupByClauseDocumentsQuery {
     """
+    Property clause.
+    """
+    contacts_count: AggregatedGroupByTypeDirection
+
+    """
     Relationship clause.
     """
     currency: [SortByClauseCurrenciesSort!]
@@ -444,6 +469,11 @@ input AggregatedGroupByClauseDocumentsQuery {
     end: AggregatedGroupByTypeDirection
 
     """
+    Property clause.
+    """
+    entries_count: AggregatedGroupByTypeDirection
+
+    """
     Relationship clause.
     """
     language: [SortByClauseLanguagesSort!]
@@ -471,6 +501,11 @@ input AggregatedGroupByClauseDocumentsQuery {
     """
     Property clause.
     """
+    oem_amp_id: AggregatedGroupByTypeDirection
+
+    """
+    Property clause.
+    """
     oem_group_id: AggregatedGroupByTypeDirection
 
     """
@@ -482,6 +517,11 @@ input AggregatedGroupByClauseDocumentsQuery {
     Property clause.
     """
     oem_said: AggregatedGroupByTypeDirection
+
+    """
+    Property clause.
+    """
+    oem_sar_number: AggregatedGroupByTypeDirection
 
     """
     Relationship clause.
@@ -497,6 +537,11 @@ input AggregatedGroupByClauseDocumentsQuery {
     Property clause.
     """
     start: AggregatedGroupByTypeDirection
+
+    """
+    Property clause.
+    """
+    statuses_count: AggregatedGroupByTypeDirection
 
     """
     Property clause.
@@ -1860,6 +1905,11 @@ input SearchByConditionAssetsQuery {
     anyOf: [SearchByConditionAssetsQuery!]
 
     """
+    Property condition.
+    """
+    contacts_active_quantity: SearchByScalarIntOrNull
+
+    """
     Relationship condition.
     """
     contracts: SearchByComplexRelationDocumentsQuery
@@ -2877,6 +2927,11 @@ input SearchByConditionDocumentsQuery {
     """
     Property condition.
     """
+    oem_amp_id: SearchByScalarStringOrNull
+
+    """
+    Property condition.
+    """
     oem_group_id: SearchByScalarIDOrNull
 
     """
@@ -2888,6 +2943,11 @@ input SearchByConditionDocumentsQuery {
     Property condition.
     """
     oem_said: SearchByScalarStringOrNull
+
+    """
+    Property condition.
+    """
+    oem_sar_number: SearchByScalarStringOrNull
 
     """
     Relationship condition.
@@ -4351,6 +4411,96 @@ input SearchByScalarInt {
 }
 
 """
+Available operators for `scalar Int` (only one operator allowed at a time).
+"""
+input SearchByScalarIntOrNull {
+    """
+    Within a range.
+    """
+    between: SearchByTypeRangeInt
+
+    """
+    Bitwise AND (`&`).
+    """
+    bitwiseAnd: Int
+
+    """
+    Bitwise Left shift (`<<`).
+    """
+    bitwiseLeftShift: Int
+
+    """
+    Bitwise OR (`|`).
+    """
+    bitwiseOr: Int
+
+    """
+    Bitwise Right shift (`>>`).
+    """
+    bitwiseRightShift: Int
+
+    """
+    Bitwise XOR (`^`).
+    """
+    bitwiseXor: Int
+
+    """
+    Equal (`=`).
+    """
+    equal: Int
+
+    """
+    Greater than (`>`).
+    """
+    greaterThan: Int
+
+    """
+    Greater than or equal to (`>=`).
+    """
+    greaterThanOrEqual: Int
+
+    """
+    Within a set of values.
+    """
+    in: [Int!]
+
+    """
+    Is NOT NULL?
+    """
+    isNotNull: SearchByTypeFlag
+
+    """
+    Is NULL?
+    """
+    isNull: SearchByTypeFlag
+
+    """
+    Less than (`<`).
+    """
+    lessThan: Int
+
+    """
+    Less than or equal to (`<=`).
+    """
+    lessThanOrEqual: Int
+
+    """
+    Outside a range.
+    """
+    notBetween: SearchByTypeRangeInt
+
+    """
+    Not Equal (`!=`).
+    """
+    notEqual: Int
+
+    """
+    Outside a set of values.
+    """
+    notIn: [Int!]
+}
+
+"""
 Available operators for `scalar PhoneNumber` (only one operator allowed at a time).
 """
 input SearchByScalarPhoneNumberOrNull {
@@ -4642,6 +4792,11 @@ input SortByClauseAssetsSearchSort {
 Sort clause for input AssetsSort (only one property allowed at a time).
 """
 input SortByClauseAssetsSort {
+    """
+    Property clause.
+    """
+    contacts_active_quantity: SortByTypeDirection
+
     """
     Property clause.
     """
@@ -5326,6 +5481,21 @@ input SortByClauseDocumentsSort {
     Property clause.
     """
     oemGroup: SortByClauseOemGroupsSort
+
+    """
+    Property clause.
+    """
+    oem_amp_id: SortByTypeDirection
+
+    """
+    Property clause.
+    """
+    oem_said: SortByTypeDirection
+
+    """
+    Property clause.
+    """
+    oem_sar_number: SortByTypeDirection
 
     """
     Property clause.
@@ -6261,6 +6431,7 @@ type Asset {
         where: SearchByConditionContactsQuery
     ): ContactsAggregated
 
+    contacts_active_quantity: Int
     contacts_count: Int!
     coverages: [Coverage!]
     coverages_count: Int!
@@ -7131,9 +7302,11 @@ type Document {
     number: String
     oem: Oem
     oemGroup: OemGroup
+    oem_amp_id: String
     oem_group_id: ID
     oem_id: ID
     oem_said: String
+    oem_sar_number: String
     price: Float
     reseller: Reseller
     reseller_id: ID

@@ -26,6 +26,8 @@ input Properties {
     dateScalarNotNull: Date!
     dateTimeScalar: DateTime
     dateTimeScalarNotNull: DateTime!
+    intScalar: Int
+    intScalarNotNull: Int!
     resolver: String
     @field(
         resolver: "App\\GraphQL\\Resolvers\\NullResolver"

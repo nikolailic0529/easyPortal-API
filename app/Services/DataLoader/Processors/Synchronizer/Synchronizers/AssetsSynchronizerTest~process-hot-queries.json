@@ -1379,17 +1379,5 @@
             "2022-09-27 00:45:17",
             "000e5f8a-604f-472c-a87e-a753829e97cf"
         ]
-    },
-    {
-        "query": "select count(*) as aggregate from `assets` where `synced_at` < ? and `assets`.`deleted_at` is null",
-        "bindings": [
-            "2022-09-27T00:32:28+00:00"
-        ]
-    },
-    {
-        "query": "select `assets`.* from `assets` where `synced_at` < ? and `assets`.`deleted_at` is null order by `assets`.`id` asc limit 5 offset 0",
-        "bindings": [
-            "2022-09-27T00:32:28+00:00"
-        ]
     }
 ]

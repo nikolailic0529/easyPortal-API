@@ -178,6 +178,7 @@ abstract class GraphQL implements Stringable, JsonSerializable {
             }
 
             dataQualityScore
+            activeContractQuantitySum
             GRAPHQL;
     }
 
@@ -206,6 +207,8 @@ abstract class GraphQL implements Stringable, JsonSerializable {
                         groupId
                         groupDescription
                         said
+                        ampId
+                        sar
                     }
 
                     contactPersons {
@@ -258,6 +261,8 @@ abstract class GraphQL implements Stringable, JsonSerializable {
                 groupId
                 groupDescription
                 said
+                ampId
+                sar
             }
 
             contactPersons {

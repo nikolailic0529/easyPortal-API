@@ -23,4 +23,5 @@ input AssetsQuery {
     contracts: DocumentsQuery
     quotes: DocumentsQuery
     coverages_count: Int!
+    contacts_active_quantity: Int
 }

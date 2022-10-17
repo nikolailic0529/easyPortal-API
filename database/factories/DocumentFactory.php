@@ -60,6 +60,9 @@ class DocumentFactory extends Factory {
                 return $attributes['price_origin'] ?? null;
             },
             'currency_id'    => null,
+            'language_id'    => null,
+            'oem_amp_id'     => null,
+            'oem_sar_number' => null,
             'changed_at'     => null,
             'synced_at'      => Date::now(),
             'created_at'     => Date::now(),

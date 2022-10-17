@@ -1,5 +1,7 @@
 {
     "vendor": "HPE",
+    "sar": "SAR-10",
+    "ampId": "12-AMP-ID",
     "said": "1234 4678 9012",
     "groupId": null,
     "groupDescription": "description"

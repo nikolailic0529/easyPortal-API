@@ -829,17 +829,5 @@
             "2022-09-27 00:19:08",
             "005c3314-ddec-4397-bbdc-940b6210805c"
         ]
-    },
-    {
-        "query": "select count(*) as aggregate from `customers` where `synced_at` < ? and `customers`.`deleted_at` is null",
-        "bindings": [
-            "2022-09-27T00:06:23+00:00"
-        ]
-    },
-    {
-        "query": "select `customers`.* from `customers` where `synced_at` < ? and `customers`.`deleted_at` is null order by `customers`.`id` asc limit 5 offset 0",
-        "bindings": [
-            "2022-09-27T00:06:23+00:00"
-        ]
     }
 ]

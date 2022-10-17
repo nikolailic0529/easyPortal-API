@@ -1,0 +1,133 @@
+{
+    "selector": "data.getDocumentById",
+    "query": "query getDocumentById($id: String!) {\n    getDocumentById(id: $id) {\n        id\ntype\nstatus\ndocumentNumber\nstartDate\nendDate\ncurrencyCode\ntotalNetPrice\nlanguageCode\nupdatedAt\nresellerId\ncustomerId\ndistributorId\n\nvendorSpecificFields {\n    vendor\n    groupId\n    groupDescription\n    said\n    ampId\n    sar\n}\n\ncontactPersons {\n    phoneNumber\n    name\n    type\n    mail\n}\n\ndocumentEntries {\n    assetId\n    assetProductLine\n    assetProductGroupDescription\n    serviceGroupSku\n    serviceGroupSkuDescription\n    serviceLevelSku\n    serviceLevelSkuDescription\n    serviceFullDescription\n    startDate\n    endDate\n    languageCode\n    currencyCode\n    listPrice\n    estimatedValueRenewal\n    assetProductType\n    environmentId\n    equipmentNumber\n    lineItemListPrice\n    lineItemMonthlyRetailPrice\n    said\n    sarNumber\n    pspId\n    pspName\n}\n    }\n}",
+    "variables": {
+        "id": "0aa9d168-1ccd-4ffd-a680-02a04d3e4b9a"
+    },
+    "response": {
+        "data": {
+            "getDocumentById": {
+                "id": "0aa9d168-1ccd-4ffd-a680-02a04d3e4b9a",
+                "type": "Quote renewal",
+                "documentNumber": "6a96ba82-a4bc-3c5b-8434-de5df3e1d18e",
+                "startDate": "2022-06-01",
+                "endDate": "2023-05-31",
+                "currencyCode": "EUR",
+                "totalNetPrice": "0",
+                "languageCode": null,
+                "updatedAt": "1654272002721",
+                "resellerId": "77ec115b-9723-4582-ad45-2b3a83286b1f",
+                "customerId": "7a99318f-3ba2-4dc5-bd93-54ddfb70ff79",
+                "distributorId": "1af1c44e-8112-4e72-9654-b11c705e9372",
+                "vendorSpecificFields": {
+                    "vendor": "HPE",
+                    "sar": null,
+                    "ampId": null,
+                    "said": null,
+                    "groupId": null,
+                    "groupDescription": null
+                },
+                "contactPersons": [
+                    {
+                        "phoneNumber": "+14692432371",
+                        "name": "Hilda Weber IV",
+                        "mail": "ritchie.santiago@gmail.com",
+                        "type": "Customer Contact"
+                    },
+                    {
+                        "phoneNumber": "+15748017097",
+                        "name": "Maureen Hodkiewicz Sr.",
+                        "mail": "theresia.kub@yahoo.com",
+                        "type": "Renewal Contact"
+                    },
+                    {
+                        "phoneNumber": null,
+                        "name": null,
+                        "mail": null,
+                        "type": "EndUser Contact"
+                    }
+                ],
+                "documentEntries": [
+                    {
+                        "assetId": "c4298e19-93b0-40b5-aa55-8a4a57d01fe0",
+                        "serviceGroupSku": null,
+                        "serviceGroupSkuDescription": null,
+                        "serviceLevelSku": "HL935AC",
+                        "serviceLevelSkuDescription": "HPE Collaborative Remote Support",
+                        "serviceFullDescription": null,
+                        "startDate": null,
+                        "endDate": null,
+                        "currencyCode": "EUR",
+                        "languageCode": null,
+                        "listPrice": "60",
+                        "estimatedValueRenewal": "60",
+                        "assetProductType": null,
+                        "assetProductLine": null,
+                        "assetProductGroupDescription": null,
+                        "environmentId": null,
+                        "equipmentNumber": null,
+                        "lineItemListPrice": null,
+                        "lineItemMonthlyRetailPrice": null,
+                        "said": null,
+                        "sarNumber": null,
+                        "pspId": null,
+                        "pspName": null
+                    },
+                    {
+                        "assetId": "c4298e19-93b0-40b5-aa55-8a4a57d01fe0",
+                        "serviceGroupSku": null,
+                        "serviceGroupSkuDescription": null,
+                        "serviceLevelSku": "HA151AC",
+                        "serviceLevelSkuDescription": "HPE Hardware Maintenance Onsite Support",
+                        "serviceFullDescription": null,
+                        "startDate": null,
+                        "endDate": null,
+                        "currencyCode": "EUR",
+                        "languageCode": null,
+                        "listPrice": "1008",
+                        "estimatedValueRenewal": "1008",
+                        "assetProductType": null,
+                        "assetProductLine": null,
+                        "assetProductGroupDescription": null,
+                        "environmentId": null,
+                        "equipmentNumber": null,
+                        "lineItemListPrice": null,
+                        "lineItemMonthlyRetailPrice": null,
+                        "said": null,
+                        "sarNumber": null,
+                        "pspId": null,
+                        "pspName": null
+                    },
+                    {
+                        "assetId": "4667ba82-0264-4315-958b-68f070fcc190",
+                        "serviceGroupSku": null,
+                        "serviceGroupSkuDescription": null,
+                        "serviceLevelSku": "HA158AC",
+                        "serviceLevelSkuDescription": "HPE Software Technical Unlimited Support",
+                        "serviceFullDescription": null,
+                        "startDate": null,
+                        "endDate": null,
+                        "currencyCode": "EUR",
+                        "languageCode": null,
+                        "listPrice": "84",
+                        "estimatedValueRenewal": "84",
+                        "assetProductType": null,
+                        "assetProductLine": null,
+                        "assetProductGroupDescription": null,
+                        "environmentId": null,
+                        "equipmentNumber": null,
+                        "lineItemListPrice": null,
+                        "lineItemMonthlyRetailPrice": null,
+                        "said": null,
+                        "sarNumber": null,
+                        "pspId": null,
+                        "pspName": null
+                    }
+                ],
+                "status": [
+                    "CANCELLED"
+                ]
+            }
+        }
+    }
+}

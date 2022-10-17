@@ -151,6 +151,8 @@ class DocumentFactoryTest extends TestCase {
         self::assertEquals('CUR', $created->currency->code ?? null);
         self::assertEquals('fr', $created->language->code ?? null);
         self::assertEquals('1234 4678 9012', $created->oem_said);
+        self::assertEquals('12-AMP-ID', $created->oem_amp_id);
+        self::assertEquals('SAR-10', $created->oem_sar_number);
         self::assertEquals('abc-de', $created->oemGroup->key ?? null);
         self::assertEquals(0, $created->assets_count);
         self::assertEquals(0, $created->entries_count);
@@ -1070,6 +1072,8 @@ class DocumentFactoryTest extends TestCase {
         self::assertEquals('CUR', $created->currency->code ?? null);
         self::assertEquals('fr', $created->language->code ?? null);
         self::assertEquals('1234 4678 9012', $created->oem_said);
+        self::assertEquals('12-AMP-ID', $created->oem_amp_id);
+        self::assertEquals('SAR-10', $created->oem_sar_number);
         self::assertEquals('abc-de', $created->oemGroup->key ?? null);
         self::assertEquals(3, $created->assets_count);
         self::assertEquals(8, $created->entries_count);
