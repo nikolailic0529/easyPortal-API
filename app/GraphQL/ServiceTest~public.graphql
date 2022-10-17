@@ -1870,6 +1870,11 @@ input SearchByConditionAssetsQuery {
     anyOf: [SearchByConditionAssetsQuery!]
 
     """
+    Property condition.
+    """
+    contacts_active_quantity: SearchByScalarIntOrNull
+
+    """
     Relationship condition.
     """
     contracts: SearchByComplexRelationDocumentsQuery
@@ -4371,6 +4376,96 @@ input SearchByScalarInt {
 }
 
 """
+Available operators for `scalar Int` (only one operator allowed at a time).
+"""
+input SearchByScalarIntOrNull {
+    """
+    Within a range.
+    """
+    between: SearchByTypeRangeInt
+
+    """
+    Bitwise AND (`&`).
+    """
+    bitwiseAnd: Int
+
+    """
+    Bitwise Left shift (`<<`).
+    """
+    bitwiseLeftShift: Int
+
+    """
+    Bitwise OR (`|`).
+    """
+    bitwiseOr: Int
+
+    """
+    Bitwise Right shift (`>>`).
+    """
+    bitwiseRightShift: Int
+
+    """
+    Bitwise XOR (`^`).
+    """
+    bitwiseXor: Int
+
+    """
+    Equal (`=`).
+    """
+    equal: Int
+
+    """
+    Greater than (`>`).
+    """
+    greaterThan: Int
+
+    """
+    Greater than or equal to (`>=`).
+    """
+    greaterThanOrEqual: Int
+
+    """
+    Within a set of values.
+    """
+    in: [Int!]
+
+    """
+    Is NOT NULL?
+    """
+    isNotNull: SearchByTypeFlag
+
+    """
+    Is NULL?
+    """
+    isNull: SearchByTypeFlag
+
+    """
+    Less than (`<`).
+    """
+    lessThan: Int
+
+    """
+    Less than or equal to (`<=`).
+    """
+    lessThanOrEqual: Int
+
+    """
+    Outside a range.
+    """
+    notBetween: SearchByTypeRangeInt
+
+    """
+    Not Equal (`!=`).
+    """
+    notEqual: Int
+
+    """
+    Outside a set of values.
+    """
+    notIn: [Int!]
+}
+
+"""
 Available operators for `scalar PhoneNumber` (only one operator allowed at a time).
 """
 input SearchByScalarPhoneNumberOrNull {
@@ -4662,6 +4757,11 @@ input SortByClauseAssetsSearchSort {
 Sort clause for input AssetsSort (only one property allowed at a time).
 """
 input SortByClauseAssetsSort {
+    """
+    Property clause.
+    """
+    contacts_active_quantity: SortByTypeDirection
+
     """
     Property clause.
     """
@@ -6296,6 +6396,7 @@ type Asset {
         where: SearchByConditionContactsQuery
     ): ContactsAggregated
 
+    contacts_active_quantity: Int
     contacts_count: Int!
     coverages: [Coverage!]
     coverages_count: Int!

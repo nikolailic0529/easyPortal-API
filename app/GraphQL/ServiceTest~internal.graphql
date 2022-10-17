@@ -2374,6 +2374,12 @@ input SearchByConditionAssetsQuery {
     @searchByOperatorAnyOf
 
     """
+    Property condition.
+    """
+    contacts_active_quantity: SearchByScalarIntOrNull
+    @searchByProperty
+
+    """
     Relationship condition.
     """
     contracts: SearchByComplexRelationDocumentsQuery
@@ -5324,6 +5330,113 @@ input SearchByScalarInt {
 }
 
 """
+Available operators for `scalar Int` (only one operator allowed at a time).
+"""
+input SearchByScalarIntOrNull {
+    """
+    Within a range.
+    """
+    between: SearchByTypeRangeInt
+    @searchByOperatorBetween
+
+    """
+    Bitwise AND (`&`).
+    """
+    bitwiseAnd: Int
+    @searchByOperatorBitwiseAnd
+
+    """
+    Bitwise Left shift (`<<`).
+    """
+    bitwiseLeftShift: Int
+    @searchByOperatorBitwiseLeftShift
+
+    """
+    Bitwise OR (`|`).
+    """
+    bitwiseOr: Int
+    @searchByOperatorBitwiseOr
+
+    """
+    Bitwise Right shift (`>>`).
+    """
+    bitwiseRightShift: Int
+    @searchByOperatorBitwiseRightShift
+
+    """
+    Bitwise XOR (`^`).
+    """
+    bitwiseXor: Int
+    @searchByOperatorBitwiseXor
+
+    """
+    Equal (`=`).
+    """
+    equal: Int
+    @searchByOperatorEqual
+
+    """
+    Greater than (`>`).
+    """
+    greaterThan: Int
+    @searchByOperatorGreaterThan
+
+    """
+    Greater than or equal to (`>=`).
+    """
+    greaterThanOrEqual: Int
+    @searchByOperatorGreaterThanOrEqual
+
+    """
+    Within a set of values.
+    """
+    in: [Int!]
+    @searchByOperatorIn
+
+    """
+    Is NOT NULL?
+    """
+    isNotNull: SearchByTypeFlag
+    @searchByOperatorIsNotNull
+
+    """
+    Is NULL?
+    """
+    isNull: SearchByTypeFlag
+    @searchByOperatorIsNull
+
+    """
+    Less than (`<`).
+    """
+    lessThan: Int
+    @searchByOperatorLessThan
+
+    """
+    Less than or equal to (`<=`).
+    """
+    lessThanOrEqual: Int
+    @searchByOperatorLessThanOrEqual
+
+    """
+    Outside a range.
+    """
+    notBetween: SearchByTypeRangeInt
+    @searchByOperatorNotBetween
+
+    """
+    Not Equal (`!=`).
+    """
+    notEqual: Int
+    @searchByOperatorNotEqual
+
+    """
+    Outside a set of values.
+    """
+    notIn: [Int!]
+    @searchByOperatorNotIn
+}
+
+"""
 Available operators for `scalar PhoneNumber` (only one operator allowed at a time).
 """
 input SearchByScalarPhoneNumberOrNull {
@@ -5662,6 +5775,12 @@ input SortByClauseAssetsSearchSort {
 Sort clause for input AssetsSort (only one property allowed at a time).
 """
 input SortByClauseAssetsSort {
+    """
+    Property clause.
+    """
+    contacts_active_quantity: SortByTypeDirection
+    @sortByOperatorProperty
+
     """
     Property clause.
     """
@@ -7793,6 +7912,7 @@ type Asset {
         relation: "contacts"
     )
 
+    contacts_active_quantity: Int
     contacts_count: Int!
 
     coverages: [Coverage!]
