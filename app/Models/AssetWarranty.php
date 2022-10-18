@@ -11,6 +11,7 @@ use App\Models\Relations\HasCustomerNullable;
 use App\Models\Relations\HasDocument;
 use App\Models\Relations\HasResellerNullable;
 use App\Models\Relations\HasServiceGroup;
+use App\Models\Relations\HasServiceLevel;
 use App\Models\Relations\HasStatusNullable;
 use App\Models\Relations\HasTypeNullable;
 use App\Services\Organization\Eloquent\OwnedByReseller;
@@ -38,6 +39,7 @@ use Illuminate\Support\Collection as BaseCollection;
  * @property string|null                  $document_id
  * @property string|null                  $document_number
  * @property string|null                  $service_group_id
+ * @property string|null                  $service_level_id
  * @property CarbonImmutable|null         $start
  * @property CarbonImmutable|null         $end
  * @property CarbonImmutable              $created_at
@@ -49,7 +51,7 @@ use Illuminate\Support\Collection as BaseCollection;
  * @property Document|null                $document
  * @property Reseller|null                $reseller
  * @property ServiceGroup|null            $serviceGroup
- * @property Collection<int,ServiceLevel> $serviceLevels
+ * @property ServiceLevel|null            $serviceLevel
  * @property Status|null                  $status
  * @property Type|null                    $type
  * @method static AssetWarrantyFactory factory(...$parameters)
@@ -62,6 +64,7 @@ class AssetWarranty extends Model implements OwnedByReseller, OwnedByShared {
     use HasFactory;
     use HasAsset;
     use HasServiceGroup;
+    use HasServiceLevel;
     use HasResellerNullable;
     use HasCustomerNullable;
     use HasDocument;
@@ -92,22 +95,5 @@ class AssetWarranty extends Model implements OwnedByReseller, OwnedByShared {
 
     public function setDocumentAttribute(Document|null $document): void {
         $this->document()->associate($document);
-    }
-
-    public function serviceLevels(): BelongsToMany {
-        $pivot = new AssetWarrantyServiceLevel();
-
-        return $this
-            ->belongsToMany(ServiceLevel::class, $pivot->getTable())
-            ->using($pivot::class)
-            ->wherePivotNull($pivot->getDeletedAtColumn())
-            ->withTimestamps();
-    }
-
-    /**
-     * @param BaseCollection|array<ServiceLevel> $levels
-     */
-    public function setServiceLevelsAttribute(BaseCollection|array $levels): void {
-        $this->syncBelongsToMany('serviceLevels', $levels);
     }
 }

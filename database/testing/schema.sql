@@ -76,51 +76,32 @@ CREATE TABLE `asset_warranties` (
   `document_id` char(36) COLLATE utf8mb4_0900_as_ci DEFAULT NULL,
   `document_number` varchar(64) COLLATE utf8mb4_0900_as_ci DEFAULT NULL,
   `service_group_id` char(36) COLLATE utf8mb4_0900_as_ci DEFAULT NULL,
+  `service_level_id` char(36) COLLATE utf8mb4_0900_as_ci DEFAULT NULL,
   `start` date DEFAULT NULL,
   `end` date DEFAULT NULL,
+  `description` text COLLATE utf8mb4_0900_as_ci,
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `deleted_at` timestamp NULL DEFAULT NULL,
-  `description` text COLLATE utf8mb4_0900_as_ci,
   PRIMARY KEY (`id`),
   KEY `fk_asset_warranties_assets1_idx` (`asset_id`),
   KEY `fk_asset_warranties_documents1_idx` (`document_id`),
   KEY `fk_asset_warranties_resellers1_idx` (`reseller_id`),
   KEY `fk_asset_warranties_customers1_idx` (`customer_id`),
-  KEY `idx__deleted_at` (`deleted_at`),
-  KEY `idx__end__deleted_at` (`end`,`deleted_at`),
   KEY `fk_asset_warranties_service_groups1_idx` (`service_group_id`),
-  KEY `idx__asset_id__deleted_at` (`asset_id`,`deleted_at`),
-  KEY `idx__asset_id__end__deleted_at` (`asset_id`,`end`,`deleted_at`),
   KEY `fk_asset_warranties_statuses1_idx` (`status_id`),
   KEY `fk_asset_warranties_types1_idx` (`type_id`),
+  KEY `fk_asset_warranties_service_levels1_idx` (`service_level_id`),
+  KEY `idx__deleted_at__asset_id` (`deleted_at`,`asset_id`),
+  KEY `idx__end__deleted_at__asset_id` (`end`,`deleted_at`,`asset_id`),
   CONSTRAINT `fk_asset_warranties_assets1` FOREIGN KEY (`asset_id`) REFERENCES `assets` (`id`) ON DELETE CASCADE ON UPDATE RESTRICT,
   CONSTRAINT `fk_asset_warranties_customers1` FOREIGN KEY (`customer_id`) REFERENCES `customers` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
   CONSTRAINT `fk_asset_warranties_documents1` FOREIGN KEY (`document_id`) REFERENCES `documents` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
   CONSTRAINT `fk_asset_warranties_resellers1` FOREIGN KEY (`reseller_id`) REFERENCES `resellers` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
   CONSTRAINT `fk_asset_warranties_service_groups1` FOREIGN KEY (`service_group_id`) REFERENCES `service_groups` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
+  CONSTRAINT `fk_asset_warranties_service_levels1` FOREIGN KEY (`service_level_id`) REFERENCES `service_levels` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
   CONSTRAINT `fk_asset_warranties_statuses1` FOREIGN KEY (`status_id`) REFERENCES `statuses` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
   CONSTRAINT `fk_asset_warranties_types1` FOREIGN KEY (`type_id`) REFERENCES `types` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_as_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
-DROP TABLE IF EXISTS `asset_warranty_service_levels`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `asset_warranty_service_levels` (
-  `id` char(36) COLLATE utf8mb4_0900_as_ci NOT NULL,
-  `asset_warranty_id` char(36) COLLATE utf8mb4_0900_as_ci NOT NULL,
-  `service_level_id` char(36) COLLATE utf8mb4_0900_as_ci NOT NULL,
-  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `deleted_at` timestamp NULL DEFAULT NULL,
-  `deleted_not` tinyint(1) GENERATED ALWAYS AS (if((`deleted_at` is null),1,NULL)) STORED,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `unique__asset_warranty_id__service_level_id__deleted_not` (`asset_warranty_id`,`service_level_id`,`deleted_not`),
-  KEY `fk_asset_warranty_service_levels_asset_warranties1_idx` (`asset_warranty_id`),
-  KEY `idx__deleted_at` (`deleted_at`),
-  KEY `fk_asset_warranty_service_levels_service_levels1_idx` (`service_level_id`) /*!80000 INVISIBLE */,
-  CONSTRAINT `fk_asset_warranty_service_levels_asset_warranties1` FOREIGN KEY (`asset_warranty_id`) REFERENCES `asset_warranties` (`id`) ON DELETE CASCADE ON UPDATE RESTRICT,
-  CONSTRAINT `fk_asset_warranty_service_levels_service_levels1` FOREIGN KEY (`service_level_id`) REFERENCES `service_levels` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_as_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 DROP TABLE IF EXISTS `assets`;
@@ -140,6 +121,7 @@ CREATE TABLE `assets` (
   `warranty_end` date DEFAULT NULL,
   `warranty_changed_at` timestamp NULL DEFAULT NULL,
   `data_quality` varchar(255) COLLATE utf8mb4_0900_as_ci DEFAULT NULL,
+  `contacts_active_quantity` int DEFAULT NULL,
   `contacts_count` int NOT NULL DEFAULT '0',
   `coverages_count` int NOT NULL DEFAULT '0',
   `changed_at` timestamp NULL DEFAULT NULL,
@@ -443,17 +425,30 @@ CREATE TABLE `document_entries` (
   `id` char(36) COLLATE utf8mb4_0900_as_ci NOT NULL,
   `document_id` char(36) COLLATE utf8mb4_0900_as_ci NOT NULL,
   `asset_id` char(36) COLLATE utf8mb4_0900_as_ci DEFAULT NULL,
+  `asset_type_id` char(36) COLLATE utf8mb4_0900_as_ci DEFAULT NULL,
   `service_group_id` char(36) COLLATE utf8mb4_0900_as_ci DEFAULT NULL,
   `service_level_id` char(36) COLLATE utf8mb4_0900_as_ci DEFAULT NULL,
   `product_id` char(36) COLLATE utf8mb4_0900_as_ci DEFAULT NULL,
+  `product_line_id` char(36) COLLATE utf8mb4_0900_as_ci DEFAULT NULL,
+  `product_group_id` char(36) COLLATE utf8mb4_0900_as_ci DEFAULT NULL,
   `serial_number` varchar(255) COLLATE utf8mb4_0900_as_ci DEFAULT NULL,
   `start` date DEFAULT NULL,
   `end` date DEFAULT NULL,
   `currency_id` char(36) COLLATE utf8mb4_0900_as_ci DEFAULT NULL,
-  `net_price` decimal(12,2) DEFAULT NULL,
   `list_price` decimal(12,2) DEFAULT NULL,
-  `discount` decimal(6,2) DEFAULT NULL,
+  `list_price_origin` decimal(12,2) DEFAULT NULL,
+  `monthly_list_price` decimal(12,2) DEFAULT NULL,
+  `monthly_list_price_origin` decimal(12,2) DEFAULT NULL,
+  `monthly_retail_price` decimal(12,2) DEFAULT NULL,
+  `monthly_retail_price_origin` decimal(12,2) DEFAULT NULL,
   `renewal` decimal(12,2) DEFAULT NULL,
+  `renewal_origin` decimal(12,2) DEFAULT NULL,
+  `oem_said` varchar(1024) COLLATE utf8mb4_0900_as_ci DEFAULT NULL,
+  `oem_sar_number` varchar(1024) COLLATE utf8mb4_0900_as_ci DEFAULT NULL,
+  `psp_id` char(36) COLLATE utf8mb4_0900_as_ci DEFAULT NULL,
+  `environment_id` varchar(255) COLLATE utf8mb4_0900_as_ci DEFAULT NULL,
+  `equipment_number` varchar(255) COLLATE utf8mb4_0900_as_ci DEFAULT NULL,
+  `language_id` char(36) COLLATE utf8mb4_0900_as_ci DEFAULT NULL,
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `deleted_at` timestamp NULL DEFAULT NULL,
@@ -467,12 +462,22 @@ CREATE TABLE `document_entries` (
   KEY `fk_document_entries_service_groups1_idx` (`service_group_id`),
   KEY `idx__document_id__deleted_at` (`document_id`,`deleted_at`),
   KEY `idx__asset_id__deleted_at` (`asset_id`,`deleted_at`),
+  KEY `fk_document_entries_types1_idx` (`asset_type_id`),
+  KEY `fk_document_entries_languages1_idx` (`language_id`),
+  KEY `fk_document_entries_product_groups1_idx` (`product_group_id`),
+  KEY `fk_document_entries_product_lines1_idx` (`product_line_id`),
+  KEY `fk_document_entries_psps1_idx` (`psp_id`),
   CONSTRAINT `fk_document_entries_assets1` FOREIGN KEY (`asset_id`) REFERENCES `assets` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
   CONSTRAINT `fk_document_entries_currencies1` FOREIGN KEY (`currency_id`) REFERENCES `currencies` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
   CONSTRAINT `fk_document_entries_documents1` FOREIGN KEY (`document_id`) REFERENCES `documents` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
+  CONSTRAINT `fk_document_entries_languages1` FOREIGN KEY (`language_id`) REFERENCES `languages` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
+  CONSTRAINT `fk_document_entries_product_groups1` FOREIGN KEY (`product_group_id`) REFERENCES `product_groups` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
+  CONSTRAINT `fk_document_entries_product_lines1` FOREIGN KEY (`product_line_id`) REFERENCES `product_lines` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
   CONSTRAINT `fk_document_entries_products2` FOREIGN KEY (`product_id`) REFERENCES `products` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
+  CONSTRAINT `fk_document_entries_psps1` FOREIGN KEY (`psp_id`) REFERENCES `psps` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
   CONSTRAINT `fk_document_entries_service_groups1` FOREIGN KEY (`service_group_id`) REFERENCES `service_groups` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
-  CONSTRAINT `fk_document_entries_service_levels1` FOREIGN KEY (`service_level_id`) REFERENCES `service_levels` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
+  CONSTRAINT `fk_document_entries_service_levels1` FOREIGN KEY (`service_level_id`) REFERENCES `service_levels` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
+  CONSTRAINT `fk_document_entries_types1` FOREIGN KEY (`asset_type_id`) REFERENCES `types` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_as_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 DROP TABLE IF EXISTS `document_statuses`;
@@ -511,8 +516,11 @@ CREATE TABLE `documents` (
   `start` date DEFAULT NULL,
   `end` date DEFAULT NULL,
   `price` decimal(12,2) DEFAULT NULL,
+  `price_origin` decimal(12,2) DEFAULT NULL,
   `currency_id` char(36) COLLATE utf8mb4_0900_as_ci DEFAULT NULL,
   `language_id` char(36) COLLATE utf8mb4_0900_as_ci DEFAULT NULL,
+  `oem_amp_id` varchar(1024) COLLATE utf8mb4_0900_as_ci DEFAULT NULL,
+  `oem_sar_number` varchar(1024) COLLATE utf8mb4_0900_as_ci DEFAULT NULL,
   `assets_count` int unsigned NOT NULL DEFAULT '0',
   `entries_count` int unsigned NOT NULL DEFAULT '0',
   `contacts_count` int unsigned NOT NULL DEFAULT '0',
@@ -890,6 +898,8 @@ DROP TABLE IF EXISTS `organizations`;
 CREATE TABLE `organizations` (
   `id` char(36) COLLATE utf8mb4_0900_as_ci NOT NULL,
   `name` varchar(255) COLLATE utf8mb4_0900_as_ci NOT NULL,
+  `keycloak_name` varchar(255) COLLATE utf8mb4_0900_as_ci DEFAULT NULL,
+  `type` varchar(255) COLLATE utf8mb4_0900_as_ci NOT NULL,
   `keycloak_scope` varchar(255) COLLATE utf8mb4_0900_as_ci DEFAULT NULL,
   `keycloak_group_id` char(36) COLLATE utf8mb4_0900_as_ci DEFAULT NULL,
   `locale` varchar(8) COLLATE utf8mb4_0900_as_ci DEFAULT NULL,
@@ -918,6 +928,7 @@ CREATE TABLE `organizations` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `unique__keycloak_group_id__deleted_not` (`keycloak_group_id`,`deleted_not`),
   UNIQUE KEY `unique__keycloak_scope__deleted_not` (`keycloak_scope`,`deleted_not`),
+  UNIQUE KEY `unique__keycloak_name__deleted_not` (`keycloak_name`,`deleted_not`),
   KEY `idx__deleted_at` (`deleted_at`),
   KEY `fk_organizations_currencies1_idx` (`currency_id`),
   KEY `idx__name__deleted_at` (`name`,`deleted_at`),
@@ -952,6 +963,38 @@ CREATE TABLE `permissions` (
   KEY `idx__deleted_at` (`id`,`deleted_at`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_as_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
+DROP TABLE IF EXISTS `product_groups`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `product_groups` (
+  `id` char(36) COLLATE utf8mb4_0900_as_ci NOT NULL,
+  `key` varchar(255) COLLATE utf8mb4_0900_as_ci NOT NULL,
+  `name` varchar(255) COLLATE utf8mb4_0900_as_ci NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `deleted_at` timestamp NULL DEFAULT NULL,
+  `deleted_not` tinyint(1) GENERATED ALWAYS AS (if((`deleted_at` is null),1,NULL)) STORED,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `unique__key__deleted_not` (`key`,`deleted_not`),
+  KEY `idx__deleted_at` (`deleted_at`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_as_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+DROP TABLE IF EXISTS `product_lines`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `product_lines` (
+  `id` char(36) COLLATE utf8mb4_0900_as_ci NOT NULL,
+  `key` varchar(255) COLLATE utf8mb4_0900_as_ci NOT NULL,
+  `name` varchar(255) COLLATE utf8mb4_0900_as_ci NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `deleted_at` timestamp NULL DEFAULT NULL,
+  `deleted_not` tinyint(1) GENERATED ALWAYS AS (if((`deleted_at` is null),1,NULL)) STORED,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `unique__key__deleted_not` (`key`,`deleted_not`),
+  KEY `idx__deleted_at` (`deleted_at`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_as_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
 DROP TABLE IF EXISTS `products`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
@@ -974,6 +1017,22 @@ CREATE TABLE `products` (
   KEY `idx__name__deleted_at` (`name`,`deleted_at`),
   FULLTEXT KEY `ftx__name` (`name`) /*!50100 WITH PARSER `ngram` */ ,
   CONSTRAINT `fk_products_oems1` FOREIGN KEY (`oem_id`) REFERENCES `oems` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_as_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+DROP TABLE IF EXISTS `psps`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `psps` (
+  `id` char(36) COLLATE utf8mb4_0900_as_ci NOT NULL,
+  `key` varchar(255) COLLATE utf8mb4_0900_as_ci NOT NULL,
+  `name` varchar(255) COLLATE utf8mb4_0900_as_ci NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `deleted_at` timestamp NULL DEFAULT NULL,
+  `deleted_not` tinyint(1) GENERATED ALWAYS AS (if((`deleted_at` is null),1,NULL)) STORED,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `unique__key__deleted_not` (`key`,`deleted_not`),
+  KEY `idx__deleted_at` (`deleted_at`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_as_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 DROP TABLE IF EXISTS `quote_request_assets`;
@@ -1389,6 +1448,7 @@ CREATE TABLE `users` (
   `mobile_phone` varchar(255) COLLATE utf8mb4_0900_as_ci DEFAULT NULL,
   `job_title` varchar(255) COLLATE utf8mb4_0900_as_ci DEFAULT NULL,
   `company` varchar(255) COLLATE utf8mb4_0900_as_ci DEFAULT NULL,
+  `previous_sign_in` timestamp NULL DEFAULT NULL,
   `synced_at` timestamp NULL DEFAULT NULL,
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -1612,29 +1672,46 @@ INSERT INTO `migrations` VALUES (201,'2022_03_02_072223_cities_service_groups_le
 INSERT INTO `migrations` VALUES (202,'2022_03_02_110511_coverages_types_statuses_convert_name',1);
 INSERT INTO `migrations` VALUES (203,'2022_03_08_071215_kpis_unsigned_fix',1);
 INSERT INTO `migrations` VALUES (204,'2022_03_10_133319_organizations_branging_welcome_translations',1);
-INSERT INTO `migrations` VALUES (205,'2022_04_14_071735_quote_request_documents_create',1);
-INSERT INTO `migrations` VALUES (206,'2022_04_15_062959_quote_requests_custom_values',1);
-INSERT INTO `migrations` VALUES (207,'2022_04_18_042439_assets_add_nickname',1);
-INSERT INTO `migrations` VALUES (208,'2022_04_18_050027_sync_permissions',1);
-INSERT INTO `migrations` VALUES (209,'2022_04_21_110649_asset_coverages_drop_indexes_by_asset_id_and_coverage_id',1);
-INSERT INTO `migrations` VALUES (210,'2022_04_22_113626_search_rebuild_indexes',1);
-INSERT INTO `migrations` VALUES (211,'2022_04_26_124510_quote_requests_add_user_copy',1);
-INSERT INTO `migrations` VALUES (212,'2022_05_20_042435_search__fulltext_processors',1);
-INSERT INTO `migrations` VALUES (213,'2022_05_20_101117_assets_fix_idx__serial_number',1);
-INSERT INTO `migrations` VALUES (214,'2022_05_26_103248_assets_product_id_nullable',1);
-INSERT INTO `migrations` VALUES (215,'2022_05_31_144829_search_rebuild_indexes',1);
-INSERT INTO `migrations` VALUES (216,'2022_06_06_054812_assets_oem_id_nullable',1);
-INSERT INTO `migrations` VALUES (217,'2022_06_06_070635_documents_oem_id_nullable',1);
-INSERT INTO `migrations` VALUES (218,'2022_06_06_075453_documents_type_id_number_nullable',1);
-INSERT INTO `migrations` VALUES (219,'2022_06_06_105849_document_entries_asset_id_nullable',1);
-INSERT INTO `migrations` VALUES (220,'2022_06_07_120949_coverages_types_statuses_convert_name',1);
-INSERT INTO `migrations` VALUES (221,'2022_06_10_055807_resellers_customers_remove_type_id',1);
-INSERT INTO `migrations` VALUES (222,'2022_06_15_045412_reseller_customers_delete_locations_count',1);
-INSERT INTO `migrations` VALUES (223,'2022_06_20_064517_countries_unknown_country_fix',1);
-INSERT INTO `migrations` VALUES (224,'2022_06_21_045035_customer_quotes_contracts_count',1);
-INSERT INTO `migrations` VALUES (225,'2022_06_21_091733_recalculate',1);
-INSERT INTO `migrations` VALUES (226,'2022_06_22_060153_locales_rename',1);
-INSERT INTO `migrations` VALUES (227,'2022_06_28_154643_audit_remove_empty_records',1);
-INSERT INTO `migrations` VALUES (228,'2022_07_01_071953_documents_oem_said_length',1);
-INSERT INTO `migrations` VALUES (229,'2022_07_06_085000_search_rebuild_indexes',1);
-INSERT INTO `migrations` VALUES (230,'2022_07_21_052237_sync_permissions',1);
+INSERT INTO `migrations` VALUES (205,'2022_03_23_125529_organizations_add_type',1);
+INSERT INTO `migrations` VALUES (206,'2022_03_30_065715_organizations_change_type_to_varchar',1);
+INSERT INTO `migrations` VALUES (207,'2022_04_14_071735_quote_request_documents_create',1);
+INSERT INTO `migrations` VALUES (208,'2022_04_15_062959_quote_requests_custom_values',1);
+INSERT INTO `migrations` VALUES (209,'2022_04_18_042439_assets_add_nickname',1);
+INSERT INTO `migrations` VALUES (210,'2022_04_18_050027_sync_permissions',1);
+INSERT INTO `migrations` VALUES (211,'2022_04_21_110649_asset_coverages_drop_indexes_by_asset_id_and_coverage_id',1);
+INSERT INTO `migrations` VALUES (212,'2022_04_22_113626_search_rebuild_indexes',1);
+INSERT INTO `migrations` VALUES (213,'2022_04_26_124510_quote_requests_add_user_copy',1);
+INSERT INTO `migrations` VALUES (214,'2022_05_20_101117_assets_fix_idx__serial_number',1);
+INSERT INTO `migrations` VALUES (215,'2022_05_26_103248_assets_product_id_nullable',1);
+INSERT INTO `migrations` VALUES (216,'2022_05_31_144829_search_rebuild_indexes',1);
+INSERT INTO `migrations` VALUES (217,'2022_06_06_054812_assets_oem_id_nullable',1);
+INSERT INTO `migrations` VALUES (218,'2022_06_06_070635_documents_oem_id_nullable',1);
+INSERT INTO `migrations` VALUES (219,'2022_06_06_075453_documents_type_id_number_nullable',1);
+INSERT INTO `migrations` VALUES (220,'2022_06_06_105849_document_entries_asset_id_nullable',1);
+INSERT INTO `migrations` VALUES (221,'2022_06_07_120949_coverages_types_statuses_convert_name',1);
+INSERT INTO `migrations` VALUES (222,'2022_06_10_055807_resellers_customers_remove_type_id',1);
+INSERT INTO `migrations` VALUES (223,'2022_06_15_045412_reseller_customers_delete_locations_count',1);
+INSERT INTO `migrations` VALUES (224,'2022_06_20_064517_countries_unknown_country_fix',1);
+INSERT INTO `migrations` VALUES (225,'2022_06_21_045035_customer_quotes_contracts_count',1);
+INSERT INTO `migrations` VALUES (226,'2022_06_21_091733_recalculate',1);
+INSERT INTO `migrations` VALUES (227,'2022_06_22_060153_locales_rename',1);
+INSERT INTO `migrations` VALUES (228,'2022_06_28_154643_audit_remove_empty_records',1);
+INSERT INTO `migrations` VALUES (229,'2022_07_01_071953_documents_oem_said_length',1);
+INSERT INTO `migrations` VALUES (230,'2022_07_06_085000_search_rebuild_indexes',1);
+INSERT INTO `migrations` VALUES (231,'2022_07_21_052237_sync_permissions',1);
+INSERT INTO `migrations` VALUES (232,'2022_08_05_072503_fields_create',1);
+INSERT INTO `migrations` VALUES (233,'2022_08_10_060408_document_field_entries_add_document_id',1);
+INSERT INTO `migrations` VALUES (234,'2022_08_15_050355_organizations_keycloak_scope_add_prefix',1);
+INSERT INTO `migrations` VALUES (235,'2022_08_15_071927_organizations_add_keycloak_name',1);
+INSERT INTO `migrations` VALUES (236,'2022_08_31_130104_fields_drop',1);
+INSERT INTO `migrations` VALUES (237,'2022_09_01_072731_document_entries_drop_discount_net_price',1);
+INSERT INTO `migrations` VALUES (238,'2022_09_02_052553_document_entries_more_fields',1);
+INSERT INTO `migrations` VALUES (239,'2022_09_02_120232_product_lines_and_groups',1);
+INSERT INTO `migrations` VALUES (240,'2022_09_05_072355_psps_create',1);
+INSERT INTO `migrations` VALUES (241,'2022_09_19_093956_data_loader_rename_settings',1);
+INSERT INTO `migrations` VALUES (242,'2022_10_03_103231_users_previous_sign_in',1);
+INSERT INTO `migrations` VALUES (243,'2022_10_10_063752_documents_prices_origins',1);
+INSERT INTO `migrations` VALUES (244,'2022_10_11_141909_documents_recalculate',1);
+INSERT INTO `migrations` VALUES (245,'2022_10_14_051736_documents_sar_amp',1);
+INSERT INTO `migrations` VALUES (246,'2022_10_14_110919_assets_contracts_active_quantity',1);
+INSERT INTO `migrations` VALUES (247,'2022_10_17_123340_asset_warranties_refactor',1);

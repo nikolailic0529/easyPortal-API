@@ -37,6 +37,7 @@ class AssetWarrantyFactory extends Factory {
             'status_id'        => null,
             'document_id'      => null,
             'service_group_id' => null,
+            'service_level_id' => null,
             'reseller_id'      => static function (): Reseller {
                 return Reseller::factory()->create();
             },
