@@ -350,7 +350,7 @@
         ]
     },
     {
-        "query": "insert into `asset_warranties` (`asset_id`, `created_at`, `customer_id`, `description`, `document_id`, `document_number`, `end`, `id`, `reseller_id`, `service_group_id`, `start`, `status_id`, `type_id`, `updated_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `asset_warranties` (`asset_id`, `created_at`, `customer_id`, `description`, `document_id`, `document_number`, `end`, `id`, `reseller_id`, `service_group_id`, `service_level_id`, `start`, `status_id`, `type_id`, `updated_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "00f0a6d3-442d-4a31-a573-459ea5f51efd",
             "2022-02-02 00:00:29",
@@ -360,6 +360,7 @@
             null,
             "2025-05-16 00:00:00",
             "a8412a14-2a9f-597d-bf39-e029690d1efc",
+            null,
             null,
             null,
             "2020-05-17 00:00:00",
@@ -374,6 +375,7 @@
             null,
             "2023-06-07 00:00:00",
             "e0db2412-5307-5641-9778-1bf4acc92fce",
+            null,
             null,
             null,
             "2020-05-09 00:00:00",
@@ -1007,7 +1009,7 @@
         ]
     },
     {
-        "query": "insert into `asset_warranties` (`asset_id`, `created_at`, `customer_id`, `description`, `document_id`, `document_number`, `end`, `id`, `reseller_id`, `service_group_id`, `start`, `status_id`, `type_id`, `updated_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `asset_warranties` (`asset_id`, `created_at`, `customer_id`, `description`, `document_id`, `document_number`, `end`, `id`, `reseller_id`, `service_group_id`, `service_level_id`, `start`, `status_id`, `type_id`, `updated_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "01c13a3b-7c8a-4962-865a-ef64ef1b697a",
             "2022-02-02 00:01:49",
@@ -1017,6 +1019,7 @@
             null,
             "2025-06-05 00:00:00",
             "eec9d65c-2a22-5ac2-8183-dea56b4d7af3",
+            null,
             null,
             null,
             "2020-06-06 00:00:00",
@@ -1031,6 +1034,7 @@
             null,
             "2023-06-27 00:00:00",
             "1e5336b0-3b7f-5b0e-b6fb-34c07744aac5",
+            null,
             null,
             null,
             "2020-05-29 00:00:00",

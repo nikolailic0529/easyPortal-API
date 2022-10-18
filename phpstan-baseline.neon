@@ -2396,16 +2396,6 @@ parameters:
 			path: app/Models/AssetWarranty.php
 
 		-
-			message: "#^Method App\\\\Models\\\\AssetWarranty\\:\\:serviceLevels\\(\\) return type with generic class Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\BelongsToMany does not specify its types\\: TRelatedModel$#"
-			count: 1
-			path: app/Models/AssetWarranty.php
-
-		-
-			message: "#^Method App\\\\Models\\\\AssetWarranty\\:\\:setServiceLevelsAttribute\\(\\) has parameter \\$levels with generic class Illuminate\\\\Support\\\\Collection but does not specify its types\\: TKey, TValue$#"
-			count: 1
-			path: app/Models/AssetWarranty.php
-
-		-
 			message: "#^PHPDoc type array\\<string\\> of property App\\\\Models\\\\AssetWarranty\\:\\:\\$casts is not the same as PHPDoc type array of overridden property App\\\\Utils\\\\Eloquent\\\\Model\\:\\:\\$casts\\.$#"
 			count: 1
 			path: app/Models/AssetWarranty.php
@@ -3447,16 +3437,6 @@ parameters:
 
 		-
 			message: "#^Access to an undefined property M of App\\\\Models\\\\Contact\\|App\\\\Models\\\\CustomerLocation\\|App\\\\Models\\\\Data\\\\Location\\|App\\\\Models\\\\ResellerLocation\\:\\:\\$types\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Factories/AssetFactory.php
-
-		-
-			message: "#^Property App\\\\Models\\\\Asset\\:\\:\\$warranties \\(Illuminate\\\\Database\\\\Eloquent\\\\Collection\\<int, App\\\\Models\\\\AssetWarranty\\>\\) does not accept array\\<App\\\\Models\\\\AssetWarranty\\>\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Factories/AssetFactory.php
-
-		-
-			message: "#^Property App\\\\Models\\\\AssetWarranty\\:\\:\\$serviceLevels \\(Illuminate\\\\Database\\\\Eloquent\\\\Collection\\<int, App\\\\Models\\\\Data\\\\ServiceLevel\\>\\) does not accept array\\<int, App\\\\Models\\\\Data\\\\ServiceLevel\\>\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Factory/Factories/AssetFactory.php
 

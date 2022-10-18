@@ -10,7 +10,6 @@ use App\Models\Data\Location;
 use App\Models\Data\Oem;
 use App\Models\Data\Product;
 use App\Models\Data\ServiceGroup;
-use App\Models\Data\ServiceLevel;
 use App\Models\Data\Status;
 use App\Models\Data\Type as TypeModel;
 use App\Models\Document;
@@ -168,67 +167,78 @@ class AssetFactoryTest extends TestCase {
             [
                 // External
                 [
-                    'type'          => 'FactoryWarranty',
-                    'status'        => 'Active',
-                    'start'         => '2019-11-07',
-                    'end'           => '2022-12-06',
-                    'serviceGroup'  => null,
-                    'serviceLevels' => [],
-                    'document'      => null,
+                    'type'         => 'FactoryWarranty',
+                    'status'       => 'Active',
+                    'start'        => '2019-11-07',
+                    'end'          => '2022-12-06',
+                    'serviceGroup' => null,
+                    'serviceLevel' => null,
+                    'document'     => null,
                 ],
                 [
-                    'type'          => 'Contract',
-                    'status'        => 'Active',
-                    'start'         => '2019-12-10',
-                    'end'           => '2024-12-09',
-                    'serviceGroup'  => null,
-                    'serviceLevels' => [],
-                    'document'      => null,
+                    'type'         => 'Contract',
+                    'status'       => 'Active',
+                    'start'        => '2019-12-10',
+                    'end'          => '2024-12-09',
+                    'serviceGroup' => null,
+                    'serviceLevel' => null,
+                    'document'     => null,
                 ],
                 // From document
                 [
-                    'type'          => null,
-                    'status'        => null,
-                    'start'         => '2020-03-01',
-                    'end'           => '2021-02-28',
-                    'serviceGroup'  => [
+                    'type'         => null,
+                    'status'       => null,
+                    'start'        => '2020-03-01',
+                    'end'          => '2021-02-28',
+                    'serviceGroup' => [
                         'sku'  => 'H7J34AC',
                         'name' => 'HPE NBD w DMR Proactive Care SVC',
                     ],
-                    'serviceLevels' => [
-                        [
-                            'sku'  => 'HA151AC',
-                            'name' => 'HPE Hardware Maintenance Onsite Support',
-                        ],
+                    'serviceLevel' => null,
+                    'document'     => '0056523287',
+                ],
+                [
+                    'type'         => null,
+                    'status'       => null,
+                    'start'        => '2020-03-01',
+                    'end'          => '2021-02-28',
+                    'serviceGroup' => [
+                        'sku'  => 'H7J34AC',
+                        'name' => 'HPE NBD w DMR Proactive Care SVC',
                     ],
-                    'document'      => '0056523287',
+                    'serviceLevel' => [
+                        'sku'  => 'HA151AC',
+                        'name' => 'HPE Hardware Maintenance Onsite Support',
+                    ],
+                    'document'     => '0056523287',
                 ],
             ],
             $created->warranties
                 ->sort(static function (AssetWarranty $a, AssetWarranty $b): int {
-                    return $a->start <=> $b->start ?: $a->end <=> $b->end;
+                    return $a->start <=> $b->start
+                        ?: $a->end <=> $b->end
+                        ?: $a->service_group_id <=> $b->service_group_id
+                        ?: $a->service_level_id <=> $b->service_level_id;
                 })
                 ->map(static function (AssetWarranty $warranty): array {
                     return [
-                        'type'          => $warranty->type->key ?? null,
-                        'status'        => $warranty->status->key ?? null,
-                        'start'         => $warranty->start?->toDateString(),
-                        'end'           => $warranty->end?->toDateString(),
-                        'document'      => $warranty->document_number,
-                        'serviceGroup'  => $warranty->serviceGroup
+                        'type'         => $warranty->type->key ?? null,
+                        'status'       => $warranty->status->key ?? null,
+                        'start'        => $warranty->start?->toDateString(),
+                        'end'          => $warranty->end?->toDateString(),
+                        'document'     => $warranty->document_number,
+                        'serviceGroup' => $warranty->serviceGroup
                             ? [
                                 'sku'  => $warranty->serviceGroup->sku,
                                 'name' => $warranty->serviceGroup->name,
                             ]
                             : null,
-                        'serviceLevels' => $warranty->serviceLevels
-                            ->map(static function (ServiceLevel $level): array {
-                                return [
-                                    'sku'  => $level->sku,
-                                    'name' => $level->name,
-                                ];
-                            })
-                            ->all(),
+                        'serviceLevel' => $warranty->serviceLevel
+                            ? [
+                                'sku'  => $warranty->serviceLevel->sku,
+                                'name' => $warranty->serviceLevel->name,
+                            ]
+                            : null,
                     ];
                 })
                 ->values()
@@ -642,9 +652,14 @@ class AssetFactoryTest extends TestCase {
             ->shouldReceive('assetDocumentsWarrantiesExtended')
             ->with($model, $asset)
             ->once()
-            ->andReturn([$b]);
+            ->andReturn(
+                new EloquentCollection([$b]),
+            );
 
-        self::assertEquals([$b], $factory->assetDocumentsWarranties($model, $asset));
+        self::assertEquals(
+            new EloquentCollection([$b]),
+            $factory->assetDocumentsWarranties($model, $asset),
+        );
     }
 
     /**
@@ -687,22 +702,7 @@ class AssetFactoryTest extends TestCase {
         $asset           = new ViewAsset([
             'id'            => $model->getKey(),
             'assetDocument' => [
-                // Only one of should be created but Services should be merged
-                [
-                    'startDate'       => $this->getDatetime($date),
-                    'endDate'         => $this->getDatetime($date),
-                    'documentNumber'  => $documentA->number,
-                    'document'        => [
-                        'id'                   => $documentA->getKey(),
-                        'vendorSpecificFields' => [
-                            'vendor' => $documentA->oem->key ?? null,
-                        ],
-                    ],
-                    'reseller'        => null,
-                    'customer'        => null,
-                    'serviceLevelSku' => $this->faker->uuid(),
-                    'serviceGroupSku' => $serviceGroupSku,
-                ],
+                // Only one of should be created
                 [
                     'startDate'       => $this->getDatetime($date),
                     'endDate'         => $this->getDatetime($date),
@@ -866,7 +866,6 @@ class AssetFactoryTest extends TestCase {
 
         // Test
         $warranties = $factory->assetDocumentsWarrantiesExtended($model, $asset);
-        $warranties = new Collection($warranties);
 
         self::assertCount(5, $warranties);
 
@@ -884,13 +883,8 @@ class AssetFactoryTest extends TestCase {
         self::assertNull($a->customer_id);
         self::assertEquals($documentA->getKey(), $a->document_id);
         self::assertEquals($model->getKey(), $a->asset_id);
-        self::assertEquals(2, $a->serviceLevels->count());
-
-        $as = $a->serviceLevels->first(static function (ServiceLevel $level) use ($serviceLevelSku): bool {
-            return $level->sku === $serviceLevelSku;
-        });
-
-        self::assertNotNull($as);
+        self::assertEquals($serviceGroupSku, $a->serviceGroup->sku ?? null);
+        self::assertEquals($serviceLevelSku, $a->serviceLevel->sku ?? null);
 
         // Document null
         /** @var AssetWarranty $b */
@@ -915,7 +909,6 @@ class AssetFactoryTest extends TestCase {
         self::assertEquals($customerB->getKey(), $c->customer_id);
         self::assertEquals($documentB->getKey(), $c->document_id);
         self::assertEquals($model->getKey(), $c->asset_id);
-        self::assertEquals(0, $c->serviceLevels->count());
 
         // Existing warranty should be updated
         /** @var AssetWarranty $d */
@@ -1364,6 +1357,7 @@ class AssetFactoryTest extends TestCase {
             'status_id'        => $status->getKey(),
             'description'      => $entry->description,
             'service_group_id' => null,
+            'service_level_id' => null,
             'customer_id'      => null,
             'reseller_id'      => null,
             'document_id'      => null,
@@ -1386,6 +1380,7 @@ class AssetFactoryTest extends TestCase {
             'status_id'        => $status->getKey(),
             'description'      => $entry->description,
             'service_group_id' => null,
+            'service_level_id' => null,
             'customer_id'      => null,
             'reseller_id'      => null,
             'document_id'      => null,
@@ -1658,10 +1653,7 @@ class AssetFactoryTest_Factory extends AssetFactory {
         return parent::assetDocumentDocument($model, $assetDocument);
     }
 
-    /**
-     * @inheritDoc
-     */
-    public function assetDocumentsWarrantiesExtended(Asset $model, ViewAsset $asset): array {
+    public function assetDocumentsWarrantiesExtended(Asset $model, ViewAsset $asset): EloquentCollection {
         return parent::assetDocumentsWarrantiesExtended($model, $asset);
     }
 }

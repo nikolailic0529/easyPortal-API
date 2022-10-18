@@ -3297,7 +3297,7 @@
         ]
     },
     {
-        "query": "insert into `asset_warranties` (`asset_id`, `created_at`, `customer_id`, `description`, `document_id`, `document_number`, `end`, `id`, `reseller_id`, `service_group_id`, `start`, `status_id`, `type_id`, `updated_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `asset_warranties` (`asset_id`, `created_at`, `customer_id`, `description`, `document_id`, `document_number`, `end`, `id`, `reseller_id`, `service_group_id`, `service_level_id`, `start`, `status_id`, `type_id`, `updated_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "16c6653b-aaeb-4f7b-a1f1-ac1c3d38b8fe",
             "2022-09-27 00:05:11",
@@ -3307,6 +3307,7 @@
             null,
             "2023-03-31 00:00:00",
             "8a6eeed6-83a2-5a9a-ad7f-d8d7be3606d4",
+            null,
             null,
             null,
             "2022-04-01 00:00:00",
@@ -3323,6 +3324,7 @@
             "84e569f3-8a35-57c1-a942-4e8c91cce6dd",
             null,
             null,
+            null,
             "2021-03-01 00:00:00",
             "721d5d69-9c89-5e1b-b9d4-601a398168df",
             "3edb3a97-918e-5356-9cf8-8108c130fc48",
@@ -3335,6 +3337,7 @@
             null,
             "2021-03-21 00:00:00",
             "5ffbadd1-7c30-5ae7-b402-e89a7222bd83",
+            null,
             null,
             null,
             "2018-02-20 00:00:00",
@@ -3768,7 +3771,7 @@
         ]
     },
     {
-        "query": "insert into `asset_warranties` (`asset_id`, `created_at`, `customer_id`, `description`, `document_id`, `document_number`, `end`, `id`, `reseller_id`, `service_group_id`, `start`, `status_id`, `type_id`, `updated_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `asset_warranties` (`asset_id`, `created_at`, `customer_id`, `description`, `document_id`, `document_number`, `end`, `id`, `reseller_id`, `service_group_id`, `service_level_id`, `start`, `status_id`, `type_id`, `updated_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "285d5fe6-9bed-4db6-bbb3-283c6130e952",
             "2022-09-27 00:06:10",
@@ -3778,6 +3781,7 @@
             null,
             "2023-03-31 00:00:00",
             "e7ebf95a-27ab-5246-bcdd-9312f3549561",
+            null,
             null,
             null,
             "2022-04-01 00:00:00",
@@ -3794,6 +3798,7 @@
             "139da2ef-2b97-53ff-be7b-68b3c69f8476",
             null,
             null,
+            null,
             "2021-03-01 00:00:00",
             "721d5d69-9c89-5e1b-b9d4-601a398168df",
             "3edb3a97-918e-5356-9cf8-8108c130fc48",
@@ -3806,6 +3811,7 @@
             null,
             "2021-03-21 00:00:00",
             "4666463e-6ea4-5e3a-b555-a3f7bc5fc97d",
+            null,
             null,
             null,
             "2018-02-20 00:00:00",
@@ -5164,7 +5170,7 @@
         ]
     },
     {
-        "query": "insert into `asset_warranties` (`start`, `end`, `asset_id`, `type_id`, `status_id`, `description`, `service_group_id`, `customer_id`, `reseller_id`, `document_id`, `document_number`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `asset_warranties` (`start`, `end`, `asset_id`, `type_id`, `status_id`, `description`, `service_group_id`, `service_level_id`, `customer_id`, `reseller_id`, `document_id`, `document_number`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "2020-06-01 00:00:00",
             "2023-05-31 00:00:00",
@@ -5172,6 +5178,7 @@
             "3edb3a97-918e-5356-9cf8-8108c130fc48",
             "55482e68-2ad4-5ad7-a753-3b78cf9b8e7d",
             "H7J34AC-HPE Foundation Care 24x7 SVC",
+            null,
             null,
             null,
             null,
@@ -5573,7 +5580,7 @@
         ]
     },
     {
-        "query": "insert into `asset_warranties` (`start`, `end`, `asset_id`, `type_id`, `status_id`, `description`, `service_group_id`, `customer_id`, `reseller_id`, `document_id`, `document_number`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `asset_warranties` (`start`, `end`, `asset_id`, `type_id`, `status_id`, `description`, `service_group_id`, `service_level_id`, `customer_id`, `reseller_id`, `document_id`, `document_number`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "2020-06-01 00:00:00",
             "2023-05-31 00:00:00",
@@ -5581,6 +5588,7 @@
             "3edb3a97-918e-5356-9cf8-8108c130fc48",
             "55482e68-2ad4-5ad7-a753-3b78cf9b8e7d",
             "H7J34AC-HPE Foundation Care 24x7 SVC",
+            null,
             null,
             null,
             null,
@@ -6867,7 +6875,7 @@
         ]
     },
     {
-        "query": "insert into `asset_warranties` (`asset_id`, `created_at`, `customer_id`, `description`, `document_id`, `document_number`, `end`, `id`, `reseller_id`, `service_group_id`, `start`, `status_id`, `type_id`, `updated_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `asset_warranties` (`asset_id`, `created_at`, `customer_id`, `description`, `document_id`, `document_number`, `end`, `id`, `reseller_id`, `service_group_id`, `service_level_id`, `start`, `status_id`, `type_id`, `updated_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "aad712ac-8eaf-4495-919d-2d22994c0534",
             "2022-09-27 00:11:31",
@@ -6877,6 +6885,7 @@
             null,
             "2022-12-31 00:00:00",
             "b2f1c403-c818-5f66-bb92-9bfd35cb8c1a",
+            null,
             null,
             null,
             "2021-05-08 00:00:00",
@@ -6893,6 +6902,7 @@
             "8e1befb2-eef5-5d5d-b97f-e0464791bd16",
             null,
             null,
+            null,
             "2021-05-08 00:00:00",
             "7615698a-e948-5df2-b5db-958a8795ddba",
             "3edb3a97-918e-5356-9cf8-8108c130fc48",
@@ -6905,6 +6915,7 @@
             null,
             "2020-07-16 00:00:00",
             "7c64231a-4fc1-53a5-a160-b039b936b2cf",
+            null,
             null,
             null,
             "2019-07-17 00:00:00",
@@ -6921,6 +6932,7 @@
             "a21aa561-cfdd-5c46-bb7a-c2accb610d28",
             null,
             null,
+            null,
             "2015-07-02 00:00:00",
             "721d5d69-9c89-5e1b-b9d4-601a398168df",
             "ae925ee2-f892-5cd9-b64a-53847645d28d",
@@ -6933,6 +6945,7 @@
             null,
             "2021-07-16 00:00:00",
             "76e5a888-8d27-59aa-9c1c-987002b98149",
+            null,
             null,
             null,
             "2020-07-17 00:00:00",
@@ -6949,6 +6962,7 @@
             "3ddf7fcb-58fd-52ba-ad42-c374e37b28ce",
             null,
             null,
+            null,
             "2018-07-17 00:00:00",
             "721d5d69-9c89-5e1b-b9d4-601a398168df",
             "ae925ee2-f892-5cd9-b64a-53847645d28d",
@@ -6961,6 +6975,7 @@
             null,
             "2018-07-01 00:00:00",
             "23fb6854-be7b-5c35-a2f0-5023bfbad808",
+            null,
             null,
             null,
             "2015-07-02 00:00:00",
@@ -7188,7 +7203,7 @@
         ]
     },
     {
-        "query": "insert into `asset_warranties` (`asset_id`, `created_at`, `customer_id`, `description`, `document_id`, `document_number`, `end`, `id`, `reseller_id`, `service_group_id`, `start`, `status_id`, `type_id`, `updated_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `asset_warranties` (`asset_id`, `created_at`, `customer_id`, `description`, `document_id`, `document_number`, `end`, `id`, `reseller_id`, `service_group_id`, `service_level_id`, `start`, `status_id`, `type_id`, `updated_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "2647f6d8-5ea1-4b5f-9bc6-fe91a86c90ab",
             "2022-09-27 00:12:40",
@@ -7198,6 +7213,7 @@
             null,
             "2022-12-31 00:00:00",
             "4930e3b8-ebd3-5de0-8b9b-bab2c63906ea",
+            null,
             null,
             null,
             "2021-05-08 00:00:00",
@@ -7214,6 +7230,7 @@
             "da990451-f97a-5431-b4a0-085a0c62509c",
             null,
             null,
+            null,
             "2021-05-08 00:00:00",
             "7615698a-e948-5df2-b5db-958a8795ddba",
             "3edb3a97-918e-5356-9cf8-8108c130fc48",
@@ -7226,6 +7243,7 @@
             null,
             "2018-09-06 00:00:00",
             "ff800d73-2750-5be7-b0b6-dd8098d261c5",
+            null,
             null,
             null,
             "2015-09-07 00:00:00",
@@ -7242,6 +7260,7 @@
             "3d48206a-b80e-5c1c-a821-f4d69c0169f7",
             null,
             null,
+            null,
             "2018-11-30 00:00:00",
             "721d5d69-9c89-5e1b-b9d4-601a398168df",
             "ae925ee2-f892-5cd9-b64a-53847645d28d",
@@ -7254,6 +7273,7 @@
             null,
             "2021-11-29 00:00:00",
             "060246c2-74ba-5215-86af-b8308f359577",
+            null,
             null,
             null,
             "2020-11-30 00:00:00",
@@ -7270,6 +7290,7 @@
             "1e426512-7fd7-52b8-8c4b-0496c2e80946",
             null,
             null,
+            null,
             "2019-11-30 00:00:00",
             "721d5d69-9c89-5e1b-b9d4-601a398168df",
             "ae925ee2-f892-5cd9-b64a-53847645d28d",
@@ -7282,6 +7303,7 @@
             null,
             "2018-10-16 00:00:00",
             "2ac83497-5e14-59a9-afc0-91ed54bc6a3d",
+            null,
             null,
             null,
             "2015-09-17 00:00:00",
@@ -7437,7 +7459,7 @@
         ]
     },
     {
-        "query": "insert into `asset_warranties` (`asset_id`, `created_at`, `customer_id`, `description`, `document_id`, `document_number`, `end`, `id`, `reseller_id`, `service_group_id`, `start`, `status_id`, `type_id`, `updated_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `asset_warranties` (`asset_id`, `created_at`, `customer_id`, `description`, `document_id`, `document_number`, `end`, `id`, `reseller_id`, `service_group_id`, `service_level_id`, `start`, `status_id`, `type_id`, `updated_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "a2fff870-57a5-4771-9550-f5ddcd82cdf5",
             "2022-09-27 00:13:31",
@@ -7447,6 +7469,7 @@
             null,
             "2022-12-31 00:00:00",
             "fb3c3907-b815-5a13-a230-f12015502793",
+            null,
             null,
             null,
             "2021-05-08 00:00:00",
@@ -7463,6 +7486,7 @@
             "e615ccbb-b49b-5307-93e6-83bf3883c1ee",
             null,
             null,
+            null,
             "2021-05-08 00:00:00",
             "7615698a-e948-5df2-b5db-958a8795ddba",
             "3edb3a97-918e-5356-9cf8-8108c130fc48",
@@ -7475,6 +7499,7 @@
             null,
             "2020-05-07 00:00:00",
             "8a1511bb-0052-5004-84d8-2f7aa632ee4d",
+            null,
             null,
             null,
             "2017-05-08 00:00:00",
@@ -7491,6 +7516,7 @@
             "ea584b45-f54b-5df5-8200-584daf5072d7",
             null,
             null,
+            null,
             "2020-05-08 00:00:00",
             "721d5d69-9c89-5e1b-b9d4-601a398168df",
             "ae925ee2-f892-5cd9-b64a-53847645d28d",
@@ -7503,6 +7529,7 @@
             null,
             "2020-05-07 00:00:00",
             "61c8613c-d182-5972-adbc-347050009781",
+            null,
             null,
             null,
             "2017-05-08 00:00:00",
@@ -8277,7 +8304,7 @@
         ]
     },
     {
-        "query": "insert into `asset_warranties` (`asset_id`, `created_at`, `customer_id`, `description`, `document_id`, `document_number`, `end`, `id`, `reseller_id`, `service_group_id`, `start`, `status_id`, `type_id`, `updated_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `asset_warranties` (`asset_id`, `created_at`, `customer_id`, `description`, `document_id`, `document_number`, `end`, `id`, `reseller_id`, `service_group_id`, `service_level_id`, `start`, `status_id`, `type_id`, `updated_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "0bcfe7de-5742-4a86-ab36-b5587e5c2d8d",
             "2022-09-27 00:15:25",
@@ -8287,6 +8314,7 @@
             null,
             "2022-08-31 00:00:00",
             "0ab32880-0950-5662-91e0-a04a22f20c0a",
+            null,
             null,
             null,
             "2022-01-01 00:00:00",
@@ -8303,6 +8331,7 @@
             "b9f3cbfe-afd2-5bc8-9642-1dc05f8341ce",
             null,
             null,
+            null,
             "2017-02-22 00:00:00",
             "721d5d69-9c89-5e1b-b9d4-601a398168df",
             "ae925ee2-f892-5cd9-b64a-53847645d28d",
@@ -8315,6 +8344,7 @@
             null,
             "2015-05-10 00:00:00",
             "5d66fb3f-2e4b-509f-91b4-fa89949306f5",
+            null,
             null,
             null,
             "2012-05-11 00:00:00",
@@ -8331,6 +8361,7 @@
             "989c5152-9982-55c5-bbce-a07f948e7bdc",
             null,
             null,
+            null,
             "2018-02-22 00:00:00",
             "721d5d69-9c89-5e1b-b9d4-601a398168df",
             "ae925ee2-f892-5cd9-b64a-53847645d28d",
@@ -8343,6 +8374,7 @@
             null,
             "2021-03-16 00:00:00",
             "c970c8ea-b676-52dd-9cca-765b3c98fd89",
+            null,
             null,
             null,
             "2020-03-17 00:00:00",
@@ -8359,6 +8391,7 @@
             "f140dfcd-0fb5-5548-b66c-215e8f5f15f2",
             null,
             null,
+            null,
             "2019-02-22 00:00:00",
             "721d5d69-9c89-5e1b-b9d4-601a398168df",
             "ae925ee2-f892-5cd9-b64a-53847645d28d",
@@ -8371,6 +8404,7 @@
             null,
             "2015-08-03 00:00:00",
             "9d267411-506c-5033-8349-a29189a47bf7",
+            null,
             null,
             null,
             "2015-08-03 00:00:00",
@@ -9453,7 +9487,7 @@
         ]
     },
     {
-        "query": "insert into `asset_warranties` (`asset_id`, `created_at`, `customer_id`, `description`, `document_id`, `document_number`, `end`, `id`, `reseller_id`, `service_group_id`, `start`, `status_id`, `type_id`, `updated_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `asset_warranties` (`asset_id`, `created_at`, `customer_id`, `description`, `document_id`, `document_number`, `end`, `id`, `reseller_id`, `service_group_id`, `service_level_id`, `start`, `status_id`, `type_id`, `updated_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "64564dc5-b464-40fd-a865-5d9406dd7e4b",
             "2022-09-27 00:17:35",
@@ -9463,6 +9497,7 @@
             null,
             "2022-04-30 00:00:00",
             "8bae6058-15bd-5742-a230-cfc5d4b6a8f9",
+            null,
             null,
             null,
             "2019-05-02 00:00:00",
@@ -9477,6 +9512,7 @@
             null,
             "2022-05-23 00:00:00",
             "89de08b0-ea6d-5ccb-a715-806fa641427a",
+            null,
             null,
             null,
             "2019-04-24 00:00:00",
@@ -9727,7 +9763,7 @@
         ]
     },
     {
-        "query": "insert into `asset_warranties` (`asset_id`, `created_at`, `customer_id`, `description`, `document_id`, `document_number`, `end`, `id`, `reseller_id`, `service_group_id`, `start`, `status_id`, `type_id`, `updated_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `asset_warranties` (`asset_id`, `created_at`, `customer_id`, `description`, `document_id`, `document_number`, `end`, `id`, `reseller_id`, `service_group_id`, `service_level_id`, `start`, `status_id`, `type_id`, `updated_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "f19a9d13-6626-4c6c-9b2c-c2398e4aebd7",
             "2022-09-27 00:18:09",
@@ -9737,6 +9773,7 @@
             null,
             "2022-04-30 00:00:00",
             "012c62c5-8698-5af6-a714-82a81de37566",
+            null,
             null,
             null,
             "2019-05-02 00:00:00",
@@ -9751,6 +9788,7 @@
             null,
             "2022-05-23 00:00:00",
             "7cf32085-851e-5b5c-9300-41b592f822ee",
+            null,
             null,
             null,
             "2019-04-24 00:00:00",
@@ -11399,7 +11437,7 @@
         ]
     },
     {
-        "query": "insert into `asset_warranties` (`asset_id`, `created_at`, `customer_id`, `description`, `document_id`, `document_number`, `end`, `id`, `reseller_id`, `service_group_id`, `start`, `status_id`, `type_id`, `updated_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `asset_warranties` (`asset_id`, `created_at`, `customer_id`, `description`, `document_id`, `document_number`, `end`, `id`, `reseller_id`, `service_group_id`, `service_level_id`, `start`, `status_id`, `type_id`, `updated_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "5cc79b6b-ec49-4daa-a5a8-a2f99dad2898",
             "2022-09-27 00:20:53",
@@ -11409,6 +11447,7 @@
             null,
             "2023-05-31 00:00:00",
             "e4d3e5e9-20f5-558d-9ef4-c8758d8c2ca4",
+            null,
             null,
             null,
             "2022-06-01 00:00:00",
@@ -11425,6 +11464,7 @@
             "a53a6e24-e073-5a3b-b2ef-aeeedbf91a83",
             null,
             null,
+            null,
             "2016-07-12 00:00:00",
             "721d5d69-9c89-5e1b-b9d4-601a398168df",
             "ae925ee2-f892-5cd9-b64a-53847645d28d",
@@ -11437,6 +11477,7 @@
             null,
             "2019-07-11 00:00:00",
             "6a27b1b0-085c-554b-96a0-f4a8e1ec78de",
+            null,
             null,
             null,
             "2016-07-12 00:00:00",
@@ -12017,7 +12058,7 @@
         ]
     },
     {
-        "query": "insert into `asset_warranties` (`asset_id`, `created_at`, `customer_id`, `description`, `document_id`, `document_number`, `end`, `id`, `reseller_id`, `service_group_id`, `start`, `status_id`, `type_id`, `updated_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `asset_warranties` (`asset_id`, `created_at`, `customer_id`, `description`, `document_id`, `document_number`, `end`, `id`, `reseller_id`, `service_group_id`, `service_level_id`, `start`, `status_id`, `type_id`, `updated_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "05d34f7e-561a-44a9-86c6-1a1fbd345e54",
             "2022-09-27 00:22:13",
@@ -12027,6 +12068,7 @@
             null,
             "2023-05-31 00:00:00",
             "b95ee1ae-999e-527e-8b2d-93c7d92423f7",
+            null,
             null,
             null,
             "2022-06-01 00:00:00",
@@ -12043,6 +12085,7 @@
             "caecaeea-8715-532c-9c02-c763e346884b",
             null,
             null,
+            null,
             "2016-07-12 00:00:00",
             "721d5d69-9c89-5e1b-b9d4-601a398168df",
             "ae925ee2-f892-5cd9-b64a-53847645d28d",
@@ -12055,6 +12098,7 @@
             null,
             "2019-07-11 00:00:00",
             "6009f09c-70c1-5ee7-a326-e20931bbdb3d",
+            null,
             null,
             null,
             "2016-07-12 00:00:00",
@@ -12300,7 +12344,7 @@
         ]
     },
     {
-        "query": "insert into `asset_warranties` (`asset_id`, `created_at`, `customer_id`, `description`, `document_id`, `document_number`, `end`, `id`, `reseller_id`, `service_group_id`, `start`, `status_id`, `type_id`, `updated_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `asset_warranties` (`asset_id`, `created_at`, `customer_id`, `description`, `document_id`, `document_number`, `end`, `id`, `reseller_id`, `service_group_id`, `service_level_id`, `start`, `status_id`, `type_id`, `updated_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "0c3f8345-f9fc-4aac-b726-ab5bcbb405fd",
             "2022-09-27 00:22:54",
@@ -12310,6 +12354,7 @@
             null,
             "2023-05-31 00:00:00",
             "f28599e1-c089-5f2b-8c14-32ca2a49d62b",
+            null,
             null,
             null,
             "2022-06-01 00:00:00",
@@ -12326,6 +12371,7 @@
             "daa1821d-5d70-529d-ba6e-e8b0b3e2e7b4",
             null,
             null,
+            null,
             "2016-07-12 00:00:00",
             "721d5d69-9c89-5e1b-b9d4-601a398168df",
             "ae925ee2-f892-5cd9-b64a-53847645d28d",
@@ -12338,6 +12384,7 @@
             null,
             "2019-07-11 00:00:00",
             "99797a89-f663-51a3-83af-29d02357dbe1",
+            null,
             null,
             null,
             "2016-07-12 00:00:00",
@@ -13490,7 +13537,7 @@
         ]
     },
     {
-        "query": "insert into `asset_warranties` (`asset_id`, `created_at`, `customer_id`, `description`, `document_id`, `document_number`, `end`, `id`, `reseller_id`, `service_group_id`, `start`, `status_id`, `type_id`, `updated_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `asset_warranties` (`asset_id`, `created_at`, `customer_id`, `description`, `document_id`, `document_number`, `end`, `id`, `reseller_id`, `service_group_id`, `service_level_id`, `start`, `status_id`, `type_id`, `updated_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "e5c16374-dbb7-40c5-b3da-73006eae8b4a",
             "2022-09-27 00:24:55",
@@ -13500,6 +13547,7 @@
             null,
             "2022-10-31 00:00:00",
             "209ab95e-741a-5be9-bfea-10758f109c6c",
+            null,
             null,
             null,
             "2022-05-01 00:00:00",
@@ -13516,6 +13564,7 @@
             "8f4c8ab1-f9d4-553b-8576-03cfee480013",
             null,
             null,
+            null,
             "2017-04-29 00:00:00",
             "721d5d69-9c89-5e1b-b9d4-601a398168df",
             "3edb3a97-918e-5356-9cf8-8108c130fc48",
@@ -13528,6 +13577,7 @@
             null,
             "2020-05-20 00:00:00",
             "6fc2f50b-9809-5829-8725-cc1438ce4959",
+            null,
             null,
             null,
             "2017-04-21 00:00:00",
@@ -14040,7 +14090,7 @@
         ]
     },
     {
-        "query": "insert into `asset_warranties` (`asset_id`, `created_at`, `customer_id`, `description`, `document_id`, `document_number`, `end`, `id`, `reseller_id`, `service_group_id`, `start`, `status_id`, `type_id`, `updated_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `asset_warranties` (`asset_id`, `created_at`, `customer_id`, `description`, `document_id`, `document_number`, `end`, `id`, `reseller_id`, `service_group_id`, `service_level_id`, `start`, `status_id`, `type_id`, `updated_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "c8c777f3-1736-4358-8665-5e5a879e145c",
             "2022-09-27 00:26:03",
@@ -14050,6 +14100,7 @@
             null,
             "2022-10-31 00:00:00",
             "48b000a2-835c-54f3-96aa-df630e116353",
+            null,
             null,
             null,
             "2022-05-01 00:00:00",
@@ -14066,6 +14117,7 @@
             "4cbdca21-7e5e-50f7-8901-8a50f3ef26a4",
             null,
             null,
+            null,
             "2017-04-29 00:00:00",
             "721d5d69-9c89-5e1b-b9d4-601a398168df",
             "3edb3a97-918e-5356-9cf8-8108c130fc48",
@@ -14078,6 +14130,7 @@
             null,
             "2020-05-20 00:00:00",
             "4aae39e1-056f-5e78-8e44-6cf833b67420",
+            null,
             null,
             null,
             "2017-04-21 00:00:00",
@@ -14269,7 +14322,7 @@
         ]
     },
     {
-        "query": "insert into `asset_warranties` (`asset_id`, `created_at`, `customer_id`, `description`, `document_id`, `document_number`, `end`, `id`, `reseller_id`, `service_group_id`, `start`, `status_id`, `type_id`, `updated_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `asset_warranties` (`asset_id`, `created_at`, `customer_id`, `description`, `document_id`, `document_number`, `end`, `id`, `reseller_id`, `service_group_id`, `service_level_id`, `start`, `status_id`, `type_id`, `updated_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "6c62235f-d17a-4180-a91e-ecbb0525e295",
             "2022-09-27 00:26:36",
@@ -14279,6 +14332,7 @@
             null,
             "2022-10-31 00:00:00",
             "b42be40a-10e9-5587-94b0-47b7e3dcf2e4",
+            null,
             null,
             null,
             "2022-05-01 00:00:00",
@@ -14295,6 +14349,7 @@
             "ac4c409f-bd3a-5f55-ba70-4688a3df70e6",
             null,
             null,
+            null,
             "2017-04-29 00:00:00",
             "721d5d69-9c89-5e1b-b9d4-601a398168df",
             "3edb3a97-918e-5356-9cf8-8108c130fc48",
@@ -14307,6 +14362,7 @@
             null,
             "2020-05-20 00:00:00",
             "682c2378-d73b-5fe1-9e79-494d76836f2a",
+            null,
             null,
             null,
             "2017-04-21 00:00:00",
@@ -17668,7 +17724,7 @@
         ]
     },
     {
-        "query": "insert into `asset_warranties` (`asset_id`, `created_at`, `customer_id`, `description`, `document_id`, `document_number`, `end`, `id`, `reseller_id`, `service_group_id`, `start`, `status_id`, `type_id`, `updated_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `asset_warranties` (`asset_id`, `created_at`, `customer_id`, `description`, `document_id`, `document_number`, `end`, `id`, `reseller_id`, `service_group_id`, `service_level_id`, `start`, `status_id`, `type_id`, `updated_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "33350d7a-60d0-4536-a6e7-93e26388bbfb",
             "2022-09-27 00:32:21",
@@ -17678,6 +17734,7 @@
             null,
             "2023-07-11 00:00:00",
             "1117b1e3-4714-5442-9fdc-70d336c2f92e",
+            null,
             null,
             null,
             "2018-07-12 00:00:00",
@@ -17692,6 +17749,7 @@
             null,
             "2023-08-02 00:00:00",
             "aea18e63-1cbf-5be3-b1b2-fa48bda4ae93",
+            null,
             null,
             null,
             "2018-07-04 00:00:00",
@@ -19479,7 +19537,7 @@
         ]
     },
     {
-        "query": "insert into `asset_warranties` (`asset_id`, `created_at`, `customer_id`, `description`, `document_id`, `document_number`, `end`, `id`, `reseller_id`, `service_group_id`, `start`, `status_id`, `type_id`, `updated_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `asset_warranties` (`asset_id`, `created_at`, `customer_id`, `description`, `document_id`, `document_number`, `end`, `id`, `reseller_id`, `service_group_id`, `service_level_id`, `start`, `status_id`, `type_id`, `updated_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "ff871b44-43b7-4b8c-a4dd-c4a2576f5098",
             "2022-09-27 00:35:11",
@@ -19489,6 +19547,7 @@
             null,
             "2023-02-28 00:00:00",
             "313fc495-4718-5549-b7d8-e807f340c9b4",
+            null,
             null,
             null,
             "2021-03-01 00:00:00",
@@ -19503,6 +19562,7 @@
             null,
             "2018-06-13 00:00:00",
             "b13b0775-5a75-575c-909c-9a914f2635ab",
+            null,
             null,
             null,
             "2015-05-15 00:00:00",
@@ -20501,7 +20561,7 @@
         ]
     },
     {
-        "query": "insert into `asset_warranties` (`asset_id`, `created_at`, `customer_id`, `description`, `document_id`, `document_number`, `end`, `id`, `reseller_id`, `service_group_id`, `start`, `status_id`, `type_id`, `updated_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `asset_warranties` (`asset_id`, `created_at`, `customer_id`, `description`, `document_id`, `document_number`, `end`, `id`, `reseller_id`, `service_group_id`, `service_level_id`, `start`, `status_id`, `type_id`, `updated_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "2364d714-3e9d-4be0-8f49-c4fbbdce9751",
             "2022-09-27 00:37:01",
@@ -20511,6 +20571,7 @@
             null,
             "2023-08-31 00:00:00",
             "9a3b79e6-9ce7-54c0-9fe8-8339be2d6f21",
+            null,
             null,
             null,
             "2018-08-21 00:00:00",
@@ -20525,6 +20586,7 @@
             null,
             "2021-09-11 00:00:00",
             "609ab34a-da1e-5e0e-805f-0de50e887791",
+            null,
             null,
             null,
             "2018-08-13 00:00:00",
@@ -20814,7 +20876,7 @@
         ]
     },
     {
-        "query": "insert into `asset_warranties` (`asset_id`, `created_at`, `customer_id`, `description`, `document_id`, `document_number`, `end`, `id`, `reseller_id`, `service_group_id`, `start`, `status_id`, `type_id`, `updated_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `asset_warranties` (`asset_id`, `created_at`, `customer_id`, `description`, `document_id`, `document_number`, `end`, `id`, `reseller_id`, `service_group_id`, `service_level_id`, `start`, `status_id`, `type_id`, `updated_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "3959a6ba-1651-4f88-8650-2ad725902365",
             "2022-09-27 00:37:39",
@@ -20824,6 +20886,7 @@
             null,
             "2023-08-31 00:00:00",
             "caaad5fe-4041-5294-ba64-7d7ad1c8ca2d",
+            null,
             null,
             null,
             "2018-08-21 00:00:00",
@@ -20838,6 +20901,7 @@
             null,
             "2021-09-11 00:00:00",
             "c1243884-3ca3-5853-9847-0d644c07c22b",
+            null,
             null,
             null,
             "2018-08-13 00:00:00",
@@ -21668,7 +21732,7 @@
         ]
     },
     {
-        "query": "insert into `asset_warranties` (`asset_id`, `created_at`, `customer_id`, `description`, `document_id`, `document_number`, `end`, `id`, `reseller_id`, `service_group_id`, `start`, `status_id`, `type_id`, `updated_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `asset_warranties` (`asset_id`, `created_at`, `customer_id`, `description`, `document_id`, `document_number`, `end`, `id`, `reseller_id`, `service_group_id`, `service_level_id`, `start`, `status_id`, `type_id`, `updated_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "8d462e76-12db-438c-a227-07e86cb4ca46",
             "2022-09-27 00:39:13",
@@ -21678,6 +21742,7 @@
             null,
             "2022-12-31 00:00:00",
             "c9393fb3-922d-526d-a7ef-e027f1761ed6",
+            null,
             null,
             null,
             "2021-01-01 00:00:00",
@@ -21694,6 +21759,7 @@
             "9862fb5e-0c9a-5644-989a-b384465dcb77",
             null,
             null,
+            null,
             "2013-05-02 00:00:00",
             "721d5d69-9c89-5e1b-b9d4-601a398168df",
             "ae925ee2-f892-5cd9-b64a-53847645d28d",
@@ -21706,6 +21772,7 @@
             null,
             "2020-05-09 00:00:00",
             "ff7f9803-cb7d-5e8a-a67c-e960193fcb8d",
+            null,
             null,
             null,
             "2020-05-09 00:00:00",
@@ -22061,7 +22128,7 @@
         ]
     },
     {
-        "query": "insert into `asset_warranties` (`asset_id`, `created_at`, `customer_id`, `description`, `document_id`, `document_number`, `end`, `id`, `reseller_id`, `service_group_id`, `start`, `status_id`, `type_id`, `updated_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `asset_warranties` (`asset_id`, `created_at`, `customer_id`, `description`, `document_id`, `document_number`, `end`, `id`, `reseller_id`, `service_group_id`, `service_level_id`, `start`, `status_id`, `type_id`, `updated_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "5a9ced4b-5e71-486b-ae9e-a0fe7631503f",
             "2022-09-27 00:40:07",
@@ -22071,6 +22138,7 @@
             null,
             "2022-12-31 00:00:00",
             "7774ffe3-32b9-5583-aefc-b01bde0e5fae",
+            null,
             null,
             null,
             "2021-01-01 00:00:00",
@@ -22087,6 +22155,7 @@
             "dfd58707-4e3c-5c38-ad54-0593d0f50496",
             null,
             null,
+            null,
             "2013-05-02 00:00:00",
             "721d5d69-9c89-5e1b-b9d4-601a398168df",
             "ae925ee2-f892-5cd9-b64a-53847645d28d",
@@ -22099,6 +22168,7 @@
             null,
             "2020-05-09 00:00:00",
             "7c2f8de4-fcd3-59bb-88a6-c0034144a1bf",
+            null,
             null,
             null,
             "2020-05-09 00:00:00",
@@ -22236,7 +22306,7 @@
         ]
     },
     {
-        "query": "insert into `asset_warranties` (`asset_id`, `created_at`, `customer_id`, `description`, `document_id`, `document_number`, `end`, `id`, `reseller_id`, `service_group_id`, `start`, `status_id`, `type_id`, `updated_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `asset_warranties` (`asset_id`, `created_at`, `customer_id`, `description`, `document_id`, `document_number`, `end`, `id`, `reseller_id`, `service_group_id`, `service_level_id`, `start`, `status_id`, `type_id`, `updated_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "442cac4e-49ac-4fdf-aa35-55a6b8dfaece",
             "2022-09-27 00:40:37",
@@ -22246,6 +22316,7 @@
             null,
             "2022-12-31 00:00:00",
             "38c29632-51d0-59c3-baa9-98758d011456",
+            null,
             null,
             null,
             "2021-01-01 00:00:00",
@@ -22262,6 +22333,7 @@
             "abfe557f-b495-57be-8e86-5c5cec57176b",
             null,
             null,
+            null,
             "2013-05-02 00:00:00",
             "721d5d69-9c89-5e1b-b9d4-601a398168df",
             "ae925ee2-f892-5cd9-b64a-53847645d28d",
@@ -22274,6 +22346,7 @@
             null,
             "2020-05-09 00:00:00",
             "4c92077f-9688-5e92-adef-3c921a647391",
+            null,
             null,
             null,
             "2020-05-09 00:00:00",
@@ -24655,7 +24728,7 @@
         ]
     },
     {
-        "query": "insert into `asset_warranties` (`asset_id`, `created_at`, `customer_id`, `description`, `document_id`, `document_number`, `end`, `id`, `reseller_id`, `service_group_id`, `start`, `status_id`, `type_id`, `updated_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `asset_warranties` (`asset_id`, `created_at`, `customer_id`, `description`, `document_id`, `document_number`, `end`, `id`, `reseller_id`, `service_group_id`, `service_level_id`, `start`, `status_id`, `type_id`, `updated_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "6f58cd29-f24c-467f-ae16-ea8d60a88c0b",
             "2022-09-27 00:44:54",
@@ -24665,6 +24738,7 @@
             null,
             "2022-11-30 00:00:00",
             "c95a9710-a846-59f3-836e-ec8f71883982",
+            null,
             null,
             null,
             "2020-11-16 00:00:00",
@@ -24679,6 +24753,7 @@
             null,
             "2018-12-07 00:00:00",
             "3ec718eb-5946-5c20-a53b-70c640908d97",
+            null,
             null,
             null,
             "2017-11-08 00:00:00",
@@ -25074,7 +25149,7 @@
         ]
     },
     {
-        "query": "insert into `asset_warranties` (`asset_id`, `created_at`, `customer_id`, `description`, `document_id`, `document_number`, `end`, `id`, `reseller_id`, `service_group_id`, `start`, `status_id`, `type_id`, `updated_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `asset_warranties` (`asset_id`, `created_at`, `customer_id`, `description`, `document_id`, `document_number`, `end`, `id`, `reseller_id`, `service_group_id`, `service_level_id`, `start`, `status_id`, `type_id`, `updated_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "a3a53d03-64b0-4b45-89e6-bbfc19d1620a",
             "2022-09-27 00:45:46",
@@ -25084,6 +25159,7 @@
             null,
             "2022-11-30 00:00:00",
             "ff5ac0e9-e6dc-549c-a9da-7ee3984f3213",
+            null,
             null,
             null,
             "2020-11-16 00:00:00",
@@ -25098,6 +25174,7 @@
             null,
             "2020-12-07 00:00:00",
             "94a38b62-d7da-580d-893d-d1e1d2f5e0b0",
+            null,
             null,
             null,
             "2017-11-08 00:00:00",
@@ -25259,7 +25336,7 @@
         ]
     },
     {
-        "query": "insert into `asset_warranties` (`asset_id`, `created_at`, `customer_id`, `description`, `document_id`, `document_number`, `end`, `id`, `reseller_id`, `service_group_id`, `start`, `status_id`, `type_id`, `updated_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `asset_warranties` (`asset_id`, `created_at`, `customer_id`, `description`, `document_id`, `document_number`, `end`, `id`, `reseller_id`, `service_group_id`, `service_level_id`, `start`, `status_id`, `type_id`, `updated_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "b99979cf-d8d8-4e9e-82db-a7e8ddd36a66",
             "2022-09-27 00:46:11",
@@ -25269,6 +25346,7 @@
             null,
             "2022-11-30 00:00:00",
             "1fd738fa-5e9d-5a53-a6ac-aa86b146ac53",
+            null,
             null,
             null,
             "2020-11-16 00:00:00",
@@ -25283,6 +25361,7 @@
             null,
             "2018-12-07 00:00:00",
             "0c051de2-30b6-5fd7-8f72-f6cfe65b60c6",
+            null,
             null,
             null,
             "2017-11-08 00:00:00",
@@ -26456,7 +26535,7 @@
         ]
     },
     {
-        "query": "insert into `asset_warranties` (`asset_id`, `created_at`, `customer_id`, `description`, `document_id`, `document_number`, `end`, `id`, `reseller_id`, `service_group_id`, `start`, `status_id`, `type_id`, `updated_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `asset_warranties` (`asset_id`, `created_at`, `customer_id`, `description`, `document_id`, `document_number`, `end`, `id`, `reseller_id`, `service_group_id`, `service_level_id`, `start`, `status_id`, `type_id`, `updated_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "ddf096e5-da21-4eaa-89a2-30b74b3fafc2",
             "2022-09-27 00:48:09",
@@ -26466,6 +26545,7 @@
             null,
             "2023-03-31 00:00:00",
             "9afa6851-7410-59d9-afd8-cab251fe302f",
+            null,
             null,
             null,
             "2019-03-26 00:00:00",
@@ -26480,6 +26560,7 @@
             null,
             "2020-04-16 00:00:00",
             "32676050-c8a2-5143-8f5f-9048008bd17d",
+            null,
             null,
             null,
             "2019-03-18 00:00:00",
@@ -26889,7 +26970,7 @@
         ]
     },
     {
-        "query": "insert into `asset_warranties` (`asset_id`, `created_at`, `customer_id`, `description`, `document_id`, `document_number`, `end`, `id`, `reseller_id`, `service_group_id`, `start`, `status_id`, `type_id`, `updated_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `asset_warranties` (`asset_id`, `created_at`, `customer_id`, `description`, `document_id`, `document_number`, `end`, `id`, `reseller_id`, `service_group_id`, `service_level_id`, `start`, `status_id`, `type_id`, `updated_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "a8220e5c-a6c1-41ed-81cd-6eb4d040f6ea",
             "2022-09-27 00:49:01",
@@ -26899,6 +26980,7 @@
             null,
             "2023-03-31 00:00:00",
             "90a2da35-7b21-5404-845d-a3484abe8222",
+            null,
             null,
             null,
             "2019-03-26 00:00:00",
@@ -26913,6 +26995,7 @@
             null,
             "2022-04-16 00:00:00",
             "c1ae24a7-3646-5d99-b179-46d0682bfa45",
+            null,
             null,
             null,
             "2019-03-18 00:00:00",
@@ -27695,7 +27778,7 @@
         ]
     },
     {
-        "query": "insert into `asset_warranties` (`asset_id`, `created_at`, `customer_id`, `description`, `document_id`, `document_number`, `end`, `id`, `reseller_id`, `service_group_id`, `start`, `status_id`, `type_id`, `updated_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `asset_warranties` (`asset_id`, `created_at`, `customer_id`, `description`, `document_id`, `document_number`, `end`, `id`, `reseller_id`, `service_group_id`, `service_level_id`, `start`, `status_id`, `type_id`, `updated_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "5342cd65-316a-4bb6-850a-5b79583fc10d",
             "2022-09-27 00:50:31",
@@ -27705,6 +27788,7 @@
             null,
             "2023-01-31 00:00:00",
             "75119b80-ff05-5f18-ac3f-4fbebac81b86",
+            null,
             null,
             null,
             "2019-02-01 00:00:00",
@@ -27721,6 +27805,7 @@
             "14f4430c-837c-5a9e-bc7f-9b999ac546c0",
             null,
             null,
+            null,
             "2016-01-12 00:00:00",
             "721d5d69-9c89-5e1b-b9d4-601a398168df",
             "ae925ee2-f892-5cd9-b64a-53847645d28d",
@@ -27733,6 +27818,7 @@
             null,
             "2017-02-10 00:00:00",
             "6db10033-8640-56db-9b0f-8ff24449d072",
+            null,
             null,
             null,
             "2016-01-12 00:00:00",
@@ -28053,7 +28139,7 @@
         ]
     },
     {
-        "query": "insert into `asset_warranties` (`asset_id`, `created_at`, `customer_id`, `description`, `document_id`, `document_number`, `end`, `id`, `reseller_id`, `service_group_id`, `start`, `status_id`, `type_id`, `updated_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `asset_warranties` (`asset_id`, `created_at`, `customer_id`, `description`, `document_id`, `document_number`, `end`, `id`, `reseller_id`, `service_group_id`, `service_level_id`, `start`, `status_id`, `type_id`, `updated_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "88bfa678-71c8-47ce-abbb-4666f00c234c",
             "2022-09-27 00:51:21",
@@ -28063,6 +28149,7 @@
             null,
             "2023-01-31 00:00:00",
             "a2542e95-0eef-5a0a-be6b-e1e2ed36c114",
+            null,
             null,
             null,
             "2019-02-01 00:00:00",
@@ -28079,6 +28166,7 @@
             "a21d6120-6b9b-506e-9661-e8640f26149d",
             null,
             null,
+            null,
             "2016-01-12 00:00:00",
             "721d5d69-9c89-5e1b-b9d4-601a398168df",
             "ae925ee2-f892-5cd9-b64a-53847645d28d",
@@ -28091,6 +28179,7 @@
             null,
             "2017-02-10 00:00:00",
             "a15de6b8-e605-59f9-a02f-0821bc0f760c",
+            null,
             null,
             null,
             "2016-01-12 00:00:00",
@@ -28368,7 +28457,7 @@
         ]
     },
     {
-        "query": "insert into `asset_warranties` (`asset_id`, `created_at`, `customer_id`, `description`, `document_id`, `document_number`, `end`, `id`, `reseller_id`, `service_group_id`, `start`, `status_id`, `type_id`, `updated_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `asset_warranties` (`asset_id`, `created_at`, `customer_id`, `description`, `document_id`, `document_number`, `end`, `id`, `reseller_id`, `service_group_id`, `service_level_id`, `start`, `status_id`, `type_id`, `updated_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "0d79173a-4155-4cd6-9950-0479f038fc99",
             "2022-09-27 00:52:06",
@@ -28378,6 +28467,7 @@
             null,
             "2023-01-31 00:00:00",
             "f5e2b255-d9c2-5d79-96c1-16ddddc3d243",
+            null,
             null,
             null,
             "2019-02-01 00:00:00",
@@ -28394,6 +28484,7 @@
             "18bd51e5-8c95-571a-a6b2-f9b38fdcb99a",
             null,
             null,
+            null,
             "2016-01-12 00:00:00",
             "721d5d69-9c89-5e1b-b9d4-601a398168df",
             "ae925ee2-f892-5cd9-b64a-53847645d28d",
@@ -28406,6 +28497,7 @@
             null,
             "2017-02-10 00:00:00",
             "a32daca6-0e7b-5cac-be50-89ac24982652",
+            null,
             null,
             null,
             "2016-01-12 00:00:00",
@@ -29810,7 +29902,7 @@
         ]
     },
     {
-        "query": "insert into `asset_warranties` (`asset_id`, `created_at`, `customer_id`, `description`, `document_id`, `document_number`, `end`, `id`, `reseller_id`, `service_group_id`, `start`, `status_id`, `type_id`, `updated_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `asset_warranties` (`asset_id`, `created_at`, `customer_id`, `description`, `document_id`, `document_number`, `end`, `id`, `reseller_id`, `service_group_id`, `service_level_id`, `start`, `status_id`, `type_id`, `updated_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "ad033756-3e2e-48cc-bda3-225a09935c43",
             "2022-09-27 00:54:41",
@@ -29820,6 +29912,7 @@
             null,
             "2025-03-11 00:00:00",
             "b5f778c1-ac21-55ab-bb17-29dd3e432fd5",
+            null,
             null,
             null,
             "2020-03-12 00:00:00",
@@ -29834,6 +29927,7 @@
             null,
             "2022-11-23 00:00:00",
             "e92ad3fb-beb8-53b7-b615-26e98cc46fbb",
+            null,
             null,
             null,
             "2019-10-25 00:00:00",
@@ -30035,7 +30129,7 @@
         ]
     },
     {
-        "query": "insert into `asset_warranties` (`asset_id`, `created_at`, `customer_id`, `description`, `document_id`, `document_number`, `end`, `id`, `reseller_id`, `service_group_id`, `start`, `status_id`, `type_id`, `updated_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `asset_warranties` (`asset_id`, `created_at`, `customer_id`, `description`, `document_id`, `document_number`, `end`, `id`, `reseller_id`, `service_group_id`, `service_level_id`, `start`, `status_id`, `type_id`, `updated_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "c347f274-ad49-4e0c-803e-60755b726f38",
             "2022-09-27 00:55:09",
@@ -30045,6 +30139,7 @@
             null,
             "2025-03-11 00:00:00",
             "baad3586-31d6-5143-9811-85f139d35b6a",
+            null,
             null,
             null,
             "2020-03-12 00:00:00",
@@ -30059,6 +30154,7 @@
             null,
             "2022-11-23 00:00:00",
             "c6a7a235-7a9b-5dc1-bffc-5f930a908675",
+            null,
             null,
             null,
             "2019-10-25 00:00:00",
@@ -30701,7 +30797,7 @@
         ]
     },
     {
-        "query": "insert into `asset_warranties` (`asset_id`, `created_at`, `customer_id`, `description`, `document_id`, `document_number`, `end`, `id`, `reseller_id`, `service_group_id`, `start`, `status_id`, `type_id`, `updated_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `asset_warranties` (`asset_id`, `created_at`, `customer_id`, `description`, `document_id`, `document_number`, `end`, `id`, `reseller_id`, `service_group_id`, `service_level_id`, `start`, `status_id`, `type_id`, `updated_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "d349de91-181f-4544-a061-3161d643b668",
             "2022-09-27 00:56:37",
@@ -30711,6 +30807,7 @@
             null,
             "2022-11-27 00:00:00",
             "d32ebaaf-267c-59b4-b7a4-29217082ffee",
+            null,
             null,
             null,
             "2019-11-28 00:00:00",
@@ -30727,6 +30824,7 @@
             "af858857-748e-5915-aeb1-af19f103dc91",
             null,
             null,
+            null,
             "2019-11-28 00:00:00",
             "7615698a-e948-5df2-b5db-958a8795ddba",
             "3edb3a97-918e-5356-9cf8-8108c130fc48",
@@ -30739,6 +30837,7 @@
             null,
             "2022-10-15 00:00:00",
             "4cb15bac-9999-5f49-9c1d-b292657563a5",
+            null,
             null,
             null,
             "2019-09-16 00:00:00",
@@ -30755,6 +30854,7 @@
             "edb4d7e4-a1fb-53e6-a414-675f14536e5e",
             null,
             null,
+            null,
             "2022-11-28 00:00:00",
             "1cfebad2-93b1-5524-8a5a-d1ce869b1d66",
             "3edb3a97-918e-5356-9cf8-8108c130fc48",
@@ -30767,6 +30867,7 @@
             null,
             "2023-12-31 00:00:00",
             "bc9860c6-e5eb-54a5-8ce3-fbea6619cb8c",
+            null,
             null,
             null,
             "2022-11-28 00:00:00",
@@ -30894,7 +30995,7 @@
         ]
     },
     {
-        "query": "insert into `asset_warranties` (`asset_id`, `created_at`, `customer_id`, `description`, `document_id`, `document_number`, `end`, `id`, `reseller_id`, `service_group_id`, `start`, `status_id`, `type_id`, `updated_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `asset_warranties` (`asset_id`, `created_at`, `customer_id`, `description`, `document_id`, `document_number`, `end`, `id`, `reseller_id`, `service_group_id`, `service_level_id`, `start`, `status_id`, `type_id`, `updated_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "70eb3879-b07d-406a-b6a9-ccb940cbe399",
             "2022-09-27 00:57:21",
@@ -30904,6 +31005,7 @@
             null,
             "2022-11-27 00:00:00",
             "bcd7c815-8b48-5313-8940-70e4240e8a58",
+            null,
             null,
             null,
             "2019-11-28 00:00:00",
@@ -30920,6 +31022,7 @@
             "00bfad83-2cf2-5070-988a-b8f247b50056",
             null,
             null,
+            null,
             "2019-11-28 00:00:00",
             "7615698a-e948-5df2-b5db-958a8795ddba",
             "3edb3a97-918e-5356-9cf8-8108c130fc48",
@@ -30932,6 +31035,7 @@
             null,
             "2022-10-15 00:00:00",
             "defb4b39-2dd4-53c4-831a-10920810b92c",
+            null,
             null,
             null,
             "2019-09-16 00:00:00",
@@ -30948,6 +31052,7 @@
             "1a716be0-d638-5ec6-8fb6-fc197af3a429",
             null,
             null,
+            null,
             "2022-11-28 00:00:00",
             "1cfebad2-93b1-5524-8a5a-d1ce869b1d66",
             "3edb3a97-918e-5356-9cf8-8108c130fc48",
@@ -30960,6 +31065,7 @@
             null,
             "2023-12-31 00:00:00",
             "a0e8ee35-88c7-59e0-80c1-970d21b776f2",
+            null,
             null,
             null,
             "2022-11-28 00:00:00",
@@ -31087,7 +31193,7 @@
         ]
     },
     {
-        "query": "insert into `asset_warranties` (`asset_id`, `created_at`, `customer_id`, `description`, `document_id`, `document_number`, `end`, `id`, `reseller_id`, `service_group_id`, `start`, `status_id`, `type_id`, `updated_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `asset_warranties` (`asset_id`, `created_at`, `customer_id`, `description`, `document_id`, `document_number`, `end`, `id`, `reseller_id`, `service_group_id`, `service_level_id`, `start`, `status_id`, `type_id`, `updated_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "5adaac22-206e-4d61-94a4-31a57674d537",
             "2022-09-27 00:58:05",
@@ -31097,6 +31203,7 @@
             null,
             "2022-11-27 00:00:00",
             "96fc8bc2-2c4a-57cb-9376-ebb7729be733",
+            null,
             null,
             null,
             "2019-11-28 00:00:00",
@@ -31113,6 +31220,7 @@
             "cbb175f1-97da-54e1-9028-77f3faaeb055",
             null,
             null,
+            null,
             "2019-11-28 00:00:00",
             "7615698a-e948-5df2-b5db-958a8795ddba",
             "3edb3a97-918e-5356-9cf8-8108c130fc48",
@@ -31125,6 +31233,7 @@
             null,
             "2022-10-15 00:00:00",
             "700eec79-4c28-5807-9e1d-a6a89bb27c61",
+            null,
             null,
             null,
             "2019-09-16 00:00:00",
@@ -31141,6 +31250,7 @@
             "0ddc5bd0-95b2-510e-b13f-f30767655c57",
             null,
             null,
+            null,
             "2022-11-28 00:00:00",
             "1cfebad2-93b1-5524-8a5a-d1ce869b1d66",
             "3edb3a97-918e-5356-9cf8-8108c130fc48",
@@ -31153,6 +31263,7 @@
             null,
             "2023-12-31 00:00:00",
             "9e721056-ab4c-5ca9-8d0d-185cef2abd05",
+            null,
             null,
             null,
             "2022-11-28 00:00:00",
@@ -32364,7 +32475,7 @@
         ]
     },
     {
-        "query": "insert into `asset_warranties` (`asset_id`, `created_at`, `customer_id`, `description`, `document_id`, `document_number`, `end`, `id`, `reseller_id`, `service_group_id`, `start`, `status_id`, `type_id`, `updated_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `asset_warranties` (`asset_id`, `created_at`, `customer_id`, `description`, `document_id`, `document_number`, `end`, `id`, `reseller_id`, `service_group_id`, `service_level_id`, `start`, `status_id`, `type_id`, `updated_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "aab858a0-2276-4715-b5fa-d5be8e955bcf",
             "2022-09-27 01:00:26",
@@ -32374,6 +32485,7 @@
             null,
             "2023-06-15 00:00:00",
             "379f42b4-1c4a-59c5-bba3-a4512f1e8d7c",
+            null,
             null,
             null,
             "2018-06-16 00:00:00",
@@ -32388,6 +32500,7 @@
             null,
             "2021-07-07 00:00:00",
             "d3a05359-cfb9-5585-b529-021dfbc043b7",
+            null,
             null,
             null,
             "2018-06-08 00:00:00",
@@ -32589,7 +32702,7 @@
         ]
     },
     {
-        "query": "insert into `asset_warranties` (`asset_id`, `created_at`, `customer_id`, `description`, `document_id`, `document_number`, `end`, `id`, `reseller_id`, `service_group_id`, `start`, `status_id`, `type_id`, `updated_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `asset_warranties` (`asset_id`, `created_at`, `customer_id`, `description`, `document_id`, `document_number`, `end`, `id`, `reseller_id`, `service_group_id`, `service_level_id`, `start`, `status_id`, `type_id`, `updated_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "b73d88c7-ec16-4c9a-8324-fd6fd52bb5b0",
             "2022-09-27 01:00:54",
@@ -32599,6 +32712,7 @@
             null,
             "2023-06-15 00:00:00",
             "b0a0ec5c-e336-5b68-9fef-eb787efdd2c4",
+            null,
             null,
             null,
             "2018-06-16 00:00:00",
@@ -32613,6 +32727,7 @@
             null,
             "2019-07-07 00:00:00",
             "1bdd9850-905d-51f0-a4a6-b38d4a5e1e6d",
+            null,
             null,
             null,
             "2018-06-08 00:00:00",
@@ -32794,7 +32909,7 @@
         ]
     },
     {
-        "query": "insert into `asset_warranties` (`asset_id`, `created_at`, `customer_id`, `description`, `document_id`, `document_number`, `end`, `id`, `reseller_id`, `service_group_id`, `start`, `status_id`, `type_id`, `updated_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `asset_warranties` (`asset_id`, `created_at`, `customer_id`, `description`, `document_id`, `document_number`, `end`, `id`, `reseller_id`, `service_group_id`, `service_level_id`, `start`, `status_id`, `type_id`, `updated_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "747765dc-8ca0-4284-882c-a8059b89c9d9",
             "2022-09-27 01:01:21",
@@ -32804,6 +32919,7 @@
             null,
             "2023-06-15 00:00:00",
             "545a30e0-592e-5ddc-be81-51d6103d7266",
+            null,
             null,
             null,
             "2018-06-16 00:00:00",
@@ -32818,6 +32934,7 @@
             null,
             "2021-07-07 00:00:00",
             "efde017a-7938-5e9c-badb-f64df459768f",
+            null,
             null,
             null,
             "2018-06-08 00:00:00",
@@ -33815,7 +33932,7 @@
         ]
     },
     {
-        "query": "insert into `asset_warranties` (`asset_id`, `created_at`, `customer_id`, `description`, `document_id`, `document_number`, `end`, `id`, `reseller_id`, `service_group_id`, `start`, `status_id`, `type_id`, `updated_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `asset_warranties` (`asset_id`, `created_at`, `customer_id`, `description`, `document_id`, `document_number`, `end`, `id`, `reseller_id`, `service_group_id`, `service_level_id`, `start`, `status_id`, `type_id`, `updated_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "ff827734-a29e-4c7e-9adb-f551809e04d6",
             "2022-09-27 01:03:05",
@@ -33825,6 +33942,7 @@
             null,
             "2021-12-05 00:00:00",
             "fa0fb531-1527-51f3-90e8-f35a9f74aa9d",
+            null,
             null,
             null,
             "2016-12-06 00:00:00",
@@ -33839,6 +33957,7 @@
             null,
             "2017-12-26 00:00:00",
             "f10b7922-0dc5-5bab-9726-e95b75374af6",
+            null,
             null,
             null,
             "2016-11-27 00:00:00",
@@ -34020,7 +34139,7 @@
         ]
     },
     {
-        "query": "insert into `asset_warranties` (`asset_id`, `created_at`, `customer_id`, `description`, `document_id`, `document_number`, `end`, `id`, `reseller_id`, `service_group_id`, `start`, `status_id`, `type_id`, `updated_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `asset_warranties` (`asset_id`, `created_at`, `customer_id`, `description`, `document_id`, `document_number`, `end`, `id`, `reseller_id`, `service_group_id`, `service_level_id`, `start`, `status_id`, `type_id`, `updated_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "e27e2925-490c-4904-9df3-edaf14a9766c",
             "2022-09-27 01:03:32",
@@ -34030,6 +34149,7 @@
             null,
             "2021-12-05 00:00:00",
             "285b4420-8204-5c6c-9fdd-306e67e388dc",
+            null,
             null,
             null,
             "2016-12-06 00:00:00",
@@ -34044,6 +34164,7 @@
             null,
             "2019-12-26 00:00:00",
             "9c35b775-3030-5d04-9b2a-2f4190f08b6d",
+            null,
             null,
             null,
             "2016-11-27 00:00:00",
@@ -34225,7 +34346,7 @@
         ]
     },
     {
-        "query": "insert into `asset_warranties` (`asset_id`, `created_at`, `customer_id`, `description`, `document_id`, `document_number`, `end`, `id`, `reseller_id`, `service_group_id`, `start`, `status_id`, `type_id`, `updated_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `asset_warranties` (`asset_id`, `created_at`, `customer_id`, `description`, `document_id`, `document_number`, `end`, `id`, `reseller_id`, `service_group_id`, `service_level_id`, `start`, `status_id`, `type_id`, `updated_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "edf79f2e-0748-4f9c-a10a-653092a641c9",
             "2022-09-27 01:03:59",
@@ -34235,6 +34356,7 @@
             null,
             "2021-12-05 00:00:00",
             "8887178f-bf83-5519-a9ae-6423aed58626",
+            null,
             null,
             null,
             "2016-12-06 00:00:00",
@@ -34249,6 +34371,7 @@
             null,
             "2019-12-26 00:00:00",
             "30c35b88-979a-52fc-853e-8c966e56e939",
+            null,
             null,
             null,
             "2016-11-27 00:00:00",
@@ -35030,7 +35153,7 @@
         ]
     },
     {
-        "query": "insert into `asset_warranties` (`asset_id`, `created_at`, `customer_id`, `description`, `document_id`, `document_number`, `end`, `id`, `reseller_id`, `service_group_id`, `start`, `status_id`, `type_id`, `updated_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `asset_warranties` (`asset_id`, `created_at`, `customer_id`, `description`, `document_id`, `document_number`, `end`, `id`, `reseller_id`, `service_group_id`, `service_level_id`, `start`, `status_id`, `type_id`, `updated_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "e551bbce-7cf9-404a-9a00-daa4372b6372",
             "2022-09-27 01:05:48",
@@ -35040,6 +35163,7 @@
             null,
             "2023-03-31 00:00:00",
             "eae20448-86e2-5f30-8031-fc47abac95e4",
+            null,
             null,
             null,
             "2021-04-01 00:00:00",
@@ -35056,6 +35180,7 @@
             "b34ae2b6-683d-5f5b-9182-fa37d6fe1306",
             null,
             null,
+            null,
             "2018-04-20 00:00:00",
             "721d5d69-9c89-5e1b-b9d4-601a398168df",
             "ae925ee2-f892-5cd9-b64a-53847645d28d",
@@ -35068,6 +35193,7 @@
             null,
             "2018-04-19 00:00:00",
             "a7e55edd-5c5e-58e1-977d-ad4849a14277",
+            null,
             null,
             null,
             "2017-04-20 00:00:00",
@@ -35084,6 +35210,7 @@
             "dbd1e0a9-87d3-57cf-bb43-a6c778aeb288",
             null,
             null,
+            null,
             "2014-03-21 00:00:00",
             "721d5d69-9c89-5e1b-b9d4-601a398168df",
             "ae925ee2-f892-5cd9-b64a-53847645d28d",
@@ -35096,6 +35223,7 @@
             null,
             "2022-04-19 00:00:00",
             "62e09082-223e-5352-9593-5e23117ae0af",
+            null,
             null,
             null,
             "2021-04-20 00:00:00",
@@ -35112,6 +35240,7 @@
             "503204f7-4897-553f-9009-baaed52b2e50",
             null,
             null,
+            null,
             "2019-04-20 00:00:00",
             "721d5d69-9c89-5e1b-b9d4-601a398168df",
             "ae925ee2-f892-5cd9-b64a-53847645d28d",
@@ -35126,6 +35255,7 @@
             "d0c03504-a5b4-5c30-82ff-4a31c7b7a0eb",
             null,
             null,
+            null,
             "2020-04-20 00:00:00",
             "721d5d69-9c89-5e1b-b9d4-601a398168df",
             "ae925ee2-f892-5cd9-b64a-53847645d28d",
@@ -35138,6 +35268,7 @@
             null,
             "2018-10-26 00:00:00",
             "59f788f9-8944-5364-84d6-d46548123ad7",
+            null,
             null,
             null,
             "2018-10-26 00:00:00",
@@ -35502,7 +35633,7 @@
         ]
     },
     {
-        "query": "insert into `asset_warranties` (`asset_id`, `created_at`, `customer_id`, `description`, `document_id`, `document_number`, `end`, `id`, `reseller_id`, `service_group_id`, `start`, `status_id`, `type_id`, `updated_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `asset_warranties` (`asset_id`, `created_at`, `customer_id`, `description`, `document_id`, `document_number`, `end`, `id`, `reseller_id`, `service_group_id`, `service_level_id`, `start`, `status_id`, `type_id`, `updated_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "87f9bd7d-33e0-4be1-a1a9-d450ebd95223",
             "2022-09-27 01:07:17",
@@ -35512,6 +35643,7 @@
             null,
             "2023-03-31 00:00:00",
             "2cf15553-a0e8-5a0a-9e94-536f98a8c666",
+            null,
             null,
             null,
             "2021-04-01 00:00:00",
@@ -35528,6 +35660,7 @@
             "c431602a-9bab-5b66-80d1-9bc5ab1bd74d",
             null,
             null,
+            null,
             "2020-04-20 00:00:00",
             "721d5d69-9c89-5e1b-b9d4-601a398168df",
             "ae925ee2-f892-5cd9-b64a-53847645d28d",
@@ -35540,6 +35673,7 @@
             null,
             "2022-04-19 00:00:00",
             "9904d50f-5793-5cc2-b019-a22b883a33c5",
+            null,
             null,
             null,
             "2021-04-20 00:00:00",
@@ -35556,6 +35690,7 @@
             "dee5bda5-dbf1-5e9a-abfd-c109ecb331f0",
             null,
             null,
+            null,
             "2019-04-20 00:00:00",
             "721d5d69-9c89-5e1b-b9d4-601a398168df",
             "ae925ee2-f892-5cd9-b64a-53847645d28d",
@@ -35568,6 +35703,7 @@
             null,
             "2019-04-19 00:00:00",
             "e14be0db-ae37-5966-bdd3-753015d0b7f0",
+            null,
             null,
             null,
             "2018-04-20 00:00:00",
@@ -35584,6 +35720,7 @@
             "84e86dad-096e-53b9-be28-fcb9342c2e13",
             null,
             null,
+            null,
             "2014-03-21 00:00:00",
             "721d5d69-9c89-5e1b-b9d4-601a398168df",
             "ae925ee2-f892-5cd9-b64a-53847645d28d",
@@ -35598,6 +35735,7 @@
             "0d6b5033-8353-582e-8e9e-533b4a58474d",
             null,
             null,
+            null,
             "2017-04-20 00:00:00",
             "721d5d69-9c89-5e1b-b9d4-601a398168df",
             "ae925ee2-f892-5cd9-b64a-53847645d28d",
@@ -35610,6 +35748,7 @@
             null,
             "2018-10-26 00:00:00",
             "46a58b87-6853-5278-987c-4d86f2b5be55",
+            null,
             null,
             null,
             "2018-10-26 00:00:00",
@@ -37815,7 +37954,7 @@
         ]
     },
     {
-        "query": "insert into `asset_warranties` (`asset_id`, `created_at`, `customer_id`, `description`, `document_id`, `document_number`, `end`, `id`, `reseller_id`, `service_group_id`, `start`, `status_id`, `type_id`, `updated_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `asset_warranties` (`asset_id`, `created_at`, `customer_id`, `description`, `document_id`, `document_number`, `end`, `id`, `reseller_id`, `service_group_id`, `service_level_id`, `start`, `status_id`, `type_id`, `updated_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "c18c96b4-38b0-44d2-95d3-fc1d5d27d692",
             "2022-09-27 01:11:45",
@@ -37825,6 +37964,7 @@
             null,
             "2024-10-29 00:00:00",
             "bf810f3f-3124-5cb6-bae2-510faf8687bb",
+            null,
             null,
             null,
             "2021-12-01 00:00:00",
@@ -37841,6 +37981,7 @@
             "5c7042e8-55d5-5bf8-bb07-b61909b74a6c",
             null,
             null,
+            null,
             "2019-10-30 00:00:00",
             "55482e68-2ad4-5ad7-a753-3b78cf9b8e7d",
             "3edb3a97-918e-5356-9cf8-8108c130fc48",
@@ -37853,6 +37994,7 @@
             null,
             "2020-11-22 00:00:00",
             "7f6b152b-417b-5081-a185-8b9cfd574efe",
+            null,
             null,
             null,
             "2019-10-24 00:00:00",
@@ -38136,7 +38278,7 @@
         ]
     },
     {
-        "query": "insert into `asset_warranties` (`asset_id`, `created_at`, `customer_id`, `description`, `document_id`, `document_number`, `end`, `id`, `reseller_id`, `service_group_id`, `start`, `status_id`, `type_id`, `updated_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `asset_warranties` (`asset_id`, `created_at`, `customer_id`, `description`, `document_id`, `document_number`, `end`, `id`, `reseller_id`, `service_group_id`, `service_level_id`, `start`, `status_id`, `type_id`, `updated_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "6fe16781-989b-46f8-9ff0-b62216c4cd08",
             "2022-09-27 01:12:32",
@@ -38146,6 +38288,7 @@
             null,
             "2024-10-29 00:00:00",
             "68591132-5686-5fd8-8192-7b66d522c19a",
+            null,
             null,
             null,
             "2021-12-01 00:00:00",
@@ -38162,6 +38305,7 @@
             "ae02ba9e-0452-57e2-bc2a-fdcb3a6ad187",
             null,
             null,
+            null,
             "2019-10-30 00:00:00",
             "55482e68-2ad4-5ad7-a753-3b78cf9b8e7d",
             "3edb3a97-918e-5356-9cf8-8108c130fc48",
@@ -38174,6 +38318,7 @@
             null,
             "2020-11-22 00:00:00",
             "6ff99c10-165a-5cde-ac50-2083491164f2",
+            null,
             null,
             null,
             "2019-10-24 00:00:00",
@@ -39384,7 +39529,7 @@
         ]
     },
     {
-        "query": "insert into `asset_warranties` (`asset_id`, `created_at`, `customer_id`, `description`, `document_id`, `document_number`, `end`, `id`, `reseller_id`, `service_group_id`, `start`, `status_id`, `type_id`, `updated_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `asset_warranties` (`asset_id`, `created_at`, `customer_id`, `description`, `document_id`, `document_number`, `end`, `id`, `reseller_id`, `service_group_id`, `service_level_id`, `start`, `status_id`, `type_id`, `updated_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "1287d1c9-d405-41fd-97e5-c8edc9d4123b",
             "2022-09-27 01:14:50",
@@ -39394,6 +39539,7 @@
             null,
             "2023-01-31 00:00:00",
             "6703871f-e82d-5d9c-b7c4-68e126ff0048",
+            null,
             null,
             null,
             "2021-02-01 00:00:00",
@@ -39408,6 +39554,7 @@
             null,
             "2020-11-26 00:00:00",
             "7a01a2bf-7491-5c57-b333-ca705ced01fe",
+            null,
             null,
             null,
             "2020-11-26 00:00:00",
@@ -39739,7 +39886,7 @@
         ]
     },
     {
-        "query": "insert into `asset_warranties` (`asset_id`, `created_at`, `customer_id`, `description`, `document_id`, `document_number`, `end`, `id`, `reseller_id`, `service_group_id`, `start`, `status_id`, `type_id`, `updated_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `asset_warranties` (`asset_id`, `created_at`, `customer_id`, `description`, `document_id`, `document_number`, `end`, `id`, `reseller_id`, `service_group_id`, `service_level_id`, `start`, `status_id`, `type_id`, `updated_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "b29485a0-1f65-447f-9097-9353417fb187",
             "2022-09-27 01:15:35",
@@ -39749,6 +39896,7 @@
             null,
             "2023-01-31 00:00:00",
             "333b98cd-d137-56ef-8a73-31c40442295a",
+            null,
             null,
             null,
             "2021-02-01 00:00:00",
@@ -39763,6 +39911,7 @@
             null,
             "2020-11-26 00:00:00",
             "2071ebae-2754-5f20-ac19-9c1c7d29b4e1",
+            null,
             null,
             null,
             "2020-11-26 00:00:00",
@@ -40142,7 +40291,7 @@
         ]
     },
     {
-        "query": "insert into `asset_warranties` (`asset_id`, `created_at`, `customer_id`, `description`, `document_id`, `document_number`, `end`, `id`, `reseller_id`, `service_group_id`, `start`, `status_id`, `type_id`, `updated_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `asset_warranties` (`asset_id`, `created_at`, `customer_id`, `description`, `document_id`, `document_number`, `end`, `id`, `reseller_id`, `service_group_id`, `service_level_id`, `start`, `status_id`, `type_id`, `updated_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "6f8141b5-3df1-4269-9b6d-9bf9c4d181e1",
             "2022-09-27 01:16:22",
@@ -40152,6 +40301,7 @@
             null,
             "2023-01-31 00:00:00",
             "5e37c82e-8bf3-5c66-871e-77abddb5d4f8",
+            null,
             null,
             null,
             "2021-02-01 00:00:00",
@@ -40166,6 +40316,7 @@
             null,
             "2020-08-26 00:00:00",
             "605f79dd-bbb1-58cd-ac45-7a6f1161b875",
+            null,
             null,
             null,
             "2020-08-26 00:00:00",

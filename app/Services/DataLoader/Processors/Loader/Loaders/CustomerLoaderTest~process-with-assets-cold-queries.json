@@ -417,7 +417,7 @@
         ]
     },
     {
-        "query": "insert into `asset_warranties` (`start`, `end`, `asset_id`, `type_id`, `status_id`, `description`, `service_group_id`, `customer_id`, `reseller_id`, `document_id`, `document_number`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `asset_warranties` (`start`, `end`, `asset_id`, `type_id`, `status_id`, `description`, `service_group_id`, `service_level_id`, `customer_id`, `reseller_id`, `document_id`, `document_number`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "2020-03-07 00:00:00",
             "2022-12-31 00:00:00",
@@ -425,6 +425,7 @@
             "72a3bc57-9110-5502-a1fe-79c99596cfac",
             "528b3f81-c203-5f07-8e95-88a43b2a279a",
             "H7J34AC-HPE Foundation Care 24x7 SVC",
+            null,
             null,
             null,
             null,
@@ -756,7 +757,7 @@
         ]
     },
     {
-        "query": "insert into `asset_warranties` (`start`, `end`, `asset_id`, `type_id`, `status_id`, `description`, `service_group_id`, `customer_id`, `reseller_id`, `document_id`, `document_number`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `asset_warranties` (`start`, `end`, `asset_id`, `type_id`, `status_id`, `description`, `service_group_id`, `service_level_id`, `customer_id`, `reseller_id`, `document_id`, `document_number`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "2020-03-07 00:00:00",
             "2022-12-31 00:00:00",
@@ -764,6 +765,7 @@
             "72a3bc57-9110-5502-a1fe-79c99596cfac",
             "528b3f81-c203-5f07-8e95-88a43b2a279a",
             "H7J34AC-HPE Foundation Care 24x7 SVC",
+            null,
             null,
             null,
             null,
@@ -881,7 +883,7 @@
         ]
     },
     {
-        "query": "insert into `asset_warranties` (`start`, `end`, `asset_id`, `type_id`, `status_id`, `description`, `service_group_id`, `customer_id`, `reseller_id`, `document_id`, `document_number`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `asset_warranties` (`start`, `end`, `asset_id`, `type_id`, `status_id`, `description`, `service_group_id`, `service_level_id`, `customer_id`, `reseller_id`, `document_id`, `document_number`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "2020-03-07 00:00:00",
             "2022-12-31 00:00:00",
@@ -889,6 +891,7 @@
             "72a3bc57-9110-5502-a1fe-79c99596cfac",
             "528b3f81-c203-5f07-8e95-88a43b2a279a",
             "H7J34AC-HPE Foundation Care 24x7 SVC",
+            null,
             null,
             null,
             null,
@@ -1006,7 +1009,7 @@
         ]
     },
     {
-        "query": "insert into `asset_warranties` (`start`, `end`, `asset_id`, `type_id`, `status_id`, `description`, `service_group_id`, `customer_id`, `reseller_id`, `document_id`, `document_number`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `asset_warranties` (`start`, `end`, `asset_id`, `type_id`, `status_id`, `description`, `service_group_id`, `service_level_id`, `customer_id`, `reseller_id`, `document_id`, `document_number`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "2020-03-07 00:00:00",
             "2022-12-31 00:00:00",
@@ -1014,6 +1017,7 @@
             "72a3bc57-9110-5502-a1fe-79c99596cfac",
             "528b3f81-c203-5f07-8e95-88a43b2a279a",
             "H7J34AC-HPE Foundation Care 24x7 SVC",
+            null,
             null,
             null,
             null,
@@ -1131,7 +1135,7 @@
         ]
     },
     {
-        "query": "insert into `asset_warranties` (`start`, `end`, `asset_id`, `type_id`, `status_id`, `description`, `service_group_id`, `customer_id`, `reseller_id`, `document_id`, `document_number`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `asset_warranties` (`start`, `end`, `asset_id`, `type_id`, `status_id`, `description`, `service_group_id`, `service_level_id`, `customer_id`, `reseller_id`, `document_id`, `document_number`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "2020-03-07 00:00:00",
             "2022-12-31 00:00:00",
@@ -1139,6 +1143,7 @@
             "72a3bc57-9110-5502-a1fe-79c99596cfac",
             "528b3f81-c203-5f07-8e95-88a43b2a279a",
             "H7J34AC-HPE Foundation Care 24x7 SVC",
+            null,
             null,
             null,
             null,
@@ -1256,7 +1261,7 @@
         ]
     },
     {
-        "query": "insert into `asset_warranties` (`start`, `end`, `asset_id`, `type_id`, `status_id`, `description`, `service_group_id`, `customer_id`, `reseller_id`, `document_id`, `document_number`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `asset_warranties` (`start`, `end`, `asset_id`, `type_id`, `status_id`, `description`, `service_group_id`, `service_level_id`, `customer_id`, `reseller_id`, `document_id`, `document_number`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "2020-03-07 00:00:00",
             "2022-12-31 00:00:00",
@@ -1264,6 +1269,7 @@
             "72a3bc57-9110-5502-a1fe-79c99596cfac",
             "528b3f81-c203-5f07-8e95-88a43b2a279a",
             "H7J34AC-HPE Foundation Care 24x7 SVC",
+            null,
             null,
             null,
             null,
@@ -1381,7 +1387,7 @@
         ]
     },
     {
-        "query": "insert into `asset_warranties` (`start`, `end`, `asset_id`, `type_id`, `status_id`, `description`, `service_group_id`, `customer_id`, `reseller_id`, `document_id`, `document_number`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `asset_warranties` (`start`, `end`, `asset_id`, `type_id`, `status_id`, `description`, `service_group_id`, `service_level_id`, `customer_id`, `reseller_id`, `document_id`, `document_number`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "2020-03-07 00:00:00",
             "2022-12-31 00:00:00",
@@ -1389,6 +1395,7 @@
             "72a3bc57-9110-5502-a1fe-79c99596cfac",
             "528b3f81-c203-5f07-8e95-88a43b2a279a",
             "H7J34AC-HPE Foundation Care 24x7 SVC",
+            null,
             null,
             null,
             null,
@@ -1506,7 +1513,7 @@
         ]
     },
     {
-        "query": "insert into `asset_warranties` (`start`, `end`, `asset_id`, `type_id`, `status_id`, `description`, `service_group_id`, `customer_id`, `reseller_id`, `document_id`, `document_number`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `asset_warranties` (`start`, `end`, `asset_id`, `type_id`, `status_id`, `description`, `service_group_id`, `service_level_id`, `customer_id`, `reseller_id`, `document_id`, `document_number`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "2020-03-07 00:00:00",
             "2022-12-31 00:00:00",
@@ -1514,6 +1521,7 @@
             "72a3bc57-9110-5502-a1fe-79c99596cfac",
             "528b3f81-c203-5f07-8e95-88a43b2a279a",
             "H7J34AC-HPE Foundation Care 24x7 SVC",
+            null,
             null,
             null,
             null,
@@ -1631,7 +1639,7 @@
         ]
     },
     {
-        "query": "insert into `asset_warranties` (`start`, `end`, `asset_id`, `type_id`, `status_id`, `description`, `service_group_id`, `customer_id`, `reseller_id`, `document_id`, `document_number`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `asset_warranties` (`start`, `end`, `asset_id`, `type_id`, `status_id`, `description`, `service_group_id`, `service_level_id`, `customer_id`, `reseller_id`, `document_id`, `document_number`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "2020-03-07 00:00:00",
             "2022-12-31 00:00:00",
@@ -1639,6 +1647,7 @@
             "72a3bc57-9110-5502-a1fe-79c99596cfac",
             "528b3f81-c203-5f07-8e95-88a43b2a279a",
             "H7J34AC-HPE Foundation Care 24x7 SVC",
+            null,
             null,
             null,
             null,
@@ -1756,7 +1765,7 @@
         ]
     },
     {
-        "query": "insert into `asset_warranties` (`start`, `end`, `asset_id`, `type_id`, `status_id`, `description`, `service_group_id`, `customer_id`, `reseller_id`, `document_id`, `document_number`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `asset_warranties` (`start`, `end`, `asset_id`, `type_id`, `status_id`, `description`, `service_group_id`, `service_level_id`, `customer_id`, `reseller_id`, `document_id`, `document_number`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "2020-03-07 00:00:00",
             "2022-12-31 00:00:00",
@@ -1764,6 +1773,7 @@
             "72a3bc57-9110-5502-a1fe-79c99596cfac",
             "528b3f81-c203-5f07-8e95-88a43b2a279a",
             "H7J34AC-HPE Foundation Care 24x7 SVC",
+            null,
             null,
             null,
             null,
@@ -2028,13 +2038,6 @@
         ]
     },
     {
-        "query": "select `service_levels`.*, `asset_warranty_service_levels`.`asset_warranty_id` as `pivot_asset_warranty_id`, `asset_warranty_service_levels`.`service_level_id` as `pivot_service_level_id`, `asset_warranty_service_levels`.`created_at` as `pivot_created_at`, `asset_warranty_service_levels`.`updated_at` as `pivot_updated_at` from `service_levels` inner join `asset_warranty_service_levels` on `service_levels`.`id` = `asset_warranty_service_levels`.`service_level_id` where `asset_warranty_service_levels`.`deleted_at` is null and `asset_warranty_service_levels`.`asset_warranty_id` in (?, ?) and `service_levels`.`deleted_at` is null",
-        "bindings": [
-            "0732c1fd-e0d6-5221-a6bf-2dc980806289",
-            "cc302f4c-cf56-5914-b7be-27ace9c4e08b"
-        ]
-    },
-    {
         "query": "select `distributors`.* from `distributors`",
         "bindings": []
     },
@@ -2197,7 +2200,7 @@
         ]
     },
     {
-        "query": "insert into `asset_warranties` (`asset_id`, `created_at`, `customer_id`, `description`, `document_id`, `document_number`, `end`, `id`, `reseller_id`, `service_group_id`, `start`, `status_id`, `type_id`, `updated_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `asset_warranties` (`asset_id`, `created_at`, `customer_id`, `description`, `document_id`, `document_number`, `end`, `id`, `reseller_id`, `service_group_id`, `service_level_id`, `start`, `status_id`, `type_id`, `updated_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "150b5f59-abf7-4f1c-97db-8cf06797de26",
             "2022-02-02 00:05:05",
@@ -2207,6 +2210,7 @@
             null,
             "2023-04-14 00:00:00",
             "cc302f4c-cf56-5914-b7be-27ace9c4e08b",
+            null,
             null,
             null,
             "2019-04-15 00:00:00",
@@ -2221,6 +2225,7 @@
             null,
             "2019-05-06 00:00:00",
             "0732c1fd-e0d6-5221-a6bf-2dc980806289",
+            null,
             null,
             null,
             "2018-04-07 00:00:00",

@@ -20,13 +20,6 @@
         ]
     },
     {
-        "query": "select `service_levels`.*, `asset_warranty_service_levels`.`asset_warranty_id` as `pivot_asset_warranty_id`, `asset_warranty_service_levels`.`service_level_id` as `pivot_service_level_id`, `asset_warranty_service_levels`.`created_at` as `pivot_created_at`, `asset_warranty_service_levels`.`updated_at` as `pivot_updated_at` from `service_levels` inner join `asset_warranty_service_levels` on `service_levels`.`id` = `asset_warranty_service_levels`.`service_level_id` where `asset_warranty_service_levels`.`deleted_at` is null and `asset_warranty_service_levels`.`asset_warranty_id` in (?, ?) and `service_levels`.`deleted_at` is null",
-        "bindings": [
-            "73ab0100-8da9-5762-91ba-369f6fe0af93",
-            "982e1992-a89a-5809-ab04-dd73fb286406"
-        ]
-    },
-    {
         "query": "select `documents`.* from `documents` where 0 = 1 and `documents`.`deleted_at` is null",
         "bindings": []
     },
@@ -269,17 +262,6 @@
         ]
     },
     {
-        "query": "select `service_levels`.*, `asset_warranty_service_levels`.`asset_warranty_id` as `pivot_asset_warranty_id`, `asset_warranty_service_levels`.`service_level_id` as `pivot_service_level_id`, `asset_warranty_service_levels`.`created_at` as `pivot_created_at`, `asset_warranty_service_levels`.`updated_at` as `pivot_updated_at` from `service_levels` inner join `asset_warranty_service_levels` on `service_levels`.`id` = `asset_warranty_service_levels`.`service_level_id` where `asset_warranty_service_levels`.`deleted_at` is null and `asset_warranty_service_levels`.`asset_warranty_id` in (?, ?, ?, ?, ?, ?) and `service_levels`.`deleted_at` is null",
-        "bindings": [
-            "0f5c610b-59d4-5422-a958-95368e3bb12c",
-            "327dc657-10ae-57a7-8405-d30d3bec5994",
-            "5cd767d7-0b55-57c1-9b07-df03bbf7618e",
-            "922d204a-2e9b-573c-b63e-c9b0b0127a40",
-            "a0ab40bf-976a-5bf4-a2f2-479464d52a15",
-            "fd662f86-aa52-53ac-a7bd-1b105cd44c18"
-        ]
-    },
-    {
         "query": "select `documents`.* from `documents` where 0 = 1 and `documents`.`deleted_at` is null",
         "bindings": []
     },
@@ -483,20 +465,6 @@
             "01248836-cd22-4b55-920d-e126c9f4ed38",
             "012db34f-ddb1-400b-b4d1-12843abdcee9",
             "0135c00e-0f20-49b5-bb10-f10e5df57237"
-        ]
-    },
-    {
-        "query": "select `service_levels`.*, `asset_warranty_service_levels`.`asset_warranty_id` as `pivot_asset_warranty_id`, `asset_warranty_service_levels`.`service_level_id` as `pivot_service_level_id`, `asset_warranty_service_levels`.`created_at` as `pivot_created_at`, `asset_warranty_service_levels`.`updated_at` as `pivot_updated_at` from `service_levels` inner join `asset_warranty_service_levels` on `service_levels`.`id` = `asset_warranty_service_levels`.`service_level_id` where `asset_warranty_service_levels`.`deleted_at` is null and `asset_warranty_service_levels`.`asset_warranty_id` in (?, ?, ?, ?, ?, ?, ?, ?, ?) and `service_levels`.`deleted_at` is null",
-        "bindings": [
-            "2d7cc7f9-57c2-5265-a7bd-a22052851b93",
-            "4766698c-57dd-5102-8e1e-be902fa59b86",
-            "48969492-b864-5abf-b7d5-33b1ea43c8a9",
-            "6a7a50ce-eed6-5b35-8252-d70bd0973351",
-            "aa2aabc8-b11c-5518-b040-beabf4ac9cae",
-            "b4c8bdcc-c644-5d7c-8a0f-5fab3792548e",
-            "b615b00e-46f1-5b45-843e-a01fc307d037",
-            "d41c5957-84cc-5af4-8eff-5edf9bf6ef48",
-            "ec6982c0-e0f8-5a1b-93ba-7f37e865f491"
         ]
     },
     {
@@ -712,20 +680,6 @@
         ]
     },
     {
-        "query": "select `service_levels`.*, `asset_warranty_service_levels`.`asset_warranty_id` as `pivot_asset_warranty_id`, `asset_warranty_service_levels`.`service_level_id` as `pivot_service_level_id`, `asset_warranty_service_levels`.`created_at` as `pivot_created_at`, `asset_warranty_service_levels`.`updated_at` as `pivot_updated_at` from `service_levels` inner join `asset_warranty_service_levels` on `service_levels`.`id` = `asset_warranty_service_levels`.`service_level_id` where `asset_warranty_service_levels`.`deleted_at` is null and `asset_warranty_service_levels`.`asset_warranty_id` in (?, ?, ?, ?, ?, ?, ?, ?, ?) and `service_levels`.`deleted_at` is null",
-        "bindings": [
-            "0ad9a969-5fc9-5223-a7cc-4cc8a08c259d",
-            "364d26d6-deec-595a-88cc-0e744f806eb5",
-            "411637ae-6eb5-5b84-a2c2-f4a93b77beaa",
-            "769ba174-217d-58da-8ef3-18cc8dc2978b",
-            "88074c5e-3136-5834-8e7f-d963ab32577f",
-            "92cb3b3e-2a03-56c1-ac2d-30ddc9ab6871",
-            "a9ed796b-1b0d-58bb-9aa1-76a30d6cda18",
-            "ca3eba60-814c-567e-930a-d99744712c57",
-            "d12e594f-57a8-502d-b103-dc9dc19ab23c"
-        ]
-    },
-    {
         "query": "select `documents`.* from `documents` where 0 = 1 and `documents`.`deleted_at` is null",
         "bindings": []
     },
@@ -933,17 +887,6 @@
             "01e0e448-2651-4d0e-8a27-318d38a54512",
             "01e83101-04e4-443d-bc86-ad6eea9d92d5",
             "01ec7ee6-92d7-4932-adb6-1b4cc7d130fc"
-        ]
-    },
-    {
-        "query": "select `service_levels`.*, `asset_warranty_service_levels`.`asset_warranty_id` as `pivot_asset_warranty_id`, `asset_warranty_service_levels`.`service_level_id` as `pivot_service_level_id`, `asset_warranty_service_levels`.`created_at` as `pivot_created_at`, `asset_warranty_service_levels`.`updated_at` as `pivot_updated_at` from `service_levels` inner join `asset_warranty_service_levels` on `service_levels`.`id` = `asset_warranty_service_levels`.`service_level_id` where `asset_warranty_service_levels`.`deleted_at` is null and `asset_warranty_service_levels`.`asset_warranty_id` in (?, ?, ?, ?, ?, ?) and `service_levels`.`deleted_at` is null",
-        "bindings": [
-            "3da49517-f2d7-537b-b46a-2f12e695791a",
-            "4e0f400e-aac2-5abc-a54b-1f6beb55ed33",
-            "6fb42026-d309-53c4-9a84-0f69a51817fb",
-            "c1164d6d-cf77-5378-b701-c5bca81ca8cc",
-            "d54d606d-0923-5df1-8f42-43a949dedcd3",
-            "d6a647d6-00e4-5f43-83a0-161e26f82e4c"
         ]
     },
     {

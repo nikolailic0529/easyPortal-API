@@ -22,10 +22,7 @@ use App\Utils\Eloquent\Model;
 use Carbon\CarbonImmutable;
 use Database\Factories\AssetWarrantyFactory;
 use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Relations\BelongsToMany;
-use Illuminate\Support\Collection as BaseCollection;
 
 /**
  * Asset Warranty.

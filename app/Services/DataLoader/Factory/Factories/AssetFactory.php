@@ -55,14 +55,8 @@ use Illuminate\Support\Facades\Date;
 use InvalidArgumentException;
 use Throwable;
 
-use function array_filter;
-use function array_merge;
-use function array_unique;
-use function array_values;
 use function implode;
 use function sprintf;
-
-use const SORT_REGULAR;
 
 /**
  * @extends ModelFactory<Asset>
@@ -234,12 +228,6 @@ class AssetFactory extends ModelFactory {
             // Documents
             if (isset($asset->assetDocument)) {
                 try {
-                    // Prefetch
-                    if (!$created) {
-                        $model->loadMissing('warranties.serviceLevels');
-                    }
-
-                    // Update
                     $model->warranties = $this->assetDocumentsWarranties($model, $asset);
                 } finally {
                     // Save
@@ -332,6 +320,7 @@ class AssetFactory extends ModelFactory {
         $warranty->status          = $this->status($warranty, $entry->status);
         $warranty->description     = $description;
         $warranty->serviceGroup    = null;
+        $warranty->serviceLevel    = null;
         $warranty->customer        = null;
         $warranty->reseller        = null;
         $warranty->document        = null;
@@ -360,26 +349,30 @@ class AssetFactory extends ModelFactory {
     }
 
     /**
-     * @return array<AssetWarranty>
+     * @return EloquentCollection<array-key, AssetWarranty>
      */
-    protected function assetDocumentsWarranties(Asset $model, ViewAsset $asset): array {
-        $warranties = array_merge(
+    protected function assetDocumentsWarranties(Asset $model, ViewAsset $asset): EloquentCollection {
+        /** @var EloquentCollection<array-key, AssetWarranty> $warranties */
+        $warranties = new EloquentCollection();
+        $warranties = $warranties->concat(
             $this->assetDocumentsWarrantiesExtended($model, $asset),
+        );
+        $warranties = $warranties->concat(
             $model->warranties->filter(static function (AssetWarranty $warranty): bool {
                 return static::isWarranty($warranty);
-            })->all(),
+            }),
         );
 
         return $warranties;
     }
 
     /**
-     * @return array<AssetWarranty>
+     * @return EloquentCollection<array-key, AssetWarranty>
      */
-    protected function assetDocumentsWarrantiesExtended(Asset $model, ViewAsset $asset): array {
+    protected function assetDocumentsWarrantiesExtended(Asset $model, ViewAsset $asset): EloquentCollection {
         // Prepare
-        $serviceLevels  = [];
-        $warranties     = [];
+        /** @var EloquentCollection<array-key, AssetWarranty> $warranties */
+        $warranties     = new EloquentCollection();
         $existing       = $model->warranties
             ->filter(static function (AssetWarranty $warranty): bool {
                 return static::isWarrantyExtended($warranty);
@@ -391,6 +384,7 @@ class AssetFactory extends ModelFactory {
                     $warranty->reseller_id,
                     $warranty->customer_id,
                     $warranty->service_group_id,
+                    $warranty->service_level_id,
                     $warranty->start?->startOfDay(),
                     $warranty->end?->startOfDay(),
                 ]);
@@ -424,12 +418,10 @@ class AssetFactory extends ModelFactory {
                     $reseller?->getKey(),
                     $customer?->getKey(),
                     $group?->getKey(),
+                    $level?->getKey(),
                     Date::make($start)?->startOfDay(),
                     Date::make($end)?->startOfDay(),
                 ]);
-
-                // Add service
-                $serviceLevels[$key][] = $level;
 
                 // Already added?
                 if (isset($warranties[$key])) {
@@ -446,6 +438,7 @@ class AssetFactory extends ModelFactory {
                 $warranty->status          = null;
                 $warranty->description     = null;
                 $warranty->serviceGroup    = $group;
+                $warranty->serviceLevel    = $level;
                 $warranty->customer        = $customer;
                 $warranty->reseller        = $reseller;
                 $warranty->document        = $document;
@@ -460,13 +453,8 @@ class AssetFactory extends ModelFactory {
             }
         }
 
-        // Update Service Levels
-        foreach ($warranties as $key => $warranty) {
-            $warranty->serviceLevels = array_filter(array_unique($serviceLevels[$key] ?? [], SORT_REGULAR));
-        }
-
         // Return
-        return array_values($warranties);
+        return $warranties;
     }
 
     /**
