@@ -405,6 +405,9 @@ class ModelsProvider {
             'service_level_id' => $serviceLevel,
         ]);
 
+        $asset->warranty = $assetWarranty;
+        $asset->save();
+
         // Settings
         $test->setSettings([
             'ep.headquarter_type' => $type->getKey(),

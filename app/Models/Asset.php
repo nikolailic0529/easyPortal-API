@@ -6,6 +6,8 @@ use App\Models\Data\Coverage;
 use App\Models\Data\Location;
 use App\Models\Data\Oem;
 use App\Models\Data\Product;
+use App\Models\Data\ServiceGroup;
+use App\Models\Data\ServiceLevel;
 use App\Models\Data\Status;
 use App\Models\Data\Tag;
 use App\Models\Data\Type;
@@ -55,8 +57,11 @@ use function count;
  * @property string|null                         $status_id
  * @property string|null                         $serial_number
  * @property string|null                         $nickname
+ * @property string|null                         $warranty_id
  * @property CarbonImmutable|null                $warranty_end
  * @property CarbonImmutable|null                $warranty_changed_at
+ * @property string|null                         $warranty_service_group_id
+ * @property string|null                         $warranty_service_level_id
  * @property string|null                         $data_quality
  * @property int|null                            $contacts_active_quantity
  * @property int                                 $contacts_count
@@ -80,7 +85,10 @@ use function count;
  * @property Status|null                         $status
  * @property Collection<int, Tag>                $tags
  * @property Type|null                           $type
+ * @property AssetWarranty|null                  $warranty
  * @property Collection<int, AssetWarranty>      $warranties
+ * @property ServiceGroup|null                   $warrantyServiceGroup
+ * @property ServiceLevel|null                   $warrantyServiceLevel
  * @property QuoteRequest|null                   $quoteRequest
  * @method static AssetFactory factory(...$parameters)
  * @method static Builder|Asset newModelQuery()
@@ -255,6 +263,45 @@ class Asset extends Model implements OwnedByReseller, Searchable {
             ->orderByDesc($request->qualifyColumn($request->getCreatedAtColumn()));
     }
 
+    /**
+     * @return BelongsTo<AssetWarranty, self>
+     */
+    public function warranty(): BelongsTo {
+        return $this->belongsTo(AssetWarranty::class);
+    }
+
+    public function setWarrantyAttribute(?AssetWarranty $warranty): void {
+        $this->warranty()->associate($warranty);
+
+        $this->warranty_end              = $warranty->end ?? null;
+        $this->warranty_service_group_id = $warranty->service_group_id ?? null;
+        $this->warranty_service_level_id = $warranty->service_level_id ?? null;
+
+        $this->unsetRelation('warrantyServiceGroup');
+        $this->unsetRelation('warrantyServiceLevel');
+    }
+
+    /**
+     * @return BelongsTo<ServiceGroup, self>
+     */
+    public function warrantyServiceGroup(): BelongsTo {
+        return $this->belongsTo(ServiceGroup::class);
+    }
+
+    public function setWarrantyServiceGroupAttribute(?ServiceGroup $group): void {
+        $this->warrantyServiceGroup()->associate($group);
+    }
+
+    /**
+     * @return BelongsTo<ServiceLevel, self>
+     */
+    public function warrantyServiceLevel(): BelongsTo {
+        return $this->belongsTo(ServiceLevel::class);
+    }
+
+    public function setWarrantyServiceLevelAttribute(?ServiceLevel $level): void {
+        $this->warrantyServiceLevel()->associate($level);
+    }
     //</editor-fold>
 
     // <editor-fold desc="Searchable">
