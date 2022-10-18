@@ -26,10 +26,12 @@ use App\Services\Search\Eloquent\Searchable;
 use App\Services\Search\Eloquent\SearchableImpl;
 use App\Services\Search\Properties\Relation;
 use App\Services\Search\Properties\Text;
+use App\Utils\Eloquent\Callbacks\OrderByKey;
 use App\Utils\Eloquent\Concerns\SyncHasMany;
 use App\Utils\Eloquent\Model;
 use App\Utils\Eloquent\Pivot;
 use Carbon\CarbonImmutable;
+use Closure;
 use Database\Factories\AssetFactory;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
@@ -57,7 +59,6 @@ use function count;
  * @property string|null                         $status_id
  * @property string|null                         $serial_number
  * @property string|null                         $nickname
- * @property string|null                         $warranty_id
  * @property CarbonImmutable|null                $warranty_end
  * @property CarbonImmutable|null                $warranty_changed_at
  * @property string|null                         $warranty_service_group_id
@@ -85,7 +86,6 @@ use function count;
  * @property Status|null                         $status
  * @property Collection<int, Tag>                $tags
  * @property Type|null                           $type
- * @property AssetWarranty|null                  $warranty
  * @property Collection<int, AssetWarranty>      $warranties
  * @property ServiceGroup|null                   $warrantyServiceGroup
  * @property ServiceLevel|null                   $warrantyServiceLevel
@@ -264,15 +264,16 @@ class Asset extends Model implements OwnedByReseller, Searchable {
     }
 
     /**
-     * @return BelongsTo<AssetWarranty, self>
+     * @return HasOne<AssetWarranty>
      */
-    public function warranty(): BelongsTo {
-        return $this->belongsTo(AssetWarranty::class);
+    public function warranty(): HasOne {
+        return $this
+            ->hasOne(AssetWarranty::class)
+            ->orderByDesc('end')
+            ->orderBy(Closure::fromCallable(new OrderByKey()));
     }
 
     public function setWarrantyAttribute(?AssetWarranty $warranty): void {
-        $this->warranty()->associate($warranty);
-
         $this->warranty_end              = $warranty->end ?? null;
         $this->warranty_service_group_id = $warranty->service_group_id ?? null;
         $this->warranty_service_level_id = $warranty->service_level_id ?? null;
