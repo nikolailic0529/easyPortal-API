@@ -187,11 +187,20 @@ class AssetsTest extends TestCase {
                             document_id
                             start
                             end
+                            service_group_id
                             serviceGroup {
                                 id
                                 oem_id
                                 sku
                                 name
+                            }
+                            service_level_id
+                            serviceLevel {
+                                id
+                                oem_id
+                                sku
+                                name
+                                description
                             }
                             customer {
                                 id
@@ -442,19 +451,28 @@ class AssetsTest extends TestCase {
                                     'warranty_changed_at'      => '2021-10-19T10:25:00+00:00',
                                     'warranties'               => [
                                         [
-                                            'id'           => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24986',
-                                            'reseller_id'  => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24987',
-                                            'customer_id'  => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24987',
-                                            'document_id'  => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24988',
-                                            'start'        => '2021-01-01',
-                                            'end'          => '2022-01-01',
-                                            'serviceGroup' => [
+                                            'id'               => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24986',
+                                            'reseller_id'      => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24987',
+                                            'customer_id'      => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24987',
+                                            'document_id'      => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24988',
+                                            'start'            => '2021-01-01',
+                                            'end'              => '2022-01-01',
+                                            'service_group_id' => '8b4d2d12-542a-4fcf-9acc-626bfb5dbc79',
+                                            'serviceGroup'     => [
                                                 'id'     => '8b4d2d12-542a-4fcf-9acc-626bfb5dbc79',
                                                 'name'   => 'Group',
                                                 'oem_id' => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24982',
                                                 'sku'    => 'SKU#123',
                                             ],
-                                            'customer'     => [
+                                            'service_level_id' => 'e2bb80fc-cedf-4ad2-b723-1e250805d2a0',
+                                            'serviceLevel'     => [
+                                                'id'          => 'e2bb80fc-cedf-4ad2-b723-1e250805d2a0',
+                                                'name'        => 'Level',
+                                                'oem_id'      => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24982',
+                                                'sku'         => 'SKU#123',
+                                                'description' => 'description',
+                                            ],
+                                            'customer'         => [
                                                 'id'              => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24987',
                                                 'name'            => 'name aaa',
                                                 'assets_count'    => 0,
@@ -485,7 +503,7 @@ class AssetsTest extends TestCase {
                                                 'changed_at'      => '2021-10-19T10:15:00+00:00',
                                                 'synced_at'       => '2021-10-19T10:25:00+00:00',
                                             ],
-                                            'reseller'     => [
+                                            'reseller'         => [
                                                 'id'              => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24987',
                                                 'name'            => 'reseller1',
                                                 'customers_count' => 0,
@@ -511,11 +529,11 @@ class AssetsTest extends TestCase {
                                                 'changed_at'      => '2021-10-19T10:15:00+00:00',
                                                 'synced_at'       => '2021-10-19T10:25:00+00:00',
                                             ],
-                                            'type_id'      => null,
-                                            'type'         => null,
-                                            'status_id'    => null,
-                                            'status'       => null,
-                                            'description'  => null,
+                                            'type_id'          => null,
+                                            'type'             => null,
+                                            'status_id'        => null,
+                                            'status'           => null,
+                                            'description'      => null,
                                         ],
                                     ],
                                     'status'                   => [
@@ -731,6 +749,7 @@ class AssetsTest extends TestCase {
 
                             AssetWarranty::factory()
                                 ->for($serviceGroup)
+                                ->for($serviceLevel)
                                 ->create([
                                     'id'          => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24986',
                                     'asset_id'    => $asset,

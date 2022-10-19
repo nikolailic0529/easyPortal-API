@@ -2389,6 +2389,12 @@ input SearchByConditionAssetWarrantiesQuery {
     """
     Property condition.
     """
+    service_level_id: SearchByScalarIDOrNull
+    @searchByProperty
+
+    """
+    Property condition.
+    """
     start: SearchByScalarDateOrNull
     @searchByProperty
 }
@@ -8127,6 +8133,11 @@ type AssetWarranty {
     serviceGroup: ServiceGroup
     @relation
 
+    serviceLevel: ServiceLevel
+    @relation
+
+    service_group_id: ID
+    service_level_id: ID
     start: Date
 
     status: Status

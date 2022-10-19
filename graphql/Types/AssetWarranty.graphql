@@ -13,5 +13,8 @@ type AssetWarranty {
     document: Document @relation
     reseller_id: ID
     reseller: Reseller @relation
+    service_group_id: ID
     serviceGroup: ServiceGroup @relation
+    service_level_id: ID
+    serviceLevel: ServiceLevel @relation
 }
