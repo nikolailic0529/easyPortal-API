@@ -187,6 +187,7 @@ class AssetTest extends TestCase {
                             reseller_id
                             customer_id
                             document_id
+                            document_number
                             start
                             end
                             service_group_id
@@ -565,6 +566,7 @@ class AssetTest extends TestCase {
                                     'reseller_id'      => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24987',
                                     'customer_id'      => null,
                                     'document_id'      => null,
+                                    'document_number'  => null,
                                     'start'            => '2021-01-01',
                                     'end'              => '2022-01-01',
                                     'service_group_id' => null,
@@ -609,6 +611,7 @@ class AssetTest extends TestCase {
                                     'reseller_id'      => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24987',
                                     'customer_id'      => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24987',
                                     'document_id'      => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24988',
+                                    'document_number'  => 'b0a1c3e2-95a7-4ef3-a42e-33c3a7c577fe',
                                     'start'            => '2021-01-01',
                                     'end'              => '2022-01-01',
                                     'service_group_id' => '8b4d2d12-542a-4fcf-9acc-626bfb5dbc79',
@@ -907,6 +910,7 @@ class AssetTest extends TestCase {
                                 'id'          => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24988',
                                 'type_id'     => $documentType,
                                 'reseller_id' => $reseller,
+                                'number'      => 'b0a1c3e2-95a7-4ef3-a42e-33c3a7c577fe',
                             ]);
                             // Document entry creation for services
                             DocumentEntry::factory()->create([
@@ -978,28 +982,30 @@ class AssetTest extends TestCase {
                                 ->for($serviceGroup)
                                 ->for($serviceLevel)
                                 ->create([
-                                    'id'          => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24986',
-                                    'asset_id'    => $asset,
-                                    'reseller_id' => $reseller,
-                                    'customer_id' => $customer,
-                                    'document_id' => $document,
-                                    'start'       => '2021-01-01',
-                                    'end'         => '2022-01-01',
-                                    'type_id'     => $warrantyType,
-                                    'status_id'   => $warrantyStatus,
-                                    'description' => 'warranty description',
+                                    'id'              => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24986',
+                                    'asset_id'        => $asset,
+                                    'reseller_id'     => $reseller,
+                                    'customer_id'     => $customer,
+                                    'document_id'     => $document,
+                                    'document_number' => $document->number,
+                                    'start'           => '2021-01-01',
+                                    'end'             => '2022-01-01',
+                                    'type_id'         => $warrantyType,
+                                    'status_id'       => $warrantyStatus,
+                                    'description'     => 'warranty description',
                                 ]);
 
                             // Should be returned - no document
                             AssetWarranty::factory()
                                 ->create([
-                                    'id'          => 'e4a60a4f-492f-4e16-8fea-d9bd77ed2551',
-                                    'asset_id'    => $asset,
-                                    'reseller_id' => $reseller,
-                                    'customer_id' => null,
-                                    'document_id' => null,
-                                    'start'       => '2021-01-01',
-                                    'end'         => '2022-01-01',
+                                    'id'              => 'e4a60a4f-492f-4e16-8fea-d9bd77ed2551',
+                                    'asset_id'        => $asset,
+                                    'reseller_id'     => $reseller,
+                                    'customer_id'     => null,
+                                    'document_id'     => null,
+                                    'document_number' => null,
+                                    'start'           => '2021-01-01',
+                                    'end'             => '2022-01-01',
                                 ]);
 
                             // Should not be returned - document not a contract

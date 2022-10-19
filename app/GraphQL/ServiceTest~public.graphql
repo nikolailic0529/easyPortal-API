@@ -1852,6 +1852,11 @@ input SearchByConditionAssetWarrantiesQuery {
     """
     Property condition.
     """
+    document_number: SearchByScalarStringOrNull
+
+    """
+    Property condition.
+    """
     end: SearchByScalarDateOrNull
 
     """
@@ -6532,6 +6537,7 @@ type AssetWarranty {
     description: String
     document: Document
     document_id: ID
+    document_number: String
     end: Date
     id: ID!
     reseller: Reseller

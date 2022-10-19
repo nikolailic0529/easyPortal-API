@@ -5,6 +5,7 @@ input AssetWarrantiesQuery {
     asset: AssetsQuery
     customer_id: ID
     customer: CompaniesQuery
+    document_number: String
     document_id: ID
     document: DocumentsQuery
     reseller_id: ID

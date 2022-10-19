@@ -185,6 +185,7 @@ class AssetsTest extends TestCase {
                             reseller_id
                             customer_id
                             document_id
+                            document_number
                             start
                             end
                             service_group_id
@@ -455,6 +456,7 @@ class AssetsTest extends TestCase {
                                             'reseller_id'      => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24987',
                                             'customer_id'      => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24987',
                                             'document_id'      => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24988',
+                                            'document_number'  => 'b0a1c3e2-95a7-4ef3-a42e-33c3a7c577fe',
                                             'start'            => '2021-01-01',
                                             'end'              => '2022-01-01',
                                             'service_group_id' => '8b4d2d12-542a-4fcf-9acc-626bfb5dbc79',
@@ -751,13 +753,14 @@ class AssetsTest extends TestCase {
                                 ->for($serviceGroup)
                                 ->for($serviceLevel)
                                 ->create([
-                                    'id'          => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24986',
-                                    'asset_id'    => $asset,
-                                    'reseller_id' => $reseller,
-                                    'customer_id' => $customer,
-                                    'document_id' => $document,
-                                    'start'       => '2021-01-01',
-                                    'end'         => '2022-01-01',
+                                    'id'              => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24986',
+                                    'asset_id'        => $asset,
+                                    'reseller_id'     => $reseller,
+                                    'customer_id'     => $customer,
+                                    'document_id'     => $document,
+                                    'document_number' => 'b0a1c3e2-95a7-4ef3-a42e-33c3a7c577fe',
+                                    'start'           => '2021-01-01',
+                                    'end'             => '2022-01-01',
                                 ]);
 
                             Asset::factory()->create([

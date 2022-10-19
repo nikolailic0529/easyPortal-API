@@ -2353,6 +2353,12 @@ input SearchByConditionAssetWarrantiesQuery {
     """
     Property condition.
     """
+    document_number: SearchByScalarStringOrNull
+    @searchByProperty
+
+    """
+    Property condition.
+    """
     end: SearchByScalarDateOrNull
     @searchByProperty
 
@@ -8122,6 +8128,7 @@ type AssetWarranty {
     @relation
 
     document_id: ID
+    document_number: String
     end: Date
     id: ID!
 

@@ -9,6 +9,7 @@ type AssetWarranty {
     description: String
     customer_id: ID
     customer: Customer @relation
+    document_number: String
     document_id: ID
     document: Document @relation
     reseller_id: ID
