@@ -30,6 +30,7 @@ use App\Services\DataLoader\Schema\Type;
 use App\Services\DataLoader\Schema\ViewAsset;
 use App\Services\DataLoader\Schema\ViewAssetDocument;
 use App\Services\DataLoader\Testing\Helper;
+use App\Utils\Eloquent\Callbacks\GetKey;
 use App\Utils\Eloquent\Callbacks\KeysComparator;
 use Illuminate\Contracts\Debug\ExceptionHandler;
 use Illuminate\Database\Eloquent\Collection as EloquentCollection;
@@ -635,37 +636,111 @@ class AssetFactoryTest extends TestCase {
     }
 
     /**
-     * @covers ::assetDocumentsWarranties
+     * @covers ::assetWarranties
      */
-    public function testAssetDocumentsWarranties(): void {
-        $b       = AssetWarranty::factory()->make();
-        $model   = Asset::factory()->make();
-        $asset   = new ViewAsset();
-        $factory = Mockery::mock(AssetFactory::class);
+    public function testAssetWarranties(): void {
+        $model               = Asset::factory()->create();
+        $asset               = new ViewAsset([
+            'coverageStatusCheck' => [
+                'coverageStatusUpdatedAt' => (string) Date::make($this->faker->dateTime())?->getTimestampMs(),
+            ],
+            'assetDocument'       => [
+                [
+                    'documentNumber' => $this->faker->uuid(),
+                ],
+            ],
+        ]);
+        $coveragesWarranty   = AssetWarranty::factory()->create([
+            'asset_id'        => $model,
+            'document_number' => null,
+        ]);
+        $coveragesWarranties = EloquentCollection::make([$coveragesWarranty]);
+        $documentsWarranty   = AssetWarranty::factory()->create([
+            'asset_id'        => $model,
+            'document_number' => $this->faker->uuid(),
+        ]);
+        $documentsWarranties = EloquentCollection::make([$documentsWarranty]);
+
+        $normalizer = $this->app->make(Normalizer::class);
+        $factory    = Mockery::mock(AssetFactory::class);
         $factory->shouldAllowMockingProtectedMethods();
         $factory->makePartial();
         $factory
-            ->shouldReceive('assetDocuments')
-            ->with($model, $asset)
-            ->never();
-        $factory
-            ->shouldReceive('assetDocumentsWarrantiesExtended')
-            ->with($model, $asset)
+            ->shouldReceive('getNormalizer')
+            ->atLeast()
             ->once()
-            ->andReturn(
-                new EloquentCollection([$b]),
-            );
+            ->andReturn($normalizer);
+        $factory
+            ->shouldReceive('assetWarrantiesCoverages')
+            ->with($model, $asset, Mockery::on(static function (mixed $existing) use ($coveragesWarranties): bool {
+                return $existing instanceof EloquentCollection
+                    && $existing->map(new GetKey())->all() === $coveragesWarranties->map(new GetKey())->all();
+            }))
+            ->once()
+            ->andReturn($coveragesWarranties);
+        $factory
+            ->shouldReceive('assetWarrantiesDocuments')
+            ->with($model, $asset, Mockery::on(static function (mixed $existing) use ($documentsWarranties): bool {
+                return $existing instanceof EloquentCollection
+                    && $existing->map(new GetKey())->all() === $documentsWarranties->map(new GetKey())->all();
+            }))
+            ->once()
+            ->andReturn($documentsWarranties);
 
         self::assertEquals(
-            new EloquentCollection([$b]),
-            $factory->assetDocumentsWarranties($model, $asset),
+            EloquentCollection::make([$coveragesWarranty, $documentsWarranty]),
+            $factory->assetWarranties($model, $asset),
         );
     }
 
     /**
-     * @covers ::assetDocumentsWarrantiesExtended
+     * @covers ::assetWarranties
      */
-    public function testAssetDocumentsWarrantiesExtended(): void {
+    public function testAssetWarrantiesCoverageStatusCheckIsExpired(): void {
+        $date              = Date::now()->startOfDay();
+        $model             = Asset::factory()->create([
+            'warranty_changed_at' => $date,
+        ]);
+        $asset             = new ViewAsset([
+            'coverageStatusCheck' => [
+                'coverageStatusUpdatedAt' => (string) $date->subDay()->getTimestampMs(),
+            ],
+        ]);
+        $coveragesWarranty = AssetWarranty::factory()->create([
+            'asset_id'        => $model,
+            'document_number' => null,
+        ]);
+        $documentsWarranty = AssetWarranty::factory()->create([
+            'asset_id'        => $model,
+            'document_number' => $this->faker->uuid(),
+        ]);
+
+        $normalizer = $this->app->make(Normalizer::class);
+        $factory    = Mockery::mock(AssetFactory::class);
+        $factory->shouldAllowMockingProtectedMethods();
+        $factory->makePartial();
+        $factory
+            ->shouldReceive('getNormalizer')
+            ->atLeast()
+            ->once()
+            ->andReturn($normalizer);
+        $factory
+            ->shouldReceive('assetWarrantiesCoverages')
+            ->never();
+        $factory
+            ->shouldReceive('assetWarrantiesDocuments')
+            ->never();
+
+        self::assertEquals(
+            Collection::make([$coveragesWarranty->getKey(), $documentsWarranty->getKey()])->all(),
+            $factory->assetWarranties($model, $asset)->map(new GetKey())->all(),
+        );
+    }
+
+    /**
+     * @covers ::assetWarrantiesDocuments
+     */
+    public function testAssetWarrantiesDocuments(): void {
         // Prepare
         $container       = $this->app->make(Container::class);
         $factory         = $container->make(AssetFactoryTest_Factory::class);
@@ -865,7 +940,7 @@ class AssetFactoryTest extends TestCase {
         self::assertEquals(1, $model->warranties()->count());
 
         // Test
-        $warranties = $factory->assetDocumentsWarrantiesExtended($model, $asset);
+        $warranties = $factory->assetWarrantiesDocuments($model, $asset, $model->warranties);
 
         self::assertCount(5, $warranties);
 
@@ -1402,22 +1477,15 @@ class AssetFactoryTest extends TestCase {
     }
 
     /**
-     * @covers ::assetWarranties
+     * @covers ::assetWarrantiesCoverages
      */
-    public function testAssetWarranties(): void {
+    public function testAssetWarrantiesCoverages(): void {
         $asset                   = Asset::factory()->create();
         $type                    = TypeModel::factory()->create([
             'object_type' => (new AssetWarranty())->getMorphClass(),
         ]);
         $status                  = Status::factory()->create([
             'object_type' => (new AssetWarranty())->getMorphClass(),
-        ]);
-        $documentWarranty        = AssetWarranty::factory()->create([
-            'document_number' => $this->faker->uuid(),
-            'asset_id'        => $asset,
-            'type_id'         => null,
-            'start'           => $this->faker->dateTime(),
-            'end'             => $this->faker->dateTime(),
         ]);
         $warrantyShouldBeUpdated = AssetWarranty::factory()->create([
             'document_number' => null,
@@ -1428,7 +1496,7 @@ class AssetFactoryTest extends TestCase {
             'start'           => Date::make($this->faker->dateTime())?->startOfDay(),
             'end'             => Date::make($this->faker->dateTime())?->startOfDay(),
         ]);
-        $warrantyShouldBeReused  = (new Collection([
+        $warrantyShouldBeReused  = Collection::make([
             AssetWarranty::factory()->create([
                 'document_number' => null,
                 'reseller_id'     => null,
@@ -1447,7 +1515,7 @@ class AssetFactoryTest extends TestCase {
                 'start'           => $this->faker->dateTime(),
                 'end'             => $this->faker->dateTime(),
             ]),
-        ]))
+        ])
             ->sort(new KeysComparator())
             ->first();
         $entryShouldBeCreated    = new CoverageEntry([
@@ -1503,19 +1571,22 @@ class AssetFactoryTest extends TestCase {
                 // empty
             }
 
-            public function assetWarranties(Asset $model, ViewAsset $asset): EloquentCollection {
-                return parent::assetWarranties($model, $asset);
+            public function assetWarrantiesCoverages(
+                Asset $model,
+                ViewAsset $asset,
+                EloquentCollection $existing,
+            ): EloquentCollection {
+                return parent::assetWarrantiesCoverages($model, $asset, $existing);
             }
         };
 
         $map      = static fn(AssetWarranty $warranty) => $warranty->getAttributes();
         $actual   = $factory
-            ->assetWarranties($asset, $viewAsset)
+            ->assetWarrantiesCoverages($asset, $viewAsset, $asset->warranties)
             ->sort(new KeysComparator())
             ->map($map)
             ->values();
-        $expected = (new EloquentCollection([
-            $documentWarranty->fresh(),
+        $expected = EloquentCollection::make([
             (clone $warrantyShouldBeUpdated)->forceFill([
                 'status_id'   => $status->getKey(),
                 'description' => $entryShouldBeUpdated->description,
@@ -1527,7 +1598,7 @@ class AssetFactoryTest extends TestCase {
                 'status_id'   => $status->getKey(),
                 'description' => $entryShouldBeCreated->description,
             ]),
-        ]))
+        ])
             ->sort(new KeysComparator())
             ->map($map)
             ->values();
@@ -1585,7 +1656,11 @@ class AssetFactoryTest_Factory extends AssetFactory {
         return parent::assetDocumentDocument($model, $assetDocument);
     }
 
-    public function assetDocumentsWarrantiesExtended(Asset $model, ViewAsset $asset): EloquentCollection {
-        return parent::assetDocumentsWarrantiesExtended($model, $asset);
+    public function assetWarrantiesDocuments(
+        Asset $model,
+        ViewAsset $asset,
+        EloquentCollection $existing,
+    ): EloquentCollection {
+        return parent::assetWarrantiesDocuments($model, $asset, $existing);
     }
 }

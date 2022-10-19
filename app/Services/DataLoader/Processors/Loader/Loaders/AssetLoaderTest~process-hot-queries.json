@@ -27,9 +27,9 @@
     {
         "query": "select `types`.*, `contact_types`.`contact_id` as `pivot_contact_id`, `contact_types`.`type_id` as `pivot_type_id`, `contact_types`.`created_at` as `pivot_created_at`, `contact_types`.`updated_at` as `pivot_updated_at` from `types` inner join `contact_types` on `types`.`id` = `contact_types`.`type_id` where `contact_types`.`deleted_at` is null and `contact_types`.`contact_id` in (?, ?, ?) and `types`.`deleted_at` is null",
         "bindings": [
-            "1b31da43-5a06-5dcb-aa0c-8e642bf3bfe0",
-            "68001c0e-18bb-533b-8d3e-c593db36d24c",
-            "9748dc8d-a0e8-5bab-9c8d-c706cfbbf0b0"
+            "267355f9-ece4-56eb-a3ee-0faa1c701e6e",
+            "345dff1a-fad7-594e-bc07-7fbcff6d8f91",
+            "7ef73e6c-08eb-5678-b7e1-e4bd456d6939"
         ]
     },
     {
@@ -150,8 +150,8 @@
     {
         "query": "update `assets` set `synced_at` = ?, `assets`.`updated_at` = ? where `id` = ?",
         "bindings": [
-            "2022-02-02 00:01:05",
-            "2022-02-02 00:01:10",
+            "2022-02-02 00:01:06",
+            "2022-02-02 00:01:13",
             "00000b7e-e7dc-49ee-8294-e4708b2435e4"
         ]
     }

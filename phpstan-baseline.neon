@@ -3446,16 +3446,6 @@ parameters:
 			path: app/Services/DataLoader/Factory/Factories/AssetFactoryTest.php
 
 		-
-			message: "#^Parameter \\#1 \\$callback of method Illuminate\\\\Database\\\\Eloquent\\\\Collection\\<\\(int\\|string\\),Illuminate\\\\Database\\\\Eloquent\\\\Model\\>\\:\\:map\\(\\) expects callable\\(Illuminate\\\\Database\\\\Eloquent\\\\Model, \\(int\\|string\\)\\)\\: array, Closure\\(App\\\\Models\\\\AssetWarranty\\)\\: array given\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Factories/AssetFactoryTest.php
-
-		-
-			message: "#^Parameter \\#1 \\$items of class Illuminate\\\\Database\\\\Eloquent\\\\Collection constructor expects Illuminate\\\\Contracts\\\\Support\\\\Arrayable\\<int, TModel of Illuminate\\\\Database\\\\Eloquent\\\\Model\\>\\|iterable\\<int, TModel of Illuminate\\\\Database\\\\Eloquent\\\\Model\\>\\|null, array\\{App\\\\Models\\\\AssetWarranty\\|null, App\\\\Models\\\\AssetWarranty, App\\\\Models\\\\AssetWarranty\\} given\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Factories/AssetFactoryTest.php
-
-		-
 			message: "#^Parameter \\#1 \\$json of class App\\\\Services\\\\DataLoader\\\\Schema\\\\ViewAsset constructor expects array\\<string, mixed\\>, array\\|bool\\|float\\|int\\|string\\|null given\\.$#"
 			count: 12
 			path: app/Services/DataLoader/Factory/Factories/AssetFactoryTest.php
