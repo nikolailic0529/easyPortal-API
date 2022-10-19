@@ -27,30 +27,30 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 /**
  * Asset Warranty.
  *
- * @property string                       $id
- * @property string                       $asset_id
- * @property string|null                  $type_id
- * @property string|null                  $status_id
- * @property string|null                  $reseller_id
- * @property string|null                  $customer_id
- * @property string|null                  $document_id
- * @property string|null                  $document_number
- * @property string|null                  $service_group_id
- * @property string|null                  $service_level_id
- * @property CarbonImmutable|null         $start
- * @property CarbonImmutable|null         $end
- * @property CarbonImmutable              $created_at
- * @property CarbonImmutable              $updated_at
- * @property CarbonImmutable|null         $deleted_at
- * @property string|null                  $description
- * @property Asset                        $asset
- * @property Customer|null                $customer
- * @property Document|null                $document
- * @property Reseller|null                $reseller
- * @property ServiceGroup|null            $serviceGroup
- * @property ServiceLevel|null            $serviceLevel
- * @property Status|null                  $status
- * @property Type|null                    $type
+ * @property string               $id
+ * @property string               $asset_id
+ * @property string|null          $type_id
+ * @property string|null          $status_id
+ * @property string|null          $reseller_id
+ * @property string|null          $customer_id
+ * @property string|null          $document_id
+ * @property string|null          $document_number
+ * @property string|null          $service_group_id
+ * @property string|null          $service_level_id
+ * @property CarbonImmutable|null $start
+ * @property CarbonImmutable|null $end
+ * @property CarbonImmutable      $created_at
+ * @property CarbonImmutable      $updated_at
+ * @property CarbonImmutable|null $deleted_at
+ * @property string|null          $description
+ * @property Asset                $asset
+ * @property Customer|null        $customer
+ * @property Document|null        $document
+ * @property Reseller|null        $reseller
+ * @property ServiceGroup|null    $serviceGroup
+ * @property ServiceLevel|null    $serviceLevel
+ * @property Status|null          $status
+ * @property Type|null            $type
  * @method static AssetWarrantyFactory factory(...$parameters)
  * @method static Builder|AssetWarranty newModelQuery()
  * @method static Builder|AssetWarranty newQuery()
@@ -90,7 +90,17 @@ class AssetWarranty extends Model implements OwnedByReseller, OwnedByShared {
      */
     protected $table = 'asset_warranties';
 
+    // <editor-fold desc="Relations">
+    // =========================================================================
     public function setDocumentAttribute(Document|null $document): void {
         $this->document()->associate($document);
     }
+    // </editor-fold>
+
+    // <editor-fold desc="Helpers">
+    // =========================================================================
+    public function isExtended(): bool {
+        return $this->document_number !== null;
+    }
+    // </editor-fold>
 }

@@ -4,6 +4,8 @@ namespace App\Services\Recalculator\Processor\Processors;
 
 use App\Models\Asset;
 use App\Models\AssetWarranty;
+use App\Models\Data\ServiceGroup;
+use App\Models\Data\ServiceLevel;
 use App\Models\Data\Status;
 use App\Models\Data\Type;
 use App\Models\Document;
@@ -47,9 +49,11 @@ class AssetsProcessorTest extends TestCase {
                 'id' => Str::uuid()->toString(),
             ])
             ->create([
-                'id'              => Str::uuid()->toString(),
-                'coverages_count' => 123,
-                'contacts_count'  => 123,
+                'id'                        => Str::uuid()->toString(),
+                'coverages_count'           => 123,
+                'contacts_count'            => 123,
+                'warranty_service_group_id' => ServiceGroup::factory()->create(),
+                'warranty_service_level_id' => ServiceLevel::factory()->create(),
             ]);
         $assetB = Asset::factory()
             ->hasContacts(1, [
@@ -69,27 +73,29 @@ class AssetsProcessorTest extends TestCase {
 
         AssetWarranty::factory()->create([
             // No Document
-            'id'          => Str::uuid()->toString(),
-            'end'         => $date->subDay(),
-            'asset_id'    => $assetA,
-            'document_id' => null,
+            'id'              => Str::uuid()->toString(),
+            'end'             => $date->subDay(),
+            'asset_id'        => $assetA,
+            'document_id'     => null,
+            'document_number' => null,
         ]);
         AssetWarranty::factory()->create([
             // Not a Contract
-            'id'          => Str::uuid()->toString(),
-            'end'         => $date->addDay(),
-            'asset_id'    => $assetA,
-            'document_id' => Document::factory()->create([
+            'id'              => Str::uuid()->toString(),
+            'end'             => $date->addDay(),
+            'asset_id'        => $assetA,
+            'document_id'     => Document::factory()->create([
                 'id'      => Str::uuid()->toString(),
                 'type_id' => Type::factory()->create(),
             ]),
+            'document_number' => Str::uuid()->toString(),
         ]);
         AssetWarranty::factory()->create([
             // Hidden Contract
-            'id'          => Str::uuid()->toString(),
-            'end'         => $date->addDay(),
-            'asset_id'    => $assetA,
-            'document_id' => Document::factory()
+            'id'              => Str::uuid()->toString(),
+            'end'             => $date->addDay(),
+            'asset_id'        => $assetA,
+            'document_id'     => Document::factory()
                 ->afterCreating(static function (Document $document) use ($status): void {
                     $document->statuses = [$status];
                     $document->save();
@@ -98,16 +104,18 @@ class AssetsProcessorTest extends TestCase {
                     'id'      => Str::uuid()->toString(),
                     'type_id' => $type,
                 ]),
+            'document_number' => Str::uuid()->toString(),
         ]);
         AssetWarranty::factory()->create([
             // Visible Contract
-            'id'          => Str::uuid()->toString(),
-            'end'         => $date,
-            'asset_id'    => $assetA,
-            'document_id' => Document::factory()->create([
+            'id'              => Str::uuid()->toString(),
+            'end'             => $date,
+            'asset_id'        => $assetA,
+            'document_id'     => Document::factory()->create([
                 'id'      => Str::uuid()->toString(),
                 'type_id' => $type,
             ]),
+            'document_number' => Str::uuid()->toString(),
         ]);
 
         $this->setSettings([

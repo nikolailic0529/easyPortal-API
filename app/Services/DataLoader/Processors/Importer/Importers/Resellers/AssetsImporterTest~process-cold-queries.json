@@ -384,8 +384,10 @@
         ]
     },
     {
-        "query": "update `assets` set `warranty_end` = ?, `assets`.`updated_at` = ? where `id` = ?",
+        "query": "update `assets` set `warranty_end` = ?, `warranty_service_group_id` = ?, `warranty_service_level_id` = ?, `assets`.`updated_at` = ? where `id` = ?",
         "bindings": [
+            null,
+            null,
             null,
             "2022-02-02 00:00:26",
             "00302c3d-c45a-47f1-a1cb-3168e215bad3"
@@ -544,7 +546,7 @@
         ]
     },
     {
-        "query": "insert into `assets` (`id`, `oem_id`, `type_id`, `status_id`, `product_id`, `reseller_id`, `customer_id`, `location_id`, `changed_at`, `serial_number`, `data_quality`, `contacts_active_quantity`, `contacts_count`, `coverages_count`, `synced_at`, `warranty_end`, `warranty_changed_at`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `assets` (`id`, `oem_id`, `type_id`, `status_id`, `product_id`, `reseller_id`, `customer_id`, `location_id`, `changed_at`, `serial_number`, `data_quality`, `contacts_active_quantity`, `contacts_count`, `coverages_count`, `synced_at`, `warranty_end`, `warranty_service_group_id`, `warranty_service_level_id`, `warranty_changed_at`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "0035c89e-0670-41c5-ab94-cca7b94570e3",
             "4e41a5c3-9089-5987-acdf-f3fbbed278e0",
@@ -562,6 +564,8 @@
             1,
             "2022-02-02 00:00:39",
             "2023-08-31 00:00:00",
+            null,
+            null,
             "2022-10-03 06:18:28",
             "2022-02-02 00:00:53",
             "2022-02-02 00:00:53"
@@ -1021,8 +1025,10 @@
         ]
     },
     {
-        "query": "update `assets` set `warranty_end` = ?, `assets`.`updated_at` = ? where `id` = ?",
+        "query": "update `assets` set `warranty_end` = ?, `warranty_service_group_id` = ?, `warranty_service_level_id` = ?, `assets`.`updated_at` = ? where `id` = ?",
         "bindings": [
+            null,
+            null,
             null,
             "2022-02-02 00:01:42",
             "003e4007-8ee6-4682-85af-5997e0ee3b73"
@@ -1241,8 +1247,10 @@
         ]
     },
     {
-        "query": "update `assets` set `warranty_end` = ?, `assets`.`updated_at` = ? where `id` = ?",
+        "query": "update `assets` set `warranty_end` = ?, `warranty_service_group_id` = ?, `warranty_service_level_id` = ?, `assets`.`updated_at` = ? where `id` = ?",
         "bindings": [
+            null,
+            null,
             null,
             "2022-02-02 00:02:12",
             "006e9b03-efe4-4c47-90ca-040dc6b104b4"
@@ -1461,8 +1469,10 @@
         ]
     },
     {
-        "query": "update `assets` set `warranty_end` = ?, `assets`.`updated_at` = ? where `id` = ?",
+        "query": "update `assets` set `warranty_end` = ?, `warranty_service_group_id` = ?, `warranty_service_level_id` = ?, `assets`.`updated_at` = ? where `id` = ?",
         "bindings": [
+            null,
+            null,
             null,
             "2022-02-02 00:02:42",
             "00940ec9-168d-441d-9d3f-90548e007442"
@@ -1725,8 +1735,10 @@
         ]
     },
     {
-        "query": "update `assets` set `warranty_end` = ?, `assets`.`updated_at` = ? where `id` = ?",
+        "query": "update `assets` set `warranty_end` = ?, `warranty_service_group_id` = ?, `warranty_service_level_id` = ?, `assets`.`updated_at` = ? where `id` = ?",
         "bindings": [
+            null,
+            null,
             null,
             "2022-02-02 00:03:09",
             "00a1c5a6-c861-43e4-90ca-2ca113fbb7ca"
@@ -1753,7 +1765,7 @@
         ]
     },
     {
-        "query": "insert into `assets` (`id`, `oem_id`, `type_id`, `status_id`, `product_id`, `reseller_id`, `customer_id`, `location_id`, `changed_at`, `serial_number`, `data_quality`, `contacts_active_quantity`, `contacts_count`, `coverages_count`, `synced_at`, `warranty_end`, `warranty_changed_at`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `assets` (`id`, `oem_id`, `type_id`, `status_id`, `product_id`, `reseller_id`, `customer_id`, `location_id`, `changed_at`, `serial_number`, `data_quality`, `contacts_active_quantity`, `contacts_count`, `coverages_count`, `synced_at`, `warranty_end`, `warranty_service_group_id`, `warranty_service_level_id`, `warranty_changed_at`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "00b0bf1f-43c3-4a9c-9765-64d867caa48a",
             "4e41a5c3-9089-5987-acdf-f3fbbed278e0",
@@ -1771,6 +1783,8 @@
             1,
             "2022-02-02 00:03:19",
             "2023-06-13 00:00:00",
+            null,
+            null,
             "2022-09-30 11:37:34",
             "2022-02-02 00:03:29",
             "2022-02-02 00:03:29"
@@ -1888,7 +1902,7 @@
         ]
     },
     {
-        "query": "insert into `assets` (`id`, `oem_id`, `type_id`, `status_id`, `product_id`, `reseller_id`, `customer_id`, `location_id`, `changed_at`, `serial_number`, `data_quality`, `contacts_active_quantity`, `contacts_count`, `coverages_count`, `synced_at`, `warranty_end`, `warranty_changed_at`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `assets` (`id`, `oem_id`, `type_id`, `status_id`, `product_id`, `reseller_id`, `customer_id`, `location_id`, `changed_at`, `serial_number`, `data_quality`, `contacts_active_quantity`, `contacts_count`, `coverages_count`, `synced_at`, `warranty_end`, `warranty_service_group_id`, `warranty_service_level_id`, `warranty_changed_at`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "00c041e0-ee91-473c-b0aa-9ebec7b4745c",
             "4e41a5c3-9089-5987-acdf-f3fbbed278e0",
@@ -1906,6 +1920,8 @@
             1,
             "2022-02-02 00:03:42",
             "2022-12-31 00:00:00",
+            null,
+            null,
             "2022-09-30 11:37:52",
             "2022-02-02 00:03:53",
             "2022-02-02 00:03:53"
@@ -2025,7 +2041,7 @@
         ]
     },
     {
-        "query": "insert into `assets` (`id`, `oem_id`, `type_id`, `status_id`, `product_id`, `reseller_id`, `customer_id`, `location_id`, `changed_at`, `serial_number`, `data_quality`, `contacts_active_quantity`, `contacts_count`, `coverages_count`, `synced_at`, `warranty_end`, `warranty_changed_at`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `assets` (`id`, `oem_id`, `type_id`, `status_id`, `product_id`, `reseller_id`, `customer_id`, `location_id`, `changed_at`, `serial_number`, `data_quality`, `contacts_active_quantity`, `contacts_count`, `coverages_count`, `synced_at`, `warranty_end`, `warranty_service_group_id`, `warranty_service_level_id`, `warranty_changed_at`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "01082738-64f0-4523-920f-5df1f3449869",
             "4e41a5c3-9089-5987-acdf-f3fbbed278e0",
@@ -2043,6 +2059,8 @@
             1,
             "2022-02-02 00:04:07",
             "2022-08-31 00:00:00",
+            null,
+            null,
             "2022-09-02 16:54:39",
             "2022-02-02 00:04:13",
             "2022-02-02 00:04:13"
@@ -2331,7 +2349,7 @@
         ]
     },
     {
-        "query": "insert into `assets` (`id`, `oem_id`, `type_id`, `status_id`, `product_id`, `reseller_id`, `customer_id`, `location_id`, `changed_at`, `serial_number`, `data_quality`, `contacts_active_quantity`, `contacts_count`, `coverages_count`, `synced_at`, `warranty_end`, `warranty_changed_at`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `assets` (`id`, `oem_id`, `type_id`, `status_id`, `product_id`, `reseller_id`, `customer_id`, `location_id`, `changed_at`, `serial_number`, `data_quality`, `contacts_active_quantity`, `contacts_count`, `coverages_count`, `synced_at`, `warranty_end`, `warranty_service_group_id`, `warranty_service_level_id`, `warranty_changed_at`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "010935a7-8fa6-49a0-b356-76f36af10ba1",
             "4e41a5c3-9089-5987-acdf-f3fbbed278e0",
@@ -2349,6 +2367,8 @@
             1,
             "2022-02-02 00:04:45",
             "2020-08-28 00:00:00",
+            null,
+            null,
             "2022-09-02 16:54:30",
             "2022-02-02 00:04:51",
             "2022-02-02 00:04:51"
@@ -2612,7 +2632,7 @@
         ]
     },
     {
-        "query": "insert into `assets` (`id`, `oem_id`, `type_id`, `status_id`, `product_id`, `reseller_id`, `customer_id`, `location_id`, `changed_at`, `serial_number`, `data_quality`, `contacts_active_quantity`, `contacts_count`, `coverages_count`, `synced_at`, `warranty_end`, `warranty_changed_at`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `assets` (`id`, `oem_id`, `type_id`, `status_id`, `product_id`, `reseller_id`, `customer_id`, `location_id`, `changed_at`, `serial_number`, `data_quality`, `contacts_active_quantity`, `contacts_count`, `coverages_count`, `synced_at`, `warranty_end`, `warranty_service_group_id`, `warranty_service_level_id`, `warranty_changed_at`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "010b1ed1-e871-4a26-9474-41dcd094e37d",
             "4e41a5c3-9089-5987-acdf-f3fbbed278e0",
@@ -2630,6 +2650,8 @@
             1,
             "2022-02-02 00:05:14",
             "2023-06-16 00:00:00",
+            null,
+            null,
             "2022-09-30 11:44:18",
             "2022-02-02 00:05:24",
             "2022-02-02 00:05:24"
@@ -2865,7 +2887,7 @@
         ]
     },
     {
-        "query": "insert into `assets` (`id`, `oem_id`, `type_id`, `status_id`, `product_id`, `reseller_id`, `customer_id`, `location_id`, `changed_at`, `serial_number`, `data_quality`, `contacts_active_quantity`, `contacts_count`, `coverages_count`, `synced_at`, `warranty_end`, `warranty_changed_at`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `assets` (`id`, `oem_id`, `type_id`, `status_id`, `product_id`, `reseller_id`, `customer_id`, `location_id`, `changed_at`, `serial_number`, `data_quality`, `contacts_active_quantity`, `contacts_count`, `coverages_count`, `synced_at`, `warranty_end`, `warranty_service_group_id`, `warranty_service_level_id`, `warranty_changed_at`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "01201e25-a4de-4186-a988-2c583786e7ba",
             "4e41a5c3-9089-5987-acdf-f3fbbed278e0",
@@ -2883,6 +2905,8 @@
             1,
             "2022-02-02 00:05:51",
             "2017-09-20 00:00:00",
+            null,
+            null,
             "2022-09-02 16:54:36",
             "2022-02-02 00:05:57",
             "2022-02-02 00:05:57"
@@ -2987,7 +3011,7 @@
         ]
     },
     {
-        "query": "insert into `assets` (`id`, `oem_id`, `type_id`, `status_id`, `product_id`, `reseller_id`, `customer_id`, `location_id`, `changed_at`, `serial_number`, `data_quality`, `contacts_active_quantity`, `contacts_count`, `coverages_count`, `synced_at`, `warranty_end`, `warranty_changed_at`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `assets` (`id`, `oem_id`, `type_id`, `status_id`, `product_id`, `reseller_id`, `customer_id`, `location_id`, `changed_at`, `serial_number`, `data_quality`, `contacts_active_quantity`, `contacts_count`, `coverages_count`, `synced_at`, `warranty_end`, `warranty_service_group_id`, `warranty_service_level_id`, `warranty_changed_at`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "01248836-cd22-4b55-920d-e126c9f4ed38",
             "4e41a5c3-9089-5987-acdf-f3fbbed278e0",
@@ -3005,6 +3029,8 @@
             1,
             "2022-02-02 00:06:08",
             "2023-06-16 00:00:00",
+            null,
+            null,
             "2022-09-30 11:44:33",
             "2022-02-02 00:06:18",
             "2022-02-02 00:06:18"
@@ -3104,7 +3130,7 @@
         ]
     },
     {
-        "query": "insert into `assets` (`id`, `oem_id`, `type_id`, `status_id`, `product_id`, `reseller_id`, `customer_id`, `location_id`, `changed_at`, `serial_number`, `data_quality`, `contacts_active_quantity`, `contacts_count`, `coverages_count`, `synced_at`, `warranty_end`, `warranty_changed_at`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `assets` (`id`, `oem_id`, `type_id`, `status_id`, `product_id`, `reseller_id`, `customer_id`, `location_id`, `changed_at`, `serial_number`, `data_quality`, `contacts_active_quantity`, `contacts_count`, `coverages_count`, `synced_at`, `warranty_end`, `warranty_service_group_id`, `warranty_service_level_id`, `warranty_changed_at`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "012db34f-ddb1-400b-b4d1-12843abdcee9",
             "4e41a5c3-9089-5987-acdf-f3fbbed278e0",
@@ -3122,6 +3148,8 @@
             1,
             "2022-02-02 00:06:31",
             "2022-12-31 00:00:00",
+            null,
+            null,
             "2022-09-30 11:44:41",
             "2022-02-02 00:06:41",
             "2022-02-02 00:06:41"
@@ -3285,7 +3313,7 @@
         ]
     },
     {
-        "query": "insert into `assets` (`id`, `oem_id`, `type_id`, `status_id`, `product_id`, `reseller_id`, `customer_id`, `location_id`, `changed_at`, `serial_number`, `data_quality`, `contacts_active_quantity`, `contacts_count`, `coverages_count`, `synced_at`, `warranty_end`, `warranty_changed_at`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `assets` (`id`, `oem_id`, `type_id`, `status_id`, `product_id`, `reseller_id`, `customer_id`, `location_id`, `changed_at`, `serial_number`, `data_quality`, `contacts_active_quantity`, `contacts_count`, `coverages_count`, `synced_at`, `warranty_end`, `warranty_service_group_id`, `warranty_service_level_id`, `warranty_changed_at`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "0135c00e-0f20-49b5-bb10-f10e5df57237",
             "4e41a5c3-9089-5987-acdf-f3fbbed278e0",
@@ -3303,6 +3331,8 @@
             1,
             "2022-02-02 00:06:57",
             "2023-04-30 00:00:00",
+            null,
+            null,
             "2022-09-30 11:44:40",
             "2022-02-02 00:07:07",
             "2022-02-02 00:07:07"
@@ -3605,7 +3635,7 @@
         ]
     },
     {
-        "query": "insert into `assets` (`id`, `oem_id`, `type_id`, `status_id`, `product_id`, `reseller_id`, `customer_id`, `location_id`, `changed_at`, `serial_number`, `data_quality`, `contacts_active_quantity`, `contacts_count`, `coverages_count`, `synced_at`, `warranty_end`, `warranty_changed_at`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `assets` (`id`, `oem_id`, `type_id`, `status_id`, `product_id`, `reseller_id`, `customer_id`, `location_id`, `changed_at`, `serial_number`, `data_quality`, `contacts_active_quantity`, `contacts_count`, `coverages_count`, `synced_at`, `warranty_end`, `warranty_service_group_id`, `warranty_service_level_id`, `warranty_changed_at`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "01418a52-d035-4202-bcce-f750ce3ac059",
             "4e41a5c3-9089-5987-acdf-f3fbbed278e0",
@@ -3623,6 +3653,8 @@
             1,
             "2022-02-02 00:07:34",
             "2022-07-31 00:00:00",
+            null,
+            null,
             "2022-09-02 16:54:59",
             "2022-02-02 00:07:44",
             "2022-02-02 00:07:44"
@@ -3858,7 +3890,7 @@
         ]
     },
     {
-        "query": "insert into `assets` (`id`, `oem_id`, `type_id`, `status_id`, `product_id`, `reseller_id`, `customer_id`, `location_id`, `changed_at`, `serial_number`, `data_quality`, `contacts_active_quantity`, `contacts_count`, `coverages_count`, `synced_at`, `warranty_end`, `warranty_changed_at`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `assets` (`id`, `oem_id`, `type_id`, `status_id`, `product_id`, `reseller_id`, `customer_id`, `location_id`, `changed_at`, `serial_number`, `data_quality`, `contacts_active_quantity`, `contacts_count`, `coverages_count`, `synced_at`, `warranty_end`, `warranty_service_group_id`, `warranty_service_level_id`, `warranty_changed_at`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "01487898-b607-456c-b4b8-cabd2b5b02cd",
             "4e41a5c3-9089-5987-acdf-f3fbbed278e0",
@@ -3876,6 +3908,8 @@
             1,
             "2022-02-02 00:08:11",
             "2023-04-30 00:00:00",
+            null,
+            null,
             "2022-09-30 11:45:06",
             "2022-02-02 00:08:21",
             "2022-02-02 00:08:21"
@@ -3995,7 +4029,7 @@
         ]
     },
     {
-        "query": "insert into `assets` (`id`, `oem_id`, `type_id`, `status_id`, `product_id`, `reseller_id`, `customer_id`, `location_id`, `changed_at`, `serial_number`, `data_quality`, `contacts_active_quantity`, `contacts_count`, `coverages_count`, `synced_at`, `warranty_end`, `warranty_changed_at`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `assets` (`id`, `oem_id`, `type_id`, `status_id`, `product_id`, `reseller_id`, `customer_id`, `location_id`, `changed_at`, `serial_number`, `data_quality`, `contacts_active_quantity`, `contacts_count`, `coverages_count`, `synced_at`, `warranty_end`, `warranty_service_group_id`, `warranty_service_level_id`, `warranty_changed_at`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "01b884ea-4c7f-4484-8016-87d17d6e2f23",
             "4e41a5c3-9089-5987-acdf-f3fbbed278e0",
@@ -4013,6 +4047,8 @@
             1,
             "2022-02-02 00:08:35",
             "2023-02-12 00:00:00",
+            null,
+            null,
             "2022-09-30 11:46:21",
             "2022-02-02 00:08:45",
             "2022-02-02 00:08:45"
@@ -4244,7 +4280,7 @@
         ]
     },
     {
-        "query": "insert into `assets` (`id`, `oem_id`, `type_id`, `status_id`, `product_id`, `reseller_id`, `customer_id`, `location_id`, `changed_at`, `serial_number`, `data_quality`, `contacts_active_quantity`, `contacts_count`, `coverages_count`, `synced_at`, `warranty_end`, `warranty_changed_at`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `assets` (`id`, `oem_id`, `type_id`, `status_id`, `product_id`, `reseller_id`, `customer_id`, `location_id`, `changed_at`, `serial_number`, `data_quality`, `contacts_active_quantity`, `contacts_count`, `coverages_count`, `synced_at`, `warranty_end`, `warranty_service_group_id`, `warranty_service_level_id`, `warranty_changed_at`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "01c141c9-5d6d-42c8-8861-5999fab8345e",
             "4e41a5c3-9089-5987-acdf-f3fbbed278e0",
@@ -4262,6 +4298,8 @@
             1,
             "2022-02-02 00:09:12",
             "2020-08-26 00:00:00",
+            null,
+            null,
             "2022-09-02 16:55:16",
             "2022-02-02 00:09:18",
             "2022-02-02 00:09:18"
@@ -4478,7 +4516,7 @@
         ]
     },
     {
-        "query": "insert into `assets` (`id`, `oem_id`, `type_id`, `status_id`, `product_id`, `reseller_id`, `customer_id`, `location_id`, `changed_at`, `serial_number`, `data_quality`, `contacts_active_quantity`, `contacts_count`, `coverages_count`, `synced_at`, `warranty_end`, `warranty_changed_at`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `assets` (`id`, `oem_id`, `type_id`, `status_id`, `product_id`, `reseller_id`, `customer_id`, `location_id`, `changed_at`, `serial_number`, `data_quality`, `contacts_active_quantity`, `contacts_count`, `coverages_count`, `synced_at`, `warranty_end`, `warranty_service_group_id`, `warranty_service_level_id`, `warranty_changed_at`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "01ce1bc2-61ec-4174-a66b-47b2d0be7aad",
             "4e41a5c3-9089-5987-acdf-f3fbbed278e0",
@@ -4496,6 +4534,8 @@
             1,
             "2022-02-02 00:09:42",
             "2023-08-31 00:00:00",
+            null,
+            null,
             "2022-09-30 11:46:34",
             "2022-02-02 00:09:52",
             "2022-02-02 00:09:52"
@@ -4854,7 +4894,7 @@
         ]
     },
     {
-        "query": "insert into `assets` (`id`, `oem_id`, `type_id`, `status_id`, `product_id`, `reseller_id`, `customer_id`, `location_id`, `changed_at`, `serial_number`, `data_quality`, `contacts_active_quantity`, `contacts_count`, `coverages_count`, `synced_at`, `warranty_end`, `warranty_changed_at`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `assets` (`id`, `oem_id`, `type_id`, `status_id`, `product_id`, `reseller_id`, `customer_id`, `location_id`, `changed_at`, `serial_number`, `data_quality`, `contacts_active_quantity`, `contacts_count`, `coverages_count`, `synced_at`, `warranty_end`, `warranty_service_group_id`, `warranty_service_level_id`, `warranty_changed_at`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "01d00f8c-a540-452a-bb1c-db859b9fbce8",
             "4e41a5c3-9089-5987-acdf-f3fbbed278e0",
@@ -4872,6 +4912,8 @@
             1,
             "2022-02-02 00:10:27",
             "2022-12-31 00:00:00",
+            null,
+            null,
             "2022-09-30 11:46:34",
             "2022-02-02 00:10:37",
             "2022-02-02 00:10:37"
@@ -5187,8 +5229,10 @@
         ]
     },
     {
-        "query": "update `assets` set `warranty_end` = ?, `assets`.`updated_at` = ? where `id` = ?",
+        "query": "update `assets` set `warranty_end` = ?, `warranty_service_group_id` = ?, `warranty_service_level_id` = ?, `assets`.`updated_at` = ? where `id` = ?",
         "bindings": [
+            null,
+            null,
             null,
             "2022-02-02 00:11:11",
             "01dfbdb4-bb95-4bd4-9bb0-10d05f54cc66"
@@ -5295,15 +5339,17 @@
         ]
     },
     {
-        "query": "update `assets` set `warranty_end` = ?, `assets`.`updated_at` = ? where `id` = ?",
+        "query": "update `assets` set `warranty_end` = ?, `warranty_service_group_id` = ?, `warranty_service_level_id` = ?, `assets`.`updated_at` = ? where `id` = ?",
         "bindings": [
+            null,
+            null,
             null,
             "2022-02-02 00:11:28",
             "01e0e448-2651-4d0e-8a27-318d38a54512"
         ]
     },
     {
-        "query": "insert into `assets` (`id`, `oem_id`, `type_id`, `status_id`, `product_id`, `reseller_id`, `customer_id`, `location_id`, `changed_at`, `serial_number`, `data_quality`, `contacts_active_quantity`, `contacts_count`, `coverages_count`, `synced_at`, `warranty_end`, `warranty_changed_at`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `assets` (`id`, `oem_id`, `type_id`, `status_id`, `product_id`, `reseller_id`, `customer_id`, `location_id`, `changed_at`, `serial_number`, `data_quality`, `contacts_active_quantity`, `contacts_count`, `coverages_count`, `synced_at`, `warranty_end`, `warranty_service_group_id`, `warranty_service_level_id`, `warranty_changed_at`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "01e83101-04e4-443d-bc86-ad6eea9d92d5",
             "4e41a5c3-9089-5987-acdf-f3fbbed278e0",
@@ -5321,6 +5367,8 @@
             1,
             "2022-02-02 00:11:37",
             "2023-06-16 00:00:00",
+            null,
+            null,
             "2022-09-30 11:46:44",
             "2022-02-02 00:11:47",
             "2022-02-02 00:11:47"
@@ -5440,7 +5488,7 @@
         ]
     },
     {
-        "query": "insert into `assets` (`id`, `oem_id`, `type_id`, `status_id`, `product_id`, `reseller_id`, `customer_id`, `location_id`, `changed_at`, `serial_number`, `data_quality`, `contacts_active_quantity`, `contacts_count`, `coverages_count`, `synced_at`, `warranty_end`, `warranty_changed_at`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `assets` (`id`, `oem_id`, `type_id`, `status_id`, `product_id`, `reseller_id`, `customer_id`, `location_id`, `changed_at`, `serial_number`, `data_quality`, `contacts_active_quantity`, `contacts_count`, `coverages_count`, `synced_at`, `warranty_end`, `warranty_service_group_id`, `warranty_service_level_id`, `warranty_changed_at`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "01ec7ee6-92d7-4932-adb6-1b4cc7d130fc",
             "4e41a5c3-9089-5987-acdf-f3fbbed278e0",
@@ -5458,6 +5506,8 @@
             1,
             "2022-02-02 00:12:01",
             "2023-02-12 00:00:00",
+            null,
+            null,
             "2022-09-30 11:46:41",
             "2022-02-02 00:12:11",
             "2022-02-02 00:12:11"

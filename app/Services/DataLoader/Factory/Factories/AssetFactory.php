@@ -273,10 +273,10 @@ class AssetFactory extends ModelFactory {
     protected function assetWarranties(Asset $model, ViewAsset $asset): EloquentCollection {
         // Some warranties generated from Documents, we must not touch them.
         $documents = $model->warranties->filter(static function (AssetWarranty $warranty): bool {
-            return !static::isWarranty($warranty);
+            return $warranty->isExtended();
         });
         $existing  = $model->warranties->filter(static function (AssetWarranty $warranty): bool {
-            return static::isWarranty($warranty);
+            return !$warranty->isExtended();
         });
         $updated   = $this->children(
             $existing,
@@ -359,7 +359,7 @@ class AssetFactory extends ModelFactory {
         );
         $warranties = $warranties->concat(
             $model->warranties->filter(static function (AssetWarranty $warranty): bool {
-                return static::isWarranty($warranty);
+                return !$warranty->isExtended();
             }),
         );
 
@@ -375,7 +375,7 @@ class AssetFactory extends ModelFactory {
         $warranties     = new EloquentCollection();
         $existing       = $model->warranties
             ->filter(static function (AssetWarranty $warranty): bool {
-                return static::isWarrantyExtended($warranty);
+                return $warranty->isExtended();
             })
             ->keyBy(static function (AssetWarranty $warranty): string {
                 return implode('|', [
@@ -595,14 +595,6 @@ class AssetFactory extends ModelFactory {
 
     // <editor-fold desc="Helpers">
     // =========================================================================
-    protected static function isWarranty(AssetWarranty $warranty): bool {
-        return $warranty->type_id !== null;
-    }
-
-    protected static function isWarrantyExtended(AssetWarranty $warranty): bool {
-        return $warranty->document_number !== null && !static::isWarranty($warranty);
-    }
-
     protected function isWarrantyEqualToCoverage(AssetWarranty $warranty, CoverageEntry $entry): bool {
         $normalizer = $this->getNormalizer();
         $type       = $this->type($warranty, $entry->type)->getKey();

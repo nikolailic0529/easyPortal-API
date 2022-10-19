@@ -217,8 +217,8 @@ class AssetFactoryTest extends TestCase {
                 ->sort(static function (AssetWarranty $a, AssetWarranty $b): int {
                     return $a->start <=> $b->start
                         ?: $a->end <=> $b->end
-                        ?: $a->service_group_id <=> $b->service_group_id
-                        ?: $a->service_level_id <=> $b->service_level_id;
+                            ?: $a->service_group_id <=> $b->service_group_id
+                                ?: $a->service_level_id <=> $b->service_level_id;
                 })
                 ->map(static function (AssetWarranty $warranty): array {
                     return [
@@ -1222,39 +1222,6 @@ class AssetFactoryTest extends TestCase {
     }
 
     /**
-     * @covers ::isWarranty
-     * @covers ::isWarrantyExtended
-     *
-     * @dataProvider dataProviderIsWarranty
-     *
-     * @param array<string,mixed> $properties
-     */
-    public function testIsWarranty(
-        bool $isWarranty,
-        bool $isExtendedWarranty,
-        array $properties,
-    ): void {
-        $warranty = AssetWarranty::factory()->make($properties);
-        $factory  = new class() extends AssetFactory {
-            /** @noinspection PhpMissingParentConstructorInspection */
-            public function __construct() {
-                // empty
-            }
-
-            public static function isWarranty(AssetWarranty $warranty): bool {
-                return parent::isWarranty($warranty);
-            }
-
-            public static function isWarrantyExtended(AssetWarranty $warranty): bool {
-                return parent::isWarrantyExtended($warranty);
-            }
-        };
-
-        self::assertEquals($isWarranty, $factory::isWarranty($warranty));
-        self::assertEquals($isExtendedWarranty, $factory::isWarrantyExtended($warranty));
-    }
-
-    /**
      * @covers ::isWarrantyEqualToCoverage
      */
     public function testIsWarrantyEqualToCoverage(): void {
@@ -1446,35 +1413,39 @@ class AssetFactoryTest extends TestCase {
             'object_type' => (new AssetWarranty())->getMorphClass(),
         ]);
         $documentWarranty        = AssetWarranty::factory()->create([
-            'asset_id' => $asset,
-            'type_id'  => null,
-            'start'    => $this->faker->dateTime(),
-            'end'      => $this->faker->dateTime(),
+            'document_number' => $this->faker->uuid(),
+            'asset_id'        => $asset,
+            'type_id'         => null,
+            'start'           => $this->faker->dateTime(),
+            'end'             => $this->faker->dateTime(),
         ]);
         $warrantyShouldBeUpdated = AssetWarranty::factory()->create([
-            'reseller_id' => null,
-            'customer_id' => null,
-            'asset_id'    => $asset,
-            'type_id'     => $type,
-            'start'       => Date::make($this->faker->dateTime())?->startOfDay(),
-            'end'         => Date::make($this->faker->dateTime())?->startOfDay(),
+            'document_number' => null,
+            'reseller_id'     => null,
+            'customer_id'     => null,
+            'asset_id'        => $asset,
+            'type_id'         => $type,
+            'start'           => Date::make($this->faker->dateTime())?->startOfDay(),
+            'end'             => Date::make($this->faker->dateTime())?->startOfDay(),
         ]);
         $warrantyShouldBeReused  = (new Collection([
             AssetWarranty::factory()->create([
-                'reseller_id' => null,
-                'customer_id' => null,
-                'asset_id'    => $asset,
-                'type_id'     => $type,
-                'start'       => $this->faker->dateTime(),
-                'end'         => $this->faker->dateTime(),
+                'document_number' => null,
+                'reseller_id'     => null,
+                'customer_id'     => null,
+                'asset_id'        => $asset,
+                'type_id'         => $type,
+                'start'           => $this->faker->dateTime(),
+                'end'             => $this->faker->dateTime(),
             ]),
             AssetWarranty::factory()->create([
-                'reseller_id' => null,
-                'customer_id' => null,
-                'asset_id'    => $asset,
-                'type_id'     => $type,
-                'start'       => $this->faker->dateTime(),
-                'end'         => $this->faker->dateTime(),
+                'document_number' => null,
+                'reseller_id'     => null,
+                'customer_id'     => null,
+                'asset_id'        => $asset,
+                'type_id'         => $type,
+                'start'           => $this->faker->dateTime(),
+                'end'             => $this->faker->dateTime(),
             ]),
         ]))
             ->sort(new KeysComparator())
@@ -1578,45 +1549,6 @@ class AssetFactoryTest extends TestCase {
                 new class() extends Type {
                     // empty
                 },
-            ],
-        ];
-    }
-
-    /**
-     * @return array<string,array{bool,bool,array<string,mixed>}>
-     */
-    public function dataProviderIsWarranty(): array {
-        return [
-            'warranty'                           => [
-                true,
-                false,
-                [
-                    'type_id' => '4f820bae-79a5-4558-b90c-d8d7060688b8',
-                ],
-            ],
-            'warranty (document number != null)' => [
-                true,
-                false,
-                [
-                    'type_id'         => 'ac1a2af5-2f07-47d4-a390-8d701ce50a13',
-                    'document_number' => '123',
-                ],
-            ],
-            'initial warranty'                   => [
-                false,
-                false,
-                [
-                    'type_id'         => null,
-                    'document_number' => null,
-                ],
-            ],
-            'extended warranty'                  => [
-                false,
-                true,
-                [
-                    'type_id'         => null,
-                    'document_number' => 123,
-                ],
             ],
         ];
     }
