@@ -134,7 +134,7 @@ class CustomerLoaderTest extends TestCase {
             Customer::class      => 2,
             Asset::class         => 11,
             AssetWarranty::class => 12,
-            Document::class      => 2,
+            Document::class      => 0,
             DocumentEntry::class => 0,
         ]);
         self::assertDispatchedEventsEquals(
@@ -184,7 +184,7 @@ class CustomerLoaderTest extends TestCase {
             Customer::class      => 3,
             Asset::class         => 3,
             AssetWarranty::class => 2,
-            Document::class      => 6,
+            Document::class      => 1,
             DocumentEntry::class => 0,
         ]);
 
@@ -204,7 +204,7 @@ class CustomerLoaderTest extends TestCase {
             Customer::class      => 3,
             Asset::class         => 3,
             AssetWarranty::class => 2,
-            Document::class      => 5,
+            Document::class      => 3,
             DocumentEntry::class => 6,
         ]);
         self::assertDispatchedEventsEquals(

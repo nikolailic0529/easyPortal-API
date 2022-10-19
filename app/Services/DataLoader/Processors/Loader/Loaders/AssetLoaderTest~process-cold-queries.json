@@ -404,7 +404,7 @@
         ]
     },
     {
-        "query": "insert into `documents` (`id`, `oem_id`, `oem_group_id`, `oem_said`, `oem_amp_id`, `oem_sar_number`, `type_id`, `statuses_count`, `reseller_id`, `customer_id`, `currency_id`, `language_id`, `distributor_id`, `start`, `end`, `price_origin`, `price`, `number`, `changed_at`, `contacts_count`, `synced_at`, `assets_count`, `entries_count`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `documents` (`id`, `oem_id`, `oem_group_id`, `oem_said`, `oem_amp_id`, `oem_sar_number`, `type_id`, `statuses_count`, `reseller_id`, `customer_id`, `currency_id`, `language_id`, `distributor_id`, `start`, `end`, `price_origin`, `price`, `number`, `changed_at`, `contacts_count`, `synced_at`, `deleted_at`, `assets_count`, `entries_count`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "86423562-7ecf-4174-9b1d-9a21cd28d808",
             "4e41a5c3-9089-5987-acdf-f3fbbed278e0",
@@ -427,10 +427,11 @@
             "2022-06-03 16:00:09",
             1,
             "2022-02-02 00:00:27",
-            0,
-            0,
             "2022-02-02 00:00:28",
-            "2022-02-02 00:00:28"
+            0,
+            0,
+            "2022-02-02 00:00:29",
+            "2022-02-02 00:00:29"
         ]
     },
     {
@@ -443,8 +444,8 @@
             "modesta.hirthe@hotmail.com",
             true,
             "cdcbd761-0d73-5701-8a5f-acdb35005015",
-            "2022-02-02 00:00:29",
-            "2022-02-02 00:00:29"
+            "2022-02-02 00:00:30",
+            "2022-02-02 00:00:30"
         ]
     },
     {
@@ -453,8 +454,8 @@
             "7f046a64-3fb3-5a88-bbeb-ac2543845535",
             "cdcbd761-0d73-5701-8a5f-acdb35005015",
             "e818e33f-5ea6-5db5-ab3e-93357130ef69",
-            "2022-02-02 00:00:30",
-            "2022-02-02 00:00:30"
+            "2022-02-02 00:00:31",
+            "2022-02-02 00:00:31"
         ]
     },
     {
@@ -471,12 +472,12 @@
             "Customer Contact",
             "Customer Contact",
             "0ca740b5-49f9-513c-843a-054c1367fa58",
-            "2022-02-02 00:00:34",
-            "2022-02-02 00:00:34"
+            "2022-02-02 00:00:35",
+            "2022-02-02 00:00:35"
         ]
     },
     {
-        "query": "insert into `documents` (`id`, `oem_id`, `oem_group_id`, `oem_said`, `oem_amp_id`, `oem_sar_number`, `type_id`, `statuses_count`, `reseller_id`, `customer_id`, `currency_id`, `language_id`, `distributor_id`, `start`, `end`, `price_origin`, `price`, `number`, `changed_at`, `contacts_count`, `synced_at`, `assets_count`, `entries_count`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `documents` (`id`, `oem_id`, `oem_group_id`, `oem_said`, `oem_amp_id`, `oem_sar_number`, `type_id`, `statuses_count`, `reseller_id`, `customer_id`, `currency_id`, `language_id`, `distributor_id`, `start`, `end`, `price_origin`, `price`, `number`, `changed_at`, `contacts_count`, `synced_at`, `deleted_at`, `assets_count`, `entries_count`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "0b45c643-fd82-4e29-9958-a1842c4f32a6",
             "4e41a5c3-9089-5987-acdf-f3fbbed278e0",
@@ -498,11 +499,12 @@
             "52a9f1ff-76b8-3c80-bde2-923b30ed561a",
             "2022-07-06 00:57:23",
             3,
-            "2022-02-02 00:00:35",
-            0,
-            0,
             "2022-02-02 00:00:36",
-            "2022-02-02 00:00:36"
+            "2022-02-02 00:00:37",
+            0,
+            0,
+            "2022-02-02 00:00:38",
+            "2022-02-02 00:00:38"
         ]
     },
     {
@@ -515,8 +517,8 @@
             "jkreiger@russel.com",
             true,
             "ba4fa2b8-2235-5c59-8ebc-8b6fa94c896e",
-            "2022-02-02 00:00:37",
-            "2022-02-02 00:00:37"
+            "2022-02-02 00:00:39",
+            "2022-02-02 00:00:39"
         ]
     },
     {
@@ -525,8 +527,8 @@
             "0ca740b5-49f9-513c-843a-054c1367fa58",
             "ba4fa2b8-2235-5c59-8ebc-8b6fa94c896e",
             "e1113941-3788-5c05-a098-3b3a226d005f",
-            "2022-02-02 00:00:38",
-            "2022-02-02 00:00:38"
+            "2022-02-02 00:00:40",
+            "2022-02-02 00:00:40"
         ]
     },
     {
@@ -539,8 +541,8 @@
             "modesta.hirthe@hotmail.com",
             true,
             "c0cf3520-a685-5c2e-af46-20d1c76bdb91",
-            "2022-02-02 00:00:39",
-            "2022-02-02 00:00:39"
+            "2022-02-02 00:00:41",
+            "2022-02-02 00:00:41"
         ]
     },
     {
@@ -549,8 +551,8 @@
             "7f046a64-3fb3-5a88-bbeb-ac2543845535",
             "c0cf3520-a685-5c2e-af46-20d1c76bdb91",
             "453ea227-62c7-5d39-8b18-6feca14f0d4c",
-            "2022-02-02 00:00:40",
-            "2022-02-02 00:00:40"
+            "2022-02-02 00:00:42",
+            "2022-02-02 00:00:42"
         ]
     },
     {
@@ -563,8 +565,8 @@
             "uturcotte@moore.biz",
             true,
             "0c24673f-bd68-52e3-aa87-c30ff910fac5",
-            "2022-02-02 00:00:41",
-            "2022-02-02 00:00:41"
+            "2022-02-02 00:00:43",
+            "2022-02-02 00:00:43"
         ]
     },
     {
@@ -573,8 +575,8 @@
             "8d81418e-43f9-530d-a340-3b81520a65db",
             "0c24673f-bd68-52e3-aa87-c30ff910fac5",
             "392b8db9-554a-58fa-94b7-7998a8f46401",
-            "2022-02-02 00:00:42",
-            "2022-02-02 00:00:42"
+            "2022-02-02 00:00:44",
+            "2022-02-02 00:00:44"
         ]
     },
     {
@@ -591,8 +593,8 @@
             "Hardware System Contact",
             "Hardware System Contact",
             "d4115ee9-e36a-5d2c-9143-9cb7c84f68ff",
-            "2022-02-02 00:00:46",
-            "2022-02-02 00:00:46"
+            "2022-02-02 00:00:48",
+            "2022-02-02 00:00:48"
         ]
     },
     {
@@ -609,8 +611,8 @@
             "Software System Contact",
             "Software System Contact",
             "3c491b6c-c288-5d26-92ef-3017914e8758",
-            "2022-02-02 00:00:47",
-            "2022-02-02 00:00:47"
+            "2022-02-02 00:00:49",
+            "2022-02-02 00:00:49"
         ]
     },
     {
@@ -627,12 +629,12 @@
             "System Manager Contact",
             "System Manager Contact",
             "2515f7be-751c-59d4-9bf6-0f6c8b14f976",
-            "2022-02-02 00:00:48",
-            "2022-02-02 00:00:48"
+            "2022-02-02 00:00:50",
+            "2022-02-02 00:00:50"
         ]
     },
     {
-        "query": "insert into `documents` (`id`, `oem_id`, `oem_group_id`, `oem_said`, `oem_amp_id`, `oem_sar_number`, `type_id`, `statuses_count`, `reseller_id`, `customer_id`, `currency_id`, `language_id`, `distributor_id`, `start`, `end`, `price_origin`, `price`, `number`, `changed_at`, `contacts_count`, `synced_at`, `assets_count`, `entries_count`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `documents` (`id`, `oem_id`, `oem_group_id`, `oem_said`, `oem_amp_id`, `oem_sar_number`, `type_id`, `statuses_count`, `reseller_id`, `customer_id`, `currency_id`, `language_id`, `distributor_id`, `start`, `end`, `price_origin`, `price`, `number`, `changed_at`, `contacts_count`, `synced_at`, `deleted_at`, `assets_count`, `entries_count`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "5c636bd2-bd32-4c47-89d0-5d0474da3eb1",
             "4e41a5c3-9089-5987-acdf-f3fbbed278e0",
@@ -654,11 +656,12 @@
             "0f7e033d-4fbb-3042-b2d2-e9d91a2c6b63",
             "2022-06-03 13:27:26",
             3,
-            "2022-02-02 00:00:49",
+            "2022-02-02 00:00:51",
+            "2022-02-02 00:00:52",
             0,
             0,
-            "2022-02-02 00:00:50",
-            "2022-02-02 00:00:50"
+            "2022-02-02 00:00:53",
+            "2022-02-02 00:00:53"
         ]
     },
     {
@@ -671,8 +674,8 @@
             "modesta.hirthe@hotmail.com",
             true,
             "a083b041-2f4b-5a69-bff1-48e2fc4e8b4f",
-            "2022-02-02 00:00:51",
-            "2022-02-02 00:00:51"
+            "2022-02-02 00:00:54",
+            "2022-02-02 00:00:54"
         ]
     },
     {
@@ -681,8 +684,8 @@
             "53096f4b-5c86-53b2-88f5-d4e08ea8e5b4",
             "a083b041-2f4b-5a69-bff1-48e2fc4e8b4f",
             "267355f9-ece4-56eb-a3ee-0faa1c701e6e",
-            "2022-02-02 00:00:52",
-            "2022-02-02 00:00:52"
+            "2022-02-02 00:00:55",
+            "2022-02-02 00:00:55"
         ]
     },
     {
@@ -695,8 +698,8 @@
             "jkreiger@russel.com",
             true,
             "921bfcc1-425d-5d62-aa55-d873b77fe4d0",
-            "2022-02-02 00:00:53",
-            "2022-02-02 00:00:53"
+            "2022-02-02 00:00:56",
+            "2022-02-02 00:00:56"
         ]
     },
     {
@@ -705,8 +708,8 @@
             "79b7fb2a-6eea-5e8d-9d4a-f9d5026f5c64",
             "921bfcc1-425d-5d62-aa55-d873b77fe4d0",
             "345dff1a-fad7-594e-bc07-7fbcff6d8f91",
-            "2022-02-02 00:00:54",
-            "2022-02-02 00:00:54"
+            "2022-02-02 00:00:57",
+            "2022-02-02 00:00:57"
         ]
     },
     {
@@ -719,28 +722,28 @@
             "uturcotte@moore.biz",
             true,
             "7d7e94cf-8a78-5ef9-9ac2-4e77c07374a3",
-            "2022-02-02 00:00:55",
-            "2022-02-02 00:00:55"
+            "2022-02-02 00:00:58",
+            "2022-02-02 00:00:58"
         ]
     },
     {
         "query": "insert into `contact_types` (`contact_id`, `created_at`, `id`, `type_id`, `updated_at`) values (?, ?, ?, ?, ?), (?, ?, ?, ?, ?), (?, ?, ?, ?, ?)",
         "bindings": [
             "7d7e94cf-8a78-5ef9-9ac2-4e77c07374a3",
-            "2022-02-02 00:00:56",
+            "2022-02-02 00:00:59",
             "7ef73e6c-08eb-5678-b7e1-e4bd456d6939",
             "d4115ee9-e36a-5d2c-9143-9cb7c84f68ff",
-            "2022-02-02 00:00:56",
+            "2022-02-02 00:00:59",
             "7d7e94cf-8a78-5ef9-9ac2-4e77c07374a3",
-            "2022-02-02 00:00:57",
+            "2022-02-02 00:01:00",
             "ddde8d80-f99c-5358-98e7-1594c1386ccd",
             "3c491b6c-c288-5d26-92ef-3017914e8758",
-            "2022-02-02 00:00:57",
+            "2022-02-02 00:01:00",
             "7d7e94cf-8a78-5ef9-9ac2-4e77c07374a3",
-            "2022-02-02 00:00:58",
+            "2022-02-02 00:01:01",
             "f8ab99c0-88e6-5212-99af-0369d5c2606c",
             "2515f7be-751c-59d4-9bf6-0f6c8b14f976",
-            "2022-02-02 00:00:58"
+            "2022-02-02 00:01:01"
         ]
     }
 ]

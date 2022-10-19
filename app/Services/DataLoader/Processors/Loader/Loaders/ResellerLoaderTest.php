@@ -134,7 +134,7 @@ class ResellerLoaderTest extends TestCase {
             Customer::class      => 2,
             Asset::class         => 26,
             AssetWarranty::class => 50,
-            Document::class      => 2,
+            Document::class      => 0,
             DocumentEntry::class => 0,
         ]);
         self::assertDispatchedEventsEquals(
@@ -184,7 +184,7 @@ class ResellerLoaderTest extends TestCase {
             Customer::class      => 2,
             Asset::class         => 8,
             AssetWarranty::class => 22,
-            Document::class      => 5,
+            Document::class      => 1,
             DocumentEntry::class => 0,
         ]);
 
@@ -204,7 +204,7 @@ class ResellerLoaderTest extends TestCase {
             Customer::class      => 2,
             Asset::class         => 8,
             AssetWarranty::class => 22,
-            Document::class      => 4,
+            Document::class      => 1,
             DocumentEntry::class => 5,
         ]);
         self::assertDispatchedEventsEquals(

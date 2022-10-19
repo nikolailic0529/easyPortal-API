@@ -95,7 +95,7 @@ class ResellerLoaderData extends AssetsData {
                     'customer_id' => null,
                 ]);
 
-                if (!Document::query()->whereKey(static::DOCUMENT)->exists()) {
+                if (!Document::query()->withTrashed()->whereKey(static::DOCUMENT)->exists()) {
                     Document::factory()->create([
                         'id'          => static::DOCUMENT,
                         'reseller_id' => static::RESELLER,

@@ -44,7 +44,7 @@ class DocumentsSynchronizerTest extends TestCase {
 
         self::assertQueryLogEquals('~process-cold-queries.json', $queries);
         self::assertModelsCount([
-            Document::class => 57,
+            Document::class => 25,
         ]);
         self::assertDispatchedEventsEquals(
             '~process-cold-events.json',

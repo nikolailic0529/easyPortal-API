@@ -64,7 +64,7 @@ class IteratorImporterTest extends TestCase {
             Customer::class      => 10,
             Asset::class         => 10,
             AssetWarranty::class => 11,
-            Document::class      => 13,
+            Document::class      => 0,
             DocumentEntry::class => 0,
         ]);
         self::assertDispatchedEventsEquals(

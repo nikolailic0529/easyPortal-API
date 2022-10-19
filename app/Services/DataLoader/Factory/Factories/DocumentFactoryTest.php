@@ -139,7 +139,7 @@ class DocumentFactoryTest extends TestCase {
         self::assertNotNull($created);
         self::assertEquals($asset->customerId, $created->customer_id);
         self::assertEquals($asset->resellerId, $created->reseller_id);
-        self::assertEquals($object->document->document->distributorId, $created->distributor_id);
+        self::assertEquals($object->document->document->distributorId ?? null, $created->distributor_id);
         self::assertEquals('0056523287', $created->number);
         self::assertNull($created->price);
         self::assertNull($created->price_origin);
@@ -159,6 +159,7 @@ class DocumentFactoryTest extends TestCase {
         self::assertEquals(1, $created->contacts_count);
         self::assertCount(0, $created->entries);
         self::assertCount(1, $created->contacts);
+        self::assertNotNull($created->deleted_at);
 
         // Changed
         // ---------------------------------------------------------------------

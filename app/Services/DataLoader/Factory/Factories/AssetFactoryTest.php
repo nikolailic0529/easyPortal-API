@@ -158,7 +158,7 @@ class AssetFactoryTest extends TestCase {
 
         // Documents
         self::assertModelsCount([
-            Document::class           => 1,
+            Document::class           => 0,
             DocumentEntryModel::class => 0,
         ]);
 
@@ -305,7 +305,7 @@ class AssetFactoryTest extends TestCase {
 
         // Documents
         self::assertModelsCount([
-            Document::class           => 1,
+            Document::class           => 0,
             DocumentEntryModel::class => 0,
         ]);
 

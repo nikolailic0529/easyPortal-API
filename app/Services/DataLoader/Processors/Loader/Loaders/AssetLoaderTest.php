@@ -61,7 +61,7 @@ class AssetLoaderTest extends TestCase {
             Customer::class      => 2,
             Asset::class         => 1,
             AssetWarranty::class => 0,
-            Document::class      => 3,
+            Document::class      => 0,
             DocumentEntry::class => 0,
         ]);
         self::assertDispatchedEventsEquals(

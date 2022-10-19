@@ -63,7 +63,7 @@ class AssetsImporterTest extends TestCase {
             Customer::class      => 1,
             Asset::class         => CustomerAssetsImporterData::LIMIT,
             AssetWarranty::class => 4,
-            Document::class      => 3,
+            Document::class      => 0,
             DocumentEntry::class => 0,
         ]);
         self::assertDispatchedEventsEquals(
