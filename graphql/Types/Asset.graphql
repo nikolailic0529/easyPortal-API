@@ -8,17 +8,22 @@ type Asset {
     reseller_id: ID
     serial_number: String
     nickname: String
-    warranty_end: Date
-    warranty_changed_at: DateTime
     customer: Customer @relation
     location: Location @relation
     oem: Oem @relation
     product: Product @relation
     type: Type @relation
-    warranties: [AssetWarranty!]! @relation(relation: "contractWarranties")
     reseller: Reseller @relation
     status_id: ID
     status: Status @relation
+
+    warranty_end: Date
+    warranty_changed_at: DateTime
+    warranties: [AssetWarranty!]! @relation(relation: "contractWarranties")
+    warranty_service_group_id: ID
+    warrantyServiceGroup: ServiceGroup @relation
+    warranty_service_level_id: ID
+    warrantyServiceLevel: ServiceLevel @relation
 
     contacts_count: Int!
     contacts(

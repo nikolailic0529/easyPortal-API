@@ -159,9 +159,29 @@ input AggregatedGroupByClauseAssetsQuery {
     type_id: AggregatedGroupByTypeDirection
 
     """
+    Relationship clause.
+    """
+    warrantyServiceGroup: [SortByClauseServiceGroupsSort!]
+
+    """
+    Relationship clause.
+    """
+    warrantyServiceLevel: [SortByClauseServiceLevelsSort!]
+
+    """
     Property clause.
     """
     warranty_end: AggregatedGroupByTypeDirection
+
+    """
+    Property clause.
+    """
+    warranty_service_group_id: AggregatedGroupByTypeDirection
+
+    """
+    Property clause.
+    """
+    warranty_service_level_id: AggregatedGroupByTypeDirection
 }
 
 """
@@ -2035,9 +2055,29 @@ input SearchByConditionAssetsQuery {
     warranties: SearchByComplexRelationAssetWarrantiesQuery
 
     """
+    Relationship condition.
+    """
+    warrantyServiceGroup: SearchByComplexRelationServiceGroupsQuery
+
+    """
+    Relationship condition.
+    """
+    warrantyServiceLevel: SearchByComplexRelationServiceLevelsQuery
+
+    """
     Property condition.
     """
     warranty_end: SearchByScalarDateOrNull
+
+    """
+    Property condition.
+    """
+    warranty_service_group_id: SearchByScalarIDOrNull
+
+    """
+    Property condition.
+    """
+    warranty_service_level_id: SearchByScalarIDOrNull
 }
 
 """
@@ -4870,7 +4910,27 @@ input SortByClauseAssetsSort {
     """
     Property clause.
     """
+    warrantyServiceGroup: SortByClauseServiceGroupsSort
+
+    """
+    Property clause.
+    """
+    warrantyServiceLevel: SortByClauseServiceLevelsSort
+
+    """
+    Property clause.
+    """
     warranty_end: SortByTypeDirection
+
+    """
+    Property clause.
+    """
+    warranty_service_group_id: SortByTypeDirection
+
+    """
+    Property clause.
+    """
+    warranty_service_level_id: SortByTypeDirection
 }
 
 """
@@ -6465,8 +6525,12 @@ type Asset {
     type_id: ID
     updated_at: DateTime!
     warranties: [AssetWarranty!]!
+    warrantyServiceGroup: ServiceGroup
+    warrantyServiceLevel: ServiceLevel
     warranty_changed_at: DateTime
     warranty_end: Date
+    warranty_service_group_id: ID
+    warranty_service_level_id: ID
 }
 
 type AssetChangeRequestCreatePayload
