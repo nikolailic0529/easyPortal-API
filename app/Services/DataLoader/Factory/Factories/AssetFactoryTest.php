@@ -22,6 +22,7 @@ use App\Services\DataLoader\Exceptions\FailedToProcessViewAssetCoverageEntry;
 use App\Services\DataLoader\Exceptions\ResellerNotFound;
 use App\Services\DataLoader\Normalizer\Normalizer;
 use App\Services\DataLoader\Resolver\Resolvers\CoverageResolver;
+use App\Services\DataLoader\Resolver\Resolvers\DocumentResolver;
 use App\Services\DataLoader\Resolver\Resolvers\StatusResolver;
 use App\Services\DataLoader\Resolver\Resolvers\TagResolver;
 use App\Services\DataLoader\Resolver\Resolvers\TypeResolver;
@@ -519,8 +520,8 @@ class AssetFactoryTest extends TestCase {
         Event::fake(ErrorReport::class);
 
         // Prepare
-        $model   = Asset::factory()->make();
-        $asset   = new ViewAsset([
+        $model = Asset::factory()->make();
+        $asset = new ViewAsset([
             'assetDocument' => [
                 [
                     'documentNumber' => 'a',
@@ -541,16 +542,21 @@ class AssetFactoryTest extends TestCase {
                 ],
             ],
         ]);
-        $factory = new class() extends AssetFactory {
-            /** @noinspection PhpMissingParentConstructorInspection */
-            public function __construct() {
-                // empty
-            }
 
-            public function assetDocuments(Asset $model, ViewAsset $asset): Collection {
-                return parent::assetDocuments($model, $asset);
-            }
-        };
+        $resolver = Mockery::mock(DocumentResolver::class);
+        $resolver
+            ->shouldReceive('prefetch')
+            ->with(['a' => 'a', 'b' => 'b'], Mockery::any())
+            ->once()
+            ->andReturns();
+
+        $factory = Mockery::mock(AssetFactory::class);
+        $factory->shouldAllowMockingProtectedMethods();
+        $factory->makePartial();
+        $factory
+            ->shouldReceive('getDocumentResolver')
+            ->once()
+            ->andReturn($resolver);
 
         self::assertCount(2, $factory->assetDocuments($model, $asset));
 
@@ -612,19 +618,27 @@ class AssetFactoryTest extends TestCase {
             ->andReturnUsing(function (): ?Document {
                 throw new ResellerNotFound($this->faker->uuid());
             });
-        $factory = new class($handler, $documents) extends AssetFactory {
-            /** @noinspection PhpMissingParentConstructorInspection */
-            public function __construct(
-                protected ExceptionHandler $exceptionHandler,
-                protected DocumentFactory $documentFactory,
-            ) {
-                // empty
-            }
-
-            public function assetDocumentDocument(Asset $model, ViewAssetDocument $assetDocument): ?Document {
-                return parent::assetDocumentDocument($model, $assetDocument);
-            }
-        };
+        $resolver = Mockery::mock(DocumentResolver::class);
+        $resolver
+            ->shouldReceive('get')
+            ->with($asset->document->id ?? null)
+            ->once()
+            ->andReturn(null);
+        $factory = Mockery::mock(AssetFactory::class);
+        $factory->shouldAllowMockingProtectedMethods();
+        $factory->makePartial();
+        $factory
+            ->shouldReceive('getExceptionHandler')
+            ->once()
+            ->andReturn($handler);
+        $factory
+            ->shouldReceive('getDocumentResolver')
+            ->once()
+            ->andReturn($resolver);
+        $factory
+            ->shouldReceive('getDocumentFactory')
+            ->once()
+            ->andReturn($documents);
 
         // Test
         self::assertNull($factory->assetDocumentDocument($model, $asset));
@@ -1012,9 +1026,20 @@ class AssetFactoryTest extends TestCase {
             ->once()
             ->andReturn($document);
 
-        $factory = Mockery::mock(AssetFactoryTest_Factory::class);
+        $resolver = Mockery::mock(DocumentResolver::class);
+        $resolver
+            ->shouldReceive('get')
+            ->with($assetDocument->document->id ?? null)
+            ->once()
+            ->andReturn(null);
+
+        $factory = Mockery::mock(AssetFactory::class);
         $factory->shouldAllowMockingProtectedMethods();
         $factory->makePartial();
+        $factory
+            ->shouldReceive('getDocumentResolver')
+            ->once()
+            ->andReturn($resolver);
         $factory
             ->shouldReceive('getDocumentFactory')
             ->once()
@@ -1029,13 +1054,15 @@ class AssetFactoryTest extends TestCase {
     public function testAssetDocumentDocumentWithoutDocument(): void {
         $asset    = Asset::factory()->make();
         $document = new ViewAssetDocument();
-        $factory  = Mockery::mock(AssetFactoryTest_Factory::class);
+        $factory  = Mockery::mock(AssetFactory::class);
         $factory->shouldAllowMockingProtectedMethods();
         $factory->makePartial();
         $factory
+            ->shouldReceive('getDocumentResolver')
+            ->never();
+        $factory
             ->shouldReceive('getDocumentFactory')
-            ->once()
-            ->andReturns();
+            ->never();
 
         self::assertNull($factory->assetDocumentDocument($asset, $document));
     }

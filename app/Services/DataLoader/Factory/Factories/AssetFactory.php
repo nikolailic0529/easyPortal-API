@@ -35,6 +35,7 @@ use App\Services\DataLoader\Normalizer\Normalizer;
 use App\Services\DataLoader\Resolver\Resolvers\AssetResolver;
 use App\Services\DataLoader\Resolver\Resolvers\CoverageResolver;
 use App\Services\DataLoader\Resolver\Resolvers\CustomerResolver;
+use App\Services\DataLoader\Resolver\Resolvers\DocumentResolver;
 use App\Services\DataLoader\Resolver\Resolvers\OemResolver;
 use App\Services\DataLoader\Resolver\Resolvers\ProductResolver;
 use App\Services\DataLoader\Resolver\Resolvers\ResellerResolver;
@@ -85,6 +86,7 @@ class AssetFactory extends ModelFactory {
         protected ProductResolver $productResolver,
         protected CustomerResolver $customerResolver,
         protected ResellerResolver $resellerResolver,
+        protected DocumentResolver $documentResolver,
         protected DocumentFactory $documentFactory,
         protected LocationFactory $locationFactory,
         protected ContactFactory $contactFactory,
@@ -121,8 +123,12 @@ class AssetFactory extends ModelFactory {
         return $this->contactFactory;
     }
 
-    public function getDocumentFactory(): DocumentFactory {
+    protected function getDocumentFactory(): DocumentFactory {
         return $this->documentFactory;
+    }
+
+    protected function getDocumentResolver(): DocumentResolver {
+        return $this->documentResolver;
     }
 
     protected function getCoverageResolver(): CoverageResolver {
@@ -352,8 +358,7 @@ class AssetFactory extends ModelFactory {
         // Asset.assetDocument is not a document but an array of entries where
         // each entry is the mixin of Document, DocumentEntry, and additional
         // information (that is not available in Document and DocumentEntry)
-
-        return (new Collection($asset->assetDocument))
+        $documents = Collection::make($asset->assetDocument)
             ->filter(static function (ViewAssetDocument $document): bool {
                 return isset($document->documentNumber);
             })
@@ -361,6 +366,23 @@ class AssetFactory extends ModelFactory {
                 return $a->startDate <=> $b->startDate
                     ?: $a->endDate <=> $b->endDate;
             });
+
+        // Prefetch
+        $resolver = $this->getDocumentResolver();
+        $keys     = [];
+
+        foreach ($documents as $assetDocument) {
+            if (isset($assetDocument->document->id)) {
+                $keys[$assetDocument->document->id] = $assetDocument->document->id;
+            }
+        }
+
+        $resolver->prefetch($keys, static function (EloquentCollection $documents): void {
+            $documents->loadMissing('statuses');
+        });
+
+        // Return
+        return $documents;
     }
 
     /**
@@ -388,7 +410,6 @@ class AssetFactory extends ModelFactory {
             ]);
         });
         $assetDocuments = $this->assetDocuments($model, $asset);
-        $documents      = $this->assetDocumentDocuments($model, $assetDocuments);
 
         // Warranties
         $normalizer = $this->getNormalizer();
@@ -396,18 +417,18 @@ class AssetFactory extends ModelFactory {
         foreach ($assetDocuments as $assetDocument) {
             try {
                 // Valid?
-                $document = $documents->get($assetDocument->document->id ?? '');
-                $number   = $assetDocument->documentNumber;
-                $group    = $this->assetDocumentServiceGroup($model, $assetDocument);
-                $level    = $this->assetDocumentServiceLevel($model, $assetDocument);
-                $start    = $normalizer->datetime($assetDocument->startDate);
-                $end      = $normalizer->datetime($assetDocument->endDate);
+                $number = $assetDocument->documentNumber;
+                $group  = $this->assetDocumentServiceGroup($model, $assetDocument);
+                $level  = $this->assetDocumentServiceLevel($model, $assetDocument);
+                $start  = $normalizer->datetime($assetDocument->startDate);
+                $end    = $normalizer->datetime($assetDocument->endDate);
 
                 if (!($number && ($start !== null || $end !== null) && ($group !== null || $level !== null))) {
                     continue;
                 }
 
                 // Prepare
+                $document = $this->assetDocumentDocument($model, $assetDocument);
                 $reseller = $this->reseller($assetDocument);
                 $customer = $this->customer($assetDocument);
                 $key      = implode('|', [
@@ -457,50 +478,13 @@ class AssetFactory extends ModelFactory {
         return $warranties;
     }
 
-    /**
-     * @param Collection<int, ViewAssetDocument> $assetDocuments
-     *
-     * @return Collection<string, Document>
-     */
-    protected function assetDocumentDocuments(Asset $model, Collection $assetDocuments): Collection {
-        // Prefetch
-        $resolver = $this->getDocumentFactory()->getDocumentResolver();
-        $keys     = [];
-
-        foreach ($assetDocuments as $assetDocument) {
-            if (isset($assetDocument->document->id)) {
-                $keys[$assetDocument->document->id] = $assetDocument->document->id;
-            }
-        }
-
-        $resolver->prefetch($keys);
-
-        // Convert
-        /** @var EloquentCollection<string, Document> $documents */
-        $documents = new EloquentCollection();
-
-        foreach ($assetDocuments as $assetDocument) {
-            $document = $this->assetDocumentDocument($model, $assetDocument);
-
-            if ($document) {
-                $documents[$document->getKey()] = $document;
-            }
-        }
-
-        // Eager Load
-        $documents->loadMissing('statuses');
-
-        // Return
-        return $documents;
-    }
-
     protected function assetDocumentDocument(Asset $model, ViewAssetDocument $assetDocument): ?Document {
-        $factory  = $this->getDocumentFactory();
         $document = null;
 
         if (isset($assetDocument->document->id)) {
             try {
-                $document = $factory->create($assetDocument);
+                $document = $this->getDocumentResolver()->get($assetDocument->document->id)
+                    ?? $this->getDocumentFactory()->create($assetDocument);
             } catch (Throwable $exception) {
                 $this->getExceptionHandler()->report(
                     new FailedToProcessAssetViewDocument($model, $assetDocument->document, $exception),

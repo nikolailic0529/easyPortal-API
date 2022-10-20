@@ -27,9 +27,9 @@
     {
         "query": "select `types`.*, `contact_types`.`contact_id` as `pivot_contact_id`, `contact_types`.`type_id` as `pivot_type_id`, `contact_types`.`created_at` as `pivot_created_at`, `contact_types`.`updated_at` as `pivot_updated_at` from `types` inner join `contact_types` on `types`.`id` = `contact_types`.`type_id` where `contact_types`.`deleted_at` is null and `contact_types`.`contact_id` in (?, ?, ?) and `types`.`deleted_at` is null",
         "bindings": [
-            "267355f9-ece4-56eb-a3ee-0faa1c701e6e",
-            "345dff1a-fad7-594e-bc07-7fbcff6d8f91",
-            "7ef73e6c-08eb-5678-b7e1-e4bd456d6939"
+            "1b31da43-5a06-5dcb-aa0c-8e642bf3bfe0",
+            "68001c0e-18bb-533b-8d3e-c593db36d24c",
+            "9748dc8d-a0e8-5bab-9c8d-c706cfbbf0b0"
         ]
     },
     {
@@ -97,14 +97,6 @@
         ]
     },
     {
-        "query": "select `statuses`.*, `document_statuses`.`document_id` as `pivot_document_id`, `document_statuses`.`status_id` as `pivot_status_id`, `document_statuses`.`created_at` as `pivot_created_at`, `document_statuses`.`updated_at` as `pivot_updated_at` from `statuses` inner join `document_statuses` on `statuses`.`id` = `document_statuses`.`status_id` where `document_statuses`.`deleted_at` is null and `document_statuses`.`document_id` in (?, ?, ?) and `statuses`.`deleted_at` is null",
-        "bindings": [
-            "0b45c643-fd82-4e29-9958-a1842c4f32a6",
-            "5c636bd2-bd32-4c47-89d0-5d0474da3eb1",
-            "86423562-7ecf-4174-9b1d-9a21cd28d808"
-        ]
-    },
-    {
         "query": "select `oems`.* from `oems` where `oems`.`deleted_at` is null",
         "bindings": []
     },
@@ -150,8 +142,8 @@
     {
         "query": "update `assets` set `synced_at` = ?, `assets`.`updated_at` = ? where `id` = ?",
         "bindings": [
-            "2022-02-02 00:01:06",
-            "2022-02-02 00:01:13",
+            "2022-02-02 00:00:26",
+            "2022-02-02 00:00:33",
             "00000b7e-e7dc-49ee-8294-e4708b2435e4"
         ]
     }

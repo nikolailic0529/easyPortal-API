@@ -2,9 +2,7 @@
     {
         "event": "App\\Services\\DataLoader\\Events\\DataImported",
         "data": {
-            "App\\Models\\Distributor": {
-                "1af1c44e-8112-4e72-9654-b11c705e9372": "1af1c44e-8112-4e72-9654-b11c705e9372"
-            },
+            "App\\Models\\Distributor": [],
             "App\\Models\\Reseller": {
                 "9f6b1030-5d5d-4f0b-b743-2ef69eaf4a44": "9f6b1030-5d5d-4f0b-b743-2ef69eaf4a44"
             },
@@ -12,11 +10,7 @@
                 "9f51cfec-ad89-4d8e-ba36-633cfa0dc14d": "9f51cfec-ad89-4d8e-ba36-633cfa0dc14d",
                 "e42b0534-878d-4d43-90ec-d9c1cef59b70": "e42b0534-878d-4d43-90ec-d9c1cef59b70"
             },
-            "App\\Models\\Document": {
-                "86423562-7ecf-4174-9b1d-9a21cd28d808": "86423562-7ecf-4174-9b1d-9a21cd28d808",
-                "0b45c643-fd82-4e29-9958-a1842c4f32a6": "0b45c643-fd82-4e29-9958-a1842c4f32a6",
-                "5c636bd2-bd32-4c47-89d0-5d0474da3eb1": "5c636bd2-bd32-4c47-89d0-5d0474da3eb1"
-            },
+            "App\\Models\\Document": [],
             "App\\Models\\Data\\Location": {
                 "eb616e0a-0031-5990-9a2b-a515560ffd96": "eb616e0a-0031-5990-9a2b-a515560ffd96",
                 "76657ada-28d9-5d39-8709-2e525e4082c7": "76657ada-28d9-5d39-8709-2e525e4082c7",

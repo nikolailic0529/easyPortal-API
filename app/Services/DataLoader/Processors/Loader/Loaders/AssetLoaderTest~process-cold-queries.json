@@ -254,391 +254,6 @@
         ]
     },
     {
-        "query": "select `currencies`.* from `currencies` where `currencies`.`deleted_at` is null",
-        "bindings": []
-    },
-    {
-        "query": "select `currencies`.* from `currencies` where (`code` = ?) and `currencies`.`deleted_at` is null limit 1",
-        "bindings": [
-            "eur"
-        ]
-    },
-    {
-        "query": "insert into `currencies` (`code`, `name`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
-        "bindings": [
-            "EUR",
-            "EUR",
-            "1b31da43-5a06-5dcb-aa0c-8e642bf3bfe0",
-            "2022-02-02 00:00:15",
-            "2022-02-02 00:00:15"
-        ]
-    },
-    {
-        "query": "select `distributors`.* from `distributors`",
-        "bindings": []
-    },
-    {
-        "query": "select `types`.* from `types` where (`key` = ? and `object_type` = ?) and `types`.`deleted_at` is null limit 1",
-        "bindings": [
-            "renewal contact",
-            "contact"
-        ]
-    },
-    {
-        "query": "insert into `types` (`object_type`, `key`, `name`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?)",
-        "bindings": [
-            "Contact",
-            "Renewal Contact",
-            "Renewal Contact",
-            "3aaf1f1e-53ee-544c-8e1f-9abd27c49719",
-            "2022-02-02 00:00:19",
-            "2022-02-02 00:00:19"
-        ]
-    },
-    {
-        "query": "insert into `documents` (`id`, `oem_id`, `oem_group_id`, `oem_said`, `oem_amp_id`, `oem_sar_number`, `type_id`, `statuses_count`, `reseller_id`, `customer_id`, `currency_id`, `language_id`, `distributor_id`, `start`, `end`, `price_origin`, `price`, `number`, `changed_at`, `contacts_count`, `synced_at`, `deleted_at`, `assets_count`, `entries_count`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
-        "bindings": [
-            "86423562-7ecf-4174-9b1d-9a21cd28d808",
-            "4e41a5c3-9089-5987-acdf-f3fbbed278e0",
-            null,
-            null,
-            null,
-            null,
-            "27c63eef-d7bc-542d-8c15-c71495c8bc6f",
-            0,
-            "9f6b1030-5d5d-4f0b-b743-2ef69eaf4a44",
-            "9f51cfec-ad89-4d8e-ba36-633cfa0dc14d",
-            "1b31da43-5a06-5dcb-aa0c-8e642bf3bfe0",
-            null,
-            "1af1c44e-8112-4e72-9654-b11c705e9372",
-            "2022-07-26 00:00:00",
-            "2023-07-25 00:00:00",
-            null,
-            null,
-            "65bf698a-d13a-3a71-b4fa-d9f5c4917008",
-            "2022-06-03 16:00:09",
-            1,
-            "2022-02-02 00:00:20",
-            "2022-02-02 00:00:21",
-            0,
-            0,
-            "2022-02-02 00:00:22",
-            "2022-02-02 00:00:22"
-        ]
-    },
-    {
-        "query": "insert into `contacts` (`object_type`, `object_id`, `name`, `phone_number`, `email`, `phone_valid`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?)",
-        "bindings": [
-            "Document",
-            "86423562-7ecf-4174-9b1d-9a21cd28d808",
-            "Vesta Waelchi I",
-            "+12547182816",
-            "modesta.hirthe@hotmail.com",
-            true,
-            "68001c0e-18bb-533b-8d3e-c593db36d24c",
-            "2022-02-02 00:00:23",
-            "2022-02-02 00:00:23"
-        ]
-    },
-    {
-        "query": "insert into `contact_types` (`type_id`, `contact_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
-        "bindings": [
-            "3aaf1f1e-53ee-544c-8e1f-9abd27c49719",
-            "68001c0e-18bb-533b-8d3e-c593db36d24c",
-            "db668c52-b580-5d79-bba1-f91c803d5ef7",
-            "2022-02-02 00:00:24",
-            "2022-02-02 00:00:24"
-        ]
-    },
-    {
-        "query": "select `types`.* from `types` where (`key` = ? and `object_type` = ?) and `types`.`deleted_at` is null limit 1",
-        "bindings": [
-            "customer contact",
-            "contact"
-        ]
-    },
-    {
-        "query": "insert into `types` (`object_type`, `key`, `name`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?)",
-        "bindings": [
-            "Contact",
-            "Customer Contact",
-            "Customer Contact",
-            "9748dc8d-a0e8-5bab-9c8d-c706cfbbf0b0",
-            "2022-02-02 00:00:28",
-            "2022-02-02 00:00:28"
-        ]
-    },
-    {
-        "query": "insert into `documents` (`id`, `oem_id`, `oem_group_id`, `oem_said`, `oem_amp_id`, `oem_sar_number`, `type_id`, `statuses_count`, `reseller_id`, `customer_id`, `currency_id`, `language_id`, `distributor_id`, `start`, `end`, `price_origin`, `price`, `number`, `changed_at`, `contacts_count`, `synced_at`, `deleted_at`, `assets_count`, `entries_count`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
-        "bindings": [
-            "0b45c643-fd82-4e29-9958-a1842c4f32a6",
-            "4e41a5c3-9089-5987-acdf-f3fbbed278e0",
-            null,
-            null,
-            null,
-            null,
-            "27c63eef-d7bc-542d-8c15-c71495c8bc6f",
-            0,
-            "9f6b1030-5d5d-4f0b-b743-2ef69eaf4a44",
-            "e42b0534-878d-4d43-90ec-d9c1cef59b70",
-            "1b31da43-5a06-5dcb-aa0c-8e642bf3bfe0",
-            null,
-            "1af1c44e-8112-4e72-9654-b11c705e9372",
-            "2022-07-01 00:00:00",
-            "2024-01-31 00:00:00",
-            null,
-            null,
-            "52a9f1ff-76b8-3c80-bde2-923b30ed561a",
-            "2022-07-06 00:57:23",
-            3,
-            "2022-02-02 00:00:29",
-            "2022-02-02 00:00:30",
-            0,
-            0,
-            "2022-02-02 00:00:31",
-            "2022-02-02 00:00:31"
-        ]
-    },
-    {
-        "query": "insert into `contacts` (`object_type`, `object_id`, `name`, `phone_number`, `email`, `phone_valid`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?)",
-        "bindings": [
-            "Document",
-            "0b45c643-fd82-4e29-9958-a1842c4f32a6",
-            "Roderick Trantow",
-            "+16462077285",
-            "jkreiger@russel.com",
-            true,
-            "5aedbce0-6089-560b-88ea-29dc0a988c02",
-            "2022-02-02 00:00:32",
-            "2022-02-02 00:00:32"
-        ]
-    },
-    {
-        "query": "insert into `contact_types` (`type_id`, `contact_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
-        "bindings": [
-            "9748dc8d-a0e8-5bab-9c8d-c706cfbbf0b0",
-            "5aedbce0-6089-560b-88ea-29dc0a988c02",
-            "66945a48-3157-5319-b4cc-24817b6cedf4",
-            "2022-02-02 00:00:33",
-            "2022-02-02 00:00:33"
-        ]
-    },
-    {
-        "query": "insert into `contacts` (`object_type`, `object_id`, `name`, `phone_number`, `email`, `phone_valid`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?)",
-        "bindings": [
-            "Document",
-            "0b45c643-fd82-4e29-9958-a1842c4f32a6",
-            "Vesta Waelchi I",
-            "+12547182816",
-            "modesta.hirthe@hotmail.com",
-            true,
-            "e135e518-d860-59d4-b927-b55b23b2d56d",
-            "2022-02-02 00:00:34",
-            "2022-02-02 00:00:34"
-        ]
-    },
-    {
-        "query": "insert into `contact_types` (`type_id`, `contact_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
-        "bindings": [
-            "3aaf1f1e-53ee-544c-8e1f-9abd27c49719",
-            "e135e518-d860-59d4-b927-b55b23b2d56d",
-            "7f046a64-3fb3-5a88-bbeb-ac2543845535",
-            "2022-02-02 00:00:35",
-            "2022-02-02 00:00:35"
-        ]
-    },
-    {
-        "query": "insert into `contacts` (`object_type`, `object_id`, `name`, `phone_number`, `email`, `phone_valid`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?)",
-        "bindings": [
-            "Document",
-            "0b45c643-fd82-4e29-9958-a1842c4f32a6",
-            "Hattie Aufderhar Sr.",
-            "+19549105543",
-            "uturcotte@moore.biz",
-            true,
-            "cdcbd761-0d73-5701-8a5f-acdb35005015",
-            "2022-02-02 00:00:36",
-            "2022-02-02 00:00:36"
-        ]
-    },
-    {
-        "query": "insert into `contact_types` (`type_id`, `contact_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
-        "bindings": [
-            "8d81418e-43f9-530d-a340-3b81520a65db",
-            "cdcbd761-0d73-5701-8a5f-acdb35005015",
-            "e818e33f-5ea6-5db5-ab3e-93357130ef69",
-            "2022-02-02 00:00:37",
-            "2022-02-02 00:00:37"
-        ]
-    },
-    {
-        "query": "select `types`.* from `types` where (`key` = ? and `object_type` = ?) and `types`.`deleted_at` is null limit 1",
-        "bindings": [
-            "hardware system contact",
-            "contact"
-        ]
-    },
-    {
-        "query": "insert into `types` (`object_type`, `key`, `name`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?)",
-        "bindings": [
-            "Contact",
-            "Hardware System Contact",
-            "Hardware System Contact",
-            "0ca740b5-49f9-513c-843a-054c1367fa58",
-            "2022-02-02 00:00:41",
-            "2022-02-02 00:00:41"
-        ]
-    },
-    {
-        "query": "select `types`.* from `types` where (`key` = ? and `object_type` = ?) and `types`.`deleted_at` is null limit 1",
-        "bindings": [
-            "software system contact",
-            "contact"
-        ]
-    },
-    {
-        "query": "insert into `types` (`object_type`, `key`, `name`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?)",
-        "bindings": [
-            "Contact",
-            "Software System Contact",
-            "Software System Contact",
-            "ba4fa2b8-2235-5c59-8ebc-8b6fa94c896e",
-            "2022-02-02 00:00:42",
-            "2022-02-02 00:00:42"
-        ]
-    },
-    {
-        "query": "select `types`.* from `types` where (`key` = ? and `object_type` = ?) and `types`.`deleted_at` is null limit 1",
-        "bindings": [
-            "system manager contact",
-            "contact"
-        ]
-    },
-    {
-        "query": "insert into `types` (`object_type`, `key`, `name`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?)",
-        "bindings": [
-            "Contact",
-            "System Manager Contact",
-            "System Manager Contact",
-            "e1113941-3788-5c05-a098-3b3a226d005f",
-            "2022-02-02 00:00:43",
-            "2022-02-02 00:00:43"
-        ]
-    },
-    {
-        "query": "insert into `documents` (`id`, `oem_id`, `oem_group_id`, `oem_said`, `oem_amp_id`, `oem_sar_number`, `type_id`, `statuses_count`, `reseller_id`, `customer_id`, `currency_id`, `language_id`, `distributor_id`, `start`, `end`, `price_origin`, `price`, `number`, `changed_at`, `contacts_count`, `synced_at`, `deleted_at`, `assets_count`, `entries_count`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
-        "bindings": [
-            "5c636bd2-bd32-4c47-89d0-5d0474da3eb1",
-            "4e41a5c3-9089-5987-acdf-f3fbbed278e0",
-            null,
-            "91d09c76-b0e8-3082-9a24-2034f62f1d31",
-            "83-B12550",
-            null,
-            "2d3f7f7a-cd0e-5f58-8e60-2ead5f14cf9f",
-            0,
-            "9f6b1030-5d5d-4f0b-b743-2ef69eaf4a44",
-            "e42b0534-878d-4d43-90ec-d9c1cef59b70",
-            "1b31da43-5a06-5dcb-aa0c-8e642bf3bfe0",
-            null,
-            "1af1c44e-8112-4e72-9654-b11c705e9372",
-            "2022-07-26 00:00:00",
-            "2024-01-31 00:00:00",
-            null,
-            null,
-            "0f7e033d-4fbb-3042-b2d2-e9d91a2c6b63",
-            "2022-06-03 13:27:26",
-            3,
-            "2022-02-02 00:00:44",
-            "2022-02-02 00:00:45",
-            0,
-            0,
-            "2022-02-02 00:00:46",
-            "2022-02-02 00:00:46"
-        ]
-    },
-    {
-        "query": "insert into `contacts` (`object_type`, `object_id`, `name`, `phone_number`, `email`, `phone_valid`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?)",
-        "bindings": [
-            "Document",
-            "5c636bd2-bd32-4c47-89d0-5d0474da3eb1",
-            "Vesta Waelchi I",
-            "+12547182816",
-            "modesta.hirthe@hotmail.com",
-            true,
-            "c0cf3520-a685-5c2e-af46-20d1c76bdb91",
-            "2022-02-02 00:00:47",
-            "2022-02-02 00:00:47"
-        ]
-    },
-    {
-        "query": "insert into `contact_types` (`type_id`, `contact_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
-        "bindings": [
-            "53096f4b-5c86-53b2-88f5-d4e08ea8e5b4",
-            "c0cf3520-a685-5c2e-af46-20d1c76bdb91",
-            "453ea227-62c7-5d39-8b18-6feca14f0d4c",
-            "2022-02-02 00:00:48",
-            "2022-02-02 00:00:48"
-        ]
-    },
-    {
-        "query": "insert into `contacts` (`object_type`, `object_id`, `name`, `phone_number`, `email`, `phone_valid`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?)",
-        "bindings": [
-            "Document",
-            "5c636bd2-bd32-4c47-89d0-5d0474da3eb1",
-            "Roderick Trantow",
-            "+16462077285",
-            "jkreiger@russel.com",
-            true,
-            "0c24673f-bd68-52e3-aa87-c30ff910fac5",
-            "2022-02-02 00:00:49",
-            "2022-02-02 00:00:49"
-        ]
-    },
-    {
-        "query": "insert into `contact_types` (`type_id`, `contact_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
-        "bindings": [
-            "79b7fb2a-6eea-5e8d-9d4a-f9d5026f5c64",
-            "0c24673f-bd68-52e3-aa87-c30ff910fac5",
-            "392b8db9-554a-58fa-94b7-7998a8f46401",
-            "2022-02-02 00:00:50",
-            "2022-02-02 00:00:50"
-        ]
-    },
-    {
-        "query": "insert into `contacts` (`object_type`, `object_id`, `name`, `phone_number`, `email`, `phone_valid`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?)",
-        "bindings": [
-            "Document",
-            "5c636bd2-bd32-4c47-89d0-5d0474da3eb1",
-            "Hattie Aufderhar Sr.",
-            "+19549105543",
-            "uturcotte@moore.biz",
-            true,
-            "d4115ee9-e36a-5d2c-9143-9cb7c84f68ff",
-            "2022-02-02 00:00:51",
-            "2022-02-02 00:00:51"
-        ]
-    },
-    {
-        "query": "insert into `contact_types` (`contact_id`, `created_at`, `id`, `type_id`, `updated_at`) values (?, ?, ?, ?, ?), (?, ?, ?, ?, ?), (?, ?, ?, ?, ?)",
-        "bindings": [
-            "d4115ee9-e36a-5d2c-9143-9cb7c84f68ff",
-            "2022-02-02 00:00:52",
-            "3c491b6c-c288-5d26-92ef-3017914e8758",
-            "0ca740b5-49f9-513c-843a-054c1367fa58",
-            "2022-02-02 00:00:52",
-            "d4115ee9-e36a-5d2c-9143-9cb7c84f68ff",
-            "2022-02-02 00:00:53",
-            "2515f7be-751c-59d4-9bf6-0f6c8b14f976",
-            "ba4fa2b8-2235-5c59-8ebc-8b6fa94c896e",
-            "2022-02-02 00:00:53",
-            "d4115ee9-e36a-5d2c-9143-9cb7c84f68ff",
-            "2022-02-02 00:00:54",
-            "a083b041-2f4b-5a69-bff1-48e2fc4e8b4f",
-            "e1113941-3788-5c05-a098-3b3a226d005f",
-            "2022-02-02 00:00:54"
-        ]
-    },
-    {
         "query": "insert into `assets` (`id`, `oem_id`, `type_id`, `status_id`, `product_id`, `reseller_id`, `customer_id`, `location_id`, `changed_at`, `serial_number`, `data_quality`, `contacts_active_quantity`, `contacts_count`, `coverages_count`, `synced_at`, `warranty_end`, `warranty_service_group_id`, `warranty_service_level_id`, `warranty_changed_at`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "00000b7e-e7dc-49ee-8294-e4708b2435e4",
@@ -660,8 +275,8 @@
             null,
             null,
             "2022-10-04 09:57:25",
-            "2022-02-02 00:00:55",
-            "2022-02-02 00:00:55"
+            "2022-02-02 00:00:15",
+            "2022-02-02 00:00:15"
         ]
     },
     {
@@ -673,19 +288,19 @@
             "+12764439232",
             null,
             true,
-            "267355f9-ece4-56eb-a3ee-0faa1c701e6e",
-            "2022-02-02 00:00:56",
-            "2022-02-02 00:00:56"
+            "1b31da43-5a06-5dcb-aa0c-8e642bf3bfe0",
+            "2022-02-02 00:00:16",
+            "2022-02-02 00:00:16"
         ]
     },
     {
         "query": "insert into `contact_types` (`type_id`, `contact_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "8d81418e-43f9-530d-a340-3b81520a65db",
-            "267355f9-ece4-56eb-a3ee-0faa1c701e6e",
-            "921bfcc1-425d-5d62-aa55-d873b77fe4d0",
-            "2022-02-02 00:00:57",
-            "2022-02-02 00:00:57"
+            "1b31da43-5a06-5dcb-aa0c-8e642bf3bfe0",
+            "3aaf1f1e-53ee-544c-8e1f-9abd27c49719",
+            "2022-02-02 00:00:17",
+            "2022-02-02 00:00:17"
         ]
     },
     {
@@ -697,19 +312,19 @@
             "+12547182816",
             "modesta.hirthe@hotmail.com",
             true,
-            "345dff1a-fad7-594e-bc07-7fbcff6d8f91",
-            "2022-02-02 00:00:58",
-            "2022-02-02 00:00:58"
+            "68001c0e-18bb-533b-8d3e-c593db36d24c",
+            "2022-02-02 00:00:18",
+            "2022-02-02 00:00:18"
         ]
     },
     {
         "query": "insert into `contact_types` (`type_id`, `contact_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "53096f4b-5c86-53b2-88f5-d4e08ea8e5b4",
-            "345dff1a-fad7-594e-bc07-7fbcff6d8f91",
-            "7d7e94cf-8a78-5ef9-9ac2-4e77c07374a3",
-            "2022-02-02 00:00:59",
-            "2022-02-02 00:00:59"
+            "68001c0e-18bb-533b-8d3e-c593db36d24c",
+            "db668c52-b580-5d79-bba1-f91c803d5ef7",
+            "2022-02-02 00:00:19",
+            "2022-02-02 00:00:19"
         ]
     },
     {
@@ -721,19 +336,19 @@
             "+16462077285",
             "jkreiger@russel.com",
             true,
-            "7ef73e6c-08eb-5678-b7e1-e4bd456d6939",
-            "2022-02-02 00:01:00",
-            "2022-02-02 00:01:00"
+            "9748dc8d-a0e8-5bab-9c8d-c706cfbbf0b0",
+            "2022-02-02 00:00:20",
+            "2022-02-02 00:00:20"
         ]
     },
     {
         "query": "insert into `contact_types` (`type_id`, `contact_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "79b7fb2a-6eea-5e8d-9d4a-f9d5026f5c64",
-            "7ef73e6c-08eb-5678-b7e1-e4bd456d6939",
-            "ddde8d80-f99c-5358-98e7-1594c1386ccd",
-            "2022-02-02 00:01:01",
-            "2022-02-02 00:01:01"
+            "9748dc8d-a0e8-5bab-9c8d-c706cfbbf0b0",
+            "5aedbce0-6089-560b-88ea-29dc0a988c02",
+            "2022-02-02 00:00:21",
+            "2022-02-02 00:00:21"
         ]
     },
     {
@@ -741,9 +356,9 @@
         "bindings": [
             "75d0c3bf-b069-551e-9eee-a694ad06703d",
             "00000b7e-e7dc-49ee-8294-e4708b2435e4",
-            "f8ab99c0-88e6-5212-99af-0369d5c2606c",
-            "2022-02-02 00:01:02",
-            "2022-02-02 00:01:02"
+            "66945a48-3157-5319-b4cc-24817b6cedf4",
+            "2022-02-02 00:00:22",
+            "2022-02-02 00:00:22"
         ]
     }
 ]

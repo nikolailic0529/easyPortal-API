@@ -2,18 +2,14 @@
     {
         "event": "App\\Services\\DataLoader\\Events\\DataImported",
         "data": {
-            "App\\Models\\Distributor": {
-                "1af1c44e-8112-4e72-9654-b11c705e9372": "1af1c44e-8112-4e72-9654-b11c705e9372"
-            },
+            "App\\Models\\Distributor": [],
             "App\\Models\\Reseller": {
                 "9f6b1030-5d5d-4f0b-b743-2ef69eaf4a44": "9f6b1030-5d5d-4f0b-b743-2ef69eaf4a44"
             },
             "App\\Models\\Customer": {
                 "03ee438b-b478-4b4b-86bd-a495f3ab2880": "03ee438b-b478-4b4b-86bd-a495f3ab2880"
             },
-            "App\\Models\\Document": {
-                "e711207a-5311-400d-951a-688429703e8d": "e711207a-5311-400d-951a-688429703e8d"
-            },
+            "App\\Models\\Document": [],
             "App\\Models\\Data\\Location": {
                 "ea851f94-2570-558c-a187-5ce87d26152c": "ea851f94-2570-558c-a187-5ce87d26152c",
                 "888887ec-37cb-519f-81ec-df715e6ec360": "888887ec-37cb-519f-81ec-df715e6ec360"
@@ -35,9 +31,7 @@
     {
         "event": "App\\Services\\DataLoader\\Events\\DataImported",
         "data": {
-            "App\\Models\\Distributor": {
-                "1af1c44e-8112-4e72-9654-b11c705e9372": "1af1c44e-8112-4e72-9654-b11c705e9372"
-            },
+            "App\\Models\\Distributor": [],
             "App\\Models\\Reseller": {
                 "594184e7-24d4-4614-8db4-fe132adb86f4": "594184e7-24d4-4614-8db4-fe132adb86f4"
             },
@@ -45,9 +39,7 @@
                 "03ee438b-b478-4b4b-86bd-a495f3ab2880": "03ee438b-b478-4b4b-86bd-a495f3ab2880",
                 "b34a93c8-cc76-4346-bdf0-9d67bdb943d1": "b34a93c8-cc76-4346-bdf0-9d67bdb943d1"
             },
-            "App\\Models\\Document": {
-                "ef9bbb19-5dd9-4222-a739-97659a654468": "ef9bbb19-5dd9-4222-a739-97659a654468"
-            },
+            "App\\Models\\Document": [],
             "App\\Models\\Data\\Location": {
                 "0a872c01-f844-590a-a819-942bfa09a5d2": "0a872c01-f844-590a-a819-942bfa09a5d2",
                 "888887ec-37cb-519f-81ec-df715e6ec360": "888887ec-37cb-519f-81ec-df715e6ec360",

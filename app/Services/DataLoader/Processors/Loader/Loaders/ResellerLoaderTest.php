@@ -184,7 +184,7 @@ class ResellerLoaderTest extends TestCase {
             Customer::class      => 2,
             Asset::class         => 8,
             AssetWarranty::class => 22,
-            Document::class      => 1,
+            Document::class      => 2,
             DocumentEntry::class => 0,
         ]);
 
@@ -204,8 +204,8 @@ class ResellerLoaderTest extends TestCase {
             Customer::class      => 2,
             Asset::class         => 8,
             AssetWarranty::class => 22,
-            Document::class      => 1,
-            DocumentEntry::class => 5,
+            Document::class      => 2,
+            DocumentEntry::class => 10,
         ]);
         self::assertDispatchedEventsEquals(
             '~process-with-documents-cold-events.json',

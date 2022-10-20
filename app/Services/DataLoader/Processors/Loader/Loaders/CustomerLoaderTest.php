@@ -184,7 +184,7 @@ class CustomerLoaderTest extends TestCase {
             Customer::class      => 3,
             Asset::class         => 3,
             AssetWarranty::class => 2,
-            Document::class      => 1,
+            Document::class      => 2,
             DocumentEntry::class => 0,
         ]);
 
@@ -204,8 +204,8 @@ class CustomerLoaderTest extends TestCase {
             Customer::class      => 3,
             Asset::class         => 3,
             AssetWarranty::class => 2,
-            Document::class      => 3,
-            DocumentEntry::class => 6,
+            Document::class      => 4,
+            DocumentEntry::class => 11,
         ]);
         self::assertDispatchedEventsEquals(
             '~process-with-documents-cold-events.json',
