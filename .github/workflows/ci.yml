@@ -82,12 +82,10 @@ jobs:
       - name: Check
         if: hashFiles(env.GRAPHQL_PREVIOUS_SCHEMA)
         run: |
-          RESULT=$(npx graphql-inspector diff "${{ env.GRAPHQL_PREVIOUS_SCHEMA }}" "${{ env.GRAPHQL_SCHEMA }}" > "${{ env.GRAPHQL_CHANGES }}")
-
-          if [ "${{ env.GRAPHQL_PR_STRICT }}" = 'true' ] && [ ! "${RESULT}" ]; then
+          if [ ! $(npx graphql-inspector diff "${{ env.GRAPHQL_PREVIOUS_SCHEMA }}" "${{ env.GRAPHQL_SCHEMA }}" > "${{ env.GRAPHQL_CHANGES }}") ] && [ "${{ env.GRAPHQL_PR_STRICT }}" = 'true' ]; then
             exit 1;
           fi
       - name: Summary
-        if: hashFiles(env.GRAPHQL_CHANGES)
+        if: always() && hashFiles(env.GRAPHQL_CHANGES)
         run: |
           cat "${{ env.GRAPHQL_CHANGES }}" >> $GITHUB_STEP_SUMMARY
