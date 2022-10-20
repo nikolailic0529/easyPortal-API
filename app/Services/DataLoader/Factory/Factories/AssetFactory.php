@@ -287,8 +287,8 @@ class AssetFactory extends ModelFactory {
 
         // Return
         return $warranties
-            ->concat($coverages)
-            ->concat($documents);
+            ->merge($coverages)
+            ->merge($documents);
     }
 
     /**
