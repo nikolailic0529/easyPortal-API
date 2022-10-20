@@ -14,7 +14,6 @@ use App\Models\Document as DocumentModel;
 use App\Models\DocumentEntry as DocumentEntryModel;
 use App\Models\OemGroup;
 use App\Services\DataLoader\Exceptions\FailedToProcessDocumentEntryNoAsset;
-use App\Services\DataLoader\Factory\AssetDocumentObject;
 use App\Services\DataLoader\Normalizer\Normalizer;
 use App\Services\DataLoader\Resolver\Resolvers\AssetResolver;
 use App\Services\DataLoader\Resolver\Resolvers\CurrencyResolver;
@@ -32,6 +31,7 @@ use App\Services\DataLoader\Schema\Document;
 use App\Services\DataLoader\Schema\DocumentEntry;
 use App\Services\DataLoader\Schema\Type;
 use App\Services\DataLoader\Schema\ViewAsset;
+use App\Services\DataLoader\Schema\ViewAssetDocument;
 use App\Services\DataLoader\Schema\ViewDocument;
 use App\Services\DataLoader\Testing\Helper;
 use Closure;
@@ -107,9 +107,9 @@ class DocumentFactoryTest extends TestCase {
     }
 
     /**
-     * @covers ::createFromAssetDocumentObject
+     * @covers ::createFromViewAssetDocument
      */
-    public function testCreateFromAssetDocumentObject(): void {
+    public function testCreateFromViewAssetDocument(): void {
         // Mock
         $this->overrideDateFactory('2021-08-30T00:00:00.000+00:00');
         $this->overrideFinders();
@@ -121,25 +121,21 @@ class DocumentFactoryTest extends TestCase {
         // ---------------------------------------------------------------------
         $json   = $this->getTestData()->json('~asset-document-full.json');
         $asset  = new ViewAsset($json);
-        $model  = Asset::factory()->create([
-            'id' => $asset->id,
-        ]);
-        $object = new AssetDocumentObject([
-            'asset'    => $model,
-            'document' => reset($asset->assetDocument),
-        ]);
+        $object = reset($asset->assetDocument);
+
+        self::assertInstanceOf(ViewAssetDocument::class, $object);
 
         // Test
         $queries  = $this->getQueryLog()->flush();
-        $created  = $factory->createFromAssetDocumentObject($object);
+        $created  = $factory->createFromViewAssetDocument($object);
         $actual   = array_column($queries->get(), 'query');
-        $expected = $this->getTestData()->json('~createFromAssetDocumentObject-create-expected.json');
+        $expected = $this->getTestData()->json('~createFromViewAssetDocument-create-expected.json');
 
         self::assertEquals($expected, $actual);
         self::assertNotNull($created);
         self::assertEquals($asset->customerId, $created->customer_id);
         self::assertEquals($asset->resellerId, $created->reseller_id);
-        self::assertEquals($object->document->document->distributorId ?? null, $created->distributor_id);
+        self::assertEquals($object->document->distributorId ?? null, $created->distributor_id);
         self::assertEquals('0056523287', $created->number);
         self::assertNull($created->price);
         self::assertNull($created->price_origin);
@@ -165,21 +161,20 @@ class DocumentFactoryTest extends TestCase {
         // ---------------------------------------------------------------------
         $json    = $this->getTestData()->json('~asset-document-changed.json');
         $asset   = new ViewAsset($json);
-        $object  = new AssetDocumentObject([
-            'asset'    => $model,
-            'document' => reset($asset->assetDocument),
-        ]);
+        $object  = reset($asset->assetDocument);
         $queries = $this->getQueryLog()->flush();
 
-        $factory->createFromAssetDocumentObject($object);
+        self::assertInstanceOf(ViewAssetDocument::class, $object);
+
+        $factory->createFromViewAssetDocument($object);
 
         self::assertCount(0, $queries);
     }
 
     /**
-     * @covers ::createFromAssetDocumentObject
+     * @covers ::createFromViewAssetDocument
      */
-    public function testCreateFromAssetDocumentObjectDocumentNull(): void {
+    public function testCreateFromViewAssetDocumentDocumentNull(): void {
         // Factory
         $factory = $this->app->make(DocumentFactoryTest_Factory::class);
 
@@ -187,21 +182,16 @@ class DocumentFactoryTest extends TestCase {
         // ---------------------------------------------------------------------
         $json   = $this->getTestData()->json('~asset-document-no-document.json');
         $asset  = new ViewAsset($json);
-        $model  = Asset::factory()->create([
-            'id' => $asset->id,
-        ]);
-        $object = new AssetDocumentObject([
-            'asset'    => $model,
-            'document' => reset($asset->assetDocument),
-        ]);
+        $object = reset($asset->assetDocument);
 
-        self::assertNull($factory->createFromAssetDocumentObject($object));
+        self::assertInstanceOf(ViewAssetDocument::class, $object);
+        self::assertNull($factory->createFromViewAssetDocument($object));
     }
 
     /**
-     * @covers ::createFromAssetDocumentObject
+     * @covers ::createFromViewAssetDocument
      */
-    public function testCreateFromAssetDocumentObjectCustomerNull(): void {
+    public function testCreateFromViewAssetDocumentCustomerNull(): void {
         // Mock
         $this->overrideFinders();
 
@@ -210,16 +200,13 @@ class DocumentFactoryTest extends TestCase {
 
         // Create
         // ---------------------------------------------------------------------
-        $json    = $this->getTestData()->json('~asset-document-no-customer.json');
-        $asset   = new ViewAsset($json);
-        $model   = Asset::factory()->create([
-            'id' => $asset->id,
-        ]);
-        $object  = new AssetDocumentObject([
-            'asset'    => $model,
-            'document' => reset($asset->assetDocument),
-        ]);
-        $created = $factory->createFromAssetDocumentObject($object);
+        $json   = $this->getTestData()->json('~asset-document-no-customer.json');
+        $asset  = new ViewAsset($json);
+        $object = reset($asset->assetDocument);
+
+        self::assertInstanceOf(ViewAssetDocument::class, $object);
+
+        $created = $factory->createFromViewAssetDocument($object);
 
         self::assertNotNull($created);
         self::assertNull($created->reseller_id);
@@ -227,9 +214,9 @@ class DocumentFactoryTest extends TestCase {
     }
 
     /**
-     * @covers ::createFromAssetDocumentObject
+     * @covers ::createFromViewAssetDocument
      */
-    public function testCreateFromAssetDocumentObjectTypeNull(): void {
+    public function testCreateFromViewAssetDocumentTypeNull(): void {
         // Mock
         $this->overrideFinders();
 
@@ -238,25 +225,22 @@ class DocumentFactoryTest extends TestCase {
 
         // Create
         // ---------------------------------------------------------------------
-        $json    = $this->getTestData()->json('~asset-document-type-null.json');
-        $asset   = new ViewAsset($json);
-        $model   = Asset::factory()->create([
-            'id' => $asset->id,
-        ]);
-        $object  = new AssetDocumentObject([
-            'asset'    => $model,
-            'document' => reset($asset->assetDocument),
-        ]);
-        $created = $factory->createFromAssetDocumentObject($object);
+        $json   = $this->getTestData()->json('~asset-document-type-null.json');
+        $asset  = new ViewAsset($json);
+        $object = reset($asset->assetDocument);
+
+        self::assertInstanceOf(ViewAssetDocument::class, $object);
+
+        $created = $factory->createFromViewAssetDocument($object);
 
         self::assertNotNull($created);
         self::assertNull($created->type_id);
     }
 
     /**
-     * @covers ::createFromAssetDocumentObject
+     * @covers ::createFromViewAssetDocument
      */
-    public function testCreateFromAssetDocumentObjectTrashed(): void {
+    public function testCreateFromViewAssetDocumentTrashed(): void {
         // Mock
         $this->overrideFinders();
 
@@ -264,22 +248,17 @@ class DocumentFactoryTest extends TestCase {
         $factory  = $this->app->make(DocumentFactoryTest_Factory::class);
         $json     = $this->getTestData()->json('~asset-document-full.json');
         $asset    = new ViewAsset($json);
-        $model    = Asset::factory()->create([
-            'id' => $asset->id,
-        ]);
-        $object   = new AssetDocumentObject([
-            'asset'    => $model,
-            'document' => reset($asset->assetDocument),
-        ]);
+        $object   = reset($asset->assetDocument);
         $document = DocumentModel::factory()->create([
-            'id' => $object->document->document->id ?? null,
+            'id' => $object->document->id ?? null,
         ]);
 
+        self::assertInstanceOf(ViewAssetDocument::class, $object);
         self::assertTrue($document->delete());
         self::assertTrue($document->trashed());
 
         // Test
-        $created = $factory->createFromAssetDocumentObject($object);
+        $created = $factory->createFromViewAssetDocument($object);
 
         self::assertNotNull($created);
         self::assertTrue($created->trashed());
@@ -361,9 +340,9 @@ class DocumentFactoryTest extends TestCase {
     }
 
     /**
-     * @covers ::createFromAssetDocumentObject
+     * @covers ::createFromViewAssetDocument
      */
-    public function testCreateFromAssetDocumentObjectContactPersonsIsNull(): void {
+    public function testCreateFromViewAssetDocumentContactPersonsIsNull(): void {
         // Mock
         $this->overrideFinders();
 
@@ -371,19 +350,15 @@ class DocumentFactoryTest extends TestCase {
         $factory = $this->app->make(DocumentFactoryTest_Factory::class);
         $json    = $this->getTestData()->json('~asset-document-full.json');
         $asset   = new ViewAsset($json);
-        $model   = Asset::factory()->create([
-            'id' => $asset->id,
-        ]);
-        $object  = new AssetDocumentObject([
-            'asset'    => $model,
-            'document' => reset($asset->assetDocument),
-        ]);
+        $object  = reset($asset->assetDocument);
+
+        self::assertInstanceOf(ViewAssetDocument::class, $object);
 
         // Set property to null
-        $object->document->document->contactPersons = null;
+        $object->document->contactPersons = null;
 
         // Test
-        $created = $factory->createFromAssetDocumentObject($object);
+        $created = $factory->createFromViewAssetDocument($object);
 
         self::assertNotNull($created);
         self::assertCount(0, $created->contacts);
@@ -1226,19 +1201,17 @@ class DocumentFactoryTest extends TestCase {
      */
     public function dataProviderCreate(): array {
         return [
-            AssetDocumentObject::class => [
-                'createFromAssetDocumentObject',
+            ViewAssetDocument::class => [
+                'createFromViewAssetDocument',
                 static function (TestCase $test): Type {
-                    return new AssetDocumentObject([
+                    return new ViewAssetDocument([
                         'document' => [
-                            'document' => [
-                                'id' => $test->faker->uuid(),
-                            ],
+                            'id' => $test->faker->uuid(),
                         ],
                     ]);
                 },
             ],
-            Document::class            => [
+            Document::class          => [
                 'createFromDocument',
                 static function (TestCase $test): Type {
                     return new Document([
@@ -1246,7 +1219,7 @@ class DocumentFactoryTest extends TestCase {
                     ]);
                 },
             ],
-            'Unknown'                  => [
+            'Unknown'                => [
                 null,
                 static function (TestCase $test): Type {
                     return new class() extends Type {
@@ -1333,8 +1306,8 @@ class DocumentFactoryTest_Factory extends DocumentFactory {
         return parent::documentType($document);
     }
 
-    public function createFromAssetDocumentObject(AssetDocumentObject $object): ?DocumentModel {
-        return parent::createFromAssetDocumentObject($object);
+    public function createFromViewAssetDocument(ViewAssetDocument $object): ?DocumentModel {
+        return parent::createFromViewAssetDocument($object);
     }
 
     public function createFromDocument(Document $document): ?DocumentModel {

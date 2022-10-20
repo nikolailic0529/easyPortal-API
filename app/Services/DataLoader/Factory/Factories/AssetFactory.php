@@ -15,7 +15,6 @@ use App\Services\DataLoader\Exceptions\AssetLocationNotFound;
 use App\Services\DataLoader\Exceptions\FailedToCreateAssetWarranty;
 use App\Services\DataLoader\Exceptions\FailedToProcessAssetViewDocument;
 use App\Services\DataLoader\Exceptions\FailedToProcessViewAssetCoverageEntry;
-use App\Services\DataLoader\Factory\AssetDocumentObject;
 use App\Services\DataLoader\Factory\Concerns\Children;
 use App\Services\DataLoader\Factory\Concerns\WithAssetDocument;
 use App\Services\DataLoader\Factory\Concerns\WithContacts;
@@ -501,10 +500,7 @@ class AssetFactory extends ModelFactory {
 
         if (isset($assetDocument->document->id)) {
             try {
-                $document = $factory->create(new AssetDocumentObject([
-                    'asset'    => $model,
-                    'document' => $assetDocument,
-                ]));
+                $document = $factory->create($assetDocument);
             } catch (Throwable $exception) {
                 $this->getExceptionHandler()->report(
                     new FailedToProcessAssetViewDocument($model, $assetDocument->document, $exception),

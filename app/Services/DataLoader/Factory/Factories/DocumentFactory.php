@@ -16,7 +16,6 @@ use App\Models\OemGroup;
 use App\Services\DataLoader\Exceptions\AssetNotFound;
 use App\Services\DataLoader\Exceptions\FailedToProcessDocumentEntry;
 use App\Services\DataLoader\Exceptions\FailedToProcessDocumentEntryNoAsset;
-use App\Services\DataLoader\Factory\AssetDocumentObject;
 use App\Services\DataLoader\Factory\Concerns\Children;
 use App\Services\DataLoader\Factory\Concerns\WithAsset;
 use App\Services\DataLoader\Factory\Concerns\WithAssetDocument;
@@ -63,6 +62,7 @@ use App\Services\DataLoader\Resolver\Resolvers\TypeResolver;
 use App\Services\DataLoader\Schema\Document;
 use App\Services\DataLoader\Schema\DocumentEntry;
 use App\Services\DataLoader\Schema\Type;
+use App\Services\DataLoader\Schema\ViewAssetDocument;
 use App\Services\DataLoader\Schema\ViewDocument;
 use Illuminate\Contracts\Debug\ExceptionHandler;
 use Illuminate\Database\Eloquent\Collection;
@@ -228,14 +228,14 @@ class DocumentFactory extends ModelFactory {
 
         if ($type instanceof Document) {
             $model = $this->createFromDocument($type);
-        } elseif ($type instanceof AssetDocumentObject) {
-            $model = $this->createFromAssetDocumentObject($type);
+        } elseif ($type instanceof ViewAssetDocument) {
+            $model = $this->createFromViewAssetDocument($type);
         } else {
             throw new InvalidArgumentException(sprintf(
                 'The `$type` must be instance of `%s`.',
                 implode('`, `', [
                     Document::class,
-                    AssetDocumentObject::class,
+                    ViewAssetDocument::class,
                 ]),
             ));
         }
@@ -244,7 +244,7 @@ class DocumentFactory extends ModelFactory {
     }
     // </editor-fold>
 
-    // <editor-fold desc="AssetDocumentObject">
+    // <editor-fold desc="ViewAssetDocument">
     // =========================================================================
     /**
      * Creates Document with limited properties and without entries.
@@ -257,9 +257,9 @@ class DocumentFactory extends ModelFactory {
      * Because data is incomplete and/or maybe outdated, the method will not
      * update the existing Document and will not try to create entries.
      */
-    protected function createFromAssetDocumentObject(AssetDocumentObject $object): ?DocumentModel {
+    protected function createFromViewAssetDocument(ViewAssetDocument $object): ?DocumentModel {
         // Document exists?
-        if (!isset($object->document->document->id)) {
+        if (!isset($object->document->id)) {
             return null;
         }
 
@@ -268,7 +268,7 @@ class DocumentFactory extends ModelFactory {
             // Update
             /** @var Collection<int, Status> $statuses */
             $statuses              = new Collection();
-            $document              = $object->document->document;
+            $document              = $object->document;
             $normalizer            = $this->getNormalizer();
             $model->id             = $normalizer->uuid($document->id);
             $model->oem            = $this->documentOem($document);
@@ -300,7 +300,7 @@ class DocumentFactory extends ModelFactory {
             return $model;
         });
         $model   = $this->documentResolver->get(
-            $object->document->document->id,
+            $object->document->id,
             static function () use ($factory): DocumentModel {
                 return $factory(new DocumentModel());
             },
