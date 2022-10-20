@@ -653,9 +653,8 @@
         ]
     },
     {
-        "query": "update `documents` set `oem_said` = ?, `type_id` = ?, `customer_id` = ?, `reseller_id` = ?, `distributor_id` = ?, `number` = ?, `start` = ?, `end` = ?, `price` = ?, `price_origin` = ?, `currency_id` = ?, `contacts_count` = ?, `statuses_count` = ?, `changed_at` = ?, `synced_at` = ?, `documents`.`updated_at` = ? where `id` = ?",
+        "query": "update `documents` set `type_id` = ?, `customer_id` = ?, `reseller_id` = ?, `distributor_id` = ?, `number` = ?, `start` = ?, `end` = ?, `price` = ?, `price_origin` = ?, `currency_id` = ?, `contacts_count` = ?, `statuses_count` = ?, `changed_at` = ?, `synced_at` = ?, `documents`.`updated_at` = ? where `id` = ?",
         "bindings": [
-            null,
             "669f6ddf-4e7e-5aa6-8ef6-dd321e511e2b",
             "fcce8dee-5a04-465c-96d9-be2123543915",
             "a9233c9c-4634-493a-9f12-bef4d1cf3c5e",

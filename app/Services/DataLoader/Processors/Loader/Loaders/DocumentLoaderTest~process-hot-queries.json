@@ -104,8 +104,8 @@
     {
         "query": "update `documents` set `synced_at` = ?, `documents`.`updated_at` = ? where `id` = ?",
         "bindings": [
-            "2022-02-02 00:01:54",
-            "2022-02-02 00:01:59",
+            "2022-02-02 00:02:02",
+            "2022-02-02 00:02:07",
             "00122a07-53e5-4c70-ba6b-bf51fcdd6695"
         ]
     },
@@ -133,8 +133,8 @@
     {
         "query": "update `documents` set `synced_at` = ?, `documents`.`updated_at` = ? where `id` = ?",
         "bindings": [
-            "2022-02-02 00:02:29",
-            "2022-02-02 00:02:32",
+            "2022-02-02 00:02:37",
+            "2022-02-02 00:02:40",
             "00122a07-53e5-4c70-ba6b-bf51fcdd6695"
         ]
     }

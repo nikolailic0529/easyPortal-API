@@ -420,8 +420,12 @@ class AssetFactory extends ModelFactory {
                 $number = $assetDocument->documentNumber;
                 $group  = $this->assetDocumentServiceGroup($model, $assetDocument);
                 $level  = $this->assetDocumentServiceLevel($model, $assetDocument);
-                $start  = $normalizer->datetime($assetDocument->startDate);
-                $end    = $normalizer->datetime($assetDocument->endDate);
+                $start  = $normalizer->datetime(
+                    $assetDocument->startDate ?? $assetDocument->document->startDate ?? null,
+                );
+                $end    = $normalizer->datetime(
+                    $assetDocument->endDate ?? $assetDocument->document->endDate ?? null,
+                );
 
                 if (!($number && ($start !== null || $end !== null) && ($group !== null || $level !== null))) {
                     continue;
