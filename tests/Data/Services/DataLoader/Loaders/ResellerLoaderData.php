@@ -10,6 +10,7 @@ use App\Services\DataLoader\Testing\Data\AssetsData;
 use App\Utils\Console\CommandOptions;
 use App\Utils\Eloquent\GlobalScopes\GlobalScopes;
 use Illuminate\Console\Command;
+use Illuminate\Support\Facades\Date;
 
 use function array_sum;
 
@@ -75,13 +76,29 @@ class ResellerLoaderData extends AssetsData {
 
                 if (!Asset::query()->whereKey(static::ASSET)->exists()) {
                     Asset::factory()->create([
-                        'id'          => static::ASSET,
-                        'reseller_id' => static::RESELLER,
-                        'customer_id' => null,
-                        'location_id' => null,
-                        'status_id'   => null,
-                        'type_id'     => null,
-                        'oem_id'      => Oem::query()->first(),
+                        'id'                        => static::ASSET,
+                        'reseller_id'               => static::RESELLER,
+                        'customer_id'               => null,
+                        'location_id'               => null,
+                        'status_id'                 => null,
+                        'type_id'                   => null,
+                        'oem_id'                    => Oem::query()->first(),
+                        'product_id'                => null,
+                        'serial_number'             => null,
+                        'nickname'                  => null,
+                        'warranty_end'              => null,
+                        'warranty_changed_at'       => null,
+                        'warranty_service_group_id' => null,
+                        'warranty_service_level_id' => null,
+                        'contacts_count'            => 0,
+                        'coverages_count'           => 0,
+                        'data_quality'              => null,
+                        'contacts_active_quantity'  => null,
+                        'changed_at'                => null,
+                        'synced_at'                 => Date::now(),
+                        'created_at'                => Date::now(),
+                        'updated_at'                => Date::now(),
+                        'deleted_at'                => null,
                     ]);
                 }
             }
@@ -97,11 +114,30 @@ class ResellerLoaderData extends AssetsData {
 
                 if (!Document::query()->withTrashed()->whereKey(static::DOCUMENT)->exists()) {
                     Document::factory()->create([
-                        'id'          => static::DOCUMENT,
-                        'reseller_id' => static::RESELLER,
-                        'customer_id' => null,
-                        'type_id'     => Type::query()->first(),
-                        'oem_id'      => Oem::query()->first(),
+                        'id'             => static::DOCUMENT,
+                        'reseller_id'    => static::RESELLER,
+                        'customer_id'    => null,
+                        'type_id'        => Type::query()->first(),
+                        'oem_id'         => Oem::query()->first(),
+                        'oem_said'       => null,
+                        'oem_group_id'   => null,
+                        'entries_count'  => 0,
+                        'contacts_count' => 0,
+                        'statuses_count' => 0,
+                        'number'         => null,
+                        'start'          => null,
+                        'end'            => null,
+                        'price_origin'   => null,
+                        'price'          => null,
+                        'currency_id'    => null,
+                        'language_id'    => null,
+                        'oem_amp_id'     => null,
+                        'oem_sar_number' => null,
+                        'changed_at'     => null,
+                        'synced_at'      => Date::now(),
+                        'created_at'     => Date::now(),
+                        'updated_at'     => Date::now(),
+                        'deleted_at'     => null,
                     ]);
                 }
             }
