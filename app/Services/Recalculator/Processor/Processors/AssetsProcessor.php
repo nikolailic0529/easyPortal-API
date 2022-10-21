@@ -36,7 +36,7 @@ class AssetsProcessor extends Processor {
     protected function process(State $state, mixed $data, mixed $item): void {
         $item->coverages_count = count($item->coverages);
         $item->contacts_count  = count($item->contacts);
-        $item->warranty_end    = Asset::getWarrantyEnd($item->warranties);
+        $item->warranty        = Asset::getLastWarranty($item->warranties);
 
         $item->save();
     }

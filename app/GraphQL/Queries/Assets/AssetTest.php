@@ -182,23 +182,40 @@ class AssetTest extends TestCase {
                         }
                         warranty_end
                         warranty_changed_at
+                        warranty_service_group_id
+                        warrantyServiceGroup {
+                            id
+                            oem_id
+                            sku
+                            name
+                        }
+                        warranty_service_level_id
+                        warrantyServiceLevel {
+                            id
+                            oem_id
+                            sku
+                            name
+                            description
+                        }
                         warranties {
                             id
                             reseller_id
                             customer_id
                             document_id
+                            document_number
                             start
                             end
+                            service_group_id
                             serviceGroup {
                               id
                                 oem_id
                                 sku
                                 name
                             }
-                            serviceLevels {
+                            service_level_id
+                            serviceLevel {
                                 id
                                 oem_id
-                                service_group_id
                                 sku
                                 name
                                 description
@@ -456,27 +473,27 @@ class AssetTest extends TestCase {
                 new ArrayDataProvider([
                     'ok' => [
                         new GraphQLSuccess('asset', [
-                            'id'                       => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24981',
-                            'oem_id'                   => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24982',
-                            'product_id'               => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24983',
-                            'location_id'              => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24984',
-                            'type_id'                  => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24985',
-                            'customer_id'              => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24987',
-                            'serial_number'            => '#PRODUCT_SERIAL_323',
-                            'nickname'                 => 'nickname123',
-                            'contacts_count'           => 1,
-                            'data_quality'             => '130',
-                            'contacts_active_quantity' => 321,
-                            'oem'                      => [
+                            'id'                        => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24981',
+                            'oem_id'                    => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24982',
+                            'product_id'                => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24983',
+                            'location_id'               => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24984',
+                            'type_id'                   => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24985',
+                            'customer_id'               => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24987',
+                            'serial_number'             => '#PRODUCT_SERIAL_323',
+                            'nickname'                  => 'nickname123',
+                            'contacts_count'            => 1,
+                            'data_quality'              => '130',
+                            'contacts_active_quantity'  => 321,
+                            'oem'                       => [
                                 'id'   => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24982',
                                 'key'  => 'key',
                                 'name' => 'oem1',
                             ],
-                            'type'                     => [
+                            'type'                      => [
                                 'id'   => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24985',
                                 'name' => 'name aaa',
                             ],
-                            'product'                  => [
+                            'product'                   => [
                                 'id'     => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24983',
                                 'name'   => 'Product1',
                                 'oem_id' => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24982',
@@ -489,7 +506,7 @@ class AssetTest extends TestCase {
                                     'name' => 'oem1',
                                 ],
                             ],
-                            'location'                 => [
+                            'location'                  => [
                                 'id'        => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24984',
                                 'state'     => 'state1',
                                 'postcode'  => '19911',
@@ -498,8 +515,8 @@ class AssetTest extends TestCase {
                                 'latitude'  => 47.91634204,
                                 'longitude' => -2.26318359,
                             ],
-                            'reseller_id'              => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24987',
-                            'reseller'                 => [
+                            'reseller_id'               => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24987',
+                            'reseller'                  => [
                                 'id'              => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24987',
                                 'name'            => 'reseller1',
                                 'customers_count' => 0,
@@ -525,7 +542,7 @@ class AssetTest extends TestCase {
                                 'changed_at'      => '2021-10-19T10:15:00+00:00',
                                 'synced_at'       => '2021-10-19T10:25:00+00:00',
                             ],
-                            'customer'                 => [
+                            'customer'                  => [
                                 'id'              => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24987',
                                 'name'            => 'name aaa',
                                 'assets_count'    => 0,
@@ -556,22 +573,38 @@ class AssetTest extends TestCase {
                                 'changed_at'      => '2021-10-19T10:15:00+00:00',
                                 'synced_at'       => '2021-10-19T10:25:00+00:00',
                             ],
-                            'warranty_end'             => '2021-01-01',
-                            'warranty_changed_at'      => '2021-10-19T10:25:00+00:00',
-                            'warranties'               => [
+                            'warranty_end'              => '2021-01-01',
+                            'warranty_changed_at'       => '2021-10-19T10:25:00+00:00',
+                            'warranty_service_group_id' => '8b4d2d12-542a-4fcf-9acc-626bfb5dbc79',
+                            'warrantyServiceGroup'      => [
+                                'id'     => '8b4d2d12-542a-4fcf-9acc-626bfb5dbc79',
+                                'name'   => 'Group',
+                                'oem_id' => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24982',
+                                'sku'    => 'SKU#123',
+                            ],
+                            'warranty_service_level_id' => 'e2bb80fc-cedf-4ad2-b723-1e250805d2a0',
+                            'warrantyServiceLevel'      => [
+                                'id'          => 'e2bb80fc-cedf-4ad2-b723-1e250805d2a0',
+                                'name'        => 'Level',
+                                'oem_id'      => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24982',
+                                'sku'         => 'SKU#123',
+                                'description' => 'description',
+                            ],
+                            'warranties'                => [
                                 [
-                                    'id'            => 'e4a60a4f-492f-4e16-8fea-d9bd77ed2551',
-                                    'reseller_id'   => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24987',
-                                    'customer_id'   => null,
-                                    'document_id'   => null,
-                                    'start'         => '2021-01-01',
-                                    'end'           => '2022-01-01',
-                                    'serviceLevels' => [
-                                        // empty
-                                    ],
-                                    'serviceGroup'  => null,
-                                    'customer'      => null,
-                                    'reseller'      => [
+                                    'id'               => 'e4a60a4f-492f-4e16-8fea-d9bd77ed2551',
+                                    'reseller_id'      => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24987',
+                                    'customer_id'      => null,
+                                    'document_id'      => null,
+                                    'document_number'  => null,
+                                    'start'            => '2021-01-01',
+                                    'end'              => '2022-01-01',
+                                    'service_group_id' => null,
+                                    'serviceGroup'     => null,
+                                    'service_level_id' => null,
+                                    'serviceLevel'     => null,
+                                    'customer'         => null,
+                                    'reseller'         => [
                                         'id'              => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24987',
                                         'name'            => 'reseller1',
                                         'customers_count' => 0,
@@ -597,36 +630,36 @@ class AssetTest extends TestCase {
                                         'changed_at'      => '2021-10-19T10:15:00+00:00',
                                         'synced_at'       => '2021-10-19T10:25:00+00:00',
                                     ],
-                                    'type_id'       => null,
-                                    'type'          => null,
-                                    'status_id'     => null,
-                                    'status'        => null,
-                                    'description'   => null,
+                                    'type_id'          => null,
+                                    'type'             => null,
+                                    'status_id'        => null,
+                                    'status'           => null,
+                                    'description'      => null,
                                 ],
                                 [
-                                    'id'            => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24986',
-                                    'reseller_id'   => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24987',
-                                    'customer_id'   => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24987',
-                                    'document_id'   => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24988',
-                                    'start'         => '2021-01-01',
-                                    'end'           => '2022-01-01',
-                                    'serviceLevels' => [
-                                        [
-                                            'id'               => 'e2bb80fc-cedf-4ad2-b723-1e250805d2a0',
-                                            'name'             => 'Level',
-                                            'service_group_id' => '8b4d2d12-542a-4fcf-9acc-626bfb5dbc79',
-                                            'oem_id'           => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24982',
-                                            'sku'              => 'SKU#123',
-                                            'description'      => 'description',
-                                        ],
-                                    ],
-                                    'serviceGroup'  => [
+                                    'id'               => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24986',
+                                    'reseller_id'      => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24987',
+                                    'customer_id'      => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24987',
+                                    'document_id'      => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24988',
+                                    'document_number'  => 'b0a1c3e2-95a7-4ef3-a42e-33c3a7c577fe',
+                                    'start'            => '2021-01-01',
+                                    'end'              => '2022-01-01',
+                                    'service_group_id' => '8b4d2d12-542a-4fcf-9acc-626bfb5dbc79',
+                                    'serviceGroup'     => [
                                         'id'     => '8b4d2d12-542a-4fcf-9acc-626bfb5dbc79',
                                         'name'   => 'Group',
                                         'oem_id' => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24982',
                                         'sku'    => 'SKU#123',
                                     ],
-                                    'customer'      => [
+                                    'service_level_id' => 'e2bb80fc-cedf-4ad2-b723-1e250805d2a0',
+                                    'serviceLevel'     => [
+                                        'id'          => 'e2bb80fc-cedf-4ad2-b723-1e250805d2a0',
+                                        'name'        => 'Level',
+                                        'oem_id'      => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24982',
+                                        'sku'         => 'SKU#123',
+                                        'description' => 'description',
+                                    ],
+                                    'customer'         => [
                                         'id'              => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24987',
                                         'name'            => 'name aaa',
                                         'assets_count'    => 0,
@@ -657,7 +690,7 @@ class AssetTest extends TestCase {
                                         'changed_at'      => '2021-10-19T10:15:00+00:00',
                                         'synced_at'       => '2021-10-19T10:25:00+00:00',
                                     ],
-                                    'reseller'      => [
+                                    'reseller'         => [
                                         'id'              => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24987',
                                         'name'            => 'reseller1',
                                         'customers_count' => 0,
@@ -683,46 +716,46 @@ class AssetTest extends TestCase {
                                         'changed_at'      => '2021-10-19T10:15:00+00:00',
                                         'synced_at'       => '2021-10-19T10:25:00+00:00',
                                     ],
-                                    'type_id'       => '2511521b-8cd3-4bff-b27d-758627f796ef',
-                                    'type'          => [
+                                    'type_id'          => '2511521b-8cd3-4bff-b27d-758627f796ef',
+                                    'type'             => [
                                         'id'   => '2511521b-8cd3-4bff-b27d-758627f796ef',
                                         'key'  => 'type',
                                         'name' => 'Type',
                                     ],
-                                    'status_id'     => '2511521b-8cd3-4bff-b27d-758627f796ef',
-                                    'status'        => [
+                                    'status_id'        => '2511521b-8cd3-4bff-b27d-758627f796ef',
+                                    'status'           => [
                                         'id'   => '2511521b-8cd3-4bff-b27d-758627f796ef',
                                         'key'  => 'status',
                                         'name' => 'Type',
                                     ],
-                                    'description'   => 'warranty description',
+                                    'description'      => 'warranty description',
                                 ],
                             ],
-                            'status'                   => [
+                            'status'                    => [
                                 'id'   => 'f9396bc1-2f2f-4c57-bb8d-7a224ac20949',
                                 'name' => 'active',
                             ],
-                            'contacts'                 => [
+                            'contacts'                  => [
                                 [
                                     'name'        => 'contact2',
                                     'email'       => 'contact2@test.com',
                                     'phone_valid' => false,
                                 ],
                             ],
-                            'coverages_count'          => 1,
-                            'coverages'                => [
+                            'coverages_count'           => 1,
+                            'coverages'                 => [
                                 [
                                     'id'   => 'f9396bc1-2f2f-4c57-bb8d-7a224ac20948',
                                     'name' => 'COVERED_ON_CONTRACT',
                                 ],
                             ],
-                            'tags'                     => [
+                            'tags'                      => [
                                 [
                                     'id'   => 'f9396bc1-2f2f-4c57-bb8d-7a224ac20950',
                                     'name' => 'Software',
                                 ],
                             ],
-                            'quoteRequest'             => [
+                            'quoteRequest'              => [
                                 'id'              => 'f9396bc1-2f2f-4c57-bb8d-7a224ac20952',
                                 'type_id'         => 'f9396bc1-2f2f-4c57-bb8d-7a224ac20953',
                                 'oem_id'          => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24982',
@@ -776,7 +809,7 @@ class AssetTest extends TestCase {
                                 'files'           => [],
                                 'message'         => null,
                             ],
-                            'changeRequest'            => [
+                            'changeRequest'             => [
                                 'id'      => 'f9396bc1-2f2f-4c57-bb8d-7a224ac20963',
                                 'user_id' => 'fd421bad-069f-491c-ad5f-5841aa9a9dee',
                                 'subject' => 'subject',
@@ -791,8 +824,8 @@ class AssetTest extends TestCase {
                                     ],
                                 ],
                             ],
-                            'changed_at'               => '2021-10-19T10:15:00+00:00',
-                            'synced_at'                => '2021-10-19T10:25:00+00:00',
+                            'changed_at'                => '2021-10-19T10:15:00+00:00',
+                            'synced_at'                 => '2021-10-19T10:25:00+00:00',
                         ]),
                         [
                             'ep.document_statuses_hidden' => [],
@@ -907,6 +940,7 @@ class AssetTest extends TestCase {
                                 'id'          => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24988',
                                 'type_id'     => $documentType,
                                 'reseller_id' => $reseller,
+                                'number'      => 'b0a1c3e2-95a7-4ef3-a42e-33c3a7c577fe',
                             ]);
                             // Document entry creation for services
                             DocumentEntry::factory()->create([
@@ -949,17 +983,19 @@ class AssetTest extends TestCase {
                                     'name' => 'COVERED_ON_CONTRACT',
                                 ])
                                 ->create([
-                                    'id'                       => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24981',
-                                    'serial_number'            => '#PRODUCT_SERIAL_323',
-                                    'nickname'                 => 'nickname123',
-                                    'warranty_end'             => '2021-01-01',
-                                    'warranty_changed_at'      => '2021-10-19 10:25:00',
-                                    'contacts_count'           => 1,
-                                    'coverages_count'          => 1,
-                                    'data_quality'             => '130',
-                                    'contacts_active_quantity' => 321,
-                                    'changed_at'               => '2021-10-19 10:15:00',
-                                    'synced_at'                => '2021-10-19 10:25:00',
+                                    'id'                        => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24981',
+                                    'serial_number'             => '#PRODUCT_SERIAL_323',
+                                    'nickname'                  => 'nickname123',
+                                    'warranty_end'              => '2021-01-01',
+                                    'warranty_changed_at'       => '2021-10-19 10:25:00',
+                                    'warranty_service_group_id' => $serviceGroup,
+                                    'warranty_service_level_id' => $serviceLevel,
+                                    'contacts_count'            => 1,
+                                    'coverages_count'           => 1,
+                                    'data_quality'              => '130',
+                                    'contacts_active_quantity'  => 321,
+                                    'changed_at'                => '2021-10-19 10:15:00',
+                                    'synced_at'                 => '2021-10-19 10:25:00',
                                 ]);
 
                             // Should be returned - document has valid type
@@ -975,31 +1011,33 @@ class AssetTest extends TestCase {
                             ]);
 
                             AssetWarranty::factory()
-                                ->hasAttached($serviceLevel)
                                 ->for($serviceGroup)
+                                ->for($serviceLevel)
                                 ->create([
-                                    'id'          => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24986',
-                                    'asset_id'    => $asset,
-                                    'reseller_id' => $reseller,
-                                    'customer_id' => $customer,
-                                    'document_id' => $document,
-                                    'start'       => '2021-01-01',
-                                    'end'         => '2022-01-01',
-                                    'type_id'     => $warrantyType,
-                                    'status_id'   => $warrantyStatus,
-                                    'description' => 'warranty description',
+                                    'id'              => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24986',
+                                    'asset_id'        => $asset,
+                                    'reseller_id'     => $reseller,
+                                    'customer_id'     => $customer,
+                                    'document_id'     => $document,
+                                    'document_number' => $document->number,
+                                    'start'           => '2021-01-01',
+                                    'end'             => '2022-01-01',
+                                    'type_id'         => $warrantyType,
+                                    'status_id'       => $warrantyStatus,
+                                    'description'     => 'warranty description',
                                 ]);
 
                             // Should be returned - no document
                             AssetWarranty::factory()
                                 ->create([
-                                    'id'          => 'e4a60a4f-492f-4e16-8fea-d9bd77ed2551',
-                                    'asset_id'    => $asset,
-                                    'reseller_id' => $reseller,
-                                    'customer_id' => null,
-                                    'document_id' => null,
-                                    'start'       => '2021-01-01',
-                                    'end'         => '2022-01-01',
+                                    'id'              => 'e4a60a4f-492f-4e16-8fea-d9bd77ed2551',
+                                    'asset_id'        => $asset,
+                                    'reseller_id'     => $reseller,
+                                    'customer_id'     => null,
+                                    'document_id'     => null,
+                                    'document_number' => null,
+                                    'start'           => '2021-01-01',
+                                    'end'             => '2022-01-01',
                                 ]);
 
                             // Should not be returned - document not a contract

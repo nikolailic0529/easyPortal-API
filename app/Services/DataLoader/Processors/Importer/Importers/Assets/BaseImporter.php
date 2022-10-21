@@ -57,7 +57,6 @@ abstract class BaseImporter extends Importer {
             ->prefetch($data->get(Asset::class))
             ->getResolved();
 
-        $assets->loadMissing('warranties.serviceLevels');
         $assets->loadMissing('warranties.document.statuses');
         $assets->loadMissing('contacts.types');
         $assets->loadMissing('location');

@@ -6,7 +6,6 @@ use App\Models\Asset;
 use App\Models\AssetCoverage;
 use App\Models\AssetTag;
 use App\Models\AssetWarranty;
-use App\Models\AssetWarrantyServiceLevel;
 use App\Models\Audits\Audit;
 use App\Models\ChangeRequest;
 use App\Models\Contact;
@@ -403,11 +402,11 @@ class ModelsProvider {
             'customer_id'      => $customer,
             'document_id'      => $contract,
             'service_group_id' => $serviceGroup,
+            'service_level_id' => $serviceLevel,
         ]);
-        $assetWarrantyServiceLevel     = AssetWarrantyServiceLevel::factory()->create([
-            'asset_warranty_id' => $assetWarranty,
-            'service_level_id'  => $serviceLevel,
-        ]);
+
+        $asset->warranty = $assetWarranty;
+        $asset->save();
 
         // Settings
         $test->setSettings([

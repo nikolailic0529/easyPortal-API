@@ -159,9 +159,29 @@ input AggregatedGroupByClauseAssetsQuery {
     type_id: AggregatedGroupByTypeDirection
 
     """
+    Relationship clause.
+    """
+    warrantyServiceGroup: [SortByClauseServiceGroupsSort!]
+
+    """
+    Relationship clause.
+    """
+    warrantyServiceLevel: [SortByClauseServiceLevelsSort!]
+
+    """
     Property clause.
     """
     warranty_end: AggregatedGroupByTypeDirection
+
+    """
+    Property clause.
+    """
+    warranty_service_group_id: AggregatedGroupByTypeDirection
+
+    """
+    Property clause.
+    """
+    warranty_service_level_id: AggregatedGroupByTypeDirection
 }
 
 """
@@ -1852,6 +1872,11 @@ input SearchByConditionAssetWarrantiesQuery {
     """
     Property condition.
     """
+    document_number: SearchByScalarStringOrNull
+
+    """
+    Property condition.
+    """
     end: SearchByScalarDateOrNull
 
     """
@@ -1875,14 +1900,14 @@ input SearchByConditionAssetWarrantiesQuery {
     reseller_id: SearchByScalarIDOrNull
 
     """
-    Relationship condition.
+    Property condition.
     """
-    serviceLevels: SearchByComplexRelationServiceLevelsQuery
+    service_group_id: SearchByScalarIDOrNull
 
     """
     Property condition.
     """
-    service_group_id: SearchByScalarIDOrNull
+    service_level_id: SearchByScalarIDOrNull
 
     """
     Property condition.
@@ -2030,9 +2055,29 @@ input SearchByConditionAssetsQuery {
     warranties: SearchByComplexRelationAssetWarrantiesQuery
 
     """
+    Relationship condition.
+    """
+    warrantyServiceGroup: SearchByComplexRelationServiceGroupsQuery
+
+    """
+    Relationship condition.
+    """
+    warrantyServiceLevel: SearchByComplexRelationServiceLevelsQuery
+
+    """
     Property condition.
     """
     warranty_end: SearchByScalarDateOrNull
+
+    """
+    Property condition.
+    """
+    warranty_service_group_id: SearchByScalarIDOrNull
+
+    """
+    Property condition.
+    """
+    warranty_service_level_id: SearchByScalarIDOrNull
 }
 
 """
@@ -4865,7 +4910,27 @@ input SortByClauseAssetsSort {
     """
     Property clause.
     """
+    warrantyServiceGroup: SortByClauseServiceGroupsSort
+
+    """
+    Property clause.
+    """
+    warrantyServiceLevel: SortByClauseServiceLevelsSort
+
+    """
+    Property clause.
+    """
     warranty_end: SortByTypeDirection
+
+    """
+    Property clause.
+    """
+    warranty_service_group_id: SortByTypeDirection
+
+    """
+    Property clause.
+    """
+    warranty_service_level_id: SortByTypeDirection
 }
 
 """
@@ -6460,8 +6525,12 @@ type Asset {
     type_id: ID
     updated_at: DateTime!
     warranties: [AssetWarranty!]!
+    warrantyServiceGroup: ServiceGroup
+    warrantyServiceLevel: ServiceLevel
     warranty_changed_at: DateTime
     warranty_end: Date
+    warranty_service_group_id: ID
+    warranty_service_level_id: ID
 }
 
 type AssetChangeRequestCreatePayload
@@ -6532,12 +6601,15 @@ type AssetWarranty {
     description: String
     document: Document
     document_id: ID
+    document_number: String
     end: Date
     id: ID!
     reseller: Reseller
     reseller_id: ID
     serviceGroup: ServiceGroup
-    serviceLevels: [ServiceLevel!]!
+    serviceLevel: ServiceLevel
+    service_group_id: ID
+    service_level_id: ID
     start: Date
     status: Status
     status_id: String

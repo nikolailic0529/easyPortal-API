@@ -2,19 +2,14 @@
     {
         "event": "App\\Services\\DataLoader\\Events\\DataImported",
         "data": {
-            "App\\Models\\Distributor": {
-                "1af1c44e-8112-4e72-9654-b11c705e9372": "1af1c44e-8112-4e72-9654-b11c705e9372",
-                "a985a692-c063-499a-ab2f-0a2adef86a3f": "a985a692-c063-499a-ab2f-0a2adef86a3f"
-            },
+            "App\\Models\\Distributor": [],
             "App\\Models\\Reseller": {
                 "22d7dbf2-977a-49d8-8e4c-cacdaae616b2": "22d7dbf2-977a-49d8-8e4c-cacdaae616b2"
             },
             "App\\Models\\Customer": {
                 "f273feb9-4043-4ce2-9633-2dab7a75c566": "f273feb9-4043-4ce2-9633-2dab7a75c566"
             },
-            "App\\Models\\Document": {
-                "f7873540-59c2-4019-9522-5e7b299257b1": "f7873540-59c2-4019-9522-5e7b299257b1"
-            },
+            "App\\Models\\Document": [],
             "App\\Models\\Data\\Location": {
                 "415803cc-b49e-5033-a639-65bc0920bbb1": "415803cc-b49e-5033-a639-65bc0920bbb1",
                 "81d534c5-a257-5850-afb6-72cad50161b8": "81d534c5-a257-5850-afb6-72cad50161b8",
@@ -52,10 +47,7 @@
     {
         "event": "App\\Services\\DataLoader\\Events\\DataImported",
         "data": {
-            "App\\Models\\Distributor": {
-                "1af1c44e-8112-4e72-9654-b11c705e9372": "1af1c44e-8112-4e72-9654-b11c705e9372",
-                "a985a692-c063-499a-ab2f-0a2adef86a3f": "a985a692-c063-499a-ab2f-0a2adef86a3f"
-            },
+            "App\\Models\\Distributor": [],
             "App\\Models\\Reseller": {
                 "22d7dbf2-977a-49d8-8e4c-cacdaae616b2": "22d7dbf2-977a-49d8-8e4c-cacdaae616b2",
                 "77ec115b-9723-4582-ad45-2b3a83286b1f": "77ec115b-9723-4582-ad45-2b3a83286b1f"
@@ -63,9 +55,7 @@
             "App\\Models\\Customer": {
                 "bbf64ae3-73cc-4b2a-ac5c-a3a391099b4a": "bbf64ae3-73cc-4b2a-ac5c-a3a391099b4a"
             },
-            "App\\Models\\Document": {
-                "5c6a88e7-b282-48f3-b277-fee756628260": "5c6a88e7-b282-48f3-b277-fee756628260"
-            },
+            "App\\Models\\Document": [],
             "App\\Models\\Data\\Location": {
                 "415803cc-b49e-5033-a639-65bc0920bbb1": "415803cc-b49e-5033-a639-65bc0920bbb1",
                 "0a872c01-f844-590a-a819-942bfa09a5d2": "0a872c01-f844-590a-a819-942bfa09a5d2",

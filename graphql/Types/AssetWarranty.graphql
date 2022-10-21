@@ -9,10 +9,13 @@ type AssetWarranty {
     description: String
     customer_id: ID
     customer: Customer @relation
+    document_number: String
     document_id: ID
     document: Document @relation
     reseller_id: ID
     reseller: Reseller @relation
+    service_group_id: ID
     serviceGroup: ServiceGroup @relation
-    serviceLevels: [ServiceLevel!]! @relation
+    service_level_id: ID
+    serviceLevel: ServiceLevel @relation
 }

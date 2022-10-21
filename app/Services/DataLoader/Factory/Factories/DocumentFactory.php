@@ -16,7 +16,6 @@ use App\Models\OemGroup;
 use App\Services\DataLoader\Exceptions\AssetNotFound;
 use App\Services\DataLoader\Exceptions\FailedToProcessDocumentEntry;
 use App\Services\DataLoader\Exceptions\FailedToProcessDocumentEntryNoAsset;
-use App\Services\DataLoader\Factory\AssetDocumentObject;
 use App\Services\DataLoader\Factory\Concerns\Children;
 use App\Services\DataLoader\Factory\Concerns\WithAsset;
 use App\Services\DataLoader\Factory\Concerns\WithAssetDocument;
@@ -63,10 +62,10 @@ use App\Services\DataLoader\Resolver\Resolvers\TypeResolver;
 use App\Services\DataLoader\Schema\Document;
 use App\Services\DataLoader\Schema\DocumentEntry;
 use App\Services\DataLoader\Schema\Type;
+use App\Services\DataLoader\Schema\ViewAssetDocument;
 use App\Services\DataLoader\Schema\ViewDocument;
 use Illuminate\Contracts\Debug\ExceptionHandler;
 use Illuminate\Database\Eloquent\Collection;
-use Illuminate\Database\Eloquent\Collection as EloquentCollection;
 use Illuminate\Support\Facades\Date;
 use InvalidArgumentException;
 use Throwable;
@@ -229,14 +228,14 @@ class DocumentFactory extends ModelFactory {
 
         if ($type instanceof Document) {
             $model = $this->createFromDocument($type);
-        } elseif ($type instanceof AssetDocumentObject) {
-            $model = $this->createFromAssetDocumentObject($type);
+        } elseif ($type instanceof ViewAssetDocument) {
+            $model = $this->createFromViewAssetDocument($type);
         } else {
             throw new InvalidArgumentException(sprintf(
                 'The `$type` must be instance of `%s`.',
                 implode('`, `', [
                     Document::class,
-                    AssetDocumentObject::class,
+                    ViewAssetDocument::class,
                 ]),
             ));
         }
@@ -245,78 +244,67 @@ class DocumentFactory extends ModelFactory {
     }
     // </editor-fold>
 
-    // <editor-fold desc="AssetDocumentObject">
+    // <editor-fold desc="ViewAssetDocument">
     // =========================================================================
     /**
-     * Create Document without entries.
+     * Creates Document with limited properties and without entries.
      *
-     * We are not creating entries here because they may be outdated. In this
-     * case we will have race conditions with {@see createFromDocument()}.
-     * Also, there is no way to delete outdated entries.
+     * Is some cases (eg for Asset warranties) Document required before full
+     * Document data is available. To avoid showing these incomplete documents
+     * to users, the method will mark the Document as "deleted" (it will be
+     * filled and restored later, when all data is available).
+     *
+     * Because data is incomplete and/or maybe outdated, the method will not
+     * update the existing Document and will not try to create entries.
      */
-    protected function createFromAssetDocumentObject(AssetDocumentObject $object): ?DocumentModel {
+    protected function createFromViewAssetDocument(ViewAssetDocument $object): ?DocumentModel {
         // Document exists?
-        if (!isset($object->document->document->id)) {
+        if (!isset($object->document->id)) {
             return null;
         }
 
-        // Get/Create/Update
-        $created = false;
-        $factory = $this->factory(function (DocumentModel $model) use (&$created, $object): DocumentModel {
+        // Get/Create
+        $factory = $this->factory(function (DocumentModel $model) use ($object): DocumentModel {
             // Update
-            $created    = !$model->exists;
-            $document   = $object->document->document;
-            $normalizer = $this->getNormalizer();
+            /** @var Collection<int, Status> $statuses */
+            $statuses              = new Collection();
+            $document              = $object->document;
+            $normalizer            = $this->getNormalizer();
+            $model->id             = $normalizer->uuid($document->id);
+            $model->oem            = $this->documentOem($document);
+            $model->oemGroup       = $this->documentOemGroup($document);
+            $model->oem_said       = $normalizer->string($document->vendorSpecificFields->said ?? null);
+            $model->oem_amp_id     = $normalizer->string($document->vendorSpecificFields->ampId ?? null);
+            $model->oem_sar_number = $normalizer->string($document->vendorSpecificFields->sar ?? null);
+            $model->type           = $this->documentType($document);
+            $model->statuses       = $statuses;
+            $model->reseller       = $this->reseller($document);
+            $model->customer       = $this->customer($document);
+            $model->currency       = $this->currency($document->currencyCode);
+            $model->language       = $this->language($document->languageCode);
+            $model->distributor    = $this->distributor($document);
+            $model->start          = $normalizer->datetime($document->startDate);
+            $model->end            = $normalizer->datetime($document->endDate);
+            $model->price_origin   = null;
+            $model->number         = $normalizer->string($document->documentNumber) ?: null;
+            $model->changed_at     = $normalizer->datetime($document->updatedAt);
+            $model->contacts       = $this->objectContacts($model, (array) $document->contactPersons);
+            $model->synced_at      = Date::now();
+            $model->deleted_at     = Date::now();
+            $model->assets_count   = 0;
+            $model->entries_count  = 0;
 
-            // The asset may contain outdated documents so to prevent conflicts
-            // we should not update existing documents.
-            if ($created) {
-                /** @var Collection<int, Status> $statuses */
-                $statuses              = new Collection();
-                $model->id             = $normalizer->uuid($document->id);
-                $model->oem            = $this->documentOem($document);
-                $model->oemGroup       = $this->documentOemGroup($document);
-                $model->oem_said       = $normalizer->string($document->vendorSpecificFields->said ?? null);
-                $model->oem_amp_id     = $normalizer->string($document->vendorSpecificFields->ampId ?? null);
-                $model->oem_sar_number = $normalizer->string($document->vendorSpecificFields->sar ?? null);
-                $model->type           = $this->documentType($document);
-                $model->statuses       = $statuses;
-                $model->reseller       = $this->reseller($document);
-                $model->customer       = $this->customer($document);
-                $model->currency       = $this->currency($document->currencyCode);
-                $model->language       = $this->language($document->languageCode);
-                $model->distributor    = $this->distributor($document);
-                $model->start          = $normalizer->datetime($document->startDate);
-                $model->end            = $normalizer->datetime($document->endDate);
-                $model->price_origin   = null;
-                $model->number         = $normalizer->string($document->documentNumber) ?: null;
-                $model->changed_at     = $normalizer->datetime($document->updatedAt);
-                $model->contacts       = $this->objectContacts($model, (array) $document->contactPersons);
-                $model->synced_at      = Date::now();
-                $model->assets_count   = 0;
-                $model->entries_count  = 0;
-            }
-
-            // We cannot save Document if asset doesn't exist.
-            // We cannot restore Document because Asset may have outdated data.
-            if ($object->asset->exists) {
-                $model->save();
-            }
+            $model->save();
 
             // Return
             return $model;
         });
         $model   = $this->documentResolver->get(
-            $object->document->document->id,
+            $object->document->id,
             static function () use ($factory): DocumentModel {
                 return $factory(new DocumentModel());
             },
         );
-
-        // Update
-        if (!$created && !$this->isSearchMode()) {
-            $factory($model);
-        }
 
         // Return
         return $model;
@@ -408,7 +396,7 @@ class DocumentFactory extends ModelFactory {
                 // Prefetch
                 $this->getAssetResolver()->prefetch(
                     (new ImporterChunkData($document->documentEntries))->get(AssetModel::class),
-                    static function (EloquentCollection $assets): void {
+                    static function (Collection $assets): void {
                         $assets->loadMissing('oem');
                     },
                 );
@@ -457,11 +445,11 @@ class DocumentFactory extends ModelFactory {
     }
 
     /**
-     * @return EloquentCollection<array-key, Status>
+     * @return Collection<array-key, Status>
      */
-    protected function documentStatuses(DocumentModel $model, Document $document): EloquentCollection {
-        /** @var EloquentCollection<string, Status> $statuses */
-        $statuses   = new EloquentCollection();
+    protected function documentStatuses(DocumentModel $model, Document $document): Collection {
+        /** @var Collection<string, Status> $statuses */
+        $statuses   = new Collection();
         $normalizer = $this->getNormalizer();
 
         foreach ($document->status ?? [] as $status) {
@@ -477,9 +465,9 @@ class DocumentFactory extends ModelFactory {
     }
 
     /**
-     * @return EloquentCollection<array-key, DocumentEntryModel>
+     * @return Collection<array-key, DocumentEntryModel>
      */
-    protected function documentEntries(DocumentModel $model, Document $document): EloquentCollection {
+    protected function documentEntries(DocumentModel $model, Document $document): Collection {
         return $this->children(
             $model->entries,
             $document->documentEntries ?? [],

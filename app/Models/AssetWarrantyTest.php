@@ -10,6 +10,8 @@ use Tests\TestCase;
  * @coversDefaultClass \App\Models\AssetWarranty
  */
 class AssetWarrantyTest extends TestCase {
+    // <editor-fold desc="Tests">
+    // =========================================================================
     public function testDelete(): void {
         $models = (new ModelsProvider())($this);
         $model  = $models['assetWarranty'] ?? null;
@@ -81,7 +83,6 @@ class AssetWarrantyTest extends TestCase {
                 'assetChangeRequest'            => false,
                 'assetChangeRequestFile'        => false,
                 'assetWarranty'                 => true,
-                'assetWarrantyServiceLevel'     => false,
                 'quoteRequest'                  => false,
                 'quoteRequestAsset'             => false,
                 'quoteRequestContact'           => false,
@@ -108,4 +109,39 @@ class AssetWarrantyTest extends TestCase {
             $models,
         );
     }
+
+    /**
+     * @covers ::isExtended
+     *
+     * @dataProvider dataProviderIsExtended
+     *
+     * @param array<string,mixed> $properties
+     */
+    public function testIsExtended(bool $expected, array $properties): void {
+        self::assertEquals($expected, AssetWarranty::factory()->make($properties)->isExtended());
+    }
+    // </editor-fold>
+
+    // <editor-fold desc="DataProviders">
+    // =========================================================================
+    /**
+     * @return array<string,array{bool,array<string,mixed>}>
+     */
+    public function dataProviderIsExtended(): array {
+        return [
+            'normal warranty'   => [
+                false,
+                [
+                    'document_number' => null,
+                ],
+            ],
+            'extended warranty' => [
+                true,
+                [
+                    'document_number' => 123,
+                ],
+            ],
+        ];
+    }
+    // </editor-fold>
 }

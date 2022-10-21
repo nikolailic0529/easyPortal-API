@@ -15,7 +15,6 @@ use App\Services\DataLoader\Exceptions\AssetLocationNotFound;
 use App\Services\DataLoader\Exceptions\FailedToCreateAssetWarranty;
 use App\Services\DataLoader\Exceptions\FailedToProcessAssetViewDocument;
 use App\Services\DataLoader\Exceptions\FailedToProcessViewAssetCoverageEntry;
-use App\Services\DataLoader\Factory\AssetDocumentObject;
 use App\Services\DataLoader\Factory\Concerns\Children;
 use App\Services\DataLoader\Factory\Concerns\WithAssetDocument;
 use App\Services\DataLoader\Factory\Concerns\WithContacts;
@@ -36,6 +35,7 @@ use App\Services\DataLoader\Normalizer\Normalizer;
 use App\Services\DataLoader\Resolver\Resolvers\AssetResolver;
 use App\Services\DataLoader\Resolver\Resolvers\CoverageResolver;
 use App\Services\DataLoader\Resolver\Resolvers\CustomerResolver;
+use App\Services\DataLoader\Resolver\Resolvers\DocumentResolver;
 use App\Services\DataLoader\Resolver\Resolvers\OemResolver;
 use App\Services\DataLoader\Resolver\Resolvers\ProductResolver;
 use App\Services\DataLoader\Resolver\Resolvers\ResellerResolver;
@@ -55,14 +55,9 @@ use Illuminate\Support\Facades\Date;
 use InvalidArgumentException;
 use Throwable;
 
-use function array_filter;
-use function array_merge;
-use function array_unique;
-use function array_values;
 use function implode;
+use function max;
 use function sprintf;
-
-use const SORT_REGULAR;
 
 /**
  * @extends ModelFactory<Asset>
@@ -91,6 +86,7 @@ class AssetFactory extends ModelFactory {
         protected ProductResolver $productResolver,
         protected CustomerResolver $customerResolver,
         protected ResellerResolver $resellerResolver,
+        protected DocumentResolver $documentResolver,
         protected DocumentFactory $documentFactory,
         protected LocationFactory $locationFactory,
         protected ContactFactory $contactFactory,
@@ -127,8 +123,12 @@ class AssetFactory extends ModelFactory {
         return $this->contactFactory;
     }
 
-    public function getDocumentFactory(): DocumentFactory {
+    protected function getDocumentFactory(): DocumentFactory {
         return $this->documentFactory;
+    }
+
+    protected function getDocumentResolver(): DocumentResolver {
+        return $this->documentResolver;
     }
 
     protected function getCoverageResolver(): CoverageResolver {
@@ -213,41 +213,15 @@ class AssetFactory extends ModelFactory {
             $model->synced_at                = Date::now();
 
             // Warranties
-            if ($created) {
-                $model->setRelation('warranties', new EloquentCollection());
-            }
-
-            if (isset($asset->coverageStatusCheck)) {
-                $warrantyChangedAt = $normalizer->datetime($asset->coverageStatusCheck->coverageStatusUpdatedAt);
-
-                if ($created || $model->warranty_changed_at < $warrantyChangedAt) {
-                    $model->warranties          = $this->assetWarranties($model, $asset);
-                    $model->warranty_changed_at = $warrantyChangedAt;
+            if (isset($asset->assetDocument) || isset($asset->coverageStatusCheck)) {
+                if ($created) {
+                    $model->setRelation('warranties', new EloquentCollection());
                 }
-            }
 
-            // Save
-            if ($created) {
-                $model->save();
-            }
-
-            // Documents
-            if (isset($asset->assetDocument)) {
-                try {
-                    // Prefetch
-                    if (!$created) {
-                        $model->loadMissing('warranties.serviceLevels');
-                    }
-
-                    // Update
-                    $model->warranties = $this->assetDocumentsWarranties($model, $asset);
-                } finally {
-                    // Save
-                    $model->save();
-
-                    // Cleanup
-                    unset($model->warranties);
-                }
+                $warrantyChangedAt          = $asset->coverageStatusCheck->coverageStatusUpdatedAt ?? null;
+                $warrantyChangedAt          = $normalizer->datetime($warrantyChangedAt);
+                $model->warranties          = $this->assetWarranties($model, $asset);
+                $model->warranty_changed_at = max($warrantyChangedAt, $model->warranty_changed_at);
             }
 
             // Save
@@ -283,14 +257,51 @@ class AssetFactory extends ModelFactory {
      * @return EloquentCollection<int, AssetWarranty>
      */
     protected function assetWarranties(Asset $model, ViewAsset $asset): EloquentCollection {
-        // Some warranties generated from Documents, we must not touch them.
-        $documents = $model->warranties->filter(static function (AssetWarranty $warranty): bool {
-            return !static::isWarranty($warranty);
-        });
-        $existing  = $model->warranties->filter(static function (AssetWarranty $warranty): bool {
-            return static::isWarranty($warranty);
-        });
-        $updated   = $this->children(
+        // Split by source (ViewAssetDocument or CoverageEntry)
+        /** @var EloquentCollection<int, AssetWarranty> $warranties */
+        $warranties = new EloquentCollection();
+        $coverages  = clone $warranties;
+        $documents  = clone $warranties;
+
+        foreach ($model->warranties as $warranty) {
+            if ($warranty->isExtended()) {
+                $documents[] = $warranty;
+            } else {
+                $coverages[] = $warranty;
+            }
+        }
+
+        // Normal
+        if (isset($asset->coverageStatusCheck)) {
+            $warrantyChangedAt = $this->getNormalizer()->datetime($asset->coverageStatusCheck->coverageStatusUpdatedAt);
+
+            if ($model->warranty_changed_at <= $warrantyChangedAt) {
+                $coverages = $this->assetWarrantiesCoverages($model, $asset, $coverages);
+            }
+        }
+
+        // Documents
+        if (isset($asset->assetDocument)) {
+            $documents = $this->assetWarrantiesDocuments($model, $asset, $documents);
+        }
+
+        // Return
+        return $warranties
+            ->merge($coverages)
+            ->merge($documents);
+    }
+
+    /**
+     * @param EloquentCollection<int, AssetWarranty> $existing
+     *
+     * @return EloquentCollection<int, AssetWarranty>
+     */
+    protected function assetWarrantiesCoverages(
+        Asset $model,
+        ViewAsset $asset,
+        EloquentCollection $existing,
+    ): EloquentCollection {
+        return $this->children(
             $existing,
             $asset->coverageStatusCheck->coverageEntries ?? [],
             function (CoverageEntry $entry, AssetWarranty $warranty): bool {
@@ -308,8 +319,6 @@ class AssetFactory extends ModelFactory {
                 return null;
             },
         );
-
-        return $documents->merge($updated);
     }
 
     protected function assetWarranty(Asset $model, CoverageEntry $entry, ?AssetWarranty $warranty): ?AssetWarranty {
@@ -332,6 +341,7 @@ class AssetFactory extends ModelFactory {
         $warranty->status          = $this->status($warranty, $entry->status);
         $warranty->description     = $description;
         $warranty->serviceGroup    = null;
+        $warranty->serviceLevel    = null;
         $warranty->customer        = null;
         $warranty->reseller        = null;
         $warranty->document        = null;
@@ -348,8 +358,7 @@ class AssetFactory extends ModelFactory {
         // Asset.assetDocument is not a document but an array of entries where
         // each entry is the mixin of Document, DocumentEntry, and additional
         // information (that is not available in Document and DocumentEntry)
-
-        return (new Collection($asset->assetDocument))
+        $documents = Collection::make($asset->assetDocument)
             ->filter(static function (ViewAssetDocument $document): bool {
                 return isset($document->documentNumber);
             })
@@ -357,46 +366,50 @@ class AssetFactory extends ModelFactory {
                 return $a->startDate <=> $b->startDate
                     ?: $a->endDate <=> $b->endDate;
             });
+
+        // Prefetch
+        $resolver = $this->getDocumentResolver();
+        $keys     = [];
+
+        foreach ($documents as $assetDocument) {
+            if (isset($assetDocument->document->id)) {
+                $keys[$assetDocument->document->id] = $assetDocument->document->id;
+            }
+        }
+
+        $resolver->prefetch($keys, static function (EloquentCollection $documents): void {
+            $documents->loadMissing('statuses');
+        });
+
+        // Return
+        return $documents;
     }
 
     /**
-     * @return array<AssetWarranty>
+     * @param EloquentCollection<int, AssetWarranty> $existing
+     *
+     * @return EloquentCollection<array-key, AssetWarranty>
      */
-    protected function assetDocumentsWarranties(Asset $model, ViewAsset $asset): array {
-        $warranties = array_merge(
-            $this->assetDocumentsWarrantiesExtended($model, $asset),
-            $model->warranties->filter(static function (AssetWarranty $warranty): bool {
-                return static::isWarranty($warranty);
-            })->all(),
-        );
-
-        return $warranties;
-    }
-
-    /**
-     * @return array<AssetWarranty>
-     */
-    protected function assetDocumentsWarrantiesExtended(Asset $model, ViewAsset $asset): array {
+    protected function assetWarrantiesDocuments(
+        Asset $model,
+        ViewAsset $asset,
+        EloquentCollection $existing,
+    ): EloquentCollection {
         // Prepare
-        $serviceLevels  = [];
-        $warranties     = [];
-        $existing       = $model->warranties
-            ->filter(static function (AssetWarranty $warranty): bool {
-                return static::isWarrantyExtended($warranty);
-            })
-            ->keyBy(static function (AssetWarranty $warranty): string {
-                return implode('|', [
-                    $warranty->document_id,
-                    $warranty->document_number,
-                    $warranty->reseller_id,
-                    $warranty->customer_id,
-                    $warranty->service_group_id,
-                    $warranty->start?->startOfDay(),
-                    $warranty->end?->startOfDay(),
-                ]);
-            });
+        /** @var EloquentCollection<array-key, AssetWarranty> $warranties */
+        $warranties     = new EloquentCollection();
+        $existing       = $existing->keyBy(static function (AssetWarranty $warranty): string {
+            return implode('|', [
+                $warranty->document_id ?: $warranty->document_number,
+                $warranty->reseller_id,
+                $warranty->customer_id,
+                $warranty->service_group_id,
+                $warranty->service_level_id,
+                $warranty->start?->startOfDay(),
+                $warranty->end?->startOfDay(),
+            ]);
+        });
         $assetDocuments = $this->assetDocuments($model, $asset);
-        $documents      = $this->assetDocumentDocuments($model, $assetDocuments);
 
         // Warranties
         $normalizer = $this->getNormalizer();
@@ -404,35 +417,39 @@ class AssetFactory extends ModelFactory {
         foreach ($assetDocuments as $assetDocument) {
             try {
                 // Valid?
-                $document = $documents->get($assetDocument->document->id ?? '');
-                $number   = $assetDocument->documentNumber;
-                $group    = $this->assetDocumentServiceGroup($model, $assetDocument);
-                $level    = $this->assetDocumentServiceLevel($model, $assetDocument);
-                $start    = $normalizer->datetime($assetDocument->startDate);
-                $end      = $normalizer->datetime($assetDocument->endDate);
+                $number = $assetDocument->documentNumber;
+                $group  = $this->assetDocumentServiceGroup($model, $assetDocument);
+                $level  = $this->assetDocumentServiceLevel($model, $assetDocument);
+                $start  = $normalizer->datetime(
+                    $assetDocument->startDate ?? $assetDocument->document->startDate ?? null,
+                );
+                $end    = $normalizer->datetime(
+                    $assetDocument->endDate ?? $assetDocument->document->endDate ?? null,
+                );
 
-                if (!((bool) $number && ($start !== null || $end !== null) && ($group !== null || $level !== null))) {
+                if (!($number && ($start !== null || $end !== null) && ($group !== null || $level !== null))) {
                     continue;
                 }
 
                 // Prepare
+                $document = $this->assetDocumentDocument($model, $assetDocument);
                 $reseller = $this->reseller($assetDocument);
                 $customer = $this->customer($assetDocument);
                 $key      = implode('|', [
-                    $document?->getKey(),
-                    $number,
+                    $document?->getKey() ?: $number,
                     $reseller?->getKey(),
                     $customer?->getKey(),
                     $group?->getKey(),
+                    $level?->getKey(),
                     Date::make($start)?->startOfDay(),
                     Date::make($end)?->startOfDay(),
                 ]);
 
-                // Add service
-                $serviceLevels[$key][] = $level;
-
                 // Already added?
                 if (isset($warranties[$key])) {
+                    $warranties[$key]->start = max($warranties[$key]->start, $start);
+                    $warranties[$key]->end   = max($warranties[$key]->end, $end);
+
                     continue;
                 }
 
@@ -446,6 +463,7 @@ class AssetFactory extends ModelFactory {
                 $warranty->status          = null;
                 $warranty->description     = null;
                 $warranty->serviceGroup    = $group;
+                $warranty->serviceLevel    = $level;
                 $warranty->customer        = $customer;
                 $warranty->reseller        = $reseller;
                 $warranty->document        = $document;
@@ -460,62 +478,17 @@ class AssetFactory extends ModelFactory {
             }
         }
 
-        // Update Service Levels
-        foreach ($warranties as $key => $warranty) {
-            $warranty->serviceLevels = array_filter(array_unique($serviceLevels[$key] ?? [], SORT_REGULAR));
-        }
-
         // Return
-        return array_values($warranties);
-    }
-
-    /**
-     * @param Collection<int, ViewAssetDocument> $assetDocuments
-     *
-     * @return Collection<string, Document>
-     */
-    protected function assetDocumentDocuments(Asset $model, Collection $assetDocuments): Collection {
-        // Prefetch
-        $resolver = $this->getDocumentFactory()->getDocumentResolver();
-        $keys     = [];
-
-        foreach ($assetDocuments as $assetDocument) {
-            if (isset($assetDocument->document->id)) {
-                $keys[$assetDocument->document->id] = $assetDocument->document->id;
-            }
-        }
-
-        $resolver->prefetch($keys);
-
-        // Convert
-        /** @var EloquentCollection<string, Document> $documents */
-        $documents = new EloquentCollection();
-
-        foreach ($assetDocuments as $assetDocument) {
-            $document = $this->assetDocumentDocument($model, $assetDocument);
-
-            if ($document) {
-                $documents[$document->getKey()] = $document;
-            }
-        }
-
-        // Eager Load
-        $documents->loadMissing('statuses');
-
-        // Return
-        return $documents;
+        return $warranties;
     }
 
     protected function assetDocumentDocument(Asset $model, ViewAssetDocument $assetDocument): ?Document {
-        $factory  = $this->getDocumentFactory();
         $document = null;
 
         if (isset($assetDocument->document->id)) {
             try {
-                $document = $factory->create(new AssetDocumentObject([
-                    'asset'    => $model,
-                    'document' => $assetDocument,
-                ]));
+                $document = $this->getDocumentResolver()->get($assetDocument->document->id)
+                    ?? $this->getDocumentFactory()->create($assetDocument);
             } catch (Throwable $exception) {
                 $this->getExceptionHandler()->report(
                     new FailedToProcessAssetViewDocument($model, $assetDocument->document, $exception),
@@ -607,14 +580,6 @@ class AssetFactory extends ModelFactory {
 
     // <editor-fold desc="Helpers">
     // =========================================================================
-    protected static function isWarranty(AssetWarranty $warranty): bool {
-        return $warranty->type_id !== null;
-    }
-
-    protected static function isWarrantyExtended(AssetWarranty $warranty): bool {
-        return $warranty->document_number !== null && !static::isWarranty($warranty);
-    }
-
     protected function isWarrantyEqualToCoverage(AssetWarranty $warranty, CoverageEntry $entry): bool {
         $normalizer = $this->getNormalizer();
         $type       = $this->type($warranty, $entry->type)->getKey();

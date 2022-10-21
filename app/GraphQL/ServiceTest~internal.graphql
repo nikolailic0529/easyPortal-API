@@ -195,10 +195,34 @@ input AggregatedGroupByClauseAssetsQuery {
     @aggregatedGroupByOperatorAsString
 
     """
+    Relationship clause.
+    """
+    warrantyServiceGroup: [SortByClauseServiceGroupsSort!]
+    @aggregatedGroupByOperatorRelation
+
+    """
+    Relationship clause.
+    """
+    warrantyServiceLevel: [SortByClauseServiceLevelsSort!]
+    @aggregatedGroupByOperatorRelation
+
+    """
     Property clause.
     """
     warranty_end: AggregatedGroupByTypeDirection
     @aggregatedGroupByOperatorAsDate
+
+    """
+    Property clause.
+    """
+    warranty_service_group_id: AggregatedGroupByTypeDirection
+    @aggregatedGroupByOperatorAsString
+
+    """
+    Property clause.
+    """
+    warranty_service_level_id: AggregatedGroupByTypeDirection
+    @aggregatedGroupByOperatorAsString
 }
 
 """
@@ -2353,6 +2377,12 @@ input SearchByConditionAssetWarrantiesQuery {
     """
     Property condition.
     """
+    document_number: SearchByScalarStringOrNull
+    @searchByProperty
+
+    """
+    Property condition.
+    """
     end: SearchByScalarDateOrNull
     @searchByProperty
 
@@ -2381,15 +2411,15 @@ input SearchByConditionAssetWarrantiesQuery {
     @searchByProperty
 
     """
-    Relationship condition.
+    Property condition.
     """
-    serviceLevels: SearchByComplexRelationServiceLevelsQuery
-    @searchByOperatorRelation
+    service_group_id: SearchByScalarIDOrNull
+    @searchByProperty
 
     """
     Property condition.
     """
-    service_group_id: SearchByScalarIDOrNull
+    service_level_id: SearchByScalarIDOrNull
     @searchByProperty
 
     """
@@ -2566,9 +2596,33 @@ input SearchByConditionAssetsQuery {
     @searchByOperatorRelation
 
     """
+    Relationship condition.
+    """
+    warrantyServiceGroup: SearchByComplexRelationServiceGroupsQuery
+    @searchByOperatorRelation
+
+    """
+    Relationship condition.
+    """
+    warrantyServiceLevel: SearchByComplexRelationServiceLevelsQuery
+    @searchByOperatorRelation
+
+    """
     Property condition.
     """
     warranty_end: SearchByScalarDateOrNull
+    @searchByProperty
+
+    """
+    Property condition.
+    """
+    warranty_service_group_id: SearchByScalarIDOrNull
+    @searchByProperty
+
+    """
+    Property condition.
+    """
+    warranty_service_level_id: SearchByScalarIDOrNull
     @searchByProperty
 }
 
@@ -5904,7 +5958,31 @@ input SortByClauseAssetsSort {
     """
     Property clause.
     """
+    warrantyServiceGroup: SortByClauseServiceGroupsSort
+    @sortByProperty
+
+    """
+    Property clause.
+    """
+    warrantyServiceLevel: SortByClauseServiceLevelsSort
+    @sortByProperty
+
+    """
+    Property clause.
+    """
     warranty_end: SortByTypeDirection
+    @sortByOperatorProperty
+
+    """
+    Property clause.
+    """
+    warranty_service_group_id: SortByTypeDirection
+    @sortByOperatorProperty
+
+    """
+    Property clause.
+    """
+    warranty_service_level_id: SortByTypeDirection
     @sortByOperatorProperty
 }
 
@@ -8016,8 +8094,16 @@ type Asset {
         relation: "contractWarranties"
     )
 
+    warrantyServiceGroup: ServiceGroup
+    @relation
+
+    warrantyServiceLevel: ServiceLevel
+    @relation
+
     warranty_changed_at: DateTime
     warranty_end: Date
+    warranty_service_group_id: ID
+    warranty_service_level_id: ID
 }
 
 type AssetChangeRequestCreatePayload
@@ -8122,6 +8208,7 @@ type AssetWarranty {
     @relation
 
     document_id: ID
+    document_number: String
     end: Date
     id: ID!
 
@@ -8133,9 +8220,11 @@ type AssetWarranty {
     serviceGroup: ServiceGroup
     @relation
 
-    serviceLevels: [ServiceLevel!]!
+    serviceLevel: ServiceLevel
     @relation
 
+    service_group_id: ID
+    service_level_id: ID
     start: Date
 
     status: Status

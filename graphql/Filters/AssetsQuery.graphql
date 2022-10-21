@@ -18,6 +18,10 @@ input AssetsQuery {
     nickname: String
     warranty_end: Date
     warranties: AssetWarrantiesQuery
+    warranty_service_group_id: ID
+    warrantyServiceGroup: ServiceGroupsQuery
+    warranty_service_level_id: ID
+    warrantyServiceLevel: ServiceLevelsQuery
     tags: TagsQuery
     coverages: CoveragesQuery
     contracts: DocumentsQuery

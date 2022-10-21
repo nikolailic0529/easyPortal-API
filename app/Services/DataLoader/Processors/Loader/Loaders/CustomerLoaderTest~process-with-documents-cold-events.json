@@ -17,7 +17,7 @@
                 "f3a8ba95-ce52-49bb-ba31-3402337e421d": "f3a8ba95-ce52-49bb-ba31-3402337e421d"
             },
             "App\\Models\\Data\\Location": {
-                "7cab6654-ee5f-519f-bee1-45b6fbd41ef5": "7cab6654-ee5f-519f-bee1-45b6fbd41ef5"
+                "9a211c81-ce99-5e90-931a-acb7ee0c6d64": "9a211c81-ce99-5e90-931a-acb7ee0c6d64"
             },
             "App\\Models\\Asset": {
                 "c1197a7f-7d6d-4e61-8c2e-f9ea27497921": "c1197a7f-7d6d-4e61-8c2e-f9ea27497921"
@@ -27,16 +27,28 @@
     {
         "event": "App\\Services\\DataLoader\\Events\\DataImported",
         "data": {
-            "App\\Models\\Distributor": [],
-            "App\\Models\\Reseller": [],
+            "App\\Models\\Distributor": {
+                "1af1c44e-8112-4e72-9654-b11c705e9372": "1af1c44e-8112-4e72-9654-b11c705e9372"
+            },
+            "App\\Models\\Reseller": {
+                "594184e7-24d4-4614-8db4-fe132adb86f4": "594184e7-24d4-4614-8db4-fe132adb86f4"
+            },
             "App\\Models\\Customer": {
-                "004d6d19-4a7d-4216-8bd5-55dbfb038e09": "004d6d19-4a7d-4216-8bd5-55dbfb038e09"
+                "004d6d19-4a7d-4216-8bd5-55dbfb038e09": "004d6d19-4a7d-4216-8bd5-55dbfb038e09",
+                "4836835d-a1cf-4521-b422-21dc05c32add": "4836835d-a1cf-4521-b422-21dc05c32add",
+                "99a3cd0d-ea2a-4803-95f4-5757f3580fed": "99a3cd0d-ea2a-4803-95f4-5757f3580fed"
             },
             "App\\Models\\Document": {
-                "00000000-0000-0000-0000-000000000000": "00000000-0000-0000-0000-000000000000"
+                "00000000-0000-0000-0000-000000000000": "00000000-0000-0000-0000-000000000000",
+                "070157ef-c7c4-4a57-8e67-94c30dfe068e": "070157ef-c7c4-4a57-8e67-94c30dfe068e"
             },
-            "App\\Models\\Data\\Location": [],
-            "App\\Models\\Asset": []
+            "App\\Models\\Data\\Location": {
+                "d8ac9704-9805-5cf8-a6ff-0ce0ffad7d69": "d8ac9704-9805-5cf8-a6ff-0ce0ffad7d69"
+            },
+            "App\\Models\\Asset": {
+                "accb480f-34ee-4d7e-a839-800851ebbc3a": "accb480f-34ee-4d7e-a839-800851ebbc3a",
+                "c88f00d2-f207-4fc5-9b8a-a0762edfb7eb": "c88f00d2-f207-4fc5-9b8a-a0762edfb7eb"
+            }
         }
     },
     {

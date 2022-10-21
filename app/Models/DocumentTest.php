@@ -87,7 +87,6 @@ class DocumentTest extends TestCase {
                 'assetChangeRequest'            => false,
                 'assetChangeRequestFile'        => false,
                 'assetWarranty'                 => false,
-                'assetWarrantyServiceLevel'     => false,
                 'quoteRequest'                  => false,
                 'quoteRequestAsset'             => false,
                 'quoteRequestContact'           => false,

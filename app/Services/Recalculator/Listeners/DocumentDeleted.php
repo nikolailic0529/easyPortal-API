@@ -24,7 +24,7 @@ class DocumentDeleted implements Subscriber {
 
     public function __invoke(Document $document): void {
         // Visible Contract?
-        /* @see Asset::getWarrantyEnd() */
+        /* @see Asset::getLastWarranty() */
         if (!$document->is_visible || !$document->is_contract) {
             return;
         }

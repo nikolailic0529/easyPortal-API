@@ -152,11 +152,19 @@
       "@php -r 'rename(\"programmatic-types.graphql\", \".phpstorm.meta.php/lighthouse-types.graphql\");'",
       "@php -r 'rename(\"schema-directives.graphql\", \".phpstorm.meta.php/lighthouse-directives.graphql\");'"
     ],
-    "phpunit": [
-      "@php ./vendor/bin/phpunit"
+    "phpstan": [
+      "@php ./vendor/bin/phpstan"
     ],
     "phpcs": [
       "@php ./vendor/bin/phpcs"
+    ],
+    "test": [
+      "@php artisan test -p --drop-databases"
+    ],
+    "ci": [
+      "@phpstan",
+      "@phpcs",
+      "@test"
     ]
   }
 }

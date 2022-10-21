@@ -42,7 +42,7 @@ class DocumentsImporterTest extends TestCase {
             Customer::class      => 1,
             Asset::class         => 10,
             AssetWarranty::class => 27,
-            Document::class      => 10,
+            Document::class      => 0,
             DocumentEntry::class => 0,
         ]);
 
