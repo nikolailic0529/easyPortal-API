@@ -48,19 +48,19 @@ use function trim;
  * @phpstan-import-type OrganizationFactory from WithOrganization
  * @phpstan-import-type UserFactory from WithUser
  * @phpstan-import-type SettingsFactory from WithSettings
+ * @phpstan-import-type Query from ExportRequest
  */
 class ExportControllerTest extends TestCase {
     // <editor-fold desc="Tests">
     // =========================================================================
     /**
      * @covers ::getHeaders
-     * @covers ::getHeader
      *
      * @dataProvider dataProviderGetHeaders
      *
-     * @param array<mixed> $value
+     * @param Query $parameters
      */
-    public function testGetHeaders(mixed $expected, array $value): void {
+    public function testGetHeaders(mixed $expected, array $parameters): void {
         $controller = new class() extends ExportController {
             /** @noinspection PhpMissingParentConstructorInspection */
             public function __construct() {
@@ -68,13 +68,13 @@ class ExportControllerTest extends TestCase {
             }
 
             /**
-             * @inheritDoc
+             * @inheritdoc
              */
-            public function getHeaders(array $item, string $prefix = null): array {
-                return parent::getHeaders($item, $prefix);
+            public function getHeaders(array $parameters): ?array {
+                return parent::getHeaders($parameters);
             }
         };
-        $actual     = $controller->getHeaders($value);
+        $actual     = $controller->getHeaders($parameters);
 
         self::assertEquals($expected, $actual);
     }
@@ -391,8 +391,11 @@ class ExportControllerTest extends TestCase {
 
         if (!$data) {
             $data = [
-                'root'  => 'data.customers',
-                'query' => 'query { customers { id } }',
+                'root'    => 'data.customers',
+                'query'   => 'query { customers { id } }',
+                'headers' => [
+                    'id' => 'Id',
+                ],
             ];
         }
 
@@ -407,49 +410,31 @@ class ExportControllerTest extends TestCase {
      */
     public function dataProviderGetHeaders(): array {
         return [
-            'assoc'               => [
+            'normal' => [
                 [
-                    'a'       => 'A',
-                    'b'       => 'B',
-                    'c.aa'    => 'C Aa',
-                    'd.aa.aa' => 'D Aa Aa',
-                    'e.aa.aa' => 'E Aa Aa',
+                    'A',
+                    '',
+                    'C',
                 ],
                 [
-                    'a' => 123,
-                    'b' => [1, 2, 3],
-                    'c' => ['aa' => 'aa'],
-                    'd' => ['aa' => ['aa' => 123]],
-                    'e' => ['aa' => ['aa' => ['a']]],
-                ],
-            ],
-            'assoc with one item' => [
-                [
-                    'test' => 'Test',
-                ],
-                [
-                    'test' => [
-                        [
-                            'a' => 'Aaaa',
-                            'b' => 'B',
-                        ],
-                        [
-                            'a' => 'Aaaa',
-                            'b' => 'B',
-                        ],
+                    'root'    => '',
+                    'query'   => '',
+                    'headers' => [
+                        'a' => 'A',
+                        'b' => '',
+                        'c' => 'C',
                     ],
                 ],
             ],
-            'list'                => [
+            'empty'  => [
+                null,
                 [
-                    // empty
-                ],
-                [
-                    [
-                        'a' => 'Aaaa',
-                    ],
-                    [
-                        'a' => 'Aaaa',
+                    'root'    => '',
+                    'query'   => '',
+                    'headers' => [
+                        'a' => '',
+                        'b' => '',
+                        'c' => '',
                     ],
                 ],
             ],
@@ -638,6 +623,14 @@ class ExportControllerTest extends TestCase {
                         'query' => 'query { customers { id } }',
                     ],
                 ],
+                'no headers'              => [
+                    new UnprocessableEntity(),
+                    null,
+                    [
+                        'root'  => 'data.customers',
+                        'query' => 'query { customers { id } }',
+                    ],
+                ],
                 'mutation'                => [
                     new UnprocessableEntity(),
                     null,
@@ -664,8 +657,11 @@ class ExportControllerTest extends TestCase {
                         return count($assets);
                     },
                     [
-                        'root'  => 'data.assets',
-                        'query' => 'query { assets { id } }',
+                        'root'    => 'data.assets',
+                        'headers' => [
+                            'id' => 'Id',
+                        ],
+                        'query'   => 'query { assets { id } }',
                     ],
                 ],
                 'with pagination'         => [
@@ -707,6 +703,9 @@ class ExportControllerTest extends TestCase {
                     },
                     [
                         'root'      => 'data.assets',
+                        'headers'   => [
+                            'id' => 'Id',
+                        ],
                         'query'     => <<<'GRAPHQL'
                             query getAssets($limit: Int, $offset: Int) {
                                 assets(limit: $limit, offset: $offset) {
@@ -730,6 +729,9 @@ class ExportControllerTest extends TestCase {
                     },
                     [
                         'root'      => 'data.assets',
+                        'headers'   => [
+                            'id' => 'Id',
+                        ],
                         'query'     => <<<'GRAPHQL'
                             query getAssets($limit: Int, $offset: Int) {
                                 assets(limit: $limit, offset: $offset) {
