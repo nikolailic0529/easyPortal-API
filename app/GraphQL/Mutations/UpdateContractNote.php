@@ -2,10 +2,11 @@
 
 namespace App\GraphQL\Mutations;
 
-use App\Models\File;
 use App\Models\Note;
 use App\Services\Filesystem\ModelDiskFactory;
+use App\Utils\Eloquent\Callbacks\GetKey;
 use Illuminate\Contracts\Auth\Access\Gate;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\UploadedFile;
 use Nuwave\Lighthouse\Exceptions\AuthorizationException;
 
@@ -47,10 +48,12 @@ class UpdateContractNote {
         bool $pinned = null,
         array $attached = null,
     ): Note {
-        $note = Note::whereKey($noteId)->first();
-        if (!$this->gate->any($permissions, [$note])) {
+        $note = Note::query()->whereKey($noteId)->first();
+
+        if (!$note || $note->note === null || !$this->gate->any($permissions, [$note])) {
             throw new AuthorizationException();
         }
+
         if ($content) {
             $note->note = $content;
         }
@@ -62,9 +65,7 @@ class UpdateContractNote {
         if (!is_null($attached)) {
             $disk     = $this->disks->getDisk($note);
             $files    = [];
-            $existing = $note->files->keyBy(static function (File $file) {
-                return $file->getKey();
-            });
+            $existing = $note->files->keyBy(new GetKey());
 
             foreach ($attached as $item) {
                 if (isset($item['content'])) {
@@ -76,7 +77,7 @@ class UpdateContractNote {
                 }
             }
 
-            $note->files = $files;
+            $note->files = Collection::make($files)->filter();
         }
 
         $note->save();

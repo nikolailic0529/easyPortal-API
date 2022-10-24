@@ -971,12 +971,7 @@ parameters:
 			path: app/GraphQL/Mutations/DeleteQuoteNote.php
 
 		-
-			message: "#^Method App\\\\GraphQL\\\\Mutations\\\\DeleteQuoteNoteTest\\:\\:testInvoke\\(\\) has parameter \\$dataFactory with no signature specified for Closure\\.$#"
-			count: 1
-			path: app/GraphQL/Mutations/DeleteQuoteNoteTest.php
-
-		-
-			message: "#^Parameter \\#1 \\$factory of method Illuminate\\\\Database\\\\Eloquent\\\\Factories\\\\Factory\\<App\\\\Models\\\\Note\\>\\:\\:for\\(\\) expects Illuminate\\\\Database\\\\Eloquent\\\\Factories\\\\Factory\\|Illuminate\\\\Database\\\\Eloquent\\\\Model, App\\\\Models\\\\User\\|null given\\.$#"
+			message: "#^Cannot call method exists\\(\\) on App\\\\Models\\\\Note\\|null\\.$#"
 			count: 1
 			path: app/GraphQL/Mutations/DeleteQuoteNoteTest.php
 
@@ -1406,36 +1401,6 @@ parameters:
 			path: app/GraphQL/Mutations/UpdateContractNote.php
 
 		-
-			message: "#^Cannot access property \\$files on App\\\\Models\\\\Note\\|null\\.$#"
-			count: 2
-			path: app/GraphQL/Mutations/UpdateContractNote.php
-
-		-
-			message: "#^Cannot access property \\$note on App\\\\Models\\\\Note\\|null\\.$#"
-			count: 1
-			path: app/GraphQL/Mutations/UpdateContractNote.php
-
-		-
-			message: "#^Cannot access property \\$pinned on App\\\\Models\\\\Note\\|null\\.$#"
-			count: 1
-			path: app/GraphQL/Mutations/UpdateContractNote.php
-
-		-
-			message: "#^Cannot call method save\\(\\) on App\\\\Models\\\\Note\\|null\\.$#"
-			count: 1
-			path: app/GraphQL/Mutations/UpdateContractNote.php
-
-		-
-			message: "#^Method App\\\\GraphQL\\\\Mutations\\\\UpdateContractNote\\:\\:updateNote\\(\\) should return App\\\\Models\\\\Note but returns App\\\\Models\\\\Note\\|null\\.$#"
-			count: 1
-			path: app/GraphQL/Mutations/UpdateContractNote.php
-
-		-
-			message: "#^Parameter \\#1 \\$model of method App\\\\Services\\\\Filesystem\\\\ModelDiskFactory\\:\\:getDisk\\(\\) expects App\\\\Utils\\\\Eloquent\\\\Model, App\\\\Models\\\\Note\\|null given\\.$#"
-			count: 1
-			path: app/GraphQL/Mutations/UpdateContractNote.php
-
-		-
 			message: "#^Parameter \\#1 \\$noteId of method App\\\\GraphQL\\\\Mutations\\\\UpdateContractNote\\:\\:updateNote\\(\\) expects string, mixed given\\.$#"
 			count: 1
 			path: app/GraphQL/Mutations/UpdateContractNote.php
@@ -1468,11 +1433,6 @@ parameters:
 		-
 			message: "#^Cannot call method getKey\\(\\) on App\\\\Models\\\\User\\|null\\.$#"
 			count: 1
-			path: app/GraphQL/Mutations/UpdateContractNoteTest.php
-
-		-
-			message: "#^If condition is always true\\.$#"
-			count: 3
 			path: app/GraphQL/Mutations/UpdateContractNoteTest.php
 
 		-
@@ -1543,11 +1503,6 @@ parameters:
 		-
 			message: "#^Cannot call method getKey\\(\\) on App\\\\Models\\\\User\\|null\\.$#"
 			count: 1
-			path: app/GraphQL/Mutations/UpdateQuoteNoteTest.php
-
-		-
-			message: "#^If condition is always true\\.$#"
-			count: 3
 			path: app/GraphQL/Mutations/UpdateQuoteNoteTest.php
 
 		-

@@ -10894,7 +10894,12 @@ type Note {
     @relation
 
     id: ID!
+
+    """
+    If `null` that this is a system note and it cannot be updated/deleted.
+    """
     note: HtmlString
+
     pinned: Boolean!
     quoteRequest: QuoteRequest
     quote_request_id: ID

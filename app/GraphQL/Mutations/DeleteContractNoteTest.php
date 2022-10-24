@@ -79,35 +79,33 @@ class DeleteContractNoteTest extends TestCase {
                     'contracts-view',
                 ]),
                 new ArrayDataProvider([
-                    'ok'             => [
+                    'ok'          => [
                         new GraphQLSuccess('deleteContractNote', [
                             'deleted' => true,
                         ]),
-                        static function (TestCase $test, ?Organization $organization, ?User $user): Note {
-                            $data = [];
-                            if ($organization) {
-                                $data['organization_id'] = $organization->getKey();
-                            }
-                            if ($user) {
-                                $user->save();
-                                $data['user_id'] = $user->getKey();
-                            }
-
-                            return Note::factory()->hasFiles(1)->create($data);
+                        static function (TestCase $test, ?Organization $org, ?User $user): Note {
+                            return Note::factory()->ownedBy($org)->hasFiles(1)->create([
+                                'user_id' => $user,
+                            ]);
                         },
                         false,
                     ],
-                    'Different User' => [
+                    'not owner'   => [
                         new GraphQLUnauthorized('deleteContractNote'),
-                        static function (TestCase $test, ?Organization $organization, ?User $user): Note {
-                            $data = [];
-                            if ($organization) {
-                                $data['organization_id'] = $organization->getKey();
-                            }
-
-                            return Note::factory()->hasFiles(1)->for(User::factory())->create($data);
+                        static function (TestCase $test, ?Organization $org, ?User $user): Note {
+                            return Note::factory()->ownedBy($org)->hasFiles(1)->for(User::factory())->create();
                         },
                         true,
+                    ],
+                    'system note' => [
+                        new GraphQLUnauthorized('deleteContractNote'),
+                        static function (TestCase $test, ?Organization $org, ?User $user): Note {
+                            return Note::factory()->ownedBy($org)->create([
+                                'user_id' => $user,
+                                'note'    => null,
+                            ]);
+                        },
+                        false,
                     ],
                 ]),
             ),
@@ -117,35 +115,33 @@ class DeleteContractNoteTest extends TestCase {
                     'org-administer',
                 ]),
                 new ArrayDataProvider([
-                    'ok'             => [
+                    'ok'          => [
                         new GraphQLSuccess('deleteContractNote', [
                             'deleted' => true,
                         ]),
-                        static function (TestCase $test, ?Organization $organization, ?User $user): Note {
-                            $data = [];
-                            if ($organization) {
-                                $data['organization_id'] = $organization->getKey();
-                            }
-                            if ($user) {
-                                $user->save();
-                                $data['user_id'] = $user->getKey();
-                            }
-
-                            return Note::factory()->hasFiles(1)->create($data);
+                        static function (TestCase $test, ?Organization $org, ?User $user): Note {
+                            return Note::factory()->ownedBy($org)->hasFiles(1)->create([
+                                'user_id' => $user,
+                            ]);
                         },
                         false,
                     ],
-                    'Different User' => [
+                    'not owner'   => [
                         new GraphQLSuccess('deleteContractNote', [
                             'deleted' => true,
                         ]),
-                        static function (TestCase $test, ?Organization $organization, ?User $user): Note {
-                            $data = [];
-                            if ($organization) {
-                                $data['organization_id'] = $organization->getKey();
-                            }
-
-                            return Note::factory()->hasFiles(1)->for(User::factory())->create($data);
+                        static function (TestCase $test, ?Organization $org, ?User $user): Note {
+                            return Note::factory()->ownedBy($org)->hasFiles(1)->for(User::factory())->create();
+                        },
+                        false,
+                    ],
+                    'system note' => [
+                        new GraphQLUnauthorized('deleteContractNote'),
+                        static function (TestCase $test, ?Organization $org, ?User $user): Note {
+                            return Note::factory()->ownedBy($org)->create([
+                                'user_id' => $user,
+                                'note'    => null,
+                            ]);
                         },
                         false,
                     ],

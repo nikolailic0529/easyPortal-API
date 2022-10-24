@@ -180,9 +180,6 @@ class UpdateQuoteNoteTest extends TestCase {
      */
     public function dataProviderInvoke(): array {
         $prepare  = static function (TestCase $test, ?Organization $org, User $user): void {
-            if ($user) {
-                $user->save();
-            }
             $type     = Type::factory()->create([
                 'id' => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ad',
             ]);
@@ -192,6 +189,7 @@ class UpdateQuoteNoteTest extends TestCase {
                     'type_id' => $type->getKey(),
                 ]);
             Note::factory()
+                ->ownedBy($org)
                 ->hasFiles(1, [
                     'name' => 'deleted',
                 ])
@@ -234,9 +232,6 @@ class UpdateQuoteNoteTest extends TestCase {
                         new GraphQLSuccess('updateQuoteNote'),
                         $settings,
                         static function (TestCase $test, ?Organization $org, User $user): void {
-                            if ($user) {
-                                $user->save();
-                            }
                             $type     = Type::factory()->create([
                                 'id' => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ad',
                             ]);
@@ -246,6 +241,7 @@ class UpdateQuoteNoteTest extends TestCase {
                                     'type_id' => $type->getKey(),
                                 ]);
                             $note     = Note::factory()
+                                ->ownedBy($org)
                                 ->hasFiles(1, [
                                     'name' => 'deleted',
                                 ])
@@ -305,9 +301,6 @@ class UpdateQuoteNoteTest extends TestCase {
                         new GraphQLSuccess('updateQuoteNote'),
                         $settings,
                         static function (TestCase $test, ?Organization $org, User $user): void {
-                            if ($user) {
-                                $user->save();
-                            }
                             $type     = Type::factory()->create([
                                 'id' => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ad',
                             ]);
@@ -316,6 +309,7 @@ class UpdateQuoteNoteTest extends TestCase {
                             ]);
                             // File should not be deleted if files is not updated
                             Note::factory()
+                                ->ownedBy($org)
                                 ->for($user)
                                 ->hasFiles(1, [
                                     'name' => 'keep.csv',
@@ -339,8 +333,8 @@ class UpdateQuoteNoteTest extends TestCase {
                             'ep.document_statuses_hidden' => [],
                             'ep.contract_types'           => ['f3cb1fac-b454-4f23-bbb4-f3d84a1699ac'],
                         ],
-                        static function (): void {
-                            Note::factory()->create([
+                        static function (TestCase $test, ?Organization $org): void {
+                            Note::factory()->ownedBy($org)->create([
                                 'id' => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ae',
                             ]);
                         },
@@ -363,8 +357,8 @@ class UpdateQuoteNoteTest extends TestCase {
                             'ep.file.max_size' => 250,
                             'ep.file.formats'  => ['csv'],
                         ],
-                        static function (): void {
-                            Note::factory()->create([
+                        static function (TestCase $test, ?Organization $org): void {
+                            Note::factory()->ownedBy($org)->create([
                                 'id' => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ae',
                             ]);
                         },
@@ -387,8 +381,8 @@ class UpdateQuoteNoteTest extends TestCase {
                             'ep.file.max_size' => 100,
                             'ep.file.formats'  => ['csv'],
                         ],
-                        static function (): void {
-                            Note::factory()->create([
+                        static function (TestCase $test, ?Organization $org): void {
+                            Note::factory()->ownedBy($org)->create([
                                 'id' => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ae',
                             ]);
                         },
@@ -411,8 +405,8 @@ class UpdateQuoteNoteTest extends TestCase {
                             'ep.file.max_size' => 200,
                             'ep.file.formats'  => ['pdf'],
                         ],
-                        static function (): void {
-                            Note::factory()->create([
+                        static function (TestCase $test, ?Organization $org): void {
+                            Note::factory()->ownedBy($org)->create([
                                 'id' => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ae',
                             ]);
                         },
@@ -441,6 +435,7 @@ class UpdateQuoteNoteTest extends TestCase {
                                 ]);
                             $user2    = User::factory()->create();
                             $note     = Note::factory()
+                                ->ownedBy($org)
                                 ->for($user2)
                                 ->hasFiles(1, [
                                     'name' => 'deleted',
@@ -465,6 +460,21 @@ class UpdateQuoteNoteTest extends TestCase {
                                     'content' => null,
                                 ],
                             ],
+                        ],
+                    ],
+                    'system note'         => [
+                        new GraphQLUnauthorized('updateQuoteNote'),
+                        $settings,
+                        static function (TestCase $test, ?Organization $org, ?User $user): Note {
+                            return Note::factory()->ownedBy($org)->create([
+                                'id'      => 'eda1284f-3f33-431d-be55-efcf3da2fd3f',
+                                'user_id' => $user,
+                                'note'    => null,
+                            ]);
+                        },
+                        [
+                            'id'   => 'eda1284f-3f33-431d-be55-efcf3da2fd3f',
+                            'note' => 'new note',
                         ],
                     ],
                 ]),
