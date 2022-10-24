@@ -4,9 +4,9 @@
 
 A new quote request from organization {{ $request->organization->name }}
 
-**Oem**: {{ $request->oem_custom ?: $request->oem->name }}<br>
-**Customer**: {{ $request->customer_custom ?: $request->customer->name }}<br>
-**Type**: {{ $request->type_custom ?: $request->type->name }}<br>
+**Oem**: {{ $request->oem_custom ?: ($request->oem->name ?? null) }}<br>
+**Customer**: {{ $request->customer_custom ?: ($request->customer->name ?? null)}}<br>
+**Type**: {{ $request->type_custom ?: ($request->type->name ?? null)}}<br>
 
 ## Contact Info:
 

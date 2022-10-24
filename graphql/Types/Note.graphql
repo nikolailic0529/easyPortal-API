@@ -1,11 +1,15 @@
 type Note {
     id: ID!
     pinned: Boolean!
-    note: HtmlString!
+    note: HtmlString
     created_at: DateTime!
     updated_at: DateTime!
     deleted_at: DateTime
     user_id: ID!
     user: User @relation
     files: [File!]! @relation
+    quote_request_id: ID
+    quoteRequest: QuoteRequest
+    change_request_id: ID
+    changeRequest: ChangeRequest
 }

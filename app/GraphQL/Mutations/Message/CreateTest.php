@@ -2,7 +2,12 @@
 
 namespace App\GraphQL\Mutations\Message;
 
+use App\GraphQL\Objects\MessageInput;
 use App\Mail\Message;
+use App\Models\Document;
+use App\Models\Note;
+use App\Models\Organization;
+use App\Models\User;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Mail;
 use LastDragon_ru\LaraASP\Testing\Constraints\Response\Response;
@@ -78,6 +83,45 @@ class CreateTest extends TestCase {
         if ($expected instanceof GraphQLSuccess) {
             Mail::assertSent(Message::class);
         }
+    }
+
+    /**
+     * @covers ::createRequest
+     */
+    public function testCreateRequestFromDocument(): void {
+        // Prepare
+        $org      = $this->setOrganization(Organization::factory()->create());
+        $user     = $this->setUser(User::factory()->create());
+        $input    = new MessageInput([
+            'subject' => $this->faker->sentence(),
+            'message' => $this->faker->text(),
+        ]);
+        $document = Document::factory()->ownedBy($org)->create();
+        $mutation = $this->app->make(Create::class);
+
+        self::assertNotNull($org);
+        self::assertNotNull($user);
+
+        // Request
+        $request = $mutation->createRequest($document, $input);
+
+        self::assertEquals($org->getKey(), $request->organization_id);
+        self::assertEquals($user->getKey(), $request->user_id);
+        self::assertEquals($input->subject, $request->subject);
+        self::assertEquals($input->message, $request->message);
+
+        // Note
+        $note = Note::query()
+            ->where('change_request_id', '=', $request->getKey())
+            ->first();
+
+        self::assertNotNull($note);
+        self::assertNull($note->note);
+        self::assertFalse($note->pinned);
+        self::assertEquals($org->getKey(), $note->organization_id);
+        self::assertEquals($user->getKey(), $note->user_id);
+        self::assertEquals($request->getKey(), $note->change_request_id);
+        self::assertEquals($document->getKey(), $note->document_id);
     }
     // </editor-fold>
 

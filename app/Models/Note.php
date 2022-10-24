@@ -15,13 +15,16 @@ use Database\Factories\NoteFactory;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 /**
  * Note.
  *
  * @property string                $id
- * @property string                $note
+ * @property string|null           $note
  * @property string                $document_id
+ * @property string|null           $quote_request_id
+ * @property string|null           $change_request_id
  * @property string                $organization_id
  * @property string                $user_id
  * @property bool                  $pinned
@@ -29,9 +32,11 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  * @property CarbonImmutable       $updated_at
  * @property CarbonImmutable|null  $deleted_at
  * @property User                  $user
+ * @property ChangeRequest|null    $changeRequest
  * @property Document              $document
  * @property Collection<int, File> $files
  * @property Organization          $organization
+ * @property QuoteRequest|null     $quoteRequest
  * @method static NoteFactory factory(...$parameters)
  * @method static Builder|Note newModelQuery()
  * @method static Builder|Note newQuery()
@@ -65,4 +70,29 @@ class Note extends Model implements OwnedByOrganization {
      * @var array<string>
      */
     protected $casts = self::CASTS;
+
+    // <editor-fold desc="Relations">
+    // =========================================================================
+    /**
+     * @return BelongsTo<QuoteRequest, self>
+     */
+    public function quoteRequest(): BelongsTo {
+        return $this->belongsTo(QuoteRequest::class);
+    }
+
+    public function setQuoteRequestAttribute(QuoteRequest $request): void {
+        $this->quoteRequest()->associate($request);
+    }
+
+    /**
+     * @return BelongsTo<ChangeRequest, self>
+     */
+    public function changeRequest(): BelongsTo {
+        return $this->belongsTo(ChangeRequest::class);
+    }
+
+    public function setChangeRequestAttribute(ChangeRequest $request): void {
+        $this->changeRequest()->associate($request);
+    }
+    // </editor-fold>
 }

@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Models\Relations\HasDocument;
 use App\Utils\Eloquent\Model;
 use Carbon\CarbonImmutable;
+use Database\Factories\QuoteRequestDocumentFactory;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -22,6 +23,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @property Document                  $document
  * @property-read QuoteRequestDuration $duration
  * @property-read QuoteRequest         $request
+ * @method static QuoteRequestDocumentFactory factory(...$parameters)
  * @method static Builder|QuoteRequestDocument newModelQuery()
  * @method static Builder|QuoteRequestDocument newQuery()
  * @method static Builder|QuoteRequestDocument query()

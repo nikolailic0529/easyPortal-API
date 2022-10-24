@@ -23,6 +23,7 @@ use App\Models\DocumentEntry;
 use App\Models\Note;
 use App\Models\OemGroup;
 use App\Models\Organization;
+use App\Models\QuoteRequest;
 use App\Models\Reseller;
 use App\Models\ResellerLocation;
 use App\Models\User;
@@ -350,6 +351,14 @@ class QuoteTest extends TestCase {
                                 name
                                 url
                                 size
+                            }
+                            quote_request_id
+                            quoteRequest {
+                               id
+                            }
+                            change_request_id
+                            changeRequest {
+                                id
                             }
                         }
                         notesAggregated {
@@ -897,24 +906,32 @@ class QuoteTest extends TestCase {
                         new GraphQLSuccess('quote', [
                             'notes'           => [
                                 [
-                                    'id'         => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24999',
-                                    'note'       => 'Note',
-                                    'pinned'     => true,
-                                    'created_at' => '2021-07-11T23:27:47+00:00',
-                                    'updated_at' => '2021-07-11T23:27:47+00:00',
-                                    'user_id'    => 'f9834bc1-2f2f-4c57-bb8d-7a224ac2E999',
-                                    'user'       => [
+                                    'id'                => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24999',
+                                    'note'              => 'Note',
+                                    'pinned'            => true,
+                                    'created_at'        => '2021-07-11T23:27:47+00:00',
+                                    'updated_at'        => '2021-07-11T23:27:47+00:00',
+                                    'user_id'           => 'f9834bc1-2f2f-4c57-bb8d-7a224ac2E999',
+                                    'user'              => [
                                         'id'          => 'f9834bc1-2f2f-4c57-bb8d-7a224ac2E999',
                                         'given_name'  => 'first',
                                         'family_name' => 'last',
                                     ],
-                                    'files'      => [
+                                    'files'             => [
                                         [
                                             'id'   => 'f9834bc1-2f2f-4c57-bb8d-7a224ac2E988',
                                             'name' => 'document',
                                             'size' => 100,
                                             'url'  => $url,
                                         ],
+                                    ],
+                                    'quote_request_id'  => '50db1187-22f7-473e-8fe4-abbc7a2fa1f2',
+                                    'quoteRequest'      => [
+                                        'id' => '50db1187-22f7-473e-8fe4-abbc7a2fa1f2',
+                                    ],
+                                    'change_request_id' => '12b9075f-b0c5-4ee0-bdad-6c6db5ba1b67',
+                                    'changeRequest'     => [
+                                        'id' => '12b9075f-b0c5-4ee0-bdad-6c6db5ba1b67',
                                     ],
                                 ],
                             ],
@@ -960,11 +977,17 @@ class QuoteTest extends TestCase {
                                     'path' => 'http://example.com/document.csv',
                                 ])
                                 ->create([
-                                    'id'         => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24999',
-                                    'note'       => 'Note',
-                                    'pinned'     => true,
-                                    'created_at' => '2021-07-11T23:27:47+00:00',
-                                    'updated_at' => '2021-07-11T23:27:47+00:00',
+                                    'id'                => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24999',
+                                    'note'              => 'Note',
+                                    'pinned'            => true,
+                                    'created_at'        => '2021-07-11T23:27:47+00:00',
+                                    'updated_at'        => '2021-07-11T23:27:47+00:00',
+                                    'quote_request_id'  => QuoteRequest::factory()->ownedBy($org)->create([
+                                        'id' => '50db1187-22f7-473e-8fe4-abbc7a2fa1f2',
+                                    ]),
+                                    'change_request_id' => ChangeRequest::factory()->ownedBy($org)->create([
+                                        'id' => '12b9075f-b0c5-4ee0-bdad-6c6db5ba1b67',
+                                    ]),
                                 ]);
                             // same org different document
                             Document::factory()

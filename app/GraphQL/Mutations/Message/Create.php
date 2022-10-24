@@ -9,6 +9,7 @@ use App\Models\Asset;
 use App\Models\ChangeRequest;
 use App\Models\Customer;
 use App\Models\Document;
+use App\Models\Note;
 use App\Models\Organization;
 use App\Services\Auth\Auth;
 use App\Services\Filesystem\ModelDiskFactory;
@@ -18,6 +19,7 @@ use Illuminate\Contracts\Mail\Mailer;
 
 use function array_filter;
 use function array_unique;
+use function assert;
 
 class Create {
     public function __construct(
@@ -52,7 +54,12 @@ class Create {
         Organization|Customer|Asset|Document $object,
         MessageInput $input,
     ): ChangeRequest {
-        $user                  = $this->auth->getUser();
+        // User
+        $user = $this->auth->getUser();
+
+        assert($user !== null);
+
+        // Create
         $request               = new ChangeRequest();
         $request->user         = $user;
         $request->organization = $this->organization->get();
@@ -68,6 +75,18 @@ class Create {
         // Add Files
         $request->files = $this->disks->getDisk($request)->storeToFiles($input->files);
         $request->save();
+
+        // Notes
+        if ($object instanceof Document) {
+            $note                = new Note();
+            $note->user          = $request->user;
+            $note->document      = $object;
+            $note->organization  = $request->organization;
+            $note->changeRequest = $request;
+            $note->note          = null;
+            $note->pinned        = false;
+            $note->save();
+        }
 
         // Send Email
         $this->mailer->send(new RequestChange($request));
