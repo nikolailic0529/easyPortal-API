@@ -47,6 +47,7 @@ use App\Models\OrganizationUser;
 use App\Models\Permission;
 use App\Models\QuoteRequest;
 use App\Models\QuoteRequestAsset;
+use App\Models\QuoteRequestDocument;
 use App\Models\QuoteRequestDuration;
 use App\Models\Reseller;
 use App\Models\ResellerCustomer;
@@ -276,6 +277,10 @@ class ModelsProvider {
             'oem_id'          => $oem,
         ]);
         $quoteRequestDuration          = QuoteRequestDuration::factory()->create();
+        $quoteRequestFile              = File::factory()->create([
+            'object_type' => $quoteRequest->getMorphClass(),
+            'object_id'   => $quoteRequest,
+        ]);
         $quoteRequestAsset             = QuoteRequestAsset::factory()->create([
             'asset_id'         => $asset,
             'request_id'       => $quoteRequest,
@@ -285,6 +290,10 @@ class ModelsProvider {
         $quoteRequestContact           = Contact::factory()->create([
             'object_type' => $quoteRequest->getMorphClass(),
             'object_id'   => $quoteRequest,
+        ]);
+        $quoteRequestContactType       = ContactType::factory()->create([
+            'contact_id' => $quoteRequestContact,
+            'type_id'    => $type,
         ]);
         $contract                      = Document::factory()->create([
             'distributor_id' => $distributor,
@@ -332,9 +341,11 @@ class ModelsProvider {
             'object_id'   => $contractChangeRequest,
         ]);
         $contractNote                  = Note::factory()->create([
-            'organization_id' => $organization,
-            'document_id'     => $contract,
-            'user_id'         => $user,
+            'organization_id'   => $organization,
+            'document_id'       => $contract,
+            'user_id'           => $user,
+            'quote_request_id'  => $quoteRequest,
+            'change_request_id' => $contractChangeRequest,
         ]);
         $contractNoteFile              = File::factory()->create([
             'object_type' => $contractNote->getMorphClass(),
@@ -386,9 +397,11 @@ class ModelsProvider {
             'object_id'   => $quoteChangeRequest,
         ]);
         $quoteNote                     = Note::factory()->create([
-            'organization_id' => $organization,
-            'document_id'     => $quote,
-            'user_id'         => $user,
+            'organization_id'   => $organization,
+            'document_id'       => $quote,
+            'user_id'           => $user,
+            'quote_request_id'  => $quoteRequest,
+            'change_request_id' => $quoteChangeRequest,
         ]);
         $quoteNoteFile                 = File::factory()->create([
             'object_type' => $quoteNote->getMorphClass(),
@@ -403,6 +416,11 @@ class ModelsProvider {
             'document_id'      => $contract,
             'service_group_id' => $serviceGroup,
             'service_level_id' => $serviceLevel,
+        ]);
+        $quoteRequestDocument          = QuoteRequestDocument::factory()->create([
+            'request_id'  => $quoteRequest,
+            'document_id' => $contract,
+            'duration_id' => $quoteRequestDuration,
         ]);
 
         $asset->warranty = $assetWarranty;
