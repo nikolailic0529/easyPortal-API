@@ -32,16 +32,12 @@ class DeleteContractNote {
      * @param array<string> $permissions
      */
     public function deleteNote(string $noteId, array $permissions): bool {
-        $note = Note::whereKey($noteId)->first();
+        $note = Note::query()->whereKey($noteId)->first();
 
-        if (!$this->gate->any($permissions, [$note])) {
+        if (!$note || $note->note === null || !$this->gate->any($permissions, [$note])) {
             throw new AuthorizationException();
         }
 
-        if ($note) {
-            $note->delete();
-        }
-
-        return (bool) $note;
+        return $note->delete();
     }
 }
