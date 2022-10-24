@@ -4004,7 +4004,7 @@ input SearchByConditionNotesQuery {
     """
     Property condition.
     """
-    note: SearchByScalarHtmlString
+    note: SearchByScalarHtmlStringOrNull
     @searchByProperty
 
     """
@@ -5214,9 +5214,9 @@ input SearchByScalarFloatOrNull {
 }
 
 """
-Available operators for `scalar HtmlString!` (only one operator allowed at a time).
+Available operators for `scalar HtmlString` (only one operator allowed at a time).
 """
-input SearchByScalarHtmlString {
+input SearchByScalarHtmlStringOrNull {
     """
     Contains.
     """
@@ -5240,6 +5240,18 @@ input SearchByScalarHtmlString {
     """
     in: [HtmlString!]
     @searchByOperatorIn
+
+    """
+    Is NOT NULL?
+    """
+    isNotNull: SearchByTypeFlag
+    @searchByOperatorIsNotNull
+
+    """
+    Is NULL?
+    """
+    isNull: SearchByTypeFlag
+    @searchByOperatorIsNull
 
     """
     Not Equal (`!=`).
@@ -10880,7 +10892,7 @@ type Note {
     @relation
 
     id: ID!
-    note: HtmlString!
+    note: HtmlString
     pinned: Boolean!
     updated_at: DateTime!
 

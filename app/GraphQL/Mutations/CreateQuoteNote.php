@@ -8,6 +8,8 @@ use App\Services\Organization\CurrentOrganization;
 use Illuminate\Auth\AuthManager;
 use Illuminate\Http\UploadedFile;
 
+use function trim;
+
 class CreateQuoteNote {
     public function __construct(
         protected AuthManager $auth,
@@ -42,7 +44,7 @@ class CreateQuoteNote {
         $note->user         = $this->auth->user();
         $note->document_id  = $documentId;
         $note->organization = $this->organization->get();
-        $note->note         = $content;
+        $note->note         = trim($content) ?: null;
         $note->pinned       = $pinned;
         $note->save();
 

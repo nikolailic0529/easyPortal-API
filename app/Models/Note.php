@@ -21,7 +21,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * Note.
  *
  * @property string                $id
- * @property string                $note
+ * @property string|null           $note
  * @property string                $document_id
  * @property string|null           $quote_request_id
  * @property string|null           $change_request_id
