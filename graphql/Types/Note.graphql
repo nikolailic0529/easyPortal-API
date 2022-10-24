@@ -8,4 +8,8 @@ type Note {
     user_id: ID!
     user: User @relation
     files: [File!]! @relation
+    quote_request_id: ID
+    quoteRequest: QuoteRequest
+    change_request_id: ID
+    changeRequest: ChangeRequest
 }

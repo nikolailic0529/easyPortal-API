@@ -5,6 +5,7 @@ namespace App\GraphQL\Mutations\QuoteRequest;
 use App\Mail\QuoteRequest as QuoteRequestMail;
 use App\Models\Contact;
 use App\Models\File;
+use App\Models\Note;
 use App\Models\QuoteRequest;
 use App\Models\QuoteRequestAsset;
 use App\Models\QuoteRequestDocument;
@@ -15,10 +16,12 @@ use App\Utils\Cache\CacheKey;
 use Illuminate\Contracts\Mail\Mailer;
 use Illuminate\Database\Eloquent\Collection;
 
+use function assert;
+
 class Create {
     public function __construct(
         protected Auth $auth,
-        protected CurrentOrganization $organization,
+        protected CurrentOrganization $org,
         protected ModelDiskFactory $disks,
         protected Mailer $mailer,
     ) {
@@ -28,11 +31,20 @@ class Create {
     /**
      * @param array<string, array{input: array<string, mixed>}> $args
      */
-    public function __invoke(mixed $root, array $args): QuoteRequest|bool {
-        $input                    = new CreateInput($args['input']);
+    public function __invoke(mixed $root, array $args): QuoteRequest {
+        return $this->createRequest(new CreateInput($args['input']));
+    }
+
+    public function createRequest(CreateInput $input): QuoteRequest {
+        // User
+        $user = $this->auth->getUser();
+
+        assert($user !== null);
+
+        // Create
         $request                  = new QuoteRequest();
-        $request->organization    = $this->organization->get();
-        $request->user            = $this->auth->getUser();
+        $request->organization    = $this->org->get();
+        $request->user            = $user;
         $request->user_copy       = $input->copy_to_me;
         $request->oem_id          = $input->oem_id;
         $request->oem_custom      = $input->oem_custom;
@@ -45,13 +57,30 @@ class Create {
         $request->files           = $this->getFiles($request, $input);
         $request->assets          = $this->getAssets($request, $input);
         $request->documents       = $this->getDocuments($request, $input);
-        $result                   = $request->save();
+        $request->save();
 
-        if ($result) {
-            $this->mailer->send(new QuoteRequestMail($request));
+        // Notes
+        $notes = [];
+
+        foreach ($request->documents as $document) {
+            if (isset($notes[$document->document_id])) {
+                continue;
+            }
+
+            $note                          = new Note();
+            $note->user                    = $request->user;
+            $note->document_id             = $document->document_id;
+            $note->organization            = $request->organization;
+            $note->quoteRequest            = $request;
+            $note->note                    = null;
+            $note->pinned                  = false;
+            $notes[$document->document_id] = $note->save();
         }
 
-        return $result ? $request : false;
+        // Send Email
+        $this->mailer->send(new QuoteRequestMail($request));
+
+        return $request;
     }
 
     protected function getContact(QuoteRequest $request, CreateInput $input): Contact {
@@ -68,9 +97,7 @@ class Create {
      * @return Collection<int, File>
      */
     protected function getFiles(QuoteRequest $request, CreateInput $input): Collection {
-        return new Collection(
-            $this->disks->getDisk($request)->storeToFiles($input->files ?? []),
-        );
+        return $this->disks->getDisk($request)->storeToFiles($input->files ?? []);
     }
 
     /**

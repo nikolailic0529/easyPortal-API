@@ -10885,6 +10885,8 @@ type Mutation {
 }
 
 type Note {
+    changeRequest: ChangeRequest
+    change_request_id: ID
     created_at: DateTime!
     deleted_at: DateTime
 
@@ -10894,6 +10896,8 @@ type Note {
     id: ID!
     note: HtmlString
     pinned: Boolean!
+    quoteRequest: QuoteRequest
+    quote_request_id: ID
     updated_at: DateTime!
 
     user: User

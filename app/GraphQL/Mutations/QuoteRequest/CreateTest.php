@@ -10,6 +10,7 @@ use App\Models\Data\ServiceGroup;
 use App\Models\Data\ServiceLevel;
 use App\Models\Data\Type;
 use App\Models\Document;
+use App\Models\Note;
 use App\Models\Organization;
 use App\Models\QuoteRequestDuration;
 use App\Models\User;
@@ -42,12 +43,15 @@ class CreateTest extends TestCase {
     // =========================================================================
     /**
      * @covers ::__invoke
+     * @covers ::createRequest
+     *
      * @dataProvider dataProviderInvoke
      *
-     * @param OrganizationFactory $orgFactory
-     * @param UserFactory         $userFactory
-     * @param array<string,mixed> $input
-     * @param SettingsFactory     $settingsFactory
+     * @param OrganizationFactory                              $orgFactory
+     * @param UserFactory                                      $userFactory
+     * @param array<string,mixed>                              $input
+     * @param SettingsFactory                                  $settingsFactory
+     * @param Closure(static, ?Organization, ?User): void|null $prepare
      */
     public function testInvoke(
         Response $expected,
@@ -194,6 +198,84 @@ class CreateTest extends TestCase {
         if ($expected instanceof GraphQLSuccess) {
             Mail::assertSent(QuoteRequest::class);
         }
+    }
+
+    /**
+     * @covers ::createRequest
+     */
+    public function testCreateRequestWithDocuments(): void {
+        // Prepare
+        $org       = $this->setOrganization(Organization::factory()->create());
+        $user      = $this->setUser(User::factory()->create());
+        $mutation  = $this->app->make(Create::class);
+        $documentA = Document::factory()->ownedBy($org)->create([]);
+        $documentB = Document::factory()->ownedBy($org)->create();
+        $durationA = QuoteRequestDuration::factory()->create();
+        $durationB = QuoteRequestDuration::factory()->create();
+        $input     = new CreateInput([
+            'contact_name'  => $this->faker->name(),
+            'contact_email' => $this->faker->email(),
+            'contact_phone' => $this->faker->e164PhoneNumber(),
+            'documents'     => [
+                [
+                    'document_id' => $documentA->getKey(),
+                    'duration_id' => $durationA->getKey(),
+                ],
+                [
+                    'document_id' => $documentA->getKey(),
+                    'duration_id' => $durationB->getKey(),
+                ],
+                [
+                    'document_id' => $documentB->getKey(),
+                    'duration_id' => $durationB->getKey(),
+                ],
+            ],
+        ]);
+
+        self::assertNotNull($org);
+        self::assertNotNull($user);
+
+        // Request
+        $request = ($mutation)->createRequest($input);
+
+        self::assertEquals($org->getKey(), $request->organization_id);
+        self::assertEquals($user->getKey(), $request->user_id);
+        self::assertCount(0, $request->files);
+        self::assertCount(0, $request->assets);
+        self::assertCount(3, $request->documents);
+
+        // Notes
+        $notes = Note::query()
+            ->where('quote_request_id', '=', $request->getKey())
+            ->get();
+
+        self::assertCount(2, $notes);
+
+        // NoteA
+        $noteA = $notes->first(static function (Note $note) use ($documentA): bool {
+            return $note->document_id === $documentA->getKey();
+        });
+
+        self::assertNotNull($noteA);
+        self::assertNull($noteA->note);
+        self::assertFalse($noteA->pinned);
+        self::assertEquals($org->getKey(), $noteA->organization_id);
+        self::assertEquals($user->getKey(), $noteA->user_id);
+        self::assertEquals($request->getKey(), $noteA->quote_request_id);
+        self::assertEquals($documentA->getKey(), $noteA->document_id);
+
+        // NoteB
+        $noteB = $notes->first(static function (Note $note) use ($documentB): bool {
+            return $note->document_id === $documentB->getKey();
+        });
+
+        self::assertNotNull($noteB);
+        self::assertNull($noteB->note);
+        self::assertFalse($noteB->pinned);
+        self::assertEquals($org->getKey(), $noteB->organization_id);
+        self::assertEquals($user->getKey(), $noteB->user_id);
+        self::assertEquals($request->getKey(), $noteB->quote_request_id);
+        self::assertEquals($documentB->getKey(), $noteB->document_id);
     }
     // </editor-fold>
 

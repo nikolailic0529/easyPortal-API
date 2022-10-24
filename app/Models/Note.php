@@ -80,11 +80,19 @@ class Note extends Model implements OwnedByOrganization {
         return $this->belongsTo(QuoteRequest::class);
     }
 
+    public function setQuoteRequestAttribute(QuoteRequest $request): void {
+        $this->quoteRequest()->associate($request);
+    }
+
     /**
      * @return BelongsTo<ChangeRequest, self>
      */
     public function changeRequest(): BelongsTo {
         return $this->belongsTo(ChangeRequest::class);
+    }
+
+    public function setChangeRequestAttribute(ChangeRequest $request): void {
+        $this->changeRequest()->associate($request);
     }
     // </editor-fold>
 }

@@ -1126,17 +1126,7 @@ parameters:
 			path: app/GraphQL/Mutations/Me/UpdateTest.php
 
 		-
-			message: "#^Cannot access property \\$email on App\\\\Models\\\\User\\|null\\.$#"
-			count: 1
-			path: app/GraphQL/Mutations/Message/Create.php
-
-		-
 			message: "#^Property App\\\\Models\\\\ChangeRequest\\:\\:\\$to \\(array\\<string\\>\\) does not accept array\\<int, string\\|null\\>\\.$#"
-			count: 1
-			path: app/GraphQL/Mutations/Message/Create.php
-
-		-
-			message: "#^Property App\\\\Models\\\\ChangeRequest\\:\\:\\$user \\(App\\\\Models\\\\User\\) does not accept App\\\\Models\\\\User\\|null\\.$#"
 			count: 1
 			path: app/GraphQL/Mutations/Message/Create.php
 
@@ -1364,21 +1354,6 @@ parameters:
 			message: "#^Method App\\\\GraphQL\\\\Mutations\\\\Organization\\\\User\\\\InviteTest\\:\\:testInvoke\\(\\) has parameter \\$prepare with no signature specified for Closure\\.$#"
 			count: 1
 			path: app/GraphQL/Mutations/Organization/User/InviteTest.php
-
-		-
-			message: "#^Method App\\\\GraphQL\\\\Mutations\\\\QuoteRequest\\\\Create\\:\\:getFiles\\(\\) should return Illuminate\\\\Database\\\\Eloquent\\\\Collection\\<int, App\\\\Models\\\\File\\> but returns Illuminate\\\\Database\\\\Eloquent\\\\Collection\\<\\(int\\|string\\), Illuminate\\\\Database\\\\Eloquent\\\\Model\\>\\.$#"
-			count: 1
-			path: app/GraphQL/Mutations/QuoteRequest/Create.php
-
-		-
-			message: "#^Property App\\\\Models\\\\QuoteRequest\\:\\:\\$user \\(App\\\\Models\\\\User\\) does not accept App\\\\Models\\\\User\\|null\\.$#"
-			count: 1
-			path: app/GraphQL/Mutations/QuoteRequest/Create.php
-
-		-
-			message: "#^Method App\\\\GraphQL\\\\Mutations\\\\QuoteRequest\\\\CreateTest\\:\\:testInvoke\\(\\) has parameter \\$prepare with no signature specified for Closure\\.$#"
-			count: 1
-			path: app/GraphQL/Mutations/QuoteRequest/CreateTest.php
 
 		-
 			message: "#^Argument of an invalid type mixed supplied for foreach, only iterables are supported\\.$#"
