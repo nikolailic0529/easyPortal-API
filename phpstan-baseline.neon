@@ -4121,32 +4121,7 @@ parameters:
 			path: app/Services/DataLoader/Testing/Data/ClientDump.php
 
 		-
-			message: "#^Expression on left side of \\?\\? is not nullable\\.$#"
-			count: 2
-			path: app/Services/DataLoader/Testing/Data/ClientDumpContext.php
-
-		-
-			message: "#^Left side of && is always true\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Testing/Data/ClientDumpContext.php
-
-		-
 			message: "#^Method App\\\\Services\\\\DataLoader\\\\Testing\\\\Data\\\\ClientDumpContext\\:\\:get\\(\\) should return array\\<string, array\\<string\\>\\> but returns array\\<string, array\\<int, string\\|null\\>\\>\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Testing/Data/ClientDumpContext.php
-
-		-
-			message: "#^Parameter \\#1 \\$stream of function fclose expects resource, resource\\|false given\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Testing/Data/ClientDumpContext.php
-
-		-
-			message: "#^Parameter \\#1 \\$stream of function fputcsv expects resource, resource\\|false given\\.$#"
-			count: 2
-			path: app/Services/DataLoader/Testing/Data/ClientDumpContext.php
-
-		-
-			message: "#^Right side of && is always true\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Testing/Data/ClientDumpContext.php
 

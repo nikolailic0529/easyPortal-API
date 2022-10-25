@@ -9,6 +9,7 @@ use App\Services\DataLoader\Schema\DocumentEntry;
 use App\Services\DataLoader\Schema\ViewAsset;
 use App\Services\DataLoader\Schema\ViewAssetDocument;
 use App\Services\DataLoader\Schema\ViewDocument;
+use Exception;
 use Faker\Generator;
 
 use function array_filter;
@@ -17,6 +18,7 @@ use function array_values;
 use function fclose;
 use function fopen;
 use function fputcsv;
+use function usort;
 
 use const SORT_REGULAR;
 
@@ -118,15 +120,29 @@ class ClientDumpContext {
      * @param array<int, array{?string,?string,?string}> $oems
      */
     protected function getOemsCsv(array $oems, string $path): ?string {
-        $file = null;
+        // Empty?
         $oems = array_values(array_filter(array_unique($oems, SORT_REGULAR), static function (array $oem): bool {
-            return $oem && array_unique($oem);
+            return (bool) array_filter($oem);
         }));
 
-        if ($oems) {
-            $file = 'oem.csv';
-            $csv  = fopen("{$path}/{$file}", 'w');
+        if (!$oems) {
+            return null;
+        }
 
+        // Prepare
+        usort($oems, static function (array $a, array $b): int {
+            return $a[0] <=> $b[0] ?: $a[1] <=> $b[1] ?: $a[2] <=> $b[2];
+        });
+
+        // Save
+        $file = 'oem.csv';
+        $csv  = fopen("{$path}/{$file}", 'w');
+
+        if ($csv === false) {
+            throw new Exception('Failed to save OEMs.');
+        }
+
+        try {
             fputcsv($csv, [
                 'Vendor',
                 'Service Group SKU',
@@ -137,24 +153,22 @@ class ClientDumpContext {
             ]);
 
             foreach ($oems as $oem) {
-                [$oem, $group, $level] = $oem;
+                $name  = $this->normalizer->string($oem[0]);
+                $group = $this->normalizer->string($oem[1]) ?? $name;
+                $level = $this->normalizer->string($oem[2]) ?? $name;
 
-                $oem   = $this->normalizer->string($oem);
-                $group = $this->normalizer->string($group) ?? $oem;
-                $level = $this->normalizer->string($level) ?? $oem;
-
-                if ($oem && $group && $level) {
+                if ($name && $group && $level) {
                     fputcsv($csv, [
-                        $oem,
+                        $name,
                         $group,
-                        $this->faker->sentence(),
+                        $group,
                         $level,
-                        $this->faker->sentence(),
-                        $this->faker->text(),
+                        $level,
+                        $level,
                     ]);
                 }
             }
-
+        } finally {
             fclose($csv);
         }
 
