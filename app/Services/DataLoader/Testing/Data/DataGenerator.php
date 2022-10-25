@@ -42,7 +42,8 @@ class DataGenerator {
         // Exists?
         $fs          = new Filesystem();
         $contextName = self::CONTEXT;
-        $contextFile = $this->getTestData($class)->file($contextName);
+        $contextRoot = $this->getTestData($class);
+        $contextFile = $contextRoot->file($contextName);
         $contextPath = dirname($contextFile->getPathname());
 
         if ($contextFile->isFile()) {
@@ -61,7 +62,7 @@ class DataGenerator {
         try {
             $db->beginTransaction();
 
-            $result = $data->generate($contextPath);
+            $result = $data->generate($contextRoot);
         } finally {
             $db->rollBack();
         }
@@ -104,14 +105,13 @@ class DataGenerator {
      */
     public function restore(string $class): bool {
         $contextName = self::CONTEXT;
-        $contextFile = $this->getTestData($class)->file($contextName);
-        $contextPath = dirname($contextFile->getPathname());
-        $contextData = $this->getTestData($class)->json($contextName);
+        $contextRoot = $this->getTestData($class);
+        $contextData = $contextRoot->json($contextName);
         $context     = new Context($contextData);
         $data        = $this->app->make($class);
 
         assert($data instanceof Data);
 
-        return $data->restore($contextPath, $context);
+        return $data->restore($contextRoot, $context);
     }
 }

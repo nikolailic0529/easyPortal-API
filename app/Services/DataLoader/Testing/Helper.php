@@ -429,7 +429,7 @@ trait Helper {
         $this->override(Client::class, function () use ($data): Client {
             return $this->app->make(FakeClient::class)
                 ->setLimit($data::LIMIT)
-                ->setData($data);
+                ->setData($this->getTestData($data));
         });
 
         // Restore

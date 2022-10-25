@@ -12,6 +12,7 @@ use App\Utils\Console\CommandOptions;
 use App\Utils\Eloquent\GlobalScopes\GlobalScopes;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Date;
+use LastDragon_ru\LaraASP\Testing\Utils\TestData;
 
 use function array_sum;
 
@@ -24,7 +25,7 @@ class CustomerLoaderData extends AssetsData {
     public const DOCUMENTS = false;
     public const DOCUMENT  = null;
 
-    protected function generateData(string $path, Context $context): bool {
+    protected function generateData(TestData $root, Context $context): bool {
         $results = [
             $this->kernel->call('ep:data-loader-customer-sync', $this->getOptions([
                 'id'          => static::CUSTOMER,
@@ -54,8 +55,8 @@ class CustomerLoaderData extends AssetsData {
         return array_sum($results) === Command::SUCCESS;
     }
 
-    public function restore(string $path, Context $context): bool {
-        $result = parent::restore($path, $context);
+    public function restore(TestData $root, Context $context): bool {
+        $result = parent::restore($root, $context);
 
         GlobalScopes::callWithoutAll(static function (): void {
             if (static::ASSET) {

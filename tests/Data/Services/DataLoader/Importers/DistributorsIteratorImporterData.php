@@ -7,6 +7,7 @@ use App\Services\DataLoader\Processors\Importer\Importers\Distributors\IteratorI
 use App\Services\DataLoader\Testing\Data\Context;
 use App\Services\DataLoader\Testing\Data\Data;
 use App\Utils\Iterators\Contracts\ObjectIterator;
+use LastDragon_ru\LaraASP\Testing\Utils\TestData;
 
 class DistributorsIteratorImporterData extends Data {
     public const DISTRIBUTORS = [
@@ -17,7 +18,7 @@ class DistributorsIteratorImporterData extends Data {
         '00000000-0000-0000-0000-000000000000',
     ];
 
-    protected function generateData(string $path, Context $context): bool {
+    protected function generateData(TestData $root, Context $context): bool {
         return $this->app->make(IteratorImporter::class)
             ->setIterator(static::getIterator())
             ->setChunkSize(static::CHUNK)
@@ -25,8 +26,8 @@ class DistributorsIteratorImporterData extends Data {
             ->start();
     }
 
-    public function restore(string $path, Context $context): bool {
-        $result = parent::restore($path, $context);
+    public function restore(TestData $root, Context $context): bool {
+        $result = parent::restore($root, $context);
 
         Distributor::factory()->create([
             'id' => '00000000-0000-0000-0000-000000000000',

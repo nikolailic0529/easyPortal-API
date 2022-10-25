@@ -17,11 +17,12 @@ use Illuminate\Contracts\Config\Repository;
 use Illuminate\Contracts\Console\Kernel;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Foundation\Application;
-use LastDragon_ru\LaraASP\Testing\Utils\WithTestData;
+use LastDragon_ru\LaraASP\Testing\Utils\TestData;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\Finder\Finder;
 
 use function array_combine;
+use function dirname;
 use function json_encode;
 use function ksort;
 use function mb_stripos;
@@ -34,8 +35,6 @@ use const JSON_UNESCAPED_SLASHES;
 use const JSON_UNESCAPED_UNICODE;
 
 abstract class Data {
-    use WithTestData;
-
     public const MAP   = 'map.json';
     public const LIMIT = 25;
     public const CHUNK = 5;
@@ -50,7 +49,7 @@ abstract class Data {
         // empty
     }
 
-    public function generate(string $path): ?Context {
+    public function generate(TestData $root): ?Context {
         // Context
         $context = new Context([
             Context::FILES => [Data::MAP],
@@ -68,8 +67,8 @@ abstract class Data {
                 }
             }
 
-            $result = $this->dumpClientResponses($path, $context, function () use ($path, $context): bool {
-                return $this->generateData($path, $context);
+            $result = $this->dumpClientResponses($root, $context, function () use ($root, $context): bool {
+                return $this->generateData($root, $context);
             });
 
             if (!$result) {
@@ -82,6 +81,7 @@ abstract class Data {
         }
 
         // Add Context
+        $path        = dirname($root->file('path')->getPathname());
         $supported   = $this->getSupporterContext();
         $dumpContext = $this->app->make(ClientDumpContext::class)->get($path);
 
@@ -121,10 +121,12 @@ abstract class Data {
         return [];
     }
 
-    abstract protected function generateData(string $path, Context $context): bool;
+    abstract protected function generateData(TestData $root, Context $context): bool;
 
-    public function restore(string $path, Context $context): bool {
+    public function restore(TestData $root, Context $context): bool {
         // Oems
+        $path = dirname($root->file('path')->getPathname());
+
         foreach ($context[Context::OEMS] as $oem) {
             $result = $this->kernel->call('ep:data-loader-oems-import', [
                 'file' => "{$path}/{$oem}",
@@ -217,29 +219,27 @@ abstract class Data {
     }
 
     /**
-     * @param Closure(string): bool $closure
+     * @param Closure(TestData): bool $closure
      */
-    private function dumpClientResponses(string $path, Context $context, Closure $closure): bool {
+    private function dumpClientResponses(TestData $root, Context $context, Closure $closure): bool {
         $map     = self::MAP;
-        $data    = $this->getTestData();
         $cleaner = $this->app->make(ClientDataCleaner::class);
 
-        if ($data->file($map)->isFile()) {
-            $cleaner = $cleaner->setDefaultMap($data->json($map));
+        if ($root->file($map)->isFile()) {
+            $cleaner = $cleaner->setDefaultMap($root->json($map));
         }
 
-        $this->app->bind(Client::class, function () use ($path, $context, $cleaner): Client {
+        $this->app->bind(Client::class, function () use ($root, $context, $cleaner): Client {
             return $this->app->make(DataClient::class)
                 ->setContext($context)
                 ->setCleaner($cleaner)
                 ->setLimit(static::LIMIT)
-                ->setData(static::class)
-                ->setPath($path);
+                ->setData($root);
         });
 
         try {
-            return $closure($path)
-                && $this->saveMap($data->path($map), $cleaner->getMap());
+            return $closure($root)
+                && $this->saveMap($root->path($map), $cleaner->getMap());
         } finally {
             unset($this->app[Client::class]);
         }

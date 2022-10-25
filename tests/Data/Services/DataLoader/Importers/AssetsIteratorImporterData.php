@@ -7,6 +7,7 @@ use App\Services\DataLoader\Processors\Importer\Importers\Assets\IteratorImporte
 use App\Services\DataLoader\Testing\Data\AssetsData;
 use App\Services\DataLoader\Testing\Data\Context;
 use App\Utils\Iterators\Contracts\ObjectIterator;
+use LastDragon_ru\LaraASP\Testing\Utils\TestData;
 
 class AssetsIteratorImporterData extends AssetsData {
     public const ASSETS = [
@@ -23,7 +24,7 @@ class AssetsIteratorImporterData extends AssetsData {
         '00000000-0000-0000-0000-000000000000',
     ];
 
-    protected function generateData(string $path, Context $context): bool {
+    protected function generateData(TestData $root, Context $context): bool {
         return $this->app->make(IteratorImporter::class)
             ->setIterator(static::getIterator())
             ->setChunkSize(static::CHUNK)
@@ -31,8 +32,8 @@ class AssetsIteratorImporterData extends AssetsData {
             ->start();
     }
 
-    public function restore(string $path, Context $context): bool {
-        $result = parent::restore($path, $context);
+    public function restore(TestData $root, Context $context): bool {
+        $result = parent::restore($root, $context);
 
         Asset::factory()->create([
             'id'          => '00000000-0000-0000-0000-000000000000',

@@ -7,6 +7,7 @@ use App\Services\DataLoader\Processors\Importer\Importers\Documents\IteratorImpo
 use App\Services\DataLoader\Testing\Data\Context;
 use App\Services\DataLoader\Testing\Data\DocumentsData;
 use App\Utils\Iterators\Contracts\ObjectIterator;
+use LastDragon_ru\LaraASP\Testing\Utils\TestData;
 
 class DocumentsIteratorImporterData extends DocumentsData {
     public const DOCUMENTS = [
@@ -23,7 +24,7 @@ class DocumentsIteratorImporterData extends DocumentsData {
         '00000000-0000-0000-0000-000000000000',
     ];
 
-    protected function generateData(string $path, Context $context): bool {
+    protected function generateData(TestData $root, Context $context): bool {
         return $this->app->make(IteratorImporter::class)
             ->setIterator(static::getIterator())
             ->setChunkSize(static::CHUNK)
@@ -31,8 +32,8 @@ class DocumentsIteratorImporterData extends DocumentsData {
             ->start();
     }
 
-    public function restore(string $path, Context $context): bool {
-        $result = parent::restore($path, $context);
+    public function restore(TestData $root, Context $context): bool {
+        $result = parent::restore($root, $context);
 
         Document::factory()->create([
             'id'          => '00000000-0000-0000-0000-000000000000',

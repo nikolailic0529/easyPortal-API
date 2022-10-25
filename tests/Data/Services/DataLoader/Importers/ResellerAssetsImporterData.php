@@ -5,12 +5,13 @@ namespace Tests\Data\Services\DataLoader\Importers;
 use App\Services\DataLoader\Processors\Importer\Importers\Resellers\AssetsImporter;
 use App\Services\DataLoader\Testing\Data\AssetsData;
 use App\Services\DataLoader\Testing\Data\Context;
+use LastDragon_ru\LaraASP\Testing\Utils\TestData;
 
 class ResellerAssetsImporterData extends AssetsData {
     public const RESELLER  = '27faa47d-ab2a-4755-b36b-729114c056d2';
     public const DOCUMENTS = true;
 
-    protected function generateData(string $path, Context $context): bool {
+    protected function generateData(TestData $root, Context $context): bool {
         return $this->app->make(AssetsImporter::class)
             ->setObjectId(static::RESELLER)
             ->setChunkSize(static::CHUNK)

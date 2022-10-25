@@ -2,6 +2,8 @@
 
 namespace App\Services\DataLoader\Testing\Data;
 
+use LastDragon_ru\LaraASP\Testing\Utils\TestData;
+
 abstract class AssetsData extends Data {
     /**
      * @inheritdoc
@@ -16,5 +18,5 @@ abstract class AssetsData extends Data {
         ];
     }
 
-    abstract protected function generateData(string $path, Context $context): bool;
+    abstract protected function generateData(TestData $root, Context $context): bool;
 }

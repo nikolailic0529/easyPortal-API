@@ -4,7 +4,7 @@ namespace App\Services\DataLoader\Testing\Concerns;
 
 use App\Services\DataLoader\Testing\Exceptions\ClientException;
 use Exception;
-use LastDragon_ru\LaraASP\Testing\Utils\WithTestData;
+use LastDragon_ru\LaraASP\Testing\Utils\TestData;
 
 use function implode;
 use function json_encode;
@@ -13,16 +13,25 @@ use function sha1;
 use const JSON_THROW_ON_ERROR;
 
 trait WithDump {
-    use WithTestData;
-    use WithData;
+    private ?TestData $data = null;
+
+    public function getData(): ?TestData {
+        return $this->data;
+    }
+
+    public function setData(?TestData $data): static {
+        $this->data = $data;
+
+        return $this;
+    }
 
     /**
      * @param array<string, mixed> $variables
      */
     protected function hasDump(string $selector, string $graphql, array $variables): bool {
         $path  = $this->getDumpPath($selector, $graphql, $variables);
-        $data  = $this->getTestData($this->getData());
-        $exist = $data->file($path)->isFile();
+        $data  = $this->getData();
+        $exist = $data && $data->file($path)->isFile();
 
         return $exist;
     }
@@ -31,8 +40,15 @@ trait WithDump {
      * @param array<string, mixed> $variables
      */
     protected function getDump(string $selector, string $graphql, array $variables): mixed {
+        // Data?
+        $data = $this->getData();
+
+        if ($data === null) {
+            return null;
+        }
+
+        // Load
         $path = $this->getDumpPath($selector, $graphql, $variables);
-        $data = $this->getTestData($this->getData());
         $json = null;
 
         try {
