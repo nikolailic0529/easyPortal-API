@@ -70,6 +70,7 @@ class AssetFactory extends Factory {
             'contacts_count'            => 0,
             'coverages_count'           => 0,
             'data_quality'              => null,
+            'eosl'                      => null,
             'contacts_active_quantity'  => null,
             'changed_at'                => null,
             'synced_at'                 => Date::now(),
