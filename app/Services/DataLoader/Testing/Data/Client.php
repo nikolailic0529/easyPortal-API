@@ -5,28 +5,16 @@ namespace App\Services\DataLoader\Testing\Data;
 use App\Services\DataLoader\Client\Client as BaseClient;
 use App\Services\DataLoader\Testing\Concerns\WithDump;
 use App\Services\DataLoader\Testing\Concerns\WithLimit;
-use SplFileInfo;
 
 class Client extends BaseClient {
     use WithLimit;
     use WithDump;
 
-    private ?string            $path    = null;
     private ?Context           $context = null;
     private ?ClientDataCleaner $cleaner = null;
 
     // <editor-fold desc="Getters & Setters">
     // =========================================================================
-    public function getPath(): ?string {
-        return $this->path;
-    }
-
-    public function setPath(?string $path): static {
-        $this->path = $path;
-
-        return $this;
-    }
-
     public function getContext(): ?Context {
         return $this->context;
     }
@@ -96,11 +84,11 @@ class Client extends BaseClient {
         }
 
         // Save
-        $base = $this->getPath();
+        $data = $this->getData();
 
-        if ($base) {
+        if ($data) {
             $path = $this->getDumpPath($selector, $graphql, $variables);
-            $file = new ClientDumpFile(new SplFileInfo("{$base}/{$path}"));
+            $file = new ClientDumpFile($data->file($path));
 
             $file->setDump($dump);
             $file->save();
