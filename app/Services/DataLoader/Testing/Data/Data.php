@@ -19,9 +19,9 @@ use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Foundation\Application;
 use LastDragon_ru\LaraASP\Testing\Utils\WithTestData;
 use Symfony\Component\Filesystem\Filesystem;
+use Symfony\Component\Finder\Finder;
 
 use function array_combine;
-use function is_string;
 use function json_encode;
 use function ksort;
 use function mb_stripos;
@@ -50,11 +50,13 @@ abstract class Data {
         // empty
     }
 
-    /**
-     * @return bool|array<string,mixed>
-     */
-    public function generate(string $path): array|bool {
-        $result   = false;
+    public function generate(string $path): ?Context {
+        // Context
+        $context = new Context([
+            Context::FILES => [Data::MAP],
+        ]);
+
+        // Generate
         $bindings = $this->generateBindings();
 
         try {
@@ -66,18 +68,43 @@ abstract class Data {
                 }
             }
 
-            $result = $this->generateData($path);
+            $result = $this->dumpClientResponses($path, $context, function () use ($path, $context): bool {
+                return $this->generateData($path, $context);
+            });
+
+            if (!$result) {
+                return null;
+            }
         } finally {
             foreach ($bindings as $abstract => $concrete) {
                 unset($this->app[$abstract]);
             }
         }
 
-        if ($result) {
-            $result = $this->generateContext($path);
+        // Add Context
+        $supported   = $this->getSupporterContext();
+        $dumpContext = $this->app->make(ClientDumpContext::class)->get($path);
+
+        foreach ($supported as $type) {
+            $context[$type] = $dumpContext[$type] ?? [];
         }
 
-        return $result;
+        // Cleanup
+        $fs     = new Filesystem();
+        $finder = (new Finder())->in($path)->files();
+
+        foreach ($context[Context::FILES] as $file) {
+            $finder = $finder->notPath($file);
+        }
+
+        foreach ($context[Context::OEMS] as $oem) {
+            $finder = $finder->notPath($oem);
+        }
+
+        $fs->remove($finder);
+
+        // Return
+        return $context;
     }
 
     /**
@@ -88,94 +115,95 @@ abstract class Data {
     }
 
     /**
-     * @return array<mixed>
+     * @return array<string>
      */
-    protected function generateContext(string $path): array {
+    protected function getSupporterContext(): array {
         return [];
     }
 
-    abstract protected function generateData(string $path): bool;
+    abstract protected function generateData(string $path, Context $context): bool;
 
-    /**
-     * @param array<string,mixed> $context
-     */
-    public function restore(string $path, array $context): bool {
-        $result   = true;
+    public function restore(string $path, Context $context): bool {
+        // Oems
+        foreach ($context[Context::OEMS] as $oem) {
+            $result = $this->kernel->call('ep:data-loader-oems-import', [
+                'file' => "{$path}/{$oem}",
+            ]);
+
+            if ($result !== Command::SUCCESS) {
+                return false;
+            }
+        }
+
+        // Distributors
+        foreach ($context[Context::DISTRIBUTORS] as $distributor) {
+            $result = $this->kernel->call('ep:data-loader-distributor-sync', [
+                'id' => $distributor,
+            ]);
+
+            if ($result !== Command::SUCCESS) {
+                return false;
+            }
+        }
+
+        // Resellers
+        foreach ($context[Context::RESELLERS] as $reseller) {
+            $result = $this->kernel->call('ep:data-loader-reseller-sync', [
+                'id' => $reseller,
+            ]);
+
+            if ($result !== Command::SUCCESS) {
+                return false;
+            }
+        }
+
+        // Customers
+        foreach ($context[Context::CUSTOMERS] as $customer) {
+            $result = $this->kernel->call('ep:data-loader-customer-sync', [
+                'id' => $customer,
+            ]);
+
+            if ($result !== Command::SUCCESS) {
+                return false;
+            }
+        }
+
+        // Assets
+        foreach ($context[Context::ASSETS] as $asset) {
+            $result = $this->kernel->call('ep:data-loader-asset-sync', [
+                'id' => $asset,
+            ]);
+
+            if ($result !== Command::SUCCESS) {
+                return false;
+            }
+        }
+
+        // Types
         $settings = [];
+        $owner    = (new DocumentModel())->getMorphClass();
 
-        if ($context[ClientDumpContext::OEMS] ?? null) {
-            $result = $result
-                && $this->kernel->call('ep:data-loader-oems-import', [
-                    'file' => "{$path}/{$context[ClientDumpContext::OEMS]}",
-                ]) === Command::SUCCESS;
-        }
+        foreach ($context[Context::TYPES] as $key) {
+            // Create
+            $key  = $this->normalizer->string($key);
+            $type = TypeModel::query()->where('object_type', '=', $owner)->where('key', '=', $key)->first();
 
-        if ($context[ClientDumpContext::DISTRIBUTORS] ?? null) {
-            foreach ((array) $context[ClientDumpContext::DISTRIBUTORS] as $distributor) {
-                $result = $result
-                    && $this->kernel->call('ep:data-loader-distributor-sync', [
-                        'id' => $distributor,
-                    ]) === Command::SUCCESS;
+            if (!$type) {
+                $type              = new TypeModel();
+                $type->object_type = $owner;
+                $type->key         = $key;
+                $type->name        = $key;
+
+                $type->save();
             }
-        }
 
-        if ($context[ClientDumpContext::RESELLERS] ?? null) {
-            foreach ((array) $context[ClientDumpContext::RESELLERS] as $reseller) {
-                $result = $result
-                    && $this->kernel->call('ep:data-loader-reseller-sync', [
-                        'id' => $reseller,
-                    ]) === Command::SUCCESS;
-            }
-        }
-
-        if ($context[ClientDumpContext::CUSTOMERS] ?? null) {
-            foreach ((array) $context[ClientDumpContext::CUSTOMERS] as $customer) {
-                $result = $result
-                    && $this->kernel->call('ep:data-loader-customer-sync', [
-                        'id' => $customer,
-                    ]) === Command::SUCCESS;
-            }
-        }
-
-        if ($context[ClientDumpContext::ASSETS] ?? null) {
-            foreach ((array) $context[ClientDumpContext::ASSETS] as $asset) {
-                $result = $result
-                    && $this->kernel->call('ep:data-loader-asset-sync', [
-                        'id' => $asset,
-                    ]) === Command::SUCCESS;
-            }
-        }
-
-        if ($context[ClientDumpContext::TYPES] ?? null) {
-            $owner = (new DocumentModel())->getMorphClass();
-
-            foreach ((array) $context[ClientDumpContext::TYPES] as $key) {
-                // Valid?
-                if (!is_string($key)) {
-                    continue;
-                }
-
-                // Create
-                $key  = $this->normalizer->string($key);
-                $type = TypeModel::query()->where('object_type', '=', $owner)->where('key', '=', $key)->first();
-
-                if (!$type) {
-                    $type              = new TypeModel();
-                    $type->object_type = $owner;
-                    $type->key         = $key;
-                    $type->name        = $key;
-
-                    $type->save();
-                }
-
-                // Collect settings
-                if (mb_stripos($key, 'contract') !== false) {
-                    $settings['ep.contract_types'][] = $type->getKey();
-                } elseif (mb_stripos($key, 'quote') !== false) {
-                    $settings['ep.quote_types'][] = $type->getKey();
-                } else {
-                    // empty
-                }
+            // Collect settings
+            if (mb_stripos($key, 'contract') !== false) {
+                $settings['ep.contract_types'][] = $type->getKey();
+            } elseif (mb_stripos($key, 'quote') !== false) {
+                $settings['ep.quote_types'][] = $type->getKey();
+            } else {
+                // empty
             }
         }
 
@@ -185,13 +213,13 @@ abstract class Data {
         }
 
         // Return
-        return $result;
+        return true;
     }
 
     /**
      * @param Closure(string): bool $closure
      */
-    protected function dumpClientResponses(string $path, Closure $closure): bool {
+    private function dumpClientResponses(string $path, Context $context, Closure $closure): bool {
         $map     = self::MAP;
         $data    = $this->getTestData();
         $cleaner = $this->app->make(ClientDataCleaner::class);
@@ -200,8 +228,9 @@ abstract class Data {
             $cleaner = $cleaner->setDefaultMap($data->json($map));
         }
 
-        $this->app->bind(Client::class, function () use ($path, $cleaner): Client {
+        $this->app->bind(Client::class, function () use ($path, $context, $cleaner): Client {
             return $this->app->make(DataClient::class)
+                ->setContext($context)
                 ->setCleaner($cleaner)
                 ->setLimit(static::LIMIT)
                 ->setData(static::class)

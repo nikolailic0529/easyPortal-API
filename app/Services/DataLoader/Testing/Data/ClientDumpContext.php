@@ -11,25 +11,16 @@ use App\Services\DataLoader\Schema\ViewAssetDocument;
 use App\Services\DataLoader\Schema\ViewDocument;
 use Faker\Generator;
 
-use function array_fill_keys;
 use function array_filter;
 use function array_unique;
 use function array_values;
 use function fclose;
 use function fopen;
 use function fputcsv;
-use function is_array;
 
 use const SORT_REGULAR;
 
 class ClientDumpContext {
-    public const DISTRIBUTORS = 'distributors';
-    public const RESELLERS    = 'resellers';
-    public const CUSTOMERS    = 'customers';
-    public const ASSETS       = 'assets';
-    public const TYPES        = 'types';
-    public const OEMS         = 'oems';
-
     public function __construct(
         protected Generator $faker,
         protected Normalizer $normalizer,
@@ -38,11 +29,9 @@ class ClientDumpContext {
     }
 
     /**
-     * @param array<string> $data
-     *
-     * @return array<mixed>
+     * @return array<string, array<string>>
      */
-    public function get(string $path, array $data = null): array {
+    public function get(string $path): array {
         // Extract
         $distributors = [];
         $resellers    = [];
@@ -70,9 +59,9 @@ class ClientDumpContext {
                 $customers[] = $object->customer->id ?? null;
                 $types[]     = $object->document->type ?? null;
                 $oems[]      = [
-                        $object->document->vendorSpecificFields->vendor ?? $oem ?? null,
-                        $object->serviceGroupSku ?? null,
-                        $object->serviceLevelSku ?? null,
+                    $object->document->vendorSpecificFields->vendor ?? $oem ?? null,
+                    $object->serviceGroupSku ?? null,
+                    $object->serviceLevelSku ?? null,
                 ];
             } elseif ($object instanceof ViewDocument) {
                 $distributors[] = $object->distributorId ?? null;
@@ -104,34 +93,25 @@ class ClientDumpContext {
         }
 
         // Cleanup
-        $data    = array_fill_keys((array) $data, true);
         $context = [
-            static::DISTRIBUTORS => static fn() => $distributors,
-            static::RESELLERS    => static fn() => $resellers,
-            static::CUSTOMERS    => static fn() => $customers,
-            static::ASSETS       => static fn() => $assets,
-            static::TYPES        => static fn() => $types,
-            static::OEMS         => fn() => $this->getOemsCsv($oems, $path),
+            Context::DISTRIBUTORS => $distributors,
+            Context::RESELLERS    => $resellers,
+            Context::CUSTOMERS    => $customers,
+            Context::ASSETS       => $assets,
+            Context::TYPES        => $types,
+            Context::OEMS         => [
+                $this->getOemsCsv($oems, $path),
+            ],
         ];
 
         foreach ($context as $key => $value) {
-            if ($data && !isset($data[$key])) {
-                unset($context[$key]);
-
-                continue;
-            }
-
-            $value = $value();
-
-            if (is_array($value)) {
-                $value = array_values(array_filter(array_unique($value, SORT_REGULAR)));
-            }
-
-            $context[$key] = $value;
+            $context[$key] = array_values(array_filter(array_unique($value, SORT_REGULAR)));
         }
 
+        $context = array_filter($context);
+
         // Return
-        return array_filter($context);
+        return $context;
     }
 
     /**

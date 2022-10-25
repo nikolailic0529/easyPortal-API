@@ -590,7 +590,6 @@ class Client {
      */
     public function call(string $selector, string $graphql, array $variables = [], array $files = []): mixed {
         $json   = $this->callExecute($selector, $graphql, $variables, $files);
-        $json   = $this->callDump($selector, $graphql, $variables, $json);
         $errors = Arr::get($json, 'errors', Arr::get($json, 'error.errors'));
         $result = Arr::get($json, $selector);
 
@@ -726,13 +725,6 @@ class Client {
         }
 
         return $data;
-    }
-
-    /**
-     * @param array<string, mixed> $variables
-     */
-    protected function callDump(string $selector, string $graphql, array $variables, mixed $json): mixed {
-        return $json;
     }
 
     protected function datetime(?DateTimeInterface $datetime): ?string {

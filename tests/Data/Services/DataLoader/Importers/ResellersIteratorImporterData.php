@@ -4,7 +4,7 @@ namespace Tests\Data\Services\DataLoader\Importers;
 
 use App\Models\Reseller;
 use App\Services\DataLoader\Processors\Importer\Importers\Resellers\IteratorImporter;
-use App\Services\DataLoader\Testing\Data\ClientDumpContext;
+use App\Services\DataLoader\Testing\Data\Context;
 use App\Services\DataLoader\Testing\Data\Data;
 use App\Utils\Iterators\Contracts\ObjectIterator;
 
@@ -23,31 +23,24 @@ class ResellersIteratorImporterData extends Data {
         '00000000-0000-0000-0000-000000000000',
     ];
 
-    protected function generateData(string $path): bool {
-        return $this->dumpClientResponses($path, function (): bool {
-            $this->app->make(IteratorImporter::class)
-                ->setIterator(static::getIterator())
-                ->setChunkSize(static::CHUNK)
-                ->setLimit(static::LIMIT)
-                ->start();
-
-            return true;
-        });
+    protected function generateData(string $path, Context $context): bool {
+        return $this->app->make(IteratorImporter::class)
+            ->setIterator(static::getIterator())
+            ->setChunkSize(static::CHUNK)
+            ->setLimit(static::LIMIT)
+            ->start();
     }
 
     /**
-     * @inheritDoc
+     * @inheritdoc
      */
-    protected function generateContext(string $path): array {
-        return $this->app->make(ClientDumpContext::class)->get($path, [
-            ClientDumpContext::RESELLERS,
-        ]);
+    protected function getSupporterContext(): array {
+        return [
+            Context::RESELLERS,
+        ];
     }
 
-    /**
-     * @inheritDoc
-     */
-    public function restore(string $path, array $context): bool {
+    public function restore(string $path, Context $context): bool {
         $result = parent::restore($path, $context);
 
         Reseller::factory()->create([

@@ -4101,6 +4101,11 @@ parameters:
 			path: app/Services/DataLoader/Schema/ViewDocumentTest.php
 
 		-
+			message: "#^Cannot access offset 'response' on array\\|bool\\|float\\|int\\|string\\|null\\.$#"
+			count: 1
+			path: app/Services/DataLoader/Testing/Data/Client.php
+
+		-
 			message: "#^Method App\\\\Services\\\\DataLoader\\\\Testing\\\\Data\\\\ClientDataCleaner\\:\\:map\\(\\) should return V but returns string\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Testing/Data/ClientDataCleaner.php
@@ -4116,17 +4121,17 @@ parameters:
 			path: app/Services/DataLoader/Testing/Data/ClientDump.php
 
 		-
-			message: "#^Call to function is_array\\(\\) with array\\<int, string\\|null\\> will always evaluate to true\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Testing/Data/ClientDumpContext.php
-
-		-
 			message: "#^Expression on left side of \\?\\? is not nullable\\.$#"
 			count: 2
 			path: app/Services/DataLoader/Testing/Data/ClientDumpContext.php
 
 		-
 			message: "#^Left side of && is always true\\.$#"
+			count: 1
+			path: app/Services/DataLoader/Testing/Data/ClientDumpContext.php
+
+		-
+			message: "#^Method App\\\\Services\\\\DataLoader\\\\Testing\\\\Data\\\\ClientDumpContext\\:\\:get\\(\\) should return array\\<string, array\\<string\\>\\> but returns array\\<string, array\\<int, string\\|null\\>\\>\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Testing/Data/ClientDumpContext.php
 
@@ -4146,11 +4151,6 @@ parameters:
 			path: app/Services/DataLoader/Testing/Data/ClientDumpContext.php
 
 		-
-			message: "#^Trying to invoke array\\<int, non\\-falsy\\-string\\>\\|\\(Closure\\(\\)\\: array\\<int, string\\|null\\>\\)\\|\\(Closure\\(\\)\\: string\\|null\\) but it might not be a callable\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Testing/Data/ClientDumpContext.php
-
-		-
 			message: "#^Parameter \\#1 \\$json of class App\\\\Services\\\\DataLoader\\\\Testing\\\\Data\\\\ClientDump constructor expects array\\<string, mixed\\>, mixed given\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Testing/Data/ClientDumpFile.php
@@ -4161,19 +4161,24 @@ parameters:
 			path: app/Services/DataLoader/Testing/Data/ClientDumpFile.php
 
 		-
-			message: "#^Left side of && is always true\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Testing/Data/Data.php
-
-		-
 			message: "#^Parameter \\#1 \\$map of method App\\\\Services\\\\DataLoader\\\\Testing\\\\Data\\\\ClientDataCleaner\\:\\:setDefaultMap\\(\\) expects array\\<string, string\\>, array\\|bool\\|float\\|int\\|string\\|null given\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Testing/Data/Data.php
 
 		-
-			message: "#^Part \\$context\\[\\\\App\\\\Services\\\\DataLoader\\\\Testing\\\\Data\\\\ClientDumpContext\\:\\:OEMS\\] \\(mixed\\) of encapsed string cannot be cast to string\\.$#"
+			message: "#^Call to function assert\\(\\) with false will always evaluate to false\\.$#"
+			count: 2
+			path: app/Services/DataLoader/Testing/Data/DataGenerator.php
+
+		-
+			message: "#^Instanceof between \\*NEVER\\* and App\\\\Services\\\\DataLoader\\\\Testing\\\\Data\\\\Data will always evaluate to false\\.$#"
+			count: 2
+			path: app/Services/DataLoader/Testing/Data/DataGenerator.php
+
+		-
+			message: "#^Parameter \\#1 \\$context of class App\\\\Services\\\\DataLoader\\\\Testing\\\\Data\\\\Context constructor expects array\\<string, array\\<string\\>\\>, array\\|bool\\|float\\|int\\|string\\|null given\\.$#"
 			count: 1
-			path: app/Services/DataLoader/Testing/Data/Data.php
+			path: app/Services/DataLoader/Testing/Data/DataGenerator.php
 
 		-
 			message: "#^Cannot access offset 'response' on array\\|bool\\|float\\|int\\|string\\|null\\.$#"

@@ -4,6 +4,7 @@ namespace Tests\Data\Services\DataLoader\Importers;
 
 use App\Models\Document;
 use App\Services\DataLoader\Processors\Importer\Importers\Documents\IteratorImporter;
+use App\Services\DataLoader\Testing\Data\Context;
 use App\Services\DataLoader\Testing\Data\DocumentsData;
 use App\Utils\Iterators\Contracts\ObjectIterator;
 
@@ -22,22 +23,15 @@ class DocumentsIteratorImporterData extends DocumentsData {
         '00000000-0000-0000-0000-000000000000',
     ];
 
-    protected function generateData(string $path): bool {
-        return $this->dumpClientResponses($path, function (): bool {
-            $this->app->make(IteratorImporter::class)
-                ->setIterator(static::getIterator())
-                ->setChunkSize(static::CHUNK)
-                ->setLimit(static::LIMIT)
-                ->start();
-
-            return true;
-        });
+    protected function generateData(string $path, Context $context): bool {
+        return $this->app->make(IteratorImporter::class)
+            ->setIterator(static::getIterator())
+            ->setChunkSize(static::CHUNK)
+            ->setLimit(static::LIMIT)
+            ->start();
     }
 
-    /**
-     * @inheritDoc
-     */
-    public function restore(string $path, array $context): bool {
+    public function restore(string $path, Context $context): bool {
         $result = parent::restore($path, $context);
 
         Document::factory()->create([
