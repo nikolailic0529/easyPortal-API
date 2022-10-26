@@ -1121,11 +1121,11 @@ class DocumentFactoryTest extends TestCase {
         self::assertCount(0, $changed->statuses);
         self::assertCount(0, $changed->refresh()->statuses);
 
-        /** @var DocumentEntryModel|null $e */
         $e = $changed->entries->first(static function (DocumentEntryModel $entry): bool {
             return is_null($entry->renewal);
         });
 
+        self::assertCount(2, $changed->entries);
         self::assertNotNull($e);
         self::assertNull($e->list_price);
         self::assertNull($e->renewal);
