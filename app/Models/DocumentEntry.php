@@ -34,6 +34,7 @@ use function sprintf;
  * Document Entry.
  *
  * @property string               $id
+ * @property string|null          $uid
  * @property string               $document_id
  * @property string|null          $asset_id
  * @property string|null          $asset_type_id
@@ -60,6 +61,7 @@ use function sprintf;
  * @property string|null          $environment_id
  * @property string|null          $equipment_number
  * @property string|null          $language_id
+ * @property CarbonImmutable|null $removed_at
  * @property CarbonImmutable      $created_at
  * @property CarbonImmutable      $updated_at
  * @property CarbonImmutable|null $deleted_at
@@ -100,6 +102,7 @@ class DocumentEntry extends Model {
         'renewal_origin'              => Origin::class,
         'start'                       => 'date',
         'end'                         => 'date',
+        'removed_at'                  => 'datetime',
     ] + parent::CASTS;
 
     /**
