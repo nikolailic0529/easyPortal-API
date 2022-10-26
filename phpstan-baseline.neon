@@ -4121,7 +4121,7 @@ parameters:
 			path: app/Services/DataLoader/Testing/Data/ClientDump.php
 
 		-
-			message: "#^Method App\\\\Services\\\\DataLoader\\\\Testing\\\\Data\\\\ClientDumpContext\\:\\:get\\(\\) should return array\\<string, array\\<string\\>\\> but returns array\\<string, array\\<int, string\\|null\\>\\>\\.$#"
+			message: "#^Method App\\\\Services\\\\DataLoader\\\\Testing\\\\Data\\\\ClientDumpContext\\:\\:get\\(\\) should return array\\<string, array\\<string\\>\\> but returns array\\<string, array\\>\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Testing/Data/ClientDumpContext.php
 

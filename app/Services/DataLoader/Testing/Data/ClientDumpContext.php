@@ -2,12 +2,17 @@
 
 namespace App\Services\DataLoader\Testing\Data;
 
+use App\Models\Asset;
+use App\Models\Customer;
+use App\Models\Distributor;
+use App\Models\Reseller;
 use App\Services\DataLoader\Normalizer\Normalizer;
 use App\Services\DataLoader\Schema\CompanyKpis;
 use App\Services\DataLoader\Schema\Document;
 use App\Services\DataLoader\Schema\ViewAsset;
 use App\Services\DataLoader\Schema\ViewAssetDocument;
 use App\Services\DataLoader\Schema\ViewDocument;
+use App\Utils\Eloquent\GlobalScopes\GlobalScopes;
 use Faker\Generator;
 
 use function array_filter;
@@ -64,7 +69,14 @@ class ClientDumpContext {
         }
 
         // Cleanup
-        $context = [
+        $context   = [];
+        $models    = [
+            Context::DISTRIBUTORS => Distributor::class,
+            Context::RESELLERS    => Reseller::class,
+            Context::CUSTOMERS    => Customer::class,
+            Context::ASSETS       => Asset::class,
+        ];
+        $collected = [
             Context::DISTRIBUTORS => $distributors,
             Context::RESELLERS    => $resellers,
             Context::CUSTOMERS    => $customers,
@@ -72,11 +84,24 @@ class ClientDumpContext {
             Context::TYPES        => $types,
         ];
 
-        foreach ($context as $key => $value) {
-            $context[$key] = array_values(array_filter(array_unique($value, SORT_REGULAR)));
-        }
+        foreach ($collected as $key => $value) {
+            $keys = array_values(array_filter(array_unique($value, SORT_REGULAR)));
 
-        $context = array_filter($context);
+            if (isset($models[$key])) {
+                $model = new $models[$key]();
+                $keys  = GlobalScopes::callWithoutAll(static function () use ($model, $keys): array {
+                    return $model::query()
+                        ->whereIn($model->getKeyName(), $keys)
+                        ->withTrashed()
+                        ->pluck($model->getKeyName())
+                        ->all();
+                });
+            }
+
+            if ($keys) {
+                $context[$key] = $keys;
+            }
+        }
 
         // Return
         return $context;
