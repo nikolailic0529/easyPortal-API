@@ -1,0 +1,397 @@
+{
+    "selector": "data.getAssets",
+    "query": "query getAssets($id: String!) {\n    getAssets(args: [{key: \"id\", value: $id}]) {\n        id\nserialNumber\n\nassetSku\nassetSkuDescription\nassetTag\nassetType\nstatus\nvendor\n\neolDate\neosDate\neoslDate\n\ncountry\ncountryCode\nlatitude\nlongitude\nzip\ncity\naddress\naddress2\n\ncustomerId\nresellerId\n\nupdatedAt\n\nlatestContactPersons {\n    phoneNumber\n    name\n    type\n    mail\n}\n\nassetCoverage\ncoverageStatusCheck {\n    coverageStatus\n    coverageStatusUpdatedAt\n    coverageEntries {\n        coverageStartDate\n        coverageEndDate\n        type\n        description\n        status\n        serviceSku\n    }\n}\n\ndataQualityScore\nactiveContractQuantitySum\n        assetDocument {\n    startDate\n    endDate\n    documentNumber\n\n    document {\n        id\n        type\n        documentNumber\n\n        startDate\n        endDate\n\n        currencyCode\n        languageCode\n\n        updatedAt\n\n        vendorSpecificFields {\n            vendor\n            groupId\n            groupDescription\n            said\n            ampId\n            sar\n        }\n\n        contactPersons {\n            phoneNumber\n            name\n            type\n            mail\n        }\n\n        customerId\n        resellerId\n        distributorId\n    }\n\n    serviceGroupSku\n    serviceGroupSkuDescription\n    serviceLevelSku\n    serviceLevelSkuDescription\n    serviceFullDescription\n\n    customer {\n      id\n    }\n\n    reseller {\n      id\n    }\n}\n    }\n}",
+    "variables": {
+        "id": "c8c777f3-1736-4358-8665-5e5a879e145c"
+    },
+    "response": {
+        "data": {
+            "getAssets": [
+                {
+                    "id": "c8c777f3-1736-4358-8665-5e5a879e145c",
+                    "resellerId": "594184e7-24d4-4614-8db4-fe132adb86f4",
+                    "customerId": "99a3cd0d-ea2a-4803-95f4-5757f3580fed",
+                    "serialNumber": "8b278de5-58dc-31a2-91ad-5009fc103646",
+                    "assetSkuDescription": "HPE DL380 Gen9 24SFF CTO Server",
+                    "assetTag": null,
+                    "assetType": null,
+                    "vendor": "HPE",
+                    "assetSku": "767032-B21",
+                    "eolDate": null,
+                    "eosDate": null,
+                    "eoslDate": null,
+                    "zip": "08765",
+                    "city": "Buddyburgh",
+                    "address": "322 Gorczany Locks",
+                    "address2": null,
+                    "country": "Nicaragua",
+                    "latitude": "29.736125",
+                    "longitude": "-35.886469",
+                    "countryCode": "JO",
+                    "status": "ACTIVE",
+                    "updatedAt": "1664813300502",
+                    "assetCoverage": [
+                        "COVERED"
+                    ],
+                    "dataQualityScore": "80",
+                    "activeContractQuantitySum": 0,
+                    "assetDocument": [
+                        {
+                            "serviceGroupSku": null,
+                            "serviceGroupSkuDescription": null,
+                            "serviceLevelSku": "HU4A1AC",
+                            "serviceLevelSkuDescription": "HPE Remote Tech Support",
+                            "serviceFullDescription": null,
+                            "documentNumber": "2a0f28da-f2bf-3134-ad24-ecc23188b7a8",
+                            "document": {
+                                "id": "0057594a-40eb-4e60-99f0-a16e64f42df2",
+                                "type": "Quote New Business",
+                                "documentNumber": "2a0f28da-f2bf-3134-ad24-ecc23188b7a8",
+                                "startDate": "2022-05-01",
+                                "endDate": "2022-10-31",
+                                "currencyCode": "EUR",
+                                "languageCode": null,
+                                "updatedAt": "1655856020843",
+                                "vendorSpecificFields": {
+                                    "vendor": "HPE",
+                                    "sar": null,
+                                    "ampId": null,
+                                    "said": null,
+                                    "groupId": null,
+                                    "groupDescription": null
+                                },
+                                "contactPersons": [
+                                    {
+                                        "phoneNumber": "+18705674626",
+                                        "name": "Prof. Vickie Douglas PhD",
+                                        "mail": "kaia19@altenwerth.com",
+                                        "type": "Customer Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+12059334069",
+                                        "name": "Alena Fisher",
+                                        "mail": "gaylord.muriel@price.org",
+                                        "type": "Renewal Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+17074470594",
+                                        "name": "Bryce Bednar",
+                                        "mail": "christa.vonrueden@stark.com",
+                                        "type": "EndUser Contact"
+                                    }
+                                ],
+                                "resellerId": "594184e7-24d4-4614-8db4-fe132adb86f4",
+                                "customerId": "99a3cd0d-ea2a-4803-95f4-5757f3580fed",
+                                "distributorId": "1af1c44e-8112-4e72-9654-b11c705e9372"
+                            },
+                            "startDate": null,
+                            "endDate": null,
+                            "reseller": {
+                                "id": "594184e7-24d4-4614-8db4-fe132adb86f4"
+                            },
+                            "customer": {
+                                "id": "99a3cd0d-ea2a-4803-95f4-5757f3580fed"
+                            }
+                        },
+                        {
+                            "serviceGroupSku": null,
+                            "serviceGroupSkuDescription": null,
+                            "serviceLevelSku": "HU4A2AC",
+                            "serviceLevelSkuDescription": "HPE Hardware Tech Support",
+                            "serviceFullDescription": null,
+                            "documentNumber": "04468cc9-9307-3f94-af19-11168902da79",
+                            "document": {
+                                "id": "e164fc90-4afa-4840-85b6-01c393674ebe",
+                                "type": "Contract",
+                                "documentNumber": "04468cc9-9307-3f94-af19-11168902da79",
+                                "startDate": "2022-05-01",
+                                "endDate": "2022-10-31",
+                                "currencyCode": "EUR",
+                                "languageCode": null,
+                                "updatedAt": "1655493076122",
+                                "vendorSpecificFields": {
+                                    "vendor": "HPE",
+                                    "sar": null,
+                                    "ampId": "83-B015802",
+                                    "said": "dc4b0699-df46-3746-8930-d78bb756b7ea",
+                                    "groupId": null,
+                                    "groupDescription": null
+                                },
+                                "contactPersons": [
+                                    {
+                                        "phoneNumber": null,
+                                        "name": null,
+                                        "mail": null,
+                                        "type": "EndUser Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+12059334069",
+                                        "name": "Alena Fisher",
+                                        "mail": "gaylord.muriel@price.org",
+                                        "type": "Distributor Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+18705674626",
+                                        "name": "Prof. Vickie Douglas PhD",
+                                        "mail": "kaia19@altenwerth.com",
+                                        "type": "Reseller Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+15203531908",
+                                        "name": "Layne Russel",
+                                        "mail": null,
+                                        "type": "Hardware System Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+15203531908",
+                                        "name": "Layne Russel",
+                                        "mail": null,
+                                        "type": "Software System Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+15203531908",
+                                        "name": "Layne Russel",
+                                        "mail": null,
+                                        "type": "System Manager Contact"
+                                    }
+                                ],
+                                "resellerId": "594184e7-24d4-4614-8db4-fe132adb86f4",
+                                "customerId": "99a3cd0d-ea2a-4803-95f4-5757f3580fed",
+                                "distributorId": "1af1c44e-8112-4e72-9654-b11c705e9372"
+                            },
+                            "startDate": null,
+                            "endDate": null,
+                            "reseller": {
+                                "id": "594184e7-24d4-4614-8db4-fe132adb86f4"
+                            },
+                            "customer": {
+                                "id": "99a3cd0d-ea2a-4803-95f4-5757f3580fed"
+                            }
+                        },
+                        {
+                            "serviceGroupSku": null,
+                            "serviceGroupSkuDescription": null,
+                            "serviceLevelSku": "HU4A2AC",
+                            "serviceLevelSkuDescription": "HPE Hardware Tech Support",
+                            "serviceFullDescription": null,
+                            "documentNumber": "71b505e3-f595-35b6-8638-2338e8307a38",
+                            "document": {
+                                "id": "910c97e1-7fc0-4a15-99f5-e1bd6dac30b6",
+                                "type": "Quote New Business",
+                                "documentNumber": "71b505e3-f595-35b6-8638-2338e8307a38",
+                                "startDate": "2022-11-01",
+                                "endDate": "2024-10-31",
+                                "currencyCode": "EUR",
+                                "languageCode": null,
+                                "updatedAt": "1656028897059",
+                                "vendorSpecificFields": {
+                                    "vendor": "HPE",
+                                    "sar": null,
+                                    "ampId": null,
+                                    "said": null,
+                                    "groupId": null,
+                                    "groupDescription": null
+                                },
+                                "contactPersons": [
+                                    {
+                                        "phoneNumber": "+18705674626",
+                                        "name": "Prof. Vickie Douglas PhD",
+                                        "mail": "kaia19@altenwerth.com",
+                                        "type": "Customer Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+12059334069",
+                                        "name": "Alena Fisher",
+                                        "mail": "gaylord.muriel@price.org",
+                                        "type": "Renewal Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+17074470594",
+                                        "name": "Bryce Bednar",
+                                        "mail": "christa.vonrueden@stark.com",
+                                        "type": "EndUser Contact"
+                                    }
+                                ],
+                                "resellerId": "594184e7-24d4-4614-8db4-fe132adb86f4",
+                                "customerId": "99a3cd0d-ea2a-4803-95f4-5757f3580fed",
+                                "distributorId": "1af1c44e-8112-4e72-9654-b11c705e9372"
+                            },
+                            "startDate": null,
+                            "endDate": null,
+                            "reseller": {
+                                "id": "594184e7-24d4-4614-8db4-fe132adb86f4"
+                            },
+                            "customer": {
+                                "id": "99a3cd0d-ea2a-4803-95f4-5757f3580fed"
+                            }
+                        },
+                        {
+                            "serviceGroupSku": null,
+                            "serviceGroupSkuDescription": null,
+                            "serviceLevelSku": "HU4A1AC",
+                            "serviceLevelSkuDescription": "HPE Remote Tech Support",
+                            "serviceFullDescription": null,
+                            "documentNumber": "71b505e3-f595-35b6-8638-2338e8307a38",
+                            "document": {
+                                "id": "910c97e1-7fc0-4a15-99f5-e1bd6dac30b6",
+                                "type": "Quote New Business",
+                                "documentNumber": "71b505e3-f595-35b6-8638-2338e8307a38",
+                                "startDate": "2022-11-01",
+                                "endDate": "2024-10-31",
+                                "currencyCode": "EUR",
+                                "languageCode": null,
+                                "updatedAt": "1656028897059",
+                                "vendorSpecificFields": {
+                                    "vendor": "HPE",
+                                    "sar": null,
+                                    "ampId": null,
+                                    "said": null,
+                                    "groupId": null,
+                                    "groupDescription": null
+                                },
+                                "contactPersons": [
+                                    {
+                                        "phoneNumber": "+18705674626",
+                                        "name": "Prof. Vickie Douglas PhD",
+                                        "mail": "kaia19@altenwerth.com",
+                                        "type": "Customer Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+12059334069",
+                                        "name": "Alena Fisher",
+                                        "mail": "gaylord.muriel@price.org",
+                                        "type": "Renewal Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+17074470594",
+                                        "name": "Bryce Bednar",
+                                        "mail": "christa.vonrueden@stark.com",
+                                        "type": "EndUser Contact"
+                                    }
+                                ],
+                                "resellerId": "594184e7-24d4-4614-8db4-fe132adb86f4",
+                                "customerId": "99a3cd0d-ea2a-4803-95f4-5757f3580fed",
+                                "distributorId": "1af1c44e-8112-4e72-9654-b11c705e9372"
+                            },
+                            "startDate": null,
+                            "endDate": null,
+                            "reseller": {
+                                "id": "594184e7-24d4-4614-8db4-fe132adb86f4"
+                            },
+                            "customer": {
+                                "id": "99a3cd0d-ea2a-4803-95f4-5757f3580fed"
+                            }
+                        },
+                        {
+                            "serviceGroupSku": null,
+                            "serviceGroupSkuDescription": null,
+                            "serviceLevelSku": "HU4A2AC",
+                            "serviceLevelSkuDescription": "HPE Hardware Tech Support",
+                            "serviceFullDescription": null,
+                            "documentNumber": "e6c38adb-f922-34a1-a608-59c35a892e3b",
+                            "document": {
+                                "id": "3b28b220-5a8b-418d-9b67-0c6af0a8a04c",
+                                "type": "Quote New Business",
+                                "documentNumber": "e6c38adb-f922-34a1-a608-59c35a892e3b",
+                                "startDate": "2022-11-01",
+                                "endDate": "2023-10-31",
+                                "currencyCode": "EUR",
+                                "languageCode": null,
+                                "updatedAt": "1655487019897",
+                                "vendorSpecificFields": {
+                                    "vendor": "HPE",
+                                    "sar": null,
+                                    "ampId": null,
+                                    "said": null,
+                                    "groupId": null,
+                                    "groupDescription": null
+                                },
+                                "contactPersons": [
+                                    {
+                                        "phoneNumber": "+18705674626",
+                                        "name": "Prof. Vickie Douglas PhD",
+                                        "mail": "kaia19@altenwerth.com",
+                                        "type": "Customer Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+12059334069",
+                                        "name": "Alena Fisher",
+                                        "mail": "gaylord.muriel@price.org",
+                                        "type": "Renewal Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+17074470594",
+                                        "name": "Bryce Bednar",
+                                        "mail": "christa.vonrueden@stark.com",
+                                        "type": "EndUser Contact"
+                                    }
+                                ],
+                                "resellerId": "594184e7-24d4-4614-8db4-fe132adb86f4",
+                                "customerId": "99a3cd0d-ea2a-4803-95f4-5757f3580fed",
+                                "distributorId": "1af1c44e-8112-4e72-9654-b11c705e9372"
+                            },
+                            "startDate": null,
+                            "endDate": null,
+                            "reseller": {
+                                "id": "594184e7-24d4-4614-8db4-fe132adb86f4"
+                            },
+                            "customer": {
+                                "id": "99a3cd0d-ea2a-4803-95f4-5757f3580fed"
+                            }
+                        }
+                    ],
+                    "latestContactPersons": [
+                        {
+                            "phoneNumber": null,
+                            "name": null,
+                            "mail": null,
+                            "type": "EndUser Contact"
+                        },
+                        {
+                            "phoneNumber": "+12059334069",
+                            "name": "Alena Fisher",
+                            "mail": "gaylord.muriel@price.org",
+                            "type": "Distributor Contact"
+                        },
+                        {
+                            "phoneNumber": "+18705674626",
+                            "name": "Prof. Vickie Douglas PhD",
+                            "mail": "kaia19@altenwerth.com",
+                            "type": "Reseller Contact"
+                        }
+                    ],
+                    "coverageStatusCheck": {
+                        "coverageStatus": "COVERED",
+                        "coverageStatusUpdatedAt": "1664813300502",
+                        "coverageEntries": [
+                            {
+                                "coverageStartDate": "2022-05-01",
+                                "coverageEndDate": "2022-10-31",
+                                "type": "Contract",
+                                "status": "Expiring",
+                                "description": "HU4A6AC-HPE Tech Care Essential SVC",
+                                "serviceSku": null
+                            },
+                            {
+                                "coverageStartDate": "2017-04-29",
+                                "coverageEndDate": "2022-04-30",
+                                "type": "Contract",
+                                "status": "Expired",
+                                "description": "H7J34AC-HPE Foundation Care 24x7 SVC",
+                                "serviceSku": null
+                            },
+                            {
+                                "coverageStartDate": "2017-04-21",
+                                "coverageEndDate": "2020-05-20",
+                                "type": "FactoryWarranty",
+                                "status": "Expired",
+                                "description": "HA151AW-Wty: HPE HW Maintenance Onsite Support, HA158AW-Wty: HPE Support for Initial Setup",
+                                "serviceSku": null
+                            }
+                        ]
+                    }
+                }
+            ]
+        }
+    }
+}

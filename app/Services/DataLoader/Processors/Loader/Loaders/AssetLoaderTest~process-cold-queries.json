@@ -26,7 +26,7 @@
     {
         "query": "select `locations`.* from `locations` where `locations`.`id` in (?) and `locations`.`deleted_at` is null",
         "bindings": [
-            "3cf83ea0-7f7c-52ad-a7e6-1dfb72fbb6fa"
+            "c6c09316-c0bc-5fdd-9dda-b4a153151ccc"
         ]
     },
     {
@@ -37,16 +37,15 @@
         ]
     },
     {
-        "query": "select `customer_locations`.* from `customer_locations` where `customer_locations`.`customer_id` in (?, ?) and `customer_locations`.`deleted_at` is null",
+        "query": "select `customer_locations`.* from `customer_locations` where `customer_locations`.`customer_id` in (?) and `customer_locations`.`deleted_at` is null",
         "bindings": [
-            "9f51cfec-ad89-4d8e-ba36-633cfa0dc14d",
             "e42b0534-878d-4d43-90ec-d9c1cef59b70"
         ]
     },
     {
         "query": "select `locations`.* from `locations` where `locations`.`id` in (?) and `locations`.`deleted_at` is null",
         "bindings": [
-            "459a9b90-a31f-55c4-b5a7-5de3769f555e"
+            "38086b95-d84b-5a54-bbb4-1bbf455ed2df"
         ]
     },
     {
@@ -264,7 +263,7 @@
         ]
     },
     {
-        "query": "insert into `assets` (`id`, `oem_id`, `type_id`, `status_id`, `product_id`, `reseller_id`, `customer_id`, `location_id`, `changed_at`, `serial_number`, `data_quality`, `contacts_active_quantity`, `contacts_count`, `coverages_count`, `synced_at`, `warranty_end`, `warranty_service_group_id`, `warranty_service_level_id`, `warranty_changed_at`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `assets` (`id`, `oem_id`, `type_id`, `status_id`, `product_id`, `reseller_id`, `customer_id`, `location_id`, `eosl`, `changed_at`, `serial_number`, `data_quality`, `contacts_active_quantity`, `contacts_count`, `coverages_count`, `synced_at`, `warranty_end`, `warranty_service_group_id`, `warranty_service_level_id`, `warranty_changed_at`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "00000b7e-e7dc-49ee-8294-e4708b2435e4",
             "c91d62df-ee07-5725-ba42-d9895cf9b282",
@@ -274,7 +273,8 @@
             "9f6b1030-5d5d-4f0b-b743-2ef69eaf4a44",
             "e42b0534-878d-4d43-90ec-d9c1cef59b70",
             "8d81418e-43f9-530d-a340-3b81520a65db",
-            "2022-10-04 09:57:25",
+            null,
+            "2022-10-15 14:23:07",
             "857fdbaa-4f4c-3963-b630-d788d9a17058",
             "80",
             0,
@@ -284,7 +284,7 @@
             null,
             null,
             null,
-            "2022-10-04 09:57:25",
+            "2022-10-15 14:23:07",
             "2022-02-02 00:00:26",
             "2022-02-02 00:00:26"
         ]

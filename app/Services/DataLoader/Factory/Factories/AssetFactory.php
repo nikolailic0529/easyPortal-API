@@ -203,6 +203,7 @@ class AssetFactory extends ModelFactory {
             $model->reseller                 = $this->reseller($asset);
             $model->customer                 = $this->customer($asset);
             $model->location                 = $this->assetLocation($asset);
+            $model->eosl                     = $normalizer->datetime($asset->eosDate);
             $model->changed_at               = $normalizer->datetime($asset->updatedAt);
             $model->serial_number            = $normalizer->string($asset->serialNumber);
             $model->data_quality             = $normalizer->string($asset->dataQualityScore);

@@ -24,7 +24,7 @@
     {
         "query": "select `locations`.* from `locations` where `locations`.`id` in (?) and `locations`.`deleted_at` is null",
         "bindings": [
-            "229361f9-056d-5218-a3b0-dcbb4c313111"
+            "3cf83ea0-7f7c-52ad-a7e6-1dfb72fbb6fa"
         ]
     },
     {
@@ -46,8 +46,8 @@
     {
         "query": "select `locations`.* from `locations` where `locations`.`id` in (?, ?) and `locations`.`deleted_at` is null",
         "bindings": [
-            "5a7eb8be-0240-5a14-a128-86acb6965218",
-            "8a7d5085-4545-5e8d-bfbd-497d486234e5"
+            "aeb75086-198f-5ff5-8100-06bf37105c09",
+            "f472990b-d3bf-56ac-a434-965e339ad8a4"
         ]
     },
     {
@@ -189,7 +189,7 @@
         ]
     },
     {
-        "query": "insert into `assets` (`id`, `oem_id`, `type_id`, `status_id`, `product_id`, `reseller_id`, `customer_id`, `location_id`, `changed_at`, `serial_number`, `data_quality`, `contacts_active_quantity`, `contacts_count`, `coverages_count`, `synced_at`, `warranty_end`, `warranty_service_group_id`, `warranty_service_level_id`, `warranty_changed_at`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `assets` (`id`, `oem_id`, `type_id`, `status_id`, `product_id`, `reseller_id`, `customer_id`, `location_id`, `eosl`, `changed_at`, `serial_number`, `data_quality`, `contacts_active_quantity`, `contacts_count`, `coverages_count`, `synced_at`, `warranty_end`, `warranty_service_group_id`, `warranty_service_level_id`, `warranty_changed_at`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "00302c3d-c45a-47f1-a1cb-3168e215bad3",
             "442c060a-2b52-50e1-9640-c01af3db2bdc",
@@ -198,7 +198,8 @@
             "e08dc4b8-9be1-5da5-9cc0-33fb78e784f3",
             "27faa47d-ab2a-4755-b36b-729114c056d2",
             "93da84d9-a8ee-483a-b604-9289d41fd601",
-            "5a7eb8be-0240-5a14-a128-86acb6965218",
+            "aeb75086-198f-5ff5-8100-06bf37105c09",
+            null,
             "2022-09-02 16:54:15",
             "7a7932e2-326b-3bae-ad61-ff51d576697f",
             "80",
@@ -295,7 +296,7 @@
     {
         "query": "select `cities`.* from `cities` where (`country_id` = ? and `key` = ?) and `cities`.`deleted_at` is null limit 1",
         "bindings": [
-            "c6c09316-c0bc-5fdd-9dda-b4a153151ccc",
+            "134caa1b-d52d-53bb-bf64-fe10a39a0681",
             "port inesbury"
         ]
     },
@@ -304,7 +305,7 @@
         "bindings": [
             "Port Inesbury",
             "Port Inesbury",
-            "c6c09316-c0bc-5fdd-9dda-b4a153151ccc",
+            "134caa1b-d52d-53bb-bf64-fe10a39a0681",
             "aaa94df4-275f-5b3c-bdd4-d1bc1367bb89",
             "2022-02-02 00:00:18",
             "2022-02-02 00:00:18"
@@ -314,7 +315,7 @@
         "query": "select `locations`.* from `locations` where (`city_id` = ? and `country_id` = ? and CONCAT(`line_one`, IF(`line_two` != '', CONCAT(' ', `line_two`), '')) = ? and `postcode` = ?) and `locations`.`deleted_at` is null limit 1",
         "bindings": [
             "aaa94df4-275f-5b3c-bdd4-d1bc1367bb89",
-            "c6c09316-c0bc-5fdd-9dda-b4a153151ccc",
+            "134caa1b-d52d-53bb-bf64-fe10a39a0681",
             "1789 angela dale suite 749",
             "90560"
         ]
@@ -322,7 +323,7 @@
     {
         "query": "insert into `locations` (`country_id`, `city_id`, `postcode`, `state`, `line_one`, `line_two`, `latitude`, `longitude`, `geohash`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
-            "c6c09316-c0bc-5fdd-9dda-b4a153151ccc",
+            "134caa1b-d52d-53bb-bf64-fe10a39a0681",
             "aaa94df4-275f-5b3c-bdd4-d1bc1367bb89",
             "90560",
             "",
@@ -425,7 +426,7 @@
         ]
     },
     {
-        "query": "insert into `assets` (`id`, `oem_id`, `type_id`, `status_id`, `product_id`, `reseller_id`, `customer_id`, `location_id`, `changed_at`, `serial_number`, `data_quality`, `contacts_active_quantity`, `contacts_count`, `coverages_count`, `synced_at`, `warranty_end`, `warranty_service_group_id`, `warranty_service_level_id`, `warranty_changed_at`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `assets` (`id`, `oem_id`, `type_id`, `status_id`, `product_id`, `reseller_id`, `customer_id`, `location_id`, `eosl`, `changed_at`, `serial_number`, `data_quality`, `contacts_active_quantity`, `contacts_count`, `coverages_count`, `synced_at`, `warranty_end`, `warranty_service_group_id`, `warranty_service_level_id`, `warranty_changed_at`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "0035c89e-0670-41c5-ab94-cca7b94570e3",
             "442c060a-2b52-50e1-9640-c01af3db2bdc",
@@ -435,6 +436,7 @@
             "27faa47d-ab2a-4755-b36b-729114c056d2",
             "13c8f977-00bb-4906-bd59-2bf457cf39cb",
             "08b15dfb-9315-5344-842e-9ce6ad8817f4",
+            null,
             "2022-10-03 10:14:31",
             "f5db9be0-e359-306d-b46d-8cf2eb7e4900",
             "80",
@@ -564,7 +566,7 @@
         ]
     },
     {
-        "query": "insert into `assets` (`id`, `oem_id`, `type_id`, `status_id`, `product_id`, `reseller_id`, `customer_id`, `location_id`, `changed_at`, `serial_number`, `data_quality`, `contacts_active_quantity`, `contacts_count`, `coverages_count`, `synced_at`, `warranty_end`, `warranty_service_group_id`, `warranty_service_level_id`, `warranty_changed_at`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `assets` (`id`, `oem_id`, `type_id`, `status_id`, `product_id`, `reseller_id`, `customer_id`, `location_id`, `eosl`, `changed_at`, `serial_number`, `data_quality`, `contacts_active_quantity`, `contacts_count`, `coverages_count`, `synced_at`, `warranty_end`, `warranty_service_group_id`, `warranty_service_level_id`, `warranty_changed_at`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "003e4007-8ee6-4682-85af-5997e0ee3b73",
             "442c060a-2b52-50e1-9640-c01af3db2bdc",
@@ -573,7 +575,8 @@
             "73ab0100-8da9-5762-91ba-369f6fe0af93",
             "27faa47d-ab2a-4755-b36b-729114c056d2",
             "fe97f500-c6e4-4968-a312-25d21318297b",
-            "8a7d5085-4545-5e8d-bfbd-497d486234e5",
+            "f472990b-d3bf-56ac-a434-965e339ad8a4",
+            null,
             "2022-09-02 16:54:16",
             "f495dec1-435a-3a18-b6a0-9bd53b1fc239",
             "80",
@@ -668,7 +671,7 @@
         ]
     },
     {
-        "query": "insert into `assets` (`id`, `oem_id`, `type_id`, `status_id`, `product_id`, `reseller_id`, `customer_id`, `location_id`, `changed_at`, `serial_number`, `data_quality`, `contacts_active_quantity`, `contacts_count`, `coverages_count`, `synced_at`, `warranty_end`, `warranty_service_group_id`, `warranty_service_level_id`, `warranty_changed_at`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `assets` (`id`, `oem_id`, `type_id`, `status_id`, `product_id`, `reseller_id`, `customer_id`, `location_id`, `eosl`, `changed_at`, `serial_number`, `data_quality`, `contacts_active_quantity`, `contacts_count`, `coverages_count`, `synced_at`, `warranty_end`, `warranty_service_group_id`, `warranty_service_level_id`, `warranty_changed_at`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "006e9b03-efe4-4c47-90ca-040dc6b104b4",
             "442c060a-2b52-50e1-9640-c01af3db2bdc",
@@ -677,7 +680,8 @@
             "0c986a71-c87a-5d3d-b11a-71486af48694",
             "27faa47d-ab2a-4755-b36b-729114c056d2",
             "13c8f977-00bb-4906-bd59-2bf457cf39cb",
-            "5a7eb8be-0240-5a14-a128-86acb6965218",
+            "aeb75086-198f-5ff5-8100-06bf37105c09",
+            null,
             "2022-09-02 16:54:23",
             null,
             "20",
@@ -772,7 +776,7 @@
         ]
     },
     {
-        "query": "insert into `assets` (`id`, `oem_id`, `type_id`, `status_id`, `product_id`, `reseller_id`, `customer_id`, `location_id`, `changed_at`, `serial_number`, `data_quality`, `contacts_active_quantity`, `contacts_count`, `coverages_count`, `synced_at`, `warranty_end`, `warranty_service_group_id`, `warranty_service_level_id`, `warranty_changed_at`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `assets` (`id`, `oem_id`, `type_id`, `status_id`, `product_id`, `reseller_id`, `customer_id`, `location_id`, `eosl`, `changed_at`, `serial_number`, `data_quality`, `contacts_active_quantity`, `contacts_count`, `coverages_count`, `synced_at`, `warranty_end`, `warranty_service_group_id`, `warranty_service_level_id`, `warranty_changed_at`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "00940ec9-168d-441d-9d3f-90548e007442",
             "442c060a-2b52-50e1-9640-c01af3db2bdc",
@@ -781,7 +785,8 @@
             "eeda87db-fa70-5a88-be32-5cfdb9e69e8e",
             "27faa47d-ab2a-4755-b36b-729114c056d2",
             "fe97f500-c6e4-4968-a312-25d21318297b",
-            "8a7d5085-4545-5e8d-bfbd-497d486234e5",
+            "f472990b-d3bf-56ac-a434-965e339ad8a4",
+            null,
             "2022-09-02 16:54:29",
             null,
             "20",
@@ -880,7 +885,7 @@
     {
         "query": "select `locations`.* from `locations` where `locations`.`id` in (?) and `locations`.`deleted_at` is null",
         "bindings": [
-            "229361f9-056d-5218-a3b0-dcbb4c313111"
+            "3cf83ea0-7f7c-52ad-a7e6-1dfb72fbb6fa"
         ]
     },
     {
@@ -902,8 +907,8 @@
     {
         "query": "select `locations`.* from `locations` where `locations`.`id` in (?, ?) and `locations`.`deleted_at` is null",
         "bindings": [
-            "5a7eb8be-0240-5a14-a128-86acb6965218",
-            "8a7d5085-4545-5e8d-bfbd-497d486234e5"
+            "aeb75086-198f-5ff5-8100-06bf37105c09",
+            "f472990b-d3bf-56ac-a434-965e339ad8a4"
         ]
     },
     {
@@ -938,7 +943,7 @@
         ]
     },
     {
-        "query": "insert into `assets` (`id`, `oem_id`, `type_id`, `status_id`, `product_id`, `reseller_id`, `customer_id`, `location_id`, `changed_at`, `serial_number`, `data_quality`, `contacts_active_quantity`, `contacts_count`, `coverages_count`, `synced_at`, `warranty_end`, `warranty_service_group_id`, `warranty_service_level_id`, `warranty_changed_at`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `assets` (`id`, `oem_id`, `type_id`, `status_id`, `product_id`, `reseller_id`, `customer_id`, `location_id`, `eosl`, `changed_at`, `serial_number`, `data_quality`, `contacts_active_quantity`, `contacts_count`, `coverages_count`, `synced_at`, `warranty_end`, `warranty_service_group_id`, `warranty_service_level_id`, `warranty_changed_at`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "00a1c5a6-c861-43e4-90ca-2ca113fbb7ca",
             "442c060a-2b52-50e1-9640-c01af3db2bdc",
@@ -947,7 +952,8 @@
             "d2fdf81f-8d86-5316-aae0-559ff7d367b6",
             "27faa47d-ab2a-4755-b36b-729114c056d2",
             "93da84d9-a8ee-483a-b604-9289d41fd601",
-            "5a7eb8be-0240-5a14-a128-86acb6965218",
+            "aeb75086-198f-5ff5-8100-06bf37105c09",
+            null,
             "2022-09-02 16:54:29",
             null,
             "20",
@@ -1042,7 +1048,7 @@
         ]
     },
     {
-        "query": "insert into `assets` (`id`, `oem_id`, `type_id`, `status_id`, `product_id`, `reseller_id`, `customer_id`, `location_id`, `changed_at`, `serial_number`, `data_quality`, `contacts_active_quantity`, `contacts_count`, `coverages_count`, `synced_at`, `warranty_end`, `warranty_service_group_id`, `warranty_service_level_id`, `warranty_changed_at`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `assets` (`id`, `oem_id`, `type_id`, `status_id`, `product_id`, `reseller_id`, `customer_id`, `location_id`, `eosl`, `changed_at`, `serial_number`, `data_quality`, `contacts_active_quantity`, `contacts_count`, `coverages_count`, `synced_at`, `warranty_end`, `warranty_service_group_id`, `warranty_service_level_id`, `warranty_changed_at`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "00b0bf1f-43c3-4a9c-9765-64d867caa48a",
             "442c060a-2b52-50e1-9640-c01af3db2bdc",
@@ -1051,7 +1057,8 @@
             "b9075cc7-072c-538b-a6e4-bae49a028ec6",
             "27faa47d-ab2a-4755-b36b-729114c056d2",
             "93da84d9-a8ee-483a-b604-9289d41fd601",
-            "5a7eb8be-0240-5a14-a128-86acb6965218",
+            "aeb75086-198f-5ff5-8100-06bf37105c09",
+            null,
             "2022-10-03 10:14:31",
             "46742c0d-4cf3-34c2-9209-a306c79a1c47",
             "80",
@@ -1179,7 +1186,7 @@
         ]
     },
     {
-        "query": "insert into `assets` (`id`, `oem_id`, `type_id`, `status_id`, `product_id`, `reseller_id`, `customer_id`, `location_id`, `changed_at`, `serial_number`, `data_quality`, `contacts_active_quantity`, `contacts_count`, `coverages_count`, `synced_at`, `warranty_end`, `warranty_service_group_id`, `warranty_service_level_id`, `warranty_changed_at`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `assets` (`id`, `oem_id`, `type_id`, `status_id`, `product_id`, `reseller_id`, `customer_id`, `location_id`, `eosl`, `changed_at`, `serial_number`, `data_quality`, `contacts_active_quantity`, `contacts_count`, `coverages_count`, `synced_at`, `warranty_end`, `warranty_service_group_id`, `warranty_service_level_id`, `warranty_changed_at`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "00c041e0-ee91-473c-b0aa-9ebec7b4745c",
             "442c060a-2b52-50e1-9640-c01af3db2bdc",
@@ -1188,7 +1195,8 @@
             "73ab0100-8da9-5762-91ba-369f6fe0af93",
             "27faa47d-ab2a-4755-b36b-729114c056d2",
             "fe97f500-c6e4-4968-a312-25d21318297b",
-            "8a7d5085-4545-5e8d-bfbd-497d486234e5",
+            "f472990b-d3bf-56ac-a434-965e339ad8a4",
+            null,
             "2022-10-03 10:14:32",
             "c1249434-cc6f-3826-a3ac-9f9fda77fc1b",
             "80",
@@ -1318,7 +1326,7 @@
         ]
     },
     {
-        "query": "insert into `assets` (`id`, `oem_id`, `type_id`, `status_id`, `product_id`, `reseller_id`, `customer_id`, `location_id`, `changed_at`, `serial_number`, `data_quality`, `contacts_active_quantity`, `contacts_count`, `coverages_count`, `synced_at`, `warranty_end`, `warranty_service_group_id`, `warranty_service_level_id`, `warranty_changed_at`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `assets` (`id`, `oem_id`, `type_id`, `status_id`, `product_id`, `reseller_id`, `customer_id`, `location_id`, `eosl`, `changed_at`, `serial_number`, `data_quality`, `contacts_active_quantity`, `contacts_count`, `coverages_count`, `synced_at`, `warranty_end`, `warranty_service_group_id`, `warranty_service_level_id`, `warranty_changed_at`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "01082738-64f0-4523-920f-5df1f3449869",
             "442c060a-2b52-50e1-9640-c01af3db2bdc",
@@ -1327,7 +1335,8 @@
             "fb3b0c56-ef81-5eb5-a571-35607d7251ea",
             "27faa47d-ab2a-4755-b36b-729114c056d2",
             "13c8f977-00bb-4906-bd59-2bf457cf39cb",
-            "5a7eb8be-0240-5a14-a128-86acb6965218",
+            "aeb75086-198f-5ff5-8100-06bf37105c09",
+            null,
             "2022-09-30 11:36:15",
             "19432da7-3be2-36b0-af47-d80a85f0322d",
             "80",
@@ -1442,7 +1451,7 @@
         ]
     },
     {
-        "query": "insert into `assets` (`id`, `oem_id`, `type_id`, `status_id`, `product_id`, `reseller_id`, `customer_id`, `location_id`, `changed_at`, `serial_number`, `data_quality`, `contacts_active_quantity`, `contacts_count`, `coverages_count`, `synced_at`, `warranty_end`, `warranty_service_group_id`, `warranty_service_level_id`, `warranty_changed_at`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `assets` (`id`, `oem_id`, `type_id`, `status_id`, `product_id`, `reseller_id`, `customer_id`, `location_id`, `eosl`, `changed_at`, `serial_number`, `data_quality`, `contacts_active_quantity`, `contacts_count`, `coverages_count`, `synced_at`, `warranty_end`, `warranty_service_group_id`, `warranty_service_level_id`, `warranty_changed_at`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "010935a7-8fa6-49a0-b356-76f36af10ba1",
             "442c060a-2b52-50e1-9640-c01af3db2bdc",
@@ -1451,7 +1460,8 @@
             "29c46758-22dc-5ada-b6be-28da1f6caf4c",
             "27faa47d-ab2a-4755-b36b-729114c056d2",
             "93da84d9-a8ee-483a-b604-9289d41fd601",
-            "5a7eb8be-0240-5a14-a128-86acb6965218",
+            "aeb75086-198f-5ff5-8100-06bf37105c09",
+            null,
             "2022-09-02 16:54:39",
             "ac821550-6db5-3470-8d79-3f25f20fb84f",
             "80",
@@ -1570,7 +1580,7 @@
     {
         "query": "select `locations`.* from `locations` where `locations`.`id` in (?) and `locations`.`deleted_at` is null",
         "bindings": [
-            "229361f9-056d-5218-a3b0-dcbb4c313111"
+            "3cf83ea0-7f7c-52ad-a7e6-1dfb72fbb6fa"
         ]
     },
     {
@@ -1592,8 +1602,8 @@
     {
         "query": "select `locations`.* from `locations` where `locations`.`id` in (?, ?) and `locations`.`deleted_at` is null",
         "bindings": [
-            "5a7eb8be-0240-5a14-a128-86acb6965218",
-            "8a7d5085-4545-5e8d-bfbd-497d486234e5"
+            "aeb75086-198f-5ff5-8100-06bf37105c09",
+            "f472990b-d3bf-56ac-a434-965e339ad8a4"
         ]
     },
     {
@@ -1606,7 +1616,7 @@
         ]
     },
     {
-        "query": "insert into `assets` (`id`, `oem_id`, `type_id`, `status_id`, `product_id`, `reseller_id`, `customer_id`, `location_id`, `changed_at`, `serial_number`, `data_quality`, `contacts_active_quantity`, `contacts_count`, `coverages_count`, `synced_at`, `warranty_end`, `warranty_service_group_id`, `warranty_service_level_id`, `warranty_changed_at`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `assets` (`id`, `oem_id`, `type_id`, `status_id`, `product_id`, `reseller_id`, `customer_id`, `location_id`, `eosl`, `changed_at`, `serial_number`, `data_quality`, `contacts_active_quantity`, `contacts_count`, `coverages_count`, `synced_at`, `warranty_end`, `warranty_service_group_id`, `warranty_service_level_id`, `warranty_changed_at`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "010b1ed1-e871-4a26-9474-41dcd094e37d",
             "442c060a-2b52-50e1-9640-c01af3db2bdc",
@@ -1615,7 +1625,8 @@
             "73ab0100-8da9-5762-91ba-369f6fe0af93",
             "27faa47d-ab2a-4755-b36b-729114c056d2",
             "13c8f977-00bb-4906-bd59-2bf457cf39cb",
-            "5a7eb8be-0240-5a14-a128-86acb6965218",
+            "aeb75086-198f-5ff5-8100-06bf37105c09",
+            null,
             "2022-10-03 10:14:33",
             "5d4158d7-7081-3c47-9fe8-0cee0e1a3c23",
             "80",
@@ -1745,7 +1756,7 @@
         ]
     },
     {
-        "query": "insert into `assets` (`id`, `oem_id`, `type_id`, `status_id`, `product_id`, `reseller_id`, `customer_id`, `location_id`, `changed_at`, `serial_number`, `data_quality`, `contacts_active_quantity`, `contacts_count`, `coverages_count`, `synced_at`, `warranty_end`, `warranty_service_group_id`, `warranty_service_level_id`, `warranty_changed_at`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `assets` (`id`, `oem_id`, `type_id`, `status_id`, `product_id`, `reseller_id`, `customer_id`, `location_id`, `eosl`, `changed_at`, `serial_number`, `data_quality`, `contacts_active_quantity`, `contacts_count`, `coverages_count`, `synced_at`, `warranty_end`, `warranty_service_group_id`, `warranty_service_level_id`, `warranty_changed_at`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "01201e25-a4de-4186-a988-2c583786e7ba",
             "442c060a-2b52-50e1-9640-c01af3db2bdc",
@@ -1754,7 +1765,8 @@
             "41f1ce70-9b76-5a2d-8108-5df540ade89f",
             "27faa47d-ab2a-4755-b36b-729114c056d2",
             "93da84d9-a8ee-483a-b604-9289d41fd601",
-            "5a7eb8be-0240-5a14-a128-86acb6965218",
+            "aeb75086-198f-5ff5-8100-06bf37105c09",
+            null,
             "2022-09-02 16:54:44",
             "956be659-9266-381c-8610-f3c9eb0d771e",
             "80",
@@ -1869,7 +1881,7 @@
         ]
     },
     {
-        "query": "insert into `assets` (`id`, `oem_id`, `type_id`, `status_id`, `product_id`, `reseller_id`, `customer_id`, `location_id`, `changed_at`, `serial_number`, `data_quality`, `contacts_active_quantity`, `contacts_count`, `coverages_count`, `synced_at`, `warranty_end`, `warranty_service_group_id`, `warranty_service_level_id`, `warranty_changed_at`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `assets` (`id`, `oem_id`, `type_id`, `status_id`, `product_id`, `reseller_id`, `customer_id`, `location_id`, `eosl`, `changed_at`, `serial_number`, `data_quality`, `contacts_active_quantity`, `contacts_count`, `coverages_count`, `synced_at`, `warranty_end`, `warranty_service_group_id`, `warranty_service_level_id`, `warranty_changed_at`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "01248836-cd22-4b55-920d-e126c9f4ed38",
             "442c060a-2b52-50e1-9640-c01af3db2bdc",
@@ -1878,7 +1890,8 @@
             "36e147bc-a6a6-5b4c-8e46-afa9ff1554de",
             "27faa47d-ab2a-4755-b36b-729114c056d2",
             "13c8f977-00bb-4906-bd59-2bf457cf39cb",
-            "5a7eb8be-0240-5a14-a128-86acb6965218",
+            "aeb75086-198f-5ff5-8100-06bf37105c09",
+            null,
             "2022-09-30 11:44:33",
             "bb18681c-7fa7-35d8-b6fc-0426cbd4f8ce",
             "80",
@@ -1988,7 +2001,7 @@
         ]
     },
     {
-        "query": "insert into `assets` (`id`, `oem_id`, `type_id`, `status_id`, `product_id`, `reseller_id`, `customer_id`, `location_id`, `changed_at`, `serial_number`, `data_quality`, `contacts_active_quantity`, `contacts_count`, `coverages_count`, `synced_at`, `warranty_end`, `warranty_service_group_id`, `warranty_service_level_id`, `warranty_changed_at`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `assets` (`id`, `oem_id`, `type_id`, `status_id`, `product_id`, `reseller_id`, `customer_id`, `location_id`, `eosl`, `changed_at`, `serial_number`, `data_quality`, `contacts_active_quantity`, `contacts_count`, `coverages_count`, `synced_at`, `warranty_end`, `warranty_service_group_id`, `warranty_service_level_id`, `warranty_changed_at`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "012db34f-ddb1-400b-b4d1-12843abdcee9",
             "442c060a-2b52-50e1-9640-c01af3db2bdc",
@@ -1997,7 +2010,8 @@
             "36e147bc-a6a6-5b4c-8e46-afa9ff1554de",
             "27faa47d-ab2a-4755-b36b-729114c056d2",
             "fe97f500-c6e4-4968-a312-25d21318297b",
-            "8a7d5085-4545-5e8d-bfbd-497d486234e5",
+            "f472990b-d3bf-56ac-a434-965e339ad8a4",
+            null,
             "2022-09-30 11:44:41",
             "0a2e389b-8ee2-3a04-960a-9de4f2390091",
             "80",
@@ -2129,7 +2143,7 @@
     {
         "query": "select `cities`.* from `cities` where (`country_id` = ? and `key` = ?) and `cities`.`deleted_at` is null limit 1",
         "bindings": [
-            "c6c09316-c0bc-5fdd-9dda-b4a153151ccc",
+            "134caa1b-d52d-53bb-bf64-fe10a39a0681",
             "lake murray"
         ]
     },
@@ -2138,7 +2152,7 @@
         "bindings": [
             "Lake Murray",
             "Lake Murray",
-            "c6c09316-c0bc-5fdd-9dda-b4a153151ccc",
+            "134caa1b-d52d-53bb-bf64-fe10a39a0681",
             "5c878a26-739b-56dd-afff-2c15c83b4062",
             "2022-02-02 00:04:33",
             "2022-02-02 00:04:33"
@@ -2148,7 +2162,7 @@
         "query": "select `locations`.* from `locations` where (`city_id` = ? and `country_id` = ? and CONCAT(`line_one`, IF(`line_two` != '', CONCAT(' ', `line_two`), '')) = ? and `postcode` = ?) and `locations`.`deleted_at` is null limit 1",
         "bindings": [
             "5c878a26-739b-56dd-afff-2c15c83b4062",
-            "c6c09316-c0bc-5fdd-9dda-b4a153151ccc",
+            "134caa1b-d52d-53bb-bf64-fe10a39a0681",
             "406 schneider neck apt. 237",
             "16532-8184"
         ]
@@ -2156,7 +2170,7 @@
     {
         "query": "insert into `locations` (`country_id`, `city_id`, `postcode`, `state`, `line_one`, `line_two`, `latitude`, `longitude`, `geohash`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
-            "c6c09316-c0bc-5fdd-9dda-b4a153151ccc",
+            "134caa1b-d52d-53bb-bf64-fe10a39a0681",
             "5c878a26-739b-56dd-afff-2c15c83b4062",
             "16532-8184",
             "",
@@ -2171,7 +2185,7 @@
         ]
     },
     {
-        "query": "insert into `assets` (`id`, `oem_id`, `type_id`, `status_id`, `product_id`, `reseller_id`, `customer_id`, `location_id`, `changed_at`, `serial_number`, `data_quality`, `contacts_active_quantity`, `contacts_count`, `coverages_count`, `synced_at`, `warranty_end`, `warranty_service_group_id`, `warranty_service_level_id`, `warranty_changed_at`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `assets` (`id`, `oem_id`, `type_id`, `status_id`, `product_id`, `reseller_id`, `customer_id`, `location_id`, `eosl`, `changed_at`, `serial_number`, `data_quality`, `contacts_active_quantity`, `contacts_count`, `coverages_count`, `synced_at`, `warranty_end`, `warranty_service_group_id`, `warranty_service_level_id`, `warranty_changed_at`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "0135c00e-0f20-49b5-bb10-f10e5df57237",
             "442c060a-2b52-50e1-9640-c01af3db2bdc",
@@ -2181,6 +2195,7 @@
             "27faa47d-ab2a-4755-b36b-729114c056d2",
             "13c8f977-00bb-4906-bd59-2bf457cf39cb",
             "dcd70375-d168-5608-84f9-b35400d27389",
+            null,
             "2022-10-03 10:14:33",
             "02d24c41-7f05-3acd-b320-b335828deb65",
             "80",
@@ -2314,7 +2329,7 @@
     {
         "query": "select `locations`.* from `locations` where `locations`.`id` in (?) and `locations`.`deleted_at` is null",
         "bindings": [
-            "229361f9-056d-5218-a3b0-dcbb4c313111"
+            "3cf83ea0-7f7c-52ad-a7e6-1dfb72fbb6fa"
         ]
     },
     {
@@ -2338,9 +2353,9 @@
     {
         "query": "select `locations`.* from `locations` where `locations`.`id` in (?, ?, ?) and `locations`.`deleted_at` is null",
         "bindings": [
-            "5a7eb8be-0240-5a14-a128-86acb6965218",
-            "60711d0f-f5f3-58d4-bc16-21b1b9695580",
-            "8a7d5085-4545-5e8d-bfbd-497d486234e5"
+            "6085327e-5386-5ab6-841f-173a19976a13",
+            "aeb75086-198f-5ff5-8100-06bf37105c09",
+            "f472990b-d3bf-56ac-a434-965e339ad8a4"
         ]
     },
     {
@@ -2375,7 +2390,7 @@
         ]
     },
     {
-        "query": "insert into `assets` (`id`, `oem_id`, `type_id`, `status_id`, `product_id`, `reseller_id`, `customer_id`, `location_id`, `changed_at`, `serial_number`, `data_quality`, `contacts_active_quantity`, `contacts_count`, `coverages_count`, `synced_at`, `warranty_end`, `warranty_service_group_id`, `warranty_service_level_id`, `warranty_changed_at`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `assets` (`id`, `oem_id`, `type_id`, `status_id`, `product_id`, `reseller_id`, `customer_id`, `location_id`, `eosl`, `changed_at`, `serial_number`, `data_quality`, `contacts_active_quantity`, `contacts_count`, `coverages_count`, `synced_at`, `warranty_end`, `warranty_service_group_id`, `warranty_service_level_id`, `warranty_changed_at`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "01418a52-d035-4202-bcce-f750ce3ac059",
             "442c060a-2b52-50e1-9640-c01af3db2bdc",
@@ -2384,7 +2399,8 @@
             "5274bc09-68a8-510d-b007-b68d3d828c09",
             "27faa47d-ab2a-4755-b36b-729114c056d2",
             "fe97f500-c6e4-4968-a312-25d21318297b",
-            "8a7d5085-4545-5e8d-bfbd-497d486234e5",
+            "f472990b-d3bf-56ac-a434-965e339ad8a4",
+            null,
             "2022-09-02 16:54:59",
             "04d6fe58-1e2b-3c1a-b8fe-caa8dc46c998",
             "80",
@@ -2514,7 +2530,7 @@
         ]
     },
     {
-        "query": "insert into `assets` (`id`, `oem_id`, `type_id`, `status_id`, `product_id`, `reseller_id`, `customer_id`, `location_id`, `changed_at`, `serial_number`, `data_quality`, `contacts_active_quantity`, `contacts_count`, `coverages_count`, `synced_at`, `warranty_end`, `warranty_service_group_id`, `warranty_service_level_id`, `warranty_changed_at`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `assets` (`id`, `oem_id`, `type_id`, `status_id`, `product_id`, `reseller_id`, `customer_id`, `location_id`, `eosl`, `changed_at`, `serial_number`, `data_quality`, `contacts_active_quantity`, `contacts_count`, `coverages_count`, `synced_at`, `warranty_end`, `warranty_service_group_id`, `warranty_service_level_id`, `warranty_changed_at`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "01487898-b607-456c-b4b8-cabd2b5b02cd",
             "442c060a-2b52-50e1-9640-c01af3db2bdc",
@@ -2523,7 +2539,8 @@
             "d33d46e9-bc6e-5c6c-a0a4-7dd65d325344",
             "27faa47d-ab2a-4755-b36b-729114c056d2",
             "93da84d9-a8ee-483a-b604-9289d41fd601",
-            "5a7eb8be-0240-5a14-a128-86acb6965218",
+            "aeb75086-198f-5ff5-8100-06bf37105c09",
+            null,
             "2022-10-03 10:14:34",
             "61b3ade3-452c-3a13-b142-9c4ade641af5",
             "80",
@@ -2653,7 +2670,7 @@
         ]
     },
     {
-        "query": "insert into `assets` (`id`, `oem_id`, `type_id`, `status_id`, `product_id`, `reseller_id`, `customer_id`, `location_id`, `changed_at`, `serial_number`, `data_quality`, `contacts_active_quantity`, `contacts_count`, `coverages_count`, `synced_at`, `warranty_end`, `warranty_service_group_id`, `warranty_service_level_id`, `warranty_changed_at`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `assets` (`id`, `oem_id`, `type_id`, `status_id`, `product_id`, `reseller_id`, `customer_id`, `location_id`, `eosl`, `changed_at`, `serial_number`, `data_quality`, `contacts_active_quantity`, `contacts_count`, `coverages_count`, `synced_at`, `warranty_end`, `warranty_service_group_id`, `warranty_service_level_id`, `warranty_changed_at`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "01b884ea-4c7f-4484-8016-87d17d6e2f23",
             "442c060a-2b52-50e1-9640-c01af3db2bdc",
@@ -2662,7 +2679,8 @@
             "8ac645c6-6ff2-579e-87b0-dd99768e1062",
             "27faa47d-ab2a-4755-b36b-729114c056d2",
             "412e9b0e-95e8-474a-a8e1-4f526886eb55",
-            "60711d0f-f5f3-58d4-bc16-21b1b9695580",
+            "6085327e-5386-5ab6-841f-173a19976a13",
+            null,
             "2022-09-30 11:46:21",
             "8177461c-af97-339e-832b-82ff9663a6cb",
             "80",
@@ -2792,7 +2810,7 @@
         ]
     },
     {
-        "query": "insert into `assets` (`id`, `oem_id`, `type_id`, `status_id`, `product_id`, `reseller_id`, `customer_id`, `location_id`, `changed_at`, `serial_number`, `data_quality`, `contacts_active_quantity`, `contacts_count`, `coverages_count`, `synced_at`, `warranty_end`, `warranty_service_group_id`, `warranty_service_level_id`, `warranty_changed_at`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `assets` (`id`, `oem_id`, `type_id`, `status_id`, `product_id`, `reseller_id`, `customer_id`, `location_id`, `eosl`, `changed_at`, `serial_number`, `data_quality`, `contacts_active_quantity`, `contacts_count`, `coverages_count`, `synced_at`, `warranty_end`, `warranty_service_group_id`, `warranty_service_level_id`, `warranty_changed_at`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "01c141c9-5d6d-42c8-8861-5999fab8345e",
             "442c060a-2b52-50e1-9640-c01af3db2bdc",
@@ -2801,7 +2819,8 @@
             "64a815cb-700a-5270-be21-e8988512c3a1",
             "27faa47d-ab2a-4755-b36b-729114c056d2",
             "93da84d9-a8ee-483a-b604-9289d41fd601",
-            "5a7eb8be-0240-5a14-a128-86acb6965218",
+            "aeb75086-198f-5ff5-8100-06bf37105c09",
+            null,
             "2022-09-02 16:55:16",
             "c3784e3f-0105-37be-b65a-122c984762d7",
             "80",
@@ -2916,7 +2935,7 @@
         ]
     },
     {
-        "query": "insert into `assets` (`id`, `oem_id`, `type_id`, `status_id`, `product_id`, `reseller_id`, `customer_id`, `location_id`, `changed_at`, `serial_number`, `data_quality`, `contacts_active_quantity`, `contacts_count`, `coverages_count`, `synced_at`, `warranty_end`, `warranty_service_group_id`, `warranty_service_level_id`, `warranty_changed_at`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `assets` (`id`, `oem_id`, `type_id`, `status_id`, `product_id`, `reseller_id`, `customer_id`, `location_id`, `eosl`, `changed_at`, `serial_number`, `data_quality`, `contacts_active_quantity`, `contacts_count`, `coverages_count`, `synced_at`, `warranty_end`, `warranty_service_group_id`, `warranty_service_level_id`, `warranty_changed_at`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "01ce1bc2-61ec-4174-a66b-47b2d0be7aad",
             "442c060a-2b52-50e1-9640-c01af3db2bdc",
@@ -2925,7 +2944,8 @@
             "943734d0-6036-5c2c-9163-bf11cc7ef8f4",
             "27faa47d-ab2a-4755-b36b-729114c056d2",
             "fe97f500-c6e4-4968-a312-25d21318297b",
-            "8a7d5085-4545-5e8d-bfbd-497d486234e5",
+            "f472990b-d3bf-56ac-a434-965e339ad8a4",
+            null,
             "2022-09-30 11:46:34",
             "2db05f3c-9c68-3352-bd51-0b793732cfad",
             "80",
@@ -3059,7 +3079,7 @@
     {
         "query": "select `locations`.* from `locations` where `locations`.`id` in (?) and `locations`.`deleted_at` is null",
         "bindings": [
-            "229361f9-056d-5218-a3b0-dcbb4c313111"
+            "3cf83ea0-7f7c-52ad-a7e6-1dfb72fbb6fa"
         ]
     },
     {
@@ -3081,9 +3101,9 @@
     {
         "query": "select `locations`.* from `locations` where `locations`.`id` in (?, ?, ?) and `locations`.`deleted_at` is null",
         "bindings": [
-            "5a7eb8be-0240-5a14-a128-86acb6965218",
-            "60711d0f-f5f3-58d4-bc16-21b1b9695580",
-            "8a7d5085-4545-5e8d-bfbd-497d486234e5"
+            "6085327e-5386-5ab6-841f-173a19976a13",
+            "aeb75086-198f-5ff5-8100-06bf37105c09",
+            "f472990b-d3bf-56ac-a434-965e339ad8a4"
         ]
     },
     {
@@ -3096,7 +3116,7 @@
         ]
     },
     {
-        "query": "insert into `assets` (`id`, `oem_id`, `type_id`, `status_id`, `product_id`, `reseller_id`, `customer_id`, `location_id`, `changed_at`, `serial_number`, `data_quality`, `contacts_active_quantity`, `contacts_count`, `coverages_count`, `synced_at`, `warranty_end`, `warranty_service_group_id`, `warranty_service_level_id`, `warranty_changed_at`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `assets` (`id`, `oem_id`, `type_id`, `status_id`, `product_id`, `reseller_id`, `customer_id`, `location_id`, `eosl`, `changed_at`, `serial_number`, `data_quality`, `contacts_active_quantity`, `contacts_count`, `coverages_count`, `synced_at`, `warranty_end`, `warranty_service_group_id`, `warranty_service_level_id`, `warranty_changed_at`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "01d00f8c-a540-452a-bb1c-db859b9fbce8",
             "442c060a-2b52-50e1-9640-c01af3db2bdc",
@@ -3105,7 +3125,8 @@
             "d33d46e9-bc6e-5c6c-a0a4-7dd65d325344",
             "27faa47d-ab2a-4755-b36b-729114c056d2",
             "fe97f500-c6e4-4968-a312-25d21318297b",
-            "8a7d5085-4545-5e8d-bfbd-497d486234e5",
+            "f472990b-d3bf-56ac-a434-965e339ad8a4",
+            null,
             "2022-10-03 10:14:36",
             "d13666d3-21b6-31b8-a2e1-1a3442012e47",
             "80",
@@ -3235,7 +3256,7 @@
         ]
     },
     {
-        "query": "insert into `assets` (`id`, `oem_id`, `type_id`, `status_id`, `product_id`, `reseller_id`, `customer_id`, `location_id`, `changed_at`, `serial_number`, `data_quality`, `contacts_active_quantity`, `contacts_count`, `coverages_count`, `synced_at`, `warranty_end`, `warranty_service_group_id`, `warranty_service_level_id`, `warranty_changed_at`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `assets` (`id`, `oem_id`, `type_id`, `status_id`, `product_id`, `reseller_id`, `customer_id`, `location_id`, `eosl`, `changed_at`, `serial_number`, `data_quality`, `contacts_active_quantity`, `contacts_count`, `coverages_count`, `synced_at`, `warranty_end`, `warranty_service_group_id`, `warranty_service_level_id`, `warranty_changed_at`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "01dfbdb4-bb95-4bd4-9bb0-10d05f54cc66",
             "442c060a-2b52-50e1-9640-c01af3db2bdc",
@@ -3244,7 +3265,8 @@
             "56458629-0335-5dd3-915f-b09912246073",
             "27faa47d-ab2a-4755-b36b-729114c056d2",
             "13c8f977-00bb-4906-bd59-2bf457cf39cb",
-            "5a7eb8be-0240-5a14-a128-86acb6965218",
+            "aeb75086-198f-5ff5-8100-06bf37105c09",
+            null,
             "2022-09-02 16:55:08",
             null,
             "20",
@@ -3339,7 +3361,7 @@
         ]
     },
     {
-        "query": "insert into `assets` (`id`, `oem_id`, `type_id`, `status_id`, `product_id`, `reseller_id`, `customer_id`, `location_id`, `changed_at`, `serial_number`, `data_quality`, `contacts_active_quantity`, `contacts_count`, `coverages_count`, `synced_at`, `warranty_end`, `warranty_service_group_id`, `warranty_service_level_id`, `warranty_changed_at`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `assets` (`id`, `oem_id`, `type_id`, `status_id`, `product_id`, `reseller_id`, `customer_id`, `location_id`, `eosl`, `changed_at`, `serial_number`, `data_quality`, `contacts_active_quantity`, `contacts_count`, `coverages_count`, `synced_at`, `warranty_end`, `warranty_service_group_id`, `warranty_service_level_id`, `warranty_changed_at`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "01e0e448-2651-4d0e-8a27-318d38a54512",
             "442c060a-2b52-50e1-9640-c01af3db2bdc",
@@ -3348,7 +3370,8 @@
             "fe24391b-864d-50fa-bfee-ee8e2abe9f22",
             "27faa47d-ab2a-4755-b36b-729114c056d2",
             "13c8f977-00bb-4906-bd59-2bf457cf39cb",
-            "5a7eb8be-0240-5a14-a128-86acb6965218",
+            "aeb75086-198f-5ff5-8100-06bf37105c09",
+            null,
             "2022-09-02 16:55:09",
             null,
             "20",
@@ -3423,7 +3446,7 @@
         ]
     },
     {
-        "query": "insert into `assets` (`id`, `oem_id`, `type_id`, `status_id`, `product_id`, `reseller_id`, `customer_id`, `location_id`, `changed_at`, `serial_number`, `data_quality`, `contacts_active_quantity`, `contacts_count`, `coverages_count`, `synced_at`, `warranty_end`, `warranty_service_group_id`, `warranty_service_level_id`, `warranty_changed_at`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `assets` (`id`, `oem_id`, `type_id`, `status_id`, `product_id`, `reseller_id`, `customer_id`, `location_id`, `eosl`, `changed_at`, `serial_number`, `data_quality`, `contacts_active_quantity`, `contacts_count`, `coverages_count`, `synced_at`, `warranty_end`, `warranty_service_group_id`, `warranty_service_level_id`, `warranty_changed_at`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "01e83101-04e4-443d-bc86-ad6eea9d92d5",
             "442c060a-2b52-50e1-9640-c01af3db2bdc",
@@ -3432,7 +3455,8 @@
             "36e147bc-a6a6-5b4c-8e46-afa9ff1554de",
             "27faa47d-ab2a-4755-b36b-729114c056d2",
             "13c8f977-00bb-4906-bd59-2bf457cf39cb",
-            "5a7eb8be-0240-5a14-a128-86acb6965218",
+            "aeb75086-198f-5ff5-8100-06bf37105c09",
+            null,
             "2022-09-30 11:46:44",
             "6aeebafc-c6ef-386c-b0d4-7df8b8ad0dd1",
             "80",
@@ -3562,7 +3586,7 @@
         ]
     },
     {
-        "query": "insert into `assets` (`id`, `oem_id`, `type_id`, `status_id`, `product_id`, `reseller_id`, `customer_id`, `location_id`, `changed_at`, `serial_number`, `data_quality`, `contacts_active_quantity`, `contacts_count`, `coverages_count`, `synced_at`, `warranty_end`, `warranty_service_group_id`, `warranty_service_level_id`, `warranty_changed_at`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `assets` (`id`, `oem_id`, `type_id`, `status_id`, `product_id`, `reseller_id`, `customer_id`, `location_id`, `eosl`, `changed_at`, `serial_number`, `data_quality`, `contacts_active_quantity`, `contacts_count`, `coverages_count`, `synced_at`, `warranty_end`, `warranty_service_group_id`, `warranty_service_level_id`, `warranty_changed_at`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "01ec7ee6-92d7-4932-adb6-1b4cc7d130fc",
             "442c060a-2b52-50e1-9640-c01af3db2bdc",
@@ -3571,7 +3595,8 @@
             "aa2aabc8-b11c-5518-b040-beabf4ac9cae",
             "27faa47d-ab2a-4755-b36b-729114c056d2",
             "412e9b0e-95e8-474a-a8e1-4f526886eb55",
-            "60711d0f-f5f3-58d4-bc16-21b1b9695580",
+            "6085327e-5386-5ab6-841f-173a19976a13",
+            null,
             "2022-09-30 11:46:41",
             "eed8b427-61e4-3a38-bc10-b2ce56cde738",
             "80",

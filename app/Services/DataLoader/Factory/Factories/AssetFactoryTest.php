@@ -134,6 +134,7 @@ class AssetFactoryTest extends TestCase {
         self::assertNull($created->product->eos ?? null);
         self::assertEquals($asset->eosDate, (string) ($created->product->eos ?? null));
         self::assertEquals($asset->eolDate, $this->getDatetime($created->product->eol ?? null));
+        self::assertNull($created->eosl);
         self::assertEquals($asset->assetType, $created->type->key ?? null);
         self::assertEquals($asset->status, $created->status->key ?? null);
         self::assertEquals($asset->customerId, $created->customer?->getKey());
@@ -283,6 +284,7 @@ class AssetFactoryTest extends TestCase {
         self::assertEquals($asset->assetSku, $updated->product->sku ?? null);
         self::assertEquals($asset->eosDate, $this->getDatetime($updated->product->eos ?? null));
         self::assertEquals($asset->eolDate, $this->getDatetime($updated->product->eol ?? null));
+        self::assertEquals($asset->eoslDate, $this->getDatetime($updated->eosl));
         self::assertEquals($asset->assetType, $updated->type->key ?? null);
         self::assertEquals($asset->customerId, $updated->customer?->getKey());
         self::assertNotNull($updated->warranty_end);

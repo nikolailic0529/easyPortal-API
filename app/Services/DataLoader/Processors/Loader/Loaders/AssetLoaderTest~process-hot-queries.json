@@ -65,7 +65,7 @@
     {
         "query": "select `locations`.* from `locations` where `locations`.`id` in (?) and `locations`.`deleted_at` is null",
         "bindings": [
-            "3cf83ea0-7f7c-52ad-a7e6-1dfb72fbb6fa"
+            "c6c09316-c0bc-5fdd-9dda-b4a153151ccc"
         ]
     },
     {
@@ -76,16 +76,15 @@
         ]
     },
     {
-        "query": "select `customer_locations`.* from `customer_locations` where `customer_locations`.`customer_id` in (?, ?) and `customer_locations`.`deleted_at` is null",
+        "query": "select `customer_locations`.* from `customer_locations` where `customer_locations`.`customer_id` in (?) and `customer_locations`.`deleted_at` is null",
         "bindings": [
-            "9f51cfec-ad89-4d8e-ba36-633cfa0dc14d",
             "e42b0534-878d-4d43-90ec-d9c1cef59b70"
         ]
     },
     {
         "query": "select `locations`.* from `locations` where `locations`.`id` in (?) and `locations`.`deleted_at` is null",
         "bindings": [
-            "459a9b90-a31f-55c4-b5a7-5de3769f555e"
+            "38086b95-d84b-5a54-bbb4-1bbf455ed2df"
         ]
     },
     {

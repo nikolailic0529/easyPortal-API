@@ -25,16 +25,27 @@ class AssetsIteratorImporterData extends AssetsData {
     ];
 
     protected function generateData(TestData $root, Context $context): bool {
-        return $this->app->make(IteratorImporter::class)
-            ->setIterator(static::getIterator())
-            ->setChunkSize(static::CHUNK)
-            ->setLimit(static::LIMIT)
-            ->start();
+        return $this->createAsset()
+            && $this->app->make(IteratorImporter::class)
+                ->setIterator(static::getIterator())
+                ->setChunkSize(static::CHUNK)
+                ->setLimit(static::LIMIT)
+                ->start();
     }
 
     public function restore(TestData $root, Context $context): bool {
-        $result = parent::restore($root, $context);
+        return $this->createAsset()
+            && parent::restore($root, $context);
+    }
 
+    /**
+     * @return ObjectIterator<Asset|string>
+     */
+    public static function getIterator(): ObjectIterator {
+        return static::getModelsIterator(Asset::class, static::ASSETS);
+    }
+
+    private function createAsset(): bool {
         Asset::factory()->create([
             'id'          => '00000000-0000-0000-0000-000000000000',
             'reseller_id' => null,
@@ -46,13 +57,6 @@ class AssetsIteratorImporterData extends AssetsData {
             'status_id'   => null,
         ]);
 
-        return $result;
-    }
-
-    /**
-     * @return ObjectIterator<Asset|string>
-     */
-    public static function getIterator(): ObjectIterator {
-        return static::getModelsIterator(Asset::class, static::ASSETS);
+        return true;
     }
 }

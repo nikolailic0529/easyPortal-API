@@ -1,0 +1,415 @@
+{
+    "selector": "data.getAssets",
+    "query": "query getAssets($id: String!) {\n    getAssets(args: [{key: \"id\", value: $id}]) {\n        id\nserialNumber\n\nassetSku\nassetSkuDescription\nassetTag\nassetType\nstatus\nvendor\n\neolDate\neosDate\neoslDate\n\ncountry\ncountryCode\nlatitude\nlongitude\nzip\ncity\naddress\naddress2\n\ncustomerId\nresellerId\n\nupdatedAt\n\nlatestContactPersons {\n    phoneNumber\n    name\n    type\n    mail\n}\n\nassetCoverage\ncoverageStatusCheck {\n    coverageStatus\n    coverageStatusUpdatedAt\n    coverageEntries {\n        coverageStartDate\n        coverageEndDate\n        type\n        description\n        status\n        serviceSku\n    }\n}\n\ndataQualityScore\nactiveContractQuantitySum\n        assetDocument {\n    startDate\n    endDate\n    documentNumber\n\n    document {\n        id\n        type\n        documentNumber\n\n        startDate\n        endDate\n\n        currencyCode\n        languageCode\n\n        updatedAt\n\n        vendorSpecificFields {\n            vendor\n            groupId\n            groupDescription\n            said\n            ampId\n            sar\n        }\n\n        contactPersons {\n            phoneNumber\n            name\n            type\n            mail\n        }\n\n        customerId\n        resellerId\n        distributorId\n    }\n\n    serviceGroupSku\n    serviceGroupSkuDescription\n    serviceLevelSku\n    serviceLevelSkuDescription\n    serviceFullDescription\n\n    customer {\n      id\n    }\n\n    reseller {\n      id\n    }\n}\n    }\n}",
+    "variables": {
+        "id": "1c274b92-6401-414b-a23b-50bee046e62b"
+    },
+    "response": {
+        "data": {
+            "getAssets": [
+                {
+                    "id": "1c274b92-6401-414b-a23b-50bee046e62b",
+                    "resellerId": "c0d99925-8b3b-47d8-9db2-9d3a5f5520a2",
+                    "customerId": "7dd5da83-03f1-4847-b4cd-ea6fd047d756",
+                    "serialNumber": "f276dcf6-6dfa-3f3d-b70b-51fd290f3c53",
+                    "assetSkuDescription": "Aruba Cntrlr Per AP Capacity Lic E-LTU",
+                    "assetTag": null,
+                    "assetType": null,
+                    "vendor": "HPE",
+                    "assetSku": "JW472AAE",
+                    "eolDate": null,
+                    "eosDate": null,
+                    "eoslDate": null,
+                    "zip": "27120-7100",
+                    "city": "Port Fae",
+                    "address": "53268 Donny Lake Suite 001",
+                    "address2": null,
+                    "country": "Myanmar",
+                    "latitude": "55.990189",
+                    "longitude": "128.040836",
+                    "countryCode": "CW",
+                    "status": "ACTIVE",
+                    "updatedAt": "1664793341165",
+                    "assetCoverage": [
+                        "COVERED"
+                    ],
+                    "dataQualityScore": "80",
+                    "activeContractQuantitySum": 0,
+                    "assetDocument": [
+                        {
+                            "serviceGroupSku": null,
+                            "serviceGroupSkuDescription": null,
+                            "serviceLevelSku": "HA158AC",
+                            "serviceLevelSkuDescription": "HPE Software Technical Unlimited Support",
+                            "serviceFullDescription": null,
+                            "documentNumber": "db92b98b-25c5-3b1d-b1a0-5b67f5a94d9b",
+                            "document": {
+                                "id": "c0e09446-59a8-4fd1-9a42-cd08aa76c972",
+                                "type": "Contract",
+                                "documentNumber": "db92b98b-25c5-3b1d-b1a0-5b67f5a94d9b",
+                                "startDate": "2021-03-23",
+                                "endDate": "2022-03-31",
+                                "currencyCode": "CHF",
+                                "languageCode": null,
+                                "updatedAt": "1654262846658",
+                                "vendorSpecificFields": {
+                                    "vendor": "HPE",
+                                    "sar": "ARUBA87P461804001",
+                                    "ampId": "87-SMD503 447",
+                                    "said": null,
+                                    "groupId": null,
+                                    "groupDescription": null
+                                },
+                                "contactPersons": [
+                                    {
+                                        "phoneNumber": "+18202534466",
+                                        "name": "Hyman Russel",
+                                        "mail": null,
+                                        "type": "EndUser Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+17709427853",
+                                        "name": "Gunnar Roberts",
+                                        "mail": "dillan62@rau.com",
+                                        "type": "Distributor Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+14587213921",
+                                        "name": "Candace Gerhold",
+                                        "mail": "timmothy82@cruickshank.com",
+                                        "type": "Reseller Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+18202534466",
+                                        "name": "Hyman Russel",
+                                        "mail": null,
+                                        "type": "Hardware System Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+18202534466",
+                                        "name": "Hyman Russel",
+                                        "mail": null,
+                                        "type": "Software System Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+18202534466",
+                                        "name": "Hyman Russel",
+                                        "mail": null,
+                                        "type": "System Manager Contact"
+                                    }
+                                ],
+                                "resellerId": "c0d99925-8b3b-47d8-9db2-9d3a5f5520a2",
+                                "customerId": "7dd5da83-03f1-4847-b4cd-ea6fd047d756",
+                                "distributorId": "a985a692-c063-499a-ab2f-0a2adef86a3f"
+                            },
+                            "startDate": null,
+                            "endDate": null,
+                            "reseller": {
+                                "id": "c0d99925-8b3b-47d8-9db2-9d3a5f5520a2"
+                            },
+                            "customer": {
+                                "id": "7dd5da83-03f1-4847-b4cd-ea6fd047d756"
+                            }
+                        },
+                        {
+                            "serviceGroupSku": null,
+                            "serviceGroupSkuDescription": null,
+                            "serviceLevelSku": "HA156AC",
+                            "serviceLevelSkuDescription": "HPE Software Updates SVC",
+                            "serviceFullDescription": null,
+                            "documentNumber": "2733dbda-eec5-3798-b6f4-541d96148993",
+                            "document": {
+                                "id": "0c8324bb-600d-488b-9b53-35ee6849ff59",
+                                "type": "Quote renewal",
+                                "documentNumber": "2733dbda-eec5-3798-b6f4-541d96148993",
+                                "startDate": "2022-04-01",
+                                "endDate": "2023-03-31",
+                                "currencyCode": "CHF",
+                                "languageCode": null,
+                                "updatedAt": "1654272002806",
+                                "vendorSpecificFields": {
+                                    "vendor": "HPE",
+                                    "sar": null,
+                                    "ampId": null,
+                                    "said": null,
+                                    "groupId": null,
+                                    "groupDescription": null
+                                },
+                                "contactPersons": [
+                                    {
+                                        "phoneNumber": "+14587213921",
+                                        "name": "Candace Gerhold",
+                                        "mail": "timmothy82@cruickshank.com",
+                                        "type": "Customer Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+17709427853",
+                                        "name": "Gunnar Roberts",
+                                        "mail": "dillan62@rau.com",
+                                        "type": "Renewal Contact"
+                                    },
+                                    {
+                                        "phoneNumber": null,
+                                        "name": null,
+                                        "mail": null,
+                                        "type": "EndUser Contact"
+                                    }
+                                ],
+                                "resellerId": "c0d99925-8b3b-47d8-9db2-9d3a5f5520a2",
+                                "customerId": "7dd5da83-03f1-4847-b4cd-ea6fd047d756",
+                                "distributorId": "a985a692-c063-499a-ab2f-0a2adef86a3f"
+                            },
+                            "startDate": null,
+                            "endDate": null,
+                            "reseller": {
+                                "id": "c0d99925-8b3b-47d8-9db2-9d3a5f5520a2"
+                            },
+                            "customer": {
+                                "id": "7dd5da83-03f1-4847-b4cd-ea6fd047d756"
+                            }
+                        },
+                        {
+                            "serviceGroupSku": null,
+                            "serviceGroupSkuDescription": null,
+                            "serviceLevelSku": "HA158AC",
+                            "serviceLevelSkuDescription": "HPE Software Technical Unlimited Support",
+                            "serviceFullDescription": null,
+                            "documentNumber": "2733dbda-eec5-3798-b6f4-541d96148993",
+                            "document": {
+                                "id": "0c8324bb-600d-488b-9b53-35ee6849ff59",
+                                "type": "Quote renewal",
+                                "documentNumber": "2733dbda-eec5-3798-b6f4-541d96148993",
+                                "startDate": "2022-04-01",
+                                "endDate": "2023-03-31",
+                                "currencyCode": "CHF",
+                                "languageCode": null,
+                                "updatedAt": "1654272002806",
+                                "vendorSpecificFields": {
+                                    "vendor": "HPE",
+                                    "sar": null,
+                                    "ampId": null,
+                                    "said": null,
+                                    "groupId": null,
+                                    "groupDescription": null
+                                },
+                                "contactPersons": [
+                                    {
+                                        "phoneNumber": "+14587213921",
+                                        "name": "Candace Gerhold",
+                                        "mail": "timmothy82@cruickshank.com",
+                                        "type": "Customer Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+17709427853",
+                                        "name": "Gunnar Roberts",
+                                        "mail": "dillan62@rau.com",
+                                        "type": "Renewal Contact"
+                                    },
+                                    {
+                                        "phoneNumber": null,
+                                        "name": null,
+                                        "mail": null,
+                                        "type": "EndUser Contact"
+                                    }
+                                ],
+                                "resellerId": "c0d99925-8b3b-47d8-9db2-9d3a5f5520a2",
+                                "customerId": "7dd5da83-03f1-4847-b4cd-ea6fd047d756",
+                                "distributorId": "a985a692-c063-499a-ab2f-0a2adef86a3f"
+                            },
+                            "startDate": null,
+                            "endDate": null,
+                            "reseller": {
+                                "id": "c0d99925-8b3b-47d8-9db2-9d3a5f5520a2"
+                            },
+                            "customer": {
+                                "id": "7dd5da83-03f1-4847-b4cd-ea6fd047d756"
+                            }
+                        },
+                        {
+                            "serviceGroupSku": null,
+                            "serviceGroupSkuDescription": null,
+                            "serviceLevelSku": "HA156AC",
+                            "serviceLevelSkuDescription": "HPE Software Updates Service",
+                            "serviceFullDescription": null,
+                            "documentNumber": "db92b98b-25c5-3b1d-b1a0-5b67f5a94d9b",
+                            "document": {
+                                "id": "c0e09446-59a8-4fd1-9a42-cd08aa76c972",
+                                "type": "Contract",
+                                "documentNumber": "db92b98b-25c5-3b1d-b1a0-5b67f5a94d9b",
+                                "startDate": "2021-03-23",
+                                "endDate": "2022-03-31",
+                                "currencyCode": "CHF",
+                                "languageCode": null,
+                                "updatedAt": "1654262846658",
+                                "vendorSpecificFields": {
+                                    "vendor": "HPE",
+                                    "sar": "ARUBA87P461804001",
+                                    "ampId": "87-SMD503 447",
+                                    "said": null,
+                                    "groupId": null,
+                                    "groupDescription": null
+                                },
+                                "contactPersons": [
+                                    {
+                                        "phoneNumber": "+18202534466",
+                                        "name": "Hyman Russel",
+                                        "mail": null,
+                                        "type": "EndUser Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+17709427853",
+                                        "name": "Gunnar Roberts",
+                                        "mail": "dillan62@rau.com",
+                                        "type": "Distributor Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+14587213921",
+                                        "name": "Candace Gerhold",
+                                        "mail": "timmothy82@cruickshank.com",
+                                        "type": "Reseller Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+18202534466",
+                                        "name": "Hyman Russel",
+                                        "mail": null,
+                                        "type": "Hardware System Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+18202534466",
+                                        "name": "Hyman Russel",
+                                        "mail": null,
+                                        "type": "Software System Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+18202534466",
+                                        "name": "Hyman Russel",
+                                        "mail": null,
+                                        "type": "System Manager Contact"
+                                    }
+                                ],
+                                "resellerId": "c0d99925-8b3b-47d8-9db2-9d3a5f5520a2",
+                                "customerId": "7dd5da83-03f1-4847-b4cd-ea6fd047d756",
+                                "distributorId": "a985a692-c063-499a-ab2f-0a2adef86a3f"
+                            },
+                            "startDate": null,
+                            "endDate": null,
+                            "reseller": {
+                                "id": "c0d99925-8b3b-47d8-9db2-9d3a5f5520a2"
+                            },
+                            "customer": {
+                                "id": "7dd5da83-03f1-4847-b4cd-ea6fd047d756"
+                            }
+                        },
+                        {
+                            "serviceGroupSku": null,
+                            "serviceGroupSkuDescription": null,
+                            "serviceLevelSku": "HA158AC",
+                            "serviceLevelSkuDescription": "HPE Software Technical Unlimited Support",
+                            "serviceFullDescription": null,
+                            "documentNumber": "f3b4acfd-a37c-3202-9e52-c90a11637b9d",
+                            "document": {
+                                "id": "dab03736-a5fe-4073-bbb3-1bb59b7be652",
+                                "type": "Contract",
+                                "documentNumber": "f3b4acfd-a37c-3202-9e52-c90a11637b9d",
+                                "startDate": "2022-04-01",
+                                "endDate": "2023-03-31",
+                                "currencyCode": "CHF",
+                                "languageCode": null,
+                                "updatedAt": "1654262846658",
+                                "vendorSpecificFields": {
+                                    "vendor": "HPE",
+                                    "sar": null,
+                                    "ampId": "ARUBACHACHERM",
+                                    "said": "564d1dd7-eee3-3dbf-901f-855e8ef8a9cd",
+                                    "groupId": null,
+                                    "groupDescription": null
+                                },
+                                "contactPersons": [
+                                    {
+                                        "phoneNumber": null,
+                                        "name": null,
+                                        "mail": null,
+                                        "type": "EndUser Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+17709427853",
+                                        "name": "Gunnar Roberts",
+                                        "mail": "dillan62@rau.com",
+                                        "type": "Distributor Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+14587213921",
+                                        "name": "Candace Gerhold",
+                                        "mail": "timmothy82@cruickshank.com",
+                                        "type": "Reseller Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+18202534466",
+                                        "name": "Hyman Russel",
+                                        "mail": null,
+                                        "type": "Hardware System Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+18202534466",
+                                        "name": "Hyman Russel",
+                                        "mail": null,
+                                        "type": "Software System Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+18202534466",
+                                        "name": "Hyman Russel",
+                                        "mail": null,
+                                        "type": "System Manager Contact"
+                                    }
+                                ],
+                                "resellerId": "c0d99925-8b3b-47d8-9db2-9d3a5f5520a2",
+                                "customerId": "7dd5da83-03f1-4847-b4cd-ea6fd047d756",
+                                "distributorId": "a985a692-c063-499a-ab2f-0a2adef86a3f"
+                            },
+                            "startDate": null,
+                            "endDate": null,
+                            "reseller": null,
+                            "customer": {
+                                "id": "7dd5da83-03f1-4847-b4cd-ea6fd047d756"
+                            }
+                        }
+                    ],
+                    "latestContactPersons": [
+                        {
+                            "phoneNumber": null,
+                            "name": null,
+                            "mail": null,
+                            "type": "EndUser Contact"
+                        },
+                        {
+                            "phoneNumber": "+17709427853",
+                            "name": "Gunnar Roberts",
+                            "mail": "dillan62@rau.com",
+                            "type": "Distributor Contact"
+                        },
+                        {
+                            "phoneNumber": "+14587213921",
+                            "name": "Candace Gerhold",
+                            "mail": "timmothy82@cruickshank.com",
+                            "type": "Reseller Contact"
+                        }
+                    ],
+                    "coverageStatusCheck": {
+                        "coverageStatus": "COVERED",
+                        "coverageStatusUpdatedAt": "1664793341165",
+                        "coverageEntries": [
+                            {
+                                "coverageStartDate": "2021-03-23",
+                                "coverageEndDate": "2023-03-31",
+                                "type": "Contract",
+                                "status": "Active",
+                                "description": "H1L06AC-HPE Partner-Branded NBD Support SVC",
+                                "serviceSku": null
+                            }
+                        ]
+                    }
+                }
+            ]
+        }
+    }
+}

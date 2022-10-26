@@ -145,6 +145,7 @@ type Asset {
     dataQualityScore: String
     eolDate: String
     eosDate: String
+    eoslDate: String
     id: ID
     latestContactPersons: [CompanyContactPerson]
     latitude: String
@@ -619,6 +620,7 @@ type ViewAsset {
     dataQualityScore: String
     eolDate: String
     eosDate: String
+    eoslDate: String
     id: ID
     latestContactPersons: [CompanyContactPerson]
     latitude: String

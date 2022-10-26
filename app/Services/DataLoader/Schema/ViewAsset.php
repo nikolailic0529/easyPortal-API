@@ -16,6 +16,7 @@ class ViewAsset extends Type implements TypeWithId {
     public ?string $assetSku;
     public ?string $eolDate;
     public ?string $eosDate;
+    public ?string $eoslDate;
     public ?string $zip;
     public ?string $city;
     public ?string $address;

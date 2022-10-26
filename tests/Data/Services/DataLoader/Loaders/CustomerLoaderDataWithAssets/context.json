@@ -1,18 +1,33 @@
 {
-    "generated": "2022-10-14T11:27:11+00:00",
+    "generated": "2022-10-26T06:35:11+00:00",
+    "customers": [
+        "03ee438b-b478-4b4b-86bd-a495f3ab2880",
+        "b34a93c8-cc76-4346-bdf0-9d67bdb943d1"
+    ],
     "distributors": [
         "1af1c44e-8112-4e72-9654-b11c705e9372"
+    ],
+    "files": [
+        "data.getAssets/eaf3e9dea272100df3e3b566ce185375dfa96e7a.683343834fb8e190a61614422fe7bd4a751bde4b.json",
+        "data.getAssets/eaf3e9dea272100df3e3b566ce185375dfa96e7a.8bc1b2f522bc7b2bd957adabf71671eb2e943323.json",
+        "data.getAssetsByCustomerId/e02cfbdf6bda28dcd9581618f9fe15127928bdec.b3450cce21dcdb2e4d0fede44831a74879e57200.json",
+        "data.getAssetsByCustomerId/e02cfbdf6bda28dcd9581618f9fe15127928bdec.c659d7f18778f6204f727ead2170ea5aa241e06f.json",
+        "data.getAssetsByCustomerIdCount/3cd2cb5aee8509653ff46fc662799fff3e6ce6ea.c8c3c916bc86125c67835e2299c1fe44beb86121.json",
+        "data.getCompanyById/0d274523f7f902e4705cecfd8710b24aa9ced9e7.8e4006d09722e71b4dae270654e0412df4a164ad.json",
+        "data.getCompanyById/35619e8f6303a2081c7d9b26d1be91aa854872b3.252592bfeac00dd2d2a21e88462aea91f68487d2.json",
+        "data.getCompanyById/35619e8f6303a2081c7d9b26d1be91aa854872b3.f9255684085c7956342ab42607df307225e530a9.json",
+        "data.getCompanyById/72cffa3e3fc77afff3d357b338972cc2445d4e12.43185980ea63be1d6e322d80bc72766917a65190.json",
+        "data.getCompanyById/72cffa3e3fc77afff3d357b338972cc2445d4e12.5bcc2995764b4b759b8558f2f59ed39babf73a31.json",
+        "data.getDocumentsByCustomer/e2261a64390c6c9e64b1d865e7ac56993beffb16.ae3018628d03a96bb9edac9db52ff73d3942bcc2.json",
+        "data.getDocumentsByCustomer/e2261a64390c6c9e64b1d865e7ac56993beffb16.b3450cce21dcdb2e4d0fede44831a74879e57200.json",
+        "data.getDocumentsByCustomerCount/37ec77e8a42686e8abf0e6a45fba433c47de15f3.c8c3c916bc86125c67835e2299c1fe44beb86121.json",
+        "map.json"
     ],
     "resellers": [
         "594184e7-24d4-4614-8db4-fe132adb86f4",
         "9f6b1030-5d5d-4f0b-b743-2ef69eaf4a44"
     ],
-    "customers": [
-        "b34a93c8-cc76-4346-bdf0-9d67bdb943d1",
-        "03ee438b-b478-4b4b-86bd-a495f3ab2880"
-    ],
     "types": [
         "Contract"
-    ],
-    "oems": "oem.csv"
+    ]
 }

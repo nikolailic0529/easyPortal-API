@@ -7,13 +7,12 @@
                 "9f6b1030-5d5d-4f0b-b743-2ef69eaf4a44": "9f6b1030-5d5d-4f0b-b743-2ef69eaf4a44"
             },
             "App\\Models\\Customer": {
-                "9f51cfec-ad89-4d8e-ba36-633cfa0dc14d": "9f51cfec-ad89-4d8e-ba36-633cfa0dc14d",
                 "e42b0534-878d-4d43-90ec-d9c1cef59b70": "e42b0534-878d-4d43-90ec-d9c1cef59b70"
             },
             "App\\Models\\Document": [],
             "App\\Models\\Data\\Location": {
-                "3cf83ea0-7f7c-52ad-a7e6-1dfb72fbb6fa": "3cf83ea0-7f7c-52ad-a7e6-1dfb72fbb6fa",
-                "459a9b90-a31f-55c4-b5a7-5de3769f555e": "459a9b90-a31f-55c4-b5a7-5de3769f555e",
+                "c6c09316-c0bc-5fdd-9dda-b4a153151ccc": "c6c09316-c0bc-5fdd-9dda-b4a153151ccc",
+                "38086b95-d84b-5a54-bbb4-1bbf455ed2df": "38086b95-d84b-5a54-bbb4-1bbf455ed2df",
                 "8d81418e-43f9-530d-a340-3b81520a65db": "8d81418e-43f9-530d-a340-3b81520a65db"
             },
             "App\\Models\\Asset": {

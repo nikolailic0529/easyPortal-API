@@ -25,16 +25,27 @@ class DocumentsIteratorImporterData extends DocumentsData {
     ];
 
     protected function generateData(TestData $root, Context $context): bool {
-        return $this->app->make(IteratorImporter::class)
-            ->setIterator(static::getIterator())
-            ->setChunkSize(static::CHUNK)
-            ->setLimit(static::LIMIT)
-            ->start();
+        return $this->createDocument()
+            && $this->app->make(IteratorImporter::class)
+                ->setIterator(static::getIterator())
+                ->setChunkSize(static::CHUNK)
+                ->setLimit(static::LIMIT)
+                ->start();
     }
 
     public function restore(TestData $root, Context $context): bool {
-        $result = parent::restore($root, $context);
+        return $this->createDocument()
+            && parent::restore($root, $context);
+    }
 
+    /**
+     * @return ObjectIterator<Document|string>
+     */
+    public static function getIterator(): ObjectIterator {
+        return static::getModelsIterator(Document::class, static::DOCUMENTS);
+    }
+
+    private function createDocument(): bool {
         Document::factory()->create([
             'id'          => '00000000-0000-0000-0000-000000000000',
             'oem_id'      => null,
@@ -43,13 +54,6 @@ class DocumentsIteratorImporterData extends DocumentsData {
             'customer_id' => null,
         ]);
 
-        return $result;
-    }
-
-    /**
-     * @return ObjectIterator<Document|string>
-     */
-    public static function getIterator(): ObjectIterator {
-        return static::getModelsIterator(Document::class, static::DOCUMENTS);
+        return true;
     }
 }

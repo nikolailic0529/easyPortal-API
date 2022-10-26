@@ -1,0 +1,425 @@
+{
+    "selector": "data.getAssets",
+    "query": "query getAssets($id: String!) {\n    getAssets(args: [{key: \"id\", value: $id}]) {\n        id\nserialNumber\n\nassetSku\nassetSkuDescription\nassetTag\nassetType\nstatus\nvendor\n\neolDate\neosDate\neoslDate\n\ncountry\ncountryCode\nlatitude\nlongitude\nzip\ncity\naddress\naddress2\n\ncustomerId\nresellerId\n\nupdatedAt\n\nlatestContactPersons {\n    phoneNumber\n    name\n    type\n    mail\n}\n\nassetCoverage\ncoverageStatusCheck {\n    coverageStatus\n    coverageStatusUpdatedAt\n    coverageEntries {\n        coverageStartDate\n        coverageEndDate\n        type\n        description\n        status\n        serviceSku\n    }\n}\n\ndataQualityScore\nactiveContractQuantitySum\n        assetDocument {\n    startDate\n    endDate\n    documentNumber\n\n    document {\n        id\n        type\n        documentNumber\n\n        startDate\n        endDate\n\n        currencyCode\n        languageCode\n\n        updatedAt\n\n        vendorSpecificFields {\n            vendor\n            groupId\n            groupDescription\n            said\n            ampId\n            sar\n        }\n\n        contactPersons {\n            phoneNumber\n            name\n            type\n            mail\n        }\n\n        customerId\n        resellerId\n        distributorId\n    }\n\n    serviceGroupSku\n    serviceGroupSkuDescription\n    serviceLevelSku\n    serviceLevelSkuDescription\n    serviceFullDescription\n\n    customer {\n      id\n    }\n\n    reseller {\n      id\n    }\n}\n    }\n}",
+    "variables": {
+        "id": "5d62ee0b-ebdf-4a76-bcab-60078f6eba32"
+    },
+    "response": {
+        "data": {
+            "getAssets": [
+                {
+                    "id": "5d62ee0b-ebdf-4a76-bcab-60078f6eba32",
+                    "resellerId": "9d9e320d-4e44-4518-a4e6-6bfe7f1c7dd8",
+                    "customerId": "35c87f11-f024-402b-9a9e-49b21d29e804",
+                    "serialNumber": "0f9875b0-43ed-3d02-815e-89340df44c5b",
+                    "assetSkuDescription": "HPE M6710 1.2TB 12G SAS 10K 2.5in HDD",
+                    "assetTag": null,
+                    "assetType": null,
+                    "vendor": "HPE",
+                    "assetSku": "E7X49A",
+                    "eolDate": null,
+                    "eosDate": null,
+                    "eoslDate": null,
+                    "zip": "90442-4055",
+                    "city": "Chrisburgh",
+                    "address": "5918 Abbie Circle",
+                    "address2": null,
+                    "country": "Niue",
+                    "latitude": "39.880984",
+                    "longitude": "-164.84591",
+                    "countryCode": "PK",
+                    "status": "ACTIVE",
+                    "updatedAt": "1664801340452",
+                    "assetCoverage": [
+                        "COVERED"
+                    ],
+                    "dataQualityScore": "80",
+                    "activeContractQuantitySum": 0,
+                    "assetDocument": [
+                        {
+                            "serviceGroupSku": null,
+                            "serviceGroupSkuDescription": null,
+                            "serviceLevelSku": "HE808AC",
+                            "serviceLevelSkuDescription": "HPE Mature Hardware Onsite Support",
+                            "serviceFullDescription": null,
+                            "documentNumber": "f9edf85a-6ba7-3ed2-9ca3-4a44328dec8e",
+                            "document": {
+                                "id": "72aaeb84-1468-4526-a94d-3dc0c4ce31a1",
+                                "type": "Contract",
+                                "documentNumber": "f9edf85a-6ba7-3ed2-9ca3-4a44328dec8e",
+                                "startDate": "2022-06-01",
+                                "endDate": "2023-05-31",
+                                "currencyCode": "EUR",
+                                "languageCode": null,
+                                "updatedAt": "1654262846658",
+                                "vendorSpecificFields": {
+                                    "vendor": "HPE",
+                                    "sar": null,
+                                    "ampId": "83-Z00342",
+                                    "said": "2a016e8f-d8a3-3bb3-80ef-9f5c76311c4f",
+                                    "groupId": null,
+                                    "groupDescription": null
+                                },
+                                "contactPersons": [
+                                    {
+                                        "phoneNumber": null,
+                                        "name": null,
+                                        "mail": null,
+                                        "type": "EndUser Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+14582734372",
+                                        "name": "Darren Kris",
+                                        "mail": "cjacobs@ratke.com",
+                                        "type": "Distributor Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+17269064245",
+                                        "name": "Lowell Batz",
+                                        "mail": "selmer82@rutherford.com",
+                                        "type": "Reseller Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+14302448793",
+                                        "name": "Braeden Champlin",
+                                        "mail": "crona.jarrett@bechtelar.com",
+                                        "type": "Hardware System Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+14302448793",
+                                        "name": "Braeden Champlin",
+                                        "mail": "crona.jarrett@bechtelar.com",
+                                        "type": "Software System Contact"
+                                    },
+                                    {
+                                        "phoneNumber": null,
+                                        "name": null,
+                                        "mail": null,
+                                        "type": "System Manager Contact"
+                                    }
+                                ],
+                                "resellerId": "9d9e320d-4e44-4518-a4e6-6bfe7f1c7dd8",
+                                "customerId": "35c87f11-f024-402b-9a9e-49b21d29e804",
+                                "distributorId": "1af1c44e-8112-4e72-9654-b11c705e9372"
+                            },
+                            "startDate": null,
+                            "endDate": null,
+                            "reseller": {
+                                "id": "9d9e320d-4e44-4518-a4e6-6bfe7f1c7dd8"
+                            },
+                            "customer": {
+                                "id": "35c87f11-f024-402b-9a9e-49b21d29e804"
+                            }
+                        },
+                        {
+                            "serviceGroupSku": null,
+                            "serviceGroupSkuDescription": null,
+                            "serviceLevelSku": "HU4A2AC",
+                            "serviceLevelSkuDescription": "HPE Hardware Tech Support",
+                            "serviceFullDescription": null,
+                            "documentNumber": "445e1891-1c1b-31dc-a0e4-d3faf069ca52",
+                            "document": {
+                                "id": "ec6680a7-beb6-4890-990c-11e0f6feaf1f",
+                                "type": "Quote renewal",
+                                "documentNumber": "445e1891-1c1b-31dc-a0e4-d3faf069ca52",
+                                "startDate": "2022-06-01",
+                                "endDate": "2023-05-31",
+                                "currencyCode": "EUR",
+                                "languageCode": null,
+                                "updatedAt": "1654646472834",
+                                "vendorSpecificFields": {
+                                    "vendor": "HPE",
+                                    "sar": null,
+                                    "ampId": null,
+                                    "said": null,
+                                    "groupId": null,
+                                    "groupDescription": null
+                                },
+                                "contactPersons": [
+                                    {
+                                        "phoneNumber": "+17269064245",
+                                        "name": "Lowell Batz",
+                                        "mail": "selmer82@rutherford.com",
+                                        "type": "Customer Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+14582734372",
+                                        "name": "Darren Kris",
+                                        "mail": "cjacobs@ratke.com",
+                                        "type": "Renewal Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+14302448793",
+                                        "name": "Braeden Champlin",
+                                        "mail": "crona.jarrett@bechtelar.com",
+                                        "type": "EndUser Contact"
+                                    }
+                                ],
+                                "resellerId": "9d9e320d-4e44-4518-a4e6-6bfe7f1c7dd8",
+                                "customerId": "35c87f11-f024-402b-9a9e-49b21d29e804",
+                                "distributorId": "1af1c44e-8112-4e72-9654-b11c705e9372"
+                            },
+                            "startDate": null,
+                            "endDate": null,
+                            "reseller": {
+                                "id": "9d9e320d-4e44-4518-a4e6-6bfe7f1c7dd8"
+                            },
+                            "customer": {
+                                "id": "35c87f11-f024-402b-9a9e-49b21d29e804"
+                            }
+                        },
+                        {
+                            "serviceGroupSku": null,
+                            "serviceGroupSkuDescription": null,
+                            "serviceLevelSku": "HU4A1AC",
+                            "serviceLevelSkuDescription": "HPE Remote Tech Support",
+                            "serviceFullDescription": null,
+                            "documentNumber": "445e1891-1c1b-31dc-a0e4-d3faf069ca52",
+                            "document": {
+                                "id": "ec6680a7-beb6-4890-990c-11e0f6feaf1f",
+                                "type": "Quote renewal",
+                                "documentNumber": "445e1891-1c1b-31dc-a0e4-d3faf069ca52",
+                                "startDate": "2022-06-01",
+                                "endDate": "2023-05-31",
+                                "currencyCode": "EUR",
+                                "languageCode": null,
+                                "updatedAt": "1654646472834",
+                                "vendorSpecificFields": {
+                                    "vendor": "HPE",
+                                    "sar": null,
+                                    "ampId": null,
+                                    "said": null,
+                                    "groupId": null,
+                                    "groupDescription": null
+                                },
+                                "contactPersons": [
+                                    {
+                                        "phoneNumber": "+17269064245",
+                                        "name": "Lowell Batz",
+                                        "mail": "selmer82@rutherford.com",
+                                        "type": "Customer Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+14582734372",
+                                        "name": "Darren Kris",
+                                        "mail": "cjacobs@ratke.com",
+                                        "type": "Renewal Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+14302448793",
+                                        "name": "Braeden Champlin",
+                                        "mail": "crona.jarrett@bechtelar.com",
+                                        "type": "EndUser Contact"
+                                    }
+                                ],
+                                "resellerId": "9d9e320d-4e44-4518-a4e6-6bfe7f1c7dd8",
+                                "customerId": "35c87f11-f024-402b-9a9e-49b21d29e804",
+                                "distributorId": "1af1c44e-8112-4e72-9654-b11c705e9372"
+                            },
+                            "startDate": null,
+                            "endDate": null,
+                            "reseller": {
+                                "id": "9d9e320d-4e44-4518-a4e6-6bfe7f1c7dd8"
+                            },
+                            "customer": {
+                                "id": "35c87f11-f024-402b-9a9e-49b21d29e804"
+                            }
+                        },
+                        {
+                            "serviceGroupSku": null,
+                            "serviceGroupSkuDescription": null,
+                            "serviceLevelSku": "HU4A1AC",
+                            "serviceLevelSkuDescription": "HPE Remote Tech Support",
+                            "serviceFullDescription": null,
+                            "documentNumber": "f9edf85a-6ba7-3ed2-9ca3-4a44328dec8e",
+                            "document": {
+                                "id": "72aaeb84-1468-4526-a94d-3dc0c4ce31a1",
+                                "type": "Contract",
+                                "documentNumber": "f9edf85a-6ba7-3ed2-9ca3-4a44328dec8e",
+                                "startDate": "2022-06-01",
+                                "endDate": "2023-05-31",
+                                "currencyCode": "EUR",
+                                "languageCode": null,
+                                "updatedAt": "1654262846658",
+                                "vendorSpecificFields": {
+                                    "vendor": "HPE",
+                                    "sar": null,
+                                    "ampId": "83-Z00342",
+                                    "said": "2a016e8f-d8a3-3bb3-80ef-9f5c76311c4f",
+                                    "groupId": null,
+                                    "groupDescription": null
+                                },
+                                "contactPersons": [
+                                    {
+                                        "phoneNumber": null,
+                                        "name": null,
+                                        "mail": null,
+                                        "type": "EndUser Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+14582734372",
+                                        "name": "Darren Kris",
+                                        "mail": "cjacobs@ratke.com",
+                                        "type": "Distributor Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+17269064245",
+                                        "name": "Lowell Batz",
+                                        "mail": "selmer82@rutherford.com",
+                                        "type": "Reseller Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+14302448793",
+                                        "name": "Braeden Champlin",
+                                        "mail": "crona.jarrett@bechtelar.com",
+                                        "type": "Hardware System Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+14302448793",
+                                        "name": "Braeden Champlin",
+                                        "mail": "crona.jarrett@bechtelar.com",
+                                        "type": "Software System Contact"
+                                    },
+                                    {
+                                        "phoneNumber": null,
+                                        "name": null,
+                                        "mail": null,
+                                        "type": "System Manager Contact"
+                                    }
+                                ],
+                                "resellerId": "9d9e320d-4e44-4518-a4e6-6bfe7f1c7dd8",
+                                "customerId": "35c87f11-f024-402b-9a9e-49b21d29e804",
+                                "distributorId": "1af1c44e-8112-4e72-9654-b11c705e9372"
+                            },
+                            "startDate": null,
+                            "endDate": null,
+                            "reseller": {
+                                "id": "9d9e320d-4e44-4518-a4e6-6bfe7f1c7dd8"
+                            },
+                            "customer": {
+                                "id": "35c87f11-f024-402b-9a9e-49b21d29e804"
+                            }
+                        },
+                        {
+                            "serviceGroupSku": null,
+                            "serviceGroupSkuDescription": null,
+                            "serviceLevelSku": "HU4A2AC",
+                            "serviceLevelSkuDescription": "HPE Hardware Tech Support",
+                            "serviceFullDescription": null,
+                            "documentNumber": "f9edf85a-6ba7-3ed2-9ca3-4a44328dec8e",
+                            "document": {
+                                "id": "72aaeb84-1468-4526-a94d-3dc0c4ce31a1",
+                                "type": "Contract",
+                                "documentNumber": "f9edf85a-6ba7-3ed2-9ca3-4a44328dec8e",
+                                "startDate": "2022-06-01",
+                                "endDate": "2023-05-31",
+                                "currencyCode": "EUR",
+                                "languageCode": null,
+                                "updatedAt": "1654262846658",
+                                "vendorSpecificFields": {
+                                    "vendor": "HPE",
+                                    "sar": null,
+                                    "ampId": "83-Z00342",
+                                    "said": "2a016e8f-d8a3-3bb3-80ef-9f5c76311c4f",
+                                    "groupId": null,
+                                    "groupDescription": null
+                                },
+                                "contactPersons": [
+                                    {
+                                        "phoneNumber": null,
+                                        "name": null,
+                                        "mail": null,
+                                        "type": "EndUser Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+14582734372",
+                                        "name": "Darren Kris",
+                                        "mail": "cjacobs@ratke.com",
+                                        "type": "Distributor Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+17269064245",
+                                        "name": "Lowell Batz",
+                                        "mail": "selmer82@rutherford.com",
+                                        "type": "Reseller Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+14302448793",
+                                        "name": "Braeden Champlin",
+                                        "mail": "crona.jarrett@bechtelar.com",
+                                        "type": "Hardware System Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+14302448793",
+                                        "name": "Braeden Champlin",
+                                        "mail": "crona.jarrett@bechtelar.com",
+                                        "type": "Software System Contact"
+                                    },
+                                    {
+                                        "phoneNumber": null,
+                                        "name": null,
+                                        "mail": null,
+                                        "type": "System Manager Contact"
+                                    }
+                                ],
+                                "resellerId": "9d9e320d-4e44-4518-a4e6-6bfe7f1c7dd8",
+                                "customerId": "35c87f11-f024-402b-9a9e-49b21d29e804",
+                                "distributorId": "1af1c44e-8112-4e72-9654-b11c705e9372"
+                            },
+                            "startDate": null,
+                            "endDate": null,
+                            "reseller": {
+                                "id": "9d9e320d-4e44-4518-a4e6-6bfe7f1c7dd8"
+                            },
+                            "customer": {
+                                "id": "35c87f11-f024-402b-9a9e-49b21d29e804"
+                            }
+                        }
+                    ],
+                    "latestContactPersons": [
+                        {
+                            "phoneNumber": null,
+                            "name": null,
+                            "mail": null,
+                            "type": "EndUser Contact"
+                        },
+                        {
+                            "phoneNumber": "+14582734372",
+                            "name": "Darren Kris",
+                            "mail": "cjacobs@ratke.com",
+                            "type": "Distributor Contact"
+                        },
+                        {
+                            "phoneNumber": "+17269064245",
+                            "name": "Lowell Batz",
+                            "mail": "selmer82@rutherford.com",
+                            "type": "Reseller Contact"
+                        }
+                    ],
+                    "coverageStatusCheck": {
+                        "coverageStatus": "COVERED",
+                        "coverageStatusUpdatedAt": "1664801340452",
+                        "coverageEntries": [
+                            {
+                                "coverageStartDate": "2020-06-01",
+                                "coverageEndDate": "2023-05-31",
+                                "type": "Contract",
+                                "status": "Active",
+                                "description": "H7J34AC-HPE Foundation Care 24x7 SVC",
+                                "serviceSku": null
+                            },
+                            {
+                                "coverageStartDate": "2015-05-04",
+                                "coverageEndDate": "2018-06-02",
+                                "type": "FactoryWarranty",
+                                "status": "Expired",
+                                "description": "HA155BW-Wty: HPE Parts Exchange Support",
+                                "serviceSku": null
+                            }
+                        ]
+                    }
+                }
+            ]
+        }
+    }
+}

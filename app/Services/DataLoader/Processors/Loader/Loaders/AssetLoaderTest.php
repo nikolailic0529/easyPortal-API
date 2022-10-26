@@ -37,9 +37,9 @@ class AssetLoaderTest extends TestCase {
 
         // Pretest
         self::assertModelsCount([
-            Distributor::class   => 1,
+            Distributor::class   => 0,
             Reseller::class      => 1,
-            Customer::class      => 2,
+            Customer::class      => 1,
             Asset::class         => 0,
             AssetWarranty::class => 0,
             Document::class      => 0,
@@ -56,9 +56,9 @@ class AssetLoaderTest extends TestCase {
 
         self::assertQueryLogEquals('~process-cold-queries.json', $queries);
         self::assertModelsCount([
-            Distributor::class   => 1,
+            Distributor::class   => 0,
             Reseller::class      => 1,
-            Customer::class      => 2,
+            Customer::class      => 1,
             Asset::class         => 1,
             AssetWarranty::class => 0,
             Document::class      => 0,

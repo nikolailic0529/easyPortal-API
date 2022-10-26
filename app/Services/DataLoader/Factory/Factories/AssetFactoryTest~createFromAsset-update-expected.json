@@ -10,7 +10,7 @@
     "insert into `coverages` (`key`, `name`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
     "select `statuses`.* from `statuses` where (`key` = ? and `object_type` = ?) and `statuses`.`deleted_at` is null limit 1",
     "insert into `statuses` (`object_type`, `key`, `name`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?)",
-    "update `assets` set `reseller_id` = ?, `location_id` = ?, `changed_at` = ?, `data_quality` = ?, `contacts_active_quantity` = ?, `contacts_count` = ?, `synced_at` = ?, `warranty_end` = ?, `assets`.`updated_at` = ? where `id` = ?",
+    "update `assets` set `reseller_id` = ?, `location_id` = ?, `eosl` = ?, `changed_at` = ?, `data_quality` = ?, `contacts_active_quantity` = ?, `contacts_count` = ?, `synced_at` = ?, `warranty_end` = ?, `assets`.`updated_at` = ? where `id` = ?",
     "update `contacts` set `deleted_at` = ?, `contacts`.`updated_at` = ? where `id` = ?",
     "insert into `asset_tags` (`tag_id`, `asset_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
     "update `asset_tags` set `deleted_at` = ?, `asset_tags`.`updated_at` = ? where `id` = ?",

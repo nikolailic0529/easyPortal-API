@@ -1,19 +1,25 @@
 {
-    "generated": "2022-10-14T11:44:16+00:00",
-    "distributors": [
-        "1af1c44e-8112-4e72-9654-b11c705e9372",
-        "a985a692-c063-499a-ab2f-0a2adef86a3f"
-    ],
-    "resellers": [
-        "77ec115b-9723-4582-ad45-2b3a83286b1f",
-        "22d7dbf2-977a-49d8-8e4c-cacdaae616b2"
-    ],
+    "generated": "2022-10-26T06:13:27+00:00",
     "customers": [
         "bbf64ae3-73cc-4b2a-ac5c-a3a391099b4a",
         "f273feb9-4043-4ce2-9633-2dab7a75c566"
     ],
+    "files": [
+        "data.getAssets/eaf3e9dea272100df3e3b566ce185375dfa96e7a.8bc1b2f522bc7b2bd957adabf71671eb2e943323.json",
+        "data.getAssets/eaf3e9dea272100df3e3b566ce185375dfa96e7a.be0a415e11d166f58ba4d8e0213138348068a12c.json",
+        "data.getAssetsByResellerId/c974fa8a4557d8ad4f9ff75cb2993d14458081ef.232e80d2ea3343e4ae5b05bd172064e4974fe9bd.json",
+        "data.getAssetsByResellerIdCount/7f979700bf472ec896fc61065d0fdb1fd1e5bbed.f46dab9e10fc58aa1e77a293f1fc65b138022210.json",
+        "data.getCompanyById/35619e8f6303a2081c7d9b26d1be91aa854872b3.277bb595b2e8d78d2328d6d6abdf1b2f9eb7e55a.json",
+        "data.getCompanyById/35619e8f6303a2081c7d9b26d1be91aa854872b3.b444e824df3974f580d6ba07fc86badd9bb32602.json",
+        "data.getCompanyById/72cffa3e3fc77afff3d357b338972cc2445d4e12.379a2d23637f831dd533047d12637aaa02cbe221.json",
+        "data.getCompanyById/72cffa3e3fc77afff3d357b338972cc2445d4e12.76d32dc769076bfff98b2bcb8ab815793dacd35a.json",
+        "map.json"
+    ],
+    "resellers": [
+        "22d7dbf2-977a-49d8-8e4c-cacdaae616b2",
+        "77ec115b-9723-4582-ad45-2b3a83286b1f"
+    ],
     "types": [
         "Contract"
-    ],
-    "oems": "oem.csv"
+    ]
 }

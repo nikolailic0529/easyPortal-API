@@ -141,6 +141,7 @@ abstract class GraphQL implements Stringable, JsonSerializable {
 
             eolDate
             eosDate
+            eoslDate
 
             country
             countryCode

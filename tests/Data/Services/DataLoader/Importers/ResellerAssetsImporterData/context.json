@@ -1,20 +1,30 @@
 {
-    "generated": "2022-10-14T11:27:32+00:00",
-    "distributors": [
-        "1af1c44e-8112-4e72-9654-b11c705e9372"
+    "generated": "2022-10-26T06:28:32+00:00",
+    "customers": [
+        "13c8f977-00bb-4906-bd59-2bf457cf39cb",
+        "412e9b0e-95e8-474a-a8e1-4f526886eb55",
+        "93da84d9-a8ee-483a-b604-9289d41fd601",
+        "fe97f500-c6e4-4968-a312-25d21318297b"
+    ],
+    "files": [
+        "data.getAssetsByResellerId/c974fa8a4557d8ad4f9ff75cb2993d14458081ef.206a25d1cfa8b1e20329b965eb24ecb7c49af4db.json",
+        "data.getAssetsByResellerId/c974fa8a4557d8ad4f9ff75cb2993d14458081ef.3150625c5784f106ca3ce4c13c73ee35ae5ed7f4.json",
+        "data.getAssetsByResellerId/c974fa8a4557d8ad4f9ff75cb2993d14458081ef.44470dc1beed86542c63efd965d2b51790dd9e6c.json",
+        "data.getAssetsByResellerId/c974fa8a4557d8ad4f9ff75cb2993d14458081ef.48466a4b58f09346864f32b50b919cf95410169b.json",
+        "data.getAssetsByResellerId/c974fa8a4557d8ad4f9ff75cb2993d14458081ef.b233a1c91aa7a23fea1ee7b740a005582154c912.json",
+        "data.getAssetsByResellerIdCount/7f979700bf472ec896fc61065d0fdb1fd1e5bbed.1835e0b2e1ee170a068d38e644aa393ea87135a0.json",
+        "data.getCompanyById/35619e8f6303a2081c7d9b26d1be91aa854872b3.62c946d3b5bb2eb6933bea5e9a293a8464194904.json",
+        "data.getCompanyById/35619e8f6303a2081c7d9b26d1be91aa854872b3.74530ce08598b3da74d821702ab3c7256eb1feba.json",
+        "data.getCompanyById/35619e8f6303a2081c7d9b26d1be91aa854872b3.e637e84b1a2353fdabed19fbbaa6a70222195c35.json",
+        "data.getCompanyById/35619e8f6303a2081c7d9b26d1be91aa854872b3.f3f105b20c560c1f4de0542e3ee413f1facfabe0.json",
+        "data.getCompanyById/72cffa3e3fc77afff3d357b338972cc2445d4e12.0e760a393c39011cb80e163a231b82746154cd21.json",
+        "map.json"
     ],
     "resellers": [
         "27faa47d-ab2a-4755-b36b-729114c056d2"
     ],
-    "customers": [
-        "93da84d9-a8ee-483a-b604-9289d41fd601",
-        "13c8f977-00bb-4906-bd59-2bf457cf39cb",
-        "fe97f500-c6e4-4968-a312-25d21318297b",
-        "412e9b0e-95e8-474a-a8e1-4f526886eb55"
-    ],
     "types": [
         "Contract",
         "Quote renewal"
-    ],
-    "oems": "oem.csv"
+    ]
 }
