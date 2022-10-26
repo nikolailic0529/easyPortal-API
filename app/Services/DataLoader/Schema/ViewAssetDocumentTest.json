@@ -15,6 +15,7 @@
     },
     "startDate": "2020-04-01",
     "endDate": "2021-03-31",
+    "deletedAt": null,
     "reseller": {
         "id": "5fb52fc3-86fd-4e1f-87cd-0f546fc8989a",
         "name": "Weber, Gusikowski and Simonis"

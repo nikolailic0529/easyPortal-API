@@ -58,6 +58,7 @@
             "serviceGroupSku": "H7J34AC",
             "startDate": "1583020800000",
             "endDate": "1624406400000",
+            "deletedAt": null,
             "customer": {
                 "id": "5fb52fc3-86fd-4e1f-87cd-0f546fc8989a"
             },

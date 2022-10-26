@@ -61,6 +61,7 @@
             "serviceFullDescription": "Remote Support and Diagnosis  Advance Parts Replacement   License to Use & SW Updates",
             "startDate": "1583020800000",
             "endDate": "1614470400000",
+            "deletedAt": null,
             "customer": {
                 "id": "5fb52fc3-86fd-4e1f-87cd-0f546fc8989a"
             },
@@ -98,6 +99,7 @@
             "serviceGroupSku": "H7J34AC",
             "startDate": "1583020800000",
             "endDate": "1614470400000",
+            "deletedAt": null,
             "customer": {
                 "id": "5fb52fc3-86fd-4e1f-87cd-0f546fc8989a"
             },
@@ -112,12 +114,26 @@
             "serviceGroupSku": "H7J34AC",
             "startDate": "1583020800000",
             "endDate": "1614470400000",
+            "deletedAt": null,
             "customer": {
                 "id": "5fb52fc3-86fd-4e1f-87cd-0f546fc8989a"
             },
             "reseller": {
                 "id": "97292d03-7919-406c-a15b-39bf029e6d5a"
             }
+        },
+        {
+            "documentNumber": "0056523288",
+            "serviceLevelSku": "HA151AC",
+            "serviceLevelSkuDescription": "HPE Hardware Maintenance Onsite Support",
+            "serviceGroupSku": "H7J34AC",
+            "serviceGroupSkuDescription": "HPE NBD w DMR Proactive Care SVC",
+            "serviceFullDescription": "Remote Support and Diagnosis  Advance Parts Replacement   License to Use & SW Updates",
+            "startDate": "1583020800000",
+            "endDate": "1614470400000",
+            "deletedAt": "1614470400000",
+            "customer": null,
+            "reseller": null
         }
     ],
     "latestContactPersons": [

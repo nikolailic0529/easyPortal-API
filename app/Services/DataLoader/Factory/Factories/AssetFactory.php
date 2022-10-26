@@ -361,7 +361,8 @@ class AssetFactory extends ModelFactory {
         // information (that is not available in Document and DocumentEntry)
         $documents = Collection::make($asset->assetDocument)
             ->filter(static function (ViewAssetDocument $document): bool {
-                return isset($document->documentNumber);
+                return isset($document->documentNumber)
+                    && $document->deletedAt === null;
             })
             ->sort(static function (ViewAssetDocument $a, ViewAssetDocument $b): int {
                 return $a->startDate <=> $b->startDate

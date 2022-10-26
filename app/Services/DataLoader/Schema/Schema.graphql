@@ -646,6 +646,7 @@ type ViewAssetDocument {
     customer: ViewCompany
     customerInvoiceDate: String
     customerPurchaseOrderDate: String
+    deletedAt: String
     distributor: ViewCompany
     document: ViewDocument
     documentNumber: String

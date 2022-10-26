@@ -1,5 +1,5 @@
 {
-    "generated": "2022-10-26T06:57:53+00:00",
+    "generated": "2022-10-26T07:22:44+00:00",
     "assets": [
         "50c0418d-2c76-45cc-82a2-423f77894b9e",
         "5d90aa3a-9490-4111-b8eb-87030abb4c5f",
@@ -19,14 +19,14 @@
         "a985a692-c063-499a-ab2f-0a2adef86a3f"
     ],
     "files": [
-        "data.getAssets/eaf3e9dea272100df3e3b566ce185375dfa96e7a.126a1a00475653ab2584233fe228f54f018a070f.json",
-        "data.getAssets/eaf3e9dea272100df3e3b566ce185375dfa96e7a.2f58efe4f8aba3e090e22db0200205229d7df881.json",
-        "data.getAssets/eaf3e9dea272100df3e3b566ce185375dfa96e7a.4a9046c8d91ee8f30b7ef4c5cd868bc57a9a20bc.json",
-        "data.getAssets/eaf3e9dea272100df3e3b566ce185375dfa96e7a.4c04ae3964893d3847ef293cd13cbe177d85a8f9.json",
-        "data.getAssets/eaf3e9dea272100df3e3b566ce185375dfa96e7a.87fc5ed42ae0c98e8719456452a748bace6aa438.json",
-        "data.getAssets/eaf3e9dea272100df3e3b566ce185375dfa96e7a.8e9189b66d055cca32b3c49dbc70f1abc414a113.json",
-        "data.getAssets/eaf3e9dea272100df3e3b566ce185375dfa96e7a.d5d5f6e20416bdcd548698cf4aa802c27a437893.json",
-        "data.getAssets/eaf3e9dea272100df3e3b566ce185375dfa96e7a.e7174154a918eeac8aae6b812864a998d25e198a.json",
+        "data.getAssets/9f262369a91f92ab7b55e09a6bd9a6d4c9035d44.126a1a00475653ab2584233fe228f54f018a070f.json",
+        "data.getAssets/9f262369a91f92ab7b55e09a6bd9a6d4c9035d44.2f58efe4f8aba3e090e22db0200205229d7df881.json",
+        "data.getAssets/9f262369a91f92ab7b55e09a6bd9a6d4c9035d44.4a9046c8d91ee8f30b7ef4c5cd868bc57a9a20bc.json",
+        "data.getAssets/9f262369a91f92ab7b55e09a6bd9a6d4c9035d44.4c04ae3964893d3847ef293cd13cbe177d85a8f9.json",
+        "data.getAssets/9f262369a91f92ab7b55e09a6bd9a6d4c9035d44.87fc5ed42ae0c98e8719456452a748bace6aa438.json",
+        "data.getAssets/9f262369a91f92ab7b55e09a6bd9a6d4c9035d44.8e9189b66d055cca32b3c49dbc70f1abc414a113.json",
+        "data.getAssets/9f262369a91f92ab7b55e09a6bd9a6d4c9035d44.d5d5f6e20416bdcd548698cf4aa802c27a437893.json",
+        "data.getAssets/9f262369a91f92ab7b55e09a6bd9a6d4c9035d44.e7174154a918eeac8aae6b812864a998d25e198a.json",
         "data.getCompanyById/0d274523f7f902e4705cecfd8710b24aa9ced9e7.8e4006d09722e71b4dae270654e0412df4a164ad.json",
         "data.getCompanyById/0d274523f7f902e4705cecfd8710b24aa9ced9e7.ec4dc6c96a5b8594540f63892f2e756d54e08add.json",
         "data.getCompanyById/35619e8f6303a2081c7d9b26d1be91aa854872b3.62f630404c96c40884a4fd17b08846ce6dd7b9fd.json",

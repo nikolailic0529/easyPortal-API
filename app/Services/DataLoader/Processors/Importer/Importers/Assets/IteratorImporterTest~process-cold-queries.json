@@ -137,8 +137,68 @@
         "bindings": []
     },
     {
+        "query": "select `countries`.* from `countries` where (`code` = ?) and `countries`.`deleted_at` is null limit 1",
+        "bindings": [
+            "dm"
+        ]
+    },
+    {
+        "query": "insert into `countries` (`code`, `name`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
+        "bindings": [
+            "DM",
+            "Sudan",
+            "281fa16d-b7e0-59dc-a2d2-ae493b781896",
+            "2022-02-02 00:00:04",
+            "2022-02-02 00:00:04"
+        ]
+    },
+    {
         "query": "select `cities`.* from `cities` where `cities`.`deleted_at` is null",
         "bindings": []
+    },
+    {
+        "query": "select `cities`.* from `cities` where (`country_id` = ? and `key` = ?) and `cities`.`deleted_at` is null limit 1",
+        "bindings": [
+            "281fa16d-b7e0-59dc-a2d2-ae493b781896",
+            "east ewaldport"
+        ]
+    },
+    {
+        "query": "insert into `cities` (`key`, `name`, `country_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?)",
+        "bindings": [
+            "East Ewaldport",
+            "East Ewaldport",
+            "281fa16d-b7e0-59dc-a2d2-ae493b781896",
+            "408630e7-2285-5049-9551-e042944ceb4d",
+            "2022-02-02 00:00:05",
+            "2022-02-02 00:00:05"
+        ]
+    },
+    {
+        "query": "select `locations`.* from `locations` where (`city_id` = ? and `country_id` = ? and CONCAT(`line_one`, IF(`line_two` != '', CONCAT(' ', `line_two`), '')) = ? and `postcode` = ?) and `locations`.`deleted_at` is null limit 1",
+        "bindings": [
+            "408630e7-2285-5049-9551-e042944ceb4d",
+            "281fa16d-b7e0-59dc-a2d2-ae493b781896",
+            "98733 murray terrace suite 898",
+            "79465-9082"
+        ]
+    },
+    {
+        "query": "insert into `locations` (`country_id`, `city_id`, `postcode`, `state`, `line_one`, `line_two`, `latitude`, `longitude`, `geohash`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "bindings": [
+            "281fa16d-b7e0-59dc-a2d2-ae493b781896",
+            "408630e7-2285-5049-9551-e042944ceb4d",
+            "79465-9082",
+            "",
+            "98733 Murray Terrace Suite 898",
+            "",
+            "-68.372207",
+            "-10.185557",
+            "5gbg01pp52f4",
+            "5805230b-b911-5b0c-ab1b-670e88304dc4",
+            "2022-02-02 00:00:06",
+            "2022-02-02 00:00:06"
+        ]
     },
     {
         "query": "select `types`.* from `types` where `types`.`deleted_at` is null",
@@ -157,9 +217,9 @@
             "Contact",
             "EndUser Contact",
             "End User Contact",
-            "281fa16d-b7e0-59dc-a2d2-ae493b781896",
-            "2022-02-02 00:00:05",
-            "2022-02-02 00:00:05"
+            "317051ab-383c-55fc-a38d-e1ba7d1c5185",
+            "2022-02-02 00:00:08",
+            "2022-02-02 00:00:08"
         ]
     },
     {
@@ -175,9 +235,9 @@
             "Contact",
             "Distributor Contact",
             "Distributor Contact",
-            "408630e7-2285-5049-9551-e042944ceb4d",
-            "2022-02-02 00:00:06",
-            "2022-02-02 00:00:06"
+            "fe1343b9-b7d3-58b0-8f58-db5419e3736e",
+            "2022-02-02 00:00:09",
+            "2022-02-02 00:00:09"
         ]
     },
     {
@@ -193,9 +253,9 @@
             "Contact",
             "Reseller Contact",
             "Reseller Contact",
-            "5805230b-b911-5b0c-ab1b-670e88304dc4",
-            "2022-02-02 00:00:07",
-            "2022-02-02 00:00:07"
+            "3a9fc444-5aa7-51cc-978b-d3548295cc52",
+            "2022-02-02 00:00:10",
+            "2022-02-02 00:00:10"
         ]
     },
     {
@@ -213,9 +273,9 @@
         "bindings": [
             "COVERED",
             "Covered",
-            "317051ab-383c-55fc-a38d-e1ba7d1c5185",
-            "2022-02-02 00:00:08",
-            "2022-02-02 00:00:08"
+            "6bead99c-0349-5d88-8119-bcb3dc6fc611",
+            "2022-02-02 00:00:11",
+            "2022-02-02 00:00:11"
         ]
     },
     {
@@ -231,9 +291,9 @@
             "AssetWarranty",
             "Contract",
             "Contract",
-            "fe1343b9-b7d3-58b0-8f58-db5419e3736e",
-            "2022-02-02 00:00:14",
-            "2022-02-02 00:00:14"
+            "ca6b907e-b88a-531b-8b2f-c7c190700878",
+            "2022-02-02 00:00:17",
+            "2022-02-02 00:00:17"
         ]
     },
     {
@@ -249,9 +309,9 @@
             "AssetWarranty",
             "Active",
             "Active",
-            "3a9fc444-5aa7-51cc-978b-d3548295cc52",
-            "2022-02-02 00:00:15",
-            "2022-02-02 00:00:15"
+            "79d540cc-c86f-52a3-83ba-d6a2287289ea",
+            "2022-02-02 00:00:18",
+            "2022-02-02 00:00:18"
         ]
     },
     {
@@ -267,9 +327,9 @@
             "AssetWarranty",
             "FactoryWarranty",
             "Factory Warranty",
-            "6bead99c-0349-5d88-8119-bcb3dc6fc611",
-            "2022-02-02 00:00:18",
-            "2022-02-02 00:00:18"
+            "50e49187-ef54-545a-8459-78057a562697",
+            "2022-02-02 00:00:21",
+            "2022-02-02 00:00:21"
         ]
     },
     {
@@ -285,9 +345,9 @@
             "AssetWarranty",
             "Expired",
             "Expired",
-            "ca6b907e-b88a-531b-8b2f-c7c190700878",
-            "2022-02-02 00:00:19",
-            "2022-02-02 00:00:19"
+            "d8443f90-1c85-5c83-a150-a5c53bc3013c",
+            "2022-02-02 00:00:22",
+            "2022-02-02 00:00:22"
         ]
     },
     {
@@ -300,138 +360,138 @@
             "88313475-8f64-56ea-8421-a3e7c1ac4559",
             "9f6b1030-5d5d-4f0b-b743-2ef69eaf4a44",
             "e25e1111-5815-455f-af8b-93665f76b62c",
-            "d1f48906-c3d5-56cb-bf80-e6b479e8d998",
+            "5805230b-b911-5b0c-ab1b-670e88304dc4",
             null,
             "2022-10-03 11:24:08",
-            "d59ac623-e287-386c-b931-fe5829977f47",
+            "7e8af150-a641-3424-8b7e-100128575111",
             "80",
             0,
             3,
             1,
-            "2022-02-02 00:00:09",
+            "2022-02-02 00:00:12",
             "2023-11-30 00:00:00",
             null,
             null,
             "2022-10-03 11:24:08",
-            "2022-02-02 00:00:26",
-            "2022-02-02 00:00:26"
-        ]
-    },
-    {
-        "query": "insert into `contacts` (`object_type`, `object_id`, `name`, `phone_number`, `email`, `phone_valid`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?)",
-        "bindings": [
-            "Asset",
-            "2f5dcdae-ed5a-4a87-a9b1-417819b638e4",
-            "Reginald Lockman I",
-            "+15209092139",
-            null,
-            true,
-            "d8443f90-1c85-5c83-a150-a5c53bc3013c",
-            "2022-02-02 00:00:27",
-            "2022-02-02 00:00:27"
-        ]
-    },
-    {
-        "query": "insert into `contact_types` (`type_id`, `contact_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
-        "bindings": [
-            "281fa16d-b7e0-59dc-a2d2-ae493b781896",
-            "d8443f90-1c85-5c83-a150-a5c53bc3013c",
-            "a5c34a58-7ad3-5e28-9f0d-ca3fa67ac56a",
-            "2022-02-02 00:00:28",
-            "2022-02-02 00:00:28"
-        ]
-    },
-    {
-        "query": "insert into `contacts` (`object_type`, `object_id`, `name`, `phone_number`, `email`, `phone_valid`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?)",
-        "bindings": [
-            "Asset",
-            "2f5dcdae-ed5a-4a87-a9b1-417819b638e4",
-            "Darren Kris",
-            "+14582734372",
-            "cjacobs@ratke.com",
-            true,
-            "87ab3c95-1b69-57ce-a91f-5b0d725f94e2",
             "2022-02-02 00:00:29",
             "2022-02-02 00:00:29"
         ]
     },
     {
-        "query": "insert into `contact_types` (`type_id`, `contact_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
+        "query": "insert into `contacts` (`object_type`, `object_id`, `name`, `phone_number`, `email`, `phone_valid`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
-            "408630e7-2285-5049-9551-e042944ceb4d",
-            "87ab3c95-1b69-57ce-a91f-5b0d725f94e2",
+            "Asset",
+            "2f5dcdae-ed5a-4a87-a9b1-417819b638e4",
+            "Stephania Davis IV",
+            "+12256245194",
+            null,
+            true,
             "c2f3f0b8-d0d2-5d00-8bcd-221bf0b35911",
             "2022-02-02 00:00:30",
             "2022-02-02 00:00:30"
         ]
     },
     {
-        "query": "insert into `contacts` (`object_type`, `object_id`, `name`, `phone_number`, `email`, `phone_valid`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `contact_types` (`type_id`, `contact_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
-            "Asset",
-            "2f5dcdae-ed5a-4a87-a9b1-417819b638e4",
-            "Kacey Corwin",
-            "+14636264113",
-            "streich.jade@hotmail.com",
-            true,
+            "317051ab-383c-55fc-a38d-e1ba7d1c5185",
+            "c2f3f0b8-d0d2-5d00-8bcd-221bf0b35911",
             "f2b5d886-242c-5ef0-a74a-7ca761ef8781",
             "2022-02-02 00:00:31",
             "2022-02-02 00:00:31"
         ]
     },
     {
-        "query": "insert into `contact_types` (`type_id`, `contact_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
+        "query": "insert into `contacts` (`object_type`, `object_id`, `name`, `phone_number`, `email`, `phone_valid`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
-            "5805230b-b911-5b0c-ab1b-670e88304dc4",
-            "f2b5d886-242c-5ef0-a74a-7ca761ef8781",
+            "Asset",
+            "2f5dcdae-ed5a-4a87-a9b1-417819b638e4",
+            "Ava Baumbach",
+            "+15342161852",
+            "alberto59@gmail.com",
+            true,
             "37433aa8-3c22-5eeb-9551-d239d05d3578",
             "2022-02-02 00:00:32",
             "2022-02-02 00:00:32"
         ]
     },
     {
-        "query": "insert into `asset_coverages` (`coverage_id`, `asset_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
+        "query": "insert into `contact_types` (`type_id`, `contact_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
-            "317051ab-383c-55fc-a38d-e1ba7d1c5185",
-            "2f5dcdae-ed5a-4a87-a9b1-417819b638e4",
+            "fe1343b9-b7d3-58b0-8f58-db5419e3736e",
+            "37433aa8-3c22-5eeb-9551-d239d05d3578",
             "e6dd1acf-a5df-51b4-9baf-02656be60e65",
             "2022-02-02 00:00:33",
             "2022-02-02 00:00:33"
         ]
     },
     {
+        "query": "insert into `contacts` (`object_type`, `object_id`, `name`, `phone_number`, `email`, `phone_valid`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "bindings": [
+            "Asset",
+            "2f5dcdae-ed5a-4a87-a9b1-417819b638e4",
+            "Mrs. Kallie Doyle DDS",
+            "+18069886840",
+            "mallory89@will.org",
+            true,
+            "c4610f8b-d463-5c64-9bfa-af018d308e40",
+            "2022-02-02 00:00:34",
+            "2022-02-02 00:00:34"
+        ]
+    },
+    {
+        "query": "insert into `contact_types` (`type_id`, `contact_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
+        "bindings": [
+            "3a9fc444-5aa7-51cc-978b-d3548295cc52",
+            "c4610f8b-d463-5c64-9bfa-af018d308e40",
+            "c5274723-f3c8-50aa-9541-47890d498c10",
+            "2022-02-02 00:00:35",
+            "2022-02-02 00:00:35"
+        ]
+    },
+    {
+        "query": "insert into `asset_coverages` (`coverage_id`, `asset_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
+        "bindings": [
+            "6bead99c-0349-5d88-8119-bcb3dc6fc611",
+            "2f5dcdae-ed5a-4a87-a9b1-417819b638e4",
+            "32a8ad11-622b-5430-b2b4-9e155d27116e",
+            "2022-02-02 00:00:36",
+            "2022-02-02 00:00:36"
+        ]
+    },
+    {
         "query": "insert into `asset_warranties` (`asset_id`, `created_at`, `customer_id`, `description`, `document_id`, `document_number`, `end`, `id`, `reseller_id`, `service_group_id`, `service_level_id`, `start`, `status_id`, `type_id`, `updated_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "2f5dcdae-ed5a-4a87-a9b1-417819b638e4",
-            "2022-02-02 00:00:34",
+            "2022-02-02 00:00:37",
             null,
             "H7J32AC-HPE Foundation Care NBD SVC",
             null,
             null,
             "2023-11-30 00:00:00",
-            "79d540cc-c86f-52a3-83ba-d6a2287289ea",
+            "a5c34a58-7ad3-5e28-9f0d-ca3fa67ac56a",
             null,
             null,
             null,
             "2018-11-27 00:00:00",
-            "3a9fc444-5aa7-51cc-978b-d3548295cc52",
-            "fe1343b9-b7d3-58b0-8f58-db5419e3736e",
-            "2022-02-02 00:00:34",
+            "79d540cc-c86f-52a3-83ba-d6a2287289ea",
+            "ca6b907e-b88a-531b-8b2f-c7c190700878",
+            "2022-02-02 00:00:37",
             "2f5dcdae-ed5a-4a87-a9b1-417819b638e4",
-            "2022-02-02 00:00:35",
+            "2022-02-02 00:00:38",
             null,
             "HA155BW-Wty: HPE Parts Exchange Support",
             null,
             null,
             "2021-12-15 00:00:00",
-            "50e49187-ef54-545a-8459-78057a562697",
+            "87ab3c95-1b69-57ce-a91f-5b0d725f94e2",
             null,
             null,
             null,
             "2018-11-16 00:00:00",
-            "ca6b907e-b88a-531b-8b2f-c7c190700878",
-            "6bead99c-0349-5d88-8119-bcb3dc6fc611",
-            "2022-02-02 00:00:35"
+            "d8443f90-1c85-5c83-a150-a5c53bc3013c",
+            "50e49187-ef54-545a-8459-78057a562697",
+            "2022-02-02 00:00:38"
         ]
     },
     {
@@ -449,53 +509,53 @@
             null,
             null,
             "HPE 800W FS Plat Ht Plg LH Pwr Sply Kit",
-            "c4610f8b-d463-5c64-9bfa-af018d308e40",
-            "2022-02-02 00:00:36",
-            "2022-02-02 00:00:36"
+            "00a2dac8-f974-5e30-8852-b78b9beab383",
+            "2022-02-02 00:00:39",
+            "2022-02-02 00:00:39"
         ]
     },
     {
         "query": "select `cities`.* from `cities` where (`country_id` = ? and `key` = ?) and `cities`.`deleted_at` is null limit 1",
         "bindings": [
-            "c4a22828-05b7-5086-ac66-bbb33aeddd37",
-            "east lessieland"
+            "281fa16d-b7e0-59dc-a2d2-ae493b781896",
+            "west hailee"
         ]
     },
     {
         "query": "insert into `cities` (`key`, `name`, `country_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?)",
         "bindings": [
-            "East Lessieland",
-            "East Lessieland",
-            "c4a22828-05b7-5086-ac66-bbb33aeddd37",
-            "c5274723-f3c8-50aa-9541-47890d498c10",
-            "2022-02-02 00:00:37",
-            "2022-02-02 00:00:37"
+            "West Hailee",
+            "West Hailee",
+            "281fa16d-b7e0-59dc-a2d2-ae493b781896",
+            "f713bcdb-2403-5fa5-8eed-6471b19e5dab",
+            "2022-02-02 00:00:40",
+            "2022-02-02 00:00:40"
         ]
     },
     {
         "query": "select `locations`.* from `locations` where (`city_id` = ? and `country_id` = ? and CONCAT(`line_one`, IF(`line_two` != '', CONCAT(' ', `line_two`), '')) = ? and `postcode` = ?) and `locations`.`deleted_at` is null limit 1",
         "bindings": [
-            "c5274723-f3c8-50aa-9541-47890d498c10",
-            "c4a22828-05b7-5086-ac66-bbb33aeddd37",
-            "503 beatty key",
-            "19028"
+            "f713bcdb-2403-5fa5-8eed-6471b19e5dab",
+            "281fa16d-b7e0-59dc-a2d2-ae493b781896",
+            "7563 keith garden suite 809",
+            "77651-8832"
         ]
     },
     {
         "query": "insert into `locations` (`country_id`, `city_id`, `postcode`, `state`, `line_one`, `line_two`, `latitude`, `longitude`, `geohash`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
-            "c4a22828-05b7-5086-ac66-bbb33aeddd37",
-            "c5274723-f3c8-50aa-9541-47890d498c10",
-            "19028",
+            "281fa16d-b7e0-59dc-a2d2-ae493b781896",
+            "f713bcdb-2403-5fa5-8eed-6471b19e5dab",
+            "77651-8832",
             "",
-            "503 Beatty Key",
+            "7563 Keith Garden Suite 809",
             "",
-            "6.042543",
-            "141.207371",
-            "x1h6mk0065xm",
-            "32a8ad11-622b-5430-b2b4-9e155d27116e",
-            "2022-02-02 00:00:38",
-            "2022-02-02 00:00:38"
+            "-65.07791",
+            "-140.402937",
+            "0ukjv0ctwqq1",
+            "62e6b36b-f582-5fec-a446-6b7d18ac45da",
+            "2022-02-02 00:00:41",
+            "2022-02-02 00:00:41"
         ]
     },
     {
@@ -511,9 +571,9 @@
             "AssetWarranty",
             "Expiring",
             "Expiring",
-            "00a2dac8-f974-5e30-8852-b78b9beab383",
-            "2022-02-02 00:00:47",
-            "2022-02-02 00:00:47"
+            "b4fccd4c-af69-50ec-a8fd-1ed63cf0f496",
+            "2022-02-02 00:00:50",
+            "2022-02-02 00:00:50"
         ]
     },
     {
@@ -523,141 +583,141 @@
             "77b77ef3-0b8f-573f-a002-b612c29ef2a6",
             null,
             "331ec4c6-b480-527e-9af7-785fc53ae611",
-            "c4610f8b-d463-5c64-9bfa-af018d308e40",
+            "00a2dac8-f974-5e30-8852-b78b9beab383",
             "9f6b1030-5d5d-4f0b-b743-2ef69eaf4a44",
             "0bf4be29-41e0-4877-a35e-5d8d08f0b618",
-            "32a8ad11-622b-5430-b2b4-9e155d27116e",
+            "62e6b36b-f582-5fec-a446-6b7d18ac45da",
             null,
             "2022-10-03 15:41:48",
-            "9ad897c2-4f17-3167-aa28-cc5c513e13c2",
+            "04a2be95-976a-3d94-82ee-1d50714f3835",
             "80",
             0,
             3,
             1,
-            "2022-02-02 00:00:40",
+            "2022-02-02 00:00:43",
             "2024-09-11 00:00:00",
             null,
             null,
             "2022-10-03 15:41:48",
-            "2022-02-02 00:00:54",
-            "2022-02-02 00:00:54"
-        ]
-    },
-    {
-        "query": "insert into `contacts` (`object_type`, `object_id`, `name`, `phone_number`, `email`, `phone_valid`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?)",
-        "bindings": [
-            "Asset",
-            "b9b64396-7d9a-4c4c-bfb3-7c7f0e342ec6",
-            "Selena Funk PhD",
-            "+19286698469",
-            null,
-            true,
-            "b4fccd4c-af69-50ec-a8fd-1ed63cf0f496",
-            "2022-02-02 00:00:55",
-            "2022-02-02 00:00:55"
-        ]
-    },
-    {
-        "query": "insert into `contact_types` (`type_id`, `contact_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
-        "bindings": [
-            "281fa16d-b7e0-59dc-a2d2-ae493b781896",
-            "b4fccd4c-af69-50ec-a8fd-1ed63cf0f496",
-            "e2e55482-65d0-524d-881f-61c4f7cddf6f",
-            "2022-02-02 00:00:56",
-            "2022-02-02 00:00:56"
-        ]
-    },
-    {
-        "query": "insert into `contacts` (`object_type`, `object_id`, `name`, `phone_number`, `email`, `phone_valid`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?)",
-        "bindings": [
-            "Asset",
-            "b9b64396-7d9a-4c4c-bfb3-7c7f0e342ec6",
-            "Darren Kris",
-            "+14582734372",
-            "cjacobs@ratke.com",
-            true,
-            "6cbc91f0-ec04-51f1-b366-4ec55dfb27a0",
             "2022-02-02 00:00:57",
             "2022-02-02 00:00:57"
         ]
     },
     {
-        "query": "insert into `contact_types` (`type_id`, `contact_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
+        "query": "insert into `contacts` (`object_type`, `object_id`, `name`, `phone_number`, `email`, `phone_valid`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
-            "408630e7-2285-5049-9551-e042944ceb4d",
-            "6cbc91f0-ec04-51f1-b366-4ec55dfb27a0",
+            "Asset",
+            "b9b64396-7d9a-4c4c-bfb3-7c7f0e342ec6",
+            "Deborah Lakin",
+            "+16165506100",
+            null,
+            true,
             "75e0518b-6c70-543c-afe9-ddd1c05da81d",
             "2022-02-02 00:00:58",
             "2022-02-02 00:00:58"
         ]
     },
     {
-        "query": "insert into `contacts` (`object_type`, `object_id`, `name`, `phone_number`, `email`, `phone_valid`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `contact_types` (`type_id`, `contact_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
-            "Asset",
-            "b9b64396-7d9a-4c4c-bfb3-7c7f0e342ec6",
-            "Kacey Corwin",
-            "+14636264113",
-            "streich.jade@hotmail.com",
-            true,
+            "317051ab-383c-55fc-a38d-e1ba7d1c5185",
+            "75e0518b-6c70-543c-afe9-ddd1c05da81d",
             "b789b870-9dbf-5fb9-aa30-1d4576358493",
             "2022-02-02 00:00:59",
             "2022-02-02 00:00:59"
         ]
     },
     {
-        "query": "insert into `contact_types` (`type_id`, `contact_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
+        "query": "insert into `contacts` (`object_type`, `object_id`, `name`, `phone_number`, `email`, `phone_valid`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
-            "5805230b-b911-5b0c-ab1b-670e88304dc4",
-            "b789b870-9dbf-5fb9-aa30-1d4576358493",
+            "Asset",
+            "b9b64396-7d9a-4c4c-bfb3-7c7f0e342ec6",
+            "Ava Baumbach",
+            "+15342161852",
+            "alberto59@gmail.com",
+            true,
             "10e95d72-fa09-5b3e-a9a4-dd6805d4af92",
             "2022-02-02 00:01:00",
             "2022-02-02 00:01:00"
         ]
     },
     {
-        "query": "insert into `asset_coverages` (`coverage_id`, `asset_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
+        "query": "insert into `contact_types` (`type_id`, `contact_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
-            "317051ab-383c-55fc-a38d-e1ba7d1c5185",
-            "b9b64396-7d9a-4c4c-bfb3-7c7f0e342ec6",
+            "fe1343b9-b7d3-58b0-8f58-db5419e3736e",
+            "10e95d72-fa09-5b3e-a9a4-dd6805d4af92",
             "ab17ffcc-a2c5-5ef4-b2e0-f6a965282572",
             "2022-02-02 00:01:01",
             "2022-02-02 00:01:01"
         ]
     },
     {
+        "query": "insert into `contacts` (`object_type`, `object_id`, `name`, `phone_number`, `email`, `phone_valid`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "bindings": [
+            "Asset",
+            "b9b64396-7d9a-4c4c-bfb3-7c7f0e342ec6",
+            "Mrs. Kallie Doyle DDS",
+            "+18069886840",
+            "mallory89@will.org",
+            true,
+            "5b2e6db9-fe43-5f48-ae49-b2de648e1baf",
+            "2022-02-02 00:01:02",
+            "2022-02-02 00:01:02"
+        ]
+    },
+    {
+        "query": "insert into `contact_types` (`type_id`, `contact_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
+        "bindings": [
+            "3a9fc444-5aa7-51cc-978b-d3548295cc52",
+            "5b2e6db9-fe43-5f48-ae49-b2de648e1baf",
+            "e3decd0a-d1fa-5a75-b3f7-e0021b930229",
+            "2022-02-02 00:01:03",
+            "2022-02-02 00:01:03"
+        ]
+    },
+    {
+        "query": "insert into `asset_coverages` (`coverage_id`, `asset_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
+        "bindings": [
+            "6bead99c-0349-5d88-8119-bcb3dc6fc611",
+            "b9b64396-7d9a-4c4c-bfb3-7c7f0e342ec6",
+            "f1371b91-baea-54ab-ac0b-95af9f9302ab",
+            "2022-02-02 00:01:04",
+            "2022-02-02 00:01:04"
+        ]
+    },
+    {
         "query": "insert into `asset_warranties` (`asset_id`, `created_at`, `customer_id`, `description`, `document_id`, `document_number`, `end`, `id`, `reseller_id`, `service_group_id`, `service_level_id`, `start`, `status_id`, `type_id`, `updated_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "b9b64396-7d9a-4c4c-bfb3-7c7f0e342ec6",
-            "2022-02-02 00:01:02",
+            "2022-02-02 00:01:05",
             null,
             "H7J32AC-HPE Foundation Care NBD SVC",
             null,
             null,
             "2024-09-11 00:00:00",
-            "f713bcdb-2403-5fa5-8eed-6471b19e5dab",
+            "e2e55482-65d0-524d-881f-61c4f7cddf6f",
             null,
             null,
             null,
             "2019-09-12 00:00:00",
-            "3a9fc444-5aa7-51cc-978b-d3548295cc52",
-            "fe1343b9-b7d3-58b0-8f58-db5419e3736e",
-            "2022-02-02 00:01:02",
+            "79d540cc-c86f-52a3-83ba-d6a2287289ea",
+            "ca6b907e-b88a-531b-8b2f-c7c190700878",
+            "2022-02-02 00:01:05",
             "b9b64396-7d9a-4c4c-bfb3-7c7f0e342ec6",
-            "2022-02-02 00:01:03",
+            "2022-02-02 00:01:06",
             null,
             "HA155BW-Wty: HPE Parts Exchange Support",
             null,
             null,
             "2022-10-03 00:00:00",
-            "62e6b36b-f582-5fec-a446-6b7d18ac45da",
+            "6cbc91f0-ec04-51f1-b366-4ec55dfb27a0",
             null,
             null,
             null,
             "2019-09-04 00:00:00",
-            "00a2dac8-f974-5e30-8852-b78b9beab383",
-            "6bead99c-0349-5d88-8119-bcb3dc6fc611",
-            "2022-02-02 00:01:03"
+            "b4fccd4c-af69-50ec-a8fd-1ed63cf0f496",
+            "50e49187-ef54-545a-8459-78057a562697",
+            "2022-02-02 00:01:06"
         ]
     },
     {
@@ -675,9 +735,53 @@
             null,
             null,
             "HPE 3PAR 8000 2TB+SW 7.2K SFF HDD",
-            "5b2e6db9-fe43-5f48-ae49-b2de648e1baf",
-            "2022-02-02 00:01:04",
-            "2022-02-02 00:01:04"
+            "ddf43566-04c5-5583-ae52-c8d896bd7898",
+            "2022-02-02 00:01:07",
+            "2022-02-02 00:01:07"
+        ]
+    },
+    {
+        "query": "select `cities`.* from `cities` where (`country_id` = ? and `key` = ?) and `cities`.`deleted_at` is null limit 1",
+        "bindings": [
+            "281fa16d-b7e0-59dc-a2d2-ae493b781896",
+            "conroyfort"
+        ]
+    },
+    {
+        "query": "insert into `cities` (`key`, `name`, `country_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?)",
+        "bindings": [
+            "Conroyfort",
+            "Conroyfort",
+            "281fa16d-b7e0-59dc-a2d2-ae493b781896",
+            "9e1005ae-5a36-5909-8e2d-dab2b617376c",
+            "2022-02-02 00:01:08",
+            "2022-02-02 00:01:08"
+        ]
+    },
+    {
+        "query": "select `locations`.* from `locations` where (`city_id` = ? and `country_id` = ? and CONCAT(`line_one`, IF(`line_two` != '', CONCAT(' ', `line_two`), '')) = ? and `postcode` = ?) and `locations`.`deleted_at` is null limit 1",
+        "bindings": [
+            "9e1005ae-5a36-5909-8e2d-dab2b617376c",
+            "281fa16d-b7e0-59dc-a2d2-ae493b781896",
+            "310 stroman views suite 075",
+            "49557-2232"
+        ]
+    },
+    {
+        "query": "insert into `locations` (`country_id`, `city_id`, `postcode`, `state`, `line_one`, `line_two`, `latitude`, `longitude`, `geohash`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "bindings": [
+            "281fa16d-b7e0-59dc-a2d2-ae493b781896",
+            "9e1005ae-5a36-5909-8e2d-dab2b617376c",
+            "49557-2232",
+            "",
+            "310 Stroman Views Suite 075",
+            "",
+            "-10.41355",
+            "-18.804934",
+            "7w4su068tm8f",
+            "efc82177-cc97-5f29-bede-5bff52e767fa",
+            "2022-02-02 00:01:09",
+            "2022-02-02 00:01:09"
         ]
     },
     {
@@ -687,141 +791,141 @@
             "77b77ef3-0b8f-573f-a002-b612c29ef2a6",
             null,
             "331ec4c6-b480-527e-9af7-785fc53ae611",
-            "5b2e6db9-fe43-5f48-ae49-b2de648e1baf",
+            "ddf43566-04c5-5583-ae52-c8d896bd7898",
             "9f6b1030-5d5d-4f0b-b743-2ef69eaf4a44",
             "f0506708-9949-4017-a760-d8e6d0a12838",
-            "30d30b7f-eb74-5f9f-af30-bda292fa3846",
+            "efc82177-cc97-5f29-bede-5bff52e767fa",
             null,
             "2022-10-03 17:42:06",
-            "2ce74be1-9987-3911-81b1-408e873653c8",
+            "175a3117-2953-3fed-aaf8-eaf0f8d76755",
             "80",
             0,
             3,
             1,
-            "2022-02-02 00:01:06",
+            "2022-02-02 00:01:11",
             "2023-07-31 00:00:00",
             null,
             null,
             "2022-10-03 17:42:06",
-            "2022-02-02 00:01:23",
-            "2022-02-02 00:01:23"
-        ]
-    },
-    {
-        "query": "insert into `contacts` (`object_type`, `object_id`, `name`, `phone_number`, `email`, `phone_valid`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?)",
-        "bindings": [
-            "Asset",
-            "fa66f78b-0580-4ca4-8c81-06d2d2f25cf5",
-            "Stephany Wyman",
-            "+15418213680",
-            null,
-            true,
-            "ddf43566-04c5-5583-ae52-c8d896bd7898",
-            "2022-02-02 00:01:24",
-            "2022-02-02 00:01:24"
-        ]
-    },
-    {
-        "query": "insert into `contact_types` (`type_id`, `contact_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
-        "bindings": [
-            "281fa16d-b7e0-59dc-a2d2-ae493b781896",
-            "ddf43566-04c5-5583-ae52-c8d896bd7898",
-            "9e1005ae-5a36-5909-8e2d-dab2b617376c",
-            "2022-02-02 00:01:25",
-            "2022-02-02 00:01:25"
-        ]
-    },
-    {
-        "query": "insert into `contacts` (`object_type`, `object_id`, `name`, `phone_number`, `email`, `phone_valid`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?)",
-        "bindings": [
-            "Asset",
-            "fa66f78b-0580-4ca4-8c81-06d2d2f25cf5",
-            "Darren Kris",
-            "+14582734372",
-            "cjacobs@ratke.com",
-            true,
-            "efc82177-cc97-5f29-bede-5bff52e767fa",
-            "2022-02-02 00:01:26",
-            "2022-02-02 00:01:26"
-        ]
-    },
-    {
-        "query": "insert into `contact_types` (`type_id`, `contact_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
-        "bindings": [
-            "408630e7-2285-5049-9551-e042944ceb4d",
-            "efc82177-cc97-5f29-bede-5bff52e767fa",
-            "02c1068e-62b2-5279-84a8-212725b9551b",
-            "2022-02-02 00:01:27",
-            "2022-02-02 00:01:27"
-        ]
-    },
-    {
-        "query": "insert into `contacts` (`object_type`, `object_id`, `name`, `phone_number`, `email`, `phone_valid`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?)",
-        "bindings": [
-            "Asset",
-            "fa66f78b-0580-4ca4-8c81-06d2d2f25cf5",
-            "Kacey Corwin",
-            "+14636264113",
-            "streich.jade@hotmail.com",
-            true,
-            "4f936b2a-afb0-5585-ad0d-e037a1079ee3",
             "2022-02-02 00:01:28",
             "2022-02-02 00:01:28"
         ]
     },
     {
-        "query": "insert into `contact_types` (`type_id`, `contact_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
+        "query": "insert into `contacts` (`object_type`, `object_id`, `name`, `phone_number`, `email`, `phone_valid`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
-            "5805230b-b911-5b0c-ab1b-670e88304dc4",
-            "4f936b2a-afb0-5585-ad0d-e037a1079ee3",
+            "Asset",
+            "fa66f78b-0580-4ca4-8c81-06d2d2f25cf5",
+            "Blair Crooks",
+            "+19737302663",
+            null,
+            true,
             "48b67d6b-68f2-560a-ae5f-b272568571ce",
             "2022-02-02 00:01:29",
             "2022-02-02 00:01:29"
         ]
     },
     {
-        "query": "insert into `asset_coverages` (`coverage_id`, `asset_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
+        "query": "insert into `contact_types` (`type_id`, `contact_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "317051ab-383c-55fc-a38d-e1ba7d1c5185",
-            "fa66f78b-0580-4ca4-8c81-06d2d2f25cf5",
+            "48b67d6b-68f2-560a-ae5f-b272568571ce",
             "ac61d9b3-bd35-5d8d-91cf-e12facdb6be9",
             "2022-02-02 00:01:30",
             "2022-02-02 00:01:30"
         ]
     },
     {
+        "query": "insert into `contacts` (`object_type`, `object_id`, `name`, `phone_number`, `email`, `phone_valid`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "bindings": [
+            "Asset",
+            "fa66f78b-0580-4ca4-8c81-06d2d2f25cf5",
+            "Ava Baumbach",
+            "+15342161852",
+            "alberto59@gmail.com",
+            true,
+            "d063f61c-0dfb-526d-a9cd-7044b5a2e418",
+            "2022-02-02 00:01:31",
+            "2022-02-02 00:01:31"
+        ]
+    },
+    {
+        "query": "insert into `contact_types` (`type_id`, `contact_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
+        "bindings": [
+            "fe1343b9-b7d3-58b0-8f58-db5419e3736e",
+            "d063f61c-0dfb-526d-a9cd-7044b5a2e418",
+            "38a10352-9c0f-5e89-807f-52912fbc0594",
+            "2022-02-02 00:01:32",
+            "2022-02-02 00:01:32"
+        ]
+    },
+    {
+        "query": "insert into `contacts` (`object_type`, `object_id`, `name`, `phone_number`, `email`, `phone_valid`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "bindings": [
+            "Asset",
+            "fa66f78b-0580-4ca4-8c81-06d2d2f25cf5",
+            "Mrs. Kallie Doyle DDS",
+            "+18069886840",
+            "mallory89@will.org",
+            true,
+            "bc7a9e24-1db3-5df0-bc18-0b8a97ab6d3a",
+            "2022-02-02 00:01:33",
+            "2022-02-02 00:01:33"
+        ]
+    },
+    {
+        "query": "insert into `contact_types` (`type_id`, `contact_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
+        "bindings": [
+            "3a9fc444-5aa7-51cc-978b-d3548295cc52",
+            "bc7a9e24-1db3-5df0-bc18-0b8a97ab6d3a",
+            "af4f181a-3319-533e-a703-33b073f011d7",
+            "2022-02-02 00:01:34",
+            "2022-02-02 00:01:34"
+        ]
+    },
+    {
+        "query": "insert into `asset_coverages` (`coverage_id`, `asset_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
+        "bindings": [
+            "6bead99c-0349-5d88-8119-bcb3dc6fc611",
+            "fa66f78b-0580-4ca4-8c81-06d2d2f25cf5",
+            "fd327754-6595-5fa2-ac32-3a4bf8ee8881",
+            "2022-02-02 00:01:35",
+            "2022-02-02 00:01:35"
+        ]
+    },
+    {
         "query": "insert into `asset_warranties` (`asset_id`, `created_at`, `customer_id`, `description`, `document_id`, `document_number`, `end`, `id`, `reseller_id`, `service_group_id`, `service_level_id`, `start`, `status_id`, `type_id`, `updated_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "fa66f78b-0580-4ca4-8c81-06d2d2f25cf5",
-            "2022-02-02 00:01:31",
+            "2022-02-02 00:01:36",
             null,
             "H1K92AC-HPE Proactive Care 24x7 SVC",
             null,
             null,
             "2023-07-16 00:00:00",
-            "e3decd0a-d1fa-5a75-b3f7-e0021b930229",
+            "02c1068e-62b2-5279-84a8-212725b9551b",
             null,
             null,
             null,
             "2020-07-17 00:00:00",
-            "3a9fc444-5aa7-51cc-978b-d3548295cc52",
-            "fe1343b9-b7d3-58b0-8f58-db5419e3736e",
-            "2022-02-02 00:01:31",
+            "79d540cc-c86f-52a3-83ba-d6a2287289ea",
+            "ca6b907e-b88a-531b-8b2f-c7c190700878",
+            "2022-02-02 00:01:36",
             "fa66f78b-0580-4ca4-8c81-06d2d2f25cf5",
-            "2022-02-02 00:01:32",
+            "2022-02-02 00:01:37",
             null,
             "HA155BW-Wty: HPE Parts Exchange Support",
             null,
             null,
             "2023-07-31 00:00:00",
-            "f1371b91-baea-54ab-ac0b-95af9f9302ab",
+            "4f936b2a-afb0-5585-ad0d-e037a1079ee3",
             null,
             null,
             null,
             "2020-07-02 00:00:00",
-            "3a9fc444-5aa7-51cc-978b-d3548295cc52",
-            "6bead99c-0349-5d88-8119-bcb3dc6fc611",
-            "2022-02-02 00:01:32"
+            "79d540cc-c86f-52a3-83ba-d6a2287289ea",
+            "50e49187-ef54-545a-8459-78057a562697",
+            "2022-02-02 00:01:37"
         ]
     },
     {
@@ -839,9 +943,53 @@
             null,
             null,
             "HP M6710 900GB 6G SAS 10K 2.5in HDD",
-            "d063f61c-0dfb-526d-a9cd-7044b5a2e418",
-            "2022-02-02 00:01:33",
-            "2022-02-02 00:01:33"
+            "1033b54f-7670-5680-9f65-3bf2fec7dc6e",
+            "2022-02-02 00:01:38",
+            "2022-02-02 00:01:38"
+        ]
+    },
+    {
+        "query": "select `cities`.* from `cities` where (`country_id` = ? and `key` = ?) and `cities`.`deleted_at` is null limit 1",
+        "bindings": [
+            "281fa16d-b7e0-59dc-a2d2-ae493b781896",
+            "jeffrystad"
+        ]
+    },
+    {
+        "query": "insert into `cities` (`key`, `name`, `country_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?)",
+        "bindings": [
+            "Jeffrystad",
+            "Jeffrystad",
+            "281fa16d-b7e0-59dc-a2d2-ae493b781896",
+            "fc291207-42a8-5be6-9348-3ca0d0a62f94",
+            "2022-02-02 00:01:39",
+            "2022-02-02 00:01:39"
+        ]
+    },
+    {
+        "query": "select `locations`.* from `locations` where (`city_id` = ? and `country_id` = ? and CONCAT(`line_one`, IF(`line_two` != '', CONCAT(' ', `line_two`), '')) = ? and `postcode` = ?) and `locations`.`deleted_at` is null limit 1",
+        "bindings": [
+            "fc291207-42a8-5be6-9348-3ca0d0a62f94",
+            "281fa16d-b7e0-59dc-a2d2-ae493b781896",
+            "581 weber coves suite 913",
+            "44266"
+        ]
+    },
+    {
+        "query": "insert into `locations` (`country_id`, `city_id`, `postcode`, `state`, `line_one`, `line_two`, `latitude`, `longitude`, `geohash`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "bindings": [
+            "281fa16d-b7e0-59dc-a2d2-ae493b781896",
+            "fc291207-42a8-5be6-9348-3ca0d0a62f94",
+            "44266",
+            "",
+            "581 Weber Coves Suite 913",
+            "",
+            "-61.558495",
+            "149.588388",
+            "pm43gcwgy0f9",
+            "15cc9317-288d-5cd1-ad0e-774cad37862b",
+            "2022-02-02 00:01:40",
+            "2022-02-02 00:01:40"
         ]
     },
     {
@@ -851,24 +999,24 @@
             "77b77ef3-0b8f-573f-a002-b612c29ef2a6",
             null,
             "331ec4c6-b480-527e-9af7-785fc53ae611",
-            "d063f61c-0dfb-526d-a9cd-7044b5a2e418",
+            "1033b54f-7670-5680-9f65-3bf2fec7dc6e",
             "77ec115b-9723-4582-ad45-2b3a83286b1f",
             "54126f62-957a-46b1-a8ec-926fa4e94a81",
-            "4b136ba8-3196-589e-90aa-1a0ef0a3651e",
+            "15cc9317-288d-5cd1-ad0e-774cad37862b",
             null,
             "2022-10-03 14:21:05",
-            "3c02ad53-9f3c-3f46-a488-95151bc965c0",
+            "5bfac420-a0ee-3c55-aaa9-80650b8b769b",
             "80",
             0,
             3,
             1,
-            "2022-02-02 00:01:35",
+            "2022-02-02 00:01:42",
             "2023-04-30 00:00:00",
             null,
             null,
             "2022-10-03 14:21:05",
-            "2022-02-02 00:01:54",
-            "2022-02-02 00:01:54"
+            "2022-02-02 00:02:01",
+            "2022-02-02 00:02:01"
         ]
     },
     {
@@ -876,23 +1024,23 @@
         "bindings": [
             "Asset",
             "91fe9f38-1137-424e-bde7-90bd367ee016",
-            "Laney Blick",
-            "+12252959341",
-            "junius62@hotmail.com",
+            "Abbey Feil",
+            "+18282573549",
+            "princess.ullrich@gmail.com",
             true,
-            "af4f181a-3319-533e-a703-33b073f011d7",
-            "2022-02-02 00:01:55",
-            "2022-02-02 00:01:55"
+            "bfeef820-815f-5a5a-aec4-53793f274c9f",
+            "2022-02-02 00:02:02",
+            "2022-02-02 00:02:02"
         ]
     },
     {
         "query": "insert into `contact_types` (`type_id`, `contact_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
-            "281fa16d-b7e0-59dc-a2d2-ae493b781896",
-            "af4f181a-3319-533e-a703-33b073f011d7",
-            "fd327754-6595-5fa2-ac32-3a4bf8ee8881",
-            "2022-02-02 00:01:56",
-            "2022-02-02 00:01:56"
+            "317051ab-383c-55fc-a38d-e1ba7d1c5185",
+            "bfeef820-815f-5a5a-aec4-53793f274c9f",
+            "1d1b883c-b811-5f3c-ab87-aa50afad81e9",
+            "2022-02-02 00:02:03",
+            "2022-02-02 00:02:03"
         ]
     },
     {
@@ -900,23 +1048,23 @@
         "bindings": [
             "Asset",
             "91fe9f38-1137-424e-bde7-90bd367ee016",
-            "Ms. Charlene Bradtke V",
-            "+14583494037",
-            "murray21@yahoo.com",
+            "Francesca Robel",
+            "+13102151268",
+            "christiansen.josefina@buckridge.com",
             true,
-            "1033b54f-7670-5680-9f65-3bf2fec7dc6e",
-            "2022-02-02 00:01:57",
-            "2022-02-02 00:01:57"
+            "2221f06d-4a12-5b5e-8a8c-c3802da7edb0",
+            "2022-02-02 00:02:04",
+            "2022-02-02 00:02:04"
         ]
     },
     {
         "query": "insert into `contact_types` (`type_id`, `contact_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
-            "408630e7-2285-5049-9551-e042944ceb4d",
-            "1033b54f-7670-5680-9f65-3bf2fec7dc6e",
-            "fc291207-42a8-5be6-9348-3ca0d0a62f94",
-            "2022-02-02 00:01:58",
-            "2022-02-02 00:01:58"
+            "fe1343b9-b7d3-58b0-8f58-db5419e3736e",
+            "2221f06d-4a12-5b5e-8a8c-c3802da7edb0",
+            "e8cbe61c-7b4c-53b9-8f2d-b63af24ae207",
+            "2022-02-02 00:02:05",
+            "2022-02-02 00:02:05"
         ]
     },
     {
@@ -924,68 +1072,68 @@
         "bindings": [
             "Asset",
             "91fe9f38-1137-424e-bde7-90bd367ee016",
-            "Will Rutherford",
-            "+17722427749",
-            "gulgowski.jacky@stamm.com",
+            "Brock Daniel",
+            "+17547364314",
+            "lauryn.jones@yahoo.com",
             true,
-            "15cc9317-288d-5cd1-ad0e-774cad37862b",
-            "2022-02-02 00:01:59",
-            "2022-02-02 00:01:59"
+            "47ba8bed-fefb-57e4-88d7-2ca95e11215b",
+            "2022-02-02 00:02:06",
+            "2022-02-02 00:02:06"
         ]
     },
     {
         "query": "insert into `contact_types` (`type_id`, `contact_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
-            "5805230b-b911-5b0c-ab1b-670e88304dc4",
-            "15cc9317-288d-5cd1-ad0e-774cad37862b",
-            "f1ed92cb-03c7-5943-9f9a-71f03b7f745f",
-            "2022-02-02 00:02:00",
-            "2022-02-02 00:02:00"
+            "3a9fc444-5aa7-51cc-978b-d3548295cc52",
+            "47ba8bed-fefb-57e4-88d7-2ca95e11215b",
+            "64bd44f1-abaa-525f-9c17-f62d626ff056",
+            "2022-02-02 00:02:07",
+            "2022-02-02 00:02:07"
         ]
     },
     {
         "query": "insert into `asset_coverages` (`coverage_id`, `asset_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
-            "317051ab-383c-55fc-a38d-e1ba7d1c5185",
+            "6bead99c-0349-5d88-8119-bcb3dc6fc611",
             "91fe9f38-1137-424e-bde7-90bd367ee016",
-            "e4221d96-498b-51ab-894b-5df42fb58427",
-            "2022-02-02 00:02:01",
-            "2022-02-02 00:02:01"
+            "8f62aaad-8674-5b9e-ae8a-e0e1aaba5ba6",
+            "2022-02-02 00:02:08",
+            "2022-02-02 00:02:08"
         ]
     },
     {
         "query": "insert into `asset_warranties` (`asset_id`, `created_at`, `customer_id`, `description`, `document_id`, `document_number`, `end`, `id`, `reseller_id`, `service_group_id`, `service_level_id`, `start`, `status_id`, `type_id`, `updated_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "91fe9f38-1137-424e-bde7-90bd367ee016",
-            "2022-02-02 00:02:02",
+            "2022-02-02 00:02:09",
             null,
             "H7J34AC-HPE Foundation Care 24x7 SVC",
             null,
             null,
             "2023-04-30 00:00:00",
-            "38a10352-9c0f-5e89-807f-52912fbc0594",
+            "f1ed92cb-03c7-5943-9f9a-71f03b7f745f",
             null,
             null,
             null,
             "2021-06-01 00:00:00",
-            "3a9fc444-5aa7-51cc-978b-d3548295cc52",
-            "fe1343b9-b7d3-58b0-8f58-db5419e3736e",
-            "2022-02-02 00:02:02",
+            "79d540cc-c86f-52a3-83ba-d6a2287289ea",
+            "ca6b907e-b88a-531b-8b2f-c7c190700878",
+            "2022-02-02 00:02:09",
             "91fe9f38-1137-424e-bde7-90bd367ee016",
-            "2022-02-02 00:02:03",
+            "2022-02-02 00:02:10",
             null,
             "",
             null,
             null,
             "2021-02-26 00:00:00",
-            "bc7a9e24-1db3-5df0-bc18-0b8a97ab6d3a",
+            "e4221d96-498b-51ab-894b-5df42fb58427",
             null,
             null,
             null,
             "2021-02-26 00:00:00",
-            "ca6b907e-b88a-531b-8b2f-c7c190700878",
-            "6bead99c-0349-5d88-8119-bcb3dc6fc611",
-            "2022-02-02 00:02:03"
+            "d8443f90-1c85-5c83-a150-a5c53bc3013c",
+            "50e49187-ef54-545a-8459-78057a562697",
+            "2022-02-02 00:02:10"
         ]
     },
     {
@@ -1003,9 +1151,53 @@
             null,
             null,
             "HPE BLc VC Flex-10\/10D Module Opt",
-            "bfeef820-815f-5a5a-aec4-53793f274c9f",
-            "2022-02-02 00:02:04",
-            "2022-02-02 00:02:04"
+            "04ec28e5-1389-5fdf-9da9-6998b25957e2",
+            "2022-02-02 00:02:11",
+            "2022-02-02 00:02:11"
+        ]
+    },
+    {
+        "query": "select `cities`.* from `cities` where (`country_id` = ? and `key` = ?) and `cities`.`deleted_at` is null limit 1",
+        "bindings": [
+            "281fa16d-b7e0-59dc-a2d2-ae493b781896",
+            "haneborough"
+        ]
+    },
+    {
+        "query": "insert into `cities` (`key`, `name`, `country_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?)",
+        "bindings": [
+            "Haneborough",
+            "Haneborough",
+            "281fa16d-b7e0-59dc-a2d2-ae493b781896",
+            "cc19fbd2-edd0-5137-83f6-673cd5f70152",
+            "2022-02-02 00:02:12",
+            "2022-02-02 00:02:12"
+        ]
+    },
+    {
+        "query": "select `locations`.* from `locations` where (`city_id` = ? and `country_id` = ? and CONCAT(`line_one`, IF(`line_two` != '', CONCAT(' ', `line_two`), '')) = ? and `postcode` = ?) and `locations`.`deleted_at` is null limit 1",
+        "bindings": [
+            "cc19fbd2-edd0-5137-83f6-673cd5f70152",
+            "281fa16d-b7e0-59dc-a2d2-ae493b781896",
+            "8845 batz turnpike apt. 153",
+            "61339"
+        ]
+    },
+    {
+        "query": "insert into `locations` (`country_id`, `city_id`, `postcode`, `state`, `line_one`, `line_two`, `latitude`, `longitude`, `geohash`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "bindings": [
+            "281fa16d-b7e0-59dc-a2d2-ae493b781896",
+            "cc19fbd2-edd0-5137-83f6-673cd5f70152",
+            "61339",
+            "",
+            "8845 Batz Turnpike Apt. 153",
+            "",
+            "-86.131545",
+            "37.222934",
+            "hbdqp00zmhr2",
+            "4793737d-682b-5172-b43d-d02d4d0f0baf",
+            "2022-02-02 00:02:13",
+            "2022-02-02 00:02:13"
         ]
     },
     {
@@ -1019,9 +1211,9 @@
         "bindings": [
             "CONFLICT",
             "Conflict",
-            "1d1b883c-b811-5f3c-ab87-aa50afad81e9",
-            "2022-02-02 00:02:06",
-            "2022-02-02 00:02:06"
+            "10e8403d-ac81-5869-a7e3-5d652e91b32b",
+            "2022-02-02 00:02:15",
+            "2022-02-02 00:02:15"
         ]
     },
     {
@@ -1031,24 +1223,24 @@
             "77b77ef3-0b8f-573f-a002-b612c29ef2a6",
             null,
             "331ec4c6-b480-527e-9af7-785fc53ae611",
-            "bfeef820-815f-5a5a-aec4-53793f274c9f",
+            "04ec28e5-1389-5fdf-9da9-6998b25957e2",
             "9f6b1030-5d5d-4f0b-b743-2ef69eaf4a44",
             "4a4955d5-6c40-456c-94fe-25f41ffb25ef",
-            "211e8c01-1a44-551a-a6ac-547a6515e6cc",
+            "4793737d-682b-5172-b43d-d02d4d0f0baf",
             null,
             "2022-10-03 11:55:56",
-            "6a3cf17f-0285-386a-beee-acfc58c3f7d8",
+            "385fe9d1-5a07-3452-b0cb-bcc9df2c6f5f",
             "80",
             0,
             3,
             1,
-            "2022-02-02 00:02:07",
+            "2022-02-02 00:02:16",
             "2022-12-31 00:00:00",
             null,
             null,
             "2022-09-02 20:43:19",
-            "2022-02-02 00:02:16",
-            "2022-02-02 00:02:16"
+            "2022-02-02 00:02:25",
+            "2022-02-02 00:02:25"
         ]
     },
     {
@@ -1056,23 +1248,23 @@
         "bindings": [
             "Asset",
             "cf82deb8-e098-4f15-98bd-fe890cbc89cf",
-            "Joany Walter",
+            "Prof. Amari Bahringer MD",
             null,
             null,
             null,
-            "e8cbe61c-7b4c-53b9-8f2d-b63af24ae207",
-            "2022-02-02 00:02:17",
-            "2022-02-02 00:02:17"
+            "b6f1275a-39ab-53da-91cd-85793eca7026",
+            "2022-02-02 00:02:26",
+            "2022-02-02 00:02:26"
         ]
     },
     {
         "query": "insert into `contact_types` (`type_id`, `contact_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
-            "281fa16d-b7e0-59dc-a2d2-ae493b781896",
-            "e8cbe61c-7b4c-53b9-8f2d-b63af24ae207",
-            "47ba8bed-fefb-57e4-88d7-2ca95e11215b",
-            "2022-02-02 00:02:18",
-            "2022-02-02 00:02:18"
+            "317051ab-383c-55fc-a38d-e1ba7d1c5185",
+            "b6f1275a-39ab-53da-91cd-85793eca7026",
+            "ebb56938-034d-5fe6-8d76-98ccb7e06281",
+            "2022-02-02 00:02:27",
+            "2022-02-02 00:02:27"
         ]
     },
     {
@@ -1080,23 +1272,23 @@
         "bindings": [
             "Asset",
             "cf82deb8-e098-4f15-98bd-fe890cbc89cf",
-            "Darren Kris",
-            "+14582734372",
-            "cjacobs@ratke.com",
+            "Ava Baumbach",
+            "+15342161852",
+            "alberto59@gmail.com",
             true,
-            "64bd44f1-abaa-525f-9c17-f62d626ff056",
-            "2022-02-02 00:02:19",
-            "2022-02-02 00:02:19"
+            "3f223392-c0b3-59dd-a58b-7fa4bfdcde3e",
+            "2022-02-02 00:02:28",
+            "2022-02-02 00:02:28"
         ]
     },
     {
         "query": "insert into `contact_types` (`type_id`, `contact_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
-            "408630e7-2285-5049-9551-e042944ceb4d",
-            "64bd44f1-abaa-525f-9c17-f62d626ff056",
-            "8f62aaad-8674-5b9e-ae8a-e0e1aaba5ba6",
-            "2022-02-02 00:02:20",
-            "2022-02-02 00:02:20"
+            "fe1343b9-b7d3-58b0-8f58-db5419e3736e",
+            "3f223392-c0b3-59dd-a58b-7fa4bfdcde3e",
+            "3f721f55-37cb-58cc-88ec-87eb09dc7133",
+            "2022-02-02 00:02:29",
+            "2022-02-02 00:02:29"
         ]
     },
     {
@@ -1104,33 +1296,33 @@
         "bindings": [
             "Asset",
             "cf82deb8-e098-4f15-98bd-fe890cbc89cf",
-            "Kacey Corwin",
-            "+14636264113",
-            "streich.jade@hotmail.com",
+            "Mrs. Kallie Doyle DDS",
+            "+18069886840",
+            "mallory89@will.org",
             true,
-            "04ec28e5-1389-5fdf-9da9-6998b25957e2",
-            "2022-02-02 00:02:21",
-            "2022-02-02 00:02:21"
+            "824fce50-73dc-5918-9325-52b88687e5c4",
+            "2022-02-02 00:02:30",
+            "2022-02-02 00:02:30"
         ]
     },
     {
         "query": "insert into `contact_types` (`type_id`, `contact_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
-            "5805230b-b911-5b0c-ab1b-670e88304dc4",
-            "04ec28e5-1389-5fdf-9da9-6998b25957e2",
-            "cc19fbd2-edd0-5137-83f6-673cd5f70152",
-            "2022-02-02 00:02:22",
-            "2022-02-02 00:02:22"
+            "3a9fc444-5aa7-51cc-978b-d3548295cc52",
+            "824fce50-73dc-5918-9325-52b88687e5c4",
+            "ee53633f-ac14-5f7e-b3c1-9edc10f24152",
+            "2022-02-02 00:02:31",
+            "2022-02-02 00:02:31"
         ]
     },
     {
         "query": "insert into `asset_coverages` (`coverage_id`, `asset_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
-            "1d1b883c-b811-5f3c-ab87-aa50afad81e9",
+            "10e8403d-ac81-5869-a7e3-5d652e91b32b",
             "cf82deb8-e098-4f15-98bd-fe890cbc89cf",
-            "4793737d-682b-5172-b43d-d02d4d0f0baf",
-            "2022-02-02 00:02:23",
-            "2022-02-02 00:02:23"
+            "352f9f4b-bdb1-5b7b-9784-50956b47df11",
+            "2022-02-02 00:02:32",
+            "2022-02-02 00:02:32"
         ]
     },
     {
@@ -1139,8 +1331,8 @@
             "2019-01-01 00:00:00",
             "2022-12-31 00:00:00",
             "cf82deb8-e098-4f15-98bd-fe890cbc89cf",
-            "fe1343b9-b7d3-58b0-8f58-db5419e3736e",
-            "00a2dac8-f974-5e30-8852-b78b9beab383",
+            "ca6b907e-b88a-531b-8b2f-c7c190700878",
+            "b4fccd4c-af69-50ec-a8fd-1ed63cf0f496",
             "H7J32AC-HPE Foundation Care NBD SVC",
             null,
             null,
@@ -1148,9 +1340,9 @@
             null,
             null,
             null,
-            "2221f06d-4a12-5b5e-8a8c-c3802da7edb0",
-            "2022-02-02 00:02:24",
-            "2022-02-02 00:02:24"
+            "5e618f10-a687-535f-802b-d7bf3c3e7526",
+            "2022-02-02 00:02:33",
+            "2022-02-02 00:02:33"
         ]
     },
     {
@@ -1243,9 +1435,69 @@
             null,
             null,
             "",
-            "10e8403d-ac81-5869-a7e3-5d652e91b32b",
-            "2022-02-02 00:02:25",
-            "2022-02-02 00:02:25"
+            "3bc46004-de49-5632-a723-b86b80b27d99",
+            "2022-02-02 00:02:34",
+            "2022-02-02 00:02:34"
+        ]
+    },
+    {
+        "query": "select `countries`.* from `countries` where (`code` = ?) and `countries`.`deleted_at` is null limit 1",
+        "bindings": [
+            "gs"
+        ]
+    },
+    {
+        "query": "insert into `countries` (`code`, `name`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
+        "bindings": [
+            "GS",
+            "Mexico",
+            "80aa4e1c-c94c-5c89-ae37-7ba19749cf4e",
+            "2022-02-02 00:02:35",
+            "2022-02-02 00:02:35"
+        ]
+    },
+    {
+        "query": "select `cities`.* from `cities` where (`country_id` = ? and `key` = ?) and `cities`.`deleted_at` is null limit 1",
+        "bindings": [
+            "80aa4e1c-c94c-5c89-ae37-7ba19749cf4e",
+            "sabrynatown"
+        ]
+    },
+    {
+        "query": "insert into `cities` (`key`, `name`, `country_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?)",
+        "bindings": [
+            "Sabrynatown",
+            "Sabrynatown",
+            "80aa4e1c-c94c-5c89-ae37-7ba19749cf4e",
+            "8634df15-42b7-57e5-bd31-a937b3928ab0",
+            "2022-02-02 00:02:36",
+            "2022-02-02 00:02:36"
+        ]
+    },
+    {
+        "query": "select `locations`.* from `locations` where (`city_id` = ? and `country_id` = ? and CONCAT(`line_one`, IF(`line_two` != '', CONCAT(' ', `line_two`), '')) = ? and `postcode` = ?) and `locations`.`deleted_at` is null limit 1",
+        "bindings": [
+            "8634df15-42b7-57e5-bd31-a937b3928ab0",
+            "80aa4e1c-c94c-5c89-ae37-7ba19749cf4e",
+            "728 torphy inlet",
+            "18391"
+        ]
+    },
+    {
+        "query": "insert into `locations` (`country_id`, `city_id`, `postcode`, `state`, `line_one`, `line_two`, `latitude`, `longitude`, `geohash`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "bindings": [
+            "80aa4e1c-c94c-5c89-ae37-7ba19749cf4e",
+            "8634df15-42b7-57e5-bd31-a937b3928ab0",
+            "18391",
+            "",
+            "728 Torphy Inlet",
+            "",
+            "10.372545",
+            "-48.565449",
+            "dcv7nb78rn89",
+            "51635101-342f-51dc-a632-8dbe55f0f483",
+            "2022-02-02 00:02:37",
+            "2022-02-02 00:02:37"
         ]
     },
     {
@@ -1259,9 +1511,9 @@
         "bindings": [
             "ARCHIVED",
             "Archived",
-            "5e618f10-a687-535f-802b-d7bf3c3e7526",
-            "2022-02-02 00:02:27",
-            "2022-02-02 00:02:27"
+            "3c026542-d391-53ec-9347-9259b3273f0e",
+            "2022-02-02 00:02:39",
+            "2022-02-02 00:02:39"
         ]
     },
     {
@@ -1271,121 +1523,12 @@
             "77b77ef3-0b8f-573f-a002-b612c29ef2a6",
             null,
             "331ec4c6-b480-527e-9af7-785fc53ae611",
-            "10e8403d-ac81-5869-a7e3-5d652e91b32b",
+            "3bc46004-de49-5632-a723-b86b80b27d99",
             "0fd07b17-3314-40b5-ac32-7189051f773b",
             "95ce79c4-7fa9-4004-9486-3adac89c55c0",
-            "26847cf0-4252-5cd8-bacb-8f3ee833586e",
+            "51635101-342f-51dc-a632-8dbe55f0f483",
             null,
             "2022-09-02 20:02:32",
-            null,
-            "20",
-            0,
-            3,
-            1,
-            "2022-02-02 00:02:28",
-            null,
-            null,
-            null,
-            null,
-            "2022-02-02 00:02:31",
-            "2022-02-02 00:02:31"
-        ]
-    },
-    {
-        "query": "insert into `contacts` (`object_type`, `object_id`, `name`, `phone_number`, `email`, `phone_valid`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?)",
-        "bindings": [
-            "Asset",
-            "f5135d55-81fd-40e7-9bb5-a227f5516b87",
-            "Allie Bailey",
-            null,
-            null,
-            null,
-            "b6f1275a-39ab-53da-91cd-85793eca7026",
-            "2022-02-02 00:02:32",
-            "2022-02-02 00:02:32"
-        ]
-    },
-    {
-        "query": "insert into `contact_types` (`type_id`, `contact_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
-        "bindings": [
-            "281fa16d-b7e0-59dc-a2d2-ae493b781896",
-            "b6f1275a-39ab-53da-91cd-85793eca7026",
-            "ebb56938-034d-5fe6-8d76-98ccb7e06281",
-            "2022-02-02 00:02:33",
-            "2022-02-02 00:02:33"
-        ]
-    },
-    {
-        "query": "insert into `contacts` (`object_type`, `object_id`, `name`, `phone_number`, `email`, `phone_valid`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?)",
-        "bindings": [
-            "Asset",
-            "f5135d55-81fd-40e7-9bb5-a227f5516b87",
-            "Miss Elenora Towne",
-            "+16783426111",
-            "hayes.jean@hotmail.com",
-            true,
-            "3f223392-c0b3-59dd-a58b-7fa4bfdcde3e",
-            "2022-02-02 00:02:34",
-            "2022-02-02 00:02:34"
-        ]
-    },
-    {
-        "query": "insert into `contact_types` (`type_id`, `contact_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
-        "bindings": [
-            "408630e7-2285-5049-9551-e042944ceb4d",
-            "3f223392-c0b3-59dd-a58b-7fa4bfdcde3e",
-            "3f721f55-37cb-58cc-88ec-87eb09dc7133",
-            "2022-02-02 00:02:35",
-            "2022-02-02 00:02:35"
-        ]
-    },
-    {
-        "query": "insert into `contacts` (`object_type`, `object_id`, `name`, `phone_number`, `email`, `phone_valid`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?)",
-        "bindings": [
-            "Asset",
-            "f5135d55-81fd-40e7-9bb5-a227f5516b87",
-            "Verla Abshire IV",
-            "+15012713590",
-            "pward@hackett.com",
-            true,
-            "824fce50-73dc-5918-9325-52b88687e5c4",
-            "2022-02-02 00:02:36",
-            "2022-02-02 00:02:36"
-        ]
-    },
-    {
-        "query": "insert into `contact_types` (`type_id`, `contact_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
-        "bindings": [
-            "5805230b-b911-5b0c-ab1b-670e88304dc4",
-            "824fce50-73dc-5918-9325-52b88687e5c4",
-            "ee53633f-ac14-5f7e-b3c1-9edc10f24152",
-            "2022-02-02 00:02:37",
-            "2022-02-02 00:02:37"
-        ]
-    },
-    {
-        "query": "insert into `asset_coverages` (`coverage_id`, `asset_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
-        "bindings": [
-            "5e618f10-a687-535f-802b-d7bf3c3e7526",
-            "f5135d55-81fd-40e7-9bb5-a227f5516b87",
-            "352f9f4b-bdb1-5b7b-9784-50956b47df11",
-            "2022-02-02 00:02:38",
-            "2022-02-02 00:02:38"
-        ]
-    },
-    {
-        "query": "insert into `assets` (`id`, `oem_id`, `type_id`, `status_id`, `product_id`, `reseller_id`, `customer_id`, `location_id`, `eosl`, `changed_at`, `serial_number`, `data_quality`, `contacts_active_quantity`, `contacts_count`, `coverages_count`, `synced_at`, `warranty_end`, `warranty_service_group_id`, `warranty_service_level_id`, `warranty_changed_at`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
-        "bindings": [
-            "16425fd0-0107-4a3f-a294-d27a5802abfa",
-            "77b77ef3-0b8f-573f-a002-b612c29ef2a6",
-            null,
-            "331ec4c6-b480-527e-9af7-785fc53ae611",
-            "10e8403d-ac81-5869-a7e3-5d652e91b32b",
-            "9d9e320d-4e44-4518-a4e6-6bfe7f1c7dd8",
-            "033bcf58-0dcd-42b6-8765-51b5815b747f",
-            "505a24fb-0e61-5e16-9cc8-517a6af529c8",
-            null,
-            "2022-09-02 17:07:46",
             null,
             "20",
             0,
@@ -1404,12 +1547,12 @@
         "query": "insert into `contacts` (`object_type`, `object_id`, `name`, `phone_number`, `email`, `phone_valid`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "Asset",
-            "16425fd0-0107-4a3f-a294-d27a5802abfa",
-            "Afton Fadel",
-            "+14432381007",
+            "f5135d55-81fd-40e7-9bb5-a227f5516b87",
+            "Dr. Kendall Streich DVM",
             null,
-            true,
-            "3bc46004-de49-5632-a723-b86b80b27d99",
+            null,
+            null,
+            "1ace8308-6aef-58ce-a765-da8d639d4850",
             "2022-02-02 00:02:44",
             "2022-02-02 00:02:44"
         ]
@@ -1417,9 +1560,9 @@
     {
         "query": "insert into `contact_types` (`type_id`, `contact_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
-            "281fa16d-b7e0-59dc-a2d2-ae493b781896",
-            "3bc46004-de49-5632-a723-b86b80b27d99",
-            "80aa4e1c-c94c-5c89-ae37-7ba19749cf4e",
+            "317051ab-383c-55fc-a38d-e1ba7d1c5185",
+            "1ace8308-6aef-58ce-a765-da8d639d4850",
+            "37c15085-2a21-5b39-8bd4-5cccab74a28f",
             "2022-02-02 00:02:45",
             "2022-02-02 00:02:45"
         ]
@@ -1428,12 +1571,12 @@
         "query": "insert into `contacts` (`object_type`, `object_id`, `name`, `phone_number`, `email`, `phone_valid`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "Asset",
-            "16425fd0-0107-4a3f-a294-d27a5802abfa",
-            "Pansy Cassin",
-            "+17746283164",
-            "dillon32@walsh.net",
+            "f5135d55-81fd-40e7-9bb5-a227f5516b87",
+            "Javon Halvorson",
+            "+14254327979",
+            "ghuels@yahoo.com",
             true,
-            "8634df15-42b7-57e5-bd31-a937b3928ab0",
+            "34a7da9a-bc4f-54fd-9dcd-2a128111703d",
             "2022-02-02 00:02:46",
             "2022-02-02 00:02:46"
         ]
@@ -1441,9 +1584,9 @@
     {
         "query": "insert into `contact_types` (`type_id`, `contact_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
-            "408630e7-2285-5049-9551-e042944ceb4d",
-            "8634df15-42b7-57e5-bd31-a937b3928ab0",
-            "51635101-342f-51dc-a632-8dbe55f0f483",
+            "fe1343b9-b7d3-58b0-8f58-db5419e3736e",
+            "34a7da9a-bc4f-54fd-9dcd-2a128111703d",
+            "3ae023d1-b8f5-57f8-a1b7-bfaf06529170",
             "2022-02-02 00:02:47",
             "2022-02-02 00:02:47"
         ]
@@ -1452,12 +1595,12 @@
         "query": "insert into `contacts` (`object_type`, `object_id`, `name`, `phone_number`, `email`, `phone_valid`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "Asset",
-            "16425fd0-0107-4a3f-a294-d27a5802abfa",
-            "Lowell Batz",
-            "+17269064245",
-            "selmer82@rutherford.com",
+            "f5135d55-81fd-40e7-9bb5-a227f5516b87",
+            "Bernice Abernathy",
+            "+16089174193",
+            "upredovic@hotmail.com",
             true,
-            "3c026542-d391-53ec-9347-9259b3273f0e",
+            "c13d8cb8-5079-51ef-8669-39b214f2fe8a",
             "2022-02-02 00:02:48",
             "2022-02-02 00:02:48"
         ]
@@ -1465,9 +1608,9 @@
     {
         "query": "insert into `contact_types` (`type_id`, `contact_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
-            "5805230b-b911-5b0c-ab1b-670e88304dc4",
-            "3c026542-d391-53ec-9347-9259b3273f0e",
-            "1ace8308-6aef-58ce-a765-da8d639d4850",
+            "3a9fc444-5aa7-51cc-978b-d3548295cc52",
+            "c13d8cb8-5079-51ef-8669-39b214f2fe8a",
+            "142a49a5-10b2-5c52-9295-d3b905c78563",
             "2022-02-02 00:02:49",
             "2022-02-02 00:02:49"
         ]
@@ -1475,19 +1618,216 @@
     {
         "query": "insert into `asset_coverages` (`coverage_id`, `asset_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
-            "5e618f10-a687-535f-802b-d7bf3c3e7526",
-            "16425fd0-0107-4a3f-a294-d27a5802abfa",
-            "37c15085-2a21-5b39-8bd4-5cccab74a28f",
+            "3c026542-d391-53ec-9347-9259b3273f0e",
+            "f5135d55-81fd-40e7-9bb5-a227f5516b87",
+            "3bc8c58c-e4a6-5d39-b8f8-d7eeedf30b5c",
             "2022-02-02 00:02:50",
             "2022-02-02 00:02:50"
+        ]
+    },
+    {
+        "query": "select `cities`.* from `cities` where (`country_id` = ? and `key` = ?) and `cities`.`deleted_at` is null limit 1",
+        "bindings": [
+            "281fa16d-b7e0-59dc-a2d2-ae493b781896",
+            "friesenshire"
+        ]
+    },
+    {
+        "query": "insert into `cities` (`key`, `name`, `country_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?)",
+        "bindings": [
+            "Friesenshire",
+            "Friesenshire",
+            "281fa16d-b7e0-59dc-a2d2-ae493b781896",
+            "454fad94-4057-5cb2-8244-8338e4f5b274",
+            "2022-02-02 00:02:51",
+            "2022-02-02 00:02:51"
+        ]
+    },
+    {
+        "query": "select `locations`.* from `locations` where (`city_id` = ? and `country_id` = ? and CONCAT(`line_one`, IF(`line_two` != '', CONCAT(' ', `line_two`), '')) = ? and `postcode` = ?) and `locations`.`deleted_at` is null limit 1",
+        "bindings": [
+            "454fad94-4057-5cb2-8244-8338e4f5b274",
+            "281fa16d-b7e0-59dc-a2d2-ae493b781896",
+            "73818 bins crossroad",
+            "44096-7103"
+        ]
+    },
+    {
+        "query": "insert into `locations` (`country_id`, `city_id`, `postcode`, `state`, `line_one`, `line_two`, `latitude`, `longitude`, `geohash`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "bindings": [
+            "281fa16d-b7e0-59dc-a2d2-ae493b781896",
+            "454fad94-4057-5cb2-8244-8338e4f5b274",
+            "44096-7103",
+            "",
+            "73818 Bins Crossroad",
+            "",
+            "-57.54319",
+            "1.464482",
+            "hjc09kd6sguv",
+            "33a7aaa9-7ff2-5519-b0af-64c0ab962c4b",
+            "2022-02-02 00:02:52",
+            "2022-02-02 00:02:52"
+        ]
+    },
+    {
+        "query": "insert into `assets` (`id`, `oem_id`, `type_id`, `status_id`, `product_id`, `reseller_id`, `customer_id`, `location_id`, `eosl`, `changed_at`, `serial_number`, `data_quality`, `contacts_active_quantity`, `contacts_count`, `coverages_count`, `synced_at`, `warranty_end`, `warranty_service_group_id`, `warranty_service_level_id`, `warranty_changed_at`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "bindings": [
+            "16425fd0-0107-4a3f-a294-d27a5802abfa",
+            "77b77ef3-0b8f-573f-a002-b612c29ef2a6",
+            null,
+            "331ec4c6-b480-527e-9af7-785fc53ae611",
+            "3bc46004-de49-5632-a723-b86b80b27d99",
+            "9d9e320d-4e44-4518-a4e6-6bfe7f1c7dd8",
+            "033bcf58-0dcd-42b6-8765-51b5815b747f",
+            "33a7aaa9-7ff2-5519-b0af-64c0ab962c4b",
+            null,
+            "2022-09-02 17:07:46",
+            null,
+            "20",
+            0,
+            3,
+            1,
+            "2022-02-02 00:02:54",
+            null,
+            null,
+            null,
+            null,
+            "2022-02-02 00:02:57",
+            "2022-02-02 00:02:57"
+        ]
+    },
+    {
+        "query": "insert into `contacts` (`object_type`, `object_id`, `name`, `phone_number`, `email`, `phone_valid`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "bindings": [
+            "Asset",
+            "16425fd0-0107-4a3f-a294-d27a5802abfa",
+            "Travon Reynolds III",
+            "+18567029504",
+            null,
+            true,
+            "4de5dec1-3390-5936-9db3-b710e1442eeb",
+            "2022-02-02 00:02:58",
+            "2022-02-02 00:02:58"
+        ]
+    },
+    {
+        "query": "insert into `contact_types` (`type_id`, `contact_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
+        "bindings": [
+            "317051ab-383c-55fc-a38d-e1ba7d1c5185",
+            "4de5dec1-3390-5936-9db3-b710e1442eeb",
+            "377f26d6-af90-58c4-b6f6-aa64dbd78375",
+            "2022-02-02 00:02:59",
+            "2022-02-02 00:02:59"
+        ]
+    },
+    {
+        "query": "insert into `contacts` (`object_type`, `object_id`, `name`, `phone_number`, `email`, `phone_valid`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "bindings": [
+            "Asset",
+            "16425fd0-0107-4a3f-a294-d27a5802abfa",
+            "Ophelia Langosh",
+            "+15642461588",
+            "itzel.muller@gmail.com",
+            true,
+            "2b84fa63-0f38-5de1-8f7e-f49bb10eaffe",
+            "2022-02-02 00:03:00",
+            "2022-02-02 00:03:00"
+        ]
+    },
+    {
+        "query": "insert into `contact_types` (`type_id`, `contact_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
+        "bindings": [
+            "fe1343b9-b7d3-58b0-8f58-db5419e3736e",
+            "2b84fa63-0f38-5de1-8f7e-f49bb10eaffe",
+            "c7654ff6-d0f2-5e27-b408-d0ab0a493045",
+            "2022-02-02 00:03:01",
+            "2022-02-02 00:03:01"
+        ]
+    },
+    {
+        "query": "insert into `contacts` (`object_type`, `object_id`, `name`, `phone_number`, `email`, `phone_valid`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "bindings": [
+            "Asset",
+            "16425fd0-0107-4a3f-a294-d27a5802abfa",
+            "Eliane Mraz",
+            "+18479676631",
+            "marshall.braun@williamson.com",
+            true,
+            "02d1d0a1-e864-572b-ac0d-e4e50abecb98",
+            "2022-02-02 00:03:02",
+            "2022-02-02 00:03:02"
+        ]
+    },
+    {
+        "query": "insert into `contact_types` (`type_id`, `contact_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
+        "bindings": [
+            "3a9fc444-5aa7-51cc-978b-d3548295cc52",
+            "02d1d0a1-e864-572b-ac0d-e4e50abecb98",
+            "b7ff4978-23b2-5ef0-8787-56cd6f651af6",
+            "2022-02-02 00:03:03",
+            "2022-02-02 00:03:03"
+        ]
+    },
+    {
+        "query": "insert into `asset_coverages` (`coverage_id`, `asset_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
+        "bindings": [
+            "3c026542-d391-53ec-9347-9259b3273f0e",
+            "16425fd0-0107-4a3f-a294-d27a5802abfa",
+            "35c44cd6-0191-5246-9b59-cf3ab93ede3a",
+            "2022-02-02 00:03:04",
+            "2022-02-02 00:03:04"
         ]
     },
     {
         "query": "update `products` set `name` = ?, `products`.`updated_at` = ? where `id` = ?",
         "bindings": [
             "HPE 96W Smart Stg Li-ion Batt 145mm Kit",
-            "2022-02-02 00:02:51",
-            "10e8403d-ac81-5869-a7e3-5d652e91b32b"
+            "2022-02-02 00:03:05",
+            "3bc46004-de49-5632-a723-b86b80b27d99"
+        ]
+    },
+    {
+        "query": "select `cities`.* from `cities` where (`country_id` = ? and `key` = ?) and `cities`.`deleted_at` is null limit 1",
+        "bindings": [
+            "281fa16d-b7e0-59dc-a2d2-ae493b781896",
+            "robertschester"
+        ]
+    },
+    {
+        "query": "insert into `cities` (`key`, `name`, `country_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?)",
+        "bindings": [
+            "Robertschester",
+            "Robertschester",
+            "281fa16d-b7e0-59dc-a2d2-ae493b781896",
+            "6987de7c-dade-50ee-a9de-7f1f358dc862",
+            "2022-02-02 00:03:13",
+            "2022-02-02 00:03:13"
+        ]
+    },
+    {
+        "query": "select `locations`.* from `locations` where (`city_id` = ? and `country_id` = ? and CONCAT(`line_one`, IF(`line_two` != '', CONCAT(' ', `line_two`), '')) = ? and `postcode` = ?) and `locations`.`deleted_at` is null limit 1",
+        "bindings": [
+            "6987de7c-dade-50ee-a9de-7f1f358dc862",
+            "281fa16d-b7e0-59dc-a2d2-ae493b781896",
+            "13101 ortiz mission apt. 959",
+            "35002"
+        ]
+    },
+    {
+        "query": "insert into `locations` (`country_id`, `city_id`, `postcode`, `state`, `line_one`, `line_two`, `latitude`, `longitude`, `geohash`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "bindings": [
+            "281fa16d-b7e0-59dc-a2d2-ae493b781896",
+            "6987de7c-dade-50ee-a9de-7f1f358dc862",
+            "35002",
+            "",
+            "13101 Ortiz Mission Apt. 959",
+            "",
+            "23.126443",
+            "154.677208",
+            "xkjgxf0921mw",
+            "20cd5cbd-ad74-5354-bda4-c688e39cee1b",
+            "2022-02-02 00:03:14",
+            "2022-02-02 00:03:14"
         ]
     },
     {
@@ -1497,10 +1837,10 @@
             "77b77ef3-0b8f-573f-a002-b612c29ef2a6",
             null,
             "331ec4c6-b480-527e-9af7-785fc53ae611",
-            "10e8403d-ac81-5869-a7e3-5d652e91b32b",
+            "3bc46004-de49-5632-a723-b86b80b27d99",
             "9d9e320d-4e44-4518-a4e6-6bfe7f1c7dd8",
             "7b9dae48-2613-4478-9b2f-842dd7c1db71",
-            "a3c2a3df-b5d3-525f-9fc4-c49684c5a9fc",
+            "20cd5cbd-ad74-5354-bda4-c688e39cee1b",
             null,
             "2022-09-02 17:29:37",
             null,
@@ -1508,13 +1848,13 @@
             0,
             3,
             1,
-            "2022-02-02 00:03:00",
+            "2022-02-02 00:03:16",
             null,
             null,
             null,
             null,
-            "2022-02-02 00:03:03",
-            "2022-02-02 00:03:03"
+            "2022-02-02 00:03:19",
+            "2022-02-02 00:03:19"
         ]
     },
     {
@@ -1522,23 +1862,23 @@
         "bindings": [
             "Asset",
             "3a010157-00fa-4110-87d9-cee7a5ba8482",
-            "Clifford Morissette",
-            "+17605321272",
+            "Jamil Kohler II",
+            "+15309372824",
             null,
             true,
-            "34a7da9a-bc4f-54fd-9dcd-2a128111703d",
-            "2022-02-02 00:03:04",
-            "2022-02-02 00:03:04"
+            "f2ad4757-1fae-5cdf-94f5-bf376c43debd",
+            "2022-02-02 00:03:20",
+            "2022-02-02 00:03:20"
         ]
     },
     {
         "query": "insert into `contact_types` (`type_id`, `contact_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
-            "281fa16d-b7e0-59dc-a2d2-ae493b781896",
-            "34a7da9a-bc4f-54fd-9dcd-2a128111703d",
-            "3ae023d1-b8f5-57f8-a1b7-bfaf06529170",
-            "2022-02-02 00:03:05",
-            "2022-02-02 00:03:05"
+            "317051ab-383c-55fc-a38d-e1ba7d1c5185",
+            "f2ad4757-1fae-5cdf-94f5-bf376c43debd",
+            "1108f529-6acb-5ef2-b76c-06c5bb24cf54",
+            "2022-02-02 00:03:21",
+            "2022-02-02 00:03:21"
         ]
     },
     {
@@ -1546,23 +1886,23 @@
         "bindings": [
             "Asset",
             "3a010157-00fa-4110-87d9-cee7a5ba8482",
-            "Darren Kris",
-            "+14582734372",
-            "cjacobs@ratke.com",
+            "Ava Baumbach",
+            "+15342161852",
+            "alberto59@gmail.com",
             true,
-            "c13d8cb8-5079-51ef-8669-39b214f2fe8a",
-            "2022-02-02 00:03:06",
-            "2022-02-02 00:03:06"
+            "9fa2f3c1-5511-5eb4-92b5-19998a92f69d",
+            "2022-02-02 00:03:22",
+            "2022-02-02 00:03:22"
         ]
     },
     {
         "query": "insert into `contact_types` (`type_id`, `contact_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
-            "408630e7-2285-5049-9551-e042944ceb4d",
-            "c13d8cb8-5079-51ef-8669-39b214f2fe8a",
-            "142a49a5-10b2-5c52-9295-d3b905c78563",
-            "2022-02-02 00:03:07",
-            "2022-02-02 00:03:07"
+            "fe1343b9-b7d3-58b0-8f58-db5419e3736e",
+            "9fa2f3c1-5511-5eb4-92b5-19998a92f69d",
+            "0ffbe81a-4d4a-5300-b737-186054976a6c",
+            "2022-02-02 00:03:23",
+            "2022-02-02 00:03:23"
         ]
     },
     {
@@ -1570,33 +1910,33 @@
         "bindings": [
             "Asset",
             "3a010157-00fa-4110-87d9-cee7a5ba8482",
-            "Prof. Armani Stoltenberg",
-            "+13073440114",
-            "russel.kelsie@yahoo.com",
+            "Michelle Wiegand",
+            "+19306703549",
+            "dawson.wuckert@hotmail.com",
             true,
-            "3bc8c58c-e4a6-5d39-b8f8-d7eeedf30b5c",
-            "2022-02-02 00:03:08",
-            "2022-02-02 00:03:08"
+            "314f690e-50c9-5325-92f3-848e12fbee3f",
+            "2022-02-02 00:03:24",
+            "2022-02-02 00:03:24"
         ]
     },
     {
         "query": "insert into `contact_types` (`type_id`, `contact_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
-            "5805230b-b911-5b0c-ab1b-670e88304dc4",
-            "3bc8c58c-e4a6-5d39-b8f8-d7eeedf30b5c",
-            "454fad94-4057-5cb2-8244-8338e4f5b274",
-            "2022-02-02 00:03:09",
-            "2022-02-02 00:03:09"
+            "3a9fc444-5aa7-51cc-978b-d3548295cc52",
+            "314f690e-50c9-5325-92f3-848e12fbee3f",
+            "e35828b5-f350-5e19-9d69-1214eceb6936",
+            "2022-02-02 00:03:25",
+            "2022-02-02 00:03:25"
         ]
     },
     {
         "query": "insert into `asset_coverages` (`coverage_id`, `asset_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
-            "5e618f10-a687-535f-802b-d7bf3c3e7526",
+            "3c026542-d391-53ec-9347-9259b3273f0e",
             "3a010157-00fa-4110-87d9-cee7a5ba8482",
-            "33a7aaa9-7ff2-5519-b0af-64c0ab962c4b",
-            "2022-02-02 00:03:10",
-            "2022-02-02 00:03:10"
+            "7a554a55-0f04-5738-b6da-38be367f590e",
+            "2022-02-02 00:03:26",
+            "2022-02-02 00:03:26"
         ]
     },
     {
@@ -1614,9 +1954,53 @@
             null,
             null,
             "HPE M6710 1.2TB 12G SAS 10K 2.5in HDD",
-            "4de5dec1-3390-5936-9db3-b710e1442eeb",
-            "2022-02-02 00:03:11",
-            "2022-02-02 00:03:11"
+            "e691b934-0e85-5612-8720-d354eb7232dd",
+            "2022-02-02 00:03:27",
+            "2022-02-02 00:03:27"
+        ]
+    },
+    {
+        "query": "select `cities`.* from `cities` where (`country_id` = ? and `key` = ?) and `cities`.`deleted_at` is null limit 1",
+        "bindings": [
+            "281fa16d-b7e0-59dc-a2d2-ae493b781896",
+            "bradtkeshire"
+        ]
+    },
+    {
+        "query": "insert into `cities` (`key`, `name`, `country_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?)",
+        "bindings": [
+            "Bradtkeshire",
+            "Bradtkeshire",
+            "281fa16d-b7e0-59dc-a2d2-ae493b781896",
+            "a11e99f1-2ecf-5047-b75d-7e0fdc0e0042",
+            "2022-02-02 00:03:28",
+            "2022-02-02 00:03:28"
+        ]
+    },
+    {
+        "query": "select `locations`.* from `locations` where (`city_id` = ? and `country_id` = ? and CONCAT(`line_one`, IF(`line_two` != '', CONCAT(' ', `line_two`), '')) = ? and `postcode` = ?) and `locations`.`deleted_at` is null limit 1",
+        "bindings": [
+            "a11e99f1-2ecf-5047-b75d-7e0fdc0e0042",
+            "281fa16d-b7e0-59dc-a2d2-ae493b781896",
+            "19798 chadrick port apt. 573",
+            "23344"
+        ]
+    },
+    {
+        "query": "insert into `locations` (`country_id`, `city_id`, `postcode`, `state`, `line_one`, `line_two`, `latitude`, `longitude`, `geohash`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "bindings": [
+            "281fa16d-b7e0-59dc-a2d2-ae493b781896",
+            "a11e99f1-2ecf-5047-b75d-7e0fdc0e0042",
+            "23344",
+            "",
+            "19798 Chadrick Port Apt. 573",
+            "",
+            "22.602558",
+            "50.38414",
+            "th5bdd8t7w1y",
+            "38d38cf8-5a4d-521c-ace3-d9416945d34b",
+            "2022-02-02 00:03:29",
+            "2022-02-02 00:03:29"
         ]
     },
     {
@@ -1626,24 +2010,24 @@
             "77b77ef3-0b8f-573f-a002-b612c29ef2a6",
             null,
             "331ec4c6-b480-527e-9af7-785fc53ae611",
-            "4de5dec1-3390-5936-9db3-b710e1442eeb",
+            "e691b934-0e85-5612-8720-d354eb7232dd",
             "9d9e320d-4e44-4518-a4e6-6bfe7f1c7dd8",
             "35c87f11-f024-402b-9a9e-49b21d29e804",
-            "d72a14ac-450e-5073-8760-a3ce1b312ced",
+            "38d38cf8-5a4d-521c-ace3-d9416945d34b",
             null,
             "2022-10-03 12:49:00",
-            "0f9875b0-43ed-3d02-815e-89340df44c5b",
+            "f7fffaab-01ff-35f2-9b68-f14587a60202",
             "80",
             0,
             2,
             1,
-            "2022-02-02 00:03:13",
+            "2022-02-02 00:03:31",
             "2023-05-31 00:00:00",
             null,
             null,
             "2022-10-03 12:49:00",
-            "2022-02-02 00:03:34",
-            "2022-02-02 00:03:34"
+            "2022-02-02 00:03:52",
+            "2022-02-02 00:03:52"
         ]
     },
     {
@@ -1651,23 +2035,23 @@
         "bindings": [
             "Asset",
             "5d62ee0b-ebdf-4a76-bcab-60078f6eba32",
-            "Darren Kris",
-            "+14582734372",
-            "cjacobs@ratke.com",
+            "Ava Baumbach",
+            "+15342161852",
+            "alberto59@gmail.com",
             true,
-            "c7654ff6-d0f2-5e27-b408-d0ab0a493045",
-            "2022-02-02 00:03:35",
-            "2022-02-02 00:03:35"
+            "c7eb23ab-243d-5d52-b816-9a35a078c446",
+            "2022-02-02 00:03:53",
+            "2022-02-02 00:03:53"
         ]
     },
     {
         "query": "insert into `contact_types` (`type_id`, `contact_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
-            "408630e7-2285-5049-9551-e042944ceb4d",
-            "c7654ff6-d0f2-5e27-b408-d0ab0a493045",
-            "02d1d0a1-e864-572b-ac0d-e4e50abecb98",
-            "2022-02-02 00:03:36",
-            "2022-02-02 00:03:36"
+            "fe1343b9-b7d3-58b0-8f58-db5419e3736e",
+            "c7eb23ab-243d-5d52-b816-9a35a078c446",
+            "825aea7d-be4b-5f12-8b39-cc90b7d30cc7",
+            "2022-02-02 00:03:54",
+            "2022-02-02 00:03:54"
         ]
     },
     {
@@ -1675,68 +2059,68 @@
         "bindings": [
             "Asset",
             "5d62ee0b-ebdf-4a76-bcab-60078f6eba32",
-            "Lowell Batz",
-            "+17269064245",
-            "selmer82@rutherford.com",
+            "Eliane Mraz",
+            "+18479676631",
+            "marshall.braun@williamson.com",
             true,
-            "b7ff4978-23b2-5ef0-8787-56cd6f651af6",
-            "2022-02-02 00:03:37",
-            "2022-02-02 00:03:37"
+            "970a09a0-1cf5-5afe-b3a6-029f4c53acc8",
+            "2022-02-02 00:03:55",
+            "2022-02-02 00:03:55"
         ]
     },
     {
         "query": "insert into `contact_types` (`type_id`, `contact_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
-            "5805230b-b911-5b0c-ab1b-670e88304dc4",
-            "b7ff4978-23b2-5ef0-8787-56cd6f651af6",
-            "35c44cd6-0191-5246-9b59-cf3ab93ede3a",
-            "2022-02-02 00:03:38",
-            "2022-02-02 00:03:38"
+            "3a9fc444-5aa7-51cc-978b-d3548295cc52",
+            "970a09a0-1cf5-5afe-b3a6-029f4c53acc8",
+            "fe566ce0-e110-5ed6-ae08-b1239cfc6589",
+            "2022-02-02 00:03:56",
+            "2022-02-02 00:03:56"
         ]
     },
     {
         "query": "insert into `asset_coverages` (`coverage_id`, `asset_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
-            "317051ab-383c-55fc-a38d-e1ba7d1c5185",
+            "6bead99c-0349-5d88-8119-bcb3dc6fc611",
             "5d62ee0b-ebdf-4a76-bcab-60078f6eba32",
-            "6987de7c-dade-50ee-a9de-7f1f358dc862",
-            "2022-02-02 00:03:39",
-            "2022-02-02 00:03:39"
+            "7cb76eeb-f716-5f46-873b-f54ef866bffb",
+            "2022-02-02 00:03:57",
+            "2022-02-02 00:03:57"
         ]
     },
     {
         "query": "insert into `asset_warranties` (`asset_id`, `created_at`, `customer_id`, `description`, `document_id`, `document_number`, `end`, `id`, `reseller_id`, `service_group_id`, `service_level_id`, `start`, `status_id`, `type_id`, `updated_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "5d62ee0b-ebdf-4a76-bcab-60078f6eba32",
-            "2022-02-02 00:03:40",
+            "2022-02-02 00:03:58",
             null,
             "H7J34AC-HPE Foundation Care 24x7 SVC",
             null,
             null,
             "2023-05-31 00:00:00",
-            "377f26d6-af90-58c4-b6f6-aa64dbd78375",
+            "9c1e8d95-14b2-5653-a3f6-9c92da375755",
             null,
             null,
             null,
             "2020-06-01 00:00:00",
-            "3a9fc444-5aa7-51cc-978b-d3548295cc52",
-            "fe1343b9-b7d3-58b0-8f58-db5419e3736e",
-            "2022-02-02 00:03:40",
+            "79d540cc-c86f-52a3-83ba-d6a2287289ea",
+            "ca6b907e-b88a-531b-8b2f-c7c190700878",
+            "2022-02-02 00:03:58",
             "5d62ee0b-ebdf-4a76-bcab-60078f6eba32",
-            "2022-02-02 00:03:41",
+            "2022-02-02 00:03:59",
             null,
             "HA155BW-Wty: HPE Parts Exchange Support",
             null,
             null,
             "2018-06-02 00:00:00",
-            "2b84fa63-0f38-5de1-8f7e-f49bb10eaffe",
+            "8e985e7a-837d-557b-adc0-bc63dc5fe1a5",
             null,
             null,
             null,
             "2015-05-04 00:00:00",
-            "ca6b907e-b88a-531b-8b2f-c7c190700878",
-            "6bead99c-0349-5d88-8119-bcb3dc6fc611",
-            "2022-02-02 00:03:41"
+            "d8443f90-1c85-5c83-a150-a5c53bc3013c",
+            "50e49187-ef54-545a-8459-78057a562697",
+            "2022-02-02 00:03:59"
         ]
     },
     {
@@ -1754,53 +2138,53 @@
             null,
             null,
             "HPE 3PAR 7400 OS Suite Drv E-LTU",
-            "20cd5cbd-ad74-5354-bda4-c688e39cee1b",
-            "2022-02-02 00:03:42",
-            "2022-02-02 00:03:42"
+            "3a086f38-0d6b-5f05-8a60-e1e0e7d5ae39",
+            "2022-02-02 00:04:00",
+            "2022-02-02 00:04:00"
         ]
     },
     {
         "query": "select `cities`.* from `cities` where (`country_id` = ? and `key` = ?) and `cities`.`deleted_at` is null limit 1",
         "bindings": [
-            "c4a22828-05b7-5086-ac66-bbb33aeddd37",
-            "javonchester"
+            "281fa16d-b7e0-59dc-a2d2-ae493b781896",
+            "north michael"
         ]
     },
     {
         "query": "insert into `cities` (`key`, `name`, `country_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?)",
         "bindings": [
-            "Javonchester",
-            "Javonchester",
-            "c4a22828-05b7-5086-ac66-bbb33aeddd37",
-            "f2ad4757-1fae-5cdf-94f5-bf376c43debd",
-            "2022-02-02 00:03:43",
-            "2022-02-02 00:03:43"
+            "North Michael",
+            "North Michael",
+            "281fa16d-b7e0-59dc-a2d2-ae493b781896",
+            "33935b29-d448-597b-94ca-d903033b4c92",
+            "2022-02-02 00:04:01",
+            "2022-02-02 00:04:01"
         ]
     },
     {
         "query": "select `locations`.* from `locations` where (`city_id` = ? and `country_id` = ? and CONCAT(`line_one`, IF(`line_two` != '', CONCAT(' ', `line_two`), '')) = ? and `postcode` = ?) and `locations`.`deleted_at` is null limit 1",
         "bindings": [
-            "f2ad4757-1fae-5cdf-94f5-bf376c43debd",
-            "c4a22828-05b7-5086-ac66-bbb33aeddd37",
-            "8399 matilda cliff",
-            "29141-6592"
+            "33935b29-d448-597b-94ca-d903033b4c92",
+            "281fa16d-b7e0-59dc-a2d2-ae493b781896",
+            "845 regan ports suite 571",
+            "20698-7961"
         ]
     },
     {
         "query": "insert into `locations` (`country_id`, `city_id`, `postcode`, `state`, `line_one`, `line_two`, `latitude`, `longitude`, `geohash`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
-            "c4a22828-05b7-5086-ac66-bbb33aeddd37",
-            "f2ad4757-1fae-5cdf-94f5-bf376c43debd",
-            "29141-6592",
+            "281fa16d-b7e0-59dc-a2d2-ae493b781896",
+            "33935b29-d448-597b-94ca-d903033b4c92",
+            "20698-7961",
             "",
-            "8399 Matilda Cliff",
+            "845 Regan Ports Suite 571",
             "",
-            "26.128518",
-            "132.653229",
-            "wuwkdse1skb8",
-            "1108f529-6acb-5ef2-b76c-06c5bb24cf54",
-            "2022-02-02 00:03:44",
-            "2022-02-02 00:03:44"
+            "-40.858382",
+            "92.816578",
+            "q0dp81fyxj8c",
+            "bf9179ee-6ab7-50a2-ad39-c63ae12f32b9",
+            "2022-02-02 00:04:02",
+            "2022-02-02 00:04:02"
         ]
     },
     {
@@ -1810,10 +2194,10 @@
             "77b77ef3-0b8f-573f-a002-b612c29ef2a6",
             null,
             "331ec4c6-b480-527e-9af7-785fc53ae611",
-            "20cd5cbd-ad74-5354-bda4-c688e39cee1b",
+            "3a086f38-0d6b-5f05-8a60-e1e0e7d5ae39",
             "9f6b1030-5d5d-4f0b-b743-2ef69eaf4a44",
             "0c8e4738-9851-438b-acbb-a680be9bafea",
-            "1108f529-6acb-5ef2-b76c-06c5bb24cf54",
+            "bf9179ee-6ab7-50a2-ad39-c63ae12f32b9",
             null,
             "2022-09-02 18:46:16",
             null,
@@ -1821,13 +2205,13 @@
             0,
             3,
             1,
-            "2022-02-02 00:03:46",
+            "2022-02-02 00:04:04",
             null,
             null,
             null,
             null,
-            "2022-02-02 00:03:49",
-            "2022-02-02 00:03:49"
+            "2022-02-02 00:04:07",
+            "2022-02-02 00:04:07"
         ]
     },
     {
@@ -1835,23 +2219,23 @@
         "bindings": [
             "Asset",
             "b01ad503-d3f7-47d7-96ce-c0d37a9e3307",
-            "Mrs. Anya Rohan DVM",
-            "+15156886673",
+            "Gus Wisoky",
+            "+17813832537",
             null,
             true,
-            "9fa2f3c1-5511-5eb4-92b5-19998a92f69d",
-            "2022-02-02 00:03:50",
-            "2022-02-02 00:03:50"
+            "9a1260ee-4ef6-59d4-85b9-87e7ccb728e5",
+            "2022-02-02 00:04:08",
+            "2022-02-02 00:04:08"
         ]
     },
     {
         "query": "insert into `contact_types` (`type_id`, `contact_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
-            "281fa16d-b7e0-59dc-a2d2-ae493b781896",
-            "9fa2f3c1-5511-5eb4-92b5-19998a92f69d",
-            "0ffbe81a-4d4a-5300-b737-186054976a6c",
-            "2022-02-02 00:03:51",
-            "2022-02-02 00:03:51"
+            "317051ab-383c-55fc-a38d-e1ba7d1c5185",
+            "9a1260ee-4ef6-59d4-85b9-87e7ccb728e5",
+            "1fcc0887-c87c-5680-8669-1583ffc7659f",
+            "2022-02-02 00:04:09",
+            "2022-02-02 00:04:09"
         ]
     },
     {
@@ -1859,23 +2243,23 @@
         "bindings": [
             "Asset",
             "b01ad503-d3f7-47d7-96ce-c0d37a9e3307",
-            "Darren Kris",
-            "+14582734372",
-            "cjacobs@ratke.com",
+            "Ava Baumbach",
+            "+15342161852",
+            "alberto59@gmail.com",
             true,
-            "314f690e-50c9-5325-92f3-848e12fbee3f",
-            "2022-02-02 00:03:52",
-            "2022-02-02 00:03:52"
+            "0e6e80d9-ee7f-55a1-b1c5-e0b2a17cc36c",
+            "2022-02-02 00:04:10",
+            "2022-02-02 00:04:10"
         ]
     },
     {
         "query": "insert into `contact_types` (`type_id`, `contact_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
-            "408630e7-2285-5049-9551-e042944ceb4d",
-            "314f690e-50c9-5325-92f3-848e12fbee3f",
-            "e35828b5-f350-5e19-9d69-1214eceb6936",
-            "2022-02-02 00:03:53",
-            "2022-02-02 00:03:53"
+            "fe1343b9-b7d3-58b0-8f58-db5419e3736e",
+            "0e6e80d9-ee7f-55a1-b1c5-e0b2a17cc36c",
+            "9ab0285c-cbcc-533a-9c22-7e8bcc1d472d",
+            "2022-02-02 00:04:11",
+            "2022-02-02 00:04:11"
         ]
     },
     {
@@ -1883,33 +2267,33 @@
         "bindings": [
             "Asset",
             "b01ad503-d3f7-47d7-96ce-c0d37a9e3307",
-            "Kacey Corwin",
-            "+14636264113",
-            "streich.jade@hotmail.com",
+            "Mrs. Kallie Doyle DDS",
+            "+18069886840",
+            "mallory89@will.org",
             true,
-            "7a554a55-0f04-5738-b6da-38be367f590e",
-            "2022-02-02 00:03:54",
-            "2022-02-02 00:03:54"
+            "44a1d7c8-6311-508d-b1ac-4976773162b2",
+            "2022-02-02 00:04:12",
+            "2022-02-02 00:04:12"
         ]
     },
     {
         "query": "insert into `contact_types` (`type_id`, `contact_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
-            "5805230b-b911-5b0c-ab1b-670e88304dc4",
-            "7a554a55-0f04-5738-b6da-38be367f590e",
-            "e691b934-0e85-5612-8720-d354eb7232dd",
-            "2022-02-02 00:03:55",
-            "2022-02-02 00:03:55"
+            "3a9fc444-5aa7-51cc-978b-d3548295cc52",
+            "44a1d7c8-6311-508d-b1ac-4976773162b2",
+            "589ba767-5b9c-58e0-98ae-2d0c73b450d0",
+            "2022-02-02 00:04:13",
+            "2022-02-02 00:04:13"
         ]
     },
     {
         "query": "insert into `asset_coverages` (`coverage_id`, `asset_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
-            "5e618f10-a687-535f-802b-d7bf3c3e7526",
+            "3c026542-d391-53ec-9347-9259b3273f0e",
             "b01ad503-d3f7-47d7-96ce-c0d37a9e3307",
-            "a11e99f1-2ecf-5047-b75d-7e0fdc0e0042",
-            "2022-02-02 00:03:56",
-            "2022-02-02 00:03:56"
+            "a9959f9f-bb93-5076-ae5c-b82b4df996df",
+            "2022-02-02 00:04:14",
+            "2022-02-02 00:04:14"
         ]
     },
     {
@@ -1948,8 +2332,8 @@
     {
         "query": "update `assets` set `deleted_at` = ?, `assets`.`updated_at` = ? where `id` = ?",
         "bindings": [
-            "2022-02-02 00:03:57",
-            "2022-02-02 00:03:57",
+            "2022-02-02 00:04:15",
+            "2022-02-02 00:04:15",
             "00000000-0000-0000-0000-000000000000"
         ]
     }

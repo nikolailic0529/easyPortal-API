@@ -189,6 +189,7 @@ abstract class GraphQL implements Stringable, JsonSerializable {
                 startDate
                 endDate
                 documentNumber
+                deletedAt
 
                 document {
                     id

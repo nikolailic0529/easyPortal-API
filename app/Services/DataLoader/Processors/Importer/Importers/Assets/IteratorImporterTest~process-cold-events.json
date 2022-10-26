@@ -19,7 +19,11 @@
                 "4b136ba8-3196-589e-90aa-1a0ef0a3651e": "4b136ba8-3196-589e-90aa-1a0ef0a3651e",
                 "d1f48906-c3d5-56cb-bf80-e6b479e8d998": "d1f48906-c3d5-56cb-bf80-e6b479e8d998",
                 "30d30b7f-eb74-5f9f-af30-bda292fa3846": "30d30b7f-eb74-5f9f-af30-bda292fa3846",
-                "32a8ad11-622b-5430-b2b4-9e155d27116e": "32a8ad11-622b-5430-b2b4-9e155d27116e"
+                "5805230b-b911-5b0c-ab1b-670e88304dc4": "5805230b-b911-5b0c-ab1b-670e88304dc4",
+                "62e6b36b-f582-5fec-a446-6b7d18ac45da": "62e6b36b-f582-5fec-a446-6b7d18ac45da",
+                "efc82177-cc97-5f29-bede-5bff52e767fa": "efc82177-cc97-5f29-bede-5bff52e767fa",
+                "15cc9317-288d-5cd1-ad0e-774cad37862b": "15cc9317-288d-5cd1-ad0e-774cad37862b",
+                "4793737d-682b-5172-b43d-d02d4d0f0baf": "4793737d-682b-5172-b43d-d02d4d0f0baf"
             },
             "App\\Models\\Asset": {
                 "2f5dcdae-ed5a-4a87-a9b1-417819b638e4": "2f5dcdae-ed5a-4a87-a9b1-417819b638e4",
@@ -52,7 +56,11 @@
                 "d72a14ac-450e-5073-8760-a3ce1b312ced": "d72a14ac-450e-5073-8760-a3ce1b312ced",
                 "a3c2a3df-b5d3-525f-9fc4-c49684c5a9fc": "a3c2a3df-b5d3-525f-9fc4-c49684c5a9fc",
                 "26847cf0-4252-5cd8-bacb-8f3ee833586e": "26847cf0-4252-5cd8-bacb-8f3ee833586e",
-                "1108f529-6acb-5ef2-b76c-06c5bb24cf54": "1108f529-6acb-5ef2-b76c-06c5bb24cf54"
+                "51635101-342f-51dc-a632-8dbe55f0f483": "51635101-342f-51dc-a632-8dbe55f0f483",
+                "33a7aaa9-7ff2-5519-b0af-64c0ab962c4b": "33a7aaa9-7ff2-5519-b0af-64c0ab962c4b",
+                "20cd5cbd-ad74-5354-bda4-c688e39cee1b": "20cd5cbd-ad74-5354-bda4-c688e39cee1b",
+                "38d38cf8-5a4d-521c-ace3-d9416945d34b": "38d38cf8-5a4d-521c-ace3-d9416945d34b",
+                "bf9179ee-6ab7-50a2-ad39-c63ae12f32b9": "bf9179ee-6ab7-50a2-ad39-c63ae12f32b9"
             },
             "App\\Models\\Asset": {
                 "f5135d55-81fd-40e7-9bb5-a227f5516b87": "f5135d55-81fd-40e7-9bb5-a227f5516b87",

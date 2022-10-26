@@ -1,0 +1,246 @@
+{
+    "selector": "data.getAssets",
+    "query": "query getAssets($id: String!) {\n    getAssets(args: [{key: \"id\", value: $id}]) {\n        id\nserialNumber\n\nassetSku\nassetSkuDescription\nassetTag\nassetType\nstatus\nvendor\n\neolDate\neosDate\neoslDate\n\ncountry\ncountryCode\nlatitude\nlongitude\nzip\ncity\naddress\naddress2\n\ncustomerId\nresellerId\n\nupdatedAt\n\nlatestContactPersons {\n    phoneNumber\n    name\n    type\n    mail\n}\n\nassetCoverage\ncoverageStatusCheck {\n    coverageStatus\n    coverageStatusUpdatedAt\n    coverageEntries {\n        coverageStartDate\n        coverageEndDate\n        type\n        description\n        status\n        serviceSku\n    }\n}\n\ndataQualityScore\nactiveContractQuantitySum\n        assetDocument {\n    startDate\n    endDate\n    documentNumber\n    deletedAt\n\n    document {\n        id\n        type\n        documentNumber\n\n        startDate\n        endDate\n\n        currencyCode\n        languageCode\n\n        updatedAt\n\n        vendorSpecificFields {\n            vendor\n            groupId\n            groupDescription\n            said\n            ampId\n            sar\n        }\n\n        contactPersons {\n            phoneNumber\n            name\n            type\n            mail\n        }\n\n        customerId\n        resellerId\n        distributorId\n    }\n\n    serviceGroupSku\n    serviceGroupSkuDescription\n    serviceLevelSku\n    serviceLevelSkuDescription\n    serviceFullDescription\n\n    customer {\n      id\n    }\n\n    reseller {\n      id\n    }\n}\n    }\n}",
+    "variables": {
+        "id": "b5734ef9-630e-4994-94bc-525ac0744c3c"
+    },
+    "response": {
+        "data": {
+            "getAssets": [
+                {
+                    "id": "b5734ef9-630e-4994-94bc-525ac0744c3c",
+                    "resellerId": "9d9e320d-4e44-4518-a4e6-6bfe7f1c7dd8",
+                    "customerId": "05b6fd69-fc2e-4657-b3fd-7bb3b9bd8f6d",
+                    "serialNumber": "a8dc6465-23ae-39b1-9f04-08749a07b3aa",
+                    "assetSkuDescription": "HP DL380p Gen8 8-SFF CTO Server",
+                    "assetTag": null,
+                    "assetType": null,
+                    "vendor": "HPE",
+                    "assetSku": "653200-B21",
+                    "eolDate": null,
+                    "eosDate": null,
+                    "eoslDate": null,
+                    "zip": "34845",
+                    "city": "Loyalmouth",
+                    "address": "4594 Alessia Mills",
+                    "address2": null,
+                    "country": "Sri Lanka",
+                    "latitude": "-76.441621",
+                    "longitude": "-173.141863",
+                    "countryCode": "CI",
+                    "status": "ACTIVE",
+                    "updatedAt": "1664811344126",
+                    "assetCoverage": [
+                        "COVERED"
+                    ],
+                    "dataQualityScore": "80",
+                    "activeContractQuantitySum": 0,
+                    "assetDocument": [
+                        {
+                            "serviceGroupSku": null,
+                            "serviceGroupSkuDescription": null,
+                            "serviceLevelSku": "HA151AC",
+                            "serviceLevelSkuDescription": "HP DL380p Gen8 8-SFF CTO Server",
+                            "serviceFullDescription": null,
+                            "documentNumber": "51437c1f-ef45-312f-a455-4a8b3aed063d",
+                            "document": {
+                                "id": "0d2169e6-94b7-49ee-8560-80673d7009bf",
+                                "type": "Contract",
+                                "documentNumber": "51437c1f-ef45-312f-a455-4a8b3aed063d",
+                                "startDate": "2020-12-01",
+                                "endDate": "2021-11-30",
+                                "currencyCode": "EUR",
+                                "languageCode": null,
+                                "updatedAt": "1654262846658",
+                                "vendorSpecificFields": {
+                                    "vendor": "HPE",
+                                    "sar": "GROKU-STUKENBROCK-01",
+                                    "ampId": "83-T01224",
+                                    "said": null,
+                                    "groupId": null,
+                                    "groupDescription": null
+                                },
+                                "contactPersons": [
+                                    {
+                                        "phoneNumber": "+18286484693",
+                                        "name": "Rodolfo Schinner",
+                                        "mail": "flatley.eva@mckenzie.com",
+                                        "type": "EndUser Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+17039892088",
+                                        "name": "Lamar Mayert",
+                                        "mail": "uhagenes@carroll.com",
+                                        "type": "Distributor Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+16783509160",
+                                        "name": "Garett Pacocha",
+                                        "mail": "uwunsch@stroman.org",
+                                        "type": "Reseller Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+18286484693",
+                                        "name": "Rodolfo Schinner",
+                                        "mail": "flatley.eva@mckenzie.com",
+                                        "type": "Hardware System Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+18286484693",
+                                        "name": "Rodolfo Schinner",
+                                        "mail": "flatley.eva@mckenzie.com",
+                                        "type": "Software System Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+18286484693",
+                                        "name": "Rodolfo Schinner",
+                                        "mail": "flatley.eva@mckenzie.com",
+                                        "type": "System Manager Contact"
+                                    }
+                                ],
+                                "resellerId": "9d9e320d-4e44-4518-a4e6-6bfe7f1c7dd8",
+                                "customerId": "05b6fd69-fc2e-4657-b3fd-7bb3b9bd8f6d",
+                                "distributorId": "1af1c44e-8112-4e72-9654-b11c705e9372"
+                            },
+                            "startDate": null,
+                            "endDate": null,
+                            "deletedAt": null,
+                            "reseller": {
+                                "id": "9d9e320d-4e44-4518-a4e6-6bfe7f1c7dd8"
+                            },
+                            "customer": {
+                                "id": "05b6fd69-fc2e-4657-b3fd-7bb3b9bd8f6d"
+                            }
+                        },
+                        {
+                            "serviceGroupSku": null,
+                            "serviceGroupSkuDescription": null,
+                            "serviceLevelSku": "HL935AC",
+                            "serviceLevelSkuDescription": "HP DL380p Gen8 8-SFF CTO Server",
+                            "serviceFullDescription": null,
+                            "documentNumber": "51437c1f-ef45-312f-a455-4a8b3aed063d",
+                            "document": {
+                                "id": "0d2169e6-94b7-49ee-8560-80673d7009bf",
+                                "type": "Contract",
+                                "documentNumber": "51437c1f-ef45-312f-a455-4a8b3aed063d",
+                                "startDate": "2020-12-01",
+                                "endDate": "2021-11-30",
+                                "currencyCode": "EUR",
+                                "languageCode": null,
+                                "updatedAt": "1654262846658",
+                                "vendorSpecificFields": {
+                                    "vendor": "HPE",
+                                    "sar": "GROKU-STUKENBROCK-01",
+                                    "ampId": "83-T01224",
+                                    "said": null,
+                                    "groupId": null,
+                                    "groupDescription": null
+                                },
+                                "contactPersons": [
+                                    {
+                                        "phoneNumber": "+18286484693",
+                                        "name": "Rodolfo Schinner",
+                                        "mail": "flatley.eva@mckenzie.com",
+                                        "type": "EndUser Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+17039892088",
+                                        "name": "Lamar Mayert",
+                                        "mail": "uhagenes@carroll.com",
+                                        "type": "Distributor Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+16783509160",
+                                        "name": "Garett Pacocha",
+                                        "mail": "uwunsch@stroman.org",
+                                        "type": "Reseller Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+18286484693",
+                                        "name": "Rodolfo Schinner",
+                                        "mail": "flatley.eva@mckenzie.com",
+                                        "type": "Hardware System Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+18286484693",
+                                        "name": "Rodolfo Schinner",
+                                        "mail": "flatley.eva@mckenzie.com",
+                                        "type": "Software System Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+18286484693",
+                                        "name": "Rodolfo Schinner",
+                                        "mail": "flatley.eva@mckenzie.com",
+                                        "type": "System Manager Contact"
+                                    }
+                                ],
+                                "resellerId": "9d9e320d-4e44-4518-a4e6-6bfe7f1c7dd8",
+                                "customerId": "05b6fd69-fc2e-4657-b3fd-7bb3b9bd8f6d",
+                                "distributorId": "1af1c44e-8112-4e72-9654-b11c705e9372"
+                            },
+                            "startDate": null,
+                            "endDate": null,
+                            "deletedAt": null,
+                            "reseller": {
+                                "id": "9d9e320d-4e44-4518-a4e6-6bfe7f1c7dd8"
+                            },
+                            "customer": {
+                                "id": "05b6fd69-fc2e-4657-b3fd-7bb3b9bd8f6d"
+                            }
+                        }
+                    ],
+                    "latestContactPersons": [
+                        {
+                            "phoneNumber": "+18286484693",
+                            "name": "Rodolfo Schinner",
+                            "mail": "flatley.eva@mckenzie.com",
+                            "type": "EndUser Contact"
+                        },
+                        {
+                            "phoneNumber": "+17039892088",
+                            "name": "Lamar Mayert",
+                            "mail": "uhagenes@carroll.com",
+                            "type": "Distributor Contact"
+                        },
+                        {
+                            "phoneNumber": "+16783509160",
+                            "name": "Garett Pacocha",
+                            "mail": "uwunsch@stroman.org",
+                            "type": "Reseller Contact"
+                        }
+                    ],
+                    "coverageStatusCheck": {
+                        "coverageStatus": "COVERED",
+                        "coverageStatusUpdatedAt": "1664811344126",
+                        "coverageEntries": [
+                            {
+                                "coverageStartDate": "2020-12-01",
+                                "coverageEndDate": "2022-11-30",
+                                "type": "Contract",
+                                "status": "Expiring",
+                                "description": "H7J32AC-HPE Foundation Care NBD SVC",
+                                "serviceSku": null
+                            },
+                            {
+                                "coverageStartDate": "2013-04-22",
+                                "coverageEndDate": "2017-05-21",
+                                "type": "FixedSupportService",
+                                "status": "Expired",
+                                "description": "HP 4y Nbd DL38x(p) HW Support",
+                                "serviceSku": "UA010E"
+                            },
+                            {
+                                "coverageStartDate": "2020-06-19",
+                                "coverageEndDate": "2020-06-19",
+                                "type": "FactoryWarranty",
+                                "status": "Expired",
+                                "description": "",
+                                "serviceSku": null
+                            }
+                        ]
+                    }
+                }
+            ]
+        }
+    }
+}

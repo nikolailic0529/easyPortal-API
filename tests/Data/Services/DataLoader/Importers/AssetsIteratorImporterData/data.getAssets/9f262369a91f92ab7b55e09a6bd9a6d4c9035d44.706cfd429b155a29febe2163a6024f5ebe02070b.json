@@ -1,0 +1,141 @@
+{
+    "selector": "data.getAssets",
+    "query": "query getAssets($id: String!) {\n    getAssets(args: [{key: \"id\", value: $id}]) {\n        id\nserialNumber\n\nassetSku\nassetSkuDescription\nassetTag\nassetType\nstatus\nvendor\n\neolDate\neosDate\neoslDate\n\ncountry\ncountryCode\nlatitude\nlongitude\nzip\ncity\naddress\naddress2\n\ncustomerId\nresellerId\n\nupdatedAt\n\nlatestContactPersons {\n    phoneNumber\n    name\n    type\n    mail\n}\n\nassetCoverage\ncoverageStatusCheck {\n    coverageStatus\n    coverageStatusUpdatedAt\n    coverageEntries {\n        coverageStartDate\n        coverageEndDate\n        type\n        description\n        status\n        serviceSku\n    }\n}\n\ndataQualityScore\nactiveContractQuantitySum\n        assetDocument {\n    startDate\n    endDate\n    documentNumber\n    deletedAt\n\n    document {\n        id\n        type\n        documentNumber\n\n        startDate\n        endDate\n\n        currencyCode\n        languageCode\n\n        updatedAt\n\n        vendorSpecificFields {\n            vendor\n            groupId\n            groupDescription\n            said\n            ampId\n            sar\n        }\n\n        contactPersons {\n            phoneNumber\n            name\n            type\n            mail\n        }\n\n        customerId\n        resellerId\n        distributorId\n    }\n\n    serviceGroupSku\n    serviceGroupSkuDescription\n    serviceLevelSku\n    serviceLevelSkuDescription\n    serviceFullDescription\n\n    customer {\n      id\n    }\n\n    reseller {\n      id\n    }\n}\n    }\n}",
+    "variables": {
+        "id": "f5135d55-81fd-40e7-9bb5-a227f5516b87"
+    },
+    "response": {
+        "data": {
+            "getAssets": [
+                {
+                    "id": "f5135d55-81fd-40e7-9bb5-a227f5516b87",
+                    "resellerId": "0fd07b17-3314-40b5-ac32-7189051f773b",
+                    "customerId": "95ce79c4-7fa9-4004-9486-3adac89c55c0",
+                    "serialNumber": null,
+                    "assetSkuDescription": null,
+                    "assetTag": null,
+                    "assetType": null,
+                    "vendor": "HPE",
+                    "assetSku": "P01366-B21",
+                    "eolDate": null,
+                    "eosDate": null,
+                    "eoslDate": null,
+                    "zip": "18391",
+                    "city": "Sabrynatown",
+                    "address": "728 Torphy Inlet",
+                    "address2": null,
+                    "country": "Mexico",
+                    "latitude": "10.372545",
+                    "longitude": "-48.565449",
+                    "countryCode": "GS",
+                    "status": "ACTIVE",
+                    "updatedAt": "1662148952130",
+                    "assetCoverage": [
+                        "ARCHIVED"
+                    ],
+                    "dataQualityScore": "20",
+                    "activeContractQuantitySum": 0,
+                    "assetDocument": [
+                        {
+                            "serviceGroupSku": null,
+                            "serviceGroupSkuDescription": null,
+                            "serviceLevelSku": "HA151AC",
+                            "serviceLevelSkuDescription": "HPE 96W Smart Stg Li-ion Batt 145mm Kit",
+                            "serviceFullDescription": null,
+                            "documentNumber": "017ac81d-99b2-3374-9f61-f8fdf0a8867e",
+                            "document": {
+                                "id": "e241c8c6-5a8c-49c2-9714-bfec047b8ae2",
+                                "type": "Contract",
+                                "documentNumber": "017ac81d-99b2-3374-9f61-f8fdf0a8867e",
+                                "startDate": "2019-09-17",
+                                "endDate": "2022-09-16",
+                                "currencyCode": "CHF",
+                                "languageCode": null,
+                                "updatedAt": "1657233032563",
+                                "vendorSpecificFields": {
+                                    "vendor": "HPE",
+                                    "sar": null,
+                                    "ampId": "87-SMD500 1917C",
+                                    "said": "335d2595-8808-3bc7-9ee3-4eefa69e6568",
+                                    "groupId": null,
+                                    "groupDescription": null
+                                },
+                                "contactPersons": [
+                                    {
+                                        "phoneNumber": null,
+                                        "name": "Dr. Kendall Streich DVM",
+                                        "mail": null,
+                                        "type": "EndUser Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+14254327979",
+                                        "name": "Javon Halvorson",
+                                        "mail": "ghuels@yahoo.com",
+                                        "type": "Distributor Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+16089174193",
+                                        "name": "Bernice Abernathy",
+                                        "mail": "upredovic@hotmail.com",
+                                        "type": "Reseller Contact"
+                                    },
+                                    {
+                                        "phoneNumber": null,
+                                        "name": "Dr. Kendall Streich DVM",
+                                        "mail": null,
+                                        "type": "Hardware System Contact"
+                                    },
+                                    {
+                                        "phoneNumber": null,
+                                        "name": "Dr. Kendall Streich DVM",
+                                        "mail": null,
+                                        "type": "Software System Contact"
+                                    },
+                                    {
+                                        "phoneNumber": null,
+                                        "name": "Dr. Kendall Streich DVM",
+                                        "mail": null,
+                                        "type": "System Manager Contact"
+                                    }
+                                ],
+                                "resellerId": "0fd07b17-3314-40b5-ac32-7189051f773b",
+                                "customerId": "95ce79c4-7fa9-4004-9486-3adac89c55c0",
+                                "distributorId": "a985a692-c063-499a-ab2f-0a2adef86a3f"
+                            },
+                            "startDate": null,
+                            "endDate": null,
+                            "deletedAt": null,
+                            "reseller": {
+                                "id": "0fd07b17-3314-40b5-ac32-7189051f773b"
+                            },
+                            "customer": {
+                                "id": "95ce79c4-7fa9-4004-9486-3adac89c55c0"
+                            }
+                        }
+                    ],
+                    "latestContactPersons": [
+                        {
+                            "phoneNumber": null,
+                            "name": "Dr. Kendall Streich DVM",
+                            "mail": null,
+                            "type": "EndUser Contact"
+                        },
+                        {
+                            "phoneNumber": "+14254327979",
+                            "name": "Javon Halvorson",
+                            "mail": "ghuels@yahoo.com",
+                            "type": "Distributor Contact"
+                        },
+                        {
+                            "phoneNumber": "+16089174193",
+                            "name": "Bernice Abernathy",
+                            "mail": "upredovic@hotmail.com",
+                            "type": "Reseller Contact"
+                        }
+                    ],
+                    "coverageStatusCheck": null
+                }
+            ]
+        }
+    }
+}

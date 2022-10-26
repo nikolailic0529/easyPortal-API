@@ -530,17 +530,27 @@ class AssetFactoryTest extends TestCase {
                     'document'       => ['id' => 'a'],
                     'startDate'      => '09/07/2020',
                     'endDate'        => '09/07/2021',
+                    'deletedAt'      => null,
                 ],
                 [
                     'documentNumber' => 'b',
                     'document'       => ['id' => 'b'],
                     'startDate'      => '09/01/2020',
                     'endDate'        => '09/07/2021',
+                    'deletedAt'      => null,
                 ],
                 [
                     'document'  => ['id' => 'c'],
                     'startDate' => '09/01/2020',
                     'endDate'   => '09/07/2021',
+                    'deletedAt' => null,
+                ],
+                [
+                    'documentNumber' => 'd',
+                    'document'       => ['id' => 'd'],
+                    'startDate'      => '09/07/2020',
+                    'endDate'        => '09/07/2021',
+                    'deletedAt'      => '1614470400000',
                 ],
             ],
         ]);
@@ -797,6 +807,7 @@ class AssetFactoryTest extends TestCase {
                 [
                     'startDate'       => $this->getDatetime($date),
                     'endDate'         => $this->getDatetime($date),
+                    'deletedAt'       => null,
                     'documentNumber'  => $documentA->number,
                     'document'        => [
                         'id'                   => $documentA->getKey(),
@@ -812,6 +823,7 @@ class AssetFactoryTest extends TestCase {
                 [
                     'startDate'       => $this->getDatetime($date),
                     'endDate'         => $this->getDatetime($date),
+                    'deletedAt'       => null,
                     'documentNumber'  => $documentA->number,
                     'document'        => [
                         'id'                   => $documentA->getKey(),
@@ -829,6 +841,7 @@ class AssetFactoryTest extends TestCase {
                 [
                     'startDate'       => $this->getDatetime($date),
                     'endDate'         => $this->getDatetime($date),
+                    'deletedAt'       => null,
                     'documentNumber'  => $documentA->number,
                     'document'        => [
                         'id'                   => $documentA->getKey(),
@@ -846,6 +859,7 @@ class AssetFactoryTest extends TestCase {
                 [
                     'startDate'       => $this->getDatetime($date->subDay()),
                     'endDate'         => $this->getDatetime($date),
+                    'deletedAt'       => null,
                     'documentNumber'  => $documentA->number,
                     'document'        => [
                         'id'                   => $documentA->getKey(),
@@ -863,6 +877,7 @@ class AssetFactoryTest extends TestCase {
                 [
                     'startDate'       => $this->getDatetime($date),
                     'endDate'         => $this->getDatetime($date),
+                    'deletedAt'       => null,
                     'documentNumber'  => $documentB->number,
                     'document'        => [
                         'id'                   => $documentB->getKey(),
@@ -885,6 +900,7 @@ class AssetFactoryTest extends TestCase {
                     'documentNumber'  => $documentA->number,
                     'startDate'       => $this->getDatetime($date),
                     'endDate'         => $this->getDatetime($date),
+                    'deletedAt'       => null,
                     'reseller'        => null,
                     'customer'        => null,
                     'serviceLevelSku' => $this->faker->uuid(),
@@ -895,6 +911,7 @@ class AssetFactoryTest extends TestCase {
                 [
                     'startDate'       => null,
                     'endDate'         => null,
+                    'deletedAt'       => null,
                     'documentNumber'  => $documentB->number,
                     'document'        => [
                         'id'                   => $documentB->getKey(),
@@ -912,6 +929,7 @@ class AssetFactoryTest extends TestCase {
                 [
                     'startDate'       => $this->getDatetime($date),
                     'endDate'         => $this->getDatetime($date),
+                    'deletedAt'       => null,
                     'documentNumber'  => $documentB->number,
                     'document'        => [
                         'id'                   => $documentB->getKey(),
@@ -933,6 +951,7 @@ class AssetFactoryTest extends TestCase {
                 [
                     'startDate'       => $this->getDatetime($date),
                     'endDate'         => $this->getDatetime($date),
+                    'deletedAt'       => null,
                     'documentNumber'  => $documentB->number,
                     'document'        => [
                         'id'                   => $documentB->getKey(),
@@ -948,6 +967,18 @@ class AssetFactoryTest extends TestCase {
                     ],
                     'serviceLevelSku' => null,
                     'serviceGroupSku' => $this->faker->uuid(),
+                ],
+
+                // Should be skipped - deleted
+                [
+                    'documentNumber'  => $documentA->number,
+                    'startDate'       => $this->getDatetime($date),
+                    'endDate'         => $this->getDatetime($date),
+                    'deletedAt'       => $this->getDatetime($date),
+                    'reseller'        => null,
+                    'customer'        => null,
+                    'serviceLevelSku' => $this->faker->uuid(),
+                    'serviceGroupSku' => $serviceGroupSku,
                 ],
             ],
         ]);

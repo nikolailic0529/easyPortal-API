@@ -13,6 +13,7 @@ class ViewAssetDocument extends Type {
     public ?ViewDocument $document;
     public ?string       $startDate;
     public ?string       $endDate;
+    public ?string       $deletedAt;
 
     public ?ViewCompany $reseller;
     public ?ViewCompany $customer;

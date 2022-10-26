@@ -1,0 +1,365 @@
+{
+    "selector": "data.getAssets",
+    "query": "query getAssets($id: String!) {\n    getAssets(args: [{key: \"id\", value: $id}]) {\n        id\nserialNumber\n\nassetSku\nassetSkuDescription\nassetTag\nassetType\nstatus\nvendor\n\neolDate\neosDate\neoslDate\n\ncountry\ncountryCode\nlatitude\nlongitude\nzip\ncity\naddress\naddress2\n\ncustomerId\nresellerId\n\nupdatedAt\n\nlatestContactPersons {\n    phoneNumber\n    name\n    type\n    mail\n}\n\nassetCoverage\ncoverageStatusCheck {\n    coverageStatus\n    coverageStatusUpdatedAt\n    coverageEntries {\n        coverageStartDate\n        coverageEndDate\n        type\n        description\n        status\n        serviceSku\n    }\n}\n\ndataQualityScore\nactiveContractQuantitySum\n        assetDocument {\n    startDate\n    endDate\n    documentNumber\n    deletedAt\n\n    document {\n        id\n        type\n        documentNumber\n\n        startDate\n        endDate\n\n        currencyCode\n        languageCode\n\n        updatedAt\n\n        vendorSpecificFields {\n            vendor\n            groupId\n            groupDescription\n            said\n            ampId\n            sar\n        }\n\n        contactPersons {\n            phoneNumber\n            name\n            type\n            mail\n        }\n\n        customerId\n        resellerId\n        distributorId\n    }\n\n    serviceGroupSku\n    serviceGroupSkuDescription\n    serviceLevelSku\n    serviceLevelSkuDescription\n    serviceFullDescription\n\n    customer {\n      id\n    }\n\n    reseller {\n      id\n    }\n}\n    }\n}",
+    "variables": {
+        "id": "ff950443-871e-4576-87ad-4365fb234232"
+    },
+    "response": {
+        "data": {
+            "getAssets": [
+                {
+                    "id": "ff950443-871e-4576-87ad-4365fb234232",
+                    "resellerId": "a9233c9c-4634-493a-9f12-bef4d1cf3c5e",
+                    "customerId": "3adf6426-735c-4f52-9f28-e3ad593e707c",
+                    "serialNumber": "9f1abe6a-0a9e-3733-9c14-d14c567bceb0",
+                    "assetSkuDescription": null,
+                    "assetTag": null,
+                    "assetType": null,
+                    "vendor": "HPE",
+                    "assetSku": "P06421-B21",
+                    "eolDate": null,
+                    "eosDate": null,
+                    "eoslDate": null,
+                    "zip": "52784-2952",
+                    "city": "Mohammedstad",
+                    "address": "6336 Marques Valleys",
+                    "address2": null,
+                    "country": "Jersey",
+                    "latitude": "16.156142",
+                    "longitude": "150.32398",
+                    "countryCode": "SD",
+                    "status": "ACTIVE",
+                    "updatedAt": "1664819358635",
+                    "assetCoverage": [
+                        "COVERED"
+                    ],
+                    "dataQualityScore": "80",
+                    "activeContractQuantitySum": 0,
+                    "assetDocument": [
+                        {
+                            "serviceGroupSku": null,
+                            "serviceGroupSkuDescription": null,
+                            "serviceLevelSku": "HU4A2AC",
+                            "serviceLevelSkuDescription": "HPE Hardware Tech Support",
+                            "serviceFullDescription": null,
+                            "documentNumber": "355d3e6a-35c3-381a-a212-0c6b9e2e42dd",
+                            "document": {
+                                "id": "99c6ad0a-0f82-481c-8e2a-28fb18428628",
+                                "type": "Quote New Business",
+                                "documentNumber": "355d3e6a-35c3-381a-a212-0c6b9e2e42dd",
+                                "startDate": "2022-01-14",
+                                "endDate": "2023-01-31",
+                                "currencyCode": "EUR",
+                                "languageCode": null,
+                                "updatedAt": "1654272010075",
+                                "vendorSpecificFields": {
+                                    "vendor": "HPE",
+                                    "sar": null,
+                                    "ampId": null,
+                                    "said": null,
+                                    "groupId": null,
+                                    "groupDescription": null
+                                },
+                                "contactPersons": [
+                                    {
+                                        "phoneNumber": "+12403737765",
+                                        "name": "Nedra Doyle",
+                                        "mail": "griffin94@hotmail.com",
+                                        "type": "Customer Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+12396904465",
+                                        "name": "Cary Mohr",
+                                        "mail": "batz.henri@hotmail.com",
+                                        "type": "Renewal Contact"
+                                    },
+                                    {
+                                        "phoneNumber": null,
+                                        "name": null,
+                                        "mail": null,
+                                        "type": "EndUser Contact"
+                                    }
+                                ],
+                                "resellerId": "a9233c9c-4634-493a-9f12-bef4d1cf3c5e",
+                                "customerId": "3adf6426-735c-4f52-9f28-e3ad593e707c",
+                                "distributorId": "1af1c44e-8112-4e72-9654-b11c705e9372"
+                            },
+                            "startDate": null,
+                            "endDate": null,
+                            "deletedAt": null,
+                            "reseller": {
+                                "id": "a9233c9c-4634-493a-9f12-bef4d1cf3c5e"
+                            },
+                            "customer": {
+                                "id": "3adf6426-735c-4f52-9f28-e3ad593e707c"
+                            }
+                        },
+                        {
+                            "serviceGroupSku": null,
+                            "serviceGroupSkuDescription": null,
+                            "serviceLevelSku": "HU4A1AC",
+                            "serviceLevelSkuDescription": "HPE Remote Tech Support",
+                            "serviceFullDescription": null,
+                            "documentNumber": "c43e384c-f9f6-382e-990b-44ad354be9e1",
+                            "document": {
+                                "id": "f9badd49-9104-42bc-8ce3-4a1966d52817",
+                                "type": "Quote New Business",
+                                "documentNumber": "c43e384c-f9f6-382e-990b-44ad354be9e1",
+                                "startDate": "2022-01-14",
+                                "endDate": "2024-01-31",
+                                "currencyCode": "EUR",
+                                "languageCode": null,
+                                "updatedAt": "1654272012606",
+                                "vendorSpecificFields": {
+                                    "vendor": "HPE",
+                                    "sar": null,
+                                    "ampId": null,
+                                    "said": null,
+                                    "groupId": null,
+                                    "groupDescription": null
+                                },
+                                "contactPersons": [
+                                    {
+                                        "phoneNumber": "+12403737765",
+                                        "name": "Nedra Doyle",
+                                        "mail": "griffin94@hotmail.com",
+                                        "type": "Customer Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+12396904465",
+                                        "name": "Cary Mohr",
+                                        "mail": "batz.henri@hotmail.com",
+                                        "type": "Renewal Contact"
+                                    },
+                                    {
+                                        "phoneNumber": null,
+                                        "name": null,
+                                        "mail": null,
+                                        "type": "EndUser Contact"
+                                    }
+                                ],
+                                "resellerId": "a9233c9c-4634-493a-9f12-bef4d1cf3c5e",
+                                "customerId": "3adf6426-735c-4f52-9f28-e3ad593e707c",
+                                "distributorId": "1af1c44e-8112-4e72-9654-b11c705e9372"
+                            },
+                            "startDate": null,
+                            "endDate": null,
+                            "deletedAt": null,
+                            "reseller": {
+                                "id": "a9233c9c-4634-493a-9f12-bef4d1cf3c5e"
+                            },
+                            "customer": {
+                                "id": "3adf6426-735c-4f52-9f28-e3ad593e707c"
+                            }
+                        },
+                        {
+                            "serviceGroupSku": null,
+                            "serviceGroupSkuDescription": null,
+                            "serviceLevelSku": "HU4A2AC",
+                            "serviceLevelSkuDescription": "HPE Hardware Tech Support",
+                            "serviceFullDescription": null,
+                            "documentNumber": "c43e384c-f9f6-382e-990b-44ad354be9e1",
+                            "document": {
+                                "id": "f9badd49-9104-42bc-8ce3-4a1966d52817",
+                                "type": "Quote New Business",
+                                "documentNumber": "c43e384c-f9f6-382e-990b-44ad354be9e1",
+                                "startDate": "2022-01-14",
+                                "endDate": "2024-01-31",
+                                "currencyCode": "EUR",
+                                "languageCode": null,
+                                "updatedAt": "1654272012606",
+                                "vendorSpecificFields": {
+                                    "vendor": "HPE",
+                                    "sar": null,
+                                    "ampId": null,
+                                    "said": null,
+                                    "groupId": null,
+                                    "groupDescription": null
+                                },
+                                "contactPersons": [
+                                    {
+                                        "phoneNumber": "+12403737765",
+                                        "name": "Nedra Doyle",
+                                        "mail": "griffin94@hotmail.com",
+                                        "type": "Customer Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+12396904465",
+                                        "name": "Cary Mohr",
+                                        "mail": "batz.henri@hotmail.com",
+                                        "type": "Renewal Contact"
+                                    },
+                                    {
+                                        "phoneNumber": null,
+                                        "name": null,
+                                        "mail": null,
+                                        "type": "EndUser Contact"
+                                    }
+                                ],
+                                "resellerId": "a9233c9c-4634-493a-9f12-bef4d1cf3c5e",
+                                "customerId": "3adf6426-735c-4f52-9f28-e3ad593e707c",
+                                "distributorId": "1af1c44e-8112-4e72-9654-b11c705e9372"
+                            },
+                            "startDate": null,
+                            "endDate": null,
+                            "deletedAt": null,
+                            "reseller": {
+                                "id": "a9233c9c-4634-493a-9f12-bef4d1cf3c5e"
+                            },
+                            "customer": {
+                                "id": "3adf6426-735c-4f52-9f28-e3ad593e707c"
+                            }
+                        },
+                        {
+                            "serviceGroupSku": null,
+                            "serviceGroupSkuDescription": null,
+                            "serviceLevelSku": "HU4A1AC",
+                            "serviceLevelSkuDescription": "HPE Remote Tech Support",
+                            "serviceFullDescription": null,
+                            "documentNumber": "355d3e6a-35c3-381a-a212-0c6b9e2e42dd",
+                            "document": {
+                                "id": "99c6ad0a-0f82-481c-8e2a-28fb18428628",
+                                "type": "Quote New Business",
+                                "documentNumber": "355d3e6a-35c3-381a-a212-0c6b9e2e42dd",
+                                "startDate": "2022-01-14",
+                                "endDate": "2023-01-31",
+                                "currencyCode": "EUR",
+                                "languageCode": null,
+                                "updatedAt": "1654272010075",
+                                "vendorSpecificFields": {
+                                    "vendor": "HPE",
+                                    "sar": null,
+                                    "ampId": null,
+                                    "said": null,
+                                    "groupId": null,
+                                    "groupDescription": null
+                                },
+                                "contactPersons": [
+                                    {
+                                        "phoneNumber": "+12403737765",
+                                        "name": "Nedra Doyle",
+                                        "mail": "griffin94@hotmail.com",
+                                        "type": "Customer Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+12396904465",
+                                        "name": "Cary Mohr",
+                                        "mail": "batz.henri@hotmail.com",
+                                        "type": "Renewal Contact"
+                                    },
+                                    {
+                                        "phoneNumber": null,
+                                        "name": null,
+                                        "mail": null,
+                                        "type": "EndUser Contact"
+                                    }
+                                ],
+                                "resellerId": "a9233c9c-4634-493a-9f12-bef4d1cf3c5e",
+                                "customerId": "3adf6426-735c-4f52-9f28-e3ad593e707c",
+                                "distributorId": "1af1c44e-8112-4e72-9654-b11c705e9372"
+                            },
+                            "startDate": null,
+                            "endDate": null,
+                            "deletedAt": null,
+                            "reseller": {
+                                "id": "a9233c9c-4634-493a-9f12-bef4d1cf3c5e"
+                            },
+                            "customer": {
+                                "id": "3adf6426-735c-4f52-9f28-e3ad593e707c"
+                            }
+                        },
+                        {
+                            "serviceGroupSku": null,
+                            "serviceGroupSkuDescription": null,
+                            "serviceLevelSku": "HU4A1AC",
+                            "serviceLevelSkuDescription": "HPE Remote Tech Support",
+                            "serviceFullDescription": null,
+                            "documentNumber": "9f27e830-4f7b-3103-993e-33a883265577",
+                            "document": {
+                                "id": "d3046b7f-880c-4368-b3dd-0b3c8def9a14",
+                                "type": "Quote New Business",
+                                "documentNumber": "9f27e830-4f7b-3103-993e-33a883265577",
+                                "startDate": "2022-01-14",
+                                "endDate": "2027-01-31",
+                                "currencyCode": "EUR",
+                                "languageCode": null,
+                                "updatedAt": "1654272011497",
+                                "vendorSpecificFields": {
+                                    "vendor": "HPE",
+                                    "sar": null,
+                                    "ampId": null,
+                                    "said": null,
+                                    "groupId": null,
+                                    "groupDescription": null
+                                },
+                                "contactPersons": [
+                                    {
+                                        "phoneNumber": "+12403737765",
+                                        "name": "Nedra Doyle",
+                                        "mail": "griffin94@hotmail.com",
+                                        "type": "Customer Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+12396904465",
+                                        "name": "Cary Mohr",
+                                        "mail": "batz.henri@hotmail.com",
+                                        "type": "Renewal Contact"
+                                    },
+                                    {
+                                        "phoneNumber": null,
+                                        "name": null,
+                                        "mail": null,
+                                        "type": "EndUser Contact"
+                                    }
+                                ],
+                                "resellerId": "a9233c9c-4634-493a-9f12-bef4d1cf3c5e",
+                                "customerId": "3adf6426-735c-4f52-9f28-e3ad593e707c",
+                                "distributorId": "1af1c44e-8112-4e72-9654-b11c705e9372"
+                            },
+                            "startDate": null,
+                            "endDate": null,
+                            "deletedAt": null,
+                            "reseller": {
+                                "id": "a9233c9c-4634-493a-9f12-bef4d1cf3c5e"
+                            },
+                            "customer": {
+                                "id": "3adf6426-735c-4f52-9f28-e3ad593e707c"
+                            }
+                        }
+                    ],
+                    "latestContactPersons": null,
+                    "coverageStatusCheck": {
+                        "coverageStatus": "COVERED",
+                        "coverageStatusUpdatedAt": "1664819358635",
+                        "coverageEntries": [
+                            {
+                                "coverageStartDate": "2022-01-14",
+                                "coverageEndDate": "2023-01-13",
+                                "type": "FixedSupportService",
+                                "status": "Expiring",
+                                "description": "HPE 1Y PW TC Ess DL380 Gen10 SVC",
+                                "serviceSku": "HS7Z0PE"
+                            },
+                            {
+                                "coverageStartDate": "2019-01-14",
+                                "coverageEndDate": "2022-01-13",
+                                "type": "FixedSupportService",
+                                "status": "Expired",
+                                "description": "HPE 3Y FC 24x7 DL380 Gen10 SVC",
+                                "serviceSku": "H8QP7E"
+                            },
+                            {
+                                "coverageStartDate": "2019-01-14",
+                                "coverageEndDate": "2022-01-13",
+                                "type": "FactoryWarranty",
+                                "status": "Expired",
+                                "description": "HA151AW-Wty: HPE HW Maintenance Onsite Support, HA158AW-Wty: HPE Support for Initial Setup",
+                                "serviceSku": null
+                            }
+                        ]
+                    }
+                }
+            ]
+        }
+    }
+}

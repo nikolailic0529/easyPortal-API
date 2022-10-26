@@ -1,0 +1,170 @@
+{
+    "selector": "data.getAssets",
+    "query": "query getAssets($id: String!) {\n    getAssets(args: [{key: \"id\", value: $id}]) {\n        id\nserialNumber\n\nassetSku\nassetSkuDescription\nassetTag\nassetType\nstatus\nvendor\n\neolDate\neosDate\neoslDate\n\ncountry\ncountryCode\nlatitude\nlongitude\nzip\ncity\naddress\naddress2\n\ncustomerId\nresellerId\n\nupdatedAt\n\nlatestContactPersons {\n    phoneNumber\n    name\n    type\n    mail\n}\n\nassetCoverage\ncoverageStatusCheck {\n    coverageStatus\n    coverageStatusUpdatedAt\n    coverageEntries {\n        coverageStartDate\n        coverageEndDate\n        type\n        description\n        status\n        serviceSku\n    }\n}\n\ndataQualityScore\nactiveContractQuantitySum\n        assetDocument {\n    startDate\n    endDate\n    documentNumber\n    deletedAt\n\n    document {\n        id\n        type\n        documentNumber\n\n        startDate\n        endDate\n\n        currencyCode\n        languageCode\n\n        updatedAt\n\n        vendorSpecificFields {\n            vendor\n            groupId\n            groupDescription\n            said\n            ampId\n            sar\n        }\n\n        contactPersons {\n            phoneNumber\n            name\n            type\n            mail\n        }\n\n        customerId\n        resellerId\n        distributorId\n    }\n\n    serviceGroupSku\n    serviceGroupSkuDescription\n    serviceLevelSku\n    serviceLevelSkuDescription\n    serviceFullDescription\n\n    customer {\n      id\n    }\n\n    reseller {\n      id\n    }\n}\n    }\n}",
+    "variables": {
+        "id": "c18c96b4-38b0-44d2-95d3-fc1d5d27d692"
+    },
+    "response": {
+        "data": {
+            "getAssets": [
+                {
+                    "id": "c18c96b4-38b0-44d2-95d3-fc1d5d27d692",
+                    "resellerId": "a9233c9c-4634-493a-9f12-bef4d1cf3c5e",
+                    "customerId": "bdb67f91-481e-44f4-abb5-e64b1289295e",
+                    "serialNumber": "e517777b-bc62-3163-a0e3-1b8e9a633ace",
+                    "assetSkuDescription": "HPE NS HF40 Hybrid CTO Base Array",
+                    "assetTag": null,
+                    "assetType": null,
+                    "vendor": "HPE",
+                    "assetSku": "Q8H39A",
+                    "eolDate": null,
+                    "eosDate": null,
+                    "eoslDate": null,
+                    "zip": "73098",
+                    "city": "Sawaynfort",
+                    "address": "528 Michaela Overpass",
+                    "address2": null,
+                    "country": "Ethiopia",
+                    "latitude": "-75.978946",
+                    "longitude": "-65.38648",
+                    "countryCode": "KP",
+                    "status": "ACTIVE",
+                    "updatedAt": "1664812705438",
+                    "assetCoverage": [
+                        "COVERED"
+                    ],
+                    "dataQualityScore": "80",
+                    "activeContractQuantitySum": 0,
+                    "assetDocument": [
+                        {
+                            "serviceGroupSku": null,
+                            "serviceGroupSkuDescription": null,
+                            "serviceLevelSku": "HT7A0AC",
+                            "serviceLevelSkuDescription": "HPE Hardware and Software Support",
+                            "serviceFullDescription": null,
+                            "documentNumber": "ffb30c13-f9b9-328d-b741-bd95158c1807",
+                            "document": {
+                                "id": "017dc0c6-13c8-42fd-903d-64cc43564f13",
+                                "type": "Contract",
+                                "documentNumber": "ffb30c13-f9b9-328d-b741-bd95158c1807",
+                                "startDate": "2021-12-01",
+                                "endDate": "2024-10-29",
+                                "currencyCode": "EUR",
+                                "languageCode": null,
+                                "updatedAt": "1656406898120",
+                                "vendorSpecificFields": {
+                                    "vendor": "HPE",
+                                    "sar": "NIM83P064385001",
+                                    "ampId": "83-G5684-NIM",
+                                    "said": "568219cb-6d1a-312f-a4ea-8a016eb72c99",
+                                    "groupId": null,
+                                    "groupDescription": null
+                                },
+                                "contactPersons": [
+                                    {
+                                        "phoneNumber": "+17174363306",
+                                        "name": "Prof. Wilford Lakin",
+                                        "mail": null,
+                                        "type": "EndUser Contact"
+                                    },
+                                    {
+                                        "phoneNumber": null,
+                                        "name": null,
+                                        "mail": null,
+                                        "type": "Distributor Contact"
+                                    },
+                                    {
+                                        "phoneNumber": null,
+                                        "name": null,
+                                        "mail": null,
+                                        "type": "Reseller Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+17174363306",
+                                        "name": "Prof. Wilford Lakin",
+                                        "mail": null,
+                                        "type": "Hardware System Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+17174363306",
+                                        "name": "Prof. Wilford Lakin",
+                                        "mail": null,
+                                        "type": "Software System Contact"
+                                    },
+                                    {
+                                        "phoneNumber": null,
+                                        "name": "Kiana Goodwin",
+                                        "mail": null,
+                                        "type": "System Manager Contact"
+                                    }
+                                ],
+                                "resellerId": "a9233c9c-4634-493a-9f12-bef4d1cf3c5e",
+                                "customerId": "bdb67f91-481e-44f4-abb5-e64b1289295e",
+                                "distributorId": "1af1c44e-8112-4e72-9654-b11c705e9372"
+                            },
+                            "startDate": null,
+                            "endDate": null,
+                            "deletedAt": null,
+                            "reseller": {
+                                "id": "a9233c9c-4634-493a-9f12-bef4d1cf3c5e"
+                            },
+                            "customer": {
+                                "id": "bdb67f91-481e-44f4-abb5-e64b1289295e"
+                            }
+                        }
+                    ],
+                    "latestContactPersons": [
+                        {
+                            "phoneNumber": "+17174363306",
+                            "name": "Prof. Wilford Lakin",
+                            "mail": null,
+                            "type": "EndUser Contact"
+                        },
+                        {
+                            "phoneNumber": null,
+                            "name": null,
+                            "mail": null,
+                            "type": "Distributor Contact"
+                        },
+                        {
+                            "phoneNumber": null,
+                            "name": null,
+                            "mail": null,
+                            "type": "Reseller Contact"
+                        }
+                    ],
+                    "coverageStatusCheck": {
+                        "coverageStatus": "COVERED",
+                        "coverageStatusUpdatedAt": "1664812705438",
+                        "coverageEntries": [
+                            {
+                                "coverageStartDate": "2021-12-01",
+                                "coverageEndDate": "2024-10-29",
+                                "type": "Contract",
+                                "status": "Active",
+                                "description": "HT6Z1AC-HPE NS 4H Parts Exch w DMR Support",
+                                "serviceSku": null
+                            },
+                            {
+                                "coverageStartDate": "2019-10-30",
+                                "coverageEndDate": "2024-10-29",
+                                "type": "Contract",
+                                "status": "Active",
+                                "description": "HT6Z0AC-HPE NS 4H Parts Exchange Support",
+                                "serviceSku": null
+                            },
+                            {
+                                "coverageStartDate": "2019-10-24",
+                                "coverageEndDate": "2020-11-22",
+                                "type": "FactoryWarranty",
+                                "status": "Expired",
+                                "description": "HA155BW-Wty: HPE Parts Exchange Support, HA158AW-Wty: HPE Support for Initial Setup",
+                                "serviceSku": null
+                            }
+                        ]
+                    }
+                }
+            ]
+        }
+    }
+}

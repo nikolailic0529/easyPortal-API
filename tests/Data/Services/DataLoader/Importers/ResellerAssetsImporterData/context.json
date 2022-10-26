@@ -1,5 +1,5 @@
 {
-    "generated": "2022-10-26T06:28:32+00:00",
+    "generated": "2022-10-26T07:26:11+00:00",
     "customers": [
         "13c8f977-00bb-4906-bd59-2bf457cf39cb",
         "412e9b0e-95e8-474a-a8e1-4f526886eb55",
@@ -7,11 +7,11 @@
         "fe97f500-c6e4-4968-a312-25d21318297b"
     ],
     "files": [
-        "data.getAssetsByResellerId/c974fa8a4557d8ad4f9ff75cb2993d14458081ef.206a25d1cfa8b1e20329b965eb24ecb7c49af4db.json",
-        "data.getAssetsByResellerId/c974fa8a4557d8ad4f9ff75cb2993d14458081ef.3150625c5784f106ca3ce4c13c73ee35ae5ed7f4.json",
-        "data.getAssetsByResellerId/c974fa8a4557d8ad4f9ff75cb2993d14458081ef.44470dc1beed86542c63efd965d2b51790dd9e6c.json",
-        "data.getAssetsByResellerId/c974fa8a4557d8ad4f9ff75cb2993d14458081ef.48466a4b58f09346864f32b50b919cf95410169b.json",
-        "data.getAssetsByResellerId/c974fa8a4557d8ad4f9ff75cb2993d14458081ef.b233a1c91aa7a23fea1ee7b740a005582154c912.json",
+        "data.getAssetsByResellerId/9214bec94315095e89bd577ada121587e9446f6d.206a25d1cfa8b1e20329b965eb24ecb7c49af4db.json",
+        "data.getAssetsByResellerId/9214bec94315095e89bd577ada121587e9446f6d.3150625c5784f106ca3ce4c13c73ee35ae5ed7f4.json",
+        "data.getAssetsByResellerId/9214bec94315095e89bd577ada121587e9446f6d.44470dc1beed86542c63efd965d2b51790dd9e6c.json",
+        "data.getAssetsByResellerId/9214bec94315095e89bd577ada121587e9446f6d.48466a4b58f09346864f32b50b919cf95410169b.json",
+        "data.getAssetsByResellerId/9214bec94315095e89bd577ada121587e9446f6d.b233a1c91aa7a23fea1ee7b740a005582154c912.json",
         "data.getAssetsByResellerIdCount/7f979700bf472ec896fc61065d0fdb1fd1e5bbed.1835e0b2e1ee170a068d38e644aa393ea87135a0.json",
         "data.getCompanyById/35619e8f6303a2081c7d9b26d1be91aa854872b3.62c946d3b5bb2eb6933bea5e9a293a8464194904.json",
         "data.getCompanyById/35619e8f6303a2081c7d9b26d1be91aa854872b3.74530ce08598b3da74d821702ab3c7256eb1feba.json",

@@ -1,0 +1,336 @@
+{
+    "selector": "data.getAssets",
+    "query": "query getAssets($id: String!) {\n    getAssets(args: [{key: \"id\", value: $id}]) {\n        id\nserialNumber\n\nassetSku\nassetSkuDescription\nassetTag\nassetType\nstatus\nvendor\n\neolDate\neosDate\neoslDate\n\ncountry\ncountryCode\nlatitude\nlongitude\nzip\ncity\naddress\naddress2\n\ncustomerId\nresellerId\n\nupdatedAt\n\nlatestContactPersons {\n    phoneNumber\n    name\n    type\n    mail\n}\n\nassetCoverage\ncoverageStatusCheck {\n    coverageStatus\n    coverageStatusUpdatedAt\n    coverageEntries {\n        coverageStartDate\n        coverageEndDate\n        type\n        description\n        status\n        serviceSku\n    }\n}\n\ndataQualityScore\nactiveContractQuantitySum\n        assetDocument {\n    startDate\n    endDate\n    documentNumber\n    deletedAt\n\n    document {\n        id\n        type\n        documentNumber\n\n        startDate\n        endDate\n\n        currencyCode\n        languageCode\n\n        updatedAt\n\n        vendorSpecificFields {\n            vendor\n            groupId\n            groupDescription\n            said\n            ampId\n            sar\n        }\n\n        contactPersons {\n            phoneNumber\n            name\n            type\n            mail\n        }\n\n        customerId\n        resellerId\n        distributorId\n    }\n\n    serviceGroupSku\n    serviceGroupSkuDescription\n    serviceLevelSku\n    serviceLevelSkuDescription\n    serviceFullDescription\n\n    customer {\n      id\n    }\n\n    reseller {\n      id\n    }\n}\n    }\n}",
+    "variables": {
+        "id": "91fe9f38-1137-424e-bde7-90bd367ee016"
+    },
+    "response": {
+        "data": {
+            "getAssets": [
+                {
+                    "id": "91fe9f38-1137-424e-bde7-90bd367ee016",
+                    "resellerId": "77ec115b-9723-4582-ad45-2b3a83286b1f",
+                    "customerId": "54126f62-957a-46b1-a8ec-926fa4e94a81",
+                    "serialNumber": "5bfac420-a0ee-3c55-aaa9-80650b8b769b",
+                    "assetSkuDescription": "HP M6710 900GB 6G SAS 10K 2.5in HDD",
+                    "assetTag": null,
+                    "assetType": null,
+                    "vendor": "HPE",
+                    "assetSku": "QR496A",
+                    "eolDate": null,
+                    "eosDate": null,
+                    "eoslDate": null,
+                    "zip": "44266",
+                    "city": "Jeffrystad",
+                    "address": "581 Weber Coves Suite 913",
+                    "address2": null,
+                    "country": "Sudan",
+                    "latitude": "-61.558495",
+                    "longitude": "149.588388",
+                    "countryCode": "DM",
+                    "status": "ACTIVE",
+                    "updatedAt": "1664806865321",
+                    "assetCoverage": [
+                        "COVERED"
+                    ],
+                    "dataQualityScore": "80",
+                    "activeContractQuantitySum": 0,
+                    "assetDocument": [
+                        {
+                            "serviceGroupSku": null,
+                            "serviceGroupSkuDescription": null,
+                            "serviceLevelSku": "HA151AC",
+                            "serviceLevelSkuDescription": "HPE Hardware Maintenance Onsite Support",
+                            "serviceFullDescription": null,
+                            "documentNumber": "bee605ac-2c46-359f-a447-f6ba749cf617",
+                            "document": {
+                                "id": "4ac48796-4419-4e3b-817d-8e41ffe60189",
+                                "type": "Quote renewal",
+                                "documentNumber": "bee605ac-2c46-359f-a447-f6ba749cf617",
+                                "startDate": "2022-01-03",
+                                "endDate": "2023-05-31",
+                                "currencyCode": "EUR",
+                                "languageCode": null,
+                                "updatedAt": "1654272007840",
+                                "vendorSpecificFields": {
+                                    "vendor": "HPE",
+                                    "sar": null,
+                                    "ampId": null,
+                                    "said": null,
+                                    "groupId": null,
+                                    "groupDescription": null
+                                },
+                                "contactPersons": [
+                                    {
+                                        "phoneNumber": "+17547364314",
+                                        "name": "Brock Daniel",
+                                        "mail": "lauryn.jones@yahoo.com",
+                                        "type": "Customer Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+13102151268",
+                                        "name": "Francesca Robel",
+                                        "mail": "christiansen.josefina@buckridge.com",
+                                        "type": "Renewal Contact"
+                                    },
+                                    {
+                                        "phoneNumber": null,
+                                        "name": null,
+                                        "mail": null,
+                                        "type": "EndUser Contact"
+                                    }
+                                ],
+                                "resellerId": "77ec115b-9723-4582-ad45-2b3a83286b1f",
+                                "customerId": "54126f62-957a-46b1-a8ec-926fa4e94a81",
+                                "distributorId": "1af1c44e-8112-4e72-9654-b11c705e9372"
+                            },
+                            "startDate": null,
+                            "endDate": null,
+                            "deletedAt": null,
+                            "reseller": {
+                                "id": "77ec115b-9723-4582-ad45-2b3a83286b1f"
+                            },
+                            "customer": {
+                                "id": "54126f62-957a-46b1-a8ec-926fa4e94a81"
+                            }
+                        },
+                        {
+                            "serviceGroupSku": null,
+                            "serviceGroupSkuDescription": null,
+                            "serviceLevelSku": "HU4A2AC",
+                            "serviceLevelSkuDescription": "HPE Hardware Tech Support",
+                            "serviceFullDescription": null,
+                            "documentNumber": "56fa70b8-11fb-3598-b071-0361b83ec41f",
+                            "document": {
+                                "id": "fa5ac120-cfcd-4403-86ff-e6b76e32e116",
+                                "type": "Quote renewal",
+                                "documentNumber": "56fa70b8-11fb-3598-b071-0361b83ec41f",
+                                "startDate": "2022-06-01",
+                                "endDate": "2022-10-31",
+                                "currencyCode": "EUR",
+                                "languageCode": null,
+                                "updatedAt": "1654254524322",
+                                "vendorSpecificFields": {
+                                    "vendor": "HPE",
+                                    "sar": null,
+                                    "ampId": null,
+                                    "said": null,
+                                    "groupId": null,
+                                    "groupDescription": null
+                                },
+                                "contactPersons": [
+                                    {
+                                        "phoneNumber": "+17574970076",
+                                        "name": "Hollie Kemmer",
+                                        "mail": "ibode@yahoo.com",
+                                        "type": "Customer Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+13102151268",
+                                        "name": "Francesca Robel",
+                                        "mail": "christiansen.josefina@buckridge.com",
+                                        "type": "Renewal Contact"
+                                    },
+                                    {
+                                        "phoneNumber": null,
+                                        "name": null,
+                                        "mail": null,
+                                        "type": "EndUser Contact"
+                                    }
+                                ],
+                                "resellerId": "77ec115b-9723-4582-ad45-2b3a83286b1f",
+                                "customerId": "54126f62-957a-46b1-a8ec-926fa4e94a81",
+                                "distributorId": "1af1c44e-8112-4e72-9654-b11c705e9372"
+                            },
+                            "startDate": null,
+                            "endDate": null,
+                            "deletedAt": null,
+                            "reseller": {
+                                "id": "77ec115b-9723-4582-ad45-2b3a83286b1f"
+                            },
+                            "customer": {
+                                "id": "54126f62-957a-46b1-a8ec-926fa4e94a81"
+                            }
+                        },
+                        {
+                            "serviceGroupSku": null,
+                            "serviceGroupSkuDescription": null,
+                            "serviceLevelSku": "HU4A1AC",
+                            "serviceLevelSkuDescription": "HPE Remote Tech Support",
+                            "serviceFullDescription": null,
+                            "documentNumber": "56fa70b8-11fb-3598-b071-0361b83ec41f",
+                            "document": {
+                                "id": "fa5ac120-cfcd-4403-86ff-e6b76e32e116",
+                                "type": "Quote renewal",
+                                "documentNumber": "56fa70b8-11fb-3598-b071-0361b83ec41f",
+                                "startDate": "2022-06-01",
+                                "endDate": "2022-10-31",
+                                "currencyCode": "EUR",
+                                "languageCode": null,
+                                "updatedAt": "1654254524322",
+                                "vendorSpecificFields": {
+                                    "vendor": "HPE",
+                                    "sar": null,
+                                    "ampId": null,
+                                    "said": null,
+                                    "groupId": null,
+                                    "groupDescription": null
+                                },
+                                "contactPersons": [
+                                    {
+                                        "phoneNumber": "+17574970076",
+                                        "name": "Hollie Kemmer",
+                                        "mail": "ibode@yahoo.com",
+                                        "type": "Customer Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+13102151268",
+                                        "name": "Francesca Robel",
+                                        "mail": "christiansen.josefina@buckridge.com",
+                                        "type": "Renewal Contact"
+                                    },
+                                    {
+                                        "phoneNumber": null,
+                                        "name": null,
+                                        "mail": null,
+                                        "type": "EndUser Contact"
+                                    }
+                                ],
+                                "resellerId": "77ec115b-9723-4582-ad45-2b3a83286b1f",
+                                "customerId": "54126f62-957a-46b1-a8ec-926fa4e94a81",
+                                "distributorId": "1af1c44e-8112-4e72-9654-b11c705e9372"
+                            },
+                            "startDate": null,
+                            "endDate": null,
+                            "deletedAt": null,
+                            "reseller": {
+                                "id": "77ec115b-9723-4582-ad45-2b3a83286b1f"
+                            },
+                            "customer": {
+                                "id": "54126f62-957a-46b1-a8ec-926fa4e94a81"
+                            }
+                        },
+                        {
+                            "serviceGroupSku": null,
+                            "serviceGroupSkuDescription": null,
+                            "serviceLevelSku": "HA151AC",
+                            "serviceLevelSkuDescription": "HPE Hardware Maintenance Onsite Support",
+                            "serviceFullDescription": null,
+                            "documentNumber": "27d8387c-5625-3e9a-b3d3-766dc6bd7cda",
+                            "document": {
+                                "id": "9b658237-eaa3-4b04-83d8-0ad1e04b40df",
+                                "type": "Contract",
+                                "documentNumber": "27d8387c-5625-3e9a-b3d3-766dc6bd7cda",
+                                "startDate": "2021-06-01",
+                                "endDate": "2022-05-31",
+                                "currencyCode": "EUR",
+                                "languageCode": null,
+                                "updatedAt": "1654262846658",
+                                "vendorSpecificFields": {
+                                    "vendor": "HPE",
+                                    "sar": "LIEBHERR-LINDAU-02",
+                                    "ampId": "83-UV01070",
+                                    "said": null,
+                                    "groupId": null,
+                                    "groupDescription": null
+                                },
+                                "contactPersons": [
+                                    {
+                                        "phoneNumber": "+18282573549",
+                                        "name": "Abbey Feil",
+                                        "mail": "princess.ullrich@gmail.com",
+                                        "type": "EndUser Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+13102151268",
+                                        "name": "Francesca Robel",
+                                        "mail": "christiansen.josefina@buckridge.com",
+                                        "type": "Distributor Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+17547364314",
+                                        "name": "Brock Daniel",
+                                        "mail": "lauryn.jones@yahoo.com",
+                                        "type": "Reseller Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+18282573549",
+                                        "name": "Abbey Feil",
+                                        "mail": "princess.ullrich@gmail.com",
+                                        "type": "Hardware System Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+18282573549",
+                                        "name": "Abbey Feil",
+                                        "mail": "princess.ullrich@gmail.com",
+                                        "type": "Software System Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+18282573549",
+                                        "name": "Abbey Feil",
+                                        "mail": "princess.ullrich@gmail.com",
+                                        "type": "System Manager Contact"
+                                    }
+                                ],
+                                "resellerId": "77ec115b-9723-4582-ad45-2b3a83286b1f",
+                                "customerId": "54126f62-957a-46b1-a8ec-926fa4e94a81",
+                                "distributorId": "1af1c44e-8112-4e72-9654-b11c705e9372"
+                            },
+                            "startDate": null,
+                            "endDate": null,
+                            "deletedAt": null,
+                            "reseller": {
+                                "id": "77ec115b-9723-4582-ad45-2b3a83286b1f"
+                            },
+                            "customer": {
+                                "id": "54126f62-957a-46b1-a8ec-926fa4e94a81"
+                            }
+                        }
+                    ],
+                    "latestContactPersons": [
+                        {
+                            "phoneNumber": "+18282573549",
+                            "name": "Abbey Feil",
+                            "mail": "princess.ullrich@gmail.com",
+                            "type": "EndUser Contact"
+                        },
+                        {
+                            "phoneNumber": "+13102151268",
+                            "name": "Francesca Robel",
+                            "mail": "christiansen.josefina@buckridge.com",
+                            "type": "Distributor Contact"
+                        },
+                        {
+                            "phoneNumber": "+17547364314",
+                            "name": "Brock Daniel",
+                            "mail": "lauryn.jones@yahoo.com",
+                            "type": "Reseller Contact"
+                        }
+                    ],
+                    "coverageStatusCheck": {
+                        "coverageStatus": "COVERED",
+                        "coverageStatusUpdatedAt": "1664806865321",
+                        "coverageEntries": [
+                            {
+                                "coverageStartDate": "2021-06-01",
+                                "coverageEndDate": "2023-04-30",
+                                "type": "Contract",
+                                "status": "Active",
+                                "description": "H7J34AC-HPE Foundation Care 24x7 SVC",
+                                "serviceSku": null
+                            },
+                            {
+                                "coverageStartDate": "2021-02-26",
+                                "coverageEndDate": "2021-02-26",
+                                "type": "FactoryWarranty",
+                                "status": "Expired",
+                                "description": "",
+                                "serviceSku": null
+                            }
+                        ]
+                    }
+                }
+            ]
+        }
+    }
+}
