@@ -19,7 +19,6 @@ class CustomerLoaderDataWithDocuments extends CustomerLoaderData {
             Context::CUSTOMERS,
             Context::ASSETS,
             Context::TYPES,
-            Context::OEMS,
         ];
     }
 }

@@ -24,7 +24,7 @@
     {
         "query": "select `locations`.* from `locations` where `locations`.`id` in (?) and `locations`.`deleted_at` is null",
         "bindings": [
-            "0a872c01-f844-590a-a819-942bfa09a5d2"
+            "3cf83ea0-7f7c-52ad-a7e6-1dfb72fbb6fa"
         ]
     },
     {
@@ -42,7 +42,7 @@
     {
         "query": "select `locations`.* from `locations` where `locations`.`id` in (?) and `locations`.`deleted_at` is null",
         "bindings": [
-            "ec553a82-56f4-5e32-a673-7374f0ab0def"
+            "ea851f94-2570-558c-a187-5ce87d26152c"
         ]
     },
     {
@@ -56,6 +56,16 @@
     {
         "query": "select `oems`.* from `oems` where `oems`.`deleted_at` is null",
         "bindings": []
+    },
+    {
+        "query": "insert into `oems` (`key`, `name`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
+        "bindings": [
+            "HPE",
+            "HPE",
+            "50fd47f9-1a57-5c46-8553-75e2b8df4e26",
+            "2022-02-02 00:00:01",
+            "2022-02-02 00:00:01"
+        ]
     },
     {
         "query": "select `statuses`.* from `statuses` where `statuses`.`deleted_at` is null",
@@ -74,9 +84,9 @@
             "Asset",
             "ACTIVE",
             "Active",
-            "50fd47f9-1a57-5c46-8553-75e2b8df4e26",
-            "2022-02-02 00:00:01",
-            "2022-02-02 00:00:01"
+            "05171de1-a241-59d0-83c9-dbd8eb442e00",
+            "2022-02-02 00:00:02",
+            "2022-02-02 00:00:02"
         ]
     },
     {
@@ -86,21 +96,21 @@
     {
         "query": "select `products`.* from `products` where (`oem_id` = ? and `sku` = ?) and `products`.`deleted_at` is null limit 1",
         "bindings": [
-            "4e41a5c3-9089-5987-acdf-f3fbbed278e0",
+            "50fd47f9-1a57-5c46-8553-75e2b8df4e26",
             "872479-b21"
         ]
     },
     {
         "query": "insert into `products` (`oem_id`, `sku`, `eol`, `eos`, `name`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
-            "4e41a5c3-9089-5987-acdf-f3fbbed278e0",
+            "50fd47f9-1a57-5c46-8553-75e2b8df4e26",
             "872479-B21",
             null,
             null,
             "HPE 1.2TB SAS 10K SFF SC DS HDD",
-            "05171de1-a241-59d0-83c9-dbd8eb442e00",
-            "2022-02-02 00:00:02",
-            "2022-02-02 00:00:02"
+            "3ccd6f9b-e5de-5731-880c-cf750922fd80",
+            "2022-02-02 00:00:03",
+            "2022-02-02 00:00:03"
         ]
     },
     {
@@ -128,9 +138,9 @@
             "Contact",
             "EndUser Contact",
             "End User Contact",
-            "3ccd6f9b-e5de-5731-880c-cf750922fd80",
-            "2022-02-02 00:00:04",
-            "2022-02-02 00:00:04"
+            "b25693ac-dbf2-5644-ab8c-dd6c9c0432de",
+            "2022-02-02 00:00:05",
+            "2022-02-02 00:00:05"
         ]
     },
     {
@@ -146,9 +156,9 @@
             "Contact",
             "Distributor Contact",
             "Distributor Contact",
-            "b25693ac-dbf2-5644-ab8c-dd6c9c0432de",
-            "2022-02-02 00:00:05",
-            "2022-02-02 00:00:05"
+            "71bad29a-cfcf-54eb-92bd-efb55119699c",
+            "2022-02-02 00:00:06",
+            "2022-02-02 00:00:06"
         ]
     },
     {
@@ -164,9 +174,9 @@
             "Contact",
             "Reseller Contact",
             "Reseller Contact",
-            "71bad29a-cfcf-54eb-92bd-efb55119699c",
-            "2022-02-02 00:00:06",
-            "2022-02-02 00:00:06"
+            "e7d2670b-f31c-5d80-a663-a3fbd5d166f8",
+            "2022-02-02 00:00:07",
+            "2022-02-02 00:00:07"
         ]
     },
     {
@@ -184,9 +194,9 @@
         "bindings": [
             "COVERED",
             "Covered",
-            "e7d2670b-f31c-5d80-a663-a3fbd5d166f8",
-            "2022-02-02 00:00:07",
-            "2022-02-02 00:00:07"
+            "56de383a-420b-5302-915c-f2b2425b6023",
+            "2022-02-02 00:00:08",
+            "2022-02-02 00:00:08"
         ]
     },
     {
@@ -202,9 +212,9 @@
             "AssetWarranty",
             "Contract",
             "Contract",
-            "56de383a-420b-5302-915c-f2b2425b6023",
-            "2022-02-02 00:00:13",
-            "2022-02-02 00:00:13"
+            "a96b1d1b-6382-57aa-a4ff-88668cef8996",
+            "2022-02-02 00:00:14",
+            "2022-02-02 00:00:14"
         ]
     },
     {
@@ -220,9 +230,9 @@
             "AssetWarranty",
             "Active",
             "Active",
-            "a96b1d1b-6382-57aa-a4ff-88668cef8996",
-            "2022-02-02 00:00:14",
-            "2022-02-02 00:00:14"
+            "f7ef267a-c7e2-5573-b508-e2dfeabcd858",
+            "2022-02-02 00:00:15",
+            "2022-02-02 00:00:15"
         ]
     },
     {
@@ -238,35 +248,35 @@
             "AssetWarranty",
             "FactoryWarranty",
             "Factory Warranty",
-            "f7ef267a-c7e2-5573-b508-e2dfeabcd858",
-            "2022-02-02 00:00:17",
-            "2022-02-02 00:00:17"
+            "a8412a14-2a9f-597d-bf39-e029690d1efc",
+            "2022-02-02 00:00:18",
+            "2022-02-02 00:00:18"
         ]
     },
     {
         "query": "insert into `assets` (`id`, `oem_id`, `type_id`, `status_id`, `product_id`, `reseller_id`, `customer_id`, `location_id`, `changed_at`, `serial_number`, `data_quality`, `contacts_active_quantity`, `contacts_count`, `coverages_count`, `synced_at`, `warranty_end`, `warranty_service_group_id`, `warranty_service_level_id`, `warranty_changed_at`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "00f0a6d3-442d-4a31-a573-459ea5f51efd",
-            "4e41a5c3-9089-5987-acdf-f3fbbed278e0",
-            null,
             "50fd47f9-1a57-5c46-8553-75e2b8df4e26",
+            null,
             "05171de1-a241-59d0-83c9-dbd8eb442e00",
+            "3ccd6f9b-e5de-5731-880c-cf750922fd80",
             "9d9e320d-4e44-4518-a4e6-6bfe7f1c7dd8",
             "019a3b56-b701-4599-8452-2cf9f1f54b26",
-            "ec553a82-56f4-5e32-a673-7374f0ab0def",
+            "ea851f94-2570-558c-a187-5ce87d26152c",
             "2022-09-30 11:44:09",
             "0de158b2-ce84-30ed-87dd-a2f75df0dfa7",
             "80",
             0,
             3,
             1,
-            "2022-02-02 00:00:08",
+            "2022-02-02 00:00:09",
             "2025-05-16 00:00:00",
             null,
             null,
             "2022-09-30 11:44:09",
-            "2022-02-02 00:00:24",
-            "2022-02-02 00:00:24"
+            "2022-02-02 00:00:25",
+            "2022-02-02 00:00:25"
         ]
     },
     {
@@ -278,19 +288,19 @@
             "+12068713560",
             null,
             true,
-            "032f497d-b9f5-50a0-a11f-3f424461289e",
-            "2022-02-02 00:00:25",
-            "2022-02-02 00:00:25"
+            "e59ea133-72a6-5988-a1cf-bf221cb2b4e4",
+            "2022-02-02 00:00:26",
+            "2022-02-02 00:00:26"
         ]
     },
     {
         "query": "insert into `contact_types` (`type_id`, `contact_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
-            "3ccd6f9b-e5de-5731-880c-cf750922fd80",
-            "032f497d-b9f5-50a0-a11f-3f424461289e",
+            "b25693ac-dbf2-5644-ab8c-dd6c9c0432de",
             "e59ea133-72a6-5988-a1cf-bf221cb2b4e4",
-            "2022-02-02 00:00:26",
-            "2022-02-02 00:00:26"
+            "4ed62e80-472f-5388-83a8-4674abb07b47",
+            "2022-02-02 00:00:27",
+            "2022-02-02 00:00:27"
         ]
     },
     {
@@ -302,19 +312,19 @@
             "+16813711384",
             "mabel99@kuhic.biz",
             true,
-            "4ed62e80-472f-5388-83a8-4674abb07b47",
-            "2022-02-02 00:00:27",
-            "2022-02-02 00:00:27"
+            "a93c7615-1f5c-52b3-b764-44341a8a4ea4",
+            "2022-02-02 00:00:28",
+            "2022-02-02 00:00:28"
         ]
     },
     {
         "query": "insert into `contact_types` (`type_id`, `contact_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
-            "b25693ac-dbf2-5644-ab8c-dd6c9c0432de",
-            "4ed62e80-472f-5388-83a8-4674abb07b47",
+            "71bad29a-cfcf-54eb-92bd-efb55119699c",
             "a93c7615-1f5c-52b3-b764-44341a8a4ea4",
-            "2022-02-02 00:00:28",
-            "2022-02-02 00:00:28"
+            "e819e2f7-d37e-5de4-8168-2a376abd7459",
+            "2022-02-02 00:00:29",
+            "2022-02-02 00:00:29"
         ]
     },
     {
@@ -326,84 +336,84 @@
             "+12076780265",
             "annetta.ratke@crona.com",
             true,
-            "e819e2f7-d37e-5de4-8168-2a376abd7459",
-            "2022-02-02 00:00:29",
-            "2022-02-02 00:00:29"
-        ]
-    },
-    {
-        "query": "insert into `contact_types` (`type_id`, `contact_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
-        "bindings": [
-            "71bad29a-cfcf-54eb-92bd-efb55119699c",
-            "e819e2f7-d37e-5de4-8168-2a376abd7459",
             "b82efadc-0e83-5f27-80f4-85d42d9a5ebd",
             "2022-02-02 00:00:30",
             "2022-02-02 00:00:30"
         ]
     },
     {
-        "query": "insert into `asset_coverages` (`coverage_id`, `asset_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
+        "query": "insert into `contact_types` (`type_id`, `contact_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "e7d2670b-f31c-5d80-a663-a3fbd5d166f8",
-            "00f0a6d3-442d-4a31-a573-459ea5f51efd",
+            "b82efadc-0e83-5f27-80f4-85d42d9a5ebd",
             "fb523f9d-45f2-5b87-8ed3-c72059c4c0e4",
             "2022-02-02 00:00:31",
             "2022-02-02 00:00:31"
         ]
     },
     {
+        "query": "insert into `asset_coverages` (`coverage_id`, `asset_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
+        "bindings": [
+            "56de383a-420b-5302-915c-f2b2425b6023",
+            "00f0a6d3-442d-4a31-a573-459ea5f51efd",
+            "c53532aa-b7ac-5dc0-893c-e8ab40690c30",
+            "2022-02-02 00:00:32",
+            "2022-02-02 00:00:32"
+        ]
+    },
+    {
         "query": "insert into `asset_warranties` (`asset_id`, `created_at`, `customer_id`, `description`, `document_id`, `document_number`, `end`, `id`, `reseller_id`, `service_group_id`, `service_level_id`, `start`, `status_id`, `type_id`, `updated_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "00f0a6d3-442d-4a31-a573-459ea5f51efd",
-            "2022-02-02 00:00:32",
+            "2022-02-02 00:00:33",
             null,
             "H7J34AC-HPE Foundation Care 24x7 SVC",
             null,
             null,
             "2025-05-16 00:00:00",
-            "a8412a14-2a9f-597d-bf39-e029690d1efc",
+            "e0db2412-5307-5641-9778-1bf4acc92fce",
             null,
             null,
             null,
             "2020-05-17 00:00:00",
+            "f7ef267a-c7e2-5573-b508-e2dfeabcd858",
             "a96b1d1b-6382-57aa-a4ff-88668cef8996",
-            "56de383a-420b-5302-915c-f2b2425b6023",
-            "2022-02-02 00:00:32",
-            "00f0a6d3-442d-4a31-a573-459ea5f51efd",
             "2022-02-02 00:00:33",
+            "00f0a6d3-442d-4a31-a573-459ea5f51efd",
+            "2022-02-02 00:00:34",
             null,
             "HA155BW-Wty: HPE Parts Exchange Support",
             null,
             null,
             "2023-06-07 00:00:00",
-            "e0db2412-5307-5641-9778-1bf4acc92fce",
+            "032f497d-b9f5-50a0-a11f-3f424461289e",
             null,
             null,
             null,
             "2020-05-09 00:00:00",
-            "a96b1d1b-6382-57aa-a4ff-88668cef8996",
             "f7ef267a-c7e2-5573-b508-e2dfeabcd858",
-            "2022-02-02 00:00:33"
+            "a8412a14-2a9f-597d-bf39-e029690d1efc",
+            "2022-02-02 00:00:34"
         ]
     },
     {
         "query": "select `products`.* from `products` where (`oem_id` = ? and `sku` = ?) and `products`.`deleted_at` is null limit 1",
         "bindings": [
-            "4e41a5c3-9089-5987-acdf-f3fbbed278e0",
+            "50fd47f9-1a57-5c46-8553-75e2b8df4e26",
             "p19043-b21"
         ]
     },
     {
         "query": "insert into `products` (`oem_id`, `sku`, `eol`, `eos`, `name`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
-            "4e41a5c3-9089-5987-acdf-f3fbbed278e0",
+            "50fd47f9-1a57-5c46-8553-75e2b8df4e26",
             "P19043-B21",
             null,
             null,
             "HPE 32GB 2Rx4 PC4-2933Y-R Smart Kit",
-            "c53532aa-b7ac-5dc0-893c-e8ab40690c30",
-            "2022-02-02 00:00:34",
-            "2022-02-02 00:00:34"
+            "e6b00b94-f4eb-598f-9d1a-20da3a55f366",
+            "2022-02-02 00:00:35",
+            "2022-02-02 00:00:35"
         ]
     },
     {
@@ -417,35 +427,35 @@
         "bindings": [
             "ARCHIVED",
             "Archived",
-            "e6b00b94-f4eb-598f-9d1a-20da3a55f366",
-            "2022-02-02 00:00:36",
-            "2022-02-02 00:00:36"
+            "aed4ffe9-89fe-5820-b083-33fa27303400",
+            "2022-02-02 00:00:37",
+            "2022-02-02 00:00:37"
         ]
     },
     {
         "query": "insert into `assets` (`id`, `oem_id`, `type_id`, `status_id`, `product_id`, `reseller_id`, `customer_id`, `location_id`, `changed_at`, `serial_number`, `data_quality`, `contacts_active_quantity`, `contacts_count`, `coverages_count`, `synced_at`, `warranty_end`, `warranty_service_group_id`, `warranty_service_level_id`, `warranty_changed_at`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "011c4141-aa44-407e-a53c-7328cc6275ab",
-            "4e41a5c3-9089-5987-acdf-f3fbbed278e0",
-            null,
             "50fd47f9-1a57-5c46-8553-75e2b8df4e26",
-            "c53532aa-b7ac-5dc0-893c-e8ab40690c30",
+            null,
+            "05171de1-a241-59d0-83c9-dbd8eb442e00",
+            "e6b00b94-f4eb-598f-9d1a-20da3a55f366",
             "9d9e320d-4e44-4518-a4e6-6bfe7f1c7dd8",
             "019a3b56-b701-4599-8452-2cf9f1f54b26",
-            "ec553a82-56f4-5e32-a673-7374f0ab0def",
+            "ea851f94-2570-558c-a187-5ce87d26152c",
             "2022-09-02 16:54:44",
             "2ac516a0-77e2-3606-880d-9546fbf0f270",
             "80",
             0,
             3,
             1,
-            "2022-02-02 00:00:37",
+            "2022-02-02 00:00:38",
             null,
             null,
             null,
             null,
-            "2022-02-02 00:00:40",
-            "2022-02-02 00:00:40"
+            "2022-02-02 00:00:41",
+            "2022-02-02 00:00:41"
         ]
     },
     {
@@ -457,123 +467,123 @@
             "+12068713560",
             null,
             true,
-            "aed4ffe9-89fe-5820-b083-33fa27303400",
-            "2022-02-02 00:00:41",
-            "2022-02-02 00:00:41"
-        ]
-    },
-    {
-        "query": "insert into `contact_types` (`type_id`, `contact_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
-        "bindings": [
-            "3ccd6f9b-e5de-5731-880c-cf750922fd80",
-            "aed4ffe9-89fe-5820-b083-33fa27303400",
             "57054a10-24de-5259-abfc-3ad0f0a4b724",
             "2022-02-02 00:00:42",
             "2022-02-02 00:00:42"
         ]
     },
     {
-        "query": "insert into `contacts` (`object_type`, `object_id`, `name`, `phone_number`, `email`, `phone_valid`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `contact_types` (`type_id`, `contact_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
-            "Asset",
-            "011c4141-aa44-407e-a53c-7328cc6275ab",
-            "Adolphus Donnelly",
-            "+16813711384",
-            "mabel99@kuhic.biz",
-            true,
+            "b25693ac-dbf2-5644-ab8c-dd6c9c0432de",
+            "57054a10-24de-5259-abfc-3ad0f0a4b724",
             "f9ed1f3d-7fe5-5b2c-a562-9ffae19cb28a",
             "2022-02-02 00:00:43",
             "2022-02-02 00:00:43"
         ]
     },
     {
-        "query": "insert into `contact_types` (`type_id`, `contact_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
+        "query": "insert into `contacts` (`object_type`, `object_id`, `name`, `phone_number`, `email`, `phone_valid`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
-            "b25693ac-dbf2-5644-ab8c-dd6c9c0432de",
-            "f9ed1f3d-7fe5-5b2c-a562-9ffae19cb28a",
+            "Asset",
+            "011c4141-aa44-407e-a53c-7328cc6275ab",
+            "Adolphus Donnelly",
+            "+16813711384",
+            "mabel99@kuhic.biz",
+            true,
             "670cf512-0e7a-5c8b-8934-2709e3d58b18",
             "2022-02-02 00:00:44",
             "2022-02-02 00:00:44"
         ]
     },
     {
-        "query": "insert into `contacts` (`object_type`, `object_id`, `name`, `phone_number`, `email`, `phone_valid`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `contact_types` (`type_id`, `contact_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
-            "Asset",
-            "011c4141-aa44-407e-a53c-7328cc6275ab",
-            "Mr. Lucas Hintz",
-            "+12076780265",
-            "annetta.ratke@crona.com",
-            true,
+            "71bad29a-cfcf-54eb-92bd-efb55119699c",
+            "670cf512-0e7a-5c8b-8934-2709e3d58b18",
             "a554d64f-001a-53dc-a265-1a527e15fbcd",
             "2022-02-02 00:00:45",
             "2022-02-02 00:00:45"
         ]
     },
     {
-        "query": "insert into `contact_types` (`type_id`, `contact_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
+        "query": "insert into `contacts` (`object_type`, `object_id`, `name`, `phone_number`, `email`, `phone_valid`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
-            "71bad29a-cfcf-54eb-92bd-efb55119699c",
-            "a554d64f-001a-53dc-a265-1a527e15fbcd",
+            "Asset",
+            "011c4141-aa44-407e-a53c-7328cc6275ab",
+            "Mr. Lucas Hintz",
+            "+12076780265",
+            "annetta.ratke@crona.com",
+            true,
             "1808090c-da97-5adc-9688-e9eb22084d58",
             "2022-02-02 00:00:46",
             "2022-02-02 00:00:46"
         ]
     },
     {
-        "query": "insert into `asset_coverages` (`coverage_id`, `asset_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
+        "query": "insert into `contact_types` (`type_id`, `contact_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
-            "e6b00b94-f4eb-598f-9d1a-20da3a55f366",
-            "011c4141-aa44-407e-a53c-7328cc6275ab",
+            "e7d2670b-f31c-5d80-a663-a3fbd5d166f8",
+            "1808090c-da97-5adc-9688-e9eb22084d58",
             "252c8a90-d15d-5423-b9fa-4df05227a774",
             "2022-02-02 00:00:47",
             "2022-02-02 00:00:47"
         ]
     },
     {
-        "query": "select `products`.* from `products` where (`oem_id` = ? and `sku` = ?) and `products`.`deleted_at` is null limit 1",
+        "query": "insert into `asset_coverages` (`coverage_id`, `asset_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
-            "4e41a5c3-9089-5987-acdf-f3fbbed278e0",
-            "872475-b21"
-        ]
-    },
-    {
-        "query": "insert into `products` (`oem_id`, `sku`, `eol`, `eos`, `name`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?)",
-        "bindings": [
-            "4e41a5c3-9089-5987-acdf-f3fbbed278e0",
-            "872475-B21",
-            null,
-            null,
-            "HPE 300GB SAS 10K SFF SC DS HDD",
+            "aed4ffe9-89fe-5820-b083-33fa27303400",
+            "011c4141-aa44-407e-a53c-7328cc6275ab",
             "7d86f58b-cd93-50ba-91c9-9151f81fd4d3",
             "2022-02-02 00:00:48",
             "2022-02-02 00:00:48"
         ]
     },
     {
+        "query": "select `products`.* from `products` where (`oem_id` = ? and `sku` = ?) and `products`.`deleted_at` is null limit 1",
+        "bindings": [
+            "50fd47f9-1a57-5c46-8553-75e2b8df4e26",
+            "872475-b21"
+        ]
+    },
+    {
+        "query": "insert into `products` (`oem_id`, `sku`, `eol`, `eos`, `name`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?)",
+        "bindings": [
+            "50fd47f9-1a57-5c46-8553-75e2b8df4e26",
+            "872475-B21",
+            null,
+            null,
+            "HPE 300GB SAS 10K SFF SC DS HDD",
+            "c4667b54-e68c-5c76-9c4b-10a21c06ca06",
+            "2022-02-02 00:00:49",
+            "2022-02-02 00:00:49"
+        ]
+    },
+    {
         "query": "insert into `assets` (`id`, `oem_id`, `type_id`, `status_id`, `product_id`, `reseller_id`, `customer_id`, `location_id`, `changed_at`, `serial_number`, `data_quality`, `contacts_active_quantity`, `contacts_count`, `coverages_count`, `synced_at`, `warranty_end`, `warranty_service_group_id`, `warranty_service_level_id`, `warranty_changed_at`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "01c13a3b-7c8a-4962-865a-ef64ef1b697a",
-            "4e41a5c3-9089-5987-acdf-f3fbbed278e0",
-            null,
             "50fd47f9-1a57-5c46-8553-75e2b8df4e26",
-            "7d86f58b-cd93-50ba-91c9-9151f81fd4d3",
+            null,
+            "05171de1-a241-59d0-83c9-dbd8eb442e00",
+            "c4667b54-e68c-5c76-9c4b-10a21c06ca06",
             "9d9e320d-4e44-4518-a4e6-6bfe7f1c7dd8",
             "019a3b56-b701-4599-8452-2cf9f1f54b26",
-            "ec553a82-56f4-5e32-a673-7374f0ab0def",
+            "ea851f94-2570-558c-a187-5ce87d26152c",
             "2022-09-30 11:46:24",
             "2ed39610-6b5f-3fd8-94dd-7b899f93cd5a",
             "80",
             0,
             3,
             1,
-            "2022-02-02 00:00:50",
+            "2022-02-02 00:00:51",
             "2025-06-05 00:00:00",
             null,
             null,
             "2022-09-30 11:46:24",
-            "2022-02-02 00:01:03",
-            "2022-02-02 00:01:03"
+            "2022-02-02 00:01:04",
+            "2022-02-02 00:01:04"
         ]
     },
     {
@@ -585,158 +595,158 @@
             "+12068713560",
             null,
             true,
-            "9efd93cc-1a37-58ff-a56d-287a7ce0e870",
-            "2022-02-02 00:01:04",
-            "2022-02-02 00:01:04"
-        ]
-    },
-    {
-        "query": "insert into `contact_types` (`type_id`, `contact_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
-        "bindings": [
-            "3ccd6f9b-e5de-5731-880c-cf750922fd80",
-            "9efd93cc-1a37-58ff-a56d-287a7ce0e870",
             "9920d2f8-08eb-5f3d-9442-1cfa93084360",
             "2022-02-02 00:01:05",
             "2022-02-02 00:01:05"
         ]
     },
     {
-        "query": "insert into `contacts` (`object_type`, `object_id`, `name`, `phone_number`, `email`, `phone_valid`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `contact_types` (`type_id`, `contact_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
-            "Asset",
-            "01c13a3b-7c8a-4962-865a-ef64ef1b697a",
-            "Adolphus Donnelly",
-            "+16813711384",
-            "mabel99@kuhic.biz",
-            true,
+            "b25693ac-dbf2-5644-ab8c-dd6c9c0432de",
+            "9920d2f8-08eb-5f3d-9442-1cfa93084360",
             "c555ac63-3c64-5b5b-aaa7-65690ad10d4e",
             "2022-02-02 00:01:06",
             "2022-02-02 00:01:06"
         ]
     },
     {
-        "query": "insert into `contact_types` (`type_id`, `contact_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
+        "query": "insert into `contacts` (`object_type`, `object_id`, `name`, `phone_number`, `email`, `phone_valid`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
-            "b25693ac-dbf2-5644-ab8c-dd6c9c0432de",
-            "c555ac63-3c64-5b5b-aaa7-65690ad10d4e",
+            "Asset",
+            "01c13a3b-7c8a-4962-865a-ef64ef1b697a",
+            "Adolphus Donnelly",
+            "+16813711384",
+            "mabel99@kuhic.biz",
+            true,
             "dcf43a09-f754-546c-beb2-7dbcf657e9a8",
             "2022-02-02 00:01:07",
             "2022-02-02 00:01:07"
         ]
     },
     {
-        "query": "insert into `contacts` (`object_type`, `object_id`, `name`, `phone_number`, `email`, `phone_valid`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `contact_types` (`type_id`, `contact_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
-            "Asset",
-            "01c13a3b-7c8a-4962-865a-ef64ef1b697a",
-            "Mr. Lucas Hintz",
-            "+12076780265",
-            "annetta.ratke@crona.com",
-            true,
+            "71bad29a-cfcf-54eb-92bd-efb55119699c",
+            "dcf43a09-f754-546c-beb2-7dbcf657e9a8",
             "b7a348d4-0a2b-5fad-b8f8-4948bb10a91c",
             "2022-02-02 00:01:08",
             "2022-02-02 00:01:08"
         ]
     },
     {
-        "query": "insert into `contact_types` (`type_id`, `contact_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
+        "query": "insert into `contacts` (`object_type`, `object_id`, `name`, `phone_number`, `email`, `phone_valid`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
-            "71bad29a-cfcf-54eb-92bd-efb55119699c",
-            "b7a348d4-0a2b-5fad-b8f8-4948bb10a91c",
+            "Asset",
+            "01c13a3b-7c8a-4962-865a-ef64ef1b697a",
+            "Mr. Lucas Hintz",
+            "+12076780265",
+            "annetta.ratke@crona.com",
+            true,
             "7bfd22e2-b198-5f86-89d7-b7b64d0e8f54",
             "2022-02-02 00:01:09",
             "2022-02-02 00:01:09"
         ]
     },
     {
-        "query": "insert into `asset_coverages` (`coverage_id`, `asset_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
+        "query": "insert into `contact_types` (`type_id`, `contact_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "e7d2670b-f31c-5d80-a663-a3fbd5d166f8",
-            "01c13a3b-7c8a-4962-865a-ef64ef1b697a",
+            "7bfd22e2-b198-5f86-89d7-b7b64d0e8f54",
             "7ee48701-8378-5eb0-a1a2-1c01074d10a6",
             "2022-02-02 00:01:10",
             "2022-02-02 00:01:10"
         ]
     },
     {
+        "query": "insert into `asset_coverages` (`coverage_id`, `asset_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
+        "bindings": [
+            "56de383a-420b-5302-915c-f2b2425b6023",
+            "01c13a3b-7c8a-4962-865a-ef64ef1b697a",
+            "b1bda371-c9e1-537a-99c3-85c76d7a960d",
+            "2022-02-02 00:01:11",
+            "2022-02-02 00:01:11"
+        ]
+    },
+    {
         "query": "insert into `asset_warranties` (`asset_id`, `created_at`, `customer_id`, `description`, `document_id`, `document_number`, `end`, `id`, `reseller_id`, `service_group_id`, `service_level_id`, `start`, `status_id`, `type_id`, `updated_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "01c13a3b-7c8a-4962-865a-ef64ef1b697a",
-            "2022-02-02 00:01:11",
+            "2022-02-02 00:01:12",
             null,
             "H7J34AC-HPE Foundation Care 24x7 SVC",
             null,
             null,
             "2025-06-05 00:00:00",
-            "c4667b54-e68c-5c76-9c4b-10a21c06ca06",
+            "649baf69-b5d6-5c8c-8239-978fc81bf04f",
             null,
             null,
             null,
             "2020-06-06 00:00:00",
+            "f7ef267a-c7e2-5573-b508-e2dfeabcd858",
             "a96b1d1b-6382-57aa-a4ff-88668cef8996",
-            "56de383a-420b-5302-915c-f2b2425b6023",
-            "2022-02-02 00:01:11",
-            "01c13a3b-7c8a-4962-865a-ef64ef1b697a",
             "2022-02-02 00:01:12",
+            "01c13a3b-7c8a-4962-865a-ef64ef1b697a",
+            "2022-02-02 00:01:13",
             null,
             "HA155BW-Wty: HPE Parts Exchange Support",
             null,
             null,
             "2023-06-27 00:00:00",
-            "649baf69-b5d6-5c8c-8239-978fc81bf04f",
+            "9efd93cc-1a37-58ff-a56d-287a7ce0e870",
             null,
             null,
             null,
             "2020-05-29 00:00:00",
-            "a96b1d1b-6382-57aa-a4ff-88668cef8996",
             "f7ef267a-c7e2-5573-b508-e2dfeabcd858",
-            "2022-02-02 00:01:12"
+            "a8412a14-2a9f-597d-bf39-e029690d1efc",
+            "2022-02-02 00:01:13"
         ]
     },
     {
         "query": "select `products`.* from `products` where (`oem_id` = ? and `sku` = ?) and `products`.`deleted_at` is null limit 1",
         "bindings": [
-            "4e41a5c3-9089-5987-acdf-f3fbbed278e0",
+            "50fd47f9-1a57-5c46-8553-75e2b8df4e26",
             "733664-b21"
         ]
     },
     {
         "query": "insert into `products` (`oem_id`, `sku`, `eol`, `eos`, `name`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
-            "4e41a5c3-9089-5987-acdf-f3fbbed278e0",
+            "50fd47f9-1a57-5c46-8553-75e2b8df4e26",
             "733664-B21",
             null,
             null,
             "",
-            "b1bda371-c9e1-537a-99c3-85c76d7a960d",
-            "2022-02-02 00:01:13",
-            "2022-02-02 00:01:13"
+            "465c7908-6180-5c02-b788-74d6a27e7032",
+            "2022-02-02 00:01:14",
+            "2022-02-02 00:01:14"
         ]
     },
     {
         "query": "insert into `assets` (`id`, `oem_id`, `type_id`, `status_id`, `product_id`, `reseller_id`, `customer_id`, `location_id`, `changed_at`, `serial_number`, `data_quality`, `contacts_active_quantity`, `contacts_count`, `coverages_count`, `synced_at`, `warranty_end`, `warranty_service_group_id`, `warranty_service_level_id`, `warranty_changed_at`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "026d0837-89cd-4431-b317-6b57ce6a0c1f",
-            "4e41a5c3-9089-5987-acdf-f3fbbed278e0",
-            null,
             "50fd47f9-1a57-5c46-8553-75e2b8df4e26",
-            "b1bda371-c9e1-537a-99c3-85c76d7a960d",
+            null,
+            "05171de1-a241-59d0-83c9-dbd8eb442e00",
+            "465c7908-6180-5c02-b788-74d6a27e7032",
             "9d9e320d-4e44-4518-a4e6-6bfe7f1c7dd8",
             "019a3b56-b701-4599-8452-2cf9f1f54b26",
-            "ec553a82-56f4-5e32-a673-7374f0ab0def",
+            "ea851f94-2570-558c-a187-5ce87d26152c",
             "2022-09-02 16:55:24",
             null,
             "20",
             0,
             3,
             1,
-            "2022-02-02 00:01:15",
+            "2022-02-02 00:01:16",
             null,
             null,
             null,
             null,
-            "2022-02-02 00:01:18",
-            "2022-02-02 00:01:18"
+            "2022-02-02 00:01:19",
+            "2022-02-02 00:01:19"
         ]
     },
     {
@@ -748,22 +758,22 @@
             "+12068713560",
             null,
             true,
-            "465c7908-6180-5c02-b788-74d6a27e7032",
-            "2022-02-02 00:01:19",
-            "2022-02-02 00:01:19"
-        ]
-    },
-    {
-        "query": "insert into `contact_types` (`type_id`, `contact_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
-        "bindings": [
-            "3ccd6f9b-e5de-5731-880c-cf750922fd80",
-            "465c7908-6180-5c02-b788-74d6a27e7032",
             "13865559-9bb2-5175-bc80-5dbca95e4700",
             "2022-02-02 00:01:20",
             "2022-02-02 00:01:20"
         ]
     },
     {
+        "query": "insert into `contact_types` (`type_id`, `contact_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
+        "bindings": [
+            "b25693ac-dbf2-5644-ab8c-dd6c9c0432de",
+            "13865559-9bb2-5175-bc80-5dbca95e4700",
+            "f2992ffe-d89b-5d64-b1d0-4929ae1880e9",
+            "2022-02-02 00:01:21",
+            "2022-02-02 00:01:21"
+        ]
+    },
+    {
         "query": "insert into `contacts` (`object_type`, `object_id`, `name`, `phone_number`, `email`, `phone_valid`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "Asset",
@@ -772,19 +782,19 @@
             "+16813711384",
             "mabel99@kuhic.biz",
             true,
-            "f2992ffe-d89b-5d64-b1d0-4929ae1880e9",
-            "2022-02-02 00:01:21",
-            "2022-02-02 00:01:21"
+            "98128ad2-3ed1-5d2e-ae82-e360a5a210bd",
+            "2022-02-02 00:01:22",
+            "2022-02-02 00:01:22"
         ]
     },
     {
         "query": "insert into `contact_types` (`type_id`, `contact_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
-            "b25693ac-dbf2-5644-ab8c-dd6c9c0432de",
-            "f2992ffe-d89b-5d64-b1d0-4929ae1880e9",
+            "71bad29a-cfcf-54eb-92bd-efb55119699c",
             "98128ad2-3ed1-5d2e-ae82-e360a5a210bd",
-            "2022-02-02 00:01:22",
-            "2022-02-02 00:01:22"
+            "8e2dd0d8-075d-5325-b353-c081f63d48d3",
+            "2022-02-02 00:01:23",
+            "2022-02-02 00:01:23"
         ]
     },
     {
@@ -796,75 +806,75 @@
             "+12076780265",
             "annetta.ratke@crona.com",
             true,
-            "8e2dd0d8-075d-5325-b353-c081f63d48d3",
-            "2022-02-02 00:01:23",
-            "2022-02-02 00:01:23"
-        ]
-    },
-    {
-        "query": "insert into `contact_types` (`type_id`, `contact_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
-        "bindings": [
-            "71bad29a-cfcf-54eb-92bd-efb55119699c",
-            "8e2dd0d8-075d-5325-b353-c081f63d48d3",
             "9763f436-d70d-50cc-b9af-94442407af9c",
             "2022-02-02 00:01:24",
             "2022-02-02 00:01:24"
         ]
     },
     {
-        "query": "insert into `asset_coverages` (`coverage_id`, `asset_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
+        "query": "insert into `contact_types` (`type_id`, `contact_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
-            "e6b00b94-f4eb-598f-9d1a-20da3a55f366",
-            "026d0837-89cd-4431-b317-6b57ce6a0c1f",
+            "e7d2670b-f31c-5d80-a663-a3fbd5d166f8",
+            "9763f436-d70d-50cc-b9af-94442407af9c",
             "0f3017be-8bf6-53a0-97cd-11facea1078b",
             "2022-02-02 00:01:25",
             "2022-02-02 00:01:25"
         ]
     },
     {
-        "query": "select `products`.* from `products` where (`oem_id` = ? and `sku` = ?) and `products`.`deleted_at` is null limit 1",
+        "query": "insert into `asset_coverages` (`coverage_id`, `asset_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
-            "4e41a5c3-9089-5987-acdf-f3fbbed278e0",
-            "p8b31a"
-        ]
-    },
-    {
-        "query": "insert into `products` (`oem_id`, `sku`, `eol`, `eos`, `name`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?)",
-        "bindings": [
-            "4e41a5c3-9089-5987-acdf-f3fbbed278e0",
-            "P8B31A",
-            null,
-            null,
-            "",
+            "aed4ffe9-89fe-5820-b083-33fa27303400",
+            "026d0837-89cd-4431-b317-6b57ce6a0c1f",
             "593ec562-c8b1-5912-b864-1ce5bb0c4037",
             "2022-02-02 00:01:26",
             "2022-02-02 00:01:26"
         ]
     },
     {
+        "query": "select `products`.* from `products` where (`oem_id` = ? and `sku` = ?) and `products`.`deleted_at` is null limit 1",
+        "bindings": [
+            "50fd47f9-1a57-5c46-8553-75e2b8df4e26",
+            "p8b31a"
+        ]
+    },
+    {
+        "query": "insert into `products` (`oem_id`, `sku`, `eol`, `eos`, `name`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?)",
+        "bindings": [
+            "50fd47f9-1a57-5c46-8553-75e2b8df4e26",
+            "P8B31A",
+            null,
+            null,
+            "",
+            "3281ff93-0d10-51b0-9ee1-9f1137459da4",
+            "2022-02-02 00:01:27",
+            "2022-02-02 00:01:27"
+        ]
+    },
+    {
         "query": "insert into `assets` (`id`, `oem_id`, `type_id`, `status_id`, `product_id`, `reseller_id`, `customer_id`, `location_id`, `changed_at`, `serial_number`, `data_quality`, `contacts_active_quantity`, `contacts_count`, `coverages_count`, `synced_at`, `warranty_end`, `warranty_service_group_id`, `warranty_service_level_id`, `warranty_changed_at`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "02dc80b1-e7fa-4870-bf1e-2180244b13a9",
-            "4e41a5c3-9089-5987-acdf-f3fbbed278e0",
-            null,
             "50fd47f9-1a57-5c46-8553-75e2b8df4e26",
-            "593ec562-c8b1-5912-b864-1ce5bb0c4037",
+            null,
+            "05171de1-a241-59d0-83c9-dbd8eb442e00",
+            "3281ff93-0d10-51b0-9ee1-9f1137459da4",
             "9d9e320d-4e44-4518-a4e6-6bfe7f1c7dd8",
             "019a3b56-b701-4599-8452-2cf9f1f54b26",
-            "ec553a82-56f4-5e32-a673-7374f0ab0def",
+            "ea851f94-2570-558c-a187-5ce87d26152c",
             "2022-09-02 16:55:34",
             null,
             "20",
             0,
             3,
             1,
-            "2022-02-02 00:01:28",
+            "2022-02-02 00:01:29",
             null,
             null,
             null,
             null,
-            "2022-02-02 00:01:31",
-            "2022-02-02 00:01:31"
+            "2022-02-02 00:01:32",
+            "2022-02-02 00:01:32"
         ]
     },
     {
@@ -876,19 +886,19 @@
             "+12068713560",
             null,
             true,
-            "3281ff93-0d10-51b0-9ee1-9f1137459da4",
-            "2022-02-02 00:01:32",
-            "2022-02-02 00:01:32"
+            "b7cd6643-6a60-5d44-acfc-cb069d1d07ac",
+            "2022-02-02 00:01:33",
+            "2022-02-02 00:01:33"
         ]
     },
     {
         "query": "insert into `contact_types` (`type_id`, `contact_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
-            "3ccd6f9b-e5de-5731-880c-cf750922fd80",
-            "3281ff93-0d10-51b0-9ee1-9f1137459da4",
+            "b25693ac-dbf2-5644-ab8c-dd6c9c0432de",
             "b7cd6643-6a60-5d44-acfc-cb069d1d07ac",
-            "2022-02-02 00:01:33",
-            "2022-02-02 00:01:33"
+            "4dd16909-c87b-5fa0-81fc-c94496c993a0",
+            "2022-02-02 00:01:34",
+            "2022-02-02 00:01:34"
         ]
     },
     {
@@ -900,19 +910,19 @@
             "+16813711384",
             "mabel99@kuhic.biz",
             true,
-            "4dd16909-c87b-5fa0-81fc-c94496c993a0",
-            "2022-02-02 00:01:34",
-            "2022-02-02 00:01:34"
+            "cd1a347e-9133-5ebb-922a-1e0672f43dd7",
+            "2022-02-02 00:01:35",
+            "2022-02-02 00:01:35"
         ]
     },
     {
         "query": "insert into `contact_types` (`type_id`, `contact_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
-            "b25693ac-dbf2-5644-ab8c-dd6c9c0432de",
-            "4dd16909-c87b-5fa0-81fc-c94496c993a0",
+            "71bad29a-cfcf-54eb-92bd-efb55119699c",
             "cd1a347e-9133-5ebb-922a-1e0672f43dd7",
-            "2022-02-02 00:01:35",
-            "2022-02-02 00:01:35"
+            "4e2771a1-e5ca-5713-8f5b-efdae3201789",
+            "2022-02-02 00:01:36",
+            "2022-02-02 00:01:36"
         ]
     },
     {
@@ -924,29 +934,29 @@
             "+12076780265",
             "annetta.ratke@crona.com",
             true,
-            "4e2771a1-e5ca-5713-8f5b-efdae3201789",
-            "2022-02-02 00:01:36",
-            "2022-02-02 00:01:36"
-        ]
-    },
-    {
-        "query": "insert into `contact_types` (`type_id`, `contact_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
-        "bindings": [
-            "71bad29a-cfcf-54eb-92bd-efb55119699c",
-            "4e2771a1-e5ca-5713-8f5b-efdae3201789",
             "acf5ea50-4d97-5410-a410-2675262b8269",
             "2022-02-02 00:01:37",
             "2022-02-02 00:01:37"
         ]
     },
     {
-        "query": "insert into `asset_coverages` (`coverage_id`, `asset_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
+        "query": "insert into `contact_types` (`type_id`, `contact_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
-            "e6b00b94-f4eb-598f-9d1a-20da3a55f366",
-            "02dc80b1-e7fa-4870-bf1e-2180244b13a9",
+            "e7d2670b-f31c-5d80-a663-a3fbd5d166f8",
+            "acf5ea50-4d97-5410-a410-2675262b8269",
             "eec9d65c-2a22-5ac2-8183-dea56b4d7af3",
             "2022-02-02 00:01:38",
             "2022-02-02 00:01:38"
+        ]
+    },
+    {
+        "query": "insert into `asset_coverages` (`coverage_id`, `asset_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
+        "bindings": [
+            "aed4ffe9-89fe-5820-b083-33fa27303400",
+            "02dc80b1-e7fa-4870-bf1e-2180244b13a9",
+            "1e5336b0-3b7f-5b0e-b6fb-34c07744aac5",
+            "2022-02-02 00:01:39",
+            "2022-02-02 00:01:39"
         ]
     }
 ]

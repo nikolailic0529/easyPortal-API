@@ -80,28 +80,24 @@ abstract class Data {
             }
         }
 
-        // Add Context
-        $path        = dirname($root->file('path')->getPathname());
-        $supported   = $this->getSupporterContext();
-        $dumpContext = $this->app->make(ClientDumpContext::class)->get($path);
-
-        foreach ($supported as $type) {
-            $context[$type] = $dumpContext[$type] ?? [];
-        }
-
         // Cleanup
         $fs     = new Filesystem();
+        $path   = dirname($root->file('path')->getPathname());
         $finder = (new Finder())->in($path)->files();
 
         foreach ($context[Context::FILES] as $file) {
             $finder = $finder->notPath($file);
         }
 
-        foreach ($context[Context::OEMS] as $oem) {
-            $finder = $finder->notPath($oem);
-        }
-
         $fs->remove($finder);
+
+        // Add Context
+        $supported   = $this->getSupporterContext();
+        $dumpContext = $this->app->make(ClientDumpContext::class)->get($path);
+
+        foreach ($supported as $type) {
+            $context[$type] = $dumpContext[$type] ?? [];
+        }
 
         // Return
         return $context;
@@ -124,19 +120,6 @@ abstract class Data {
     abstract protected function generateData(TestData $root, Context $context): bool;
 
     public function restore(TestData $root, Context $context): bool {
-        // Oems
-        $path = dirname($root->file('path')->getPathname());
-
-        foreach ($context[Context::OEMS] as $oem) {
-            $result = $this->kernel->call('ep:data-loader-oems-import', [
-                'file' => "{$path}/{$oem}",
-            ]);
-
-            if ($result !== Command::SUCCESS) {
-                return false;
-            }
-        }
-
         // Distributors
         foreach ($context[Context::DISTRIBUTORS] as $distributor) {
             $result = $this->kernel->call('ep:data-loader-distributor-sync', [

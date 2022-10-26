@@ -30,8 +30,7 @@ trait WithDump {
      */
     protected function hasDump(string $selector, string $graphql, array $variables): bool {
         $path  = $this->getDumpPath($selector, $graphql, $variables);
-        $data  = $this->getData();
-        $exist = (bool) $data?->file($path)?->isFile();
+        $exist = (bool) $this->getData()?->file($path)->isFile();
 
         return $exist;
     }

@@ -13,7 +13,6 @@ abstract class DocumentsData extends AssetsData {
             Context::CUSTOMERS,
             Context::ASSETS,
             Context::TYPES,
-            Context::OEMS,
         ];
     }
 }

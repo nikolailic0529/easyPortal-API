@@ -14,7 +14,6 @@ abstract class AssetsData extends Data {
             Context::RESELLERS,
             Context::CUSTOMERS,
             Context::TYPES,
-            Context::OEMS,
         ];
     }
 

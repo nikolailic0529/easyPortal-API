@@ -20,13 +20,13 @@
     {
         "query": "select `locations`.* from `locations` where `locations`.`id` in (?) and `locations`.`deleted_at` is null",
         "bindings": [
-            "9ac99690-89a6-5864-872d-b54849763c93"
+            "3c837192-b5e7-5f91-aff4-fd40f49c94ce"
         ]
     },
     {
         "query": "select `types`.*, `reseller_location_types`.`reseller_location_id` as `pivot_reseller_location_id`, `reseller_location_types`.`type_id` as `pivot_type_id`, `reseller_location_types`.`created_at` as `pivot_created_at`, `reseller_location_types`.`updated_at` as `pivot_updated_at` from `types` inner join `reseller_location_types` on `types`.`id` = `reseller_location_types`.`type_id` where `reseller_location_types`.`deleted_at` is null and `reseller_location_types`.`reseller_location_id` in (?) and `types`.`deleted_at` is null",
         "bindings": [
-            "173087c2-7a4d-59e4-9dc9-a7e80f20003b"
+            "22185166-97d1-50fb-a974-ac51dd9d8c7c"
         ]
     },
     {
@@ -39,13 +39,13 @@
     {
         "query": "select `kpis`.* from `kpis` where `kpis`.`id` in (?) and `kpis`.`deleted_at` is null",
         "bindings": [
-            "415803cc-b49e-5033-a639-65bc0920bbb1"
+            "936dff97-6b7c-554d-af86-8196f68fbcca"
         ]
     },
     {
         "query": "select `types`.*, `contact_types`.`contact_id` as `pivot_contact_id`, `contact_types`.`type_id` as `pivot_type_id`, `contact_types`.`created_at` as `pivot_created_at`, `contact_types`.`updated_at` as `pivot_updated_at` from `types` inner join `contact_types` on `types`.`id` = `contact_types`.`type_id` where `contact_types`.`deleted_at` is null and `contact_types`.`contact_id` in (?) and `types`.`deleted_at` is null",
         "bindings": [
-            "ea851f94-2570-558c-a187-5ce87d26152c"
+            "e20bb605-a673-55c2-8df6-e533dbc04caa"
         ]
     },
     {
@@ -120,12 +120,12 @@
         "query": "select `types`.*, `contact_types`.`contact_id` as `pivot_contact_id`, `contact_types`.`type_id` as `pivot_type_id`, `contact_types`.`created_at` as `pivot_created_at`, `contact_types`.`updated_at` as `pivot_updated_at` from `types` inner join `contact_types` on `types`.`id` = `contact_types`.`type_id` where `contact_types`.`deleted_at` is null and `contact_types`.`contact_id` in (?, ?, ?, ?, ?, ?, ?) and `types`.`deleted_at` is null",
         "bindings": [
             "0593ec50-95af-5996-a8bd-887ed8c832e5",
-            "5215e1c3-ee16-5ce6-ab85-68c40722df2a",
-            "5c25703d-5a07-50e2-87d6-c1f57eb105b4",
+            "38086b95-d84b-5a54-bbb4-1bbf455ed2df",
+            "7aa77346-75ca-5f9b-8265-5b851651dbd7",
             "81d534c5-a257-5850-afb6-72cad50161b8",
             "a0855e8d-f891-5d5d-85e9-e8428af3ca38",
-            "ea851f94-2570-558c-a187-5ce87d26152c",
-            "f5fee4c5-dd46-513a-b99f-61fe2650691c"
+            "a936db4c-085a-5d5e-b5db-dd15a03b3b44",
+            "e20bb605-a673-55c2-8df6-e533dbc04caa"
         ]
     },
     {
@@ -137,13 +137,13 @@
         "bindings": [
             "2166b574-cf5d-343b-aaf8-6e66aeed28f5",
             "",
-            "4e41a5c3-9089-5987-acdf-f3fbbed278e0"
+            "271890ae-435b-595c-8e00-d23495b5bbbd"
         ]
     },
     {
         "query": "insert into `oem_groups` (`oem_id`, `key`, `name`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?)",
         "bindings": [
-            "4e41a5c3-9089-5987-acdf-f3fbbed278e0",
+            "271890ae-435b-595c-8e00-d23495b5bbbd",
             "2166b574-cf5d-343b-aaf8-6e66aeed28f5",
             "",
             "5a87dcde-3a7c-55d8-afc0-1e2942c232fd",
@@ -197,12 +197,12 @@
         "query": "insert into `documents` (`id`, `oem_id`, `oem_group_id`, `oem_said`, `oem_amp_id`, `oem_sar_number`, `type_id`, `statuses_count`, `reseller_id`, `customer_id`, `currency_id`, `language_id`, `distributor_id`, `start`, `end`, `price_origin`, `price`, `number`, `changed_at`, `contacts_count`, `synced_at`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "f7873540-59c2-4019-9522-5e7b299257b1",
-            "4e41a5c3-9089-5987-acdf-f3fbbed278e0",
+            "271890ae-435b-595c-8e00-d23495b5bbbd",
             "5a87dcde-3a7c-55d8-afc0-1e2942c232fd",
             "b0eb5fad-6dcf-30b7-83fe-19b023f51659",
             "87-SMD502 019",
             null,
-            "329593ae-abfe-5a32-8b4e-d45fcb5f9916",
+            "31bdd64a-b699-5e5c-814f-9902d44b330a",
             1,
             "22d7dbf2-977a-49d8-8e4c-cacdaae616b2",
             "f273feb9-4043-4ce2-9633-2dab7a75c566",
@@ -244,7 +244,7 @@
     {
         "query": "select `oems`.* from `oems` where `oems`.`id` in (?) and `oems`.`deleted_at` is null",
         "bindings": [
-            "4e41a5c3-9089-5987-acdf-f3fbbed278e0"
+            "271890ae-435b-595c-8e00-d23495b5bbbd"
         ]
     },
     {
@@ -285,7 +285,7 @@
             null,
             null,
             null,
-            "0e7d1694-a8c8-5514-a070-51b0ee4f48ac",
+            "6621eb29-cf53-5c61-b5cd-5b00506e55f8",
             null,
             null,
             null,
@@ -314,7 +314,7 @@
             null,
             null,
             null,
-            "0e7d1694-a8c8-5514-a070-51b0ee4f48ac",
+            "6621eb29-cf53-5c61-b5cd-5b00506e55f8",
             null,
             null,
             null,
@@ -343,7 +343,7 @@
             null,
             null,
             null,
-            "722a2d0e-136a-5516-948b-0ff23e66436a",
+            "505a24fb-0e61-5e16-9cc8-517a6af529c8",
             null,
             null,
             null,
@@ -372,7 +372,7 @@
             null,
             null,
             null,
-            "722a2d0e-136a-5516-948b-0ff23e66436a",
+            "505a24fb-0e61-5e16-9cc8-517a6af529c8",
             null,
             null,
             null,
@@ -401,7 +401,7 @@
             null,
             null,
             null,
-            "0e7d1694-a8c8-5514-a070-51b0ee4f48ac",
+            "6621eb29-cf53-5c61-b5cd-5b00506e55f8",
             null,
             null,
             null,
@@ -488,20 +488,20 @@
     {
         "query": "select `types`.*, `contact_types`.`contact_id` as `pivot_contact_id`, `contact_types`.`type_id` as `pivot_type_id`, `contact_types`.`created_at` as `pivot_created_at`, `contact_types`.`updated_at` as `pivot_updated_at` from `types` inner join `contact_types` on `types`.`id` = `contact_types`.`type_id` where `contact_types`.`deleted_at` is null and `contact_types`.`contact_id` in (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) and `types`.`deleted_at` is null",
         "bindings": [
-            "0e38f938-9e71-5a71-921e-ea469dc57ce3",
             "1144a493-a8f7-5d65-8c73-cd4f74fe314b",
             "12482d8c-0090-5ab9-b933-545ad840484a",
             "2e1fdcb4-18bf-5349-92df-87911d7ecb39",
             "489a1253-814e-5258-b238-fdedf9a9fb9f",
-            "5566d17f-8473-516c-b4d6-fcf8ef65d40c",
+            "4c01bb5a-8d5e-59ee-a7db-f619415a5da1",
             "6064ff66-f89d-574d-9e4a-b958bc105161",
-            "7116180b-5f21-573b-ac0c-656543f0f0e6",
+            "6085327e-5386-5ab6-841f-173a19976a13",
             "7f2d0b64-dc9e-56d0-b76b-58c000840b01",
             "aeb75086-198f-5ff5-8100-06bf37105c09",
             "c4a22828-05b7-5086-ac66-bbb33aeddd37",
-            "e59bbd6f-17ab-5dc7-b23d-66054f7a5340",
-            "ea851f94-2570-558c-a187-5ce87d26152c",
-            "f183febd-b166-5d79-bc88-0b3f8e3b4d71"
+            "e20bb605-a673-55c2-8df6-e533dbc04caa",
+            "e61ed796-d98b-525d-a422-6ae25969cb43",
+            "eabf4f13-5992-5b75-a46c-5738f0e87a69",
+            "eb616e0a-0031-5990-9a2b-a515560ffd96"
         ]
     },
     {
@@ -655,7 +655,7 @@
     {
         "query": "update `documents` set `type_id` = ?, `customer_id` = ?, `reseller_id` = ?, `distributor_id` = ?, `number` = ?, `start` = ?, `end` = ?, `price` = ?, `price_origin` = ?, `currency_id` = ?, `contacts_count` = ?, `statuses_count` = ?, `changed_at` = ?, `synced_at` = ?, `documents`.`updated_at` = ? where `id` = ?",
         "bindings": [
-            "669f6ddf-4e7e-5aa6-8ef6-dd321e511e2b",
+            "4b85c9ce-d525-51f5-ac67-7b616ae6f701",
             "fcce8dee-5a04-465c-96d9-be2123543915",
             "a9233c9c-4634-493a-9f12-bef4d1cf3c5e",
             "1af1c44e-8112-4e72-9654-b11c705e9372",
@@ -709,7 +709,7 @@
     {
         "query": "select `oems`.* from `oems` where `oems`.`id` in (?) and `oems`.`deleted_at` is null",
         "bindings": [
-            "4e41a5c3-9089-5987-acdf-f3fbbed278e0"
+            "271890ae-435b-595c-8e00-d23495b5bbbd"
         ]
     },
     {
@@ -750,7 +750,7 @@
             null,
             null,
             null,
-            "1cbd99c2-863c-5468-8e2e-bd90fe31848b",
+            "1fad2488-e2f2-5e70-bf22-73d83c436433",
             null,
             null,
             "1599.19",
@@ -779,7 +779,7 @@
             null,
             null,
             null,
-            "1cbd99c2-863c-5468-8e2e-bd90fe31848b",
+            "1fad2488-e2f2-5e70-bf22-73d83c436433",
             null,
             null,
             "282.47",
@@ -808,7 +808,7 @@
             null,
             null,
             null,
-            "1cbd99c2-863c-5468-8e2e-bd90fe31848b",
+            "1fad2488-e2f2-5e70-bf22-73d83c436433",
             null,
             null,
             "282.47",
@@ -837,7 +837,7 @@
             null,
             null,
             null,
-            "1cbd99c2-863c-5468-8e2e-bd90fe31848b",
+            "1fad2488-e2f2-5e70-bf22-73d83c436433",
             null,
             null,
             "1599.19",
@@ -866,7 +866,7 @@
             null,
             null,
             null,
-            "4d53b4e3-47a1-5f4d-9aa8-2ab378b3d136",
+            "1365e8bd-7cfd-5ecd-9412-ca4b71cba85a",
             null,
             null,
             "104.71",

@@ -19,7 +19,6 @@ class ResellerLoaderDataWithDocuments extends ResellerLoaderData {
             Context::CUSTOMERS,
             Context::ASSETS,
             Context::TYPES,
-            Context::OEMS,
         ];
     }
 }

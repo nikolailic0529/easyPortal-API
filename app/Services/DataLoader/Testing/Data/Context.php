@@ -20,7 +20,6 @@ class Context implements ArrayAccess, Arrayable {
     public const CUSTOMERS    = 'customers';
     public const ASSETS       = 'assets';
     public const TYPES        = 'types';
-    public const OEMS         = 'oems';
     public const FILES        = 'files';
 
     /**
