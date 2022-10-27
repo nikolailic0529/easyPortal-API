@@ -3256,6 +3256,11 @@ parameters:
 			path: app/Services/DataLoader/Factory/Factories/AssetFactory.php
 
 		-
+			message: "#^Parameter \\#1 \\$models of method App\\\\Services\\\\DataLoader\\\\Resolver\\\\Resolver\\<App\\\\Models\\\\Document\\>\\:\\:add\\(\\) expects App\\\\Models\\\\Document\\|array\\<App\\\\Models\\\\Document\\|null\\>\\|Illuminate\\\\Support\\\\Collection\\<\\(int\\|string\\), App\\\\Models\\\\Document\\|null\\>, Illuminate\\\\Support\\\\Collection\\<int, mixed\\> given\\.$#"
+			count: 1
+			path: app/Services/DataLoader/Factory/Factories/AssetFactory.php
+
+		-
 			message: "#^Call to static method PHPUnit\\\\Framework\\\\Assert\\:\\:assertNotNull\\(\\) with App\\\\Models\\\\AssetWarranty will always evaluate to true\\.$#"
 			count: 4
 			path: app/Services/DataLoader/Factory/Factories/AssetFactoryTest.php
@@ -3448,11 +3453,6 @@ parameters:
 		-
 			message: "#^Parameter \\#1 \\$models of method App\\\\Services\\\\DataLoader\\\\Resolver\\\\Resolver\\<App\\\\Models\\\\Data\\\\Location\\>\\:\\:add\\(\\) expects App\\\\Models\\\\Data\\\\Location\\|array\\<App\\\\Models\\\\Data\\\\Location\\|null\\>\\|Illuminate\\\\Support\\\\Collection\\<\\(int\\|string\\), App\\\\Models\\\\Data\\\\Location\\|null\\>, Illuminate\\\\Support\\\\Collection\\<int, mixed\\> given\\.$#"
 			count: 3
-			path: app/Services/DataLoader/Processors/Importer/Importers/Assets/BaseImporter.php
-
-		-
-			message: "#^Parameter \\#1 \\$models of method App\\\\Services\\\\DataLoader\\\\Resolver\\\\Resolver\\<App\\\\Models\\\\Document\\>\\:\\:add\\(\\) expects App\\\\Models\\\\Document\\|array\\<App\\\\Models\\\\Document\\|null\\>\\|Illuminate\\\\Support\\\\Collection\\<\\(int\\|string\\), App\\\\Models\\\\Document\\|null\\>, Illuminate\\\\Support\\\\Collection\\<int, mixed\\> given\\.$#"
-			count: 1
 			path: app/Services/DataLoader/Processors/Importer/Importers/Assets/BaseImporter.php
 
 		-

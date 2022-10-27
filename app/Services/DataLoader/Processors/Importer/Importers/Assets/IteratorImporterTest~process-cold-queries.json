@@ -61,18 +61,6 @@
         ]
     },
     {
-        "query": "select `documents`.* from `documents` where ((`documents`.`id` = ?) or (`documents`.`id` = ?) or (`documents`.`id` = ?) or (`documents`.`id` = ?) or (`documents`.`id` = ?) or (`documents`.`id` = ?) or (`documents`.`id` = ?))",
-        "bindings": [
-            "b9379a91-e7c8-4652-85b8-b340bfa68f49",
-            "324a347f-bc08-43fa-8acf-fead3e66cf75",
-            "0aaf2b0e-ae7d-41b0-a1af-5610d486eb19",
-            "4ac48796-4419-4e3b-817d-8e41ffe60189",
-            "fa5ac120-cfcd-4403-86ff-e6b76e32e116",
-            "9b658237-eaa3-4b04-83d8-0ad1e04b40df",
-            "f1c53ec9-7dd1-43cd-978b-2dd80be52a7e"
-        ]
-    },
-    {
         "query": "select `oems`.* from `oems` where `oems`.`deleted_at` is null",
         "bindings": []
     },
@@ -351,6 +339,12 @@
         ]
     },
     {
+        "query": "select `documents`.* from `documents` where ((`documents`.`id` = ?))",
+        "bindings": [
+            "b9379a91-e7c8-4652-85b8-b340bfa68f49"
+        ]
+    },
+    {
         "query": "insert into `assets` (`id`, `oem_id`, `type_id`, `status_id`, `product_id`, `reseller_id`, `customer_id`, `location_id`, `eosl`, `changed_at`, `serial_number`, `data_quality`, `contacts_active_quantity`, `contacts_count`, `coverages_count`, `synced_at`, `warranty_end`, `warranty_service_group_id`, `warranty_service_level_id`, `warranty_changed_at`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "2f5dcdae-ed5a-4a87-a9b1-417819b638e4",
@@ -577,6 +571,12 @@
         ]
     },
     {
+        "query": "select `documents`.* from `documents` where ((`documents`.`id` = ?))",
+        "bindings": [
+            "324a347f-bc08-43fa-8acf-fead3e66cf75"
+        ]
+    },
+    {
         "query": "insert into `assets` (`id`, `oem_id`, `type_id`, `status_id`, `product_id`, `reseller_id`, `customer_id`, `location_id`, `eosl`, `changed_at`, `serial_number`, `data_quality`, `contacts_active_quantity`, `contacts_count`, `coverages_count`, `synced_at`, `warranty_end`, `warranty_service_group_id`, `warranty_service_level_id`, `warranty_changed_at`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "b9b64396-7d9a-4c4c-bfb3-7c7f0e342ec6",
@@ -785,6 +785,12 @@
         ]
     },
     {
+        "query": "select `documents`.* from `documents` where ((`documents`.`id` = ?))",
+        "bindings": [
+            "0aaf2b0e-ae7d-41b0-a1af-5610d486eb19"
+        ]
+    },
+    {
         "query": "insert into `assets` (`id`, `oem_id`, `type_id`, `status_id`, `product_id`, `reseller_id`, `customer_id`, `location_id`, `eosl`, `changed_at`, `serial_number`, `data_quality`, `contacts_active_quantity`, `contacts_count`, `coverages_count`, `synced_at`, `warranty_end`, `warranty_service_group_id`, `warranty_service_level_id`, `warranty_changed_at`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "fa66f78b-0580-4ca4-8c81-06d2d2f25cf5",
@@ -990,6 +996,14 @@
             "15cc9317-288d-5cd1-ad0e-774cad37862b",
             "2022-02-02 00:01:40",
             "2022-02-02 00:01:40"
+        ]
+    },
+    {
+        "query": "select `documents`.* from `documents` where ((`documents`.`id` = ?) or (`documents`.`id` = ?) or (`documents`.`id` = ?))",
+        "bindings": [
+            "4ac48796-4419-4e3b-817d-8e41ffe60189",
+            "fa5ac120-cfcd-4403-86ff-e6b76e32e116",
+            "9b658237-eaa3-4b04-83d8-0ad1e04b40df"
         ]
     },
     {
@@ -1217,6 +1231,12 @@
         ]
     },
     {
+        "query": "select `documents`.* from `documents` where ((`documents`.`id` = ?))",
+        "bindings": [
+            "f1c53ec9-7dd1-43cd-978b-2dd80be52a7e"
+        ]
+    },
+    {
         "query": "insert into `assets` (`id`, `oem_id`, `type_id`, `status_id`, `product_id`, `reseller_id`, `customer_id`, `location_id`, `eosl`, `changed_at`, `serial_number`, `data_quality`, `contacts_active_quantity`, `contacts_count`, `coverages_count`, `synced_at`, `warranty_end`, `warranty_service_group_id`, `warranty_service_level_id`, `warranty_changed_at`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "cf82deb8-e098-4f15-98bd-fe890cbc89cf",
@@ -1410,17 +1430,6 @@
         ]
     },
     {
-        "query": "select `documents`.* from `documents` where ((`documents`.`id` = ?) or (`documents`.`id` = ?) or (`documents`.`id` = ?) or (`documents`.`id` = ?) or (`documents`.`id` = ?) or (`documents`.`id` = ?))",
-        "bindings": [
-            "e241c8c6-5a8c-49c2-9714-bfec047b8ae2",
-            "ca7c16f8-33c8-4dee-87db-16117f0f47f3",
-            "2c59c73c-f361-44bb-aec8-212dbbbdbdad",
-            "72aaeb84-1468-4526-a94d-3dc0c4ce31a1",
-            "ec6680a7-beb6-4890-990c-11e0f6feaf1f",
-            "9a70b84c-b534-4cda-a1d9-c5eb2072c276"
-        ]
-    },
-    {
         "query": "select `products`.* from `products` where (`oem_id` = ? and `sku` = ?) and `products`.`deleted_at` is null limit 1",
         "bindings": [
             "77b77ef3-0b8f-573f-a002-b612c29ef2a6",
@@ -1514,6 +1523,12 @@
             "3c026542-d391-53ec-9347-9259b3273f0e",
             "2022-02-02 00:02:39",
             "2022-02-02 00:02:39"
+        ]
+    },
+    {
+        "query": "select `documents`.* from `documents` where ((`documents`.`id` = ?))",
+        "bindings": [
+            "e241c8c6-5a8c-49c2-9714-bfec047b8ae2"
         ]
     },
     {
@@ -1667,6 +1682,12 @@
             "33a7aaa9-7ff2-5519-b0af-64c0ab962c4b",
             "2022-02-02 00:02:52",
             "2022-02-02 00:02:52"
+        ]
+    },
+    {
+        "query": "select `documents`.* from `documents` where ((`documents`.`id` = ?))",
+        "bindings": [
+            "ca7c16f8-33c8-4dee-87db-16117f0f47f3"
         ]
     },
     {
@@ -1828,6 +1849,12 @@
             "20cd5cbd-ad74-5354-bda4-c688e39cee1b",
             "2022-02-02 00:03:14",
             "2022-02-02 00:03:14"
+        ]
+    },
+    {
+        "query": "select `documents`.* from `documents` where ((`documents`.`id` = ?))",
+        "bindings": [
+            "2c59c73c-f361-44bb-aec8-212dbbbdbdad"
         ]
     },
     {
@@ -2001,6 +2028,13 @@
             "38d38cf8-5a4d-521c-ace3-d9416945d34b",
             "2022-02-02 00:03:29",
             "2022-02-02 00:03:29"
+        ]
+    },
+    {
+        "query": "select `documents`.* from `documents` where ((`documents`.`id` = ?) or (`documents`.`id` = ?))",
+        "bindings": [
+            "72aaeb84-1468-4526-a94d-3dc0c4ce31a1",
+            "ec6680a7-beb6-4890-990c-11e0f6feaf1f"
         ]
     },
     {
@@ -2185,6 +2219,12 @@
             "bf9179ee-6ab7-50a2-ad39-c63ae12f32b9",
             "2022-02-02 00:04:02",
             "2022-02-02 00:04:02"
+        ]
+    },
+    {
+        "query": "select `documents`.* from `documents` where ((`documents`.`id` = ?))",
+        "bindings": [
+            "9a70b84c-b534-4cda-a1d9-c5eb2072c276"
         ]
     },
     {

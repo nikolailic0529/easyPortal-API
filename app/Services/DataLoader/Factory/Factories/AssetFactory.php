@@ -215,14 +215,27 @@ class AssetFactory extends ModelFactory {
 
             // Warranties
             if (isset($asset->assetDocument) || isset($asset->coverageStatusCheck)) {
-                if ($created) {
-                    $model->setRelation('warranties', new EloquentCollection());
-                }
+                try {
+                    // Prefetch
+                    if ($created) {
+                        $model->setRelation('warranties', new EloquentCollection());
+                    } else {
+                        $model->loadMissing('warranties.document.statuses');
+                        $this->getDocumentResolver()->add(
+                            $model->warranties->pluck('document')->flatten(),
+                        );
+                    }
 
-                $warrantyChangedAt          = $asset->coverageStatusCheck->coverageStatusUpdatedAt ?? null;
-                $warrantyChangedAt          = $normalizer->datetime($warrantyChangedAt);
-                $model->warranties          = $this->assetWarranties($model, $asset);
-                $model->warranty_changed_at = max($warrantyChangedAt, $model->warranty_changed_at);
+                    // Update
+                    $warrantyChangedAt          = $asset->coverageStatusCheck->coverageStatusUpdatedAt ?? null;
+                    $warrantyChangedAt          = $normalizer->datetime($warrantyChangedAt);
+                    $model->warranties          = $this->assetWarranties($model, $asset);
+                    $model->warranty_changed_at = max($warrantyChangedAt, $model->warranty_changed_at);
+                } finally {
+                    $this->getDocumentResolver()->reset();
+
+                    unset($model->warranties);
+                }
             }
 
             // Save
@@ -231,9 +244,6 @@ class AssetFactory extends ModelFactory {
             } else {
                 $model->save();
             }
-
-            // Cleanup
-            unset($model->warranties);
 
             // Return
             return $model;
