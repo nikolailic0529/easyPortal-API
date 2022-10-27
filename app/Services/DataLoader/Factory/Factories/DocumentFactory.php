@@ -471,6 +471,9 @@ class DocumentFactory extends ModelFactory {
         return $this->children(
             $model->entries,
             $document->documentEntries ?? [],
+            static function (DocumentEntryModel $entry): bool {
+                return true;
+            },
             function (DocumentEntry $documentEntry, DocumentEntryModel $entry) use ($model): bool {
                 return $this->isEntryEqualDocumentEntry($model, $entry, $documentEntry);
             },

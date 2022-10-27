@@ -305,6 +305,9 @@ class AssetFactory extends ModelFactory {
         return $this->children(
             $existing,
             $asset->coverageStatusCheck->coverageEntries ?? [],
+            static function (AssetWarranty $warranty): bool {
+                return true;
+            },
             function (CoverageEntry $entry, AssetWarranty $warranty): bool {
                 return $this->isWarrantyEqualToCoverage($warranty, $entry);
             },
