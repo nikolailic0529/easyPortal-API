@@ -1,25 +1,41 @@
 {
-    "generated": "2022-10-14T11:27:21+00:00",
-    "distributors": [
-        "1af1c44e-8112-4e72-9654-b11c705e9372"
-    ],
-    "resellers": [
-        "594184e7-24d4-4614-8db4-fe132adb86f4",
-        "9d9e320d-4e44-4518-a4e6-6bfe7f1c7dd8"
-    ],
-    "customers": [
-        "99a3cd0d-ea2a-4803-95f4-5757f3580fed",
-        "4836835d-a1cf-4521-b422-21dc05c32add",
-        "004d6d19-4a7d-4216-8bd5-55dbfb038e09"
-    ],
+    "generated": "2022-10-27T06:31:50+00:00",
     "assets": [
         "accb480f-34ee-4d7e-a839-800851ebbc3a",
         "c1197a7f-7d6d-4e61-8c2e-f9ea27497921",
         "c88f00d2-f207-4fc5-9b8a-a0762edfb7eb"
     ],
-    "types": [
-        "Quote renewal",
-        "Contract"
+    "customers": [
+        "004d6d19-4a7d-4216-8bd5-55dbfb038e09",
+        "4836835d-a1cf-4521-b422-21dc05c32add",
+        "99a3cd0d-ea2a-4803-95f4-5757f3580fed"
     ],
-    "oems": "oem.csv"
+    "distributors": [
+        "1af1c44e-8112-4e72-9654-b11c705e9372"
+    ],
+    "files": [
+        "data.getAssets/9f262369a91f92ab7b55e09a6bd9a6d4c9035d44.313353d5fb7951e937b1f033e26213c57c33168f.json",
+        "data.getAssets/9f262369a91f92ab7b55e09a6bd9a6d4c9035d44.677fad01006999235d87748f6dd304a06c32d94e.json",
+        "data.getAssets/9f262369a91f92ab7b55e09a6bd9a6d4c9035d44.c1a3ead7c5baebbed590af8a10bea4cd83cfad38.json",
+        "data.getCompanyById/0d274523f7f902e4705cecfd8710b24aa9ced9e7.8e4006d09722e71b4dae270654e0412df4a164ad.json",
+        "data.getCompanyById/35619e8f6303a2081c7d9b26d1be91aa854872b3.52905c0adf81185e30d16748c61933407407172f.json",
+        "data.getCompanyById/35619e8f6303a2081c7d9b26d1be91aa854872b3.8ec55317fa97664d0eed6dacdd3ffd29c3f22769.json",
+        "data.getCompanyById/35619e8f6303a2081c7d9b26d1be91aa854872b3.b45ddde0c774a19931968f6b782b045188b12a54.json",
+        "data.getCompanyById/72cffa3e3fc77afff3d357b338972cc2445d4e12.43185980ea63be1d6e322d80bc72766917a65190.json",
+        "data.getCompanyById/72cffa3e3fc77afff3d357b338972cc2445d4e12.8dc00057b9eb79d6bfb85953435e12c7a08db3bd.json",
+        "data.getDocumentById/dff567708fd94ede834970d92d6ccc2c84f9bb4b.183cd2716d88e841e980ed4823b17a037ebe8430.json",
+        "data.getDocumentById/dff567708fd94ede834970d92d6ccc2c84f9bb4b.8bc1b2f522bc7b2bd957adabf71671eb2e943323.json",
+        "data.getDocumentsByCustomer/4dbae0383755fa6b6e26551ab7e8d273a1bd5767.aa5710ccc274f0de3244ca278cc9ddd5cd0502c1.json",
+        "data.getDocumentsByCustomer/4dbae0383755fa6b6e26551ab7e8d273a1bd5767.c161d5932e195e8b9bddb2d739d0e1d70e7b70bf.json",
+        "data.getDocumentsByCustomerCount/37ec77e8a42686e8abf0e6a45fba433c47de15f3.0eb2e40e5048a65720a3ca0b6ea7dfad468a300b.json",
+        "map.json"
+    ],
+    "resellers": [
+        "594184e7-24d4-4614-8db4-fe132adb86f4",
+        "9d9e320d-4e44-4518-a4e6-6bfe7f1c7dd8"
+    ],
+    "types": [
+        "Contract",
+        "Quote renewal"
+    ]
 }

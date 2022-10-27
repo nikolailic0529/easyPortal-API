@@ -7,6 +7,7 @@
     "assetSku": "JW1123",
     "eolDate": null,
     "eosDate": "1615161600000",
+    "eoslDate": "1615161600000",
     "zip": "12345",
     "city": "New Port Adanville",
     "address": "Maddison Path Suite 12345",
@@ -57,6 +58,7 @@
             "serviceGroupSku": "H7J34AC",
             "startDate": "1583020800000",
             "endDate": "1624406400000",
+            "deletedAt": null,
             "customer": {
                 "id": "5fb52fc3-86fd-4e1f-87cd-0f546fc8989a"
             },

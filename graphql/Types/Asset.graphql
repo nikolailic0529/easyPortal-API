@@ -16,6 +16,7 @@ type Asset {
     reseller: Reseller @relation
     status_id: ID
     status: Status @relation
+    eosl: Date
 
     warranty_end: Date
     warranty_changed_at: DateTime

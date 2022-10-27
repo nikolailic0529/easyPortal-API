@@ -89,6 +89,11 @@ input AggregatedGroupByClauseAssetsQuery {
     customer_id: AggregatedGroupByTypeDirection
 
     """
+    Property clause.
+    """
+    eosl: AggregatedGroupByTypeDirection
+
+    """
     Relationship clause.
     """
     location: [SortByClauseLocationsSort!]
@@ -1962,6 +1967,11 @@ input SearchByConditionAssetsQuery {
     """
     Property condition.
     """
+    eosl: SearchByScalarDateOrNull
+
+    """
+    Property condition.
+    """
     id: SearchByScalarID
 
     """
@@ -2823,6 +2833,11 @@ input SearchByConditionDocumentEntriesQuery {
     Property condition.
     """
     psp_id: SearchByScalarIDOrNull
+
+    """
+    Property condition.
+    """
+    removed_at: SearchByScalarDateTimeOrNull
 
     """
     Property condition.
@@ -4870,6 +4885,11 @@ input SortByClauseAssetsSort {
     """
     Property clause.
     """
+    eosl: SortByTypeDirection
+
+    """
+    Property clause.
+    """
     id: SortByTypeDirection
 
     """
@@ -5386,6 +5406,11 @@ input SortByClauseDocumentEntriesSort {
     Property clause.
     """
     psp_id: SortByTypeDirection
+
+    """
+    Property clause.
+    """
+    removed_at: SortByTypeDirection
 
     """
     Property clause.
@@ -6515,6 +6540,7 @@ type Asset {
     customer_id: ID
     data_quality: String
     deleted_at: DateTime
+    eosl: Date
     id: ID!
     location: Location
     location_id: ID
@@ -7447,6 +7473,7 @@ type DocumentEntry {
     product_line_id: ID
     psp: Psp
     psp_id: ID
+    removed_at: DateTime
     renewal: Float
     serial_number: String
     serviceGroup: ServiceGroup

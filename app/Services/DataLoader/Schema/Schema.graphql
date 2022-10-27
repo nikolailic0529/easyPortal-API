@@ -145,6 +145,7 @@ type Asset {
     dataQualityScore: String
     eolDate: String
     eosDate: String
+    eoslDate: String
     id: ID
     latestContactPersons: [CompanyContactPerson]
     latitude: String
@@ -340,11 +341,13 @@ type Document {
 
 type DocumentEntry {
     asset: Asset
+    assetDocumentId: String
     assetId: String
     assetProductGroupDescription: String
     assetProductLine: String
     assetProductType: String
     currencyCode: String
+    deletedAt: String
     endDate: String
     environmentId: String
     eoslDate: String
@@ -619,6 +622,7 @@ type ViewAsset {
     dataQualityScore: String
     eolDate: String
     eosDate: String
+    eoslDate: String
     id: ID
     latestContactPersons: [CompanyContactPerson]
     latitude: String
@@ -644,6 +648,7 @@ type ViewAssetDocument {
     customer: ViewCompany
     customerInvoiceDate: String
     customerPurchaseOrderDate: String
+    deletedAt: String
     distributor: ViewCompany
     document: ViewDocument
     documentNumber: String

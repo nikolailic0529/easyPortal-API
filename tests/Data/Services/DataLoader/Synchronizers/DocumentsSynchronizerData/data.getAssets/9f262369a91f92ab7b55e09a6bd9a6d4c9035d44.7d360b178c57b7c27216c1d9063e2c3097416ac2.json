@@ -1,0 +1,238 @@
+{
+    "selector": "data.getAssets",
+    "query": "query getAssets($id: String!) {\n    getAssets(args: [{key: \"id\", value: $id}]) {\n        id\nserialNumber\n\nassetSku\nassetSkuDescription\nassetTag\nassetType\nstatus\nvendor\n\neolDate\neosDate\neoslDate\n\ncountry\ncountryCode\nlatitude\nlongitude\nzip\ncity\naddress\naddress2\n\ncustomerId\nresellerId\n\nupdatedAt\n\nlatestContactPersons {\n    phoneNumber\n    name\n    type\n    mail\n}\n\nassetCoverage\ncoverageStatusCheck {\n    coverageStatus\n    coverageStatusUpdatedAt\n    coverageEntries {\n        coverageStartDate\n        coverageEndDate\n        type\n        description\n        status\n        serviceSku\n    }\n}\n\ndataQualityScore\nactiveContractQuantitySum\n        assetDocument {\n    startDate\n    endDate\n    documentNumber\n    deletedAt\n\n    document {\n        id\n        type\n        documentNumber\n\n        startDate\n        endDate\n\n        currencyCode\n        languageCode\n\n        updatedAt\n\n        vendorSpecificFields {\n            vendor\n            groupId\n            groupDescription\n            said\n            ampId\n            sar\n        }\n\n        contactPersons {\n            phoneNumber\n            name\n            type\n            mail\n        }\n\n        customerId\n        resellerId\n        distributorId\n    }\n\n    serviceGroupSku\n    serviceGroupSkuDescription\n    serviceLevelSku\n    serviceLevelSkuDescription\n    serviceFullDescription\n\n    customer {\n      id\n    }\n\n    reseller {\n      id\n    }\n}\n    }\n}",
+    "variables": {
+        "id": "e27e2925-490c-4904-9df3-edaf14a9766c"
+    },
+    "response": {
+        "data": {
+            "getAssets": [
+                {
+                    "id": "e27e2925-490c-4904-9df3-edaf14a9766c",
+                    "resellerId": "0fd07b17-3314-40b5-ac32-7189051f773b",
+                    "customerId": "51a0baea-7928-4c55-962f-1c4ab3d604ee",
+                    "serialNumber": "e5071595-ecb5-3efd-a41b-7be9c3e7d2ea",
+                    "assetSkuDescription": "HPE DL360 Gen9 8SFF CTO Server",
+                    "assetTag": null,
+                    "assetType": null,
+                    "vendor": "HPE",
+                    "assetSku": "755258-B21",
+                    "eolDate": null,
+                    "eosDate": null,
+                    "eoslDate": null,
+                    "zip": "17123",
+                    "city": "East Flavio",
+                    "address": "71248 Jenkins Stream Suite 643",
+                    "address2": null,
+                    "country": "Serbia",
+                    "latitude": "60.004762",
+                    "longitude": "-95.598577",
+                    "countryCode": "PT",
+                    "status": "ACTIVE",
+                    "updatedAt": "1662155756874",
+                    "assetCoverage": [
+                        "ARCHIVED"
+                    ],
+                    "dataQualityScore": "80",
+                    "activeContractQuantitySum": 0,
+                    "assetDocument": [
+                        {
+                            "serviceGroupSku": null,
+                            "serviceGroupSkuDescription": null,
+                            "serviceLevelSku": "HL935AC",
+                            "serviceLevelSkuDescription": "HPE DL360 Gen9 8SFF CTO Server",
+                            "serviceFullDescription": null,
+                            "documentNumber": "270bb156-bb18-3e7b-9a52-3ba8bd74f98a",
+                            "document": {
+                                "id": "0130972e-181a-4cc4-a569-54a072e6899a",
+                                "type": "Contract",
+                                "documentNumber": "270bb156-bb18-3e7b-9a52-3ba8bd74f98a",
+                                "startDate": "2016-12-06",
+                                "endDate": "2021-12-05",
+                                "currencyCode": "CHF",
+                                "languageCode": null,
+                                "updatedAt": "1654262846658",
+                                "vendorSpecificFields": {
+                                    "vendor": "HPE",
+                                    "sar": "ERN012",
+                                    "ampId": "87-SMD501 5491",
+                                    "said": null,
+                                    "groupId": null,
+                                    "groupDescription": null
+                                },
+                                "contactPersons": [
+                                    {
+                                        "phoneNumber": "+19196086052",
+                                        "name": "Ms. Kayli Roob",
+                                        "mail": null,
+                                        "type": "EndUser Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+13048833021",
+                                        "name": "Annabel Ernser",
+                                        "mail": "beatty.maxwell@yahoo.com",
+                                        "type": "Distributor Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+14068657337",
+                                        "name": "Donavon Langworth",
+                                        "mail": "vonrueden.haskell@yahoo.com",
+                                        "type": "Reseller Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+19196086052",
+                                        "name": "Ms. Kayli Roob",
+                                        "mail": null,
+                                        "type": "Hardware System Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+19196086052",
+                                        "name": "Ms. Kayli Roob",
+                                        "mail": null,
+                                        "type": "Software System Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+19196086052",
+                                        "name": "Ms. Kayli Roob",
+                                        "mail": null,
+                                        "type": "System Manager Contact"
+                                    }
+                                ],
+                                "resellerId": "0fd07b17-3314-40b5-ac32-7189051f773b",
+                                "customerId": "51a0baea-7928-4c55-962f-1c4ab3d604ee",
+                                "distributorId": "a985a692-c063-499a-ab2f-0a2adef86a3f"
+                            },
+                            "startDate": null,
+                            "endDate": null,
+                            "deletedAt": null,
+                            "reseller": {
+                                "id": "0fd07b17-3314-40b5-ac32-7189051f773b"
+                            },
+                            "customer": {
+                                "id": "51a0baea-7928-4c55-962f-1c4ab3d604ee"
+                            }
+                        },
+                        {
+                            "serviceGroupSku": null,
+                            "serviceGroupSkuDescription": null,
+                            "serviceLevelSku": "HA151AC",
+                            "serviceLevelSkuDescription": "HPE DL360 Gen9 8SFF CTO Server",
+                            "serviceFullDescription": null,
+                            "documentNumber": "270bb156-bb18-3e7b-9a52-3ba8bd74f98a",
+                            "document": {
+                                "id": "0130972e-181a-4cc4-a569-54a072e6899a",
+                                "type": "Contract",
+                                "documentNumber": "270bb156-bb18-3e7b-9a52-3ba8bd74f98a",
+                                "startDate": "2016-12-06",
+                                "endDate": "2021-12-05",
+                                "currencyCode": "CHF",
+                                "languageCode": null,
+                                "updatedAt": "1654262846658",
+                                "vendorSpecificFields": {
+                                    "vendor": "HPE",
+                                    "sar": "ERN012",
+                                    "ampId": "87-SMD501 5491",
+                                    "said": null,
+                                    "groupId": null,
+                                    "groupDescription": null
+                                },
+                                "contactPersons": [
+                                    {
+                                        "phoneNumber": "+19196086052",
+                                        "name": "Ms. Kayli Roob",
+                                        "mail": null,
+                                        "type": "EndUser Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+13048833021",
+                                        "name": "Annabel Ernser",
+                                        "mail": "beatty.maxwell@yahoo.com",
+                                        "type": "Distributor Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+14068657337",
+                                        "name": "Donavon Langworth",
+                                        "mail": "vonrueden.haskell@yahoo.com",
+                                        "type": "Reseller Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+19196086052",
+                                        "name": "Ms. Kayli Roob",
+                                        "mail": null,
+                                        "type": "Hardware System Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+19196086052",
+                                        "name": "Ms. Kayli Roob",
+                                        "mail": null,
+                                        "type": "Software System Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+19196086052",
+                                        "name": "Ms. Kayli Roob",
+                                        "mail": null,
+                                        "type": "System Manager Contact"
+                                    }
+                                ],
+                                "resellerId": "0fd07b17-3314-40b5-ac32-7189051f773b",
+                                "customerId": "51a0baea-7928-4c55-962f-1c4ab3d604ee",
+                                "distributorId": "a985a692-c063-499a-ab2f-0a2adef86a3f"
+                            },
+                            "startDate": null,
+                            "endDate": null,
+                            "deletedAt": null,
+                            "reseller": {
+                                "id": "0fd07b17-3314-40b5-ac32-7189051f773b"
+                            },
+                            "customer": {
+                                "id": "51a0baea-7928-4c55-962f-1c4ab3d604ee"
+                            }
+                        }
+                    ],
+                    "latestContactPersons": [
+                        {
+                            "phoneNumber": "+19196086052",
+                            "name": "Ms. Kayli Roob",
+                            "mail": null,
+                            "type": "EndUser Contact"
+                        },
+                        {
+                            "phoneNumber": "+13048833021",
+                            "name": "Annabel Ernser",
+                            "mail": "beatty.maxwell@yahoo.com",
+                            "type": "Distributor Contact"
+                        },
+                        {
+                            "phoneNumber": "+14068657337",
+                            "name": "Donavon Langworth",
+                            "mail": "vonrueden.haskell@yahoo.com",
+                            "type": "Reseller Contact"
+                        }
+                    ],
+                    "coverageStatusCheck": {
+                        "coverageStatus": "EXPOSED",
+                        "coverageStatusUpdatedAt": "1662155756874",
+                        "coverageEntries": [
+                            {
+                                "coverageStartDate": "2016-12-06",
+                                "coverageEndDate": "2021-12-05",
+                                "type": "Contract",
+                                "status": "Expired",
+                                "description": "H7J32AC-HPE Foundation Care NBD SVC",
+                                "serviceSku": null
+                            },
+                            {
+                                "coverageStartDate": "2016-11-27",
+                                "coverageEndDate": "2019-12-26",
+                                "type": "FactoryWarranty",
+                                "status": "Expired",
+                                "description": "HA151AW-Wty: HPE HW Maintenance Onsite Support, HA158AW-Wty: HPE Support for Initial Setup",
+                                "serviceSku": null
+                            }
+                        ]
+                    }
+                }
+            ]
+        }
+    }
+}

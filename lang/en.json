@@ -262,6 +262,7 @@
     "data-loader.client.disabled": "Data Loader Client disabled.",
     "data-loader.client.unavailable": "Data Loader Service temporarily unavailable, please try again later.",
     "data-loader.client.request_failed": "Unknown error.",
+    "data-loader.client.request_rate_too_large": "Request rate too large, please try again later.",
     "keycloak.client.unavailable": "Keycloak Service temporarily unavailable, please try again later.",
     "keycloak.client.request_failed": "Keycloak request failed.",
     "keycloak.client.disabled": "Keycloak Client disabled.",

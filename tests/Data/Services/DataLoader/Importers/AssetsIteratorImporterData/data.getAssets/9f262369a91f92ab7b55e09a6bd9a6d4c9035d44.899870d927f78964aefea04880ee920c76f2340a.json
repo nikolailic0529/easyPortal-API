@@ -1,0 +1,154 @@
+{
+    "selector": "data.getAssets",
+    "query": "query getAssets($id: String!) {\n    getAssets(args: [{key: \"id\", value: $id}]) {\n        id\nserialNumber\n\nassetSku\nassetSkuDescription\nassetTag\nassetType\nstatus\nvendor\n\neolDate\neosDate\neoslDate\n\ncountry\ncountryCode\nlatitude\nlongitude\nzip\ncity\naddress\naddress2\n\ncustomerId\nresellerId\n\nupdatedAt\n\nlatestContactPersons {\n    phoneNumber\n    name\n    type\n    mail\n}\n\nassetCoverage\ncoverageStatusCheck {\n    coverageStatus\n    coverageStatusUpdatedAt\n    coverageEntries {\n        coverageStartDate\n        coverageEndDate\n        type\n        description\n        status\n        serviceSku\n    }\n}\n\ndataQualityScore\nactiveContractQuantitySum\n        assetDocument {\n    startDate\n    endDate\n    documentNumber\n    deletedAt\n\n    document {\n        id\n        type\n        documentNumber\n\n        startDate\n        endDate\n\n        currencyCode\n        languageCode\n\n        updatedAt\n\n        vendorSpecificFields {\n            vendor\n            groupId\n            groupDescription\n            said\n            ampId\n            sar\n        }\n\n        contactPersons {\n            phoneNumber\n            name\n            type\n            mail\n        }\n\n        customerId\n        resellerId\n        distributorId\n    }\n\n    serviceGroupSku\n    serviceGroupSkuDescription\n    serviceLevelSku\n    serviceLevelSkuDescription\n    serviceFullDescription\n\n    customer {\n      id\n    }\n\n    reseller {\n      id\n    }\n}\n    }\n}",
+    "variables": {
+        "id": "cf82deb8-e098-4f15-98bd-fe890cbc89cf"
+    },
+    "response": {
+        "data": {
+            "getAssets": [
+                {
+                    "id": "cf82deb8-e098-4f15-98bd-fe890cbc89cf",
+                    "resellerId": "9f6b1030-5d5d-4f0b-b743-2ef69eaf4a44",
+                    "customerId": "4a4955d5-6c40-456c-94fe-25f41ffb25ef",
+                    "serialNumber": "385fe9d1-5a07-3452-b0cb-bcc9df2c6f5f",
+                    "assetSkuDescription": "HPE BLc VC Flex-10/10D Module Opt",
+                    "assetTag": null,
+                    "assetType": null,
+                    "vendor": "HPE",
+                    "assetSku": "638526-B21",
+                    "eolDate": null,
+                    "eosDate": null,
+                    "eoslDate": null,
+                    "zip": "61339",
+                    "city": "Haneborough",
+                    "address": "8845 Batz Turnpike Apt. 153",
+                    "address2": null,
+                    "country": "Sudan",
+                    "latitude": "-86.131545",
+                    "longitude": "37.222934",
+                    "countryCode": "DM",
+                    "status": "ACTIVE",
+                    "updatedAt": "1664798156931",
+                    "assetCoverage": [
+                        "CONFLICT"
+                    ],
+                    "dataQualityScore": "80",
+                    "activeContractQuantitySum": 0,
+                    "assetDocument": [
+                        {
+                            "serviceGroupSku": null,
+                            "serviceGroupSkuDescription": null,
+                            "serviceLevelSku": "HA151AC",
+                            "serviceLevelSkuDescription": "HPE Hardware Maintenance Onsite Support",
+                            "serviceFullDescription": null,
+                            "documentNumber": "24a04ce2-2b33-311d-90dd-dde9f593f3db",
+                            "document": {
+                                "id": "f1c53ec9-7dd1-43cd-978b-2dd80be52a7e",
+                                "type": "Contract",
+                                "documentNumber": "24a04ce2-2b33-311d-90dd-dde9f593f3db",
+                                "startDate": "2019-01-01",
+                                "endDate": "2022-12-31",
+                                "currencyCode": "EUR",
+                                "languageCode": null,
+                                "updatedAt": "1654262846658",
+                                "vendorSpecificFields": {
+                                    "vendor": "HPE",
+                                    "sar": null,
+                                    "ampId": "83-RV-MDR",
+                                    "said": "7bf8c760-8b9c-3d10-98e2-7ac31e05448e",
+                                    "groupId": null,
+                                    "groupDescription": null
+                                },
+                                "contactPersons": [
+                                    {
+                                        "phoneNumber": null,
+                                        "name": "Prof. Amari Bahringer MD",
+                                        "mail": null,
+                                        "type": "EndUser Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+15342161852",
+                                        "name": "Ava Baumbach",
+                                        "mail": "alberto59@gmail.com",
+                                        "type": "Distributor Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+18069886840",
+                                        "name": "Mrs. Kallie Doyle DDS",
+                                        "mail": "mallory89@will.org",
+                                        "type": "Reseller Contact"
+                                    },
+                                    {
+                                        "phoneNumber": null,
+                                        "name": null,
+                                        "mail": null,
+                                        "type": "Hardware System Contact"
+                                    },
+                                    {
+                                        "phoneNumber": null,
+                                        "name": null,
+                                        "mail": null,
+                                        "type": "Software System Contact"
+                                    },
+                                    {
+                                        "phoneNumber": null,
+                                        "name": "Prof. Amari Bahringer MD",
+                                        "mail": null,
+                                        "type": "System Manager Contact"
+                                    }
+                                ],
+                                "resellerId": "9f6b1030-5d5d-4f0b-b743-2ef69eaf4a44",
+                                "customerId": "4a4955d5-6c40-456c-94fe-25f41ffb25ef",
+                                "distributorId": "1af1c44e-8112-4e72-9654-b11c705e9372"
+                            },
+                            "startDate": null,
+                            "endDate": null,
+                            "deletedAt": null,
+                            "reseller": {
+                                "id": "9f6b1030-5d5d-4f0b-b743-2ef69eaf4a44"
+                            },
+                            "customer": {
+                                "id": "4a4955d5-6c40-456c-94fe-25f41ffb25ef"
+                            }
+                        }
+                    ],
+                    "latestContactPersons": [
+                        {
+                            "phoneNumber": null,
+                            "name": "Prof. Amari Bahringer MD",
+                            "mail": null,
+                            "type": "EndUser Contact"
+                        },
+                        {
+                            "phoneNumber": "+15342161852",
+                            "name": "Ava Baumbach",
+                            "mail": "alberto59@gmail.com",
+                            "type": "Distributor Contact"
+                        },
+                        {
+                            "phoneNumber": "+18069886840",
+                            "name": "Mrs. Kallie Doyle DDS",
+                            "mail": "mallory89@will.org",
+                            "type": "Reseller Contact"
+                        }
+                    ],
+                    "coverageStatusCheck": {
+                        "coverageStatus": "COVERED",
+                        "coverageStatusUpdatedAt": "1662151399960",
+                        "coverageEntries": [
+                            {
+                                "coverageStartDate": "2019-01-01",
+                                "coverageEndDate": "2022-12-31",
+                                "type": "Contract",
+                                "status": "Expiring",
+                                "description": "H7J32AC-HPE Foundation Care NBD SVC",
+                                "serviceSku": null
+                            }
+                        ]
+                    }
+                }
+            ]
+        }
+    }
+}

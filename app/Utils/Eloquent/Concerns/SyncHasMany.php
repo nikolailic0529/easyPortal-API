@@ -2,7 +2,7 @@
 
 namespace App\Utils\Eloquent\Concerns;
 
-use App\Utils\Eloquent\Callbacks\GetUniqueKey;
+use App\Utils\Eloquent\Callbacks\GetKey;
 use App\Utils\Eloquent\Callbacks\SetKey;
 use App\Utils\Eloquent\ModelHelper;
 use Illuminate\Database\Eloquent\Collection as EloquentCollection;
@@ -11,6 +11,9 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Collection;
 use InvalidArgumentException;
 
+use function assert;
+use function is_int;
+use function is_string;
 use function sprintf;
 
 /**
@@ -20,7 +23,7 @@ trait SyncHasMany {
     use SyncMany;
 
     /**
-     * @template T of \Illuminate\Database\Eloquent\Model
+     * @template T of Model
      *
      * @param Collection<int, T>|EloquentCollection<int, T>|array<T> $objects
      */
@@ -37,33 +40,19 @@ trait SyncHasMany {
         }
 
         // Prepare
-        $keyer    = new GetUniqueKey([$hasMany->getForeignKeyName()]);
-        $existing = $this->syncManyGetExisting($this, $relation)->keyBy($keyer);
-        $children = (new EloquentCollection($objects))->map(new SetKey())->keyBy($keyer);
+        $existing = $this->syncManyGetExisting($this, $relation)->keyBy(new GetKey());
+        $children = (new EloquentCollection($objects))->map(new SetKey());
 
-        if (!$existing->isEmpty()) {
-            foreach ($children as $key => $child) {
-                /** @var Model $child */
-                $object = $existing->get($key);
+        foreach ($children as $child) {
+            $key = $child->getKey();
 
-                if ($object instanceof Model) {
-                    if ($child->getKey() !== $object->getKey()) {
-                        foreach ($child->getDirty() as $attr => $value) {
-                            if ($attr !== $child->getKeyName()) {
-                                $object->setAttribute($attr, $value);
-                            }
-                        }
+            assert(is_string($key) || is_int($key));
 
-                        $children->put($key, $object);
-                    }
-
-                    $existing->forget($key);
-                }
-            }
+            $existing->forget($key);
         }
 
         // Update relation
-        $this->setRelation($relation, new EloquentCollection($children->values()));
+        $this->setRelation($relation, $children);
 
         // Update database
         if (!$children->isEmpty() || !$existing->isEmpty()) {

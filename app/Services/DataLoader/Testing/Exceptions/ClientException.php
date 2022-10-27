@@ -3,11 +3,12 @@
 namespace App\Services\DataLoader\Testing\Exceptions;
 
 use App\Services\DataLoader\ServiceException;
+use App\Utils\Iterators\Contracts\IteratorFatalError;
 use Throwable;
 
 use function sprintf;
 
-class ClientException extends ServiceException {
+class ClientException extends ServiceException implements IteratorFatalError {
     /**
      * @param array<string, mixed> $variables
      */

@@ -8,12 +8,12 @@ use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Support\Facades\Date;
 use LastDragon_ru\LaraASP\Testing\Utils\WithTestData;
 use Symfony\Component\Filesystem\Filesystem;
-use Symfony\Component\Finder\Finder;
 
+use function assert;
 use function dirname;
-use function is_array;
 use function json_encode;
-use function preg_quote;
+use function ksort;
+use function sort;
 use function sprintf;
 
 use const JSON_PRESERVE_ZERO_FRACTION;
@@ -41,9 +41,9 @@ class DataGenerator {
     public function generate(string $class): bool {
         // Exists?
         $fs          = new Filesystem();
-        $data        = $this->app->make($class);
         $contextName = self::CONTEXT;
-        $contextFile = $this->getTestData($class)->file($contextName);
+        $contextRoot = $this->getTestData($class);
+        $contextFile = $contextRoot->file($contextName);
         $contextPath = dirname($contextFile->getPathname());
 
         if ($contextFile->isFile()) {
@@ -53,31 +53,21 @@ class DataGenerator {
         // Dir?
         $fs->mkdir($contextPath);
 
-        // Cleanup
-        $finder  = (new Finder())->in($contextPath);
-        $exclude = [
-            Data::MAP,
-        ];
-
-        foreach ($exclude as $file) {
-            $finder = $finder->notPath('/^'.preg_quote($file).'/');
-        }
-
-        $fs->mkdir($contextPath);
-        $fs->remove($finder);
-
         // Generate
-        $db = $this->app->make('db');
+        $db   = $this->app->make('db');
+        $data = $this->app->make($class);
+
+        assert($data instanceof Data);
 
         try {
             $db->beginTransaction();
 
-            $contextDataData = $data->generate($contextPath);
+            $result = $data->generate($contextRoot);
         } finally {
             $db->rollBack();
         }
 
-        if ($contextDataData === false) {
+        if ($result === null) {
             throw new Exception(sprintf(
                 'Failed to generate test data for `%s`.',
                 $class,
@@ -85,16 +75,19 @@ class DataGenerator {
         }
 
         // Save context
-        $contextData = [
+        $contextData    = $result->toArray();
+        $contextDefault = [
             'generated' => Date::now(),
         ];
 
-        if (is_array($contextDataData)) {
-            $contextData += $contextDataData;
+        ksort($contextData);
+
+        foreach ($contextData as &$value) {
+            sort($value);
         }
 
         $fs->dumpFile($contextFile->getPathname(), json_encode(
-            $contextData,
+            $contextDefault + $contextData,
             JSON_PRETTY_PRINT
             | JSON_UNESCAPED_SLASHES
             | JSON_UNESCAPED_UNICODE
@@ -111,12 +104,14 @@ class DataGenerator {
      * @param class-string<Data> $class
      */
     public function restore(string $class): bool {
-        $data        = $this->app->make($class);
         $contextName = self::CONTEXT;
-        $contextFile = $this->getTestData($class)->file($contextName);
-        $contextPath = dirname($contextFile->getPathname());
-        $contextData = $this->getTestData($class)->json($contextName);
+        $contextRoot = $this->getTestData($class);
+        $contextData = $contextRoot->json($contextName);
+        $context     = new Context($contextData);
+        $data        = $this->app->make($class);
 
-        return $data->restore($contextPath, $contextData);
+        assert($data instanceof Data);
+
+        return $data->restore($contextRoot, $context);
     }
 }

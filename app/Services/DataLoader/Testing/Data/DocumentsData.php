@@ -4,16 +4,15 @@ namespace App\Services\DataLoader\Testing\Data;
 
 abstract class DocumentsData extends AssetsData {
     /**
-     * @inheritDoc
+     * @inheritdoc
      */
-    protected function generateContext(string $path): array {
-        return $this->app->make(ClientDumpContext::class)->get($path, [
-            ClientDumpContext::DISTRIBUTORS,
-            ClientDumpContext::RESELLERS,
-            ClientDumpContext::CUSTOMERS,
-            ClientDumpContext::ASSETS,
-            ClientDumpContext::TYPES,
-            ClientDumpContext::OEMS,
-        ]);
+    protected function getSupporterContext(): array {
+        return [
+            Context::DISTRIBUTORS,
+            Context::RESELLERS,
+            Context::CUSTOMERS,
+            Context::ASSETS,
+            Context::TYPES,
+        ];
     }
 }

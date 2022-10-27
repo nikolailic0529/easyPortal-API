@@ -4,8 +4,10 @@ namespace Tests\Data\Services\DataLoader\Importers;
 
 use App\Models\Distributor;
 use App\Services\DataLoader\Processors\Importer\Importers\Distributors\IteratorImporter;
+use App\Services\DataLoader\Testing\Data\Context;
 use App\Services\DataLoader\Testing\Data\Data;
 use App\Utils\Iterators\Contracts\ObjectIterator;
+use LastDragon_ru\LaraASP\Testing\Utils\TestData;
 
 class DistributorsIteratorImporterData extends Data {
     public const DISTRIBUTORS = [
@@ -16,23 +18,16 @@ class DistributorsIteratorImporterData extends Data {
         '00000000-0000-0000-0000-000000000000',
     ];
 
-    protected function generateData(string $path): bool {
-        return $this->dumpClientResponses($path, function (): bool {
-            $this->app->make(IteratorImporter::class)
-                ->setIterator(static::getIterator())
-                ->setChunkSize(static::CHUNK)
-                ->setLimit(static::LIMIT)
-                ->start();
-
-            return true;
-        });
+    protected function generateData(TestData $root, Context $context): bool {
+        return $this->app->make(IteratorImporter::class)
+            ->setIterator(static::getIterator())
+            ->setChunkSize(static::CHUNK)
+            ->setLimit(static::LIMIT)
+            ->start();
     }
 
-    /**
-     * @inheritDoc
-     */
-    public function restore(string $path, array $context): bool {
-        $result = parent::restore($path, $context);
+    public function restore(TestData $root, Context $context): bool {
+        $result = parent::restore($root, $context);
 
         Distributor::factory()->create([
             'id' => '00000000-0000-0000-0000-000000000000',

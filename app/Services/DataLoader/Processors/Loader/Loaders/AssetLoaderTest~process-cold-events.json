@@ -7,14 +7,13 @@
                 "9f6b1030-5d5d-4f0b-b743-2ef69eaf4a44": "9f6b1030-5d5d-4f0b-b743-2ef69eaf4a44"
             },
             "App\\Models\\Customer": {
-                "9f51cfec-ad89-4d8e-ba36-633cfa0dc14d": "9f51cfec-ad89-4d8e-ba36-633cfa0dc14d",
                 "e42b0534-878d-4d43-90ec-d9c1cef59b70": "e42b0534-878d-4d43-90ec-d9c1cef59b70"
             },
             "App\\Models\\Document": [],
             "App\\Models\\Data\\Location": {
-                "eb616e0a-0031-5990-9a2b-a515560ffd96": "eb616e0a-0031-5990-9a2b-a515560ffd96",
-                "76657ada-28d9-5d39-8709-2e525e4082c7": "76657ada-28d9-5d39-8709-2e525e4082c7",
-                "975115df-8fcd-59a9-9f8d-59f7cdc40e4c": "975115df-8fcd-59a9-9f8d-59f7cdc40e4c"
+                "c6c09316-c0bc-5fdd-9dda-b4a153151ccc": "c6c09316-c0bc-5fdd-9dda-b4a153151ccc",
+                "38086b95-d84b-5a54-bbb4-1bbf455ed2df": "38086b95-d84b-5a54-bbb4-1bbf455ed2df",
+                "8d81418e-43f9-530d-a340-3b81520a65db": "8d81418e-43f9-530d-a340-3b81520a65db"
             },
             "App\\Models\\Asset": {
                 "00000b7e-e7dc-49ee-8294-e4708b2435e4": "00000b7e-e7dc-49ee-8294-e4708b2435e4"

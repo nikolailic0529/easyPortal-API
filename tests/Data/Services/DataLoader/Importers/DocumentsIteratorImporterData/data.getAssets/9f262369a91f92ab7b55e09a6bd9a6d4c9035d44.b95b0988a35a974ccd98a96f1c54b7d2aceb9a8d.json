@@ -1,0 +1,104 @@
+{
+    "selector": "data.getAssets",
+    "query": "query getAssets($id: String!) {\n    getAssets(args: [{key: \"id\", value: $id}]) {\n        id\nserialNumber\n\nassetSku\nassetSkuDescription\nassetTag\nassetType\nstatus\nvendor\n\neolDate\neosDate\neoslDate\n\ncountry\ncountryCode\nlatitude\nlongitude\nzip\ncity\naddress\naddress2\n\ncustomerId\nresellerId\n\nupdatedAt\n\nlatestContactPersons {\n    phoneNumber\n    name\n    type\n    mail\n}\n\nassetCoverage\ncoverageStatusCheck {\n    coverageStatus\n    coverageStatusUpdatedAt\n    coverageEntries {\n        coverageStartDate\n        coverageEndDate\n        type\n        description\n        status\n        serviceSku\n    }\n}\n\ndataQualityScore\nactiveContractQuantitySum\n        assetDocument {\n    startDate\n    endDate\n    documentNumber\n    deletedAt\n\n    document {\n        id\n        type\n        documentNumber\n\n        startDate\n        endDate\n\n        currencyCode\n        languageCode\n\n        updatedAt\n\n        vendorSpecificFields {\n            vendor\n            groupId\n            groupDescription\n            said\n            ampId\n            sar\n        }\n\n        contactPersons {\n            phoneNumber\n            name\n            type\n            mail\n        }\n\n        customerId\n        resellerId\n        distributorId\n    }\n\n    serviceGroupSku\n    serviceGroupSkuDescription\n    serviceLevelSku\n    serviceLevelSkuDescription\n    serviceFullDescription\n\n    customer {\n      id\n    }\n\n    reseller {\n      id\n    }\n}\n    }\n}",
+    "variables": {
+        "id": "0e8063a8-0218-41c3-ab68-32580614a838"
+    },
+    "response": {
+        "data": {
+            "getAssets": [
+                {
+                    "id": "0e8063a8-0218-41c3-ab68-32580614a838",
+                    "resellerId": "6974b5ee-0cb7-4121-9f8f-1995322b540d",
+                    "customerId": "43a3e79c-d9f3-4cfd-be5d-edcf133e8f83",
+                    "serialNumber": null,
+                    "assetSkuDescription": null,
+                    "assetTag": null,
+                    "assetType": null,
+                    "vendor": "HPE",
+                    "assetSku": "L7E73AAE",
+                    "eolDate": null,
+                    "eosDate": null,
+                    "eoslDate": null,
+                    "zip": "48776",
+                    "city": "North Laurianebury",
+                    "address": "927 Hansen Branch",
+                    "address2": null,
+                    "country": "Myanmar",
+                    "latitude": "-32.17714",
+                    "longitude": "-106.415258",
+                    "countryCode": "CW",
+                    "status": "ACTIVE",
+                    "updatedAt": "1662138177006",
+                    "assetCoverage": [
+                        "ARCHIVED"
+                    ],
+                    "dataQualityScore": "20",
+                    "activeContractQuantitySum": 0,
+                    "assetDocument": [
+                        {
+                            "serviceGroupSku": null,
+                            "serviceGroupSkuDescription": null,
+                            "serviceLevelSku": "HA156AC",
+                            "serviceLevelSkuDescription": "HPE Software Updates Service",
+                            "serviceFullDescription": null,
+                            "documentNumber": "df49ceab-dce6-3906-9b49-1858d6899e06",
+                            "document": {
+                                "id": "07a09563-d1fe-4f0f-a286-115dc2742178",
+                                "type": "Quote renewal",
+                                "documentNumber": "df49ceab-dce6-3906-9b49-1858d6899e06",
+                                "startDate": "2022-06-24",
+                                "endDate": "2023-06-23",
+                                "currencyCode": "CHF",
+                                "languageCode": null,
+                                "updatedAt": "1654272002659",
+                                "vendorSpecificFields": {
+                                    "vendor": "HPE",
+                                    "sar": null,
+                                    "ampId": null,
+                                    "said": null,
+                                    "groupId": null,
+                                    "groupDescription": null
+                                },
+                                "contactPersons": [
+                                    {
+                                        "phoneNumber": "+19345265134",
+                                        "name": "Mrs. Orpha Lowe",
+                                        "mail": "nyah02@upton.com",
+                                        "type": "Customer Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+17709427853",
+                                        "name": "Gunnar Roberts",
+                                        "mail": "dillan62@rau.com",
+                                        "type": "Renewal Contact"
+                                    },
+                                    {
+                                        "phoneNumber": null,
+                                        "name": null,
+                                        "mail": null,
+                                        "type": "EndUser Contact"
+                                    }
+                                ],
+                                "resellerId": "6974b5ee-0cb7-4121-9f8f-1995322b540d",
+                                "customerId": "43a3e79c-d9f3-4cfd-be5d-edcf133e8f83",
+                                "distributorId": "a985a692-c063-499a-ab2f-0a2adef86a3f"
+                            },
+                            "startDate": null,
+                            "endDate": null,
+                            "deletedAt": null,
+                            "reseller": {
+                                "id": "6974b5ee-0cb7-4121-9f8f-1995322b540d"
+                            },
+                            "customer": {
+                                "id": "43a3e79c-d9f3-4cfd-be5d-edcf133e8f83"
+                            }
+                        }
+                    ],
+                    "latestContactPersons": null,
+                    "coverageStatusCheck": null
+                }
+            ]
+        }
+    }
+}

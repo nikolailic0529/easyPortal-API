@@ -5,7 +5,9 @@ namespace Tests\Data\Services\DataLoader\Importers;
 use App\Models\Asset;
 use App\Services\DataLoader\Processors\Importer\Importers\Assets\IteratorImporter;
 use App\Services\DataLoader\Testing\Data\AssetsData;
+use App\Services\DataLoader\Testing\Data\Context;
 use App\Utils\Iterators\Contracts\ObjectIterator;
+use LastDragon_ru\LaraASP\Testing\Utils\TestData;
 
 class AssetsIteratorImporterData extends AssetsData {
     public const ASSETS = [
@@ -22,24 +24,28 @@ class AssetsIteratorImporterData extends AssetsData {
         '00000000-0000-0000-0000-000000000000',
     ];
 
-    protected function generateData(string $path): bool {
-        return $this->dumpClientResponses($path, function (): bool {
-            $this->app->make(IteratorImporter::class)
+    protected function generateData(TestData $root, Context $context): bool {
+        return $this->createAsset()
+            && $this->app->make(IteratorImporter::class)
                 ->setIterator(static::getIterator())
                 ->setChunkSize(static::CHUNK)
                 ->setLimit(static::LIMIT)
                 ->start();
+    }
 
-            return true;
-        });
+    public function restore(TestData $root, Context $context): bool {
+        return $this->createAsset()
+            && parent::restore($root, $context);
     }
 
     /**
-     * @inheritDoc
+     * @return ObjectIterator<Asset|string>
      */
-    public function restore(string $path, array $context): bool {
-        $result = parent::restore($path, $context);
+    public static function getIterator(): ObjectIterator {
+        return static::getModelsIterator(Asset::class, static::ASSETS);
+    }
 
+    private function createAsset(): bool {
         Asset::factory()->create([
             'id'          => '00000000-0000-0000-0000-000000000000',
             'reseller_id' => null,
@@ -51,13 +57,6 @@ class AssetsIteratorImporterData extends AssetsData {
             'status_id'   => null,
         ]);
 
-        return $result;
-    }
-
-    /**
-     * @return ObjectIterator<Asset|string>
-     */
-    public static function getIterator(): ObjectIterator {
-        return static::getModelsIterator(Asset::class, static::ASSETS);
+        return true;
     }
 }

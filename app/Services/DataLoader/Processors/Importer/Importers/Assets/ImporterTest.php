@@ -37,9 +37,9 @@ class ImporterTest extends TestCase {
 
         // Pretest
         self::assertModelsCount([
-            Distributor::class   => 2,
+            Distributor::class   => 0,
             Reseller::class      => 8,
-            Customer::class      => 26,
+            Customer::class      => 25,
             Asset::class         => 0,
             AssetWarranty::class => 0,
             Document::class      => 0,

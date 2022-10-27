@@ -1,0 +1,314 @@
+{
+    "selector": "data.getAssets",
+    "query": "query getAssets($id: String!) {\n    getAssets(args: [{key: \"id\", value: $id}]) {\n        id\nserialNumber\n\nassetSku\nassetSkuDescription\nassetTag\nassetType\nstatus\nvendor\n\neolDate\neosDate\neoslDate\n\ncountry\ncountryCode\nlatitude\nlongitude\nzip\ncity\naddress\naddress2\n\ncustomerId\nresellerId\n\nupdatedAt\n\nlatestContactPersons {\n    phoneNumber\n    name\n    type\n    mail\n}\n\nassetCoverage\ncoverageStatusCheck {\n    coverageStatus\n    coverageStatusUpdatedAt\n    coverageEntries {\n        coverageStartDate\n        coverageEndDate\n        type\n        description\n        status\n        serviceSku\n    }\n}\n\ndataQualityScore\nactiveContractQuantitySum\n        assetDocument {\n    startDate\n    endDate\n    documentNumber\n    deletedAt\n\n    document {\n        id\n        type\n        documentNumber\n\n        startDate\n        endDate\n\n        currencyCode\n        languageCode\n\n        updatedAt\n\n        vendorSpecificFields {\n            vendor\n            groupId\n            groupDescription\n            said\n            ampId\n            sar\n        }\n\n        contactPersons {\n            phoneNumber\n            name\n            type\n            mail\n        }\n\n        customerId\n        resellerId\n        distributorId\n    }\n\n    serviceGroupSku\n    serviceGroupSkuDescription\n    serviceLevelSku\n    serviceLevelSkuDescription\n    serviceFullDescription\n\n    customer {\n      id\n    }\n\n    reseller {\n      id\n    }\n}\n    }\n}",
+    "variables": {
+        "id": "fa66f78b-0580-4ca4-8c81-06d2d2f25cf5"
+    },
+    "response": {
+        "data": {
+            "getAssets": [
+                {
+                    "id": "fa66f78b-0580-4ca4-8c81-06d2d2f25cf5",
+                    "resellerId": "9f6b1030-5d5d-4f0b-b743-2ef69eaf4a44",
+                    "customerId": "f0506708-9949-4017-a760-d8e6d0a12838",
+                    "serialNumber": "175a3117-2953-3fed-aaf8-eaf0f8d76755",
+                    "assetSkuDescription": "HPE 3PAR 8000 2TB+SW 7.2K SFF HDD",
+                    "assetTag": null,
+                    "assetType": null,
+                    "vendor": "HPE",
+                    "assetSku": "M0S92B",
+                    "eolDate": null,
+                    "eosDate": null,
+                    "eoslDate": null,
+                    "zip": "49557-2232",
+                    "city": "Conroyfort",
+                    "address": "310 Stroman Views Suite 075",
+                    "address2": null,
+                    "country": "Sudan",
+                    "latitude": "-10.41355",
+                    "longitude": "-18.804934",
+                    "countryCode": "DM",
+                    "status": "ACTIVE",
+                    "updatedAt": "1664818926204",
+                    "assetCoverage": [
+                        "COVERED"
+                    ],
+                    "dataQualityScore": "80",
+                    "activeContractQuantitySum": 0,
+                    "assetDocument": [
+                        {
+                            "serviceGroupSku": null,
+                            "serviceGroupSkuDescription": null,
+                            "serviceLevelSku": "HA158AC",
+                            "serviceLevelSkuDescription": "HPE 3PAR 8000 2TB+SW 7.2K SFF HDD",
+                            "serviceFullDescription": null,
+                            "documentNumber": "50fbf111-5f34-35c3-a543-b607e5bfbe40",
+                            "document": {
+                                "id": "0aaf2b0e-ae7d-41b0-a1af-5610d486eb19",
+                                "type": "Contract",
+                                "documentNumber": "50fbf111-5f34-35c3-a543-b607e5bfbe40",
+                                "startDate": "2020-07-17",
+                                "endDate": "2023-07-16",
+                                "currencyCode": "EUR",
+                                "languageCode": null,
+                                "updatedAt": "1654262846658",
+                                "vendorSpecificFields": {
+                                    "vendor": "HPE",
+                                    "sar": null,
+                                    "ampId": "83-RV-HAUPT",
+                                    "said": "923fe89a-5fdf-38a5-a85b-d29ad05267bc",
+                                    "groupId": null,
+                                    "groupDescription": null
+                                },
+                                "contactPersons": [
+                                    {
+                                        "phoneNumber": "+19737302663",
+                                        "name": "Blair Crooks",
+                                        "mail": null,
+                                        "type": "EndUser Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+15342161852",
+                                        "name": "Ava Baumbach",
+                                        "mail": "alberto59@gmail.com",
+                                        "type": "Distributor Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+18069886840",
+                                        "name": "Mrs. Kallie Doyle DDS",
+                                        "mail": "mallory89@will.org",
+                                        "type": "Reseller Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+19737302663",
+                                        "name": "Blair Crooks",
+                                        "mail": null,
+                                        "type": "Hardware System Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+19737302663",
+                                        "name": "Blair Crooks",
+                                        "mail": null,
+                                        "type": "Software System Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+19737302663",
+                                        "name": "Blair Crooks",
+                                        "mail": null,
+                                        "type": "System Manager Contact"
+                                    }
+                                ],
+                                "resellerId": "9f6b1030-5d5d-4f0b-b743-2ef69eaf4a44",
+                                "customerId": "f0506708-9949-4017-a760-d8e6d0a12838",
+                                "distributorId": "1af1c44e-8112-4e72-9654-b11c705e9372"
+                            },
+                            "startDate": null,
+                            "endDate": null,
+                            "deletedAt": null,
+                            "reseller": {
+                                "id": "9f6b1030-5d5d-4f0b-b743-2ef69eaf4a44"
+                            },
+                            "customer": {
+                                "id": "f0506708-9949-4017-a760-d8e6d0a12838"
+                            }
+                        },
+                        {
+                            "serviceGroupSku": null,
+                            "serviceGroupSkuDescription": null,
+                            "serviceLevelSku": "HA156AC",
+                            "serviceLevelSkuDescription": "HPE 3PAR 8000 2TB+SW 7.2K SFF HDD",
+                            "serviceFullDescription": null,
+                            "documentNumber": "50fbf111-5f34-35c3-a543-b607e5bfbe40",
+                            "document": {
+                                "id": "0aaf2b0e-ae7d-41b0-a1af-5610d486eb19",
+                                "type": "Contract",
+                                "documentNumber": "50fbf111-5f34-35c3-a543-b607e5bfbe40",
+                                "startDate": "2020-07-17",
+                                "endDate": "2023-07-16",
+                                "currencyCode": "EUR",
+                                "languageCode": null,
+                                "updatedAt": "1654262846658",
+                                "vendorSpecificFields": {
+                                    "vendor": "HPE",
+                                    "sar": null,
+                                    "ampId": "83-RV-HAUPT",
+                                    "said": "923fe89a-5fdf-38a5-a85b-d29ad05267bc",
+                                    "groupId": null,
+                                    "groupDescription": null
+                                },
+                                "contactPersons": [
+                                    {
+                                        "phoneNumber": "+19737302663",
+                                        "name": "Blair Crooks",
+                                        "mail": null,
+                                        "type": "EndUser Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+15342161852",
+                                        "name": "Ava Baumbach",
+                                        "mail": "alberto59@gmail.com",
+                                        "type": "Distributor Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+18069886840",
+                                        "name": "Mrs. Kallie Doyle DDS",
+                                        "mail": "mallory89@will.org",
+                                        "type": "Reseller Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+19737302663",
+                                        "name": "Blair Crooks",
+                                        "mail": null,
+                                        "type": "Hardware System Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+19737302663",
+                                        "name": "Blair Crooks",
+                                        "mail": null,
+                                        "type": "Software System Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+19737302663",
+                                        "name": "Blair Crooks",
+                                        "mail": null,
+                                        "type": "System Manager Contact"
+                                    }
+                                ],
+                                "resellerId": "9f6b1030-5d5d-4f0b-b743-2ef69eaf4a44",
+                                "customerId": "f0506708-9949-4017-a760-d8e6d0a12838",
+                                "distributorId": "1af1c44e-8112-4e72-9654-b11c705e9372"
+                            },
+                            "startDate": null,
+                            "endDate": null,
+                            "deletedAt": null,
+                            "reseller": {
+                                "id": "9f6b1030-5d5d-4f0b-b743-2ef69eaf4a44"
+                            },
+                            "customer": {
+                                "id": "f0506708-9949-4017-a760-d8e6d0a12838"
+                            }
+                        },
+                        {
+                            "serviceGroupSku": null,
+                            "serviceGroupSkuDescription": null,
+                            "serviceLevelSku": "HA151AC",
+                            "serviceLevelSkuDescription": "HPE 3PAR 8000 2TB+SW 7.2K SFF HDD",
+                            "serviceFullDescription": null,
+                            "documentNumber": "50fbf111-5f34-35c3-a543-b607e5bfbe40",
+                            "document": {
+                                "id": "0aaf2b0e-ae7d-41b0-a1af-5610d486eb19",
+                                "type": "Contract",
+                                "documentNumber": "50fbf111-5f34-35c3-a543-b607e5bfbe40",
+                                "startDate": "2020-07-17",
+                                "endDate": "2023-07-16",
+                                "currencyCode": "EUR",
+                                "languageCode": null,
+                                "updatedAt": "1654262846658",
+                                "vendorSpecificFields": {
+                                    "vendor": "HPE",
+                                    "sar": null,
+                                    "ampId": "83-RV-HAUPT",
+                                    "said": "923fe89a-5fdf-38a5-a85b-d29ad05267bc",
+                                    "groupId": null,
+                                    "groupDescription": null
+                                },
+                                "contactPersons": [
+                                    {
+                                        "phoneNumber": "+19737302663",
+                                        "name": "Blair Crooks",
+                                        "mail": null,
+                                        "type": "EndUser Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+15342161852",
+                                        "name": "Ava Baumbach",
+                                        "mail": "alberto59@gmail.com",
+                                        "type": "Distributor Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+18069886840",
+                                        "name": "Mrs. Kallie Doyle DDS",
+                                        "mail": "mallory89@will.org",
+                                        "type": "Reseller Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+19737302663",
+                                        "name": "Blair Crooks",
+                                        "mail": null,
+                                        "type": "Hardware System Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+19737302663",
+                                        "name": "Blair Crooks",
+                                        "mail": null,
+                                        "type": "Software System Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+19737302663",
+                                        "name": "Blair Crooks",
+                                        "mail": null,
+                                        "type": "System Manager Contact"
+                                    }
+                                ],
+                                "resellerId": "9f6b1030-5d5d-4f0b-b743-2ef69eaf4a44",
+                                "customerId": "f0506708-9949-4017-a760-d8e6d0a12838",
+                                "distributorId": "1af1c44e-8112-4e72-9654-b11c705e9372"
+                            },
+                            "startDate": null,
+                            "endDate": null,
+                            "deletedAt": null,
+                            "reseller": {
+                                "id": "9f6b1030-5d5d-4f0b-b743-2ef69eaf4a44"
+                            },
+                            "customer": {
+                                "id": "f0506708-9949-4017-a760-d8e6d0a12838"
+                            }
+                        }
+                    ],
+                    "latestContactPersons": [
+                        {
+                            "phoneNumber": "+19737302663",
+                            "name": "Blair Crooks",
+                            "mail": null,
+                            "type": "EndUser Contact"
+                        },
+                        {
+                            "phoneNumber": "+15342161852",
+                            "name": "Ava Baumbach",
+                            "mail": "alberto59@gmail.com",
+                            "type": "Distributor Contact"
+                        },
+                        {
+                            "phoneNumber": "+18069886840",
+                            "name": "Mrs. Kallie Doyle DDS",
+                            "mail": "mallory89@will.org",
+                            "type": "Reseller Contact"
+                        }
+                    ],
+                    "coverageStatusCheck": {
+                        "coverageStatus": "COVERED",
+                        "coverageStatusUpdatedAt": "1664818926204",
+                        "coverageEntries": [
+                            {
+                                "coverageStartDate": "2020-07-17",
+                                "coverageEndDate": "2023-07-16",
+                                "type": "Contract",
+                                "status": "Active",
+                                "description": "H1K92AC-HPE Proactive Care 24x7 SVC",
+                                "serviceSku": null
+                            },
+                            {
+                                "coverageStartDate": "2020-07-02",
+                                "coverageEndDate": "2023-07-31",
+                                "type": "FactoryWarranty",
+                                "status": "Active",
+                                "description": "HA155BW-Wty: HPE Parts Exchange Support",
+                                "serviceSku": null
+                            }
+                        ]
+                    }
+                }
+            ]
+        }
+    }
+}

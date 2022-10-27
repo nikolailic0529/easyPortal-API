@@ -207,9 +207,14 @@ class CreateTest extends TestCase {
         // Prepare
         $org       = $this->setOrganization(Organization::factory()->create());
         $user      = $this->setUser(User::factory()->create());
+        $type      = Type::factory()->create();
         $mutation  = $this->app->make(Create::class);
-        $documentA = Document::factory()->ownedBy($org)->create([]);
-        $documentB = Document::factory()->ownedBy($org)->create();
+        $documentA = Document::factory()->ownedBy($org)->create([
+            'type_id' => $type,
+        ]);
+        $documentB = Document::factory()->ownedBy($org)->create([
+            'type_id' => $type,
+        ]);
         $durationA = QuoteRequestDuration::factory()->create();
         $durationB = QuoteRequestDuration::factory()->create();
         $input     = new CreateInput([
@@ -234,6 +239,10 @@ class CreateTest extends TestCase {
 
         self::assertNotNull($org);
         self::assertNotNull($user);
+
+        $this->setSettings([
+            'ep.contract_types' => [$type->getKey()],
+        ]);
 
         // Request
         $request = ($mutation)->createRequest($input);

@@ -1,0 +1,162 @@
+{
+    "selector": "data.getAssets",
+    "query": "query getAssets($id: String!) {\n    getAssets(args: [{key: \"id\", value: $id}]) {\n        id\nserialNumber\n\nassetSku\nassetSkuDescription\nassetTag\nassetType\nstatus\nvendor\n\neolDate\neosDate\neoslDate\n\ncountry\ncountryCode\nlatitude\nlongitude\nzip\ncity\naddress\naddress2\n\ncustomerId\nresellerId\n\nupdatedAt\n\nlatestContactPersons {\n    phoneNumber\n    name\n    type\n    mail\n}\n\nassetCoverage\ncoverageStatusCheck {\n    coverageStatus\n    coverageStatusUpdatedAt\n    coverageEntries {\n        coverageStartDate\n        coverageEndDate\n        type\n        description\n        status\n        serviceSku\n    }\n}\n\ndataQualityScore\nactiveContractQuantitySum\n        assetDocument {\n    startDate\n    endDate\n    documentNumber\n    deletedAt\n\n    document {\n        id\n        type\n        documentNumber\n\n        startDate\n        endDate\n\n        currencyCode\n        languageCode\n\n        updatedAt\n\n        vendorSpecificFields {\n            vendor\n            groupId\n            groupDescription\n            said\n            ampId\n            sar\n        }\n\n        contactPersons {\n            phoneNumber\n            name\n            type\n            mail\n        }\n\n        customerId\n        resellerId\n        distributorId\n    }\n\n    serviceGroupSku\n    serviceGroupSkuDescription\n    serviceLevelSku\n    serviceLevelSkuDescription\n    serviceFullDescription\n\n    customer {\n      id\n    }\n\n    reseller {\n      id\n    }\n}\n    }\n}",
+    "variables": {
+        "id": "2f5dcdae-ed5a-4a87-a9b1-417819b638e4"
+    },
+    "response": {
+        "data": {
+            "getAssets": [
+                {
+                    "id": "2f5dcdae-ed5a-4a87-a9b1-417819b638e4",
+                    "resellerId": "9f6b1030-5d5d-4f0b-b743-2ef69eaf4a44",
+                    "customerId": "e25e1111-5815-455f-af8b-93665f76b62c",
+                    "serialNumber": "7e8af150-a641-3424-8b7e-100128575111",
+                    "assetSkuDescription": "HPE 300GB SAS 10K SFF SC DS HDD",
+                    "assetTag": null,
+                    "assetType": null,
+                    "vendor": "HPE",
+                    "assetSku": "872475-B21",
+                    "eolDate": null,
+                    "eosDate": null,
+                    "eoslDate": null,
+                    "zip": "79465-9082",
+                    "city": "East Ewaldport",
+                    "address": "98733 Murray Terrace Suite 898",
+                    "address2": null,
+                    "country": "Sudan",
+                    "latitude": "-68.372207",
+                    "longitude": "-10.185557",
+                    "countryCode": "DM",
+                    "status": "ACTIVE",
+                    "updatedAt": "1664796248875",
+                    "assetCoverage": [
+                        "COVERED"
+                    ],
+                    "dataQualityScore": "80",
+                    "activeContractQuantitySum": 0,
+                    "assetDocument": [
+                        {
+                            "serviceGroupSku": null,
+                            "serviceGroupSkuDescription": null,
+                            "serviceLevelSku": "HA151AC",
+                            "serviceLevelSkuDescription": "HPE Hardware Maintenance Onsite Support",
+                            "serviceFullDescription": null,
+                            "documentNumber": "3a3b3c40-4ee8-3d2a-8833-43efe14ba77a",
+                            "document": {
+                                "id": "b9379a91-e7c8-4652-85b8-b340bfa68f49",
+                                "type": "Contract",
+                                "documentNumber": "3a3b3c40-4ee8-3d2a-8833-43efe14ba77a",
+                                "startDate": "2018-11-27",
+                                "endDate": "2023-11-30",
+                                "currencyCode": "EUR",
+                                "languageCode": null,
+                                "updatedAt": "1654262846658",
+                                "vendorSpecificFields": {
+                                    "vendor": "HPE",
+                                    "sar": null,
+                                    "ampId": "83-RV-NDR",
+                                    "said": "51b68021-affb-3855-93b1-4f6047b7cbb4",
+                                    "groupId": null,
+                                    "groupDescription": null
+                                },
+                                "contactPersons": [
+                                    {
+                                        "phoneNumber": "+12256245194",
+                                        "name": "Stephania Davis IV",
+                                        "mail": null,
+                                        "type": "EndUser Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+15342161852",
+                                        "name": "Ava Baumbach",
+                                        "mail": "alberto59@gmail.com",
+                                        "type": "Distributor Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+18069886840",
+                                        "name": "Mrs. Kallie Doyle DDS",
+                                        "mail": "mallory89@will.org",
+                                        "type": "Reseller Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+12256245194",
+                                        "name": "Stephania Davis IV",
+                                        "mail": null,
+                                        "type": "Hardware System Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+12256245194",
+                                        "name": "Stephania Davis IV",
+                                        "mail": null,
+                                        "type": "Software System Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+12256245194",
+                                        "name": "Stephania Davis IV",
+                                        "mail": null,
+                                        "type": "System Manager Contact"
+                                    }
+                                ],
+                                "resellerId": "9f6b1030-5d5d-4f0b-b743-2ef69eaf4a44",
+                                "customerId": "e25e1111-5815-455f-af8b-93665f76b62c",
+                                "distributorId": "1af1c44e-8112-4e72-9654-b11c705e9372"
+                            },
+                            "startDate": null,
+                            "endDate": null,
+                            "deletedAt": null,
+                            "reseller": {
+                                "id": "9f6b1030-5d5d-4f0b-b743-2ef69eaf4a44"
+                            },
+                            "customer": {
+                                "id": "e25e1111-5815-455f-af8b-93665f76b62c"
+                            }
+                        }
+                    ],
+                    "latestContactPersons": [
+                        {
+                            "phoneNumber": "+12256245194",
+                            "name": "Stephania Davis IV",
+                            "mail": null,
+                            "type": "EndUser Contact"
+                        },
+                        {
+                            "phoneNumber": "+15342161852",
+                            "name": "Ava Baumbach",
+                            "mail": "alberto59@gmail.com",
+                            "type": "Distributor Contact"
+                        },
+                        {
+                            "phoneNumber": "+18069886840",
+                            "name": "Mrs. Kallie Doyle DDS",
+                            "mail": "mallory89@will.org",
+                            "type": "Reseller Contact"
+                        }
+                    ],
+                    "coverageStatusCheck": {
+                        "coverageStatus": "COVERED",
+                        "coverageStatusUpdatedAt": "1664796248875",
+                        "coverageEntries": [
+                            {
+                                "coverageStartDate": "2018-11-27",
+                                "coverageEndDate": "2023-11-30",
+                                "type": "Contract",
+                                "status": "Active",
+                                "description": "H7J32AC-HPE Foundation Care NBD SVC",
+                                "serviceSku": null
+                            },
+                            {
+                                "coverageStartDate": "2018-11-16",
+                                "coverageEndDate": "2021-12-15",
+                                "type": "FactoryWarranty",
+                                "status": "Expired",
+                                "description": "HA155BW-Wty: HPE Parts Exchange Support",
+                                "serviceSku": null
+                            }
+                        ]
+                    }
+                }
+            ]
+        }
+    }
+}

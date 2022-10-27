@@ -7,10 +7,12 @@ use App\Models\Data\Oem;
 use App\Models\Data\Type;
 use App\Models\Document;
 use App\Services\DataLoader\Testing\Data\AssetsData;
+use App\Services\DataLoader\Testing\Data\Context;
 use App\Utils\Console\CommandOptions;
 use App\Utils\Eloquent\GlobalScopes\GlobalScopes;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Date;
+use LastDragon_ru\LaraASP\Testing\Utils\TestData;
 
 use function array_sum;
 
@@ -23,43 +25,38 @@ class ResellerLoaderData extends AssetsData {
     public const DOCUMENTS = false;
     public const DOCUMENT  = null;
 
-    protected function generateData(string $path): bool {
-        return $this->dumpClientResponses($path, function (): bool {
-            $results = [
-                $this->kernel->call('ep:data-loader-reseller-sync', $this->getOptions([
-                    'id'          => static::RESELLER,
-                    '--documents' => static::DOCUMENTS,
-                    '--assets'    => static::ASSETS,
-                ])),
-            ];
+    protected function generateData(TestData $root, Context $context): bool {
+        $results = [
+            $this->kernel->call('ep:data-loader-reseller-sync', $this->getOptions([
+                'id'          => static::RESELLER,
+                '--documents' => static::DOCUMENTS,
+                '--assets'    => static::ASSETS,
+            ])),
+        ];
 
-            if (static::ASSET) {
-                $results[] = $this->kernel->call('ep:data-loader-asset-sync', $this->getOptions([
-                    'id' => '00000000-0000-0000-0000-000000000000',
-                ]));
-                $results[] = $this->kernel->call('ep:data-loader-asset-sync', $this->getOptions([
-                    'id' => static::ASSET,
-                ]));
-            }
+        if (static::ASSET) {
+            $results[] = $this->kernel->call('ep:data-loader-asset-sync', $this->getOptions([
+                'id' => '00000000-0000-0000-0000-000000000000',
+            ]));
+            $results[] = $this->kernel->call('ep:data-loader-asset-sync', $this->getOptions([
+                'id' => static::ASSET,
+            ]));
+        }
 
-            if (static::DOCUMENT) {
-                $results[] = $this->kernel->call('ep:data-loader-document-sync', $this->getOptions([
-                    'id' => '00000000-0000-0000-0000-000000000000',
-                ]));
-                $results[] = $this->kernel->call('ep:data-loader-document-sync', $this->getOptions([
-                    'id' => static::DOCUMENT,
-                ]));
-            }
+        if (static::DOCUMENT) {
+            $results[] = $this->kernel->call('ep:data-loader-document-sync', $this->getOptions([
+                'id' => '00000000-0000-0000-0000-000000000000',
+            ]));
+            $results[] = $this->kernel->call('ep:data-loader-document-sync', $this->getOptions([
+                'id' => static::DOCUMENT,
+            ]));
+        }
 
-            return array_sum($results) === Command::SUCCESS;
-        });
+        return array_sum($results) === Command::SUCCESS;
     }
 
-    /**
-     * @inheritDoc
-     */
-    public function restore(string $path, array $context): bool {
-        $result = parent::restore($path, $context);
+    public function restore(TestData $root, Context $context): bool {
+        $result = parent::restore($root, $context);
 
         GlobalScopes::callWithoutAll(static function (): void {
             if (static::ASSET) {

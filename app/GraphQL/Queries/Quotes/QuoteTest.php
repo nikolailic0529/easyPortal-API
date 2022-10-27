@@ -275,6 +275,7 @@ class QuoteTest extends TestCase {
                                 key
                                 name
                             }
+                            removed_at
                         }
                         language {
                             id
@@ -650,6 +651,7 @@ class QuoteTest extends TestCase {
                                         'key'  => 'Psp#A',
                                         'name' => 'Psp A',
                                     ],
+                                    'removed_at'           => null,
                                 ],
                             ],
                             'language'          => [

@@ -22,6 +22,7 @@ use App\GraphQL\Mutations\Organization\User\InviteImpossibleKeycloakUserDisabled
 use App\Http\Controllers\Export\GraphQLQueryInvalid as HttpExportGraphQLQueryInvalid;
 use App\Http\Controllers\Export\HeadersUnknownFunction as HttpExportHeadersUnknownFunction;
 use App\Services\DataLoader\Client\Exceptions\DataLoaderDisabled as DataLoaderDataLoaderDisabled;
+use App\Services\DataLoader\Client\Exceptions\DataLoaderRequestRateTooLarge as DataLoaderDataLoaderRequestRateTooLarge;
 use App\Services\DataLoader\Client\Exceptions\DataLoaderUnavailable as DataLoaderDataLoaderUnavailable;
 use App\Services\DataLoader\Client\Exceptions\GraphQLRequestFailed as DataLoaderGraphQLRequestFailed;
 use App\Services\Filesystem\Exceptions\StorageFileCorrupted as FilesystemStorageFileCorrupted;
@@ -120,6 +121,7 @@ class ErrorCodes {
         DataLoaderDataLoaderDisabled::class                        => 'DataLoader001',
         DataLoaderDataLoaderUnavailable::class                     => 'DataLoader002',
         DataLoaderGraphQLRequestFailed::class                      => 'DataLoader003',
+        DataLoaderDataLoaderRequestRateTooLarge::class             => 'DataLoader004',
     ];
 
     /**

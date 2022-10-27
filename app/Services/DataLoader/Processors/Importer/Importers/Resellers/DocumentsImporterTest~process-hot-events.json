@@ -1,15 +1,1 @@
-[
-    {
-        "event": "App\\Services\\DataLoader\\Events\\DataImported",
-        "data": {
-            "App\\Models\\Distributor": [],
-            "App\\Models\\Reseller": [],
-            "App\\Models\\Customer": [],
-            "App\\Models\\Document": [],
-            "App\\Models\\Data\\Location": [],
-            "App\\Models\\Asset": {
-                "e7ec0b4b-3696-4b4d-b296-7cb145a5add4": "e7ec0b4b-3696-4b4d-b296-7cb145a5add4"
-            }
-        }
-    }
-]
+[]

@@ -19,7 +19,8 @@ trait Children {
      *
      * @param C                   $existing
      * @param array<?T>           $children
-     * @param Closure(T, M): bool $comparator
+     * @param Closure(M): bool    $isReusable
+     * @param Closure(T, M): bool $isEqual
      * @param Closure(T, ?M): ?M  $factory
      *
      * @return C
@@ -27,7 +28,8 @@ trait Children {
     protected function children(
         Collection $existing,
         array $children,
-        Closure $comparator,
+        Closure $isReusable,
+        Closure $isEqual,
         Closure $factory,
     ): Collection {
         // Often children don't have ID for this reason we were tried to compare
@@ -45,8 +47,8 @@ trait Children {
                 continue;
             }
 
-            $key         = $existing->search(static function (Model $model) use ($comparator, $child): bool {
-                return $comparator($child, $model);
+            $key         = $existing->search(static function (Model $model) use ($isEqual, $child): bool {
+                return $isEqual($child, $model);
             });
             $map[$child] = null;
 
@@ -59,7 +61,7 @@ trait Children {
 
         // Reuse
         if (!$existing->isEmpty()) {
-            $reusable = $existing->all();
+            $reusable = $existing->filter($isReusable)->all();
 
             foreach ($map as $child) {
                 if ($map[$child] !== null) {

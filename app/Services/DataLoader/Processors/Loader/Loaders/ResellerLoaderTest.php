@@ -109,7 +109,7 @@ class ResellerLoaderTest extends TestCase {
 
         // Pretest
         self::assertModelsCount([
-            Distributor::class   => 2,
+            Distributor::class   => 0,
             Reseller::class      => 2,
             Customer::class      => 2,
             Asset::class         => 2,
@@ -129,7 +129,7 @@ class ResellerLoaderTest extends TestCase {
 
         self::assertQueryLogEquals('~process-with-assets-cold-queries.json', $queries);
         self::assertModelsCount([
-            Distributor::class   => 2,
+            Distributor::class   => 0,
             Reseller::class      => 2,
             Customer::class      => 2,
             Asset::class         => 26,

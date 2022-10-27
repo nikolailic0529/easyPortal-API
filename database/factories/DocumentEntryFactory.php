@@ -33,6 +33,7 @@ class DocumentEntryFactory extends Factory {
     public function definition(): array {
         return [
             'id'                          => $this->faker->uuid(),
+            'uid'                         => null,
             'document_id'                 => static function (): Document {
                 return Document::factory()->create();
             },
@@ -73,6 +74,7 @@ class DocumentEntryFactory extends Factory {
             'environment_id'              => null,
             'equipment_number'            => $this->faker->uuid(),
             'language_id'                 => null,
+            'removed_at'                  => null,
             'created_at'                  => Date::now(),
             'updated_at'                  => Date::now(),
             'deleted_at'                  => null,

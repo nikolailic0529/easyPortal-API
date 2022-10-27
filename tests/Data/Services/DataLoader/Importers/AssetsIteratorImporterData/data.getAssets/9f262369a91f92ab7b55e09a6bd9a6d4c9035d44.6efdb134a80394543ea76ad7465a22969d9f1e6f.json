@@ -1,0 +1,430 @@
+{
+    "selector": "data.getAssets",
+    "query": "query getAssets($id: String!) {\n    getAssets(args: [{key: \"id\", value: $id}]) {\n        id\nserialNumber\n\nassetSku\nassetSkuDescription\nassetTag\nassetType\nstatus\nvendor\n\neolDate\neosDate\neoslDate\n\ncountry\ncountryCode\nlatitude\nlongitude\nzip\ncity\naddress\naddress2\n\ncustomerId\nresellerId\n\nupdatedAt\n\nlatestContactPersons {\n    phoneNumber\n    name\n    type\n    mail\n}\n\nassetCoverage\ncoverageStatusCheck {\n    coverageStatus\n    coverageStatusUpdatedAt\n    coverageEntries {\n        coverageStartDate\n        coverageEndDate\n        type\n        description\n        status\n        serviceSku\n    }\n}\n\ndataQualityScore\nactiveContractQuantitySum\n        assetDocument {\n    startDate\n    endDate\n    documentNumber\n    deletedAt\n\n    document {\n        id\n        type\n        documentNumber\n\n        startDate\n        endDate\n\n        currencyCode\n        languageCode\n\n        updatedAt\n\n        vendorSpecificFields {\n            vendor\n            groupId\n            groupDescription\n            said\n            ampId\n            sar\n        }\n\n        contactPersons {\n            phoneNumber\n            name\n            type\n            mail\n        }\n\n        customerId\n        resellerId\n        distributorId\n    }\n\n    serviceGroupSku\n    serviceGroupSkuDescription\n    serviceLevelSku\n    serviceLevelSkuDescription\n    serviceFullDescription\n\n    customer {\n      id\n    }\n\n    reseller {\n      id\n    }\n}\n    }\n}",
+    "variables": {
+        "id": "5d62ee0b-ebdf-4a76-bcab-60078f6eba32"
+    },
+    "response": {
+        "data": {
+            "getAssets": [
+                {
+                    "id": "5d62ee0b-ebdf-4a76-bcab-60078f6eba32",
+                    "resellerId": "9d9e320d-4e44-4518-a4e6-6bfe7f1c7dd8",
+                    "customerId": "35c87f11-f024-402b-9a9e-49b21d29e804",
+                    "serialNumber": "f7fffaab-01ff-35f2-9b68-f14587a60202",
+                    "assetSkuDescription": "HPE M6710 1.2TB 12G SAS 10K 2.5in HDD",
+                    "assetTag": null,
+                    "assetType": null,
+                    "vendor": "HPE",
+                    "assetSku": "E7X49A",
+                    "eolDate": null,
+                    "eosDate": null,
+                    "eoslDate": null,
+                    "zip": "23344",
+                    "city": "Bradtkeshire",
+                    "address": "19798 Chadrick Port Apt. 573",
+                    "address2": null,
+                    "country": "Sudan",
+                    "latitude": "22.602558",
+                    "longitude": "50.38414",
+                    "countryCode": "DM",
+                    "status": "ACTIVE",
+                    "updatedAt": "1664801340452",
+                    "assetCoverage": [
+                        "COVERED"
+                    ],
+                    "dataQualityScore": "80",
+                    "activeContractQuantitySum": 0,
+                    "assetDocument": [
+                        {
+                            "serviceGroupSku": null,
+                            "serviceGroupSkuDescription": null,
+                            "serviceLevelSku": "HE808AC",
+                            "serviceLevelSkuDescription": "HPE Mature Hardware Onsite Support",
+                            "serviceFullDescription": null,
+                            "documentNumber": "e15bcd90-fe6d-3cb8-80b2-52450e3a83c5",
+                            "document": {
+                                "id": "72aaeb84-1468-4526-a94d-3dc0c4ce31a1",
+                                "type": "Contract",
+                                "documentNumber": "e15bcd90-fe6d-3cb8-80b2-52450e3a83c5",
+                                "startDate": "2022-06-01",
+                                "endDate": "2023-05-31",
+                                "currencyCode": "EUR",
+                                "languageCode": null,
+                                "updatedAt": "1654262846658",
+                                "vendorSpecificFields": {
+                                    "vendor": "HPE",
+                                    "sar": null,
+                                    "ampId": "83-Z00342",
+                                    "said": "58eed396-7fb0-30ca-b43a-dcc9abbe77ed",
+                                    "groupId": null,
+                                    "groupDescription": null
+                                },
+                                "contactPersons": [
+                                    {
+                                        "phoneNumber": null,
+                                        "name": null,
+                                        "mail": null,
+                                        "type": "EndUser Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+15342161852",
+                                        "name": "Ava Baumbach",
+                                        "mail": "alberto59@gmail.com",
+                                        "type": "Distributor Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+18479676631",
+                                        "name": "Eliane Mraz",
+                                        "mail": "marshall.braun@williamson.com",
+                                        "type": "Reseller Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+18108788547",
+                                        "name": "Bell Kuhlman",
+                                        "mail": "heathcote.freida@feil.com",
+                                        "type": "Hardware System Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+18108788547",
+                                        "name": "Bell Kuhlman",
+                                        "mail": "heathcote.freida@feil.com",
+                                        "type": "Software System Contact"
+                                    },
+                                    {
+                                        "phoneNumber": null,
+                                        "name": null,
+                                        "mail": null,
+                                        "type": "System Manager Contact"
+                                    }
+                                ],
+                                "resellerId": "9d9e320d-4e44-4518-a4e6-6bfe7f1c7dd8",
+                                "customerId": "35c87f11-f024-402b-9a9e-49b21d29e804",
+                                "distributorId": "1af1c44e-8112-4e72-9654-b11c705e9372"
+                            },
+                            "startDate": null,
+                            "endDate": null,
+                            "deletedAt": null,
+                            "reseller": {
+                                "id": "9d9e320d-4e44-4518-a4e6-6bfe7f1c7dd8"
+                            },
+                            "customer": {
+                                "id": "35c87f11-f024-402b-9a9e-49b21d29e804"
+                            }
+                        },
+                        {
+                            "serviceGroupSku": null,
+                            "serviceGroupSkuDescription": null,
+                            "serviceLevelSku": "HU4A2AC",
+                            "serviceLevelSkuDescription": "HPE Hardware Tech Support",
+                            "serviceFullDescription": null,
+                            "documentNumber": "aed0f346-7b95-34cc-b8e5-591b9c0f42d9",
+                            "document": {
+                                "id": "ec6680a7-beb6-4890-990c-11e0f6feaf1f",
+                                "type": "Quote renewal",
+                                "documentNumber": "aed0f346-7b95-34cc-b8e5-591b9c0f42d9",
+                                "startDate": "2022-06-01",
+                                "endDate": "2023-05-31",
+                                "currencyCode": "EUR",
+                                "languageCode": null,
+                                "updatedAt": "1654646472834",
+                                "vendorSpecificFields": {
+                                    "vendor": "HPE",
+                                    "sar": null,
+                                    "ampId": null,
+                                    "said": null,
+                                    "groupId": null,
+                                    "groupDescription": null
+                                },
+                                "contactPersons": [
+                                    {
+                                        "phoneNumber": "+18479676631",
+                                        "name": "Eliane Mraz",
+                                        "mail": "marshall.braun@williamson.com",
+                                        "type": "Customer Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+15342161852",
+                                        "name": "Ava Baumbach",
+                                        "mail": "alberto59@gmail.com",
+                                        "type": "Renewal Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+18108788547",
+                                        "name": "Bell Kuhlman",
+                                        "mail": "heathcote.freida@feil.com",
+                                        "type": "EndUser Contact"
+                                    }
+                                ],
+                                "resellerId": "9d9e320d-4e44-4518-a4e6-6bfe7f1c7dd8",
+                                "customerId": "35c87f11-f024-402b-9a9e-49b21d29e804",
+                                "distributorId": "1af1c44e-8112-4e72-9654-b11c705e9372"
+                            },
+                            "startDate": null,
+                            "endDate": null,
+                            "deletedAt": null,
+                            "reseller": {
+                                "id": "9d9e320d-4e44-4518-a4e6-6bfe7f1c7dd8"
+                            },
+                            "customer": {
+                                "id": "35c87f11-f024-402b-9a9e-49b21d29e804"
+                            }
+                        },
+                        {
+                            "serviceGroupSku": null,
+                            "serviceGroupSkuDescription": null,
+                            "serviceLevelSku": "HU4A1AC",
+                            "serviceLevelSkuDescription": "HPE Remote Tech Support",
+                            "serviceFullDescription": null,
+                            "documentNumber": "aed0f346-7b95-34cc-b8e5-591b9c0f42d9",
+                            "document": {
+                                "id": "ec6680a7-beb6-4890-990c-11e0f6feaf1f",
+                                "type": "Quote renewal",
+                                "documentNumber": "aed0f346-7b95-34cc-b8e5-591b9c0f42d9",
+                                "startDate": "2022-06-01",
+                                "endDate": "2023-05-31",
+                                "currencyCode": "EUR",
+                                "languageCode": null,
+                                "updatedAt": "1654646472834",
+                                "vendorSpecificFields": {
+                                    "vendor": "HPE",
+                                    "sar": null,
+                                    "ampId": null,
+                                    "said": null,
+                                    "groupId": null,
+                                    "groupDescription": null
+                                },
+                                "contactPersons": [
+                                    {
+                                        "phoneNumber": "+18479676631",
+                                        "name": "Eliane Mraz",
+                                        "mail": "marshall.braun@williamson.com",
+                                        "type": "Customer Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+15342161852",
+                                        "name": "Ava Baumbach",
+                                        "mail": "alberto59@gmail.com",
+                                        "type": "Renewal Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+18108788547",
+                                        "name": "Bell Kuhlman",
+                                        "mail": "heathcote.freida@feil.com",
+                                        "type": "EndUser Contact"
+                                    }
+                                ],
+                                "resellerId": "9d9e320d-4e44-4518-a4e6-6bfe7f1c7dd8",
+                                "customerId": "35c87f11-f024-402b-9a9e-49b21d29e804",
+                                "distributorId": "1af1c44e-8112-4e72-9654-b11c705e9372"
+                            },
+                            "startDate": null,
+                            "endDate": null,
+                            "deletedAt": null,
+                            "reseller": {
+                                "id": "9d9e320d-4e44-4518-a4e6-6bfe7f1c7dd8"
+                            },
+                            "customer": {
+                                "id": "35c87f11-f024-402b-9a9e-49b21d29e804"
+                            }
+                        },
+                        {
+                            "serviceGroupSku": null,
+                            "serviceGroupSkuDescription": null,
+                            "serviceLevelSku": "HU4A1AC",
+                            "serviceLevelSkuDescription": "HPE Remote Tech Support",
+                            "serviceFullDescription": null,
+                            "documentNumber": "e15bcd90-fe6d-3cb8-80b2-52450e3a83c5",
+                            "document": {
+                                "id": "72aaeb84-1468-4526-a94d-3dc0c4ce31a1",
+                                "type": "Contract",
+                                "documentNumber": "e15bcd90-fe6d-3cb8-80b2-52450e3a83c5",
+                                "startDate": "2022-06-01",
+                                "endDate": "2023-05-31",
+                                "currencyCode": "EUR",
+                                "languageCode": null,
+                                "updatedAt": "1654262846658",
+                                "vendorSpecificFields": {
+                                    "vendor": "HPE",
+                                    "sar": null,
+                                    "ampId": "83-Z00342",
+                                    "said": "58eed396-7fb0-30ca-b43a-dcc9abbe77ed",
+                                    "groupId": null,
+                                    "groupDescription": null
+                                },
+                                "contactPersons": [
+                                    {
+                                        "phoneNumber": null,
+                                        "name": null,
+                                        "mail": null,
+                                        "type": "EndUser Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+15342161852",
+                                        "name": "Ava Baumbach",
+                                        "mail": "alberto59@gmail.com",
+                                        "type": "Distributor Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+18479676631",
+                                        "name": "Eliane Mraz",
+                                        "mail": "marshall.braun@williamson.com",
+                                        "type": "Reseller Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+18108788547",
+                                        "name": "Bell Kuhlman",
+                                        "mail": "heathcote.freida@feil.com",
+                                        "type": "Hardware System Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+18108788547",
+                                        "name": "Bell Kuhlman",
+                                        "mail": "heathcote.freida@feil.com",
+                                        "type": "Software System Contact"
+                                    },
+                                    {
+                                        "phoneNumber": null,
+                                        "name": null,
+                                        "mail": null,
+                                        "type": "System Manager Contact"
+                                    }
+                                ],
+                                "resellerId": "9d9e320d-4e44-4518-a4e6-6bfe7f1c7dd8",
+                                "customerId": "35c87f11-f024-402b-9a9e-49b21d29e804",
+                                "distributorId": "1af1c44e-8112-4e72-9654-b11c705e9372"
+                            },
+                            "startDate": null,
+                            "endDate": null,
+                            "deletedAt": null,
+                            "reseller": {
+                                "id": "9d9e320d-4e44-4518-a4e6-6bfe7f1c7dd8"
+                            },
+                            "customer": {
+                                "id": "35c87f11-f024-402b-9a9e-49b21d29e804"
+                            }
+                        },
+                        {
+                            "serviceGroupSku": null,
+                            "serviceGroupSkuDescription": null,
+                            "serviceLevelSku": "HU4A2AC",
+                            "serviceLevelSkuDescription": "HPE Hardware Tech Support",
+                            "serviceFullDescription": null,
+                            "documentNumber": "e15bcd90-fe6d-3cb8-80b2-52450e3a83c5",
+                            "document": {
+                                "id": "72aaeb84-1468-4526-a94d-3dc0c4ce31a1",
+                                "type": "Contract",
+                                "documentNumber": "e15bcd90-fe6d-3cb8-80b2-52450e3a83c5",
+                                "startDate": "2022-06-01",
+                                "endDate": "2023-05-31",
+                                "currencyCode": "EUR",
+                                "languageCode": null,
+                                "updatedAt": "1654262846658",
+                                "vendorSpecificFields": {
+                                    "vendor": "HPE",
+                                    "sar": null,
+                                    "ampId": "83-Z00342",
+                                    "said": "58eed396-7fb0-30ca-b43a-dcc9abbe77ed",
+                                    "groupId": null,
+                                    "groupDescription": null
+                                },
+                                "contactPersons": [
+                                    {
+                                        "phoneNumber": null,
+                                        "name": null,
+                                        "mail": null,
+                                        "type": "EndUser Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+15342161852",
+                                        "name": "Ava Baumbach",
+                                        "mail": "alberto59@gmail.com",
+                                        "type": "Distributor Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+18479676631",
+                                        "name": "Eliane Mraz",
+                                        "mail": "marshall.braun@williamson.com",
+                                        "type": "Reseller Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+18108788547",
+                                        "name": "Bell Kuhlman",
+                                        "mail": "heathcote.freida@feil.com",
+                                        "type": "Hardware System Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+18108788547",
+                                        "name": "Bell Kuhlman",
+                                        "mail": "heathcote.freida@feil.com",
+                                        "type": "Software System Contact"
+                                    },
+                                    {
+                                        "phoneNumber": null,
+                                        "name": null,
+                                        "mail": null,
+                                        "type": "System Manager Contact"
+                                    }
+                                ],
+                                "resellerId": "9d9e320d-4e44-4518-a4e6-6bfe7f1c7dd8",
+                                "customerId": "35c87f11-f024-402b-9a9e-49b21d29e804",
+                                "distributorId": "1af1c44e-8112-4e72-9654-b11c705e9372"
+                            },
+                            "startDate": null,
+                            "endDate": null,
+                            "deletedAt": null,
+                            "reseller": {
+                                "id": "9d9e320d-4e44-4518-a4e6-6bfe7f1c7dd8"
+                            },
+                            "customer": {
+                                "id": "35c87f11-f024-402b-9a9e-49b21d29e804"
+                            }
+                        }
+                    ],
+                    "latestContactPersons": [
+                        {
+                            "phoneNumber": null,
+                            "name": null,
+                            "mail": null,
+                            "type": "EndUser Contact"
+                        },
+                        {
+                            "phoneNumber": "+15342161852",
+                            "name": "Ava Baumbach",
+                            "mail": "alberto59@gmail.com",
+                            "type": "Distributor Contact"
+                        },
+                        {
+                            "phoneNumber": "+18479676631",
+                            "name": "Eliane Mraz",
+                            "mail": "marshall.braun@williamson.com",
+                            "type": "Reseller Contact"
+                        }
+                    ],
+                    "coverageStatusCheck": {
+                        "coverageStatus": "COVERED",
+                        "coverageStatusUpdatedAt": "1664801340452",
+                        "coverageEntries": [
+                            {
+                                "coverageStartDate": "2020-06-01",
+                                "coverageEndDate": "2023-05-31",
+                                "type": "Contract",
+                                "status": "Active",
+                                "description": "H7J34AC-HPE Foundation Care 24x7 SVC",
+                                "serviceSku": null
+                            },
+                            {
+                                "coverageStartDate": "2015-05-04",
+                                "coverageEndDate": "2018-06-02",
+                                "type": "FactoryWarranty",
+                                "status": "Expired",
+                                "description": "HA155BW-Wty: HPE Parts Exchange Support",
+                                "serviceSku": null
+                            }
+                        ]
+                    }
+                }
+            ]
+        }
+    }
+}

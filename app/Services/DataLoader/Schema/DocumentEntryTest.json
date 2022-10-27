@@ -1,4 +1,5 @@
 {
+    "assetDocumentId": "25b72082-92a4-4bf4-9829-974db2fd3b77",
     "assetId": "d0751d0c-85d3-47a5-8fff-7423dd8c0d58",
     "serviceGroupSku": "H7J32AC",
     "serviceGroupSkuDescription": "HPE Foundation Care NBD SVC",
@@ -21,5 +22,6 @@
     "said": "123",
     "sarNumber": "123",
     "pspId": "a5e533d9-845f-4820-9086-5ff9f169558f",
-    "pspName": "name"
+    "pspName": "name",
+    "deletedAt": null
 }

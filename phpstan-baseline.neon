@@ -2271,11 +2271,6 @@ parameters:
 			path: app/Models/Asset.php
 
 		-
-			message: "#^Parameter \\#1 \\$callback of method Illuminate\\\\Database\\\\Eloquent\\\\Collection\\<\\(int\\|string\\),Illuminate\\\\Database\\\\Eloquent\\\\Model\\>\\:\\:map\\(\\) expects callable\\(Illuminate\\\\Database\\\\Eloquent\\\\Model, \\(int\\|string\\)\\)\\: App\\\\Utils\\\\Eloquent\\\\Model, Closure\\(App\\\\Utils\\\\Eloquent\\\\Model\\)\\: App\\\\Utils\\\\Eloquent\\\\Model given\\.$#"
-			count: 1
-			path: app/Models/Asset.php
-
-		-
 			message: "#^Parameter \\#1 \\$column of method Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\HasMany\\<App\\\\Models\\\\AssetWarranty\\>\\:\\:where\\(\\) expects array\\<int\\|string, mixed\\>\\|\\(Closure\\(Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\HasMany\\<App\\\\Models\\\\AssetWarranty\\>\\)\\: void\\)\\|\\(Closure\\(Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\HasMany\\<App\\\\Models\\\\AssetWarranty\\>\\)\\: Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\HasMany\\<App\\\\Models\\\\AssetWarranty\\>\\)\\|Illuminate\\\\Database\\\\Query\\\\Expression\\|string, Closure\\(Illuminate\\\\Database\\\\Eloquent\\\\Builder\\)\\: void given\\.$#"
 			count: 1
 			path: app/Models/Asset.php
@@ -2296,16 +2291,6 @@ parameters:
 			path: app/Models/Asset.php
 
 		-
-			message: "#^Parameter \\#2 \\$objects of method App\\\\Models\\\\Asset\\:\\:syncBelongsToMany\\(\\) expects array\\<App\\\\Utils\\\\Eloquent\\\\Model\\>\\|Illuminate\\\\Support\\\\Collection\\<int, App\\\\Utils\\\\Eloquent\\\\Model\\>, array\\<App\\\\Models\\\\Data\\\\Coverage\\>\\|Illuminate\\\\Support\\\\Collection\\<\\(int\\|string\\), App\\\\Models\\\\Data\\\\Coverage\\> given\\.$#"
-			count: 1
-			path: app/Models/Asset.php
-
-		-
-			message: "#^Parameter \\#2 \\$objects of method App\\\\Models\\\\Asset\\:\\:syncBelongsToMany\\(\\) expects array\\<App\\\\Utils\\\\Eloquent\\\\Model\\>\\|Illuminate\\\\Support\\\\Collection\\<int, App\\\\Utils\\\\Eloquent\\\\Model\\>, array\\<App\\\\Models\\\\Data\\\\Tag\\>\\|Illuminate\\\\Support\\\\Collection\\<int, App\\\\Models\\\\Data\\\\Tag\\> given\\.$#"
-			count: 1
-			path: app/Models/Asset.php
-
-		-
 			message: "#^Parameter \\#2 \\$objects of method App\\\\Models\\\\Asset\\:\\:syncMorphMany\\(\\) expects array\\<App\\\\Utils\\\\Eloquent\\\\PolymorphicModel\\>\\|Illuminate\\\\Support\\\\Collection\\<int, App\\\\Utils\\\\Eloquent\\\\PolymorphicModel\\>, array\\<App\\\\Models\\\\Contact\\>\\|Illuminate\\\\Support\\\\Collection\\<int, App\\\\Models\\\\Contact\\> given\\.$#"
 			count: 1
 			path: app/Models/Asset.php
@@ -2317,11 +2302,6 @@ parameters:
 
 		-
 			message: "#^PHPDoc type array\\<string\\> of property App\\\\Models\\\\AssetWarranty\\:\\:\\$casts is not the same as PHPDoc type array of overridden property App\\\\Utils\\\\Eloquent\\\\Model\\:\\:\\$casts\\.$#"
-			count: 1
-			path: app/Models/AssetWarranty.php
-
-		-
-			message: "#^Parameter \\#1 \\$callback of method Illuminate\\\\Database\\\\Eloquent\\\\Collection\\<\\(int\\|string\\),Illuminate\\\\Database\\\\Eloquent\\\\Model\\>\\:\\:map\\(\\) expects callable\\(Illuminate\\\\Database\\\\Eloquent\\\\Model, \\(int\\|string\\)\\)\\: App\\\\Utils\\\\Eloquent\\\\Model, Closure\\(App\\\\Utils\\\\Eloquent\\\\Model\\)\\: App\\\\Utils\\\\Eloquent\\\\Model given\\.$#"
 			count: 1
 			path: app/Models/AssetWarranty.php
 
@@ -2371,16 +2351,6 @@ parameters:
 			path: app/Models/Contact.php
 
 		-
-			message: "#^Parameter \\#1 \\$callback of method Illuminate\\\\Database\\\\Eloquent\\\\Collection\\<\\(int\\|string\\),Illuminate\\\\Database\\\\Eloquent\\\\Model\\>\\:\\:map\\(\\) expects callable\\(Illuminate\\\\Database\\\\Eloquent\\\\Model, \\(int\\|string\\)\\)\\: App\\\\Utils\\\\Eloquent\\\\Model, Closure\\(App\\\\Utils\\\\Eloquent\\\\Model\\)\\: App\\\\Utils\\\\Eloquent\\\\Model given\\.$#"
-			count: 1
-			path: app/Models/Contact.php
-
-		-
-			message: "#^Parameter \\#2 \\$objects of method App\\\\Models\\\\Contact\\:\\:syncBelongsToMany\\(\\) expects array\\<App\\\\Utils\\\\Eloquent\\\\Model\\>\\|Illuminate\\\\Support\\\\Collection\\<int, App\\\\Utils\\\\Eloquent\\\\Model\\>, array\\<App\\\\Models\\\\Data\\\\Type\\>\\|Illuminate\\\\Support\\\\Collection\\<int, App\\\\Models\\\\Data\\\\Type\\> given\\.$#"
-			count: 1
-			path: app/Models/Contact.php
-
-		-
 			message: "#^Anonymous function should return string but returns mixed\\.$#"
 			count: 2
 			path: app/Models/Customer.php
@@ -2401,11 +2371,6 @@ parameters:
 			path: app/Models/Customer.php
 
 		-
-			message: "#^Parameter \\#1 \\$callback of method Illuminate\\\\Database\\\\Eloquent\\\\Collection\\<\\(int\\|string\\),Illuminate\\\\Database\\\\Eloquent\\\\Model\\>\\:\\:map\\(\\) expects callable\\(Illuminate\\\\Database\\\\Eloquent\\\\Model, \\(int\\|string\\)\\)\\: App\\\\Utils\\\\Eloquent\\\\Model, Closure\\(App\\\\Utils\\\\Eloquent\\\\Model\\)\\: App\\\\Utils\\\\Eloquent\\\\Model given\\.$#"
-			count: 2
-			path: app/Models/Customer.php
-
-		-
 			message: "#^Parameter \\#1 \\$column of method Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\HasMany\\<App\\\\Models\\\\Document\\>\\:\\:where\\(\\) expects array\\<int\\|string, mixed\\>\\|\\(Closure\\(Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\HasMany\\<App\\\\Models\\\\Document\\>\\)\\: void\\)\\|\\(Closure\\(Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\HasMany\\<App\\\\Models\\\\Document\\>\\)\\: Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\HasMany\\<App\\\\Models\\\\Document\\>\\)\\|Illuminate\\\\Database\\\\Query\\\\Expression\\|string, Closure\\(Illuminate\\\\Database\\\\Eloquent\\\\Builder\\)\\: Illuminate\\\\Database\\\\Eloquent\\\\Builder\\<App\\\\Models\\\\Document\\> given\\.$#"
 			count: 2
 			path: app/Models/Customer.php
@@ -2421,11 +2386,6 @@ parameters:
 			path: app/Models/Customer.php
 
 		-
-			message: "#^Parameter \\#2 \\$objects of method App\\\\Models\\\\Customer\\:\\:syncBelongsToMany\\(\\) expects array\\<App\\\\Utils\\\\Eloquent\\\\Model\\>\\|Illuminate\\\\Support\\\\Collection\\<int, App\\\\Utils\\\\Eloquent\\\\Model\\>, array\\<App\\\\Models\\\\Data\\\\Status\\>\\|Illuminate\\\\Support\\\\Collection\\<int, App\\\\Models\\\\Data\\\\Status\\> given\\.$#"
-			count: 1
-			path: app/Models/Customer.php
-
-		-
 			message: "#^Parameter \\#2 \\$objects of method App\\\\Models\\\\Customer\\:\\:syncMorphMany\\(\\) expects array\\<App\\\\Utils\\\\Eloquent\\\\PolymorphicModel\\>\\|Illuminate\\\\Support\\\\Collection\\<int, App\\\\Utils\\\\Eloquent\\\\PolymorphicModel\\>, array\\<App\\\\Models\\\\Contact\\>\\|Illuminate\\\\Support\\\\Collection\\<int, App\\\\Models\\\\Contact\\> given\\.$#"
 			count: 1
 			path: app/Models/Customer.php
@@ -2437,16 +2397,6 @@ parameters:
 
 		-
 			message: "#^Anonymous function should return string but returns mixed\\.$#"
-			count: 1
-			path: app/Models/CustomerLocation.php
-
-		-
-			message: "#^Parameter \\#1 \\$callback of method Illuminate\\\\Database\\\\Eloquent\\\\Collection\\<\\(int\\|string\\),Illuminate\\\\Database\\\\Eloquent\\\\Model\\>\\:\\:map\\(\\) expects callable\\(Illuminate\\\\Database\\\\Eloquent\\\\Model, \\(int\\|string\\)\\)\\: App\\\\Utils\\\\Eloquent\\\\Model, Closure\\(App\\\\Utils\\\\Eloquent\\\\Model\\)\\: App\\\\Utils\\\\Eloquent\\\\Model given\\.$#"
-			count: 1
-			path: app/Models/CustomerLocation.php
-
-		-
-			message: "#^Parameter \\#2 \\$objects of method App\\\\Models\\\\CustomerLocation\\:\\:syncBelongsToMany\\(\\) expects array\\<App\\\\Utils\\\\Eloquent\\\\Model\\>\\|Illuminate\\\\Support\\\\Collection\\<int, App\\\\Utils\\\\Eloquent\\\\Model\\>, array\\<App\\\\Models\\\\Data\\\\Type\\>\\|Illuminate\\\\Support\\\\Collection\\<int, App\\\\Models\\\\Data\\\\Type\\> given\\.$#"
 			count: 1
 			path: app/Models/CustomerLocation.php
 
@@ -2543,11 +2493,6 @@ parameters:
 		-
 			message: "#^PHPDoc type array\\<string\\> of property App\\\\Models\\\\Data\\\\Location\\:\\:\\$casts is not the same as PHPDoc type array of overridden property App\\\\Utils\\\\Eloquent\\\\Model\\:\\:\\$casts\\.$#"
 			count: 1
-			path: app/Models/Data/Location.php
-
-		-
-			message: "#^Parameter \\#1 \\$callback of method Illuminate\\\\Database\\\\Eloquent\\\\Collection\\<\\(int\\|string\\),Illuminate\\\\Database\\\\Eloquent\\\\Model\\>\\:\\:map\\(\\) expects callable\\(Illuminate\\\\Database\\\\Eloquent\\\\Model, \\(int\\|string\\)\\)\\: App\\\\Utils\\\\Eloquent\\\\Model, Closure\\(App\\\\Utils\\\\Eloquent\\\\Model\\)\\: App\\\\Utils\\\\Eloquent\\\\Model given\\.$#"
-			count: 2
 			path: app/Models/Data/Location.php
 
 		-
@@ -2666,11 +2611,6 @@ parameters:
 			path: app/Models/Document.php
 
 		-
-			message: "#^Parameter \\#1 \\$callback of method Illuminate\\\\Database\\\\Eloquent\\\\Collection\\<\\(int\\|string\\),Illuminate\\\\Database\\\\Eloquent\\\\Model\\>\\:\\:map\\(\\) expects callable\\(Illuminate\\\\Database\\\\Eloquent\\\\Model, \\(int\\|string\\)\\)\\: App\\\\Utils\\\\Eloquent\\\\Model, Closure\\(App\\\\Utils\\\\Eloquent\\\\Model\\)\\: App\\\\Utils\\\\Eloquent\\\\Model given\\.$#"
-			count: 1
-			path: app/Models/Document.php
-
-		-
 			message: "#^Parameter \\#1 \\$model of method App\\\\Models\\\\Document\\:\\:syncMorphManyDelete\\(\\) expects App\\\\Utils\\\\Eloquent\\\\PolymorphicModel, Illuminate\\\\Database\\\\Eloquent\\\\Model given\\.$#"
 			count: 1
 			path: app/Models/Document.php
@@ -2678,11 +2618,6 @@ parameters:
 		-
 			message: "#^Parameter \\#1 \\$models of method App\\\\Services\\\\Queue\\\\Utils\\\\Dispatcher\\<App\\\\Services\\\\Search\\\\Eloquent\\\\Searchable&Illuminate\\\\Database\\\\Eloquent\\\\Model\\>\\:\\:dispatch\\(\\) expects \\(App\\\\Services\\\\Search\\\\Eloquent\\\\Searchable&Illuminate\\\\Database\\\\Eloquent\\\\Model\\)\\|array\\{model\\: class\\-string\\<App\\\\Services\\\\Search\\\\Eloquent\\\\Searchable&Illuminate\\\\Database\\\\Eloquent\\\\Model\\>, keys\\: array\\<int\\|string\\>\\}\\|Illuminate\\\\Support\\\\Collection\\<\\(int\\|string\\), App\\\\Services\\\\Search\\\\Eloquent\\\\Searchable&Illuminate\\\\Database\\\\Eloquent\\\\Model\\>, Illuminate\\\\Database\\\\Eloquent\\\\Collection\\<\\(int\\|string\\), static\\(App\\\\Models\\\\Document\\)\\> given\\.$#"
 			count: 2
-			path: app/Models/Document.php
-
-		-
-			message: "#^Parameter \\#2 \\$objects of method App\\\\Models\\\\Document\\:\\:syncBelongsToMany\\(\\) expects array\\<App\\\\Utils\\\\Eloquent\\\\Model\\>\\|Illuminate\\\\Support\\\\Collection\\<int, App\\\\Utils\\\\Eloquent\\\\Model\\>, array\\<App\\\\Models\\\\Data\\\\Status\\>\\|Illuminate\\\\Support\\\\Collection\\<int, App\\\\Models\\\\Data\\\\Status\\> given\\.$#"
-			count: 1
 			path: app/Models/Document.php
 
 		-
@@ -2846,17 +2781,7 @@ parameters:
 			path: app/Models/Reseller.php
 
 		-
-			message: "#^Parameter \\#1 \\$callback of method Illuminate\\\\Database\\\\Eloquent\\\\Collection\\<\\(int\\|string\\),Illuminate\\\\Database\\\\Eloquent\\\\Model\\>\\:\\:map\\(\\) expects callable\\(Illuminate\\\\Database\\\\Eloquent\\\\Model, \\(int\\|string\\)\\)\\: App\\\\Utils\\\\Eloquent\\\\Model, Closure\\(App\\\\Utils\\\\Eloquent\\\\Model\\)\\: App\\\\Utils\\\\Eloquent\\\\Model given\\.$#"
-			count: 3
-			path: app/Models/Reseller.php
-
-		-
 			message: "#^Parameter \\#1 \\$model of method App\\\\Models\\\\Reseller\\:\\:syncMorphManyDelete\\(\\) expects App\\\\Utils\\\\Eloquent\\\\PolymorphicModel, Illuminate\\\\Database\\\\Eloquent\\\\Model given\\.$#"
-			count: 1
-			path: app/Models/Reseller.php
-
-		-
-			message: "#^Parameter \\#2 \\$objects of method App\\\\Models\\\\Reseller\\:\\:syncBelongsToMany\\(\\) expects array\\<App\\\\Utils\\\\Eloquent\\\\Model\\>\\|Illuminate\\\\Support\\\\Collection\\<int, App\\\\Utils\\\\Eloquent\\\\Model\\>, array\\<App\\\\Models\\\\Data\\\\Status\\>\\|Illuminate\\\\Support\\\\Collection\\<int, App\\\\Models\\\\Data\\\\Status\\> given\\.$#"
 			count: 1
 			path: app/Models/Reseller.php
 
@@ -2876,27 +2801,7 @@ parameters:
 			path: app/Models/ResellerLocation.php
 
 		-
-			message: "#^Parameter \\#1 \\$callback of method Illuminate\\\\Database\\\\Eloquent\\\\Collection\\<\\(int\\|string\\),Illuminate\\\\Database\\\\Eloquent\\\\Model\\>\\:\\:map\\(\\) expects callable\\(Illuminate\\\\Database\\\\Eloquent\\\\Model, \\(int\\|string\\)\\)\\: App\\\\Utils\\\\Eloquent\\\\Model, Closure\\(App\\\\Utils\\\\Eloquent\\\\Model\\)\\: App\\\\Utils\\\\Eloquent\\\\Model given\\.$#"
-			count: 1
-			path: app/Models/ResellerLocation.php
-
-		-
-			message: "#^Parameter \\#2 \\$objects of method App\\\\Models\\\\ResellerLocation\\:\\:syncBelongsToMany\\(\\) expects array\\<App\\\\Utils\\\\Eloquent\\\\Model\\>\\|Illuminate\\\\Support\\\\Collection\\<int, App\\\\Utils\\\\Eloquent\\\\Model\\>, array\\<App\\\\Models\\\\Data\\\\Type\\>\\|Illuminate\\\\Support\\\\Collection\\<int, App\\\\Models\\\\Data\\\\Type\\> given\\.$#"
-			count: 1
-			path: app/Models/ResellerLocation.php
-
-		-
 			message: "#^Anonymous function should return string but returns mixed\\.$#"
-			count: 1
-			path: app/Models/Role.php
-
-		-
-			message: "#^Parameter \\#1 \\$callback of method Illuminate\\\\Database\\\\Eloquent\\\\Collection\\<\\(int\\|string\\),Illuminate\\\\Database\\\\Eloquent\\\\Model\\>\\:\\:map\\(\\) expects callable\\(Illuminate\\\\Database\\\\Eloquent\\\\Model, \\(int\\|string\\)\\)\\: App\\\\Utils\\\\Eloquent\\\\Model, Closure\\(App\\\\Utils\\\\Eloquent\\\\Model\\)\\: App\\\\Utils\\\\Eloquent\\\\Model given\\.$#"
-			count: 1
-			path: app/Models/Role.php
-
-		-
-			message: "#^Parameter \\#2 \\$objects of method App\\\\Models\\\\Role\\:\\:syncBelongsToMany\\(\\) expects array\\<App\\\\Utils\\\\Eloquent\\\\Model\\>\\|Illuminate\\\\Support\\\\Collection\\<int, App\\\\Utils\\\\Eloquent\\\\Model\\>, array\\<App\\\\Models\\\\Permission\\>\\|Illuminate\\\\Support\\\\Collection\\<int, App\\\\Models\\\\Permission\\> given\\.$#"
 			count: 1
 			path: app/Models/Role.php
 
@@ -2927,11 +2832,6 @@ parameters:
 
 		-
 			message: "#^Instanceof between Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\HasMany\\<\\$this\\(App\\\\Models\\\\User\\)\\> and Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\HasMany will always evaluate to true\\.$#"
-			count: 1
-			path: app/Models/User.php
-
-		-
-			message: "#^Parameter \\#1 \\$callback of method Illuminate\\\\Database\\\\Eloquent\\\\Collection\\<\\(int\\|string\\),Illuminate\\\\Database\\\\Eloquent\\\\Model\\>\\:\\:map\\(\\) expects callable\\(Illuminate\\\\Database\\\\Eloquent\\\\Model, \\(int\\|string\\)\\)\\: App\\\\Utils\\\\Eloquent\\\\Model, Closure\\(App\\\\Utils\\\\Eloquent\\\\Model\\)\\: App\\\\Utils\\\\Eloquent\\\\Model given\\.$#"
 			count: 1
 			path: app/Models/User.php
 
@@ -3118,11 +3018,6 @@ parameters:
 		-
 			message: "#^Parameter \\#2 \\$query of class App\\\\Services\\\\DataLoader\\\\Client\\\\QueryIterator constructor expects App\\\\Services\\\\DataLoader\\\\Client\\\\Query\\<array\\>, App\\\\Services\\\\DataLoader\\\\Client\\\\Query\\<mixed\\> given\\.$#"
 			count: 2
-			path: app/Services/DataLoader/Client/Client.php
-
-		-
-			message: "#^Parameter \\#3 \\$errors of class App\\\\Services\\\\DataLoader\\\\Client\\\\Exceptions\\\\GraphQLRequestFailed constructor expects array, mixed given\\.$#"
-			count: 1
 			path: app/Services/DataLoader/Client/Client.php
 
 		-
@@ -3361,6 +3256,11 @@ parameters:
 			path: app/Services/DataLoader/Factory/Factories/AssetFactory.php
 
 		-
+			message: "#^Parameter \\#1 \\$models of method App\\\\Services\\\\DataLoader\\\\Resolver\\\\Resolver\\<App\\\\Models\\\\Document\\>\\:\\:add\\(\\) expects App\\\\Models\\\\Document\\|array\\<App\\\\Models\\\\Document\\|null\\>\\|Illuminate\\\\Support\\\\Collection\\<\\(int\\|string\\), App\\\\Models\\\\Document\\|null\\>, Illuminate\\\\Support\\\\Collection\\<int, mixed\\> given\\.$#"
+			count: 1
+			path: app/Services/DataLoader/Factory/Factories/AssetFactory.php
+
+		-
 			message: "#^Call to static method PHPUnit\\\\Framework\\\\Assert\\:\\:assertNotNull\\(\\) with App\\\\Models\\\\AssetWarranty will always evaluate to true\\.$#"
 			count: 4
 			path: app/Services/DataLoader/Factory/Factories/AssetFactoryTest.php
@@ -3452,11 +3352,6 @@ parameters:
 
 		-
 			message: "#^Method App\\\\Services\\\\DataLoader\\\\Factory\\\\Factories\\\\DocumentFactoryTest\\:\\:testFind\\(\\) has parameter \\$typeFactory with no signature specified for Closure\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Factories/DocumentFactoryTest.php
-
-		-
-			message: "#^Parameter \\#1 \\$callback of method Illuminate\\\\Support\\\\Collection\\<int,App\\\\Models\\\\DocumentEntry\\|null\\>\\:\\:map\\(\\) expects callable\\(App\\\\Models\\\\DocumentEntry\\|null, int\\)\\: string, Closure\\(App\\\\Models\\\\DocumentEntry\\)\\: string given\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Factory/Factories/DocumentFactoryTest.php
 
@@ -3558,11 +3453,6 @@ parameters:
 		-
 			message: "#^Parameter \\#1 \\$models of method App\\\\Services\\\\DataLoader\\\\Resolver\\\\Resolver\\<App\\\\Models\\\\Data\\\\Location\\>\\:\\:add\\(\\) expects App\\\\Models\\\\Data\\\\Location\\|array\\<App\\\\Models\\\\Data\\\\Location\\|null\\>\\|Illuminate\\\\Support\\\\Collection\\<\\(int\\|string\\), App\\\\Models\\\\Data\\\\Location\\|null\\>, Illuminate\\\\Support\\\\Collection\\<int, mixed\\> given\\.$#"
 			count: 3
-			path: app/Services/DataLoader/Processors/Importer/Importers/Assets/BaseImporter.php
-
-		-
-			message: "#^Parameter \\#1 \\$models of method App\\\\Services\\\\DataLoader\\\\Resolver\\\\Resolver\\<App\\\\Models\\\\Document\\>\\:\\:add\\(\\) expects App\\\\Models\\\\Document\\|array\\<App\\\\Models\\\\Document\\|null\\>\\|Illuminate\\\\Support\\\\Collection\\<\\(int\\|string\\), App\\\\Models\\\\Document\\|null\\>, Illuminate\\\\Support\\\\Collection\\<int, mixed\\> given\\.$#"
-			count: 1
 			path: app/Services/DataLoader/Processors/Importer/Importers/Assets/BaseImporter.php
 
 		-
@@ -4101,6 +3991,11 @@ parameters:
 			path: app/Services/DataLoader/Schema/ViewDocumentTest.php
 
 		-
+			message: "#^Cannot access offset 'response' on array\\|bool\\|float\\|int\\|string\\|null\\.$#"
+			count: 1
+			path: app/Services/DataLoader/Testing/Data/Client.php
+
+		-
 			message: "#^Method App\\\\Services\\\\DataLoader\\\\Testing\\\\Data\\\\ClientDataCleaner\\:\\:map\\(\\) should return V but returns string\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Testing/Data/ClientDataCleaner.php
@@ -4116,37 +4011,7 @@ parameters:
 			path: app/Services/DataLoader/Testing/Data/ClientDump.php
 
 		-
-			message: "#^Call to function is_array\\(\\) with array\\<int, string\\|null\\> will always evaluate to true\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Testing/Data/ClientDumpContext.php
-
-		-
-			message: "#^Expression on left side of \\?\\? is not nullable\\.$#"
-			count: 2
-			path: app/Services/DataLoader/Testing/Data/ClientDumpContext.php
-
-		-
-			message: "#^Left side of && is always true\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Testing/Data/ClientDumpContext.php
-
-		-
-			message: "#^Parameter \\#1 \\$stream of function fclose expects resource, resource\\|false given\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Testing/Data/ClientDumpContext.php
-
-		-
-			message: "#^Parameter \\#1 \\$stream of function fputcsv expects resource, resource\\|false given\\.$#"
-			count: 2
-			path: app/Services/DataLoader/Testing/Data/ClientDumpContext.php
-
-		-
-			message: "#^Right side of && is always true\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Testing/Data/ClientDumpContext.php
-
-		-
-			message: "#^Trying to invoke array\\<int, non\\-falsy\\-string\\>\\|\\(Closure\\(\\)\\: array\\<int, string\\|null\\>\\)\\|\\(Closure\\(\\)\\: string\\|null\\) but it might not be a callable\\.$#"
+			message: "#^Method App\\\\Services\\\\DataLoader\\\\Testing\\\\Data\\\\ClientDumpContext\\:\\:get\\(\\) should return array\\<string, array\\<string\\>\\> but returns array\\<string, array\\>\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Testing/Data/ClientDumpContext.php
 
@@ -4161,19 +4026,24 @@ parameters:
 			path: app/Services/DataLoader/Testing/Data/ClientDumpFile.php
 
 		-
-			message: "#^Left side of && is always true\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Testing/Data/Data.php
-
-		-
 			message: "#^Parameter \\#1 \\$map of method App\\\\Services\\\\DataLoader\\\\Testing\\\\Data\\\\ClientDataCleaner\\:\\:setDefaultMap\\(\\) expects array\\<string, string\\>, array\\|bool\\|float\\|int\\|string\\|null given\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Testing/Data/Data.php
 
 		-
-			message: "#^Part \\$context\\[\\\\App\\\\Services\\\\DataLoader\\\\Testing\\\\Data\\\\ClientDumpContext\\:\\:OEMS\\] \\(mixed\\) of encapsed string cannot be cast to string\\.$#"
+			message: "#^Call to function assert\\(\\) with false will always evaluate to false\\.$#"
+			count: 2
+			path: app/Services/DataLoader/Testing/Data/DataGenerator.php
+
+		-
+			message: "#^Instanceof between \\*NEVER\\* and App\\\\Services\\\\DataLoader\\\\Testing\\\\Data\\\\Data will always evaluate to false\\.$#"
+			count: 2
+			path: app/Services/DataLoader/Testing/Data/DataGenerator.php
+
+		-
+			message: "#^Parameter \\#1 \\$context of class App\\\\Services\\\\DataLoader\\\\Testing\\\\Data\\\\Context constructor expects array\\<string, array\\<string\\>\\>, array\\|bool\\|float\\|int\\|string\\|null given\\.$#"
 			count: 1
-			path: app/Services/DataLoader/Testing/Data/Data.php
+			path: app/Services/DataLoader/Testing/Data/DataGenerator.php
 
 		-
 			message: "#^Cannot access offset 'response' on array\\|bool\\|float\\|int\\|string\\|null\\.$#"

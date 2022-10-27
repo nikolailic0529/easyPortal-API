@@ -1,30 +1,51 @@
 {
-    "generated": "2022-10-14T11:44:04+00:00",
+    "generated": "2022-10-27T06:21:52+00:00",
+    "assets": [
+        "50c0418d-2c76-45cc-82a2-423f77894b9e",
+        "5d90aa3a-9490-4111-b8eb-87030abb4c5f",
+        "7fba8ea5-f3cd-4080-96a7-18fd1d96a4ef",
+        "7ffdf6ab-b688-4ceb-97c9-5407099ed80b",
+        "b93be746-b293-44b9-8281-905517602353",
+        "c30973dd-e7cd-40ae-8bda-021880774e11",
+        "d24fbc79-3d01-48fb-b2f8-8e0272620b4a",
+        "e1410592-d765-43ee-8564-fffa0f8e1f6d"
+    ],
+    "customers": [
+        "f273feb9-4043-4ce2-9633-2dab7a75c566",
+        "fcce8dee-5a04-465c-96d9-be2123543915"
+    ],
     "distributors": [
         "1af1c44e-8112-4e72-9654-b11c705e9372",
         "a985a692-c063-499a-ab2f-0a2adef86a3f"
     ],
+    "files": [
+        "data.getAssets/9f262369a91f92ab7b55e09a6bd9a6d4c9035d44.126a1a00475653ab2584233fe228f54f018a070f.json",
+        "data.getAssets/9f262369a91f92ab7b55e09a6bd9a6d4c9035d44.2f58efe4f8aba3e090e22db0200205229d7df881.json",
+        "data.getAssets/9f262369a91f92ab7b55e09a6bd9a6d4c9035d44.4a9046c8d91ee8f30b7ef4c5cd868bc57a9a20bc.json",
+        "data.getAssets/9f262369a91f92ab7b55e09a6bd9a6d4c9035d44.4c04ae3964893d3847ef293cd13cbe177d85a8f9.json",
+        "data.getAssets/9f262369a91f92ab7b55e09a6bd9a6d4c9035d44.87fc5ed42ae0c98e8719456452a748bace6aa438.json",
+        "data.getAssets/9f262369a91f92ab7b55e09a6bd9a6d4c9035d44.8e9189b66d055cca32b3c49dbc70f1abc414a113.json",
+        "data.getAssets/9f262369a91f92ab7b55e09a6bd9a6d4c9035d44.d5d5f6e20416bdcd548698cf4aa802c27a437893.json",
+        "data.getAssets/9f262369a91f92ab7b55e09a6bd9a6d4c9035d44.e7174154a918eeac8aae6b812864a998d25e198a.json",
+        "data.getCompanyById/0d274523f7f902e4705cecfd8710b24aa9ced9e7.8e4006d09722e71b4dae270654e0412df4a164ad.json",
+        "data.getCompanyById/0d274523f7f902e4705cecfd8710b24aa9ced9e7.ec4dc6c96a5b8594540f63892f2e756d54e08add.json",
+        "data.getCompanyById/35619e8f6303a2081c7d9b26d1be91aa854872b3.62f630404c96c40884a4fd17b08846ce6dd7b9fd.json",
+        "data.getCompanyById/35619e8f6303a2081c7d9b26d1be91aa854872b3.b444e824df3974f580d6ba07fc86badd9bb32602.json",
+        "data.getCompanyById/72cffa3e3fc77afff3d357b338972cc2445d4e12.379a2d23637f831dd533047d12637aaa02cbe221.json",
+        "data.getCompanyById/72cffa3e3fc77afff3d357b338972cc2445d4e12.a575d3e3c4be768800af82342cd4e1562a8f83de.json",
+        "data.getDocumentById/dff567708fd94ede834970d92d6ccc2c84f9bb4b.8bc1b2f522bc7b2bd957adabf71671eb2e943323.json",
+        "data.getDocumentById/dff567708fd94ede834970d92d6ccc2c84f9bb4b.f76ac9966db433bd5cae9369080dc505d90bad09.json",
+        "data.getDocumentsByReseller/3096ea123f123db0758a4c29cb3b805b7c229b05.232e80d2ea3343e4ae5b05bd172064e4974fe9bd.json",
+        "data.getDocumentsByReseller/3096ea123f123db0758a4c29cb3b805b7c229b05.aebd07b4ef98e6aca1d28644c23ac3a04c55604b.json",
+        "data.getDocumentsByResellerCount/3c6204a9aae77787d09afeb5405d111c95bc61ec.f46dab9e10fc58aa1e77a293f1fc65b138022210.json",
+        "map.json"
+    ],
     "resellers": [
-        "a9233c9c-4634-493a-9f12-bef4d1cf3c5e",
-        "22d7dbf2-977a-49d8-8e4c-cacdaae616b2"
-    ],
-    "customers": [
-        "fcce8dee-5a04-465c-96d9-be2123543915",
-        "f273feb9-4043-4ce2-9633-2dab7a75c566"
-    ],
-    "assets": [
-        "7fba8ea5-f3cd-4080-96a7-18fd1d96a4ef",
-        "b93be746-b293-44b9-8281-905517602353",
-        "5d90aa3a-9490-4111-b8eb-87030abb4c5f",
-        "7ffdf6ab-b688-4ceb-97c9-5407099ed80b",
-        "e1410592-d765-43ee-8564-fffa0f8e1f6d",
-        "50c0418d-2c76-45cc-82a2-423f77894b9e",
-        "c30973dd-e7cd-40ae-8bda-021880774e11",
-        "d24fbc79-3d01-48fb-b2f8-8e0272620b4a"
+        "22d7dbf2-977a-49d8-8e4c-cacdaae616b2",
+        "a9233c9c-4634-493a-9f12-bef4d1cf3c5e"
     ],
     "types": [
-        "Quote New Business",
-        "Contract"
-    ],
-    "oems": "oem.csv"
+        "Contract",
+        "Quote New Business"
+    ]
 }

@@ -1,0 +1,162 @@
+{
+    "selector": "data.getAssets",
+    "query": "query getAssets($id: String!) {\n    getAssets(args: [{key: \"id\", value: $id}]) {\n        id\nserialNumber\n\nassetSku\nassetSkuDescription\nassetTag\nassetType\nstatus\nvendor\n\neolDate\neosDate\neoslDate\n\ncountry\ncountryCode\nlatitude\nlongitude\nzip\ncity\naddress\naddress2\n\ncustomerId\nresellerId\n\nupdatedAt\n\nlatestContactPersons {\n    phoneNumber\n    name\n    type\n    mail\n}\n\nassetCoverage\ncoverageStatusCheck {\n    coverageStatus\n    coverageStatusUpdatedAt\n    coverageEntries {\n        coverageStartDate\n        coverageEndDate\n        type\n        description\n        status\n        serviceSku\n    }\n}\n\ndataQualityScore\nactiveContractQuantitySum\n        assetDocument {\n    startDate\n    endDate\n    documentNumber\n    deletedAt\n\n    document {\n        id\n        type\n        documentNumber\n\n        startDate\n        endDate\n\n        currencyCode\n        languageCode\n\n        updatedAt\n\n        vendorSpecificFields {\n            vendor\n            groupId\n            groupDescription\n            said\n            ampId\n            sar\n        }\n\n        contactPersons {\n            phoneNumber\n            name\n            type\n            mail\n        }\n\n        customerId\n        resellerId\n        distributorId\n    }\n\n    serviceGroupSku\n    serviceGroupSkuDescription\n    serviceLevelSku\n    serviceLevelSkuDescription\n    serviceFullDescription\n\n    customer {\n      id\n    }\n\n    reseller {\n      id\n    }\n}\n    }\n}",
+    "variables": {
+        "id": "747765dc-8ca0-4284-882c-a8059b89c9d9"
+    },
+    "response": {
+        "data": {
+            "getAssets": [
+                {
+                    "id": "747765dc-8ca0-4284-882c-a8059b89c9d9",
+                    "resellerId": "77ec115b-9723-4582-ad45-2b3a83286b1f",
+                    "customerId": "bd9402e4-3980-4337-bea0-c64720767d1f",
+                    "serialNumber": "6342fd9f-47f1-3e7f-aaa1-ef4ad1fa31ec",
+                    "assetSkuDescription": "HPE 600GB SAS 10K SFF SC DS HDD",
+                    "assetTag": null,
+                    "assetType": null,
+                    "vendor": "HPE",
+                    "assetSku": "872477-B21",
+                    "eolDate": null,
+                    "eosDate": null,
+                    "eoslDate": null,
+                    "zip": "57579",
+                    "city": "Pricefort",
+                    "address": "77416 Wintheiser Road",
+                    "address2": null,
+                    "country": "Nicaragua",
+                    "latitude": "-86.105536",
+                    "longitude": "-78.793312",
+                    "countryCode": "JO",
+                    "status": "ACTIVE",
+                    "updatedAt": "1664803714917",
+                    "assetCoverage": [
+                        "COVERED"
+                    ],
+                    "dataQualityScore": "80",
+                    "activeContractQuantitySum": 0,
+                    "assetDocument": [
+                        {
+                            "serviceGroupSku": null,
+                            "serviceGroupSkuDescription": null,
+                            "serviceLevelSku": "HA151AC",
+                            "serviceLevelSkuDescription": "HPE Hardware Maintenance Onsite Support",
+                            "serviceFullDescription": null,
+                            "documentNumber": "fdabf768-6d68-3c21-9ac0-d787d8c571c3",
+                            "document": {
+                                "id": "012b886e-7457-4179-8503-1da20ce4c7d1",
+                                "type": "Contract",
+                                "documentNumber": "fdabf768-6d68-3c21-9ac0-d787d8c571c3",
+                                "startDate": "2018-06-16",
+                                "endDate": "2023-06-15",
+                                "currencyCode": "EUR",
+                                "languageCode": null,
+                                "updatedAt": "1654262846658",
+                                "vendorSpecificFields": {
+                                    "vendor": "HPE",
+                                    "sar": null,
+                                    "ampId": "83-B09729",
+                                    "said": "0ac797e4-ea5e-3625-9e6b-0b4200590ce0",
+                                    "groupId": null,
+                                    "groupDescription": null
+                                },
+                                "contactPersons": [
+                                    {
+                                        "phoneNumber": "+15208359914",
+                                        "name": "Rossie Pollich",
+                                        "mail": null,
+                                        "type": "EndUser Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+15719483669",
+                                        "name": "Prof. Abdiel Swaniawski Jr.",
+                                        "mail": "toni.shields@keeling.com",
+                                        "type": "Distributor Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+18189964745",
+                                        "name": "Miss Lynn Daniel",
+                                        "mail": "brody60@hotmail.com",
+                                        "type": "Reseller Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+15208359914",
+                                        "name": "Rossie Pollich",
+                                        "mail": null,
+                                        "type": "Hardware System Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+15208359914",
+                                        "name": "Rossie Pollich",
+                                        "mail": null,
+                                        "type": "Software System Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+15208359914",
+                                        "name": "Rossie Pollich",
+                                        "mail": null,
+                                        "type": "System Manager Contact"
+                                    }
+                                ],
+                                "resellerId": "77ec115b-9723-4582-ad45-2b3a83286b1f",
+                                "customerId": "bd9402e4-3980-4337-bea0-c64720767d1f",
+                                "distributorId": "1af1c44e-8112-4e72-9654-b11c705e9372"
+                            },
+                            "startDate": null,
+                            "endDate": null,
+                            "deletedAt": null,
+                            "reseller": {
+                                "id": "77ec115b-9723-4582-ad45-2b3a83286b1f"
+                            },
+                            "customer": {
+                                "id": "bd9402e4-3980-4337-bea0-c64720767d1f"
+                            }
+                        }
+                    ],
+                    "latestContactPersons": [
+                        {
+                            "phoneNumber": "+15208359914",
+                            "name": "Rossie Pollich",
+                            "mail": null,
+                            "type": "EndUser Contact"
+                        },
+                        {
+                            "phoneNumber": "+15719483669",
+                            "name": "Prof. Abdiel Swaniawski Jr.",
+                            "mail": "toni.shields@keeling.com",
+                            "type": "Distributor Contact"
+                        },
+                        {
+                            "phoneNumber": "+18189964745",
+                            "name": "Miss Lynn Daniel",
+                            "mail": "brody60@hotmail.com",
+                            "type": "Reseller Contact"
+                        }
+                    ],
+                    "coverageStatusCheck": {
+                        "coverageStatus": "COVERED",
+                        "coverageStatusUpdatedAt": "1664803714917",
+                        "coverageEntries": [
+                            {
+                                "coverageStartDate": "2018-06-16",
+                                "coverageEndDate": "2023-06-15",
+                                "type": "Contract",
+                                "status": "Active",
+                                "description": "H7J34AC-HPE Foundation Care 24x7 SVC",
+                                "serviceSku": null
+                            },
+                            {
+                                "coverageStartDate": "2018-06-08",
+                                "coverageEndDate": "2021-07-07",
+                                "type": "FactoryWarranty",
+                                "status": "Expired",
+                                "description": "HA155BW-Wty: HPE Parts Exchange Support",
+                                "serviceSku": null
+                            }
+                        ]
+                    }
+                }
+            ]
+        }
+    }
+}

@@ -2,11 +2,21 @@
 
 namespace App\Services\DataLoader\Client;
 
+use App\Services\DataLoader\Client\Events\RequestFailed;
+use App\Services\DataLoader\Client\Events\RequestSuccessful;
+use App\Services\DataLoader\Client\Exceptions\DataLoaderRequestRateTooLarge;
+use App\Services\DataLoader\Client\Exceptions\GraphQLRequestFailed;
 use App\Services\DataLoader\Client\GraphQL\GraphQL;
+use App\Services\DataLoader\Normalizer\Normalizer;
 use App\Services\DataLoader\Schema\Schema;
 use GraphQL\Utils\BuildClientSchema;
+use Illuminate\Contracts\Config\Repository;
+use Illuminate\Contracts\Debug\ExceptionHandler;
+use Illuminate\Contracts\Events\Dispatcher;
+use Illuminate\Http\Client\Factory;
 use LastDragon_ru\LaraASP\GraphQL\Testing\Package\SchemaPrinter\TestSettings;
 use LastDragon_ru\LaraASP\Testing\Utils\WithTempDirectory;
+use Mockery;
 use ReflectionClass;
 use SplFileInfo;
 use Tests\Helpers\ClassMap;
@@ -89,5 +99,142 @@ class ClientTest extends TestCase {
             },
         );
     }
-    // </editor-fold>
+
+    /**
+     * @covers ::call
+     */
+    public function testCallQuerySuccessful(): void {
+        $selector  = 'data';
+        $graphql   = 'query { item { id } }';
+        $variables = [];
+        $files     = [];
+        $result    = [
+            'item' => [
+                'id' => $this->faker->uuid(),
+            ],
+        ];
+
+        $dispatcher = Mockery::mock(Dispatcher::class);
+        $dispatcher
+            ->shouldReceive('dispatch')
+            ->with(Mockery::on(static function (mixed $event): bool {
+                return $event instanceof RequestSuccessful;
+            }))
+            ->once()
+            ->andReturns();
+
+        $handler    = Mockery::mock(ExceptionHandler::class);
+        $config     = Mockery::mock(Repository::class);
+        $client     = Mockery::mock(Factory::class);
+        $token      = Mockery::mock(Token::class);
+        $normalizer = Mockery::mock(Normalizer::class);
+        $client     = Mockery::mock(Client::class, [$handler, $dispatcher, $config, $client, $token, $normalizer]);
+        $client->shouldAllowMockingProtectedMethods();
+        $client->makePartial();
+        $client
+            ->shouldReceive('callExecute')
+            ->once()
+            ->andReturn([
+                'data' => $result,
+            ]);
+
+        self::assertEquals($result, $client->call($selector, $graphql, $variables, $files));
+    }
+
+    /**
+     * @covers ::call
+     */
+    public function testCallQueryError(): void {
+        $selector  = 'data';
+        $graphql   = 'query { item { id } }';
+        $variables = [];
+        $files     = [];
+
+        $dispatcher = Mockery::mock(Dispatcher::class);
+        $dispatcher
+            ->shouldReceive('dispatch')
+            ->with(Mockery::on(static function (mixed $event): bool {
+                return $event instanceof RequestFailed;
+            }))
+            ->once()
+            ->andReturns();
+
+        $handler = Mockery::mock(ExceptionHandler::class);
+        $handler
+            ->shouldReceive('report')
+            ->once()
+            ->andReturns();
+
+        $config     = Mockery::mock(Repository::class);
+        $client     = Mockery::mock(Factory::class);
+        $token      = Mockery::mock(Token::class);
+        $normalizer = Mockery::mock(Normalizer::class);
+        $client     = Mockery::mock(Client::class, [$handler, $dispatcher, $config, $client, $token, $normalizer]);
+        $client->shouldAllowMockingProtectedMethods();
+        $client->makePartial();
+        $client
+            ->shouldReceive('callExecute')
+            ->once()
+            ->andReturn([
+                'errors' => [
+                    [
+                        'message' => 'error',
+                    ],
+                ],
+            ]);
+
+        self::expectException(GraphQLRequestFailed::class);
+
+        $client->call($selector, $graphql, $variables, $files);
+    }
+
+    /**
+     * @covers ::call
+     */
+    public function testCallRequestRateTooLarge(): void {
+        $selector  = 'data';
+        $graphql   = 'query { item { id } }';
+        $variables = [];
+        $files     = [];
+
+        $dispatcher = Mockery::mock(Dispatcher::class);
+        $dispatcher
+            ->shouldReceive('dispatch')
+            ->with(Mockery::on(static function (mixed $event): bool {
+                return $event instanceof RequestFailed;
+            }))
+            ->once()
+            ->andReturns();
+
+        $handler = Mockery::mock(ExceptionHandler::class);
+        $handler
+            ->shouldReceive('report')
+            ->once()
+            ->andReturns();
+
+        $config     = Mockery::mock(Repository::class);
+        $client     = Mockery::mock(Factory::class);
+        $token      = Mockery::mock(Token::class);
+        $normalizer = Mockery::mock(Normalizer::class);
+        $client     = Mockery::mock(Client::class, [$handler, $dispatcher, $config, $client, $token, $normalizer]);
+        $client->shouldAllowMockingProtectedMethods();
+        $client->makePartial();
+        $client
+            ->shouldReceive('callExecute')
+            ->once()
+            ->andReturn([
+                'errors' => [
+                    [
+                        'message' => 'error',
+                    ],
+                    [
+                        'message' => 'Request rate is large. More CosmosDB Request Units may be needed',
+                    ],
+                ],
+            ]);
+
+        self::expectException(DataLoaderRequestRateTooLarge::class);
+
+        $client->call($selector, $graphql, $variables, $files);
+    }
 }

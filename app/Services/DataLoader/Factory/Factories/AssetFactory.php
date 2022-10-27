@@ -203,6 +203,7 @@ class AssetFactory extends ModelFactory {
             $model->reseller                 = $this->reseller($asset);
             $model->customer                 = $this->customer($asset);
             $model->location                 = $this->assetLocation($asset);
+            $model->eosl                     = $normalizer->datetime($asset->eosDate);
             $model->changed_at               = $normalizer->datetime($asset->updatedAt);
             $model->serial_number            = $normalizer->string($asset->serialNumber);
             $model->data_quality             = $normalizer->string($asset->dataQualityScore);
@@ -214,14 +215,27 @@ class AssetFactory extends ModelFactory {
 
             // Warranties
             if (isset($asset->assetDocument) || isset($asset->coverageStatusCheck)) {
-                if ($created) {
-                    $model->setRelation('warranties', new EloquentCollection());
-                }
+                try {
+                    // Prefetch
+                    if ($created) {
+                        $model->setRelation('warranties', new EloquentCollection());
+                    } else {
+                        $model->loadMissing('warranties.document.statuses');
+                        $this->getDocumentResolver()->add(
+                            $model->warranties->pluck('document')->flatten(),
+                        );
+                    }
 
-                $warrantyChangedAt          = $asset->coverageStatusCheck->coverageStatusUpdatedAt ?? null;
-                $warrantyChangedAt          = $normalizer->datetime($warrantyChangedAt);
-                $model->warranties          = $this->assetWarranties($model, $asset);
-                $model->warranty_changed_at = max($warrantyChangedAt, $model->warranty_changed_at);
+                    // Update
+                    $warrantyChangedAt          = $asset->coverageStatusCheck->coverageStatusUpdatedAt ?? null;
+                    $warrantyChangedAt          = $normalizer->datetime($warrantyChangedAt);
+                    $model->warranties          = $this->assetWarranties($model, $asset);
+                    $model->warranty_changed_at = max($warrantyChangedAt, $model->warranty_changed_at);
+                } finally {
+                    $this->getDocumentResolver()->reset();
+
+                    unset($model->warranties);
+                }
             }
 
             // Save
@@ -230,9 +244,6 @@ class AssetFactory extends ModelFactory {
             } else {
                 $model->save();
             }
-
-            // Cleanup
-            unset($model->warranties);
 
             // Return
             return $model;
@@ -304,6 +315,9 @@ class AssetFactory extends ModelFactory {
         return $this->children(
             $existing,
             $asset->coverageStatusCheck->coverageEntries ?? [],
+            static function (AssetWarranty $warranty): bool {
+                return true;
+            },
             function (CoverageEntry $entry, AssetWarranty $warranty): bool {
                 return $this->isWarrantyEqualToCoverage($warranty, $entry);
             },
@@ -360,7 +374,8 @@ class AssetFactory extends ModelFactory {
         // information (that is not available in Document and DocumentEntry)
         $documents = Collection::make($asset->assetDocument)
             ->filter(static function (ViewAssetDocument $document): bool {
-                return isset($document->documentNumber);
+                return isset($document->documentNumber)
+                    && $document->deletedAt === null;
             })
             ->sort(static function (ViewAssetDocument $a, ViewAssetDocument $b): int {
                 return $a->startDate <=> $b->startDate

@@ -62,6 +62,7 @@ use function count;
  * @property string|null                         $warranty_service_group_id
  * @property string|null                         $warranty_service_level_id
  * @property string|null                         $data_quality
+ * @property CarbonImmutable|null                $eosl
  * @property int|null                            $contacts_active_quantity
  * @property int                                 $contacts_count
  * @property int                                 $coverages_count
@@ -114,6 +115,7 @@ class Asset extends Model implements OwnedByReseller, Searchable {
         'synced_at'           => 'datetime',
         'warranty_end'        => 'date',
         'warranty_changed_at' => 'datetime',
+        'eosl'                => 'date',
     ] + parent::CASTS;
 
     /**

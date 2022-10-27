@@ -141,6 +141,7 @@ abstract class GraphQL implements Stringable, JsonSerializable {
 
             eolDate
             eosDate
+            eoslDate
 
             country
             countryCode
@@ -188,6 +189,7 @@ abstract class GraphQL implements Stringable, JsonSerializable {
                 startDate
                 endDate
                 documentNumber
+                deletedAt
 
                 document {
                     id
@@ -273,6 +275,7 @@ abstract class GraphQL implements Stringable, JsonSerializable {
             }
 
             documentEntries {
+                assetDocumentId
                 assetId
                 assetProductLine
                 assetProductGroupDescription
@@ -296,6 +299,7 @@ abstract class GraphQL implements Stringable, JsonSerializable {
                 sarNumber
                 pspId
                 pspName
+                deletedAt
             }
             GRAPHQL;
     }

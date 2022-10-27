@@ -27,6 +27,10 @@ class ChildrenTest extends TestCase {
             'key'      => $this->faker->uuid(),
             'property' => $this->faker->uuid(),
         ]);
+        $modelShouldBeIgnored = (clone $model)->forceFill([
+            'id'       => $id++,
+            'property' => $this->faker->uuid(),
+        ]);
         $modelShouldBeReused  = (clone $model)->forceFill([
             'id'       => $id++,
             'property' => $this->faker->uuid(),
@@ -51,8 +55,11 @@ class ChildrenTest extends TestCase {
                 'property' => $type->property ?? null,
             ]);
         };
-        $comparator           = static function (ChildrenTest_Type $type, Model $model): bool {
+        $isEqual              = static function (ChildrenTest_Type $type, Model $model): bool {
             return $model->getAttribute('key') === $type->key;
+        };
+        $isReusable           = static function (Model $model) use ($modelShouldBeIgnored): bool {
+            return $model->getKey() !== $modelShouldBeIgnored->getKey();
         };
         $children             = new class() {
             use Children {
@@ -62,7 +69,7 @@ class ChildrenTest extends TestCase {
 
         $existing = new Collection([$modelShouldBeUpdated, $modelShouldBeDeleted, $modelShouldBeReused]);
         $entries  = [$typeShouldBeCreated, $typeShouldBeUpdated];
-        $actual   = $children->children($existing, $entries, $comparator, $factory);
+        $actual   = $children->children($existing, $entries, $isReusable, $isEqual, $factory);
         $expected = new Collection([
             tap(clone $model, static function (Model $model) use ($modelShouldBeReused, $typeShouldBeCreated): void {
                 $model->setAttribute('id', $modelShouldBeReused->getKey());

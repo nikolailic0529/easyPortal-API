@@ -3,17 +3,17 @@
 namespace Tests\Data\Services\DataLoader\Importers;
 
 use App\Services\DataLoader\Testing\Data\AssetsData;
+use App\Services\DataLoader\Testing\Data\Context;
 use Illuminate\Console\Command;
+use LastDragon_ru\LaraASP\Testing\Utils\TestData;
 
 class AssetsImporterData extends AssetsData {
-    protected function generateData(string $path): bool {
-        return $this->dumpClientResponses($path, function (): bool {
-            $result  = $this->kernel->call('ep:data-loader-assets-sync', [
-                '--chunk' => static::CHUNK,
-            ]);
-            $success = $result === Command::SUCCESS;
+    protected function generateData(TestData $root, Context $context): bool {
+        $result  = $this->kernel->call('ep:data-loader-assets-sync', [
+            '--chunk' => static::CHUNK,
+        ]);
+        $success = $result === Command::SUCCESS;
 
-            return $success;
-        });
+        return $success;
     }
 }

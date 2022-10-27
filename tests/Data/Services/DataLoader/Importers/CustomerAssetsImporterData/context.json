@@ -1,16 +1,19 @@
 {
-    "generated": "2022-10-14T11:43:20+00:00",
-    "distributors": [
-        "1af1c44e-8112-4e72-9654-b11c705e9372"
+    "generated": "2022-10-26T07:31:51+00:00",
+    "customers": [
+        "019a3b56-b701-4599-8452-2cf9f1f54b26"
+    ],
+    "files": [
+        "data.getAssetsByCustomerId/bec6e4368798c5b3069a1eb13c7d9e931016a7fa.ad395134ea757cabd110a8ea102f088b833fd2cc.json",
+        "data.getAssetsByCustomerIdCount/3cd2cb5aee8509653ff46fc662799fff3e6ce6ea.3af6916dd12fe18b8539b531098e6601039046ff.json",
+        "data.getCompanyById/35619e8f6303a2081c7d9b26d1be91aa854872b3.af2027b9e6108b47186062ff2df325287b05a8df.json",
+        "data.getCompanyById/72cffa3e3fc77afff3d357b338972cc2445d4e12.8dc00057b9eb79d6bfb85953435e12c7a08db3bd.json",
+        "map.json"
     ],
     "resellers": [
         "9d9e320d-4e44-4518-a4e6-6bfe7f1c7dd8"
     ],
-    "customers": [
-        "019a3b56-b701-4599-8452-2cf9f1f54b26"
-    ],
     "types": [
         "Contract"
-    ],
-    "oems": "oem.csv"
+    ]
 }

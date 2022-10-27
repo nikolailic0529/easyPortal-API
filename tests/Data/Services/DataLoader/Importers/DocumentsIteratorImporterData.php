@@ -4,8 +4,10 @@ namespace Tests\Data\Services\DataLoader\Importers;
 
 use App\Models\Document;
 use App\Services\DataLoader\Processors\Importer\Importers\Documents\IteratorImporter;
+use App\Services\DataLoader\Testing\Data\Context;
 use App\Services\DataLoader\Testing\Data\DocumentsData;
 use App\Utils\Iterators\Contracts\ObjectIterator;
+use LastDragon_ru\LaraASP\Testing\Utils\TestData;
 
 class DocumentsIteratorImporterData extends DocumentsData {
     public const DOCUMENTS = [
@@ -22,24 +24,28 @@ class DocumentsIteratorImporterData extends DocumentsData {
         '00000000-0000-0000-0000-000000000000',
     ];
 
-    protected function generateData(string $path): bool {
-        return $this->dumpClientResponses($path, function (): bool {
-            $this->app->make(IteratorImporter::class)
+    protected function generateData(TestData $root, Context $context): bool {
+        return $this->createDocument()
+            && $this->app->make(IteratorImporter::class)
                 ->setIterator(static::getIterator())
                 ->setChunkSize(static::CHUNK)
                 ->setLimit(static::LIMIT)
                 ->start();
+    }
 
-            return true;
-        });
+    public function restore(TestData $root, Context $context): bool {
+        return $this->createDocument()
+            && parent::restore($root, $context);
     }
 
     /**
-     * @inheritDoc
+     * @return ObjectIterator<Document|string>
      */
-    public function restore(string $path, array $context): bool {
-        $result = parent::restore($path, $context);
+    public static function getIterator(): ObjectIterator {
+        return static::getModelsIterator(Document::class, static::DOCUMENTS);
+    }
 
+    private function createDocument(): bool {
         Document::factory()->create([
             'id'          => '00000000-0000-0000-0000-000000000000',
             'oem_id'      => null,
@@ -48,13 +54,6 @@ class DocumentsIteratorImporterData extends DocumentsData {
             'customer_id' => null,
         ]);
 
-        return $result;
-    }
-
-    /**
-     * @return ObjectIterator<Document|string>
-     */
-    public static function getIterator(): ObjectIterator {
-        return static::getModelsIterator(Document::class, static::DOCUMENTS);
+        return true;
     }
 }

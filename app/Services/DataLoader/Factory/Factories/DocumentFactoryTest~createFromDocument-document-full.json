@@ -55,7 +55,9 @@
             "equipmentNumber": null,
             "languageCode": "EN",
             "pspId": "c0200a6c-1b8a-4365-9f1b-32d753194335",
-            "pspName": "PSP#A"
+            "pspName": "PSP#A",
+            "assetDocumentId": "#1",
+            "deletedAt": null
         },
         {
             "assetId": "c0200a6c-1b8a-4365-9f1b-32d753194335",
@@ -77,7 +79,9 @@
             "equipmentNumber": null,
             "languageCode": "EN",
             "pspId": "c0200a6c-1b8a-4365-9f1b-32d753194335",
-            "pspName": "PSP#A"
+            "pspName": "PSP#A",
+            "assetDocumentId": "#2",
+            "deletedAt": null
         },
         {
             "assetId": "c0200a6c-1b8a-4365-9f1b-32d753194335",
@@ -99,7 +103,9 @@
             "equipmentNumber": null,
             "languageCode": null,
             "pspId": null,
-            "pspName": null
+            "pspName": null,
+            "assetDocumentId": "#3",
+            "deletedAt": null
         },
         {
             "assetId": "c0200a6c-1b8a-4365-9f1b-32d753194335",
@@ -124,7 +130,9 @@
             "equipmentNumber": null,
             "languageCode": "DE",
             "pspId": "3591dee5-4178-4a7c-99be-87a1c5defcc1",
-            "pspName": "PSP#B"
+            "pspName": "PSP#B",
+            "assetDocumentId": "#4",
+            "deletedAt": null
         },
         {
             "assetId": "c0200a6c-1b8a-4365-9f1b-32d753194335",
@@ -149,7 +157,9 @@
             "equipmentNumber": null,
             "languageCode": null,
             "pspId": null,
-            "pspName": null
+            "pspName": null,
+            "assetDocumentId": "#5",
+            "deletedAt": null
         },
         {
             "assetId": "c0200a6c-1b8a-4365-9f1b-32d753194335",
@@ -174,7 +184,9 @@
             "equipmentNumber": null,
             "languageCode": null,
             "pspId": null,
-            "pspName": null
+            "pspName": null,
+            "assetDocumentId": "#6",
+            "deletedAt": null
         },
         {
             "assetId": null,
@@ -199,7 +211,9 @@
             "equipmentNumber": null,
             "languageCode": null,
             "pspId": null,
-            "pspName": null
+            "pspName": null,
+            "assetDocumentId": "#7",
+            "deletedAt": null
         },
         {
             "assetId": null,
@@ -224,7 +238,9 @@
             "equipmentNumber": null,
             "languageCode": null,
             "pspId": null,
-            "pspName": null
+            "pspName": null,
+            "assetDocumentId": "#8",
+            "deletedAt": null
         }
     ]
 }
