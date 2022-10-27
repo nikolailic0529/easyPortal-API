@@ -6,6 +6,7 @@ use App\Services\DataLoader\Client\Events\RequestFailed;
 use App\Services\DataLoader\Client\Events\RequestStarted;
 use App\Services\DataLoader\Client\Events\RequestSuccessful;
 use App\Services\DataLoader\Client\Exceptions\DataLoaderDisabled;
+use App\Services\DataLoader\Client\Exceptions\DataLoaderRequestRateTooLarge;
 use App\Services\DataLoader\Client\Exceptions\DataLoaderUnavailable;
 use App\Services\DataLoader\Client\Exceptions\GraphQLRequestFailed;
 use App\Services\DataLoader\Client\Exceptions\GraphQLSlowQuery;
@@ -67,13 +68,17 @@ use Illuminate\Http\Client\PendingRequest;
 use Illuminate\Support\Arr;
 use SplFileInfo;
 
+use function array_column;
 use function array_is_list;
 use function assert;
 use function explode;
+use function is_array;
 use function is_scalar;
 use function is_string;
 use function json_encode;
+use function mb_strtolower;
 use function reset;
+use function str_contains;
 use function time;
 
 class Client {
@@ -593,8 +598,19 @@ class Client {
         $errors = Arr::get($json, 'errors', Arr::get($json, 'error.errors'));
         $result = Arr::get($json, $selector);
 
+        assert($errors === null || is_array($errors));
+
         if ($errors) {
-            $error = new GraphQLRequestFailed($graphql, $variables, $errors);
+            $isRateTooLarge = (bool) Arr::first(
+                array_column($errors, 'message'),
+                static function (mixed $error): bool {
+                    return is_string($error)
+                        && str_contains(mb_strtolower($error), mb_strtolower('Request rate is large'));
+                },
+            );
+            $error          = $isRateTooLarge
+                ? new DataLoaderRequestRateTooLarge($graphql, $variables, $errors)
+                : new GraphQLRequestFailed($graphql, $variables, $errors);
 
             $this->dispatcher->dispatch(new RequestFailed($selector, $graphql, $variables, $json));
             $this->handler->report($error);

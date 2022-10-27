@@ -3021,11 +3021,6 @@ parameters:
 			path: app/Services/DataLoader/Client/Client.php
 
 		-
-			message: "#^Parameter \\#3 \\$errors of class App\\\\Services\\\\DataLoader\\\\Client\\\\Exceptions\\\\GraphQLRequestFailed constructor expects array, mixed given\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Client/Client.php
-
-		-
 			message: "#^Parameter \\#1 \\$introspectionQuery of static method GraphQL\\\\Utils\\\\BuildClientSchema\\:\\:build\\(\\) expects array\\<string, array\\>, array given\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Client/ClientTest.php
