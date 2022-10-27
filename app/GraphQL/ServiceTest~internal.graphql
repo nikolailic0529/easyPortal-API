@@ -686,6 +686,59 @@ input AggregatedGroupByClauseDocumentsQuery {
 }
 
 """
+Group clause for `input LocationsQuery` (only one property allowed at a time).
+"""
+input AggregatedGroupByClauseLocationsQuery {
+    """
+    Relationship clause.
+    """
+    city: [SortByClauseCitiesSort!]
+    @aggregatedGroupByOperatorRelation
+
+    """
+    Property clause.
+    """
+    city_id: AggregatedGroupByTypeDirection
+    @aggregatedGroupByOperatorAsString
+
+    """
+    Relationship clause.
+    """
+    country: [SortByClauseCountriesSort!]
+    @aggregatedGroupByOperatorRelation
+
+    """
+    Property clause.
+    """
+    country_id: AggregatedGroupByTypeDirection
+    @aggregatedGroupByOperatorAsString
+
+    """
+    Property clause.
+    """
+    line_one: AggregatedGroupByTypeDirection
+    @aggregatedGroupByOperatorAsString
+
+    """
+    Property clause.
+    """
+    line_two: AggregatedGroupByTypeDirection
+    @aggregatedGroupByOperatorAsString
+
+    """
+    Property clause.
+    """
+    postcode: AggregatedGroupByTypeDirection
+    @aggregatedGroupByOperatorAsString
+
+    """
+    Property clause.
+    """
+    state: AggregatedGroupByTypeDirection
+    @aggregatedGroupByOperatorAsString
+}
+
+"""
 Group clause for `input MeSearchQuery` (only one property allowed at a time).
 """
 input AggregatedGroupByClauseMeSearchQuery {
@@ -10173,6 +10226,57 @@ type Location {
     updated_at: DateTime!
 }
 
+"""
+Aggregated data for `type Location`.
+"""
+type LocationsAggregated {
+    count: Int!
+    @aggregatedCount
+    @cached(
+        mode: Threshold
+    )
+
+    groups(
+        groupBy: AggregatedGroupByClauseLocationsQuery!
+        @aggregatedGroupBy(
+            order: "LocationsSort"
+            where: "LocationsQuery"
+        )
+
+        limit: Int! = 25
+        @rules(
+            apply: [
+                "min:1"
+                "App\\GraphQL\\Directives\\Directives\\Paginated\\LimitRule"
+            ]
+        )
+        @paginatedLimit
+
+        offset: Int! = 0
+        @rules(
+            apply: ["min:0"]
+        )
+        @paginatedOffset
+    ): [AggregatedGroupByTypeGroup!]!
+    @cached(
+        mode: Threshold
+    )
+    @paginated(
+        builder: "App\\GraphQL\\Directives\\Directives\\Aggregated\\Builder"
+    )
+
+    groupsAggregated(
+        groupBy: AggregatedGroupByClauseLocationsQuery!
+        @aggregatedGroupBy(
+            order: "LocationsSort"
+            where: "LocationsQuery"
+        )
+    ): AggregatedGroupByTypeGroupsAggregated
+    @aggregated(
+        builder: "App\\GraphQL\\Directives\\Directives\\Aggregated\\Builder"
+    )
+}
+
 type Map {
     """
     @require <authOrg> Authenticated user must be a member of the current organization.
@@ -12682,6 +12786,64 @@ type Query {
     @authRoot
     @field(
         resolver: "App\\GraphQL\\Queries\\Administration\\Locale"
+    )
+
+    """
+    @require <authOrg> Authenticated user must be a member of the current organization.
+
+    @require <authMe> User must be authenticated.
+    """
+    locations(
+        limit: Int! = 25
+        @rules(
+            apply: [
+                "min:1"
+                "App\\GraphQL\\Directives\\Directives\\Paginated\\LimitRule"
+            ]
+        )
+        @paginatedLimit
+
+        offset: Int! = 0
+        @rules(
+            apply: ["min:0"]
+        )
+        @paginatedOffset
+
+        order: [SortByClauseLocationsSort!]
+        @sortBy
+
+        trashed: Trashed
+        @authMe(
+            permissions: ["administer"]
+        )
+        @paginatedTrashed
+
+        where: SearchByConditionLocationsQuery
+        @searchBy
+    ): [Location!]!
+    @authOrg
+    @authMe
+    @paginated
+
+    """
+    @require <authOrg> Authenticated user must be a member of the current organization.
+
+    @require <authMe> User must be authenticated.
+    """
+    locationsAggregated(
+        trashed: Trashed
+        @authMe(
+            permissions: ["administer"]
+        )
+        @paginatedTrashed
+
+        where: SearchByConditionLocationsQuery
+        @searchBy
+    ): LocationsAggregated
+    @authOrg
+    @authMe
+    @aggregated(
+        model: "App\\Models\\Data\\Location"
     )
 
     """

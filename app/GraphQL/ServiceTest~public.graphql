@@ -575,6 +575,51 @@ input AggregatedGroupByClauseDocumentsQuery {
 }
 
 """
+Group clause for `input LocationsQuery` (only one property allowed at a time).
+"""
+input AggregatedGroupByClauseLocationsQuery {
+    """
+    Relationship clause.
+    """
+    city: [SortByClauseCitiesSort!]
+
+    """
+    Property clause.
+    """
+    city_id: AggregatedGroupByTypeDirection
+
+    """
+    Relationship clause.
+    """
+    country: [SortByClauseCountriesSort!]
+
+    """
+    Property clause.
+    """
+    country_id: AggregatedGroupByTypeDirection
+
+    """
+    Property clause.
+    """
+    line_one: AggregatedGroupByTypeDirection
+
+    """
+    Property clause.
+    """
+    line_two: AggregatedGroupByTypeDirection
+
+    """
+    Property clause.
+    """
+    postcode: AggregatedGroupByTypeDirection
+
+    """
+    Property clause.
+    """
+    state: AggregatedGroupByTypeDirection
+}
+
+"""
 Group clause for `input MeSearchQuery` (only one property allowed at a time).
 """
 input AggregatedGroupByClauseMeSearchQuery {
@@ -7650,6 +7695,23 @@ type Location {
     updated_at: DateTime!
 }
 
+"""
+Aggregated data for `type Location`.
+"""
+type LocationsAggregated {
+    count: Int!
+
+    groups(
+        groupBy: AggregatedGroupByClauseLocationsQuery!
+        limit: Int! = 25
+        offset: Int! = 0
+    ): [AggregatedGroupByTypeGroup!]!
+
+    groupsAggregated(
+        groupBy: AggregatedGroupByClauseLocationsQuery!
+    ): AggregatedGroupByTypeGroupsAggregated
+}
+
 type Map {
     """
     @require <authOrg> Authenticated user must be a member of the current organization.
@@ -9029,6 +9091,29 @@ type Query {
     locale(
         name: String!
     ): Locale!
+
+    """
+    @require <authOrg> Authenticated user must be a member of the current organization.
+
+    @require <authMe> User must be authenticated.
+    """
+    locations(
+        limit: Int! = 25
+        offset: Int! = 0
+        order: [SortByClauseLocationsSort!]
+        trashed: Trashed
+        where: SearchByConditionLocationsQuery
+    ): [Location!]!
+
+    """
+    @require <authOrg> Authenticated user must be a member of the current organization.
+
+    @require <authMe> User must be authenticated.
+    """
+    locationsAggregated(
+        trashed: Trashed
+        where: SearchByConditionLocationsQuery
+    ): LocationsAggregated
 
     """
     @require <authOrg> Authenticated user must be a member of the current organization.

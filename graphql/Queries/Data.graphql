@@ -107,4 +107,12 @@ extend type Query {
     @authOrg
     @authMe
     @paginated
+
+    locations(
+        where: LocationsQuery @searchBy
+        order: LocationsSort @sortBy
+    ): [Location!]!
+    @authOrg
+    @authMe
+    @paginated
 }
