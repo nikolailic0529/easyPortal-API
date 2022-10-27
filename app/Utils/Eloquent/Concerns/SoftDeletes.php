@@ -12,6 +12,7 @@ use Illuminate\Database\Eloquent\SoftDeletes as EloquentSoftDeletes;
 trait SoftDeletes {
     use EloquentSoftDeletes {
         restore as private eloquentRestore;
+        runSoftDelete as private eloquentRunSoftDelete;
     }
 
     /**
@@ -28,5 +29,20 @@ trait SoftDeletes {
         }
 
         return $result;
+    }
+
+    /**
+     * @phpcsSuppress SlevomatCodingStandard.TypeHints.ReturnTypeHint.MissingNativeTypeHint
+     * @noinspection  PhpMissingReturnTypeInspection
+     *
+     * @return void
+     */
+    protected function runSoftDelete() {
+        // Laravel will update `deleted_at` even if the model is already trashed.
+        // This is strange unwanted behavior that also creates excess queries
+        // while DataLoader sync data.
+        if (!$this->trashed()) {
+            $this->eloquentRunSoftDelete();
+        }
     }
 }
