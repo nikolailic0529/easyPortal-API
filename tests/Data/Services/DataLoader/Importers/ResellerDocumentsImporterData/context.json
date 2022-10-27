@@ -1,5 +1,5 @@
 {
-    "generated": "2022-10-26T07:28:54+00:00",
+    "generated": "2022-10-27T06:14:55+00:00",
     "assets": [
         "08561eab-cde5-4f75-8f29-fb2fcef147fe",
         "0fc2bd88-7afb-4256-bb2e-267d6de4d8c8",
@@ -186,11 +186,11 @@
         "data.getCompanyById/35619e8f6303a2081c7d9b26d1be91aa854872b3.f113d939bd619671a24f32c1fdf2176bba519da0.json",
         "data.getCompanyById/35619e8f6303a2081c7d9b26d1be91aa854872b3.f3f105b20c560c1f4de0542e3ee413f1facfabe0.json",
         "data.getCompanyById/72cffa3e3fc77afff3d357b338972cc2445d4e12.0e760a393c39011cb80e163a231b82746154cd21.json",
-        "data.getDocumentsByReseller/8cd86079cbaa713a956db2ca4e8bd23c8f0c7e21.183e83341ce4854d59cbccf41d44266ad197dcaa.json",
-        "data.getDocumentsByReseller/8cd86079cbaa713a956db2ca4e8bd23c8f0c7e21.206a25d1cfa8b1e20329b965eb24ecb7c49af4db.json",
-        "data.getDocumentsByReseller/8cd86079cbaa713a956db2ca4e8bd23c8f0c7e21.2854e9e3cbafe8a8d33bba22038c4dc30860d776.json",
-        "data.getDocumentsByReseller/8cd86079cbaa713a956db2ca4e8bd23c8f0c7e21.59257d5342af1884868ffa7946b3ab5b00a61f42.json",
-        "data.getDocumentsByReseller/8cd86079cbaa713a956db2ca4e8bd23c8f0c7e21.7eaa1fb5b882f1b4825b5095e176e727e7fc0dfd.json",
+        "data.getDocumentsByReseller/3096ea123f123db0758a4c29cb3b805b7c229b05.183e83341ce4854d59cbccf41d44266ad197dcaa.json",
+        "data.getDocumentsByReseller/3096ea123f123db0758a4c29cb3b805b7c229b05.206a25d1cfa8b1e20329b965eb24ecb7c49af4db.json",
+        "data.getDocumentsByReseller/3096ea123f123db0758a4c29cb3b805b7c229b05.2854e9e3cbafe8a8d33bba22038c4dc30860d776.json",
+        "data.getDocumentsByReseller/3096ea123f123db0758a4c29cb3b805b7c229b05.59257d5342af1884868ffa7946b3ab5b00a61f42.json",
+        "data.getDocumentsByReseller/3096ea123f123db0758a4c29cb3b805b7c229b05.7eaa1fb5b882f1b4825b5095e176e727e7fc0dfd.json",
         "data.getDocumentsByResellerCount/3c6204a9aae77787d09afeb5405d111c95bc61ec.1835e0b2e1ee170a068d38e644aa393ea87135a0.json",
         "map.json"
     ],

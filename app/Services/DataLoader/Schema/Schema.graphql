@@ -341,11 +341,13 @@ type Document {
 
 type DocumentEntry {
     asset: Asset
+    assetDocumentId: String
     assetId: String
     assetProductGroupDescription: String
     assetProductLine: String
     assetProductType: String
     currencyCode: String
+    deletedAt: String
     endDate: String
     environmentId: String
     eoslDate: String

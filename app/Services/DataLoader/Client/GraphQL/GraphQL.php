@@ -275,6 +275,7 @@ abstract class GraphQL implements Stringable, JsonSerializable {
             }
 
             documentEntries {
+                assetDocumentId
                 assetId
                 assetProductLine
                 assetProductGroupDescription
@@ -298,6 +299,7 @@ abstract class GraphQL implements Stringable, JsonSerializable {
                 sarNumber
                 pspId
                 pspName
+                deletedAt
             }
             GRAPHQL;
     }

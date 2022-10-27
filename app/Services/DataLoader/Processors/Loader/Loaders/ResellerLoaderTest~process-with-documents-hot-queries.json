@@ -148,7 +148,7 @@
     {
         "query": "select `oem_groups`.* from `oem_groups` where (`key` = ? and `name` = ? and `oem_id` = ?) and `oem_groups`.`deleted_at` is null limit 1",
         "bindings": [
-            "2166b574-cf5d-343b-aaf8-6e66aeed28f5",
+            "139a7f30-d032-3987-98c0-0872a5c590b0",
             "",
             "271890ae-435b-595c-8e00-d23495b5bbbd"
         ]
@@ -186,7 +186,7 @@
         ]
     },
     {
-        "query": "select `document_entries`.* from `document_entries` where `document_entries`.`document_id` = ? and `document_entries`.`document_id` is not null and `document_entries`.`deleted_at` is null",
+        "query": "select `document_entries`.* from `document_entries` where `document_entries`.`document_id` = ? and `document_entries`.`document_id` is not null",
         "bindings": [
             "f7873540-59c2-4019-9522-5e7b299257b1"
         ]
@@ -194,8 +194,8 @@
     {
         "query": "update `documents` set `synced_at` = ?, `documents`.`updated_at` = ? where `id` = ?",
         "bindings": [
-            "2022-02-02 00:04:01",
-            "2022-02-02 00:04:04",
+            "2022-02-02 00:03:41",
+            "2022-02-02 00:03:44",
             "f7873540-59c2-4019-9522-5e7b299257b1"
         ]
     },

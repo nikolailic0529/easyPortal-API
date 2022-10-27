@@ -315,13 +315,23 @@ class DocumentFactory extends ModelFactory {
         DocumentEntryModel $entry,
         DocumentEntry $documentEntry,
     ): bool {
-        // Entries doesn't have ID, but we need to compare them somehow...
-        //
-        // Is there a better way?
+        // IDs?
         $normalizer = $this->getNormalizer();
-        $start      = $normalizer->datetime($documentEntry->startDate);
-        $end        = $normalizer->datetime($documentEntry->endDate);
-        $isEqual    = $entry->asset_id === $normalizer->uuid($documentEntry->assetId)
+        $asset      = $normalizer->uuid($documentEntry->assetId);
+        $uid        = $normalizer->uuid($documentEntry->assetDocumentId);
+
+        if ($uid && $entry->uid === $uid) {
+            return $entry->asset_id === null || $asset === null || $entry->asset_id === $asset;
+        }
+
+        if ($entry->uid) {
+            return false;
+        }
+
+        // Compare properties
+        $start   = $normalizer->datetime($documentEntry->startDate);
+        $end     = $normalizer->datetime($documentEntry->endDate);
+        $isEqual = $entry->asset_id === $asset
             && ($entry->start === $documentEntry->startDate || $entry->start?->isSameDay($start) === true)
             && ($entry->end === $documentEntry->endDate || $entry->end?->isSameDay($end) === true)
             && $entry->currency_id === $this->currency($documentEntry->currencyCode)?->getKey()
@@ -402,19 +412,13 @@ class DocumentFactory extends ModelFactory {
                 );
 
                 // Entries
-                try {
-                    $model->entries   = $this->documentEntries($model, $document);
-                    $model->synced_at = Date::now();
-
-                    $model->save();
-                } finally {
-                    unset($model->entries);
-                }
-
-                // Warranties
-                // TODO: Not implemented
+                $model->entries   = $this->documentEntries($model, $document);
+                $model->synced_at = Date::now();
             } finally {
                 $this->getAssetResolver()->reset();
+
+                unset($model->entries);
+
                 $model->save();
             }
         }
@@ -468,11 +472,19 @@ class DocumentFactory extends ModelFactory {
      * @return Collection<array-key, DocumentEntryModel>
      */
     protected function documentEntries(DocumentModel $model, Document $document): Collection {
-        return $this->children(
-            $model->entries,
+        // Preload existing entries
+        $entries = $model->exists
+            ? $model->entries()->withTrashed()->get()
+            : $model->entries()->makeMany([]);
+
+        $model->setRelation('entries', $entries);
+
+        // Process
+        $entries = $this->children(
+            $entries,
             $document->documentEntries ?? [],
             static function (DocumentEntryModel $entry): bool {
-                return true;
+                return $entry->uid === null;
             },
             function (DocumentEntry $documentEntry, DocumentEntryModel $entry) use ($model): bool {
                 return $this->isEntryEqualDocumentEntry($model, $entry, $documentEntry);
@@ -489,6 +501,9 @@ class DocumentFactory extends ModelFactory {
                 return null;
             },
         );
+
+        // Return
+        return $entries;
     }
 
     protected function documentEntry(
@@ -499,6 +514,7 @@ class DocumentFactory extends ModelFactory {
         $asset                              = $this->documentEntryAsset($model, $documentEntry);
         $entry                            ??= new DocumentEntryModel();
         $normalizer                         = $this->getNormalizer();
+        $entry->uid                         = $normalizer->uuid($documentEntry->assetDocumentId);
         $entry->document                    = $model;
         $entry->asset                       = $asset;
         $entry->assetType                   = $this->documentEntryAssetType($model, $documentEntry);
@@ -521,6 +537,10 @@ class DocumentFactory extends ModelFactory {
         $entry->serviceGroup                = $this->documentEntryServiceGroup($model, $documentEntry);
         $entry->serviceLevel                = $this->documentEntryServiceLevel($model, $documentEntry);
         $entry->psp                         = $this->documentEntryPsp($model, $documentEntry);
+        $entry->removed_at                  = $normalizer->datetime($documentEntry->deletedAt);
+        $entry->deleted_at                  = $entry->removed_at
+            ? ($entry->deleted_at ?? Date::now())
+            : null;
 
         return $entry;
     }
@@ -531,7 +551,7 @@ class DocumentFactory extends ModelFactory {
         try {
             $asset = $this->asset($documentEntry);
 
-            if (!$asset) {
+            if ($asset === null && $this->getNormalizer()->uuid($documentEntry->assetId) !== null) {
                 $this->getExceptionHandler()->report(
                     new FailedToProcessDocumentEntryNoAsset($model, $documentEntry),
                 );

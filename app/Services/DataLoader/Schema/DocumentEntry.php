@@ -3,6 +3,7 @@
 namespace App\Services\DataLoader\Schema;
 
 class DocumentEntry extends Type {
+    public ?string $assetDocumentId;
     public ?string $assetId;
     public ?string $serviceGroupSku;
     public ?string $serviceGroupSkuDescription;
@@ -26,4 +27,5 @@ class DocumentEntry extends Type {
     public ?string $sarNumber;
     public ?string $pspId;
     public ?string $pspName;
+    public ?string $deletedAt;
 }

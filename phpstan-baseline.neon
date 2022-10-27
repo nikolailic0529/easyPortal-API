@@ -3356,11 +3356,6 @@ parameters:
 			path: app/Services/DataLoader/Factory/Factories/DocumentFactoryTest.php
 
 		-
-			message: "#^Parameter \\#1 \\$callback of method Illuminate\\\\Support\\\\Collection\\<int,App\\\\Models\\\\DocumentEntry\\|null\\>\\:\\:map\\(\\) expects callable\\(App\\\\Models\\\\DocumentEntry\\|null, int\\)\\: string, Closure\\(App\\\\Models\\\\DocumentEntry\\)\\: string given\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Factories/DocumentFactoryTest.php
-
-		-
 			message: "#^Parameter \\#1 \\$json of class App\\\\Services\\\\DataLoader\\\\Schema\\\\Document constructor expects array\\<string, mixed\\>, array\\|bool\\|float\\|int\\|string\\|null given\\.$#"
 			count: 5
 			path: app/Services/DataLoader/Factory/Factories/DocumentFactoryTest.php

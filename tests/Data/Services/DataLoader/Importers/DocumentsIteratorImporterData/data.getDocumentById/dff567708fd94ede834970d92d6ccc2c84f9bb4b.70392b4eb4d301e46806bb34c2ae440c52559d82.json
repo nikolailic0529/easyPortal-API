@@ -1,0 +1,211 @@
+{
+    "selector": "data.getDocumentById",
+    "query": "query getDocumentById($id: String!) {\n    getDocumentById(id: $id) {\n        id\ntype\nstatus\ndocumentNumber\nstartDate\nendDate\ncurrencyCode\ntotalNetPrice\nlanguageCode\nupdatedAt\nresellerId\ncustomerId\ndistributorId\n\nvendorSpecificFields {\n    vendor\n    groupId\n    groupDescription\n    said\n    ampId\n    sar\n}\n\ncontactPersons {\n    phoneNumber\n    name\n    type\n    mail\n}\n\ndocumentEntries {\n    assetDocumentId\n    assetId\n    assetProductLine\n    assetProductGroupDescription\n    serviceGroupSku\n    serviceGroupSkuDescription\n    serviceLevelSku\n    serviceLevelSkuDescription\n    serviceFullDescription\n    startDate\n    endDate\n    languageCode\n    currencyCode\n    listPrice\n    estimatedValueRenewal\n    assetProductType\n    environmentId\n    equipmentNumber\n    lineItemListPrice\n    lineItemMonthlyRetailPrice\n    said\n    sarNumber\n    pspId\n    pspName\n    deletedAt\n}\n    }\n}",
+    "variables": {
+        "id": "0a38d611-f78f-48e4-a861-8d56afaa8154"
+    },
+    "response": {
+        "data": {
+            "getDocumentById": {
+                "id": "0a38d611-f78f-48e4-a861-8d56afaa8154",
+                "type": "Contract",
+                "documentNumber": "5a9a6e71-debd-3b93-9bad-3675aa0b260b",
+                "startDate": "2021-01-01",
+                "endDate": "2021-12-31",
+                "currencyCode": "CHF",
+                "totalNetPrice": "1306.8",
+                "languageCode": null,
+                "updatedAt": "1654262846658",
+                "resellerId": "0fd07b17-3314-40b5-ac32-7189051f773b",
+                "customerId": "1b002a0b-d6e6-41ee-9365-316ecd32530c",
+                "distributorId": "a985a692-c063-499a-ab2f-0a2adef86a3f",
+                "vendorSpecificFields": {
+                    "vendor": "HPE",
+                    "sar": "RIT021",
+                    "ampId": "87-SMD500 1941C",
+                    "said": null,
+                    "groupId": "22d4071e-83db-37fa-a37f-aa960749c977",
+                    "groupDescription": null
+                },
+                "contactPersons": [
+                    {
+                        "phoneNumber": "+14346857813",
+                        "name": "Elbert Maggio V",
+                        "mail": null,
+                        "type": "EndUser Contact"
+                    },
+                    {
+                        "phoneNumber": "+17633941141",
+                        "name": "Dorris Lubowitz",
+                        "mail": "hyatt.royce@hotmail.com",
+                        "type": "Distributor Contact"
+                    },
+                    {
+                        "phoneNumber": "+12723941015",
+                        "name": "Jacklyn Cassin",
+                        "mail": "brenden.lindgren@roob.com",
+                        "type": "Reseller Contact"
+                    },
+                    {
+                        "phoneNumber": "+14346857813",
+                        "name": "Elbert Maggio V",
+                        "mail": null,
+                        "type": "Hardware System Contact"
+                    },
+                    {
+                        "phoneNumber": "+14346857813",
+                        "name": "Elbert Maggio V",
+                        "mail": null,
+                        "type": "Software System Contact"
+                    },
+                    {
+                        "phoneNumber": "+18315765750",
+                        "name": "Mr. Kelvin Gutkowski Jr.",
+                        "mail": null,
+                        "type": "System Manager Contact"
+                    }
+                ],
+                "documentEntries": [
+                    {
+                        "assetDocumentId": "28bcc473-eaa0-4c43-9d59-e01066fb6b6c-278848",
+                        "assetId": "745fbb57-156f-43f4-8865-f1e09db3a12e",
+                        "serviceGroupSku": null,
+                        "serviceGroupSkuDescription": null,
+                        "serviceLevelSku": "HA156AC",
+                        "serviceLevelSkuDescription": "HPE SN3000B 24/12 FC Switch",
+                        "serviceFullDescription": null,
+                        "startDate": null,
+                        "endDate": null,
+                        "currencyCode": "CHF",
+                        "languageCode": null,
+                        "listPrice": "0",
+                        "estimatedValueRenewal": "0",
+                        "assetProductType": null,
+                        "assetProductLine": null,
+                        "assetProductGroupDescription": null,
+                        "environmentId": null,
+                        "equipmentNumber": null,
+                        "lineItemListPrice": null,
+                        "lineItemMonthlyRetailPrice": null,
+                        "said": null,
+                        "sarNumber": null,
+                        "pspId": null,
+                        "pspName": null,
+                        "deletedAt": null
+                    },
+                    {
+                        "assetDocumentId": "28bcc473-eaa0-4c43-9d59-e01066fb6b6c-278845",
+                        "assetId": "745fbb57-156f-43f4-8865-f1e09db3a12e",
+                        "serviceGroupSku": null,
+                        "serviceGroupSkuDescription": null,
+                        "serviceLevelSku": "HA151AC",
+                        "serviceLevelSkuDescription": "HPE SN3000B 24/12 FC Switch",
+                        "serviceFullDescription": null,
+                        "startDate": null,
+                        "endDate": null,
+                        "currencyCode": "CHF",
+                        "languageCode": null,
+                        "listPrice": "653.4",
+                        "estimatedValueRenewal": "653.4",
+                        "assetProductType": null,
+                        "assetProductLine": null,
+                        "assetProductGroupDescription": null,
+                        "environmentId": null,
+                        "equipmentNumber": null,
+                        "lineItemListPrice": null,
+                        "lineItemMonthlyRetailPrice": null,
+                        "said": null,
+                        "sarNumber": null,
+                        "pspId": null,
+                        "pspName": null,
+                        "deletedAt": null
+                    },
+                    {
+                        "assetDocumentId": "28bcc473-eaa0-4c43-9d59-e01066fb6b6c-278846",
+                        "assetId": "79934a7c-ec40-441a-b6d7-618745a222f9",
+                        "serviceGroupSku": null,
+                        "serviceGroupSkuDescription": null,
+                        "serviceLevelSku": "HA151AC",
+                        "serviceLevelSkuDescription": "HPE Hardware Maintenance Onsite Support",
+                        "serviceFullDescription": null,
+                        "startDate": null,
+                        "endDate": null,
+                        "currencyCode": "CHF",
+                        "languageCode": null,
+                        "listPrice": null,
+                        "estimatedValueRenewal": null,
+                        "assetProductType": null,
+                        "assetProductLine": null,
+                        "assetProductGroupDescription": null,
+                        "environmentId": null,
+                        "equipmentNumber": null,
+                        "lineItemListPrice": null,
+                        "lineItemMonthlyRetailPrice": null,
+                        "said": null,
+                        "sarNumber": null,
+                        "pspId": null,
+                        "pspName": null,
+                        "deletedAt": null
+                    },
+                    {
+                        "assetDocumentId": "28bcc473-eaa0-4c43-9d59-e01066fb6b6c-278844",
+                        "assetId": "cb5a9c17-a591-46ee-b12e-d2b6b42f1236",
+                        "serviceGroupSku": null,
+                        "serviceGroupSkuDescription": null,
+                        "serviceLevelSku": "HA151AC",
+                        "serviceLevelSkuDescription": "HPE SN3000B 24/12 FC Switch",
+                        "serviceFullDescription": null,
+                        "startDate": null,
+                        "endDate": null,
+                        "currencyCode": "CHF",
+                        "languageCode": null,
+                        "listPrice": "653.4",
+                        "estimatedValueRenewal": "653.4",
+                        "assetProductType": null,
+                        "assetProductLine": null,
+                        "assetProductGroupDescription": null,
+                        "environmentId": null,
+                        "equipmentNumber": null,
+                        "lineItemListPrice": null,
+                        "lineItemMonthlyRetailPrice": null,
+                        "said": null,
+                        "sarNumber": null,
+                        "pspId": null,
+                        "pspName": null,
+                        "deletedAt": null
+                    },
+                    {
+                        "assetDocumentId": "28bcc473-eaa0-4c43-9d59-e01066fb6b6c-278847",
+                        "assetId": "cb5a9c17-a591-46ee-b12e-d2b6b42f1236",
+                        "serviceGroupSku": null,
+                        "serviceGroupSkuDescription": null,
+                        "serviceLevelSku": "HA156AC",
+                        "serviceLevelSkuDescription": "HPE SN3000B 24/12 FC Switch",
+                        "serviceFullDescription": null,
+                        "startDate": null,
+                        "endDate": null,
+                        "currencyCode": "CHF",
+                        "languageCode": null,
+                        "listPrice": "0",
+                        "estimatedValueRenewal": "0",
+                        "assetProductType": null,
+                        "assetProductLine": null,
+                        "assetProductGroupDescription": null,
+                        "environmentId": null,
+                        "equipmentNumber": null,
+                        "lineItemListPrice": null,
+                        "lineItemMonthlyRetailPrice": null,
+                        "said": null,
+                        "sarNumber": null,
+                        "pspId": null,
+                        "pspName": null,
+                        "deletedAt": null
+                    }
+                ],
+                "status": [
+                    "EXPIRED"
+                ]
+            }
+        }
+    }
+}

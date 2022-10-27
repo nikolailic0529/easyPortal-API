@@ -80,7 +80,7 @@
     {
         "query": "select `oem_groups`.* from `oem_groups` where (`key` = ? and `name` = ? and `oem_id` = ?) and `oem_groups`.`deleted_at` is null limit 1",
         "bindings": [
-            "8c58e426-c589-3aa2-ae5d-184532d464ba",
+            "492e2230-7230-3e6d-a89a-cb7cdeb758d1",
             "",
             "c62f10e7-c6a5-515b-ad9e-2a45b83df6d1"
         ]
@@ -125,7 +125,7 @@
         ]
     },
     {
-        "query": "select `document_entries`.* from `document_entries` where `document_entries`.`document_id` = ? and `document_entries`.`document_id` is not null and `document_entries`.`deleted_at` is null",
+        "query": "select `document_entries`.* from `document_entries` where `document_entries`.`document_id` = ? and `document_entries`.`document_id` is not null",
         "bindings": [
             "00122a07-53e5-4c70-ba6b-bf51fcdd6695"
         ]

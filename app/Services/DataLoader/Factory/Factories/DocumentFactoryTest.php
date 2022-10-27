@@ -34,19 +34,22 @@ use App\Services\DataLoader\Schema\ViewAsset;
 use App\Services\DataLoader\Schema\ViewAssetDocument;
 use App\Services\DataLoader\Schema\ViewDocument;
 use App\Services\DataLoader\Testing\Helper;
+use App\Utils\Eloquent\Callbacks\GetKey;
 use Closure;
+use Exception;
 use Illuminate\Contracts\Debug\ExceptionHandler;
 use Illuminate\Database\Eloquent\Collection as EloquentCollection;
-use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Date;
 use InvalidArgumentException;
 use LastDragon_ru\LaraASP\Testing\Database\QueryLog\WithQueryLog;
 use Mockery;
+use Mockery\MockInterface;
 use Tests\TestCase;
 use Tests\WithoutGlobalScopes;
 use Throwable;
 
 use function array_column;
+use function array_merge;
 use function is_null;
 use function number_format;
 use function reset;
@@ -280,7 +283,14 @@ class DocumentFactoryTest extends TestCase {
         $document = DocumentModel::factory()->create([
             'oem_id' => $oem,
         ]);
-        $entry    = DocumentEntryModel::factory()->create([
+        $entryA   = DocumentEntryModel::factory()->create([
+            'uid'              => $this->faker->uuid(),
+            'document_id'      => $document,
+            'service_group_id' => $group,
+            'service_level_id' => $level,
+        ]);
+        $entryB   = DocumentEntryModel::factory()->create([
+            'uid'              => null,
             'document_id'      => $document,
             'service_group_id' => $group,
             'service_level_id' => $level,
@@ -311,31 +321,38 @@ class DocumentFactoryTest extends TestCase {
         };
 
         // Test
-        self::assertTrue($factory->isEntryEqualDocumentEntry($document, $entry, new DocumentEntry([
-            'assetId'                    => $entry->asset_id,
-            'startDate'                  => (string) $entry->start?->getTimestampMs(),
-            'endDate'                    => (string) $entry->end?->getTimestampMs(),
-            'currencyCode'               => $entry->currency->code ?? null,
-            'listPrice'                  => $entry->list_price,
-            'estimatedValueRenewal'      => $entry->renewal,
-            'serviceGroupSku'            => $entry->serviceGroup->sku ?? null,
-            'serviceLevelSku'            => $entry->serviceLevel->sku ?? null,
-            'lineItemListPrice'          => $entry->monthly_list_price,
-            'lineItemMonthlyRetailPrice' => $entry->monthly_retail_price,
-            'equipmentNumber'            => $entry->equipment_number,
+        self::assertTrue($factory->isEntryEqualDocumentEntry($document, $entryA, new DocumentEntry([
+            'assetDocumentId' => $entryA->uid,
+            'assetId'         => $entryA->asset_id,
         ])));
-        self::assertFalse($factory->isEntryEqualDocumentEntry($document, $entry, new DocumentEntry([
+        self::assertFalse($factory->isEntryEqualDocumentEntry($document, $entryA, new DocumentEntry([
+            'assetDocumentId'            => null,
             'assetId'                    => $this->faker->uuid(),
-            'startDate'                  => (string) $entry->start?->getTimestampMs(),
-            'endDate'                    => (string) $entry->end?->getTimestampMs(),
-            'currencyCode'               => $entry->currency->code ?? null,
-            'listPrice'                  => $entry->list_price,
-            'estimatedValueRenewal'      => $entry->renewal,
-            'serviceGroupSku'            => $entry->serviceGroup->sku ?? null,
-            'serviceLevelSku'            => $entry->serviceLevel->sku ?? null,
-            'lineItemListPrice'          => $entry->monthly_list_price,
-            'lineItemMonthlyRetailPrice' => $entry->monthly_retail_price,
-            'equipmentNumber'            => $entry->equipment_number,
+            'startDate'                  => (string) $entryA->start?->getTimestampMs(),
+            'endDate'                    => (string) $entryA->end?->getTimestampMs(),
+            'currencyCode'               => $entryA->currency->code ?? null,
+            'listPrice'                  => $entryA->list_price,
+            'estimatedValueRenewal'      => $entryA->renewal,
+            'serviceGroupSku'            => $entryA->serviceGroup->sku ?? null,
+            'serviceLevelSku'            => $entryA->serviceLevel->sku ?? null,
+            'lineItemListPrice'          => $entryA->monthly_list_price,
+            'lineItemMonthlyRetailPrice' => $entryA->monthly_retail_price,
+            'equipmentNumber'            => $entryA->equipment_number,
+        ])));
+
+        self::assertTrue($factory->isEntryEqualDocumentEntry($document, $entryB, new DocumentEntry([
+            'assetDocumentId'            => null,
+            'assetId'                    => $entryB->asset_id,
+            'startDate'                  => (string) $entryB->start?->getTimestampMs(),
+            'endDate'                    => (string) $entryB->end?->getTimestampMs(),
+            'currencyCode'               => $entryB->currency->code ?? null,
+            'listPrice'                  => $entryB->list_price,
+            'estimatedValueRenewal'      => $entryB->renewal,
+            'serviceGroupSku'            => $entryB->serviceGroup->sku ?? null,
+            'serviceLevelSku'            => $entryB->serviceLevel->sku ?? null,
+            'lineItemListPrice'          => $entryB->monthly_list_price,
+            'lineItemMonthlyRetailPrice' => $entryB->monthly_retail_price,
+            'equipmentNumber'            => $entryB->equipment_number,
         ])));
     }
 
@@ -403,7 +420,7 @@ class DocumentFactoryTest extends TestCase {
      *
      * @dataProvider dataProviderDocument
      *
-     * @template T of \App\Services\DataLoader\Schema\Document|\App\Services\DataLoader\Schema\ViewDocument
+     * @template     T of \App\Services\DataLoader\Schema\Document|\App\Services\DataLoader\Schema\ViewDocument
      *
      * @param Closure(static): T $documentFactory
      */
@@ -494,6 +511,7 @@ class DocumentFactoryTest extends TestCase {
      */
     public function testDocumentEntry(): void {
         $document           = DocumentModel::factory()->make();
+        $uid                = $this->faker->uuid();
         $psp                = Psp::factory()->create([
             'key' => $this->faker->uuid(),
         ]);
@@ -525,6 +543,7 @@ class DocumentFactoryTest extends TestCase {
         $equipmentNumber    = $this->faker->word();
         $language           = $this->faker->languageCode();
         $documentEntry      = new DocumentEntry([
+            'assetDocumentId'              => " {$uid} ",
             'assetId'                      => " {$asset->getKey()} ",
             'assetProductType'             => " {$assetType->key} ",
             'assetProductLine'             => " {$productLine->key} ",
@@ -545,6 +564,7 @@ class DocumentFactoryTest extends TestCase {
             'languageCode'                 => " {$language} ",
             'pspId'                        => " {$psp->key} ",
             'pspName'                      => " {$psp->name} ",
+            'deletedAt'                    => null,
         ]);
 
         $factory = new class(
@@ -588,8 +608,10 @@ class DocumentFactoryTest extends TestCase {
             }
         };
 
+        // Base
         $entry = $factory->documentEntry($document, $documentEntry, null);
 
+        self::assertEquals($uid, $entry->uid);
         self::assertEquals($asset->getKey(), $entry->asset_id);
         self::assertEquals($assetType->key, $entry->assetType->key ?? null);
         self::assertEquals((new Asset())->getMorphClass(), $entry->assetType->object_type ?? null);
@@ -621,6 +643,37 @@ class DocumentFactoryTest extends TestCase {
         self::assertEquals($psp->getKey(), $entry->psp_id);
         self::assertEquals($psp->key, $entry->psp->key ?? null);
         self::assertEquals($psp->name, $entry->psp->name ?? null);
+        self::assertNull($entry->removed_at);
+        self::assertNull($entry->deleted_at);
+
+        // Removing
+        $documentEntry->deletedAt = $this->getDatetime(Date::now());
+        $entry                    = $factory->documentEntry($document, $documentEntry, null);
+
+        self::assertNotNull($entry->removed_at);
+        self::assertNotNull($entry->deleted_at);
+
+        // Removing (no update)
+        $documentEntry->deletedAt = $this->getDatetime(Date::now());
+        $date                     = Date::now()->setMilliseconds(0);
+        $model                    = DocumentEntryModel::factory()->create([
+            'deleted_at' => $date,
+        ]);
+        $entry                    = $factory->documentEntry($document, $documentEntry, $model);
+
+        self::assertNotNull($entry->removed_at);
+        self::assertNotNull($entry->deleted_at);
+        self::assertEquals($date, $entry->deleted_at);
+
+        // Restoring
+        $documentEntry->deletedAt = null;
+        $model                    = DocumentEntryModel::factory()->create([
+            'deleted_at' => Date::now(),
+        ]);
+        $entry                    = $factory->documentEntry($document, $documentEntry, $model);
+
+        self::assertNull($entry->removed_at);
+        self::assertNull($entry->deleted_at);
     }
 
     /**
@@ -665,9 +718,14 @@ class DocumentFactoryTest extends TestCase {
             ->once()
             ->andReturns();
 
-        $factory = Mockery::mock(DocumentFactoryTest_Factory::class);
+        $normalizer = $this->app->make(Normalizer::class);
+        $factory    = Mockery::mock(DocumentFactoryTest_Factory::class);
         $factory->shouldAllowMockingProtectedMethods();
         $factory->makePartial();
+        $factory
+            ->shouldReceive('getNormalizer')
+            ->once()
+            ->andReturn($normalizer);
         $factory
             ->shouldReceive('getExceptionHandler')
             ->once()
@@ -679,6 +737,32 @@ class DocumentFactoryTest extends TestCase {
             ->andReturn(null);
 
         $factory->documentEntryAsset($model, $entry);
+    }
+
+    /**
+     * @covers ::documentEntryAsset
+     */
+    public function testDocumentEntryAssetIsNull(): void {
+        $model = DocumentModel::factory()->create();
+        $entry = new DocumentEntry([
+            'assetId' => null,
+        ]);
+
+        $normalizer = $this->app->make(Normalizer::class);
+        $factory    = Mockery::mock(DocumentFactoryTest_Factory::class);
+        $factory->shouldAllowMockingProtectedMethods();
+        $factory->makePartial();
+        $factory
+            ->shouldReceive('getNormalizer')
+            ->once()
+            ->andReturn($normalizer);
+        $factory
+            ->shouldReceive('asset')
+            ->with($entry)
+            ->once()
+            ->andReturn(null);
+
+        self::assertNull($factory->documentEntryAsset($model, $entry));
     }
 
     /**
@@ -868,12 +952,26 @@ class DocumentFactoryTest extends TestCase {
             'start'            => null,
             'end'              => null,
         ];
-        [$a, $b]      = [
-            DocumentEntryModel::factory()->create($properties),
-            DocumentEntryModel::factory()->create($properties),
-            DocumentEntryModel::factory()->create($properties),
-            DocumentEntryModel::factory()->create($properties),
-        ];
+        $entryA       = DocumentEntryModel::factory()->create(array_merge(
+            $properties,
+            [
+                'uid' => 'a',
+            ],
+        ));
+        $entryB       = DocumentEntryModel::factory()->create(array_merge(
+            $properties,
+            [
+                'uid'        => 'b',
+                'removed_at' => Date::now(),
+            ],
+        ));
+        $entryC       = DocumentEntryModel::factory()->create(array_merge(
+            $properties,
+            [
+                'uid' => 'c',
+            ],
+        ));
+        $entryD       = DocumentEntryModel::factory()->create($properties);
         $object       = new Document([
             'id'                   => $document->getKey(),
             'vendorSpecificFields' => [
@@ -881,53 +979,58 @@ class DocumentFactoryTest extends TestCase {
             ],
             'documentEntries'      => [
                 [
-                    'assetId'                      => $a->asset_id,
-                    'serviceLevelSku'              => $a->serviceLevel->sku ?? null,
-                    'serviceGroupSku'              => $a->serviceGroup->sku ?? null,
-                    'currencyCode'                 => $a->currency->code ?? null,
-                    'listPrice'                    => $a->list_price,
-                    'estimatedValueRenewal'        => $a->renewal,
-                    'startDate'                    => $a->start,
-                    'endDate'                      => $a->end,
-                    'assetProductType'             => $a->assetType->key ?? null,
-                    'assetProductLine'             => $a->productLine->key ?? null,
-                    'assetProductGroupDescription' => $a->productGroup->key ?? null,
-                    'lineItemListPrice'            => $a->monthly_list_price,
-                    'lineItemMonthlyRetailPrice'   => $a->monthly_retail_price,
-                    'said'                         => $a->oem_said,
-                    'sarNumber'                    => $a->oem_sar_number,
-                    'environmentId'                => $a->environment_id,
-                    'equipmentNumber'              => $a->equipment_number,
-                    'languageCode'                 => $a->language->code ?? null,
-                    'pspId'                        => $a->psp->key ?? null,
-                    'pspName'                      => $a->psp->name ?? null,
+                    'assetDocumentId'              => 'a',
+                    'assetId'                      => $entryA->asset_id,
+                    'serviceLevelSku'              => $entryA->serviceLevel->sku ?? null,
+                    'serviceGroupSku'              => $entryA->serviceGroup->sku ?? null,
+                    'currencyCode'                 => $entryA->currency->code ?? null,
+                    'listPrice'                    => $entryA->list_price,
+                    'estimatedValueRenewal'        => $entryA->renewal,
+                    'startDate'                    => $entryA->start,
+                    'endDate'                      => $entryA->end,
+                    'assetProductType'             => $entryA->assetType->key ?? null,
+                    'assetProductLine'             => $entryA->productLine->key ?? null,
+                    'assetProductGroupDescription' => $entryA->productGroup->key ?? null,
+                    'lineItemListPrice'            => $entryA->monthly_list_price,
+                    'lineItemMonthlyRetailPrice'   => $entryA->monthly_retail_price,
+                    'said'                         => $entryA->oem_said,
+                    'sarNumber'                    => $entryA->oem_sar_number,
+                    'environmentId'                => $entryA->environment_id,
+                    'equipmentNumber'              => $entryA->equipment_number,
+                    'languageCode'                 => $entryA->language->code ?? null,
+                    'pspId'                        => $entryA->psp->key ?? null,
+                    'pspName'                      => $entryA->psp->name ?? null,
+                    'deletedAt'                    => '1614470400000',
                 ],
                 [
-                    'assetId'                      => $b->asset_id,
-                    'serviceLevelSku'              => $b->serviceLevel->sku ?? null,
-                    'serviceGroupSku'              => $b->serviceGroup->sku ?? null,
-                    'currencyCode'                 => $b->currency->code ?? null,
-                    'listPrice'                    => $b->list_price,
-                    'estimatedValueRenewal'        => $b->renewal,
-                    'startDate'                    => $b->start,
-                    'endDate'                      => $b->end,
-                    'assetProductType'             => $b->assetType->key ?? null,
-                    'assetProductLine'             => $b->productLine->key ?? null,
-                    'assetProductGroupDescription' => $b->productGroup->key ?? null,
-                    'lineItemListPrice'            => $b->monthly_list_price,
-                    'lineItemMonthlyRetailPrice'   => $b->monthly_retail_price,
-                    'said'                         => $b->oem_said,
-                    'sarNumber'                    => $b->oem_sar_number,
-                    'environmentId'                => $b->environment_id,
-                    'equipmentNumber'              => $b->equipment_number,
-                    'languageCode'                 => $b->language->code ?? null,
-                    'pspId'                        => $b->psp->key ?? null,
-                    'pspName'                      => $b->psp->name ?? null,
+                    'assetDocumentId'              => 'b',
+                    'assetId'                      => $entryB->asset_id,
+                    'serviceLevelSku'              => $entryB->serviceLevel->sku ?? null,
+                    'serviceGroupSku'              => $entryB->serviceGroup->sku ?? null,
+                    'currencyCode'                 => $entryB->currency->code ?? null,
+                    'listPrice'                    => $entryB->list_price,
+                    'estimatedValueRenewal'        => $entryB->renewal,
+                    'startDate'                    => $entryB->start,
+                    'endDate'                      => $entryB->end,
+                    'assetProductType'             => $entryB->assetType->key ?? null,
+                    'assetProductLine'             => $entryB->productLine->key ?? null,
+                    'assetProductGroupDescription' => $entryB->productGroup->key ?? null,
+                    'lineItemListPrice'            => $entryB->monthly_list_price,
+                    'lineItemMonthlyRetailPrice'   => $entryB->monthly_retail_price,
+                    'said'                         => $entryB->oem_said,
+                    'sarNumber'                    => $entryB->oem_sar_number,
+                    'environmentId'                => $entryB->environment_id,
+                    'equipmentNumber'              => $entryB->equipment_number,
+                    'languageCode'                 => $entryB->language->code ?? null,
+                    'pspId'                        => $entryB->psp->key ?? null,
+                    'pspName'                      => $entryB->psp->name ?? null,
+                    'deletedAt'                    => null,
                 ],
                 [
+                    'assetDocumentId'              => null,
                     'assetId'                      => $assetB->getKey(),
-                    'serviceLevelSku'              => $b->serviceLevel->sku ?? null,
-                    'serviceGroupSku'              => $b->serviceGroup->sku ?? null,
+                    'serviceLevelSku'              => $entryB->serviceLevel->sku ?? null,
+                    'serviceGroupSku'              => $entryB->serviceGroup->sku ?? null,
                     'currencyCode'                 => null,
                     'listPrice'                    => null,
                     'estimatedValueRenewal'        => null,
@@ -945,6 +1048,7 @@ class DocumentFactoryTest extends TestCase {
                     'languageCode'                 => null,
                     'pspId'                        => null,
                     'pspName'                      => null,
+                    'deletedAt'                    => null,
                 ],
             ],
         ]);
@@ -976,34 +1080,39 @@ class DocumentFactoryTest extends TestCase {
         };
 
         // Test
-        $actual   = $factory->documentEntries($document, $object);
-        $created  = $actual
-            ->filter(static function (DocumentEntryModel $entry) use ($assetB): bool {
-                return $entry->asset_id === $assetB->getKey();
-            })
-            ->first();
-        $existing = $actual
-            ->filter(static function (DocumentEntryModel $entry): bool {
-                return $entry->exists;
-            })
-            ->map(static function (DocumentEntryModel $entry) {
-                return $entry->getKey();
-            })
-            ->sort()
-            ->values();
-        $expected = (new Collection([$a, $b, $created]))
-            ->map(static function (DocumentEntryModel $entry): string {
-                return $entry->getKey();
-            })
-            ->sort()
-            ->values();
+        $actual  = $factory->documentEntries($document, $object);
+        $entries = $actual->keyBy(new GetKey());
 
         self::assertCount(3, $actual);
-        self::assertCount(3, $existing);
-        self::assertEquals($expected, $existing);
-        self::assertNotNull($created);
-        self::assertNull($created->list_price);
-        self::assertNull($created->renewal);
+        self::assertEquals(4, DocumentEntryModel::query()->withTrashed()->count());
+
+        // A
+        $a = $entries[$entryA->getKey()] ?? null;
+
+        self::assertNotNull($a);
+        self::assertNotNull($a->removed_at);
+        self::assertTrue($a->trashed());
+
+        // B
+        $b = $entries[$entryB->getKey()] ?? null;
+
+        self::assertNotNull($b);
+        self::assertNull($b->removed_at);
+        self::assertFalse($b->trashed());
+
+        // C
+        $c = $entryC->fresh();
+
+        self::assertNotNull($c);
+        self::assertFalse(isset($entries[$c->getKey()]));
+        self::assertEquals($entryC->trashed(), $c->trashed());
+
+        // D
+        $d = $entryD->fresh();
+
+        self::assertNotNull($d);
+        self::assertTrue(isset($entries[$d->getKey()]));
+        self::assertFalse($d->trashed());
     }
 
     /**
@@ -1015,6 +1124,13 @@ class DocumentFactoryTest extends TestCase {
         $this->overrideFinders();
         $this->overrideAssetFinder();
         $this->overrideUuidFactory('6c3e24b8-c5f5-42e4-acc0-a66b0f424af3');
+        $this->override(ExceptionHandler::class, static function (MockInterface $mock): void {
+            $mock
+                ->shouldReceive('report')
+                ->andReturnUsing(static function (Exception $exception): void {
+                    throw $exception;
+                });
+        });
 
         // Factory
         $factory = $this->app->make(DocumentFactoryTest_Factory::class);
