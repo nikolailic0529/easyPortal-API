@@ -16,6 +16,7 @@ input AssetsQuery {
     status: StatusesQuery
     serial_number: String
     nickname: String
+    eosl: Date
     warranty_end: Date
     warranties: AssetWarrantiesQuery
     warranty_service_group_id: ID

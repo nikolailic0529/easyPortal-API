@@ -5,6 +5,7 @@ input AssetsSort {
     product: ProductsSort
     serial_number: String
     nickname: String
+    eosl: Date
     warranty_end: Date
     warranty_service_group_id: ID
     warrantyServiceGroup: ServiceGroupsSort

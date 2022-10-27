@@ -89,6 +89,11 @@ input AggregatedGroupByClauseAssetsQuery {
     customer_id: AggregatedGroupByTypeDirection
 
     """
+    Property clause.
+    """
+    eosl: AggregatedGroupByTypeDirection
+
+    """
     Relationship clause.
     """
     location: [SortByClauseLocationsSort!]
@@ -1958,6 +1963,11 @@ input SearchByConditionAssetsQuery {
     Property condition.
     """
     customer_id: SearchByScalarIDOrNull
+
+    """
+    Property condition.
+    """
+    eosl: SearchByScalarDateOrNull
 
     """
     Property condition.
@@ -4870,6 +4880,11 @@ input SortByClauseAssetsSort {
     """
     Property clause.
     """
+    eosl: SortByTypeDirection
+
+    """
+    Property clause.
+    """
     id: SortByTypeDirection
 
     """
@@ -6515,6 +6530,7 @@ type Asset {
     customer_id: ID
     data_quality: String
     deleted_at: DateTime
+    eosl: Date
     id: ID!
     location: Location
     location_id: ID
