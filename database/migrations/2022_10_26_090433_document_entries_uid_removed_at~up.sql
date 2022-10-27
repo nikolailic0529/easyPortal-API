@@ -4,8 +4,7 @@ SET @OLD_SQL_MODE = @@SQL_MODE, SQL_MODE = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABL
 
 ALTER TABLE `document_entries`
     ADD COLUMN `uid`        VARCHAR(255) NULL DEFAULT NULL AFTER `id`,
-    ADD COLUMN `removed_at` TIMESTAMP    NULL DEFAULT NULL AFTER `language_id`,
-    ADD UNIQUE INDEX `unique__uid__document_id`(`uid` ASC, `document_id` ASC) VISIBLE;
+    ADD COLUMN `removed_at` TIMESTAMP    NULL DEFAULT NULL AFTER `language_id`;
 
 
 SET SQL_MODE = @OLD_SQL_MODE;
