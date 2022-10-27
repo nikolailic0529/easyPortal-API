@@ -32,4 +32,5 @@ input DocumentEntriesQuery {
     language: LanguagesQuery
     psp_id: ID
     psp: PspsQuery
+    removed_at: DateTime
 }

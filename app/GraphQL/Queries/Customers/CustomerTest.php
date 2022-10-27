@@ -617,6 +617,7 @@ class CustomerTest extends TestCase {
                                 }
                                 start
                                 end
+                                removed_at
                             }
                             language {
                                 id
@@ -839,6 +840,7 @@ class CustomerTest extends TestCase {
                                 }
                                 start
                                 end
+                                removed_at
                             }
                             language {
                                 id
@@ -1979,6 +1981,7 @@ class CustomerTest extends TestCase {
                                                 ],
                                                 'start'            => '2021-01-01',
                                                 'end'              => '2024-01-01',
+                                                'removed_at'       => null,
                                             ],
                                         ],
                                         'language'       => [
@@ -2599,6 +2602,7 @@ class CustomerTest extends TestCase {
                             ],
                             'start'            => '2021-01-01',
                             'end'              => '2024-01-01',
+                            'removed_at'       => null,
                         ],
                     ],
                     'language'       => [

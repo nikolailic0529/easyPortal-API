@@ -3518,6 +3518,12 @@ input SearchByConditionDocumentEntriesQuery {
     """
     Property condition.
     """
+    removed_at: SearchByScalarDateTimeOrNull
+    @searchByProperty
+
+    """
+    Property condition.
+    """
     renewal: SearchByScalarFloatOrNull
     @searchByProperty
 
@@ -6534,6 +6540,12 @@ input SortByClauseDocumentEntriesSort {
     Property clause.
     """
     psp_id: SortByTypeDirection
+    @sortByOperatorProperty
+
+    """
+    Property clause.
+    """
+    removed_at: SortByTypeDirection
     @sortByOperatorProperty
 
     """
@@ -9905,6 +9917,7 @@ type DocumentEntry {
     @relation
 
     psp_id: ID
+    removed_at: DateTime
     renewal: Float
     serial_number: String
 
