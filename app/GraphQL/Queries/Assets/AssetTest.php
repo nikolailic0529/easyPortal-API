@@ -86,7 +86,7 @@ class AssetTest extends TestCase {
                         serial_number
                         nickname
                         data_quality
-                        contacts_active_quantity
+                        contracts_active_quantity
                         eosl
                         oem {
                             id
@@ -484,7 +484,7 @@ class AssetTest extends TestCase {
                             'nickname'                  => 'nickname123',
                             'contacts_count'            => 1,
                             'data_quality'              => '130',
-                            'contacts_active_quantity'  => 321,
+                            'contracts_active_quantity' => 321,
                             'eosl'                      => null,
                             'oem'                       => [
                                 'id'   => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24982',
@@ -995,7 +995,7 @@ class AssetTest extends TestCase {
                                     'contacts_count'            => 1,
                                     'coverages_count'           => 1,
                                     'data_quality'              => '130',
-                                    'contacts_active_quantity'  => 321,
+                                    'contracts_active_quantity' => 321,
                                     'eosl'                      => null,
                                     'changed_at'                => '2021-10-19 10:15:00',
                                     'synced_at'                 => '2021-10-19 10:25:00',

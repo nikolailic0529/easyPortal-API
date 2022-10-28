@@ -18,5 +18,5 @@ input AssetsSort {
     created_at: DateTime!
     updated_at: DateTime!
     deleted_at: DateTime
-    contacts_active_quantity: Int
+    contracts_active_quantity: Int
 }
