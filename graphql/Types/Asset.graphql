@@ -38,7 +38,7 @@ type Asset {
     coverages: [Coverage!] @relation
     tags: [Tag!]! @relation
     data_quality: String
-    contacts_active_quantity: Int
+    contracts_active_quantity: Int
     quoteRequest: QuoteRequest @relation
     changed_at: DateTime
     synced_at: DateTime!

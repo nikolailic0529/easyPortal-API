@@ -71,7 +71,7 @@ input AggregatedGroupByClauseAssetsQuery {
     """
     Property clause.
     """
-    contacts_active_quantity: AggregatedGroupByTypeDirection
+    contracts_active_quantity: AggregatedGroupByTypeDirection
 
     """
     Property clause.
@@ -1980,14 +1980,14 @@ input SearchByConditionAssetsQuery {
     anyOf: [SearchByConditionAssetsQuery!]
 
     """
-    Property condition.
-    """
-    contacts_active_quantity: SearchByScalarIntOrNull
-
-    """
     Relationship condition.
     """
     contracts: SearchByComplexRelationDocumentsQuery
+
+    """
+    Property condition.
+    """
+    contracts_active_quantity: SearchByScalarIntOrNull
 
     """
     Relationship condition.
@@ -4910,7 +4910,7 @@ input SortByClauseAssetsSort {
     """
     Property clause.
     """
-    contacts_active_quantity: SortByTypeDirection
+    contracts_active_quantity: SortByTypeDirection
 
     """
     Property clause.
@@ -6576,8 +6576,8 @@ type Asset {
         where: SearchByConditionContactsQuery
     ): ContactsAggregated
 
-    contacts_active_quantity: Int
     contacts_count: Int!
+    contracts_active_quantity: Int
     coverages: [Coverage!]
     coverages_count: Int!
     created_at: DateTime!
