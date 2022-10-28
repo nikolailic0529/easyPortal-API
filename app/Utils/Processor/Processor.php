@@ -7,6 +7,7 @@ use App\Utils\Eloquent\GlobalScopes\GlobalScopes;
 use App\Utils\Eloquent\SmartSave\BatchSave;
 use App\Utils\Iterators\Concerns\ChunkSize;
 use App\Utils\Iterators\Contracts\Errorable;
+use App\Utils\Iterators\Contracts\IteratorFatalError;
 use App\Utils\Iterators\Contracts\Limitable;
 use App\Utils\Iterators\Contracts\ObjectIterator;
 use App\Utils\Iterators\Contracts\Offsetable;
@@ -237,6 +238,8 @@ abstract class Processor implements ProcessorContract, MixedProcessor {
             try {
                 $this->item($state, $data, $item);
                 $this->success($state, $item);
+            } catch (IteratorFatalError $exception) {
+                throw $exception;
             } catch (Throwable $exception) {
                 $this->failed($state, $item, $exception);
             }

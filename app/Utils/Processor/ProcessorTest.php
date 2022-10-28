@@ -4,6 +4,7 @@ namespace App\Utils\Processor;
 
 use App\Utils\Iterators\Concerns\Limit;
 use App\Utils\Iterators\Concerns\Offset;
+use App\Utils\Iterators\Contracts\IteratorFatalError;
 use App\Utils\Iterators\Contracts\Limitable;
 use App\Utils\Iterators\Contracts\ObjectIterator;
 use App\Utils\Iterators\Contracts\Offsetable;
@@ -303,6 +304,39 @@ class ProcessorTest extends TestCase {
         $onFinish
             ->shouldHaveBeenCalled()
             ->once();
+    }
+
+    /**
+     * @covers ::invoke
+     */
+    public function testInvokeFatalError(): void {
+        $item       = new class() extends stdClass {
+            // empty
+        };
+        $iterator   = new ObjectsIterator([$item]);
+        $exception  = new class() extends Exception implements IteratorFatalError {
+            // empty
+        };
+        $config     = Mockery::mock(Repository::class);
+        $handler    = Mockery::mock(ExceptionHandler::class);
+        $dispatcher = Mockery::mock(Dispatcher::class);
+
+        $processor = Mockery::mock(ProcessorTest__Processor::class, [$handler, $dispatcher, $config]);
+        $processor->shouldAllowMockingProtectedMethods();
+        $processor->makePartial();
+        $processor
+            ->shouldReceive('getIterator')
+            ->once()
+            ->andReturn($iterator);
+        $processor
+            ->shouldReceive('item')
+            ->with(Mockery::any(), Mockery::any(), $item)
+            ->once()
+            ->andThrow($exception);
+
+        self::expectExceptionObject($exception);
+
+        $processor->invoke(new State());
     }
 
     /**

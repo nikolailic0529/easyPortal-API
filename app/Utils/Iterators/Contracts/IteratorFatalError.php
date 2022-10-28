@@ -2,10 +2,12 @@
 
 namespace App\Utils\Iterators\Contracts;
 
+use Throwable;
+
 /**
  * Exceptions that implement this interface will be treated as a fatal error
  * and iteration will be stopped.
  */
-interface IteratorFatalError {
+interface IteratorFatalError extends Throwable {
     // empty
 }
