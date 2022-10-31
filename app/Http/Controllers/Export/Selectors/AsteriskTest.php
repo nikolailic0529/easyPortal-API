@@ -6,9 +6,9 @@ use Tests\TestCase;
 
 /**
  * @internal
- * @coversDefaultClass \App\Http\Controllers\Export\Selectors\Value
+ * @coversDefaultClass \App\Http\Controllers\Export\Selectors\Asterisk
  */
-class ValueTest extends TestCase {
+class AsteriskTest extends TestCase {
     // <editor-fold desc="Tests">
     // =========================================================================
     /**
@@ -21,7 +21,7 @@ class ValueTest extends TestCase {
      */
     public function testFill(array $expected, string $property, int $index, array $item): void {
         $row      = [];
-        $selector = new Value($property, $index);
+        $selector = new Asterisk($property, $index);
 
         $selector->fill($item, $row);
 
@@ -32,13 +32,13 @@ class ValueTest extends TestCase {
     // <editor-fold desc="DataProviders">
     // =========================================================================
     /**
-     * @return array<string, array{array<mixed>, string, int, array<scalar|null|array<scalar|null>>}>
+     * @return array<string, array{array<mixed>, string, int, array<scalar|null|array<scalar|null|array<scalar|null>>>}>
      */
     public function dataProviderFill(): array {
         return [
             'property' => [
                 [
-                    2 => 123,
+                    2 => null,
                 ],
                 'property',
                 2,
@@ -46,25 +46,43 @@ class ValueTest extends TestCase {
                     'property' => 123,
                 ],
             ],
-            'unknown'  => [
+            'array'    => [
                 [
-                    1 => null,
+                    1 => '1, 3',
                 ],
-                'unknown',
+                'property',
                 1,
                 [
-                    'property' => 123,
+                    [
+                        'property' => 1,
+                    ],
+                    [
+                        'property' => null,
+                    ],
+                    [
+                        'property' => 3,
+                    ],
                 ],
             ],
             'json'     => [
                 [
-                    4 => '{"a":"value-a"}',
+                    4 => '{"a":"value-a"}, {"b":"value-b"}',
                 ],
                 'property',
                 4,
                 [
-                    'property' => [
-                        'a' => 'value-a',
+                    [
+                        'property' => [
+                            'a' => 'value-a',
+                        ],
+                    ],
+                    [
+                        'property' => null,
+                    ],
+                    [
+                        'property' => [
+                            'b' => 'value-b',
+                        ],
                     ],
                 ],
             ],

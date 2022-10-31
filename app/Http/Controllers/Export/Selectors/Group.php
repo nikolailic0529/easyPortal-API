@@ -12,9 +12,15 @@ class Group implements Selector {
      */
     public function __construct(
         protected string $field,
-        protected array $selectors,
+        protected array $selectors = [],
     ) {
         // empty
+    }
+
+    public function add(Selector $selector): static {
+        $this->selectors[] = $selector;
+
+        return $this;
     }
 
     /**
