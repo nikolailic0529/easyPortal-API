@@ -320,6 +320,16 @@ class ExportController extends Controller {
                 case 'concat':
                     $value = trim(implode(' ', array_filter($arguments)));
                     break;
+                case 'or':
+                    foreach ($arguments as $argument) {
+                        $argument = trim((string) $argument);
+
+                        if ($argument) {
+                            $value = $argument;
+                            break;
+                        }
+                    }
+                    break;
                 default:
                     throw new HeadersUnknownFunction($function);
                     break;

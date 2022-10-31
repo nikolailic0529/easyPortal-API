@@ -483,6 +483,15 @@ class ExportControllerTest extends TestCase {
                     'b' => ['a' => 'ab'],
                 ],
             ],
+            'function: or'      => [
+                '123',
+                'or(a,c , b.a, d, e)',
+                [
+                    'a' => null,
+                    'b' => ['a' => ' '],
+                    'd' => '123',
+                ],
+            ],
         ];
     }
 
