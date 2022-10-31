@@ -3,13 +3,11 @@
 namespace App\Http\Controllers\Export;
 
 use App\Http\Controllers\Export\Exceptions\GraphQLQueryInvalid;
-use App\Http\Controllers\Export\Exceptions\SelectorUnknownFunction;
 use App\Models\Asset;
 use App\Models\Organization;
 use App\Models\User;
 use Barryvdh\Snappy\Facades\SnappyPdf as PDF;
 use Closure;
-use Exception;
 use GraphQL\Server\OperationParams;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Routing\Exceptions\StreamedResponseException;
@@ -38,7 +36,6 @@ use Throwable;
 
 use function count;
 use function explode;
-use function json_encode;
 use function ob_end_clean;
 use function ob_get_level;
 use function trim;
@@ -77,83 +74,6 @@ class ExportControllerTest extends TestCase {
             }
         };
         $actual     = $controller->getHeaders($parameters);
-
-        self::assertEquals($expected, $actual);
-    }
-
-    /**
-     * @covers ::getHeaderValue
-     *
-     * @dataProvider dataProviderGetHeaderValue
-     *
-     * @param array<mixed> $item
-     */
-    public function testGetHeaderValue(mixed $expected, string $header, array $item): void {
-        if ($expected instanceof Exception) {
-            self::expectExceptionObject($expected);
-        }
-
-        $controller = new class() extends ExportController {
-            /** @noinspection PhpMissingParentConstructorInspection */
-            public function __construct() {
-                // empty
-            }
-
-            /**
-             * @inheritDoc
-             */
-            public function getHeaderValue(string $header, array $item): mixed {
-                return parent::getHeaderValue($header, $item);
-            }
-        };
-        $actual     = $controller->getHeaderValue($header, $item);
-
-        self::assertEquals($expected, $actual);
-    }
-
-    /**
-     * @covers ::getValue
-     *
-     * @dataProvider dataProviderGetValue
-     */
-    public function testGetValue(mixed $expected, mixed $value): void {
-        $controller = new class() extends ExportController {
-            /** @noinspection PhpMissingParentConstructorInspection */
-            public function __construct() {
-                // empty
-            }
-
-            public function getValue(mixed $value): mixed {
-                return parent::getValue($value);
-            }
-        };
-        $actual     = $controller->getValue($value);
-
-        self::assertEquals($expected, $actual);
-    }
-
-    /**
-     * @covers ::getItemValue
-     *
-     * @dataProvider dataProviderGetItemValue
-     *
-     * @param array<mixed> $value
-     */
-    public function testGetItemValue(mixed $expected, string $path, array $value): void {
-        $controller = new class() extends ExportController {
-            /** @noinspection PhpMissingParentConstructorInspection */
-            public function __construct() {
-                // empty
-            }
-
-            /**
-             * @inheritDoc
-             */
-            public function getItemValue(string $path, array $item): mixed {
-                return parent::getItemValue($path, $item);
-            }
-        };
-        $actual     = $controller->getItemValue($path, $value);
 
         self::assertEquals($expected, $actual);
     }
@@ -437,164 +357,6 @@ class ExportControllerTest extends TestCase {
                         'a' => '',
                         'b' => '',
                         'c' => '',
-                    ],
-                ],
-            ],
-        ];
-    }
-
-    /**
-     * @return array<string, array{mixed,string,mixed}>
-     */
-    public function dataProviderGetHeaderValue(): array {
-        return [
-            'simple header'     => [
-                123,
-                'a',
-                [
-                    'a' => 123,
-                ],
-            ],
-            'function: unknown' => [
-                new SelectorUnknownFunction('unknown'),
-                'unknown(a)',
-                [
-                    'b' => 123,
-                ],
-            ],
-            'function: concat'  => [
-                '123 ab',
-                'concat(a,c , b.a, d)',
-                [
-                    'a' => 123,
-                    'b' => ['a' => 'ab'],
-                ],
-            ],
-            'function: or'      => [
-                '123',
-                'or(a,c , b.a, d, e)',
-                [
-                    'a' => null,
-                    'b' => ['a' => ' '],
-                    'd' => '123',
-                ],
-            ],
-        ];
-    }
-
-    /**
-     * @return array<string, array{mixed,mixed}>
-     */
-    public function dataProviderGetValue(): array {
-        return [
-            'int'                          => [123, 123],
-            'bool'                         => [true, true],
-            'float'                        => [12.3, 12.3],
-            'array'                        => [
-                json_encode([
-                    ['a' => 123, 'b' => 'b'],
-                ]),
-                [
-                    ['a' => 123, 'b' => 'b'],
-                ],
-            ],
-            'array assoc'                  => [
-                json_encode(['a' => 123, 'b' => 'b']),
-                [
-                    'a' => 123,
-                    'b' => 'b',
-                ],
-            ],
-            'array of scalars'             => [
-                'a, b',
-                [
-                    'a',
-                    'b',
-                ],
-            ],
-            'array of array with one item' => [
-                '123, b',
-                [
-                    ['a' => 123],
-                    ['b' => 'b'],
-                ],
-            ],
-            'array of array'               => [
-                json_encode([
-                    ['a' => 123],
-                    ['b' => 'b', 'c' => 'c'],
-                ]),
-                [
-                    ['a' => 123],
-                    ['b' => 'b', 'c' => 'c'],
-                ],
-            ],
-        ];
-    }
-
-    /**
-     * @return array<string, array{string,array<mixed>}>
-     */
-    public function dataProviderGetItemValue(): array {
-        return [
-            'a'                => [
-                123,
-                'a',
-                [
-                    'a' => 123,
-                ],
-            ],
-            'a (not exists)'   => [
-                null,
-                'a',
-                [
-                    'b' => 123,
-                ],
-            ],
-            'a.b (not exists)' => [
-                null,
-                'a.b',
-                [
-                    'a' => 123,
-                ],
-            ],
-            'a.b'              => [
-                123,
-                'a.b',
-                [
-                    'a' => ['b' => 123],
-                ],
-            ],
-            'a.b (array)'      => [
-                '1, 2, 3',
-                'a.b',
-                [
-                    'a' => [
-                        ['b' => 1],
-                        ['b' => 2],
-                        ['b' => 3],
-                    ],
-                ],
-            ],
-            'a.b.c (array)'    => [
-                '1, 2, 3',
-                'a.b.c',
-                [
-                    'a' => [
-                        ['b' => ['c' => 1]],
-                        ['b' => ['c' => 2]],
-                        ['b' => ['c' => 3]],
-                    ],
-                ],
-            ],
-            'getValue called'  => [
-                '[{"c":1},{"c":2},{"c":3,"d":2}]',
-                'a.b',
-                [
-                    'a' => [
-                        ['b' => ['c' => 1]],
-                        ['b' => ['c' => 2]],
-                        ['b' => ['c' => 3, 'd' => 2]],
                     ],
                 ],
             ],

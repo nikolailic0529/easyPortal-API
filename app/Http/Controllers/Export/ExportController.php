@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Export;
 
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\Export\Exceptions\GraphQLQueryInvalid;
-use App\Http\Controllers\Export\Exceptions\SelectorUnknownFunction;
 use App\Utils\Iterators\Contracts\ObjectIterator;
 use App\Utils\Iterators\OffsetBasedObjectIterator;
 use App\Utils\Iterators\OneChunkOffsetBasedObjectIterator;
@@ -33,30 +32,20 @@ use OpenSpout\Writer\XLSX\Writer as XLSXWriter;
 use Symfony\Component\HttpFoundation\StreamedResponse;
 use Symfony\Component\Mime\MimeTypes;
 
-use function array_column;
+use function array_fill;
 use function array_filter;
-use function array_is_list;
 use function array_key_exists;
 use function array_keys;
-use function array_map;
 use function array_merge;
 use function array_values;
 use function assert;
 use function count;
-use function explode;
-use function implode;
 use function is_array;
 use function iterator_to_array;
-use function json_encode;
 use function min;
 use function pathinfo;
-use function preg_match;
 use function reset;
-use function trim;
 
-use const JSON_PRESERVE_ZERO_FRACTION;
-use const JSON_UNESCAPED_SLASHES;
-use const JSON_UNESCAPED_UNICODE;
 use const PATHINFO_EXTENSION;
 
 /**
@@ -135,7 +124,7 @@ class ExportController extends Controller {
     /**
      * @param Closure(array<string>): void $headersCallback
      *
-     * @return Iterator<array<mixed>>
+     * @return Iterator<array<scalar|null>>
      */
     protected function getRowsIterator(ExportRequest $request, string $format, Closure $headersCallback): Iterator {
         // Headers
@@ -148,15 +137,16 @@ class ExportController extends Controller {
 
         // Iteration
         $empty    = true;
+        $count    = count($parameters['headers']);
         $columns  = array_keys($parameters['headers']);
+        $selector = SelectorFactory::make($columns);
         $iterator = $this->getIterator($request, $parameters, $format);
 
         foreach ($iterator as $item) {
-            $row = [];
+            // Fill
+            $row = array_fill(0, $count, null);
 
-            foreach ($columns as $column) {
-                $row[] = $this->getHeaderValue($column, $item);
-            }
+            $selector->fill($item, $row);
 
             // Iterate
             yield $row;
@@ -193,9 +183,7 @@ class ExportController extends Controller {
             }
         }
 
-        $result = Arr::get($result, $root) ?? [];
-
-        assert(is_array($result));
+        $result = (array) Arr::get($result, $root);
 
         return $result;
     }
@@ -203,7 +191,7 @@ class ExportController extends Controller {
     /**
      * @param Query $parameters
      *
-     * @return ObjectIterator<array<string,mixed>>
+     * @return ObjectIterator<array<string,scalar|null>>
      */
     protected function getIterator(ExportRequest $request, array $parameters, string $format): ObjectIterator {
         $limit           = $this->config->get('ep.export.limit');
@@ -270,94 +258,6 @@ class ExportController extends Controller {
         $headers = array_filter($headers) ? $headers : null;
 
         return $headers;
-    }
-
-    /**
-     * @param array<mixed> $item
-     */
-    protected function getHeaderValue(string $header, array $item): mixed {
-        $value = null;
-
-        if (preg_match('/^(?<function>[\w]+)\((?<arguments>[^)]+)\)$/', $header, $matches)) {
-            $function  = $matches['function'];
-            $arguments = array_map(
-                fn(string $arg): mixed => $this->getItemValue(trim($arg), $item),
-                explode(',', $matches['arguments']),
-            );
-
-            switch ($function) {
-                case 'concat':
-                    $value = trim(implode(' ', array_filter($arguments)));
-                    break;
-                case 'or':
-                    foreach ($arguments as $argument) {
-                        $argument = trim((string) $argument);
-
-                        if ($argument) {
-                            $value = $argument;
-                            break;
-                        }
-                    }
-                    break;
-                default:
-                    throw new SelectorUnknownFunction($function);
-            }
-        } else {
-            $value = $this->getItemValue($header, $item);
-        }
-
-        return $value;
-    }
-
-    /**
-     * @param array<mixed> $item
-     */
-    protected function getItemValue(string $path, array $item): mixed {
-        // We don't use `data_get()` here to simplify headers: you can use the
-        // dot-separated string in all cases and you no need to worry about
-        // lists (which are not visible in GraphQL query).
-        $parts = explode('.', $path);
-        $value = $item;
-
-        foreach ($parts as $part) {
-            if (is_array($value)) {
-                if (array_is_list($value)) {
-                    $value = array_column($value, $part);
-                } else {
-                    $value = Arr::get($value, $part);
-                }
-            } else {
-                $value = $value[$part] ?? null;
-            }
-
-            if (!$value) {
-                break;
-            }
-        }
-
-        // Return
-        return $this->getValue($value);
-    }
-
-    protected function getValue(mixed $value): mixed {
-        if (is_array($value)) {
-            $flags = JSON_PRESERVE_ZERO_FRACTION | JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES;
-            $first = reset($value);
-
-            if (is_array($first)) {
-                if (array_is_list($value) && !Arr::first($value, static fn($v) => count($v) > 1)) {
-                    $value = implode(', ', array_map(static fn($v) => reset($v), $value));
-                } else {
-                    $value = json_encode($value, $flags);
-                }
-            } elseif (array_is_list($value)) {
-                $value = implode(', ', $value);
-            } else {
-                $value = json_encode($value, $flags);
-            }
-        }
-
-        return $value;
     }
 
     /**

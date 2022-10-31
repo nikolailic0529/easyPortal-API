@@ -2101,34 +2101,9 @@ parameters:
 			path: app/Http/Controllers/Export/ExportController.php
 
 		-
-			message: "#^Cannot access offset string on mixed\\.$#"
-			count: 1
-			path: app/Http/Controllers/Export/ExportController.php
-
-		-
-			message: "#^Cannot cast mixed to string\\.$#"
-			count: 1
-			path: app/Http/Controllers/Export/ExportController.php
-
-		-
 			message: "#^Method App\\\\Http\\\\Controllers\\\\Export\\\\ExportController\\:\\:getHeaders\\(\\) should return non\\-empty\\-array\\<string\\>\\|null but returns array\\<int, string\\>\\|null\\.$#"
 			count: 1
 			path: app/Http/Controllers/Export/ExportController.php
-
-		-
-			message: "#^Parameter \\#1 \\$array of function reset expects array\\|object, mixed given\\.$#"
-			count: 1
-			path: app/Http/Controllers/Export/ExportController.php
-
-		-
-			message: "#^Parameter \\#1 \\$cellValues of static method OpenSpout\\\\Common\\\\Entity\\\\Row\\:\\:fromValues\\(\\) expects array\\<int, bool\\|DateInterval\\|DateTimeInterface\\|float\\|int\\|string\\|null\\>, array given\\.$#"
-			count: 1
-			path: app/Http/Controllers/Export/ExportController.php
-
-		-
-			message: "#^Method App\\\\Http\\\\Controllers\\\\Export\\\\ExportControllerTest\\:\\:dataProviderGetItemValue\\(\\) should return array\\<string, array\\{string, array\\}\\> but returns array\\{a\\: array\\{123, 'a', array\\{a\\: 123\\}\\}, a \\(not exists\\)\\: array\\{null, 'a', array\\{b\\: 123\\}\\}, a\\.b \\(not exists\\)\\: array\\{null, 'a\\.b', array\\{a\\: 123\\}\\}, a\\.b\\: array\\{123, 'a\\.b', array\\{a\\: array\\{b\\: 123\\}\\}\\}, a\\.b \\(array\\)\\: array\\{'1, 2, 3', 'a\\.b', array\\{a\\: array\\{array\\{b\\: 1\\}, array\\{b\\: 2\\}, array\\{b\\: 3\\}\\}\\}\\}, a\\.b\\.c \\(array\\)\\: array\\{'1, 2, 3', 'a\\.b\\.c', array\\{a\\: array\\{array\\{b\\: array\\{c\\: 1\\}\\}, array\\{b\\: array\\{c\\: 2\\}\\}, array\\{b\\: array\\{c\\: 3\\}\\}\\}\\}\\}, getValue called\\: array\\{'\\[\\{\"c\"\\:1\\},\\{\"c\"\\:2\\},\\{…', 'a\\.b', array\\{a\\: array\\{array\\{b\\: array\\{c\\: 1\\}\\}, array\\{b\\: array\\{c\\: 2\\}\\}, array\\{b\\: array\\{c\\: 3, d\\: 2\\}\\}\\}\\}\\}\\}\\.$#"
-			count: 1
-			path: app/Http/Controllers/Export/ExportControllerTest.php
 
 		-
 			message: "#^Parameter \\#3 \\$factory of method App\\\\Http\\\\Controllers\\\\Export\\\\ExportControllerTest\\:\\:prepare\\(\\) expects \\(Closure\\(App\\\\Http\\\\Controllers\\\\Export\\\\ExportControllerTest, App\\\\Models\\\\Organization\\|null, App\\\\Models\\\\User\\|null\\)\\: int\\|null\\)\\|null, \\(Closure\\(static\\(App\\\\Http\\\\Controllers\\\\Export\\\\ExportControllerTest\\), App\\\\Models\\\\Organization\\|null, App\\\\Models\\\\User\\|null\\)\\: int\\|null\\)\\|null given\\.$#"
