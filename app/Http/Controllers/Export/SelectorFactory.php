@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Export;
 
+use App\Http\Controllers\Export\Exceptions\SelectorUnknownFunction;
 use App\Http\Controllers\Export\Selectors\Asterisk;
 use App\Http\Controllers\Export\Selectors\Concat;
 use App\Http\Controllers\Export\Selectors\Group;
@@ -62,7 +63,7 @@ class SelectorFactory {
                         $instance = new LogicalOr($arguments, $index);
                         break;
                     default:
-                        throw new HeadersUnknownFunction($function);
+                        throw new SelectorUnknownFunction($function);
                 }
             }
         } else {

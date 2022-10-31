@@ -1,6 +1,6 @@
 <?php declare(strict_types = 1);
 
-namespace App\Http\Controllers\Export;
+namespace App\Http\Controllers\Export\Exceptions;
 
 use GraphQL\Server\OperationParams;
 use Throwable;

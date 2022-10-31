@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Export;
 
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\Export\Exceptions\GraphQLQueryInvalid;
+use App\Http\Controllers\Export\Exceptions\SelectorUnknownFunction;
 use App\Utils\Iterators\Contracts\ObjectIterator;
 use App\Utils\Iterators\OffsetBasedObjectIterator;
 use App\Utils\Iterators\OneChunkOffsetBasedObjectIterator;
@@ -298,7 +300,7 @@ class ExportController extends Controller {
                     }
                     break;
                 default:
-                    throw new HeadersUnknownFunction($function);
+                    throw new SelectorUnknownFunction($function);
             }
         } else {
             $value = $this->getItemValue($header, $item);

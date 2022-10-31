@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers\Export;
 
+use App\Http\Controllers\Export\Exceptions\GraphQLQueryInvalid;
+use App\Http\Controllers\Export\Exceptions\SelectorUnknownFunction;
 use App\Models\Asset;
 use App\Models\Organization;
 use App\Models\User;
@@ -454,7 +456,7 @@ class ExportControllerTest extends TestCase {
                 ],
             ],
             'function: unknown' => [
-                new HeadersUnknownFunction('unknown'),
+                new SelectorUnknownFunction('unknown'),
                 'unknown(a)',
                 [
                     'b' => 123,

@@ -19,8 +19,8 @@ use App\GraphQL\Mutations\Oem\Hpe\ImportImportFailed as GraphQLOemHpeImportImpor
 use App\GraphQL\Mutations\Org\ResetOrgUserPasswordInvalidUser as GraphQLResetOrgUserPasswordInvalidUser;
 use App\GraphQL\Mutations\Org\Role\DeleteImpossibleAssignedToUsers as GraphQLDeleteImpossibleAssignedToUsers;
 use App\GraphQL\Mutations\Organization\User\InviteImpossibleKeycloakUserDisabled as GraphQLInviteImpossibleKeycloakUserDisabled;
-use App\Http\Controllers\Export\GraphQLQueryInvalid as HttpExportGraphQLQueryInvalid;
-use App\Http\Controllers\Export\HeadersUnknownFunction as HttpExportHeadersUnknownFunction;
+use App\Http\Controllers\Export\Exceptions\GraphQLQueryInvalid as HttpExportGraphQLQueryInvalid;
+use App\Http\Controllers\Export\Exceptions\SelectorUnknownFunction as HttpExportHeadersUnknownFunction;
 use App\Services\DataLoader\Client\Exceptions\DataLoaderDisabled as DataLoaderDataLoaderDisabled;
 use App\Services\DataLoader\Client\Exceptions\DataLoaderRequestRateTooLarge as DataLoaderDataLoaderRequestRateTooLarge;
 use App\Services\DataLoader\Client\Exceptions\DataLoaderUnavailable as DataLoaderDataLoaderUnavailable;
