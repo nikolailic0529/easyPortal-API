@@ -1,0 +1,11 @@
+<?php declare(strict_types = 1);
+
+namespace App\Http\Controllers\Export;
+
+interface Selector {
+    /**
+     * @param array<scalar|null|array<scalar|null>> $item
+     * @param array<string>                         $row
+     */
+    public function fill(array $item, array &$row): void;
+}
