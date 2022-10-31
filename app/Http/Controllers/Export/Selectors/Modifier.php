@@ -11,8 +11,8 @@ abstract class Modifier implements Selector {
      * @param non-empty-array<Selector> $arguments
      */
     public function __construct(
-        protected int $index,
         protected array $arguments,
+        protected int $index,
     ) {
         // empty
     }

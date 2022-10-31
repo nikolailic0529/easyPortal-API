@@ -7,9 +7,9 @@ use Tests\TestCase;
 
 /**
  * @internal
- * @coversDefaultClass \App\Http\Controllers\Export\Selectors\Concat
+ * @coversDefaultClass \App\Http\Controllers\Export\Selectors\Root
  */
-class ConcatTest extends TestCase {
+class RootTest extends TestCase {
     // <editor-fold desc="Tests">
     // =========================================================================
     /**
@@ -18,12 +18,12 @@ class ConcatTest extends TestCase {
      * @dataProvider dataProviderFill
      *
      * @param array<mixed>                          $expected
-     * @param non-empty-array<Selector>             $arguments
+     * @param array<Selector>                       $selectors
      * @param array<scalar|null|array<scalar|null>> $item
      */
-    public function testFill(array $expected, int $index, array $arguments, array $item): void {
+    public function testFill(array $expected, array $selectors, array $item): void {
         $row      = [];
-        $selector = new Concat($arguments, $index);
+        $selector = new Root($selectors);
 
         $selector->fill($item, $row);
 
@@ -34,15 +34,15 @@ class ConcatTest extends TestCase {
     // <editor-fold desc="DataProviders">
     // =========================================================================
     /**
-     * @return array<string, array{array<mixed>, int, non-empty-array<Selector>, array<scalar|null|array<scalar|null>>}>
+     * @return array<string, array{array<mixed>, non-empty-array<Selector>, array<scalar|null|array<scalar|null>>}>
      */
     public function dataProviderFill(): array {
         return [
-            'concat' => [
+            'fill' => [
                 [
-                    1 => '123 45',
+                    1 => '123',
+                    5 => null,
                 ],
-                1,
                 [
                     new class() implements Selector {
                         /**
@@ -60,19 +60,10 @@ class ConcatTest extends TestCase {
                             $row[5] = $item[1];
                         }
                     },
-                    new class() implements Selector {
-                        /**
-                         * @inheritdoc
-                         */
-                        public function fill(array $item, array &$row): void {
-                            $row[6] = $item[2];
-                        }
-                    },
                 ],
                 [
                     '123',
                     null,
-                    45,
                 ],
             ],
         ];

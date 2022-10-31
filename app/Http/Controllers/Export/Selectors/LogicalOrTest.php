@@ -23,7 +23,7 @@ class LogicalOrTest extends TestCase {
      */
     public function testFill(array $expected, int $index, array $arguments, array $item): void {
         $row      = [];
-        $selector = new LogicalOr($index, $arguments);
+        $selector = new LogicalOr($arguments, $index);
 
         $selector->fill($item, $row);
 
