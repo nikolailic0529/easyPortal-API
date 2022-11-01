@@ -2,7 +2,8 @@
 
 namespace App\Http\Controllers\Export;
 
-use App\Http\Controllers\Export\Exceptions\SelectorFunctionUnknown;
+use App\Http\Controllers\Export\Exceptions\SelectorSyntaxError;
+use App\Http\Controllers\Export\Exceptions\SelectorUnknown;
 use App\Http\Controllers\Export\Selectors\Asterisk;
 use App\Http\Controllers\Export\Selectors\Concat;
 use App\Http\Controllers\Export\Selectors\Group;
@@ -16,6 +17,7 @@ use function explode;
 use function implode;
 use function preg_match;
 use function preg_split;
+use function str_contains;
 use function trim;
 
 use const PREG_SPLIT_DELIM_CAPTURE;
@@ -50,11 +52,11 @@ class SelectorFactory {
             return $instance;
         }
 
-        if (preg_match('/^(?<function>[\w]+)\((?<arguments>.+)\)$/', $selector, $matches)) {
-            $function  = $matches['function'];
-            $arguments = static::parseArguments($matches['arguments']);
+        if (str_contains($selector, '(') || str_contains($selector, ')')) {
+            if (preg_match('/^(?<function>[\w]+)\((?<arguments>.+)?\)$/', $selector, $matches)) {
+                $function  = $matches['function'];
+                $arguments = static::parseArguments($matches['arguments'] ?? '');
 
-            if ($arguments) {
                 switch ($function) {
                     case Concat::getName():
                         $instance = new Concat($arguments, $index);
@@ -63,8 +65,10 @@ class SelectorFactory {
                         $instance = new LogicalOr($arguments, $index);
                         break;
                     default:
-                        throw new SelectorFunctionUnknown($function);
+                        throw new SelectorUnknown($function);
                 }
+            } else {
+                throw new SelectorSyntaxError();
             }
         } else {
             $separator = '.';

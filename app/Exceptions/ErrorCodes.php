@@ -20,9 +20,10 @@ use App\GraphQL\Mutations\Org\ResetOrgUserPasswordInvalidUser as GraphQLResetOrg
 use App\GraphQL\Mutations\Org\Role\DeleteImpossibleAssignedToUsers as GraphQLDeleteImpossibleAssignedToUsers;
 use App\GraphQL\Mutations\Organization\User\InviteImpossibleKeycloakUserDisabled as GraphQLInviteImpossibleKeycloakUserDisabled;
 use App\Http\Controllers\Export\Exceptions\GraphQLQueryInvalid as HttpExportGraphQLQueryInvalid;
-use App\Http\Controllers\Export\Exceptions\SelectorFunctionToFewArguments as HttpExportSelectorFunctionToFewArguments;
-use App\Http\Controllers\Export\Exceptions\SelectorFunctionToManyArguments as HttpExportSelectorFunctionToManyArguments;
-use App\Http\Controllers\Export\Exceptions\SelectorFunctionUnknown as HttpExportSelectorFunctionUnknown;
+use App\Http\Controllers\Export\Exceptions\SelectorSyntaxError as HttpExportSelectorSyntaxError;
+use App\Http\Controllers\Export\Exceptions\SelectorToFewArguments as HttpExportSelectorFunctionToFewArguments;
+use App\Http\Controllers\Export\Exceptions\SelectorToManyArguments as HttpExportSelectorFunctionToManyArguments;
+use App\Http\Controllers\Export\Exceptions\SelectorUnknown as HttpExportSelectorFunctionUnknown;
 use App\Services\DataLoader\Client\Exceptions\DataLoaderDisabled as DataLoaderDataLoaderDisabled;
 use App\Services\DataLoader\Client\Exceptions\DataLoaderRequestRateTooLarge as DataLoaderDataLoaderRequestRateTooLarge;
 use App\Services\DataLoader\Client\Exceptions\DataLoaderUnavailable as DataLoaderDataLoaderUnavailable;
@@ -67,6 +68,7 @@ class ErrorCodes {
         HttpExportSelectorFunctionUnknown::class                   => 'Http002',
         HttpExportSelectorFunctionToFewArguments::class            => 'Http003',
         HttpExportSelectorFunctionToManyArguments::class           => 'Http004',
+        HttpExportSelectorSyntaxError::class                       => 'Http005',
 
         // GraphQL
         GraphQLResetPasswordSamePasswordException::class           => 'GraphQL001',

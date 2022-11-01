@@ -2,6 +2,6 @@
 
 namespace App\Http\Controllers\Export\Exceptions;
 
-abstract class SelectorFunctionException extends ExportException {
+abstract class SelectorException extends ExportException {
     // empty
 }

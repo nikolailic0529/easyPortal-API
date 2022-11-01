@@ -256,6 +256,7 @@
     "settings.errors.failed_to_load_settings": "Impossible to load custom settings.",
     "settings.errors.failed_to_save_settings": "Impossible to save custom settings.",
     "http.controllers.export.graphql_query_invalid": "GraphQL query is invalid.",
+    "http.controllers.export.selector_syntax_error": "The selector is malformed.",
     "http.controllers.export.selector_function_unknown": "Function :function is unknown.",
     "http.controllers.export.selector_function_too_few_arguments": "Function :function expects at least :limit arguments, :count passed.",
     "http.controllers.export.selector_function_too_many_arguments": "Function :function expects at most :limit arguments, :count passed.",

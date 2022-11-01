@@ -7,7 +7,7 @@ use Throwable;
 use function sprintf;
 use function trans;
 
-class SelectorFunctionToManyArguments extends SelectorFunctionException {
+class SelectorToFewArguments extends SelectorException {
     public function __construct(
         protected string $function,
         protected int $limit,
@@ -15,7 +15,7 @@ class SelectorFunctionToManyArguments extends SelectorFunctionException {
         Throwable $previous = null,
     ) {
         parent::__construct(sprintf(
-            'Function `%s` expects at most `%s` arguments, `%s` passed.',
+            'Function `%s` expects at least `%s` arguments, `%s` passed.',
             $this->function,
             $this->limit,
             $this->count,
@@ -23,7 +23,7 @@ class SelectorFunctionToManyArguments extends SelectorFunctionException {
     }
 
     public function getErrorMessage(): string {
-        return trans('http.controllers.export.selector_function_too_many_arguments', [
+        return trans('http.controllers.export.selector_function_too_few_arguments', [
             'function' => $this->function,
             'limit'    => $this->limit,
             'count'    => $this->count,

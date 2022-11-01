@@ -7,26 +7,20 @@ use Throwable;
 use function sprintf;
 use function trans;
 
-class SelectorFunctionToFewArguments extends SelectorFunctionException {
+class SelectorUnknown extends SelectorException {
     public function __construct(
         protected string $function,
-        protected int $limit,
-        protected int $count,
         Throwable $previous = null,
     ) {
         parent::__construct(sprintf(
-            'Function `%s` expects at least `%s` arguments, `%s` passed.',
+            'Function `%s` is unknown.',
             $this->function,
-            $this->limit,
-            $this->count,
         ), $previous);
     }
 
     public function getErrorMessage(): string {
-        return trans('http.controllers.export.selector_function_too_few_arguments', [
+        return trans('http.controllers.export.selector_function_unknown', [
             'function' => $this->function,
-            'limit'    => $this->limit,
-            'count'    => $this->count,
         ]);
     }
 }
