@@ -22,6 +22,7 @@ class SelectorFactoryTest extends TestCase {
         $actual   = SelectorFactory::make([
             'a',
             'a.b',
+            'a.b.c',
             'concat(a, a.b, or(abc, a))',
             'a.d',
             'b.*.c.d',
@@ -31,7 +32,10 @@ class SelectorFactoryTest extends TestCase {
             new Value('a', 0),
             new Group('a', [
                 new Value('b', 1),
-                new Value('d', 3),
+                new Group('b', [
+                    new Value('c', 2),
+                ]),
+                new Value('d', 4),
             ]),
             new Concat(
                 [
@@ -44,10 +48,10 @@ class SelectorFactoryTest extends TestCase {
                         new Value('a', 0),
                     ], 0),
                 ],
-                2,
+                3,
             ),
             new Group('b', [
-                new Asterisk('c.d', 4),
+                new Asterisk('c.d', 5),
             ]),
             new Group('c', [
                 // empty,

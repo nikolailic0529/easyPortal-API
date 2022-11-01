@@ -91,7 +91,12 @@ class SelectorFactory {
                     $path           .= ".{$part}";
                     $groups[$path] ??= new Group($part);
                     $instance      ??= $groups[$path];
-                    $group           = $groups[$path];
+
+                    if ($group) {
+                        $group->add($groups[$path]);
+                    }
+
+                    $group = $groups[$path];
                 } elseif ($group) {
                     $group->add(new Value($part, $index));
                 } else {
