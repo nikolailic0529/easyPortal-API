@@ -2106,16 +2106,6 @@ parameters:
 			path: app/Http/Controllers/Export/ExportController.php
 
 		-
-			message: "#^Parameter \\#3 \\$factory of method App\\\\Http\\\\Controllers\\\\Export\\\\ExportControllerTest\\:\\:prepare\\(\\) expects \\(Closure\\(App\\\\Http\\\\Controllers\\\\Export\\\\ExportControllerTest, App\\\\Models\\\\Organization\\|null, App\\\\Models\\\\User\\|null\\)\\: int\\|null\\)\\|null, \\(Closure\\(static\\(App\\\\Http\\\\Controllers\\\\Export\\\\ExportControllerTest\\), App\\\\Models\\\\Organization\\|null, App\\\\Models\\\\User\\|null\\)\\: int\\|null\\)\\|null given\\.$#"
-			count: 3
-			path: app/Http/Controllers/Export/ExportControllerTest.php
-
-		-
-			message: "#^Parameter \\#5 \\$settingsFactory of method App\\\\Http\\\\Controllers\\\\Export\\\\ExportControllerTest\\:\\:prepare\\(\\) expects array\\<string, mixed\\>\\|\\(callable\\(App\\\\Http\\\\Controllers\\\\Export\\\\ExportControllerTest\\)\\: array\\<string, mixed\\>\\)\\|null, array\\<string, mixed\\>\\|\\(callable\\(static\\(App\\\\Http\\\\Controllers\\\\Export\\\\ExportControllerTest\\)\\)\\: array\\<string, mixed\\>\\)\\|null given\\.$#"
-			count: 3
-			path: app/Http/Controllers/Export/ExportControllerTest.php
-
-		-
 			message: "#^Method App\\\\Http\\\\Controllers\\\\Export\\\\ExportRequest\\:\\:validated\\(\\) should return array\\{root\\: string, headers\\: array\\<string, string\\>, query\\: string, operationName\\?\\: string, variables\\?\\: array\\{limit\\?\\: int\\|null, offset\\?\\: int\\|null\\}\\|null\\} but returns mixed\\.$#"
 			count: 1
 			path: app/Http/Controllers/Export/ExportRequest.php

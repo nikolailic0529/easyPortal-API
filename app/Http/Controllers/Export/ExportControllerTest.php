@@ -2,30 +2,32 @@
 
 namespace App\Http\Controllers\Export;
 
-use App\Http\Controllers\Export\Exceptions\GraphQLQueryInvalid;
 use App\Models\Asset;
+use App\Models\Data\City;
+use App\Models\Data\Country;
+use App\Models\Data\Coverage;
+use App\Models\Data\Location;
+use App\Models\Data\Product;
 use App\Models\Organization;
 use App\Models\User;
 use Barryvdh\Snappy\Facades\SnappyPdf as PDF;
 use Closure;
-use GraphQL\Server\OperationParams;
 use Illuminate\Auth\Access\AuthorizationException;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Routing\Exceptions\StreamedResponseException;
 use Illuminate\Support\Facades\Event;
-use LastDragon_ru\LaraASP\Testing\Constraints\ClosureConstraint;
-use LastDragon_ru\LaraASP\Testing\Constraints\Response\ContentTypes\PdfContentType;
 use LastDragon_ru\LaraASP\Testing\Constraints\Response\Response;
-use LastDragon_ru\LaraASP\Testing\Constraints\Response\StatusCodes\BadRequest;
 use LastDragon_ru\LaraASP\Testing\Constraints\Response\StatusCodes\Forbidden;
-use LastDragon_ru\LaraASP\Testing\Constraints\Response\StatusCodes\Ok;
 use LastDragon_ru\LaraASP\Testing\Constraints\Response\StatusCodes\UnprocessableEntity;
 use LastDragon_ru\LaraASP\Testing\Providers\ArrayDataProvider;
 use LastDragon_ru\LaraASP\Testing\Providers\CompositeDataProvider;
+use LastDragon_ru\LaraASP\Testing\Providers\DataProvider;
+use LastDragon_ru\LaraASP\Testing\Providers\ExpectedFinal;
+use LastDragon_ru\LaraASP\Testing\Providers\UnknownValue;
 use LastDragon_ru\LaraASP\Testing\Responses\Laravel\Json\ValidationErrorResponse;
-use OpenSpout\Reader\XLSX\Reader as XLSXReader;
-use Psr\Http\Message\ResponseInterface;
-use Tests\Constraints\ContentTypes\CsvContentType;
-use Tests\Constraints\ContentTypes\XlsxContentType;
+use Tests\Constraints\Attachments\CsvAttachment;
+use Tests\Constraints\Attachments\PdfAttachment;
+use Tests\Constraints\Attachments\XlsxAttachment;
 use Tests\DataProviders\Http\Organizations\AuthOrgDataProvider;
 use Tests\DataProviders\Http\Users\OrgUserDataProvider;
 use Tests\TestCase;
@@ -34,11 +36,8 @@ use Tests\WithSettings;
 use Tests\WithUser;
 use Throwable;
 
-use function count;
-use function explode;
 use function ob_end_clean;
 use function ob_get_level;
-use function trim;
 
 /**
  * @internal
@@ -81,41 +80,43 @@ class ExportControllerTest extends TestCase {
     /**
      * @covers ::csv
      *
-     * @dataProvider dataProviderExport
+     * @dataProvider dataProviderExportCsv
      *
      * @param OrganizationFactory                         $orgFactory
      * @param UserFactory                                 $userFactory
-     * @param Closure(static, ?Organization, ?User): ?int $factory
-     * @param array<string, mixed>                        $data
      * @param SettingsFactory                             $settingsFactory
+     * @param Closure(static, ?Organization, ?User): void $prepare
+     * @param array<string, mixed>|null                   $data
      */
     public function testCvs(
         Response $expected,
         mixed $orgFactory,
         mixed $userFactory = null,
-        Closure $factory = null,
-        array $data = [],
         mixed $settingsFactory = null,
+        Closure $prepare = null,
+        array $data = null,
     ): void {
         // Prepare
-        [$org, $user, $data, $count] = $this->prepare(
-            $orgFactory,
-            $userFactory,
-            $factory,
-            $data,
-            $settingsFactory,
-        );
+        $org    = $this->setOrganization($orgFactory);
+        $user   = $this->setUser($userFactory, $org);
+        $data ??= [
+            'root'    => 'data.assets',
+            'query'   => 'query { assets { id } }',
+            'headers' => [
+                'id' => 'Id',
+            ],
+        ];
+
+        $this->setSettings($settingsFactory);
+
+        if ($prepare) {
+            $prepare($this, $org, $user);
+        }
 
         // Fake
         Event::fake(QueryExported::class);
 
         // Errors
-        if ($expected instanceof BadRequest) {
-            self::expectExceptionObject(new StreamedResponseException(
-                new GraphQLQueryInvalid(new OperationParams(), []),
-            ));
-        }
-
         if ($expected instanceof Forbidden && $user?->organization_id === $org?->getKey()) {
             self::expectExceptionObject(new StreamedResponseException(
                 new AuthorizationException('Unauthorized.'),
@@ -135,20 +136,6 @@ class ExportControllerTest extends TestCase {
         }
 
         if ($response->isSuccessful()) {
-            $response->assertThat(new CsvContentType());
-            $response->assertThat(new Response(new ClosureConstraint(
-                static function (mixed $response) use ($count): bool {
-                    self::assertInstanceOf(ResponseInterface::class, $response);
-
-                    $content = trim((string) $response->getBody(), "\n");
-                    $lines   = count(explode("\n", $content));
-
-                    self::assertEquals((int) $count + 1, $lines);
-
-                    return true;
-                },
-            )));
-
             Event::assertDispatched(QueryExported::class);
         } else {
             Event::assertNothingDispatched();
@@ -158,41 +145,43 @@ class ExportControllerTest extends TestCase {
     /**
      * @covers ::xlsx
      *
-     * @dataProvider dataProviderExport
+     * @dataProvider dataProviderExportXlsx
      *
      * @param OrganizationFactory                         $orgFactory
      * @param UserFactory                                 $userFactory
-     * @param Closure(static, ?Organization, ?User): ?int $factory
-     * @param array<string, mixed>                        $data
      * @param SettingsFactory                             $settingsFactory
+     * @param Closure(static, ?Organization, ?User): void $prepare
+     * @param array<string, mixed>|null                   $data
      */
     public function testXlsx(
         Response $expected,
         mixed $orgFactory,
         mixed $userFactory = null,
-        Closure $factory = null,
-        array $data = [],
         mixed $settingsFactory = null,
+        Closure $prepare = null,
+        array $data = null,
     ): void {
         // Prepare
-        [$org, $user, $data, $count] = $this->prepare(
-            $orgFactory,
-            $userFactory,
-            $factory,
-            $data,
-            $settingsFactory,
-        );
+        $org    = $this->setOrganization($orgFactory);
+        $user   = $this->setUser($userFactory, $org);
+        $data ??= [
+            'root'    => 'data.assets',
+            'query'   => 'query { assets { id } }',
+            'headers' => [
+                'id' => 'Id',
+            ],
+        ];
+
+        $this->setSettings($settingsFactory);
+
+        if ($prepare) {
+            $prepare($this, $org, $user);
+        }
 
         // Fake
         Event::fake(QueryExported::class);
 
         // Errors
-        if ($expected instanceof BadRequest) {
-            self::expectExceptionObject(new StreamedResponseException(
-                new GraphQLQueryInvalid(new OperationParams(), []),
-            ));
-        }
-
         if ($expected instanceof Forbidden && $user?->organization_id === $org?->getKey()) {
             self::expectExceptionObject(new StreamedResponseException(
                 new AuthorizationException('Unauthorized.'),
@@ -212,29 +201,6 @@ class ExportControllerTest extends TestCase {
         }
 
         if ($response->isSuccessful()) {
-            $response->assertThat(new XlsxContentType());
-            $response->assertThat(new Response(new ClosureConstraint(
-                function (mixed $response) use ($count): bool {
-                    self::assertInstanceOf(ResponseInterface::class, $response);
-
-                    $sheets = [];
-                    $file   = $this->getTempFile((string) $response->getBody());
-                    $xlsx   = new XLSXReader();
-
-                    $xlsx->open($file->getPathname());
-
-                    foreach ($xlsx->getSheetIterator() as $sheet) {
-                        foreach ($sheet->getRowIterator() as $row) {
-                            $sheets[$sheet->getIndex()] = ($sheets[$sheet->getIndex()] ?? 0) + 1;
-                        }
-                    }
-
-                    self::assertEquals([0 => (int) $count + 1], $sheets);
-
-                    return true;
-                },
-            )));
-
             Event::assertDispatched(QueryExported::class);
         } else {
             Event::assertNothingDispatched();
@@ -244,39 +210,67 @@ class ExportControllerTest extends TestCase {
     /**
      * @covers ::pdf
      *
-     * @dataProvider dataProviderExport
+     * @dataProvider dataProviderExportPdf
      *
      * @param OrganizationFactory                         $orgFactory
      * @param UserFactory                                 $userFactory
-     * @param Closure(static, ?Organization, ?User): ?int $factory
-     * @param array<string, mixed>                        $data
      * @param SettingsFactory                             $settingsFactory
+     * @param Closure(static, ?Organization, ?User): void $prepare
+     * @param array<string, mixed>|null                   $data
      */
     public function testPdf(
         Response $expected,
         mixed $orgFactory,
         mixed $userFactory = null,
-        Closure $factory = null,
-        array $data = [],
         mixed $settingsFactory = null,
+        Closure $prepare = null,
+        array $data = null,
     ): void {
         // Prepare
-        [, , $data] = $this->prepare($orgFactory, $userFactory, $factory, $data, $settingsFactory);
+        $org    = $this->setOrganization($orgFactory);
+        $user   = $this->setUser($userFactory, $org);
+        $data ??= [
+            'root'    => 'data.assets',
+            'query'   => 'query { assets { id } }',
+            'headers' => [
+                'id' => 'Id',
+            ],
+        ];
+
+        $this->setSettings($settingsFactory);
+
+        if ($prepare) {
+            $prepare($this, $org, $user);
+        }
 
         // Fake
         Event::fake(QueryExported::class);
         PDF::fake();
 
+        // Errors
+        if ($expected instanceof Forbidden && $user?->organization_id === $org?->getKey()) {
+            self::expectExceptionObject(new StreamedResponseException(
+                new AuthorizationException('Unauthorized.'),
+            ));
+        }
+
         // Execute
-        $response = $this->postJson('/download/pdf', $data)->assertThat($expected);
+        try {
+            $level    = ob_get_level();
+            $response = $this->postJson('/download/pdf', $data)->assertThat($expected);
+        } catch (Throwable $exception) {
+            while (ob_get_level() > $level) {
+                ob_end_clean();
+            }
+
+            throw $exception;
+        }
 
         if ($response->isSuccessful()) {
-            $response->assertThat(new PdfContentType());
+            Event::assertDispatched(QueryExported::class);
 
             PDF::assertViewIs('exports.pdf');
             PDF::assertSee("<td style='font-weight:bold;'> Id</td>");
-
-            Event::assertDispatched(QueryExported::class);
         } else {
             Event::assertNothingDispatched();
         }
@@ -366,29 +360,151 @@ class ExportControllerTest extends TestCase {
     /**
      * @return array<string, array<mixed>>
      */
-    public function dataProviderExport(): array {
+    public function dataProviderExportCsv(): array {
         return (new CompositeDataProvider(
+            $this->getExportDataProvider(),
+            new ArrayDataProvider([
+                'ok' => [
+                    new CsvAttachment('export.csv', $this->getTestData()->file('.csv')),
+                ],
+            ]),
+        ))->getData();
+    }
+
+    /**
+     * @return array<string, array<mixed>>
+     */
+    public function dataProviderExportXlsx(): array {
+        return (new CompositeDataProvider(
+            $this->getExportDataProvider(),
+            new ArrayDataProvider([
+                'ok' => [
+                    new XlsxAttachment('export.xlsx', $this->getTestData()->file('.xlsx.csv')),
+                ],
+            ]),
+        ))->getData();
+    }
+
+    /**
+     * @return array<string, array<mixed>>
+     */
+    public function dataProviderExportPdf(): array {
+        return (new CompositeDataProvider(
+            $this->getExportDataProvider(),
+            new ArrayDataProvider([
+                'ok' => [
+                    new PdfAttachment('export.pdf'),
+                ],
+            ]),
+        ))->getData();
+    }
+
+    protected function getExportDataProvider(): DataProvider {
+        $headers    = [
+            'id'                                                => 'Id',
+            'or(nickname, product.name)'                        => 'Name',
+            'concat(location.country.name, location.city.name)' => 'Location',
+            'coverages.*.name'                                  => 'Coverages Names',
+            'coverages'                                         => 'Coverages JSON',
+        ];
+        $properties = <<<'QUERY'
+            id
+            nickname
+            product {
+                name
+            }
+            location {
+                country {
+                    name
+                }
+                city {
+                    name
+                }
+            }
+            coverages {
+                name
+            }
+            QUERY;
+        $factory    = static function (self $test, Organization $org): void {
+            $country   = Country::factory()->create([
+                'name' => 'Country A',
+            ]);
+            $city      = City::factory()->create([
+                'name'       => 'City A',
+                'country_id' => $country,
+            ]);
+            $location  = Location::factory()->create([
+                'country_id' => $country,
+                'city_id'    => $city,
+            ]);
+            $productA  = Product::factory()->create([
+                'name' => 'Product A',
+            ]);
+            $productB  = Product::factory()->create([
+                'name' => 'Product B',
+            ]);
+            $coverageA = Coverage::factory()->create([
+                'id'   => '7a1ec28e-6665-4104-a22d-c7f6ff6ed560',
+                'name' => 'Coverage A',
+            ]);
+            $coverageB = Coverage::factory()->create([
+                'id'   => 'e1253c70-52fa-4283-abcf-0383074fe45b',
+                'name' => 'Coverage B',
+            ]);
+
+            Asset::factory()
+                ->ownedBy($org)
+                ->hasAttached(Collection::make([$coverageA, $coverageB]))
+                ->create([
+                    'id'          => '10a76fcd-3bc2-4dfd-b4bb-5095eabe4ea4',
+                    'nickname'    => 'Asset A',
+                    'product_id'  => $productA,
+                    'location_id' => $location,
+                ]);
+            Asset::factory()
+                ->ownedBy($org)
+                ->hasAttached($coverageB)
+                ->create([
+                    'id'          => '41baddd6-a048-46a8-952f-0c7d4c1b9a33',
+                    'nickname'    => null,
+                    'product_id'  => $productA,
+                    'location_id' => null,
+                ]);
+            Asset::factory()
+                ->ownedBy($org)
+                ->create([
+                    'id'          => '5d153624-a162-4c61-bfef-76fe0acd7fe0',
+                    'nickname'    => null,
+                    'product_id'  => $productB,
+                    'location_id' => null,
+                ]);
+        };
+
+        return new CompositeDataProvider(
             new AuthOrgDataProvider(),
             new OrgUserDataProvider([
                 'customers-view',
             ]),
             new ArrayDataProvider([
                 'no query'                => [
-                    new UnprocessableEntity(),
+                    new ExpectedFinal(new UnprocessableEntity()),
+                    null,
                     null,
                     [
                         'root' => 'data.customers',
                     ],
                 ],
                 'no root'                 => [
-                    new UnprocessableEntity(),
+                    new ExpectedFinal(new UnprocessableEntity()),
+                    null,
                     null,
                     [
                         'query' => 'query { customers { id } }',
                     ],
                 ],
                 'no headers'              => [
-                    new UnprocessableEntity(),
+                    new ExpectedFinal(new UnprocessableEntity()),
+                    null,
                     null,
                     [
                         'root'  => 'data.customers',
@@ -396,7 +512,8 @@ class ExportControllerTest extends TestCase {
                     ],
                 ],
                 'mutation'                => [
-                    new UnprocessableEntity(),
+                    new ExpectedFinal(new UnprocessableEntity()),
+                    null,
                     null,
                     [
                         'root'  => 'data.customers',
@@ -404,9 +521,12 @@ class ExportControllerTest extends TestCase {
                     ],
                 ],
                 'invalid query'           => [
-                    new ValidationErrorResponse([
-                        'query' => ['Cannot query field "sfsdfsdsf" on type "Query".'],
-                    ]),
+                    new ExpectedFinal(
+                        new ValidationErrorResponse([
+                            'query' => ['Cannot query field "sfsdfsdsf" on type "Query".'],
+                        ]),
+                    ),
+                    null,
                     null,
                     [
                         'root'  => 'data.customers',
@@ -414,36 +534,25 @@ class ExportControllerTest extends TestCase {
                     ],
                 ],
                 'without pagination'      => [
-                    new Ok(),
-                    static function (self $test, Organization $org): int {
-                        $assets = Asset::factory()->ownedBy($org)->count(5)->create();
-
-                        return count($assets);
-                    },
+                    new UnknownValue(),
+                    null,
+                    $factory,
                     [
                         'root'    => 'data.assets',
-                        'headers' => [
-                            'id' => 'Id',
-                        ],
-                        'query'   => 'query { assets { id } }',
+                        'query'   => "query { assets { {$properties} } }",
+                        'headers' => $headers,
                     ],
                 ],
                 'with pagination'         => [
-                    new Ok(),
-                    static function (self $test, Organization $org): int {
-                        $assets = Asset::factory()->ownedBy($org)->count(5)->create();
-
-                        return count($assets);
-                    },
+                    new UnknownValue(),
+                    null,
+                    $factory,
                     [
                         'root'      => 'data.assets',
-                        'query'     => <<<'GRAPHQL'
-                            query getAssets($limit: Int, $offset: Int) {
-                                assets(limit: $limit, offset: $offset) {
-                                    id
-                                    product {
-                                        sku
-                                    }
+                        'query'     => <<<GRAPHQL
+                            query getAssets(\$limit: Int, \$offset: Int) {
+                                assets(limit: \$limit, offset: \$offset) {
+                                    {$properties}
                                 }
                             }
                             GRAPHQL
@@ -452,54 +561,42 @@ class ExportControllerTest extends TestCase {
                             'limit'  => null,
                             'offset' => null,
                         ],
-                        'headers'   => [
-                            'id'          => 'Id',
-                            'product.sku' => 'Product',
-                        ],
+                        'headers'   => $headers,
                     ],
                 ],
                 'with limit'              => [
-                    new Ok(),
-                    static function (self $test, Organization $org): int {
-                        Asset::factory()->ownedBy($org)->count(5)->create();
-
-                        return 2;
-                    },
+                    new UnknownValue(),
+                    null,
+                    $factory,
                     [
                         'root'      => 'data.assets',
-                        'headers'   => [
-                            'id' => 'Id',
-                        ],
-                        'query'     => <<<'GRAPHQL'
-                            query getAssets($limit: Int, $offset: Int) {
-                                assets(limit: $limit, offset: $offset) {
-                                    id
+                        'query'     => <<<GRAPHQL
+                            query getAssets(\$limit: Int, \$offset: Int) {
+                                assets(limit: \$limit, offset: \$offset) {
+                                    {$properties}
                                 }
                             }
                             GRAPHQL
                         ,
                         'variables' => [
-                            'limit'  => 2,
+                            'limit'  => 3,
                             'offset' => null,
                         ],
+                        'headers'   => $headers,
                     ],
                 ],
                 'with chunked pagination' => [
-                    new Ok(),
-                    static function (self $test, Organization $org): int {
-                        $assets = Asset::factory()->ownedBy($org)->count(5)->create();
-
-                        return count($assets);
-                    },
+                    new UnknownValue(),
+                    [
+                        'ep.export.chunk' => 2,
+                    ],
+                    $factory,
                     [
                         'root'      => 'data.assets',
-                        'headers'   => [
-                            'id' => 'Id',
-                        ],
-                        'query'     => <<<'GRAPHQL'
-                            query getAssets($limit: Int, $offset: Int) {
-                                assets(limit: $limit, offset: $offset) {
-                                    id
+                        'query'     => <<<GRAPHQL
+                            query getAssets(\$limit: Int, \$offset: Int) {
+                                assets(limit: \$limit, offset: \$offset) {
+                                    {$properties}
                                 }
                             }
                             GRAPHQL
@@ -508,13 +605,11 @@ class ExportControllerTest extends TestCase {
                             'limit'  => 5,
                             'offset' => null,
                         ],
-                    ],
-                    [
-                        'ep.export.chunk' => 2,
+                        'headers'   => $headers,
                     ],
                 ],
             ]),
-        ))->getData();
+        );
     }
     // </editor-fold>
 }

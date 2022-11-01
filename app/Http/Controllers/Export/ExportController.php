@@ -17,7 +17,6 @@ use Illuminate\Auth\AuthenticationException;
 use Illuminate\Contracts\Config\Repository;
 use Illuminate\Contracts\Events\Dispatcher;
 use Illuminate\Contracts\Routing\ResponseFactory;
-use Illuminate\Http\Response;
 use Illuminate\Support\Arr;
 use Iterator;
 use Laravel\Telescope\Telescope;
@@ -72,22 +71,28 @@ class ExportController extends Controller {
         return $this->excel(new XLSXWriter(), $request, __FUNCTION__, 'export.xlsx');
     }
 
-    public function pdf(ExportRequest $request): Response {
-        $rows     = [];
-        $format   = __FUNCTION__;
-        $headers  = static function (array $headers) use (&$rows): void {
-            $rows[] = $headers;
-        };
-        $iterator = $this->getRowsIterator($request, $format, $headers);
-        $items    = iterator_to_array($iterator);
-        $rows     = array_merge($rows, $items);
-        $pdf      = $this->pdf
-            ->loadView('exports.pdf', [
-                'rows' => $rows,
-            ])
-            ->download('export.pdf');
+    public function pdf(ExportRequest $request): StreamedResponse {
+        $filename  = 'export.pdf';
+        $mimetypes = (new MimeTypes())->getMimeTypes(pathinfo($filename, PATHINFO_EXTENSION));
+        $mimetype  = reset($mimetypes);
+        $headers   = [
+            'Content-Type' => "{$mimetype}; charset=UTF-8",
+        ];
 
-        return $pdf;
+        return $this->factory->streamDownload(function () use ($request): void {
+            $rows     = [];
+            $format   = __FUNCTION__;
+            $iterator = $this->getRowsIterator($request, $format, static function (array $headers) use (&$rows): void {
+                $rows[] = $headers;
+            });
+            $items    = iterator_to_array($iterator);
+            $rows     = array_merge($rows, $items);
+            $pdf      = $this->pdf->loadView('exports.pdf', [
+                'rows' => $rows,
+            ]);
+
+            echo $pdf->output();
+        }, $filename, $headers);
     }
 
     protected function excel(
