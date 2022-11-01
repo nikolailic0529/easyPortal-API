@@ -141,6 +141,8 @@
     "validation.map_level": "Value should be between :min and :max",
     "validation.hash_map": "Value should be an array that can contain only string keys.",
     "validation.graphql_query": "GraphQL Query is invalid.",
+    "validation.http.controllers.export.selector_required": "Selector is empty.",
+    "validation.http.controllers.export.selector_invalid": "Selector is invalid.",
     "errors.message": ":message (:code)",
     "errors.unauthenticated": "Unauthenticated.",
     "errors.unauthorized": "Unauthorized.",
