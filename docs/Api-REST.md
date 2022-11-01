@@ -26,20 +26,22 @@ Returns specified `File` as attachment.
 
 Returns GraphQL query result as attachment of the specified format.
 
-| Parameter       | Required? | Type                    | Description                         |
-|-----------------|-----------|-------------------------|-------------------------------------|
-| `{format}`      | Yes       | `csv`, `xlsx` or `pdf`  | File format.                        |
-| `root`          | Yes       | `string`                | The `selector` of main data point.  |
-| `query`         | Yes       | `string`                | GraphQL query.                      |
-| `operationName` |           | `string`                | GraphQL operation name.             |
-| `variables`     |           | `array<string, mixed>`  | GraphQL variables.                  |
-| `headers`       | Yes       | `array<string, string>` | Columns names and value `selector`s |
+| Parameter       | Required? | Type                                                | Description                         |
+|-----------------|-----------|-----------------------------------------------------|-------------------------------------|
+| `{format}`      | Yes       | `csv`, `xlsx` or `pdf`                              | File format.                        |
+| `root`          | Yes       | `string`                                            | The `selector` of main data point.  |
+| `query`         | Yes       | `string`                                            | GraphQL query.                      |
+| `operationName` |           | `string`                                            | GraphQL operation name.             |
+| `variables`     |           | `array<string, mixed>`                              | GraphQL variables.                  |
+| `columns`       | Yes       | `array<int, array{name: string, selector: string}>` | Columns names and value `selector`s |
 
 > ⚠ **Important**
 >
 > Please do not include unnecessary/not used fields into the query because it will lead to performance degradation.
 
 The `query`, `variables` and `operationName` is the standard [GraphQL POST Request](https://graphql.org/learn/serving-over-http/#post-request) parameters.
+
+The `columns` define a list of columns names and associated `selector`s.
 
 The `selector` is the dot separated string that defines a path to select value from results. Scalar values will be returned as is, but if the value is a scalar it will be encoded into JSON. For columns the path is relative to the `root` selector. It also supports a few simple functions to modify the value, they are described below.
 

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Export;
 
+use App\Http\Controllers\Export\Rules\Selector;
 use App\Rules\GraphQL\Query as IsGraphQLQuery;
 use App\Rules\HashMap as IsHashMap;
 use Illuminate\Foundation\Http\FormRequest;
@@ -9,7 +10,7 @@ use Illuminate\Foundation\Http\FormRequest;
 /**
  * @phpstan-type Query array{
  *          root: string,
- *          headers: array<string,string>,
+ *          columns: non-empty-array<int, array{name: string, selector: string}>,
  *          query: string,
  *          operationName?: string,
  *          variables?: (array<string, mixed>&array{limit?: ?int, offset?: ?int})|null,
@@ -25,17 +26,18 @@ class ExportRequest extends FormRequest {
      *
      * @return array<string,mixed>
      */
-    public function rules(IsGraphQLQuery $isGraphQLQuery, IsHashMap $isHashMap): array {
+    public function rules(IsGraphQLQuery $isGraphQLQuery, IsHashMap $isHashMap, Selector $selector): array {
         return [
-            'root'             => 'required|string',
-            'query'            => ['required', 'string', $isGraphQLQuery],
-            'operationName'    => 'string',
-            'variables'        => $isHashMap,
-            'variables.*'      => 'nullable',
-            'variables.limit'  => 'nullable|integer|min:1',
-            'variables.offset' => 'nullable|integer|min:1',
-            'headers'          => ['required', $isHashMap],
-            'headers.*'        => 'required|string|min:1',
+            'root'               => 'required|string',
+            'query'              => ['required', 'string', $isGraphQLQuery],
+            'operationName'      => 'string',
+            'variables'          => $isHashMap,
+            'variables.*'        => 'nullable',
+            'variables.limit'    => 'nullable|integer|min:1',
+            'variables.offset'   => 'nullable|integer|min:1',
+            'columns'            => 'required|array',
+            'columns.*.name'     => 'required|string',
+            'columns.*.selector' => ['required', 'string', $selector],
         ];
     }
 

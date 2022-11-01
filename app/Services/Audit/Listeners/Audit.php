@@ -60,9 +60,8 @@ class Audit implements Subscriber {
 
     public function queryExported(QueryExported $event): void {
         $this->auditor->create(Action::exported(), [
-            'type'    => $event->getType(),
-            'query'   => $event->getRoot(),
-            'headers' => $event->getHeaders(),
+            'type'  => $event->getType(),
+            'query' => $event->getQuery(),
         ]);
     }
 

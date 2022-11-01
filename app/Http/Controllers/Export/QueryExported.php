@@ -2,14 +2,16 @@
 
 namespace App\Http\Controllers\Export;
 
+/**
+ * @phpstan-import-type Query from ExportRequest
+ */
 class QueryExported {
     /**
-     * @param array<string>|null $headers
+     * @param Query $query
      */
     public function __construct(
         protected string $type,
-        protected string $root,
-        protected ?array $headers,
+        protected array $query,
     ) {
         // empty
     }
@@ -18,14 +20,10 @@ class QueryExported {
         return $this->type;
     }
 
-    public function getRoot(): string {
-        return $this->root;
-    }
-
     /**
-     * @return array<string>|null
+     * @return Query
      */
-    public function getHeaders(): ?array {
-        return $this->headers;
+    public function getQuery(): array {
+        return $this->query;
     }
 }

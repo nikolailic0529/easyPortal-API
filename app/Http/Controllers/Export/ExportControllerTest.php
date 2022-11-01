@@ -52,32 +52,6 @@ class ExportControllerTest extends TestCase {
     // <editor-fold desc="Tests">
     // =========================================================================
     /**
-     * @covers ::getHeaders
-     *
-     * @dataProvider dataProviderGetHeaders
-     *
-     * @param Query $parameters
-     */
-    public function testGetHeaders(mixed $expected, array $parameters): void {
-        $controller = new class() extends ExportController {
-            /** @noinspection PhpMissingParentConstructorInspection */
-            public function __construct() {
-                // empty
-            }
-
-            /**
-             * @inheritdoc
-             */
-            public function getHeaders(array $parameters): ?array {
-                return parent::getHeaders($parameters);
-            }
-        };
-        $actual     = $controller->getHeaders($parameters);
-
-        self::assertEquals($expected, $actual);
-    }
-
-    /**
      * @covers ::csv
      *
      * @dataProvider dataProviderExportCsv
@@ -102,8 +76,11 @@ class ExportControllerTest extends TestCase {
         $data ??= [
             'root'    => 'data.assets',
             'query'   => 'query { assets { id } }',
-            'headers' => [
-                'id' => 'Id',
+            'columns' => [
+                [
+                    'name'     => 'Id',
+                    'selector' => 'id',
+                ],
             ],
         ];
 
@@ -167,8 +144,11 @@ class ExportControllerTest extends TestCase {
         $data ??= [
             'root'    => 'data.assets',
             'query'   => 'query { assets { id } }',
-            'headers' => [
-                'id' => 'Id',
+            'columns' => [
+                [
+                    'name'     => 'Id',
+                    'selector' => 'id',
+                ],
             ],
         ];
 
@@ -232,8 +212,11 @@ class ExportControllerTest extends TestCase {
         $data ??= [
             'root'    => 'data.assets',
             'query'   => 'query { assets { id } }',
-            'headers' => [
-                'id' => 'Id',
+            'columns' => [
+                [
+                    'name'     => 'Id',
+                    'selector' => 'id',
+                ],
             ],
         ];
 
@@ -277,86 +260,8 @@ class ExportControllerTest extends TestCase {
     }
     // </editor-fold>
 
-    // <editor-fold desc="Helpers">
-    // =========================================================================
-    /**
-     * @param OrganizationFactory                         $orgFactory
-     * @param UserFactory                                 $userFactory
-     * @param Closure(static, ?Organization, ?User): ?int $factory
-     * @param array<string, mixed>                        $data
-     * @param SettingsFactory                             $settingsFactory
-     *
-     * @return array{?Organization,?User,array<string,mixed>,?int}
-     */
-    protected function prepare(
-        mixed $orgFactory,
-        mixed $userFactory = null,
-        Closure $factory = null,
-        array $data = [],
-        mixed $settingsFactory = null,
-    ): array {
-        $org   = $this->setOrganization($orgFactory);
-        $user  = $this->setUser($userFactory, $org);
-        $count = null;
-
-        $this->setSettings($settingsFactory);
-
-        if ($factory) {
-            $count = $factory($this, $org, $user);
-        }
-
-        if (!$data) {
-            $data = [
-                'root'    => 'data.customers',
-                'query'   => 'query { customers { id } }',
-                'headers' => [
-                    'id' => 'Id',
-                ],
-            ];
-        }
-
-        return [$org, $user, $data, $count];
-    }
-    //</editor-fold>
-
     // <editor-fold desc="DataProviders">
     // =========================================================================
-    /**
-     * @return array<string, array{mixed,mixed}>
-     */
-    public function dataProviderGetHeaders(): array {
-        return [
-            'normal' => [
-                [
-                    'A',
-                    '',
-                    'C',
-                ],
-                [
-                    'root'    => '',
-                    'query'   => '',
-                    'headers' => [
-                        'a' => 'A',
-                        'b' => '',
-                        'c' => 'C',
-                    ],
-                ],
-            ],
-            'empty'  => [
-                null,
-                [
-                    'root'    => '',
-                    'query'   => '',
-                    'headers' => [
-                        'a' => '',
-                        'b' => '',
-                        'c' => '',
-                    ],
-                ],
-            ],
-        ];
-    }
-
     /**
      * @return array<string, array<mixed>>
      */
@@ -400,12 +305,27 @@ class ExportControllerTest extends TestCase {
     }
 
     protected function getExportDataProvider(): DataProvider {
-        $headers    = [
-            'id'                                                => 'Id',
-            'or(nickname, product.name)'                        => 'Name',
-            'concat(location.country.name, location.city.name)' => 'Location',
-            'coverages.*.name'                                  => 'Coverages Names',
-            'coverages'                                         => 'Coverages JSON',
+        $columns    = [
+            [
+                'name'     => 'Id',
+                'selector' => 'id',
+            ],
+            [
+                'name'     => 'Name',
+                'selector' => 'or(nickname, product.name)',
+            ],
+            [
+                'name'     => 'Location',
+                'selector' => 'concat(location.country.name, location.city.name)',
+            ],
+            [
+                'name'     => 'Coverages Names',
+                'selector' => 'coverages.*.name',
+            ],
+            [
+                'name'     => 'Coverages JSON',
+                'selector' => 'coverages',
+            ],
         ];
         $properties = <<<'QUERY'
             id
@@ -502,13 +422,40 @@ class ExportControllerTest extends TestCase {
                         'query' => 'query { customers { id } }',
                     ],
                 ],
-                'no headers'              => [
+                'no columns'              => [
                     new ExpectedFinal(new UnprocessableEntity()),
                     null,
                     null,
                     [
                         'root'  => 'data.customers',
                         'query' => 'query { customers { id } }',
+                    ],
+                ],
+                'empty columns'           => [
+                    new ExpectedFinal(new UnprocessableEntity()),
+                    null,
+                    null,
+                    [
+                        'root'    => 'data.customers',
+                        'query'   => 'query { customers { id } }',
+                        'columns' => [
+                            // empty
+                        ],
+                    ],
+                ],
+                'no column name'          => [
+                    new ExpectedFinal(new UnprocessableEntity()),
+                    null,
+                    null,
+                    [
+                        'root'    => 'data.customers',
+                        'query'   => 'query { customers { id } }',
+                        'columns' => [
+                            [
+                                'name'     => '',
+                                'selector' => 'abc',
+                            ],
+                        ],
                     ],
                 ],
                 'mutation'                => [
@@ -540,7 +487,7 @@ class ExportControllerTest extends TestCase {
                     [
                         'root'    => 'data.assets',
                         'query'   => "query { assets { {$properties} } }",
-                        'headers' => $headers,
+                        'columns' => $columns,
                     ],
                 ],
                 'with pagination'         => [
@@ -561,7 +508,7 @@ class ExportControllerTest extends TestCase {
                             'limit'  => null,
                             'offset' => null,
                         ],
-                        'headers'   => $headers,
+                        'columns'   => $columns,
                     ],
                 ],
                 'with limit'              => [
@@ -582,7 +529,7 @@ class ExportControllerTest extends TestCase {
                             'limit'  => 3,
                             'offset' => null,
                         ],
-                        'headers'   => $headers,
+                        'columns'   => $columns,
                     ],
                 ],
                 'with chunked pagination' => [
@@ -605,7 +552,7 @@ class ExportControllerTest extends TestCase {
                             'limit'  => 5,
                             'offset' => null,
                         ],
-                        'headers'   => $headers,
+                        'columns'   => $columns,
                     ],
                 ],
             ]),

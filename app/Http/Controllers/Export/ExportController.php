@@ -31,12 +31,10 @@ use OpenSpout\Writer\XLSX\Writer as XLSXWriter;
 use Symfony\Component\HttpFoundation\StreamedResponse;
 use Symfony\Component\Mime\MimeTypes;
 
+use function array_column;
 use function array_fill;
-use function array_filter;
 use function array_key_exists;
-use function array_keys;
 use function array_merge;
-use function array_values;
 use function assert;
 use function count;
 use function is_array;
@@ -82,8 +80,8 @@ class ExportController extends Controller {
         return $this->factory->streamDownload(function () use ($request): void {
             $rows     = [];
             $format   = __FUNCTION__;
-            $iterator = $this->getRowsIterator($request, $format, static function (array $headers) use (&$rows): void {
-                $rows[] = $headers;
+            $iterator = $this->getRowsIterator($request, $format, static function (array $names) use (&$rows): void {
+                $rows[] = $names;
             });
             $items    = iterator_to_array($iterator);
             $rows     = array_merge($rows, $items);
@@ -110,13 +108,12 @@ class ExportController extends Controller {
         $writer->openToFile('php://output');
 
         return $this->factory->streamDownload(function () use ($writer, $request, $format): void {
-            $headers  = static function (array $headers) use ($writer): void {
+            $iterator = $this->getRowsIterator($request, $format, static function (array $names) use ($writer): void {
                 $style = (new Style())->setFontBold();
-                $row   = Row::fromValues($headers, $style);
+                $row   = Row::fromValues($names, $style);
 
                 $writer->addRow($row);
-            };
-            $iterator = $this->getRowsIterator($request, $format, $headers);
+            });
 
             foreach ($iterator as $row) {
                 $writer->addRow(Row::fromValues($row));
@@ -127,25 +124,23 @@ class ExportController extends Controller {
     }
 
     /**
-     * @param Closure(array<string>): void $headersCallback
+     * @param Closure(array<string>): void $headerCallback
      *
      * @return Iterator<array<scalar|null>>
      */
-    protected function getRowsIterator(ExportRequest $request, string $format, Closure $headersCallback): Iterator {
+    protected function getRowsIterator(ExportRequest $request, string $format, Closure $headerCallback): Iterator {
         // Headers
-        $parameters = $request->validated();
-        $headers    = $this->getHeaders($parameters);
+        $query = $request->validated();
+        $names = array_column($query['columns'], 'name');
 
-        if ($headers) {
-            $headersCallback($headers);
-        }
+        $headerCallback($names);
 
         // Iteration
         $empty    = true;
-        $count    = count($parameters['headers']);
-        $columns  = array_keys($parameters['headers']);
+        $count    = count($query['columns']);
+        $columns  = array_column($query['columns'], 'selector');
         $selector = SelectorFactory::make($columns);
-        $iterator = $this->getIterator($request, $parameters, $format);
+        $iterator = $this->getIterator($request, $query, $format);
 
         foreach ($iterator as $item) {
             // Fill
@@ -167,15 +162,15 @@ class ExportController extends Controller {
     }
 
     /**
-     * @param Query               $parameters
+     * @param Query               $query
      * @param array<string,mixed> $variables
      *
      * @return array<mixed>
      */
-    protected function execute(GraphQLContext $context, array $parameters, array $variables): array {
-        $operation = $this->getOperation($parameters, $variables);
+    protected function execute(GraphQLContext $context, array $query, array $variables): array {
+        $operation = $this->getOperation($query, $variables);
         $result    = $this->graphQL->executeOperation($operation, $context);
-        $root      = $parameters['root'] ?: 'data';
+        $root      = $query['root'] ?: 'data';
 
         if (isset($result['errors']) && is_array($result['errors'])) {
             switch ($result['errors'][0]['extensions']['category'] ?? null) {
@@ -194,26 +189,26 @@ class ExportController extends Controller {
     }
 
     /**
-     * @param Query $parameters
+     * @param Query $query
      *
      * @return ObjectIterator<array<string,scalar|null>>
      */
-    protected function getIterator(ExportRequest $request, array $parameters, string $format): ObjectIterator {
+    protected function getIterator(ExportRequest $request, array $query, string $format): ObjectIterator {
         $limit           = $this->config->get('ep.export.limit');
         $chunk           = $this->config->get('ep.export.chunk');
         $context         = $this->context->generate($request);
-        $executor        = function (array $variables) use ($context, $parameters): array {
-            return $this->execute($context, $parameters, $variables);
+        $executor        = function (array $variables) use ($context, $query): array {
+            return $this->execute($context, $query, $variables);
         };
-        $variables       = $parameters['variables'] ?? [];
+        $variables       = $query['variables'] ?? [];
         $iterator        = array_key_exists('offset', $variables) && array_key_exists('limit', $variables)
             ? new OffsetBasedObjectIterator($executor)
             : new OneChunkOffsetBasedObjectIterator($executor);
         $recording       = null;
         $paginationLimit = null;
 
-        $iterator->setLimit(min($parameters['variables']['limit'] ?? $limit, $limit));
-        $iterator->setOffset($parameters['variables']['offset'] ?? null);
+        $iterator->setLimit(min($query['variables']['limit'] ?? $limit, $limit));
+        $iterator->setOffset($query['variables']['offset'] ?? null);
         $iterator->setChunkSize($chunk);
         $iterator->onInit(function () use (&$recording, &$paginationLimit, $chunk): void {
             // Telescope should be disabled because it stored all data in memory
@@ -242,38 +237,22 @@ class ExportController extends Controller {
                 $this->config->set('ep.pagination.limit.max', $paginationLimit);
             }
         });
-        $iterator->onBeforeChunk(function () use ($parameters, $format): void {
-            $this->dispatcher->dispatch(new QueryExported(
-                $format,
-                $parameters['root'],
-                $parameters['headers'],
-            ));
+        $iterator->onBeforeChunk(function () use ($query, $format): void {
+            $this->dispatcher->dispatch(new QueryExported($format, $query));
         });
 
         return $iterator;
     }
 
     /**
-     * @param Query $parameters
-     *
-     * @return non-empty-array<string>|null
-     */
-    protected function getHeaders(array $parameters): ?array {
-        $headers = array_values($parameters['headers']);
-        $headers = array_filter($headers) ? $headers : null;
-
-        return $headers;
-    }
-
-    /**
-     * @param Query               $parameters
+     * @param Query               $query
      * @param array<string,mixed> $variables
      */
-    protected function getOperation(array $parameters, array $variables): OperationParams {
-        $parameters = array_merge($parameters, [
-            'variables' => array_merge($parameters['variables'] ?? [], $variables),
+    protected function getOperation(array $query, array $variables): OperationParams {
+        $query     = array_merge($query, [
+            'variables' => array_merge($query['variables'] ?? [], $variables),
         ]);
-        $operation  = $this->helper->parseRequestParams('GET', [], Arr::only($parameters, [
+        $operation = $this->helper->parseRequestParams('GET', [], Arr::only($query, [
             'query',
             'variables',
             'operationName',
