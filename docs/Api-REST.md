@@ -2,9 +2,11 @@
 
 How to find permissions/etc please see in [API Interaction](./API-Interaction.md).
 
+
 ## `GET /application`
 
 Returns Application information in JSON.
+
 
 ## `GET /oems/{oem}`
 
@@ -14,6 +16,7 @@ Returns Service Groups/Levels translations as attachment.
 |-----------|-------------|
 | `{oem}`   | Oem UUID    |
 
+
 ## `GET /files/{file}`
 
 Returns specified `File` as attachment.
@@ -21,6 +24,7 @@ Returns specified `File` as attachment.
 | Parameter | Description |
 |-----------|-------------|
 | `{file}`  | File UUID   |
+
 
 ## `POST /download/{format}`
 
@@ -113,6 +117,7 @@ query {
 
 ### Available functions
 
+
 #### `concat(selector-a, selector-b, ...)`
 
 Returns the string that results from concatenating the truthy `selector` values by the space (` `).
@@ -131,7 +136,66 @@ Returns the first truthy `selector` values.
 | `concat(nickname, product.name)` | `Product A` |
 
 
-### Non-paginated query
+### Non-paginated queries
+
+```http request
+POST https://example.com/api/download/csv
+Accept: application/json
+Content-Type: application/json
+
+{
+  "root": "data.assetTypes",
+  "query": "query { assetTypes { key name } }",
+  "columns": [
+    {
+      "name": "Key",
+      "selector": "key"
+    },
+    {
+      "name": "Name",
+      "selector": "name"
+    }
+  ]
+}
+```
+
+```csv
+Key,Name
+Hardware,Hardware
+Software,Software
+```
 
 
-### Paginated query
+### Paginated queries
+
+Paginated queries require two variables `limit` and `offset` as an indication that we need iterate over several pages. If you need all results, you should set values of these variables to `null`.
+
+```http request
+POST http://easyportal.test/api/download/csv
+accept: application/json
+Content-Type: application/json
+
+{
+  "root": "data.assets",
+  "query": "query assets($limit: Int, $offset: Int) { assets(limit: $limit, offset: $offset) { id product{ name } }}",
+  "columns": [
+    {
+      "name": "Id",
+      "selector": "id"
+    },
+    {
+      "name": "Name",
+      "selector": "product.name"
+    }
+  ],
+  "variables": {
+    "offset": null,
+    "limit": null
+  }
+}
+```
+
+```csv
+Id,Name
+00000000-0000-0000-0000-000000000000,"Product A"
+```
