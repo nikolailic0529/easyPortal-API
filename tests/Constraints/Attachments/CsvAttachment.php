@@ -4,14 +4,14 @@ namespace Tests\Constraints\Attachments;
 
 use LastDragon_ru\LaraASP\Testing\Constraints\Response\ContentType;
 use SplFileInfo;
-use Tests\Constraints\ContentTypes\XlsxContentType;
+use Tests\Constraints\ContentTypes\CsvContentType;
 
-class XlsxAttachment extends SpreadsheetAttachment {
+class CsvAttachment extends SpreadsheetAttachment {
     protected function getContentTypeConstraint(): ContentType {
-        return new XlsxContentType();
+        return new CsvContentType();
     }
 
     protected function getAttachmentContentConstraint(SplFileInfo|string $content): SpreadsheetContent {
-        return new XlsxAttachmentContent($content);
+        return new CsvAttachmentContent($content);
     }
 }

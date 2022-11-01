@@ -2,9 +2,9 @@
 
 namespace Tests\Constraints\Attachments;
 
-use OpenSpout\Reader\XLSX\Reader;
+use OpenSpout\Reader\CSV\Reader;
 
-class XlsxAttachmentContent extends SpreadsheetContent {
+class CsvAttachmentContent extends SpreadsheetContent {
     protected function getReader(): Reader {
         return new Reader();
     }
