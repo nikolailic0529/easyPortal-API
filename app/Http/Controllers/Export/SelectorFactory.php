@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Export;
 
-use App\Http\Controllers\Export\Exceptions\SelectorUnknownFunction;
+use App\Http\Controllers\Export\Exceptions\SelectorFunctionUnknown;
 use App\Http\Controllers\Export\Selectors\Asterisk;
 use App\Http\Controllers\Export\Selectors\Concat;
 use App\Http\Controllers\Export\Selectors\Group;
@@ -56,14 +56,14 @@ class SelectorFactory {
 
             if ($arguments) {
                 switch ($function) {
-                    case 'concat':
+                    case Concat::getName():
                         $instance = new Concat($arguments, $index);
                         break;
-                    case 'or':
+                    case LogicalOr::getName():
                         $instance = new LogicalOr($arguments, $index);
                         break;
                     default:
-                        throw new SelectorUnknownFunction($function);
+                        throw new SelectorFunctionUnknown($function);
                 }
             }
         } else {

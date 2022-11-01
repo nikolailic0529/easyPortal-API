@@ -2,20 +2,40 @@
 
 namespace App\Http\Controllers\Export\Selectors;
 
+use App\Http\Controllers\Export\Exceptions\SelectorFunctionToFewArguments;
+use App\Http\Controllers\Export\Exceptions\SelectorFunctionToManyArguments;
 use App\Http\Controllers\Export\Selector;
 
+use function count;
 use function reset;
 
 abstract class Modifier implements Selector {
     /**
-     * @param non-empty-array<Selector> $arguments
+     * @param array<Selector> $arguments
      */
     public function __construct(
         protected array $arguments,
         protected int $index,
     ) {
-        // empty
+        $min   = static::getArgumentsMinCount();
+        $max   = static::getArgumentsMaxCount();
+        $name  = static::getName();
+        $count = count($this->arguments);
+
+        if ($min !== null && $count < $min) {
+            throw new SelectorFunctionToFewArguments($name, $min, $count);
+        }
+
+        if ($max !== null && $count > $max) {
+            throw new SelectorFunctionToManyArguments($name, $max, $count);
+        }
     }
+
+    abstract public static function getName(): string;
+
+    abstract public static function getArgumentsMinCount(): ?int;
+
+    abstract public static function getArgumentsMaxCount(): ?int;
 
     /**
      * @param array<scalar|null|array<scalar|null>> $item

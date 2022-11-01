@@ -3,6 +3,18 @@
 namespace App\Http\Controllers\Export\Selectors;
 
 class LogicalOr extends Modifier {
+    public static function getName(): string {
+        return 'or';
+    }
+
+    public static function getArgumentsMinCount(): ?int {
+        return 2;
+    }
+
+    public static function getArgumentsMaxCount(): ?int {
+        return null;
+    }
+
     /**
      * @inheritdoc
      */

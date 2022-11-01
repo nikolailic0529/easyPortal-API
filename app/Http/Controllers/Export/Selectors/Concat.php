@@ -6,6 +6,18 @@ use function array_filter;
 use function implode;
 
 class Concat extends Modifier {
+    public static function getName(): string {
+        return 'concat';
+    }
+
+    public static function getArgumentsMinCount(): ?int {
+        return 2;
+    }
+
+    public static function getArgumentsMaxCount(): ?int {
+        return null;
+    }
+
     /**
      * @inheritdoc
      */
