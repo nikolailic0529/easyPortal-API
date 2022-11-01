@@ -6,12 +6,24 @@ use Illuminate\Routing\ResponseFactory;
 use LastDragon_ru\LaraASP\Testing\Constraints\Response\ContentType;
 use LastDragon_ru\LaraASP\Testing\Constraints\Response\Header;
 use LastDragon_ru\LaraASP\Testing\Constraints\Response\Response;
+use PHPUnit\Framework\Constraint\Constraint;
 use PHPUnit\Framework\Constraint\IsEqual;
 use SplFileInfo;
 use Symfony\Component\HttpFoundation\HeaderUtils;
 
-abstract class SpreadsheetAttachment extends Response {
+abstract class Attachment extends Response {
     public function __construct(string $name, SplFileInfo|string $content = null) {
+        parent::__construct(...$this->getResponseConstraints($name, $content));
+    }
+
+    abstract protected function getContentTypeConstraint(): ContentType;
+
+    abstract protected function getAttachmentContentConstraint(SplFileInfo|string $content): Constraint;
+
+    /**
+     * @return array<Constraint>
+     */
+    protected function getResponseConstraints(string $name, SplFileInfo|string $content = null): array {
         $helper      = new class() extends ResponseFactory {
             /**
              * @noinspection PhpMissingParentConstructorInspection
@@ -38,10 +50,6 @@ abstract class SpreadsheetAttachment extends Response {
             $constraints[] = $this->getAttachmentContentConstraint($content);
         }
 
-        parent::__construct(...$constraints);
+        return $constraints;
     }
-
-    abstract protected function getContentTypeConstraint(): ContentType;
-
-    abstract protected function getAttachmentContentConstraint(SplFileInfo|string $content): SpreadsheetContent;
 }

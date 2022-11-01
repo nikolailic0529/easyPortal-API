@@ -6,7 +6,7 @@ use LastDragon_ru\LaraASP\Testing\Constraints\Response\ContentType;
 use SplFileInfo;
 use Tests\Constraints\ContentTypes\XlsxContentType;
 
-class XlsxAttachment extends SpreadsheetAttachment {
+class XlsxAttachment extends Attachment {
     protected function getContentTypeConstraint(): ContentType {
         return new XlsxContentType();
     }

@@ -40,21 +40,24 @@ abstract class SpreadsheetContent extends Response {
     }
 
     protected function toCsv(StreamInterface $xlsx): string {
-        $source = $this->getTempFile((string) $xlsx);
-        $target = $this->getTempFile();
-        $reader = $this->getReader();
-        $writer = new CsvWriter(tap(new CsvOptions(), static function (CsvOptions $options): void {
+        $source       = $this->getTempFile((string) $xlsx);
+        $target       = $this->getTempFile();
+        $reader       = $this->getReader();
+        $writer       = new CsvWriter(tap(new CsvOptions(), static function (CsvOptions $options): void {
             $options->SHOULD_ADD_BOM = false;
         }));
+        $isMultiSheet = !($reader instanceof CsvReader);
 
         try {
             $reader->open($source->getPathname());
             $writer->openToFile($target->getPathname());
 
             foreach ($reader->getSheetIterator() as $sheet) {
-                $writer->addRow(Row::fromValues([
-                    "Sheet #{$sheet->getIndex()}: {$sheet->getName()}",
-                ]));
+                if ($isMultiSheet) {
+                    $writer->addRow(Row::fromValues([
+                        "Sheet #{$sheet->getIndex()}: {$sheet->getName()}",
+                    ]));
+                }
 
                 foreach ($sheet->getRowIterator() as $row) {
                     $writer->addRow($row);
