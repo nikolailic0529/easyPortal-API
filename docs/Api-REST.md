@@ -30,15 +30,16 @@ Returns specified `File` as attachment.
 
 Returns GraphQL query result as attachment of the specified format.
 
-| Parameter            | Required? | Type                   | Description                        |
-|----------------------|-----------|------------------------|------------------------------------|
-| `{format}`           | Yes       | `csv`, `xlsx` or `pdf` | File format.                       |
-| `root`               | Yes       | `string`               | The `selector` of main data point. |
-| `query`              | Yes       | `string`               | GraphQL query.                     |
-| `operationName`      |           | `string`               | GraphQL operation name.            |
-| `variables`          |           | `array<string, mixed>` | GraphQL variables.                 |
-| `columns.*.name`     | Yes       | `string`               | Column name.                       |
-| `columns.*.selector` | Yes       | `string`               | Value `selector`.                  |
+| Parameter            | Required? | Type                   | Description                               |
+|----------------------|-----------|------------------------|-------------------------------------------|
+| `{format}`           | Yes       | `csv`, `xlsx` or `pdf` | File format.                              |
+| `root`               | Yes       | `string`               | The `selector` of main data point.        |
+| `query`              | Yes       | `string`               | GraphQL query.                            |
+| `operationName`      |           | `string`               | GraphQL operation name.                   |
+| `variables`          |           | `array<string, mixed>` | GraphQL variables.                        |
+| `columns.*.name`     | Yes       | `string`               | Column name.                              |
+| `columns.*.selector` | Yes       | `string`               | Value `selector`.                         |
+| `columns.*.merge`    |           | `boolean`              | Merge cells with same value (`xlsx` only) |
 
 > ⚠ **Important**
 >

@@ -10,7 +10,11 @@ use Illuminate\Foundation\Http\FormRequest;
 /**
  * @phpstan-type Query array{
  *          root: string,
- *          columns: non-empty-array<int, array{name: string, selector: string}>,
+ *          columns: non-empty-array<int, array{
+ *              name: string,
+ *              selector: string,
+ *              merge?: ?boolean
+ *          }>,
  *          query: string,
  *          operationName?: string,
  *          variables?: (array<string, mixed>&array{limit?: ?int, offset?: ?int})|null,
@@ -37,6 +41,7 @@ class ExportRequest extends FormRequest {
             'variables.offset'   => 'nullable|integer|min:1',
             'columns'            => 'required|array',
             'columns.*.name'     => 'required|string',
+            'columns.*.merge'    => 'boolean',
             'columns.*.selector' => ['required', 'string', $selector],
         ];
     }

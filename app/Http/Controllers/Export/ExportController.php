@@ -31,10 +31,10 @@ use OpenSpout\Writer\XLSX\Writer as XLSXWriter;
 use Symfony\Component\HttpFoundation\StreamedResponse;
 use Symfony\Component\Mime\MimeTypes;
 
-use function array_column;
 use function array_fill;
 use function array_key_exists;
 use function array_merge;
+use function array_values;
 use function assert;
 use function count;
 use function is_array;
@@ -99,60 +99,120 @@ class ExportController extends Controller {
         string $format,
         string $filename,
     ): StreamedResponse {
-        $mimetypes = (new MimeTypes())->getMimeTypes(pathinfo($filename, PATHINFO_EXTENSION));
-        $mimetype  = reset($mimetypes);
-        $headers   = [
+        $mimetypes      = (new MimeTypes())->getMimeTypes(pathinfo($filename, PATHINFO_EXTENSION));
+        $mimetype       = reset($mimetypes);
+        $headers        = [
             'Content-Type' => "{$mimetype}; charset=UTF-8",
         ];
+        $headerCallback = static function (array $names) use ($writer): void {
+            $style = (new Style())->setFontBold();
+            $row   = Row::fromValues($names, $style);
 
-        $writer->openToFile('php://output');
+            $writer->addRow($row);
+        };
+        $mergeCallback  = null;
 
-        return $this->factory->streamDownload(function () use ($writer, $request, $format): void {
-            $iterator = $this->getRowsIterator($request, $format, static function (array $names) use ($writer): void {
-                $style = (new Style())->setFontBold();
-                $row   = Row::fromValues($names, $style);
+        if ($writer instanceof XLSXWriter) {
+            $mergeCallback = static function (MergedCells $merged) use ($writer): void {
+                $offset = 2; // +1 for header; +1 because row coordinates are indexed from 1
 
-                $writer->addRow($row);
-            });
+                $writer->getOptions()->mergeCells(
+                    $merged->getColumn(),
+                    $merged->getStartRow() + $offset,
+                    $merged->getColumn(),
+                    $merged->getEndRow() + $offset,
+                );
+            };
+        }
 
-            foreach ($iterator as $row) {
-                $writer->addRow(Row::fromValues($row));
-            }
+        return $this->factory->streamDownload(
+            function () use ($writer, $request, $format, $headerCallback, $mergeCallback): void {
+                $writer->openToFile('php://output');
 
-            $writer->close();
-        }, $filename, $headers);
+                $iterator = $this->getRowsIterator($request, $format, $headerCallback, $mergeCallback);
+
+                foreach ($iterator as $row) {
+                    $writer->addRow(Row::fromValues($row));
+                }
+
+                $writer->close();
+            },
+            $filename,
+            $headers,
+        );
     }
 
     /**
-     * @param Closure(array<string>): void $headerCallback
+     * @param Closure(array<string|null>): void $headerCallback
+     * @param Closure(MergedCells): void|null   $mergeCallback
      *
      * @return Iterator<array<scalar|null>>
      */
-    protected function getRowsIterator(ExportRequest $request, string $format, Closure $headerCallback): Iterator {
-        // Headers
-        $query = $request->validated();
-        $names = array_column($query['columns'], 'name');
+    protected function getRowsIterator(
+        ExportRequest $request,
+        string $format,
+        Closure $headerCallback,
+        Closure $mergeCallback = null,
+    ): Iterator {
+        // Prepare
+        $query   = $request->validated();
+        $count   = count($query['columns']);
+        $names   = array_fill(0, $count, null);
+        $merges  = [];
+        $columns = [];
 
+        foreach (array_values($query['columns']) as $index => $column) {
+            assert($index >= 0, <<<'REASON'
+                PHPStan false positive, seems fixed in >1.8.11
+
+                https://phpstan.org/r/031dd218-f577-4ea1-96d7-05d7094543e3
+            REASON);
+
+            $names[$index]   = $column['name'];
+            $columns[$index] = $column['selector'];
+
+            if ($mergeCallback && isset($column['merge']) && $column['merge']) {
+                $merges[$index] = new MergedCells($index);
+            }
+        }
+
+        // Headers
         $headerCallback($names);
 
         // Iteration
         $empty    = true;
-        $count    = count($query['columns']);
-        $columns  = array_column($query['columns'], 'selector');
         $selector = SelectorFactory::make($columns);
         $iterator = $this->getIterator($request, $query, $format);
 
-        foreach ($iterator as $item) {
+        foreach ($iterator as $index => $item) {
             // Fill
             $row = array_fill(0, $count, null);
 
             $selector->fill($item, $row);
+
+            // Merge
+            foreach ($merges as $merge) {
+                $merged = $merge->merge($index, $row[$merge->getColumn()] ?? null);
+
+                if ($merged && $mergeCallback) {
+                    $mergeCallback($merged);
+                }
+            }
 
             // Iterate
             yield $row;
 
             // Mark
             $empty = false;
+        }
+
+        // Rest
+        if ($mergeCallback) {
+            foreach ($merges as $merge) {
+                if ($merge->isMerged()) {
+                    $mergeCallback($merge);
+                }
+            }
         }
 
         // Empty
