@@ -14,21 +14,7 @@ use const JSON_THROW_ON_ERROR;
 use const JSON_UNESCAPED_SLASHES;
 use const JSON_UNESCAPED_UNICODE;
 
-class Value implements Selector {
-    public function __construct(
-        protected string $property,
-        protected int $index,
-    ) {
-        // empty
-    }
-
-    /**
-     * @inheritdoc
-     */
-    public function fill(array $item, array &$row): void {
-        $row[$this->index] = $this->value($item[$this->property] ?? null);
-    }
-
+abstract class Value implements Selector {
     protected function value(mixed $value): string|float|int|bool|null {
         if ($value === null || is_scalar($value)) {
             if (is_string($value)) {

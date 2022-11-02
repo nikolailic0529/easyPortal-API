@@ -51,7 +51,7 @@ The `columns` define a list of columns names and associated `selector`s.
 The `selector` is the dot separated string that defines a path to select value from results. Scalar values will be returned as is, but if the value is not a scalar it will be encoded into JSON. If property does not exist the `null` will be returned. For columns the path is relative to the `root` selector. It also supports a few simple functions to modify the value, they are described below.
 
 - `path.to.field` - get the value from the path;
-- `items.*.field` - get the value for each item in `items` and return a string containing a string representation of all truthy items in the same order, with the `, ` between each item. If `items` is not an array or `field` doesn't exist, the `null` will be returned. Please note that the `field` cannot contain dots;
+- `items.*.path.to.field` - get the value for each item in `items` and return a string containing a string representation of all truthy items in the same order, with the `, ` between each item. If `items` is not an array or `field` doesn't exist, the `null` will be returned;
 - `function(path.to.a, path.to.b)` - function call (see below);
 
 | Example                 | Result                                           |

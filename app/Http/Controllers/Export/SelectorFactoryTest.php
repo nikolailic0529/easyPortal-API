@@ -6,8 +6,8 @@ use App\Http\Controllers\Export\Selectors\Asterisk;
 use App\Http\Controllers\Export\Selectors\Concat;
 use App\Http\Controllers\Export\Selectors\Group;
 use App\Http\Controllers\Export\Selectors\LogicalOr;
+use App\Http\Controllers\Export\Selectors\Property;
 use App\Http\Controllers\Export\Selectors\Root;
-use App\Http\Controllers\Export\Selectors\Value;
 use Tests\TestCase;
 
 /**
@@ -27,34 +27,46 @@ class SelectorFactoryTest extends TestCase {
             'a.d',
             'b.*.c.d',
             'c.*',
+            'd.*.e',
         ]);
         $expected = new Root([
-            new Value('a', 0),
+            new Property('a', 0),
             new Group('a', [
-                new Value('b', 1),
+                new Property('b', 1),
                 new Group('b', [
-                    new Value('c', 2),
+                    new Property('c', 2),
                 ]),
-                new Value('d', 4),
+                new Property('d', 4),
             ]),
             new Concat(
                 [
-                    new Value('a', 0),
+                    new Property('a', 0),
                     new Group('a', [
-                        new Value('b', 0),
+                        new Property('b', 0),
                     ]),
                     new LogicalOr([
-                        new Value('abc', 0),
-                        new Value('a', 0),
+                        new Property('abc', 0),
+                        new Property('a', 0),
                     ], 0),
                 ],
                 3,
             ),
             new Group('b', [
-                new Asterisk('c.d', 5),
+                new Asterisk(
+                    new Group('c', [
+                        new Property('d', 0),
+                    ]),
+                    5,
+                ),
             ]),
             new Group('c', [
                 // empty,
+            ]),
+            new Group('d', [
+                new Asterisk(
+                    new Property('e', 0),
+                    7,
+                ),
             ]),
         ]);
 

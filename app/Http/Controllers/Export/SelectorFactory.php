@@ -8,8 +8,8 @@ use App\Http\Controllers\Export\Selectors\Asterisk;
 use App\Http\Controllers\Export\Selectors\Concat;
 use App\Http\Controllers\Export\Selectors\Group;
 use App\Http\Controllers\Export\Selectors\LogicalOr;
+use App\Http\Controllers\Export\Selectors\Property;
 use App\Http\Controllers\Export\Selectors\Root;
-use App\Http\Controllers\Export\Selectors\Value;
 
 use function array_slice;
 use function count;
@@ -71,16 +71,30 @@ class SelectorFactory {
                 throw new SelectorSyntaxError();
             }
         } else {
-            $separator = '.';
-            $parts     = explode($separator, $selector);
-            $count     = count($parts);
-            $group     = null;
-            $path      = '';
+            $instance = self::parseProperty($selector, $index, $groups);
+        }
 
-            foreach ($parts as $i => $part) {
-                if ($part === '*') {
-                    if (isset($parts[$i + 1])) {
-                        $property = implode($separator, array_slice($parts, $i + 1));
+        return $instance;
+    }
+
+    /**
+     * @param array<string, Group> $groups
+     */
+    protected static function parseProperty(string $selector, int $index = 0, array &$groups = []): ?Selector {
+        $separator = '.';
+        $instance  = null;
+        $parts     = explode($separator, $selector);
+        $count     = count($parts);
+        $group     = null;
+        $path      = '';
+
+        foreach ($parts as $i => $part) {
+            if ($part === '*') {
+                if (isset($parts[$i + 1])) {
+                    $property = implode($separator, array_slice($parts, $i + 1));
+                    $property = static::parseProperty($property);
+
+                    if ($property) {
                         $asterisk = new Asterisk($property, $index);
 
                         if ($group) {
@@ -89,23 +103,23 @@ class SelectorFactory {
                             $instance = $asterisk;
                         }
                     }
-
-                    break;
-                } elseif ($i !== $count - 1) {
-                    $path           .= ".{$part}";
-                    $groups[$path] ??= new Group($part);
-                    $instance      ??= $groups[$path];
-
-                    if ($group) {
-                        $group->add($groups[$path]);
-                    }
-
-                    $group = $groups[$path];
-                } elseif ($group) {
-                    $group->add(new Value($part, $index));
-                } else {
-                    $instance = new Value($part, $index);
                 }
+
+                break;
+            } elseif ($i !== $count - 1) {
+                $path           .= ".{$part}";
+                $groups[$path] ??= new Group($part);
+                $instance      ??= $groups[$path];
+
+                if ($group) {
+                    $group->add($groups[$path]);
+                }
+
+                $group = $groups[$path];
+            } elseif ($group) {
+                $group->add(new Property($part, $index));
+            } else {
+                $instance = new Property($part, $index);
             }
         }
 

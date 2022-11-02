@@ -6,9 +6,9 @@ use Tests\TestCase;
 
 /**
  * @internal
- * @coversDefaultClass \App\Http\Controllers\Export\Selectors\Value
+ * @coversDefaultClass \App\Http\Controllers\Export\Selectors\Property
  */
-class ValueTest extends TestCase {
+class PropertyTest extends TestCase {
     // <editor-fold desc="Tests">
     // =========================================================================
     /**
@@ -21,7 +21,7 @@ class ValueTest extends TestCase {
      */
     public function testFill(array $expected, string $property, int $index, array $item): void {
         $row      = [];
-        $selector = new Value($property, $index);
+        $selector = new Property($property, $index);
 
         $selector->fill($item, $row);
 

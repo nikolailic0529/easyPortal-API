@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Export\Selectors;
 
+use App\Http\Controllers\Export\Selector;
 use Tests\TestCase;
 
 /**
@@ -19,7 +20,7 @@ class AsteriskTest extends TestCase {
      * @param array<mixed>                          $expected
      * @param array<scalar|null|array<scalar|null>> $item
      */
-    public function testFill(array $expected, string $property, int $index, array $item): void {
+    public function testFill(array $expected, Selector $property, int $index, array $item): void {
         $row      = [];
         $selector = new Asterisk($property, $index);
 
@@ -32,7 +33,7 @@ class AsteriskTest extends TestCase {
     // <editor-fold desc="DataProviders">
     // =========================================================================
     /**
-     * @return array<string, array{array<mixed>, string, int, array<scalar|null|array<scalar|null|array<scalar|null>>>}>
+     * @return array<string, array{array<mixed>,Selector,int,array<scalar|null|array<scalar|null|array<scalar|null>>>}>
      */
     public function dataProviderFill(): array {
         return [
@@ -40,7 +41,7 @@ class AsteriskTest extends TestCase {
                 [
                     2 => null,
                 ],
-                'property',
+                new Property('property', 0),
                 2,
                 [
                     'property' => 123,
@@ -50,7 +51,7 @@ class AsteriskTest extends TestCase {
                 [
                     1 => '1, 3',
                 ],
-                'property',
+                new Property('property', 0),
                 1,
                 [
                     [
@@ -68,7 +69,7 @@ class AsteriskTest extends TestCase {
                 [
                     4 => '{"a":"value-a"}, {"b":"value-b"}',
                 ],
-                'property',
+                new Property('property', 0),
                 4,
                 [
                     [
