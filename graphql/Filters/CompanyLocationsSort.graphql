@@ -1,3 +1,4 @@
 input CompanyLocationsSort {
+    location_id: ID!
     location: LocationsSort!
 }

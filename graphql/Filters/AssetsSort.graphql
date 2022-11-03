@@ -1,7 +1,10 @@
 input AssetsSort {
     id: ID!
+    oem_id: ID
     oem: OemsSort
+    type_id: ID
     type: TypesSort
+    product_id: ID
     product: ProductsSort
     serial_number: String
     nickname: String
@@ -11,9 +14,13 @@ input AssetsSort {
     warrantyServiceGroup: ServiceGroupsSort
     warranty_service_level_id: ID
     warrantyServiceLevel: ServiceLevelsSort
+    location_id: ID
     location: LocationsSort!
+    reseller_id: ID
     reseller: CompaniesSort!
+    customer_id: ID
     customer: CompaniesSort!
+    status_id: ID
     status: StatusesSort!
     created_at: DateTime!
     updated_at: DateTime!

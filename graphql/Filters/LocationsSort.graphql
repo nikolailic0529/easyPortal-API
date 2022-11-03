@@ -3,7 +3,9 @@ input LocationsSort {
     state: String!
     line_one: String!
     line_two: String!
+    country_id: ID!
     country: CountriesSort!
+    city_id: ID!
     city: CitiesSort!
     created_at: DateTime!
     updated_at: DateTime!

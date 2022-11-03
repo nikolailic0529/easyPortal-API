@@ -5975,6 +5975,12 @@ input SortByClauseAssetsSort {
     """
     Property clause.
     """
+    customer_id: SortByTypeDirection
+    @sortByOperatorProperty
+
+    """
+    Property clause.
+    """
     deleted_at: SortByTypeDirection
     @sortByOperatorProperty
 
@@ -5999,6 +6005,12 @@ input SortByClauseAssetsSort {
     """
     Property clause.
     """
+    location_id: SortByTypeDirection
+    @sortByOperatorProperty
+
+    """
+    Property clause.
+    """
     nickname: SortByTypeDirection
     @sortByOperatorProperty
 
@@ -6011,14 +6023,32 @@ input SortByClauseAssetsSort {
     """
     Property clause.
     """
+    oem_id: SortByTypeDirection
+    @sortByOperatorProperty
+
+    """
+    Property clause.
+    """
     product: SortByClauseProductsSort
     @sortByProperty
 
     """
     Property clause.
     """
+    product_id: SortByTypeDirection
+    @sortByOperatorProperty
+
+    """
+    Property clause.
+    """
     reseller: SortByClauseCompaniesSort
     @sortByProperty
+
+    """
+    Property clause.
+    """
+    reseller_id: SortByTypeDirection
+    @sortByOperatorProperty
 
     """
     Property clause.
@@ -6035,8 +6065,20 @@ input SortByClauseAssetsSort {
     """
     Property clause.
     """
+    status_id: SortByTypeDirection
+    @sortByOperatorProperty
+
+    """
+    Property clause.
+    """
     type: SortByClauseTypesSort
     @sortByProperty
+
+    """
+    Property clause.
+    """
+    type_id: SortByTypeDirection
+    @sortByOperatorProperty
 
     """
     Property clause.
@@ -6188,6 +6230,12 @@ input SortByClauseCitiesSort {
     """
     Property clause.
     """
+    country_id: SortByTypeDirection
+    @sortByOperatorProperty
+
+    """
+    Property clause.
+    """
     id: SortByTypeDirection
     @sortByOperatorProperty
 
@@ -6272,6 +6320,12 @@ input SortByClauseCompanyLocationsSort {
     """
     location: SortByClauseLocationsSort
     @sortByProperty
+
+    """
+    Property clause.
+    """
+    location_id: SortByTypeDirection
+    @sortByOperatorProperty
 }
 
 """
@@ -6749,8 +6803,20 @@ input SortByClauseDocumentsSort {
     """
     Property clause.
     """
+    currency_id: SortByTypeDirection
+    @sortByOperatorProperty
+
+    """
+    Property clause.
+    """
     customer: SortByClauseCompaniesSort
     @sortByProperty
+
+    """
+    Property clause.
+    """
+    customer_id: SortByTypeDirection
+    @sortByOperatorProperty
 
     """
     Property clause.
@@ -6763,6 +6829,12 @@ input SortByClauseDocumentsSort {
     """
     distributor: SortByClauseDistributorsSort
     @sortByProperty
+
+    """
+    Property clause.
+    """
+    distributor_id: SortByTypeDirection
+    @sortByOperatorProperty
 
     """
     Property clause.
@@ -6781,6 +6853,12 @@ input SortByClauseDocumentsSort {
     """
     language: SortByClauseLanguagesSort
     @sortByProperty
+
+    """
+    Property clause.
+    """
+    language_id: SortByTypeDirection
+    @sortByOperatorProperty
 
     """
     Property clause.
@@ -6809,6 +6887,18 @@ input SortByClauseDocumentsSort {
     """
     Property clause.
     """
+    oem_group_id: SortByTypeDirection
+    @sortByOperatorProperty
+
+    """
+    Property clause.
+    """
+    oem_id: SortByTypeDirection
+    @sortByOperatorProperty
+
+    """
+    Property clause.
+    """
     oem_said: SortByTypeDirection
     @sortByOperatorProperty
 
@@ -6829,6 +6919,12 @@ input SortByClauseDocumentsSort {
     """
     reseller: SortByClauseCompaniesSort
     @sortByProperty
+
+    """
+    Property clause.
+    """
+    reseller_id: SortByTypeDirection
+    @sortByOperatorProperty
 
     """
     Property clause.
@@ -6867,8 +6963,20 @@ input SortByClauseLocationsSort {
     """
     Property clause.
     """
+    city_id: SortByTypeDirection
+    @sortByOperatorProperty
+
+    """
+    Property clause.
+    """
     country: SortByClauseCountriesSort
     @sortByProperty
+
+    """
+    Property clause.
+    """
+    country_id: SortByTypeDirection
+    @sortByOperatorProperty
 
     """
     Property clause.
@@ -7177,6 +7285,12 @@ input SortByClauseProductsSort {
     """
     Property clause.
     """
+    oem_id: SortByTypeDirection
+    @sortByOperatorProperty
+
+    """
+    Property clause.
+    """
     sku: SortByTypeDirection
     @sortByOperatorProperty
 }
@@ -7217,6 +7331,12 @@ input SortByClauseServiceGroupsSort {
     """
     Property clause.
     """
+    oem_id: SortByTypeDirection
+    @sortByOperatorProperty
+
+    """
+    Property clause.
+    """
     sku: SortByTypeDirection
     @sortByOperatorProperty
 }
@@ -7234,8 +7354,20 @@ input SortByClauseServiceLevelsSort {
     """
     Property clause.
     """
+    oem_id: SortByTypeDirection
+    @sortByOperatorProperty
+
+    """
+    Property clause.
+    """
     serviceGroup: SortByClauseServiceGroupsSort
     @sortByProperty
+
+    """
+    Property clause.
+    """
+    service_group_id: SortByTypeDirection
+    @sortByOperatorProperty
 
     """
     Property clause.

@@ -1,6 +1,6 @@
 type Asset {
     id: ID!
-    oem_id: ID,
+    oem_id: ID
     product_id: ID
     type_id: ID
     customer_id: ID

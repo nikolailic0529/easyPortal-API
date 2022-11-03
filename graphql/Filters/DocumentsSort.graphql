@@ -7,12 +7,19 @@ input DocumentsSort {
     oem_said: String
     oem_amp_id: String
     oem_sar_number: String
+    oem_id: ID
     oem: OemsSort
+    currency_id: ID
     currency: CurrenciesSort
+    language_id: ID
     language: LanguagesSort
+    distributor_id: ID
     distributor: DistributorsSort
+    reseller_id: ID
     reseller: CompaniesSort
+    customer_id: ID
     customer: CompaniesSort
+    oem_group_id: ID
     oemGroup: OemGroupsSort
     created_at: DateTime!
     updated_at: DateTime!

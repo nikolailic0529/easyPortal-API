@@ -4925,6 +4925,11 @@ input SortByClauseAssetsSort {
     """
     Property clause.
     """
+    customer_id: SortByTypeDirection
+
+    """
+    Property clause.
+    """
     deleted_at: SortByTypeDirection
 
     """
@@ -4945,6 +4950,11 @@ input SortByClauseAssetsSort {
     """
     Property clause.
     """
+    location_id: SortByTypeDirection
+
+    """
+    Property clause.
+    """
     nickname: SortByTypeDirection
 
     """
@@ -4955,12 +4965,27 @@ input SortByClauseAssetsSort {
     """
     Property clause.
     """
+    oem_id: SortByTypeDirection
+
+    """
+    Property clause.
+    """
     product: SortByClauseProductsSort
 
     """
     Property clause.
     """
+    product_id: SortByTypeDirection
+
+    """
+    Property clause.
+    """
     reseller: SortByClauseCompaniesSort
+
+    """
+    Property clause.
+    """
+    reseller_id: SortByTypeDirection
 
     """
     Property clause.
@@ -4975,7 +5000,17 @@ input SortByClauseAssetsSort {
     """
     Property clause.
     """
+    status_id: SortByTypeDirection
+
+    """
+    Property clause.
+    """
     type: SortByClauseTypesSort
+
+    """
+    Property clause.
+    """
+    type_id: SortByTypeDirection
 
     """
     Property clause.
@@ -5105,6 +5140,11 @@ input SortByClauseCitiesSort {
     """
     Property clause.
     """
+    country_id: SortByTypeDirection
+
+    """
+    Property clause.
+    """
     id: SortByTypeDirection
 
     """
@@ -5176,6 +5216,11 @@ input SortByClauseCompanyLocationsSort {
     Property clause.
     """
     location: SortByClauseLocationsSort
+
+    """
+    Property clause.
+    """
+    location_id: SortByTypeDirection
 }
 
 """
@@ -5585,7 +5630,17 @@ input SortByClauseDocumentsSort {
     """
     Property clause.
     """
+    currency_id: SortByTypeDirection
+
+    """
+    Property clause.
+    """
     customer: SortByClauseCompaniesSort
+
+    """
+    Property clause.
+    """
+    customer_id: SortByTypeDirection
 
     """
     Property clause.
@@ -5596,6 +5651,11 @@ input SortByClauseDocumentsSort {
     Property clause.
     """
     distributor: SortByClauseDistributorsSort
+
+    """
+    Property clause.
+    """
+    distributor_id: SortByTypeDirection
 
     """
     Property clause.
@@ -5611,6 +5671,11 @@ input SortByClauseDocumentsSort {
     Property clause.
     """
     language: SortByClauseLanguagesSort
+
+    """
+    Property clause.
+    """
+    language_id: SortByTypeDirection
 
     """
     Property clause.
@@ -5635,6 +5700,16 @@ input SortByClauseDocumentsSort {
     """
     Property clause.
     """
+    oem_group_id: SortByTypeDirection
+
+    """
+    Property clause.
+    """
+    oem_id: SortByTypeDirection
+
+    """
+    Property clause.
+    """
     oem_said: SortByTypeDirection
 
     """
@@ -5651,6 +5726,11 @@ input SortByClauseDocumentsSort {
     Property clause.
     """
     reseller: SortByClauseCompaniesSort
+
+    """
+    Property clause.
+    """
+    reseller_id: SortByTypeDirection
 
     """
     Property clause.
@@ -5685,7 +5765,17 @@ input SortByClauseLocationsSort {
     """
     Property clause.
     """
+    city_id: SortByTypeDirection
+
+    """
+    Property clause.
+    """
     country: SortByClauseCountriesSort
+
+    """
+    Property clause.
+    """
+    country_id: SortByTypeDirection
 
     """
     Property clause.
@@ -5950,6 +6040,11 @@ input SortByClauseProductsSort {
     """
     Property clause.
     """
+    oem_id: SortByTypeDirection
+
+    """
+    Property clause.
+    """
     sku: SortByTypeDirection
 }
 
@@ -5985,6 +6080,11 @@ input SortByClauseServiceGroupsSort {
     """
     Property clause.
     """
+    oem_id: SortByTypeDirection
+
+    """
+    Property clause.
+    """
     sku: SortByTypeDirection
 }
 
@@ -6000,7 +6100,17 @@ input SortByClauseServiceLevelsSort {
     """
     Property clause.
     """
+    oem_id: SortByTypeDirection
+
+    """
+    Property clause.
+    """
     serviceGroup: SortByClauseServiceGroupsSort
+
+    """
+    Property clause.
+    """
+    service_group_id: SortByTypeDirection
 
     """
     Property clause.
