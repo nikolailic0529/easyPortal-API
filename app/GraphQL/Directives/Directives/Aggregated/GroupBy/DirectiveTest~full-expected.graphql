@@ -19,79 +19,79 @@ Group clause for `input Properties` (only one property allowed at a time).
 """
 input AggregatedGroupByClauseProperties {
     """
-    Property clause.
+    Group by property.
     """
     dateScalar: AggregatedGroupByTypeDirection
     @aggregatedGroupByOperatorAsDate
 
     """
-    Property clause.
+    Group by property.
     """
     dateScalarNotNull: AggregatedGroupByTypeDirection
     @aggregatedGroupByOperatorAsDate
 
     """
-    Property clause.
+    Group by property.
     """
     idScalar: AggregatedGroupByTypeDirection
     @aggregatedGroupByOperatorAsString
 
     """
-    Property clause.
+    Group by property.
     """
     idScalarNotNull: AggregatedGroupByTypeDirection
     @aggregatedGroupByOperatorAsString
 
     """
-    Property clause.
+    Group by property.
     """
     intScalar: AggregatedGroupByTypeDirection
     @aggregatedGroupByOperatorAsString
 
     """
-    Property clause.
+    Group by property.
     """
     intScalarNotNull: AggregatedGroupByTypeDirection
     @aggregatedGroupByOperatorAsString
 
     """
-    Relationship clause.
+    Group by `nested_id` with additional sorting.
     """
     nested: [SortByClauseNested!]
     @aggregatedGroupByOperatorRelation
 
     """
-    Property clause.
+    Group by property.
     """
     nested_id: AggregatedGroupByTypeDirection
     @aggregatedGroupByOperatorAsString
 
     """
-    Property clause.
+    Group by property.
     """
     relation_id: AggregatedGroupByTypeDirection
     @aggregatedGroupByOperatorAsString
 
     """
-    Relationship clause.
+    Group by `service_group_id` with additional sorting.
     """
     serviceGroup: [SortByClauseNested!]
     @aggregatedGroupByOperatorRelation
 
     """
-    Property clause.
+    Group by property.
     """
     service_group_id: AggregatedGroupByTypeDirection
     @aggregatedGroupByOperatorAsString
 
     """
-    Property clause.
+    Group by property.
     """
     stringScalar: AggregatedGroupByTypeDirection
     @aggregatedGroupByOperatorAsString
 
     """
-    Property clause.
+    Group by property.
     """
     stringScalarNotNull: AggregatedGroupByTypeDirection
     @aggregatedGroupByOperatorAsString

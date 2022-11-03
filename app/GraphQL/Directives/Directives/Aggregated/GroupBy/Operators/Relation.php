@@ -15,10 +15,6 @@ class Relation extends AsString {
         return 'relation';
     }
 
-    public function getFieldDescription(): string {
-        return 'Relationship clause.';
-    }
-
     public function call(Handler $handler, object $builder, Property $property, Argument $argument): object {
         // Sort
         if (is_array($argument->value)) {
