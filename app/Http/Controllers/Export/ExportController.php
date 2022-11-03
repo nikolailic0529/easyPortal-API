@@ -24,6 +24,7 @@ use Nuwave\Lighthouse\GraphQL;
 use Nuwave\Lighthouse\Support\Contracts\CreatesContext;
 use Nuwave\Lighthouse\Support\Contracts\GraphQLContext;
 use OpenSpout\Common\Entity\Row;
+use OpenSpout\Common\Entity\Style\CellVerticalAlignment;
 use OpenSpout\Common\Entity\Style\Style;
 use OpenSpout\Writer\CSV\Writer as CSVWriter;
 use OpenSpout\Writer\XLSX\Writer as XLSXWriter;
@@ -91,39 +92,57 @@ class ExportController extends Controller {
     }
 
     public function xlsx(ExportRequest $request): StreamedResponse {
-        $format         = __FUNCTION__;
-        $writer         = new XLSXWriter();
-        $filename       = 'export.xlsx';
-        $mimetypes      = (new MimeTypes())->getMimeTypes(pathinfo($filename, PATHINFO_EXTENSION));
-        $mimetype       = reset($mimetypes);
-        $headers        = [
+        $format    = __FUNCTION__;
+        $writer    = new XLSXWriter();
+        $filename  = 'export.xlsx';
+        $mimetypes = (new MimeTypes())->getMimeTypes(pathinfo($filename, PATHINFO_EXTENSION));
+        $mimetype  = reset($mimetypes);
+        $headers   = [
             'Content-Type' => "{$mimetype}; charset=UTF-8",
         ];
-        $headerCallback = static function (array $names) use ($writer): void {
-            $style = (new Style())->setFontBold();
-            $row   = Row::fromValues($names, $style);
-
-            $writer->addRow($row);
-        };
-        $mergeCallback  = static function (MergedCells $merged) use ($writer): void {
-            $offset = 2; // +1 for header; +1 because row coordinates are indexed from 1
-
-            $writer->getOptions()->mergeCells(
-                $merged->getColumn(),
-                $merged->getStartRow() + $offset,
-                $merged->getColumn(),
-                $merged->getEndRow() + $offset,
-            );
-        };
 
         return $this->factory->streamDownload(
-            function () use ($writer, $request, $format, $headerCallback, $mergeCallback): void {
+            function () use ($writer, $request, $format): void {
                 $writer->openToFile('php://output');
 
-                $iterator = $this->getRowsIterator($request, $format, $headerCallback, $mergeCallback);
+                $scale    = 1.25;
+                $options  = $writer->getOptions();
+                $measurer = new Measurer();
+                $iterator = $this->getRowsIterator(
+                    $request,
+                    $format,
+                    static function (array $names) use ($writer, $measurer): void {
+                        $style = (new Style())->setFontBold();
+                        $row   = Row::fromValues($names, $style);
 
-                foreach ($iterator as $row) {
+                        $measurer->measure($names);
+                        $writer->addRow($row);
+                    },
+                    static function (MergedCells $merged) use ($writer): void {
+                        $offset = 2; // +1 for header; +1 because row coordinates are indexed from 1
+
+                        $writer->getOptions()->mergeCells(
+                            $merged->getColumn(),
+                            $merged->getStartRow() + $offset,
+                            $merged->getColumn(),
+                            $merged->getEndRow() + $offset,
+                        );
+                    },
+                );
+
+                $options->DEFAULT_ROW_STYLE
+                    ->setCellVerticalAlignment(CellVerticalAlignment::TOP);
+
+                foreach ($iterator as $index => $row) {
+                    if ($index < 500 && ($index < 25 || $index % 25 === 0)) {
+                        $measurer->measure($row);
+                    }
+
                     $writer->addRow(Row::fromValues($row));
+                }
+
+                foreach ($measurer->getColumns() as $index => $width) {
+                    $options->setColumnWidth($width * $scale, $index + 1);
                 }
 
                 $writer->close();
@@ -158,10 +177,10 @@ class ExportController extends Controller {
     }
 
     /**
-     * @param Closure(array<string|null>): void $headerCallback
-     * @param Closure(MergedCells): void|null   $mergeCallback
+     * @param Closure(array<int<0, max>, string|null>): void $headerCallback
+     * @param Closure(MergedCells): void|null                $mergeCallback
      *
-     * @return Iterator<array<scalar|null>>
+     * @return Iterator<int<0, max>, array<int<0, max>, scalar|null>>
      */
     protected function getRowsIterator(
         ExportRequest $request,
@@ -171,18 +190,20 @@ class ExportController extends Controller {
     ): Iterator {
         // Prepare
         $query         = $request->validated();
-        $count         = count($query['columns']);
-        $names         = array_fill(0, $count, null);
+        $names         = [];
         $columns       = [];
         $mergedCells   = [];
         $mergedColumns = [];
 
         foreach (array_values($query['columns']) as $index => $column) {
-            assert($index >= 0, <<<'REASON'
+            assert(
+                $index >= 0,
+                <<<'REASON'
                 PHPStan false positive, seems fixed in >1.8.11
 
                 https://phpstan.org/r/031dd218-f577-4ea1-96d7-05d7094543e3
-            REASON);
+                REASON,
+            );
 
             $names[$index]   = $column['name'];
             $columns[$index] = $column['value'];
@@ -197,8 +218,9 @@ class ExportController extends Controller {
         $headerCallback($names);
 
         // Iteration
+        /** @var array<int<0, max>, null> $default fixme(phpstan): why it is not detected automatically? */
+        $default        = array_fill(0, count($query['columns']), null);
         $empty          = true;
-        $default        = array_fill(0, $count, null);
         $selector       = SelectorFactory::make($columns);
         $iterator       = $this->getIterator($request, $query, $format);
         $mergedSelector = SelectorFactory::make($mergedColumns);
@@ -218,7 +240,7 @@ class ExportController extends Controller {
             }
 
             // Iterate
-            yield $row;
+            yield $index => $row;
 
             // Mark
             $empty = false;

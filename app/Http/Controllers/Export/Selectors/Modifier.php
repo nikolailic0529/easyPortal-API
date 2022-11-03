@@ -12,6 +12,7 @@ use function reset;
 abstract class Modifier implements Selector {
     /**
      * @param array<Selector> $arguments
+     * @param int<0, max>     $index
      */
     public function __construct(
         protected array $arguments,

@@ -3,6 +3,9 @@
 namespace App\Http\Controllers\Export\Selectors;
 
 class Property extends Value {
+    /**
+     * @param int<0, max> $index
+     */
     public function __construct(
         protected string $property,
         protected int $index,

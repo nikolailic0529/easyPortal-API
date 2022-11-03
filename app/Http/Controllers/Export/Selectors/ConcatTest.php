@@ -18,6 +18,7 @@ class ConcatTest extends TestCase {
      * @dataProvider dataProviderFill
      *
      * @param array<mixed>                          $expected
+     * @param int<0, max>                           $index
      * @param non-empty-array<Selector>             $arguments
      * @param array<scalar|null|array<scalar|null>> $item
      */
@@ -34,7 +35,12 @@ class ConcatTest extends TestCase {
     // <editor-fold desc="DataProviders">
     // =========================================================================
     /**
-     * @return array<string, array{array<mixed>, int, non-empty-array<Selector>, array<scalar|null|array<scalar|null>>}>
+     * @return array<string, array{
+     *     array<mixed>,
+     *     int<0, max>,
+     *     non-empty-array<Selector>,
+     *     array<scalar|null|array<scalar|null>>
+     *     }>
      */
     public function dataProviderFill(): array {
         return [

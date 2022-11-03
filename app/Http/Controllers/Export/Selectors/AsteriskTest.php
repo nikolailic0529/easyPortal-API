@@ -18,6 +18,7 @@ class AsteriskTest extends TestCase {
      * @dataProvider dataProviderFill
      *
      * @param array<mixed>                          $expected
+     * @param int<0, max>                           $index
      * @param array<scalar|null|array<scalar|null>> $item
      */
     public function testFill(array $expected, Selector $property, int $index, array $item): void {
@@ -33,7 +34,12 @@ class AsteriskTest extends TestCase {
     // <editor-fold desc="DataProviders">
     // =========================================================================
     /**
-     * @return array<string, array{array<mixed>,Selector,int,array<scalar|null|array<scalar|null|array<scalar|null>>>}>
+     * @return array<string, array{
+     *     array<mixed>,
+     *     Selector,
+     *     int<0, max>,
+     *     array<scalar|null|array<scalar|null|array<scalar|null>>>
+     *     }>
      */
     public function dataProviderFill(): array {
         return [

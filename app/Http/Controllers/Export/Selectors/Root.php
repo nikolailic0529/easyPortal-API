@@ -19,7 +19,7 @@ class Root implements Selector {
     /**
      * @param array<scalar|null|array<scalar|null>> $item
      *
-     * @return  array<scalar|null>
+     * @return  array<int<0, max>, scalar|null>
      */
     public function get(array $item): array {
         $row = [];

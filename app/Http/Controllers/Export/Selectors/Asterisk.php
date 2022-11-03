@@ -9,6 +9,9 @@ use function is_array;
 use function reset;
 
 class Asterisk extends Value {
+    /**
+     * @param int<0, max> $index
+     */
     public function __construct(
         protected Selector $selector,
         protected int $index,

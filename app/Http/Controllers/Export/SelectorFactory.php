@@ -24,7 +24,7 @@ use const PREG_SPLIT_DELIM_CAPTURE;
 
 class SelectorFactory {
     /**
-     * @param array<int, string> $selectors
+     * @param array<int<0, max>, string> $selectors
      */
     public static function make(array $selectors): Root {
         $root   = new Root();
@@ -42,6 +42,7 @@ class SelectorFactory {
     }
 
     /**
+     * @param int<0, max>          $index
      * @param array<string, Group> $groups
      */
     protected static function parseSelector(string $selector, int $index = 0, array &$groups = []): ?Selector {
@@ -78,6 +79,7 @@ class SelectorFactory {
     }
 
     /**
+     * @param int<0, max>          $index
      * @param array<string, Group> $groups
      */
     protected static function parseProperty(string $selector, int $index = 0, array &$groups = []): ?Selector {
