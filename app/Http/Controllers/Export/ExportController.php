@@ -26,7 +26,6 @@ use Nuwave\Lighthouse\Support\Contracts\GraphQLContext;
 use OpenSpout\Common\Entity\Row;
 use OpenSpout\Common\Entity\Style\Style;
 use OpenSpout\Writer\CSV\Writer as CSVWriter;
-use OpenSpout\Writer\WriterInterface;
 use OpenSpout\Writer\XLSX\Writer as XLSXWriter;
 use Symfony\Component\HttpFoundation\StreamedResponse;
 use Symfony\Component\Mime\MimeTypes;
@@ -62,11 +61,76 @@ class ExportController extends Controller {
     }
 
     public function csv(ExportRequest $request): StreamedResponse {
-        return $this->excel(new CSVWriter(), $request, __FUNCTION__, 'export.csv');
+        $format         = __FUNCTION__;
+        $writer         = new CSVWriter();
+        $filename       = 'export.csv';
+        $mimetypes      = (new MimeTypes())->getMimeTypes(pathinfo($filename, PATHINFO_EXTENSION));
+        $mimetype       = reset($mimetypes);
+        $headers        = [
+            'Content-Type' => "{$mimetype}; charset=UTF-8",
+        ];
+        $headerCallback = static function (array $names) use ($writer): void {
+            $writer->addRow(Row::fromValues($names));
+        };
+
+        return $this->factory->streamDownload(
+            function () use ($writer, $request, $format, $headerCallback): void {
+                $writer->openToFile('php://output');
+
+                $iterator = $this->getRowsIterator($request, $format, $headerCallback);
+
+                foreach ($iterator as $row) {
+                    $writer->addRow(Row::fromValues($row));
+                }
+
+                $writer->close();
+            },
+            $filename,
+            $headers,
+        );
     }
 
     public function xlsx(ExportRequest $request): StreamedResponse {
-        return $this->excel(new XLSXWriter(), $request, __FUNCTION__, 'export.xlsx');
+        $format         = __FUNCTION__;
+        $writer         = new XLSXWriter();
+        $filename       = 'export.xlsx';
+        $mimetypes      = (new MimeTypes())->getMimeTypes(pathinfo($filename, PATHINFO_EXTENSION));
+        $mimetype       = reset($mimetypes);
+        $headers        = [
+            'Content-Type' => "{$mimetype}; charset=UTF-8",
+        ];
+        $headerCallback = static function (array $names) use ($writer): void {
+            $style = (new Style())->setFontBold();
+            $row   = Row::fromValues($names, $style);
+
+            $writer->addRow($row);
+        };
+        $mergeCallback  = static function (MergedCells $merged) use ($writer): void {
+            $offset = 2; // +1 for header; +1 because row coordinates are indexed from 1
+
+            $writer->getOptions()->mergeCells(
+                $merged->getColumn(),
+                $merged->getStartRow() + $offset,
+                $merged->getColumn(),
+                $merged->getEndRow() + $offset,
+            );
+        };
+
+        return $this->factory->streamDownload(
+            function () use ($writer, $request, $format, $headerCallback, $mergeCallback): void {
+                $writer->openToFile('php://output');
+
+                $iterator = $this->getRowsIterator($request, $format, $headerCallback, $mergeCallback);
+
+                foreach ($iterator as $row) {
+                    $writer->addRow(Row::fromValues($row));
+                }
+
+                $writer->close();
+            },
+            $filename,
+            $headers,
+        );
     }
 
     public function pdf(ExportRequest $request): StreamedResponse {
@@ -91,55 +155,6 @@ class ExportController extends Controller {
 
             echo $pdf->output();
         }, $filename, $headers);
-    }
-
-    protected function excel(
-        WriterInterface $writer,
-        ExportRequest $request,
-        string $format,
-        string $filename,
-    ): StreamedResponse {
-        $mimetypes      = (new MimeTypes())->getMimeTypes(pathinfo($filename, PATHINFO_EXTENSION));
-        $mimetype       = reset($mimetypes);
-        $headers        = [
-            'Content-Type' => "{$mimetype}; charset=UTF-8",
-        ];
-        $headerCallback = static function (array $names) use ($writer): void {
-            $style = (new Style())->setFontBold();
-            $row   = Row::fromValues($names, $style);
-
-            $writer->addRow($row);
-        };
-        $mergeCallback  = null;
-
-        if ($writer instanceof XLSXWriter) {
-            $mergeCallback = static function (MergedCells $merged) use ($writer): void {
-                $offset = 2; // +1 for header; +1 because row coordinates are indexed from 1
-
-                $writer->getOptions()->mergeCells(
-                    $merged->getColumn(),
-                    $merged->getStartRow() + $offset,
-                    $merged->getColumn(),
-                    $merged->getEndRow() + $offset,
-                );
-            };
-        }
-
-        return $this->factory->streamDownload(
-            function () use ($writer, $request, $format, $headerCallback, $mergeCallback): void {
-                $writer->openToFile('php://output');
-
-                $iterator = $this->getRowsIterator($request, $format, $headerCallback, $mergeCallback);
-
-                foreach ($iterator as $row) {
-                    $writer->addRow(Row::fromValues($row));
-                }
-
-                $writer->close();
-            },
-            $filename,
-            $headers,
-        );
     }
 
     /**
