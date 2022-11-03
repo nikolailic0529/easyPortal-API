@@ -2,11 +2,9 @@
 
 How to find permissions/etc please see in [API Interaction](./API-Interaction.md).
 
-
 ## `GET /application`
 
 Returns Application information in JSON.
-
 
 ## `GET /oems/{oem}`
 
@@ -16,7 +14,6 @@ Returns Service Groups/Levels translations as attachment.
 |-----------|-------------|
 | `{oem}`   | Oem UUID    |
 
-
 ## `GET /files/{file}`
 
 Returns specified `File` as attachment.
@@ -24,7 +21,6 @@ Returns specified `File` as attachment.
 | Parameter | Description |
 |-----------|-------------|
 | `{file}`  | File UUID   |
-
 
 ## `POST /download/{format}`
 
@@ -38,8 +34,8 @@ Returns GraphQL query result as attachment of the specified format.
 | `operationName`      |           | `string`               | GraphQL operation name.                   |
 | `variables`          |           | `array<string, mixed>` | GraphQL variables.                        |
 | `columns.*.name`     | Yes       | `string`               | Column name.                              |
-| `columns.*.selector` | Yes       | `string`               | Value `selector`.                         |
-| `columns.*.merge`    |           | `boolean`              | Merge cells with same value (`xlsx` only) |
+| `columns.*.selector` | Yes       | `selector`             | Value `selector`.                         |
+| `columns.*.group`    |           | `selector`             | Group cells with same value (`xlsx` only) |
 
 > ⚠ **Important**
 >
@@ -116,7 +112,6 @@ query {
 }
 ```
 
-
 ### Non-paginated queries
 
 ```http request
@@ -140,19 +135,17 @@ Content-Type: application/json
 }
 ```
 
-```csv
-Key,Name
-Hardware,Hardware
-Software,Software
-```
-
+| Key      | Name     |
+|----------|----------|
+| Hardware | Hardware |
+| Software | Software |
 
 ### Paginated queries
 
 Paginated queries require two variables `limit` and `offset` as an indication that we need iterate over several pages. If you need all results, you should set values of these variables to `null`.
 
 ```http request
-POST http://easyportal.test/api/download/csv
+POST https://example.com/api/download/csv
 Accept: application/json
 Content-Type: application/json
 
@@ -176,14 +169,159 @@ Content-Type: application/json
 }
 ```
 
-```csv
-Id,Name
-00000000-0000-0000-0000-000000000000,"Product A"
+| Id                                   | Name      |
+|--------------------------------------|-----------|
+| 00000000-0000-0000-0000-000000000000 | Product A |
+
+### Grouping/Cells Merging
+
+To group/merge cells you should add the `group` selector into the `column` and to sort results by one or two columns. Two columns are required when you want to sort groups by nested property (eg group by customer and sort groups by customer name). To group by multiple columns just add another column and sorting for it.
+
+#### Simple
+
+```http request
+POST https://example.com/api/download/xlsx
+Accept: application/json
+Content-Type: application/json
+
+{
+  "root": "data.assets",
+  "query": "query assets($limit: Int, $offset: Int, $order: [SortByClauseAssetsSort!]) { assets(limit: $limit, offset: $offset, order: $order) { id eosl }}",
+  "columns": [
+    {
+      "name": "EOSL Date",
+      "group": "eosl",
+      "selector": "eosl"
+    },
+    {
+      "name": "Id",
+      "selector": "id"
+    }
+  ],
+  "variables": {
+    "offset": null,
+    "limit": null,
+    "order": [
+      {
+         "eosl": "asc"
+      }
+    ]
+  }
+}
 ```
 
+| EOSL Date  | Id                                   |
+|------------|--------------------------------------|
+| 2021-06-03 | ce302d53-1c1c-49d1-abd5-d34723b2ef44 |
+|            | 513a4b2e-f744-4271-90cc-ce988a27f2ed |
+|            | 5789b36a-f4c0-4c71-adb0-86a6794a5e25 |
+| 2022-08-03 | 2cb65fda-e5f6-4039-91cc-d799f4f4ea68 |
+|            | 50d7b231-75b7-4674-84c5-005647af7782 |
+| 2022-08-08 | e4a025ae-3538-49d5-aaf4-d143a7161762 |
+
+#### By Customer name
+
+```http request
+POST https://example.com/api/download/xlsx
+Accept: application/json
+Content-Type: application/json
+
+{
+  "root": "data.assets",
+  "query": "query assets($limit: Int, $offset: Int, $order: [SortByClauseAssetsSort!]) { assets(limit: $limit, offset: $offset, order: $order) { id customer_id customer { name } }}",
+  "columns": [
+    {
+      "name": "Customer",
+      "group": "customer_id",
+      "selector": "customer.name"
+    },
+    {
+      "name": "Id",
+      "selector": "id"
+    }
+  ],
+  "variables": {
+    "offset": null,
+    "limit": null,
+    "order": [
+      {
+        "customer": {
+          "name": "asc"
+        }
+      },
+      {
+        "customer_id": "asc"
+      }
+    ]
+  }
+}
+```
+
+| Customer | Id                                   |
+|----------|--------------------------------------|
+| A        | ce302d53-1c1c-49d1-abd5-d34723b2ef44 |
+|          | 513a4b2e-f744-4271-90cc-ce988a27f2ed |
+| B        | 5789b36a-f4c0-4c71-adb0-86a6794a5e25 |
+|          | 2cb65fda-e5f6-4039-91cc-d799f4f4ea68 |
+|          | 50d7b231-75b7-4674-84c5-005647af7782 |
+| C        | e4a025ae-3538-49d5-aaf4-d143a7161762 |
+
+#### By EOSL and Customer name
+
+```http request
+POST https://example.com/api/download/xlsx
+Accept: application/json
+Content-Type: application/json
+
+{
+  "root": "data.assets",
+  "query": "query assets($limit: Int, $offset: Int, $order: [SortByClauseAssetsSort!]) { assets(limit: $limit, offset: $offset, order: $order) { id eosl customer_id customer { name } }}",
+  "columns": [
+    {
+      "name": "EOSL Date",
+      "group": "eosl",
+      "selector": "eosl"
+    },
+    {
+      "name": "Customer",
+      "group": "customer_id",
+      "selector": "customer.name"
+    },
+    {
+      "name": "Id",
+      "selector": "id"
+    }
+  ],
+  "variables": {
+    "offset": null,
+    "limit": null,
+    "order": [
+      {
+         "eosl": "asc"
+      },
+      {
+        "customer": {
+          "name": "asc"
+        }
+      },
+      {
+        "customer_id": "asc"
+      }
+    ]
+  }
+}
+```
+
+| EOSL Date  | Customer | Id                                   |
+|------------|----------|--------------------------------------|
+| 2021-06-03 | A        | ce302d53-1c1c-49d1-abd5-d34723b2ef44 |
+|            |          | 513a4b2e-f744-4271-90cc-ce988a27f2ed |
+|            | B        | 5789b36a-f4c0-4c71-adb0-86a6794a5e25 |
+| 2022-08-03 | B        | 2cb65fda-e5f6-4039-91cc-d799f4f4ea68 |
+|            |          | 50d7b231-75b7-4674-84c5-005647af7782 |
+| 2022-08-08 | C        | e4a025ae-3538-49d5-aaf4-d143a7161762 |
 
 ### Available functions
-
 
 #### `concat(selector-a, selector-b, ...)`
 
@@ -192,7 +330,6 @@ Returns the string that results from concatenating the truthy `selector` values 
 | Example                                             | Result             |
 |-----------------------------------------------------|--------------------|
 | `concat(location.country.name, location.city.name)` | `Country A City A` |
-
 
 #### `or(selector-a, selector-b, ...)`
 

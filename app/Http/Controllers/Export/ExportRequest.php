@@ -13,7 +13,7 @@ use Illuminate\Foundation\Http\FormRequest;
  *          columns: non-empty-array<int, array{
  *              name: string,
  *              selector: string,
- *              merge?: ?boolean
+ *              group?: ?string
  *          }>,
  *          query: string,
  *          operationName?: string,
@@ -41,7 +41,7 @@ class ExportRequest extends FormRequest {
             'variables.offset'   => 'nullable|integer|min:1',
             'columns'            => 'required|array',
             'columns.*.name'     => 'required|string',
-            'columns.*.merge'    => 'boolean',
+            'columns.*.group'    => ['string', $selector],
             'columns.*.selector' => ['required', 'string', $selector],
         ];
     }

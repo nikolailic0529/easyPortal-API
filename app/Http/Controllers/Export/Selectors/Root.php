@@ -16,6 +16,19 @@ class Root implements Selector {
         // empty
     }
 
+    /**
+     * @param array<scalar|null|array<scalar|null>> $item
+     *
+     * @return  array<scalar|null>
+     */
+    public function get(array $item): array {
+        $row = [];
+
+        $this->fill($item, $row);
+
+        return $row;
+    }
+
     public function add(Selector $selector): static {
         if (!in_array($selector, $this->selectors, true)) {
             $this->selectors[] = $selector;

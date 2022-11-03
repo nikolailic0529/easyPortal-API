@@ -38,6 +38,7 @@ use Throwable;
 
 use function ob_end_clean;
 use function ob_get_level;
+use function tap;
 
 /**
  * @internal
@@ -553,6 +554,30 @@ class ExportControllerTest extends TestCase {
                             'offset' => null,
                         ],
                         'columns'   => $columns,
+                    ],
+                ],
+                // todo(REST): Right now there is no way to view merged cells :( so we test the query only.
+                'with grouping'           => [
+                    new UnknownValue(),
+                    null,
+                    $factory,
+                    [
+                        'root'      => 'data.assets',
+                        'query'     => <<<GRAPHQL
+                            query getAssets(\$limit: Int, \$offset: Int) {
+                                assets(limit: \$limit, offset: \$offset) {
+                                    {$properties}
+                                }
+                            }
+                            GRAPHQL
+                        ,
+                        'variables' => [
+                            'limit'  => null,
+                            'offset' => null,
+                        ],
+                        'columns'   => tap($columns, static function (array &$columns): void {
+                            $columns[0]['group'] = 'id';
+                        }),
                     ],
                 ],
             ]),

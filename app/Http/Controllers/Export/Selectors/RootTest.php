@@ -14,6 +14,7 @@ class RootTest extends TestCase {
     // =========================================================================
     /**
      * @covers ::fill
+     * @covers ::get
      *
      * @dataProvider dataProviderFill
      *
@@ -28,6 +29,7 @@ class RootTest extends TestCase {
         $selector->fill($item, $row);
 
         self::assertEquals($expected, $row);
+        self::assertEquals($expected, $selector->get($item));
     }
     //</editor-fold>
 

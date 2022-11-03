@@ -155,11 +155,12 @@ class ExportController extends Controller {
         Closure $mergeCallback = null,
     ): Iterator {
         // Prepare
-        $query   = $request->validated();
-        $count   = count($query['columns']);
-        $names   = array_fill(0, $count, null);
-        $merges  = [];
-        $columns = [];
+        $query         = $request->validated();
+        $count         = count($query['columns']);
+        $names         = array_fill(0, $count, null);
+        $columns       = [];
+        $mergedCells   = [];
+        $mergedColumns = [];
 
         foreach (array_values($query['columns']) as $index => $column) {
             assert($index >= 0, <<<'REASON'
@@ -171,8 +172,9 @@ class ExportController extends Controller {
             $names[$index]   = $column['name'];
             $columns[$index] = $column['selector'];
 
-            if ($mergeCallback && isset($column['merge']) && $column['merge']) {
-                $merges[$index] = new MergedCells($index);
+            if ($mergeCallback && isset($column['group']) && $column['group']) {
+                $mergedCells[$index]   = new MergedCells($index);
+                $mergedColumns[$index] = $column['group'];
             }
         }
 
@@ -180,22 +182,23 @@ class ExportController extends Controller {
         $headerCallback($names);
 
         // Iteration
-        $empty    = true;
-        $selector = SelectorFactory::make($columns);
-        $iterator = $this->getIterator($request, $query, $format);
+        $empty          = true;
+        $default        = array_fill(0, $count, null);
+        $selector       = SelectorFactory::make($columns);
+        $iterator       = $this->getIterator($request, $query, $format);
+        $mergedSelector = SelectorFactory::make($mergedColumns);
 
         foreach ($iterator as $index => $item) {
             // Fill
-            $row = array_fill(0, $count, null);
-
-            $selector->fill($item, $row);
+            $row = $selector->get($item) + $default;
 
             // Merge
-            foreach ($merges as $merge) {
-                $merged = $merge->merge($index, $row[$merge->getColumn()] ?? null);
+            foreach ($mergedCells as $cell) {
+                $mergedValues = $mergedSelector->get($item);
+                $mergedCell   = $cell->merge($index, $mergedValues[$cell->getColumn()] ?? null);
 
-                if ($merged && $mergeCallback) {
-                    $mergeCallback($merged);
+                if ($mergedCell && $mergeCallback) {
+                    $mergeCallback($mergedCell);
                 }
             }
 
@@ -208,9 +211,9 @@ class ExportController extends Controller {
 
         // Rest
         if ($mergeCallback) {
-            foreach ($merges as $merge) {
-                if ($merge->isMerged()) {
-                    $mergeCallback($merge);
+            foreach ($mergedCells as $cell) {
+                if ($cell->isMerged()) {
+                    $mergeCallback($cell);
                 }
             }
         }

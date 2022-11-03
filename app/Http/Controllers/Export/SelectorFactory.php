@@ -26,7 +26,7 @@ class SelectorFactory {
     /**
      * @param array<int, string> $selectors
      */
-    public static function make(array $selectors): Selector {
+    public static function make(array $selectors): Root {
         $root   = new Root();
         $groups = [];
 
