@@ -12,7 +12,7 @@ use Illuminate\Foundation\Http\FormRequest;
  *          root: string,
  *          columns: non-empty-array<int, array{
  *              name: string,
- *              selector: string,
+ *              value: string,
  *              group?: ?string
  *          }>,
  *          query: string,
@@ -32,17 +32,17 @@ class ExportRequest extends FormRequest {
      */
     public function rules(IsGraphQLQuery $isGraphQLQuery, IsHashMap $isHashMap, Selector $selector): array {
         return [
-            'root'               => 'required|string',
-            'query'              => ['required', 'string', $isGraphQLQuery],
-            'operationName'      => 'string',
-            'variables'          => $isHashMap,
-            'variables.*'        => 'nullable',
-            'variables.limit'    => 'nullable|integer|min:1',
-            'variables.offset'   => 'nullable|integer|min:1',
-            'columns'            => 'required|array',
-            'columns.*.name'     => 'required|string',
-            'columns.*.group'    => ['string', $selector],
-            'columns.*.selector' => ['required', 'string', $selector],
+            'root'             => 'required|string',
+            'query'            => ['required', 'string', $isGraphQLQuery],
+            'operationName'    => 'string',
+            'variables'        => $isHashMap,
+            'variables.*'      => 'nullable',
+            'variables.limit'  => 'nullable|integer|min:1',
+            'variables.offset' => 'nullable|integer|min:1',
+            'columns'          => 'required|array',
+            'columns.*.name'   => 'required|string',
+            'columns.*.group'  => ['string', $selector],
+            'columns.*.value'  => ['required', 'string', $selector],
         ];
     }
 

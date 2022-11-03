@@ -26,16 +26,16 @@ Returns specified `File` as attachment.
 
 Returns GraphQL query result as attachment of the specified format.
 
-| Parameter            | Required? | Type                   | Description                               |
-|----------------------|-----------|------------------------|-------------------------------------------|
-| `{format}`           | Yes       | `csv`, `xlsx` or `pdf` | File format.                              |
-| `root`               | Yes       | `string`               | The `selector` of main data point.        |
-| `query`              | Yes       | `string`               | GraphQL query.                            |
-| `operationName`      |           | `string`               | GraphQL operation name.                   |
-| `variables`          |           | `array<string, mixed>` | GraphQL variables.                        |
-| `columns.*.name`     | Yes       | `string`               | Column name.                              |
-| `columns.*.selector` | Yes       | `selector`             | Value `selector`.                         |
-| `columns.*.group`    |           | `selector`             | Group cells with same value (`xlsx` only) |
+| Parameter         | Required? | Type                   | Description                               |
+|-------------------|-----------|------------------------|-------------------------------------------|
+| `{format}`        | Yes       | `csv`, `xlsx` or `pdf` | File format.                              |
+| `root`            | Yes       | `string`               | The path to main data point.              |
+| `query`           | Yes       | `string`               | GraphQL query.                            |
+| `operationName`   |           | `string`               | GraphQL operation name.                   |
+| `variables`       |           | `array<string, mixed>` | GraphQL variables.                        |
+| `columns.*.name`  | Yes       | `string`               | Column name.                              |
+| `columns.*.value` | Yes       | `selector`             | Value `selector`.                         |
+| `columns.*.group` |           | `selector`             | Group cells with same value (`xlsx` only) |
 
 > ⚠ **Important**
 >
@@ -43,7 +43,7 @@ Returns GraphQL query result as attachment of the specified format.
 
 The `query`, `variables` and `operationName` is the standard [GraphQL POST Request](https://graphql.org/learn/serving-over-http/#post-request) parameters.
 
-The `columns` define a list of columns names and associated `selector`s.
+The `columns` define a list of columns names and associated `value` and `group` `selector`s.
 
 The `selector` is the dot separated string that defines a path to select value from results. Scalar values will be returned as is, but if the value is not a scalar it will be encoded into JSON. If property does not exist the `null` will be returned. For columns the path is relative to the `root` selector. It also supports a few simple functions to modify the value, they are described below.
 
@@ -125,11 +125,11 @@ Content-Type: application/json
   "columns": [
     {
       "name": "Key",
-      "selector": "key"
+      "value": "key"
     },
     {
       "name": "Name",
-      "selector": "name"
+      "value": "name"
     }
   ]
 }
@@ -155,11 +155,11 @@ Content-Type: application/json
   "columns": [
     {
       "name": "Id",
-      "selector": "id"
+      "value": "id"
     },
     {
       "name": "Name",
-      "selector": "product.name"
+      "value": "product.name"
     }
   ],
   "variables": {
@@ -191,11 +191,11 @@ Content-Type: application/json
     {
       "name": "EOSL Date",
       "group": "eosl",
-      "selector": "eosl"
+      "value": "eosl"
     },
     {
       "name": "Id",
-      "selector": "id"
+      "value": "id"
     }
   ],
   "variables": {
@@ -233,11 +233,11 @@ Content-Type: application/json
     {
       "name": "Customer",
       "group": "customer_id",
-      "selector": "customer.name"
+      "value": "customer.name"
     },
     {
       "name": "Id",
-      "selector": "id"
+      "value": "id"
     }
   ],
   "variables": {
@@ -280,16 +280,16 @@ Content-Type: application/json
     {
       "name": "EOSL Date",
       "group": "eosl",
-      "selector": "eosl"
+      "value": "eosl"
     },
     {
       "name": "Customer",
       "group": "customer_id",
-      "selector": "customer.name"
+      "value": "customer.name"
     },
     {
       "name": "Id",
-      "selector": "id"
+      "value": "id"
     }
   ],
   "variables": {

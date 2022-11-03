@@ -170,7 +170,7 @@ class ExportController extends Controller {
             REASON);
 
             $names[$index]   = $column['name'];
-            $columns[$index] = $column['selector'];
+            $columns[$index] = $column['value'];
 
             if ($mergeCallback && isset($column['group']) && $column['group']) {
                 $mergedCells[$index]   = new MergedCells($index);

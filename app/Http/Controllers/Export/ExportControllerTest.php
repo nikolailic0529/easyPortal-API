@@ -79,8 +79,8 @@ class ExportControllerTest extends TestCase {
             'query'   => 'query { assets { id } }',
             'columns' => [
                 [
-                    'name'     => 'Id',
-                    'selector' => 'id',
+                    'name'  => 'Id',
+                    'value' => 'id',
                 ],
             ],
         ];
@@ -147,8 +147,8 @@ class ExportControllerTest extends TestCase {
             'query'   => 'query { assets { id } }',
             'columns' => [
                 [
-                    'name'     => 'Id',
-                    'selector' => 'id',
+                    'name'  => 'Id',
+                    'value' => 'id',
                 ],
             ],
         ];
@@ -215,8 +215,8 @@ class ExportControllerTest extends TestCase {
             'query'   => 'query { assets { id } }',
             'columns' => [
                 [
-                    'name'     => 'Id',
-                    'selector' => 'id',
+                    'name'  => 'Id',
+                    'value' => 'id',
                 ],
             ],
         ];
@@ -308,24 +308,24 @@ class ExportControllerTest extends TestCase {
     protected function getExportDataProvider(): DataProvider {
         $columns    = [
             [
-                'name'     => 'Id',
-                'selector' => 'id',
+                'name'  => 'Id',
+                'value' => 'id',
             ],
             [
-                'name'     => 'Name',
-                'selector' => 'or(nickname, product.name)',
+                'name'  => 'Name',
+                'value' => 'or(nickname, product.name)',
             ],
             [
-                'name'     => 'Location',
-                'selector' => 'concat(location.country.name, location.city.name)',
+                'name'  => 'Location',
+                'value' => 'concat(location.country.name, location.city.name)',
             ],
             [
-                'name'     => 'Coverages Names',
-                'selector' => 'coverages.*.name',
+                'name'  => 'Coverages Names',
+                'value' => 'coverages.*.name',
             ],
             [
-                'name'     => 'Coverages JSON',
-                'selector' => 'coverages',
+                'name'  => 'Coverages JSON',
+                'value' => 'coverages',
             ],
         ];
         $properties = <<<'QUERY'
@@ -453,8 +453,8 @@ class ExportControllerTest extends TestCase {
                         'query'   => 'query { customers { id } }',
                         'columns' => [
                             [
-                                'name'     => '',
-                                'selector' => 'abc',
+                                'name'  => '',
+                                'value' => 'abc',
                             ],
                         ],
                     ],

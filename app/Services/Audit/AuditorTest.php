@@ -193,8 +193,8 @@ class AuditorTest extends TestCase {
             'root'    => 'assets',
             'columns' => [
                 [
-                    'name'     => 'Name',
-                    'selector' => 'path.to.property',
+                    'name'  => 'Name',
+                    'value' => 'path.to.property',
                 ],
             ],
             'query'   => 'query { asset { id } }',
