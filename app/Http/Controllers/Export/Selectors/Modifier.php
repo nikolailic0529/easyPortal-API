@@ -6,6 +6,8 @@ use App\Http\Controllers\Export\Exceptions\SelectorToFewArguments;
 use App\Http\Controllers\Export\Exceptions\SelectorToManyArguments;
 use App\Http\Controllers\Export\Selector;
 
+use function array_merge;
+use function array_unique;
 use function count;
 use function reset;
 
@@ -37,6 +39,19 @@ abstract class Modifier implements Selector {
     abstract public static function getArgumentsMinCount(): ?int;
 
     abstract public static function getArgumentsMaxCount(): ?int;
+
+    /**
+     * @inheritdoc
+     */
+    public function getSelectors(): array {
+        $selectors = [];
+
+        foreach ($this->arguments as $argument) {
+            $selectors = array_merge($selectors, $argument->getSelectors());
+        }
+
+        return array_unique($selectors);
+    }
 
     /**
      * @param array<scalar|null|array<scalar|null>> $item

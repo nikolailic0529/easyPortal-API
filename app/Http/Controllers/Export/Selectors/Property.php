@@ -19,4 +19,11 @@ class Property extends Value {
     public function fill(array $item, array &$row): void {
         $row[$this->index] = $this->value($item[$this->property] ?? null);
     }
+
+    /**
+     * @inheritdoc
+     */
+    public function getSelectors(): array {
+        return [$this->property];
+    }
 }

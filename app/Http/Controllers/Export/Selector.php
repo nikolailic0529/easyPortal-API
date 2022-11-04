@@ -8,4 +8,9 @@ interface Selector {
      * @param array<scalar|null>                    $row
      */
     public function fill(array $item, array &$row): void;
+
+    /**
+     * @return array<string>
+     */
+    public function getSelectors(): array;
 }

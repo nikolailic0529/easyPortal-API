@@ -29,6 +29,26 @@ class GroupTest extends TestCase {
 
         self::assertEquals($expected, $row);
     }
+
+    /**
+     * @covers ::getSelectors
+     */
+    public function testGetSelectors(): void {
+        $selector = new Group('a', [
+            new Property('b', 1),
+            new Group('b', [
+                new Property('c', 2),
+            ]),
+            new Property('d', 4),
+        ]);
+        $expected = [
+            'a.b',
+            'a.b.c',
+            'a.d',
+        ];
+
+        self::assertEquals($expected, $selector->getSelectors());
+    }
     //</editor-fold>
 
     // <editor-fold desc="DataProviders">
@@ -52,6 +72,13 @@ class GroupTest extends TestCase {
                         public function fill(array $item, array &$row): void {
                             $row[1] = $item[0];
                         }
+
+                        /**
+                         * @inheritdoc
+                         */
+                        public function getSelectors(): array {
+                            return [];
+                        }
                     },
                     new class() implements Selector {
                         /**
@@ -59,6 +86,13 @@ class GroupTest extends TestCase {
                          */
                         public function fill(array $item, array &$row): void {
                             $row[5] = $item[1];
+                        }
+
+                        /**
+                         * @inheritdoc
+                         */
+                        public function getSelectors(): array {
+                            return [];
                         }
                     },
                 ],
@@ -82,6 +116,13 @@ class GroupTest extends TestCase {
                         public function fill(array $item, array &$row): void {
                             // empty
                         }
+
+                        /**
+                         * @inheritdoc
+                         */
+                        public function getSelectors(): array {
+                            return [];
+                        }
                     },
                 ],
                 [
@@ -103,6 +144,13 @@ class GroupTest extends TestCase {
                          */
                         public function fill(array $item, array &$row): void {
                             // empty
+                        }
+
+                        /**
+                         * @inheritdoc
+                         */
+                        public function getSelectors(): array {
+                            return [];
                         }
                     },
                 ],

@@ -35,4 +35,19 @@ class Group implements Selector {
             }
         }
     }
+
+    /**
+     * @inheritdoc
+     */
+    public function getSelectors(): array {
+        $selectors = [];
+
+        foreach ($this->selectors as $nested) {
+            foreach ($nested->getSelectors() as $selector) {
+                $selectors[] = "{$this->field}.{$selector}";
+            }
+        }
+
+        return $selectors;
+    }
 }

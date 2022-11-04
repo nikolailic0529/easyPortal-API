@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Export\Selectors;
 
 use App\Http\Controllers\Export\Selector;
 
+use function array_merge;
+use function array_unique;
 use function in_array;
 
 class Root implements Selector {
@@ -44,5 +46,18 @@ class Root implements Selector {
         foreach ($this->selectors as $selector) {
             $selector->fill($item, $row);
         }
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function getSelectors(): array {
+        $selectors = [];
+
+        foreach ($this->selectors as $selector) {
+            $selectors = array_merge($selectors, $selector->getSelectors());
+        }
+
+        return array_unique($selectors);
     }
 }

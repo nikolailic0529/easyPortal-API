@@ -28,6 +28,18 @@ class PropertyTest extends TestCase {
 
         self::assertEquals($expected, $row);
     }
+
+    /**
+     * @covers ::getSelectors
+     */
+    public function testGetSelectors(): void {
+        $selector = new Property('b', 1);
+        $expected = [
+            'b',
+        ];
+
+        self::assertEquals($expected, $selector->getSelectors());
+    }
     //</editor-fold>
 
     // <editor-fold desc="DataProviders">

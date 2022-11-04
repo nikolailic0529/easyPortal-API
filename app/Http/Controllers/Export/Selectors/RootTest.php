@@ -31,6 +31,47 @@ class RootTest extends TestCase {
         self::assertEquals($expected, $row);
         self::assertEquals($expected, $selector->get($item));
     }
+
+    /**
+     * @covers ::getSelectors
+     */
+    public function testGetSelectors(): void {
+        $asterisk = new Asterisk(
+            new Group('a', [
+                new Property('b', 1),
+                new Group('b', [
+                    new Property('c', 2),
+                ]),
+                new Property('d', 4),
+            ]),
+            0,
+        );
+        $selector = new Root([
+            new Group('a', [
+                $asterisk,
+            ]),
+            new Concat(
+                [
+                    $asterisk,
+                    new Property('a', 4),
+                    new Property('a', 4),
+                ],
+                0,
+            ),
+            $asterisk,
+        ]);
+        $expected = [
+            'a.*.a.b',
+            'a.*.a.b.c',
+            'a.*.a.d',
+            '*.a.b',
+            '*.a.b.c',
+            '*.a.d',
+            'a',
+        ];
+
+        self::assertEquals($expected, $selector->getSelectors());
+    }
     //</editor-fold>
 
     // <editor-fold desc="DataProviders">
@@ -53,6 +94,13 @@ class RootTest extends TestCase {
                         public function fill(array $item, array &$row): void {
                             $row[1] = $item[0];
                         }
+
+                        /**
+                         * @inheritdoc
+                         */
+                        public function getSelectors(): array {
+                            return [];
+                        }
                     },
                     new class() implements Selector {
                         /**
@@ -60,6 +108,13 @@ class RootTest extends TestCase {
                          */
                         public function fill(array $item, array &$row): void {
                             $row[5] = $item[1];
+                        }
+
+                        /**
+                         * @inheritdoc
+                         */
+                        public function getSelectors(): array {
+                            return [];
                         }
                     },
                 ],

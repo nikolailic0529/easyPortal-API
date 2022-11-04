@@ -43,4 +43,18 @@ class Asterisk extends Value {
 
         $row[$this->index] = implode(', ', $values) ?: null;
     }
+
+    /**
+     * @inheritdoc
+     */
+    public function getSelectors(): array {
+        $prefix    = '*';
+        $selectors = [];
+
+        foreach ($this->selector->getSelectors() as $selector) {
+            $selectors[] = "{$prefix}.{$selector}";
+        }
+
+        return $selectors;
+    }
 }

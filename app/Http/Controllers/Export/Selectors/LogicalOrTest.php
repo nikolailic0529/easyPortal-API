@@ -30,6 +30,37 @@ class LogicalOrTest extends TestCase {
 
         self::assertEquals($expected, $row);
     }
+
+    /**
+     * @covers ::getSelectors
+     */
+    public function testGetSelectors(): void {
+        $selector = new LogicalOr(
+            [
+                new Asterisk(
+                    new Group('a', [
+                        new Property('b', 1),
+                        new Group('b', [
+                            new Property('c', 2),
+                        ]),
+                        new Property('d', 4),
+                    ]),
+                    0,
+                ),
+                new Property('a', 4),
+                new Property('a', 4),
+            ],
+            0,
+        );
+        $expected = [
+            '*.a.b',
+            '*.a.b.c',
+            '*.a.d',
+            'a',
+        ];
+
+        self::assertEquals($expected, $selector->getSelectors());
+    }
     //</editor-fold>
 
     // <editor-fold desc="DataProviders">
@@ -57,6 +88,13 @@ class LogicalOrTest extends TestCase {
                         public function fill(array $item, array &$row): void {
                             $row[1] = $item[0];
                         }
+
+                        /**
+                         * @inheritdoc
+                         */
+                        public function getSelectors(): array {
+                            return [];
+                        }
                     },
                     new class() implements Selector {
                         /**
@@ -64,6 +102,13 @@ class LogicalOrTest extends TestCase {
                          */
                         public function fill(array $item, array &$row): void {
                             $row[2] = $item[1];
+                        }
+
+                        /**
+                         * @inheritdoc
+                         */
+                        public function getSelectors(): array {
+                            return [];
                         }
                     },
                     new class() implements Selector {
@@ -73,6 +118,13 @@ class LogicalOrTest extends TestCase {
                         public function fill(array $item, array &$row): void {
                             $row[3] = $item[2];
                         }
+
+                        /**
+                         * @inheritdoc
+                         */
+                        public function getSelectors(): array {
+                            return [];
+                        }
                     },
                     new class() implements Selector {
                         /**
@@ -80,6 +132,13 @@ class LogicalOrTest extends TestCase {
                          */
                         public function fill(array $item, array &$row): void {
                             $row[4] = $item[3];
+                        }
+
+                        /**
+                         * @inheritdoc
+                         */
+                        public function getSelectors(): array {
+                            return [];
                         }
                     },
                 ],
