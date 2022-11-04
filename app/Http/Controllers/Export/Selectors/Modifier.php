@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers\Export\Selectors;
 
-use App\Http\Controllers\Export\Exceptions\SelectorToFewArguments;
-use App\Http\Controllers\Export\Exceptions\SelectorToManyArguments;
+use App\Http\Controllers\Export\Exceptions\SelectorFunctionToFewArguments;
+use App\Http\Controllers\Export\Exceptions\SelectorFunctionToManyArguments;
 use App\Http\Controllers\Export\Selector;
 
 use function array_merge;
@@ -26,11 +26,11 @@ abstract class Modifier implements Selector {
         $count = count($this->arguments);
 
         if ($min !== null && $count < $min) {
-            throw new SelectorToFewArguments($name, $min, $count);
+            throw new SelectorFunctionToFewArguments($name, $min, $count);
         }
 
         if ($max !== null && $count > $max) {
-            throw new SelectorToManyArguments($name, $max, $count);
+            throw new SelectorFunctionToManyArguments($name, $max, $count);
         }
     }
 

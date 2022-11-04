@@ -7,7 +7,7 @@ use Throwable;
 use function sprintf;
 use function trans;
 
-class SelectorToFewArguments extends SelectorException {
+class SelectorFunctionToFewArguments extends SelectorException {
     public function __construct(
         protected string $function,
         protected int $limit,

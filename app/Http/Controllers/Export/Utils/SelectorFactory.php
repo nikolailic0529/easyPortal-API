@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers\Export\Utils;
 
+use App\Http\Controllers\Export\Exceptions\SelectorAsteriskPropertyUnknown;
+use App\Http\Controllers\Export\Exceptions\SelectorFunctionUnknown;
 use App\Http\Controllers\Export\Exceptions\SelectorSyntaxError;
-use App\Http\Controllers\Export\Exceptions\SelectorUnknown;
 use App\Http\Controllers\Export\Selector;
 use App\Http\Controllers\Export\Selectors\Asterisk;
 use App\Http\Controllers\Export\Selectors\Concat;
@@ -67,7 +68,7 @@ class SelectorFactory {
                         $instance = new LogicalOr($arguments, $index);
                         break;
                     default:
-                        throw new SelectorUnknown($function);
+                        throw new SelectorFunctionUnknown($function);
                 }
             } else {
                 throw new SelectorSyntaxError();
@@ -86,26 +87,31 @@ class SelectorFactory {
     protected static function parseProperty(string $selector, int $index = 0, array &$groups = []): ?Selector {
         $separator = '.';
         $instance  = null;
+        $selector  = trim($selector);
         $parts     = explode($separator, $selector);
         $count     = count($parts);
         $group     = null;
         $path      = '';
 
+        if (!$selector) {
+            return $instance;
+        }
+
         foreach ($parts as $i => $part) {
             if ($part === '*') {
-                if (isset($parts[$i + 1])) {
-                    $property = implode($separator, array_slice($parts, $i + 1));
-                    $property = static::parseProperty($property);
+                $property = implode($separator, array_slice($parts, $i + 1));
+                $property = static::parseProperty($property);
 
-                    if ($property) {
-                        $asterisk = new Asterisk($property, $index);
+                if ($property) {
+                    $asterisk = new Asterisk($property, $index);
 
-                        if ($group) {
-                            $group->add($asterisk);
-                        } else {
-                            $instance = $asterisk;
-                        }
+                    if ($group) {
+                        $group->add($asterisk);
+                    } else {
+                        $instance = $asterisk;
                     }
+                } else {
+                    throw new SelectorAsteriskPropertyUnknown();
                 }
 
                 break;

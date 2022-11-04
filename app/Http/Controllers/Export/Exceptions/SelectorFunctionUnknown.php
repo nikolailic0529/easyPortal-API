@@ -7,7 +7,7 @@ use Throwable;
 use function sprintf;
 use function trans;
 
-class SelectorUnknown extends SelectorException {
+class SelectorFunctionUnknown extends SelectorException {
     public function __construct(
         protected string $function,
         Throwable $previous = null,

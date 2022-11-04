@@ -61,7 +61,7 @@ class AsteriskTest extends TestCase {
      *     array<mixed>,
      *     Selector,
      *     int<0, max>,
-     *     array<scalar|null|array<scalar|null|array<scalar|null>>>
+     *     array<scalar|null|array<scalar|null|array<scalar|null|array<scalar|null>>>>
      *     }>
      */
     public function dataProviderFill(): array {
@@ -112,6 +112,37 @@ class AsteriskTest extends TestCase {
                     [
                         'property' => [
                             'b' => 'value-b',
+                        ],
+                    ],
+                ],
+            ],
+            'nested'   => [
+                [
+                    1 => '1, 2, 3',
+                ],
+                new Group('b', [
+                    new Asterisk(
+                        new Property('d', 0),
+                        5,
+                    ),
+                ]),
+                1,
+                [
+                    [
+                        'b' => [
+                            [
+                                'd' => '1',
+                            ],
+                            [
+                                'd' => '2',
+                            ],
+                        ],
+                    ],
+                    [
+                        'b' => [
+                            [
+                                'd' => '3',
+                            ],
                         ],
                     ],
                 ],
