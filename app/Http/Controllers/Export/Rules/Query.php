@@ -2,11 +2,16 @@
 
 namespace App\Http\Controllers\Export\Rules;
 
+use App\Http\Controllers\Export\Utils\QueryOperation;
+use App\Http\Controllers\Export\Utils\QueryOperationCache;
+use App\Utils\Validation\Traits\WithData;
+use App\Utils\Validation\Traits\WithValidator;
 use Closure;
 use Exception;
 use GraphQL\Error\ClientAware;
 use GraphQL\Executor\Values;
 use GraphQL\Language\AST\DocumentNode;
+use GraphQL\Language\AST\FragmentDefinitionNode;
 use GraphQL\Language\AST\OperationDefinitionNode;
 use GraphQL\Server\Helper;
 use GraphQL\Server\OperationParams;
@@ -14,6 +19,7 @@ use GraphQL\Validator\DocumentValidator;
 use GraphQL\Validator\Rules\ValidationRule;
 use Illuminate\Contracts\Validation\DataAwareRule;
 use Illuminate\Contracts\Validation\InvokableRule;
+use Illuminate\Contracts\Validation\ValidatorAwareRule;
 use Illuminate\Support\Arr;
 use Illuminate\Translation\PotentiallyTranslatedString;
 use InvalidArgumentException;
@@ -23,17 +29,13 @@ use Nuwave\Lighthouse\Support\Contracts\ProvidesValidationRules;
 
 use function array_filter;
 use function assert;
-use function count;
 use function is_array;
 use function is_string;
-use function iterator_to_array;
 use function reset;
 
-class Query implements InvokableRule, DataAwareRule {
-    /**
-     * @var array<mixed>
-     */
-    protected array $data = [];
+class Query implements InvokableRule, DataAwareRule, ValidatorAwareRule {
+    use WithData;
+    use WithValidator;
 
     public function __construct(
         protected Helper $helper,
@@ -44,6 +46,8 @@ class Query implements InvokableRule, DataAwareRule {
         // empty
     }
 
+    // <editor-fold desc="InvokableRule">
+    // =========================================================================
     /**
      * @inheritDoc
      */
@@ -59,17 +63,28 @@ class Query implements InvokableRule, DataAwareRule {
         }
 
         // Query?
-        $count         = count($documentNode->definitions);
-        $queries       = array_filter(
-            iterator_to_array($documentNode->definitions),
-            static function (mixed $definition): bool {
-                return $definition instanceof OperationDefinitionNode
-                    && $definition->operation === 'query';
-            },
-        );
-        $operationNode = reset($queries);
+        $count         = 0;
+        $queries       = 0;
+        $fragments     = [];
+        $operationNode = null;
 
-        if ($count > 1 || count($queries) !== 1 || !($operationNode instanceof OperationDefinitionNode)) {
+        foreach ($documentNode->definitions as $definition) {
+            if ($definition instanceof OperationDefinitionNode) {
+                if ($definition->operation === 'query') {
+                    $operationNode = $definition;
+                }
+
+                $queries++;
+            }
+
+            if ($definition instanceof FragmentDefinitionNode) {
+                $fragments[$definition->name->value] = $definition;
+            } else {
+                $count++;
+            }
+        }
+
+        if ($count > 1 || $queries !== 1 || !($operationNode instanceof OperationDefinitionNode)) {
             $this->fail($fail);
 
             return;
@@ -96,20 +111,19 @@ class Query implements InvokableRule, DataAwareRule {
 
         if ($errors) {
             $this->fail($fail, $errors);
+
+            return;
+        }
+
+        // Save
+        if ($this->getValidator()) {
+            QueryOperationCache::set($this->getValidator(), new QueryOperation($operationNode, $fragments));
         }
     }
+    //</editor-fold>
 
-    /**
-     * @param array<mixed> $data
-     *
-     * @return $this
-     */
-    public function setData(mixed $data): static {
-        $this->data = $data;
-
-        return $this;
-    }
-
+    // <editor-fold desc="Helpers">
+    // =========================================================================
     /**
      * @param Closure(string): PotentiallyTranslatedString $fail
      * @param array<mixed>                                 $errors
@@ -120,7 +134,7 @@ class Query implements InvokableRule, DataAwareRule {
         if ($error instanceof Exception && $error instanceof ClientAware && $error->isClientSafe()) {
             $fail($error->getMessage());
         } else {
-            $fail('validation.graphql_query')->translate();
+            $fail('validation.http.controllers.export.query_invalid')->translate();
         }
     }
 
@@ -150,10 +164,11 @@ class Query implements InvokableRule, DataAwareRule {
         if (is_array($value)) {
             $operation = $this->createOperation($value);
         } elseif (is_string($value)) {
+            $data      = (array) $this->getData();
             $operation = $this->createOperation([
                 'query'         => $value,
-                'variables'     => $this->data['variables'] ?? null,
-                'operationName' => $this->data['operationName'] ?? null,
+                'variables'     => $data['variables'] ?? null,
+                'operationName' => $data['operationName'] ?? null,
             ]);
         } else {
             // empty
@@ -182,4 +197,5 @@ class Query implements InvokableRule, DataAwareRule {
     protected function getValidationRules(): array {
         return (array) $this->rulesProvider->validationRules();
     }
+    //</editor-fold>
 }

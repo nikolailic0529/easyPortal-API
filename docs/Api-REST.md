@@ -335,6 +335,6 @@ Returns the string that results from concatenating the truthy `selector` values 
 
 Returns the first truthy `selector` values.
 
-| Example                          | Result      |
-|----------------------------------|-------------|
-| `concat(nickname, product.name)` | `Product A` |
+| Example                      | Result      |
+|------------------------------|-------------|
+| `or(nickname, product.name)` | `Product A` |

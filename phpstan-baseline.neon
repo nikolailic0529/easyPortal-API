@@ -2121,6 +2121,11 @@ parameters:
 			path: app/Http/Controllers/Export/Rules/Query.php
 
 		-
+			message: "#^Static property App\\\\Http\\\\Controllers\\\\Export\\\\Utils\\\\QueryOperationCache\\:\\:\\$cache \\(WeakMap\\<Illuminate\\\\Contracts\\\\Validation\\\\Validator, App\\\\Http\\\\Controllers\\\\Export\\\\Utils\\\\QueryOperation\\>\\) does not accept WeakMap\\<object, mixed\\>\\.$#"
+			count: 1
+			path: app/Http/Controllers/Export/Utils/QueryOperationCache.php
+
+		-
 			message: "#^If condition is always true\\.$#"
 			count: 1
 			path: app/Http/Controllers/FilesController.php
