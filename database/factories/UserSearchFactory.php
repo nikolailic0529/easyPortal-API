@@ -28,7 +28,7 @@ class UserSearchFactory extends Factory {
         return [
             'id'         => $this->faker->uuid(),
             'name'       => $this->faker->word(),
-            'key'        => $this->faker->word(),
+            'key'        => $this->faker->uuid(),
             'conditions' => $this->faker->word(),
             'user_id'    => static function (): User {
                 return User::factory()->create();
