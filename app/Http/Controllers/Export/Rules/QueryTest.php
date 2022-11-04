@@ -1,6 +1,6 @@
 <?php declare(strict_types = 1);
 
-namespace App\Rules\GraphQL;
+namespace App\Http\Controllers\Export\Rules;
 
 use Illuminate\Contracts\Translation\Translator;
 use Illuminate\Contracts\Validation\Factory;
@@ -11,7 +11,7 @@ use function array_merge;
 
 /**
  * @internal
- * @coversDefaultClass \App\Rules\GraphQL\Query
+ * @coversDefaultClass \App\Http\Controllers\Export\Rules\Query
  */
 class QueryTest extends TestCase {
     // <editor-fold desc="Tests">

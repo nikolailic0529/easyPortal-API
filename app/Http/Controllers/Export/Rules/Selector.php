@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Export\Rules;
 
 use App\Http\Controllers\Export\Exceptions\SelectorException;
-use App\Http\Controllers\Export\SelectorFactory;
+use App\Http\Controllers\Export\Utils\SelectorFactory;
 use Exception;
 use Illuminate\Contracts\Validation\InvokableRule;
 

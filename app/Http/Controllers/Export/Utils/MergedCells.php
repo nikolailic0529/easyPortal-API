@@ -1,6 +1,6 @@
 <?php declare(strict_types = 1);
 
-namespace App\Http\Controllers\Export;
+namespace App\Http\Controllers\Export\Utils;
 
 class MergedCells {
     /**
@@ -49,7 +49,7 @@ class MergedCells {
     }
 
     /**
-     * @param int<0, max>   $row
+     * @param int<0, max> $row
      */
     public function merge(int $row, mixed $value): ?static {
         // Same value?

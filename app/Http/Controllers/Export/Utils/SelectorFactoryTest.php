@@ -1,6 +1,6 @@
 <?php declare(strict_types = 1);
 
-namespace App\Http\Controllers\Export;
+namespace App\Http\Controllers\Export\Utils;
 
 use App\Http\Controllers\Export\Selectors\Asterisk;
 use App\Http\Controllers\Export\Selectors\Concat;
@@ -12,7 +12,7 @@ use Tests\TestCase;
 
 /**
  * @internal
- * @coversDefaultClass \App\Http\Controllers\Export\SelectorFactory
+ * @coversDefaultClass \App\Http\Controllers\Export\Utils\SelectorFactory
  */
 class SelectorFactoryTest extends TestCase {
     /**

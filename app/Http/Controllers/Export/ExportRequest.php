@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers\Export;
 
+use App\Http\Controllers\Export\Rules\Query as IsGraphQLQuery;
 use App\Http\Controllers\Export\Rules\Selector;
-use App\Rules\GraphQL\Query as IsGraphQLQuery;
 use App\Rules\HashMap as IsHashMap;
 use Illuminate\Foundation\Http\FormRequest;
 

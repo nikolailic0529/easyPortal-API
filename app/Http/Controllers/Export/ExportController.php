@@ -3,7 +3,11 @@
 namespace App\Http\Controllers\Export;
 
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\Export\Events\QueryExported;
 use App\Http\Controllers\Export\Exceptions\GraphQLQueryInvalid;
+use App\Http\Controllers\Export\Utils\Measurer;
+use App\Http\Controllers\Export\Utils\MergedCells;
+use App\Http\Controllers\Export\Utils\SelectorFactory;
 use App\Utils\Iterators\Contracts\ObjectIterator;
 use App\Utils\Iterators\OffsetBasedObjectIterator;
 use App\Utils\Iterators\OneChunkOffsetBasedObjectIterator;

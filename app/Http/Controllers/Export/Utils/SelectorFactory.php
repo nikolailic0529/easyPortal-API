@@ -1,9 +1,10 @@
 <?php declare(strict_types = 1);
 
-namespace App\Http\Controllers\Export;
+namespace App\Http\Controllers\Export\Utils;
 
 use App\Http\Controllers\Export\Exceptions\SelectorSyntaxError;
 use App\Http\Controllers\Export\Exceptions\SelectorUnknown;
+use App\Http\Controllers\Export\Selector;
 use App\Http\Controllers\Export\Selectors\Asterisk;
 use App\Http\Controllers\Export\Selectors\Concat;
 use App\Http\Controllers\Export\Selectors\Group;

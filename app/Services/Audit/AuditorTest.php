@@ -2,7 +2,7 @@
 
 namespace App\Services\Audit;
 
-use App\Http\Controllers\Export\QueryExported;
+use App\Http\Controllers\Export\Events\QueryExported;
 use App\Models\Audits\Audit;
 use App\Models\ChangeRequest;
 use App\Models\Organization;

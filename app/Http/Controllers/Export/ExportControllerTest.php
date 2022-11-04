@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Export;
 
+use App\Http\Controllers\Export\Events\QueryExported;
 use App\Models\Asset;
 use App\Models\Data\City;
 use App\Models\Data\Country;

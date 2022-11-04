@@ -1,6 +1,6 @@
 <?php declare(strict_types = 1);
 
-namespace App\Rules\GraphQL;
+namespace App\Http\Controllers\Export\Rules;
 
 use Closure;
 use Exception;

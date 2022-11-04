@@ -1,12 +1,12 @@
 <?php declare(strict_types = 1);
 
-namespace App\Http\Controllers\Export;
+namespace App\Http\Controllers\Export\Utils;
 
 use Tests\TestCase;
 
 /**
  * @internal
- * @coversDefaultClass \App\Http\Controllers\Export\MergedCells
+ * @coversDefaultClass \App\Http\Controllers\Export\Utils\MergedCells
  */
 class MergedCellsTest extends TestCase {
     /**

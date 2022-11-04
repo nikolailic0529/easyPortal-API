@@ -2106,6 +2106,21 @@ parameters:
 			path: app/Http/Controllers/Export/ExportRequest.php
 
 		-
+			message: "#^Parameter \\#2 \\$errors of method App\\\\Http\\\\Controllers\\\\Export\\\\Rules\\\\Query\\:\\:fail\\(\\) expects array, mixed given\\.$#"
+			count: 1
+			path: app/Http/Controllers/Export/Rules/Query.php
+
+		-
+			message: "#^Parameter \\#2 \\$varDefNodes of static method GraphQL\\\\Executor\\\\Values\\:\\:getVariableValues\\(\\) expects array\\<GraphQL\\\\Language\\\\AST\\\\VariableDefinitionNode\\>, GraphQL\\\\Language\\\\AST\\\\NodeList\\<GraphQL\\\\Language\\\\AST\\\\VariableDefinitionNode\\> given\\.$#"
+			count: 1
+			path: app/Http/Controllers/Export/Rules/Query.php
+
+		-
+			message: "#^Property GraphQL\\\\Language\\\\AST\\\\OperationDefinitionNode\\:\\:\\$variableDefinitions \\(GraphQL\\\\Language\\\\AST\\\\NodeList\\<GraphQL\\\\Language\\\\AST\\\\VariableDefinitionNode\\>\\) on left side of \\?\\? is not nullable\\.$#"
+			count: 1
+			path: app/Http/Controllers/Export/Rules/Query.php
+
+		-
 			message: "#^If condition is always true\\.$#"
 			count: 1
 			path: app/Http/Controllers/FilesController.php
@@ -2834,21 +2849,6 @@ parameters:
 			message: "#^Parameter \\#1 \\$value of method Carbon\\\\CarbonImmutable\\:\\:setTimezone\\(\\) expects DateTimeZone\\|string, mixed given\\.$#"
 			count: 1
 			path: app/Rules/DateTime.php
-
-		-
-			message: "#^Parameter \\#2 \\$errors of method App\\\\Rules\\\\GraphQL\\\\Query\\:\\:fail\\(\\) expects array, mixed given\\.$#"
-			count: 1
-			path: app/Rules/GraphQL/Query.php
-
-		-
-			message: "#^Parameter \\#2 \\$varDefNodes of static method GraphQL\\\\Executor\\\\Values\\:\\:getVariableValues\\(\\) expects array\\<GraphQL\\\\Language\\\\AST\\\\VariableDefinitionNode\\>, GraphQL\\\\Language\\\\AST\\\\NodeList\\<GraphQL\\\\Language\\\\AST\\\\VariableDefinitionNode\\> given\\.$#"
-			count: 1
-			path: app/Rules/GraphQL/Query.php
-
-		-
-			message: "#^Property GraphQL\\\\Language\\\\AST\\\\OperationDefinitionNode\\:\\:\\$variableDefinitions \\(GraphQL\\\\Language\\\\AST\\\\NodeList\\<GraphQL\\\\Language\\\\AST\\\\VariableDefinitionNode\\>\\) on left side of \\?\\? is not nullable\\.$#"
-			count: 1
-			path: app/Rules/GraphQL/Query.php
 
 		-
 			message: "#^Unable to resolve the template type T in call to method App\\\\Rules\\\\Organization\\\\PermissionId\\:\\:getMutationRoot\\(\\)$#"

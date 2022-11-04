@@ -1,6 +1,8 @@
 <?php declare(strict_types = 1);
 
-namespace App\Http\Controllers\Export;
+namespace App\Http\Controllers\Export\Events;
+
+use App\Http\Controllers\Export\ExportRequest;
 
 /**
  * @phpstan-import-type Query from ExportRequest
