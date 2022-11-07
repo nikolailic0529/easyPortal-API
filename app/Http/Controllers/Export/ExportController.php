@@ -109,7 +109,7 @@ class ExportController extends Controller {
             function () use ($writer, $request, $format): void {
                 $writer->openToFile('php://output');
 
-                $scale    = 1.25;
+                $scale    = 1.1;
                 $options  = $writer->getOptions();
                 $measurer = new Measurer();
                 $iterator = $this->getRowsIterator(
