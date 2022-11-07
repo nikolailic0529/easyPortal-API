@@ -98,13 +98,17 @@
       "App\\": "app/",
       "Config\\": "config/",
       "Database\\Factories\\": "database/factories/",
-      "Database\\Seeders\\": "database/seeders/"
+      "Database\\Seeders\\": "database/seeders/",
+      "OpenSpout\\": "libs/openspout/openspout/src"
     },
     "files": [
       "app/mixins.php"
     ],
     "exclude-from-classmap": [
-      "app/**Test.php"
+      "app/**Test.php",
+      "vendor/openspout/openspout/src/Writer/XLSX/Helper/FileSystemHelper.php",
+      "vendor/openspout/openspout/src/Writer/XLSX/Manager/WorksheetManager.php",
+      "vendor/openspout/openspout/src/Writer/XLSX/Options.php"
     ]
   },
   "autoload-dev": {
