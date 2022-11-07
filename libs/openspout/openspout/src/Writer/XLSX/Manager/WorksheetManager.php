@@ -119,11 +119,26 @@ final class WorksheetManager implements WorksheetManagerInterface
     {
         $sheetFilePointer = $worksheet->getFilePointer();
         $rowStyle = $row->getStyle();
+        $rowOutline = $this->options->getOutlineRow($row);
+        $rowNumCells = $row->getNumCells();
         $rowIndexOneBased = $worksheet->getLastWrittenRowIndex() + 1;
-        $numCells = $row->getNumCells();
+        $rowHasCustomHeight = $this->options->DEFAULT_ROW_HEIGHT > 0 ? '1' : '0';
+        $rowAttributes = ''
+            ." r=\"{$rowIndexOneBased}\""
+            ." spans=\"1:{$rowNumCells}\""
+            ." customHeight=\"{$rowHasCustomHeight}\"";
 
-        $hasCustomHeight = $this->options->DEFAULT_ROW_HEIGHT > 0 ? '1' : '0';
-        $rowXML = "<row r=\"{$rowIndexOneBased}\" spans=\"1:{$numCells}\" customHeight=\"{$hasCustomHeight}\">";
+        if ($rowOutline) {
+            $rowHidden = $rowOutline->isVisible() ? 'false' : 'true';
+            $rowCollapsed = $rowOutline->isCollapsed() ? 'true' : 'false';
+            $rowOutlineLevel = $rowOutline->getOutlineLevel();
+            $rowAttributes .= ''
+                ." hidden=\"{$rowHidden}\""
+                ." collapsed=\"{$rowCollapsed}\""
+                ." outlineLevel=\"{$rowOutlineLevel}\"";
+        }
+
+        $rowXML = "<row{$rowAttributes}>";
 
         foreach ($row->getCells() as $columnIndexZeroBased => $cell) {
             $registeredStyle = $this->applyStyleAndRegister($cell, $rowStyle);
