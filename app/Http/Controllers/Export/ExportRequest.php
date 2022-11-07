@@ -2,17 +2,22 @@
 
 namespace App\Http\Controllers\Export;
 
-use App\Rules\GraphQL\Query as IsGraphQLQuery;
-use App\Rules\HashMap;
+use App\Http\Controllers\Export\Rules\Query as IsGraphQLQuery;
+use App\Http\Controllers\Export\Rules\Selector;
+use App\Rules\HashMap as IsHashMap;
 use Illuminate\Foundation\Http\FormRequest;
 
 /**
  * @phpstan-type Query array{
  *          root: string,
+ *          columns: non-empty-array<int, array{
+ *              name: string,
+ *              value: string,
+ *              group?: ?string
+ *          }>,
  *          query: string,
  *          operationName?: string,
  *          variables?: (array<string, mixed>&array{limit?: ?int, offset?: ?int})|null,
- *          headers?: array<string,string>,
  *      }
  */
 class ExportRequest extends FormRequest {
@@ -25,17 +30,19 @@ class ExportRequest extends FormRequest {
      *
      * @return array<string,mixed>
      */
-    public function rules(IsGraphQLQuery $query): array {
+    public function rules(IsGraphQLQuery $isGraphQLQuery, IsHashMap $isHashMap, Selector $selector): array {
         return [
             'root'             => 'required|string',
-            'query'            => ['required', 'string', $query],
+            'query'            => ['required', 'string', $isGraphQLQuery],
             'operationName'    => 'string',
-            'variables'        => new HashMap(),
+            'variables'        => $isHashMap,
             'variables.*'      => 'nullable',
             'variables.limit'  => 'nullable|integer|min:1',
             'variables.offset' => 'nullable|integer|min:1',
-            'headers'          => new HashMap(),
-            'headers.*'        => 'required|string|min:1',
+            'columns'          => 'required|array',
+            'columns.*.name'   => 'required|string',
+            'columns.*.group'  => ['string', $selector],
+            'columns.*.value'  => ['required', 'string', $selector],
         ];
     }
 

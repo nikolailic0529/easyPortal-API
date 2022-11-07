@@ -44,7 +44,7 @@ Group clause for `input CustomerSearch` (only one property allowed at a time).
 """
 input AggregatedGroupByClauseCustomerSearch {
     """
-    Property clause.
+    Group by property.
     """
     key: AggregatedGroupByTypeDirection
     @aggregatedGroupByOperatorAsString

@@ -2,30 +2,33 @@
 
 namespace App\Http\Controllers\Export;
 
+use App\Http\Controllers\Export\Events\QueryExported;
 use App\Models\Asset;
+use App\Models\Data\City;
+use App\Models\Data\Country;
+use App\Models\Data\Coverage;
+use App\Models\Data\Location;
+use App\Models\Data\Product;
 use App\Models\Organization;
 use App\Models\User;
 use Barryvdh\Snappy\Facades\SnappyPdf as PDF;
 use Closure;
-use Exception;
-use GraphQL\Server\OperationParams;
 use Illuminate\Auth\Access\AuthorizationException;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Routing\Exceptions\StreamedResponseException;
 use Illuminate\Support\Facades\Event;
-use LastDragon_ru\LaraASP\Testing\Constraints\ClosureConstraint;
-use LastDragon_ru\LaraASP\Testing\Constraints\Response\ContentTypes\PdfContentType;
 use LastDragon_ru\LaraASP\Testing\Constraints\Response\Response;
-use LastDragon_ru\LaraASP\Testing\Constraints\Response\StatusCodes\BadRequest;
 use LastDragon_ru\LaraASP\Testing\Constraints\Response\StatusCodes\Forbidden;
-use LastDragon_ru\LaraASP\Testing\Constraints\Response\StatusCodes\Ok;
 use LastDragon_ru\LaraASP\Testing\Constraints\Response\StatusCodes\UnprocessableEntity;
 use LastDragon_ru\LaraASP\Testing\Providers\ArrayDataProvider;
 use LastDragon_ru\LaraASP\Testing\Providers\CompositeDataProvider;
+use LastDragon_ru\LaraASP\Testing\Providers\DataProvider;
+use LastDragon_ru\LaraASP\Testing\Providers\ExpectedFinal;
+use LastDragon_ru\LaraASP\Testing\Providers\UnknownValue;
 use LastDragon_ru\LaraASP\Testing\Responses\Laravel\Json\ValidationErrorResponse;
-use OpenSpout\Reader\XLSX\Reader as XLSXReader;
-use Psr\Http\Message\ResponseInterface;
-use Tests\Constraints\ContentTypes\CsvContentType;
-use Tests\Constraints\ContentTypes\XlsxContentType;
+use Tests\Constraints\Attachments\CsvAttachment;
+use Tests\Constraints\Attachments\PdfAttachment;
+use Tests\Constraints\Attachments\XlsxAttachment;
 use Tests\DataProviders\Http\Organizations\AuthOrgDataProvider;
 use Tests\DataProviders\Http\Users\OrgUserDataProvider;
 use Tests\TestCase;
@@ -34,12 +37,9 @@ use Tests\WithSettings;
 use Tests\WithUser;
 use Throwable;
 
-use function count;
-use function explode;
-use function json_encode;
 use function ob_end_clean;
 use function ob_get_level;
-use function trim;
+use function tap;
 
 /**
  * @internal
@@ -48,152 +48,54 @@ use function trim;
  * @phpstan-import-type OrganizationFactory from WithOrganization
  * @phpstan-import-type UserFactory from WithUser
  * @phpstan-import-type SettingsFactory from WithSettings
+ * @phpstan-import-type Query from ExportRequest
  */
 class ExportControllerTest extends TestCase {
     // <editor-fold desc="Tests">
     // =========================================================================
     /**
-     * @covers ::getHeaders
-     * @covers ::getHeader
-     *
-     * @dataProvider dataProviderGetHeaders
-     *
-     * @param array<mixed> $value
-     */
-    public function testGetHeaders(mixed $expected, array $value): void {
-        $controller = new class() extends ExportController {
-            /** @noinspection PhpMissingParentConstructorInspection */
-            public function __construct() {
-                // empty
-            }
-
-            /**
-             * @inheritDoc
-             */
-            public function getHeaders(array $item, string $prefix = null): array {
-                return parent::getHeaders($item, $prefix);
-            }
-        };
-        $actual     = $controller->getHeaders($value);
-
-        self::assertEquals($expected, $actual);
-    }
-
-    /**
-     * @covers ::getHeaderValue
-     *
-     * @dataProvider dataProviderGetHeaderValue
-     *
-     * @param array<mixed> $item
-     */
-    public function testGetHeaderValue(mixed $expected, string $header, array $item): void {
-        if ($expected instanceof Exception) {
-            self::expectExceptionObject($expected);
-        }
-
-        $controller = new class() extends ExportController {
-            /** @noinspection PhpMissingParentConstructorInspection */
-            public function __construct() {
-                // empty
-            }
-
-            /**
-             * @inheritDoc
-             */
-            public function getHeaderValue(string $header, array $item): mixed {
-                return parent::getHeaderValue($header, $item);
-            }
-        };
-        $actual     = $controller->getHeaderValue($header, $item);
-
-        self::assertEquals($expected, $actual);
-    }
-
-    /**
-     * @covers ::getValue
-     *
-     * @dataProvider dataProviderGetValue
-     */
-    public function testGetValue(mixed $expected, mixed $value): void {
-        $controller = new class() extends ExportController {
-            /** @noinspection PhpMissingParentConstructorInspection */
-            public function __construct() {
-                // empty
-            }
-
-            public function getValue(mixed $value): mixed {
-                return parent::getValue($value);
-            }
-        };
-        $actual     = $controller->getValue($value);
-
-        self::assertEquals($expected, $actual);
-    }
-
-    /**
-     * @covers ::getItemValue
-     *
-     * @dataProvider dataProviderGetItemValue
-     *
-     * @param array<mixed> $value
-     */
-    public function testGetItemValue(mixed $expected, string $path, array $value): void {
-        $controller = new class() extends ExportController {
-            /** @noinspection PhpMissingParentConstructorInspection */
-            public function __construct() {
-                // empty
-            }
-
-            /**
-             * @inheritDoc
-             */
-            public function getItemValue(string $path, array $item): mixed {
-                return parent::getItemValue($path, $item);
-            }
-        };
-        $actual     = $controller->getItemValue($path, $value);
-
-        self::assertEquals($expected, $actual);
-    }
-
-    /**
      * @covers ::csv
      *
-     * @dataProvider dataProviderExport
+     * @dataProvider dataProviderExportCsv
      *
      * @param OrganizationFactory                         $orgFactory
      * @param UserFactory                                 $userFactory
-     * @param Closure(static, ?Organization, ?User): ?int $factory
-     * @param array<string, mixed>                        $data
      * @param SettingsFactory                             $settingsFactory
+     * @param Closure(static, ?Organization, ?User): void $prepare
+     * @param array<string, mixed>|null                   $data
      */
     public function testCvs(
         Response $expected,
         mixed $orgFactory,
         mixed $userFactory = null,
-        Closure $factory = null,
-        array $data = [],
         mixed $settingsFactory = null,
+        Closure $prepare = null,
+        array $data = null,
     ): void {
         // Prepare
-        [$org, $user, $data, $count] = $this->prepare(
-            $orgFactory,
-            $userFactory,
-            $factory,
-            $data,
-            $settingsFactory,
-        );
+        $org    = $this->setOrganization($orgFactory);
+        $user   = $this->setUser($userFactory, $org);
+        $data ??= [
+            'root'    => 'data.assets',
+            'query'   => 'query { assets { id } }',
+            'columns' => [
+                [
+                    'name'  => 'Id',
+                    'value' => 'id',
+                ],
+            ],
+        ];
+
+        $this->setSettings($settingsFactory);
+
+        if ($prepare) {
+            $prepare($this, $org, $user);
+        }
 
         // Fake
         Event::fake(QueryExported::class);
 
         // Errors
-        if ($expected instanceof BadRequest) {
-            self::expectExceptionObject(new StreamedResponseException(
-                new GraphQLQueryInvalid(new OperationParams(), []),
-            ));
-        }
-
         if ($expected instanceof Forbidden && $user?->organization_id === $org?->getKey()) {
             self::expectExceptionObject(new StreamedResponseException(
                 new AuthorizationException('Unauthorized.'),
@@ -213,20 +115,6 @@ class ExportControllerTest extends TestCase {
         }
 
         if ($response->isSuccessful()) {
-            $response->assertThat(new CsvContentType());
-            $response->assertThat(new Response(new ClosureConstraint(
-                static function (mixed $response) use ($count): bool {
-                    self::assertInstanceOf(ResponseInterface::class, $response);
-
-                    $content = trim((string) $response->getBody(), "\n");
-                    $lines   = count(explode("\n", $content));
-
-                    self::assertEquals((int) $count + 1, $lines);
-
-                    return true;
-                },
-            )));
-
             Event::assertDispatched(QueryExported::class);
         } else {
             Event::assertNothingDispatched();
@@ -236,41 +124,46 @@ class ExportControllerTest extends TestCase {
     /**
      * @covers ::xlsx
      *
-     * @dataProvider dataProviderExport
+     * @dataProvider dataProviderExportXlsx
      *
      * @param OrganizationFactory                         $orgFactory
      * @param UserFactory                                 $userFactory
-     * @param Closure(static, ?Organization, ?User): ?int $factory
-     * @param array<string, mixed>                        $data
      * @param SettingsFactory                             $settingsFactory
+     * @param Closure(static, ?Organization, ?User): void $prepare
+     * @param array<string, mixed>|null                   $data
      */
     public function testXlsx(
         Response $expected,
         mixed $orgFactory,
         mixed $userFactory = null,
-        Closure $factory = null,
-        array $data = [],
         mixed $settingsFactory = null,
+        Closure $prepare = null,
+        array $data = null,
     ): void {
         // Prepare
-        [$org, $user, $data, $count] = $this->prepare(
-            $orgFactory,
-            $userFactory,
-            $factory,
-            $data,
-            $settingsFactory,
-        );
+        $org    = $this->setOrganization($orgFactory);
+        $user   = $this->setUser($userFactory, $org);
+        $data ??= [
+            'root'    => 'data.assets',
+            'query'   => 'query { assets { id } }',
+            'columns' => [
+                [
+                    'name'  => 'Id',
+                    'value' => 'id',
+                ],
+            ],
+        ];
+
+        $this->setSettings($settingsFactory);
+
+        if ($prepare) {
+            $prepare($this, $org, $user);
+        }
 
         // Fake
         Event::fake(QueryExported::class);
 
         // Errors
-        if ($expected instanceof BadRequest) {
-            self::expectExceptionObject(new StreamedResponseException(
-                new GraphQLQueryInvalid(new OperationParams(), []),
-            ));
-        }
-
         if ($expected instanceof Forbidden && $user?->organization_id === $org?->getKey()) {
             self::expectExceptionObject(new StreamedResponseException(
                 new AuthorizationException('Unauthorized.'),
@@ -290,29 +183,6 @@ class ExportControllerTest extends TestCase {
         }
 
         if ($response->isSuccessful()) {
-            $response->assertThat(new XlsxContentType());
-            $response->assertThat(new Response(new ClosureConstraint(
-                function (mixed $response) use ($count): bool {
-                    self::assertInstanceOf(ResponseInterface::class, $response);
-
-                    $sheets = [];
-                    $file   = $this->getTempFile((string) $response->getBody());
-                    $xlsx   = new XLSXReader();
-
-                    $xlsx->open($file->getPathname());
-
-                    foreach ($xlsx->getSheetIterator() as $sheet) {
-                        foreach ($sheet->getRowIterator() as $row) {
-                            $sheets[$sheet->getIndex()] = ($sheets[$sheet->getIndex()] ?? 0) + 1;
-                        }
-                    }
-
-                    self::assertEquals([0 => (int) $count + 1], $sheets);
-
-                    return true;
-                },
-            )));
-
             Event::assertDispatched(QueryExported::class);
         } else {
             Event::assertNothingDispatched();
@@ -322,324 +192,277 @@ class ExportControllerTest extends TestCase {
     /**
      * @covers ::pdf
      *
-     * @dataProvider dataProviderExport
+     * @dataProvider dataProviderExportPdf
      *
      * @param OrganizationFactory                         $orgFactory
      * @param UserFactory                                 $userFactory
-     * @param Closure(static, ?Organization, ?User): ?int $factory
-     * @param array<string, mixed>                        $data
      * @param SettingsFactory                             $settingsFactory
+     * @param Closure(static, ?Organization, ?User): void $prepare
+     * @param array<string, mixed>|null                   $data
      */
     public function testPdf(
         Response $expected,
         mixed $orgFactory,
         mixed $userFactory = null,
-        Closure $factory = null,
-        array $data = [],
         mixed $settingsFactory = null,
+        Closure $prepare = null,
+        array $data = null,
     ): void {
         // Prepare
-        [, , $data] = $this->prepare($orgFactory, $userFactory, $factory, $data, $settingsFactory);
+        $org    = $this->setOrganization($orgFactory);
+        $user   = $this->setUser($userFactory, $org);
+        $data ??= [
+            'root'    => 'data.assets',
+            'query'   => 'query { assets { id } }',
+            'columns' => [
+                [
+                    'name'  => 'Id',
+                    'value' => 'id',
+                ],
+            ],
+        ];
+
+        $this->setSettings($settingsFactory);
+
+        if ($prepare) {
+            $prepare($this, $org, $user);
+        }
 
         // Fake
         Event::fake(QueryExported::class);
         PDF::fake();
 
+        // Errors
+        if ($expected instanceof Forbidden && $user?->organization_id === $org?->getKey()) {
+            self::expectExceptionObject(new StreamedResponseException(
+                new AuthorizationException('Unauthorized.'),
+            ));
+        }
+
         // Execute
-        $response = $this->postJson('/download/pdf', $data)->assertThat($expected);
+        try {
+            $level    = ob_get_level();
+            $response = $this->postJson('/download/pdf', $data)->assertThat($expected);
+        } catch (Throwable $exception) {
+            while (ob_get_level() > $level) {
+                ob_end_clean();
+            }
+
+            throw $exception;
+        }
 
         if ($response->isSuccessful()) {
-            $response->assertThat(new PdfContentType());
+            Event::assertDispatched(QueryExported::class);
 
             PDF::assertViewIs('exports.pdf');
             PDF::assertSee("<td style='font-weight:bold;'> Id</td>");
-
-            Event::assertDispatched(QueryExported::class);
         } else {
             Event::assertNothingDispatched();
         }
     }
     // </editor-fold>
 
-    // <editor-fold desc="Helpers">
-    // =========================================================================
-    /**
-     * @param OrganizationFactory                         $orgFactory
-     * @param UserFactory                                 $userFactory
-     * @param Closure(static, ?Organization, ?User): ?int $factory
-     * @param array<string, mixed>                        $data
-     * @param SettingsFactory                             $settingsFactory
-     *
-     * @return array{?Organization,?User,array<string,mixed>,?int}
-     */
-    protected function prepare(
-        mixed $orgFactory,
-        mixed $userFactory = null,
-        Closure $factory = null,
-        array $data = [],
-        mixed $settingsFactory = null,
-    ): array {
-        $org   = $this->setOrganization($orgFactory);
-        $user  = $this->setUser($userFactory, $org);
-        $count = null;
-
-        $this->setSettings($settingsFactory);
-
-        if ($factory) {
-            $count = $factory($this, $org, $user);
-        }
-
-        if (!$data) {
-            $data = [
-                'root'  => 'data.customers',
-                'query' => 'query { customers { id } }',
-            ];
-        }
-
-        return [$org, $user, $data, $count];
-    }
-    //</editor-fold>
-
     // <editor-fold desc="DataProviders">
     // =========================================================================
     /**
-     * @return array<string, array{mixed,mixed}>
+     * @return array<string, array<mixed>>
      */
-    public function dataProviderGetHeaders(): array {
-        return [
-            'assoc'               => [
-                [
-                    'a'       => 'A',
-                    'b'       => 'B',
-                    'c.aa'    => 'C Aa',
-                    'd.aa.aa' => 'D Aa Aa',
-                    'e.aa.aa' => 'E Aa Aa',
+    public function dataProviderExportCsv(): array {
+        return (new CompositeDataProvider(
+            $this->getExportDataProvider(),
+            new ArrayDataProvider([
+                'ok' => [
+                    new CsvAttachment('export.csv', $this->getTestData()->file('.csv')),
                 ],
-                [
-                    'a' => 123,
-                    'b' => [1, 2, 3],
-                    'c' => ['aa' => 'aa'],
-                    'd' => ['aa' => ['aa' => 123]],
-                    'e' => ['aa' => ['aa' => ['a']]],
-                ],
-            ],
-            'assoc with one item' => [
-                [
-                    'test' => 'Test',
-                ],
-                [
-                    'test' => [
-                        [
-                            'a' => 'Aaaa',
-                            'b' => 'B',
-                        ],
-                        [
-                            'a' => 'Aaaa',
-                            'b' => 'B',
-                        ],
-                    ],
-                ],
-            ],
-            'list'                => [
-                [
-                    // empty
-                ],
-                [
-                    [
-                        'a' => 'Aaaa',
-                    ],
-                    [
-                        'a' => 'Aaaa',
-                    ],
-                ],
-            ],
-        ];
-    }
-
-    /**
-     * @return array<string, array{mixed,string,mixed}>
-     */
-    public function dataProviderGetHeaderValue(): array {
-        return [
-            'simple header'     => [
-                123,
-                'a',
-                [
-                    'a' => 123,
-                ],
-            ],
-            'function: unknown' => [
-                new HeadersUnknownFunction('unknown'),
-                'unknown(a)',
-                [
-                    'b' => 123,
-                ],
-            ],
-            'function: concat'  => [
-                '123 ab',
-                'concat(a,c , b.a, d)',
-                [
-                    'a' => 123,
-                    'b' => ['a' => 'ab'],
-                ],
-            ],
-            'function: or'      => [
-                '123',
-                'or(a,c , b.a, d, e)',
-                [
-                    'a' => null,
-                    'b' => ['a' => ' '],
-                    'd' => '123',
-                ],
-            ],
-        ];
-    }
-
-    /**
-     * @return array<string, array{mixed,mixed}>
-     */
-    public function dataProviderGetValue(): array {
-        return [
-            'int'                          => [123, 123],
-            'bool'                         => [true, true],
-            'float'                        => [12.3, 12.3],
-            'array'                        => [
-                json_encode([
-                    ['a' => 123, 'b' => 'b'],
-                ]),
-                [
-                    ['a' => 123, 'b' => 'b'],
-                ],
-            ],
-            'array assoc'                  => [
-                json_encode(['a' => 123, 'b' => 'b']),
-                [
-                    'a' => 123,
-                    'b' => 'b',
-                ],
-            ],
-            'array of scalars'             => [
-                'a, b',
-                [
-                    'a',
-                    'b',
-                ],
-            ],
-            'array of array with one item' => [
-                '123, b',
-                [
-                    ['a' => 123],
-                    ['b' => 'b'],
-                ],
-            ],
-            'array of array'               => [
-                json_encode([
-                    ['a' => 123],
-                    ['b' => 'b', 'c' => 'c'],
-                ]),
-                [
-                    ['a' => 123],
-                    ['b' => 'b', 'c' => 'c'],
-                ],
-            ],
-        ];
-    }
-
-    /**
-     * @return array<string, array{string,array<mixed>}>
-     */
-    public function dataProviderGetItemValue(): array {
-        return [
-            'a'                => [
-                123,
-                'a',
-                [
-                    'a' => 123,
-                ],
-            ],
-            'a (not exists)'   => [
-                null,
-                'a',
-                [
-                    'b' => 123,
-                ],
-            ],
-            'a.b (not exists)' => [
-                null,
-                'a.b',
-                [
-                    'a' => 123,
-                ],
-            ],
-            'a.b'              => [
-                123,
-                'a.b',
-                [
-                    'a' => ['b' => 123],
-                ],
-            ],
-            'a.b (array)'      => [
-                '1, 2, 3',
-                'a.b',
-                [
-                    'a' => [
-                        ['b' => 1],
-                        ['b' => 2],
-                        ['b' => 3],
-                    ],
-                ],
-            ],
-            'a.b.c (array)'    => [
-                '1, 2, 3',
-                'a.b.c',
-                [
-                    'a' => [
-                        ['b' => ['c' => 1]],
-                        ['b' => ['c' => 2]],
-                        ['b' => ['c' => 3]],
-                    ],
-                ],
-            ],
-            'getValue called'  => [
-                '[{"c":1},{"c":2},{"c":3,"d":2}]',
-                'a.b',
-                [
-                    'a' => [
-                        ['b' => ['c' => 1]],
-                        ['b' => ['c' => 2]],
-                        ['b' => ['c' => 3, 'd' => 2]],
-                    ],
-                ],
-            ],
-        ];
+            ]),
+        ))->getData();
     }
 
     /**
      * @return array<string, array<mixed>>
      */
-    public function dataProviderExport(): array {
+    public function dataProviderExportXlsx(): array {
         return (new CompositeDataProvider(
+            $this->getExportDataProvider(),
+            new ArrayDataProvider([
+                'ok' => [
+                    new XlsxAttachment('export.xlsx', $this->getTestData()->file('.xlsx.csv')),
+                ],
+            ]),
+        ))->getData();
+    }
+
+    /**
+     * @return array<string, array<mixed>>
+     */
+    public function dataProviderExportPdf(): array {
+        return (new CompositeDataProvider(
+            $this->getExportDataProvider(),
+            new ArrayDataProvider([
+                'ok' => [
+                    new PdfAttachment('export.pdf'),
+                ],
+            ]),
+        ))->getData();
+    }
+
+    protected function getExportDataProvider(): DataProvider {
+        $columns    = [
+            [
+                'name'  => 'Id',
+                'value' => 'id',
+            ],
+            [
+                'name'  => 'Name',
+                'value' => 'or(nickname, product.name)',
+            ],
+            [
+                'name'  => 'Location',
+                'value' => 'concat(location.country.name, location.city.name)',
+            ],
+            [
+                'name'  => 'Coverages Names',
+                'value' => 'coverages.*.name',
+            ],
+            [
+                'name'  => 'Coverages JSON',
+                'value' => 'coverages',
+            ],
+        ];
+        $properties = <<<'QUERY'
+            id
+            nickname
+            product {
+                name
+            }
+            location {
+                country {
+                    name
+                }
+                city {
+                    name
+                }
+            }
+            coverages {
+                name
+            }
+            QUERY;
+        $factory    = static function (self $test, Organization $org): void {
+            $country   = Country::factory()->create([
+                'name' => 'Country A',
+            ]);
+            $city      = City::factory()->create([
+                'name'       => 'City A',
+                'country_id' => $country,
+            ]);
+            $location  = Location::factory()->create([
+                'country_id' => $country,
+                'city_id'    => $city,
+            ]);
+            $productA  = Product::factory()->create([
+                'name' => 'Product A',
+            ]);
+            $productB  = Product::factory()->create([
+                'name' => 'Product B',
+            ]);
+            $coverageA = Coverage::factory()->create([
+                'id'   => '7a1ec28e-6665-4104-a22d-c7f6ff6ed560',
+                'name' => 'Coverage A',
+            ]);
+            $coverageB = Coverage::factory()->create([
+                'id'   => 'e1253c70-52fa-4283-abcf-0383074fe45b',
+                'name' => 'Coverage B',
+            ]);
+
+            Asset::factory()
+                ->ownedBy($org)
+                ->hasAttached(Collection::make([$coverageA, $coverageB]))
+                ->create([
+                    'id'          => '10a76fcd-3bc2-4dfd-b4bb-5095eabe4ea4',
+                    'nickname'    => 'Asset A',
+                    'product_id'  => $productA,
+                    'location_id' => $location,
+                ]);
+            Asset::factory()
+                ->ownedBy($org)
+                ->hasAttached($coverageB)
+                ->create([
+                    'id'          => '41baddd6-a048-46a8-952f-0c7d4c1b9a33',
+                    'nickname'    => null,
+                    'product_id'  => $productA,
+                    'location_id' => null,
+                ]);
+            Asset::factory()
+                ->ownedBy($org)
+                ->create([
+                    'id'          => '5d153624-a162-4c61-bfef-76fe0acd7fe0',
+                    'nickname'    => null,
+                    'product_id'  => $productB,
+                    'location_id' => null,
+                ]);
+        };
+
+        return new CompositeDataProvider(
             new AuthOrgDataProvider(),
             new OrgUserDataProvider([
                 'customers-view',
             ]),
             new ArrayDataProvider([
                 'no query'                => [
-                    new UnprocessableEntity(),
+                    new ExpectedFinal(new UnprocessableEntity()),
+                    null,
                     null,
                     [
                         'root' => 'data.customers',
                     ],
                 ],
                 'no root'                 => [
-                    new UnprocessableEntity(),
+                    new ExpectedFinal(new UnprocessableEntity()),
+                    null,
                     null,
                     [
                         'query' => 'query { customers { id } }',
                     ],
                 ],
+                'no columns'              => [
+                    new ExpectedFinal(new UnprocessableEntity()),
+                    null,
+                    null,
+                    [
+                        'root'  => 'data.customers',
+                        'query' => 'query { customers { id } }',
+                    ],
+                ],
+                'empty columns'           => [
+                    new ExpectedFinal(new UnprocessableEntity()),
+                    null,
+                    null,
+                    [
+                        'root'    => 'data.customers',
+                        'query'   => 'query { customers { id } }',
+                        'columns' => [
+                            // empty
+                        ],
+                    ],
+                ],
+                'no column name'          => [
+                    new ExpectedFinal(new UnprocessableEntity()),
+                    null,
+                    null,
+                    [
+                        'root'    => 'data.customers',
+                        'query'   => 'query { customers { id } }',
+                        'columns' => [
+                            [
+                                'name'  => '',
+                                'value' => 'abc',
+                            ],
+                        ],
+                    ],
+                ],
                 'mutation'                => [
-                    new UnprocessableEntity(),
+                    new ExpectedFinal(new UnprocessableEntity()),
+                    null,
                     null,
                     [
                         'root'  => 'data.customers',
@@ -647,9 +470,12 @@ class ExportControllerTest extends TestCase {
                     ],
                 ],
                 'invalid query'           => [
-                    new ValidationErrorResponse([
-                        'query' => ['Cannot query field "sfsdfsdsf" on type "Query".'],
-                    ]),
+                    new ExpectedFinal(
+                        new ValidationErrorResponse([
+                            'query' => ['Cannot query field "sfsdfsdsf" on type "Query".'],
+                        ]),
+                    ),
+                    null,
                     null,
                     [
                         'root'  => 'data.customers',
@@ -657,33 +483,25 @@ class ExportControllerTest extends TestCase {
                     ],
                 ],
                 'without pagination'      => [
-                    new Ok(),
-                    static function (self $test, Organization $org): int {
-                        $assets = Asset::factory()->ownedBy($org)->count(5)->create();
-
-                        return count($assets);
-                    },
+                    new UnknownValue(),
+                    null,
+                    $factory,
                     [
-                        'root'  => 'data.assets',
-                        'query' => 'query { assets { id } }',
+                        'root'    => 'data.assets',
+                        'query'   => "query { assets { {$properties} } }",
+                        'columns' => $columns,
                     ],
                 ],
                 'with pagination'         => [
-                    new Ok(),
-                    static function (self $test, Organization $org): int {
-                        $assets = Asset::factory()->ownedBy($org)->count(5)->create();
-
-                        return count($assets);
-                    },
+                    new UnknownValue(),
+                    null,
+                    $factory,
                     [
                         'root'      => 'data.assets',
-                        'query'     => <<<'GRAPHQL'
-                            query getAssets($limit: Int, $offset: Int) {
-                                assets(limit: $limit, offset: $offset) {
-                                    id
-                                    product {
-                                        sku
-                                    }
+                        'query'     => <<<GRAPHQL
+                            query getAssets(\$limit: Int, \$offset: Int) {
+                                assets(limit: \$limit, offset: \$offset) {
+                                    {$properties}
                                 }
                             }
                             GRAPHQL
@@ -692,48 +510,42 @@ class ExportControllerTest extends TestCase {
                             'limit'  => null,
                             'offset' => null,
                         ],
-                        'headers'   => [
-                            'id'          => 'Id',
-                            'product.sku' => 'Product',
-                        ],
+                        'columns'   => $columns,
                     ],
                 ],
                 'with limit'              => [
-                    new Ok(),
-                    static function (self $test, Organization $org): int {
-                        Asset::factory()->ownedBy($org)->count(5)->create();
-
-                        return 2;
-                    },
+                    new UnknownValue(),
+                    null,
+                    $factory,
                     [
                         'root'      => 'data.assets',
-                        'query'     => <<<'GRAPHQL'
-                            query getAssets($limit: Int, $offset: Int) {
-                                assets(limit: $limit, offset: $offset) {
-                                    id
+                        'query'     => <<<GRAPHQL
+                            query getAssets(\$limit: Int, \$offset: Int) {
+                                assets(limit: \$limit, offset: \$offset) {
+                                    {$properties}
                                 }
                             }
                             GRAPHQL
                         ,
                         'variables' => [
-                            'limit'  => 2,
+                            'limit'  => 3,
                             'offset' => null,
                         ],
+                        'columns'   => $columns,
                     ],
                 ],
                 'with chunked pagination' => [
-                    new Ok(),
-                    static function (self $test, Organization $org): int {
-                        $assets = Asset::factory()->ownedBy($org)->count(5)->create();
-
-                        return count($assets);
-                    },
+                    new UnknownValue(),
+                    [
+                        'ep.export.chunk' => 2,
+                    ],
+                    $factory,
                     [
                         'root'      => 'data.assets',
-                        'query'     => <<<'GRAPHQL'
-                            query getAssets($limit: Int, $offset: Int) {
-                                assets(limit: $limit, offset: $offset) {
-                                    id
+                        'query'     => <<<GRAPHQL
+                            query getAssets(\$limit: Int, \$offset: Int) {
+                                assets(limit: \$limit, offset: \$offset) {
+                                    {$properties}
                                 }
                             }
                             GRAPHQL
@@ -742,13 +554,35 @@ class ExportControllerTest extends TestCase {
                             'limit'  => 5,
                             'offset' => null,
                         ],
+                        'columns'   => $columns,
                     ],
+                ],
+                // todo(REST): Right now there is no way to view merged cells :( so we test the query only.
+                'with grouping'           => [
+                    new UnknownValue(),
+                    null,
+                    $factory,
                     [
-                        'ep.export.chunk' => 2,
+                        'root'      => 'data.assets',
+                        'query'     => <<<GRAPHQL
+                            query getAssets(\$limit: Int, \$offset: Int) {
+                                assets(limit: \$limit, offset: \$offset) {
+                                    {$properties}
+                                }
+                            }
+                            GRAPHQL
+                        ,
+                        'variables' => [
+                            'limit'  => null,
+                            'offset' => null,
+                        ],
+                        'columns'   => tap($columns, static function (array &$columns): void {
+                            $columns[0]['group'] = 'id';
+                        }),
                     ],
                 ],
             ]),
-        ))->getData();
+        );
     }
     // </editor-fold>
 }

@@ -39,27 +39,27 @@ Group clause for `input ApplicationLogsQuery` (only one property allowed at a ti
 """
 input AggregatedGroupByClauseApplicationLogsQuery {
     """
-    Property clause.
+    Group by property.
     """
     action: AggregatedGroupByTypeDirection
 
     """
-    Property clause.
+    Group by property.
     """
     category: AggregatedGroupByTypeDirection
 
     """
-    Property clause.
+    Group by property.
     """
     object_id: AggregatedGroupByTypeDirection
 
     """
-    Property clause.
+    Group by property.
     """
     object_type: AggregatedGroupByTypeDirection
 
     """
-    Property clause.
+    Group by property.
     """
     status: AggregatedGroupByTypeDirection
 }
@@ -69,122 +69,122 @@ Group clause for `input AssetsQuery` (only one property allowed at a time).
 """
 input AggregatedGroupByClauseAssetsQuery {
     """
-    Property clause.
+    Group by property.
     """
     contracts_active_quantity: AggregatedGroupByTypeDirection
 
     """
-    Property clause.
+    Group by property.
     """
     coverages_count: AggregatedGroupByTypeDirection
 
     """
-    Relationship clause.
+    Group by `customer_id` with additional sorting.
     """
     customer: [SortByClauseCompaniesSort!]
 
     """
-    Property clause.
+    Group by property.
     """
     customer_id: AggregatedGroupByTypeDirection
 
     """
-    Property clause.
+    Group by property.
     """
     eosl: AggregatedGroupByTypeDirection
 
     """
-    Relationship clause.
+    Group by `location_id` with additional sorting.
     """
     location: [SortByClauseLocationsSort!]
 
     """
-    Property clause.
+    Group by property.
     """
     location_id: AggregatedGroupByTypeDirection
 
     """
-    Property clause.
+    Group by property.
     """
     nickname: AggregatedGroupByTypeDirection
 
     """
-    Relationship clause.
+    Group by `oem_id` with additional sorting.
     """
     oem: [SortByClauseOemsSort!]
 
     """
-    Property clause.
+    Group by property.
     """
     oem_id: AggregatedGroupByTypeDirection
 
     """
-    Relationship clause.
+    Group by `product_id` with additional sorting.
     """
     product: [SortByClauseProductsSort!]
 
     """
-    Property clause.
+    Group by property.
     """
     product_id: AggregatedGroupByTypeDirection
 
     """
-    Relationship clause.
+    Group by `reseller_id` with additional sorting.
     """
     reseller: [SortByClauseCompaniesSort!]
 
     """
-    Property clause.
+    Group by property.
     """
     reseller_id: AggregatedGroupByTypeDirection
 
     """
-    Property clause.
+    Group by property.
     """
     serial_number: AggregatedGroupByTypeDirection
 
     """
-    Relationship clause.
+    Group by `status_id` with additional sorting.
     """
     status: [SortByClauseStatusesSort!]
 
     """
-    Property clause.
+    Group by property.
     """
     status_id: AggregatedGroupByTypeDirection
 
     """
-    Relationship clause.
+    Group by `type_id` with additional sorting.
     """
     type: [SortByClauseTypesSort!]
 
     """
-    Property clause.
+    Group by property.
     """
     type_id: AggregatedGroupByTypeDirection
 
     """
-    Relationship clause.
+    Group by `warranty_service_group_id` with additional sorting.
     """
     warrantyServiceGroup: [SortByClauseServiceGroupsSort!]
 
     """
-    Relationship clause.
+    Group by `warranty_service_level_id` with additional sorting.
     """
     warrantyServiceLevel: [SortByClauseServiceLevelsSort!]
 
     """
-    Property clause.
+    Group by property.
     """
     warranty_end: AggregatedGroupByTypeDirection
 
     """
-    Property clause.
+    Group by property.
     """
     warranty_service_group_id: AggregatedGroupByTypeDirection
 
     """
-    Property clause.
+    Group by property.
     """
     warranty_service_level_id: AggregatedGroupByTypeDirection
 }
@@ -194,27 +194,27 @@ Group clause for `input AuditsQuery` (only one property allowed at a time).
 """
 input AggregatedGroupByClauseAuditsQuery {
     """
-    Property clause.
+    Group by property.
     """
     action: AggregatedGroupByTypeDirection
 
     """
-    Property clause.
+    Group by property.
     """
     object_id: AggregatedGroupByTypeDirection
 
     """
-    Property clause.
+    Group by property.
     """
     object_type: AggregatedGroupByTypeDirection
 
     """
-    Property clause.
+    Group by property.
     """
     organization_id: AggregatedGroupByTypeDirection
 
     """
-    Property clause.
+    Group by property.
     """
     user_id: AggregatedGroupByTypeDirection
 }
@@ -224,27 +224,27 @@ Group clause for `input ChangeRequestsQuery` (only one property allowed at a tim
 """
 input AggregatedGroupByClauseChangeRequestsQuery {
     """
-    Property clause.
+    Group by property.
     """
     from: AggregatedGroupByTypeDirection
 
     """
-    Property clause.
+    Group by property.
     """
     message: AggregatedGroupByTypeDirection
 
     """
-    Property clause.
+    Group by property.
     """
     subject: AggregatedGroupByTypeDirection
 
     """
-    Relationship clause.
+    Group by `user_id` with additional sorting.
     """
     user: [SortByClauseUsersSort!]
 
     """
-    Property clause.
+    Group by property.
     """
     user_id: AggregatedGroupByTypeDirection
 }
@@ -254,17 +254,17 @@ Group clause for `input CompaniesQuery` (only one property allowed at a time).
 """
 input AggregatedGroupByClauseCompaniesQuery {
     """
-    Property clause.
+    Group by property.
     """
     contacts_count: AggregatedGroupByTypeDirection
 
     """
-    Property clause.
+    Group by property.
     """
     name: AggregatedGroupByTypeDirection
 
     """
-    Property clause.
+    Group by property.
     """
     statuses_count: AggregatedGroupByTypeDirection
 }
@@ -274,12 +274,12 @@ Group clause for `input CompanyLocationsQuery` (only one property allowed at a t
 """
 input AggregatedGroupByClauseCompanyLocationsQuery {
     """
-    Relationship clause.
+    Group by `location_id` with additional sorting.
     """
     location: [SortByClauseLocationsSort!]
 
     """
-    Property clause.
+    Group by property.
     """
     location_id: AggregatedGroupByTypeDirection
 }
@@ -289,7 +289,7 @@ Group clause for `input ContactsQuery` (only one property allowed at a time).
 """
 input AggregatedGroupByClauseContactsQuery {
     """
-    Property clause.
+    Group by property.
     """
     name: AggregatedGroupByTypeDirection
 }
@@ -299,7 +299,7 @@ Group clause for `input DistributorsQuery` (only one property allowed at a time)
 """
 input AggregatedGroupByClauseDistributorsQuery {
     """
-    Property clause.
+    Group by property.
     """
     name: AggregatedGroupByTypeDirection
 }
@@ -309,142 +309,142 @@ Group clause for `input DocumentEntriesQuery` (only one property allowed at a ti
 """
 input AggregatedGroupByClauseDocumentEntriesQuery {
     """
-    Relationship clause.
+    Group by `asset_id` with additional sorting.
     """
     asset: [SortByClauseAssetsSort!]
 
     """
-    Relationship clause.
+    Group by `asset_type_id` with additional sorting.
     """
     assetType: [SortByClauseTypesSort!]
 
     """
-    Property clause.
+    Group by property.
     """
     asset_id: AggregatedGroupByTypeDirection
 
     """
-    Property clause.
+    Group by property.
     """
     asset_type_id: AggregatedGroupByTypeDirection
 
     """
-    Relationship clause.
+    Group by `currency_id` with additional sorting.
     """
     currency: [SortByClauseCurrenciesSort!]
 
     """
-    Property clause.
+    Group by property.
     """
     currency_id: AggregatedGroupByTypeDirection
 
     """
-    Property clause.
+    Group by property.
     """
     document_id: AggregatedGroupByTypeDirection
 
     """
-    Property clause.
+    Group by property.
     """
     end: AggregatedGroupByTypeDirection
 
     """
-    Property clause.
+    Group by property.
     """
     environment_id: AggregatedGroupByTypeDirection
 
     """
-    Property clause.
+    Group by property.
     """
     equipment_number: AggregatedGroupByTypeDirection
 
     """
-    Relationship clause.
+    Group by `language_id` with additional sorting.
     """
     language: [SortByClauseLanguagesSort!]
 
     """
-    Property clause.
+    Group by property.
     """
     language_id: AggregatedGroupByTypeDirection
 
     """
-    Property clause.
+    Group by property.
     """
     oem_said: AggregatedGroupByTypeDirection
 
     """
-    Property clause.
+    Group by property.
     """
     oem_sar_number: AggregatedGroupByTypeDirection
 
     """
-    Relationship clause.
+    Group by `product_id` with additional sorting.
     """
     product: [SortByClauseProductsSort!]
 
     """
-    Relationship clause.
+    Group by `product_group_id` with additional sorting.
     """
     productGroup: [SortByClauseProductGroupsSort!]
 
     """
-    Relationship clause.
+    Group by `product_line_id` with additional sorting.
     """
     productLine: [SortByClauseProductLinesSort!]
 
     """
-    Property clause.
+    Group by property.
     """
     product_group_id: AggregatedGroupByTypeDirection
 
     """
-    Property clause.
+    Group by property.
     """
     product_id: AggregatedGroupByTypeDirection
 
     """
-    Property clause.
+    Group by property.
     """
     product_line_id: AggregatedGroupByTypeDirection
 
     """
-    Relationship clause.
+    Group by `psp_id` with additional sorting.
     """
     psp: [SortByClausePspsSort!]
 
     """
-    Property clause.
+    Group by property.
     """
     psp_id: AggregatedGroupByTypeDirection
 
     """
-    Property clause.
+    Group by property.
     """
     serial_number: AggregatedGroupByTypeDirection
 
     """
-    Relationship clause.
+    Group by `service_group_id` with additional sorting.
     """
     serviceGroup: [SortByClauseServiceGroupsSort!]
 
     """
-    Relationship clause.
+    Group by `service_level_id` with additional sorting.
     """
     serviceLevel: [SortByClauseServiceLevelsSort!]
 
     """
-    Property clause.
+    Group by property.
     """
     service_group_id: AggregatedGroupByTypeDirection
 
     """
-    Property clause.
+    Group by property.
     """
     service_level_id: AggregatedGroupByTypeDirection
 
     """
-    Property clause.
+    Group by property.
     """
     start: AggregatedGroupByTypeDirection
 }
@@ -454,122 +454,122 @@ Group clause for `input DocumentsQuery` (only one property allowed at a time).
 """
 input AggregatedGroupByClauseDocumentsQuery {
     """
-    Property clause.
+    Group by property.
     """
     contacts_count: AggregatedGroupByTypeDirection
 
     """
-    Relationship clause.
+    Group by `currency_id` with additional sorting.
     """
     currency: [SortByClauseCurrenciesSort!]
 
     """
-    Property clause.
+    Group by property.
     """
     currency_id: AggregatedGroupByTypeDirection
 
     """
-    Relationship clause.
+    Group by `customer_id` with additional sorting.
     """
     customer: [SortByClauseCompaniesSort!]
 
     """
-    Property clause.
+    Group by property.
     """
     customer_id: AggregatedGroupByTypeDirection
 
     """
-    Relationship clause.
+    Group by `distributor_id` with additional sorting.
     """
     distributor: [SortByClauseDistributorsSort!]
 
     """
-    Property clause.
+    Group by property.
     """
     distributor_id: AggregatedGroupByTypeDirection
 
     """
-    Property clause.
+    Group by property.
     """
     end: AggregatedGroupByTypeDirection
 
     """
-    Property clause.
+    Group by property.
     """
     entries_count: AggregatedGroupByTypeDirection
 
     """
-    Relationship clause.
+    Group by `language_id` with additional sorting.
     """
     language: [SortByClauseLanguagesSort!]
 
     """
-    Property clause.
+    Group by property.
     """
     language_id: AggregatedGroupByTypeDirection
 
     """
-    Property clause.
+    Group by property.
     """
     number: AggregatedGroupByTypeDirection
 
     """
-    Relationship clause.
+    Group by `oem_id` with additional sorting.
     """
     oem: [SortByClauseOemsSort!]
 
     """
-    Relationship clause.
+    Group by `oem_group_id` with additional sorting.
     """
     oemGroup: [SortByClauseOemGroupsSort!]
 
     """
-    Property clause.
+    Group by property.
     """
     oem_amp_id: AggregatedGroupByTypeDirection
 
     """
-    Property clause.
+    Group by property.
     """
     oem_group_id: AggregatedGroupByTypeDirection
 
     """
-    Property clause.
+    Group by property.
     """
     oem_id: AggregatedGroupByTypeDirection
 
     """
-    Property clause.
+    Group by property.
     """
     oem_said: AggregatedGroupByTypeDirection
 
     """
-    Property clause.
+    Group by property.
     """
     oem_sar_number: AggregatedGroupByTypeDirection
 
     """
-    Relationship clause.
+    Group by `reseller_id` with additional sorting.
     """
     reseller: [SortByClauseCompaniesSort!]
 
     """
-    Property clause.
+    Group by property.
     """
     reseller_id: AggregatedGroupByTypeDirection
 
     """
-    Property clause.
+    Group by property.
     """
     start: AggregatedGroupByTypeDirection
 
     """
-    Property clause.
+    Group by property.
     """
     statuses_count: AggregatedGroupByTypeDirection
 
     """
-    Property clause.
+    Group by property.
     """
     type_id: AggregatedGroupByTypeDirection
 }
@@ -579,42 +579,42 @@ Group clause for `input LocationsQuery` (only one property allowed at a time).
 """
 input AggregatedGroupByClauseLocationsQuery {
     """
-    Relationship clause.
+    Group by `city_id` with additional sorting.
     """
     city: [SortByClauseCitiesSort!]
 
     """
-    Property clause.
+    Group by property.
     """
     city_id: AggregatedGroupByTypeDirection
 
     """
-    Relationship clause.
+    Group by `country_id` with additional sorting.
     """
     country: [SortByClauseCountriesSort!]
 
     """
-    Property clause.
+    Group by property.
     """
     country_id: AggregatedGroupByTypeDirection
 
     """
-    Property clause.
+    Group by property.
     """
     line_one: AggregatedGroupByTypeDirection
 
     """
-    Property clause.
+    Group by property.
     """
     line_two: AggregatedGroupByTypeDirection
 
     """
-    Property clause.
+    Group by property.
     """
     postcode: AggregatedGroupByTypeDirection
 
     """
-    Property clause.
+    Group by property.
     """
     state: AggregatedGroupByTypeDirection
 }
@@ -624,12 +624,12 @@ Group clause for `input MeSearchQuery` (only one property allowed at a time).
 """
 input AggregatedGroupByClauseMeSearchQuery {
     """
-    Property clause.
+    Group by property.
     """
     key: AggregatedGroupByTypeDirection
 
     """
-    Property clause.
+    Group by property.
     """
     name: AggregatedGroupByTypeDirection
 }
@@ -639,12 +639,12 @@ Group clause for `input NotesQuery` (only one property allowed at a time).
 """
 input AggregatedGroupByClauseNotesQuery {
     """
-    Relationship clause.
+    Group by `user_id` with additional sorting.
     """
     user: [SortByClauseUsersSort!]
 
     """
-    Property clause.
+    Group by property.
     """
     user_id: AggregatedGroupByTypeDirection
 }
@@ -654,12 +654,12 @@ Group clause for `input OemGroupsQuery` (only one property allowed at a time).
 """
 input AggregatedGroupByClauseOemGroupsQuery {
     """
-    Property clause.
+    Group by property.
     """
     key: AggregatedGroupByTypeDirection
 
     """
-    Property clause.
+    Group by property.
     """
     name: AggregatedGroupByTypeDirection
 }
@@ -669,7 +669,7 @@ Group clause for `input OrganizationsQuery` (only one property allowed at a time
 """
 input AggregatedGroupByClauseOrganizationsQuery {
     """
-    Property clause.
+    Group by property.
     """
     name: AggregatedGroupByTypeDirection
 }
@@ -679,22 +679,22 @@ Group clause for `input ProductsQuery` (only one property allowed at a time).
 """
 input AggregatedGroupByClauseProductsQuery {
     """
-    Property clause.
+    Group by property.
     """
     name: AggregatedGroupByTypeDirection
 
     """
-    Relationship clause.
+    Group by `oem_id` with additional sorting.
     """
     oem: [SortByClauseOemsSort!]
 
     """
-    Property clause.
+    Group by property.
     """
     oem_id: AggregatedGroupByTypeDirection
 
     """
-    Property clause.
+    Group by property.
     """
     sku: AggregatedGroupByTypeDirection
 }
@@ -704,12 +704,12 @@ Group clause for `input UsersQuery` (only one property allowed at a time).
 """
 input AggregatedGroupByClauseUsersQuery {
     """
-    Property clause.
+    Group by property.
     """
     family_name: AggregatedGroupByTypeDirection
 
     """
-    Property clause.
+    Group by property.
     """
     given_name: AggregatedGroupByTypeDirection
 }
@@ -4925,6 +4925,11 @@ input SortByClauseAssetsSort {
     """
     Property clause.
     """
+    customer_id: SortByTypeDirection
+
+    """
+    Property clause.
+    """
     deleted_at: SortByTypeDirection
 
     """
@@ -4945,6 +4950,11 @@ input SortByClauseAssetsSort {
     """
     Property clause.
     """
+    location_id: SortByTypeDirection
+
+    """
+    Property clause.
+    """
     nickname: SortByTypeDirection
 
     """
@@ -4955,12 +4965,27 @@ input SortByClauseAssetsSort {
     """
     Property clause.
     """
+    oem_id: SortByTypeDirection
+
+    """
+    Property clause.
+    """
     product: SortByClauseProductsSort
 
     """
     Property clause.
     """
+    product_id: SortByTypeDirection
+
+    """
+    Property clause.
+    """
     reseller: SortByClauseCompaniesSort
+
+    """
+    Property clause.
+    """
+    reseller_id: SortByTypeDirection
 
     """
     Property clause.
@@ -4975,7 +5000,17 @@ input SortByClauseAssetsSort {
     """
     Property clause.
     """
+    status_id: SortByTypeDirection
+
+    """
+    Property clause.
+    """
     type: SortByClauseTypesSort
+
+    """
+    Property clause.
+    """
+    type_id: SortByTypeDirection
 
     """
     Property clause.
@@ -5105,6 +5140,11 @@ input SortByClauseCitiesSort {
     """
     Property clause.
     """
+    country_id: SortByTypeDirection
+
+    """
+    Property clause.
+    """
     id: SortByTypeDirection
 
     """
@@ -5176,6 +5216,11 @@ input SortByClauseCompanyLocationsSort {
     Property clause.
     """
     location: SortByClauseLocationsSort
+
+    """
+    Property clause.
+    """
+    location_id: SortByTypeDirection
 }
 
 """
@@ -5585,7 +5630,17 @@ input SortByClauseDocumentsSort {
     """
     Property clause.
     """
+    currency_id: SortByTypeDirection
+
+    """
+    Property clause.
+    """
     customer: SortByClauseCompaniesSort
+
+    """
+    Property clause.
+    """
+    customer_id: SortByTypeDirection
 
     """
     Property clause.
@@ -5596,6 +5651,11 @@ input SortByClauseDocumentsSort {
     Property clause.
     """
     distributor: SortByClauseDistributorsSort
+
+    """
+    Property clause.
+    """
+    distributor_id: SortByTypeDirection
 
     """
     Property clause.
@@ -5611,6 +5671,11 @@ input SortByClauseDocumentsSort {
     Property clause.
     """
     language: SortByClauseLanguagesSort
+
+    """
+    Property clause.
+    """
+    language_id: SortByTypeDirection
 
     """
     Property clause.
@@ -5635,6 +5700,16 @@ input SortByClauseDocumentsSort {
     """
     Property clause.
     """
+    oem_group_id: SortByTypeDirection
+
+    """
+    Property clause.
+    """
+    oem_id: SortByTypeDirection
+
+    """
+    Property clause.
+    """
     oem_said: SortByTypeDirection
 
     """
@@ -5651,6 +5726,11 @@ input SortByClauseDocumentsSort {
     Property clause.
     """
     reseller: SortByClauseCompaniesSort
+
+    """
+    Property clause.
+    """
+    reseller_id: SortByTypeDirection
 
     """
     Property clause.
@@ -5685,7 +5765,17 @@ input SortByClauseLocationsSort {
     """
     Property clause.
     """
+    city_id: SortByTypeDirection
+
+    """
+    Property clause.
+    """
     country: SortByClauseCountriesSort
+
+    """
+    Property clause.
+    """
+    country_id: SortByTypeDirection
 
     """
     Property clause.
@@ -5950,6 +6040,11 @@ input SortByClauseProductsSort {
     """
     Property clause.
     """
+    oem_id: SortByTypeDirection
+
+    """
+    Property clause.
+    """
     sku: SortByTypeDirection
 }
 
@@ -5985,6 +6080,11 @@ input SortByClauseServiceGroupsSort {
     """
     Property clause.
     """
+    oem_id: SortByTypeDirection
+
+    """
+    Property clause.
+    """
     sku: SortByTypeDirection
 }
 
@@ -6000,7 +6100,17 @@ input SortByClauseServiceLevelsSort {
     """
     Property clause.
     """
+    oem_id: SortByTypeDirection
+
+    """
+    Property clause.
+    """
     serviceGroup: SortByClauseServiceGroupsSort
+
+    """
+    Property clause.
+    """
+    service_group_id: SortByTypeDirection
 
     """
     Property clause.

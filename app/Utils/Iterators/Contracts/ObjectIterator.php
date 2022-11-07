@@ -13,7 +13,7 @@ use IteratorAggregate;
  *
  * @template TItem
  *
- * @extends IteratorAggregate<TItem>
+ * @extends IteratorAggregate<int<0, max>, TItem>
  */
 interface ObjectIterator extends IteratorAggregate, Limitable, Offsetable, Chunkable {
     /**

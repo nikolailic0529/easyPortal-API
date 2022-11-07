@@ -196,7 +196,8 @@ class Manipulator extends BuilderManipulator {
                 // Sorting possible only by the field used for aggregation so we
                 // check that related field is exists (it is not the best way,
                 // but it is work) and has ID type.
-                $idField    = $this->getObjectField($node, Str::snake("{$fieldName}_id"));
+                $idName     = Str::snake("{$fieldName}_id");
+                $idField    = $this->getObjectField($node, $idName);
                 $orderField = $node !== $orderTypeNode
                     ? $this->getObjectField($orderTypeNode, $fieldName)
                     : $field;
@@ -218,7 +219,7 @@ class Manipulator extends BuilderManipulator {
                 );
                 $fieldType        = Printer::doPrint($orderField->type);
                 $fieldDirective   = $relation::getDirectiveName();
-                $fieldDescription = $relation->getFieldDescription();
+                $fieldDescription = "Group by `{$idName}` with additional sorting.";
                 $type->fields[]   = Parser::inputValueDefinition(
                     <<<GRAPHQL
                         "{$fieldDescription}"

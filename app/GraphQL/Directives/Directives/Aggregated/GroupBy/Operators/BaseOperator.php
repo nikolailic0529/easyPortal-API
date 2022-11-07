@@ -33,7 +33,7 @@ abstract class BaseOperator extends OperatorDirective {
     }
 
     public function getFieldDescription(): string {
-        return 'Property clause.';
+        return 'Group by property.';
     }
 
     public function isBuilderSupported(object $builder): bool {

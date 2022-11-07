@@ -1,6 +1,6 @@
 <?php declare(strict_types = 1);
 
-namespace App\Rules\GraphQL;
+namespace App\Http\Controllers\Export\Rules;
 
 use Illuminate\Contracts\Translation\Translator;
 use Illuminate\Contracts\Validation\Factory;
@@ -11,7 +11,7 @@ use function array_merge;
 
 /**
  * @internal
- * @coversDefaultClass \App\Rules\GraphQL\Query
+ * @coversDefaultClass \App\Http\Controllers\Export\Rules\Query
  */
 class QueryTest extends TestCase {
     // <editor-fold desc="Tests">
@@ -51,14 +51,14 @@ class QueryTest extends TestCase {
         $this->setTranslations(static function (TestCase $case, string $locale): array {
             return [
                 $locale => [
-                    'validation.graphql_query' => 'message validation.graphql_query',
+                    'validation.http.controllers.export.query_invalid' => 'query_invalid',
                 ],
             ];
         });
 
         $rule     = $this->app->make(Query::class);
         $actual   = null;
-        $expected = 'message validation.graphql_query';
+        $expected = 'query_invalid';
 
         $rule('attribute', null, function (string $message) use (&$actual): PotentiallyTranslatedString {
             $actual = new PotentiallyTranslatedString($message, $this->app->make(Translator::class));
@@ -168,6 +168,30 @@ class QueryTest extends TestCase {
                             }
                         }
                     GRAPHQL
+                    ,
+                    'variables' => [
+                        'limit' => 1,
+                    ],
+                ],
+                [
+                    // empty
+                ],
+            ],
+            'valid query with fragment'              => [
+                true,
+                [
+                    'query'     => /** @lang GraphQL */
+                        <<<'GRAPHQL'
+                        query test($limit: Int!) {
+                            assets (limit: $limit) {
+                                ...AssetProperties
+                            }
+                        }
+
+                        fragment AssetProperties on Asset {
+                            id
+                        }
+                        GRAPHQL
                     ,
                     'variables' => [
                         'limit' => 1,

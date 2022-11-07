@@ -1,5 +1,7 @@
 input ServiceLevelsSort {
     sku: String!
+    oem_id: ID!
     oem: OemsSort
+    service_group_id: ID!
     serviceGroup: ServiceGroupsSort
 }

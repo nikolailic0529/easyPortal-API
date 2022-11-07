@@ -1,13 +1,13 @@
 <?php declare(strict_types = 1);
 
-namespace App\Http\Controllers\Export;
+namespace App\Http\Controllers\Export\Exceptions;
 
 use Throwable;
 
 use function sprintf;
 use function trans;
 
-class HeadersUnknownFunction extends ExportException {
+class SelectorFunctionUnknown extends SelectorException {
     public function __construct(
         protected string $function,
         Throwable $previous = null,
@@ -19,7 +19,7 @@ class HeadersUnknownFunction extends ExportException {
     }
 
     public function getErrorMessage(): string {
-        return trans('http.controllers.export.headers_unknown_function', [
+        return trans('http.controllers.export.selector_function_unknown', [
             'function' => $this->function,
         ]);
     }

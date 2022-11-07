@@ -3,6 +3,11 @@
 namespace App\Http\Controllers\Export;
 
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\Export\Events\QueryExported;
+use App\Http\Controllers\Export\Exceptions\GraphQLQueryInvalid;
+use App\Http\Controllers\Export\Utils\Measurer;
+use App\Http\Controllers\Export\Utils\MergedCells;
+use App\Http\Controllers\Export\Utils\SelectorFactory;
 use App\Utils\Iterators\Contracts\ObjectIterator;
 use App\Utils\Iterators\OffsetBasedObjectIterator;
 use App\Utils\Iterators\OneChunkOffsetBasedObjectIterator;
@@ -16,50 +21,36 @@ use Illuminate\Auth\AuthenticationException;
 use Illuminate\Contracts\Config\Repository;
 use Illuminate\Contracts\Events\Dispatcher;
 use Illuminate\Contracts\Routing\ResponseFactory;
-use Illuminate\Http\Response;
 use Illuminate\Support\Arr;
-use Illuminate\Support\Str;
 use Iterator;
 use Laravel\Telescope\Telescope;
 use Nuwave\Lighthouse\GraphQL;
 use Nuwave\Lighthouse\Support\Contracts\CreatesContext;
 use Nuwave\Lighthouse\Support\Contracts\GraphQLContext;
 use OpenSpout\Common\Entity\Row;
+use OpenSpout\Common\Entity\Style\CellVerticalAlignment;
 use OpenSpout\Common\Entity\Style\Style;
 use OpenSpout\Writer\CSV\Writer as CSVWriter;
-use OpenSpout\Writer\WriterInterface;
 use OpenSpout\Writer\XLSX\Writer as XLSXWriter;
 use Symfony\Component\HttpFoundation\StreamedResponse;
 use Symfony\Component\Mime\MimeTypes;
 
-use function array_column;
-use function array_filter;
-use function array_is_list;
+use function array_fill;
 use function array_key_exists;
-use function array_map;
 use function array_merge;
 use function array_values;
 use function assert;
 use function count;
-use function explode;
-use function implode;
 use function is_array;
 use function iterator_to_array;
-use function json_encode;
 use function min;
 use function pathinfo;
-use function preg_match;
 use function reset;
-use function str_replace;
-use function trim;
 
-use const JSON_PRESERVE_ZERO_FRACTION;
-use const JSON_UNESCAPED_SLASHES;
-use const JSON_UNESCAPED_UNICODE;
 use const PATHINFO_EXTENSION;
 
 /**
- * @phpstan-import-type Query from \App\Http\Controllers\Export\ExportRequest
+ * @phpstan-import-type Query from ExportRequest
  */
 class ExportController extends Controller {
     public function __construct(
@@ -75,173 +66,253 @@ class ExportController extends Controller {
     }
 
     public function csv(ExportRequest $request): StreamedResponse {
-        return $this->excel(new CSVWriter(), $request, __FUNCTION__, 'export.csv');
+        $format         = __FUNCTION__;
+        $writer         = new CSVWriter();
+        $filename       = 'export.csv';
+        $mimetypes      = (new MimeTypes())->getMimeTypes(pathinfo($filename, PATHINFO_EXTENSION));
+        $mimetype       = reset($mimetypes);
+        $headers        = [
+            'Content-Type' => "{$mimetype}; charset=UTF-8",
+        ];
+        $headerCallback = static function (array $names) use ($writer): void {
+            $writer->addRow(Row::fromValues($names));
+        };
+
+        return $this->factory->streamDownload(
+            function () use ($writer, $request, $format, $headerCallback): void {
+                $writer->openToFile('php://output');
+
+                $iterator = $this->getRowsIterator($request, $format, $headerCallback);
+
+                foreach ($iterator as $row) {
+                    $writer->addRow(Row::fromValues($row));
+                }
+
+                $writer->close();
+            },
+            $filename,
+            $headers,
+        );
     }
 
     public function xlsx(ExportRequest $request): StreamedResponse {
-        return $this->excel(new XLSXWriter(), $request, __FUNCTION__, 'export.xlsx');
-    }
-
-    public function pdf(ExportRequest $request): Response {
-        $rows     = [];
-        $format   = __FUNCTION__;
-        $headers  = static function (array $headers) use (&$rows): void {
-            $rows[] = $headers;
-        };
-        $iterator = $this->getRowsIterator($request, $format, $headers);
-        $items    = iterator_to_array($iterator);
-        $rows     = array_merge($rows, $items);
-        $pdf      = $this->pdf
-            ->loadView('exports.pdf', [
-                'rows' => $rows,
-            ])
-            ->download('export.pdf');
-
-        return $pdf;
-    }
-
-    protected function excel(
-        WriterInterface $writer,
-        ExportRequest $request,
-        string $format,
-        string $filename,
-    ): StreamedResponse {
+        $format    = __FUNCTION__;
+        $writer    = new XLSXWriter();
+        $filename  = 'export.xlsx';
         $mimetypes = (new MimeTypes())->getMimeTypes(pathinfo($filename, PATHINFO_EXTENSION));
         $mimetype  = reset($mimetypes);
         $headers   = [
             'Content-Type' => "{$mimetype}; charset=UTF-8",
         ];
 
-        $writer->openToFile('php://output');
+        return $this->factory->streamDownload(
+            function () use ($writer, $request, $format): void {
+                $writer->openToFile('php://output');
 
-        return $this->factory->streamDownload(function () use ($writer, $request, $format): void {
-            $headers  = static function (array $headers) use ($writer): void {
-                $style = (new Style())->setFontBold();
-                $row   = Row::fromValues($headers, $style);
+                $scale    = 1.1;
+                $options  = $writer->getOptions();
+                $measurer = new Measurer();
+                $iterator = $this->getRowsIterator(
+                    $request,
+                    $format,
+                    static function (array $names) use ($writer, $measurer): void {
+                        $style = (new Style())->setFontBold();
+                        $row   = Row::fromValues($names, $style);
 
-                $writer->addRow($row);
-            };
-            $iterator = $this->getRowsIterator($request, $format, $headers);
+                        $measurer->measure($names);
+                        $writer->addRow($row);
+                    },
+                    static function (MergedCells $merged) use ($writer): void {
+                        $offset = 2; // +1 for header; +1 because row coordinates are indexed from 1
 
-            foreach ($iterator as $row) {
-                $writer->addRow(Row::fromValues($row));
-            }
+                        $writer->getOptions()->mergeCells(
+                            $merged->getColumn(),
+                            $merged->getStartRow() + $offset,
+                            $merged->getColumn(),
+                            $merged->getEndRow() + $offset,
+                        );
+                    },
+                );
 
-            $writer->close();
+                $options->DEFAULT_ROW_STYLE
+                    ->setCellVerticalAlignment(CellVerticalAlignment::TOP);
+
+                foreach ($iterator as $index => $row) {
+                    if ($index < 500 && ($index < 25 || $index % 25 === 0)) {
+                        $measurer->measure($row);
+                    }
+
+                    $writer->addRow(Row::fromValues($row));
+                }
+
+                foreach ($measurer->getColumns() as $index => $width) {
+                    $options->setColumnWidth($width * $scale, $index + 1);
+                }
+
+                $writer->close();
+            },
+            $filename,
+            $headers,
+        );
+    }
+
+    public function pdf(ExportRequest $request): StreamedResponse {
+        $filename  = 'export.pdf';
+        $mimetypes = (new MimeTypes())->getMimeTypes(pathinfo($filename, PATHINFO_EXTENSION));
+        $mimetype  = reset($mimetypes);
+        $headers   = [
+            'Content-Type' => "{$mimetype}; charset=UTF-8",
+        ];
+
+        return $this->factory->streamDownload(function () use ($request): void {
+            $rows     = [];
+            $format   = __FUNCTION__;
+            $iterator = $this->getRowsIterator($request, $format, static function (array $names) use (&$rows): void {
+                $rows[] = $names;
+            });
+            $items    = iterator_to_array($iterator);
+            $rows     = array_merge($rows, $items);
+            $pdf      = $this->pdf->loadView('exports.pdf', [
+                'rows' => $rows,
+            ]);
+
+            echo $pdf->output();
         }, $filename, $headers);
     }
 
     /**
-     * @param Closure(array<string>): void $headersCallback
+     * @param Closure(array<int<0, max>, string|null>): void $headerCallback
+     * @param Closure(MergedCells): void|null                $mergeCallback
      *
-     * @return Iterator<array<mixed>>
+     * @return Iterator<int<0, max>, array<int<0, max>, scalar|null>>
      */
-    protected function getRowsIterator(ExportRequest $request, string $format, Closure $headersCallback): Iterator {
-        // Prepare request
-        $parameters = $request->validated();
-        $iterator   = $this->getIterator($request, $parameters);
-        $headers    = $parameters['headers'] ?? null;
-        $empty      = true;
-        $root       = $parameters['root'] ?: 'data';
+    protected function getRowsIterator(
+        ExportRequest $request,
+        string $format,
+        Closure $headerCallback,
+        Closure $mergeCallback = null,
+    ): Iterator {
+        // Prepare
+        $query         = $request->validated();
+        $names         = [];
+        $columns       = [];
+        $mergedCells   = [];
+        $mergedColumns = [];
 
-        foreach ($iterator as $i => $item) {
-            // If no headers we need to calculate them. But this is deprecated
-            // behavior and probably we should remove it. The main problem is
-            // we are using only the first row and if some values are missed
-            // the headers will be invalid.
-            if (!$headers) {
-                $headers = $this->getHeaders($item);
+        foreach (array_values($query['columns']) as $index => $column) {
+            assert(
+                $index >= 0,
+                <<<'REASON'
+                PHPStan false positive, seems fixed in >1.8.11
+
+                https://phpstan.org/r/031dd218-f577-4ea1-96d7-05d7094543e3
+                REASON,
+            );
+
+            $names[$index]   = $column['name'];
+            $columns[$index] = $column['value'];
+
+            if ($mergeCallback && isset($column['group']) && $column['group']) {
+                $mergedCells[$index]   = new MergedCells($index);
+                $mergedColumns[$index] = $column['group'];
             }
+        }
 
-            // If no headers we cannot export because it will get empty row.
-            if (!$headers) {
-                break;
-            }
+        // Headers
+        $headerCallback($names);
 
-            // Add Headers
-            if ($i === 0) {
-                $headersCallback(array_values($headers));
-                $this->event($format, $root, $headers);
-            }
+        // Iteration
+        /** @var array<int<0, max>, null> $default fixme(phpstan): why it is not detected automatically? */
+        $default        = array_fill(0, count($query['columns']), null);
+        $empty          = true;
+        $selector       = SelectorFactory::make($columns);
+        $iterator       = $this->getIterator($request, $query, $format);
+        $mergedSelector = SelectorFactory::make($mergedColumns);
 
-            // Prepare row
-            $row = [];
+        foreach ($iterator as $index => $item) {
+            // Fill
+            $row = $selector->get($item) + $default;
 
-            foreach ($headers as $header => $title) {
-                $row[] = $this->getHeaderValue($header, $item);
+            // Merge
+            foreach ($mergedCells as $cell) {
+                $mergedValues = $mergedSelector->get($item);
+                $mergedCell   = $cell->merge($index, $mergedValues[$cell->getColumn()] ?? null);
+
+                if ($mergedCell && $mergeCallback) {
+                    $mergeCallback($mergedCell);
+                }
             }
 
             // Iterate
-            yield $row;
+            yield $index => $row;
 
             // Mark
             $empty = false;
         }
 
+        // Rest
+        if ($mergeCallback) {
+            foreach ($mergedCells as $cell) {
+                if ($cell->isMerged()) {
+                    $mergeCallback($cell);
+                }
+            }
+        }
+
         // Empty
         if ($empty) {
-            // Add headers
-            if ($headers) {
-                $headersCallback(array_values($headers));
-            }
-
-            // Event
-            $this->event($format, $root, $headers);
-
-            // Return
             return new EmptyIterator();
         }
     }
 
     /**
-     * @param Query               $parameters
+     * @param Query               $query
      * @param array<string,mixed> $variables
      *
      * @return array<mixed>
      */
-    protected function execute(GraphQLContext $context, array $parameters, array $variables): array {
-        $operation = $this->getOperation($parameters, $variables);
+    protected function execute(GraphQLContext $context, array $query, array $variables): array {
+        $operation = $this->getOperation($query, $variables);
         $result    = $this->graphQL->executeOperation($operation, $context);
-        $root      = $parameters['root'] ?: 'data';
+        $root      = $query['root'] ?: 'data';
 
         if (isset($result['errors']) && is_array($result['errors'])) {
             switch ($result['errors'][0]['extensions']['category'] ?? null) {
                 case 'authorization':
                     throw new AuthorizationException($result['errors'][0]['message']);
-                    break;
                 case 'authentication':
                     throw new AuthenticationException($result['errors'][0]['message']);
-                    break;
                 default:
                     throw new GraphQLQueryInvalid($operation, $result['errors']);
-                    break;
             }
         }
 
-        return Arr::get($result, $root) ?? [];
+        $result = (array) Arr::get($result, $root);
+
+        return $result;
     }
 
     /**
-     * @param Query $parameters
+     * @param Query $query
      *
-     * @return ObjectIterator<array<string,mixed>>
+     * @return ObjectIterator<array<string,scalar|null>>
      */
-    protected function getIterator(ExportRequest $request, array $parameters): ObjectIterator {
+    protected function getIterator(ExportRequest $request, array $query, string $format): ObjectIterator {
         $limit           = $this->config->get('ep.export.limit');
         $chunk           = $this->config->get('ep.export.chunk');
         $context         = $this->context->generate($request);
-        $executor        = function (array $variables) use ($context, $parameters): array {
-            return $this->execute($context, $parameters, $variables);
+        $executor        = function (array $variables) use ($context, $query): array {
+            return $this->execute($context, $query, $variables);
         };
-        $variables       = $parameters['variables'] ?? [];
+        $variables       = $query['variables'] ?? [];
         $iterator        = array_key_exists('offset', $variables) && array_key_exists('limit', $variables)
             ? new OffsetBasedObjectIterator($executor)
             : new OneChunkOffsetBasedObjectIterator($executor);
         $recording       = null;
         $paginationLimit = null;
 
-        $iterator->setLimit(min($parameters['variables']['limit'] ?? $limit, $limit));
-        $iterator->setOffset($parameters['variables']['offset'] ?? null);
+        $iterator->setLimit(min($query['variables']['limit'] ?? $limit, $limit));
+        $iterator->setOffset($query['variables']['offset'] ?? null);
         $iterator->setChunkSize($chunk);
         $iterator->onInit(function () use (&$recording, &$paginationLimit, $chunk): void {
             // Telescope should be disabled because it stored all data in memory
@@ -270,148 +341,22 @@ class ExportController extends Controller {
                 $this->config->set('ep.pagination.limit.max', $paginationLimit);
             }
         });
+        $iterator->onBeforeChunk(function () use ($query, $format): void {
+            $this->dispatcher->dispatch(new QueryExported($format, $query));
+        });
 
         return $iterator;
     }
 
     /**
-     * @param array<mixed> $item
-     *
-     * @return array<string, string>
-     */
-    protected function getHeaders(array $item, string $prefix = null): array {
-        $headers = [];
-
-        if (!array_is_list($item)) {
-            foreach ($item as $name => $value) {
-                $key = $prefix ? "{$prefix}.{$name}" : $name;
-
-                if (is_array($value) && !array_is_list($value)) {
-                    $headers = array_merge($headers, $this->getHeaders($value, $key));
-                } else {
-                    $headers[$key] = $this->getHeader($key);
-                }
-            }
-        }
-
-        return $headers;
-    }
-
-    protected function getHeader(string $path): string {
-        return Str::title(trim(
-            str_replace(['_', '.'], ' ', $path),
-        ));
-    }
-
-    /**
-     * @param array<mixed> $item
-     */
-    protected function getHeaderValue(string $header, array $item): mixed {
-        $value = null;
-
-        if (preg_match('/^(?<function>[\w]+)\((?<arguments>[^)]+)\)$/', $header, $matches)) {
-            $function  = $matches['function'];
-            $arguments = array_map(
-                fn(string $arg): mixed => $this->getItemValue(trim($arg), $item),
-                explode(',', $matches['arguments']),
-            );
-
-            switch ($function) {
-                case 'concat':
-                    $value = trim(implode(' ', array_filter($arguments)));
-                    break;
-                case 'or':
-                    foreach ($arguments as $argument) {
-                        $argument = trim((string) $argument);
-
-                        if ($argument) {
-                            $value = $argument;
-                            break;
-                        }
-                    }
-                    break;
-                default:
-                    throw new HeadersUnknownFunction($function);
-                    break;
-            }
-        } else {
-            $value = $this->getItemValue($header, $item);
-        }
-
-        return $value;
-    }
-
-    /**
-     * @param array<mixed> $item
-     */
-    protected function getItemValue(string $path, array $item): mixed {
-        // We don't use `data_get()` here to simplify headers: you can use the
-        // dot-separated string in all cases and you no need to worry about
-        // lists (which is not visible in GraphQL query).
-        $parts = explode('.', $path);
-        $value = $item;
-
-        foreach ($parts as $part) {
-            if (is_array($value)) {
-                if (array_is_list($value)) {
-                    $value = array_column($value, $part);
-                } else {
-                    $value = Arr::get($value, $part);
-                }
-            } else {
-                $value = $value[$part] ?? null;
-            }
-
-            if (!$value) {
-                break;
-            }
-        }
-
-        // Return
-        return $this->getValue($value);
-    }
-
-    protected function getValue(mixed $value): mixed {
-        if (is_array($value)) {
-            $flags = JSON_PRESERVE_ZERO_FRACTION | JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES;
-            $first = reset($value);
-
-            if (is_array($first)) {
-                if (array_is_list($value) && !Arr::first($value, static fn($v) => count($v) > 1)) {
-                    $value = implode(', ', array_map(static fn($v) => reset($v), $value));
-                } else {
-                    $value = json_encode($value, $flags);
-                }
-            } elseif (array_is_list($value)) {
-                $value = implode(', ', $value);
-            } else {
-                $value = json_encode($value, $flags);
-            }
-        }
-
-        return $value;
-    }
-
-    /**
-     * @param array<string,string> $headers
-     */
-    protected function event(string $format, string $root, ?array $headers): void {
-        $this->dispatcher->dispatch(new QueryExported(
-            $format,
-            $root,
-            $headers,
-        ));
-    }
-
-    /**
-     * @param Query               $parameters
+     * @param Query               $query
      * @param array<string,mixed> $variables
      */
-    protected function getOperation(array $parameters, array $variables): OperationParams {
-        $parameters = array_merge($parameters, [
-            'variables' => array_merge($parameters['variables'] ?? [], $variables),
+    protected function getOperation(array $query, array $variables): OperationParams {
+        $query     = array_merge($query, [
+            'variables' => array_merge($query['variables'] ?? [], $variables),
         ]);
-        $operation  = $this->helper->parseRequestParams('GET', [], Arr::only($parameters, [
+        $operation = $this->helper->parseRequestParams('GET', [], Arr::only($query, [
             'query',
             'variables',
             'operationName',

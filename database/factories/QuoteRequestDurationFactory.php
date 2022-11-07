@@ -28,7 +28,7 @@ class QuoteRequestDurationFactory extends Factory {
         return [
             'id'         => $this->faker->uuid(),
             'name'       => $this->faker->word(),
-            'key'        => $this->faker->word(),
+            'key'        => $this->faker->uuid(),
             'created_at' => Date::now(),
             'updated_at' => Date::now(),
             'deleted_at' => null,

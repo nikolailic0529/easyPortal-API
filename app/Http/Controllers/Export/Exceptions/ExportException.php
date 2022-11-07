@@ -1,6 +1,6 @@
 <?php declare(strict_types = 1);
 
-namespace App\Http\Controllers\Export;
+namespace App\Http\Controllers\Export\Exceptions;
 
 use App\Http\HttpException;
 use Symfony\Component\HttpFoundation\Response;

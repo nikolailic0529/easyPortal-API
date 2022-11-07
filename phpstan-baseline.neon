@@ -2101,54 +2101,29 @@ parameters:
 			path: app/Http/Controllers/Export/ExportController.php
 
 		-
-			message: "#^Cannot access offset string on mixed\\.$#"
-			count: 1
-			path: app/Http/Controllers/Export/ExportController.php
-
-		-
-			message: "#^Cannot cast mixed to string\\.$#"
-			count: 1
-			path: app/Http/Controllers/Export/ExportController.php
-
-		-
-			message: "#^Method App\\\\Http\\\\Controllers\\\\Export\\\\ExportController\\:\\:execute\\(\\) should return array but returns mixed\\.$#"
-			count: 1
-			path: app/Http/Controllers/Export/ExportController.php
-
-		-
-			message: "#^Parameter \\#1 \\$array of function reset expects array\\|object, mixed given\\.$#"
-			count: 1
-			path: app/Http/Controllers/Export/ExportController.php
-
-		-
-			message: "#^Parameter \\#1 \\$cellValues of static method OpenSpout\\\\Common\\\\Entity\\\\Row\\:\\:fromValues\\(\\) expects array\\<int, bool\\|DateInterval\\|DateTimeInterface\\|float\\|int\\|string\\|null\\>, array given\\.$#"
-			count: 1
-			path: app/Http/Controllers/Export/ExportController.php
-
-		-
-			message: "#^Unreachable statement \\- code above always terminates\\.$#"
-			count: 4
-			path: app/Http/Controllers/Export/ExportController.php
-
-		-
-			message: "#^Method App\\\\Http\\\\Controllers\\\\Export\\\\ExportControllerTest\\:\\:dataProviderGetItemValue\\(\\) should return array\\<string, array\\{string, array\\}\\> but returns array\\{a\\: array\\{123, 'a', array\\{a\\: 123\\}\\}, a \\(not exists\\)\\: array\\{null, 'a', array\\{b\\: 123\\}\\}, a\\.b \\(not exists\\)\\: array\\{null, 'a\\.b', array\\{a\\: 123\\}\\}, a\\.b\\: array\\{123, 'a\\.b', array\\{a\\: array\\{b\\: 123\\}\\}\\}, a\\.b \\(array\\)\\: array\\{'1, 2, 3', 'a\\.b', array\\{a\\: array\\{array\\{b\\: 1\\}, array\\{b\\: 2\\}, array\\{b\\: 3\\}\\}\\}\\}, a\\.b\\.c \\(array\\)\\: array\\{'1, 2, 3', 'a\\.b\\.c', array\\{a\\: array\\{array\\{b\\: array\\{c\\: 1\\}\\}, array\\{b\\: array\\{c\\: 2\\}\\}, array\\{b\\: array\\{c\\: 3\\}\\}\\}\\}\\}, getValue called\\: array\\{'\\[\\{\"c\"\\:1\\},\\{\"c\"\\:2\\},\\{…', 'a\\.b', array\\{a\\: array\\{array\\{b\\: array\\{c\\: 1\\}\\}, array\\{b\\: array\\{c\\: 2\\}\\}, array\\{b\\: array\\{c\\: 3, d\\: 2\\}\\}\\}\\}\\}\\}\\.$#"
-			count: 1
-			path: app/Http/Controllers/Export/ExportControllerTest.php
-
-		-
-			message: "#^Parameter \\#3 \\$factory of method App\\\\Http\\\\Controllers\\\\Export\\\\ExportControllerTest\\:\\:prepare\\(\\) expects \\(Closure\\(App\\\\Http\\\\Controllers\\\\Export\\\\ExportControllerTest, App\\\\Models\\\\Organization\\|null, App\\\\Models\\\\User\\|null\\)\\: int\\|null\\)\\|null, \\(Closure\\(static\\(App\\\\Http\\\\Controllers\\\\Export\\\\ExportControllerTest\\), App\\\\Models\\\\Organization\\|null, App\\\\Models\\\\User\\|null\\)\\: int\\|null\\)\\|null given\\.$#"
-			count: 3
-			path: app/Http/Controllers/Export/ExportControllerTest.php
-
-		-
-			message: "#^Parameter \\#5 \\$settingsFactory of method App\\\\Http\\\\Controllers\\\\Export\\\\ExportControllerTest\\:\\:prepare\\(\\) expects array\\<string, mixed\\>\\|\\(callable\\(App\\\\Http\\\\Controllers\\\\Export\\\\ExportControllerTest\\)\\: array\\<string, mixed\\>\\)\\|null, array\\<string, mixed\\>\\|\\(callable\\(static\\(App\\\\Http\\\\Controllers\\\\Export\\\\ExportControllerTest\\)\\)\\: array\\<string, mixed\\>\\)\\|null given\\.$#"
-			count: 3
-			path: app/Http/Controllers/Export/ExportControllerTest.php
-
-		-
-			message: "#^Method App\\\\Http\\\\Controllers\\\\Export\\\\ExportRequest\\:\\:validated\\(\\) should return array\\{root\\: string, query\\: string, operationName\\?\\: string, variables\\?\\: array\\{limit\\?\\: int\\|null, offset\\?\\: int\\|null\\}\\|null, headers\\?\\: array\\<string, string\\>\\} but returns mixed\\.$#"
+			message: "#^Method App\\\\Http\\\\Controllers\\\\Export\\\\ExportRequest\\:\\:validated\\(\\) should return array\\{root\\: string, columns\\: non\\-empty\\-array\\<int, array\\{name\\: string, value\\: string, group\\?\\: string\\|null\\}\\>, query\\: string, operationName\\?\\: string, variables\\?\\: array\\{limit\\?\\: int\\|null, offset\\?\\: int\\|null\\}\\|null\\} but returns mixed\\.$#"
 			count: 1
 			path: app/Http/Controllers/Export/ExportRequest.php
+
+		-
+			message: "#^Parameter \\#2 \\$errors of method App\\\\Http\\\\Controllers\\\\Export\\\\Rules\\\\Query\\:\\:fail\\(\\) expects array, mixed given\\.$#"
+			count: 1
+			path: app/Http/Controllers/Export/Rules/Query.php
+
+		-
+			message: "#^Parameter \\#2 \\$varDefNodes of static method GraphQL\\\\Executor\\\\Values\\:\\:getVariableValues\\(\\) expects array\\<GraphQL\\\\Language\\\\AST\\\\VariableDefinitionNode\\>, GraphQL\\\\Language\\\\AST\\\\NodeList\\<GraphQL\\\\Language\\\\AST\\\\VariableDefinitionNode\\> given\\.$#"
+			count: 1
+			path: app/Http/Controllers/Export/Rules/Query.php
+
+		-
+			message: "#^Property GraphQL\\\\Language\\\\AST\\\\OperationDefinitionNode\\:\\:\\$variableDefinitions \\(GraphQL\\\\Language\\\\AST\\\\NodeList\\<GraphQL\\\\Language\\\\AST\\\\VariableDefinitionNode\\>\\) on left side of \\?\\? is not nullable\\.$#"
+			count: 1
+			path: app/Http/Controllers/Export/Rules/Query.php
+
+		-
+			message: "#^Static property App\\\\Http\\\\Controllers\\\\Export\\\\Utils\\\\QueryOperationCache\\:\\:\\$cache \\(WeakMap\\<Illuminate\\\\Contracts\\\\Validation\\\\Validator, App\\\\Http\\\\Controllers\\\\Export\\\\Utils\\\\QueryOperation\\>\\) does not accept WeakMap\\<object, mixed\\>\\.$#"
+			count: 1
+			path: app/Http/Controllers/Export/Utils/QueryOperationCache.php
 
 		-
 			message: "#^If condition is always true\\.$#"
@@ -2879,21 +2854,6 @@ parameters:
 			message: "#^Parameter \\#1 \\$value of method Carbon\\\\CarbonImmutable\\:\\:setTimezone\\(\\) expects DateTimeZone\\|string, mixed given\\.$#"
 			count: 1
 			path: app/Rules/DateTime.php
-
-		-
-			message: "#^Parameter \\#2 \\$errors of method App\\\\Rules\\\\GraphQL\\\\Query\\:\\:fail\\(\\) expects array, mixed given\\.$#"
-			count: 1
-			path: app/Rules/GraphQL/Query.php
-
-		-
-			message: "#^Parameter \\#2 \\$varDefNodes of static method GraphQL\\\\Executor\\\\Values\\:\\:getVariableValues\\(\\) expects array\\<GraphQL\\\\Language\\\\AST\\\\VariableDefinitionNode\\>, GraphQL\\\\Language\\\\AST\\\\NodeList\\<GraphQL\\\\Language\\\\AST\\\\VariableDefinitionNode\\> given\\.$#"
-			count: 1
-			path: app/Rules/GraphQL/Query.php
-
-		-
-			message: "#^Property GraphQL\\\\Language\\\\AST\\\\OperationDefinitionNode\\:\\:\\$variableDefinitions \\(GraphQL\\\\Language\\\\AST\\\\NodeList\\<GraphQL\\\\Language\\\\AST\\\\VariableDefinitionNode\\>\\) on left side of \\?\\? is not nullable\\.$#"
-			count: 1
-			path: app/Rules/GraphQL/Query.php
 
 		-
 			message: "#^Unable to resolve the template type T in call to method App\\\\Rules\\\\Organization\\\\PermissionId\\:\\:getMutationRoot\\(\\)$#"
