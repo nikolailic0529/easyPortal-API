@@ -33,7 +33,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @property CarbonImmutable|null  $deleted_at
  * @property User                  $user
  * @property ChangeRequest|null    $changeRequest
- * @property Document              $document
+ * @property Document|null         $document
  * @property Collection<int, File> $files
  * @property Organization          $organization
  * @property QuoteRequest|null     $quoteRequest
