@@ -44,8 +44,27 @@ class Group {
         return $this->column;
     }
 
-    public function isMerged(): bool {
+    public function isGrouped(): bool {
         return $this->startRow !== $this->endRow;
+    }
+
+    /**
+     * @param int<1, max> $rows
+     */
+    public function move(int $rows): static {
+        $this->startRow += $rows;
+        $this->endRow   += $rows;
+
+        return $this;
+    }
+
+    /**
+     * @param int<1, max> $rows
+     */
+    public function expand(int $rows): static {
+        $this->endRow += $rows;
+
+        return $this;
     }
 
     /**
@@ -59,14 +78,8 @@ class Group {
             return null;
         }
 
-        // Previous group
-        $previous = null;
-
-        if ($this->isMerged()) {
-            $previous = clone $this;
-        }
-
-        // Reset
+        // Update
+        $previous       = clone $this;
         $this->startRow = $row;
         $this->endRow   = $row;
         $this->value    = $value;

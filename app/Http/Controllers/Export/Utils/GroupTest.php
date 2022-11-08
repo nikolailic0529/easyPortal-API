@@ -13,35 +13,65 @@ class GroupTest extends TestCase {
      * @covers ::update
      */
     public function testUpdate(): void {
-        $row    = 0;
-        $merged = new Group(0);
+        $row   = 0;
+        $group = new Group(0);
 
-        self::assertNull($merged->update($row++, null));
-        self::assertNull($merged->update($row++, null));
-        self::assertNull($merged->update($row++, null));
-        self::assertEquals(0, $merged->getStartRow());
-        self::assertEquals($row - 1, $merged->getEndRow());
+        self::assertNull($group->update($row++, null));
+        self::assertNull($group->update($row++, null));
+        self::assertNull($group->update($row++, null));
+        self::assertEquals(0, $group->getStartRow());
+        self::assertEquals($row - 1, $group->getEndRow());
 
-        $groupAEnd = $merged->getEndRow();
-        $groupA    = $merged->update($row++, true);
+        $groupAEnd = $group->getEndRow();
+        $groupA    = $group->update($row++, true);
 
         self::assertNotNull($groupA);
         self::assertEquals(0, $groupA->getStartRow());
         self::assertEquals($groupAEnd, $groupA->getEndRow());
-        self::assertEquals($groupAEnd + 1, $merged->getStartRow());
-        self::assertEquals($groupAEnd + 1, $merged->getEndRow());
+        self::assertEquals($groupAEnd + 1, $group->getStartRow());
+        self::assertEquals($groupAEnd + 1, $group->getEndRow());
 
-        self::assertNull($merged->update($row++, true));
-        self::assertNull($merged->update($row++, true));
-        self::assertNull($merged->update($row++, true));
-        self::assertEquals($groupAEnd + 1, $merged->getStartRow());
-        self::assertEquals($row - 1, $merged->getEndRow());
+        self::assertNull($group->update($row++, true));
+        self::assertNull($group->update($row++, true));
+        self::assertNull($group->update($row++, true));
+        self::assertEquals($groupAEnd + 1, $group->getStartRow());
+        self::assertEquals($row - 1, $group->getEndRow());
 
-        $groupBEnd = $merged->getEndRow();
-        $groupB    = $merged->update($row++, false);
+        $groupBEnd = $group->getEndRow();
+        $groupB    = $group->update($row++, false);
 
         self::assertNotNull($groupB);
         self::assertEquals($groupAEnd + 1, $groupB->getStartRow());
         self::assertEquals($groupBEnd, $groupB->getEndRow());
+    }
+
+    /**
+     * @covers ::move
+     */
+    public function testMove(): void {
+        $group = new Group(0);
+
+        self::assertEquals(0, $group->getStartRow());
+        self::assertEquals(0, $group->getEndRow());
+
+        $group->move(5);
+
+        self::assertEquals(5, $group->getStartRow());
+        self::assertEquals(5, $group->getEndRow());
+    }
+
+    /**
+     * @covers ::expand
+     */
+    public function testExpand(): void {
+        $group = new Group(0);
+
+        self::assertEquals(0, $group->getStartRow());
+        self::assertEquals(0, $group->getEndRow());
+
+        $group->expand(5);
+
+        self::assertEquals(0, $group->getStartRow());
+        self::assertEquals(5, $group->getEndRow());
     }
 }

@@ -33,6 +33,7 @@ use OpenSpout\Common\Entity\Row as RowFactory;
 use OpenSpout\Common\Entity\Style\CellVerticalAlignment;
 use OpenSpout\Common\Entity\Style\Style;
 use OpenSpout\Writer\CSV\Writer as CSVWriter;
+use OpenSpout\Writer\XLSX\OutlineRow;
 use OpenSpout\Writer\XLSX\Writer as XLSXWriter;
 use Symfony\Component\HttpFoundation\StreamedResponse;
 use Symfony\Component\Mime\MimeTypes;
@@ -119,12 +120,20 @@ class ExportController extends Controller {
 
                 foreach ($iterator as $index => $row) {
                     // Add
+                    $line = null;
+
                     if ($row instanceof HeaderRow) {
-                        $writer->addRow(RowFactory::fromValues($row->getColumns(), $style));
+                        $line = RowFactory::fromValues($row->getColumns(), $style);
                     } elseif ($row instanceof ValueRow) {
-                        $writer->addRow(RowFactory::fromValues($row->getColumns()));
+                        $line = RowFactory::fromValues($row->getColumns());
                     } elseif ($row instanceof GroupEndRow) {
-                        foreach ($row->getGroups() as $group) {
+                        // Empty rows required to avoid merging outline levels
+                        $groups = $row->getGroups();
+
+                        $row->setExported(count($groups));
+
+                        foreach ($groups as $group) {
+                            $writer->addRow(RowFactory::fromValues());
                             $options->mergeCells(
                                 $group->getColumn(),
                                 $group->getStartRow() + 1,
@@ -132,8 +141,14 @@ class ExportController extends Controller {
                                 $group->getEndRow() + 1,
                             );
                         }
+                    }
 
-                        $row->setExported(0);
+                    if ($line) {
+                        if ($row->getLevel() > 0) {
+                            $options->setRowOutline($line, new OutlineRow($row->getLevel()));
+                        }
+
+                        $writer->addRow($line);
                     }
 
                     // Measure
@@ -218,7 +233,14 @@ class ExportController extends Controller {
 
         yield $index => $header;
 
-        $index += $header->getExported();
+        $exported = $header->getExported();
+        $index   += $exported;
+
+        if ($exported > 0) {
+            foreach ($groups as $group) {
+                $group->move($exported);
+            }
+        }
 
         // Iteration
         /** @var array<int<0, max>, null> $default fixme(phpstan): why it is not detected automatically? */
@@ -230,23 +252,39 @@ class ExportController extends Controller {
         foreach ($iterator as $item) {
             // Groups
             if ($isGroupable) {
-                $ended   = [];
+                $created = [];
+                $grouped = [];
                 $columns = $groupSelector->get($item);
 
-                foreach ($groups as $group) {
+                foreach ($groups as $key => $group) {
                     $previous = $group->update($index, $columns[$group->getColumn()] ?? null);
 
                     if ($previous) {
-                        $ended[] = $previous;
+                        $created[$key] = true;
+
+                        if ($previous->isGrouped()) {
+                            $grouped[] = $previous;
+                        }
                     }
                 }
 
-                if ($ended) {
-                    $row = new GroupEndRow($ended);
+                if ($grouped) {
+                    $row = new GroupEndRow($grouped);
 
                     yield $index => $row;
 
-                    $index += $row->getExported();
+                    $exported = $row->getExported();
+                    $index   += $exported;
+
+                    if ($exported > 0) {
+                        foreach ($groups as $key => $group) {
+                            if (isset($created[$key])) {
+                                $group->move($exported);
+                            } else {
+                                $group->expand($exported);
+                            }
+                        }
+                    }
                 }
             }
 
@@ -260,12 +298,12 @@ class ExportController extends Controller {
         }
 
         // Rest
-        $ended = array_filter($groups, static function (Group $group): bool {
-            return $group->isMerged();
+        $grouped = array_filter($groups, static function (Group $group): bool {
+            return $group->isGrouped();
         });
 
-        if ($ended) {
-            $row = new GroupEndRow($ended);
+        if ($grouped) {
+            $row = new GroupEndRow($grouped);
 
             yield $index => $row;
 
