@@ -5,15 +5,18 @@ namespace App\Http\Controllers\Export;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\Export\Events\QueryExported;
 use App\Http\Controllers\Export\Exceptions\GraphQLQueryInvalid;
+use App\Http\Controllers\Export\Rows\GroupEndRow;
+use App\Http\Controllers\Export\Rows\HeaderRow;
+use App\Http\Controllers\Export\Rows\Row;
+use App\Http\Controllers\Export\Rows\ValueRow;
+use App\Http\Controllers\Export\Utils\Group;
 use App\Http\Controllers\Export\Utils\Measurer;
-use App\Http\Controllers\Export\Utils\MergedCells;
 use App\Http\Controllers\Export\Utils\SelectorFactory;
 use App\Utils\Iterators\Contracts\ObjectIterator;
 use App\Utils\Iterators\OffsetBasedObjectIterator;
 use App\Utils\Iterators\OneChunkOffsetBasedObjectIterator;
 use Barryvdh\Snappy\PdfWrapper;
-use Closure;
-use EmptyIterator;
+use Generator;
 use GraphQL\Server\Helper;
 use GraphQL\Server\OperationParams;
 use Illuminate\Auth\Access\AuthorizationException;
@@ -22,12 +25,11 @@ use Illuminate\Contracts\Config\Repository;
 use Illuminate\Contracts\Events\Dispatcher;
 use Illuminate\Contracts\Routing\ResponseFactory;
 use Illuminate\Support\Arr;
-use Iterator;
 use Laravel\Telescope\Telescope;
 use Nuwave\Lighthouse\GraphQL;
 use Nuwave\Lighthouse\Support\Contracts\CreatesContext;
 use Nuwave\Lighthouse\Support\Contracts\GraphQLContext;
-use OpenSpout\Common\Entity\Row;
+use OpenSpout\Common\Entity\Row as RowFactory;
 use OpenSpout\Common\Entity\Style\CellVerticalAlignment;
 use OpenSpout\Common\Entity\Style\Style;
 use OpenSpout\Writer\CSV\Writer as CSVWriter;
@@ -36,13 +38,13 @@ use Symfony\Component\HttpFoundation\StreamedResponse;
 use Symfony\Component\Mime\MimeTypes;
 
 use function array_fill;
+use function array_filter;
 use function array_key_exists;
 use function array_merge;
 use function array_values;
 use function assert;
 use function count;
 use function is_array;
-use function iterator_to_array;
 use function min;
 use function pathinfo;
 use function reset;
@@ -66,26 +68,23 @@ class ExportController extends Controller {
     }
 
     public function csv(ExportRequest $request): StreamedResponse {
-        $format         = __FUNCTION__;
-        $writer         = new CSVWriter();
-        $filename       = 'export.csv';
-        $mimetypes      = (new MimeTypes())->getMimeTypes(pathinfo($filename, PATHINFO_EXTENSION));
-        $mimetype       = reset($mimetypes);
-        $headers        = [
+        $format    = __FUNCTION__;
+        $writer    = new CSVWriter();
+        $filename  = 'export.csv';
+        $mimetypes = (new MimeTypes())->getMimeTypes(pathinfo($filename, PATHINFO_EXTENSION));
+        $mimetype  = reset($mimetypes);
+        $headers   = [
             'Content-Type' => "{$mimetype}; charset=UTF-8",
         ];
-        $headerCallback = static function (array $names) use ($writer): void {
-            $writer->addRow(Row::fromValues($names));
-        };
 
         return $this->factory->streamDownload(
-            function () use ($writer, $request, $format, $headerCallback): void {
+            function () use ($writer, $request, $format): void {
                 $writer->openToFile('php://output');
 
-                $iterator = $this->getRowsIterator($request, $format, $headerCallback);
+                $iterator = $this->getRowsIterator($request, $format);
 
                 foreach ($iterator as $row) {
-                    $writer->addRow(Row::fromValues($row));
+                    $writer->addRow(RowFactory::fromValues($row->getColumns()));
                 }
 
                 $writer->close();
@@ -110,39 +109,37 @@ class ExportController extends Controller {
                 $writer->openToFile('php://output');
 
                 $scale    = 1.1;
+                $style    = (new Style())->setFontBold();
                 $options  = $writer->getOptions();
                 $measurer = new Measurer();
-                $iterator = $this->getRowsIterator(
-                    $request,
-                    $format,
-                    static function (array $names) use ($writer, $measurer): void {
-                        $style = (new Style())->setFontBold();
-                        $row   = Row::fromValues($names, $style);
-
-                        $measurer->measure($names);
-                        $writer->addRow($row);
-                    },
-                    static function (MergedCells $merged) use ($writer): void {
-                        $offset = 2; // +1 for header; +1 because row coordinates are indexed from 1
-
-                        $writer->getOptions()->mergeCells(
-                            $merged->getColumn(),
-                            $merged->getStartRow() + $offset,
-                            $merged->getColumn(),
-                            $merged->getEndRow() + $offset,
-                        );
-                    },
-                );
+                $iterator = $this->getRowsIterator($request, $format, true);
 
                 $options->DEFAULT_ROW_STYLE
                     ->setCellVerticalAlignment(CellVerticalAlignment::TOP);
 
                 foreach ($iterator as $index => $row) {
-                    if ($index < 500 && ($index < 25 || $index % 25 === 0)) {
-                        $measurer->measure($row);
+                    // Add
+                    if ($row instanceof HeaderRow) {
+                        $writer->addRow(RowFactory::fromValues($row->getColumns(), $style));
+                    } elseif ($row instanceof ValueRow) {
+                        $writer->addRow(RowFactory::fromValues($row->getColumns()));
+                    } elseif ($row instanceof GroupEndRow) {
+                        foreach ($row->getGroups() as $group) {
+                            $options->mergeCells(
+                                $group->getColumn(),
+                                $group->getStartRow() + 1,
+                                $group->getColumn(),
+                                $group->getEndRow() + 1,
+                            );
+                        }
+
+                        $row->setExported(0);
                     }
 
-                    $writer->addRow(Row::fromValues($row));
+                    // Measure
+                    if ($index < 500 && ($index < 25 || $index % 25 === 0)) {
+                        $measurer->measure($row->getColumns());
+                    }
                 }
 
                 foreach ($measurer->getColumns() as $index => $width) {
@@ -167,37 +164,34 @@ class ExportController extends Controller {
         return $this->factory->streamDownload(function () use ($request): void {
             $rows     = [];
             $format   = __FUNCTION__;
-            $iterator = $this->getRowsIterator($request, $format, static function (array $names) use (&$rows): void {
-                $rows[] = $names;
-            });
-            $items    = iterator_to_array($iterator);
-            $rows     = array_merge($rows, $items);
-            $pdf      = $this->pdf->loadView('exports.pdf', [
-                'rows' => $rows,
-            ]);
+            $iterator = $this->getRowsIterator($request, $format);
 
-            echo $pdf->output();
+            foreach ($iterator as $row) {
+                $rows[] = $row->getColumns();
+            }
+
+            echo $this->pdf
+                ->loadView('exports.pdf', [
+                    'rows' => $rows,
+                ])
+                ->output();
         }, $filename, $headers);
     }
 
     /**
-     * @param Closure(array<int<0, max>, string|null>): void $headerCallback
-     * @param Closure(MergedCells): void|null                $mergeCallback
-     *
-     * @return Iterator<int<0, max>, array<int<0, max>, scalar|null>>
+     * @return Generator<int<0, max>, Row, int<0, max>|null, int<0, max>>
      */
     protected function getRowsIterator(
         ExportRequest $request,
         string $format,
-        Closure $headerCallback,
-        Closure $mergeCallback = null,
-    ): Iterator {
+        bool $isGroupable = false,
+    ): Generator {
         // Prepare
         $query         = $request->validated();
-        $names         = [];
-        $columns       = [];
-        $mergedCells   = [];
-        $mergedColumns = [];
+        $groups        = [];
+        $groupsColumns = [];
+        $headerColumns = [];
+        $valuesColumns = [];
 
         foreach (array_values($query['columns']) as $index => $column) {
             assert(
@@ -209,60 +203,77 @@ class ExportController extends Controller {
                 REASON,
             );
 
-            $names[$index]   = $column['name'];
-            $columns[$index] = $column['value'];
+            $headerColumns[$index] = $column['name'];
+            $valuesColumns[$index] = $column['value'];
 
-            if ($mergeCallback && isset($column['group']) && $column['group']) {
-                $mergedCells[$index]   = new MergedCells($index);
-                $mergedColumns[$index] = $column['group'];
+            if ($isGroupable && isset($column['group']) && $column['group']) {
+                $groups[$index]        = new Group($index);
+                $groupsColumns[$index] = $column['group'];
             }
         }
 
         // Headers
-        $headerCallback($names);
+        $index  = 0;
+        $header = new HeaderRow($headerColumns);
+
+        yield $index => $header;
+
+        $index += $header->getExported();
 
         // Iteration
         /** @var array<int<0, max>, null> $default fixme(phpstan): why it is not detected automatically? */
-        $default        = array_fill(0, count($query['columns']), null);
-        $empty          = true;
-        $selector       = SelectorFactory::make($columns);
-        $iterator       = $this->getIterator($request, $query, $format);
-        $mergedSelector = SelectorFactory::make($mergedColumns);
+        $default       = array_fill(0, count($query['columns']), null);
+        $iterator      = $this->getIterator($request, $query, $format);
+        $valueSelector = SelectorFactory::make($valuesColumns);
+        $groupSelector = SelectorFactory::make($groupsColumns);
 
-        foreach ($iterator as $index => $item) {
-            // Fill
-            $row = $selector->get($item) + $default;
+        foreach ($iterator as $item) {
+            // Groups
+            if ($isGroupable) {
+                $ended   = [];
+                $columns = $groupSelector->get($item);
 
-            // Merge
-            foreach ($mergedCells as $cell) {
-                $mergedValues = $mergedSelector->get($item);
-                $mergedCell   = $cell->merge($index, $mergedValues[$cell->getColumn()] ?? null);
+                foreach ($groups as $group) {
+                    $previous = $group->update($index, $columns[$group->getColumn()] ?? null);
 
-                if ($mergedCell && $mergeCallback) {
-                    $mergeCallback($mergedCell);
+                    if ($previous) {
+                        $ended[] = $previous;
+                    }
+                }
+
+                if ($ended) {
+                    $row = new GroupEndRow($ended);
+
+                    yield $index => $row;
+
+                    $index += $row->getExported();
                 }
             }
 
-            // Iterate
+            // Row
+            $row = $valueSelector->get($item) + $default;
+            $row = new ValueRow($row);
+
             yield $index => $row;
 
-            // Mark
-            $empty = false;
+            $index += $row->getExported();
         }
 
         // Rest
-        if ($mergeCallback) {
-            foreach ($mergedCells as $cell) {
-                if ($cell->isMerged()) {
-                    $mergeCallback($cell);
-                }
-            }
+        $ended = array_filter($groups, static function (Group $group): bool {
+            return $group->isMerged();
+        });
+
+        if ($ended) {
+            $row = new GroupEndRow($ended);
+
+            yield $index => $row;
+
+            $index += $row->getExported();
         }
 
-        // Empty
-        if ($empty) {
-            return new EmptyIterator();
-        }
+        // Return
+        return $index;
     }
 
     /**

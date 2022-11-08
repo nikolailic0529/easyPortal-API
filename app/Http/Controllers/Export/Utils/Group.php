@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Export\Utils;
 
-class MergedCells {
+class Group {
     /**
      * @var int<0, max>
      */
@@ -51,7 +51,7 @@ class MergedCells {
     /**
      * @param int<0, max> $row
      */
-    public function merge(int $row, mixed $value): ?static {
+    public function update(int $row, mixed $value): ?static {
         // Same value?
         if ($value === $this->value) {
             $this->endRow = $row;
@@ -60,10 +60,10 @@ class MergedCells {
         }
 
         // Previous group
-        $merged = null;
+        $previous = null;
 
         if ($this->isMerged()) {
-            $merged = clone $this;
+            $previous = clone $this;
         }
 
         // Reset
@@ -72,6 +72,6 @@ class MergedCells {
         $this->value    = $value;
 
         // Return
-        return $merged;
+        return $previous;
     }
 }

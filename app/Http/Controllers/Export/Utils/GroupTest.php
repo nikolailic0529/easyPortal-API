@@ -6,24 +6,24 @@ use Tests\TestCase;
 
 /**
  * @internal
- * @coversDefaultClass \App\Http\Controllers\Export\Utils\MergedCells
+ * @coversDefaultClass \App\Http\Controllers\Export\Utils\Group
  */
-class MergedCellsTest extends TestCase {
+class GroupTest extends TestCase {
     /**
-     * @covers ::merge
+     * @covers ::update
      */
-    public function testMerge(): void {
+    public function testUpdate(): void {
         $row    = 0;
-        $merged = new MergedCells(0);
+        $merged = new Group(0);
 
-        self::assertNull($merged->merge($row++, null));
-        self::assertNull($merged->merge($row++, null));
-        self::assertNull($merged->merge($row++, null));
+        self::assertNull($merged->update($row++, null));
+        self::assertNull($merged->update($row++, null));
+        self::assertNull($merged->update($row++, null));
         self::assertEquals(0, $merged->getStartRow());
         self::assertEquals($row - 1, $merged->getEndRow());
 
         $groupAEnd = $merged->getEndRow();
-        $groupA    = $merged->merge($row++, true);
+        $groupA    = $merged->update($row++, true);
 
         self::assertNotNull($groupA);
         self::assertEquals(0, $groupA->getStartRow());
@@ -31,14 +31,14 @@ class MergedCellsTest extends TestCase {
         self::assertEquals($groupAEnd + 1, $merged->getStartRow());
         self::assertEquals($groupAEnd + 1, $merged->getEndRow());
 
-        self::assertNull($merged->merge($row++, true));
-        self::assertNull($merged->merge($row++, true));
-        self::assertNull($merged->merge($row++, true));
+        self::assertNull($merged->update($row++, true));
+        self::assertNull($merged->update($row++, true));
+        self::assertNull($merged->update($row++, true));
         self::assertEquals($groupAEnd + 1, $merged->getStartRow());
         self::assertEquals($row - 1, $merged->getEndRow());
 
         $groupBEnd = $merged->getEndRow();
-        $groupB    = $merged->merge($row++, false);
+        $groupB    = $merged->update($row++, false);
 
         self::assertNotNull($groupB);
         self::assertEquals($groupAEnd + 1, $groupB->getStartRow());
