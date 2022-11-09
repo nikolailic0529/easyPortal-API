@@ -25,6 +25,7 @@ use Illuminate\Contracts\Config\Repository;
 use Illuminate\Contracts\Events\Dispatcher;
 use Illuminate\Contracts\Routing\ResponseFactory;
 use Illuminate\Support\Arr;
+use Iterator;
 use Laravel\Telescope\Telescope;
 use Nuwave\Lighthouse\GraphQL;
 use Nuwave\Lighthouse\Support\Contracts\CreatesContext;
@@ -120,20 +121,29 @@ class ExportController extends Controller {
 
                 foreach ($iterator as $index => $row) {
                     // Add
-                    $line = null;
+                    $line    = null;
+                    $outline = $row->getLevel() > 0
+                        ? new OutlineRow($row->getLevel())
+                        : null;
 
                     if ($row instanceof HeaderRow) {
                         $line = RowFactory::fromValues($row->getColumns(), $style);
                     } elseif ($row instanceof ValueRow) {
                         $line = RowFactory::fromValues($row->getColumns());
-                    } elseif ($row instanceof GroupEndRow) {
-                        // Empty rows required to avoid merging outline levels
-                        $groups = $row->getGroups();
+                    } else {
+                        // Empty rows required to avoid outline levels merging
+                        $groups = $row->getColumns();
+                        $empty  = RowFactory::fromValues();
+
+                        if ($outline) {
+                            $options->setRowOutline($empty, $outline);
+                        }
 
                         $row->setExported(count($groups));
 
                         foreach ($groups as $group) {
-                            $writer->addRow(RowFactory::fromValues());
+                            $writer->addRow($empty);
+
                             $options->mergeCells(
                                 $group->getColumn(),
                                 $group->getStartRow() + 1,
@@ -144,8 +154,8 @@ class ExportController extends Controller {
                     }
 
                     if ($line) {
-                        if ($row->getLevel() > 0) {
-                            $options->setRowOutline($line, new OutlineRow($row->getLevel()));
+                        if ($outline) {
+                            $options->setRowOutline($line, $outline);
                         }
 
                         $writer->addRow($line);
@@ -158,6 +168,8 @@ class ExportController extends Controller {
                 }
 
                 foreach ($measurer->getColumns() as $index => $width) {
+                    assert($index >= 0, 'PHPStan false positive, seems fixed in >=1.9.0');
+
                     $options->setColumnWidth($width * $scale, $index + 1);
                 }
 
@@ -194,13 +206,15 @@ class ExportController extends Controller {
     }
 
     /**
-     * @return Generator<int<0, max>, Row, int<0, max>|null, int<0, max>>
+     * @return ($isGroupable is true
+     *      ? Iterator<int<0, max>, ValueRow|HeaderRow|GroupEndRow>
+     *      : Iterator<int<0, max>, ValueRow|HeaderRow>)
      */
     protected function getRowsIterator(
         ExportRequest $request,
         string $format,
         bool $isGroupable = false,
-    ): Generator {
+    ): Iterator {
         // Prepare
         $query         = $request->validated();
         $groups        = [];

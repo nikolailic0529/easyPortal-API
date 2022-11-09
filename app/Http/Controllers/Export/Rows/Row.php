@@ -2,11 +2,14 @@
 
 namespace App\Http\Controllers\Export\Rows;
 
+/**
+ * @template TColumn
+ */
 abstract class Row {
     /**
-     * @param array<int<0, max>, scalar|null> $columns
-     * @param int<0, 7>                       $level
-     * @param int<0, max>                     $exported
+     * @param list<TColumn> $columns
+     * @param int<0, 7>     $level
+     * @param int<0, max>   $exported
      */
     public function __construct(
         protected array $columns,
@@ -17,7 +20,7 @@ abstract class Row {
     }
 
     /**
-     * @return array<int<0, max>, scalar|null>
+     * @return list<TColumn>
      */
     public function getColumns(): array {
         return $this->columns;

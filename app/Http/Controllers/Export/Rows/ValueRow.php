@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers\Export\Rows;
 
+/**
+ * @extends Row<scalar|null>
+ */
 class ValueRow extends Row {
     // empty
 }
