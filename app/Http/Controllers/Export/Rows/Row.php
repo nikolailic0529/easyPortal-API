@@ -8,7 +8,7 @@ namespace App\Http\Controllers\Export\Rows;
 abstract class Row {
     /**
      * @param list<TColumn> $columns
-     * @param int<0, 7>     $level
+     * @param int<0, max>   $level
      * @param int<0, max>   $exported
      */
     public function __construct(
@@ -27,7 +27,7 @@ abstract class Row {
     }
 
     /**
-     * @return int<0, 7>
+     * @return int<0, max>
      */
     public function getLevel(): int {
         return $this->level;

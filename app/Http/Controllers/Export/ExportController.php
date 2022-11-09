@@ -9,8 +9,8 @@ use App\Http\Controllers\Export\Rows\GroupEndRow;
 use App\Http\Controllers\Export\Rows\HeaderRow;
 use App\Http\Controllers\Export\Rows\ValueRow;
 use App\Http\Controllers\Export\Utils\Group;
-use App\Http\Controllers\Export\Utils\IteratorWrapper;
 use App\Http\Controllers\Export\Utils\Measurer;
+use App\Http\Controllers\Export\Utils\RowsIterator;
 use App\Http\Controllers\Export\Utils\SelectorFactory;
 use App\Utils\Iterators\Contracts\ObjectIterator;
 use App\Utils\Iterators\OffsetBasedObjectIterator;
@@ -39,7 +39,6 @@ use Symfony\Component\HttpFoundation\StreamedResponse;
 use Symfony\Component\Mime\MimeTypes;
 
 use function array_fill;
-use function array_filter;
 use function array_key_exists;
 use function array_merge;
 use function array_values;
@@ -122,7 +121,7 @@ class ExportController extends Controller {
                     // Add
                     $line    = null;
                     $outline = $row->getLevel() > 0
-                        ? new OutlineRow($row->getLevel())
+                        ? new OutlineRow(min(7, $row->getLevel()))
                         : null;
 
                     if ($row instanceof HeaderRow) {
@@ -206,8 +205,8 @@ class ExportController extends Controller {
 
     /**
      * @return ($isGroupable is true
-     *      ? Iterator<int<0, max>, ValueRow|HeaderRow|GroupEndRow>
-     *      : Iterator<int<0, max>, ValueRow|HeaderRow>)
+     *      ? Iterator<array-key, ValueRow|HeaderRow|GroupEndRow>
+     *      : Iterator<array-key, ValueRow|HeaderRow>)
      */
     protected function getRowsIterator(
         ExportRequest $request,
@@ -221,9 +220,9 @@ class ExportController extends Controller {
         $headerColumns = [];
         $valuesColumns = [];
 
-        foreach (array_values($query['columns']) as $index => $column) {
+        foreach (array_values($query['columns']) as $key => $column) {
             assert(
-                $index >= 0,
+                $key >= 0,
                 <<<'REASON'
                 PHPStan false positive, seems fixed in >1.8.11
 
@@ -231,117 +230,58 @@ class ExportController extends Controller {
                 REASON,
             );
 
-            $headerColumns[$index] = $column['name'];
-            $valuesColumns[$index] = $column['value'];
+            $headerColumns[$key] = $column['name'];
+            $valuesColumns[$key] = $column['value'];
 
             if ($isGroupable && isset($column['group']) && $column['group']) {
-                $groups[$index]        = new Group($index);
-                $groupsColumns[$index] = $column['group'];
+                $groups[$key]        = new Group($key);
+                $groupsColumns[$key] = $column['group'];
             }
         }
 
-        // Headers
-        $index  = 0;
+        // Header
         $header = new HeaderRow($headerColumns);
 
-        yield $index => $header;
+        yield $header;
 
         $exported = $header->getExported();
-        $index   += $exported;
-
-        if ($exported > 0) {
-            foreach ($groups as $group) {
-                $group->move($exported);
-            }
-        }
 
         // Iteration
         /** @var array<int<0, max>, null> $default fixme(phpstan): why it is not detected automatically? */
-        $default         = array_fill(0, count($query['columns']), null);
-        $iterator        = $this->getIterator($request, $query, $format);
-        $iterator        = new IteratorWrapper($iterator);
-        $valueSelector   = SelectorFactory::make($valuesColumns);
-        $groupSelector   = SelectorFactory::make($groupsColumns);
-        $previousItem    = null;
-        $previousLevel   = 0;
-        $previousCreated = null;
-        $previousGrouped = null;
+        $default  = array_fill(0, count($query['columns']), null);
+        $iterator = new RowsIterator(
+            $this->getIterator($request, $query, $format),
+            SelectorFactory::make($valuesColumns),
+            SelectorFactory::make($groupsColumns),
+            $groups,
+            $default,
+            $exported,
+        );
 
         foreach ($iterator as $item) {
-            // Groups
-            $created = null;
-            $grouped = null;
+            // Item
+            $exported = 0;
+            $level    = $iterator->getLevel();
+            $row      = new ValueRow($item, $level);
 
-            if ($isGroupable && $item !== null) {
-                $created = [];
-                $grouped = [];
-                $columns = $groupSelector->get($item);
+            yield $row;
 
-                foreach ($groups as $key => $group) {
-                    $previous = $group->update($index, $columns[$group->getColumn()] ?? null);
+            $exported += $row->getExported();
 
-                    if ($previous) {
-                        $created[$key] = true;
+            // Groups?
+            $groups = $iterator->getGroups();
 
-                        if ($previous->isGrouped()) {
-                            $grouped[] = $previous;
-                        }
-                    }
-                }
+            if ($groups) {
+                $row = new GroupEndRow($groups, $level);
+
+                yield $row;
+
+                $exported += $row->getExported();
             }
 
-            // Previous?
-            if ($previousItem !== null) {
-                // Group
-                if ($previousGrouped) {
-                    $row = new GroupEndRow($previousGrouped);
-
-                    yield $index => $row;
-
-                    $exported = $row->getExported();
-                    $index   += $exported;
-
-                    if ($exported > 0) {
-                        foreach ($groups as $key => $group) {
-                            if (isset($previousCreated[$key])) {
-                                $group->move($exported);
-                            } else {
-                                $group->expand($exported);
-                            }
-                        }
-                    }
-                }
-
-                // Row
-                $row = $valueSelector->get($previousItem) + $default;
-                $row = new ValueRow($row, $previousLevel);
-
-                yield $index => $row;
-
-                $index += $row->getExported();
-            }
-
-            // Save
-            $previousItem    = $item;
-            $previousCreated = $created;
-            $previousGrouped = $grouped;
+            // Offset
+            $iterator->setOffset($exported);
         }
-
-        // Rest
-        $grouped = array_filter($groups, static function (Group $group): bool {
-            return $group->isGrouped();
-        });
-
-        if ($grouped) {
-            $row = new GroupEndRow($grouped);
-
-            yield $index => $row;
-
-            $index += $row->getExported();
-        }
-
-        // Return
-        return $index;
     }
 
     /**

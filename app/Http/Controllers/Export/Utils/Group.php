@@ -59,27 +59,21 @@ class Group {
     }
 
     /**
-     * @param int<1, max> $rows
-     */
-    public function expand(int $rows): static {
-        $this->endRow += $rows;
-
-        return $this;
-    }
-
-    /**
      * @param int<0, max> $row
      */
-    public function update(int $row, mixed $value): ?static {
+    public function update(int $row, mixed $value): static {
         // Same value?
         if ($value === $this->value) {
             $this->endRow = $row;
 
-            return null;
+            return $this;
         }
 
+        // Previous
+        $previous         = clone $this;
+        $previous->endRow = $row > 0 ? $row - 1 : 0;
+
         // Update
-        $previous       = clone $this;
         $this->startRow = $row;
         $this->endRow   = $row;
         $this->value    = $value;
