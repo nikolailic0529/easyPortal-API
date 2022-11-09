@@ -7,16 +7,15 @@ use App\Http\Controllers\Export\Events\QueryExported;
 use App\Http\Controllers\Export\Exceptions\GraphQLQueryInvalid;
 use App\Http\Controllers\Export\Rows\GroupEndRow;
 use App\Http\Controllers\Export\Rows\HeaderRow;
-use App\Http\Controllers\Export\Rows\Row;
 use App\Http\Controllers\Export\Rows\ValueRow;
 use App\Http\Controllers\Export\Utils\Group;
+use App\Http\Controllers\Export\Utils\IteratorWrapper;
 use App\Http\Controllers\Export\Utils\Measurer;
 use App\Http\Controllers\Export\Utils\SelectorFactory;
 use App\Utils\Iterators\Contracts\ObjectIterator;
 use App\Utils\Iterators\OffsetBasedObjectIterator;
 use App\Utils\Iterators\OneChunkOffsetBasedObjectIterator;
 use Barryvdh\Snappy\PdfWrapper;
-use Generator;
 use GraphQL\Server\Helper;
 use GraphQL\Server\OperationParams;
 use Illuminate\Auth\Access\AuthorizationException;
@@ -258,14 +257,22 @@ class ExportController extends Controller {
 
         // Iteration
         /** @var array<int<0, max>, null> $default fixme(phpstan): why it is not detected automatically? */
-        $default       = array_fill(0, count($query['columns']), null);
-        $iterator      = $this->getIterator($request, $query, $format);
-        $valueSelector = SelectorFactory::make($valuesColumns);
-        $groupSelector = SelectorFactory::make($groupsColumns);
+        $default         = array_fill(0, count($query['columns']), null);
+        $iterator        = $this->getIterator($request, $query, $format);
+        $iterator        = new IteratorWrapper($iterator);
+        $valueSelector   = SelectorFactory::make($valuesColumns);
+        $groupSelector   = SelectorFactory::make($groupsColumns);
+        $previousItem    = null;
+        $previousLevel   = 0;
+        $previousCreated = null;
+        $previousGrouped = null;
 
         foreach ($iterator as $item) {
             // Groups
-            if ($isGroupable) {
+            $created = null;
+            $grouped = null;
+
+            if ($isGroupable && $item !== null) {
                 $created = [];
                 $grouped = [];
                 $columns = $groupSelector->get($item);
@@ -281,9 +288,13 @@ class ExportController extends Controller {
                         }
                     }
                 }
+            }
 
-                if ($grouped) {
-                    $row = new GroupEndRow($grouped);
+            // Previous?
+            if ($previousItem !== null) {
+                // Group
+                if ($previousGrouped) {
+                    $row = new GroupEndRow($previousGrouped);
 
                     yield $index => $row;
 
@@ -292,7 +303,7 @@ class ExportController extends Controller {
 
                     if ($exported > 0) {
                         foreach ($groups as $key => $group) {
-                            if (isset($created[$key])) {
+                            if (isset($previousCreated[$key])) {
                                 $group->move($exported);
                             } else {
                                 $group->expand($exported);
@@ -300,15 +311,20 @@ class ExportController extends Controller {
                         }
                     }
                 }
+
+                // Row
+                $row = $valueSelector->get($previousItem) + $default;
+                $row = new ValueRow($row, $previousLevel);
+
+                yield $index => $row;
+
+                $index += $row->getExported();
             }
 
-            // Row
-            $row = $valueSelector->get($item) + $default;
-            $row = new ValueRow($row);
-
-            yield $index => $row;
-
-            $index += $row->getExported();
+            // Save
+            $previousItem    = $item;
+            $previousCreated = $created;
+            $previousGrouped = $grouped;
         }
 
         // Rest
