@@ -93,6 +93,8 @@ final class WorksheetManager implements WorksheetManagerInterface
     {
         if (!$row->isEmpty()) {
             $this->addNonEmptyRow($worksheet, $row);
+        } elseif ($this->options->getOutlineRow($row)) {
+            $this->addEmptyRow($worksheet, $row);
         }
 
         $worksheet->setLastWrittenRowIndex($worksheet->getLastWrittenRowIndex() + 1);
@@ -119,24 +121,14 @@ final class WorksheetManager implements WorksheetManagerInterface
     {
         $sheetFilePointer = $worksheet->getFilePointer();
         $rowStyle = $row->getStyle();
-        $rowOutline = $this->options->getOutlineRow($row);
         $rowNumCells = $row->getNumCells();
         $rowIndexOneBased = $worksheet->getLastWrittenRowIndex() + 1;
         $rowHasCustomHeight = $this->options->DEFAULT_ROW_HEIGHT > 0 ? '1' : '0';
         $rowAttributes = ''
             ." r=\"{$rowIndexOneBased}\""
             ." spans=\"1:{$rowNumCells}\""
-            ." customHeight=\"{$rowHasCustomHeight}\"";
-
-        if ($rowOutline) {
-            $rowHidden = $rowOutline->isVisible() ? 'false' : 'true';
-            $rowCollapsed = $rowOutline->isCollapsed() ? 'true' : 'false';
-            $rowOutlineLevel = $rowOutline->getOutlineLevel();
-            $rowAttributes .= ''
-                ." hidden=\"{$rowHidden}\""
-                ." collapsed=\"{$rowCollapsed}\""
-                ." outlineLevel=\"{$rowOutlineLevel}\"";
-        }
+            ." customHeight=\"{$rowHasCustomHeight}\""
+            .$this->getRowOutlineAttributes($row);
 
         $rowXML = "<row{$rowAttributes}>";
 
@@ -155,6 +147,44 @@ final class WorksheetManager implements WorksheetManagerInterface
         if (false === $wasWriteSuccessful) {
             throw new IOException("Unable to write data in {$worksheet->getFilePath()}");
         }
+    }
+
+    /**
+     * Adds empty row to the worksheet.
+     *
+     * @param Worksheet $worksheet The worksheet to add the row to
+     * @param Row       $row       The row to be written
+     *
+     * @throws InvalidArgumentException If a cell value's type is not supported
+     * @throws IOException              If the data cannot be written
+     */
+    private function addEmptyRow(Worksheet $worksheet, Row $row): void
+    {
+        $sheetFilePointer = $worksheet->getFilePointer();
+        $rowAttributes = $this->getRowOutlineAttributes($row);
+        $rowXML = "<row{$rowAttributes}></row>";
+
+        $wasWriteSuccessful = fwrite($sheetFilePointer, $rowXML);
+        if (false === $wasWriteSuccessful) {
+            throw new IOException("Unable to write data in {$worksheet->getFilePath()}");
+        }
+    }
+
+    private function getRowOutlineAttributes(Row $row): string {
+        $rowOutline = $this->options->getOutlineRow($row);
+        $rowAttributes = '';
+
+        if ($rowOutline) {
+            $rowHidden = $rowOutline->isVisible() ? 'false' : 'true';
+            $rowCollapsed = $rowOutline->isCollapsed() ? 'true' : 'false';
+            $rowOutlineLevel = $rowOutline->getOutlineLevel();
+            $rowAttributes .= ''
+                ." hidden=\"{$rowHidden}\""
+                ." collapsed=\"{$rowCollapsed}\""
+                ." outlineLevel=\"{$rowOutlineLevel}\"";
+        }
+
+        return $rowAttributes;
     }
 
     /**
