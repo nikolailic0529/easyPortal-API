@@ -6,49 +6,59 @@ use App\Http\Controllers\Export\Selectors\Root;
 use App\Utils\Iterators\Contracts\ObjectIterator;
 use Iterator;
 use IteratorAggregate;
+use LogicException;
 
 /**
  * @phpstan-type Column array<int<0, max>, scalar|null>
  *
- * @implements IteratorAggregate<array-key, Column>
+ * @implements IteratorAggregate<int, Column>
  */
 class RowsIterator implements IteratorAggregate {
     /**
      * @var Column|null
      */
-    protected mixed $currentItem = null;
+    private mixed $currentItem = null;
 
     /**
      * @var array<Group>
      */
-    protected array $currentGroups = [];
+    private array $currentGroups = [];
 
     /**
      * @var Column|null
      */
-    protected mixed $nextItem = null;
+    private mixed $nextItem = null;
 
     /**
      * @var array<Group>
      */
-    protected array $nextGroups = [];
+    private array $nextGroups = [];
+
+    /**
+     * @var int<0, max>
+     */
+    private int $level = 0;
 
     /**
      * @param ObjectIterator<array<string,scalar|null>> $iterator
      * @param array<Group>                              $groups
      * @param array<int<0, max>, scalar|null>           $default
+     * @param int<0, max>                               $offset
      */
     public function __construct(
-        protected ObjectIterator $iterator,
-        protected Root $valueSelector,
-        protected Root $groupSelector,
+        private ObjectIterator $iterator,
+        private Root $valueSelector,
+        private Root $groupSelector,
         array $groups,
-        protected array $default,
-        protected int $offset,
+        private array $default,
+        private int $offset,
     ) {
-        $this->currentGroups = $groups;
+        $this->nextGroups = $groups;
     }
 
+    /**
+     * @param int<0, max> $offset
+     */
     public function setOffset(int $offset): static {
         $this->offset = $offset;
 
@@ -59,46 +69,83 @@ class RowsIterator implements IteratorAggregate {
      * @return int<0, max>
      */
     public function getLevel(): int {
-        return 0;
+        return $this->level;
     }
 
     /**
      * @return array<Group>
      */
     public function getGroups(): array {
-        $groups = [];
-
-        foreach ($this->currentGroups as $key => $group) {
-            if (($this->nextGroups[$key] ?? null) !== $group && $group->isGrouped()) {
-                $groups[] = $group;
-            }
-        }
-
-        return $groups;
+        return $this->currentGroups;
     }
 
     /**
-     * @return Iterator<array-key, Column>
+     * @return Iterator<int, Column>
      */
     public function getIterator(): Iterator {
-        foreach ($this->iterator as $index => $item) {
+        $index = $this->offset;
+
+        foreach ($this->iterator as $item) {
             // Process
             $this->nextItem = $this->valueSelector->get($item) + $this->default;
+            $this->offset   = 0;
+            $this->level    = 0;
             $columns        = $this->groupSelector->get($item);
+            $previous       = null;
 
-            foreach ($this->currentGroups as $key => $group) {
-                $this->currentGroups[$key] = $group->update($index, $columns[$group->getColumn()] ?? null);
-                $this->nextGroups[$key]    = $group;
+            foreach ($this->nextGroups as $key => $group) {
+                $ended       = $previous === null || $previous->isGrouped()
+                    ? $group->update($index, $columns[$group->getColumn()] ?? null)
+                    : $group->end($index, $columns[$group->getColumn()] ?? null);
+                $previous    = $group;
+                $this->level = ($ended ?? $group)->isGrouped()
+                    ? $group->getColumn() + 1
+                    : $this->level;
+
+                if ($ended) {
+                    $this->currentGroups[$key] = $ended;
+                } else {
+                    unset($this->currentGroups[$key]);
+                }
             }
 
             // Emit
             if ($this->currentItem !== null) {
                 yield $this->currentItem;
+
+                if ($this->offset > 1) {
+                    foreach ($this->nextGroups as $group) {
+                        if ($group->getStartRow() === $index) {
+                            $group->move($this->offset - 1);
+                        } else {
+                            $group->expand($this->offset - 1);
+                        }
+                    }
+
+                    $index += $this->offset - 1;
+                } elseif ($this->offset <= 0) {
+                    throw new LogicException('Offset should be greater than `0`.');
+                } else {
+                    // =1: no action
+                }
             }
 
-            // Set
-            $this->currentItem   = $this->nextItem;
-            $this->currentGroups = $this->nextGroups;
+            // Next
+            $this->currentItem = $this->nextItem;
+            $this->offset      = 1;
+            $index++;
+        }
+
+        // Last
+        $this->level = 0;
+
+        foreach ($this->nextGroups as $key => $group) {
+            if ($group->isGrouped()) {
+                $this->level               = $group->getColumn() + 1;
+                $this->currentGroups[$key] = $group;
+            } else {
+                unset($this->currentGroups[$key]);
+            }
         }
 
         $this->nextItem   = null;

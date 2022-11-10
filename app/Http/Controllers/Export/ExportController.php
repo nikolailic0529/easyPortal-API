@@ -45,6 +45,7 @@ use function array_values;
 use function assert;
 use function count;
 use function is_array;
+use function max;
 use function min;
 use function pathinfo;
 use function reset;
@@ -260,23 +261,23 @@ class ExportController extends Controller {
 
         foreach ($iterator as $item) {
             // Item
-            $exported = 0;
-            $level    = $iterator->getLevel();
-            $row      = new ValueRow($item, $level);
+            $itemLevel = $iterator->getLevel();
+            $valueRow  = new ValueRow($item, $itemLevel);
+            $exported  = 0;
 
-            yield $row;
+            yield $valueRow;
 
-            $exported += $row->getExported();
+            $exported += $valueRow->getExported();
 
             // Groups?
             $groups = $iterator->getGroups();
 
             if ($groups) {
-                $row = new GroupEndRow($groups, $level);
+                $groupRow = new GroupEndRow($groups, max(0, $itemLevel - count($groups)));
 
-                yield $row;
+                yield $groupRow;
 
-                $exported += $row->getExported();
+                $exported += $groupRow->getExported();
             }
 
             // Offset

@@ -12,13 +12,12 @@ class Group {
      */
     protected int $endRow = 0;
 
-    protected mixed $value = null;
-
     /**
      * @param int<0, max> $column
      */
     public function __construct(
         protected int $column,
+        protected mixed $value = null,
     ) {
         // empty
     }
@@ -59,21 +58,35 @@ class Group {
     }
 
     /**
+     * @param int<1, max> $rows
+     */
+    public function expand(int $rows): static {
+        $this->endRow += $rows;
+
+        return $this;
+    }
+
+    /**
      * @param int<0, max> $row
      */
-    public function update(int $row, mixed $value): static {
+    public function update(int $row, mixed $value): ?static {
         // Same value?
         if ($value === $this->value) {
             $this->endRow = $row;
 
-            return $this;
+            return null;
         }
 
-        // Previous
-        $previous         = clone $this;
-        $previous->endRow = $row > 0 ? $row - 1 : 0;
+        // End
+        return $this->end($row, $value);
+    }
 
-        // Update
+    /**
+     * @param int<0, max> $row
+     */
+    public function end(int $row, mixed $value): ?static {
+        // Switch
+        $previous       = $this->isGrouped() ? clone $this : null;
         $this->startRow = $row;
         $this->endRow   = $row;
         $this->value    = $value;
