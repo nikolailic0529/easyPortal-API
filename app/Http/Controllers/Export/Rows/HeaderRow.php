@@ -2,9 +2,6 @@
 
 namespace App\Http\Controllers\Export\Rows;
 
-/**
- * @extends Row<string|null>
- */
-class HeaderRow extends Row {
+class HeaderRow extends ValueRow {
     // empty
 }

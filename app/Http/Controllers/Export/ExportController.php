@@ -45,7 +45,6 @@ use function array_values;
 use function assert;
 use function count;
 use function is_array;
-use function max;
 use function min;
 use function pathinfo;
 use function reset;
@@ -131,25 +130,20 @@ class ExportController extends Controller {
                         $line = RowFactory::fromValues($row->getColumns());
                     } else {
                         // Empty rows required to avoid outline levels merging
-                        $groups = $row->getColumns();
-                        $empty  = RowFactory::fromValues();
+                        $empty = RowFactory::fromValues();
 
                         if ($outline) {
                             $options->setRowOutline($empty, $outline);
                         }
 
-                        $row->setExported(count($groups));
+                        $writer->addRow($empty);
 
-                        foreach ($groups as $group) {
-                            $writer->addRow($empty);
-
-                            $options->mergeCells(
-                                $group->getColumn(),
-                                $group->getStartRow() + 1,
-                                $group->getColumn(),
-                                $group->getEndRow() + 1,
-                            );
-                        }
+                        $options->mergeCells(
+                            $row->getColumn(),
+                            $row->getStartRow() + 1,
+                            $row->getColumn(),
+                            $row->getEndRow() + 1,
+                        );
                     }
 
                     if ($line) {
@@ -161,7 +155,7 @@ class ExportController extends Controller {
                     }
 
                     // Measure
-                    if ($index < 500 && ($index < 25 || $index % 25 === 0)) {
+                    if ($index < 500 && ($index < 25 || $index % 25 === 0) && $row instanceof ValueRow) {
                         $measurer->measure($row->getColumns());
                     }
                 }
@@ -235,7 +229,7 @@ class ExportController extends Controller {
             $valuesColumns[$key] = $column['value'];
 
             if ($isGroupable && isset($column['group']) && $column['group']) {
-                $groups[$key]        = new Group($key);
+                $groups[$key]        = new Group();
                 $groupsColumns[$key] = $column['group'];
             }
         }
@@ -273,11 +267,13 @@ class ExportController extends Controller {
             $groups = $iterator->getGroups();
 
             if ($groups) {
-                $groupRow = new GroupEndRow($groups, max(0, $itemLevel - count($groups)));
+                foreach ($groups as $key => $group) {
+                    $groupRow = new GroupEndRow($key, $group->getStartRow(), $group->getEndRow(), $key);
 
-                yield $groupRow;
+                    yield $groupRow;
 
-                $exported += $groupRow->getExported();
+                    $exported += $groupRow->getExported();
+                }
             }
 
             // Offset

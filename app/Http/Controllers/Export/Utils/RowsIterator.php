@@ -20,7 +20,7 @@ class RowsIterator implements IteratorAggregate {
     private mixed $currentItem = null;
 
     /**
-     * @var array<Group>
+     * @var array<int<0, max>, Group>
      */
     private array $currentGroups = [];
 
@@ -30,7 +30,7 @@ class RowsIterator implements IteratorAggregate {
     private mixed $nextItem = null;
 
     /**
-     * @var array<Group>
+     * @var array<int<0, max>, Group>
      */
     private array $nextGroups = [];
 
@@ -41,7 +41,7 @@ class RowsIterator implements IteratorAggregate {
 
     /**
      * @param ObjectIterator<array<string,scalar|null>> $iterator
-     * @param array<Group>                              $groups
+     * @param array<int<0, max>, Group>                 $groups
      * @param array<int<0, max>, scalar|null>           $default
      * @param int<0, max>                               $offset
      */
@@ -73,7 +73,7 @@ class RowsIterator implements IteratorAggregate {
     }
 
     /**
-     * @return array<Group>
+     * @return array<int<0, max>, Group>
      */
     public function getGroups(): array {
         return $this->currentGroups;
@@ -95,11 +95,11 @@ class RowsIterator implements IteratorAggregate {
 
             foreach ($this->nextGroups as $key => $group) {
                 $ended       = $previous === null || $previous->isGrouped()
-                    ? $group->update($index, $columns[$group->getColumn()] ?? null)
-                    : $group->end($index, $columns[$group->getColumn()] ?? null);
+                    ? $group->update($index, $columns[$key] ?? null)
+                    : $group->end($index, $columns[$key] ?? null);
                 $previous    = $group;
                 $this->level = ($ended ?? $group)->isGrouped()
-                    ? $group->getColumn() + 1
+                    ? $key + 1
                     : $this->level;
 
                 if ($ended) {
@@ -141,7 +141,7 @@ class RowsIterator implements IteratorAggregate {
 
         foreach ($this->nextGroups as $key => $group) {
             if ($group->isGrouped()) {
-                $this->level               = $group->getColumn() + 1;
+                $this->level               = $key + 1;
                 $this->currentGroups[$key] = $group;
             } else {
                 unset($this->currentGroups[$key]);

@@ -12,11 +12,7 @@ class Group {
      */
     protected int $endRow = 0;
 
-    /**
-     * @param int<0, max> $column
-     */
     public function __construct(
-        protected int $column,
         protected mixed $value = null,
     ) {
         // empty
@@ -34,13 +30,6 @@ class Group {
      */
     public function getEndRow(): int {
         return $this->endRow;
-    }
-
-    /**
-     * @return int<0, max>
-     */
-    public function getColumn(): int {
-        return $this->column;
     }
 
     public function isGrouped(): bool {

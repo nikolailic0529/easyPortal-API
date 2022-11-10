@@ -14,7 +14,7 @@ class GroupTest extends TestCase {
      */
     public function testUpdate(): void {
         $row   = 0;
-        $group = new Group(0);
+        $group = new Group();
 
         self::assertNull($group->update($row++, null));
         self::assertNull($group->update($row++, null));
@@ -49,7 +49,7 @@ class GroupTest extends TestCase {
      * @covers ::move
      */
     public function testMove(): void {
-        $group = new Group(0);
+        $group = new Group();
 
         self::assertEquals(0, $group->getStartRow());
         self::assertEquals(0, $group->getEndRow());
@@ -64,7 +64,7 @@ class GroupTest extends TestCase {
      * @covers ::expand
      */
     public function testExpand(): void {
-        $group = new Group(0);
+        $group = new Group();
 
         self::assertEquals(0, $group->getStartRow());
         self::assertEquals(0, $group->getEndRow());
@@ -79,7 +79,7 @@ class GroupTest extends TestCase {
      * @covers ::end
      */
     public function testEnd(): void {
-        $group = new Group(0, null);
+        $group = new Group(null);
 
         self::assertNull($group->end(1, null));
         self::assertNull($group->update(2, null));

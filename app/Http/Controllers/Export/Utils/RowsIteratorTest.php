@@ -124,8 +124,8 @@ class RowsIteratorTest extends TestCase {
             SelectorFactory::make(['a', 'b', 'id']),
             SelectorFactory::make(['a', 'b']),
             [
-                new Group(0),
-                new Group(1),
+                new Group(),
+                new Group(),
             ],
             [
                 null,
