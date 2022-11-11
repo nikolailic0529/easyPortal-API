@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Export\Utils;
 
-class MergedCells {
+class Group {
     /**
      * @var int<0, max>
      */
@@ -12,13 +12,8 @@ class MergedCells {
      */
     protected int $endRow = 0;
 
-    protected mixed $value = null;
-
-    /**
-     * @param int<0, max> $column
-     */
     public function __construct(
-        protected int $column,
+        protected mixed $value = null,
     ) {
         // empty
     }
@@ -37,21 +32,33 @@ class MergedCells {
         return $this->endRow;
     }
 
-    /**
-     * @return int<0, max>
-     */
-    public function getColumn(): int {
-        return $this->column;
+    public function isGrouped(): bool {
+        return $this->startRow !== $this->endRow;
     }
 
-    public function isMerged(): bool {
-        return $this->startRow !== $this->endRow;
+    /**
+     * @param int<1, max> $rows
+     */
+    public function move(int $rows): static {
+        $this->startRow += $rows;
+        $this->endRow   += $rows;
+
+        return $this;
+    }
+
+    /**
+     * @param int<1, max> $rows
+     */
+    public function expand(int $rows): static {
+        $this->endRow += $rows;
+
+        return $this;
     }
 
     /**
      * @param int<0, max> $row
      */
-    public function merge(int $row, mixed $value): ?static {
+    public function update(int $row, mixed $value): ?static {
         // Same value?
         if ($value === $this->value) {
             $this->endRow = $row;
@@ -59,19 +66,21 @@ class MergedCells {
             return null;
         }
 
-        // Previous group
-        $merged = null;
+        // End
+        return $this->end($row, $value);
+    }
 
-        if ($this->isMerged()) {
-            $merged = clone $this;
-        }
-
-        // Reset
+    /**
+     * @param int<0, max> $row
+     */
+    public function end(int $row, mixed $value): ?static {
+        // Switch
+        $previous       = $this->isGrouped() ? clone $this : null;
         $this->startRow = $row;
         $this->endRow   = $row;
         $this->value    = $value;
 
         // Return
-        return $merged;
+        return $previous;
     }
 }

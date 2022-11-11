@@ -24,6 +24,7 @@ use LastDragon_ru\LaraASP\Testing\Providers\ArrayDataProvider;
 use LastDragon_ru\LaraASP\Testing\Providers\CompositeDataProvider;
 use LastDragon_ru\LaraASP\Testing\Providers\DataProvider;
 use LastDragon_ru\LaraASP\Testing\Providers\ExpectedFinal;
+use LastDragon_ru\LaraASP\Testing\Providers\MergeDataProvider;
 use LastDragon_ru\LaraASP\Testing\Providers\UnknownValue;
 use LastDragon_ru\LaraASP\Testing\Responses\Laravel\Json\ValidationErrorResponse;
 use Tests\Constraints\Attachments\CsvAttachment;
@@ -31,6 +32,8 @@ use Tests\Constraints\Attachments\PdfAttachment;
 use Tests\Constraints\Attachments\XlsxAttachment;
 use Tests\DataProviders\Http\Organizations\AuthOrgDataProvider;
 use Tests\DataProviders\Http\Users\OrgUserDataProvider;
+use Tests\Providers\Organizations\RootOrganizationProvider;
+use Tests\Providers\Users\RootUserProvider;
 use Tests\TestCase;
 use Tests\WithOrganization;
 use Tests\WithSettings;
@@ -282,14 +285,123 @@ class ExportControllerTest extends TestCase {
      * @return array<string, array<mixed>>
      */
     public function dataProviderExportXlsx(): array {
-        return (new CompositeDataProvider(
-            $this->getExportDataProvider(),
-            new ArrayDataProvider([
+        return (new MergeDataProvider([
+            'base'     => new CompositeDataProvider(
+                $this->getExportDataProvider(),
+                new ArrayDataProvider([
+                    'ok' => [
+                        new XlsxAttachment('export.xlsx', $this->getTestData()->file('.xlsx.csv')),
+                    ],
+                ]),
+            ),
+            'grouping' => new ArrayDataProvider([
                 'ok' => [
-                    new XlsxAttachment('export.xlsx', $this->getTestData()->file('.xlsx.csv')),
+                    new XlsxAttachment('export.xlsx', $this->getTestData()->file('.xlsx.groups.csv')),
+                    new RootOrganizationProvider(),
+                    new RootUserProvider(),
+                    null,
+                    static function (self $test, Organization $org): void {
+                        $nicknameA = 'Nickname A';
+                        $nicknameB = 'Nickname B';
+                        $nicknameC = 'Nickname C';
+                        $productA  = Product::factory()->create(['name' => 'Product A']);
+                        $productB  = Product::factory()->create(['name' => 'Product B']);
+                        $productC  = Product::factory()->create(['name' => 'Product C']);
+
+                        Asset::factory()->ownedBy($org)->create([
+                            'id'         => 'ebc69758-636d-4114-a199-df13b9924b52',
+                            'nickname'   => $nicknameA,
+                            'product_id' => $productA,
+                        ]);
+                        Asset::factory()->ownedBy($org)->create([
+                            'id'         => 'bc08f999-fb97-4e40-b79e-bbef0a867472',
+                            'nickname'   => $nicknameA,
+                            'product_id' => $productB,
+                        ]);
+                        Asset::factory()->ownedBy($org)->create([
+                            'id'         => '381fa79e-4ba9-4e74-b6cf-4c342fe41b0b',
+                            'nickname'   => $nicknameA,
+                            'product_id' => $productB,
+                        ]);
+                        Asset::factory()->ownedBy($org)->create([
+                            'id'         => '0ceebf8c-0e85-4fe7-8d0a-adce7036b224',
+                            'nickname'   => $nicknameB,
+                            'product_id' => $productA,
+                        ]);
+                        Asset::factory()->ownedBy($org)->create([
+                            'id'         => 'b1126ad6-2184-44f2-8042-a5b207de262e',
+                            'nickname'   => $nicknameB,
+                            'product_id' => $productA,
+                        ]);
+                        Asset::factory()->ownedBy($org)->create([
+                            'id'         => '668259f3-8d22-4b41-9a7d-fba071805819',
+                            'nickname'   => $nicknameB,
+                            'product_id' => $productB,
+                        ]);
+                        Asset::factory()->ownedBy($org)->create([
+                            'id'         => '223dc79e-a053-44f2-843d-630ad6527ff3',
+                            'nickname'   => $nicknameB,
+                            'product_id' => $productB,
+                        ]);
+                        Asset::factory()->ownedBy($org)->create([
+                            'id'         => 'd4236d3c-d593-4c0f-a85a-0bcd5aead1ca',
+                            'nickname'   => $nicknameB,
+                            'product_id' => $productC,
+                        ]);
+                        Asset::factory()->ownedBy($org)->create([
+                            'id'         => '1169195e-bd5f-4955-aa1a-a6288333f0ba',
+                            'nickname'   => $nicknameC,
+                            'product_id' => $productC,
+                        ]);
+                    },
+                    [
+                        'root'      => 'data.assets',
+                        'query'     => /** @lang GraphQL */ <<<'GRAPHQL'
+                            query assets($limit: Int, $offset: Int, $order: [SortByClauseAssetsSort!]) {
+                                assets(limit: $limit, offset: $offset, order: $order) {
+                                    id
+                                    nickname
+                                    product {
+                                        name
+                                    }
+                                }
+                            }
+                            GRAPHQL
+                        ,
+                        'variables' => [
+                            'limit'  => null,
+                            'offset' => null,
+                            'order'  => [
+                                [
+                                    'nickname' => 'asc',
+                                ],
+                                [
+                                    'product' => [
+                                        'name' => 'asc',
+                                    ],
+                                ],
+                            ],
+                        ],
+                        'columns'   => [
+                            [
+                                'name'  => 'Nickname',
+                                'group' => 'nickname',
+                                'value' => 'nickname',
+                            ],
+                            [
+                                'name'  => 'Product',
+                                'group' => 'product.name',
+                                'value' => 'product.name',
+                            ],
+                            [
+                                'name'  => 'Id',
+                                'value' => 'id',
+                            ],
+                        ],
+                    ],
                 ],
             ]),
-        ))->getData();
+        ]))->getData();
     }
 
     /**
