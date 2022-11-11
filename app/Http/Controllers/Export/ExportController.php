@@ -41,6 +41,7 @@ use Symfony\Component\Mime\MimeTypes;
 use function array_fill;
 use function array_key_exists;
 use function array_merge;
+use function array_reverse;
 use function array_values;
 use function assert;
 use function count;
@@ -121,9 +122,7 @@ class ExportController extends Controller {
                 foreach ($iterator as $index => $row) {
                     // Add
                     $line    = null;
-                    $outline = $row->getLevel() > 0
-                        ? new RowAttributes(min(7, $row->getLevel()))
-                        : null;
+                    $outline = new RowAttributes(min(7, $row->getLevel()));
 
                     if ($row instanceof HeaderRow) {
                         $line = RowFactory::fromValues($row->getColumns(), $style);
@@ -133,10 +132,7 @@ class ExportController extends Controller {
                         // Empty rows required to avoid outline levels merging
                         $empty = RowFactory::fromValues();
 
-                        if ($outline) {
-                            $options->setRowAttributes($empty, $outline);
-                        }
-
+                        $options->setRowAttributes($empty, $outline);
                         $writer->addRow($empty);
 
                         $options->mergeCells(
@@ -148,10 +144,7 @@ class ExportController extends Controller {
                     }
 
                     if ($line) {
-                        if ($outline) {
-                            $options->setRowAttributes($line, $outline);
-                        }
-
+                        $options->setRowAttributes($line, $outline);
                         $writer->addRow($line);
                     }
 
@@ -268,7 +261,7 @@ class ExportController extends Controller {
             $groups = $iterator->getGroups();
 
             if ($groups) {
-                foreach ($groups as $key => $group) {
+                foreach (array_reverse($groups, true) as $key => $group) {
                     $groupRow = new GroupEndRow($key, $group->getStartRow(), $group->getEndRow(), $key);
 
                     yield $groupRow;

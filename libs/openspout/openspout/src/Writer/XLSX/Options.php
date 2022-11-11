@@ -21,7 +21,7 @@ final class Options extends AbstractOptions
 
     /** @var WeakMap<Row, RowAttributes> */
     private WeakMap $rowsAttributes;
-    private int $outlineMaxLevel = 0;
+    private ?int $outlineMaxLevel = null;
 
     public function __construct()
     {
@@ -32,7 +32,7 @@ final class Options extends AbstractOptions
         $defaultRowStyle->setFontName(self::DEFAULT_FONT_NAME);
 
         $this->DEFAULT_ROW_STYLE = $defaultRowStyle;
-        $this->rowsAttributes      = new WeakMap();
+        $this->rowsAttributes = new WeakMap();
     }
 
     /**
@@ -74,7 +74,7 @@ final class Options extends AbstractOptions
     public function setRowAttributes(Row $row, RowAttributes $attributes): static
     {
         $this->rowsAttributes[$row] = $attributes;
-        $this->outlineMaxLevel = max($attributes->getOutlineLevel(), $this->outlineMaxLevel);
+        $this->outlineMaxLevel = max($attributes->getOutlineLevel(), (int) $this->outlineMaxLevel);
 
         return $this;
     }
@@ -84,7 +84,7 @@ final class Options extends AbstractOptions
         return $this->rowsAttributes[$row] ?? null;
     }
 
-    public function getOutlineMaxLevel(): int
+    public function getOutlineMaxLevel(): ?int
     {
         return $this->outlineMaxLevel;
     }

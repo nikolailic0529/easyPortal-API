@@ -10,14 +10,14 @@ class RowAttributes
     private bool $collapsed;
 
     /**
-     * @var int<0, 7>
+     * @var int<0, 7>|null
      */
-    private int $outlineLevel;
+    private ?int $outlineLevel;
 
     /**
-     * @param int<0, 7> $outlineLevel
+     * @param int<0, 7>|null $outlineLevel
      */
-    public function __construct(int $outlineLevel, bool $collapsed = false, bool $visible = true)
+    public function __construct(?int $outlineLevel, bool $collapsed = false, bool $visible = true)
     {
         $this->setOutlineLevel($outlineLevel);
         $this->setCollapsed($collapsed);
@@ -49,19 +49,19 @@ class RowAttributes
     }
 
     /**
-     * @return int<0, 7>
+     * @return int<0, 7>|null
      */
-    public function getOutlineLevel(): int
+    public function getOutlineLevel(): ?int
     {
         return $this->outlineLevel;
     }
 
     /**
-     * @param int<0, 7> $outlineLevel
+     * @param int<0, 7>|null $outlineLevel
      */
-    public function setOutlineLevel(int $outlineLevel): static
+    public function setOutlineLevel(?int $outlineLevel): static
     {
-        if ($outlineLevel < 0 || $outlineLevel > 7) {
+        if ($outlineLevel !== null && ($outlineLevel < 0 || $outlineLevel > 7)) {
             throw new InvalidArgumentException('RowAttributes level must range between 0 and 7.');
         }
 

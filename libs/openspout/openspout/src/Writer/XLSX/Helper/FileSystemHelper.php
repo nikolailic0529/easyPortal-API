@@ -399,7 +399,7 @@ final class FileSystemHelper implements FileSystemWithRootFolderHelperInterface
     {
         $rowHeightXml = null === $options->DEFAULT_ROW_HEIGHT ? '' : " defaultRowHeight=\"{$options->DEFAULT_ROW_HEIGHT}\"";
         $colWidthXml = null === $options->DEFAULT_COLUMN_WIDTH ? '' : " defaultColWidth=\"{$options->DEFAULT_COLUMN_WIDTH}\"";
-        $rowOutlineLevel = 0 === $options->getOutlineMaxLevel() ? '' : " outlineLevelRow=\"{$options->getOutlineMaxLevel()}\"";
+        $rowOutlineLevel = null === $options->getOutlineMaxLevel() ? '' : " outlineLevelRow=\"{$options->getOutlineMaxLevel()}\"";
 
         if ('' === $colWidthXml && '' === $rowHeightXml && '' === $rowOutlineLevel) {
             return '';

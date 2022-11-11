@@ -176,22 +176,27 @@ final class WorksheetManager implements WorksheetManagerInterface
     }
 
     private function getRowAttributes(Row $row): string {
-        $attributes = $this->options->getRowAttributes($row);
-        $rowAttributes = '';
+        $rowAttributes = $this->options->getRowAttributes($row);
 
-        if (!$attributes->isVisible()) {
-            $rowAttributes .= " hidden=\"true\"";
+        if (!$rowAttributes) {
+            return '';
         }
 
-        if ($attributes->isCollapsed()) {
-            $rowAttributes .= " collapsed=\"true\"";
+        $xmlAttributes = '';
+
+        if (!$rowAttributes->isVisible()) {
+            $xmlAttributes .= " hidden=\"true\"";
         }
 
-        if ($attributes->getOutlineLevel()) {
-            $rowAttributes .= " outlineLevel=\"{$attributes->getOutlineLevel()}\"";
+        if ($rowAttributes->isCollapsed()) {
+            $xmlAttributes .= " collapsed=\"true\"";
         }
 
-        return $rowAttributes;
+        if ($rowAttributes->getOutlineLevel() !== null) {
+            $xmlAttributes .= " outlineLevel=\"{$rowAttributes->getOutlineLevel()}\"";
+        }
+
+        return $xmlAttributes;
     }
 
     /**
