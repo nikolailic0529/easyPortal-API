@@ -49,11 +49,18 @@ class RowsIterator implements IteratorAggregate {
         private ObjectIterator $iterator,
         private Root $valueSelector,
         private Root $groupSelector,
-        array $groups,
+        private array $groups,
         private array $default,
         private int $offset,
     ) {
-        $this->nextGroups = $groups;
+        // empty
+    }
+
+    /**
+     * @return int<0, max>
+     */
+    public function getOffset(): int {
+        return $this->offset;
     }
 
     /**
@@ -83,7 +90,9 @@ class RowsIterator implements IteratorAggregate {
      * @return Iterator<int, Column>
      */
     public function getIterator(): Iterator {
-        $index = $this->offset;
+        $index            = $this->offset;
+        $offset           = $this->offset;
+        $this->nextGroups = $this->groups;
 
         foreach ($this->iterator as $item) {
             // Process
@@ -155,5 +164,10 @@ class RowsIterator implements IteratorAggregate {
         if ($this->currentItem !== null) {
             yield $this->currentItem;
         }
+
+        // Reset
+        $this->offset        = $offset;
+        $this->currentItem   = null;
+        $this->currentGroups = [];
     }
 }

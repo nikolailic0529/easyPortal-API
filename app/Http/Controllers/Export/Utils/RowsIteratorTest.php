@@ -7,6 +7,7 @@ use Tests\TestCase;
 
 use function array_map;
 use function count;
+use function max;
 
 /**
  * @internal
@@ -17,7 +18,7 @@ class RowsIteratorTest extends TestCase {
      * @covers ::getIterator
      */
     public function testGetIterator(): void {
-        $headers  = 0;//max(0, $this->faker->randomDigit());
+        $offset   = max(0, $this->faker->randomDigit());
         $items    = [
             ['a' => 'AA', 'b' => 'BA', 'id' => 1],
             ['a' => 'AA', 'b' => 'BB', 'id' => 2],
@@ -31,7 +32,7 @@ class RowsIteratorTest extends TestCase {
         ];
         $expected = [
             [
-                'index'  => 0 + $headers,
+                'index'  => 0,
                 'level'  => 1,
                 'item'   => ['AA', 'BA', 1],
                 'groups' => [
@@ -39,7 +40,7 @@ class RowsIteratorTest extends TestCase {
                 ],
             ],
             [
-                'index'  => 1 + $headers,
+                'index'  => 1,
                 'level'  => 2,
                 'item'   => ['AA', 'BB', 2],
                 'groups' => [
@@ -47,22 +48,22 @@ class RowsIteratorTest extends TestCase {
                 ],
             ],
             [
-                'index'  => 2 + $headers,
+                'index'  => 2,
                 'level'  => 2,
                 'item'   => ['AA', 'BB', 3],
                 'groups' => [
                     0 => [
-                        'start' => 0 + $headers,
-                        'end'   => 2 + $headers,
+                        'start' => 0 + $offset,
+                        'end'   => 2 + $offset,
                     ],
                     1 => [
-                        'start' => 1 + $headers,
-                        'end'   => 2 + $headers,
+                        'start' => 1 + $offset,
+                        'end'   => 2 + $offset,
                     ],
                 ],
             ],
             [
-                'index'  => 3 + $headers,
+                'index'  => 3,
                 'level'  => 2,
                 'item'   => ['AB', 'BA', 4],
                 'groups' => [
@@ -70,18 +71,18 @@ class RowsIteratorTest extends TestCase {
                 ],
             ],
             [
-                'index'  => 4 + $headers,
+                'index'  => 4,
                 'level'  => 2,
                 'item'   => ['AB', 'BA', 5],
                 'groups' => [
                     1 => [
-                        'start' => 5 + $headers,
-                        'end'   => 6 + $headers,
+                        'start' => 5 + $offset,
+                        'end'   => 6 + $offset,
                     ],
                 ],
             ],
             [
-                'index'  => 5 + $headers,
+                'index'  => 5,
                 'level'  => 2,
                 'item'   => ['AB', 'BB', 6],
                 'groups' => [
@@ -89,29 +90,29 @@ class RowsIteratorTest extends TestCase {
                 ],
             ],
             [
-                'index'  => 6 + $headers,
+                'index'  => 6,
                 'level'  => 2,
                 'item'   => ['AB', 'BB', 7],
                 'groups' => [
                     1 => [
-                        'start' => 8 + $headers,
-                        'end'   => 9 + $headers,
+                        'start' => 8 + $offset,
+                        'end'   => 9 + $offset,
                     ],
                 ],
             ],
             [
-                'index'  => 7 + $headers,
+                'index'  => 7,
                 'level'  => 1,
                 'item'   => ['AB', 'BC', 8],
                 'groups' => [
                     0 => [
-                        'start' => 5 + $headers,
-                        'end'   => 11 + $headers,
+                        'start' => 5 + $offset,
+                        'end'   => 11 + $offset,
                     ],
                 ],
             ],
             [
-                'index'  => 8 + $headers,
+                'index'  => 8,
                 'level'  => 0,
                 'item'   => ['AC', 'BC', 9],
                 'groups' => [
@@ -132,9 +133,22 @@ class RowsIteratorTest extends TestCase {
                 null,
                 null,
             ],
-            $headers,
+            $offset,
         );
-        $actual   = [];
+        $actual   = $this->getItems($iterator);
+        $second   = $this->getItems($iterator);
+
+        self::assertEquals($expected, $actual);
+        self::assertEquals($expected, $second);
+        self::assertEquals($offset, $iterator->getOffset());
+        self::assertEquals([], $iterator->getGroups());
+    }
+
+    /**
+     * @return array<mixed>
+     */
+    private function getItems(RowsIterator $iterator): array {
+        $actual = [];
 
         foreach ($iterator as $index => $item) {
             $groups   = $iterator->getGroups();
@@ -156,6 +170,6 @@ class RowsIteratorTest extends TestCase {
             $iterator->setOffset(count($groups) + 1);
         }
 
-        self::assertEquals($expected, $actual);
+        return $actual;
     }
 }
