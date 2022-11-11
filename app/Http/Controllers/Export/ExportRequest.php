@@ -41,7 +41,7 @@ class ExportRequest extends FormRequest {
             'variables.offset' => 'nullable|integer|min:1',
             'columns'          => 'required|array',
             'columns.*.name'   => 'required|string',
-            'columns.*.group'  => ['string', $selector],
+            'columns.*.group'  => ['string', 'distinct:strict', $selector],
             'columns.*.value'  => ['required', 'string', $selector],
         ];
     }
