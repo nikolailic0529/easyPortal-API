@@ -19,6 +19,7 @@ use OpenSpout\Writer\Common\Manager\WorksheetManagerInterface;
 use OpenSpout\Writer\XLSX\Helper\DateHelper;
 use OpenSpout\Writer\XLSX\Manager\Style\StyleManager;
 use OpenSpout\Writer\XLSX\Options;
+use function fwrite;
 
 /**
  * @internal
@@ -93,7 +94,7 @@ final class WorksheetManager implements WorksheetManagerInterface
     {
         if (!$row->isEmpty()) {
             $this->addNonEmptyRow($worksheet, $row);
-        } elseif ($this->options->getOutlineRow($row)) {
+        } elseif ($this->options->getRowAttributes($row)) {
             $this->addEmptyRow($worksheet, $row);
         }
 
@@ -128,7 +129,7 @@ final class WorksheetManager implements WorksheetManagerInterface
             ." r=\"{$rowIndexOneBased}\""
             ." spans=\"1:{$rowNumCells}\""
             ." customHeight=\"{$rowHasCustomHeight}\""
-            .$this->getRowOutlineAttributes($row);
+            .$this->getRowAttributes($row);
 
         $rowXML = "<row{$rowAttributes}>";
 
@@ -161,7 +162,11 @@ final class WorksheetManager implements WorksheetManagerInterface
     private function addEmptyRow(Worksheet $worksheet, Row $row): void
     {
         $sheetFilePointer = $worksheet->getFilePointer();
-        $rowAttributes = $this->getRowOutlineAttributes($row);
+        $rowIndexOneBased = $worksheet->getLastWrittenRowIndex() + 1;
+        $rowAttributes = ''
+            ." r=\"{$rowIndexOneBased}\""
+            .$this->getRowAttributes($row);
+
         $rowXML = "<row{$rowAttributes}></row>";
 
         $wasWriteSuccessful = fwrite($sheetFilePointer, $rowXML);
@@ -170,18 +175,20 @@ final class WorksheetManager implements WorksheetManagerInterface
         }
     }
 
-    private function getRowOutlineAttributes(Row $row): string {
-        $rowOutline = $this->options->getOutlineRow($row);
+    private function getRowAttributes(Row $row): string {
+        $attributes = $this->options->getRowAttributes($row);
         $rowAttributes = '';
 
-        if ($rowOutline) {
-            $rowHidden = $rowOutline->isVisible() ? 'false' : 'true';
-            $rowCollapsed = $rowOutline->isCollapsed() ? 'true' : 'false';
-            $rowOutlineLevel = $rowOutline->getOutlineLevel();
-            $rowAttributes .= ''
-                ." hidden=\"{$rowHidden}\""
-                ." collapsed=\"{$rowCollapsed}\""
-                ." outlineLevel=\"{$rowOutlineLevel}\"";
+        if (!$attributes->isVisible()) {
+            $rowAttributes .= " hidden=\"true\"";
+        }
+
+        if ($attributes->isCollapsed()) {
+            $rowAttributes .= " collapsed=\"true\"";
+        }
+
+        if ($attributes->getOutlineLevel()) {
+            $rowAttributes .= " outlineLevel=\"{$attributes->getOutlineLevel()}\"";
         }
 
         return $rowAttributes;

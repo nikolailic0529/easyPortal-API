@@ -33,7 +33,7 @@ use OpenSpout\Common\Entity\Row as RowFactory;
 use OpenSpout\Common\Entity\Style\CellVerticalAlignment;
 use OpenSpout\Common\Entity\Style\Style;
 use OpenSpout\Writer\CSV\Writer as CSVWriter;
-use OpenSpout\Writer\XLSX\OutlineRow;
+use OpenSpout\Writer\XLSX\RowAttributes;
 use OpenSpout\Writer\XLSX\Writer as XLSXWriter;
 use Symfony\Component\HttpFoundation\StreamedResponse;
 use Symfony\Component\Mime\MimeTypes;
@@ -114,6 +114,7 @@ class ExportController extends Controller {
                 $measurer = new Measurer();
                 $iterator = $this->getRowsIterator($request, $format, true);
 
+                $options->DEFAULT_ROW_HEIGHT = 15;
                 $options->DEFAULT_ROW_STYLE
                     ->setCellVerticalAlignment(CellVerticalAlignment::TOP);
 
@@ -121,7 +122,7 @@ class ExportController extends Controller {
                     // Add
                     $line    = null;
                     $outline = $row->getLevel() > 0
-                        ? new OutlineRow(min(7, $row->getLevel()))
+                        ? new RowAttributes(min(7, $row->getLevel()))
                         : null;
 
                     if ($row instanceof HeaderRow) {
@@ -133,7 +134,7 @@ class ExportController extends Controller {
                         $empty = RowFactory::fromValues();
 
                         if ($outline) {
-                            $options->setRowOutline($empty, $outline);
+                            $options->setRowAttributes($empty, $outline);
                         }
 
                         $writer->addRow($empty);
@@ -148,7 +149,7 @@ class ExportController extends Controller {
 
                     if ($line) {
                         if ($outline) {
-                            $options->setRowOutline($line, $outline);
+                            $options->setRowAttributes($line, $outline);
                         }
 
                         $writer->addRow($line);

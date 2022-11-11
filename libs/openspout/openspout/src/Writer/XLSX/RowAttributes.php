@@ -4,7 +4,7 @@ namespace OpenSpout\Writer\XLSX;
 
 use OpenSpout\Common\Exception\InvalidArgumentException;
 
-class OutlineRow
+class RowAttributes
 {
     private bool $visible;
     private bool $collapsed;
@@ -62,7 +62,7 @@ class OutlineRow
     public function setOutlineLevel(int $outlineLevel): static
     {
         if ($outlineLevel < 0 || $outlineLevel > 7) {
-            throw new InvalidArgumentException('OutlineRow level must range between 0 and 7.');
+            throw new InvalidArgumentException('RowAttributes level must range between 0 and 7.');
         }
 
         $this->outlineLevel = $outlineLevel;

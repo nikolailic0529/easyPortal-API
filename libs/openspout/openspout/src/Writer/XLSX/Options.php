@@ -19,8 +19,8 @@ final class Options extends AbstractOptions
     /** @var MergeCell[] */
     private array $MERGE_CELLS = [];
 
-    /** @var WeakMap<Row, OutlineRow> */
-    private WeakMap $outlineRows;
+    /** @var WeakMap<Row, RowAttributes> */
+    private WeakMap $rowsAttributes;
     private int $outlineMaxLevel = 0;
 
     public function __construct()
@@ -32,7 +32,7 @@ final class Options extends AbstractOptions
         $defaultRowStyle->setFontName(self::DEFAULT_FONT_NAME);
 
         $this->DEFAULT_ROW_STYLE = $defaultRowStyle;
-        $this->outlineRows      = new WeakMap();
+        $this->rowsAttributes      = new WeakMap();
     }
 
     /**
@@ -71,17 +71,17 @@ final class Options extends AbstractOptions
         return $this->MERGE_CELLS;
     }
 
-    public function setRowOutline(Row $row, OutlineRow $outline): static
+    public function setRowAttributes(Row $row, RowAttributes $attributes): static
     {
-        $this->outlineRows[$row] = $outline;
-        $this->outlineMaxLevel = max($outline->getOutlineLevel(), $this->outlineMaxLevel);
+        $this->rowsAttributes[$row] = $attributes;
+        $this->outlineMaxLevel = max($attributes->getOutlineLevel(), $this->outlineMaxLevel);
 
         return $this;
     }
 
-    public function getOutlineRow(Row $row): ?OutlineRow
+    public function getRowAttributes(Row $row): ?RowAttributes
     {
-        return $this->outlineRows[$row] ?? null;
+        return $this->rowsAttributes[$row] ?? null;
     }
 
     public function getOutlineMaxLevel(): int
