@@ -194,8 +194,8 @@ class ExportController extends Controller {
 
     /**
      * @return ($isGroupable is true
-     *      ? Iterator<array-key, ValueRow|HeaderRow|GroupEndRow>
-     *      : Iterator<array-key, ValueRow|HeaderRow>)
+     *      ? Iterator<int, ValueRow|HeaderRow|GroupEndRow>
+     *      : Iterator<int, ValueRow|HeaderRow>)
      */
     protected function getRowsIterator(
         ExportRequest $request,
@@ -305,7 +305,7 @@ class ExportController extends Controller {
     /**
      * @param Query $query
      *
-     * @return ObjectIterator<array<string,scalar|null>>
+     * @return ObjectIterator<array<string,scalar|null>|null>
      */
     protected function getIterator(ExportRequest $request, array $query, string $format): ObjectIterator {
         $limit           = $this->config->get('ep.export.limit');

@@ -40,10 +40,10 @@ class RowsIterator implements IteratorAggregate {
     private int $level = 0;
 
     /**
-     * @param ObjectIterator<array<string,scalar|null>> $iterator
-     * @param array<int<0, max>, Group>                 $groups
-     * @param array<int<0, max>, scalar|null>           $default
-     * @param int<0, max>                               $offset
+     * @param ObjectIterator<array<string,scalar|null>|null> $iterator
+     * @param array<int<0, max>, Group>                      $groups
+     * @param array<int<0, max>, scalar|null>                $default
+     * @param int<0, max>                                    $offset
      */
     public function __construct(
         private ObjectIterator $iterator,
@@ -87,6 +87,7 @@ class RowsIterator implements IteratorAggregate {
 
         foreach ($this->iterator as $item) {
             // Process
+            $item           = (array) $item;
             $this->nextItem = $this->valueSelector->get($item) + $this->default;
             $this->offset   = 0;
             $this->level    = 0;
