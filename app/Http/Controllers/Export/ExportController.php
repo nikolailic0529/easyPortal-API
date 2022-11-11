@@ -109,13 +109,14 @@ class ExportController extends Controller {
             function () use ($writer, $request, $format): void {
                 $writer->openToFile('php://output');
 
-                $scale    = 1.1;
+                $scale    = 1.1125;
                 $style    = (new Style())->setFontBold();
                 $options  = $writer->getOptions();
                 $measurer = new Measurer();
                 $iterator = $this->getRowsIterator($request, $format, true);
 
-                $options->DEFAULT_ROW_HEIGHT = 15;
+                $options->DEFAULT_COLUMN_WIDTH = 10;
+                $options->DEFAULT_ROW_HEIGHT   = 15;
                 $options->DEFAULT_ROW_STYLE
                     ->setCellVerticalAlignment(CellVerticalAlignment::TOP);
 
@@ -157,7 +158,11 @@ class ExportController extends Controller {
                 foreach ($measurer->getColumns() as $index => $width) {
                     assert($index >= 0, 'PHPStan false positive, seems fixed in >=1.9.0');
 
-                    $options->setColumnWidth($width * $scale, $index + 1);
+                    $width = $width * $scale;
+
+                    if ($options->DEFAULT_COLUMN_WIDTH < $width) {
+                        $options->setColumnWidth($width, $index + 1);
+                    }
                 }
 
                 $writer->close();
