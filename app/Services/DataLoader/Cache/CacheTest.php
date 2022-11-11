@@ -248,10 +248,15 @@ class CacheTest extends TestCase {
     // =========================================================================
     protected function item(): Model {
         $model = new class() extends Model {
-            // empty
+            /**
+             * @phpcsSuppress SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint
+             *
+             * @var string
+             */
+            protected $keyType = 'string';
         };
 
-        $model->setAttribute($model->getKeyName(), $this->faker->randomNumber());
+        $model->setAttribute($model->getKeyName(), $this->faker->uuid());
         $model->setAttribute('property', $this->faker->uuid());
 
         return $model;
