@@ -17,9 +17,11 @@ trait SyncMorphMany {
     use SyncMany;
 
     /**
-     * @param Collection<int,PolymorphicModel>|array<PolymorphicModel> $objects
+     * @template T of PolymorphicModel
+     *
+     * @param Collection<array-key, T> $objects
      */
-    protected function syncMorphMany(string $relation, Collection|array $objects): void {
+    protected function syncMorphMany(string $relation, Collection $objects): void {
         // TODO [refactor] Probably we need move it into MorphMany class
 
         // Prepare
@@ -36,17 +38,9 @@ trait SyncMorphMany {
         $model    = $morph->make();
         $class    = $model::class;
         $existing = $this->syncManyGetExisting($this, $relation)->map(new SetKey())->keyBy(new GetKey());
-        $children = new EloquentCollection($objects);
+        $children = $objects->all();
 
         foreach ($children as $object) {
-            // Polymorphic?
-            if (!($object instanceof PolymorphicModel)) {
-                throw new InvalidArgumentException(sprintf(
-                    'Related model should be instance of `%s`.',
-                    PolymorphicModel::class,
-                ));
-            }
-
             // Object supported by relation?
             if (!($object instanceof $class)) {
                 throw new InvalidArgumentException(sprintf(
@@ -77,10 +71,10 @@ trait SyncMorphMany {
         }
 
         // Update relation
-        $this->setRelation($relation, new EloquentCollection($objects));
+        $this->setRelation($relation, EloquentCollection::make($children));
 
         // Update database
-        if (!$children->isEmpty() || !$existing->isEmpty()) {
+        if (!!$children || !$existing->isEmpty()) {
             $this->onSave(function () use ($morph, $children, $existing): void {
                 // Sync
                 foreach ($children as $object) {

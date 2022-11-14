@@ -53,27 +53,27 @@ use function count;
  * @property string|null                         $type_id
  * @property string|null                         $reseller_id current
  * @property string|null                         $customer_id current
- * @property string|null                    $location_id current
- * @property string|null                    $status_id
- * @property string|null                    $serial_number
- * @property string|null                    $nickname
- * @property CarbonImmutable|null           $warranty_end
- * @property CarbonImmutable|null           $warranty_changed_at
- * @property string|null                    $warranty_service_group_id
- * @property string|null                    $warranty_service_level_id
- * @property string|null                    $data_quality
- * @property CarbonImmutable|null           $eosl
- * @property int|null                       $contracts_active_quantity
- * @property int                            $contacts_count
- * @property int                            $coverages_count
- * @property CarbonImmutable|null           $changed_at
- * @property CarbonImmutable                $synced_at
- * @property CarbonImmutable                $created_at
- * @property CarbonImmutable                $updated_at
- * @property CarbonImmutable|null           $deleted_at
- * @property-read ChangeRequest|null        $changeRequest
- * @property Collection<int, Contact>       $contacts
- * @property-read Collection<int, Document> $contracts
+ * @property string|null                         $location_id current
+ * @property string|null                         $status_id
+ * @property string|null                         $serial_number
+ * @property string|null                         $nickname
+ * @property CarbonImmutable|null                $warranty_end
+ * @property CarbonImmutable|null                $warranty_changed_at
+ * @property string|null                         $warranty_service_group_id
+ * @property string|null                         $warranty_service_level_id
+ * @property string|null                         $data_quality
+ * @property CarbonImmutable|null                $eosl
+ * @property int|null                            $contracts_active_quantity
+ * @property int                                 $contacts_count
+ * @property int                                 $coverages_count
+ * @property CarbonImmutable|null                $changed_at
+ * @property CarbonImmutable                     $synced_at
+ * @property CarbonImmutable                     $created_at
+ * @property CarbonImmutable                     $updated_at
+ * @property CarbonImmutable|null                $deleted_at
+ * @property-read ChangeRequest|null             $changeRequest
+ * @property Collection<int, Contact>            $contacts
+ * @property-read Collection<int, Document>      $contracts
  * @property-read Collection<int, AssetWarranty> $contractWarranties
  * @property Collection<int, Coverage>           $coverages
  * @property Customer|null                       $customer

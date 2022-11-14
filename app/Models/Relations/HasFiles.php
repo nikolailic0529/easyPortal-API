@@ -22,9 +22,9 @@ trait HasFiles {
     }
 
     /**
-     * @param Collection<int,File>|array<File> $files
+     * @param Collection<array-key,File> $files
      */
-    public function setFilesAttribute(Collection|array $files): void {
+    public function setFilesAttribute(Collection $files): void {
         $this->syncMorphMany('files', $files);
     }
 }

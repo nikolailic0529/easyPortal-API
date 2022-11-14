@@ -26,9 +26,9 @@ trait HasContacts {
     }
 
     /**
-     * @param Collection<int,Contact>|array<Contact> $contacts
+     * @param Collection<array-key,Contact> $contacts
      */
-    public function setContactsAttribute(Collection|array $contacts): void {
+    public function setContactsAttribute(Collection $contacts): void {
         $this->syncMorphMany('contacts', $contacts);
         $this->contacts_count = count($contacts);
     }
