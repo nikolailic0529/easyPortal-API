@@ -338,3 +338,39 @@ Returns the first truthy `selector` values.
 | Example                      | Result      |
 |------------------------------|-------------|
 | `or(nickname, product.name)` | `Product A` |
+
+#### `int(selector-a)`
+
+| Example             | Result   |
+|---------------------|----------|
+| `int(assets_count)` | `12,346` |
+
+#### `float(selector-a)`
+
+| Example               | Result      |
+|-----------------------|-------------|
+| `float(assets_count)` | `12,345.67` |
+
+#### `date(selector-a)`
+
+| Example              | Result        |
+|----------------------|---------------|
+| `date(warranty_end)` | `14 Nov 2022` |
+
+#### `datetime(selector-a)`
+
+| Example                | Result                  |
+|------------------------|-------------------------|
+| `datetime(updated_at)` | `14 Nov 2022, 08:22:00` |
+
+#### `time(selector-a)`
+
+| Example            | Result     |
+|--------------------|------------|
+| `time(updated_at)` | `08:22:00` |
+
+#### `filesize(selector-a)`
+
+| Example          | Result      |
+|------------------|-------------|
+| `filesize(size)` | `11.77 MiB` |

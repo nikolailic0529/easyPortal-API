@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Export\Utils;
 
+use App\Services\I18n\Formatter;
 use App\Utils\Iterators\ObjectsIterator;
 use Tests\TestCase;
 
@@ -18,8 +19,9 @@ class RowsIteratorTest extends TestCase {
      * @covers ::getIterator
      */
     public function testGetIterator(): void {
-        $offset   = max(0, $this->faker->randomDigit());
-        $items    = [
+        $formatter = $this->app->make(Formatter::class);
+        $offset    = max(0, $this->faker->randomDigit());
+        $items     = [
             ['a' => 'AA', 'b' => 'BA', 'id' => 1],
             ['a' => 'AA', 'b' => 'BB', 'id' => 2],
             ['a' => 'AA', 'b' => 'BB', 'id' => 3],
@@ -30,7 +32,7 @@ class RowsIteratorTest extends TestCase {
             ['a' => 'AB', 'b' => 'BC', 'id' => 8],
             ['a' => 'AC', 'b' => 'BC', 'id' => 9],
         ];
-        $expected = [
+        $expected  = [
             [
                 'index'  => 0,
                 'level'  => 1,
@@ -122,8 +124,8 @@ class RowsIteratorTest extends TestCase {
         ];
         $iterator = new RowsIterator(
             new ObjectsIterator($items),
-            SelectorFactory::make(['a', 'b', 'id']),
-            SelectorFactory::make(['a', 'b']),
+            SelectorFactory::make($formatter, ['a', 'b', 'id']),
+            SelectorFactory::make($formatter, ['a', 'b']),
             [
                 new Group(),
                 new Group(),

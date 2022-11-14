@@ -6,6 +6,7 @@ use App\Http\Controllers\Export\Exceptions\SelectorException;
 use App\Http\Controllers\Export\Utils\QueryOperation;
 use App\Http\Controllers\Export\Utils\QueryOperationCache;
 use App\Http\Controllers\Export\Utils\SelectorFactory;
+use App\Services\I18n\Formatter;
 use App\Utils\Validation\Traits\WithData;
 use App\Utils\Validation\Traits\WithValidator;
 use Exception;
@@ -29,7 +30,9 @@ class Selector implements InvokableRule, DataAwareRule, ValidatorAwareRule {
     use WithData;
     use WithValidator;
 
-    public function __construct() {
+    public function __construct(
+        protected Formatter $formatter,
+    ) {
         // empty
     }
 
@@ -48,7 +51,7 @@ class Selector implements InvokableRule, DataAwareRule, ValidatorAwareRule {
 
         // Parseable?
         try {
-            $root = SelectorFactory::make([$value]);
+            $root = SelectorFactory::make($this->formatter, [$value]);
         } catch (SelectorException $exception) {
             $fail($exception->getErrorMessage());
 

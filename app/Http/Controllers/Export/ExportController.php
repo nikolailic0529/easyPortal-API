@@ -12,6 +12,7 @@ use App\Http\Controllers\Export\Utils\Group;
 use App\Http\Controllers\Export\Utils\Measurer;
 use App\Http\Controllers\Export\Utils\RowsIterator;
 use App\Http\Controllers\Export\Utils\SelectorFactory;
+use App\Services\I18n\Formatter;
 use App\Utils\Iterators\Contracts\ObjectIterator;
 use App\Utils\Iterators\OffsetBasedObjectIterator;
 use App\Utils\Iterators\OneChunkOffsetBasedObjectIterator;
@@ -68,7 +69,7 @@ class ExportController extends Controller {
         // empty
     }
 
-    public function csv(ExportRequest $request): StreamedResponse {
+    public function csv(Formatter $formatter, ExportRequest $request): StreamedResponse {
         $format    = __FUNCTION__;
         $writer    = new CSVWriter();
         $filename  = 'export.csv';
@@ -79,10 +80,10 @@ class ExportController extends Controller {
         ];
 
         return $this->factory->streamDownload(
-            function () use ($writer, $request, $format): void {
+            function () use ($formatter, $writer, $request, $format): void {
                 $writer->openToFile('php://output');
 
-                $iterator = $this->getRowsIterator($request, $format);
+                $iterator = $this->getRowsIterator($formatter, $request, $format);
 
                 foreach ($iterator as $row) {
                     $writer->addRow(RowFactory::fromValues($row->getColumns()));
@@ -95,7 +96,7 @@ class ExportController extends Controller {
         );
     }
 
-    public function xlsx(ExportRequest $request): StreamedResponse {
+    public function xlsx(Formatter $formatter, ExportRequest $request): StreamedResponse {
         $format    = __FUNCTION__;
         $writer    = new XLSXWriter();
         $filename  = 'export.xlsx';
@@ -106,14 +107,14 @@ class ExportController extends Controller {
         ];
 
         return $this->factory->streamDownload(
-            function () use ($writer, $request, $format): void {
+            function () use ($formatter, $writer, $request, $format): void {
                 $writer->openToFile('php://output');
 
                 $scale    = 1.1125;
                 $style    = (new Style())->setFontBold();
                 $options  = $writer->getOptions();
                 $measurer = new Measurer();
-                $iterator = $this->getRowsIterator($request, $format, true);
+                $iterator = $this->getRowsIterator($formatter, $request, $format, true);
 
                 $options->DEFAULT_COLUMN_WIDTH = 10;
                 $options->DEFAULT_ROW_HEIGHT   = 15;
@@ -172,7 +173,7 @@ class ExportController extends Controller {
         );
     }
 
-    public function pdf(ExportRequest $request): StreamedResponse {
+    public function pdf(Formatter $formatter, ExportRequest $request): StreamedResponse {
         $filename  = 'export.pdf';
         $mimetypes = (new MimeTypes())->getMimeTypes(pathinfo($filename, PATHINFO_EXTENSION));
         $mimetype  = reset($mimetypes);
@@ -180,10 +181,10 @@ class ExportController extends Controller {
             'Content-Type' => "{$mimetype}; charset=UTF-8",
         ];
 
-        return $this->factory->streamDownload(function () use ($request): void {
+        return $this->factory->streamDownload(function () use ($formatter, $request): void {
             $rows     = [];
             $format   = __FUNCTION__;
-            $iterator = $this->getRowsIterator($request, $format);
+            $iterator = $this->getRowsIterator($formatter, $request, $format);
 
             foreach ($iterator as $row) {
                 $rows[] = $row->getColumns();
@@ -203,6 +204,7 @@ class ExportController extends Controller {
      *      : Iterator<int, ValueRow|HeaderRow>)
      */
     protected function getRowsIterator(
+        Formatter $formatter,
         ExportRequest $request,
         string $format,
         bool $isGroupable = false,
@@ -245,8 +247,8 @@ class ExportController extends Controller {
         $default  = array_fill(0, count($query['columns']), null);
         $iterator = new RowsIterator(
             $this->getIterator($request, $query, $format),
-            SelectorFactory::make($valuesColumns),
-            SelectorFactory::make($groupsColumns),
+            SelectorFactory::make($formatter, $valuesColumns),
+            SelectorFactory::make($formatter, $groupsColumns),
             $groups,
             $default,
             $exported,

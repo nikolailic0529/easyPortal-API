@@ -8,10 +8,17 @@ use App\Http\Controllers\Export\Exceptions\SelectorSyntaxError;
 use App\Http\Controllers\Export\Selector;
 use App\Http\Controllers\Export\Selectors\Asterisk;
 use App\Http\Controllers\Export\Selectors\Concat;
+use App\Http\Controllers\Export\Selectors\Date;
+use App\Http\Controllers\Export\Selectors\DateTime;
+use App\Http\Controllers\Export\Selectors\Decimal;
+use App\Http\Controllers\Export\Selectors\Filesize;
 use App\Http\Controllers\Export\Selectors\Group;
+use App\Http\Controllers\Export\Selectors\Integer;
 use App\Http\Controllers\Export\Selectors\LogicalOr;
 use App\Http\Controllers\Export\Selectors\Property;
 use App\Http\Controllers\Export\Selectors\Root;
+use App\Http\Controllers\Export\Selectors\Time;
+use App\Services\I18n\Formatter;
 
 use function array_slice;
 use function count;
@@ -28,12 +35,12 @@ class SelectorFactory {
     /**
      * @param array<int<0, max>, string> $selectors
      */
-    public static function make(array $selectors): Root {
+    public static function make(Formatter $formatter, array $selectors): Root {
         $root   = new Root();
         $groups = [];
 
         foreach ($selectors as $index => $selector) {
-            $selector = static::parseSelector($selector, $index, $groups);
+            $selector = static::parseSelector($formatter, $selector, $index, $groups);
 
             if ($selector) {
                 $root->add($selector);
@@ -47,7 +54,12 @@ class SelectorFactory {
      * @param int<0, max>          $index
      * @param array<string, Group> $groups
      */
-    protected static function parseSelector(string $selector, int $index = 0, array &$groups = []): ?Selector {
+    protected static function parseSelector(
+        Formatter $formatter,
+        string $selector,
+        int $index = 0,
+        array &$groups = [],
+    ): ?Selector {
         $instance = null;
         $selector = trim($selector);
 
@@ -58,18 +70,18 @@ class SelectorFactory {
         if (str_contains($selector, '(') || str_contains($selector, ')')) {
             if (preg_match('/^(?<function>[\w]+)\((?<arguments>.+)?\)$/', $selector, $matches)) {
                 $function  = $matches['function'];
-                $arguments = static::parseArguments($matches['arguments'] ?? '');
-
-                switch ($function) {
-                    case Concat::getName():
-                        $instance = new Concat($arguments, $index);
-                        break;
-                    case LogicalOr::getName():
-                        $instance = new LogicalOr($arguments, $index);
-                        break;
-                    default:
-                        throw new SelectorFunctionUnknown($function);
-                }
+                $arguments = static::parseArguments($formatter, $matches['arguments'] ?? '');
+                $instance  = match ($function) {
+                    Concat::getName()    => new Concat($arguments, $index),
+                    LogicalOr::getName() => new LogicalOr($arguments, $index),
+                    Integer::getName()   => new Integer($formatter, $arguments, $index),
+                    Decimal::getName()   => new Decimal($formatter, $arguments, $index),
+                    Date::getName()      => new Date($formatter, $arguments, $index),
+                    DateTime::getName()  => new DateTime($formatter, $arguments, $index),
+                    Time::getName()      => new Time($formatter, $arguments, $index),
+                    Filesize::getName()  => new Filesize($formatter, $arguments, $index),
+                    default              => throw new SelectorFunctionUnknown($function),
+                };
             } else {
                 throw new SelectorSyntaxError();
             }
@@ -138,7 +150,7 @@ class SelectorFactory {
     /**
      * @return array<int, Selector>
      */
-    protected static function parseArguments(string $arguments): array {
+    protected static function parseArguments(Formatter $formatter, string $arguments): array {
         $args   = [];
         $level  = 0;
         $buffer = '';
@@ -154,7 +166,7 @@ class SelectorFactory {
                     break;
                 case ',':
                     if ($level === 0) {
-                        $selector = static::parseSelector($buffer);
+                        $selector = static::parseSelector($formatter, $buffer);
                         $buffer   = '';
                         $token    = '';
 
@@ -172,7 +184,7 @@ class SelectorFactory {
         }
 
         // Rest
-        $selector = static::parseSelector($buffer);
+        $selector = static::parseSelector($formatter, $buffer);
 
         if ($selector) {
             $args[] = $selector;

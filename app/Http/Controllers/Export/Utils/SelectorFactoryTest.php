@@ -11,6 +11,7 @@ use App\Http\Controllers\Export\Selectors\Group;
 use App\Http\Controllers\Export\Selectors\LogicalOr;
 use App\Http\Controllers\Export\Selectors\Property;
 use App\Http\Controllers\Export\Selectors\Root;
+use App\Services\I18n\Formatter;
 use Exception;
 use Tests\TestCase;
 
@@ -33,7 +34,8 @@ class SelectorFactoryTest extends TestCase {
             $this->expectExceptionObject($expected);
         }
 
-        $actual = SelectorFactory::make($selectors);
+        $formatter = $this->app->make(Formatter::class);
+        $actual    = SelectorFactory::make($formatter, $selectors);
 
         self::assertEquals($expected, $actual);
     }
