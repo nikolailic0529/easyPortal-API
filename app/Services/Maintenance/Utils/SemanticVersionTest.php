@@ -9,7 +9,7 @@ use Tests\TestCase;
 
 /**
  * @internal
- * @coversDefaultClass SemanticVersion
+ * @coversDefaultClass \App\Services\Maintenance\Utils\SemanticVersion
  */
 class SemanticVersionTest extends TestCase {
     // <editor-fold desc="Tests">

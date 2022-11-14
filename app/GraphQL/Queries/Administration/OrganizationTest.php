@@ -155,7 +155,7 @@ class OrganizationTest extends TestCase {
     }
 
     /**
-     * @covers ::users
+     * @coversNothing
      *
      * @dataProvider dataProviderUsers
      *
@@ -213,7 +213,7 @@ class OrganizationTest extends TestCase {
     }
 
     /**
-     * @covers ::roles
+     * @coversNothing
      *
      * @dataProvider dataProviderRoles
      *

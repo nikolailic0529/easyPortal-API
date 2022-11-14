@@ -41,6 +41,7 @@ use Tests\WithUser;
 
 /**
  * @internal
+ * @coversNothing
  *
  * @phpstan-import-type OrganizationFactory from WithOrganization
  * @phpstan-import-type UserFactory from WithUser
@@ -432,8 +433,6 @@ class CustomerTest extends TestCase {
     }
 
     /**
-     * @covers ::__invoke
-     *
      * @dataProvider dataProviderQueryContracts
      *
      * @param OrganizationFactory                                  $orgFactory
@@ -655,8 +654,6 @@ class CustomerTest extends TestCase {
     }
 
     /**
-     * @covers ::__invoke
-     *
      * @dataProvider dataProviderQueryQuotes
      *
      * @param OrganizationFactory                                  $orgFactory

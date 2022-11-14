@@ -27,7 +27,7 @@ use function reset;
  */
 class UsersImporterTest extends TestCase {
     /**
-     * @covers ::import
+     * @covers ::process
      */
     public function testImport(): void {
         // Prepare
@@ -163,7 +163,7 @@ class UsersImporterTest extends TestCase {
     }
 
     /**
-     * @covers ::import
+     * @covers ::process
      */
     public function testImportExistingUserWithRoles(): void {
         // Prepare
@@ -285,7 +285,7 @@ class UsersImporterTest extends TestCase {
     }
 
     /**
-     * @covers ::import
+     * @covers ::process
      *
      * @see https://github.com/fakharanwar/easyPortal-API/issues/1008
      */

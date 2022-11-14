@@ -15,7 +15,7 @@ use Tests\TestCase;
  */
 class TranslationDefaultsTest extends TestCase {
     /**
-     * @covers ::getLoadModels
+     * @covers ::loadModels
      */
     public function testLoadModels(): void {
         // Prepare

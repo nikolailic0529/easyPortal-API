@@ -49,9 +49,9 @@ class OffsetBasedObjectIteratorTest extends TestCase {
     }
 
     /**
-     * @covers ::iterator
+     * @covers ::getIterator
      */
-    public function testIteratorWithLimitOffset(): void {
+    public function testGetIteratorWithLimitOffset(): void {
         $data     = range(1, 10);
         $executor = Mockery::spy(static function (array $variables = []) use ($data): array {
             return array_slice($data, $variables['offset'] ?? 0, $variables['limit']);
@@ -83,9 +83,9 @@ class OffsetBasedObjectIteratorTest extends TestCase {
     }
 
     /**
-     * @covers ::iterator
+     * @covers ::getIterator
      */
-    public function testIteratorChunkLessThanLimit(): void {
+    public function testGetIteratorChunkLessThanLimit(): void {
         $data     = range(1, 10);
         $executor = Mockery::spy(static function (array $variables = []) use ($data): array {
             self::assertEquals(2, $variables['limit']);
@@ -107,9 +107,9 @@ class OffsetBasedObjectIteratorTest extends TestCase {
     }
 
     /**
-     * @covers ::iterator
+     * @covers ::getIterator
      */
-    public function testIteratorChunkGreaterThanLimit(): void {
+    public function testGetIteratorChunkGreaterThanLimit(): void {
         $data     = range(1, 10);
         $executor = Mockery::spy(static function (array $variables = []) use ($data): array {
             self::assertEquals(2, $variables['limit']);
@@ -131,9 +131,9 @@ class OffsetBasedObjectIteratorTest extends TestCase {
     }
 
     /**
-     * @covers ::iterator
+     * @covers ::getIterator
      */
-    public function testIteratorLimitZero(): void {
+    public function testGetIteratorLimitZero(): void {
         $executor = Mockery::spy(static function (): array {
             return [];
         });

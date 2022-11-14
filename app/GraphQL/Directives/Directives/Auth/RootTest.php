@@ -40,7 +40,7 @@ class RootTest extends TestCase {
     }
 
     /**
-     * @covers ::resolveField
+     * @covers ::handleField
      *
      * @dataProvider dataProviderResolveField
      *
@@ -72,7 +72,7 @@ class RootTest extends TestCase {
     }
 
     /**
-     * @covers ::resolveField
+     * @covers ::handleField
      *
      * @dataProvider dataProviderResolveField
      *

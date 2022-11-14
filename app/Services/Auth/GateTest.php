@@ -77,8 +77,8 @@ class GateTest extends TestCase {
     }
 
     /**
-     * @covers ::gateBefore
-     * @covers ::gateAfter
+     * @covers ::before
+     * @covers ::after
      *
      * @dataProvider dataProviderGate
      *

@@ -19,7 +19,7 @@ class WithCoverageTest extends TestCase {
     use WithQueryLog;
 
     /**
-     * @covers ::status
+     * @covers ::coverage
      */
     public function testOem(): void {
         // Prepare

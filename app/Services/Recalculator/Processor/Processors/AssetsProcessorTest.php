@@ -27,10 +27,9 @@ class AssetsProcessorTest extends TestCase {
     use Helper;
 
     /**
-     * @covers ::run
      * @covers ::process
      */
-    public function testRun(): void {
+    public function testProcess(): void {
         // Setup
         $this->overrideDateFactory('2021-08-30T00:00:00.000+00:00');
         $this->overrideUuidFactory('8a0d99f2-543f-4608-a128-808acc5c42cc');

@@ -39,9 +39,9 @@ class LastIdBasedIteratorTest extends TestCase {
     }
 
     /**
-     * @covers ::iterator
+     * @covers ::getIterator
      */
-    public function testIteratorWithLimitLastId(): void {
+    public function testGetIteratorWithLimitLastId(): void {
         $data          = $this->getData();
         $executor      = Mockery::spy($this->getRetriever($data));
         $onBeforeChunk = Mockery::spy(static function (): void {
@@ -75,9 +75,9 @@ class LastIdBasedIteratorTest extends TestCase {
     }
 
     /**
-     * @covers ::iterator
+     * @covers ::getIterator
      */
-    public function testIteratorChunkLessThanLimit(): void {
+    public function testGetIteratorChunkLessThanLimit(): void {
         $data     = $this->getData();
         $executor = Mockery::spy(function (array $params = []) use ($data) {
             self::assertEquals(2, $params['limit']);
@@ -99,9 +99,9 @@ class LastIdBasedIteratorTest extends TestCase {
     }
 
     /**
-     * @covers ::iterator
+     * @covers ::getIterator
      */
-    public function testIteratorChunkGreaterThanLimit(): void {
+    public function testGetIteratorChunkGreaterThanLimit(): void {
         $data     = $this->getData();
         $executor = Mockery::spy(function (array $params = []) use ($data) {
             self::assertEquals(2, $params['limit']);
@@ -128,9 +128,9 @@ class LastIdBasedIteratorTest extends TestCase {
     }
 
     /**
-     * @covers ::iterator
+     * @covers ::getIterator
      */
-    public function testIteratorLimitZero(): void {
+    public function testGetIteratorLimitZero(): void {
         $executor = Mockery::spy(static function (array $params = []): mixed {
             return null;
         });

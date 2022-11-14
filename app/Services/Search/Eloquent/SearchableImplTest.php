@@ -78,7 +78,7 @@ class SearchableImplTest extends TestCase {
 
     /**
      * @covers ::toSearchableArray
-     * @covers ::toSearchableArrayValue
+     * @covers ::toSearchableArrayProcess
      * @covers ::toSearchableArrayCleanup
      */
     public function testToSearchableArray(): void {
