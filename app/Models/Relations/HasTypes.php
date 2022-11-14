@@ -29,9 +29,9 @@ trait HasTypes {
     }
 
     /**
-     * @param Collection<int,Type>|array<Type> $types
+     * @param Collection<int,Type> $types
      */
-    public function setTypesAttribute(Collection|array $types): void {
+    public function setTypesAttribute(Collection $types): void {
         $this->syncBelongsToMany('types', $types);
     }
 

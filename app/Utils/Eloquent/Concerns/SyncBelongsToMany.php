@@ -3,7 +3,6 @@
 namespace App\Utils\Eloquent\Concerns;
 
 use App\Utils\Eloquent\Callbacks\GetKey;
-use App\Utils\Eloquent\Callbacks\SetKey;
 use App\Utils\Eloquent\ModelHelper;
 use Illuminate\Database\Eloquent\Collection as EloquentCollection;
 use Illuminate\Database\Eloquent\Model;
@@ -15,7 +14,6 @@ use InvalidArgumentException;
 use LogicException;
 
 use function array_merge;
-use function assert;
 use function is_a;
 use function is_int;
 use function is_string;
@@ -30,21 +28,19 @@ trait SyncBelongsToMany {
     /**
      * @template T of Model
      *
-     * @param Collection<int, T>|EloquentCollection<int, T>|array<T> $objects
+     * @param Collection<int, T> $objects
      */
-    protected function syncBelongsToMany(string $relation, Collection|array $objects): void {
+    protected function syncBelongsToMany(string $relation, Collection $objects): void {
         // Prepare
         $belongsToMany = $this->getBelongsToMany($relation);
         $existing      = $this->syncManyGetExisting($this, $relation)->keyBy(new GetKey());
-        $children      = (new EloquentCollection($objects))->map(new SetKey());
-        $added         = new EloquentCollection();
+        $children      = $objects->all();
+        $added         = [];
 
         foreach ($children as $child) {
             $key = $child->getKey();
 
-            assert(is_string($key) || is_int($key));
-
-            if ($existing->has($key)) {
+            if ((is_string($key) || is_int($key)) && $existing->has($key)) {
                 $existing->forget($key);
             } else {
                 $added[] = $child;
@@ -52,10 +48,10 @@ trait SyncBelongsToMany {
         }
 
         // Update relation
-        $this->setRelation($relation, $children);
+        $this->setRelation($relation, EloquentCollection::make($children));
 
         // Update database
-        if (!$children->isEmpty() || !$added->isEmpty() || !$existing->isEmpty()) {
+        if (!!$children || !!$added || !$existing->isEmpty()) {
             $this->onSave(static function () use ($belongsToMany, $children, $added, $existing): void {
                 // Sync
                 foreach ($children as $child) {

@@ -33,9 +33,9 @@ trait HasStatuses {
     }
 
     /**
-     * @param Collection<int, Status>|array<Status> $statuses
+     * @param Collection<int, Status> $statuses
      */
-    public function setStatusesAttribute(Collection|array $statuses): void {
+    public function setStatusesAttribute(Collection $statuses): void {
         $this->syncBelongsToMany('statuses', $statuses);
         $this->statuses_count = count($this->statuses);
     }

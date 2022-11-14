@@ -74,9 +74,9 @@ class Role extends Model implements OwnedByOrganization, Auditable, OwnedByShare
     }
 
     /**
-     * @param BaseCollection<int, Permission>|array<Permission> $permissions
+     * @param BaseCollection<int, Permission> $permissions
      */
-    public function setPermissionsAttribute(BaseCollection|array $permissions): void {
+    public function setPermissionsAttribute(BaseCollection $permissions): void {
         $this->syncBelongsToMany('permissions', $permissions);
     }
 }

@@ -29,9 +29,9 @@ trait HasTags {
     }
 
     /**
-     * @param Collection<int,Tag>|array<Tag> $tags
+     * @param Collection<int,Tag> $tags
      */
-    public function setTagsAttribute(Collection|array $tags): void {
+    public function setTagsAttribute(Collection $tags): void {
         $this->syncBelongsToMany('tags', $tags);
     }
 

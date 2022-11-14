@@ -235,9 +235,9 @@ class Asset extends Model implements OwnedByReseller, Searchable {
     }
 
     /**
-     * @param BaseCollection<array-key, Coverage>|array<Coverage> $coverages
+     * @param BaseCollection<array-key, Coverage> $coverages
      */
-    public function setCoveragesAttribute(BaseCollection|array $coverages): void {
+    public function setCoveragesAttribute(BaseCollection $coverages): void {
         $this->syncBelongsToMany('coverages', $coverages);
         $this->coverages_count = count($this->coverages);
     }

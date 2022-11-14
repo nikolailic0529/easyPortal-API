@@ -3241,11 +3241,6 @@ parameters:
 			path: app/Services/DataLoader/Factory/Factories/CustomerFactory.php
 
 		-
-			message: "#^Property App\\\\Models\\\\Customer\\:\\:\\$statuses \\(Illuminate\\\\Database\\\\Eloquent\\\\Collection\\<int, App\\\\Models\\\\Data\\\\Status\\>\\) does not accept array\\<App\\\\Models\\\\Data\\\\Status\\>\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Factories/CustomerFactory.php
-
-		-
 			message: "#^Cannot access property \\$kpi_id on \\(TPivot of App\\\\Utils\\\\Eloquent\\\\Pivot\\)\\|null\\.$#"
 			count: 2
 			path: app/Services/DataLoader/Factory/Factories/CustomerFactoryTest.php
@@ -3329,11 +3324,6 @@ parameters:
 			message: "#^Parameter \\#1 \\$state of method Database\\\\Factories\\\\Data\\\\LocationFactory\\:\\:hasCountry\\(\\) expects array\\<string, mixed\\>\\|\\(callable\\(array\\<string, mixed\\>, Illuminate\\\\Database\\\\Eloquent\\\\Model\\|null\\)\\: array\\<string, mixed\\>\\), Database\\\\Factories\\\\Data\\\\CountryFactory given\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Factory/Factories/LocationFactoryTest.php
-
-		-
-			message: "#^Property App\\\\Models\\\\Reseller\\:\\:\\$statuses \\(Illuminate\\\\Database\\\\Eloquent\\\\Collection\\<int, App\\\\Models\\\\Data\\\\Status\\>\\) does not accept array\\<App\\\\Models\\\\Data\\\\Status\\>\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Factories/ResellerFactory.php
 
 		-
 			message: "#^Parameter \\#1 \\$json of class App\\\\Services\\\\DataLoader\\\\Schema\\\\Company constructor expects array\\<string, mixed\\>, array\\|bool\\|float\\|int\\|string\\|null given\\.$#"
@@ -4924,11 +4914,6 @@ parameters:
 			message: "#^Parameter \\#1 \\$items of class App\\\\Services\\\\Recalculator\\\\Processor\\\\Processors\\\\AssetsChunkData constructor expects array\\<App\\\\Models\\\\Asset\\>\\|Illuminate\\\\Support\\\\Collection\\<\\(int\\|string\\), App\\\\Models\\\\Asset\\>, Illuminate\\\\Database\\\\Eloquent\\\\Collection\\<\\(int\\|string\\), Illuminate\\\\Database\\\\Eloquent\\\\Model\\> given\\.$#"
 			count: 1
 			path: app/Services/Recalculator/Processor/Processors/AssetsProcessor.php
-
-		-
-			message: "#^Property App\\\\Models\\\\Document\\:\\:\\$statuses \\(Illuminate\\\\Database\\\\Eloquent\\\\Collection\\<int, App\\\\Models\\\\Data\\\\Status\\>\\) does not accept array\\{App\\\\Models\\\\Data\\\\Status\\}\\.$#"
-			count: 1
-			path: app/Services/Recalculator/Processor/Processors/AssetsProcessorTest.php
 
 		-
 			message: "#^Parameter \\#1 \\$items of class App\\\\Services\\\\Recalculator\\\\Processor\\\\Processors\\\\CustomersChunkData constructor expects array\\<App\\\\Models\\\\Customer\\>\\|Illuminate\\\\Support\\\\Collection\\<\\(int\\|string\\), App\\\\Models\\\\Customer\\>, Illuminate\\\\Database\\\\Eloquent\\\\Collection\\<\\(int\\|string\\), Illuminate\\\\Database\\\\Eloquent\\\\Model\\> given\\.$#"

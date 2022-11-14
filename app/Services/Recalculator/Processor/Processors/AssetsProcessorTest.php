@@ -12,6 +12,7 @@ use App\Models\Document;
 use App\Services\Recalculator\Events\ModelsRecalculated;
 use App\Services\Recalculator\Testing\Helper;
 use Illuminate\Contracts\Debug\ExceptionHandler;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\Date;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Str;
@@ -96,7 +97,7 @@ class AssetsProcessorTest extends TestCase {
             'asset_id'        => $assetA,
             'document_id'     => Document::factory()
                 ->afterCreating(static function (Document $document) use ($status): void {
-                    $document->statuses = [$status];
+                    $document->statuses = Collection::make([$status]);
                     $document->save();
                 })
                 ->create([
