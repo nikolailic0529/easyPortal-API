@@ -40,7 +40,6 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\Relations\HasOneThrough;
-use Illuminate\Support\Collection as BaseCollection;
 
 use function count;
 
@@ -155,9 +154,9 @@ class Asset extends Model implements OwnedByReseller, Searchable {
     }
 
     /**
-     * @param BaseCollection<int,AssetWarranty> $warranties
+     * @param Collection<int,AssetWarranty> $warranties
      */
-    public function setWarrantiesAttribute(BaseCollection $warranties): void {
+    public function setWarrantiesAttribute(Collection $warranties): void {
         $this->syncHasMany('warranties', $warranties);
         $this->warranty = self::getLastWarranty($this->warranties);
     }
@@ -235,9 +234,9 @@ class Asset extends Model implements OwnedByReseller, Searchable {
     }
 
     /**
-     * @param BaseCollection<array-key, Coverage> $coverages
+     * @param Collection<int, Coverage> $coverages
      */
-    public function setCoveragesAttribute(BaseCollection $coverages): void {
+    public function setCoveragesAttribute(Collection $coverages): void {
         $this->syncBelongsToMany('coverages', $coverages);
         $this->coverages_count = count($this->coverages);
     }

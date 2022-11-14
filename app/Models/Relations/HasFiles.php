@@ -5,8 +5,8 @@ namespace App\Models\Relations;
 use App\Models\File;
 use App\Utils\Eloquent\Concerns\SyncMorphMany;
 use App\Utils\Eloquent\Model;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
-use Illuminate\Support\Collection;
 
 /**
  * @mixin Model
@@ -22,7 +22,7 @@ trait HasFiles {
     }
 
     /**
-     * @param Collection<array-key,File> $files
+     * @param Collection<int,File> $files
      */
     public function setFilesAttribute(Collection $files): void {
         $this->syncMorphMany('files', $files);

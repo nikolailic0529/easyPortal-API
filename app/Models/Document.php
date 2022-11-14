@@ -42,7 +42,6 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasManyThrough;
-use Illuminate\Support\Collection as BaseCollection;
 
 use function app;
 use function count;
@@ -152,9 +151,9 @@ class Document extends Model implements OwnedByReseller, Searchable {
     }
 
     /**
-     * @param BaseCollection<int, DocumentEntry> $entries
+     * @param Collection<int, DocumentEntry> $entries
      */
-    public function setEntriesAttribute(BaseCollection $entries): void {
+    public function setEntriesAttribute(Collection $entries): void {
         $this->syncHasMany('entries', $entries);
         $this->entries_count = count($this->entries);
         $this->assets_count  = 0

@@ -5,8 +5,8 @@ namespace App\Models\Relations;
 use App\Models\Contact;
 use App\Utils\Eloquent\Concerns\SyncMorphMany;
 use App\Utils\Eloquent\Model;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
-use Illuminate\Support\Collection;
 
 use function count;
 
@@ -26,7 +26,7 @@ trait HasContacts {
     }
 
     /**
-     * @param Collection<array-key,Contact> $contacts
+     * @param Collection<int,Contact> $contacts
      */
     public function setContactsAttribute(Collection $contacts): void {
         $this->syncMorphMany('contacts', $contacts);

@@ -15,7 +15,6 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
-use Illuminate\Support\Collection as BaseCollection;
 
 /**
  * Role.
@@ -74,9 +73,9 @@ class Role extends Model implements OwnedByOrganization, Auditable, OwnedByShare
     }
 
     /**
-     * @param BaseCollection<int, Permission> $permissions
+     * @param Collection<int, Permission> $permissions
      */
-    public function setPermissionsAttribute(BaseCollection $permissions): void {
+    public function setPermissionsAttribute(Collection $permissions): void {
         $this->syncBelongsToMany('permissions', $permissions);
     }
 }

@@ -4,7 +4,7 @@ namespace App\Models\Relations;
 
 use App\Models\Contact;
 use App\Utils\Eloquent\Model;
-use Illuminate\Support\Collection;
+use Illuminate\Database\Eloquent\Collection;
 use Tests\TestCase;
 
 /**
