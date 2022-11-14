@@ -195,6 +195,7 @@ class UpdateQuoteNoteTest extends TestCase {
                 ])
                 ->create([
                     'id'          => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ae',
+                    'user_id'     => $user,
                     'document_id' => $document->getKey(),
                 ]);
         };
@@ -247,6 +248,7 @@ class UpdateQuoteNoteTest extends TestCase {
                                 ])
                                 ->create([
                                     'id'          => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ae',
+                                    'user_id'     => $user,
                                     'document_id' => $document->getKey(),
                                 ]);
                             File::factory()->create([

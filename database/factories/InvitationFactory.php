@@ -30,18 +30,10 @@ class InvitationFactory extends Factory {
     public function definition(): array {
         return [
             'id'              => $this->faker->uuid(),
-            'organization_id' => static function (): Organization {
-                return Organization::factory()->create();
-            },
-            'user_id'         => static function (): User {
-                return User::factory()->create();
-            },
-            'sender_id'       => static function (): User {
-                return User::factory()->create();
-            },
-            'role_id'         => static function (): Role {
-                return Role::factory()->create();
-            },
+            'organization_id' => Organization::factory(),
+            'user_id'         => User::factory(),
+            'sender_id'       => User::factory(),
+            'role_id'         => Role::factory(),
             'team_id'         => null,
             'email'           => $this->faker->unique()->safeEmail(),
             'used_at'         => null,

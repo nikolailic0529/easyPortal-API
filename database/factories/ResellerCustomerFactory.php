@@ -29,12 +29,8 @@ class ResellerCustomerFactory extends Factory {
     public function definition(): array {
         return [
             'id'              => $this->faker->uuid(),
-            'reseller_id'     => static function (): Reseller {
-                return Reseller::factory()->create();
-            },
-            'customer_id'     => static function (): Customer {
-                return Customer::factory()->create();
-            },
+            'reseller_id'     => Reseller::factory(),
+            'customer_id'     => Customer::factory(),
             'kpi_id'          => null,
             'assets_count'    => 0,
             'quotes_count'    => 0,

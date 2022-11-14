@@ -29,12 +29,8 @@ class ResellerLocationFactory extends Factory {
     public function definition(): array {
         return [
             'id'              => $this->faker->uuid(),
-            'reseller_id'     => static function (): Reseller {
-                return Reseller::factory()->create();
-            },
-            'location_id'     => static function (): Location {
-                return Location::factory()->create();
-            },
+            'reseller_id'     => Reseller::factory(),
+            'location_id'     => Location::factory(),
             'assets_count'    => 0,
             'customers_count' => 0,
             'created_at'      => Date::now(),

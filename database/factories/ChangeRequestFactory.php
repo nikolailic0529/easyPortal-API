@@ -32,12 +32,8 @@ class ChangeRequestFactory extends Factory {
     public function definition(): array {
         return [
             'id'              => $this->faker->uuid(),
-            'organization_id' => static function (): Organization {
-                return Organization::query()->first() ?? Organization::factory()->create();
-            },
-            'user_id'         => static function (): User {
-                return User::query()->first() ?? User::factory()->create();
-            },
+            'organization_id' => Organization::factory(),
+            'user_id'         => User::factory(),
             'object_id'       => $this->faker->uuid(),
             'object_type'     => $this->faker->randomElement(array_keys(Relation::$morphMap)),
             'subject'         => $this->faker->word(),

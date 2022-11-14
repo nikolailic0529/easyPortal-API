@@ -27,7 +27,7 @@ class LanguageFactory extends Factory {
     public function definition(): array {
         return [
             'id'         => $this->faker->uuid(),
-            'code'       => $this->faker->languageCode(),
+            'code'       => $this->faker->unique()->languageCode(),
             'name'       => $this->faker->languageCode(),
             'created_at' => Date::now(),
             'updated_at' => Date::now(),

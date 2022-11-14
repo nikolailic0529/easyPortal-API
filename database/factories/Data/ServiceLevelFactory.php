@@ -29,12 +29,8 @@ class ServiceLevelFactory extends Factory {
     public function definition(): array {
         return [
             'id'               => $this->faker->uuid(),
-            'oem_id'           => static function (): Oem {
-                return Oem::factory()->create();
-            },
-            'service_group_id' => static function (): ServiceGroup {
-                return ServiceGroup::factory()->create();
-            },
+            'oem_id'           => Oem::factory(),
+            'service_group_id' => ServiceGroup::factory(),
             'key'              => $this->faker->uuid(),
             'sku'              => $this->faker->uuid(),
             'name'             => $this->faker->sentence(),

@@ -28,9 +28,7 @@ class ProductFactory extends Factory {
     public function definition(): array {
         return [
             'id'         => $this->faker->uuid(),
-            'oem_id'     => static function (): Oem {
-                return Oem::factory()->create();
-            },
+            'oem_id'     => Oem::factory(),
             'sku'        => $this->faker->uuid(),
             'name'       => $this->faker->sentence(),
             'eol'        => Date::now()->addYear()->startOfDay(),

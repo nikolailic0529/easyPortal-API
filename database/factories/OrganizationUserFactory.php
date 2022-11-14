@@ -29,12 +29,8 @@ class OrganizationUserFactory extends Factory {
     public function definition(): array {
         return [
             'id'              => $this->faker->uuid(),
-            'organization_id' => static function (): Organization {
-                return Organization::query()->first() ?? Organization::factory()->create();
-            },
-            'user_id'         => static function (): User {
-                return User::query()->first() ?? User::factory()->create();
-            },
+            'organization_id' => Organization::factory(),
+            'user_id'         => User::factory(),
             'role_id'         => null,
             'team_id'         => null,
             'enabled'         => true,
