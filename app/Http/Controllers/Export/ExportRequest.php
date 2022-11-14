@@ -10,7 +10,7 @@ use Illuminate\Foundation\Http\FormRequest;
 /**
  * @phpstan-type Query array{
  *          root: string,
- *          columns: non-empty-array<int, array{
+ *          columns: non-empty-list<array{
  *              name: string,
  *              value: string,
  *              group?: ?string

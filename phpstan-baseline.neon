@@ -126,7 +126,7 @@ parameters:
 			path: app/Exceptions/Handlers/SentryHandler.php
 
 		-
-			message: "#^Parameter \\#1 \\$backtrace of method Sentry\\\\StacktraceBuilder\\:\\:buildFromBacktrace\\(\\) expects array\\<int, array\\{function\\?\\: string, line\\?\\: int, file\\?\\: string, class\\?\\: class\\-string, type\\?\\: string, args\\?\\: array\\}\\>, mixed given\\.$#"
+			message: "#^Parameter \\#1 \\$backtrace of method Sentry\\\\StacktraceBuilder\\:\\:buildFromBacktrace\\(\\) expects list\\<array\\{function\\?\\: string, line\\?\\: int, file\\?\\: string, class\\?\\: class\\-string, type\\?\\: string, args\\?\\: array\\}\\>, mixed given\\.$#"
 			count: 1
 			path: app/Exceptions/Handlers/SentryHandler.php
 
@@ -2096,7 +2096,17 @@ parameters:
 			path: app/Http/Controllers/Export/ExportController.php
 
 		-
-			message: "#^Method App\\\\Http\\\\Controllers\\\\Export\\\\ExportRequest\\:\\:validated\\(\\) should return array\\{root\\: string, columns\\: non\\-empty\\-array\\<int, array\\{name\\: string, value\\: string, group\\?\\: string\\|null\\}\\>, query\\: string, operationName\\?\\: string, variables\\?\\: array\\{limit\\?\\: int\\|null, offset\\?\\: int\\|null\\}\\|null\\} but returns mixed\\.$#"
+			message: "#^Parameter \\#1 \\$columns of class App\\\\Http\\\\Controllers\\\\Export\\\\Rows\\\\HeaderRow constructor expects list\\<bool\\|float\\|int\\|string\\|null\\>, non\\-empty\\-array\\<int\\<0, max\\>, string\\> given\\.$#"
+			count: 1
+			path: app/Http/Controllers/Export/ExportController.php
+
+		-
+			message: "#^Parameter \\#1 \\$columns of class App\\\\Http\\\\Controllers\\\\Export\\\\Rows\\\\ValueRow constructor expects list\\<bool\\|float\\|int\\|string\\|null\\>, array\\<int\\<0, max\\>, bool\\|float\\|int\\|string\\|null\\> given\\.$#"
+			count: 1
+			path: app/Http/Controllers/Export/ExportController.php
+
+		-
+			message: "#^Method App\\\\Http\\\\Controllers\\\\Export\\\\ExportRequest\\:\\:validated\\(\\) should return array\\{root\\: string, columns\\: non\\-empty\\-list\\<array\\{name\\: string, value\\: string, group\\?\\: string\\|null\\}\\>, query\\: string, operationName\\?\\: string, variables\\?\\: array\\{limit\\?\\: int\\|null, offset\\?\\: int\\|null\\}\\|null\\} but returns mixed\\.$#"
 			count: 1
 			path: app/Http/Controllers/Export/ExportRequest.php
 
@@ -2114,6 +2124,11 @@ parameters:
 			message: "#^Property GraphQL\\\\Language\\\\AST\\\\OperationDefinitionNode\\:\\:\\$variableDefinitions \\(GraphQL\\\\Language\\\\AST\\\\NodeList\\<GraphQL\\\\Language\\\\AST\\\\VariableDefinitionNode\\>\\) on left side of \\?\\? is not nullable\\.$#"
 			count: 1
 			path: app/Http/Controllers/Export/Rules/Query.php
+
+		-
+			message: "#^Property App\\\\Http\\\\Controllers\\\\Export\\\\Utils\\\\Measurer\\:\\:\\$columns \\(list\\<int\\<1, max\\>\\>\\) does not accept non\\-empty\\-array\\<int\\<0, max\\>, int\\<1, max\\>\\>\\.$#"
+			count: 1
+			path: app/Http/Controllers/Export/Utils/Measurer.php
 
 		-
 			message: "#^Static property App\\\\Http\\\\Controllers\\\\Export\\\\Utils\\\\QueryOperationCache\\:\\:\\$cache \\(WeakMap\\<Illuminate\\\\Contracts\\\\Validation\\\\Validator, App\\\\Http\\\\Controllers\\\\Export\\\\Utils\\\\QueryOperation\\>\\) does not accept WeakMap\\<object, mixed\\>\\.$#"
@@ -2302,11 +2317,6 @@ parameters:
 
 		-
 			message: "#^PHPDoc type array\\<string\\> of property App\\\\Models\\\\ChangeRequest\\:\\:\\$casts is not the same as PHPDoc type array of overridden property App\\\\Utils\\\\Eloquent\\\\Model\\:\\:\\$casts\\.$#"
-			count: 1
-			path: app/Models/ChangeRequest.php
-
-		-
-			message: "#^PHPDoc type array\\<string\\> of property App\\\\Models\\\\ChangeRequest\\:\\:\\$visible is not the same as PHPDoc type array\\<int, string\\> of overridden property Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:\\$visible\\.$#"
 			count: 1
 			path: app/Models/ChangeRequest.php
 
@@ -2671,11 +2681,6 @@ parameters:
 			path: app/Models/Organization.php
 
 		-
-			message: "#^PHPDoc type array\\<string\\> of property App\\\\Models\\\\Organization\\:\\:\\$visible is not the same as PHPDoc type array\\<int, string\\> of overridden property Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:\\$visible\\.$#"
-			count: 1
-			path: app/Models/Organization.php
-
-		-
 			message: "#^PHPDoc type array\\<string\\> of property App\\\\Models\\\\OrganizationUser\\:\\:\\$casts is not the same as PHPDoc type array of overridden property App\\\\Utils\\\\Eloquent\\\\Pivot\\:\\:\\$casts\\.$#"
 			count: 1
 			path: app/Models/OrganizationUser.php
@@ -2819,6 +2824,11 @@ parameters:
 			message: "#^Parameter \\#1 \\$text of class Illuminate\\\\Notifications\\\\Action constructor expects string, string\\|null given\\.$#"
 			count: 1
 			path: app/Notifications/OrganizationUserInvitation.php
+
+		-
+			message: "#^Parameter \\#1 \\$translator of class App\\\\Utils\\\\Validation\\\\Validator constructor expects Illuminate\\\\Contracts\\\\Translation\\\\Translator, mixed given\\.$#"
+			count: 1
+			path: app/Providers/AppServiceProvider.php
 
 		-
 			message: "#^Call to static method PHPUnit\\\\Framework\\\\Assert\\:\\:assertInstanceOf\\(\\) with 'Carbon\\\\\\\\CarbonImmutable' and Carbon\\\\CarbonImmutable will always evaluate to true\\.$#"
@@ -3506,7 +3516,7 @@ parameters:
 			path: app/Services/DataLoader/Processors/Loader/CompanyLoader.php
 
 		-
-			message: "#^Method App\\\\Services\\\\DataLoader\\\\Processors\\\\Loader\\\\Loaders\\\\CustomerLoader\\:\\:getOperations\\(\\) should return array\\<int, App\\\\Utils\\\\Processor\\\\CompositeOperation\\<App\\\\Services\\\\DataLoader\\\\Processors\\\\Loader\\\\CompanyLoaderState\\>\\> but returns non\\-empty\\-array\\<int, App\\\\Utils\\\\Processor\\\\CompositeOperation\\<App\\\\Services\\\\DataLoader\\\\Processors\\\\Loader\\\\CompanyLoaderState\\>\\|App\\\\Utils\\\\Processor\\\\CompositeOperation\\<App\\\\Services\\\\DataLoader\\\\Processors\\\\Loader\\\\Loaders\\\\CustomerLoaderState\\>\\>\\.$#"
+			message: "#^Method App\\\\Services\\\\DataLoader\\\\Processors\\\\Loader\\\\Loaders\\\\CustomerLoader\\:\\:getOperations\\(\\) should return array\\<int, App\\\\Utils\\\\Processor\\\\CompositeOperation\\<App\\\\Services\\\\DataLoader\\\\Processors\\\\Loader\\\\CompanyLoaderState\\>\\> but returns non\\-empty\\-list\\<App\\\\Utils\\\\Processor\\\\CompositeOperation\\<App\\\\Services\\\\DataLoader\\\\Processors\\\\Loader\\\\CompanyLoaderState\\>\\|App\\\\Utils\\\\Processor\\\\CompositeOperation\\<App\\\\Services\\\\DataLoader\\\\Processors\\\\Loader\\\\Loaders\\\\CustomerLoaderState\\>\\>\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Processors/Loader/Loaders/CustomerLoader.php
 
@@ -3686,16 +3696,6 @@ parameters:
 			path: app/Services/DataLoader/Schema/CompanyKpisTest.php
 
 		-
-			message: "#^Call to static method PHPUnit\\\\Framework\\\\Assert\\:\\:assertInstanceOf\\(\\) with 'App\\\\\\\\Services\\\\\\\\DataLoader\\\\\\\\Schema\\\\\\\\CompanyKpis' and App\\\\Services\\\\DataLoader\\\\Schema\\\\CompanyKpis will always evaluate to true\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Schema/CompanyTest.php
-
-		-
-			message: "#^Offset 0 does not exist on array\\<App\\\\Services\\\\DataLoader\\\\Schema\\\\CompanyKpis\\>\\|null\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Schema/CompanyTest.php
-
-		-
 			message: "#^Parameter \\#1 \\$array of function array_keys expects array, array\\|bool\\|float\\|int\\|string\\|null given\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Schema/CompanyTest.php
@@ -3776,27 +3776,7 @@ parameters:
 			path: app/Services/DataLoader/Schema/CoverageStatusCheckTest.php
 
 		-
-			message: "#^Call to static method PHPUnit\\\\Framework\\\\Assert\\:\\:assertInstanceOf\\(\\) with 'App\\\\\\\\Services\\\\\\\\DataLoader\\\\\\\\Schema\\\\\\\\CompanyContactPerson' and App\\\\Services\\\\DataLoader\\\\Schema\\\\CompanyContactPerson will always evaluate to true\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Schema/DocumentTest.php
-
-		-
-			message: "#^Call to static method PHPUnit\\\\Framework\\\\Assert\\:\\:assertInstanceOf\\(\\) with 'App\\\\\\\\Services\\\\\\\\DataLoader\\\\\\\\Schema\\\\\\\\DocumentEntry' and App\\\\Services\\\\DataLoader\\\\Schema\\\\DocumentEntry will always evaluate to true\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Schema/DocumentTest.php
-
-		-
 			message: "#^Call to static method PHPUnit\\\\Framework\\\\Assert\\:\\:assertInstanceOf\\(\\) with 'App\\\\\\\\Services\\\\\\\\DataLoader\\\\\\\\Schema\\\\\\\\DocumentVendorSpecificField' and App\\\\Services\\\\DataLoader\\\\Schema\\\\DocumentVendorSpecificField will always evaluate to true\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Schema/DocumentTest.php
-
-		-
-			message: "#^Offset 0 does not exist on array\\<App\\\\Services\\\\DataLoader\\\\Schema\\\\CompanyContactPerson\\>\\|null\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Schema/DocumentTest.php
-
-		-
-			message: "#^Offset 0 does not exist on array\\<App\\\\Services\\\\DataLoader\\\\Schema\\\\DocumentEntry\\>\\|null\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Schema/DocumentTest.php
 
@@ -5006,32 +4986,12 @@ parameters:
 			path: app/Services/Recalculator/Processor/Processors/DocumentsProcessor.php
 
 		-
-			message: "#^Method App\\\\Services\\\\Recalculator\\\\Processor\\\\Processors\\\\LocationsChunkData\\:\\:getLocationCustomers\\(\\) should return array\\<string, array\\<string\\>\\> but returns array\\<string\\>\\.$#"
-			count: 1
-			path: app/Services/Recalculator/Processor/Processors/LocationsChunkData.php
-
-		-
-			message: "#^Method App\\\\Services\\\\Recalculator\\\\Processor\\\\Processors\\\\LocationsChunkData\\:\\:getLocationResellers\\(\\) should return array\\<string, array\\<string\\>\\> but returns array\\<string\\>\\.$#"
-			count: 1
-			path: app/Services/Recalculator/Processor/Processors/LocationsChunkData.php
-
-		-
-			message: "#^Parameter \\#1 \\$items of class App\\\\Services\\\\Recalculator\\\\Processor\\\\Processors\\\\LocationsChunkData constructor expects array\\<App\\\\Models\\\\Data\\\\Location\\>\\|Illuminate\\\\Support\\\\Collection\\<\\(int\\|string\\), App\\\\Models\\\\Data\\\\Location\\>, Illuminate\\\\Database\\\\Eloquent\\\\Collection\\<\\(int\\|string\\), Illuminate\\\\Database\\\\Eloquent\\\\Model\\> given\\.$#"
+			message: "#^Property App\\\\Models\\\\Data\\\\Location\\:\\:\\$customersPivots \\(Illuminate\\\\Support\\\\Collection\\<string, TPivot of App\\\\Utils\\\\Eloquent\\\\Pivot\\>\\) does not accept Illuminate\\\\Support\\\\Collection\\<string, App\\\\Models\\\\LocationCustomer\\>\\.$#"
 			count: 1
 			path: app/Services/Recalculator/Processor/Processors/LocationsProcessor.php
 
 		-
-			message: "#^Possibly invalid array key type array\\<string\\>\\|string\\.$#"
-			count: 6
-			path: app/Services/Recalculator/Processor/Processors/LocationsProcessor.php
-
-		-
-			message: "#^Property App\\\\Models\\\\Data\\\\Location\\:\\:\\$customersPivots \\(Illuminate\\\\Support\\\\Collection\\<string, TPivot of App\\\\Utils\\\\Eloquent\\\\Pivot\\>\\) does not accept array\\<int\\|string, App\\\\Models\\\\LocationCustomer\\>\\.$#"
-			count: 1
-			path: app/Services/Recalculator/Processor/Processors/LocationsProcessor.php
-
-		-
-			message: "#^Property App\\\\Models\\\\Data\\\\Location\\:\\:\\$resellersPivots \\(Illuminate\\\\Support\\\\Collection\\<string, TPivot of App\\\\Utils\\\\Eloquent\\\\Pivot\\>\\) does not accept array\\<int\\|string, App\\\\Models\\\\LocationReseller\\>\\.$#"
+			message: "#^Property App\\\\Models\\\\Data\\\\Location\\:\\:\\$resellersPivots \\(Illuminate\\\\Support\\\\Collection\\<string, TPivot of App\\\\Utils\\\\Eloquent\\\\Pivot\\>\\) does not accept Illuminate\\\\Support\\\\Collection\\<string, App\\\\Models\\\\LocationReseller\\>\\.$#"
 			count: 1
 			path: app/Services/Recalculator/Processor/Processors/LocationsProcessor.php
 

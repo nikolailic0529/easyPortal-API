@@ -70,9 +70,7 @@ class ChangeRequest extends PolymorphicModel implements OwnedByOrganization, Aud
     protected $casts = self::CASTS;
 
     /**
-     * @phpcsSuppress SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint
-     *
-     * @var array<string>
+     * @var list<string>
      */
     protected $visible = [
         'organization_id',

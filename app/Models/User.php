@@ -135,7 +135,7 @@ class User extends Model implements
     ];
 
     /**
-     * @phpcsSuppress SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingAnyTypeHint
+     * @var list<string>
      */
     protected $visible = [
         'given_name',

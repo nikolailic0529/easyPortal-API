@@ -22,8 +22,8 @@ class DocumentTest extends TestCase {
 
         self::assertEquals(array_keys($json), $properties);
         self::assertInstanceOf(DocumentVendorSpecificField::class, $actual->vendorSpecificFields);
-        self::assertInstanceOf(CompanyContactPerson::class, $actual->contactPersons[0]);
-        self::assertInstanceOf(DocumentEntry::class, $actual->documentEntries[0]);
+        self::assertInstanceOf(CompanyContactPerson::class, $actual->contactPersons[0] ?? null);
+        self::assertInstanceOf(DocumentEntry::class, $actual->documentEntries[0] ?? null);
         self::assertJsonStringEqualsJsonString(
             json_encode($json),
             json_encode($actual),
