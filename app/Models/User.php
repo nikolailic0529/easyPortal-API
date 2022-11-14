@@ -216,9 +216,9 @@ class User extends Model implements
     }
 
     /**
-     * @param BaseCollection<int,OrganizationUser>|array<OrganizationUser> $organizations
+     * @param BaseCollection<int,OrganizationUser> $organizations
      */
-    public function setOrganizationsAttribute(BaseCollection|array $organizations): void {
+    public function setOrganizationsAttribute(BaseCollection $organizations): void {
         $this->syncHasMany('organizations', $organizations);
     }
     // </editor-fold>

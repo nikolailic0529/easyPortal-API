@@ -2381,11 +2381,6 @@ parameters:
 			path: app/Models/CustomerTest.php
 
 		-
-			message: "#^Cannot call method all\\(\\) on array\\<int, App\\\\Models\\\\Contact\\>\\.$#"
-			count: 1
-			path: app/Models/CustomerTest.php
-
-		-
 			message: "#^PHPDoc tag @var for variable \\$model contains unresolvable type\\.$#"
 			count: 1
 			path: app/Models/CustomerTest.php

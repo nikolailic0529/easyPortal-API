@@ -3,7 +3,6 @@
 namespace App\Utils\Eloquent\Concerns;
 
 use App\Utils\Eloquent\Callbacks\GetKey;
-use App\Utils\Eloquent\Callbacks\SetKey;
 use App\Utils\Eloquent\ModelHelper;
 use Illuminate\Database\Eloquent\Collection as EloquentCollection;
 use Illuminate\Database\Eloquent\Model;
@@ -11,7 +10,6 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Collection;
 use InvalidArgumentException;
 
-use function assert;
 use function is_int;
 use function is_string;
 use function sprintf;
@@ -25,9 +23,9 @@ trait SyncHasMany {
     /**
      * @template T of Model
      *
-     * @param Collection<int, T>|EloquentCollection<int, T>|array<T> $objects
+     * @param Collection<int, T> $objects
      */
-    protected function syncHasMany(string $relation, Collection|array $objects): void {
+    protected function syncHasMany(string $relation, Collection $objects): void {
         // Prepare
         /** @var HasMany<$this> $hasMany */
         $hasMany = (new ModelHelper($this))->getRelation($relation);
@@ -41,30 +39,28 @@ trait SyncHasMany {
 
         // Prepare
         $existing = $this->syncManyGetExisting($this, $relation)->keyBy(new GetKey());
-        $children = (new EloquentCollection($objects))->map(new SetKey());
+        $children = $objects->all();
 
         foreach ($children as $child) {
             $key = $child->getKey();
 
-            assert(is_string($key) || is_int($key));
-
-            $existing->forget($key);
+            if (is_string($key) || is_int($key)) {
+                $existing->forget($key);
+            }
         }
 
         // Update relation
-        $this->setRelation($relation, $children);
+        $this->setRelation($relation, EloquentCollection::make($children));
 
         // Update database
-        if (!$children->isEmpty() || !$existing->isEmpty()) {
+        if (!!$children || !$existing->isEmpty()) {
             $this->onSave(static function () use ($hasMany, $children, $existing): void {
                 // Sync
                 foreach ($children as $object) {
-                    /** @var Model $object */
                     $hasMany->save($object);
                 }
 
                 // Delete unused
-                /** @var Model $object */
                 foreach ($existing as $object) {
                     $object->delete();
                 }

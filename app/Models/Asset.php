@@ -155,9 +155,9 @@ class Asset extends Model implements OwnedByReseller, Searchable {
     }
 
     /**
-     * @param BaseCollection<int,AssetWarranty>|array<AssetWarranty> $warranties
+     * @param BaseCollection<int,AssetWarranty> $warranties
      */
-    public function setWarrantiesAttribute(BaseCollection|array $warranties): void {
+    public function setWarrantiesAttribute(BaseCollection $warranties): void {
         $this->syncHasMany('warranties', $warranties);
         $this->warranty = self::getLastWarranty($this->warranties);
     }

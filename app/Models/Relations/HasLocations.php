@@ -33,9 +33,9 @@ trait HasLocations {
     }
 
     /**
-     * @param Collection<int,TPivot>|array<TPivot> $locations
+     * @param Collection<int,TPivot> $locations
      */
-    public function setLocationsAttribute(Collection|array $locations): void {
+    public function setLocationsAttribute(Collection $locations): void {
         $this->syncHasMany('locations', $locations);
         $this->locations_count = count($locations);
     }

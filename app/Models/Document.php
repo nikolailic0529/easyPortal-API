@@ -152,9 +152,9 @@ class Document extends Model implements OwnedByReseller, Searchable {
     }
 
     /**
-     * @param BaseCollection<int, DocumentEntry>|array<DocumentEntry> $entries
+     * @param BaseCollection<int, DocumentEntry> $entries
      */
-    public function setEntriesAttribute(BaseCollection|array $entries): void {
+    public function setEntriesAttribute(BaseCollection $entries): void {
         $this->syncHasMany('entries', $entries);
         $this->entries_count = count($this->entries);
         $this->assets_count  = 0
