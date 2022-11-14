@@ -2031,11 +2031,6 @@ parameters:
 			path: app/GraphQL/Scalars/DateTimeTest.php
 
 		-
-			message: "#^Strict comparison using \\=\\=\\= between string and null will always evaluate to false\\.$#"
-			count: 1
-			path: app/GraphQL/Scalars/Geohash.php
-
-		-
 			message: "#^Parameter \\#1 \\$valueNode of method App\\\\GraphQL\\\\Scalars\\\\Geohash\\:\\:parseLiteral\\(\\) expects GraphQL\\\\Language\\\\AST\\\\BooleanValueNode\\|GraphQL\\\\Language\\\\AST\\\\FloatValueNode\\|GraphQL\\\\Language\\\\AST\\\\IntValueNode\\|GraphQL\\\\Language\\\\AST\\\\NullValueNode\\|GraphQL\\\\Language\\\\AST\\\\StringValueNode, GraphQL\\\\Language\\\\AST\\\\Node given\\.$#"
 			count: 1
 			path: app/GraphQL/Scalars/GeohashTest.php
@@ -2341,13 +2336,13 @@ parameters:
 			path: app/Models/Customer.php
 
 		-
-			message: "#^Call to an undefined method Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\HasOne\\:\\:whereHasIn\\(\\)\\.$#"
-			count: 1
+			message: "#^Instanceof between Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\HasMany\\<\\$this\\(App\\\\Models\\\\Customer\\)\\> and Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\HasMany will always evaluate to true\\.$#"
+			count: 2
 			path: app/Models/Customer.php
 
 		-
-			message: "#^Instanceof between Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\HasMany\\<\\$this\\(App\\\\Models\\\\Customer\\)\\> and Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\HasMany will always evaluate to true\\.$#"
-			count: 2
+			message: "#^Method App\\\\Models\\\\Customer\\:\\:headquarter\\(\\) should return Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\HasOne\\<App\\\\Models\\\\CustomerLocation\\> but returns Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\HasOne\\<Illuminate\\\\Database\\\\Eloquent\\\\Model\\>\\.$#"
+			count: 1
 			path: app/Models/Customer.php
 
 		-
@@ -2751,12 +2746,12 @@ parameters:
 			path: app/Models/Reseller.php
 
 		-
-			message: "#^Call to an undefined method Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\HasOne\\:\\:whereHasIn\\(\\)\\.$#"
+			message: "#^Instanceof between Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\HasMany\\<\\$this\\(App\\\\Models\\\\Reseller\\)\\> and Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\HasMany will always evaluate to true\\.$#"
 			count: 1
 			path: app/Models/Reseller.php
 
 		-
-			message: "#^Instanceof between Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\HasMany\\<\\$this\\(App\\\\Models\\\\Reseller\\)\\> and Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\HasMany will always evaluate to true\\.$#"
+			message: "#^Method App\\\\Models\\\\Reseller\\:\\:headquarter\\(\\) should return Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\HasOne\\<App\\\\Models\\\\ResellerLocation\\> but returns Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\HasOne\\<Illuminate\\\\Database\\\\Eloquent\\\\Model\\>\\.$#"
 			count: 1
 			path: app/Models/Reseller.php
 

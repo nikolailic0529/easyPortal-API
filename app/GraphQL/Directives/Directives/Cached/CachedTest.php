@@ -134,6 +134,10 @@ class CachedTest extends TestCase {
                 // empty;
             }
 
+            public function name(): string {
+                return 'cached';
+            }
+
             public function handleField(FieldValue $fieldValue, Closure $next): FieldValue {
                 return $next($fieldValue);
             }

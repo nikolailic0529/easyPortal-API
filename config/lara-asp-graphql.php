@@ -11,6 +11,7 @@ use App\GraphQL\Directives\Directives\Paginated\Trashed;
 use App\GraphQL\Extensions\LaraAsp\SearchBy\Operators\Comparison\Contains;
 use App\GraphQL\Extensions\LaraAsp\SearchBy\Operators\Comparison\EndsWith;
 use App\Models\Enums\OrganizationType;
+use LastDragon_ru\LaraASP\Core\Enum as CoreEnum;
 use LastDragon_ru\LaraASP\GraphQL\SearchBy\Contracts\Operator;
 use LastDragon_ru\LaraASP\GraphQL\SearchBy\Definitions\SearchByDirective;
 use LastDragon_ru\LaraASP\GraphQL\SearchBy\Operators\Comparison\Equal;
@@ -19,7 +20,19 @@ use LastDragon_ru\LaraASP\GraphQL\SearchBy\Operators\Comparison\NotEqual;
 use LastDragon_ru\LaraASP\GraphQL\SearchBy\Operators\Comparison\NotIn;
 use LastDragon_ru\LaraASP\GraphQL\SearchBy\Operators\Comparison\StartsWith;
 
-return [
+/**
+ * -----------------------------------------------------------------------------
+ * GraphQL Settings
+ * -----------------------------------------------------------------------------
+ *
+ * @var array{
+ *      search_by: array{
+ *          operators: array<string, string|array<string|class-string<Operator>>>
+ *      },
+ *      enums: array<class-string<CoreEnum>>
+ *      } $settings
+ */
+$settings = [
     /**
      * Settings for @searchBy directive.
      */
@@ -30,7 +43,7 @@ return [
          *
          * You can (re)define scalars and supported operators here.
          *
-         * @var array<string, array<string|Operator>>
+         * @see Operator
          */
         'scalars' => [
             'Date'                          => SearchByDirective::ScalarNumber,
@@ -65,3 +78,5 @@ return [
         OrganizationType::class,
     ],
 ];
+
+return $settings;
