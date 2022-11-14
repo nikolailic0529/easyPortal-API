@@ -229,6 +229,8 @@ class ServiceTest extends TestCase {
             ['@belongsToMany', '@relation', null],
             ['@hasOne', '@relation', null],
             ['@hasMany', '@relation', null],
+            ['@hasManyThrough', '@relation', null],
+            ['@hasManyThrough', '@relation @paginatedRelation', '/@hasManyThrough\(.*?type:.*?\)/ui'],
             ['@morphMany', '@relation', null],
             ['@morphOne', '@relation', null],
             ['@morphTo', '@relation', null],
