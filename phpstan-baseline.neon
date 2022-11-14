@@ -4266,11 +4266,6 @@ parameters:
 			path: app/Services/Keycloak/Client/Exceptions/RequestFailed.php
 
 		-
-			message: "#^Property App\\\\Models\\\\Role\\:\\:\\$permissions \\(Illuminate\\\\Database\\\\Eloquent\\\\Collection\\<int, App\\\\Models\\\\Permission\\>\\) does not accept Illuminate\\\\Support\\\\Collection\\<\\*NEVER\\*, \\*NEVER\\*\\>\\.$#"
-			count: 1
-			path: app/Services/Keycloak/Commands/PermissionsSync.php
-
-		-
 			message: "#^Method App\\\\Services\\\\Keycloak\\\\Importer\\\\UsersImporter\\:\\:getUserOrganizations\\(\\) should return Illuminate\\\\Database\\\\Eloquent\\\\Collection\\<int, App\\\\Models\\\\OrganizationUser\\> but returns Illuminate\\\\Database\\\\Eloquent\\\\Collection\\<\\(int\\|string\\), Illuminate\\\\Database\\\\Eloquent\\\\Model\\>\\.$#"
 			count: 1
 			path: app/Services/Keycloak/Importer/UsersImporter.php
