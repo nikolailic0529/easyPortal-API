@@ -2,14 +2,14 @@
 
 ## Requirements
 
-| Package       | Version / Notes                                                                                                                                         |
-|---------------|---------------------------------------------------------------------------------------------------------------------------------------------------------|
-| PHP           | [~8.0.0](https://php.net/)                                                                                                                              |
-| MySQL         | [8.0+](https://www.mysql.com/)                                                                                                                          |
-| Redis         | and [phpredis](https://github.com/phpredis/phpredis) (recommended) or see https://laravel.com/docs/redis                                                |
-| Composer      | [^2.4.4](https://getcomposer.org/)                                                                                                                      |
-| Elasticsearch | [~7.10.0](https://www.elastic.co/) + [passwords for default users](https://www.elastic.co/guide/en/elasticsearch/reference/current/built-in-users.html) |
-| Other         | Run `composer check-platform-reqs` to get list of required PHP extensions.                                                                              |
+| Package       | Version / Notes                                                                                                                                        |
+|---------------|--------------------------------------------------------------------------------------------------------------------------------------------------------|
+| PHP           | [~8.0.0](https://php.net/)                                                                                                                             |
+| MySQL         | [8.0+](https://www.mysql.com/)                                                                                                                         |
+| Redis         | and [phpredis](https://github.com/phpredis/phpredis) (recommended) or see https://laravel.com/docs/redis                                               |
+| Composer      | [^2.4.4](https://getcomposer.org/)                                                                                                                     |
+| Elasticsearch | [~8.5.0](https://www.elastic.co/) + [passwords for default users](https://www.elastic.co/guide/en/elasticsearch/reference/current/built-in-users.html) |
+| Other         | Run `composer check-platform-reqs` to get list of required PHP extensions.                                                                             |
 
 ### MySQL
 
