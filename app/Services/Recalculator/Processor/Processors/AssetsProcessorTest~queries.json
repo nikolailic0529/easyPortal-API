@@ -1,6 +1,6 @@
 [
     {
-        "query": "select `assets`.* from `assets` where `assets`.`deleted_at` is null and `id` in (?, ?, ?)",
+        "query": "select `assets`.* from `assets` where `id` in (?, ?, ?)",
         "bindings": [
             "81f52c19-1b2c-53ab-8c20-05df3a36e367",
             "bcad5775-d072-5354-9869-13a0ed45d98f",

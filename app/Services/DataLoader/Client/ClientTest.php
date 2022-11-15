@@ -159,12 +159,7 @@ class ClientTest extends TestCase {
             ->once()
             ->andReturns();
 
-        $handler = Mockery::mock(ExceptionHandler::class);
-        $handler
-            ->shouldReceive('report')
-            ->once()
-            ->andReturns();
-
+        $handler    = Mockery::mock(ExceptionHandler::class);
         $config     = Mockery::mock(Repository::class);
         $client     = Mockery::mock(Factory::class);
         $token      = Mockery::mock(Token::class);
@@ -206,12 +201,7 @@ class ClientTest extends TestCase {
             ->once()
             ->andReturns();
 
-        $handler = Mockery::mock(ExceptionHandler::class);
-        $handler
-            ->shouldReceive('report')
-            ->once()
-            ->andReturns();
-
+        $handler    = Mockery::mock(ExceptionHandler::class);
         $config     = Mockery::mock(Repository::class);
         $client     = Mockery::mock(Factory::class);
         $token      = Mockery::mock(Token::class);

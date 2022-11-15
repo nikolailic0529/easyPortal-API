@@ -30,6 +30,13 @@ abstract class Processor extends EloquentProcessor {
         parent::__construct($exceptionHandler, $dispatcher, $config);
     }
 
+    // <editor-fold desc="Getters / Setters">
+    // =========================================================================
+    public function isWithTrashed(): bool {
+        return true;
+    }
+    // </editor-fold>
+
     // <editor-fold desc="Process">
     // =========================================================================
     protected function item(State $state, mixed $data, mixed $item): void {

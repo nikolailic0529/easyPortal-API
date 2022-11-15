@@ -1,6 +1,6 @@
 [
     {
-        "query": "select `documents`.* from `documents` where `documents`.`deleted_at` is null and `id` in (?, ?)",
+        "query": "select `documents`.* from `documents` where `id` in (?, ?)",
         "bindings": [
             "720feb7c-8d1a-5817-876f-6409000456a7",
             "caaa494a-ba21-5920-be79-93b54f6879a7"
