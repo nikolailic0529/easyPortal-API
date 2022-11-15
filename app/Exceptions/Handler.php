@@ -14,7 +14,7 @@ use App\Services\Keycloak\Exceptions\Auth\StateMismatch;
 use App\Services\Keycloak\Exceptions\Auth\UnknownScope;
 use App\Services\Keycloak\Exceptions\Auth\UserDisabled;
 use App\Services\Service;
-use ElasticAdapter\Exceptions\BulkRequestException;
+use Elastic\Adapter\Exceptions\BulkOperationException;
 use Exception;
 use GraphQL\Error\Error as GraphQLError;
 use Illuminate\Auth\Access\AuthorizationException;
@@ -165,8 +165,8 @@ class Handler extends ExceptionHandler {
             $context = array_merge($context, $e->extensionsContent());
         }
 
-        if ($e instanceof BulkRequestException) {
-            $context['elastic'] = $e->getResponse();
+        if ($e instanceof BulkOperationException) {
+            $context['elastic'] = $e->rawResult();
         }
 
         if ($e instanceof ApplicationException) {

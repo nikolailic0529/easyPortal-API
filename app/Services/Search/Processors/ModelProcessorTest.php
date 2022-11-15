@@ -15,9 +15,9 @@ use App\Utils\Iterators\Contracts\ObjectIterator;
 use App\Utils\Processor\State as ProcessorState;
 use Closure;
 use Database\Factories\AssetFactory;
-use ElasticAdapter\Exceptions\BulkRequestException;
-use Elasticsearch\Client;
-use Elasticsearch\Common\Exceptions\NoNodesAvailableException;
+use Elastic\Adapter\Exceptions\BulkOperationException;
+use Elastic\Elasticsearch\Client;
+use Elastic\Transport\Exception\NoNodeAvailableException;
 use Exception;
 use Illuminate\Contracts\Config\Repository;
 use Illuminate\Contracts\Debug\ExceptionHandler;
@@ -466,7 +466,7 @@ class ModelProcessorTest extends TestCase {
      */
     public function dataProviderCreateIndex(): array {
         $index = 'test_models@4ba247ffb340f00f8225223275e3aedaf9b531a1';
-        $model = new class() extends Model {
+        $model = new class() extends Model implements Searchable {
             use SearchableImpl {
                 scoutSearchableAs as public;
             }
@@ -489,7 +489,7 @@ class ModelProcessorTest extends TestCase {
             /**
              * @inheritDoc
              */
-            protected static function getSearchProperties(): array {
+            public static function getSearchProperties(): array {
                 return [
                     'a' => new class('a') extends Property {
                         public function getType(): string {
@@ -677,7 +677,7 @@ class ModelProcessorTest extends TestCase {
      */
     public function dataProviderIsIndexActual(): array {
         $index = 'test_models@4ba247ffb340f00f8225223275e3aedaf9b531a1';
-        $model = new class() extends Model {
+        $model = new class() extends Model implements Searchable {
             use SearchableImpl {
                 scoutSearchableAs as public;
             }
@@ -700,7 +700,7 @@ class ModelProcessorTest extends TestCase {
             /**
              * @inheritDoc
              */
-            protected static function getSearchProperties(): array {
+            public static function getSearchProperties(): array {
                 return [
                     'a' => new class('a') extends Property {
                         public function getType(): string {
@@ -794,21 +794,21 @@ class ModelProcessorTest extends TestCase {
      */
     public function dataProviderReport(): array {
         return [
-            Exception::class                                     => [
+            Exception::class                                       => [
                 null,
                 new Exception(),
             ],
-            NoNodesAvailableException::class                     => [
-                new ElasticUnavailable(new NoNodesAvailableException()),
-                new NoNodesAvailableException(),
+            NoNodeAvailableException::class                        => [
+                new ElasticUnavailable(new NoNodeAvailableException()),
+                new NoNodeAvailableException(),
             ],
-            BulkRequestException::class                          => [
+            BulkOperationException::class                          => [
                 null,
-                new BulkRequestException([]),
+                new BulkOperationException([]),
             ],
-            BulkRequestException::class.' (disk usage exceeded)' => [
-                new ElasticReadonly(new BulkRequestException([])),
-                new BulkRequestException([
+            BulkOperationException::class.' (disk usage exceeded)' => [
+                new ElasticReadonly(new BulkOperationException([])),
+                new BulkOperationException([
                     'errors' => true,
                     'items'  => [
                         [

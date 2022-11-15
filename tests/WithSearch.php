@@ -2,8 +2,9 @@
 
 namespace Tests;
 
+use App\Services\Search\Elastic\Elastic;
 use App\Services\Search\Eloquent\Searchable;
-use Elasticsearch\Client;
+use Elastic\Elasticsearch\Client;
 use Exception;
 use Illuminate\Contracts\Config\Repository;
 use Illuminate\Support\Collection;
@@ -45,7 +46,8 @@ trait WithSearch {
             }
 
             // Remove all indexes
-            $indexes = (new Collection($client->indices()->getAlias()))
+            $indexes = Elastic::response($client->indices()->getAlias())->asArray();
+            $indexes = (new Collection($indexes))
                 ->keys()
                 ->filter(function (string $index): bool {
                     return $this->isSearchName($index);
@@ -96,7 +98,7 @@ trait WithSearch {
         $index  = $this->getSearchName($index);
         $alias  = $this->getSearchName($alias);
 
-        if (!$client->exists(['index' => $index])) {
+        if (!Elastic::response($client->exists(['index' => $index]))->asBool()) {
             if ($mappings) {
                 $client->create([
                     'index' => $index,
@@ -185,6 +187,7 @@ trait WithSearch {
 
         // Prepare Actual
         $actual = $this->app->make(Client::class)->indices()->getAlias();
+        $actual = Elastic::response($actual)->asArray();
 
         foreach ($actual as $index => $data) {
             if (!$this->isSearchName($index)) {
@@ -198,9 +201,11 @@ trait WithSearch {
 
     protected function assertSearchIndexExists(string $expected, string $message = ''): void {
         self::assertTrue(
-            $this->app->make(Client::class)->indices()->exists([
-                'index' => $this->getSearchName($expected),
-            ]),
+            Elastic::response(
+                $this->app->make(Client::class)->indices()->exists([
+                    'index' => $this->getSearchName($expected),
+                ]),
+            )->asBool(),
             $message,
         );
     }

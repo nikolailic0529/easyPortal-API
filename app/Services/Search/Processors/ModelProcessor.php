@@ -3,6 +3,7 @@
 namespace App\Services\Search\Processors;
 
 use App\Services\Search\Configuration;
+use App\Services\Search\Elastic\Elastic;
 use App\Services\Search\Eloquent\Searchable;
 use App\Services\Search\Exceptions\ElasticReadonly;
 use App\Services\Search\Exceptions\ElasticUnavailable;
@@ -15,9 +16,9 @@ use App\Utils\Processor\EloquentProcessor;
 use App\Utils\Processor\State;
 use App\Utils\Processor\State as ProcessorState;
 use Closure;
-use ElasticAdapter\Exceptions\BulkRequestException;
-use Elasticsearch\Client;
-use Elasticsearch\Common\Exceptions\NoNodesAvailableException;
+use Elastic\Adapter\Exceptions\BulkOperationException;
+use Elastic\Elasticsearch\Client;
+use Elastic\Transport\Exception\NoNodeAvailableException;
 use Illuminate\Contracts\Config\Repository;
 use Illuminate\Contracts\Debug\ExceptionHandler;
 use Illuminate\Contracts\Events\Dispatcher;
@@ -134,14 +135,14 @@ class ModelProcessor extends EloquentProcessor {
 
     protected function report(Throwable $exception, mixed $item = null): void {
         // If Elasticsearch unavailable we cannot do anything -> break
-        if ($exception instanceof NoNodesAvailableException) {
+        if ($exception instanceof NoNodeAvailableException) {
             throw new ElasticUnavailable($exception);
         }
 
         // If operation failed -> something may be really wrong -> break
         if (
-            $exception instanceof BulkRequestException
-                && mb_strpos($exception->getMessage(), 'disk usage exceeded') !== false
+            $exception instanceof BulkOperationException
+            && mb_strpos($exception->getMessage(), 'disk usage exceeded') !== false
         ) {
             throw new ElasticReadonly($exception);
         }
@@ -203,16 +204,18 @@ class ModelProcessor extends EloquentProcessor {
      * @param TState $state
      */
     protected function createIndex(ModelProcessorState $state): string {
-        $client = $this->getClient()->indices();
-        $config = $this->getSearchConfiguration($state);
-        $alias  = $config->getIndexAlias();
-        $index  = $config->getIndexName();
+        $client   = $this->getClient()->indices();
+        $config   = $this->getSearchConfiguration($state);
+        $alias    = $config->getIndexAlias();
+        $index    = $config->getIndexName();
+        $hasIndex = Elastic::response($client->exists(['index' => $alias]))->asBool()
+            && !Elastic::response($client->existsAlias(['name' => $alias]))->asBool();
 
-        if ($client->exists(['index' => $alias]) && !$client->existsAlias(['name' => $alias])) {
+        if ($hasIndex) {
             $client->delete(['index' => $alias]);
         }
 
-        if (!$client->exists(['index' => $index])) {
+        if (!Elastic::response($client->exists(['index' => $index]))->asBool()) {
             $client->create([
                 'index' => $index,
                 'body'  => [
@@ -221,7 +224,7 @@ class ModelProcessor extends EloquentProcessor {
             ]);
         }
 
-        if (!$client->existsAlias(['name' => $alias])) {
+        if (!Elastic::response($client->existsAlias(['name' => $alias]))->asBool()) {
             $client->putAlias([
                 'name'  => $alias,
                 'index' => $index,
@@ -243,7 +246,7 @@ class ModelProcessor extends EloquentProcessor {
         $config  = $this->getSearchConfiguration($state);
         $alias   = $config->getIndexAlias();
         $index   = $config->getIndexName();
-        $indexes = array_keys($client->getAlias());
+        $indexes = array_keys(Elastic::response($client->getAlias())->asArray());
         $indexes = array_values(array_filter($indexes, static function (string $name) use ($config, $index): bool {
             return $name !== $index && $config->isIndex($name);
         }));
@@ -292,7 +295,7 @@ class ModelProcessor extends EloquentProcessor {
      * @param TState       $state
      * @param Closure(): T $callback
      *
-     * @return (T is void ? null : T)
+     * @return   (T is void ? null : T)
      */
     protected function call(State $state, Closure $callback): mixed {
         return $this->callWithoutScoutQueue(function () use ($state, $callback): mixed {

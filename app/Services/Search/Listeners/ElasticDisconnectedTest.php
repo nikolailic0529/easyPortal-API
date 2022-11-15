@@ -5,7 +5,7 @@ namespace App\Services\Search\Listeners;
 use App\Exceptions\ErrorReport;
 use App\Services\Search\Exceptions\ElasticUnavailable;
 use Closure;
-use Elasticsearch\Client;
+use Elastic\Elasticsearch\Client;
 use Exception;
 use Illuminate\Contracts\Events\Dispatcher;
 use Illuminate\Contracts\Foundation\Application;

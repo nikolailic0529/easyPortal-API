@@ -5,12 +5,12 @@ namespace App\Services\Search\Listeners;
 use App\Events\Subscriber;
 use App\Exceptions\ErrorReport;
 use App\Services\Search\Exceptions\ElasticUnavailable;
-use Elasticsearch\Client;
+use Elastic\Elasticsearch\Client;
 use Illuminate\Contracts\Events\Dispatcher;
 use Illuminate\Contracts\Foundation\Application;
 
 /**
- * Resets the {@see \Elasticsearch\Client} singleton when connection is
+ * Resets the {@see \Elastic\Elasticsearch\Client} singleton when connection is
  * closed/failed/etc. It is required for queue to avoid failing all other
  * queued jobs which will use broken client otherwise (seems there is no
  * other way to reconnect).
