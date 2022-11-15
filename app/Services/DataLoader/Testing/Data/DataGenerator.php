@@ -9,7 +9,6 @@ use Illuminate\Support\Facades\Date;
 use LastDragon_ru\LaraASP\Testing\Utils\WithTestData;
 use Symfony\Component\Filesystem\Filesystem;
 
-use function assert;
 use function dirname;
 use function json_encode;
 use function ksort;
