@@ -91,7 +91,12 @@ trait ProcessorJob {
     }
 
     protected function getService(Container $container): ?Service {
-        return $container->make(Service::getService($this));
+        $service = Service::getService($this);
+        $service = $service
+            ? $container->make($service)
+            : null;
+
+        return $service;
     }
 
     /**

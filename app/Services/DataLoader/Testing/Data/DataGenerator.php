@@ -57,8 +57,6 @@ class DataGenerator {
         $db   = $this->app->make('db');
         $data = $this->app->make($class);
 
-        assert($data instanceof Data);
-
         try {
             $db->beginTransaction();
 
@@ -109,8 +107,6 @@ class DataGenerator {
         $contextData = $contextRoot->json($contextName);
         $context     = new Context($contextData);
         $data        = $this->app->make($class);
-
-        assert($data instanceof Data);
 
         return $data->restore($contextRoot, $context);
     }

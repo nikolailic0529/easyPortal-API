@@ -1621,17 +1621,7 @@ parameters:
 			path: app/GraphQL/Queries/Application/Logs.php
 
 		-
-			message: "#^If condition is always false\\.$#"
-			count: 1
-			path: app/GraphQL/Queries/Application/Services.php
-
-		-
-			message: "#^Instanceof between \\*NEVER\\* and App\\\\Services\\\\Queue\\\\Contracts\\\\Progressable will always evaluate to false\\.$#"
-			count: 1
-			path: app/GraphQL/Queries/Application/Services.php
-
-		-
-			message: "#^Instanceof between \\*NEVER\\* and App\\\\Services\\\\Queue\\\\Contracts\\\\Stoppable will always evaluate to false\\.$#"
+			message: "#^Instanceof between App\\\\Services\\\\Queue\\\\CronJob and App\\\\Services\\\\Queue\\\\Contracts\\\\Stoppable will always evaluate to true\\.$#"
 			count: 1
 			path: app/GraphQL/Queries/Application/Services.php
 
@@ -3486,11 +3476,6 @@ parameters:
 			path: app/Services/DataLoader/Queue/Jobs/Importer.php
 
 		-
-			message: "#^Parameter \\#1 \\$abstract of method Illuminate\\\\Contracts\\\\Container\\\\Container\\:\\:make\\(\\) expects string, class\\-string\\<App\\\\Services\\\\Service\\>\\|null given\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Queue/Jobs/Importer.php
-
-		-
 			message: "#^Call to an undefined method App\\\\Utils\\\\Processor\\\\Contracts\\\\Processor\\:\\:setFrom\\(\\)\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Queue/Jobs/Synchronizer.php
@@ -3507,11 +3492,6 @@ parameters:
 
 		-
 			message: "#^Method App\\\\Services\\\\DataLoader\\\\Queue\\\\Jobs\\\\Synchronizer\\:\\:getResetProgressCallback\\(\\) should return callable\\(\\.\\.\\.mixed\\)\\: bool but returns Closure\\(Illuminate\\\\Contracts\\\\Container\\\\Container, LastDragon_ru\\\\LaraASP\\\\Queue\\\\QueueableConfigurator\\)\\: true\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Queue/Jobs/Synchronizer.php
-
-		-
-			message: "#^Parameter \\#1 \\$abstract of method Illuminate\\\\Contracts\\\\Container\\\\Container\\:\\:make\\(\\) expects string, class\\-string\\<App\\\\Services\\\\Service\\>\\|null given\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Queue/Jobs/Synchronizer.php
 
@@ -3926,16 +3906,6 @@ parameters:
 			path: app/Services/DataLoader/Testing/Data/Data.php
 
 		-
-			message: "#^Call to function assert\\(\\) with false will always evaluate to false\\.$#"
-			count: 2
-			path: app/Services/DataLoader/Testing/Data/DataGenerator.php
-
-		-
-			message: "#^Instanceof between \\*NEVER\\* and App\\\\Services\\\\DataLoader\\\\Testing\\\\Data\\\\Data will always evaluate to false\\.$#"
-			count: 2
-			path: app/Services/DataLoader/Testing/Data/DataGenerator.php
-
-		-
 			message: "#^Parameter \\#1 \\$context of class App\\\\Services\\\\DataLoader\\\\Testing\\\\Data\\\\Context constructor expects array\\<string, array\\<string\\>\\>, array\\|bool\\|float\\|int\\|string\\|null given\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Testing/Data/DataGenerator.php
@@ -4312,11 +4282,6 @@ parameters:
 
 		-
 			message: "#^Method App\\\\Services\\\\Keycloak\\\\Jobs\\\\Cron\\\\UsersSynchronizer\\:\\:getResetProgressCallback\\(\\) should return callable\\(\\.\\.\\.mixed\\)\\: bool but returns Closure\\(Illuminate\\\\Contracts\\\\Container\\\\Container, LastDragon_ru\\\\LaraASP\\\\Queue\\\\QueueableConfigurator\\)\\: true\\.$#"
-			count: 1
-			path: app/Services/Keycloak/Jobs/Cron/UsersSynchronizer.php
-
-		-
-			message: "#^Parameter \\#1 \\$abstract of method Illuminate\\\\Contracts\\\\Container\\\\Container\\:\\:make\\(\\) expects string, class\\-string\\<App\\\\Services\\\\Service\\>\\|null given\\.$#"
 			count: 1
 			path: app/Services/Keycloak/Jobs/Cron/UsersSynchronizer.php
 
@@ -4741,11 +4706,6 @@ parameters:
 			path: app/Services/Queue/Concerns/ProcessorJobTest.php
 
 		-
-			message: "#^Parameter \\#1 \\$abstract of method Illuminate\\\\Contracts\\\\Container\\\\Container\\:\\:make\\(\\) expects string, class\\-string\\<App\\\\Services\\\\Service\\>\\|null given\\.$#"
-			count: 1
-			path: app/Services/Queue/Concerns/ProcessorJobTest.php
-
-		-
 			message: "#^Parameter \\#1 \\$chunk of method App\\\\Utils\\\\Iterators\\\\Contracts\\\\Chunkable\\:\\:setChunkSize\\(\\) expects int\\|null, mixed given\\.$#"
 			count: 3
 			path: app/Services/Queue/Concerns/ProcessorJobTest.php
@@ -4859,16 +4819,6 @@ parameters:
 			message: "#^Parameter \\#1 \\$jobs of method class@anonymous/app/Services/Queue/QueueTest\\.php\\:400\\:\\:getStatesFromLogs\\(\\) expects Illuminate\\\\Support\\\\Collection\\<int, LastDragon_ru\\\\LaraASP\\\\Queue\\\\Queueables\\\\Job\\>, Illuminate\\\\Support\\\\Collection\\<\\(int\\|string\\), App\\\\Services\\\\Queue\\\\Contracts\\\\Stoppable&LastDragon_ru\\\\LaraASP\\\\Queue\\\\Queueables\\\\Job&Mockery\\\\MockInterface\\> given\\.$#"
 			count: 1
 			path: app/Services/Queue/QueueTest.php
-
-		-
-			message: "#^Call to function is_null\\(\\) with null will always evaluate to true\\.$#"
-			count: 1
-			path: app/Services/Queue/ServiceResolver.php
-
-		-
-			message: "#^Unreachable statement \\- code above always terminates\\.$#"
-			count: 1
-			path: app/Services/Queue/ServiceResolver.php
 
 		-
 			message: "#^Parameter \\#2 \\$key of method App\\\\Services\\\\Queue\\\\Utils\\\\Dispatcher\\<TModel of Illuminate\\\\Database\\\\Eloquent\\\\Model\\>\\:\\:dispatchModel\\(\\) expects int\\|string, mixed given\\.$#"
@@ -4996,11 +4946,6 @@ parameters:
 			path: app/Services/Recalculator/Queue/Jobs/Recalculator.php
 
 		-
-			message: "#^Parameter \\#1 \\$abstract of method Illuminate\\\\Contracts\\\\Container\\\\Container\\:\\:make\\(\\) expects string, class\\-string\\<App\\\\Services\\\\Service\\>\\|null given\\.$#"
-			count: 1
-			path: app/Services/Recalculator/Queue/Jobs/Recalculator.php
-
-		-
 			message: "#^Parameter \\#1 \\$chunk of method App\\\\Utils\\\\Processor\\\\Processor\\<TModel of Illuminate\\\\Database\\\\Eloquent\\\\Model,null,App\\\\Utils\\\\Processor\\\\EloquentState\\<TModel of Illuminate\\\\Database\\\\Eloquent\\\\Model\\>\\>\\:\\:setChunkSize\\(\\) expects int\\|null, mixed given\\.$#"
 			count: 1
 			path: app/Services/Recalculator/Queue/Jobs/Recalculator.php
@@ -5021,12 +4966,12 @@ parameters:
 			path: app/Services/Recalculator/Queue/Tasks/Recalculate.php
 
 		-
-			message: "#^Parameter \\#1 \\$abstract of method Illuminate\\\\Contracts\\\\Container\\\\Container\\:\\:make\\(\\) expects string, class\\-string\\<App\\\\Services\\\\Service\\>\\|null given\\.$#"
+			message: "#^Parameter \\#1 \\$chunk of method App\\\\Utils\\\\Processor\\\\Processor\\<Illuminate\\\\Database\\\\Eloquent\\\\Model,App\\\\Services\\\\Recalculator\\\\Processor\\\\ChunkData\\<Illuminate\\\\Database\\\\Eloquent\\\\Model\\>,App\\\\Utils\\\\Processor\\\\EloquentState\\<Illuminate\\\\Database\\\\Eloquent\\\\Model\\>\\>\\:\\:setChunkSize\\(\\) expects int\\|null, mixed given\\.$#"
 			count: 1
 			path: app/Services/Recalculator/Queue/Tasks/Recalculate.php
 
 		-
-			message: "#^Parameter \\#1 \\$chunk of method App\\\\Utils\\\\Processor\\\\Processor\\<Illuminate\\\\Database\\\\Eloquent\\\\Model,App\\\\Services\\\\Recalculator\\\\Processor\\\\ChunkData\\<Illuminate\\\\Database\\\\Eloquent\\\\Model\\>,App\\\\Utils\\\\Processor\\\\EloquentState\\<Illuminate\\\\Database\\\\Eloquent\\\\Model\\>\\>\\:\\:setChunkSize\\(\\) expects int\\|null, mixed given\\.$#"
+			message: "#^Parameter \\#1 \\$keys of method App\\\\Utils\\\\Processor\\\\EloquentProcessor\\<Illuminate\\\\Database\\\\Eloquent\\\\Model,App\\\\Services\\\\Recalculator\\\\Processor\\\\ChunkData\\<Illuminate\\\\Database\\\\Eloquent\\\\Model\\>,App\\\\Utils\\\\Processor\\\\EloquentState\\<Illuminate\\\\Database\\\\Eloquent\\\\Model\\>\\>\\:\\:setKeys\\(\\) expects array\\<string\\>\\|null, array\\<int\\|string\\> given\\.$#"
 			count: 1
 			path: app/Services/Recalculator/Queue/Tasks/Recalculate.php
 
@@ -5636,11 +5581,6 @@ parameters:
 			path: app/Services/Search/Queue/Jobs/Indexer.php
 
 		-
-			message: "#^Parameter \\#1 \\$abstract of method Illuminate\\\\Contracts\\\\Container\\\\Container\\:\\:make\\(\\) expects string, class\\-string\\<App\\\\Services\\\\Service\\>\\|null given\\.$#"
-			count: 1
-			path: app/Services/Search/Queue/Jobs/Indexer.php
-
-		-
 			message: "#^Parameter \\#1 \\$chunk of method App\\\\Utils\\\\Processor\\\\Processor\\<Illuminate\\\\Database\\\\Eloquent\\\\Model,null,App\\\\Utils\\\\Processor\\\\EloquentState\\<Illuminate\\\\Database\\\\Eloquent\\\\Model\\>\\>\\:\\:setChunkSize\\(\\) expects int\\|null, mixed given\\.$#"
 			count: 1
 			path: app/Services/Search/Queue/Jobs/Indexer.php
@@ -5657,11 +5597,6 @@ parameters:
 
 		-
 			message: "#^Method App\\\\Services\\\\Search\\\\Queue\\\\Tasks\\\\Index\\:\\:makeProcessor\\(\\) return type with generic class App\\\\Services\\\\Search\\\\Processors\\\\ModelProcessor does not specify its types\\: TItem, TState$#"
-			count: 1
-			path: app/Services/Search/Queue/Tasks/Index.php
-
-		-
-			message: "#^Parameter \\#1 \\$abstract of method Illuminate\\\\Contracts\\\\Container\\\\Container\\:\\:make\\(\\) expects string, class\\-string\\<App\\\\Services\\\\Service\\>\\|null given\\.$#"
 			count: 1
 			path: app/Services/Search/Queue/Tasks/Index.php
 
