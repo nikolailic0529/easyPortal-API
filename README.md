@@ -7,7 +7,7 @@
 | PHP           | [~8.0.0](https://php.net/)                                                                                                                              |
 | MySQL         | [8.0+](https://www.mysql.com/)                                                                                                                          |
 | Redis         | and [phpredis](https://github.com/phpredis/phpredis) (recommended) or see https://laravel.com/docs/redis                                                |
-| Composer      | [^2.3](https://getcomposer.org/)                                                                                                                        |
+| Composer      | [^2.4.4](https://getcomposer.org/)                                                                                                                      |
 | Elasticsearch | [~7.10.0](https://www.elastic.co/) + [passwords for default users](https://www.elastic.co/guide/en/elasticsearch/reference/current/built-in-users.html) |
 | Other         | Run `composer check-platform-reqs` to get list of required PHP extensions.                                                                              |
 
@@ -34,13 +34,13 @@ Legend:
 
 ### Application
 
-* [Upgrade](./docs/Upgrade.md)
+* [Migration Guide](./docs/Migration-Guide.md)
 * [Settings](./docs/Application-Settings.md)
 * [Translation](./docs/Application-Translation.md)
 * [Cache](./docs/Application-Cache.md)
 * [GraphQL Cache](./docs/Application-GraphQL-Cache.md)
-* [Data Loader](docs/DataLoader/README.md)
-* [Keycloak Settings](docs/Keycloak/README.md)
+* [Data Loader](docs/DataLoader)
+* [Keycloak Settings](docs/Keycloak)
 
 ### API
 
@@ -51,5 +51,5 @@ Legend:
 * [Coding Standards](./docs/Coding-Standards.md)
 * [API Interaction](./docs/API-Interaction.md)
 * [Commits & Versioning](./docs/Commits-Versioning.md)
-* [Database Structure](./docs/database.mwb)
-* [Authorization Flow](./docs/AuthorizationFlow.drawio)
+* [Database Structure](./docs/database.mwb) ([MySQL Workbench](https://www.mysql.com/products/workbench/))
+* [Authorization Flow](./docs/AuthorizationFlow.drawio) (https://diagrams.net/)
