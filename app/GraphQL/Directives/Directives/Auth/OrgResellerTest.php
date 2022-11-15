@@ -43,7 +43,7 @@ class OrgResellerTest extends TestCase {
     }
 
     /**
-     * @covers ::resolveField
+     * @covers ::handleField
      *
      * @dataProvider dataProviderResolveField
      *
@@ -87,7 +87,7 @@ class OrgResellerTest extends TestCase {
     }
 
     /**
-     * @covers ::resolveField
+     * @covers ::handleField
      *
      * @dataProvider dataProviderResolveField
      *

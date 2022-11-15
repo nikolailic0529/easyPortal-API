@@ -30,15 +30,9 @@ class NoteFactory extends Factory {
     public function definition(): array {
         return [
             'id'                => $this->faker->uuid(),
-            'organization_id'   => static function (): Organization {
-                return Organization::query()->first() ?? Organization::factory()->create();
-            },
-            'user_id'           => static function (): User {
-                return User::query()->first() ?? User::factory()->create();
-            },
-            'document_id'       => static function (): Document {
-                return Document::factory()->create();
-            },
+            'organization_id'   => Organization::factory(),
+            'user_id'           => User::factory(),
+            'document_id'       => Document::factory(),
             'quote_request_id'  => null,
             'change_request_id' => null,
             'pinned'            => false,

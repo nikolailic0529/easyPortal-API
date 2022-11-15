@@ -28,6 +28,7 @@ class ResellerLoaderTest extends TestCase {
 
     /**
      * @covers ::process
+     * @covers ::getOperations
      */
     public function testProcess(): void {
         // Generate
@@ -97,7 +98,8 @@ class ResellerLoaderTest extends TestCase {
     }
 
     /**
-     * @covers ::handle
+     * @covers ::process
+     * @covers ::getOperations
      */
     public function testProcessWithAssets(): void {
         // Generate
@@ -167,7 +169,8 @@ class ResellerLoaderTest extends TestCase {
     }
 
     /**
-     * @covers ::handle
+     * @covers ::process
+     * @covers ::getOperations
      */
     public function testProcessWithDocuments(): void {
         // Generate

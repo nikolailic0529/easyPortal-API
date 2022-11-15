@@ -6,8 +6,8 @@ use App\Models\Data\Type;
 use App\Utils\Eloquent\Concerns\SyncBelongsToMany;
 use App\Utils\Eloquent\Model;
 use App\Utils\Eloquent\Pivot;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
-use Illuminate\Support\Collection;
 
 /**
  * @mixin Model
@@ -29,9 +29,9 @@ trait HasTypes {
     }
 
     /**
-     * @param Collection<int,Type>|array<Type> $types
+     * @param Collection<int,Type> $types
      */
-    public function setTypesAttribute(Collection|array $types): void {
+    public function setTypesAttribute(Collection $types): void {
         $this->syncBelongsToMany('types', $types);
     }
 

@@ -27,7 +27,7 @@ class LocationsChunkData extends ChunkData {
     }
 
     /**
-     * @return array<string,array<string>>
+     * @return array<string>
      */
     public function getLocationResellers(Location $location): array {
         if (!isset($this->resellers)) {
@@ -62,7 +62,7 @@ class LocationsChunkData extends ChunkData {
     }
 
     /**
-     * @return array<string,array<string>>
+     * @return array<string>
      */
     public function getLocationCustomers(Location $location): array {
         if (!isset($this->customers)) {

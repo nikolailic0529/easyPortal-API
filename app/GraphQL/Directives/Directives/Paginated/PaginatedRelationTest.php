@@ -25,7 +25,7 @@ class PaginatedRelationTest extends TestCase {
     // <editor-fold desc="Tests">
     // =========================================================================
     /**
-     * @covers ::manipulateArgDefinition
+     * @covers ::manipulateFieldDefinition
      *
      * @dataProvider dataProviderManipulateArgDefinition
      *
@@ -41,7 +41,7 @@ class PaginatedRelationTest extends TestCase {
     }
 
     /**
-     * @covers ::manipulateArgDefinition
+     * @covers ::manipulateFieldDefinition
      */
     public function testManipulateArgDefinitionNoModel(): void {
         self::expectExceptionObject(new LogicException(

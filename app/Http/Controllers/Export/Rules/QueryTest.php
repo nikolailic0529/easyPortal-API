@@ -17,7 +17,7 @@ class QueryTest extends TestCase {
     // <editor-fold desc="Tests">
     // =========================================================================
     /**
-     * @covers ::passes
+     * @covers ::__invoke
      *
      * @dataProvider dataProviderPasses
      *
@@ -45,7 +45,7 @@ class QueryTest extends TestCase {
     }
 
     /**
-     * @covers ::message
+     * @covers ::__invoke
      */
     public function testMessage(): void {
         $this->setTranslations(static function (TestCase $case, string $locale): array {

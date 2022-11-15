@@ -9,7 +9,6 @@ use Illuminate\Support\Facades\Date;
 use LastDragon_ru\LaraASP\Testing\Utils\WithTestData;
 use Symfony\Component\Filesystem\Filesystem;
 
-use function assert;
 use function dirname;
 use function json_encode;
 use function ksort;
@@ -56,8 +55,6 @@ class DataGenerator {
         // Generate
         $db   = $this->app->make('db');
         $data = $this->app->make($class);
-
-        assert($data instanceof Data);
 
         try {
             $db->beginTransaction();
@@ -109,8 +106,6 @@ class DataGenerator {
         $contextData = $contextRoot->json($contextName);
         $context     = new Context($contextData);
         $data        = $this->app->make($class);
-
-        assert($data instanceof Data);
 
         return $data->restore($contextRoot, $context);
     }

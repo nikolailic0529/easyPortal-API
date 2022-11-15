@@ -13,7 +13,7 @@ use PHPStan\Analyser\Scope;
 use PHPStan\Reflection\MethodReflection;
 use PHPStan\Type\DynamicMethodReturnTypeExtension;
 use PHPStan\Type\ErrorType;
-use PHPStan\Type\NeverType;
+use PHPStan\Type\Generic\GenericClassStringType;
 use PHPStan\Type\ObjectType;
 use PHPStan\Type\Type;
 use Throwable;
@@ -39,30 +39,41 @@ final class ContainerExtension implements DynamicMethodReturnTypeExtension {
         MethodReflection $methodReflection,
         MethodCall $methodCall,
         Scope $scope,
-    ): Type {
-        $arg  = $methodCall->args[0] ?? null;
-        $expr = $arg instanceof Arg ? $arg->value : null;
-
-        if ($expr instanceof String_) {
-            try {
-                $resolved = $this->resolve($expr->value);
-
-                if ($resolved === null) {
-                    return new ErrorType();
-                }
-
-                return is_object($resolved)
-                    ? new ObjectType($resolved::class)
-                    : new ErrorType();
-            } catch (Throwable) {
-                return new ErrorType();
-            }
-        }
+    ): ?Type {
+        $type     = null;
+        $arg      = $methodCall->args[0] ?? null;
+        $expr     = $arg instanceof Arg ? $arg->value : null;
+        $exprType = $expr ? $scope->getType($expr) : null;
 
         if ($expr instanceof ClassConstFetch && $expr->class instanceof FullyQualified) {
-            return new ObjectType($expr->class->toString());
+            $type = new ObjectType($expr->class->toString());
+        } elseif ($exprType instanceof GenericClassStringType) {
+            $generic = $exprType->getGenericType();
+
+            if ($generic instanceof ObjectType) {
+                $type = $generic;
+            }
+        } elseif ($expr instanceof String_) {
+            $type = $this->getInstanceType($expr->value);
+        } else {
+            // unknown
         }
 
-        return new NeverType();
+        return $type;
+    }
+
+    protected function getInstanceType(string $abstract): Type {
+        $type = new ErrorType();
+
+        try {
+            $resolved = $this->resolve($abstract);
+            $type     = is_object($resolved)
+                ? new ObjectType($resolved::class)
+                : new ErrorType();
+        } catch (Throwable) {
+            // empty
+        }
+
+        return $type;
     }
 }

@@ -38,7 +38,7 @@ class GuestTest extends TestCase {
     }
 
     /**
-     * @covers ::resolveField
+     * @covers ::handleField
      *
      * @dataProvider dataProviderResolveField
      *
@@ -70,7 +70,7 @@ class GuestTest extends TestCase {
     }
 
     /**
-     * @covers ::resolveField
+     * @covers ::handleField
      *
      * @dataProvider dataProviderResolveField
      *

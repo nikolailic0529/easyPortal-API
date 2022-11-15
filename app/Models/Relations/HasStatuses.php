@@ -6,8 +6,8 @@ use App\Models\Data\Status;
 use App\Utils\Eloquent\Concerns\SyncBelongsToMany;
 use App\Utils\Eloquent\Model;
 use App\Utils\Eloquent\Pivot;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
-use Illuminate\Support\Collection;
 
 use function count;
 
@@ -33,9 +33,9 @@ trait HasStatuses {
     }
 
     /**
-     * @param Collection<int, Status>|array<Status> $statuses
+     * @param Collection<int, Status> $statuses
      */
-    public function setStatusesAttribute(Collection|array $statuses): void {
+    public function setStatusesAttribute(Collection $statuses): void {
         $this->syncBelongsToMany('statuses', $statuses);
         $this->statuses_count = count($this->statuses);
     }

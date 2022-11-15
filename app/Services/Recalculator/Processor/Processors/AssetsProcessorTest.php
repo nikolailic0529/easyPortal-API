@@ -12,6 +12,7 @@ use App\Models\Document;
 use App\Services\Recalculator\Events\ModelsRecalculated;
 use App\Services\Recalculator\Testing\Helper;
 use Illuminate\Contracts\Debug\ExceptionHandler;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\Date;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Str;
@@ -27,10 +28,9 @@ class AssetsProcessorTest extends TestCase {
     use Helper;
 
     /**
-     * @covers ::run
      * @covers ::process
      */
-    public function testRun(): void {
+    public function testProcess(): void {
         // Setup
         $this->overrideDateFactory('2021-08-30T00:00:00.000+00:00');
         $this->overrideUuidFactory('8a0d99f2-543f-4608-a128-808acc5c42cc');
@@ -97,7 +97,7 @@ class AssetsProcessorTest extends TestCase {
             'asset_id'        => $assetA,
             'document_id'     => Document::factory()
                 ->afterCreating(static function (Document $document) use ($status): void {
-                    $document->statuses = [$status];
+                    $document->statuses = Collection::make([$status]);
                     $document->save();
                 })
                 ->create([

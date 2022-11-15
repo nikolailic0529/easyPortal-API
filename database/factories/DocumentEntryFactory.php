@@ -34,23 +34,15 @@ class DocumentEntryFactory extends Factory {
         return [
             'id'                          => $this->faker->uuid(),
             'uid'                         => null,
-            'document_id'                 => static function (): Document {
-                return Document::factory()->create();
-            },
-            'asset_id'                    => static function (): Asset {
-                return Asset::factory()->create();
-            },
+            'document_id'                 => Document::factory(),
+            'asset_id'                    => Asset::factory(),
             'asset_type_id'               => null,
-            'product_id'                  => static function (): Product {
-                return Product::factory()->create();
-            },
+            'product_id'                  => Product::factory(),
             'product_line_id'             => null,
             'product_group_id'            => null,
             'service_group_id'            => null,
             'service_level_id'            => null,
-            'currency_id'                 => static function (): Currency {
-                return Currency::query()->first() ?? Currency::factory()->create();
-            },
+            'currency_id'                 => Currency::factory(),
             'start'                       => $this->faker->dateTime(),
             'end'                         => $this->faker->dateTime(),
             'list_price_origin'           => number_format($this->faker->randomFloat(2), 2, '.', ''),

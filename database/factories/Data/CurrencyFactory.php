@@ -27,7 +27,7 @@ class CurrencyFactory extends Factory {
     public function definition(): array {
         return [
             'id'         => $this->faker->uuid(),
-            'code'       => $this->faker->currencyCode(),
+            'code'       => $this->faker->unique()->currencyCode(),
             'name'       => $this->faker->currencyCode(),
             'created_at' => Date::now(),
             'updated_at' => Date::now(),

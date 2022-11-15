@@ -36,7 +36,7 @@ class Geohash extends ScalarType {
     public function parseValue(mixed $value): GeotoolsGeohash {
         try {
             if ($value instanceof GeotoolsGeohash) {
-                if ($value->getGeohash() === null) {
+                if ($value->getGeohash() === '') {
                     $value = (new GeotoolsGeohash())->encode($value->getCoordinate());
                 }
             } elseif (is_string($value)) {

@@ -30,20 +30,14 @@ class AssetWarrantyFactory extends Factory {
     public function definition(): array {
         return [
             'id'               => $this->faker->uuid(),
-            'asset_id'         => static function (): Asset {
-                return Asset::factory()->create();
-            },
+            'asset_id'         => Asset::factory(),
             'type_id'          => null,
             'status_id'        => null,
             'document_id'      => null,
             'service_group_id' => null,
             'service_level_id' => null,
-            'reseller_id'      => static function (): Reseller {
-                return Reseller::factory()->create();
-            },
-            'customer_id'      => static function (): Customer {
-                return Customer::factory()->create();
-            },
+            'reseller_id'      => Reseller::factory(),
+            'customer_id'      => Customer::factory(),
             'start'            => $this->faker->randomElement([null, $this->faker->dateTime()]),
             'end'              => $this->faker->randomElement([null, $this->faker->dateTime()]),
             'description'      => null,

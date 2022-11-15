@@ -29,12 +29,8 @@ class RolePermissionFactory extends Factory {
     public function definition(): array {
         return [
             'id'            => $this->faker->uuid(),
-            'role_id'       => static function (): Role {
-                return Role::factory()->create();
-            },
-            'permission_id' => static function (): Permission {
-                return Permission::factory()->create();
-            },
+            'role_id'       => Role::factory(),
+            'permission_id' => Permission::factory(),
             'created_at'    => Date::now(),
             'updated_at'    => Date::now(),
             'deleted_at'    => null,

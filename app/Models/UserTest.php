@@ -6,6 +6,7 @@ use App\Models\Enums\UserType;
 use App\Services\Organization\Eloquent\OwnedByScope;
 use App\Utils\Eloquent\Callbacks\GetKey;
 use App\Utils\Eloquent\GlobalScopes\GlobalScopes;
+use Illuminate\Database\Eloquent\Collection;
 use Tests\Providers\ModelsProvider;
 use Tests\TestCase;
 
@@ -182,7 +183,7 @@ class UserTest extends TestCase {
         $user = User::factory()->create();
         $role = Role::factory()->create([
             'organization_id' => $org,
-            'permissions'     => [$a, $b],
+            'permissions'     => Collection::make([$a, $b]),
         ]);
 
         OrganizationUser::factory()->create([
@@ -216,7 +217,7 @@ class UserTest extends TestCase {
         $user = User::factory()->create();
         $role = Role::factory()->create([
             'organization_id' => $org,
-            'permissions'     => [$a, $b],
+            'permissions'     => Collection::make([$a, $b]),
         ]);
 
         OrganizationUser::factory()->create([

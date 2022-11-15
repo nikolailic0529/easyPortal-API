@@ -126,7 +126,7 @@ parameters:
 			path: app/Exceptions/Handlers/SentryHandler.php
 
 		-
-			message: "#^Parameter \\#1 \\$backtrace of method Sentry\\\\StacktraceBuilder\\:\\:buildFromBacktrace\\(\\) expects array\\<int, array\\{function\\?\\: string, line\\?\\: int, file\\?\\: string, class\\?\\: class\\-string, type\\?\\: string, args\\?\\: array\\}\\>, mixed given\\.$#"
+			message: "#^Parameter \\#1 \\$backtrace of method Sentry\\\\StacktraceBuilder\\:\\:buildFromBacktrace\\(\\) expects list\\<array\\{function\\?\\: string, line\\?\\: int, file\\?\\: string, class\\?\\: class\\-string, type\\?\\: string, args\\?\\: array\\}\\>, mixed given\\.$#"
 			count: 1
 			path: app/Exceptions/Handlers/SentryHandler.php
 
@@ -1621,17 +1621,7 @@ parameters:
 			path: app/GraphQL/Queries/Application/Logs.php
 
 		-
-			message: "#^If condition is always false\\.$#"
-			count: 1
-			path: app/GraphQL/Queries/Application/Services.php
-
-		-
-			message: "#^Instanceof between \\*NEVER\\* and App\\\\Services\\\\Queue\\\\Contracts\\\\Progressable will always evaluate to false\\.$#"
-			count: 1
-			path: app/GraphQL/Queries/Application/Services.php
-
-		-
-			message: "#^Instanceof between \\*NEVER\\* and App\\\\Services\\\\Queue\\\\Contracts\\\\Stoppable will always evaluate to false\\.$#"
+			message: "#^Instanceof between App\\\\Services\\\\Queue\\\\CronJob and App\\\\Services\\\\Queue\\\\Contracts\\\\Stoppable will always evaluate to true\\.$#"
 			count: 1
 			path: app/GraphQL/Queries/Application/Services.php
 
@@ -2031,11 +2021,6 @@ parameters:
 			path: app/GraphQL/Scalars/DateTimeTest.php
 
 		-
-			message: "#^Strict comparison using \\=\\=\\= between string and null will always evaluate to false\\.$#"
-			count: 1
-			path: app/GraphQL/Scalars/Geohash.php
-
-		-
 			message: "#^Parameter \\#1 \\$valueNode of method App\\\\GraphQL\\\\Scalars\\\\Geohash\\:\\:parseLiteral\\(\\) expects GraphQL\\\\Language\\\\AST\\\\BooleanValueNode\\|GraphQL\\\\Language\\\\AST\\\\FloatValueNode\\|GraphQL\\\\Language\\\\AST\\\\IntValueNode\\|GraphQL\\\\Language\\\\AST\\\\NullValueNode\\|GraphQL\\\\Language\\\\AST\\\\StringValueNode, GraphQL\\\\Language\\\\AST\\\\Node given\\.$#"
 			count: 1
 			path: app/GraphQL/Scalars/GeohashTest.php
@@ -2101,7 +2086,17 @@ parameters:
 			path: app/Http/Controllers/Export/ExportController.php
 
 		-
-			message: "#^Method App\\\\Http\\\\Controllers\\\\Export\\\\ExportRequest\\:\\:validated\\(\\) should return array\\{root\\: string, columns\\: non\\-empty\\-array\\<int, array\\{name\\: string, value\\: string, group\\?\\: string\\|null\\}\\>, query\\: string, operationName\\?\\: string, variables\\?\\: array\\{limit\\?\\: int\\|null, offset\\?\\: int\\|null\\}\\|null\\} but returns mixed\\.$#"
+			message: "#^Parameter \\#1 \\$columns of class App\\\\Http\\\\Controllers\\\\Export\\\\Rows\\\\HeaderRow constructor expects list\\<bool\\|float\\|int\\|string\\|null\\>, non\\-empty\\-array\\<int\\<0, max\\>, string\\> given\\.$#"
+			count: 1
+			path: app/Http/Controllers/Export/ExportController.php
+
+		-
+			message: "#^Parameter \\#1 \\$columns of class App\\\\Http\\\\Controllers\\\\Export\\\\Rows\\\\ValueRow constructor expects list\\<bool\\|float\\|int\\|string\\|null\\>, array\\<int\\<0, max\\>, bool\\|float\\|int\\|string\\|null\\> given\\.$#"
+			count: 1
+			path: app/Http/Controllers/Export/ExportController.php
+
+		-
+			message: "#^Method App\\\\Http\\\\Controllers\\\\Export\\\\ExportRequest\\:\\:validated\\(\\) should return array\\{root\\: string, columns\\: non\\-empty\\-list\\<array\\{name\\: string, value\\: string, group\\?\\: string\\|null\\}\\>, query\\: string, operationName\\?\\: string, variables\\?\\: array\\{limit\\?\\: int\\|null, offset\\?\\: int\\|null\\}\\|null\\} but returns mixed\\.$#"
 			count: 1
 			path: app/Http/Controllers/Export/ExportRequest.php
 
@@ -2119,6 +2114,11 @@ parameters:
 			message: "#^Property GraphQL\\\\Language\\\\AST\\\\OperationDefinitionNode\\:\\:\\$variableDefinitions \\(GraphQL\\\\Language\\\\AST\\\\NodeList\\<GraphQL\\\\Language\\\\AST\\\\VariableDefinitionNode\\>\\) on left side of \\?\\? is not nullable\\.$#"
 			count: 1
 			path: app/Http/Controllers/Export/Rules/Query.php
+
+		-
+			message: "#^Property App\\\\Http\\\\Controllers\\\\Export\\\\Utils\\\\Measurer\\:\\:\\$columns \\(list\\<int\\<1, max\\>\\>\\) does not accept non\\-empty\\-array\\<int\\<0, max\\>, int\\<1, max\\>\\>\\.$#"
+			count: 1
+			path: app/Http/Controllers/Export/Utils/Measurer.php
 
 		-
 			message: "#^Static property App\\\\Http\\\\Controllers\\\\Export\\\\Utils\\\\QueryOperationCache\\:\\:\\$cache \\(WeakMap\\<Illuminate\\\\Contracts\\\\Validation\\\\Validator, App\\\\Http\\\\Controllers\\\\Export\\\\Utils\\\\QueryOperation\\>\\) does not accept WeakMap\\<object, mixed\\>\\.$#"
@@ -2276,11 +2276,6 @@ parameters:
 			path: app/Models/Asset.php
 
 		-
-			message: "#^Parameter \\#2 \\$objects of method App\\\\Models\\\\Asset\\:\\:syncMorphMany\\(\\) expects array\\<App\\\\Utils\\\\Eloquent\\\\PolymorphicModel\\>\\|Illuminate\\\\Support\\\\Collection\\<int, App\\\\Utils\\\\Eloquent\\\\PolymorphicModel\\>, array\\<App\\\\Models\\\\Contact\\>\\|Illuminate\\\\Support\\\\Collection\\<int, App\\\\Models\\\\Contact\\> given\\.$#"
-			count: 1
-			path: app/Models/Asset.php
-
-		-
 			message: "#^Anonymous function should return string but returns mixed\\.$#"
 			count: 1
 			path: app/Models/AssetWarranty.php
@@ -2311,17 +2306,7 @@ parameters:
 			path: app/Models/ChangeRequest.php
 
 		-
-			message: "#^PHPDoc type array\\<string\\> of property App\\\\Models\\\\ChangeRequest\\:\\:\\$visible is not the same as PHPDoc type array\\<int, string\\> of overridden property Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:\\$visible\\.$#"
-			count: 1
-			path: app/Models/ChangeRequest.php
-
-		-
 			message: "#^Parameter \\#1 \\$model of method App\\\\Models\\\\ChangeRequest\\:\\:syncMorphManyDelete\\(\\) expects App\\\\Utils\\\\Eloquent\\\\PolymorphicModel, Illuminate\\\\Database\\\\Eloquent\\\\Model given\\.$#"
-			count: 1
-			path: app/Models/ChangeRequest.php
-
-		-
-			message: "#^Parameter \\#2 \\$objects of method App\\\\Models\\\\ChangeRequest\\:\\:syncMorphMany\\(\\) expects array\\<App\\\\Utils\\\\Eloquent\\\\PolymorphicModel\\>\\|Illuminate\\\\Support\\\\Collection\\<int, App\\\\Utils\\\\Eloquent\\\\PolymorphicModel\\>, array\\<App\\\\Models\\\\File\\>\\|Illuminate\\\\Support\\\\Collection\\<int, App\\\\Models\\\\File\\> given\\.$#"
 			count: 1
 			path: app/Models/ChangeRequest.php
 
@@ -2341,13 +2326,13 @@ parameters:
 			path: app/Models/Customer.php
 
 		-
-			message: "#^Call to an undefined method Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\HasOne\\:\\:whereHasIn\\(\\)\\.$#"
-			count: 1
+			message: "#^Instanceof between Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\HasMany\\<\\$this\\(App\\\\Models\\\\Customer\\)\\> and Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\HasMany will always evaluate to true\\.$#"
+			count: 2
 			path: app/Models/Customer.php
 
 		-
-			message: "#^Instanceof between Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\HasMany\\<\\$this\\(App\\\\Models\\\\Customer\\)\\> and Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\HasMany will always evaluate to true\\.$#"
-			count: 2
+			message: "#^Method App\\\\Models\\\\Customer\\:\\:headquarter\\(\\) should return Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\HasOne\\<App\\\\Models\\\\CustomerLocation\\> but returns Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\HasOne\\<Illuminate\\\\Database\\\\Eloquent\\\\Model\\>\\.$#"
+			count: 1
 			path: app/Models/Customer.php
 
 		-
@@ -2371,11 +2356,6 @@ parameters:
 			path: app/Models/Customer.php
 
 		-
-			message: "#^Parameter \\#2 \\$objects of method App\\\\Models\\\\Customer\\:\\:syncMorphMany\\(\\) expects array\\<App\\\\Utils\\\\Eloquent\\\\PolymorphicModel\\>\\|Illuminate\\\\Support\\\\Collection\\<int, App\\\\Utils\\\\Eloquent\\\\PolymorphicModel\\>, array\\<App\\\\Models\\\\Contact\\>\\|Illuminate\\\\Support\\\\Collection\\<int, App\\\\Models\\\\Contact\\> given\\.$#"
-			count: 1
-			path: app/Models/Customer.php
-
-		-
 			message: "#^Unsafe usage of new static\\(\\)\\.$#"
 			count: 1
 			path: app/Models/Customer.php
@@ -2387,11 +2367,6 @@ parameters:
 
 		-
 			message: "#^Call to an undefined method App\\\\Utils\\\\Eloquent\\\\Model\\:\\:factory\\(\\)\\.$#"
-			count: 1
-			path: app/Models/CustomerTest.php
-
-		-
-			message: "#^Cannot call method all\\(\\) on array\\<int, App\\\\Models\\\\Contact\\>\\.$#"
 			count: 1
 			path: app/Models/CustomerTest.php
 
@@ -2606,11 +2581,6 @@ parameters:
 			path: app/Models/Document.php
 
 		-
-			message: "#^Parameter \\#2 \\$objects of method App\\\\Models\\\\Document\\:\\:syncMorphMany\\(\\) expects array\\<App\\\\Utils\\\\Eloquent\\\\PolymorphicModel\\>\\|Illuminate\\\\Support\\\\Collection\\<int, App\\\\Utils\\\\Eloquent\\\\PolymorphicModel\\>, array\\<App\\\\Models\\\\Contact\\>\\|Illuminate\\\\Support\\\\Collection\\<int, App\\\\Models\\\\Contact\\> given\\.$#"
-			count: 1
-			path: app/Models/Document.php
-
-		-
 			message: "#^PHPDoc type array\\<string\\> of property App\\\\Models\\\\DocumentEntry\\:\\:\\$casts is not the same as PHPDoc type array of overridden property App\\\\Utils\\\\Eloquent\\\\Model\\:\\:\\$casts\\.$#"
 			count: 1
 			path: app/Models/DocumentEntry.php
@@ -2666,17 +2636,7 @@ parameters:
 			path: app/Models/Note.php
 
 		-
-			message: "#^Parameter \\#2 \\$objects of method App\\\\Models\\\\Note\\:\\:syncMorphMany\\(\\) expects array\\<App\\\\Utils\\\\Eloquent\\\\PolymorphicModel\\>\\|Illuminate\\\\Support\\\\Collection\\<int, App\\\\Utils\\\\Eloquent\\\\PolymorphicModel\\>, array\\<App\\\\Models\\\\File\\>\\|Illuminate\\\\Support\\\\Collection\\<int, App\\\\Models\\\\File\\> given\\.$#"
-			count: 1
-			path: app/Models/Note.php
-
-		-
 			message: "#^PHPDoc type array\\<string\\> of property App\\\\Models\\\\Organization\\:\\:\\$casts is not the same as PHPDoc type array of overridden property App\\\\Utils\\\\Eloquent\\\\Model\\:\\:\\$casts\\.$#"
-			count: 1
-			path: app/Models/Organization.php
-
-		-
-			message: "#^PHPDoc type array\\<string\\> of property App\\\\Models\\\\Organization\\:\\:\\$visible is not the same as PHPDoc type array\\<int, string\\> of overridden property Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:\\$visible\\.$#"
 			count: 1
 			path: app/Models/Organization.php
 
@@ -2721,11 +2681,6 @@ parameters:
 			path: app/Models/QuoteRequest.php
 
 		-
-			message: "#^Parameter \\#2 \\$objects of method App\\\\Models\\\\QuoteRequest\\:\\:syncMorphMany\\(\\) expects array\\<App\\\\Utils\\\\Eloquent\\\\PolymorphicModel\\>\\|Illuminate\\\\Support\\\\Collection\\<int, App\\\\Utils\\\\Eloquent\\\\PolymorphicModel\\>, array\\<App\\\\Models\\\\File\\>\\|Illuminate\\\\Support\\\\Collection\\<int, App\\\\Models\\\\File\\> given\\.$#"
-			count: 1
-			path: app/Models/QuoteRequest.php
-
-		-
 			message: "#^Method App\\\\Models\\\\QuoteRequestDuration\\:\\:getDefaultTranslations\\(\\) should return array\\<string, string\\> but returns array\\<int\\|string, mixed\\>\\.$#"
 			count: 1
 			path: app/Models/QuoteRequestDuration.php
@@ -2751,12 +2706,12 @@ parameters:
 			path: app/Models/Reseller.php
 
 		-
-			message: "#^Call to an undefined method Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\HasOne\\:\\:whereHasIn\\(\\)\\.$#"
+			message: "#^Instanceof between Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\HasMany\\<\\$this\\(App\\\\Models\\\\Reseller\\)\\> and Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\HasMany will always evaluate to true\\.$#"
 			count: 1
 			path: app/Models/Reseller.php
 
 		-
-			message: "#^Instanceof between Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\HasMany\\<\\$this\\(App\\\\Models\\\\Reseller\\)\\> and Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\HasMany will always evaluate to true\\.$#"
+			message: "#^Method App\\\\Models\\\\Reseller\\:\\:headquarter\\(\\) should return Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\HasOne\\<App\\\\Models\\\\ResellerLocation\\> but returns Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\HasOne\\<Illuminate\\\\Database\\\\Eloquent\\\\Model\\>\\.$#"
 			count: 1
 			path: app/Models/Reseller.php
 
@@ -2767,11 +2722,6 @@ parameters:
 
 		-
 			message: "#^Parameter \\#1 \\$model of method App\\\\Models\\\\Reseller\\:\\:syncMorphManyDelete\\(\\) expects App\\\\Utils\\\\Eloquent\\\\PolymorphicModel, Illuminate\\\\Database\\\\Eloquent\\\\Model given\\.$#"
-			count: 1
-			path: app/Models/Reseller.php
-
-		-
-			message: "#^Parameter \\#2 \\$objects of method App\\\\Models\\\\Reseller\\:\\:syncMorphMany\\(\\) expects array\\<App\\\\Utils\\\\Eloquent\\\\PolymorphicModel\\>\\|Illuminate\\\\Support\\\\Collection\\<int, App\\\\Utils\\\\Eloquent\\\\PolymorphicModel\\>, array\\<App\\\\Models\\\\Contact\\>\\|Illuminate\\\\Support\\\\Collection\\<int, App\\\\Models\\\\Contact\\> given\\.$#"
 			count: 1
 			path: app/Models/Reseller.php
 
@@ -2824,6 +2774,11 @@ parameters:
 			message: "#^Parameter \\#1 \\$text of class Illuminate\\\\Notifications\\\\Action constructor expects string, string\\|null given\\.$#"
 			count: 1
 			path: app/Notifications/OrganizationUserInvitation.php
+
+		-
+			message: "#^Parameter \\#1 \\$translator of class App\\\\Utils\\\\Validation\\\\Validator constructor expects Illuminate\\\\Contracts\\\\Translation\\\\Translator, mixed given\\.$#"
+			count: 1
+			path: app/Providers/AppServiceProvider.php
 
 		-
 			message: "#^Call to static method PHPUnit\\\\Framework\\\\Assert\\:\\:assertInstanceOf\\(\\) with 'Carbon\\\\\\\\CarbonImmutable' and Carbon\\\\CarbonImmutable will always evaluate to true\\.$#"
@@ -3276,11 +3231,6 @@ parameters:
 			path: app/Services/DataLoader/Factory/Factories/CustomerFactory.php
 
 		-
-			message: "#^Property App\\\\Models\\\\Customer\\:\\:\\$statuses \\(Illuminate\\\\Database\\\\Eloquent\\\\Collection\\<int, App\\\\Models\\\\Data\\\\Status\\>\\) does not accept array\\<App\\\\Models\\\\Data\\\\Status\\>\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Factories/CustomerFactory.php
-
-		-
 			message: "#^Cannot access property \\$kpi_id on \\(TPivot of App\\\\Utils\\\\Eloquent\\\\Pivot\\)\\|null\\.$#"
 			count: 2
 			path: app/Services/DataLoader/Factory/Factories/CustomerFactoryTest.php
@@ -3364,11 +3314,6 @@ parameters:
 			message: "#^Parameter \\#1 \\$state of method Database\\\\Factories\\\\Data\\\\LocationFactory\\:\\:hasCountry\\(\\) expects array\\<string, mixed\\>\\|\\(callable\\(array\\<string, mixed\\>, Illuminate\\\\Database\\\\Eloquent\\\\Model\\|null\\)\\: array\\<string, mixed\\>\\), Database\\\\Factories\\\\Data\\\\CountryFactory given\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Factory/Factories/LocationFactoryTest.php
-
-		-
-			message: "#^Property App\\\\Models\\\\Reseller\\:\\:\\$statuses \\(Illuminate\\\\Database\\\\Eloquent\\\\Collection\\<int, App\\\\Models\\\\Data\\\\Status\\>\\) does not accept array\\<App\\\\Models\\\\Data\\\\Status\\>\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Factories/ResellerFactory.php
 
 		-
 			message: "#^Parameter \\#1 \\$json of class App\\\\Services\\\\DataLoader\\\\Schema\\\\Company constructor expects array\\<string, mixed\\>, array\\|bool\\|float\\|int\\|string\\|null given\\.$#"
@@ -3511,7 +3456,7 @@ parameters:
 			path: app/Services/DataLoader/Processors/Loader/CompanyLoader.php
 
 		-
-			message: "#^Method App\\\\Services\\\\DataLoader\\\\Processors\\\\Loader\\\\Loaders\\\\CustomerLoader\\:\\:getOperations\\(\\) should return array\\<int, App\\\\Utils\\\\Processor\\\\CompositeOperation\\<App\\\\Services\\\\DataLoader\\\\Processors\\\\Loader\\\\CompanyLoaderState\\>\\> but returns non\\-empty\\-array\\<int, App\\\\Utils\\\\Processor\\\\CompositeOperation\\<App\\\\Services\\\\DataLoader\\\\Processors\\\\Loader\\\\CompanyLoaderState\\>\\|App\\\\Utils\\\\Processor\\\\CompositeOperation\\<App\\\\Services\\\\DataLoader\\\\Processors\\\\Loader\\\\Loaders\\\\CustomerLoaderState\\>\\>\\.$#"
+			message: "#^Method App\\\\Services\\\\DataLoader\\\\Processors\\\\Loader\\\\Loaders\\\\CustomerLoader\\:\\:getOperations\\(\\) should return array\\<int, App\\\\Utils\\\\Processor\\\\CompositeOperation\\<App\\\\Services\\\\DataLoader\\\\Processors\\\\Loader\\\\CompanyLoaderState\\>\\> but returns non\\-empty\\-list\\<App\\\\Utils\\\\Processor\\\\CompositeOperation\\<App\\\\Services\\\\DataLoader\\\\Processors\\\\Loader\\\\CompanyLoaderState\\>\\|App\\\\Utils\\\\Processor\\\\CompositeOperation\\<App\\\\Services\\\\DataLoader\\\\Processors\\\\Loader\\\\Loaders\\\\CustomerLoaderState\\>\\>\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Processors/Loader/Loaders/CustomerLoader.php
 
@@ -3527,11 +3472,6 @@ parameters:
 
 		-
 			message: "#^Method App\\\\Services\\\\DataLoader\\\\Queue\\\\Jobs\\\\Importer\\:\\:getResetProgressCallback\\(\\) should return callable\\(\\.\\.\\.mixed\\)\\: bool but returns Closure\\(Illuminate\\\\Contracts\\\\Container\\\\Container, LastDragon_ru\\\\LaraASP\\\\Queue\\\\QueueableConfigurator\\)\\: true\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Queue/Jobs/Importer.php
-
-		-
-			message: "#^Parameter \\#1 \\$abstract of method Illuminate\\\\Contracts\\\\Container\\\\Container\\:\\:make\\(\\) expects string, class\\-string\\<App\\\\Services\\\\Service\\>\\|null given\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Queue/Jobs/Importer.php
 
@@ -3552,11 +3492,6 @@ parameters:
 
 		-
 			message: "#^Method App\\\\Services\\\\DataLoader\\\\Queue\\\\Jobs\\\\Synchronizer\\:\\:getResetProgressCallback\\(\\) should return callable\\(\\.\\.\\.mixed\\)\\: bool but returns Closure\\(Illuminate\\\\Contracts\\\\Container\\\\Container, LastDragon_ru\\\\LaraASP\\\\Queue\\\\QueueableConfigurator\\)\\: true\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Queue/Jobs/Synchronizer.php
-
-		-
-			message: "#^Parameter \\#1 \\$abstract of method Illuminate\\\\Contracts\\\\Container\\\\Container\\:\\:make\\(\\) expects string, class\\-string\\<App\\\\Services\\\\Service\\>\\|null given\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Queue/Jobs/Synchronizer.php
 
@@ -3691,16 +3626,6 @@ parameters:
 			path: app/Services/DataLoader/Schema/CompanyKpisTest.php
 
 		-
-			message: "#^Call to static method PHPUnit\\\\Framework\\\\Assert\\:\\:assertInstanceOf\\(\\) with 'App\\\\\\\\Services\\\\\\\\DataLoader\\\\\\\\Schema\\\\\\\\CompanyKpis' and App\\\\Services\\\\DataLoader\\\\Schema\\\\CompanyKpis will always evaluate to true\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Schema/CompanyTest.php
-
-		-
-			message: "#^Offset 0 does not exist on array\\<App\\\\Services\\\\DataLoader\\\\Schema\\\\CompanyKpis\\>\\|null\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Schema/CompanyTest.php
-
-		-
 			message: "#^Parameter \\#1 \\$array of function array_keys expects array, array\\|bool\\|float\\|int\\|string\\|null given\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Schema/CompanyTest.php
@@ -3781,27 +3706,7 @@ parameters:
 			path: app/Services/DataLoader/Schema/CoverageStatusCheckTest.php
 
 		-
-			message: "#^Call to static method PHPUnit\\\\Framework\\\\Assert\\:\\:assertInstanceOf\\(\\) with 'App\\\\\\\\Services\\\\\\\\DataLoader\\\\\\\\Schema\\\\\\\\CompanyContactPerson' and App\\\\Services\\\\DataLoader\\\\Schema\\\\CompanyContactPerson will always evaluate to true\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Schema/DocumentTest.php
-
-		-
-			message: "#^Call to static method PHPUnit\\\\Framework\\\\Assert\\:\\:assertInstanceOf\\(\\) with 'App\\\\\\\\Services\\\\\\\\DataLoader\\\\\\\\Schema\\\\\\\\DocumentEntry' and App\\\\Services\\\\DataLoader\\\\Schema\\\\DocumentEntry will always evaluate to true\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Schema/DocumentTest.php
-
-		-
 			message: "#^Call to static method PHPUnit\\\\Framework\\\\Assert\\:\\:assertInstanceOf\\(\\) with 'App\\\\\\\\Services\\\\\\\\DataLoader\\\\\\\\Schema\\\\\\\\DocumentVendorSpecificField' and App\\\\Services\\\\DataLoader\\\\Schema\\\\DocumentVendorSpecificField will always evaluate to true\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Schema/DocumentTest.php
-
-		-
-			message: "#^Offset 0 does not exist on array\\<App\\\\Services\\\\DataLoader\\\\Schema\\\\CompanyContactPerson\\>\\|null\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Schema/DocumentTest.php
-
-		-
-			message: "#^Offset 0 does not exist on array\\<App\\\\Services\\\\DataLoader\\\\Schema\\\\DocumentEntry\\>\\|null\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Schema/DocumentTest.php
 
@@ -3999,16 +3904,6 @@ parameters:
 			message: "#^Parameter \\#1 \\$map of method App\\\\Services\\\\DataLoader\\\\Testing\\\\Data\\\\ClientDataCleaner\\:\\:setDefaultMap\\(\\) expects array\\<string, string\\>, array\\|bool\\|float\\|int\\|string\\|null given\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Testing/Data/Data.php
-
-		-
-			message: "#^Call to function assert\\(\\) with false will always evaluate to false\\.$#"
-			count: 2
-			path: app/Services/DataLoader/Testing/Data/DataGenerator.php
-
-		-
-			message: "#^Instanceof between \\*NEVER\\* and App\\\\Services\\\\DataLoader\\\\Testing\\\\Data\\\\Data will always evaluate to false\\.$#"
-			count: 2
-			path: app/Services/DataLoader/Testing/Data/DataGenerator.php
 
 		-
 			message: "#^Parameter \\#1 \\$context of class App\\\\Services\\\\DataLoader\\\\Testing\\\\Data\\\\Context constructor expects array\\<string, array\\<string\\>\\>, array\\|bool\\|float\\|int\\|string\\|null given\\.$#"
@@ -4341,11 +4236,6 @@ parameters:
 			path: app/Services/Keycloak/Client/Exceptions/RequestFailed.php
 
 		-
-			message: "#^Property App\\\\Models\\\\Role\\:\\:\\$permissions \\(Illuminate\\\\Database\\\\Eloquent\\\\Collection\\<int, App\\\\Models\\\\Permission\\>\\) does not accept Illuminate\\\\Support\\\\Collection\\<\\*NEVER\\*, \\*NEVER\\*\\>\\.$#"
-			count: 1
-			path: app/Services/Keycloak/Commands/PermissionsSync.php
-
-		-
 			message: "#^Method App\\\\Services\\\\Keycloak\\\\Importer\\\\UsersImporter\\:\\:getUserOrganizations\\(\\) should return Illuminate\\\\Database\\\\Eloquent\\\\Collection\\<int, App\\\\Models\\\\OrganizationUser\\> but returns Illuminate\\\\Database\\\\Eloquent\\\\Collection\\<\\(int\\|string\\), Illuminate\\\\Database\\\\Eloquent\\\\Model\\>\\.$#"
 			count: 1
 			path: app/Services/Keycloak/Importer/UsersImporter.php
@@ -4392,11 +4282,6 @@ parameters:
 
 		-
 			message: "#^Method App\\\\Services\\\\Keycloak\\\\Jobs\\\\Cron\\\\UsersSynchronizer\\:\\:getResetProgressCallback\\(\\) should return callable\\(\\.\\.\\.mixed\\)\\: bool but returns Closure\\(Illuminate\\\\Contracts\\\\Container\\\\Container, LastDragon_ru\\\\LaraASP\\\\Queue\\\\QueueableConfigurator\\)\\: true\\.$#"
-			count: 1
-			path: app/Services/Keycloak/Jobs/Cron/UsersSynchronizer.php
-
-		-
-			message: "#^Parameter \\#1 \\$abstract of method Illuminate\\\\Contracts\\\\Container\\\\Container\\:\\:make\\(\\) expects string, class\\-string\\<App\\\\Services\\\\Service\\>\\|null given\\.$#"
 			count: 1
 			path: app/Services/Keycloak/Jobs/Cron/UsersSynchronizer.php
 
@@ -4821,11 +4706,6 @@ parameters:
 			path: app/Services/Queue/Concerns/ProcessorJobTest.php
 
 		-
-			message: "#^Parameter \\#1 \\$abstract of method Illuminate\\\\Contracts\\\\Container\\\\Container\\:\\:make\\(\\) expects string, class\\-string\\<App\\\\Services\\\\Service\\>\\|null given\\.$#"
-			count: 1
-			path: app/Services/Queue/Concerns/ProcessorJobTest.php
-
-		-
 			message: "#^Parameter \\#1 \\$chunk of method App\\\\Utils\\\\Iterators\\\\Contracts\\\\Chunkable\\:\\:setChunkSize\\(\\) expects int\\|null, mixed given\\.$#"
 			count: 3
 			path: app/Services/Queue/Concerns/ProcessorJobTest.php
@@ -4941,16 +4821,6 @@ parameters:
 			path: app/Services/Queue/QueueTest.php
 
 		-
-			message: "#^Call to function is_null\\(\\) with null will always evaluate to true\\.$#"
-			count: 1
-			path: app/Services/Queue/ServiceResolver.php
-
-		-
-			message: "#^Unreachable statement \\- code above always terminates\\.$#"
-			count: 1
-			path: app/Services/Queue/ServiceResolver.php
-
-		-
 			message: "#^Parameter \\#2 \\$key of method App\\\\Services\\\\Queue\\\\Utils\\\\Dispatcher\\<TModel of Illuminate\\\\Database\\\\Eloquent\\\\Model\\>\\:\\:dispatchModel\\(\\) expects int\\|string, mixed given\\.$#"
 			count: 1
 			path: app/Services/Queue/Utils/Dispatcher.php
@@ -4991,11 +4861,6 @@ parameters:
 			path: app/Services/Recalculator/Processor/Processors/AssetsProcessor.php
 
 		-
-			message: "#^Property App\\\\Models\\\\Document\\:\\:\\$statuses \\(Illuminate\\\\Database\\\\Eloquent\\\\Collection\\<int, App\\\\Models\\\\Data\\\\Status\\>\\) does not accept array\\{App\\\\Models\\\\Data\\\\Status\\}\\.$#"
-			count: 1
-			path: app/Services/Recalculator/Processor/Processors/AssetsProcessorTest.php
-
-		-
 			message: "#^Parameter \\#1 \\$items of class App\\\\Services\\\\Recalculator\\\\Processor\\\\Processors\\\\CustomersChunkData constructor expects array\\<App\\\\Models\\\\Customer\\>\\|Illuminate\\\\Support\\\\Collection\\<\\(int\\|string\\), App\\\\Models\\\\Customer\\>, Illuminate\\\\Database\\\\Eloquent\\\\Collection\\<\\(int\\|string\\), Illuminate\\\\Database\\\\Eloquent\\\\Model\\> given\\.$#"
 			count: 1
 			path: app/Services/Recalculator/Processor/Processors/CustomersProcessor.php
@@ -5011,32 +4876,12 @@ parameters:
 			path: app/Services/Recalculator/Processor/Processors/DocumentsProcessor.php
 
 		-
-			message: "#^Method App\\\\Services\\\\Recalculator\\\\Processor\\\\Processors\\\\LocationsChunkData\\:\\:getLocationCustomers\\(\\) should return array\\<string, array\\<string\\>\\> but returns array\\<string\\>\\.$#"
-			count: 1
-			path: app/Services/Recalculator/Processor/Processors/LocationsChunkData.php
-
-		-
-			message: "#^Method App\\\\Services\\\\Recalculator\\\\Processor\\\\Processors\\\\LocationsChunkData\\:\\:getLocationResellers\\(\\) should return array\\<string, array\\<string\\>\\> but returns array\\<string\\>\\.$#"
-			count: 1
-			path: app/Services/Recalculator/Processor/Processors/LocationsChunkData.php
-
-		-
-			message: "#^Parameter \\#1 \\$items of class App\\\\Services\\\\Recalculator\\\\Processor\\\\Processors\\\\LocationsChunkData constructor expects array\\<App\\\\Models\\\\Data\\\\Location\\>\\|Illuminate\\\\Support\\\\Collection\\<\\(int\\|string\\), App\\\\Models\\\\Data\\\\Location\\>, Illuminate\\\\Database\\\\Eloquent\\\\Collection\\<\\(int\\|string\\), Illuminate\\\\Database\\\\Eloquent\\\\Model\\> given\\.$#"
+			message: "#^Property App\\\\Models\\\\Data\\\\Location\\:\\:\\$customersPivots \\(Illuminate\\\\Support\\\\Collection\\<string, TPivot of App\\\\Utils\\\\Eloquent\\\\Pivot\\>\\) does not accept Illuminate\\\\Support\\\\Collection\\<string, App\\\\Models\\\\LocationCustomer\\>\\.$#"
 			count: 1
 			path: app/Services/Recalculator/Processor/Processors/LocationsProcessor.php
 
 		-
-			message: "#^Possibly invalid array key type array\\<string\\>\\|string\\.$#"
-			count: 6
-			path: app/Services/Recalculator/Processor/Processors/LocationsProcessor.php
-
-		-
-			message: "#^Property App\\\\Models\\\\Data\\\\Location\\:\\:\\$customersPivots \\(Illuminate\\\\Support\\\\Collection\\<string, TPivot of App\\\\Utils\\\\Eloquent\\\\Pivot\\>\\) does not accept array\\<int\\|string, App\\\\Models\\\\LocationCustomer\\>\\.$#"
-			count: 1
-			path: app/Services/Recalculator/Processor/Processors/LocationsProcessor.php
-
-		-
-			message: "#^Property App\\\\Models\\\\Data\\\\Location\\:\\:\\$resellersPivots \\(Illuminate\\\\Support\\\\Collection\\<string, TPivot of App\\\\Utils\\\\Eloquent\\\\Pivot\\>\\) does not accept array\\<int\\|string, App\\\\Models\\\\LocationReseller\\>\\.$#"
+			message: "#^Property App\\\\Models\\\\Data\\\\Location\\:\\:\\$resellersPivots \\(Illuminate\\\\Support\\\\Collection\\<string, TPivot of App\\\\Utils\\\\Eloquent\\\\Pivot\\>\\) does not accept Illuminate\\\\Support\\\\Collection\\<string, App\\\\Models\\\\LocationReseller\\>\\.$#"
 			count: 1
 			path: app/Services/Recalculator/Processor/Processors/LocationsProcessor.php
 
@@ -5101,11 +4946,6 @@ parameters:
 			path: app/Services/Recalculator/Queue/Jobs/Recalculator.php
 
 		-
-			message: "#^Parameter \\#1 \\$abstract of method Illuminate\\\\Contracts\\\\Container\\\\Container\\:\\:make\\(\\) expects string, class\\-string\\<App\\\\Services\\\\Service\\>\\|null given\\.$#"
-			count: 1
-			path: app/Services/Recalculator/Queue/Jobs/Recalculator.php
-
-		-
 			message: "#^Parameter \\#1 \\$chunk of method App\\\\Utils\\\\Processor\\\\Processor\\<TModel of Illuminate\\\\Database\\\\Eloquent\\\\Model,null,App\\\\Utils\\\\Processor\\\\EloquentState\\<TModel of Illuminate\\\\Database\\\\Eloquent\\\\Model\\>\\>\\:\\:setChunkSize\\(\\) expects int\\|null, mixed given\\.$#"
 			count: 1
 			path: app/Services/Recalculator/Queue/Jobs/Recalculator.php
@@ -5122,11 +4962,6 @@ parameters:
 
 		-
 			message: "#^Method App\\\\Services\\\\Recalculator\\\\Queue\\\\Tasks\\\\Recalculate\\:\\:getResetProgressCallback\\(\\) return type has no signature specified for callable\\.$#"
-			count: 1
-			path: app/Services/Recalculator/Queue/Tasks/Recalculate.php
-
-		-
-			message: "#^Parameter \\#1 \\$abstract of method Illuminate\\\\Contracts\\\\Container\\\\Container\\:\\:make\\(\\) expects string, class\\-string\\<App\\\\Services\\\\Service\\>\\|null given\\.$#"
 			count: 1
 			path: app/Services/Recalculator/Queue/Tasks/Recalculate.php
 
@@ -5661,11 +5496,6 @@ parameters:
 			path: app/Services/Search/Processors/ModelProcessorTest.php
 
 		-
-			message: "#^Parameter \\#1 \\$keys of method App\\\\Utils\\\\Processor\\\\EloquentProcessor\\<Illuminate\\\\Database\\\\Eloquent\\\\Model,null,App\\\\Utils\\\\Processor\\\\EloquentState\\<Illuminate\\\\Database\\\\Eloquent\\\\Model\\>\\>\\:\\:setKeys\\(\\) expects array\\<string\\>\\|null, array\\<int\\|string\\>\\|null given\\.$#"
-			count: 1
-			path: app/Services/Search/Processors/ModelProcessorTest.php
-
-		-
 			message: "#^Parameter \\#1 \\$model of method App\\\\Services\\\\Search\\\\Processors\\\\ModelProcessor\\<App\\\\Services\\\\Search\\\\Eloquent\\\\Searchable&Illuminate\\\\Database\\\\Eloquent\\\\Model,App\\\\Services\\\\Search\\\\Processors\\\\ModelProcessorState\\<App\\\\Services\\\\Search\\\\Eloquent\\\\Searchable&Illuminate\\\\Database\\\\Eloquent\\\\Model\\>\\>\\:\\:setModel\\(\\) expects class\\-string\\<App\\\\Services\\\\Search\\\\Eloquent\\\\Searchable&Illuminate\\\\Database\\\\Eloquent\\\\Model\\>, string given\\.$#"
 			count: 4
 			path: app/Services/Search/Processors/ModelProcessorTest.php
@@ -5741,11 +5571,6 @@ parameters:
 			path: app/Services/Search/Queue/Jobs/Indexer.php
 
 		-
-			message: "#^Parameter \\#1 \\$abstract of method Illuminate\\\\Contracts\\\\Container\\\\Container\\:\\:make\\(\\) expects string, class\\-string\\<App\\\\Services\\\\Service\\>\\|null given\\.$#"
-			count: 1
-			path: app/Services/Search/Queue/Jobs/Indexer.php
-
-		-
 			message: "#^Parameter \\#1 \\$chunk of method App\\\\Utils\\\\Processor\\\\Processor\\<Illuminate\\\\Database\\\\Eloquent\\\\Model,null,App\\\\Utils\\\\Processor\\\\EloquentState\\<Illuminate\\\\Database\\\\Eloquent\\\\Model\\>\\>\\:\\:setChunkSize\\(\\) expects int\\|null, mixed given\\.$#"
 			count: 1
 			path: app/Services/Search/Queue/Jobs/Indexer.php
@@ -5766,17 +5591,7 @@ parameters:
 			path: app/Services/Search/Queue/Tasks/Index.php
 
 		-
-			message: "#^Parameter \\#1 \\$abstract of method Illuminate\\\\Contracts\\\\Container\\\\Container\\:\\:make\\(\\) expects string, class\\-string\\<App\\\\Services\\\\Service\\>\\|null given\\.$#"
-			count: 1
-			path: app/Services/Search/Queue/Tasks/Index.php
-
-		-
 			message: "#^Parameter \\#1 \\$chunk of method App\\\\Utils\\\\Processor\\\\Processor\\<Illuminate\\\\Database\\\\Eloquent\\\\Model,null,App\\\\Utils\\\\Processor\\\\EloquentState\\<Illuminate\\\\Database\\\\Eloquent\\\\Model\\>\\>\\:\\:setChunkSize\\(\\) expects int\\|null, mixed given\\.$#"
-			count: 1
-			path: app/Services/Search/Queue/Tasks/Index.php
-
-		-
-			message: "#^Parameter \\#1 \\$keys of method App\\\\Utils\\\\Processor\\\\EloquentProcessor\\<Illuminate\\\\Database\\\\Eloquent\\\\Model,null,App\\\\Utils\\\\Processor\\\\EloquentState\\<Illuminate\\\\Database\\\\Eloquent\\\\Model\\>\\>\\:\\:setKeys\\(\\) expects array\\<string\\>\\|null, array\\<int\\|string\\> given\\.$#"
 			count: 1
 			path: app/Services/Search/Queue/Tasks/Index.php
 

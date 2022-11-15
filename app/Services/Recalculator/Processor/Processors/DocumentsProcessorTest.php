@@ -23,10 +23,9 @@ class DocumentsProcessorTest extends TestCase {
     use Helper;
 
     /**
-     * @covers ::run
      * @covers ::process
      */
-    public function testRun(): void {
+    public function testProcess(): void {
         // Setup
         $this->overrideDateFactory('2022-10-12T00:00:00.000+00:00');
         $this->overrideUuidFactory('284e45c0-7295-4873-bf74-4eef91869798');

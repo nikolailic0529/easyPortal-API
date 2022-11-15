@@ -95,9 +95,7 @@ class Organization extends Model implements
     protected $table = 'organizations';
 
     /**
-     * @phpcsSuppress SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint
-     *
-     * @var array<string>
+     * @var list<string>
      */
     protected $visible = [
         'branding_dark_theme',

@@ -32,23 +32,13 @@ class QuoteRequestFactory extends Factory {
     public function definition(): array {
         return [
             'id'              => $this->faker->uuid(),
-            'oem_id'          => static function (): Oem {
-                return Oem::query()->first() ?? Oem::factory()->create();
-            },
+            'oem_id'          => Oem::factory(),
             'oem_custom'      => null,
-            'organization_id' => static function (): Organization {
-                return Organization::query()->first() ?? Organization::factory()->create();
-            },
-            'user_id'         => static function (): User {
-                return User::query()->first() ?? User::factory()->create();
-            },
-            'customer_id'     => static function (): Customer {
-                return Customer::query()->first() ?? Customer::factory()->create();
-            },
+            'organization_id' => Organization::factory(),
+            'user_id'         => User::factory(),
+            'customer_id'     => Customer::factory(),
             'customer_custom' => null,
-            'type_id'         => static function (): Type {
-                return Type::query()->first() ?? Type::factory()->create();
-            },
+            'type_id'         => Type::factory(),
             'type_custom'     => null,
             'message'         => $this->faker->text(),
             'created_at'      => Date::now(),

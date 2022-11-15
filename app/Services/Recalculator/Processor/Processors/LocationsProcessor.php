@@ -8,7 +8,7 @@ use App\Models\LocationReseller;
 use App\Services\Recalculator\Processor\Processor;
 use App\Utils\Processor\EloquentState;
 use App\Utils\Processor\State;
-use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Support\Collection;
 
 use function array_filter;
 use function array_keys;
@@ -51,30 +51,34 @@ class LocationsProcessor extends Processor {
         $locationAssetsByCustomer = $data->getLocationAssetsByCustomer($location);
 
         // Resellers
-        $resellers = [];
+        /** @var Collection<string, LocationReseller> $resellers */
+        $resellers = new Collection();
         $ids       = array_filter(array_unique(
             array_merge($locationResellers, array_keys($locationAssetsByReseller)),
             SORT_REGULAR,
         ));
 
         foreach ($ids as $id) {
-            $resellers[$id]               = new LocationReseller();
-            $resellers[$id]->assets_count = $locationAssetsByReseller[$id] ?? 0;
+            $reseller               = new LocationReseller();
+            $reseller->assets_count = $locationAssetsByReseller[$id] ?? 0;
+            $resellers[$id]         = $reseller;
         }
 
         $location->resellersPivots = $resellers;
         $location->save();
 
         // Customers
-        $customers = [];
+        /** @var Collection<string, LocationCustomer> $customers */
+        $customers = new Collection();
         $ids       = array_filter(array_unique(
             array_merge($locationCustomers, array_keys($locationAssetsByCustomer)),
             SORT_REGULAR,
         ));
 
         foreach ($ids as $id) {
-            $customers[$id]               = new LocationCustomer();
-            $customers[$id]->assets_count = $locationAssetsByCustomer[$id] ?? 0;
+            $customer               = new LocationCustomer();
+            $customer->assets_count = $locationAssetsByCustomer[$id] ?? 0;
+            $customers[$id]         = $customer;
         }
 
         $location->customersPivots = $customers;

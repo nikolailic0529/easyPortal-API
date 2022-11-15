@@ -68,7 +68,7 @@ class MeTest extends TestCase {
     }
 
     /**
-     * @covers ::resolveField
+     * @covers ::handleField
      *
      * @dataProvider dataProviderResolveField
      *
@@ -100,7 +100,7 @@ class MeTest extends TestCase {
     }
 
     /**
-     * @covers ::resolveField
+     * @covers ::handleField
      *
      * @dataProvider dataProviderResolveFieldPermissions
      *
@@ -152,7 +152,7 @@ class MeTest extends TestCase {
     }
 
     /**
-     * @covers ::resolveField
+     * @covers ::handleField
      *
      * @dataProvider dataProviderResolveField
      *

@@ -21,7 +21,7 @@ use Tests\WithUser;
 
 /**
  * @internal
- * @coversDefaultClass Invitation
+ * @coversDefaultClass \App\GraphQL\Queries\Auth\Invitation
  *
  * @phpstan-import-type OrganizationFactory from WithOrganization
  * @phpstan-import-type UserFactory from WithUser

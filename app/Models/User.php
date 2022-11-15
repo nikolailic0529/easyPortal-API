@@ -135,7 +135,7 @@ class User extends Model implements
     ];
 
     /**
-     * @phpcsSuppress SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingAnyTypeHint
+     * @var list<string>
      */
     protected $visible = [
         'given_name',
@@ -216,9 +216,9 @@ class User extends Model implements
     }
 
     /**
-     * @param BaseCollection<int,OrganizationUser>|array<OrganizationUser> $organizations
+     * @param Collection<int,OrganizationUser> $organizations
      */
-    public function setOrganizationsAttribute(BaseCollection|array $organizations): void {
+    public function setOrganizationsAttribute(Collection $organizations): void {
         $this->syncHasMany('organizations', $organizations);
     }
     // </editor-fold>

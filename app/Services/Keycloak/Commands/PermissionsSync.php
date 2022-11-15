@@ -13,6 +13,7 @@ use App\Utils\Eloquent\GlobalScopes\GlobalScopes;
 use Illuminate\Console\Command;
 use Illuminate\Contracts\Config\Repository;
 use Illuminate\Contracts\Debug\ExceptionHandler;
+use Illuminate\Database\Eloquent\Collection as EloquentCollection;
 use Illuminate\Support\Collection;
 
 class PermissionsSync extends Command {
@@ -51,11 +52,12 @@ class PermissionsSync extends Command {
 
     protected function process(): void {
         // Sync Permissions with Models and Keycloak Roles
+        /** @var EloquentCollection<int, PermissionModel> $usedModels */
+        $usedModels   = new EloquentCollection();
         $permissions  = (new Collection($this->auth->getPermissions()))
             ->keyBy(static function (Permission $permission): string {
                 return $permission->getName();
             });
-        $usedModels   = new Collection();
         $actualModels = PermissionModel::query()
             ->withTrashed()
             ->orderByDesc('deleted_at')

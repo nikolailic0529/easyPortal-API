@@ -50,7 +50,7 @@ use function count;
 
 /**
  * @internal
- * @coversDefaultClass AssetFactory
+ * @coversDefaultClass \App\Services\DataLoader\Factory\Factories\AssetFactory
  */
 class AssetFactoryTest extends TestCase {
     use WithoutGlobalScopes;

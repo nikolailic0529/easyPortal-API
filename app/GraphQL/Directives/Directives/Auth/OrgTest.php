@@ -42,7 +42,7 @@ class OrgTest extends TestCase {
     }
 
     /**
-     * @covers ::resolveField
+     * @covers ::handleField
      *
      * @dataProvider dataProviderResolveField
      *
@@ -75,7 +75,7 @@ class OrgTest extends TestCase {
     }
 
     /**
-     * @covers ::resolveField
+     * @covers ::handleField
      *
      * @dataProvider dataProviderResolveField
      *

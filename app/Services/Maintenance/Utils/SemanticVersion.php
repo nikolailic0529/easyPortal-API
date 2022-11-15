@@ -38,8 +38,8 @@ class SemanticVersion implements Stringable {
     public function __construct(string $version) {
         if (preg_match(self::REGEXP, $version, $matches)) {
             $this->majorVersion = $matches['majorVersion'];
-            $this->minorVersion = $matches['minorVersion'] ?? 0;
-            $this->patchVersion = $matches['patchVersion'] ?? 0;
+            $this->minorVersion = $matches['minorVersion'] ?? '0';
+            $this->patchVersion = $matches['patchVersion'] ?? '0';
             $this->preRelease   = $matches['preRelease'] ?? null;
             $this->metadata     = $matches['metadata'] ?? null;
         } else {

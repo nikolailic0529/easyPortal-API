@@ -45,7 +45,7 @@
     "openspout/openspout": "^4.6",
     "phpdocumentor/reflection-docblock": "^5.2",
     "propaganistas/laravel-phone": "^4.2",
-    "sentry/sentry-laravel": "^2.10",
+    "sentry/sentry-laravel": "^3.1.0",
     "staudenmeir/eloquent-has-many-deep": "^1.14",
     "stevebauman/purify": "^5.0.0",
     "symfony/mime": "^v6.0.3",
@@ -61,10 +61,10 @@
     "mockery/mockery": "^1.4.2",
     "nunomaduro/collision": "^6.1.0",
     "nunomaduro/larastan": "^2.1",
-    "phpstan/phpstan": "^1.5.4",
-    "phpstan/phpstan-mockery": "^1.0",
-    "phpstan/phpstan-phpunit": "^1.0",
-    "phpstan/phpstan-strict-rules": "^1.1",
+    "phpstan/phpstan": "1.9.2",
+    "phpstan/phpstan-mockery": "1.1.0",
+    "phpstan/phpstan-phpunit": "1.2.2",
+    "phpstan/phpstan-strict-rules": "1.4.4",
     "phpunit/phpunit": "^9.3.3",
     "slevomat/coding-standard": "^8.2.0",
     "spatie/laravel-ignition": "^1.0.0",
@@ -83,7 +83,8 @@
   "config": {
     "optimize-autoloader": true,
     "preferred-install": "dist",
-    "sort-packages": true
+    "sort-packages": true,
+    "allow-plugins": false
   },
   "extra": {
     "laravel": {

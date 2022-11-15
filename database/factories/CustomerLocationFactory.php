@@ -29,12 +29,8 @@ class CustomerLocationFactory extends Factory {
     public function definition(): array {
         return [
             'id'           => $this->faker->uuid(),
-            'customer_id'  => static function (): Customer {
-                return Customer::factory()->create();
-            },
-            'location_id'  => static function (): Location {
-                return Location::factory()->create();
-            },
+            'customer_id'  => Customer::factory(),
+            'location_id'  => Location::factory(),
             'assets_count' => 0,
             'created_at'   => Date::now(),
             'updated_at'   => Date::now(),

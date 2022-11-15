@@ -33,9 +33,7 @@ class DocumentFactory extends Factory {
     public function definition(): array {
         return [
             'id'             => $this->faker->uuid(),
-            'oem_id'         => static function (): Oem {
-                return Oem::factory()->create();
-            },
+            'oem_id'         => Oem::factory(),
             'oem_said'       => $this->faker->randomElement([null, $this->faker->uuid()]),
             'oem_group_id'   => null,
             'type_id'        => function (): Type {
@@ -43,12 +41,8 @@ class DocumentFactory extends Factory {
                     'object_type' => $this->newModel()->getMorphClass(),
                 ]);
             },
-            'reseller_id'    => static function (): Reseller {
-                return Reseller::factory()->create();
-            },
-            'customer_id'    => static function (): Customer {
-                return Customer::factory()->create();
-            },
+            'reseller_id'    => Reseller::factory(),
+            'customer_id'    => Customer::factory(),
             'entries_count'  => 0,
             'contacts_count' => 0,
             'statuses_count' => 0,

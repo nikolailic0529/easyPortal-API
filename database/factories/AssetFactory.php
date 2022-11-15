@@ -34,12 +34,8 @@ class AssetFactory extends Factory {
     public function definition(): array {
         return [
             'id'                        => $this->faker->uuid(),
-            'reseller_id'               => static function (): Reseller {
-                return Reseller::factory()->create();
-            },
-            'oem_id'                    => static function (): Oem {
-                return Oem::factory()->create();
-            },
+            'reseller_id'               => Reseller::factory(),
+            'oem_id'                    => Oem::factory(),
             'type_id'                   => function (): Type {
                 return Type::factory()->create([
                     'object_type' => $this->newModel()->getMorphClass(),
@@ -50,12 +46,8 @@ class AssetFactory extends Factory {
                     'oem_id' => $properties['oem_id'],
                 ]);
             },
-            'customer_id'               => static function (): Customer {
-                return Customer::factory()->create();
-            },
-            'location_id'               => static function (array $properties): Location {
-                return Location::factory()->create();
-            },
+            'customer_id'               => Customer::factory(),
+            'location_id'               => Location::factory(),
             'status_id'                 => function (): Status {
                 return Status::factory()->create([
                     'object_type' => $this->newModel()->getMorphClass(),

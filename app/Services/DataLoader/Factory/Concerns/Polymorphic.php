@@ -68,7 +68,7 @@ trait Polymorphic {
 
         // Attach types into models
         foreach ($models as $model) {
-            $model->types = array_unique($models[$model], SORT_REGULAR);
+            $model->types = Collection::make(array_unique($models[$model], SORT_REGULAR));
         }
 
         // Return

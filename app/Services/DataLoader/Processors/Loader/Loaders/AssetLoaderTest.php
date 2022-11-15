@@ -25,7 +25,8 @@ class AssetLoaderTest extends TestCase {
     use Helper;
 
     /**
-     * @covers ::handle
+     * @covers ::process
+     * @covers ::getOperations
      */
     public function testProcess(): void {
         // Generate

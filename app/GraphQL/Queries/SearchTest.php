@@ -155,7 +155,7 @@ class SearchTest extends TestCase {
                 'type_id'     => $contractType,
                 'reseller_id' => $reseller,
                 'number'      => 'Hidden Contract ABC',
-                'statuses'    => [$status],
+                'statuses'    => Collection::make([$status]),
             ]);
             $contractIgnored = Document::factory()->create([
                 'id'      => '474bbaf1-a30f-4dfd-a81e-10ebabe6ccb5',
@@ -176,7 +176,7 @@ class SearchTest extends TestCase {
                 'type_id'     => $quoteType,
                 'reseller_id' => $reseller,
                 'number'      => 'Hidden Quote ABC',
-                'statuses'    => [$status],
+                'statuses'    => Collection::make([$status]),
             ]);
             $quoteIgnored = Document::factory()->create([
                 'id'      => '2d5a2cb9-b2b8-4a25-8f60-350af319fc0d',

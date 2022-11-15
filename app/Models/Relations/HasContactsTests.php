@@ -4,6 +4,7 @@ namespace App\Models\Relations;
 
 use App\Models\Contact;
 use App\Utils\Eloquent\Model;
+use Illuminate\Database\Eloquent\Collection;
 use Tests\TestCase;
 
 /**
@@ -44,7 +45,7 @@ trait HasContactsTests {
             'object_id'   => $model->getKey(),
             'object_type' => $morph,
         ]);
-        $model->contacts = [$created];
+        $model->contacts = Collection::make([$created]);
 
         $model->save();
 

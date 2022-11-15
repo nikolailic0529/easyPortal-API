@@ -5,9 +5,9 @@ namespace App\Models\Relations;
 use App\Utils\Eloquent\Concerns\SyncHasMany;
 use App\Utils\Eloquent\Model;
 use Illuminate\Contracts\Config\Repository;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
-use Illuminate\Support\Collection;
 
 use function app;
 use function count;
@@ -33,9 +33,9 @@ trait HasLocations {
     }
 
     /**
-     * @param Collection<int,TPivot>|array<TPivot> $locations
+     * @param Collection<int,TPivot> $locations
      */
-    public function setLocationsAttribute(Collection|array $locations): void {
+    public function setLocationsAttribute(Collection $locations): void {
         $this->syncHasMany('locations', $locations);
         $this->locations_count = count($locations);
     }

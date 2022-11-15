@@ -15,7 +15,9 @@ use App\Services\DataLoader\Resolver\Resolvers\TypeResolver;
 use App\Services\DataLoader\Schema\Company;
 use App\Utils\Eloquent\Model;
 use Illuminate\Contracts\Debug\ExceptionHandler;
-use Illuminate\Support\Collection;
+use Illuminate\Database\Eloquent\Collection;
+
+use function array_values;
 
 /**
  * @template TCompany of \App\Models\Reseller|\App\Models\Customer
@@ -66,18 +68,21 @@ abstract class CompanyFactory extends ModelFactory {
     // <editor-fold desc="Company">
     // =========================================================================
     /**
-     * @return array<Status>
+     * @return Collection<int, Status>
      */
-    protected function companyStatuses(Model $owner, Company $company): array {
-        return (new Collection($company->status ?? []))
-            ->filter(function (?string $status): bool {
-                return (bool) $this->getNormalizer()->string($status);
-            })
-            ->map(function (string $status) use ($owner): Status {
-                return $this->status($owner, $status);
-            })
-            ->unique()
-            ->all();
+    protected function companyStatuses(Model $owner, Company $company): Collection {
+        $statuses = [];
+
+        foreach ($company->status ?? [] as $status) {
+            $status = $this->getNormalizer()->string($status);
+
+            if ($status) {
+                $status                      = $this->status($owner, $status);
+                $statuses[$status->getKey()] = $status;
+            }
+        }
+
+        return Collection::make(array_values($statuses));
     }
     // </editor-fold>
 }

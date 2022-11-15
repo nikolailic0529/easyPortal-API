@@ -27,7 +27,7 @@ class PaginatedTest extends TestCase {
     // <editor-fold desc="Tests">
     // =========================================================================
     /**
-     * @covers ::manipulateArgDefinition
+     * @covers ::manipulateFieldDefinition
      * @covers \App\GraphQL\Directives\Directives\Paginated\Manipulator::update
      * @covers \App\GraphQL\Directives\Directives\Paginated\Manipulator::getLimitField
      * @covers \App\GraphQL\Directives\Directives\Paginated\Manipulator::getOffsetField

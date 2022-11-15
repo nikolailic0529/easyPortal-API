@@ -6,8 +6,8 @@ use App\Models\Data\Tag;
 use App\Utils\Eloquent\Concerns\SyncBelongsToMany;
 use App\Utils\Eloquent\Model;
 use App\Utils\Eloquent\Pivot;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
-use Illuminate\Support\Collection;
 
 /**
  * @mixin Model
@@ -29,9 +29,9 @@ trait HasTags {
     }
 
     /**
-     * @param Collection<int,Tag>|array<Tag> $tags
+     * @param Collection<int,Tag> $tags
      */
-    public function setTagsAttribute(Collection|array $tags): void {
+    public function setTagsAttribute(Collection $tags): void {
         $this->syncBelongsToMany('tags', $tags);
     }
 

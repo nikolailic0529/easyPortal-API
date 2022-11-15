@@ -8,6 +8,7 @@ use App\Services\DataLoader\Schema\Company as CompanyObject;
 use App\Services\DataLoader\Schema\Type;
 use App\Services\DataLoader\Testing\Helper;
 use App\Utils\Eloquent\Model;
+use Illuminate\Database\Eloquent\Collection;
 use Tests\TestCase;
 
 /**
@@ -45,10 +46,7 @@ class CompanyFactoryTest extends TestCase {
                 return null;
             }
 
-            /**
-             * @inheritDoc
-             */
-            public function companyStatuses(Model $owner, CompanyObject $company): array {
+            public function companyStatuses(Model $owner, CompanyObject $company): Collection {
                 return parent::companyStatuses($owner, $company);
             }
         };

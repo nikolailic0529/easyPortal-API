@@ -28,8 +28,6 @@ class ResetTest extends TestCase {
     // =========================================================================
     /**
      * @covers ::__invoke
-     * @covers ::name
-     * @covers ::translations
      *
      * @dataProvider dataProviderInvoke
      *

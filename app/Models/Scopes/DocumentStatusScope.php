@@ -70,7 +70,7 @@ class DocumentStatusScope extends DisableableScope implements ScopeWithMetadata 
     }
 
     /**
-     * @param Collection<array-key, \App\Models\Data\Status>|\App\Models\Data\Status|string $status
+     * @param Collection<array-key, Status>|Status|string $status
      */
     public function isHidden(Collection|Status|string $status): bool {
         $hidden   = $this->getStatusesIds();

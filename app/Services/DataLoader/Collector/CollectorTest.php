@@ -44,7 +44,7 @@ class CollectorTest extends TestCase {
     }
 
     /**
-     * @covers ::modelChanged
+     * @covers ::modelSaved
      * @covers ::modelDeleted
      * @covers ::subscribe
      */

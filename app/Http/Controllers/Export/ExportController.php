@@ -157,8 +157,6 @@ class ExportController extends Controller {
                 }
 
                 foreach ($measurer->getColumns() as $index => $width) {
-                    assert($index >= 0, 'PHPStan false positive, seems fixed in >=1.9.0');
-
                     $width = $width * $scale;
 
                     if ($options->DEFAULT_COLUMN_WIDTH < $width) {
@@ -217,15 +215,6 @@ class ExportController extends Controller {
         $valuesColumns = [];
 
         foreach (array_values($query['columns']) as $key => $column) {
-            assert(
-                $key >= 0,
-                <<<'REASON'
-                PHPStan false positive, seems fixed in >1.8.11
-
-                https://phpstan.org/r/031dd218-f577-4ea1-96d7-05d7094543e3
-                REASON,
-            );
-
             $headerColumns[$key] = $column['name'];
             $valuesColumns[$key] = $column['value'];
 
