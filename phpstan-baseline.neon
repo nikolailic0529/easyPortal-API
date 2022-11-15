@@ -4971,11 +4971,6 @@ parameters:
 			path: app/Services/Recalculator/Queue/Tasks/Recalculate.php
 
 		-
-			message: "#^Parameter \\#1 \\$keys of method App\\\\Utils\\\\Processor\\\\EloquentProcessor\\<Illuminate\\\\Database\\\\Eloquent\\\\Model,App\\\\Services\\\\Recalculator\\\\Processor\\\\ChunkData\\<Illuminate\\\\Database\\\\Eloquent\\\\Model\\>,App\\\\Utils\\\\Processor\\\\EloquentState\\<Illuminate\\\\Database\\\\Eloquent\\\\Model\\>\\>\\:\\:setKeys\\(\\) expects array\\<string\\>\\|null, array\\<int\\|string\\> given\\.$#"
-			count: 1
-			path: app/Services/Recalculator/Queue/Tasks/Recalculate.php
-
-		-
 			message: "#^Static property App\\\\Services\\\\Recalculator\\\\Service\\:\\:\\$processors \\(array\\<class\\-string\\<Illuminate\\\\Database\\\\Eloquent\\\\Model\\>, class\\-string\\<App\\\\Services\\\\Recalculator\\\\Processor\\\\Processor\\<Illuminate\\\\Database\\\\Eloquent\\\\Model, App\\\\Services\\\\Recalculator\\\\Processor\\\\ChunkData\\<Illuminate\\\\Database\\\\Eloquent\\\\Model\\>, App\\\\Utils\\\\Processor\\\\EloquentState\\<Illuminate\\\\Database\\\\Eloquent\\\\Model\\>\\>\\>\\>\\) does not accept default value of type array\\{App\\\\Models\\\\Asset\\: 'App\\\\\\\\Services\\\\\\\\Recalculator\\\\\\\\Processor\\\\\\\\Processors\\\\\\\\AssetsProcessor', App\\\\Models\\\\Reseller\\: 'App\\\\\\\\Services\\\\\\\\Recalculator\\\\\\\\Processor\\\\\\\\Processors\\\\\\\\ResellersProcessor', App\\\\Models\\\\Customer\\: 'App\\\\\\\\Services\\\\\\\\Recalculator\\\\\\\\Processor\\\\\\\\Processors\\\\\\\\CustomersProcessor', App\\\\Models\\\\Data\\\\Location\\: 'App\\\\\\\\Services\\\\\\\\Recalculator\\\\\\\\Processor\\\\\\\\Processors\\\\\\\\LocationsProcessor', App\\\\Models\\\\Document\\: 'App\\\\\\\\Services\\\\\\\\Recalculator\\\\\\\\Processor\\\\\\\\Processors\\\\\\\\DocumentsProcessor'\\}\\.$#"
 			count: 1
 			path: app/Services/Recalculator/Service.php
@@ -5501,11 +5496,6 @@ parameters:
 			path: app/Services/Search/Processors/ModelProcessorTest.php
 
 		-
-			message: "#^Parameter \\#1 \\$keys of method App\\\\Utils\\\\Processor\\\\EloquentProcessor\\<Illuminate\\\\Database\\\\Eloquent\\\\Model,null,App\\\\Utils\\\\Processor\\\\EloquentState\\<Illuminate\\\\Database\\\\Eloquent\\\\Model\\>\\>\\:\\:setKeys\\(\\) expects array\\<string\\>\\|null, array\\<int\\|string\\>\\|null given\\.$#"
-			count: 1
-			path: app/Services/Search/Processors/ModelProcessorTest.php
-
-		-
 			message: "#^Parameter \\#1 \\$model of method App\\\\Services\\\\Search\\\\Processors\\\\ModelProcessor\\<App\\\\Services\\\\Search\\\\Eloquent\\\\Searchable&Illuminate\\\\Database\\\\Eloquent\\\\Model,App\\\\Services\\\\Search\\\\Processors\\\\ModelProcessorState\\<App\\\\Services\\\\Search\\\\Eloquent\\\\Searchable&Illuminate\\\\Database\\\\Eloquent\\\\Model\\>\\>\\:\\:setModel\\(\\) expects class\\-string\\<App\\\\Services\\\\Search\\\\Eloquent\\\\Searchable&Illuminate\\\\Database\\\\Eloquent\\\\Model\\>, string given\\.$#"
 			count: 4
 			path: app/Services/Search/Processors/ModelProcessorTest.php
@@ -5602,11 +5592,6 @@ parameters:
 
 		-
 			message: "#^Parameter \\#1 \\$chunk of method App\\\\Utils\\\\Processor\\\\Processor\\<Illuminate\\\\Database\\\\Eloquent\\\\Model,null,App\\\\Utils\\\\Processor\\\\EloquentState\\<Illuminate\\\\Database\\\\Eloquent\\\\Model\\>\\>\\:\\:setChunkSize\\(\\) expects int\\|null, mixed given\\.$#"
-			count: 1
-			path: app/Services/Search/Queue/Tasks/Index.php
-
-		-
-			message: "#^Parameter \\#1 \\$keys of method App\\\\Utils\\\\Processor\\\\EloquentProcessor\\<Illuminate\\\\Database\\\\Eloquent\\\\Model,null,App\\\\Utils\\\\Processor\\\\EloquentState\\<Illuminate\\\\Database\\\\Eloquent\\\\Model\\>\\>\\:\\:setKeys\\(\\) expects array\\<string\\>\\|null, array\\<int\\|string\\> given\\.$#"
 			count: 1
 			path: app/Services/Search/Queue/Tasks/Index.php
 

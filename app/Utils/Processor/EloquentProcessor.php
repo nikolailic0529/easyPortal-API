@@ -24,21 +24,21 @@ use function count;
  */
 abstract class EloquentProcessor extends IteratorProcessor {
     /**
-     * @var array<string>|null
+     * @var array<string|int>|null
      */
     private ?array $keys = null;
 
     // <editor-fold desc="Getters / Setters">
     // =========================================================================
     /**
-     * @return array<string>|null
+     * @return array<string|int>|null
      */
     public function getKeys(): ?array {
         return $this->keys;
     }
 
     /**
-     * @param array<string>|null $keys
+     * @param array<string|int>|null $keys
      */
     public function setKeys(?array $keys): static {
         $this->keys = $keys !== null
