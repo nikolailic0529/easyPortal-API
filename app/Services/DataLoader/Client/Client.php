@@ -613,11 +613,8 @@ class Client {
                 : new GraphQLRequestFailed($graphql, $variables, $errors);
 
             $this->dispatcher->dispatch(new RequestFailed($selector, $graphql, $variables, $json));
-            $this->handler->report($error);
 
-            if (!$result) {
-                throw $error;
-            }
+            throw $error;
         } else {
             $this->dispatcher->dispatch(new RequestSuccessful($selector, $graphql, $variables, $json));
         }
