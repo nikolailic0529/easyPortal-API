@@ -24,6 +24,8 @@ use Tests\WithOrganization;
 use Tests\WithUser;
 use Throwable;
 
+use function trans;
+
 /**
  * @internal
  * @coversDefaultClass \App\GraphQL\Mutations\Asset\ChangeRequest\Create
@@ -141,7 +143,7 @@ class CreateTest extends TestCase {
                 'fd421bad-069f-491c-ad5f-5841aa9a9dee',
             ),
             new ArrayDataProvider([
-                'ok'              => [
+                'ok'             => [
                     new GraphQLSuccess(
                         'asset',
                         new JsonFragment('changeRequest.create', [
@@ -174,7 +176,7 @@ class CreateTest extends TestCase {
                         ],
                     ],
                 ],
-                'Invalid Object'  => [
+                'Invalid Object' => [
                     new GraphQLError('asset', static function (): Throwable {
                         return new ObjectNotFound((new Asset())->getMorphClass());
                     }),
@@ -189,47 +191,29 @@ class CreateTest extends TestCase {
                         'bcc'     => ['bcc@example.com'],
                     ],
                 ],
-                'Invalid subject' => [
-                    new GraphQLValidationError('asset'),
+                'Invalid input'  => [
+                    new GraphQLValidationError('asset', static function (): array {
+                        return [
+                            'input.subject' => [
+                                trans('validation.required'),
+                            ],
+                            'input.message' => [
+                                trans('validation.required'),
+                            ],
+                            'input.cc.0'    => [
+                                trans('validation.email', ['attribute' => 'input.cc.*']),
+                            ],
+                            'input.bcc.0'   => [
+                                trans('validation.email', ['attribute' => 'input.bcc.*']),
+                            ],
+                        ];
+                    }),
                     $settings,
                     $prepare,
                     [
                         'subject' => '',
-                        'message' => 'change request',
-                        'cc'      => ['cc@example.com'],
-                        'bcc'     => ['bcc@example.com'],
-                    ],
-                ],
-                'Invalid message' => [
-                    new GraphQLValidationError('asset'),
-                    $settings,
-                    $prepare,
-                    [
-                        'subject' => 'subject',
                         'message' => '',
-                        'cc'      => ['cc@example.com'],
-                        'bcc'     => ['bcc@example.com'],
-                    ],
-                ],
-                'Invalid cc'      => [
-                    new GraphQLValidationError('asset'),
-                    $settings,
-                    $prepare,
-                    [
-                        'subject' => 'subject',
-                        'message' => 'message',
                         'cc'      => ['wrong'],
-                        'bcc'     => ['bcc@example.com'],
-                    ],
-                ],
-                'Invalid bcc'     => [
-                    new GraphQLValidationError('asset'),
-                    $settings,
-                    $prepare,
-                    [
-                        'subject' => 'subject',
-                        'message' => 'message',
-                        'cc'      => ['cc@example.com'],
                         'bcc'     => ['wrong'],
                     ],
                 ],

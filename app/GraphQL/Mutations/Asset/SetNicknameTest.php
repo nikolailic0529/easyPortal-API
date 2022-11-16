@@ -21,6 +21,8 @@ use Tests\WithOrganization;
 use Tests\WithUser;
 use Throwable;
 
+use function trans;
+
 /**
  * @internal
  * @coversDefaultClass \App\GraphQL\Mutations\Asset\SetNickname
@@ -137,7 +139,13 @@ class SetNicknameTest extends TestCase {
                     ],
                 ],
                 'empty nickname'           => [
-                    new GraphQLValidationError('asset'),
+                    new GraphQLValidationError('asset', static function (): array {
+                        return [
+                            'input.nickname' => [
+                                trans('validation.required'),
+                            ],
+                        ];
+                    }),
                     static function (self $test, Organization $org): Asset {
                         return Asset::factory()->ownedBy($org)->create();
                     },
@@ -146,7 +154,13 @@ class SetNicknameTest extends TestCase {
                     ],
                 ],
                 'whitespace only nickname' => [
-                    new GraphQLValidationError('asset'),
+                    new GraphQLValidationError('asset', static function (): array {
+                        return [
+                            'input.nickname' => [
+                                trans('validation.required'),
+                            ],
+                        ];
+                    }),
                     static function (self $test, Organization $org): Asset {
                         return Asset::factory()->ownedBy($org)->create();
                     },

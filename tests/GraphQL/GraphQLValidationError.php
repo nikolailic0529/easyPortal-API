@@ -2,19 +2,36 @@
 
 namespace Tests\GraphQL;
 
-use function trans;
+use Closure;
+use LastDragon_ru\LaraASP\Testing\Constraints\Json\JsonMatchesSchema;
+use LastDragon_ru\LaraASP\Testing\Constraints\Json\JsonSchemaValue;
 
-class GraphQLValidationError extends GraphQLError {
-    public function __construct(string $root) {
-        parent::__construct($root, static function (): array {
-            return [trans('errors.validation_failed')];
-        });
+/**
+ * @phpstan-import-type ValidationErrors from GraphQLValidationErrorsSchema
+ */
+class GraphQLValidationError extends GraphQLResponse {
+    /**
+     * @template T
+     *
+     * @param ValidationErrors|Closure(T):ValidationErrors $errors
+     */
+    public function __construct(
+        string $root,
+        protected Closure|array $errors,
+    ) {
+        parent::__construct($root, null);
+    }
+
+    protected function getResponseClass(): string {
+        return GraphQLError::class;
     }
 
     /**
-     * @return class-string<GraphQLResponse>
+     * @inheritdoc
      */
-    protected function getResponseClass(): string {
-        return GraphQLError::class;
+    protected function getResponseConstraints(): array {
+        return [
+            new JsonMatchesSchema(new JsonSchemaValue(new GraphQLValidationErrorsSchema($this->errors))),
+        ];
     }
 }

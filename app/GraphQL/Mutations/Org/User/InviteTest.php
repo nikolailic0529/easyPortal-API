@@ -31,6 +31,8 @@ use Tests\WithOrganization;
 use Tests\WithUser;
 use Throwable;
 
+use function trans;
+
 /**
  * @internal
  * @coversDefaultClass \App\GraphQL\Mutations\Organization\User\Invite
@@ -203,7 +205,13 @@ class InviteTest extends TestCase {
                     },
                 ],
                 'no user / shared role'              => [
-                    new GraphQLValidationError('org'),
+                    new GraphQLValidationError('org', static function (): array {
+                        return [
+                            'input.role_id' => [
+                                trans('validation.org_role_id'),
+                            ],
+                        ];
+                    }),
                     null,
                     static function (self $test): array {
                         $role  = Role::factory()->create([
@@ -385,7 +393,13 @@ class InviteTest extends TestCase {
                     },
                 ],
                 'role not found'                     => [
-                    new GraphQLValidationError('org'),
+                    new GraphQLValidationError('org', static function (): array {
+                        return [
+                            'input.role_id' => [
+                                trans('validation.org_role_id'),
+                            ],
+                        ];
+                    }),
                     null,
                     static function (self $test): array {
                         $team  = Team::factory()->create();
@@ -404,7 +418,13 @@ class InviteTest extends TestCase {
                     },
                 ],
                 'role from another organization'     => [
-                    new GraphQLValidationError('org'),
+                    new GraphQLValidationError('org', static function (): array {
+                        return [
+                            'input.role_id' => [
+                                trans('validation.org_role_id'),
+                            ],
+                        ];
+                    }),
                     null,
                     static function (self $test): array {
                         $role  = Role::factory()->create([
@@ -426,7 +446,13 @@ class InviteTest extends TestCase {
                     },
                 ],
                 'team not found'                     => [
-                    new GraphQLValidationError('org'),
+                    new GraphQLValidationError('org', static function (): array {
+                        return [
+                            'input.team_id' => [
+                                trans('validation.team_id'),
+                            ],
+                        ];
+                    }),
                     null,
                     static function (self $test): array {
                         $organization = Organization::factory()->create();

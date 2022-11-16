@@ -15,6 +15,8 @@ use Tests\TestCase;
 use Tests\WithOrganization;
 use Tests\WithUser;
 
+use function trans;
+
 /**
  * @internal
  * @coversDefaultClass \App\GraphQL\Mutations\Oem\Hpe\Import
@@ -83,7 +85,7 @@ class ImportTest extends TestCase {
             ]),
             new ArrayDataProvider([
                 'ok'                  => [
-                    new GraphQLSuccess('oem', null, new JsonFragment('hpe.import', [
+                    new GraphQLSuccess('oem', new JsonFragment('hpe.import', [
                         'result' => true,
                     ])),
                     [
@@ -94,7 +96,15 @@ class ImportTest extends TestCase {
                     ],
                 ],
                 'invalid file format' => [
-                    new GraphQLValidationError('oem'),
+                    new GraphQLValidationError('oem', static function (): array {
+                        return [
+                            'input.file' => [
+                                trans('validation.mimes', [
+                                    'values' => 'xlsx',
+                                ]),
+                            ],
+                        ];
+                    }),
                     [
                         'file' => UploadedFile::fake()->create('file.txt'),
                     ],

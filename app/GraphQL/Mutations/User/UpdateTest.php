@@ -32,6 +32,7 @@ use function array_combine;
 use function array_keys;
 use function array_map;
 use function count;
+use function trans;
 
 /**
  * @internal
@@ -207,7 +208,13 @@ class UpdateTest extends TestCase {
                     },
                 ],
                 '`enabled` cannot be update by self' => [
-                    new GraphQLValidationError('user'),
+                    new GraphQLValidationError('user', static function (): array {
+                        return [
+                            'input.enabled' => [
+                                trans('validation.user_not_me'),
+                            ],
+                        ];
+                    }),
                     null,
                     null,
                     static function (TestCase $test, ?Organization $organization, ?User $user): User {

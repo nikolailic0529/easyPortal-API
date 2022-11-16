@@ -36,6 +36,7 @@ use function array_keys;
 use function array_map;
 use function array_merge;
 use function count;
+use function trans;
 
 /**
  * @internal
@@ -262,7 +263,13 @@ class UpdateTest extends TestCase {
                     },
                 ],
                 '`enabled` cannot be update by self'            => [
-                    new GraphQLValidationError('org'),
+                    new GraphQLValidationError('org', static function (): array {
+                        return [
+                            'input.enabled' => [
+                                trans('validation.user_not_me'),
+                            ],
+                        ];
+                    }),
                     null,
                     null,
                     static function (TestCase $test, Organization $organization, User $user): User {
@@ -275,7 +282,14 @@ class UpdateTest extends TestCase {
                     },
                 ],
                 '`role_id` cannot be update by self'            => [
-                    new GraphQLValidationError('org'),
+                    new GraphQLValidationError('org', static function (): array {
+                        return [
+                            'input.role_id' => [
+                                trans('validation.user_not_me'),
+                                trans('validation.org_role_id'),
+                            ],
+                        ];
+                    }),
                     null,
                     null,
                     static function (TestCase $test, Organization $organization, User $user): User {
@@ -297,7 +311,13 @@ class UpdateTest extends TestCase {
                     null,
                 ],
                 'Role from another organization is not allowed' => [
-                    new GraphQLValidationError('org'),
+                    new GraphQLValidationError('org', static function (): array {
+                        return [
+                            'input.role_id' => [
+                                trans('validation.org_role_id'),
+                            ],
+                        ];
+                    }),
                     null,
                     null,
                     static function (TestCase $test, Organization $organization): User {
@@ -321,7 +341,13 @@ class UpdateTest extends TestCase {
                     },
                 ],
                 'Shared Role is not allowed'                    => [
-                    new GraphQLValidationError('org'),
+                    new GraphQLValidationError('org', static function (): array {
+                        return [
+                            'input.role_id' => [
+                                trans('validation.org_role_id'),
+                            ],
+                        ];
+                    }),
                     null,
                     null,
                     static function (TestCase $test, Organization $organization): User {

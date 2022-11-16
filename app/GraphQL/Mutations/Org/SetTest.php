@@ -19,6 +19,8 @@ use Tests\TestCase;
 use Tests\WithOrganization;
 use Tests\WithUser;
 
+use function trans;
+
 /**
  * @internal
  * @coversDefaultClass \App\GraphQL\Mutations\Org\Set
@@ -142,7 +144,13 @@ class SetTest extends TestCase {
                     },
                 ],
                 'organization not exist'     => [
-                    new GraphQLValidationError('org'),
+                    new GraphQLValidationError('org', static function (): array {
+                        return [
+                            'input.organization_id' => [
+                                trans('validation.organization_id'),
+                            ],
+                        ];
+                    }),
                     static function (TestCase $test): array {
                         return [
                             'organization_id' => $test->faker->uuid(),

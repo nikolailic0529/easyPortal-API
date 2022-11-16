@@ -31,6 +31,7 @@ use Throwable;
 use function array_combine;
 use function array_keys;
 use function array_map;
+use function trans;
 
 /**
  * @internal
@@ -396,7 +397,13 @@ class UpdateTest extends TestCase {
                     },
                 ],
                 'Me is not allowed'                                 => [
-                    new GraphQLValidationError('user'),
+                    new GraphQLValidationError('user', static function (): array {
+                        return [
+                            'input.enabled' => [
+                                trans('validation.user_not_me'),
+                            ],
+                        ];
+                    }),
                     null,
                     static function (self $test, Organization $organization, User $user): User {
                         return $user;
@@ -418,7 +425,13 @@ class UpdateTest extends TestCase {
                     },
                 ],
                 'Role belongs to another organization'              => [
-                    new GraphQLValidationError('user'),
+                    new GraphQLValidationError('user', static function (): array {
+                        return [
+                            'input.role_id' => [
+                                trans('validation.organization_role_id'),
+                            ],
+                        ];
+                    }),
                     null,
                     static function (): User {
                         return User::factory()->create([

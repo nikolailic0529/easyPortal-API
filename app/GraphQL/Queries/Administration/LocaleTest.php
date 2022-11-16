@@ -15,6 +15,8 @@ use Tests\TestCase;
 use Tests\WithOrganization;
 use Tests\WithUser;
 
+use function trans;
+
 /**
  * @internal
  * @coversDefaultClass \App\GraphQL\Queries\Administration\Locale
@@ -122,7 +124,13 @@ class LocaleTest extends TestCase {
                     ],
                 ],
                 'invalid locale' => [
-                    new GraphQLValidationError('locale'),
+                    new GraphQLValidationError('locale', static function (): array {
+                        return [
+                            'name' => [
+                                trans('validation.locale'),
+                            ],
+                        ];
+                    }),
                     'invalid',
                     null,
                     null,

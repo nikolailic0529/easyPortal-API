@@ -30,6 +30,8 @@ use Tests\WithOrganization;
 use Tests\WithUser;
 use Throwable;
 
+use function trans;
+
 /**
  * @internal
  * @coversDefaultClass \App\GraphQL\Mutations\Organization\User\Invite
@@ -406,7 +408,13 @@ class InviteTest extends TestCase {
                     },
                 ],
                 'role not found'                     => [
-                    new GraphQLValidationError('organization'),
+                    new GraphQLValidationError('organization', static function (): array {
+                        return [
+                            'input.role_id' => [
+                                trans('validation.organization_role_id'),
+                            ],
+                        ];
+                    }),
                     null,
                     static function (self $test): array {
                         $organization = Organization::factory()->create();
@@ -427,7 +435,13 @@ class InviteTest extends TestCase {
                     },
                 ],
                 'team not found'                     => [
-                    new GraphQLValidationError('organization'),
+                    new GraphQLValidationError('organization', static function (): array {
+                        return [
+                            'input.team_id' => [
+                                trans('validation.team_id'),
+                            ],
+                        ];
+                    }),
                     null,
                     static function (self $test): array {
                         $organization = Organization::factory()->create();

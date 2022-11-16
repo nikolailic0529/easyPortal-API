@@ -15,6 +15,7 @@ use App\Models\Organization;
 use App\Models\QuoteRequestDuration;
 use App\Models\User;
 use Closure;
+use Illuminate\Contracts\Config\Repository;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Mail;
 use LastDragon_ru\LaraASP\Testing\Constraints\Response\Response;
@@ -29,6 +30,9 @@ use Tests\TestCase;
 use Tests\WithOrganization;
 use Tests\WithSettings;
 use Tests\WithUser;
+
+use function implode;
+use function trans;
 
 /**
  * @internal
@@ -836,204 +840,85 @@ class CreateTest extends TestCase {
                         'files'           => [UploadedFile::fake()->create('document.csv', 200)],
                     ],
                 ],
-                'Invalid oem'                               => [
-                    new GraphQLValidationError('quoteRequest'),
-                    $settings,
-                    $prepare,
-                    [
-                        'oem_id'        => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ax',
-                        'customer_id'   => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ab',
-                        'type_id'       => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ad',
-                        'contact_name'  => 'contact1',
-                        'contact_email' => 'contact1@test.com',
-                        'contact_phone' => '+27113456789',
-                        'assets'        => [
-                            [
-                                'asset_id'         => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ae',
-                                'duration_id'      => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699af',
-                                'service_level_id' => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699a9',
+                'Invalid input'                             => [
+                    new GraphQLValidationError('quoteRequest', static function (Repository $config): array {
+                        return [
+                            'input.oem_id'                    => [
+                                trans('validation.oem_id'),
                             ],
-                        ],
-                    ],
-                ],
-                'Invalid customer id'                       => [
-                    new GraphQLValidationError('quoteRequest'),
-                    $settings,
-                    $prepare,
-                    [
-                        'oem_id'        => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699aa',
-                        'customer_id'   => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ax',
-                        'type_id'       => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ad',
-                        'contact_name'  => 'contact1',
-                        'contact_email' => 'contact1@test.com',
-                        'contact_phone' => '+27113456789',
-                        'assets'        => [
-                            [
-                                'asset_id'         => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ae',
-                                'duration_id'      => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699af',
-                                'service_level_id' => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699a9',
+                            'input.customer_id'               => [
+                                trans('validation.customer_id'),
                             ],
-                        ],
-                    ],
-                ],
-                'Invalid contact name'                      => [
-                    new GraphQLValidationError('quoteRequest'),
+                            'input.contact_name'              => [
+                                trans('validation.required'),
+                            ],
+                            'input.contact_email'             => [
+                                trans('validation.email'),
+                            ],
+                            'input.contact_phone'             => [
+                                trans('validation.phone'),
+                            ],
+                            'input.type_id'                   => [
+                                trans('validation.quote_type_id'),
+                            ],
+                            'input.assets.0.asset_id'         => [
+                                trans('validation.asset_id'),
+                            ],
+                            'input.assets.0.duration_id'      => [
+                                trans('validation.quote_request_duration_id'),
+                            ],
+                            'input.assets.0.service_level_id' => [
+                                trans('validation.service_level_id'),
+                            ],
+                            'input.files.0'                   => [
+                                trans('validation.max.file', [
+                                    'max' => $config->get('ep.file.max_size') ?? 0,
+                                ]),
+                            ],
+                            'input.files.1'                   => [
+                                trans('validation.mimes', [
+                                    'values' => implode(', ', $config->get('ep.file.formats')),
+                                ]),
+                            ],
+                        ];
+                    }),
                     $settings,
                     $prepare,
                     [
-                        'oem_id'        => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699aa',
-                        'customer_id'   => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ab',
-                        'type_id'       => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ad',
+                        'oem_id'        => '00000000-0000-0000-0000-000000000000',
+                        'customer_id'   => '00000000-0000-0000-0000-000000000000',
+                        'type_id'       => '00000000-0000-0000-0000-000000000000',
                         'contact_name'  => '',
-                        'contact_email' => 'contact1@test.com',
-                        'contact_phone' => '+27113456789',
+                        'contact_email' => 'invalid',
+                        'contact_phone' => 'invalid',
                         'assets'        => [
                             [
-                                'asset_id'         => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ae',
-                                'duration_id'      => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699af',
-                                'service_level_id' => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699a9',
+                                'asset_id'         => '00000000-0000-0000-0000-000000000000',
+                                'duration_id'      => '00000000-0000-0000-0000-000000000000',
+                                'service_level_id' => '00000000-0000-0000-0000-000000000000',
                             ],
                         ],
-                    ],
-                ],
-                'Invalid contact phone'                     => [
-                    new GraphQLValidationError('quoteRequest'),
-                    $settings,
-                    $prepare,
-                    [
-                        'oem_id'        => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699aa',
-                        'customer_id'   => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ab',
-                        'type_id'       => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ad',
-                        'contact_name'  => 'contact1',
-                        'contact_email' => 'contact1@test.com',
-                        'contact_phone' => '',
-                        'assets'        => [
-                            [
-                                'asset_id'         => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ae',
-                                'duration_id'      => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699af',
-                                'service_level_id' => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699a9',
-                            ],
+                        'files'         => [
+                            UploadedFile::fake()->create('document.csv', 300),
+                            UploadedFile::fake()->create('document.jpg', 200),
                         ],
-                    ],
-                ],
-                'Invalid contact email'                     => [
-                    new GraphQLValidationError('quoteRequest'),
-                    $settings,
-                    $prepare,
-                    [
-                        'oem_id'        => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699aa',
-                        'customer_id'   => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ab',
-                        'type_id'       => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ad',
-                        'contact_name'  => 'contact1',
-                        'contact_email' => 'invalid email',
-                        'contact_phone' => '+27113456789',
-                    ],
-                ],
-                'Invalid type'                              => [
-                    new GraphQLValidationError('quoteRequest'),
-                    $settings,
-                    $prepare,
-                    [
-                        'oem_id'        => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699aa',
-                        'customer_id'   => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ab',
-                        'type_id'       => '',
-                        'contact_name'  => 'contact1',
-                        'contact_email' => 'contact1@test.com',
-                        'contact_phone' => '+27113456789',
-                    ],
-                ],
-                'Invalid asset'                             => [
-                    new GraphQLValidationError('quoteRequest'),
-                    $settings,
-                    $prepare,
-                    [
-                        'oem_id'        => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699aa',
-                        'customer_id'   => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ab',
-                        'type_id'       => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ad',
-                        'contact_name'  => 'contact1',
-                        'contact_email' => 'contact1@test.com',
-                        'contact_phone' => '+27113456789',
-                        'assets'        => [
-                            [
-                                'asset_id'         => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699be',
-                                'duration_id'      => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699af',
-                                'service_level_id' => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699a9',
-                            ],
-                        ],
-                    ],
-                ],
-                'Invalid duration'                          => [
-                    new GraphQLValidationError('quoteRequest'),
-                    $settings,
-                    $prepare,
-                    [
-                        'oem_id'        => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699aa',
-                        'customer_id'   => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ab',
-                        'type_id'       => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ad',
-                        'contact_name'  => 'contact1',
-                        'contact_email' => 'contact1@test.com',
-                        'contact_phone' => '+27113456789',
-                        'assets'        => [
-                            [
-                                'asset_id'         => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ae',
-                                'duration_id'      => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ax',
-                                'service_level_id' => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699a9',
-                            ],
-                        ],
-                    ],
-                ],
-                'Invalid service level'                     => [
-                    new GraphQLValidationError('quoteRequest'),
-                    $settings,
-                    $prepare,
-                    [
-                        'oem_id'        => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699aa',
-                        'customer_id'   => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ab',
-                        'type_id'       => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ad',
-                        'contact_name'  => 'contact1',
-                        'contact_email' => 'contact1@test.com',
-                        'contact_phone' => '+27113456789',
-                        'assets'        => [
-                            [
-                                'asset_id'         => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ae',
-                                'duration_id'      => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699af',
-                                'service_level_id' => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ax',
-                            ],
-                        ],
-                    ],
-                ],
-                'Invalid file size'                         => [
-                    new GraphQLValidationError('quoteRequest'),
-                    $settings,
-                    $prepare,
-                    [
-                        'oem_id'        => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699aa',
-                        'customer_id'   => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ab',
-                        'type_id'       => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ad',
-                        'contact_name'  => 'contact1',
-                        'contact_email' => 'contact1@test.com',
-                        'contact_phone' => '+27113456789',
-                        'message'       => 'message',
-                        'files'         => [UploadedFile::fake()->create('document.csv', 300)],
-                    ],
-                ],
-                'Invalid file format'                       => [
-                    new GraphQLValidationError('quoteRequest'),
-                    $settings,
-                    $prepare,
-                    [
-                        'oem_id'        => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699aa',
-                        'customer_id'   => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ab',
-                        'type_id'       => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ad',
-                        'contact_name'  => 'contact1',
-                        'contact_email' => 'contact1@test.com',
-                        'contact_phone' => '+27113456789',
-                        'message'       => 'message',
-                        'files'         => [UploadedFile::fake()->create('document.jpg', 200)],
                     ],
                 ],
                 'Invalid customer id/name'                  => [
-                    new GraphQLValidationError('quoteRequest'),
+                    new GraphQLValidationError('quoteRequest', static function (): array {
+                        return [
+                            'input.customer_id'     => [
+                                trans('validation.required_without', [
+                                    'values' => 'input.customer_custom',
+                                ]),
+                            ],
+                            'input.customer_custom' => [
+                                trans('validation.required_without', [
+                                    'values' => 'input.customer_id',
+                                ]),
+                            ],
+                        ];
+                    }),
                     $settings,
                     $prepare,
                     [
@@ -1047,7 +932,22 @@ class CreateTest extends TestCase {
                     ],
                 ],
                 'customer_id and customer_custom'           => [
-                    new GraphQLValidationError('quoteRequest'),
+                    new GraphQLValidationError('quoteRequest', static function (): array {
+                        return [
+                            'input.customer_id'     => [
+                                trans('validation.prohibited_unless', [
+                                    'other'  => 'input.customer_custom',
+                                    'values' => 'null',
+                                ]),
+                            ],
+                            'input.customer_custom' => [
+                                trans('validation.prohibited_unless', [
+                                    'other'  => 'input.customer_id',
+                                    'values' => 'null',
+                                ]),
+                            ],
+                        ];
+                    }),
                     $settings,
                     $prepare,
                     [
@@ -1061,7 +961,22 @@ class CreateTest extends TestCase {
                     ],
                 ],
                 'service_level_id and service_level_custom' => [
-                    new GraphQLValidationError('quoteRequest'),
+                    new GraphQLValidationError('quoteRequest', static function (): array {
+                        return [
+                            'input.assets.0.service_level_id'     => [
+                                trans('validation.prohibited_unless', [
+                                    'other'  => 'input.assets.0.service_level_custom',
+                                    'values' => 'null',
+                                ]),
+                            ],
+                            'input.assets.0.service_level_custom' => [
+                                trans('validation.prohibited_unless', [
+                                    'other'  => 'input.assets.0.service_level_id',
+                                    'values' => 'null',
+                                ]),
+                            ],
+                        ];
+                    }),
                     $settings,
                     $prepare,
                     [

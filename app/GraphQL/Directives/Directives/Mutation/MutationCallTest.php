@@ -220,7 +220,9 @@ class MutationCallTest extends TestCase {
                     'id' => $customer->getKey(),
                 ],
             )
-            ->assertThat(new GraphQLValidationError('model'));
+            ->assertThat(new GraphQLValidationError('model', [
+                'input.test' => ['validation.rule.isValid'],
+            ]));
     }
 
     /**
@@ -274,7 +276,9 @@ class MutationCallTest extends TestCase {
                     'id' => $customer->getKey(),
                 ],
             )
-            ->assertThat(new GraphQLValidationError('model'));
+            ->assertThat(new GraphQLValidationError('model', [
+                'context' => ['validation.rule.isValid'],
+            ]));
     }
 
     /**
