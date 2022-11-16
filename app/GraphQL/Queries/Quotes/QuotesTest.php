@@ -857,6 +857,7 @@ class QuotesTest extends TestCase {
 
                             Document::factory()->create([
                                 'id'          => '2bf6d64b-df97-401c-9abd-dc2dd747e2b0',
+                                'type_id'     => Type::factory(),
                                 'customer_id' => $customer,
                                 'reseller_id' => $reseller,
                             ]);

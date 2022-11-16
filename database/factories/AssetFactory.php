@@ -3,13 +3,6 @@
 namespace Database\Factories;
 
 use App\Models\Asset;
-use App\Models\Customer;
-use App\Models\Data\Location;
-use App\Models\Data\Oem;
-use App\Models\Data\Product;
-use App\Models\Data\Status;
-use App\Models\Data\Type;
-use App\Models\Reseller;
 use App\Utils\Eloquent\Testing\Database\Factory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Date;
@@ -34,25 +27,13 @@ class AssetFactory extends Factory {
     public function definition(): array {
         return [
             'id'                        => $this->faker->uuid(),
-            'reseller_id'               => Reseller::factory(),
-            'oem_id'                    => Oem::factory(),
-            'type_id'                   => function (): Type {
-                return Type::factory()->create([
-                    'object_type' => $this->newModel()->getMorphClass(),
-                ]);
-            },
-            'product_id'                => static function (array $properties): Product {
-                return Product::factory()->create([
-                    'oem_id' => $properties['oem_id'],
-                ]);
-            },
-            'customer_id'               => Customer::factory(),
-            'location_id'               => Location::factory(),
-            'status_id'                 => function (): Status {
-                return Status::factory()->create([
-                    'object_type' => $this->newModel()->getMorphClass(),
-                ]);
-            },
+            'reseller_id'               => null,
+            'oem_id'                    => null,
+            'type_id'                   => null,
+            'product_id'                => null,
+            'customer_id'               => null,
+            'location_id'               => null,
+            'status_id'                 => null,
             'serial_number'             => $this->faker->uuid(),
             'nickname'                  => null,
             'warranty_end'              => null,

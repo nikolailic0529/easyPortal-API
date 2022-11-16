@@ -238,6 +238,7 @@ class ModelsProvider {
         $asset                         = Asset::factory()->create([
             'oem_id'      => $oem,
             'type_id'     => $type,
+            'status_id'   => $status,
             'product_id'  => $product,
             'reseller_id' => $reseller,
             'customer_id' => $customer,

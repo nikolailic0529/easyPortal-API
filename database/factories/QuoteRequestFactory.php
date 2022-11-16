@@ -2,9 +2,7 @@
 
 namespace Database\Factories;
 
-use App\Models\Customer;
 use App\Models\Data\Oem;
-use App\Models\Data\Type;
 use App\Models\Organization;
 use App\Models\QuoteRequest;
 use App\Models\User;
@@ -36,10 +34,10 @@ class QuoteRequestFactory extends Factory {
             'oem_custom'      => null,
             'organization_id' => Organization::factory(),
             'user_id'         => User::factory(),
-            'customer_id'     => Customer::factory(),
-            'customer_custom' => null,
-            'type_id'         => Type::factory(),
-            'type_custom'     => null,
+            'customer_id'     => null,
+            'customer_custom' => $this->faker->company(),
+            'type_id'         => null,
+            'type_custom'     => $this->faker->word(),
             'message'         => $this->faker->text(),
             'created_at'      => Date::now(),
             'updated_at'      => Date::now(),
