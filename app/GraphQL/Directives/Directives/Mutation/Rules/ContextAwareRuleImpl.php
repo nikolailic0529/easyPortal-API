@@ -21,9 +21,9 @@ trait ContextAwareRuleImpl {
     /**
      * @template T of object
      *
-     * @param class-string<T> $class
+     * @param class-string<T>|null $class
      *
-     * @return T|null
+     * @return ($class is null ? object|null : T|null)
      */
     protected function getMutationRoot(string $class = null): ?object {
         $model = null;
@@ -37,7 +37,7 @@ trait ContextAwareRuleImpl {
             } while ($context && $class !== null && !($model instanceof $class));
         }
 
-        return $model; // @phpstan-ignore-line
+        return $model;
     }
 
     /**

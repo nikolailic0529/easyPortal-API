@@ -2776,22 +2776,12 @@ parameters:
 			path: app/Rules/DateTime.php
 
 		-
-			message: "#^Unable to resolve the template type T in call to method App\\\\Rules\\\\Organization\\\\PermissionId\\:\\:getMutationRoot\\(\\)$#"
-			count: 1
-			path: app/Rules/Organization/PermissionId.php
-
-		-
 			message: "#^Anonymous function should return Illuminate\\\\Database\\\\Eloquent\\\\Builder\\<Illuminate\\\\Database\\\\Eloquent\\\\Model\\> but returns Illuminate\\\\Database\\\\Eloquent\\\\Builder\\<App\\\\Models\\\\Role\\>\\.$#"
 			count: 1
 			path: app/Rules/Organization/RoleId.php
 
 		-
 			message: "#^Parameter \\#1 \\$column of method Illuminate\\\\Database\\\\Eloquent\\\\Builder\\<App\\\\Models\\\\Role\\>\\:\\:where\\(\\) expects array\\<int\\|string, mixed\\>\\|\\(Closure\\(Illuminate\\\\Database\\\\Eloquent\\\\Builder\\<App\\\\Models\\\\Role\\>\\)\\: void\\)\\|\\(Closure\\(Illuminate\\\\Database\\\\Eloquent\\\\Builder\\<App\\\\Models\\\\Role\\>\\)\\: Illuminate\\\\Database\\\\Eloquent\\\\Builder\\<App\\\\Models\\\\Role\\>\\)\\|Illuminate\\\\Database\\\\Query\\\\Expression\\|string, Closure\\(Illuminate\\\\Database\\\\Eloquent\\\\Builder\\)\\: Illuminate\\\\Database\\\\Eloquent\\\\Builder\\<Illuminate\\\\Database\\\\Eloquent\\\\Model\\> given\\.$#"
-			count: 1
-			path: app/Rules/Organization/RoleId.php
-
-		-
-			message: "#^Unable to resolve the template type T in call to method App\\\\Rules\\\\Organization\\\\RoleId\\:\\:getMutationRoot\\(\\)$#"
 			count: 1
 			path: app/Rules/Organization/RoleId.php
 
