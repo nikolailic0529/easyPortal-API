@@ -3,23 +3,29 @@
 namespace Tests\GraphQL;
 
 use Closure;
-use LastDragon_ru\LaraASP\Testing\Constraints\Json\JsonMatchesSchema;
-use LastDragon_ru\LaraASP\Testing\Constraints\Json\JsonSchemaValue;
+use LastDragon_ru\LaraASP\Testing\Constraints\Json\JsonMatchesFragment;
+
+use function array_merge;
+use function trans;
 
 /**
- * @phpstan-import-type ValidationErrors from GraphQLValidationErrorsSchema
+ * @phpstan-import-type ValidationErrors from GraphQLValidationErrorsContent
  */
-class GraphQLValidationError extends GraphQLResponse {
+class GraphQLValidationError extends GraphQLError {
     /**
      * @template T
      *
-     * @param ValidationErrors|Closure(T):ValidationErrors $errors
+     * @param ValidationErrors|Closure(T):ValidationErrors $validationErrors
      */
     public function __construct(
         string $root,
-        protected Closure|array $errors,
+        protected Closure|array $validationErrors,
     ) {
-        parent::__construct($root, null);
+        parent::__construct($root, static function (): array {
+            return [
+                trans('errors.validation_failed'),
+            ];
+        });
     }
 
     protected function getResponseClass(): string {
@@ -30,8 +36,11 @@ class GraphQLValidationError extends GraphQLResponse {
      * @inheritdoc
      */
     protected function getResponseConstraints(): array {
-        return [
-            new JsonMatchesSchema(new JsonSchemaValue(new GraphQLValidationErrorsSchema($this->errors))),
-        ];
+        return array_merge(parent::getResponseConstraints(), [
+            new JsonMatchesFragment(
+                'errors.0.extensions.validation',
+                new GraphQLValidationErrorsContent($this->validationErrors),
+            ),
+        ]);
     }
 }

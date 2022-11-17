@@ -348,27 +348,33 @@ class UpdateTest extends TestCase {
                 'invalid input'                    => [
                     new GraphQLValidationError('org', static function (Repository $config): array {
                         return [
-                            'input.locale'              => [
+                            'input.locale'               => [
                                 trans('validation.locale'),
                             ],
-                            'input.currency_id'         => [
+                            'input.currency_id'          => [
                                 trans('validation.currency_id'),
                             ],
-                            'input.website_url'         => [
+                            'input.website_url'          => [
                                 trans('validation.url'),
                             ],
-                            'input.email'               => [
+                            'input.email'                => [
                                 trans('validation.email'),
                             ],
-                            'input.timezone'            => [
+                            'input.timezone'             => [
                                 trans('validation.timezone'),
                             ],
-                            'input.branding.main_color' => [
+                            'input.branding.main_color'  => [
                                 trans('validation.color'),
                             ],
-                            'input.branding.logo_url'   => [
+                            'input.branding.logo_url'    => [
                                 trans('validation.mimes', [
                                     'attribute' => 'input.branding.logo url',
+                                    'values'    => implode(', ', $config->get('ep.image.formats')),
+                                ]),
+                            ],
+                            'input.branding.favicon_url' => [
+                                trans('validation.mimes', [
+                                    'attribute' => 'input.branding.favicon url',
                                     'values'    => implode(', ', $config->get('ep.image.formats')),
                                 ]),
                             ],
@@ -438,8 +444,7 @@ class UpdateTest extends TestCase {
                         return [
                             'branding' => [
                                 'logo_url'    => UploadedFile::fake()->create('logo.png', 3024),
-                                'favicon_url' => UploadedFile::fake()
-                                    ->create('favicon.png', 3024),
+                                'favicon_url' => UploadedFile::fake()->create('favicon.png', 3024),
                             ],
                         ];
                     },

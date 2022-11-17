@@ -454,17 +454,11 @@ class InviteTest extends TestCase {
                         ];
                     }),
                     null,
-                    static function (self $test): array {
-                        $organization = Organization::factory()->create();
-                        $role         = Role::factory()->create([
-                            'organization_id' => $organization,
-                        ]);
-                        $email        = $test->faker->email();
-
+                    static function (self $test, Organization $org): array {
                         return [
                             'input' => [
-                                'email'   => $email,
-                                'role_id' => $role->getKey(),
+                                'email'   => $test->faker->email(),
+                                'role_id' => Role::factory()->ownedBy($org)->create()->getKey(),
                                 'team_id' => $test->faker->uuid(),
                             ],
                         ];
