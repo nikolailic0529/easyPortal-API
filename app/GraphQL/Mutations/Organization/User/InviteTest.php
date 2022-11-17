@@ -329,15 +329,14 @@ class InviteTest extends TestCase {
                     },
                 ],
                 'user / a member'                    => [
-                    new GraphQLSuccess(
-                        'organization',
-                        new JsonFragment('user.invite', [
-                            'result' => false,
-                        ]),
-                    ),
-                    static function (MockInterface $mock): void {
-                        // empty
-                    },
+                    new GraphQLValidationError('organization', static function (): array {
+                        return [
+                            'input.email' => [
+                                trans('validation.email_invitable.user_member'),
+                            ],
+                        ];
+                    }),
+                    null,
                     $dataFactory,
                     static function (self $test, Organization $org, User $user, array $data): void {
                         $user = User::factory()->create([
@@ -389,15 +388,14 @@ class InviteTest extends TestCase {
                     },
                 ],
                 'local user'                         => [
-                    new GraphQLSuccess(
-                        'organization',
-                        new JsonFragment('user.invite', [
-                            'result' => false,
-                        ]),
-                    ),
-                    static function (MockInterface $mock): void {
-                        // empty
-                    },
+                    new GraphQLValidationError('organization', static function (): array {
+                        return [
+                            'input.email' => [
+                                trans('validation.email_invitable.user_root'),
+                            ],
+                        ];
+                    }),
+                    null,
                     $dataFactory,
                     static function (self $test, Organization $org, User $user, array $data): void {
                         User::factory()->create([

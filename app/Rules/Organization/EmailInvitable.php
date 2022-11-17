@@ -2,6 +2,7 @@
 
 namespace App\Rules\Organization;
 
+use App\GraphQL\Directives\Directives\Mutation\Rules\ContextAwareRule;
 use App\Models\Enums\UserType;
 use App\Models\Organization;
 use App\Models\User;
@@ -10,7 +11,7 @@ use Illuminate\Contracts\Validation\InvokableRule;
 
 use function trans;
 
-class EmailInvitable implements InvokableRule {
+class EmailInvitable implements InvokableRule, ContextAwareRule {
     use HasOrganization;
 
     public function __construct(
