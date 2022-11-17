@@ -166,10 +166,10 @@ class CreateTest extends TestCase {
                                 trans('validation.required'),
                             ],
                             'input.cc.0'    => [
-                                trans('validation.email', ['attribute' => 'input.cc.*']),
+                                trans('validation.email'),
                             ],
                             'input.bcc.0'   => [
-                                trans('validation.email', ['attribute' => 'input.bcc.*']),
+                                trans('validation.email'),
                             ],
                         ];
                     }),

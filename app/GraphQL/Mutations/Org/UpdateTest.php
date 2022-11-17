@@ -368,14 +368,12 @@ class UpdateTest extends TestCase {
                             ],
                             'input.branding.logo_url'    => [
                                 trans('validation.mimes', [
-                                    'attribute' => 'input.branding.logo url',
-                                    'values'    => implode(', ', $config->get('ep.image.formats')),
+                                    'values' => implode(', ', $config->get('ep.image.formats')),
                                 ]),
                             ],
                             'input.branding.favicon_url' => [
                                 trans('validation.mimes', [
-                                    'attribute' => 'input.branding.favicon url',
-                                    'values'    => implode(', ', $config->get('ep.image.formats')),
+                                    'values' => implode(', ', $config->get('ep.image.formats')),
                                 ]),
                             ],
                         ];
@@ -424,14 +422,12 @@ class UpdateTest extends TestCase {
                         return [
                             'input.branding.logo_url'    => [
                                 trans('validation.max.file', [
-                                    'attribute' => 'input.branding.logo url',
-                                    'max'       => $config->get('ep.image.max_size') ?? 0,
+                                    'max' => $config->get('ep.image.max_size') ?? 0,
                                 ]),
                             ],
                             'input.branding.favicon_url' => [
                                 trans('validation.max.file', [
-                                    'attribute' => 'input.branding.favicon url',
-                                    'max'       => $config->get('ep.image.max_size') ?? 0,
+                                    'max' => $config->get('ep.image.max_size') ?? 0,
                                 ]),
                             ],
                         ];

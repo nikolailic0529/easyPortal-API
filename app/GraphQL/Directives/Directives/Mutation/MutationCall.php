@@ -39,6 +39,7 @@ use function implode;
 use function is_bool;
 use function is_string;
 use function sprintf;
+use function str_contains;
 use function str_replace;
 
 abstract class MutationCall extends BaseDirective implements FieldResolver {
@@ -263,6 +264,9 @@ abstract class MutationCall extends BaseDirective implements FieldResolver {
         // attribute names into readable form by default (customer_id =>
         // customer id) - it is unwanted behavior in this case.
         $names     = array_keys($rules);
+        $names     = array_filter($names, static function (string $name): bool {
+            return !str_contains($name, '*');
+        });
         $custom    = array_combine($names, $names);
         $validator = $this->factory->make($data, $rules, [], $custom);
 
