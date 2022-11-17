@@ -101,7 +101,6 @@ class CreateTest extends TestCase {
         $document = Document::factory()->ownedBy($org)->create();
         $mutation = $this->app->make(Create::class);
 
-        self::assertNotNull($org);
         self::assertNotNull($user);
 
         // Request

@@ -241,7 +241,6 @@ class CreateTest extends TestCase {
             ],
         ]);
 
-        self::assertNotNull($org);
         self::assertNotNull($user);
 
         $this->setSettings([

@@ -406,11 +406,6 @@ parameters:
 			path: app/GraphQL/Directives/Directives/Org/LoaderTest.php
 
 		-
-			message: "#^Cannot call method getKey\\(\\) on App\\\\Models\\\\Organization\\|null\\.$#"
-			count: 1
-			path: app/GraphQL/Directives/Directives/Org/LoaderTest.php
-
-		-
 			message: "#^Method App\\\\GraphQL\\\\Directives\\\\Directives\\\\Org\\\\LoaderTest\\:\\:testGetQuery\\(\\) has parameter \\$builderFactory with no signature specified for Closure\\.$#"
 			count: 1
 			path: app/GraphQL/Directives/Directives/Org/LoaderTest.php
@@ -1491,11 +1486,6 @@ parameters:
 			path: app/GraphQL/Mutations/UpdateQuoteNoteTest.php
 
 		-
-			message: "#^Cannot call method getKey\\(\\) on App\\\\Models\\\\Organization\\|null\\.$#"
-			count: 1
-			path: app/GraphQL/Mutations/UpdateQuoteNoteTest.php
-
-		-
 			message: "#^Cannot call method getKey\\(\\) on App\\\\Models\\\\User\\|null\\.$#"
 			count: 1
 			path: app/GraphQL/Mutations/UpdateQuoteNoteTest.php
@@ -1904,16 +1894,6 @@ parameters:
 			message: "#^Method App\\\\GraphQL\\\\Queries\\\\MeTest\\:\\:dataProviderSearches\\(\\) should return array\\<string, array\\{LastDragon_ru\\\\LaraASP\\\\Testing\\\\Constraints\\\\Response\\\\Response, App\\\\Models\\\\Organization\\|\\(callable\\(Tests\\\\TestCase\\)\\: App\\\\Models\\\\Organization\\|null\\)\\|null, App\\\\Models\\\\User\\|\\(callable\\(Tests\\\\TestCase, App\\\\Models\\\\Organization\\|null\\)\\: App\\\\Models\\\\User\\|null\\)\\|null, \\(Closure\\(static\\(App\\\\GraphQL\\\\Queries\\\\MeTest\\), App\\\\Models\\\\Organization\\|null, App\\\\Models\\\\User\\|null\\)\\: void\\)\\|null\\}\\> but returns array\\<array\\>\\.$#"
 			count: 1
 			path: app/GraphQL/Queries/MeTest.php
-
-		-
-			message: "#^Cannot call method getKey\\(\\) on App\\\\Models\\\\Organization\\|null\\.$#"
-			count: 2
-			path: app/GraphQL/Queries/OrgTest.php
-
-		-
-			message: "#^Parameter \\#1 \\$org of method App\\\\GraphQL\\\\Queries\\\\Org\\:\\:headquarter\\(\\) expects App\\\\Models\\\\Organization, App\\\\Models\\\\Organization\\|null given\\.$#"
-			count: 2
-			path: app/GraphQL/Queries/OrgTest.php
 
 		-
 			message: "#^Method App\\\\GraphQL\\\\Queries\\\\PermissionsTest\\:\\:testQuery\\(\\) has parameter \\$permissionsFactory with no signature specified for Closure\\.$#"
@@ -4246,11 +4226,6 @@ parameters:
 			path: app/Services/Keycloak/Importer/UsersImporterTest.php
 
 		-
-			message: "#^Cannot call method getKey\\(\\) on App\\\\Models\\\\Organization\\|null\\.$#"
-			count: 2
-			path: app/Services/Keycloak/Importer/UsersImporterTest.php
-
-		-
 			message: "#^Parameter \\#1 \\$array of function reset expects array\\|object, string given\\.$#"
 			count: 9
 			path: app/Services/Keycloak/Importer/UsersImporterTest.php
@@ -5971,11 +5946,6 @@ parameters:
 			path: tests/Providers/Organizations/RootOrganizationProvider.php
 
 		-
-			message: "#^Method Tests\\\\TestCase\\:\\:setOrganization\\(\\) has parameter \\$organization with no signature specified for callable\\.$#"
-			count: 1
-			path: tests/TestCase.php
-
-		-
 			message: "#^Method Tests\\\\TestCase\\:\\:setRootOrganization\\(\\) has parameter \\$organization with no signature specified for callable\\.$#"
 			count: 1
 			path: tests/TestCase.php
@@ -5996,11 +5966,6 @@ parameters:
 			path: tests/TestCase.php
 
 		-
-			message: "#^PHPDoc tag @param for parameter \\$organization with type Tests\\\\OrganizationFactory is not subtype of native type App\\\\Models\\\\Organization\\|\\(callable\\)\\|null\\.$#"
-			count: 1
-			path: tests/TestCase.php
-
-		-
 			message: "#^PHPDoc tag @param for parameter \\$settings with type Tests\\\\SettingsFactory is not subtype of native type array\\|\\(callable\\)\\|null\\.$#"
 			count: 1
 			path: tests/TestCase.php
@@ -6017,11 +5982,6 @@ parameters:
 
 		-
 			message: "#^Parameter \\#3 \\$files of method Tests\\\\TestCase\\:\\:multipartGraphQL\\(\\) expects array\\<array\\|Illuminate\\\\Http\\\\Testing\\\\File\\>, array\\<int\\<0, max\\>\\|string, SplFileInfo\\> given\\.$#"
-			count: 1
-			path: tests/TestCase.php
-
-		-
-			message: "#^Parameter \\$organization of method Tests\\\\TestCase\\:\\:setOrganization\\(\\) has invalid type Tests\\\\OrganizationFactory\\.$#"
 			count: 1
 			path: tests/TestCase.php
 
