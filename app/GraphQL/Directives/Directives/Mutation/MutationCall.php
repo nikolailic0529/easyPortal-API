@@ -9,6 +9,7 @@ use App\GraphQL\Directives\Directives\Mutation\Rules\LaravelRule;
 use App\GraphQL\Directives\Directives\Mutation\Rules\Rule as RuleDirective;
 use GraphQL\Type\Definition\ResolveInfo;
 use Illuminate\Contracts\Validation\Factory;
+use Illuminate\Contracts\Validation\InvokableRule;
 use Illuminate\Contracts\Validation\Rule;
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Database\Eloquent\Model;
@@ -148,7 +149,7 @@ abstract class MutationCall extends BaseDirective implements FieldResolver {
     }
 
     /**
-     * @return array<string, array<Rule|string>>
+     * @return array<string, array<Rule|InvokableRule|string>>
      */
     protected function getRules(Context $context, ArgumentSet $set, string $prefix = null): array {
         $rules = [];
@@ -168,7 +169,7 @@ abstract class MutationCall extends BaseDirective implements FieldResolver {
     /**
      * @param array<Argument> $arguments
      *
-     * @return array<string, array<Rule|string>>
+     * @return array<string, array<Rule|InvokableRule|string>>
      */
     private function getRulesFromArguments(Context $context, ?string $prefix, array $arguments): array {
         $rules = [];
@@ -194,7 +195,12 @@ abstract class MutationCall extends BaseDirective implements FieldResolver {
                         // Current solution is not so good, would be good to find
                         // a better one...
                         $rules[$k] = array_map(
-                            static function (Rule|string $rule) use ($key, $i): Rule|string {
+                            static function (
+                                Rule|InvokableRule|string $rule,
+                            ) use (
+                                $key,
+                                $i,
+                            ): Rule|InvokableRule|string {
                                 if (is_string($rule)) {
                                     $rule = str_replace("{$key}.*", "{$key}.{$i}", $rule);
                                 }
@@ -219,19 +225,19 @@ abstract class MutationCall extends BaseDirective implements FieldResolver {
     /**
      * @param Collection<int, Directive> $directives
      *
-     * @return array<Rule|string>
+     * @return array<Rule|InvokableRule|string>
      */
     private function getRulesFromDirectives(Context $context, Collection $directives): array {
         return $directives
             ->filter(Utils::instanceofMatcher(RuleDirective::class))
-            ->map(static function (RuleDirective $directive) use ($context): Rule|string {
+            ->map(static function (RuleDirective $directive) use ($context): Rule|InvokableRule|string {
                 $rule = null;
 
                 if ($directive instanceof CustomRule) {
                     $rule = $directive->getRule();
                 } elseif ($directive instanceof LaravelRule) {
                     $rule = $directive->getRule();
-                } elseif ($directive instanceof Rule) {
+                } elseif ($directive instanceof Rule || $directive instanceof InvokableRule) {
                     $rule = $directive;
                 } else {
                     throw new DefinitionException(sprintf(
@@ -241,6 +247,7 @@ abstract class MutationCall extends BaseDirective implements FieldResolver {
                             LaravelRule::class,
                             CustomRule::class,
                             Rule::class,
+                            InvokableRule::class,
                         ]),
                     ));
                 }
@@ -255,8 +262,8 @@ abstract class MutationCall extends BaseDirective implements FieldResolver {
     }
 
     /**
-     * @param array<string, mixed>              $data
-     * @param array<string, array<string|Rule>> $rules
+     * @param array<string, mixed>                            $data
+     * @param array<string, array<string|Rule|InvokableRule>> $rules
      *
      */
     protected function getValidator(array $data, array $rules): Validator {

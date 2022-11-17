@@ -3,6 +3,7 @@
 namespace App\GraphQL\Directives\Directives\Mutation\Rules;
 
 use Illuminate\Contracts\Container\Container;
+use Illuminate\Contracts\Validation\InvokableRule as InvokableRuleContract;
 use Illuminate\Contracts\Validation\Rule as RuleContract;
 
 abstract class CustomRule extends Rule {
@@ -12,12 +13,12 @@ abstract class CustomRule extends Rule {
         parent::__construct();
     }
 
-    public function getRule(): RuleContract {
+    public function getRule(): RuleContract|InvokableRuleContract {
         return $this->container->make($this->getRuleClass(), $this->getRuleArguments());
     }
 
     /**
-     * @return class-string<RuleContract>
+     * @return class-string<RuleContract|InvokableRuleContract>
      */
     abstract protected function getRuleClass(): string;
 

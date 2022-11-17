@@ -336,7 +336,7 @@ parameters:
 			path: app/GraphQL/Directives/Directives/Mutation/Mutation.php
 
 		-
-			message: "#^Parameter \\#1 \\$callback of method Illuminate\\\\Support\\\\Collection\\<int,Nuwave\\\\Lighthouse\\\\Support\\\\Contracts\\\\Directive\\>\\:\\:map\\(\\) expects callable\\(Nuwave\\\\Lighthouse\\\\Support\\\\Contracts\\\\Directive, int\\)\\: Illuminate\\\\Contracts\\\\Validation\\\\Rule\\|string, Closure\\(App\\\\GraphQL\\\\Directives\\\\Directives\\\\Mutation\\\\Rules\\\\Rule\\)\\: Illuminate\\\\Contracts\\\\Validation\\\\Rule\\|string given\\.$#"
+			message: "#^Parameter \\#1 \\$callback of method Illuminate\\\\Support\\\\Collection\\<int,Nuwave\\\\Lighthouse\\\\Support\\\\Contracts\\\\Directive\\>\\:\\:map\\(\\) expects callable\\(Nuwave\\\\Lighthouse\\\\Support\\\\Contracts\\\\Directive, int\\)\\: Illuminate\\\\Contracts\\\\Validation\\\\InvokableRule\\|Illuminate\\\\Contracts\\\\Validation\\\\Rule\\|string, Closure\\(App\\\\GraphQL\\\\Directives\\\\Directives\\\\Mutation\\\\Rules\\\\Rule\\)\\: Illuminate\\\\Contracts\\\\Validation\\\\InvokableRule\\|Illuminate\\\\Contracts\\\\Validation\\\\Rule\\|string given\\.$#"
 			count: 1
 			path: app/GraphQL/Directives/Directives/Mutation/MutationCall.php
 
