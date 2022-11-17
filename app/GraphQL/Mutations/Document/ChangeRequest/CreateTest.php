@@ -25,6 +25,8 @@ use Tests\WithOrganization;
 use Tests\WithUser;
 use Throwable;
 
+use function trans;
+
 /**
  * @internal
  * @coversDefaultClass \App\GraphQL\Mutations\Document\ChangeRequest\Create
@@ -242,7 +244,7 @@ class CreateTest extends TestCase {
                 'fd421bad-069f-491c-ad5f-5841aa9a9dee',
             ),
             new ArrayDataProvider([
-                'ok'              => [
+                'ok'             => [
                     new GraphQLSuccess(
                         'contract',
                         new JsonFragment('changeRequest.create', [
@@ -275,7 +277,7 @@ class CreateTest extends TestCase {
                         ],
                     ],
                 ],
-                'Invalid Object'  => [
+                'Invalid Object' => [
                     new GraphQLError('contract', static function (): Throwable {
                         return new ObjectNotFound((new Document())->getMorphClass());
                     }),
@@ -290,47 +292,29 @@ class CreateTest extends TestCase {
                         'bcc'     => ['bcc@example.com'],
                     ],
                 ],
-                'Invalid subject' => [
-                    new GraphQLValidationError('contract'),
+                'Invalid input'  => [
+                    new GraphQLValidationError('contract', static function (): array {
+                        return [
+                            'input.subject' => [
+                                trans('validation.required'),
+                            ],
+                            'input.message' => [
+                                trans('validation.required'),
+                            ],
+                            'input.cc.0'    => [
+                                trans('validation.email'),
+                            ],
+                            'input.bcc.0'   => [
+                                trans('validation.email'),
+                            ],
+                        ];
+                    }),
                     $settings,
                     $prepare,
                     [
                         'subject' => '',
-                        'message' => 'change request',
-                        'cc'      => ['cc@example.com'],
-                        'bcc'     => ['bcc@example.com'],
-                    ],
-                ],
-                'Invalid message' => [
-                    new GraphQLValidationError('contract'),
-                    $settings,
-                    $prepare,
-                    [
-                        'subject' => 'subject',
                         'message' => '',
-                        'cc'      => ['cc@example.com'],
-                        'bcc'     => ['bcc@example.com'],
-                    ],
-                ],
-                'Invalid cc'      => [
-                    new GraphQLValidationError('contract'),
-                    $settings,
-                    $prepare,
-                    [
-                        'subject' => 'subject',
-                        'message' => 'message',
                         'cc'      => ['wrong'],
-                        'bcc'     => ['bcc@example.com'],
-                    ],
-                ],
-                'Invalid bcc'     => [
-                    new GraphQLValidationError('contract'),
-                    $settings,
-                    $prepare,
-                    [
-                        'subject' => 'subject',
-                        'message' => 'message',
-                        'cc'      => ['cc@example.com'],
                         'bcc'     => ['wrong'],
                     ],
                 ],
@@ -370,7 +354,7 @@ class CreateTest extends TestCase {
                 'fd421bad-069f-491c-ad5f-5841aa9a9dee',
             ),
             new ArrayDataProvider([
-                'ok'              => [
+                'ok'             => [
                     new GraphQLSuccess(
                         'quote',
                         new JsonFragment('changeRequest.create', [
@@ -403,7 +387,7 @@ class CreateTest extends TestCase {
                         ],
                     ],
                 ],
-                'Invalid Object'  => [
+                'Invalid Object' => [
                     new GraphQLError('quote', static function (): Throwable {
                         return new ObjectNotFound((new Document())->getMorphClass());
                     }),
@@ -418,47 +402,29 @@ class CreateTest extends TestCase {
                         'bcc'     => ['bcc@example.com'],
                     ],
                 ],
-                'Invalid subject' => [
-                    new GraphQLValidationError('quote'),
+                'Invalid input'  => [
+                    new GraphQLValidationError('quote', static function (): array {
+                        return [
+                            'input.subject' => [
+                                trans('validation.required'),
+                            ],
+                            'input.message' => [
+                                trans('validation.required'),
+                            ],
+                            'input.cc.0'    => [
+                                trans('validation.email'),
+                            ],
+                            'input.bcc.0'   => [
+                                trans('validation.email'),
+                            ],
+                        ];
+                    }),
                     $settings,
                     $prepare,
                     [
                         'subject' => '',
-                        'message' => 'change request',
-                        'cc'      => ['cc@example.com'],
-                        'bcc'     => ['bcc@example.com'],
-                    ],
-                ],
-                'Invalid message' => [
-                    new GraphQLValidationError('quote'),
-                    $settings,
-                    $prepare,
-                    [
-                        'subject' => 'subject',
                         'message' => '',
-                        'cc'      => ['cc@example.com'],
-                        'bcc'     => ['bcc@example.com'],
-                    ],
-                ],
-                'Invalid cc'      => [
-                    new GraphQLValidationError('quote'),
-                    $settings,
-                    $prepare,
-                    [
-                        'subject' => 'subject',
-                        'message' => 'message',
                         'cc'      => ['wrong'],
-                        'bcc'     => ['bcc@example.com'],
-                    ],
-                ],
-                'Invalid bcc'     => [
-                    new GraphQLValidationError('quote'),
-                    $settings,
-                    $prepare,
-                    [
-                        'subject' => 'subject',
-                        'message' => 'message',
-                        'cc'      => ['cc@example.com'],
                         'bcc'     => ['wrong'],
                     ],
                 ],

@@ -23,6 +23,8 @@ use Tests\WithOrganization;
 use Tests\WithSettings;
 use Tests\WithUser;
 
+use function trans;
+
 /**
  * @internal
  * @coversDefaultClass \App\GraphQL\Mutations\Message\Create
@@ -99,9 +101,6 @@ class CreateTest extends TestCase {
         $document = Document::factory()->ownedBy($org)->create();
         $mutation = $this->app->make(Create::class);
 
-        self::assertNotNull($org);
-        self::assertNotNull($user);
-
         // Request
         $request = $mutation->createRequest($document, $input);
 
@@ -139,7 +138,7 @@ class CreateTest extends TestCase {
             new AuthOrgDataProvider('message'),
             new OrgUserDataProvider('message'),
             new ArrayDataProvider([
-                'ok'              => [
+                'ok'            => [
                     new GraphQLSuccess(
                         'message',
                         new JsonFragment('create', [
@@ -157,43 +156,28 @@ class CreateTest extends TestCase {
                         ],
                     ],
                 ],
-                'Invalid subject' => [
-                    new GraphQLValidationError('message'),
+                'Invalid input' => [
+                    new GraphQLValidationError('message', static function (): array {
+                        return [
+                            'input.subject' => [
+                                trans('validation.required'),
+                            ],
+                            'input.message' => [
+                                trans('validation.required'),
+                            ],
+                            'input.cc.0'    => [
+                                trans('validation.email'),
+                            ],
+                            'input.bcc.0'   => [
+                                trans('validation.email'),
+                            ],
+                        ];
+                    }),
                     $settings,
                     [
                         'subject' => '',
-                        'message' => 'change request',
-                        'cc'      => ['cc@example.com'],
-                        'bcc'     => ['bcc@example.com'],
-                    ],
-                ],
-                'Invalid message' => [
-                    new GraphQLValidationError('message'),
-                    $settings,
-                    [
-                        'subject' => 'subject',
                         'message' => '',
-                        'cc'      => ['cc@example.com'],
-                        'bcc'     => ['bcc@example.com'],
-                    ],
-                ],
-                'Invalid cc'      => [
-                    new GraphQLValidationError('message'),
-                    $settings,
-                    [
-                        'subject' => 'subject',
-                        'message' => 'message',
                         'cc'      => ['wrong'],
-                        'bcc'     => ['bcc@example.com'],
-                    ],
-                ],
-                'Invalid bcc'     => [
-                    new GraphQLValidationError('message'),
-                    $settings,
-                    [
-                        'subject' => 'subject',
-                        'message' => 'message',
-                        'cc'      => ['cc@example.com'],
                         'bcc'     => ['wrong'],
                     ],
                 ],

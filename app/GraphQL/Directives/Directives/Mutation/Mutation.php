@@ -194,7 +194,7 @@ abstract class Mutation extends BaseDirective implements FieldResolver, FieldMan
                 ));
             }
         } elseif ($args) {
-            $builder = $this->getBuilder($root, $args, $graphQLContext, $resolveInfo);
+            $builder = $this->getBuilder($root, $args, $graphQLContext, $resolveInfo, $rootContext);
             $objects = $resolveInfo->argumentSet->enhanceBuilder(clone $builder, [])->limit(2)->get();
             $object  = $objects->first();
             $context = new BuilderContext($rootContext, $object, $builder);
@@ -210,7 +210,7 @@ abstract class Mutation extends BaseDirective implements FieldResolver, FieldMan
                 throw new ObjectNotFound($context->getModel());
             }
         } else {
-            $builder = $this->getBuilder($root, $args, $graphQLContext, $resolveInfo);
+            $builder = $this->getBuilder($root, $args, $graphQLContext, $resolveInfo, $rootContext);
             $context = new EmptyContext($rootContext, (new BuilderContext($rootContext, null, $builder))->getModel());
         }
 
@@ -219,12 +219,15 @@ abstract class Mutation extends BaseDirective implements FieldResolver, FieldMan
 
     /**
      * @param array<mixed> $args
+     *
+     * @return EloquentBuilder<Model>
      */
     protected function getBuilder(
         mixed $root,
         array $args,
-        GraphQLContext $context,
+        GraphQLContext $graphQLContext,
         ResolveInfo $resolveInfo,
+        ?Context $rootContext,
     ): EloquentBuilder {
         // Get
         $builder  = null;
@@ -233,14 +236,10 @@ abstract class Mutation extends BaseDirective implements FieldResolver, FieldMan
         $model    = $this->directiveArgValue(static::ARGUMENT_MODEL);
 
         if ($resolver) {
-            $builder = $resolver($root, $args, $context, $resolveInfo);
+            $builder = $resolver($root, $args, $graphQLContext, $resolveInfo);
         } elseif (($root instanceof Model || $relation !== null) && $model === null) {
             if (!($root instanceof Model)) {
-                throw new DefinitionException(sprintf(
-                    'Directive `@%s` argument `%s` can be used only when root is the Model.',
-                    $this->name(),
-                    static::ARGUMENT_RELATION,
-                ));
+                throw new ObjectNotFound($rootContext?->getModel());
             }
 
             $builder = (new ModelHelper($root))

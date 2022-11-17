@@ -27,8 +27,18 @@ class DataTest extends TestCase {
         $data   = new Data();
         $uuidA  = $this->faker->uuid();
         $uuidB  = $this->faker->uuid();
-        $assetA = Asset::factory()->make(['id' => null]);
-        $assetB = Asset::factory()->make(['id' => $uuidA]);
+        $assetA = Asset::factory()->make([
+            'id'          => null,
+            'reseller_id' => $this->faker->uuid(),
+            'customer_id' => $this->faker->uuid(),
+            'location_id' => $this->faker->uuid(),
+        ]);
+        $assetB = Asset::factory()->make([
+            'id'          => $uuidA,
+            'reseller_id' => $this->faker->uuid(),
+            'customer_id' => $this->faker->uuid(),
+            'location_id' => $this->faker->uuid(),
+        ]);
 
         $data->collect($assetA);
         $data->collect($assetB);

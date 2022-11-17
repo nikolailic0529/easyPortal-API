@@ -195,7 +195,7 @@ class PermissionsTest extends TestCase {
                 new ArrayDataProvider([
                     [
                         new UnknownValue(),
-                        static function (TestCase $test): ?Organization {
+                        static function (TestCase $test): Organization {
                             return $test->setOrganization(
                                 Organization::factory()->create(),
                             );

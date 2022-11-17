@@ -31,6 +31,7 @@ use Symfony\Component\Console\Output\BufferedOutput;
 use Tests\GraphQL\ASTBuilderPersistent;
 use Tests\Helpers\SequenceDateFactory;
 use Tests\Helpers\SequenceUuidFactory;
+use Throwable;
 
 use function array_merge;
 use function array_shift;
@@ -279,5 +280,11 @@ abstract class TestCase extends BaseTestCase {
         }
 
         return $files;
+    }
+
+    protected function onNotSuccessfulTest(Throwable $exception): void {
+        // By default, Laravel add errors dump into $exception message, but it
+        // is unnecessary for us and makes failed tests harder to read.
+        throw $exception;
     }
 }

@@ -14,15 +14,23 @@ use function is_callable;
  */
 trait WithUser {
     /**
-     * @param UserFactory $user
+     * @template T of User|null
+     * @template C of Organization|null
+     *
+     * @param T|callable(TestCase, C):T $user
+     * @param C                        $organization
+     *
+     * @return (T is null ? null : User)
      */
     public function setUser(User|callable|null $user, Organization $organization = null): User|null {
         if (is_callable($user)) {
             $user = $user($this, $organization);
         }
 
-        if ($user) {
+        if ($user instanceof User) {
             $this->actingAs($user);
+        } else {
+            $user = null;
         }
 
         return $user;

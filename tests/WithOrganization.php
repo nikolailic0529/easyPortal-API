@@ -18,14 +18,18 @@ use function is_callable;
  */
 trait WithOrganization {
     /**
-     * @param OrganizationFactory $organization
+     * @template T of Organization|null
+     *
+     * @param T|callable(TestCase):T $organization
+     *
+     * @return (T is null ? null : Organization)
      */
     protected function setOrganization(Organization|callable|null $organization): ?Organization {
         if (is_callable($organization)) {
             $organization = $organization($this);
         }
 
-        if ($organization) {
+        if ($organization instanceof Organization) {
             $this->app->bind(WithOrganizationToken::class, static function () use ($organization): Organization {
                 return $organization;
             });
@@ -66,20 +70,26 @@ trait WithOrganization {
         } else {
             unset($this->app[CurrentOrganization::class]);
             unset($this->app[WithOrganizationToken::class]);
+
+            $organization = null;
         }
 
         return $organization;
     }
 
     /**
-     * @param OrganizationFactory $organization
+     * @template T of Organization|null
+     *
+     * @param T|callable(TestCase):T $organization
+     *
+     * @return (T is null ? null : Organization)
      */
     public function setRootOrganization(Organization|callable|null $organization): ?Organization {
         if (is_callable($organization)) {
             $organization = $organization($this);
         }
 
-        if ($organization) {
+        if ($organization instanceof Organization) {
             $this->app->bind(RootOrganization::class, function () use ($organization): RootOrganization {
                 $config = $this->app->make(Repository::class);
 
@@ -102,6 +112,8 @@ trait WithOrganization {
             });
         } else {
             unset($this->app[RootOrganization::class]);
+
+            $organization = null;
         }
 
         return $organization;

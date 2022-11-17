@@ -16,6 +16,8 @@ use Tests\TestCase;
 use Tests\WithOrganization;
 use Tests\WithUser;
 
+use function trans;
+
 /**
  * @internal
  * @coversDefaultClass \App\GraphQL\Mutations\Locale\Reset
@@ -95,7 +97,13 @@ class ResetTest extends TestCase {
                     'en_GB',
                 ],
                 'invalid locale' => [
-                    new GraphQLValidationError('locale'),
+                    new GraphQLValidationError('locale', static function (): array {
+                        return [
+                            'name' => [
+                                trans('validation.locale'),
+                            ],
+                        ];
+                    }),
                     'invalid',
                 ],
             ]),

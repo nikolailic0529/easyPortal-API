@@ -8,6 +8,7 @@ use App\Services\DataLoader\Client\Client;
 use App\Services\DataLoader\Schema\InputTranslationText;
 use App\Services\I18n\Eloquent\TranslatedString;
 use Closure;
+use Illuminate\Contracts\Config\Repository;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Date;
 use LastDragon_ru\LaraASP\Testing\Constraints\Response\Response;
@@ -24,6 +25,8 @@ use Tests\WithSettings;
 use Tests\WithUser;
 
 use function array_key_exists;
+use function implode;
+use function trans;
 
 /**
  * @internal
@@ -342,37 +345,66 @@ class UpdateTest extends TestCase {
                         ];
                     },
                 ],
-                'invalid request/Invalid color'    => [
-                    new GraphQLValidationError('org'),
-                    [],
+                'invalid input'                    => [
+                    new GraphQLValidationError('org', static function (Repository $config): array {
+                        return [
+                            'input.locale'               => [
+                                trans('validation.locale'),
+                            ],
+                            'input.currency_id'          => [
+                                trans('validation.currency_id'),
+                            ],
+                            'input.website_url'          => [
+                                trans('validation.url'),
+                            ],
+                            'input.email'                => [
+                                trans('validation.email'),
+                            ],
+                            'input.timezone'             => [
+                                trans('validation.timezone'),
+                            ],
+                            'input.branding.main_color'  => [
+                                trans('validation.color'),
+                            ],
+                            'input.branding.logo_url'    => [
+                                trans('validation.mimes', [
+                                    'values' => implode(', ', $config->get('ep.image.formats')),
+                                ]),
+                            ],
+                            'input.branding.favicon_url' => [
+                                trans('validation.mimes', [
+                                    'values' => implode(', ', $config->get('ep.image.formats')),
+                                ]),
+                            ],
+                        ];
+                    }),
+                    [
+                        'ep.image.max_size' => 2000,
+                        'ep.image.formats'  => ['png'],
+                    ],
                     static function (): array {
                         return [
-                            'branding' => [
-                                'main_color' => 'Color',
+                            'locale'      => 'en_UKX',
+                            'timezone'    => 'Europe/Unknown',
+                            'email'       => 'wrong mail',
+                            'website_url' => 'wrong url',
+                            'currency_id' => 'wrongId',
+                            'branding'    => [
+                                'main_color'  => 'Color',
+                                'logo_url'    => UploadedFile::fake()->create('branding_logo.jpg', 200),
+                                'favicon_url' => UploadedFile::fake()->create('branding_favicon.jpg', 200),
                             ],
                         ];
                     },
                 ],
-                'invalid request/Invalid locale'   => [
-                    new GraphQLValidationError('org'),
-                    [],
-                    static function (): array {
-                        return [
-                            'locale' => 'en_UKX',
-                        ];
-                    },
-                ],
-                'invalid request/Invalid currency' => [
-                    new GraphQLValidationError('org'),
-                    [],
-                    static function (): array {
-                        return [
-                            'currency_id' => 'wrongId',
-                        ];
-                    },
-                ],
                 'invalid request/deleted currency' => [
-                    new GraphQLValidationError('org'),
+                    new GraphQLValidationError('org', static function (): array {
+                        return [
+                            'input.currency_id' => [
+                                trans('validation.currency_id'),
+                            ],
+                        ];
+                    }),
                     [],
                     static function (): array {
                         $currency = Currency::factory()->create([
@@ -385,23 +417,21 @@ class UpdateTest extends TestCase {
                         ];
                     },
                 ],
-                'invalid request/Invalid format'   => [
-                    new GraphQLValidationError('org'),
-                    [
-                        'ep.image.max_size' => 2000,
-                        'ep.image.formats'  => ['png'],
-                    ],
-                    static function (TestCase $test): array {
+                'invalid request/Invalid size'     => [
+                    new GraphQLValidationError('org', static function (Repository $config): array {
                         return [
-                            'branding' => [
-                                'logo_url'    => UploadedFile::fake()->create('branding_logo.jpg', 200),
-                                'favicon_url' => UploadedFile::fake()->create('branding_favicon.jpg', 200),
+                            'input.branding.logo_url'    => [
+                                trans('validation.max.file', [
+                                    'max' => $config->get('ep.image.max_size') ?? 0,
+                                ]),
+                            ],
+                            'input.branding.favicon_url' => [
+                                trans('validation.max.file', [
+                                    'max' => $config->get('ep.image.max_size') ?? 0,
+                                ]),
                             ],
                         ];
-                    },
-                ],
-                'invalid request/Invalid size'     => [
-                    new GraphQLValidationError('org'),
+                    }),
                     [
                         'ep.image.max_size' => 2000,
                         'ep.image.formats'  => ['png'],
@@ -410,36 +440,8 @@ class UpdateTest extends TestCase {
                         return [
                             'branding' => [
                                 'logo_url'    => UploadedFile::fake()->create('logo.png', 3024),
-                                'favicon_url' => UploadedFile::fake()
-                                    ->create('favicon.png', 3024),
+                                'favicon_url' => UploadedFile::fake()->create('favicon.png', 3024),
                             ],
-                        ];
-                    },
-                ],
-                'invalid request/Invalid url'      => [
-                    new GraphQLValidationError('org'),
-                    [],
-                    static function (TestCase $test): array {
-                        return [
-                            'website_url' => 'wrong url',
-                        ];
-                    },
-                ],
-                'invalid request/Invalid email'    => [
-                    new GraphQLValidationError('org'),
-                    [],
-                    static function (TestCase $test): array {
-                        return [
-                            'email' => 'wrong mail',
-                        ];
-                    },
-                ],
-                'invalid request/Invalid timezone' => [
-                    new GraphQLValidationError('org'),
-                    [],
-                    static function (TestCase $test): array {
-                        return [
-                            'timezone' => 'Europe/Unknown',
                         ];
                     },
                 ],

@@ -31,6 +31,8 @@ use Tests\WithOrganization;
 use Tests\WithUser;
 use Throwable;
 
+use function trans;
+
 /**
  * @internal
  * @coversDefaultClass \App\GraphQL\Mutations\Organization\User\Invite
@@ -203,7 +205,13 @@ class InviteTest extends TestCase {
                     },
                 ],
                 'no user / shared role'              => [
-                    new GraphQLValidationError('org'),
+                    new GraphQLValidationError('org', static function (): array {
+                        return [
+                            'input.role_id' => [
+                                trans('validation.org_role_id'),
+                            ],
+                        ];
+                    }),
                     null,
                     static function (self $test): array {
                         $role  = Role::factory()->create([
@@ -306,15 +314,14 @@ class InviteTest extends TestCase {
                     },
                 ],
                 'user / a member'                    => [
-                    new GraphQLSuccess(
-                        'org',
-                        new JsonFragment('user.invite', [
-                            'result' => false,
-                        ]),
-                    ),
-                    static function (MockInterface $mock): void {
-                        // empty
-                    },
+                    new GraphQLValidationError('org', static function (): array {
+                        return [
+                            'input.email' => [
+                                trans('validation.email_invitable.user_member'),
+                            ],
+                        ];
+                    }),
+                    null,
                     $dataFactory,
                     static function (self $test, Organization $org, User $user, array $data): void {
                         $user = User::factory()->create([
@@ -366,15 +373,14 @@ class InviteTest extends TestCase {
                     },
                 ],
                 'local user'                         => [
-                    new GraphQLSuccess(
-                        'org',
-                        new JsonFragment('user.invite', [
-                            'result' => false,
-                        ]),
-                    ),
-                    static function (MockInterface $mock): void {
-                        // empty
-                    },
+                    new GraphQLValidationError('org', static function (): array {
+                        return [
+                            'input.email' => [
+                                trans('validation.email_invitable.user_root'),
+                            ],
+                        ];
+                    }),
+                    null,
                     $dataFactory,
                     static function (self $test, Organization $org, User $user, array $data): void {
                         User::factory()->create([
@@ -385,7 +391,13 @@ class InviteTest extends TestCase {
                     },
                 ],
                 'role not found'                     => [
-                    new GraphQLValidationError('org'),
+                    new GraphQLValidationError('org', static function (): array {
+                        return [
+                            'input.role_id' => [
+                                trans('validation.org_role_id'),
+                            ],
+                        ];
+                    }),
                     null,
                     static function (self $test): array {
                         $team  = Team::factory()->create();
@@ -404,7 +416,13 @@ class InviteTest extends TestCase {
                     },
                 ],
                 'role from another organization'     => [
-                    new GraphQLValidationError('org'),
+                    new GraphQLValidationError('org', static function (): array {
+                        return [
+                            'input.role_id' => [
+                                trans('validation.org_role_id'),
+                            ],
+                        ];
+                    }),
                     null,
                     static function (self $test): array {
                         $role  = Role::factory()->create([
@@ -426,19 +444,19 @@ class InviteTest extends TestCase {
                     },
                 ],
                 'team not found'                     => [
-                    new GraphQLValidationError('org'),
+                    new GraphQLValidationError('org', static function (): array {
+                        return [
+                            'input.team_id' => [
+                                trans('validation.team_id'),
+                            ],
+                        ];
+                    }),
                     null,
-                    static function (self $test): array {
-                        $organization = Organization::factory()->create();
-                        $role         = Role::factory()->create([
-                            'organization_id' => $organization,
-                        ]);
-                        $email        = $test->faker->email();
-
+                    static function (self $test, Organization $org): array {
                         return [
                             'input' => [
-                                'email'   => $email,
-                                'role_id' => $role->getKey(),
+                                'email'   => $test->faker->email(),
+                                'role_id' => Role::factory()->ownedBy($org)->create()->getKey(),
                                 'team_id' => $test->faker->uuid(),
                             ],
                         ];

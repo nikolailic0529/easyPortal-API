@@ -4,8 +4,6 @@ namespace Database\Factories;
 
 use App\Models\Asset;
 use App\Models\AssetWarranty;
-use App\Models\Customer;
-use App\Models\Reseller;
 use App\Utils\Eloquent\Testing\Database\Factory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Date;
@@ -36,8 +34,8 @@ class AssetWarrantyFactory extends Factory {
             'document_id'      => null,
             'service_group_id' => null,
             'service_level_id' => null,
-            'reseller_id'      => Reseller::factory(),
-            'customer_id'      => Customer::factory(),
+            'reseller_id'      => null,
+            'customer_id'      => null,
             'start'            => $this->faker->randomElement([null, $this->faker->dateTime()]),
             'end'              => $this->faker->randomElement([null, $this->faker->dateTime()]),
             'description'      => null,

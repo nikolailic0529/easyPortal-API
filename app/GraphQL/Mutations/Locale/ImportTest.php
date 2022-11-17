@@ -18,6 +18,8 @@ use Tests\TestCase;
 use Tests\WithOrganization;
 use Tests\WithUser;
 
+use function trans;
+
 /**
  * @internal
  * @coversDefaultClass \App\GraphQL\Mutations\Locale\Update
@@ -113,12 +115,26 @@ class ImportTest extends TestCase {
                     ],
                 ],
                 'invalid locale' => [
-                    new GraphQLValidationError('locale'),
+                    new GraphQLValidationError('locale', static function (): array {
+                        return [
+                            'name' => [
+                                trans('validation.locale'),
+                            ],
+                        ];
+                    }),
                     'invalid',
                     null,
                 ],
                 'invalid file'   => [
-                    new GraphQLValidationError('locale'),
+                    new GraphQLValidationError('locale', static function (): array {
+                        return [
+                            'input.translations' => [
+                                trans('validation.mimes', [
+                                    'values' => 'xlsx',
+                                ]),
+                            ],
+                        ];
+                    }),
                     'en_GB',
                     [
                         'translations' => UploadedFile::fake()->create('translations.txt'),

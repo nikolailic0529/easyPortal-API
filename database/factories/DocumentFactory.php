@@ -2,11 +2,8 @@
 
 namespace Database\Factories;
 
-use App\Models\Customer;
 use App\Models\Data\Oem;
-use App\Models\Data\Type;
 use App\Models\Document;
-use App\Models\Reseller;
 use App\Utils\Eloquent\Testing\Database\Factory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Date;
@@ -36,13 +33,9 @@ class DocumentFactory extends Factory {
             'oem_id'         => Oem::factory(),
             'oem_said'       => $this->faker->randomElement([null, $this->faker->uuid()]),
             'oem_group_id'   => null,
-            'type_id'        => function (): Type {
-                return Type::factory()->create([
-                    'object_type' => $this->newModel()->getMorphClass(),
-                ]);
-            },
-            'reseller_id'    => Reseller::factory(),
-            'customer_id'    => Customer::factory(),
+            'type_id'        => null,
+            'reseller_id'    => null,
+            'customer_id'    => null,
             'entries_count'  => 0,
             'contacts_count' => 0,
             'statuses_count' => 0,

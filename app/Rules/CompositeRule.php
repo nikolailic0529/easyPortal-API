@@ -2,16 +2,21 @@
 
 namespace App\Rules;
 
+use App\Utils\Validation\Traits\WithValidator;
 use Illuminate\Contracts\Validation\Factory;
 use Illuminate\Contracts\Validation\Rule;
+use Illuminate\Contracts\Validation\ValidatorAwareRule;
 
-use function array_reverse;
-use function explode;
+use function assert;
+use function data_set;
+use function is_array;
 
 /**
  * Rule that allows creating Rule based on other validation rules.
  */
-abstract class CompositeRule implements Rule {
+abstract class CompositeRule implements Rule, ValidatorAwareRule {
+    use WithValidator;
+
     protected string|null $message = null;
 
     public function __construct(
@@ -24,8 +29,13 @@ abstract class CompositeRule implements Rule {
      * @inheritdoc
      */
     public function passes($attribute, $value): bool {
-        [$attribute]   = array_reverse(explode('.', $attribute));
-        $validator     = $this->factory->make([$attribute => $value], [$attribute => $this->getRules()]);
+        $data          = $this->getData($attribute, $value);
+        $validator     = $this->factory->make(
+            $data,
+            [$attribute => $this->getRules()],
+            $this->getValidator()->customMessages ?? [],
+            $this->getValidator()->customAttributes ?? [],
+        );
         $failed        = $validator->fails();
         $this->message = $failed
             ? $validator->errors()->first($attribute)
@@ -42,4 +52,16 @@ abstract class CompositeRule implements Rule {
      * @return array<Rule|string>
      */
     abstract protected function getRules(): array;
+
+    /**
+     * @return array<mixed>
+     */
+    protected function getData(string $attribute, mixed $value): array {
+        $data = [];
+        $data = data_set($data, $attribute, $value);
+
+        assert(is_array($data));
+
+        return $data;
+    }
 }

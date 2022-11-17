@@ -770,17 +770,22 @@ class AssetFactoryTest extends TestCase {
         // Prepare
         $container       = $this->app->make(Container::class);
         $factory         = $container->make(AssetFactoryTest_Factory::class);
+        $type            = TypeModel::factory()->create();
         $date            = Date::now();
-        $model           = Asset::factory()->create();
+        $model           = Asset::factory()->create([
+            'oem_id' => Oem::factory(),
+        ]);
         $resellerA       = Reseller::factory()->create();
         $resellerB       = Reseller::factory()->create();
         $customerA       = Customer::factory()->create();
         $customerB       = Customer::factory()->create();
         $documentA       = Document::factory()->create([
+            'type_id'     => $type,
             'reseller_id' => $resellerA,
             'customer_id' => $customerA,
         ]);
         $documentB       = Document::factory()->create([
+            'type_id'     => $type,
             'reseller_id' => $resellerB,
             'customer_id' => $customerB,
         ]);

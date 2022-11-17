@@ -16,6 +16,8 @@ use Tests\TestCase;
 use Tests\WithOrganization;
 use Tests\WithUser;
 
+use function trans;
+
 /**
  * @internal
  * @coversDefaultClass \App\GraphQL\Mutations\Locale\Update
@@ -123,12 +125,24 @@ class UpdateTest extends TestCase {
                     ],
                 ],
                 'invalid locale' => [
-                    new GraphQLValidationError('locale'),
+                    new GraphQLValidationError('locale', static function (): array {
+                        return [
+                            'name' => [
+                                trans('validation.locale'),
+                            ],
+                        ];
+                    }),
                     'invalid',
                     null,
                 ],
                 'empty key'      => [
-                    new GraphQLValidationError('locale'),
+                    new GraphQLValidationError('locale', static function (): array {
+                        return [
+                            'input.translations.0.key' => [
+                                trans('validation.required'),
+                            ],
+                        ];
+                    }),
                     'en_GB',
                     [
                         'translations' => [

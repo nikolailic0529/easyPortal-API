@@ -1148,6 +1148,7 @@ input OrgUpdateInput {
 input OrgUserInviteInput {
     email: Email!
     @isEmail
+    @isOrgEmailInvitable
 
     role_id: ID!
     @isOrgRoleId
@@ -1242,6 +1243,7 @@ input OrgUserUpdateInput {
 input OrganizationUserInviteInput {
     email: Email!
     @isEmail
+    @isOrganizationEmailInvitable
 
     role_id: ID!
     @isOrganizationRoleId
@@ -11594,7 +11596,7 @@ type OrgUserMutation {
 
     To complete Sign Up the `mutation { auth { signUpByInvite } }` should be used.
 
-    Please note that mutation will return `false` when:
+    Please note that mutation will return validation error when:
     - User is already a member of the organization
     - User is disabled/banned
     - User is Root
@@ -11956,7 +11958,7 @@ type OrganizationUserMutation {
 
     To complete Sign Up the `mutation { auth { signUpByInvite } }` should be used.
 
-    Please note that mutation will return `false` when:
+    Please note that mutation will return validation error when:
     - User is already a member of the organization
     - User is disabled/banned
     - User is Root
@@ -14976,11 +14978,19 @@ directive @isOemId
 on
     | INPUT_FIELD_DEFINITION
 
+directive @isOrgEmailInvitable
+on
+    | INPUT_FIELD_DEFINITION
+
 directive @isOrgPermissionId
 on
     | INPUT_FIELD_DEFINITION
 
 directive @isOrgRoleId
+on
+    | INPUT_FIELD_DEFINITION
+
+directive @isOrganizationEmailInvitable
 on
     | INPUT_FIELD_DEFINITION
 

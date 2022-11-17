@@ -1061,7 +1061,9 @@ class QuoteTest extends TestCase {
                         ]),
                         static function (TestCase $test, Organization $org, User $user): Document {
                             $organization = Organization::factory()->create();
-                            $document     = Document::factory()->ownedBy($org)->create();
+                            $document     = Document::factory()->ownedBy($org)->create([
+                                'type_id' => Type::factory(),
+                            ]);
 
                             ChangeRequest::factory()
                                 ->ownedBy($organization)

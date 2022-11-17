@@ -8536,7 +8536,7 @@ type OrgUserMutation {
 
     To complete Sign Up the `mutation { auth { signUpByInvite } }` should be used.
 
-    Please note that mutation will return `false` when:
+    Please note that mutation will return validation error when:
     - User is already a member of the organization
     - User is disabled/banned
     - User is Root
@@ -8734,7 +8734,7 @@ type OrganizationUserMutation {
 
     To complete Sign Up the `mutation { auth { signUpByInvite } }` should be used.
 
-    Please note that mutation will return `false` when:
+    Please note that mutation will return validation error when:
     - User is already a member of the organization
     - User is disabled/banned
     - User is Root
