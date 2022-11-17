@@ -16,8 +16,11 @@ use PHPStan\Type\ErrorType;
 use PHPStan\Type\Generic\GenericClassStringType;
 use PHPStan\Type\ObjectType;
 use PHPStan\Type\Type;
+use PHPStan\Type\UnionType;
 use Throwable;
 
+use function array_filter;
+use function count;
 use function is_object;
 
 /**
@@ -52,6 +55,17 @@ final class ContainerExtension implements DynamicMethodReturnTypeExtension {
 
             if ($generic instanceof ObjectType) {
                 $type = $generic;
+            } elseif ($generic instanceof UnionType) {
+                $types   = $generic->getTypes();
+                $objects = array_filter($types, static function (Type $type): bool {
+                    return $type instanceof ObjectType;
+                });
+
+                if (count($objects) === count($types)) {
+                    $type = $generic;
+                }
+            } else {
+                // empty
             }
         } elseif ($expr instanceof String_) {
             $type = $this->getInstanceType($expr->value);
