@@ -241,8 +241,6 @@ class CreateTest extends TestCase {
             ],
         ]);
 
-        self::assertNotNull($user);
-
         $this->setSettings([
             'ep.contract_types' => [$type->getKey()],
         ]);
