@@ -44,9 +44,9 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @property-read Collection<int, Customer> $customers
  * @property-read Collection<int, Reseller> $resellers
  * @method static LocationFactory factory(...$parameters)
- * @method static Builder|Location newModelQuery()
- * @method static Builder|Location newQuery()
- * @method static Builder|Location query()
+ * @method static Builder<Location> newModelQuery()
+ * @method static Builder<Location> newQuery()
+ * @method static Builder<Location> query()
  */
 class Location extends Model implements DataModel {
     use HasFactory;

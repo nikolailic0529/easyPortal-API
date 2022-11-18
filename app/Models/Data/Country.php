@@ -30,9 +30,9 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  * @property-read Collection<int,City>     $cities
  * @property-read Collection<int,Customer> $customers
  * @method static CountryFactory factory(...$parameters)
- * @method static Builder|Country newModelQuery()
- * @method static Builder|Country newQuery()
- * @method static Builder|Country query()
+ * @method static Builder<Country> newModelQuery()
+ * @method static Builder<Country> newQuery()
+ * @method static Builder<Country> query()
  */
 class Country extends Model implements DataModel, Translatable {
     use HasFactory;

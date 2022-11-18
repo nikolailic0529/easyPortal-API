@@ -52,9 +52,9 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  * @property Status|null          $status
  * @property Type|null            $type
  * @method static AssetWarrantyFactory factory(...$parameters)
- * @method static Builder|AssetWarranty newModelQuery()
- * @method static Builder|AssetWarranty newQuery()
- * @method static Builder|AssetWarranty query()
+ * @method static Builder<AssetWarranty> newModelQuery()
+ * @method static Builder<AssetWarranty> newQuery()
+ * @method static Builder<AssetWarranty> query()
  */
 class AssetWarranty extends Model implements OwnedByReseller, OwnedByShared {
     use OwnedByResellerImpl;

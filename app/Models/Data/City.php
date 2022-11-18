@@ -29,9 +29,9 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @property Country                       $country
  * @property-read Collection<int,Customer> $customers
  * @method static CityFactory factory(...$parameters)
- * @method static Builder|City newModelQuery()
- * @method static Builder|City newQuery()
- * @method static Builder|City query()
+ * @method static Builder<City> newModelQuery()
+ * @method static Builder<City> newQuery()
+ * @method static Builder<City> query()
  */
 class City extends Model implements DataModel {
     use HasFactory;

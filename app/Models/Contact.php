@@ -28,9 +28,9 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  * @property CarbonImmutable|null $deleted_at
  * @property Collection<int,Type> $types
  * @method static ContactFactory factory(...$parameters)
- * @method static Builder|Contact newModelQuery()
- * @method static Builder|Contact newQuery()
- * @method static Builder|Contact query()
+ * @method static Builder<Contact> newModelQuery()
+ * @method static Builder<Contact> newQuery()
+ * @method static Builder<Contact> query()
  */
 class Contact extends Model {
     use HasFactory;

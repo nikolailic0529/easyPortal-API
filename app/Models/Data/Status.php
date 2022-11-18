@@ -34,9 +34,9 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
  * @property-read Collection<int, Customer> $customers
  * @property-read Collection<int, Document> $quotes
  * @method static StatusFactory factory(...$parameters)
- * @method static Builder|Status newModelQuery()
- * @method static Builder|Status newQuery()
- * @method static Builder|Status query()
+ * @method static Builder<Status> newModelQuery()
+ * @method static Builder<Status> newQuery()
+ * @method static Builder<Status> query()
  */
 class Status extends Model implements DataModel, Translatable {
     use HasFactory;

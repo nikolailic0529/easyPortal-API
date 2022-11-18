@@ -22,9 +22,9 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  * @property CarbonImmutable|null $deleted_at
  * @property Oem                  $oem
  * @method static OemGroupFactory factory(...$parameters)
- * @method static Builder|OemGroup newModelQuery()
- * @method static Builder|OemGroup newQuery()
- * @method static Builder|OemGroup query()
+ * @method static Builder<OemGroup> newModelQuery()
+ * @method static Builder<OemGroup> newQuery()
+ * @method static Builder<OemGroup> query()
  */
 class OemGroup extends Model {
     use HasFactory;

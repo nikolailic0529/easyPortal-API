@@ -33,9 +33,9 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  * @property Oem                            $oem
  * @property ServiceGroup                   $serviceGroup
  * @method static ServiceLevelFactory factory(...$parameters)
- * @method static Builder|ServiceLevel newModelQuery()
- * @method static Builder|ServiceLevel newQuery()
- * @method static Builder|ServiceLevel query()
+ * @method static Builder<ServiceLevel> newModelQuery()
+ * @method static Builder<ServiceLevel> newQuery()
+ * @method static Builder<ServiceLevel> query()
  */
 class ServiceLevel extends Model implements DataModel, Translatable {
     use HasFactory;

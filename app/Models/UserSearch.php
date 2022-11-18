@@ -22,9 +22,9 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  * @property CarbonImmutable|null $deleted_at
  * @property User                 $user
  * @method static UserSearchFactory factory(...$parameters)
- * @method static Builder|UserSearch newModelQuery()
- * @method static Builder|UserSearch newQuery()
- * @method static Builder|UserSearch query()
+ * @method static Builder<UserSearch> newModelQuery()
+ * @method static Builder<UserSearch> newQuery()
+ * @method static Builder<UserSearch> query()
  */
 class UserSearch extends Model {
     use HasFactory;

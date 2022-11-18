@@ -77,9 +77,9 @@ use function sprintf;
  * @property ServiceGroup|null    $serviceGroup
  * @property ServiceLevel|null    $serviceLevel
  * @method static DocumentEntryFactory factory(...$parameters)
- * @method static Builder|DocumentEntry newModelQuery()
- * @method static Builder|DocumentEntry newQuery()
- * @method static Builder|DocumentEntry query()
+ * @method static Builder<DocumentEntry> newModelQuery()
+ * @method static Builder<DocumentEntry> newQuery()
+ * @method static Builder<DocumentEntry> query()
  */
 class DocumentEntry extends Model {
     use HasFactory;

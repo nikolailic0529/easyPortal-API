@@ -21,9 +21,9 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  * @property CarbonImmutable $created_at
  * @property CarbonImmutable $updated_at
  * @method static AnalyzeAssetFactory factory(...$parameters)
- * @method static Builder|AnalyzeAsset newModelQuery()
- * @method static Builder|AnalyzeAsset newQuery()
- * @method static Builder|AnalyzeAsset query()
+ * @method static Builder<AnalyzeAsset> newModelQuery()
+ * @method static Builder<AnalyzeAsset> newQuery()
+ * @method static Builder<AnalyzeAsset> query()
  */
 class AnalyzeAsset extends Model {
     use HasFactory;

@@ -18,9 +18,9 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  * @property CarbonImmutable      $updated_at
  * @property CarbonImmutable|null $deleted_at
  * @method static PasswordResetFactory factory(...$parameters)
- * @method static Builder|PasswordReset newModelQuery()
- * @method static Builder|PasswordReset newQuery()
- * @method static Builder|PasswordReset query()
+ * @method static Builder<PasswordReset> newModelQuery()
+ * @method static Builder<PasswordReset> newQuery()
+ * @method static Builder<PasswordReset> query()
  */
 class PasswordReset extends Model {
     use HasFactory;

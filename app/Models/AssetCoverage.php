@@ -18,9 +18,9 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  * @property CarbonImmutable      $updated_at
  * @property CarbonImmutable|null $deleted_at
  * @method static AssetCoverageFactory factory(...$parameters)
- * @method static Builder|AssetCoverage newModelQuery()
- * @method static Builder|AssetCoverage newQuery()
- * @method static Builder|AssetCoverage query()
+ * @method static Builder<AssetCoverage> newModelQuery()
+ * @method static Builder<AssetCoverage> newQuery()
+ * @method static Builder<AssetCoverage> query()
  */
 class AssetCoverage extends Pivot {
     use HasFactory;

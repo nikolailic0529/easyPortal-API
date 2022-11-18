@@ -20,9 +20,9 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  * @property CarbonImmutable      $updated_at
  * @property CarbonImmutable|null $deleted_at
  * @method static PspFactory factory(...$parameters)
- * @method static Builder|Psp newModelQuery()
- * @method static Builder|Psp newQuery()
- * @method static Builder|Psp query()
+ * @method static Builder<Psp> newModelQuery()
+ * @method static Builder<Psp> newQuery()
+ * @method static Builder<Psp> query()
  */
 class Psp extends Model implements DataModel {
     use HasFactory;

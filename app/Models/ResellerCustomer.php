@@ -25,9 +25,9 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  * @property CarbonImmutable|null $deleted_at
  * @property Kpi|null             $kpi
  * @method static ResellerCustomerFactory factory(...$parameters)
- * @method static Builder|ResellerCustomer newModelQuery()
- * @method static Builder|ResellerCustomer newQuery()
- * @method static Builder|ResellerCustomer query()
+ * @method static Builder<ResellerCustomer> newModelQuery()
+ * @method static Builder<ResellerCustomer> newQuery()
+ * @method static Builder<ResellerCustomer> query()
  */
 class ResellerCustomer extends Pivot implements Upsertable {
     use HasFactory;

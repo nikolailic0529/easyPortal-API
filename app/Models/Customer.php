@@ -54,9 +54,9 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  * @property-read Collection<int, Reseller>   $resellers
  * @property Collection<int, Status>          $statuses
  * @method static CustomerFactory factory(...$parameters)
- * @method static Builder|Customer newModelQuery()
- * @method static Builder|Customer newQuery()
- * @method static Builder|Customer query()
+ * @method static Builder<Customer> newModelQuery()
+ * @method static Builder<Customer> newQuery()
+ * @method static Builder<Customer> query()
  */
 class Customer extends Model implements OwnedByReseller, Searchable {
     use OwnedByResellerImpl;

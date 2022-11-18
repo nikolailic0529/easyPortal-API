@@ -31,9 +31,9 @@ use function app;
  * @property CarbonImmutable|null                 $deleted_at
  * @property-read string                          $url
  * @method static FileFactory factory(...$parameters)
- * @method static Builder|File newModelQuery()
- * @method static Builder|File newQuery()
- * @method static Builder|File query()
+ * @method static Builder<File> newModelQuery()
+ * @method static Builder<File> newQuery()
+ * @method static Builder<File> query()
  */
 class File extends Model implements Attachable {
     use HasFactory;

@@ -60,9 +60,9 @@ use Illuminate\Database\Eloquent\Relations\MorphTo;
  * @property-read Collection<int, Role>             $roles
  * @property-read Collection<int, User>             $users
  * @method static OrganizationFactory factory(...$parameters)
- * @method static Builder|Organization newModelQuery()
- * @method static Builder|Organization newQuery()
- * @method static Builder|Organization query()
+ * @method static Builder<Organization> newModelQuery()
+ * @method static Builder<Organization> newQuery()
+ * @method static Builder<Organization> query()
  */
 class Organization extends Model implements
     HasLocalePreference,
