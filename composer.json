@@ -141,7 +141,6 @@
     ],
     "ide-helper": [
       "@ide-helper-php",
-      "@ide-helper-models",
       "@ide-helper-graphql"
     ],
     "ide-helper-php": [
