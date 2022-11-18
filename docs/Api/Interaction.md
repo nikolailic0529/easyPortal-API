@@ -1,6 +1,12 @@
 # API Interaction
 
+## GraphQL
+
+The main API is [GraphQL](https://graphql.org/). The main endpoint is located by `/api/graphql` URL. You can use [GraphQL Playground](/api/graphql-playground) (`/api/graphql-playground`) or any other similar tool to check the schema and run the queries.
+
 ## REST API
+
+There are also few REST endpoints, most of them described in [REST section](REST.md) but if you want to find all of them or check for parameters/permissions please see the next section.
 
 ### Basics
 
@@ -27,8 +33,7 @@ Content-Type: application/json
 will return filtered results. The main reasons why search uses `POST` are
 
 * Angular out the box doesn't support encoding query params in the PHP style (`q[]=1&q[]=2`)
-* Length of the URL is limited 
-
+* Length of the URL is limited
 
 ### Types
 
@@ -39,10 +44,9 @@ API is the strict typed, so for example if Request requires the `int` UI must pa
 | Date     | `Y-m-d`         |
 | DateTime | `Y-m-d\TH:i:sP` | 
 
-
 ### Available methods
 
-_This section is actual until we don't have api docs auto-generation. Information actual for most cases._ 
+_This section is actual until we don't have api docs auto-generation. Information actual for most cases._
 
 #### How to find supported routes?
 
@@ -94,7 +98,7 @@ class AuthController extends Controller {
 }
 ```
 
-The most useful information (phpdoc is also useful, please read it too): 
+The most useful information (phpdoc is also useful, please read it too):
 
 - `SignupRequest $request` - the request object, describes what data expected
 - `SignupResource` - response
@@ -141,31 +145,31 @@ or `ValidationErrorResponse`
 
 ```json
 {
-  "$schema": "http://json-schema.org/draft-07/schema#",
-  "type": "object",
-  "required": [
-    "message",
-    "errors"
-  ],
-  "additionalProperties": false,
-  "properties": {
-    "message": {
-      "type": "string"
-    },
-    "errors": {
-      "type": "object",
-      "minProperties": 1,
-      "patternProperties": {
-        ".*": {
-          "type": "array",
-          "minItems": 1,
-          "items": {
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "type": "object",
+    "required": [
+        "message",
+        "errors"
+    ],
+    "additionalProperties": false,
+    "properties": {
+        "message": {
             "type": "string"
-          }
+        },
+        "errors": {
+            "type": "object",
+            "minProperties": 1,
+            "patternProperties": {
+                ".*": {
+                    "type": "array",
+                    "minItems": 1,
+                    "items": {
+                        "type": "string"
+                    }
+                }
+            },
+            "additionalProperties": false
         }
-      },
-      "additionalProperties": false
     }
-  }
 }
 ```
