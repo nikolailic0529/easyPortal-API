@@ -1,6 +1,6 @@
 # REST API
 
-How to find permissions/etc please see in [API Interaction](./API-Interaction.md).
+How to find permissions/etc please see in [API Interaction](Interaction.md).
 
 ## `GET /application`
 

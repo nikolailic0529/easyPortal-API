@@ -2,7 +2,7 @@
 
 ## See also
 
-* [Upgrade](./Upgrade.md)
+* [Upgrade](Upgrade.md)
 
 ## From [v12.0.0](https://github.com/fakharanwar/easyPortal-API/releases/tag/v12.0.0)
 

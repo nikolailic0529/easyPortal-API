@@ -465,7 +465,7 @@ _TODO_
 
 ### Database Schema & Migrations
 
-The [`database.mwb`](./database.mwb) ([MySQL Workbench](https://www.mysql.com/products/workbench/) Schema) have the biggest priority. Thus the highly recommended way to create migration(s) is using the "Synchronize Model" feature and create a raw-sql migration(s).
+The [`database.mwb`](../database.mwb) ([MySQL Workbench](https://www.mysql.com/products/workbench/) Schema) have the biggest priority. Thus the highly recommended way to create migration(s) is using the "Synchronize Model" feature and create a raw-sql migration(s).
 
 
 ### See also

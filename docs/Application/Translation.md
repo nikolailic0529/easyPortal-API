@@ -2,7 +2,7 @@
 
 ## Default files
 
-All files located in [`lang`](../lang) directory. 
+All files located in [`lang`](../../lang) directory. 
 
 ## Priorities
 

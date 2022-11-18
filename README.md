@@ -34,22 +34,22 @@ Legend:
 
 ### Application
 
-* [Migration Guide](./docs/Migration-Guide.md)
-* [Settings](./docs/Application-Settings.md)
-* [Translation](./docs/Application-Translation.md)
-* [Cache](./docs/Application-Cache.md)
-* [GraphQL Cache](./docs/Application-GraphQL-Cache.md)
+* [Migration Guide](docs/Application/Migration-Guide.md)
+* [Settings](docs/Application/Settings.md)
+* [Translation](docs/Application/Translation.md)
+* [Cache](docs/Application/Cache.md)
+* [GraphQL Cache](docs/Application/GraphQL-Cache.md)
 * [Data Loader](docs/DataLoader)
 * [Keycloak Settings](docs/Keycloak)
 
 ### API
 
-* [REST](./docs/Api-REST.md)
+* [Interaction](docs/Api/Interaction.md)
+* [REST](docs/Api/REST.md)
 
 ### Development
 
-* [Coding Standards](./docs/Coding-Standards.md)
-* [API Interaction](./docs/API-Interaction.md)
-* [Commits & Versioning](./docs/Commits-Versioning.md)
+* [Coding Standards](docs/Dev/Coding-Standards.md)
+* [Commits & Versioning](docs/Dev/Commits-Versioning.md)
 * [Database Structure](./docs/database.mwb) ([MySQL Workbench](https://www.mysql.com/products/workbench/))
 * [Authorization Flow](./docs/AuthorizationFlow.drawio) (https://diagrams.net/)
