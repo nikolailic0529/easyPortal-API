@@ -47,8 +47,9 @@
         <env name="LIGHTHOUSE_CACHE_ENABLE" value="false"/>
         <env name="EP_LOG_EMAIL_ENABLED" value="false"/>
         <env name="EP_LOG_SENTRY_ENABLED" value="false"/>
-        <env name="EP_CACHE_SERVICE_STORE" value="null"/>
+        <env name="EP_CACHE_GRAPHQL_ENABLED" value="false"/>
         <env name="EP_CACHE_GRAPHQL_STORE" value="null"/>
+        <env name="EP_CACHE_SERVICE_STORE" value="null"/>
         <env name="EP_DATA_LOADER_ENABLED" value="true"/>
         <env name="EP_KEYCLOAK_ENABLED" value="false"/>
         <env name="EP_DOCUMENT_STATUSES_HIDDEN" value="f1fa29b8-0c94-4ddc-b69c-6f87ae684989"/>

@@ -1,5 +1,5 @@
 "Sheet #0: Sheet1"
 Id,Name,Location,"Coverages Names","Coverages JSON"
-10a76fcd-3bc2-4dfd-b4bb-5095eabe4ea4,"Asset A","Country A City A","Coverage A, Coverage B","[{""name"":""Coverage A""},{""name"":""Coverage B""}]"
+10a76fcd-3bc2-4dfd-b4bb-5095eabe4ea4,"Asset A","CA City A","Coverage A, Coverage B","[{""name"":""Coverage A""},{""name"":""Coverage B""}]"
 41baddd6-a048-46a8-952f-0c7d4c1b9a33,"Product A",,"Coverage B","[{""name"":""Coverage B""}]"
 5d153624-a162-4c61-bfef-76fe0acd7fe0,"Product B",,,[]
