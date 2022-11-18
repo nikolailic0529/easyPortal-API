@@ -430,7 +430,7 @@ class ExportControllerTest extends TestCase {
             ],
             [
                 'name'  => 'Location',
-                'value' => 'concat(location.country.name, location.city.name)',
+                'value' => 'concat(location.country.code, location.city.name)',
             ],
             [
                 'name'  => 'Coverages Names',
@@ -449,7 +449,7 @@ class ExportControllerTest extends TestCase {
             }
             location {
                 country {
-                    name
+                    code
                 }
                 city {
                     name
@@ -461,7 +461,7 @@ class ExportControllerTest extends TestCase {
             QUERY;
         $factory    = static function (self $test, Organization $org): void {
             $country   = Country::factory()->create([
-                'name' => 'Country A',
+                'code' => 'CA',
             ]);
             $city      = City::factory()->create([
                 'name'       => 'City A',
