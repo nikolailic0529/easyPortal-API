@@ -405,6 +405,47 @@ not helpers and facades. There are few exceptions:
 - `Illuminate\\Support\\Facades\\Route` should be used for top-level routes;
 
 
+### Localization
+
+
+#### The `trans()` function SHOULD be used
+
+to translate strings.
+
+
+#### Translations MUST be placed on `lang/<lang>.json`
+
+
+Not inside PHP files.
+
+#### Implementation of `Illuminate\Contracts\Validation\InvokableRule` contract SHOULD use `trans()`
+
+instead of ` $fail('validation.string')->translate();`. It is required because `trans()` function will report about missed strings.
+
+```php
+<?php declare(strict_types = 1);
+
+namespace App\Rules\Organization;
+
+use Illuminate\Contracts\Validation\InvokableRule;
+
+use function trans;
+
+class CustomRule implements InvokableRule {
+    /**
+     * @inheritdoc
+     */
+    public function __invoke($attribute, $value, $fail): void {
+        // Bad
+        $fail('validation.string')->translate();;
+    
+        // Good
+        $fail(trans('validation.string'));
+    }
+}
+```
+
+
 ### Models
 
 #### Table name MUST be declared
