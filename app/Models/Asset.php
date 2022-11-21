@@ -181,7 +181,7 @@ class Asset extends Model implements OwnedByReseller, Searchable {
     /**
      * @return HasManyThrough<Document>
      */
-    protected function documents(): HasManyThrough {
+    public function documents(): HasManyThrough {
         return $this
             ->hasManyThrough(
                 Document::class,
