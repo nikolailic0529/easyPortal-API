@@ -8262,6 +8262,64 @@ type Asset {
     )
 
     contacts_count: Int!
+
+    """
+    @require <authMe(["contracts-view"])> User must be authenticated and have any of these permissions.
+    """
+    contracts(
+        limit: Int! = 25
+        @rules(
+            apply: [
+                "min:1"
+                "App\\GraphQL\\Directives\\Directives\\Paginated\\LimitRule"
+            ]
+        )
+        @paginatedLimit
+
+        offset: Int! = 0
+        @rules(
+            apply: ["min:0"]
+        )
+        @paginatedOffset
+
+        order: [SortByClauseDocumentsSort!]
+        @sortBy
+
+        trashed: Trashed
+        @authMe(
+            permissions: ["administer"]
+        )
+        @paginatedTrashed
+
+        where: SearchByConditionDocumentsQuery
+        @searchBy
+    ): [Document!]!
+    @authMe(
+        permissions: ["contracts-view"]
+    )
+    @relation
+    @paginatedRelation
+
+    """
+    @require <authMe(["contracts-view"])> User must be authenticated and have any of these permissions.
+    """
+    contractsAggregated(
+        trashed: Trashed
+        @authMe(
+            permissions: ["administer"]
+        )
+        @paginatedTrashed
+
+        where: SearchByConditionDocumentsQuery
+        @searchBy
+    ): DocumentsAggregated
+    @authMe(
+        permissions: ["contracts-view"]
+    )
+    @aggregated(
+        relation: "contracts"
+    )
+
     contracts_active_quantity: Int
 
     coverages: [Coverage!]
@@ -8297,6 +8355,63 @@ type Asset {
 
     quoteRequest: QuoteRequest
     @relation
+
+    """
+    @require <authMe(["quotes-view"])> User must be authenticated and have any of these permissions.
+    """
+    quotes(
+        limit: Int! = 25
+        @rules(
+            apply: [
+                "min:1"
+                "App\\GraphQL\\Directives\\Directives\\Paginated\\LimitRule"
+            ]
+        )
+        @paginatedLimit
+
+        offset: Int! = 0
+        @rules(
+            apply: ["min:0"]
+        )
+        @paginatedOffset
+
+        order: [SortByClauseDocumentsSort!]
+        @sortBy
+
+        trashed: Trashed
+        @authMe(
+            permissions: ["administer"]
+        )
+        @paginatedTrashed
+
+        where: SearchByConditionDocumentsQuery
+        @searchBy
+    ): [Document!]!
+    @authMe(
+        permissions: ["quotes-view"]
+    )
+    @relation
+    @paginatedRelation
+
+    """
+    @require <authMe(["quotes-view"])> User must be authenticated and have any of these permissions.
+    """
+    quotesAggregated(
+        trashed: Trashed
+        @authMe(
+            permissions: ["administer"]
+        )
+        @paginatedTrashed
+
+        where: SearchByConditionDocumentsQuery
+        @searchBy
+    ): DocumentsAggregated
+    @authMe(
+        permissions: ["quotes-view"]
+    )
+    @aggregated(
+        relation: "quotes"
+    )
 
     reseller: Reseller
     @relation

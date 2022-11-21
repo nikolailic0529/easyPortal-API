@@ -2,7 +2,10 @@
 
 namespace App\GraphQL\Directives\Directives\Aggregated;
 
+use App\Models\Asset;
 use App\Models\Customer;
+use App\Models\Document;
+use App\Models\DocumentEntry;
 use App\Services\Search\Builders\Builder as SearchBuilder;
 use Closure;
 use GraphQL\Type\Definition\ResolveInfo;
@@ -15,6 +18,7 @@ use Tests\GraphQL\GraphQLSuccess;
 use Tests\TestCase;
 use Tests\WithGraphQLSchema;
 use Tests\WithoutGlobalScopes;
+use Tests\WithQueryLogs;
 use Tests\WithSearch;
 
 use function json_encode;
@@ -27,6 +31,7 @@ class CountTest extends TestCase {
     use WithoutGlobalScopes;
     use WithGraphQLSchema;
     use WithSearch;
+    use WithQueryLogs;
 
     // <editor-fold desc="Tests">
     // =========================================================================
@@ -47,7 +52,7 @@ class CountTest extends TestCase {
 
         $this
             ->useGraphQLSchema(
-                /** @lang GraphQL */
+            /** @lang GraphQL */
                 <<<'GRAPHQL'
                 type Query {
                     data: Data! @mock
@@ -59,7 +64,7 @@ class CountTest extends TestCase {
                 GRAPHQL,
             )
             ->graphQL(
-                /** @lang GraphQL */
+            /** @lang GraphQL */
                 <<<'GRAPHQL'
                 query {
                     data {
@@ -84,7 +89,7 @@ class CountTest extends TestCase {
 
         $this
             ->useGraphQLSchema(
-                /** @lang GraphQL */
+            /** @lang GraphQL */
                 <<<GRAPHQL
                 type Query {
                     data(search: String @search): Data! @aggregated(model: {$class})
@@ -96,7 +101,7 @@ class CountTest extends TestCase {
                 GRAPHQL,
             )
             ->graphQL(
-                /** @lang GraphQL */
+            /** @lang GraphQL */
                 <<<'GRAPHQL'
                 query {
                     data {
@@ -157,6 +162,24 @@ class CountTest extends TestCase {
                     return Customer::query()
                         ->select('name')
                         ->groupBy('name');
+                },
+            ],
+            EloquentBuilder::class.'(distinct)' => [
+                1,
+                static function (self $test): EloquentBuilder {
+                    $asset    = Asset::factory()->create();
+                    $document = Document::factory()->create();
+
+                    DocumentEntry::factory()->create([
+                        'asset_id'    => $asset,
+                        'document_id' => $document,
+                    ]);
+                    DocumentEntry::factory()->create([
+                        'asset_id'    => $asset,
+                        'document_id' => $document,
+                    ]);
+
+                    return $asset->documents()->getQuery();
                 },
             ],
             SearchBuilder::class                => [

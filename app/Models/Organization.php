@@ -148,14 +148,16 @@ class Organization extends Model implements
      * @return HasManyThrough<User>
      */
     public function users(): HasManyThrough {
-        return $this->hasManyThrough(
-            User::class,
-            OrganizationUser::class,
-            null,
-            (new User())->getKeyName(),
-            null,
-            'user_id',
-        );
+        return $this
+            ->hasManyThrough(
+                User::class,
+                OrganizationUser::class,
+                null,
+                (new User())->getKeyName(),
+                null,
+                'user_id',
+            )
+            ->distinct();
     }
 
     /**

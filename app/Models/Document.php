@@ -204,14 +204,16 @@ class Document extends Model implements OwnedByReseller, Searchable {
      * @return HasManyThrough<Asset>
      */
     public function assets(): HasManyThrough {
-        return $this->hasManyThrough(
-            Asset::class,
-            DocumentEntry::class,
-            null,
-            (new Asset())->getKeyName(),
-            null,
-            'asset_id',
-        );
+        return $this
+            ->hasManyThrough(
+                Asset::class,
+                DocumentEntry::class,
+                null,
+                (new Asset())->getKeyName(),
+                null,
+                'asset_id',
+            )
+            ->distinct();
     }
 
     protected function getStatusesPivot(): Pivot {

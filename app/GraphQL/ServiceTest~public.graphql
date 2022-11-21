@@ -6687,6 +6687,26 @@ type Asset {
     ): ContactsAggregated
 
     contacts_count: Int!
+
+    """
+    @require <authMe(["contracts-view"])> User must be authenticated and have any of these permissions.
+    """
+    contracts(
+        limit: Int! = 25
+        offset: Int! = 0
+        order: [SortByClauseDocumentsSort!]
+        trashed: Trashed
+        where: SearchByConditionDocumentsQuery
+    ): [Document!]!
+
+    """
+    @require <authMe(["contracts-view"])> User must be authenticated and have any of these permissions.
+    """
+    contractsAggregated(
+        trashed: Trashed
+        where: SearchByConditionDocumentsQuery
+    ): DocumentsAggregated
+
     contracts_active_quantity: Int
     coverages: [Coverage!]
     coverages_count: Int!
@@ -6705,6 +6725,26 @@ type Asset {
     product: Product
     product_id: ID
     quoteRequest: QuoteRequest
+
+    """
+    @require <authMe(["quotes-view"])> User must be authenticated and have any of these permissions.
+    """
+    quotes(
+        limit: Int! = 25
+        offset: Int! = 0
+        order: [SortByClauseDocumentsSort!]
+        trashed: Trashed
+        where: SearchByConditionDocumentsQuery
+    ): [Document!]!
+
+    """
+    @require <authMe(["quotes-view"])> User must be authenticated and have any of these permissions.
+    """
+    quotesAggregated(
+        trashed: Trashed
+        where: SearchByConditionDocumentsQuery
+    ): DocumentsAggregated
+
     reseller: Reseller
     reseller_id: ID
     serial_number: String

@@ -53,4 +53,22 @@ type Asset {
     ): [ChangeRequest!]!
     @relation
     @paginatedRelation
+
+    # Contracts
+    contracts (
+        where: DocumentsQuery @searchBy
+        order: DocumentsSort @sortBy
+    ): [Document!]!
+    @authMe(permissions: ["contracts-view"])
+    @relation
+    @paginatedRelation
+
+    # Quotes
+    quotes (
+        where: DocumentsQuery @searchBy
+        order: DocumentsSort @sortBy
+    ): [Document!]!
+    @authMe(permissions: ["quotes-view"])
+    @relation
+    @paginatedRelation
 }

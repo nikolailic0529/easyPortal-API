@@ -29,7 +29,10 @@ abstract class Count extends BaseDirective implements FieldResolver {
                 $count   = 0;
 
                 if ($builder instanceof EloquentBuilder) {
-                    $builder = $builder->toBase();
+                    $base    = $builder->toBase();
+                    $builder = $base->distinct === true
+                        ? $base->distinct($builder->getModel()->getQualifiedKeyName())
+                        : $base;
                 }
 
                 if ($builder instanceof QueryBuilder && !!$builder->groups) {

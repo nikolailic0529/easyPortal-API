@@ -46,24 +46,40 @@ abstract class BaseOperator extends OperatorDirective {
             throw new OperatorUnsupportedBuilder($this, $builder);
         }
 
-        // Process
-        $column    = Cast::toString($property->getName());
-        $grammar   = $builder->getGrammar();
-        $direction = $this->getKeyDirection($argument);
-        $builder   = $builder
+        // Query
+        $grammar = $builder->getGrammar();
+        $column  = Cast::toString($property->getName());
+        $query   = $builder
             ->toBase()
             ->select([
                 DB::raw("{$this->getKeyExpression($builder, $column)} as {$grammar->wrap('key')}"),
-                DB::raw("count(*) as {$grammar->wrap('count')}"),
-            ])
-            ->groupBy('key');
+            ]);
+
+        if ($query->distinct === false) {
+            $query = $query
+                ->addSelect(
+                    DB::raw("count(*) as {$grammar->wrap('count')}"),
+                )
+                ->groupBy('key');
+        } else {
+            $query = $query->getConnection()
+                ->table($query, 'query')
+                ->select([
+                    DB::raw($grammar->wrap('key')),
+                    DB::raw("count(*) as {$grammar->wrap('count')}"),
+                ])
+                ->groupBy('key');
+        }
+
+        // Sort
+        $direction = $this->getKeyDirection($argument);
 
         if ($direction) {
-            $builder = $builder->orderBy('key', $direction);
+            $query = $query->orderBy('key', $direction);
         }
 
         /** @phpstan-ignore-next-line builder is different but it is ok in this case */
-        return $builder;
+        return $query;
     }
 
     /**

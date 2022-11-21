@@ -29,6 +29,7 @@ use LastDragon_ru\LaraASP\Testing\Providers\ArrayDataProvider;
 use LastDragon_ru\LaraASP\Testing\Providers\CompositeDataProvider;
 use LastDragon_ru\LaraASP\Testing\Providers\MergeDataProvider;
 use Tests\DataProviders\GraphQL\Organizations\AuthOrgDataProvider;
+use Tests\DataProviders\GraphQL\Organizations\AuthOrgResellerDataProvider;
 use Tests\DataProviders\GraphQL\Organizations\OrgRootDataProvider;
 use Tests\DataProviders\GraphQL\Users\OrgUserDataProvider;
 use Tests\GraphQL\GraphQLSuccess;
@@ -431,6 +432,112 @@ class AssetTest extends TestCase {
                             user_id
                             files {
                                 name
+                            }
+                        }
+                    }
+                }
+            ', ['id' => $assetId])
+            ->assertThat($expected);
+    }
+
+    /**
+     * @dataProvider dataProviderQueryContracts
+     *
+     * @param OrganizationFactory                               $orgFactory
+     * @param UserFactory                                       $userFactory
+     * @param SettingsFactory                                   $settingsFactory
+     * @param Closure(static, ?Organization, ?User): Asset|null $assetFactory
+     */
+    public function testQueryContracts(
+        Response $expected,
+        mixed $orgFactory,
+        mixed $userFactory = null,
+        mixed $settingsFactory = null,
+        Closure $assetFactory = null,
+    ): void {
+        // Prepare
+        $org     = $this->setOrganization($orgFactory);
+        $user    = $this->setUser($userFactory, $org);
+        $assetId = $assetFactory
+            ? $assetFactory($this, $org, $user)->getKey()
+            : $this->faker->uuid();
+
+        $this->setSettings($settingsFactory);
+
+        // Test
+        $this
+            ->graphQL(/** @lang GraphQL */ '
+                query test($id: ID!) {
+                    asset(id: $id) {
+                        contracts {
+                            id
+                            entries_count
+                            entries {
+                                id
+                                asset_id
+                            }
+                        }
+                        contractsAggregated {
+                            count
+                            groups(groupBy: {type_id: asc}) {
+                                key
+                                count
+                            }
+                            groupsAggregated(groupBy: {type_id: asc}) {
+                                count
+                            }
+                        }
+                    }
+                }
+            ', ['id' => $assetId])
+            ->assertThat($expected);
+    }
+
+    /**
+     * @dataProvider dataProviderQueryQuotes
+     *
+     * @param OrganizationFactory                               $orgFactory
+     * @param UserFactory                                       $userFactory
+     * @param array<mixed>                                      $settingsFactory
+     * @param Closure(static, ?Organization, ?User): Asset|null $assetFactory
+     */
+    public function testQueryQuotes(
+        Response $expected,
+        mixed $orgFactory,
+        mixed $userFactory = null,
+        mixed $settingsFactory = null,
+        Closure $assetFactory = null,
+    ): void {
+        // Prepare
+        $org     = $this->setOrganization($orgFactory);
+        $user    = $this->setUser($userFactory, $org);
+        $assetId = $assetFactory
+            ? $assetFactory($this, $org, $user)->getKey()
+            : $this->faker->uuid();
+
+        $this->setSettings($settingsFactory);
+
+        // Test
+        $this
+            ->graphQL(/** @lang GraphQL */ '
+                query test($id: ID!) {
+                    asset(id: $id) {
+                        quotes {
+                            id
+                            entries_count
+                            entries {
+                                id
+                                asset_id
+                            }
+                        }
+                        quotesAggregated {
+                            count
+                            groups(groupBy: {type_id: asc}) {
+                                key
+                                count
+                            }
+                            groupsAggregated(groupBy: {type_id: asc}) {
+                                count
                             }
                         }
                     }
@@ -1208,6 +1315,360 @@ class AssetTest extends TestCase {
 
                             return $asset;
                         },
+                    ],
+                ]),
+            ),
+        ]))->getData();
+    }
+
+    /**
+     * @return array<mixed>
+     */
+    public function dataProviderQueryContracts(): array {
+        $factory = static function (TestCase $test, Organization $org): Asset {
+            $type     = Type::factory()->create([
+                'id' => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24985',
+            ]);
+            $asset    = Asset::factory()->ownedBy($org)->create([
+                'id' => '104d3e00-573b-4b6b-a2c1-07cb8fce4aee',
+            ]);
+            $document = Document::factory()->ownedBy($org)->create([
+                'id'            => '2d275acf-b4a3-43f4-9604-61c82742753b',
+                'type_id'       => $type,
+                'entries_count' => 3,
+            ]);
+
+            DocumentEntry::factory()->create([
+                'id'          => 'c90de82d-73d4-42d1-9bab-f718ffe09bfd',
+                'asset_id'    => $asset,
+                'document_id' => $document,
+            ]);
+            DocumentEntry::factory()->create([
+                'id'          => '9e45d654-a554-4bf7-89ff-5fe338c12380',
+                'asset_id'    => $asset,
+                'document_id' => $document,
+            ]);
+            DocumentEntry::factory()->create([
+                'id'          => 'a7925978-c5aa-482c-80b5-c87e3bec66b3',
+                'asset_id'    => Asset::factory([
+                    'id' => '92323629-fd8f-4f01-8515-8f2960099665',
+                ]),
+                'document_id' => $document,
+            ]);
+
+            return $asset;
+        };
+        $empty   = [
+            'contracts'           => [
+                // empty
+            ],
+            'contractsAggregated' => [
+                'count'            => 0,
+                'groups'           => [],
+                'groupsAggregated' => [
+                    'count' => 0,
+                ],
+            ],
+        ];
+
+        return (new MergeDataProvider([
+            'root'         => new CompositeDataProvider(
+                new OrgRootDataProvider('asset'),
+                new OrgUserDataProvider('asset', [
+                    'assets-view',
+                    'contracts-view',
+                ]),
+                new ArrayDataProvider([
+                    'ok' => [
+                        new GraphQLSuccess('asset'),
+                        [],
+                        static function (): Asset {
+                            return Asset::factory()->create();
+                        },
+                    ],
+                ]),
+            ),
+            'organization' => new CompositeDataProvider(
+                new AuthOrgResellerDataProvider('asset', 'f9834bc1-2f2f-4c57-bb8d-7a224ac24986'),
+                new OrgUserDataProvider('asset', [
+                    'assets-view',
+                    'contracts-view',
+                ]),
+                new ArrayDataProvider([
+                    'ok'             => [
+                        new GraphQLSuccess(
+                            'asset',
+                            [
+                                'contracts'           => [
+                                    [
+                                        'id'            => '2d275acf-b4a3-43f4-9604-61c82742753b',
+                                        'entries_count' => 3,
+                                        'entries'       => [
+                                            [
+                                                'id'       => '9e45d654-a554-4bf7-89ff-5fe338c12380',
+                                                'asset_id' => '104d3e00-573b-4b6b-a2c1-07cb8fce4aee',
+                                            ],
+                                            [
+                                                'id'       => 'a7925978-c5aa-482c-80b5-c87e3bec66b3',
+                                                'asset_id' => '92323629-fd8f-4f01-8515-8f2960099665',
+                                            ],
+                                            [
+                                                'id'       => 'c90de82d-73d4-42d1-9bab-f718ffe09bfd',
+                                                'asset_id' => '104d3e00-573b-4b6b-a2c1-07cb8fce4aee',
+                                            ],
+                                        ],
+                                    ],
+                                ],
+                                'contractsAggregated' => [
+                                    'count'            => 1,
+                                    'groups'           => [
+                                        [
+                                            'key'   => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24985',
+                                            'count' => 1,
+                                        ],
+                                    ],
+                                    'groupsAggregated' => [
+                                        'count' => 1,
+                                    ],
+                                ],
+                            ],
+                        ),
+                        [
+                            'ep.document_statuses_hidden' => [],
+                            'ep.contract_types'           => [
+                                'f9834bc1-2f2f-4c57-bb8d-7a224ac24985',
+                            ],
+                        ],
+                        $factory,
+                    ],
+                    'no types'       => [
+                        new GraphQLSuccess('asset', $empty),
+                        [
+                            'ep.document_statuses_hidden' => [],
+                            'ep.contract_types'           => [
+                                // empty
+                            ],
+                        ],
+                        $factory,
+                    ],
+                    'type not match' => [
+                        new GraphQLSuccess('asset', $empty),
+                        [
+                            'ep.document_statuses_hidden' => [],
+                            'ep.contract_types'           => [
+                                '0b341ea2-044e-438a-af46-adfe23d73a39',
+                            ],
+                        ],
+                        $factory,
+                    ],
+                    'not allowed'    => [
+                        new GraphQLSuccess('asset', $empty),
+                        [
+                            'ep.document_statuses_hidden' => [],
+                            'ep.contract_types'           => [
+                                'f9834bc1-2f2f-4c57-bb8d-7a224ac24985',
+                            ],
+                        ],
+                        static function (TestCase $test, Organization $org): Asset {
+                            $type     = Type::factory()->create();
+                            $asset    = Asset::factory()->ownedBy($org)->create();
+                            $document = Document::factory()->create([
+                                'type_id' => $type,
+                            ]);
+
+                            DocumentEntry::factory()->create([
+                                'document_id' => $document,
+                                'asset_id'    => $asset,
+                            ]);
+
+                            return $asset;
+                        },
+                    ],
+                ]),
+            ),
+        ]))->getData();
+    }
+
+    /**
+     * @return array<mixed>
+     */
+    public function dataProviderQueryQuotes(): array {
+        $factory = static function (TestCase $test, Organization $org): Asset {
+            $type     = Type::factory()->create([
+                'id' => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24985',
+            ]);
+            $asset    = Asset::factory()->ownedBy($org)->create([
+                'id' => '104d3e00-573b-4b6b-a2c1-07cb8fce4aee',
+            ]);
+            $document = Document::factory()->ownedBy($org)->create([
+                'id'            => '2d275acf-b4a3-43f4-9604-61c82742753b',
+                'type_id'       => $type,
+                'entries_count' => 3,
+            ]);
+
+            DocumentEntry::factory()->create([
+                'id'          => 'c90de82d-73d4-42d1-9bab-f718ffe09bfd',
+                'asset_id'    => $asset,
+                'document_id' => $document,
+            ]);
+            DocumentEntry::factory()->create([
+                'id'          => '9e45d654-a554-4bf7-89ff-5fe338c12380',
+                'asset_id'    => $asset,
+                'document_id' => $document,
+            ]);
+            DocumentEntry::factory()->create([
+                'id'          => 'a7925978-c5aa-482c-80b5-c87e3bec66b3',
+                'asset_id'    => Asset::factory([
+                    'id' => '92323629-fd8f-4f01-8515-8f2960099665',
+                ]),
+                'document_id' => $document,
+            ]);
+
+            return $asset;
+        };
+        $quotes  = [
+            'quotes'           => [
+                [
+                    'id'            => '2d275acf-b4a3-43f4-9604-61c82742753b',
+                    'entries_count' => 3,
+                    'entries'       => [
+                        [
+                            'id'       => '9e45d654-a554-4bf7-89ff-5fe338c12380',
+                            'asset_id' => '104d3e00-573b-4b6b-a2c1-07cb8fce4aee',
+                        ],
+                        [
+                            'id'       => 'a7925978-c5aa-482c-80b5-c87e3bec66b3',
+                            'asset_id' => '92323629-fd8f-4f01-8515-8f2960099665',
+                        ],
+                        [
+                            'id'       => 'c90de82d-73d4-42d1-9bab-f718ffe09bfd',
+                            'asset_id' => '104d3e00-573b-4b6b-a2c1-07cb8fce4aee',
+                        ],
+                    ],
+                ],
+            ],
+            'quotesAggregated' => [
+                'count'            => 1,
+                'groups'           => [
+                    [
+                        'key'   => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24985',
+                        'count' => 1,
+                    ],
+                ],
+                'groupsAggregated' => [
+                    'count' => 1,
+                ],
+            ],
+        ];
+        $empty   = [
+            'quotes'           => [
+                // empty
+            ],
+            'quotesAggregated' => [
+                'count'            => 0,
+                'groups'           => [],
+                'groupsAggregated' => [
+                    'count' => 0,
+                ],
+            ],
+        ];
+
+        return (new MergeDataProvider([
+            'root'         => new CompositeDataProvider(
+                new OrgRootDataProvider('asset'),
+                new OrgUserDataProvider('asset', [
+                    'customers-view',
+                    'quotes-view',
+                ]),
+                new ArrayDataProvider([
+                    'ok' => [
+                        new GraphQLSuccess('asset'),
+                        [],
+                        static function (): Asset {
+                            return Asset::factory()->create();
+                        },
+                    ],
+                ]),
+            ),
+            'organization' => new CompositeDataProvider(
+                new AuthOrgResellerDataProvider('asset', 'f9834bc1-2f2f-4c57-bb8d-7a224ac24986'),
+                new OrgUserDataProvider('asset', [
+                    'customers-view',
+                    'quotes-view',
+                ]),
+                new ArrayDataProvider([
+                    'ok'                                        => [
+                        new GraphQLSuccess('asset', $quotes),
+                        [
+                            'ep.document_statuses_hidden' => [],
+                            'ep.quote_types'              => [
+                                'f9834bc1-2f2f-4c57-bb8d-7a224ac24985',
+                            ],
+                        ],
+                        $factory,
+                    ],
+                    'not allowed'                               => [
+                        new GraphQLSuccess('asset', $empty),
+                        [
+                            'ep.document_statuses_hidden' => [],
+                            'ep.contract_types'           => [],
+                        ],
+                        static function (TestCase $test, Organization $org): Asset {
+                            $type     = Type::factory()->create();
+                            $asset    = Asset::factory()->ownedBy($org)->create();
+                            $document = Document::factory()->create([
+                                'type_id' => $type,
+                            ]);
+
+                            DocumentEntry::factory()->create([
+                                'document_id' => $document,
+                                'asset_id'    => $asset,
+                            ]);
+
+                            return $asset;
+                        },
+                    ],
+                    'no quote_types + contract_types not match' => [
+                        new GraphQLSuccess('asset', $quotes),
+                        [
+                            'ep.document_statuses_hidden' => [],
+                            'ep.contract_types'           => [
+                                'd4ad2f4f-7751-4cd2-a6be-71bcee84f37a',
+                            ],
+                            'ep.quote_types'              => [
+                                // empty
+                            ],
+                        ],
+                        $factory,
+                    ],
+                    'no quote_types + contract_types match'     => [
+                        new GraphQLSuccess('asset', $empty),
+                        [
+                            'ep.document_statuses_hidden' => [],
+                            'ep.contract_types'           => [
+                                'f9834bc1-2f2f-4c57-bb8d-7a224ac24985',
+                            ],
+                        ],
+                        $factory,
+                    ],
+                    'quote_types not match'                     => [
+                        new GraphQLSuccess('asset', $empty),
+                        [
+                            'ep.document_statuses_hidden' => [],
+                            'ep.quote_types'              => [
+                                'f9834bc1-2f2f-4c57-bb8d-7a224ac2498a',
+                            ],
+                        ],
+                        $factory,
+                    ],
+                    'no quote_types + no contract_types'        => [
+                        new GraphQLSuccess('asset', $empty),
+                        [
+                            'ep.document_statuses_hidden' => [],
+                            'ep.contract_types'           => [],
+                            'ep.quote_types'              => [],
+                        ],
+                        $factory,
                     ],
                 ]),
             ),
