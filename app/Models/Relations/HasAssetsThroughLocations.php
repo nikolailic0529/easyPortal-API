@@ -15,6 +15,6 @@ trait HasAssetsThroughLocations {
      * @return HasManyThrough<Asset>
      */
     public function assets(): HasManyThrough {
-        return $this->hasManyThrough(Asset::class, Location::class);
+        return $this->hasManyThrough(Asset::class, Location::class)->distinct();
     }
 }
