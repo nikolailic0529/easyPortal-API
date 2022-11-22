@@ -3,10 +3,11 @@
 namespace App\Services\Audit;
 
 use App\Models\Audits\Audit as AuditModel;
+use App\Models\Organization;
 use App\Models\User;
 use App\Services\Audit\Enums\Action;
 use App\Services\Auth\Auth;
-use App\Services\Organization\CurrentOrganization;
+use App\Services\Organization\OrganizationProvider;
 use App\Utils\Eloquent\Model;
 use Illuminate\Contracts\Auth\Authenticatable;
 use UnexpectedValueException;
@@ -18,7 +19,6 @@ class Auditor {
 
     public function __construct(
         protected Auth $auth,
-        protected CurrentOrganization $organization,
     ) {
         // empty
     }
@@ -27,16 +27,15 @@ class Auditor {
      * @param array<string, mixed> $context
      */
     public function create(
+        OrganizationProvider|Organization|null $org,
         Action $action,
         Model $model = null,
         array $context = null,
         Authenticatable $user = null,
     ): void {
         // Org?
-        $organization = null;
-
-        if ($this->organization->defined()) {
-            $organization = $this->organization->getKey();
+        if ($org instanceof OrganizationProvider) {
+            $org = $org->defined() ? $org->get() : null;
         }
 
         // User?
@@ -56,7 +55,7 @@ class Auditor {
         $audit->object_id       = $model?->getKey();
         $audit->object_type     = $model?->getMorphClass();
         $audit->user_id         = $user?->getKey();
-        $audit->organization_id = $organization;
+        $audit->organization_id = $org?->getKey();
         $audit->context         = $context;
         $audit->save();
     }
