@@ -20,8 +20,8 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @property Action                 $action
  * @property string|null            $user_id
  * @property string|null            $organization_id
- * @property string                 $object_id
- * @property string                 $object_type
+ * @property string|null            $object_id
+ * @property string|null            $object_type
  * @property array|null             $context
  * @property CarbonImmutable        $created_at
  * @property CarbonImmutable        $updated_at

@@ -26,11 +26,11 @@ class Audit implements Subscriber {
     }
 
     public function signIn(Login $event): void {
-        $this->auditor->create(Action::authSignedIn(), ['guard' => $event->guard]);
+        $this->auditor->create(Action::authSignedIn(), null, ['guard' => $event->guard]);
     }
 
     public function signOut(Logout $event): void {
-        $this->auditor->create(Action::authSignedOut(), ['guard' => $event->guard]);
+        $this->auditor->create(Action::authSignedOut(), null, ['guard' => $event->guard]);
     }
 
     public function passwordReset(PasswordReset $event): void {
@@ -55,18 +55,18 @@ class Audit implements Subscriber {
 
         $context = $this->getModelContext($object, $action);
 
-        $this->auditor->create($action, $context, $object->getModel());
+        $this->auditor->create($action, $model, $context);
     }
 
     public function queryExported(QueryExported $event): void {
-        $this->auditor->create(Action::exported(), [
+        $this->auditor->create(Action::exported(), null, [
             'type'  => $event->getType(),
             'query' => $event->getQuery(),
         ]);
     }
 
     public function failed(Failed $event): void {
-        $this->auditor->create(Action::authFailed(), ['guard' => $event->guard]);
+        $this->auditor->create(Action::authFailed(), null, ['guard' => $event->guard]);
     }
 
     public function subscribe(Dispatcher $dispatcher): void {

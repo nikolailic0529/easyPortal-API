@@ -44,7 +44,7 @@ class AuditorTest extends TestCase {
             $mock
                 ->shouldReceive('create')
                 ->once()
-                ->with(Action::modelCreated(), ['properties' => $properties], $changeRequest);
+                ->with(Action::modelCreated(), $changeRequest, ['properties' => $properties]);
         });
 
         $changeRequest->save();
@@ -74,8 +74,8 @@ class AuditorTest extends TestCase {
                 ->withArgs(
                     static function (
                         Action $auditAction,
-                        array $auditContext = null,
                         Model $auditModel = null,
+                        array $auditContext = null,
                         Authenticatable $auditUser = null,
                     ) use (
                         $model,
@@ -124,7 +124,7 @@ class AuditorTest extends TestCase {
             $mock
                 ->shouldReceive('create')
                 ->once()
-                ->with(Action::modelDeleted(), ['properties' => []], $changeRequest);
+                ->with(Action::modelDeleted(), $changeRequest, ['properties' => []]);
         });
 
         $changeRequest->delete();
@@ -141,7 +141,7 @@ class AuditorTest extends TestCase {
             $mock
                 ->shouldReceive('create')
                 ->once()
-                ->with(Action::authSignedIn(), ['guard' => 'test'])
+                ->with(Action::authSignedIn(), null, ['guard' => 'test'])
                 ->andReturns();
             $mock
                 ->shouldReceive('create')
@@ -165,7 +165,7 @@ class AuditorTest extends TestCase {
             $mock
                 ->shouldReceive('create')
                 ->once()
-                ->with(Action::authSignedOut(), ['guard' => 'web']);
+                ->with(Action::authSignedOut(), null, ['guard' => 'web']);
         });
         Auth::logout();
     }
@@ -179,7 +179,7 @@ class AuditorTest extends TestCase {
             $mock
                 ->shouldReceive('create')
                 ->once()
-                ->with(Action::authFailed(), ['guard' => 'web']);
+                ->with(Action::authFailed(), null, ['guard' => 'web']);
         });
         Auth::guard('web')->attempt(['email' => 'test@example.com', 'password' => '12345']);
     }
@@ -205,7 +205,7 @@ class AuditorTest extends TestCase {
             $mock
                 ->shouldReceive('create')
                 ->once()
-                ->with(Action::exported(), [
+                ->with(Action::exported(), null, [
                     'type'  => 'csv',
                     'query' => $query,
                 ]);

@@ -2796,21 +2796,6 @@ parameters:
 			path: app/Rules/Organization/RoleIdTest.php
 
 		-
-			message: "#^Property App\\\\Models\\\\Audits\\\\Audit\\:\\:\\$object_id \\(string\\) does not accept string\\|null\\.$#"
-			count: 1
-			path: app/Services/Audit/Auditor.php
-
-		-
-			message: "#^Property App\\\\Models\\\\Audits\\\\Audit\\:\\:\\$object_type \\(string\\) does not accept string\\|null\\.$#"
-			count: 1
-			path: app/Services/Audit/Auditor.php
-
-		-
-			message: "#^Property App\\\\Models\\\\Audits\\\\Audit\\:\\:\\$user_id \\(string\\|null\\) does not accept mixed\\.$#"
-			count: 1
-			path: app/Services/Audit/Auditor.php
-
-		-
 			message: "#^Method App\\\\Services\\\\Audit\\\\AuditorTest\\:\\:testCreate\\(\\) has parameter \\$expectedFactory with no signature specified for Closure\\.$#"
 			count: 1
 			path: app/Services/Audit/AuditorTest.php
@@ -2827,11 +2812,6 @@ parameters:
 
 		-
 			message: "#^Method App\\\\Services\\\\Audit\\\\Listeners\\\\Audit\\:\\:getModelAction\\(\\) should return App\\\\Services\\\\Audit\\\\Enums\\\\Action but returns App\\\\Services\\\\Audit\\\\Enums\\\\Action\\|null\\.$#"
-			count: 1
-			path: app/Services/Audit/Listeners/Audit.php
-
-		-
-			message: "#^Parameter \\#3 \\$model of method App\\\\Services\\\\Audit\\\\Auditor\\:\\:create\\(\\) expects App\\\\Utils\\\\Eloquent\\\\Model\\|null, Illuminate\\\\Database\\\\Eloquent\\\\Model given\\.$#"
 			count: 1
 			path: app/Services/Audit/Listeners/Audit.php
 
