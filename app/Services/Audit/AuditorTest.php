@@ -7,7 +7,12 @@ use App\Models\Audits\Audit;
 use App\Models\ChangeRequest;
 use App\Models\Organization;
 use App\Models\User;
+use App\Services\Audit\Contexts\Auth\SignIn;
+use App\Services\Audit\Contexts\Auth\SignInFailed;
+use App\Services\Audit\Contexts\Auth\SignOut;
+use App\Services\Audit\Contexts\Context;
 use App\Services\Audit\Enums\Action;
+use App\Services\Organization\CurrentOrganization;
 use App\Utils\Eloquent\Model;
 use Closure;
 use Illuminate\Auth\AuthManager;
@@ -17,6 +22,7 @@ use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Contracts\Events\Dispatcher;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Date;
+use Mockery;
 use Mockery\MockInterface;
 use Tests\TestCase;
 
@@ -44,7 +50,14 @@ class AuditorTest extends TestCase {
             $mock
                 ->shouldReceive('create')
                 ->once()
-                ->with(Action::modelCreated(), ['properties' => $properties], $changeRequest);
+                ->with(
+                    Mockery::type(CurrentOrganization::class),
+                    Action::modelCreated(),
+                    $changeRequest,
+                    [
+                        'properties' => $properties,
+                    ],
+                );
         });
 
         $changeRequest->save();
@@ -73,15 +86,17 @@ class AuditorTest extends TestCase {
                 ->once()
                 ->withArgs(
                     static function (
+                        CurrentOrganization|Organization|null $auditOrg,
                         Action $auditAction,
-                        array $auditContext = null,
                         Model $auditModel = null,
+                        array $auditContext = null,
                         Authenticatable $auditUser = null,
                     ) use (
                         $model,
                         $changes,
                     ): bool {
-                        return $auditAction === Action::modelUpdated()
+                        return $auditOrg instanceof CurrentOrganization
+                            && $auditAction === Action::modelUpdated()
                             && $auditModel === $model
                             && $auditUser === null
                             && isset($auditContext['properties']['updated_at'])
@@ -124,7 +139,14 @@ class AuditorTest extends TestCase {
             $mock
                 ->shouldReceive('create')
                 ->once()
-                ->with(Action::modelDeleted(), ['properties' => []], $changeRequest);
+                ->with(
+                    Mockery::type(CurrentOrganization::class),
+                    Action::modelDeleted(),
+                    $changeRequest,
+                    [
+                        'properties' => [],
+                    ],
+                );
         });
 
         $changeRequest->delete();
@@ -137,11 +159,20 @@ class AuditorTest extends TestCase {
     public function testLogin(): void {
         $user = User::factory()->create();
 
-        $this->override(Auditor::class, static function (MockInterface $mock): void {
+        $this->override(Auditor::class, static function (MockInterface $mock) use ($user): void {
             $mock
                 ->shouldReceive('create')
                 ->once()
-                ->with(Action::authSignedIn(), ['guard' => 'test'])
+                ->with(
+                    Mockery::type(CurrentOrganization::class),
+                    Action::authSignedIn(),
+                    null,
+                    Mockery::on(static function (Context $context): bool {
+                        return $context instanceof SignIn
+                            && $context->jsonSerialize() === (new SignIn('test', false))->jsonSerialize();
+                    }),
+                    $user,
+                )
                 ->andReturns();
             $mock
                 ->shouldReceive('create')
@@ -160,13 +191,25 @@ class AuditorTest extends TestCase {
      */
     public function testLogout(): void {
         $user = User::factory()->make();
+
         Auth::guard('web')->login($user);
-        $this->override(Auditor::class, static function (MockInterface $mock): void {
+
+        $this->override(Auditor::class, static function (MockInterface $mock) use ($user): void {
             $mock
                 ->shouldReceive('create')
                 ->once()
-                ->with(Action::authSignedOut(), ['guard' => 'web']);
+                ->with(
+                    Mockery::type(CurrentOrganization::class),
+                    Action::authSignedOut(),
+                    null,
+                    Mockery::on(static function (Context $context): bool {
+                        return $context instanceof SignOut
+                            && $context->jsonSerialize() === (new SignOut('web'))->jsonSerialize();
+                    }),
+                    $user,
+                );
         });
+
         Auth::logout();
     }
 
@@ -179,9 +222,25 @@ class AuditorTest extends TestCase {
             $mock
                 ->shouldReceive('create')
                 ->once()
-                ->with(Action::authFailed(), ['guard' => 'web']);
+                ->with(
+                    null,
+                    Action::authFailed(),
+                    null,
+                    Mockery::on(static function (Context $context): bool {
+                        return $context instanceof SignInFailed
+                            && $context->jsonSerialize() === (new SignInFailed(
+                                'web',
+                                'test@example.com',
+                            ))->jsonSerialize();
+                    }),
+                    null,
+                );
         });
-        Auth::guard('web')->attempt(['email' => 'test@example.com', 'password' => '12345']);
+
+        Auth::guard('web')->attempt([
+            'email'    => 'test@example.com',
+            'password' => '12345',
+        ]);
     }
 
     /**
@@ -205,10 +264,15 @@ class AuditorTest extends TestCase {
             $mock
                 ->shouldReceive('create')
                 ->once()
-                ->with(Action::exported(), [
-                    'type'  => 'csv',
-                    'query' => $query,
-                ]);
+                ->with(
+                    Mockery::type(CurrentOrganization::class),
+                    Action::exported(),
+                    null,
+                    [
+                        'type'  => 'csv',
+                        'query' => $query,
+                    ],
+                );
         });
         $dispatcher = $this->app->make(Dispatcher::class);
         $dispatcher->dispatch(new QueryExported('csv', $query));
@@ -226,7 +290,13 @@ class AuditorTest extends TestCase {
             $mock
                 ->shouldReceive('create')
                 ->once()
-                ->with(Action::authPasswordReset(), null, null, $user);
+                ->with(
+                    Mockery::type(CurrentOrganization::class),
+                    Action::authPasswordReset(),
+                    null,
+                    null,
+                    $user,
+                );
         });
         $dispatcher = $this->app->make(Dispatcher::class);
         $dispatcher->dispatch(new PasswordReset($user));

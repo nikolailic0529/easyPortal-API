@@ -3,46 +3,68 @@
 namespace App\Services\Audit;
 
 use App\Models\Audits\Audit as AuditModel;
+use App\Models\Organization;
+use App\Models\User;
+use App\Services\Audit\Contexts\Context;
 use App\Services\Audit\Enums\Action;
-use App\Services\Organization\CurrentOrganization;
+use App\Services\Auth\Auth;
+use App\Services\Organization\OrganizationProvider;
 use App\Utils\Eloquent\Model;
-use Illuminate\Auth\AuthManager;
 use Illuminate\Contracts\Auth\Authenticatable;
+use UnexpectedValueException;
+
+use function sprintf;
 
 class Auditor {
     public const CONNECTION = 'audit';
 
     public function __construct(
-        protected AuthManager $auth,
-        protected CurrentOrganization $organization,
+        protected Auth $auth,
     ) {
         // empty
     }
 
     /**
-     * @param array<string, mixed> $context
+     * @param Context|array<string, mixed> $context
      */
     public function create(
+        OrganizationProvider|Organization|string|null $org,
         Action $action,
-        array $context = null,
         Model $model = null,
+        Context|array $context = null,
         Authenticatable $user = null,
     ): void {
-        $organization = null;
-        if ($this->organization->defined()) {
-            $organization = $this->organization->getKey();
+        // Org?
+        if ($org instanceof OrganizationProvider) {
+            $org = $org->defined() ? $org->get() : null;
         }
-        if (!$user) {
-            $user = $this->auth->user();
+
+        if ($org instanceof Organization) {
+            $org = $org->getKey();
         }
-        // create audit
+
+        // User?
+        $user ??= $this->auth->getUser();
+
+        if ($user && !($user instanceof User)) {
+            throw new UnexpectedValueException(sprintf(
+                'The `$user` should be instance of `%s`, `%s` given.',
+                User::class,
+                $user::class,
+            ));
+        }
+
+        // Create
         $audit                  = new AuditModel();
+        $audit->organization_id = $org;
+        $audit->user_id         = $user?->getKey();
         $audit->action          = $action;
         $audit->object_id       = $model?->getKey();
         $audit->object_type     = $model?->getMorphClass();
-        $audit->user_id         = $user?->getAuthIdentifier();
-        $audit->organization_id = $organization;
-        $audit->context         = $context;
+        $audit->context         = $context instanceof Context
+            ? $context->jsonSerialize()
+            : $context;
+
         $audit->save();
     }
 }

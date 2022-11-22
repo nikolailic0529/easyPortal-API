@@ -24,7 +24,7 @@ class AuditContext {
     public function __invoke(Audit $audit, array $args, GraphQLContext $graphqlContext, ResolveInfo $info): ?string {
         $context = $audit->context;
 
-        if (isset($context['properties']) && !$this->gate->check('administer')) {
+        if (isset($context['properties']) && !$this->gate->check('administer') && $audit->object_type) {
             $model                 = Relation::getMorphedModel($audit->object_type) ?? $audit->object_type;
             $model                 = new $model();
             $context['properties'] = (new class() extends Model {
