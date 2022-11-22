@@ -5,6 +5,7 @@ namespace App\Services\Audit;
 use App\Models\Audits\Audit as AuditModel;
 use App\Models\Organization;
 use App\Models\User;
+use App\Services\Audit\Contexts\Context;
 use App\Services\Audit\Enums\Action;
 use App\Services\Auth\Auth;
 use App\Services\Organization\OrganizationProvider;
@@ -24,18 +25,22 @@ class Auditor {
     }
 
     /**
-     * @param array<string, mixed> $context
+     * @param Context|array<string, mixed> $context
      */
     public function create(
-        OrganizationProvider|Organization|null $org,
+        OrganizationProvider|Organization|string|null $org,
         Action $action,
         Model $model = null,
-        array $context = null,
+        Context|array $context = null,
         Authenticatable $user = null,
     ): void {
         // Org?
         if ($org instanceof OrganizationProvider) {
             $org = $org->defined() ? $org->get() : null;
+        }
+
+        if ($org instanceof Organization) {
+            $org = $org->getKey();
         }
 
         // User?
@@ -51,12 +56,15 @@ class Auditor {
 
         // Create
         $audit                  = new AuditModel();
+        $audit->organization_id = $org;
+        $audit->user_id         = $user?->getKey();
         $audit->action          = $action;
         $audit->object_id       = $model?->getKey();
         $audit->object_type     = $model?->getMorphClass();
-        $audit->user_id         = $user?->getKey();
-        $audit->organization_id = $org?->getKey();
-        $audit->context         = $context;
+        $audit->context         = $context instanceof Context
+            ? $context->jsonSerialize()
+            : $context;
+
         $audit->save();
     }
 }

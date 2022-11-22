@@ -10,10 +10,6 @@ use App\Services\Audit\Enums\Action;
 use App\Services\Logger\Listeners\EloquentObject;
 use App\Services\Organization\CurrentOrganization;
 use App\Utils\Eloquent\Model;
-use Illuminate\Auth\Events\Failed;
-use Illuminate\Auth\Events\Login;
-use Illuminate\Auth\Events\Logout;
-use Illuminate\Auth\Events\PasswordReset;
 use Illuminate\Contracts\Events\Dispatcher;
 
 use function reset;
@@ -25,18 +21,6 @@ class Audit implements Subscriber {
         protected CurrentOrganization $org,
     ) {
         // empty
-    }
-
-    public function signIn(Login $event): void {
-        $this->auditor->create($this->org, Action::authSignedIn(), null, ['guard' => $event->guard]);
-    }
-
-    public function signOut(Logout $event): void {
-        $this->auditor->create($this->org, Action::authSignedOut(), null, ['guard' => $event->guard]);
-    }
-
-    public function passwordReset(PasswordReset $event): void {
-        $this->auditor->create($this->org, Action::authPasswordReset(), null, null, $event->user);
     }
 
     /**
@@ -67,15 +51,7 @@ class Audit implements Subscriber {
         ]);
     }
 
-    public function failed(Failed $event): void {
-        $this->auditor->create($this->org, Action::authFailed(), null, ['guard' => $event->guard]);
-    }
-
     public function subscribe(Dispatcher $dispatcher): void {
-        $dispatcher->listen(Login::class, [$this::class, 'signIn']);
-        $dispatcher->listen(Logout::class, [$this::class, 'signOut']);
-        $dispatcher->listen(Failed::class, [$this::class, 'failed']);
-        $dispatcher->listen(PasswordReset::class, [$this::class, 'passwordReset']);
         $dispatcher->listen(QueryExported::class, [$this::class, 'queryExported']);
         // Subscribe for model events
         /** @var array<string,Action> $events */

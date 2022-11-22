@@ -7,6 +7,10 @@ use App\Models\Audits\Audit;
 use App\Models\ChangeRequest;
 use App\Models\Organization;
 use App\Models\User;
+use App\Services\Audit\Contexts\Auth\SignIn;
+use App\Services\Audit\Contexts\Auth\SignInFailed;
+use App\Services\Audit\Contexts\Auth\SignOut;
+use App\Services\Audit\Contexts\Context;
 use App\Services\Audit\Enums\Action;
 use App\Services\Organization\CurrentOrganization;
 use App\Utils\Eloquent\Model;
@@ -155,7 +159,7 @@ class AuditorTest extends TestCase {
     public function testLogin(): void {
         $user = User::factory()->create();
 
-        $this->override(Auditor::class, static function (MockInterface $mock): void {
+        $this->override(Auditor::class, static function (MockInterface $mock) use ($user): void {
             $mock
                 ->shouldReceive('create')
                 ->once()
@@ -163,9 +167,11 @@ class AuditorTest extends TestCase {
                     Mockery::type(CurrentOrganization::class),
                     Action::authSignedIn(),
                     null,
-                    [
-                        'guard' => 'test',
-                    ],
+                    Mockery::on(static function (Context $context): bool {
+                        return $context instanceof SignIn
+                            && $context->jsonSerialize() === (new SignIn('test', false))->jsonSerialize();
+                    }),
+                    $user,
                 )
                 ->andReturns();
             $mock
@@ -185,8 +191,10 @@ class AuditorTest extends TestCase {
      */
     public function testLogout(): void {
         $user = User::factory()->make();
+
         Auth::guard('web')->login($user);
-        $this->override(Auditor::class, static function (MockInterface $mock): void {
+
+        $this->override(Auditor::class, static function (MockInterface $mock) use ($user): void {
             $mock
                 ->shouldReceive('create')
                 ->once()
@@ -194,11 +202,14 @@ class AuditorTest extends TestCase {
                     Mockery::type(CurrentOrganization::class),
                     Action::authSignedOut(),
                     null,
-                    [
-                        'guard' => 'web',
-                    ],
+                    Mockery::on(static function (Context $context): bool {
+                        return $context instanceof SignOut
+                            && $context->jsonSerialize() === (new SignOut('web'))->jsonSerialize();
+                    }),
+                    $user,
                 );
         });
+
         Auth::logout();
     }
 
@@ -212,15 +223,21 @@ class AuditorTest extends TestCase {
                 ->shouldReceive('create')
                 ->once()
                 ->with(
-                    Mockery::type(CurrentOrganization::class),
+                    null,
                     Action::authFailed(),
                     null,
-                    [
-                        'guard' => 'web',
-                    ],
+                    Mockery::on(static function (Context $context): bool {
+                        return $context instanceof SignInFailed
+                            && $context->jsonSerialize() === (new SignInFailed('web'))->jsonSerialize();
+                    }),
+                    null,
                 );
         });
-        Auth::guard('web')->attempt(['email' => 'test@example.com', 'password' => '12345']);
+
+        Auth::guard('web')->attempt([
+            'email'    => 'test@example.com',
+            'password' => '12345',
+        ]);
     }
 
     /**
