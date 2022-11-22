@@ -7,6 +7,7 @@ use App\Services\Audit\Contexts\Context;
 class SignInFailed extends Context {
     public function __construct(
         public string $guard,
+        public ?string $email,
     ) {
         // empty
     }

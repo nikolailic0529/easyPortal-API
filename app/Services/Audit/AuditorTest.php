@@ -228,7 +228,10 @@ class AuditorTest extends TestCase {
                     null,
                     Mockery::on(static function (Context $context): bool {
                         return $context instanceof SignInFailed
-                            && $context->jsonSerialize() === (new SignInFailed('web'))->jsonSerialize();
+                            && $context->jsonSerialize() === (new SignInFailed(
+                                'web',
+                                'test@example.com',
+                            ))->jsonSerialize();
                     }),
                     null,
                 );

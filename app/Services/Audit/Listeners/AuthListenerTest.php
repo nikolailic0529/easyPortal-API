@@ -166,6 +166,7 @@ class AuthListenerTest extends TestCase {
         $user  = User::factory()->make(['type' => UserType::local()]);
         $event = new Failed(__FUNCTION__, $user, [
             UserProvider::CREDENTIAL_ORGANIZATION => $org,
+            UserProvider::CREDENTIAL_EMAIL        => $user->email,
         ]);
 
         $this->override(Auditor::class, static function (MockInterface $mock) use ($org, $user, $event): void {
@@ -175,10 +176,11 @@ class AuthListenerTest extends TestCase {
                     $org,
                     Action::authFailed(),
                     null,
-                    Mockery::on(static function (Context $context) use ($event): bool {
+                    Mockery::on(static function (Context $context) use ($user, $event): bool {
                         return $context instanceof SignInFailed
                             && $context->jsonSerialize() === (new SignInFailed(
                                 $event->guard,
+                                $user->email,
                             ))->jsonSerialize();
                     }),
                     $user,

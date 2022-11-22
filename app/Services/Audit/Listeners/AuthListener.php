@@ -49,8 +49,9 @@ class AuthListener extends Listener {
             // So we cannot use User properties or Current Organization.
             $org     = $event->credentials[UserProvider::CREDENTIAL_ORGANIZATION] ?? null;
             $user    = $event->user;
+            $email   = $event->credentials[UserProvider::CREDENTIAL_EMAIL] ?? null;
             $action  = Action::authFailed();
-            $context = new SignInFailed($event->guard);
+            $context = new SignInFailed($event->guard, $email);
         } elseif ($event instanceof PasswordReset) {
             $org     = $this->org;
             $user    = $event->user;
