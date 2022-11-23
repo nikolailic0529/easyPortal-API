@@ -230,7 +230,7 @@ class MeTest extends TestCase {
                         ]);
                     },
                 ],
-                'freshchat_id'          => [
+                'freshchat_id'               => [
                     new GraphQLSuccess('me', new JsonFragment(
                         'freshchat_id',
                         '"e10900e2-2e68-4b05-aafe-294032ac0bda"',

@@ -983,6 +983,10 @@ input MeUpdateInput {
         value: 255
     )
 
+    freshchat_id: ID
+    @isNullable
+    @isUuid
+
     given_name: String
     @isRequired
     @isMax(
@@ -15164,6 +15168,10 @@ on
     | INPUT_FIELD_DEFINITION
 
 directive @isUrl
+on
+    | INPUT_FIELD_DEFINITION
+
+directive @isUuid
 on
     | INPUT_FIELD_DEFINITION
 

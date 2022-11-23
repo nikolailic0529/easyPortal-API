@@ -9,6 +9,7 @@ use App\Models\User;
 use App\Services\Keycloak\Client\Client;
 use App\Services\Keycloak\Client\Types\User as KeycloakUser;
 use Closure;
+use Illuminate\Contracts\Config\Repository;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Arr;
 use LastDragon_ru\LaraASP\Testing\Constraints\Response\Response;
@@ -18,6 +19,7 @@ use Mockery\MockInterface;
 use Tests\DataProviders\GraphQL\Organizations\AuthOrgDataProvider;
 use Tests\DataProviders\GraphQL\Users\AuthMeDataProvider;
 use Tests\GraphQL\GraphQLSuccess;
+use Tests\GraphQL\GraphQLValidationError;
 use Tests\GraphQL\JsonFragment;
 use Tests\TestCase;
 use Tests\WithOrganization;
@@ -29,6 +31,7 @@ use function array_keys;
 use function array_map;
 use function array_merge;
 use function count;
+use function trans;
 
 /**
  * @internal
@@ -45,9 +48,12 @@ class UpdateTest extends TestCase {
      * @covers ::__invoke
      * @dataProvider dataProviderInvoke
      *
-     * @param OrganizationFactory $orgFactory
-     * @param UserFactory         $userFactory
-     * @param SettingsFactory     $settingsFactory
+     * @param OrganizationFactory                                 $orgFactory
+     * @param UserFactory                                         $userFactory
+     * @param SettingsFactory                                     $settingsFactory
+     * @param Closure(): void|null                                $clientFactory
+     * @param Closure(static, ?Organization, ?User): User|null    $inputUserFactory
+     * @param Closure(static, ?Organization, ?User): array<mixed> $inputFactory
      */
     public function testInvoke(
         Response $expected,
@@ -191,6 +197,7 @@ class UpdateTest extends TestCase {
                             'homepage'       => 'dashboard',
                             'timezone'       => 'Europe/London',
                             'locale'         => 'en_GB',
+                            'freshchat_id'   => '754afa26-c8aa-4b03-83d4-20206ca8ec79',
                         ];
                     },
                 ],
@@ -228,12 +235,83 @@ class UpdateTest extends TestCase {
                             'job_title'      => $test->faker->randomElement([$test->faker->word(), null]),
                             'homepage'       => $test->faker->randomElement([$test->faker->url(), null]),
                             'timezone'       => $test->faker->randomElement([$test->faker->timezone(), null]),
+                            'freshchat_id'   => $test->faker->uuid(),
                         ];
                         $count      = $test->faker->numberBetween(1, count($properties));
                         $keys       = $test->faker->randomElements(array_keys($properties), $count);
                         $updated    = Arr::only($properties, $keys);
 
                         return $updated;
+                    },
+                ],
+                'Invalid input'               => [
+                    new GraphQLValidationError('me', static function (Repository $config): array {
+                        return [
+                            'input.given_name'     => [
+                                trans('validation.required'),
+                            ],
+                            'input.family_name'    => [
+                                trans('validation.required'),
+                            ],
+                            'input.title'          => [
+                                trans('validation.required'),
+                            ],
+                            'input.academic_title' => [
+                                trans('validation.required'),
+                            ],
+                            'input.homepage'       => [
+                                trans('validation.required'),
+                            ],
+                            'input.job_title'      => [
+                                trans('validation.required'),
+                            ],
+                            'input.locale'         => [
+                                trans('validation.locale'),
+                            ],
+                            'input.mobile_phone'   => [
+                                trans('validation.phone'),
+                            ],
+                            'input.office_phone'   => [
+                                trans('validation.phone'),
+                            ],
+                            'input.team_id'        => [
+                                trans('validation.team_id'),
+                            ],
+                            'input.timezone'       => [
+                                trans('validation.timezone'),
+                            ],
+                            'input.photo'          => [
+                                trans('validation.max.file', [
+                                    'max' => $config->get('ep.image.max_size') ?? 0,
+                                ]),
+                            ],
+                            'input.freshchat_id'   => [
+                                trans('validation.uuid'),
+                            ],
+                        ];
+                    }),
+                    $settings,
+                    null,
+                    static function (): User {
+                        return User::factory()->make();
+                    },
+                    static function (): array {
+                        return [
+                            'team_id'        => 'd43cb8ab-fae5-4d04-8407-15d979145deb',
+                            'given_name'     => '',
+                            'family_name'    => '',
+                            'title'          => '',
+                            'academic_title' => '',
+                            'office_phone'   => 'not a phone',
+                            'mobile_phone'   => 'not a phone',
+                            'contact_email'  => 'test@gmail.com',
+                            'job_title'      => '',
+                            'photo'          => UploadedFile::fake()->create('photo.jpg', 250),
+                            'homepage'       => '',
+                            'timezone'       => 'Invalid/Timezone',
+                            'locale'         => 'invalid_LOCALE',
+                            'freshchat_id'   => 'not a uuid',
+                        ];
                     },
                 ],
             ]),
