@@ -50,6 +50,29 @@ class Action extends Enum {
     }
     // </editor-fold>
 
+    // <editor-fold desc="Invitation">
+    // =========================================================================
+    public static function invitationCreated(): static {
+        return static::make('invitation.created');
+    }
+
+    public static function invitationAccepted(): static {
+        return static::make('invitation.accepted');
+    }
+
+    public static function invitationOutdated(): static {
+        return static::make('invitation.outdated');
+    }
+
+    public static function invitationExpired(): static {
+        return static::make('invitation.expired');
+    }
+
+    public static function invitationUsed(): static {
+        return static::make('invitation.used');
+    }
+    // </editor-fold>
+
     // <editor-fold desc="Org">
     // =========================================================================
     /**

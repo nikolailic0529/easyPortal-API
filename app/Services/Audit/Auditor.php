@@ -32,7 +32,7 @@ class Auditor {
         Action $action,
         Model $model = null,
         Context|array $context = null,
-        Authenticatable $user = null,
+        Authenticatable|string $user = null,
     ): void {
         // Org?
         if ($org instanceof OrganizationProvider) {
@@ -46,18 +46,22 @@ class Auditor {
         // User?
         $user ??= $this->auth->getUser();
 
-        if ($user && !($user instanceof User)) {
-            throw new UnexpectedValueException(sprintf(
-                'The `$user` should be instance of `%s`, `%s` given.',
-                User::class,
-                $user::class,
-            ));
+        if ($user instanceof Authenticatable) {
+            if ($user instanceof User) {
+                $user = $user->getKey();
+            } else {
+                throw new UnexpectedValueException(sprintf(
+                    'The `$user` should be instance of `%s`, `%s` given.',
+                    User::class,
+                    $user::class,
+                ));
+            }
         }
 
         // Create
         $audit                  = new AuditModel();
         $audit->organization_id = $org;
-        $audit->user_id         = $user?->getKey();
+        $audit->user_id         = $user;
         $audit->action          = $action;
         $audit->object_id       = $model?->getKey();
         $audit->object_type     = $model?->getMorphClass();
