@@ -6,6 +6,30 @@ enum AggregatedGroupByTypeDirection {
     desc
 }
 
+enum AuditAction {
+    AuthFailed
+    AuthPasswordReset
+    AuthSignedIn
+    AuthSignedOut
+    Exported
+    InvitationAccepted
+    InvitationCreated
+    InvitationExpired
+    InvitationOutdated
+    InvitationUsed
+    ModelCreated
+    ModelDeleted
+    ModelRestored
+    ModelUpdated
+
+    """
+    If the `object` is not `null` it is means that the User changed organization
+    to `object`. If the `object` is `null` the User switched organization
+    to another.
+    """
+    OrgChanged
+}
+
 enum CachedMode {
     """
     In this mode all queries will be cached always.
@@ -235,12 +259,6 @@ input AggregatedGroupByClauseAssetsQuery {
 Group clause for `input AuditsQuery` (only one property allowed at a time).
 """
 input AggregatedGroupByClauseAuditsQuery {
-    """
-    Group by property.
-    """
-    action: AggregatedGroupByTypeDirection
-    @aggregatedGroupByOperatorAsString
-
     """
     Group by property.
     """
@@ -2707,7 +2725,7 @@ input SearchByConditionAuditsQuery {
     """
     Property condition.
     """
-    action: SearchByScalarString
+    action: SearchByEnumAuditAction
     @searchByProperty
 
     """
@@ -4761,6 +4779,35 @@ input SearchByConditionUsersQuery {
     """
     previous_sign_in: SearchByScalarDateTimeOrNull
     @searchByProperty
+}
+
+"""
+Available operators for `enum AuditAction` (only one operator allowed at a time).
+"""
+input SearchByEnumAuditAction {
+    """
+    Equal (`=`).
+    """
+    equal: AuditAction
+    @searchByOperatorEqual
+
+    """
+    Within a set of values.
+    """
+    in: [AuditAction!]
+    @searchByOperatorIn
+
+    """
+    Not Equal (`!=`).
+    """
+    notEqual: AuditAction
+    @searchByOperatorNotEqual
+
+    """
+    Outside a set of values.
+    """
+    notIn: [AuditAction!]
+    @searchByOperatorNotIn
 }
 
 """
@@ -8677,7 +8724,7 @@ type AssetsSearchAggregated {
 }
 
 type Audit {
-    action: String!
+    action: AuditAction!
 
     context: String
     @field(

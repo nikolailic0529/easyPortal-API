@@ -6,6 +6,30 @@ enum AggregatedGroupByTypeDirection {
     desc
 }
 
+enum AuditAction {
+    AuthFailed
+    AuthPasswordReset
+    AuthSignedIn
+    AuthSignedOut
+    Exported
+    InvitationAccepted
+    InvitationCreated
+    InvitationExpired
+    InvitationOutdated
+    InvitationUsed
+    ModelCreated
+    ModelDeleted
+    ModelRestored
+    ModelUpdated
+
+    """
+    If the `object` is not `null` it is means that the User changed organization
+    to `object`. If the `object` is `null` the User switched organization
+    to another.
+    """
+    OrgChanged
+}
+
 enum OrganizationType {
     Reseller
 }
@@ -193,11 +217,6 @@ input AggregatedGroupByClauseAssetsQuery {
 Group clause for `input AuditsQuery` (only one property allowed at a time).
 """
 input AggregatedGroupByClauseAuditsQuery {
-    """
-    Group by property.
-    """
-    action: AggregatedGroupByTypeDirection
-
     """
     Group by property.
     """
@@ -2143,7 +2162,7 @@ input SearchByConditionAuditsQuery {
     """
     Property condition.
     """
-    action: SearchByScalarString
+    action: SearchByEnumAuditAction
 
     """
     All of the conditions must be true.
@@ -3884,6 +3903,31 @@ input SearchByConditionUsersQuery {
     Property condition.
     """
     previous_sign_in: SearchByScalarDateTimeOrNull
+}
+
+"""
+Available operators for `enum AuditAction` (only one operator allowed at a time).
+"""
+input SearchByEnumAuditAction {
+    """
+    Equal (`=`).
+    """
+    equal: AuditAction
+
+    """
+    Within a set of values.
+    """
+    in: [AuditAction!]
+
+    """
+    Not Equal (`!=`).
+    """
+    notEqual: AuditAction
+
+    """
+    Outside a set of values.
+    """
+    notIn: [AuditAction!]
 }
 
 """
@@ -6889,7 +6933,7 @@ type AssetsSearchAggregated {
 }
 
 type Audit {
-    action: String!
+    action: AuditAction!
     context: String
     created_at: DateTime!
     id: ID!
