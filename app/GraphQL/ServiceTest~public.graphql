@@ -7903,6 +7903,7 @@ type Me {
     email: Email!
     enabled: Boolean!
     family_name: String!
+    freshchat_id: ID
     given_name: String!
     homepage: String
     id: ID!
