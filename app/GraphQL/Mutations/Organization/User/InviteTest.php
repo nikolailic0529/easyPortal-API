@@ -2,6 +2,7 @@
 
 namespace App\GraphQL\Mutations\Organization\User;
 
+use App\GraphQL\Events\InvitationCreated;
 use App\Models\Data\Team;
 use App\Models\Enums\UserType;
 use App\Models\Invitation;
@@ -14,6 +15,7 @@ use App\Services\Keycloak\Client\Client;
 use App\Services\Keycloak\Client\Types\User as KeycloakUser;
 use App\Utils\Eloquent\GlobalScopes\GlobalScopes;
 use Closure;
+use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\Notification;
 use LastDragon_ru\LaraASP\Testing\Constraints\Response\Response;
 use LastDragon_ru\LaraASP\Testing\Providers\ArrayDataProvider;
@@ -82,6 +84,7 @@ class InviteTest extends TestCase {
         }
 
         // Fake
+        Event::fake(InvitationCreated::class);
         Notification::fake();
 
         // Count
@@ -147,6 +150,9 @@ class InviteTest extends TestCase {
                 self::assertEquals($data['input']['team_id'], $invitation->team_id);
                 self::assertEquals($user->getKey(), $invitation->user_id);
             }
+
+            // Event
+            Event::assertDispatched(InvitationCreated::class);
         }
     }
     // </editor-fold>

@@ -2,6 +2,7 @@
 
 namespace App\GraphQL\Mutations\Organization\User;
 
+use App\GraphQL\Events\InvitationCreated;
 use App\Models\Data\Team;
 use App\Models\Enums\UserType;
 use App\Models\Invitation;
@@ -15,6 +16,7 @@ use App\Services\Keycloak\Client\Client;
 use Config\Constants;
 use Illuminate\Contracts\Config\Repository;
 use Illuminate\Contracts\Encryption\Encrypter;
+use Illuminate\Contracts\Events\Dispatcher;
 use Illuminate\Contracts\Routing\UrlGenerator;
 use Illuminate\Support\Facades\Date;
 
@@ -25,6 +27,7 @@ class Invite {
         protected Repository $config,
         protected UrlGenerator $url,
         protected Encrypter $encrypter,
+        protected Dispatcher $dispatcher,
         protected Client $client,
         protected Auth $auth,
     ) {
@@ -141,6 +144,11 @@ class Invite {
         ));
 
         $user->notify(new OrganizationUserInvitation($invitation, $url));
+
+        // Event
+        $this->dispatcher->dispatch(
+            new InvitationCreated($invitation),
+        );
 
         // Return
         return true;

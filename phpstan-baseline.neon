@@ -726,26 +726,6 @@ parameters:
 			path: app/GraphQL/Mutations/Auth/SignUpByInvite.php
 
 		-
-			message: "#^Method App\\\\GraphQL\\\\Mutations\\\\Auth\\\\SignUpByInviteTest\\:\\:testInvoke\\(\\) has parameter \\$clientFactory with no signature specified for Closure\\.$#"
-			count: 1
-			path: app/GraphQL/Mutations/Auth/SignUpByInviteTest.php
-
-		-
-			message: "#^Method App\\\\GraphQL\\\\Mutations\\\\Auth\\\\SignUpByInviteTest\\:\\:testInvoke\\(\\) has parameter \\$dataFactory with no signature specified for Closure\\.$#"
-			count: 1
-			path: app/GraphQL/Mutations/Auth/SignUpByInviteTest.php
-
-		-
-			message: "#^Method App\\\\GraphQL\\\\Mutations\\\\Auth\\\\SignUpByInviteTest\\:\\:testInvoke\\(\\) has parameter \\$prepare with no signature specified for Closure\\.$#"
-			count: 1
-			path: app/GraphQL/Mutations/Auth/SignUpByInviteTest.php
-
-		-
-			message: "#^Method App\\\\GraphQL\\\\Mutations\\\\Auth\\\\SignUpByInviteTest\\:\\:testInvoke\\(\\) has parameter \\$queryFactory with no signature specified for Closure\\.$#"
-			count: 1
-			path: app/GraphQL/Mutations/Auth/SignUpByInviteTest.php
-
-		-
 			message: "#^Cannot access offset 'contract_id' on mixed\\.$#"
 			count: 1
 			path: app/GraphQL/Mutations/CreateContractNote.php
