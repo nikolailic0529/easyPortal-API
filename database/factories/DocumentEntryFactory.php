@@ -3,7 +3,6 @@
 namespace Database\Factories;
 
 use App\Models\Asset;
-use App\Models\Data\Currency;
 use App\Models\Data\Product;
 use App\Models\Document;
 use App\Models\DocumentEntry;
@@ -42,7 +41,7 @@ class DocumentEntryFactory extends Factory {
             'product_group_id'            => null,
             'service_group_id'            => null,
             'service_level_id'            => null,
-            'currency_id'                 => Currency::factory(),
+            'currency_id'                 => null,
             'start'                       => $this->faker->dateTime(),
             'end'                         => $this->faker->dateTime(),
             'list_price_origin'           => number_format($this->faker->randomFloat(2), 2, '.', ''),
