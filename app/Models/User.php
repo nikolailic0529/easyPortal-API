@@ -61,6 +61,7 @@ use LogicException;
  * @property string|null                       $job_title
  * @property string|null                       $company
  * @property CarbonInterface|null              $previous_sign_in
+ * @property string|null                       $freshchat_id
  * @property CarbonInterface|null              $synced_at
  * @property CarbonImmutable                   $created_at
  * @property CarbonImmutable                   $updated_at

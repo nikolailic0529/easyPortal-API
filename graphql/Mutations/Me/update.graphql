@@ -23,6 +23,7 @@ input MeUpdateInput {
     locale: String              @isNullable @isLocale
     timezone: String            @isNullable @isTimezone
     team_id: ID                 @isNullable @isTeamId
+    freshchat_id: ID            @isNullable @isUuid
 }
 
 type MeUpdatePayload implements Payload {

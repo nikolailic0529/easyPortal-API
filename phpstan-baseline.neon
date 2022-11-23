@@ -1096,21 +1096,6 @@ parameters:
 			path: app/GraphQL/Mutations/Me/UpdateTest.php
 
 		-
-			message: "#^Method App\\\\GraphQL\\\\Mutations\\\\Me\\\\UpdateTest\\:\\:testInvoke\\(\\) has parameter \\$clientFactory with no signature specified for Closure\\.$#"
-			count: 1
-			path: app/GraphQL/Mutations/Me/UpdateTest.php
-
-		-
-			message: "#^Method App\\\\GraphQL\\\\Mutations\\\\Me\\\\UpdateTest\\:\\:testInvoke\\(\\) has parameter \\$inputFactory with no signature specified for Closure\\.$#"
-			count: 1
-			path: app/GraphQL/Mutations/Me/UpdateTest.php
-
-		-
-			message: "#^Method App\\\\GraphQL\\\\Mutations\\\\Me\\\\UpdateTest\\:\\:testInvoke\\(\\) has parameter \\$inputUserFactory with no signature specified for Closure\\.$#"
-			count: 1
-			path: app/GraphQL/Mutations/Me/UpdateTest.php
-
-		-
 			message: "#^Property App\\\\Models\\\\ChangeRequest\\:\\:\\$to \\(array\\<string\\>\\) does not accept array\\<int, string\\|null\\>\\.$#"
 			count: 1
 			path: app/GraphQL/Mutations/Message/Create.php

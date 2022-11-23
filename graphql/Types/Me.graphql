@@ -31,6 +31,7 @@ type Me {
     @field(resolver: "App\\GraphQL\\Queries\\Me@enabled")
 
     previous_sign_in: DateTime
+    freshchat_id: ID
 
     searches (
         where: MeSearchQuery @searchBy

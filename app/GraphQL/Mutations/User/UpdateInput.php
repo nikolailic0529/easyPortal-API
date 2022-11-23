@@ -19,4 +19,5 @@ class UpdateInput extends JsonObject {
     public ?string       $homepage;
     public ?string       $locale;
     public ?string       $timezone;
+    public ?string       $freshchat_id;
 }

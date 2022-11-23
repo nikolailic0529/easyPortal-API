@@ -816,6 +816,7 @@ input MeUpdateInput {
     academic_title: String
     contact_email: Email
     family_name: String
+    freshchat_id: ID
     given_name: String
     homepage: String
     job_title: String
@@ -7903,6 +7904,7 @@ type Me {
     email: Email!
     enabled: Boolean!
     family_name: String!
+    freshchat_id: ID
     given_name: String!
     homepage: String
     id: ID!

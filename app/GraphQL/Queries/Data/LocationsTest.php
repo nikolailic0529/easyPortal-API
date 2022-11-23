@@ -63,12 +63,10 @@ class LocationsTest extends TestCase {
                         city_id
                         city {
                             id
-                            name
                         }
                         country_id
                         country {
                             id
-                            name
                         }
                     }
                 }
@@ -100,24 +98,20 @@ class LocationsTest extends TestCase {
                             'longitude'  => -2.26318359,
                             'country_id' => '793fdd28-2962-46d0-bf7e-65587e39552e',
                             'country'    => [
-                                'id'   => '793fdd28-2962-46d0-bf7e-65587e39552e',
-                                'name' => 'Country A',
+                                'id' => '793fdd28-2962-46d0-bf7e-65587e39552e',
                             ],
                             'city_id'    => '79f156b5-f76d-4b86-ae9b-c35d0a9d3aea',
                             'city'       => [
-                                'id'   => '79f156b5-f76d-4b86-ae9b-c35d0a9d3aea',
-                                'name' => 'City A',
+                                'id' => '79f156b5-f76d-4b86-ae9b-c35d0a9d3aea',
                             ],
                         ],
                     ]),
                     static function (): void {
                         $country = Country::factory()->create([
-                            'id'   => '793fdd28-2962-46d0-bf7e-65587e39552e',
-                            'name' => 'Country A',
+                            'id' => '793fdd28-2962-46d0-bf7e-65587e39552e',
                         ]);
                         $city    = City::factory()->create([
                             'id'         => '79f156b5-f76d-4b86-ae9b-c35d0a9d3aea',
-                            'name'       => 'City A',
                             'country_id' => $country,
                         ]);
 

@@ -72,6 +72,7 @@ class MeTest extends TestCase {
                     root
                     enabled
                     previous_sign_in
+                    freshchat_id
                     team {
                         id
                         name
@@ -226,6 +227,17 @@ class MeTest extends TestCase {
                     static function (): User {
                         return User::factory()->make([
                             'previous_sign_in' => Date::make('2021-10-18T10:15:00+00:00'),
+                        ]);
+                    },
+                ],
+                'freshchat_id'               => [
+                    new GraphQLSuccess('me', new JsonFragment(
+                        'freshchat_id',
+                        '"e10900e2-2e68-4b05-aafe-294032ac0bda"',
+                    )),
+                    static function (): User {
+                        return User::factory()->make([
+                            'freshchat_id' => 'e10900e2-2e68-4b05-aafe-294032ac0bda',
                         ]);
                     },
                 ],
