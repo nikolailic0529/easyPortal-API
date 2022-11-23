@@ -53,6 +53,7 @@ class UserFactory extends Factory {
             'job_title'        => null,
             'company'          => null,
             'previous_sign_in' => null,
+            'freshchat_id'     => null,
             'enabled'          => true,
             'synced_at'        => null,
         ];
