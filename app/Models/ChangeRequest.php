@@ -3,13 +3,14 @@
 namespace App\Models;
 
 use App\Models\Relations\HasFiles;
+use App\Models\Relations\HasObject;
 use App\Models\Relations\HasOrganization;
 use App\Models\Relations\HasUser;
 use App\Services\Audit\Contracts\Auditable;
 use App\Services\Audit\Traits\AuditableImpl;
 use App\Services\Organization\Eloquent\OwnedByOrganization;
 use App\Services\Organization\Eloquent\OwnedByOrganizationImpl;
-use App\Utils\Eloquent\PolymorphicModel;
+use App\Utils\Eloquent\Model;
 use Carbon\CarbonImmutable;
 use Database\Factories\ChangeRequestFactory;
 use Illuminate\Database\Eloquent\Builder;
@@ -41,13 +42,14 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  * @method static Builder|ChangeRequest newQuery()
  * @method static Builder|ChangeRequest query()
  */
-class ChangeRequest extends PolymorphicModel implements OwnedByOrganization, Auditable {
+class ChangeRequest extends Model implements OwnedByOrganization, Auditable {
     use HasFactory;
     use AuditableImpl;
     use OwnedByOrganizationImpl;
     use HasFiles;
     use HasOrganization;
     use HasUser;
+    use HasObject;
 
     protected const CASTS = [
         'cc'  => 'array',

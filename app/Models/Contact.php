@@ -3,9 +3,10 @@
 namespace App\Models;
 
 use App\Models\Data\Type;
+use App\Models\Relations\HasObject;
 use App\Models\Relations\HasTypes;
+use App\Utils\Eloquent\Model;
 use App\Utils\Eloquent\Pivot;
-use App\Utils\Eloquent\PolymorphicModel;
 use Carbon\CarbonImmutable;
 use Database\Factories\ContactFactory;
 use Illuminate\Database\Eloquent\Builder;
@@ -31,9 +32,10 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  * @method static Builder|Contact newQuery()
  * @method static Builder|Contact query()
  */
-class Contact extends PolymorphicModel {
+class Contact extends Model {
     use HasFactory;
     use HasTypes;
+    use HasObject;
 
     protected const CASTS = [
         'phone_valid' => 'bool',

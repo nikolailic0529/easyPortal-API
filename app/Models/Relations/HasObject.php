@@ -1,17 +1,24 @@
 <?php declare(strict_types = 1);
 
-namespace App\Utils\Eloquent;
+namespace App\Models\Relations;
 
+use App\Utils\Eloquent\Model;
+use Illuminate\Database\Eloquent\Model as EloquentModel;
 use Illuminate\Database\Eloquent\Relations\MorphTo;
 
 /**
  * @property string $object_type
  * @property string $object_id
  * @property Model  $object
+ *
+ * @mixin Model
  */
-abstract class PolymorphicModel extends Model {
+trait HasObject {
+    /**
+     * @return MorphTo<EloquentModel, self>
+     */
     public function object(): MorphTo {
-        return $this->morphTo('object');
+        return $this->morphTo();
     }
 
     public function setObjectAttribute(Model $object): void {

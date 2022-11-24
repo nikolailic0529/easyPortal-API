@@ -2,7 +2,8 @@
 
 namespace App\Models;
 
-use App\Utils\Eloquent\PolymorphicModel;
+use App\Models\Relations\HasObject;
+use App\Utils\Eloquent\Model;
 use Carbon\CarbonImmutable;
 use Database\Factories\FileFactory;
 use Illuminate\Contracts\Mail\Attachable;
@@ -28,15 +29,15 @@ use function app;
  * @property CarbonImmutable                      $created_at
  * @property CarbonImmutable                      $updated_at
  * @property CarbonImmutable|null                 $deleted_at
- * @property Note|QuoteRequest|ChangeRequest|null $object
  * @property-read string                          $url
  * @method static FileFactory factory(...$parameters)
  * @method static Builder|File newModelQuery()
  * @method static Builder|File newQuery()
  * @method static Builder|File query()
  */
-class File extends PolymorphicModel implements Attachable {
+class File extends Model implements Attachable {
     use HasFactory;
+    use HasObject;
 
     /**
      * @phpcsSuppress SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint

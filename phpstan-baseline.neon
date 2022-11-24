@@ -2161,11 +2161,6 @@ parameters:
 			path: app/Models/Asset.php
 
 		-
-			message: "#^Parameter \\#1 \\$model of method App\\\\Models\\\\Asset\\:\\:syncMorphManyDelete\\(\\) expects App\\\\Utils\\\\Eloquent\\\\PolymorphicModel, Illuminate\\\\Database\\\\Eloquent\\\\Model given\\.$#"
-			count: 1
-			path: app/Models/Asset.php
-
-		-
 			message: "#^Anonymous function should return string but returns mixed\\.$#"
 			count: 1
 			path: app/Models/AssetWarranty.php
@@ -2192,11 +2187,6 @@ parameters:
 
 		-
 			message: "#^PHPDoc type array\\<string\\> of property App\\\\Models\\\\ChangeRequest\\:\\:\\$casts is not the same as PHPDoc type array of overridden property App\\\\Utils\\\\Eloquent\\\\Model\\:\\:\\$casts\\.$#"
-			count: 1
-			path: app/Models/ChangeRequest.php
-
-		-
-			message: "#^Parameter \\#1 \\$model of method App\\\\Models\\\\ChangeRequest\\:\\:syncMorphManyDelete\\(\\) expects App\\\\Utils\\\\Eloquent\\\\PolymorphicModel, Illuminate\\\\Database\\\\Eloquent\\\\Model given\\.$#"
 			count: 1
 			path: app/Models/ChangeRequest.php
 
@@ -2233,11 +2223,6 @@ parameters:
 		-
 			message: "#^Parameter \\#1 \\$column of method Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\HasMany\\<App\\\\Models\\\\Document\\>\\:\\:where\\(\\) expects array\\<int\\|string, mixed\\>\\|\\(Closure\\(Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\HasMany\\<App\\\\Models\\\\Document\\>\\)\\: void\\)\\|\\(Closure\\(Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\HasMany\\<App\\\\Models\\\\Document\\>\\)\\: Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\HasMany\\<App\\\\Models\\\\Document\\>\\)\\|Illuminate\\\\Database\\\\Query\\\\Expression\\|string, Closure\\(Illuminate\\\\Database\\\\Eloquent\\\\Builder\\)\\: Illuminate\\\\Database\\\\Eloquent\\\\Builder\\<App\\\\Models\\\\Document\\> given\\.$#"
 			count: 2
-			path: app/Models/Customer.php
-
-		-
-			message: "#^Parameter \\#1 \\$model of method App\\\\Models\\\\Customer\\:\\:syncMorphManyDelete\\(\\) expects App\\\\Utils\\\\Eloquent\\\\PolymorphicModel, Illuminate\\\\Database\\\\Eloquent\\\\Model given\\.$#"
-			count: 1
 			path: app/Models/Customer.php
 
 		-
@@ -2456,11 +2441,6 @@ parameters:
 			path: app/Models/Document.php
 
 		-
-			message: "#^Parameter \\#1 \\$model of method App\\\\Models\\\\Document\\:\\:syncMorphManyDelete\\(\\) expects App\\\\Utils\\\\Eloquent\\\\PolymorphicModel, Illuminate\\\\Database\\\\Eloquent\\\\Model given\\.$#"
-			count: 1
-			path: app/Models/Document.php
-
-		-
 			message: "#^PHPDoc type array\\<string\\> of property App\\\\Models\\\\DocumentEntry\\:\\:\\$casts is not the same as PHPDoc type array of overridden property App\\\\Utils\\\\Eloquent\\\\Model\\:\\:\\$casts\\.$#"
 			count: 1
 			path: app/Models/DocumentEntry.php
@@ -2511,11 +2491,6 @@ parameters:
 			path: app/Models/Note.php
 
 		-
-			message: "#^Parameter \\#1 \\$model of method App\\\\Models\\\\Note\\:\\:syncMorphManyDelete\\(\\) expects App\\\\Utils\\\\Eloquent\\\\PolymorphicModel, Illuminate\\\\Database\\\\Eloquent\\\\Model given\\.$#"
-			count: 1
-			path: app/Models/Note.php
-
-		-
 			message: "#^PHPDoc type array\\<string\\> of property App\\\\Models\\\\Organization\\:\\:\\$casts is not the same as PHPDoc type array of overridden property App\\\\Utils\\\\Eloquent\\\\Model\\:\\:\\$casts\\.$#"
 			count: 1
 			path: app/Models/Organization.php
@@ -2542,11 +2517,6 @@ parameters:
 
 		-
 			message: "#^Instanceof between Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\HasMany\\<\\$this\\(App\\\\Models\\\\QuoteRequest\\)\\> and Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\HasMany will always evaluate to true\\.$#"
-			count: 1
-			path: app/Models/QuoteRequest.php
-
-		-
-			message: "#^Parameter \\#1 \\$model of method App\\\\Models\\\\QuoteRequest\\:\\:syncMorphManyDelete\\(\\) expects App\\\\Utils\\\\Eloquent\\\\PolymorphicModel, Illuminate\\\\Database\\\\Eloquent\\\\Model given\\.$#"
 			count: 1
 			path: app/Models/QuoteRequest.php
 
@@ -2587,11 +2557,6 @@ parameters:
 
 		-
 			message: "#^PHPDoc type array\\<string\\> of property App\\\\Models\\\\Reseller\\:\\:\\$casts is not the same as PHPDoc type array of overridden property App\\\\Utils\\\\Eloquent\\\\Model\\:\\:\\$casts\\.$#"
-			count: 1
-			path: app/Models/Reseller.php
-
-		-
-			message: "#^Parameter \\#1 \\$model of method App\\\\Models\\\\Reseller\\:\\:syncMorphManyDelete\\(\\) expects App\\\\Utils\\\\Eloquent\\\\PolymorphicModel, Illuminate\\\\Database\\\\Eloquent\\\\Model given\\.$#"
 			count: 1
 			path: app/Models/Reseller.php
 
@@ -5474,11 +5439,6 @@ parameters:
 			message: "#^Property Illuminate\\\\Database\\\\Query\\\\Builder\\:\\:\\$columns \\(array\\) in isset\\(\\) is not nullable\\.$#"
 			count: 1
 			path: app/Utils/Eloquent/Pivot.php
-
-		-
-			message: "#^Method App\\\\Utils\\\\Eloquent\\\\PolymorphicModel\\:\\:object\\(\\) return type with generic class Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\MorphTo does not specify its types\\: TRelatedModel, TChildModel$#"
-			count: 1
-			path: app/Utils/Eloquent/PolymorphicModel.php
 
 		-
 			message: "#^Cannot call method query\\(\\) on Illuminate\\\\Database\\\\Eloquent\\\\Model\\|null\\.$#"
