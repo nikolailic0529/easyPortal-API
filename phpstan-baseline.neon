@@ -1126,16 +1126,6 @@ parameters:
 			path: app/GraphQL/Mutations/Org/Role/Builder.php
 
 		-
-			message: "#^Method App\\\\GraphQL\\\\Mutations\\\\Org\\\\Role\\\\CreateTest\\:\\:testInvoke\\(\\) has parameter \\$clientFactory with no signature specified for Closure\\.$#"
-			count: 1
-			path: app/GraphQL/Mutations/Org/Role/CreateTest.php
-
-		-
-			message: "#^Method App\\\\GraphQL\\\\Mutations\\\\Org\\\\Role\\\\CreateTest\\:\\:testInvoke\\(\\) has parameter \\$factory with no signature specified for Closure\\.$#"
-			count: 1
-			path: app/GraphQL/Mutations/Org/Role/CreateTest.php
-
-		-
 			message: "#^Cannot access property \\$role on App\\\\Models\\\\OrganizationUser\\|null\\.$#"
 			count: 1
 			path: app/GraphQL/Mutations/Org/Role/DeleteTest.php
@@ -1159,31 +1149,6 @@ parameters:
 			message: "#^Method App\\\\GraphQL\\\\Mutations\\\\Org\\\\Role\\\\DeleteTest\\:\\:testInvoke\\(\\) has parameter \\$roleFactory with no signature specified for Closure\\.$#"
 			count: 1
 			path: app/GraphQL/Mutations/Org/Role/DeleteTest.php
-
-		-
-			message: "#^Cannot call method roles\\(\\) on App\\\\Models\\\\Organization\\|null\\.$#"
-			count: 1
-			path: app/GraphQL/Mutations/Org/Role/Update.php
-
-		-
-			message: "#^Parameter \\#2 \\$callback of method Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\HasMany\\<App\\\\Models\\\\Role\\>\\:\\:when\\(\\) expects \\(callable\\(Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\HasMany\\<App\\\\Models\\\\Role\\>, string\\)\\: Illuminate\\\\Database\\\\Eloquent\\\\Builder\\)\\|null, Closure\\(Illuminate\\\\Database\\\\Eloquent\\\\Builder, string\\)\\: Illuminate\\\\Database\\\\Eloquent\\\\Builder given\\.$#"
-			count: 1
-			path: app/GraphQL/Mutations/Org/Role/Update.php
-
-		-
-			message: "#^Property App\\\\Models\\\\Role\\:\\:\\$permissions \\(Illuminate\\\\Database\\\\Eloquent\\\\Collection\\<int, App\\\\Models\\\\Permission\\>\\) does not accept Illuminate\\\\Support\\\\Collection\\<int, App\\\\Models\\\\Permission\\>\\.$#"
-			count: 1
-			path: app/GraphQL/Mutations/Org/Role/Update.php
-
-		-
-			message: "#^Method App\\\\GraphQL\\\\Mutations\\\\Org\\\\Role\\\\UpdateTest\\:\\:testInvoke\\(\\) has parameter \\$clientFactory with no signature specified for Closure\\.$#"
-			count: 1
-			path: app/GraphQL/Mutations/Org/Role/UpdateTest.php
-
-		-
-			message: "#^Method App\\\\GraphQL\\\\Mutations\\\\Org\\\\Role\\\\UpdateTest\\:\\:testInvoke\\(\\) has parameter \\$roleFactory with no signature specified for Closure\\.$#"
-			count: 1
-			path: app/GraphQL/Mutations/Org/Role/UpdateTest.php
 
 		-
 			message: "#^Method App\\\\GraphQL\\\\Mutations\\\\Org\\\\SetTest\\:\\:dataProviderInvoke\\(\\) should return array\\<string, array\\{LastDragon_ru\\\\LaraASP\\\\Testing\\\\Constraints\\\\Response\\\\Response, App\\\\Models\\\\Organization\\|\\(callable\\(Tests\\\\TestCase\\)\\: App\\\\Models\\\\Organization\\|null\\)\\|null, App\\\\Models\\\\User\\|\\(callable\\(Tests\\\\TestCase, App\\\\Models\\\\Organization\\|null\\)\\: App\\\\Models\\\\User\\|null\\)\\|null, Closure\\(static\\(App\\\\GraphQL\\\\Mutations\\\\Org\\\\SetTest\\), App\\\\Models\\\\Organization\\|null, App\\\\Models\\\\User\\|null\\)\\: array\\{organization_id\\: string\\|null\\}\\}\\> but returns array\\<array\\>\\.$#"
@@ -2764,21 +2729,6 @@ parameters:
 			message: "#^Parameter \\#1 \\$column of method Illuminate\\\\Database\\\\Eloquent\\\\Builder\\<App\\\\Models\\\\Role\\>\\:\\:where\\(\\) expects array\\<int\\|string, mixed\\>\\|\\(Closure\\(Illuminate\\\\Database\\\\Eloquent\\\\Builder\\<App\\\\Models\\\\Role\\>\\)\\: void\\)\\|\\(Closure\\(Illuminate\\\\Database\\\\Eloquent\\\\Builder\\<App\\\\Models\\\\Role\\>\\)\\: Illuminate\\\\Database\\\\Eloquent\\\\Builder\\<App\\\\Models\\\\Role\\>\\)\\|Illuminate\\\\Database\\\\Query\\\\Expression\\|string, Closure\\(Illuminate\\\\Database\\\\Eloquent\\\\Builder\\)\\: Illuminate\\\\Database\\\\Eloquent\\\\Builder\\<Illuminate\\\\Database\\\\Eloquent\\\\Model\\> given\\.$#"
 			count: 1
 			path: app/Rules/Organization/RoleId.php
-
-		-
-			message: "#^Anonymous function never returns null so it can be removed from the return type\\.$#"
-			count: 6
-			path: app/Rules/Organization/RoleIdTest.php
-
-		-
-			message: "#^If condition is always true\\.$#"
-			count: 1
-			path: app/Rules/Organization/RoleIdTest.php
-
-		-
-			message: "#^Using nullsafe method call on non\\-nullable type App\\\\GraphQL\\\\Directives\\\\Directives\\\\Mutation\\\\Context\\\\Context\\. Use \\-\\> instead\\.$#"
-			count: 1
-			path: app/Rules/Organization/RoleIdTest.php
 
 		-
 			message: "#^Method App\\\\Services\\\\Audit\\\\AuditorTest\\:\\:testCreate\\(\\) has parameter \\$expectedFactory with no signature specified for Closure\\.$#"

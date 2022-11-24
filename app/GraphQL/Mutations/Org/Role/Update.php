@@ -7,11 +7,7 @@ use App\Models\Role;
 use App\Services\Keycloak\Client\Client;
 use App\Services\Organization\CurrentOrganization;
 use Illuminate\Contracts\Config\Repository;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Support\Collection;
-use Illuminate\Support\Facades\Validator;
-use Illuminate\Validation\ValidationException;
-use Nuwave\Lighthouse\Exceptions\ValidationException as LighthouseValidationException;
+use Illuminate\Database\Eloquent\Collection;
 
 class Update {
     public function __construct(
@@ -30,39 +26,6 @@ class Update {
     }
 
     public function update(Role $role, UpdateInput|CreateInput $input): bool {
-        // Unique?
-        // FIXME [GraphQL] There is no way to validate it inside schema yet :(
-        if (isset($input->name)) {
-            try {
-                Validator::make(
-                    [
-                        'name' => $input->name,
-                    ],
-                    [
-                        'name' => [
-                            static function ($attribute, $value, $fail) use ($role, $input): void {
-                                $exists = $role->organization->roles()
-                                    ->where('name', '=', $input->name)
-                                    ->when(
-                                        $role->getKey(),
-                                        static function (Builder $builder, string $id): Builder {
-                                            return $builder->whereKeyNot($id);
-                                        },
-                                    )
-                                    ->exists();
-
-                                if ($exists) {
-                                    $fail('Role with this name already exists.');
-                                }
-                            },
-                        ],
-                    ],
-                )->validate();
-            } catch (ValidationException $exception) {
-                throw LighthouseValidationException::fromLaravel($exception);
-            }
-        }
-
         // Update name
         if (isset($input->name)) {
             $role->name = $input->name;

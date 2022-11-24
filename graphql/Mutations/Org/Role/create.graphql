@@ -10,7 +10,7 @@ extend type OrgRoleMutation {
 }
 
 input OrgRoleCreateInput {
-    name: String! @isRequired
+    name: String! @isRequired @isOrgRoleName
     permissions: [ID!]! @isOrgPermissionId
 }
 

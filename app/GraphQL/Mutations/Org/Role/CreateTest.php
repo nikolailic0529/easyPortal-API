@@ -5,6 +5,7 @@ namespace App\GraphQL\Mutations\Org\Role;
 use App\Models\Organization;
 use App\Models\Permission;
 use App\Models\Role;
+use App\Models\User;
 use App\Services\Auth\Permission as AuthPermission;
 use App\Services\Auth\Permissions;
 use App\Services\Keycloak\Client\Client;
@@ -16,8 +17,8 @@ use LastDragon_ru\LaraASP\Testing\Providers\CompositeDataProvider;
 use Mockery\MockInterface;
 use Tests\DataProviders\GraphQL\Organizations\AuthOrgDataProvider;
 use Tests\DataProviders\GraphQL\Users\OrgUserDataProvider;
-use Tests\GraphQL\GraphQLError;
 use Tests\GraphQL\GraphQLSuccess;
+use Tests\GraphQL\GraphQLValidationError;
 use Tests\GraphQL\JsonFragment;
 use Tests\TestCase;
 use Tests\WithOrganization;
@@ -39,32 +40,35 @@ class CreateTest extends TestCase {
      * @covers ::__invoke
      * @dataProvider dataProviderInvoke
      *
-     * @param OrganizationFactory $orgFactory
-     * @param UserFactory         $userFactory
-     * @param array<string,mixed> $data
+     * @param OrganizationFactory                               $orgFactory
+     * @param UserFactory                                       $userFactory
+     * @param Closure(static, ?Organization, ?User): ?Role|null $roleFactory
+     * @param Closure(): void|null                              $clientFactory
+     * @param array<string,mixed>                               $data
      */
     public function testInvoke(
         Response $expected,
         mixed $orgFactory,
         mixed $userFactory = null,
-        Closure $factory = null,
-        array $data = [
-            'name'        => 'wrong',
-            'permissions' => [],
-        ],
+        Closure $roleFactory = null,
         Closure $clientFactory = null,
+        array $data = null,
     ): void {
         // Prepare
         $org  = $this->setOrganization($orgFactory);
-        $user = $this->setUser($userFactory, $this->setOrganization($org));
+        $user = $this->setUser($userFactory, $org);
 
         $this->setSettings([
             'ep.keycloak.client_id' => 'client_id',
         ]);
 
-        if ($factory) {
-            $factory($this, $org, $user);
-        }
+        $role   = $roleFactory
+            ? $roleFactory($this, $org, $user)
+            : null;
+        $data ??= [
+            'name'        => 'wrong',
+            'permissions' => [],
+        ];
 
         if ($clientFactory) {
             $this->override(Client::class, $clientFactory);
@@ -93,8 +97,9 @@ class CreateTest extends TestCase {
             }', ['input' => $data])
             ->assertThat($expected);
 
-        if ($expected instanceof GraphQLSuccess) {
-            $role = Role::with('permissions')->whereKey('fd421bad-069f-491c-ad5f-5841aa9a9dff')->first();
+        if ($expected instanceof GraphQLSuccess && $role) {
+            $role = $role->fresh();
+
             self::assertNotNull($role);
             self::assertEquals($data['name'], $role->name);
             self::assertEquals(
@@ -111,7 +116,7 @@ class CreateTest extends TestCase {
      * @return array<mixed>
      */
     public function dataProviderInvoke(): array {
-        $clientFactory = static function (MockInterface $mock): void {
+        $client  = static function (MockInterface $mock): void {
             $mock
                 ->shouldReceive('createGroup')
                 ->once()
@@ -128,7 +133,7 @@ class CreateTest extends TestCase {
                 ->once()
                 ->andReturn(true);
         };
-        $prepare       = static function (TestCase $test): void {
+        $factory = static function (TestCase $test): ?Role {
             $test->app->make(Permissions::class)->add([
                 new class('permission-a') extends AuthPermission {
                     // empty
@@ -139,6 +144,8 @@ class CreateTest extends TestCase {
                 'id'  => 'fd421bad-069f-491c-ad5f-5841aa9a9dfe',
                 'key' => 'permission-a',
             ]);
+
+            return null;
         };
 
         return (new CompositeDataProvider(
@@ -147,7 +154,7 @@ class CreateTest extends TestCase {
                 'org-administer',
             ]),
             new ArrayDataProvider([
-                'ok'                  => [
+                'ok'                => [
                     new GraphQLSuccess(
                         'org',
                         new JsonFragment('role.create', [
@@ -166,16 +173,16 @@ class CreateTest extends TestCase {
                             ],
                         ]),
                     ),
-                    $prepare,
+                    $factory,
+                    $client,
                     [
                         'name'        => 'subgroup',
                         'permissions' => [
                             'fd421bad-069f-491c-ad5f-5841aa9a9dfe',
                         ],
                     ],
-                    $clientFactory,
                 ],
-                'empty permissions'   => [
+                'empty permissions' => [
                     new GraphQLSuccess(
                         'org',
                         new JsonFragment('role.create', [
@@ -189,54 +196,52 @@ class CreateTest extends TestCase {
                             ],
                         ]),
                     ),
-                    $prepare,
+                    $factory,
+                    $client,
                     [
                         'name'        => 'subgroup',
                         'permissions' => [],
                     ],
-                    $clientFactory,
                 ],
-                'Invalid name'        => [
-                    new GraphQLError('org', static function (): array {
-                        return [trans('errors.validation_failed')];
+                'Invalid input'     => [
+                    new GraphQLValidationError('org', static function (): array {
+                        return [
+                            'input.name'          => [
+                                trans('validation.required'),
+                            ],
+                            'input.permissions.0' => [
+                                trans('validation.org_permission_id'),
+                            ],
+                        ];
                     }),
-                    $prepare,
+                    $factory,
+                    null,
                     [
                         'name'        => '',
                         'permissions' => [
-                            'fd421bad-069f-491c-ad5f-5841aa9a9dfe',
+                            'f6739b66-5582-476d-ab46-b7634d758b6f',
                         ],
                     ],
-                    null,
                 ],
-                'Invalid permissions' => [
-                    new GraphQLError('org', static function (): array {
-                        return [trans('errors.validation_failed')];
+                'Role exists'       => [
+                    new GraphQLValidationError('org', static function (): array {
+                        return [
+                            'input.name' => [
+                                trans('validation.org_role_name'),
+                            ],
+                        ];
                     }),
-                    $prepare,
-                    [
-                        'name'        => 'subgroup',
-                        'permissions' => [
-                            'fd421bad-069f-491c-ad5f-5841aa9a9dfd',
-                        ],
-                    ],
-                    null,
-                ],
-                'Role exists'         => [
-                    new GraphQLError('org', static function (): array {
-                        return [trans('errors.validation_failed')];
-                    }),
-                    static function (TestCase $test, Organization $organization): void {
-                        Role::factory()->create([
+                    static function (TestCase $test, Organization $org): Role {
+                        return Role::factory()->create([
                             'name'            => 'new role',
-                            'organization_id' => $organization,
+                            'organization_id' => $org,
                         ]);
                     },
+                    null,
                     [
                         'name'        => 'new role',
                         'permissions' => [],
                     ],
-                    null,
                 ],
             ]),
         ))->getData();
