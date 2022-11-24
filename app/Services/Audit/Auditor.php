@@ -63,8 +63,7 @@ class Auditor {
         $audit->organization_id = $org;
         $audit->user_id         = $user;
         $audit->action          = $action;
-        $audit->object_id       = $model?->getKey();
-        $audit->object_type     = $model?->getMorphClass();
+        $audit->object          = $model;
         $audit->context         = $context instanceof Context
             ? $context->jsonSerialize()
             : $context;

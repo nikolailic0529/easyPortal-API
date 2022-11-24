@@ -6937,6 +6937,7 @@ type Audit {
     context: String
     created_at: DateTime!
     id: ID!
+    object: Auditable
     object_id: String
     object_type: String
     organization: Organization
@@ -10003,6 +10004,11 @@ type Type {
     name: String!
 }
 
+type Unknown {
+    id: ID!
+    type: String
+}
+
 type UpdateApplicationSettingsPayload {
     updated: [ApplicationSetting!]!
 }
@@ -10165,6 +10171,15 @@ union ApplicationSettingValues =
     | Status
     | StringValue
     | Type
+
+union Auditable =
+    | ChangeRequest
+    | Invitation
+    | Organization
+    | QuoteRequest
+    | Role
+    | Unknown
+    | User
 
 union SearchResult =
     | Asset

@@ -8733,6 +8733,10 @@ type Audit {
 
     created_at: DateTime!
     id: ID!
+
+    object: Auditable
+    @relation
+
     object_id: String
     object_type: String
     organization: Organization
@@ -14565,6 +14569,15 @@ type Type {
     @translate
 }
 
+type Unknown {
+    id: ID!
+
+    type: String
+    @field(
+        resolver: "App\\GraphQL\\Resolvers\\TypeNameResolver"
+    )
+}
+
 type UpdateApplicationSettingsPayload {
     updated: [ApplicationSetting!]!
 }
@@ -14814,6 +14827,15 @@ union ApplicationSettingValues =
     | Status
     | StringValue
     | Type
+
+union Auditable =
+    | ChangeRequest
+    | Invitation
+    | Organization
+    | QuoteRequest
+    | Role
+    | Unknown
+    | User
 
 union SearchResult =
     | Asset

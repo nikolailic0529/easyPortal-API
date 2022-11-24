@@ -300,6 +300,37 @@ class OrganizationTest extends TestCase {
                             user_id
                             object_type
                             object_id
+                            object {
+                                ... on ChangeRequest {
+                                    id
+                                    __typename
+                                }
+                                ... on QuoteRequest {
+                                    id
+                                    __typename
+                                }
+                                ... on Organization {
+                                    id
+                                    __typename
+                                }
+                                ... on Invitation {
+                                    id
+                                    __typename
+                                }
+                                ... on User {
+                                    id
+                                    __typename
+                                }
+                                ... on Role {
+                                    id
+                                    __typename
+                                }
+                                ... on Unknown {
+                                    id
+                                    type
+                                    __typename
+                                }
+                            }
                             context
                             action
                             created_at
@@ -703,6 +734,10 @@ class OrganizationTest extends TestCase {
                                     'id'              => 'f9396bc1-2f2f-4c58-2f2f-7a224ac20947',
                                     'object_type'     => 'User',
                                     'object_id'       => 'f9396bc1-2f2f-4c58-2f2f-7a224ac20948',
+                                    'object'          => [
+                                        'id'         => 'f9396bc1-2f2f-4c58-2f2f-7a224ac20948',
+                                        '__typename' => 'User',
+                                    ],
                                     'user_id'         => '439a0a06-d98a-41f0-b8e5-4e5722518e02',
                                     'organization_id' => '439a0a06-d98a-41f0-b8e5-4e5722518e01',
                                     'context'         => json_encode([

@@ -7,11 +7,15 @@ use App\Models\User;
 use App\Services\Audit\Enums\Action;
 use App\Services\Organization\Eloquent\OwnedByOrganization;
 use App\Services\Organization\Eloquent\OwnedByOrganizationImpl;
+use App\Utils\Eloquent\Model as AppModel;
 use Carbon\CarbonImmutable;
 use Database\Factories\Audits\AuditFactory;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model as EloquentModel;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\MorphTo;
+use Illuminate\Support\Facades\DB;
 
 /**
  * Audit.
@@ -25,6 +29,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @property array<string, mixed>|null $context
  * @property CarbonImmutable           $created_at
  * @property CarbonImmutable           $updated_at
+ * @property AppModel|null             $object
  * @property-read Organization|null    $organization
  * @property-read User|null            $user
  * @method static AuditFactory factory(...$parameters)
@@ -57,15 +62,31 @@ class Audit extends Model implements OwnedByOrganization {
      * @return BelongsTo<User, self>
      */
     public function user(): BelongsTo {
-        // Relation between 2 table on 2 different db
-        return $this->setConnection((new User())->getConnectionName())->belongsTo(User::class);
+        return $this->setConnection($this->getDefaultConnection())->belongsTo(User::class);
     }
 
     /**
      * @return BelongsTo<Organization, self>
      */
     public function organization(): BelongsTo {
-        // Relation between 2 table on 2 different db
-        return $this->setConnection((new Organization())->getConnectionName())->belongsTo(Organization::class);
+        return $this->setConnection($this->getDefaultConnection())->belongsTo(Organization::class);
+    }
+
+    /**
+     * @return MorphTo<EloquentModel, self>
+     */
+    public function object(): MorphTo {
+        return $this->setConnection($this->getDefaultConnection())->morphTo();
+    }
+
+    public function setObjectAttribute(?AppModel $object): void {
+        $this->object_id   = $object?->getKey();
+        $this->object_type = $object?->getMorphClass();
+
+        $this->setRelation('object', $object);
+    }
+
+    protected function getDefaultConnection(): string {
+        return DB::getDefaultConnection();
     }
 }

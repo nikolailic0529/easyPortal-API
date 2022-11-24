@@ -4,6 +4,7 @@ type Audit {
     user_id: ID
     object_type: String
     object_id: String
+    object: Auditable @relation
     action: AuditAction!
     created_at:  DateTime!
 
