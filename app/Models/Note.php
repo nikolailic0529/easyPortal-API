@@ -51,10 +51,6 @@ class Note extends Model implements OwnedByOrganization {
     use HasDocument;
     use HasFiles;
 
-    protected const CASTS = [
-        'pinned' => 'bool',
-    ] + parent::CASTS;
-
     /**
      * @phpcsSuppress SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint
      *
@@ -65,11 +61,11 @@ class Note extends Model implements OwnedByOrganization {
     /**
      * The attributes that should be cast to native types.
      *
-     * @phpcsSuppress SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint
-     *
-     * @var array<string>
+     * @inheritdoc
      */
-    protected $casts = self::CASTS;
+    protected $casts = [
+        'pinned' => 'bool',
+    ];
 
     // <editor-fold desc="Relations">
     // =========================================================================

@@ -91,7 +91,19 @@ class DocumentEntry extends Model {
     use HasCurrency;
     use HasLanguage;
 
-    protected const CASTS = [
+    /**
+     * @phpcsSuppress SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint
+     *
+     * @var string
+     */
+    protected $table = 'document_entries';
+
+    /**
+     * The attributes that should be cast to native types.
+     *
+     * @inheritdoc
+     */
+    protected $casts = [
         'monthly_retail_price'        => DocumentPrice::class,
         'monthly_retail_price_origin' => Origin::class,
         'monthly_list_price'          => DocumentPrice::class,
@@ -103,23 +115,7 @@ class DocumentEntry extends Model {
         'start'                       => 'date',
         'end'                         => 'date',
         'removed_at'                  => 'datetime',
-    ] + parent::CASTS;
-
-    /**
-     * @phpcsSuppress SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint
-     *
-     * @var string
-     */
-    protected $table = 'document_entries';
-
-    /**
-     * The attributes that should be cast to native types.
-     *
-     * @phpcsSuppress SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint
-     *
-     * @var array<string>
-     */
-    protected $casts = self::CASTS;
+    ];
 
     // <editor-fold desc="Relations">
     // =========================================================================

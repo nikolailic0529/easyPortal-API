@@ -4,14 +4,12 @@ namespace App\Services\Logger\Models;
 
 use App\Services\Logger\Logger;
 use App\Utils\Eloquent\Concerns\UuidAsPrimaryKey;
+use Illuminate\Contracts\Database\Eloquent\Castable;
+use Illuminate\Contracts\Database\Eloquent\CastsAttributes;
 use LastDragon_ru\LaraASP\Eloquent\Model as LaraASPModel;
 
 abstract class Model extends LaraASPModel {
     use UuidAsPrimaryKey;
-
-    protected const CASTS = [
-        // empty
-    ];
 
     /**
      * @phpcsSuppress SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint
@@ -32,7 +30,7 @@ abstract class Model extends LaraASPModel {
     /**
      * @phpcsSuppress SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint
      *
-     * @var string
+     * @var bool
      */
     public $incrementing = false;
 
@@ -41,9 +39,9 @@ abstract class Model extends LaraASPModel {
      *
      * @phpcsSuppress SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint
      *
-     * @var array<string>
+     * @var array<string, string|Castable|CastsAttributes>
      */
-    protected $casts = self::CASTS;
+    protected $casts = [];
 
     /**
      * @inheritDoc

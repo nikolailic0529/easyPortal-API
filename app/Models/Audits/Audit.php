@@ -43,19 +43,15 @@ class Audit extends Model implements OwnedByOrganization {
      */
     protected $table = 'audits';
 
-    protected const CASTS = [
-        'context' => 'json',
-        'action'  => Action::class,
-    ] + parent::CASTS;
-
     /**
      * The attributes that should be cast to native types.
      *
-     * @phpcsSuppress SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint
-     *
-     * @var array<string>
+     * @inheritdoc
      */
-    protected $casts = self::CASTS;
+    protected $casts = [
+        'context' => 'json',
+        'action'  => Action::class,
+    ];
 
     /**
      * @return BelongsTo<User, self>

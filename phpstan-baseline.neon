@@ -2146,11 +2146,6 @@ parameters:
 			path: app/Models/Asset.php
 
 		-
-			message: "#^PHPDoc type array\\<string\\> of property App\\\\Models\\\\Asset\\:\\:\\$casts is not the same as PHPDoc type array of overridden property App\\\\Utils\\\\Eloquent\\\\Model\\:\\:\\$casts\\.$#"
-			count: 1
-			path: app/Models/Asset.php
-
-		-
 			message: "#^Parameter \\#1 \\$column of method Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\HasMany\\<App\\\\Models\\\\AssetWarranty\\>\\:\\:where\\(\\) expects array\\<int\\|string, mixed\\>\\|\\(Closure\\(Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\HasMany\\<App\\\\Models\\\\AssetWarranty\\>\\)\\: void\\)\\|\\(Closure\\(Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\HasMany\\<App\\\\Models\\\\AssetWarranty\\>\\)\\: Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\HasMany\\<App\\\\Models\\\\AssetWarranty\\>\\)\\|Illuminate\\\\Database\\\\Query\\\\Expression\\|string, Closure\\(Illuminate\\\\Database\\\\Eloquent\\\\Builder\\)\\: void given\\.$#"
 			count: 1
 			path: app/Models/Asset.php
@@ -2166,17 +2161,12 @@ parameters:
 			path: app/Models/AssetWarranty.php
 
 		-
-			message: "#^PHPDoc type array\\<string\\> of property App\\\\Models\\\\AssetWarranty\\:\\:\\$casts is not the same as PHPDoc type array of overridden property App\\\\Utils\\\\Eloquent\\\\Model\\:\\:\\$casts\\.$#"
-			count: 1
-			path: app/Models/AssetWarranty.php
-
-		-
 			message: "#^Method App\\\\Models\\\\Audits\\\\Model\\:\\:performInsert\\(\\) has parameter \\$query with generic class Illuminate\\\\Database\\\\Eloquent\\\\Builder but does not specify its types\\: TModelClass$#"
 			count: 1
 			path: app/Models/Audits/Model.php
 
 		-
-			message: "#^PHPDoc type array\\<string\\> of property App\\\\Models\\\\Audits\\\\Model\\:\\:\\$casts is not the same as PHPDoc type array\\<string, string\\> of overridden property Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:\\$casts\\.$#"
+			message: "#^PHPDoc type array\\<string, Illuminate\\\\Contracts\\\\Database\\\\Eloquent\\\\Castable\\|Illuminate\\\\Contracts\\\\Database\\\\Eloquent\\\\CastsAttributes\\|string\\> of property App\\\\Models\\\\Audits\\\\Model\\:\\:\\$casts is not the same as PHPDoc type array\\<string, string\\> of overridden property Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:\\$casts\\.$#"
 			count: 1
 			path: app/Models/Audits/Model.php
 
@@ -2186,17 +2176,7 @@ parameters:
 			path: app/Models/Casts/DocumentPrice.php
 
 		-
-			message: "#^PHPDoc type array\\<string\\> of property App\\\\Models\\\\ChangeRequest\\:\\:\\$casts is not the same as PHPDoc type array of overridden property App\\\\Utils\\\\Eloquent\\\\Model\\:\\:\\$casts\\.$#"
-			count: 1
-			path: app/Models/ChangeRequest.php
-
-		-
 			message: "#^Anonymous function should return string but returns mixed\\.$#"
-			count: 1
-			path: app/Models/Contact.php
-
-		-
-			message: "#^PHPDoc type array\\<string\\> of property App\\\\Models\\\\Contact\\:\\:\\$casts is not the same as PHPDoc type array of overridden property App\\\\Utils\\\\Eloquent\\\\Model\\:\\:\\$casts\\.$#"
 			count: 1
 			path: app/Models/Contact.php
 
@@ -2212,11 +2192,6 @@ parameters:
 
 		-
 			message: "#^Method App\\\\Models\\\\Customer\\:\\:headquarter\\(\\) should return Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\HasOne\\<App\\\\Models\\\\CustomerLocation\\> but returns Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\HasOne\\<Illuminate\\\\Database\\\\Eloquent\\\\Model\\>\\.$#"
-			count: 1
-			path: app/Models/Customer.php
-
-		-
-			message: "#^PHPDoc type array\\<string\\> of property App\\\\Models\\\\Customer\\:\\:\\$casts is not the same as PHPDoc type array of overridden property App\\\\Utils\\\\Eloquent\\\\Model\\:\\:\\$casts\\.$#"
 			count: 1
 			path: app/Models/Customer.php
 
@@ -2321,11 +2296,6 @@ parameters:
 			path: app/Models/Data/Location.php
 
 		-
-			message: "#^PHPDoc type array\\<string\\> of property App\\\\Models\\\\Data\\\\Location\\:\\:\\$casts is not the same as PHPDoc type array of overridden property App\\\\Utils\\\\Eloquent\\\\Model\\:\\:\\$casts\\.$#"
-			count: 1
-			path: app/Models/Data/Location.php
-
-		-
 			message: "#^Method App\\\\Models\\\\Data\\\\Oem\\:\\:getDefaultTranslations\\(\\) should return array\\<string, string\\> but returns array\\<int\\|string, mixed\\>\\.$#"
 			count: 1
 			path: app/Models/Data/Oem.php
@@ -2339,11 +2309,6 @@ parameters:
 			message: "#^Method App\\\\Models\\\\Data\\\\Oem\\:\\:getTranslatedProperty\\(\\) should return string but returns mixed\\.$#"
 			count: 2
 			path: app/Models/Data/Oem.php
-
-		-
-			message: "#^PHPDoc type array\\<string\\> of property App\\\\Models\\\\Data\\\\Product\\:\\:\\$casts is not the same as PHPDoc type array of overridden property App\\\\Utils\\\\Eloquent\\\\Model\\:\\:\\$casts\\.$#"
-			count: 1
-			path: app/Models/Data/Product.php
 
 		-
 			message: "#^Method App\\\\Models\\\\Data\\\\ServiceGroup\\:\\:getDefaultTranslations\\(\\) should return array\\<string, string\\> but returns array\\<int\\|string, mixed\\>\\.$#"
@@ -2416,11 +2381,6 @@ parameters:
 			path: app/Models/Data/Type.php
 
 		-
-			message: "#^PHPDoc type array\\<string\\> of property App\\\\Models\\\\Distributor\\:\\:\\$casts is not the same as PHPDoc type array of overridden property App\\\\Utils\\\\Eloquent\\\\Model\\:\\:\\$casts\\.$#"
-			count: 1
-			path: app/Models/Distributor.php
-
-		-
 			message: "#^Anonymous function should return string but returns mixed\\.$#"
 			count: 1
 			path: app/Models/Document.php
@@ -2429,26 +2389,6 @@ parameters:
 			message: "#^Instanceof between Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\HasMany\\<\\$this\\(App\\\\Models\\\\Document\\)\\> and Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\HasMany will always evaluate to true\\.$#"
 			count: 1
 			path: app/Models/Document.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Document\\:\\:entries\\(\\) return type with generic class Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\HasMany does not specify its types\\: TRelatedModel$#"
-			count: 1
-			path: app/Models/Document.php
-
-		-
-			message: "#^PHPDoc type array\\<string\\> of property App\\\\Models\\\\Document\\:\\:\\$casts is not the same as PHPDoc type array of overridden property App\\\\Utils\\\\Eloquent\\\\Model\\:\\:\\$casts\\.$#"
-			count: 1
-			path: app/Models/Document.php
-
-		-
-			message: "#^PHPDoc type array\\<string\\> of property App\\\\Models\\\\DocumentEntry\\:\\:\\$casts is not the same as PHPDoc type array of overridden property App\\\\Utils\\\\Eloquent\\\\Model\\:\\:\\$casts\\.$#"
-			count: 1
-			path: app/Models/DocumentEntry.php
-
-		-
-			message: "#^PHPDoc type array\\<string\\> of property App\\\\Models\\\\Invitation\\:\\:\\$casts is not the same as PHPDoc type array of overridden property App\\\\Utils\\\\Eloquent\\\\Model\\:\\:\\$casts\\.$#"
-			count: 1
-			path: app/Models/Invitation.php
 
 		-
 			message: "#^Method App\\\\Models\\\\Logs\\\\Model\\:\\:newModelQuery\\(\\) return type with generic class Illuminate\\\\Database\\\\Eloquent\\\\Builder does not specify its types\\: TModelClass$#"
@@ -2461,7 +2401,7 @@ parameters:
 			path: app/Models/Logs/Model.php
 
 		-
-			message: "#^PHPDoc type array\\<string\\> of property App\\\\Models\\\\Logs\\\\Model\\:\\:\\$casts is not the same as PHPDoc type array\\<string, string\\> of overridden property Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:\\$casts\\.$#"
+			message: "#^PHPDoc type array\\<string, Illuminate\\\\Contracts\\\\Database\\\\Eloquent\\\\Castable\\|Illuminate\\\\Contracts\\\\Database\\\\Eloquent\\\\CastsAttributes\\|string\\> of property App\\\\Models\\\\Logs\\\\Model\\:\\:\\$casts is not the same as PHPDoc type array\\<string, string\\> of overridden property Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:\\$casts\\.$#"
 			count: 1
 			path: app/Models/Logs/Model.php
 
@@ -2471,34 +2411,9 @@ parameters:
 			path: app/Models/Logs/Model.php
 
 		-
-			message: "#^PHPDoc type string of property App\\\\Models\\\\Logs\\\\Model\\:\\:\\$incrementing is not the same as PHPDoc type bool of overridden property Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:\\$incrementing\\.$#"
-			count: 1
-			path: app/Models/Logs/Model.php
-
-		-
-			message: "#^Property App\\\\Models\\\\Logs\\\\Model\\:\\:\\$incrementing \\(string\\) does not accept default value of type false\\.$#"
-			count: 1
-			path: app/Models/Logs/Model.php
-
-		-
 			message: "#^Instanceof between Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\HasMany\\<\\$this\\(App\\\\Models\\\\Note\\)\\> and Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\HasMany will always evaluate to true\\.$#"
 			count: 1
 			path: app/Models/Note.php
-
-		-
-			message: "#^PHPDoc type array\\<string\\> of property App\\\\Models\\\\Note\\:\\:\\$casts is not the same as PHPDoc type array of overridden property App\\\\Utils\\\\Eloquent\\\\Model\\:\\:\\$casts\\.$#"
-			count: 1
-			path: app/Models/Note.php
-
-		-
-			message: "#^PHPDoc type array\\<string\\> of property App\\\\Models\\\\Organization\\:\\:\\$casts is not the same as PHPDoc type array of overridden property App\\\\Utils\\\\Eloquent\\\\Model\\:\\:\\$casts\\.$#"
-			count: 1
-			path: app/Models/Organization.php
-
-		-
-			message: "#^PHPDoc type array\\<string\\> of property App\\\\Models\\\\OrganizationUser\\:\\:\\$casts is not the same as PHPDoc type array of overridden property App\\\\Utils\\\\Eloquent\\\\Pivot\\:\\:\\$casts\\.$#"
-			count: 1
-			path: app/Models/OrganizationUser.php
 
 		-
 			message: "#^Method App\\\\Models\\\\Permission\\:\\:getDefaultTranslations\\(\\) should return array\\<string, string\\> but returns array\\<int\\|string, mixed\\>\\.$#"
@@ -2552,11 +2467,6 @@ parameters:
 
 		-
 			message: "#^Method App\\\\Models\\\\Reseller\\:\\:headquarter\\(\\) should return Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\HasOne\\<App\\\\Models\\\\ResellerLocation\\> but returns Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\HasOne\\<Illuminate\\\\Database\\\\Eloquent\\\\Model\\>\\.$#"
-			count: 1
-			path: app/Models/Reseller.php
-
-		-
-			message: "#^PHPDoc type array\\<string\\> of property App\\\\Models\\\\Reseller\\:\\:\\$casts is not the same as PHPDoc type array of overridden property App\\\\Utils\\\\Eloquent\\\\Model\\:\\:\\$casts\\.$#"
 			count: 1
 			path: app/Models/Reseller.php
 
@@ -4311,22 +4221,12 @@ parameters:
 			path: app/Services/Logger/Models/Model.php
 
 		-
-			message: "#^PHPDoc type array\\<string\\> of property App\\\\Services\\\\Logger\\\\Models\\\\Model\\:\\:\\$casts is not the same as PHPDoc type array\\<string, string\\> of overridden property Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:\\$casts\\.$#"
+			message: "#^PHPDoc type array\\<string, Illuminate\\\\Contracts\\\\Database\\\\Eloquent\\\\Castable\\|Illuminate\\\\Contracts\\\\Database\\\\Eloquent\\\\CastsAttributes\\|string\\> of property App\\\\Services\\\\Logger\\\\Models\\\\Model\\:\\:\\$casts is not the same as PHPDoc type array\\<string, string\\> of overridden property Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:\\$casts\\.$#"
 			count: 1
 			path: app/Services/Logger/Models/Model.php
 
 		-
 			message: "#^PHPDoc type string of property App\\\\Services\\\\Logger\\\\Models\\\\Model\\:\\:\\$connection is not the same as PHPDoc type string\\|null of overridden property Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:\\$connection\\.$#"
-			count: 1
-			path: app/Services/Logger/Models/Model.php
-
-		-
-			message: "#^PHPDoc type string of property App\\\\Services\\\\Logger\\\\Models\\\\Model\\:\\:\\$incrementing is not the same as PHPDoc type bool of overridden property Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:\\$incrementing\\.$#"
-			count: 1
-			path: app/Services/Logger/Models/Model.php
-
-		-
-			message: "#^Property App\\\\Services\\\\Logger\\\\Models\\\\Model\\:\\:\\$incrementing \\(string\\) does not accept default value of type false\\.$#"
 			count: 1
 			path: app/Services/Logger/Models/Model.php
 
@@ -5396,7 +5296,7 @@ parameters:
 			path: app/Utils/Eloquent/Model.php
 
 		-
-			message: "#^PHPDoc type array of property App\\\\Utils\\\\Eloquent\\\\Model\\:\\:\\$casts is not the same as PHPDoc type array\\<string, string\\> of overridden property Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:\\$casts\\.$#"
+			message: "#^PHPDoc type array\\<string, Illuminate\\\\Contracts\\\\Database\\\\Eloquent\\\\Castable\\|Illuminate\\\\Contracts\\\\Database\\\\Eloquent\\\\CastsAttributes\\|string\\> of property App\\\\Utils\\\\Eloquent\\\\Model\\:\\:\\$casts is not the same as PHPDoc type array\\<string, string\\> of overridden property Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:\\$casts\\.$#"
 			count: 1
 			path: app/Utils/Eloquent/Model.php
 
@@ -5431,7 +5331,7 @@ parameters:
 			path: app/Utils/Eloquent/Pivot.php
 
 		-
-			message: "#^PHPDoc type array of property App\\\\Utils\\\\Eloquent\\\\Pivot\\:\\:\\$casts is not the same as PHPDoc type array\\<string, string\\> of overridden property Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:\\$casts\\.$#"
+			message: "#^PHPDoc type array\\<string, Illuminate\\\\Contracts\\\\Database\\\\Eloquent\\\\Castable\\|Illuminate\\\\Contracts\\\\Database\\\\Eloquent\\\\CastsAttributes\\|string\\> of property App\\\\Utils\\\\Eloquent\\\\Pivot\\:\\:\\$casts is not the same as PHPDoc type array\\<string, string\\> of overridden property Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:\\$casts\\.$#"
 			count: 1
 			path: app/Utils/Eloquent/Pivot.php
 

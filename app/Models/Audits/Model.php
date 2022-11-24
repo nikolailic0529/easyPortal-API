@@ -4,22 +4,19 @@ namespace App\Models\Audits;
 
 use App\Services\Audit\Auditor;
 use App\Utils\Eloquent\Concerns\UuidAsPrimaryKey;
+use Illuminate\Contracts\Database\Eloquent\Castable;
+use Illuminate\Contracts\Database\Eloquent\CastsAttributes;
 use LastDragon_ru\LaraASP\Eloquent\Model as LaraASPModel;
 
 abstract class Model extends LaraASPModel {
     use UuidAsPrimaryKey;
-
-    public const    CONNECTION = Auditor::CONNECTION;
-    protected const CASTS      = [
-        // empty
-    ];
 
     /**
      * @phpcsSuppress SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint
      *
      * @var string|null
      */
-    protected $connection = self::CONNECTION;
+    protected $connection = Auditor::CONNECTION;
 
     /**
      * Primary Key always UUID.
@@ -42,7 +39,7 @@ abstract class Model extends LaraASPModel {
      *
      * @phpcsSuppress SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint
      *
-     * @var array<string>
+     * @var array<string, string|Castable|CastsAttributes>
      */
-    protected $casts = self::CASTS;
+    protected $casts = [];
 }

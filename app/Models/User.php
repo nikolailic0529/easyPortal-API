@@ -97,16 +97,6 @@ class User extends Model implements
     use SyncBelongsToMany;
     use SyncHasMany;
 
-    protected const CASTS = [
-        'type'             => UserType::class,
-        'permissions'      => 'array',
-        'email_verified'   => 'bool',
-        'phone_verified'   => 'bool',
-        'enabled'          => 'bool',
-        'synced_at'        => 'datetime',
-        'previous_sign_in' => 'datetime',
-    ] + parent::CASTS;
-
     /**
      * @phpcsSuppress SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint
      *
@@ -159,9 +149,17 @@ class User extends Model implements
     /**
      * The attributes that should be cast to native types.
      *
-     * @phpcsSuppress SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingAnyTypeHint
+     * @inheritdoc
      */
-    protected $casts = self::CASTS;
+    protected $casts = [
+        'type'             => UserType::class,
+        'permissions'      => 'array',
+        'email_verified'   => 'bool',
+        'phone_verified'   => 'bool',
+        'enabled'          => 'bool',
+        'synced_at'        => 'datetime',
+        'previous_sign_in' => 'datetime',
+    ];
 
     // <editor-fold desc="MustVerifyEmail">
     // =========================================================================

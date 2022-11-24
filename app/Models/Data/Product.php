@@ -36,11 +36,6 @@ class Product extends Model implements DataModel {
     use HasAssets;
     use HasDocumentEntries;
 
-    protected const CASTS = [
-        'eol' => 'date',
-        'eos' => 'date',
-    ] + parent::CASTS;
-
     /**
      * @phpcsSuppress SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint
      *
@@ -51,9 +46,10 @@ class Product extends Model implements DataModel {
     /**
      * The attributes that should be cast to native types.
      *
-     * @phpcsSuppress SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint
-     *
-     * @var array<string>
+     * @inheritdoc
      */
-    protected $casts = self::CASTS;
+    protected $casts = [
+        'eol' => 'date',
+        'eos' => 'date',
+    ];
 }

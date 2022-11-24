@@ -65,14 +65,6 @@ class Location extends Model implements DataModel {
     public const GEOHASH_LENGTH = 12;
 
     /**
-     * The attributes that should be cast to native types.
-     */
-    protected const CASTS = [
-        'latitude'  => 'decimal:8',
-        'longitude' => 'decimal:8',
-    ] + parent::CASTS;
-
-    /**
      * @phpcsSuppress SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint
      *
      * @var string
@@ -80,11 +72,14 @@ class Location extends Model implements DataModel {
     protected $table = 'locations';
 
     /**
-     * @phpcsSuppress SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint
+     * The attributes that should be cast to native types.
      *
-     * @var array<string>
+     * @inheritdoc
      */
-    protected $casts = self::CASTS;
+    protected $casts = [
+        'latitude'  => 'decimal:8',
+        'longitude' => 'decimal:8',
+    ];
 
     /**
      * @return BelongsTo<Country, self>

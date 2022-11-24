@@ -73,21 +73,17 @@ class Organization extends Model implements
     use HasCurrency;
     use HasChangeRequests;
 
-    protected const CASTS = [
+    /**
+     * The attributes that should be cast to native types.
+     *
+     * @inheritdoc
+     */
+    protected $casts = [
         'type'                       => OrganizationType::class,
         'branding_dark_theme'        => 'bool',
         'branding_welcome_heading'   => TranslatedString::class,
         'branding_welcome_underline' => TranslatedString::class,
-    ] + parent::CASTS;
-
-    /**
-     * The attributes that should be cast to native types.
-     *
-     * @phpcsSuppress SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint
-     *
-     * @var array<string>
-     */
-    protected $casts = self::CASTS;
+    ];
 
     /**
      * @phpcsSuppress SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint

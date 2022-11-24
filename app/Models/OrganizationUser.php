@@ -49,11 +49,6 @@ class OrganizationUser extends Pivot implements OwnedByOrganization, Auditable, 
     use HasRole;
     use HasTeam;
 
-    protected const CASTS = [
-        'enabled' => 'bool',
-        'invited' => 'bool',
-    ] + parent::CASTS;
-
     /**
      * @phpcsSuppress SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint
      *
@@ -64,11 +59,12 @@ class OrganizationUser extends Pivot implements OwnedByOrganization, Auditable, 
     /**
      * The attributes that should be cast to native types.
      *
-     * @phpcsSuppress SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint
-     *
-     * @var array<string>
+     * @inheritdoc
      */
-    protected $casts = self::CASTS;
+    protected $casts = [
+        'enabled' => 'bool',
+        'invited' => 'bool',
+    ];
 
     /**
      * @inheritDoc

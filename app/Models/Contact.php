@@ -37,10 +37,6 @@ class Contact extends Model {
     use HasTypes;
     use HasObject;
 
-    protected const CASTS = [
-        'phone_valid' => 'bool',
-    ] + parent::CASTS;
-
     /**
      * @phpcsSuppress SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint
      *
@@ -51,11 +47,11 @@ class Contact extends Model {
     /**
      * The attributes that should be cast to native types.
      *
-     * @phpcsSuppress SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint
-     *
-     * @var array<string>
+     * @inheritdoc
      */
-    protected $casts = self::CASTS;
+    protected $casts = [
+        'phone_valid' => 'bool',
+    ];
 
     protected function getTypesPivot(): Pivot {
         return new ContactType();

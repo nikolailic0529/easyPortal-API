@@ -3,14 +3,12 @@
 namespace App\Utils\Eloquent;
 
 use App\Utils\Eloquent\Contracts\Constructor;
+use Illuminate\Contracts\Database\Eloquent\Castable;
+use Illuminate\Contracts\Database\Eloquent\CastsAttributes;
 use LastDragon_ru\LaraASP\Eloquent\Model as LaraASPModel;
 
 abstract class Model extends LaraASPModel implements Constructor {
     use ModelTraits;
-
-    protected const CASTS = [
-        // empty
-    ];
 
     /**
      * Primary Key always UUID.
@@ -33,7 +31,7 @@ abstract class Model extends LaraASPModel implements Constructor {
      *
      * @phpcsSuppress SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint
      *
-     * @var array<mixed>
+     * @var array<string, string|Castable|CastsAttributes>
      */
-    protected $casts = self::CASTS;
+    protected $casts = [];
 }

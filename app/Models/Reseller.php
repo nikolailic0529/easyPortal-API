@@ -72,11 +72,6 @@ class Reseller extends Model implements OwnedByReseller {
      */
     use HasCustomers;
 
-    protected const CASTS = [
-        'changed_at' => 'datetime',
-        'synced_at'  => 'datetime',
-    ] + parent::CASTS;
-
     /**
      * @phpcsSuppress SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint
      *
@@ -87,11 +82,12 @@ class Reseller extends Model implements OwnedByReseller {
     /**
      * The attributes that should be cast to native types.
      *
-     * @phpcsSuppress SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint
-     *
-     * @var array<string>
+     * @inheritdoc
      */
-    protected $casts = self::CASTS;
+    protected $casts = [
+        'changed_at' => 'datetime',
+        'synced_at'  => 'datetime',
+    ];
 
     // <editor-fold desc="Relations">
     // =========================================================================

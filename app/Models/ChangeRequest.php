@@ -51,12 +51,6 @@ class ChangeRequest extends Model implements OwnedByOrganization, Auditable {
     use HasUser;
     use HasObject;
 
-    protected const CASTS = [
-        'cc'  => 'array',
-        'bcc' => 'array',
-        'to'  => 'array',
-    ] + parent::CASTS;
-
     /**
      * @phpcsSuppress SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint
      *
@@ -67,11 +61,13 @@ class ChangeRequest extends Model implements OwnedByOrganization, Auditable {
     /**
      * The attributes that should be cast to native types.
      *
-     * @phpcsSuppress SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint
-     *
-     * @var array<string>
+     * @inheritdoc
      */
-    protected $casts = self::CASTS;
+    protected $casts = [
+        'cc'  => 'array',
+        'bcc' => 'array',
+        'to'  => 'array',
+    ];
 
     /**
      * @var list<string>
