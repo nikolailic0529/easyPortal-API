@@ -1,6 +1,6 @@
 <?php declare(strict_types = 1);
 
-namespace App\Services\Audit\Concerns;
+namespace App\Services\Audit\Contracts;
 
 use App\Utils\Eloquent\Model;
 

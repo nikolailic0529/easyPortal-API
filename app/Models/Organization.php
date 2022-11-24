@@ -7,7 +7,7 @@ use App\Models\Data\Currency;
 use App\Models\Enums\OrganizationType;
 use App\Models\Relations\HasChangeRequests;
 use App\Models\Relations\HasCurrency;
-use App\Services\Audit\Concerns\Auditable;
+use App\Services\Audit\Contracts\Auditable;
 use App\Services\I18n\Contracts\HasTimezonePreference;
 use App\Services\I18n\Eloquent\TranslatedString;
 use App\Utils\Eloquent\Model;

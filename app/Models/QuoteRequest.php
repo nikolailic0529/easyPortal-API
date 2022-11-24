@@ -11,7 +11,7 @@ use App\Models\Relations\HasOemNullable;
 use App\Models\Relations\HasOrganization;
 use App\Models\Relations\HasTypeNullable;
 use App\Models\Relations\HasUser;
-use App\Services\Audit\Concerns\Auditable;
+use App\Services\Audit\Contracts\Auditable;
 use App\Services\Organization\Eloquent\OwnedByOrganization;
 use App\Services\Organization\Eloquent\OwnedByOrganizationImpl;
 use App\Utils\Eloquent\Concerns\SyncHasMany;
