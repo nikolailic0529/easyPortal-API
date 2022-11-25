@@ -143,7 +143,7 @@ class AuditorTest extends TestCase {
                     Action::modelDeleted(),
                     $changeRequest,
                     [
-                        'properties' => [],
+                        // empty
                     ],
                 );
         });

@@ -106,26 +106,19 @@ class AuditableListenerTest extends TestCase {
      * @covers ::getModelContext
      *
      * @dataProvider dataProviderGetModelContext
+     *
+     * @param array<mixed>                    $expected
+     * @param Closure(static): EloquentObject $objectFactory
      */
-    public function testGetModelContext(string $expected, Action $action): void {
+    public function testGetModelContext(array $expected, Action $action, Closure $objectFactory): void {
         $listener = Mockery::mock(AuditableListener::class);
         $listener->shouldAllowMockingProtectedMethods();
         $listener->makePartial();
 
-        $object = Mockery::mock(EloquentObject::class);
-        $object
-            ->shouldReceive($expected)
-            ->once()
-            ->andReturn([
-                // empty
-            ]);
+        $object = $objectFactory($this);
+        $actual = $listener->getModelContext($action, $object);
 
-        self::assertEquals(
-            [
-                'properties' => [],
-            ],
-            $listener->getModelContext($action, $object),
-        );
+        self::assertEquals($expected, $actual);
     }
 
     /**
@@ -297,6 +290,29 @@ class AuditableListenerTest extends TestCase {
                     return $model;
                 },
             ],
+            'relations'             => [
+                true,
+                static function (): Model {
+                    $model = new class() extends Model implements Auditable {
+                        /**
+                         * @inheritdoc
+                         */
+                        public function getDirtyRelations(): array {
+                            return [
+                                'objects' => [
+                                    'added'   => ['a'],
+                                    'deleted' => [],
+                                ],
+                            ];
+                        }
+                    };
+
+                    $model->wasRecentlyCreated = false;
+                    $model->exists             = true;
+
+                    return $model;
+                },
+            ],
         ];
     }
 
@@ -305,10 +321,110 @@ class AuditableListenerTest extends TestCase {
      */
     public function dataProviderGetModelContext(): array {
         return [
-            'eloquent.created'  => ['getProperties', Action::modelCreated()],
-            'eloquent.updated'  => ['getChanges', Action::modelUpdated()],
-            'eloquent.deleted'  => ['getChanges', Action::modelDeleted()],
-            'eloquent.restored' => ['getChanges', Action::modelRestored()],
+            'created'        => [
+                [
+                    'properties' => [
+                        'property-a' => 'a',
+                    ],
+                ],
+                Action::modelCreated(),
+                static function (): EloquentObject {
+                    $model = new class() extends Model {
+                        // empty
+                    };
+
+                    $object = Mockery::mock(EloquentObject::class);
+                    $object
+                        ->shouldReceive('getModel')
+                        ->once()
+                        ->andReturn($model);
+                    $object
+                        ->shouldReceive('getProperties')
+                        ->once()
+                        ->andReturn([
+                            'property-a' => 'a',
+                        ]);
+
+                    return $object;
+                },
+            ],
+            'updated'        => [
+                [
+                    'properties' => [
+                        'property-a' => 'a',
+                    ],
+                    'relations'  => [
+                        'relation-a' => [
+                            'added'   => [123],
+                            'deleted' => [456],
+                        ],
+                    ],
+                ],
+                Action::modelUpdated(),
+                static function (): EloquentObject {
+                    $model = Mockery::mock(Model::class, Auditable::class);
+                    $model
+                        ->shouldReceive('getDirtyRelations')
+                        ->once()
+                        ->andReturn([
+                            'relation-a' => [
+                                'added'   => [123],
+                                'deleted' => [456],
+                            ],
+                        ]);
+
+                    $object = Mockery::mock(EloquentObject::class);
+                    $object
+                        ->shouldReceive('getModel')
+                        ->once()
+                        ->andReturn($model);
+                    $object
+                        ->shouldReceive('getChanges')
+                        ->once()
+                        ->andReturn([
+                            'property-a' => 'a',
+                        ]);
+
+                    return $object;
+                },
+            ],
+            'relations only' => [
+                [
+                    'relations' => [
+                        'relation-a' => [
+                            'added'   => [123],
+                            'deleted' => [456],
+                        ],
+                    ],
+                ],
+                Action::modelDeleted(),
+                static function (): EloquentObject {
+                    $model = Mockery::mock(Model::class, Auditable::class);
+                    $model
+                        ->shouldReceive('getDirtyRelations')
+                        ->once()
+                        ->andReturn([
+                            'relation-a' => [
+                                'added'   => [123],
+                                'deleted' => [456],
+                            ],
+                        ]);
+
+                    $object = Mockery::mock(EloquentObject::class);
+                    $object
+                        ->shouldReceive('getModel')
+                        ->once()
+                        ->andReturn($model);
+                    $object
+                        ->shouldReceive('getChanges')
+                        ->once()
+                        ->andReturn([
+                            // empty
+                        ]);
+
+                    return $object;
+                },
+            ],
         ];
     }
     //</editor-fold>

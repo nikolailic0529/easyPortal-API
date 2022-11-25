@@ -10,6 +10,7 @@ use Illuminate\Contracts\Events\Dispatcher;
 use Illuminate\Support\Str;
 use LogicException;
 
+use function array_filter;
 use function reset;
 
 class AuditableListener extends Listener {
@@ -66,17 +67,15 @@ class AuditableListener extends Listener {
      * @return array<string, mixed>
      */
     protected function getModelContext(Action $action, EloquentObject $object): array {
-        $context = [];
-
-        if ($action === Action::modelCreated()) {
-            $context = [
-                'properties' => $object->getProperties(),
-            ];
-        } else {
-            $context = [
-                'properties' => $object->getChanges(),
-            ];
-        }
+        $model   = $object->getModel();
+        $context = array_filter([
+            'properties' => $action === Action::modelCreated()
+                ? $object->getProperties()
+                : $object->getChanges(),
+            'relations'  => $model instanceof Auditable
+                ? $model->getDirtyRelations()
+                : [],
+        ]);
 
         return $context;
     }
@@ -85,6 +84,11 @@ class AuditableListener extends Listener {
     protected function isModelChanged(Model $model): bool {
         // Created or Deleted?
         if ($model->wasRecentlyCreated || !$model->exists) {
+            return true;
+        }
+
+        // Relations?
+        if ($model instanceof Auditable && !!$model->getDirtyRelations()) {
             return true;
         }
 
