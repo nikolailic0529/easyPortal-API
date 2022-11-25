@@ -235,7 +235,7 @@ class AuthListenerTest extends TestCase {
         $expected = $expected($this, $org, $user);
         $auditor  = Mockery::mock(Auditor::class);
         $provider = $this->app->make(CurrentOrganization::class);
-        $actual   = new class($auditor, $provider) extends AuthListener {
+        $actual   = new class($provider, $auditor) extends AuthListener {
             public function getUserOrganization(Authenticatable $user): OrganizationProvider|Organization|string|null {
                 return parent::getUserOrganization($user);
             }

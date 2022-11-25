@@ -2736,11 +2736,6 @@ parameters:
 			path: app/Services/Audit/AuditorTest.php
 
 		-
-			message: "#^Method App\\\\Services\\\\Audit\\\\Listeners\\\\Audit\\:\\:getModelAction\\(\\) should return App\\\\Services\\\\Audit\\\\Enums\\\\Action but returns App\\\\Services\\\\Audit\\\\Enums\\\\Action\\|null\\.$#"
-			count: 1
-			path: app/Services/Audit/Listeners/Audit.php
-
-		-
 			message: "#^Method App\\\\Services\\\\Auth\\\\AuthTest\\:\\:testIsRoot\\(\\) has parameter \\$userFactory with no signature specified for Closure\\.$#"
 			count: 1
 			path: app/Services/Auth/AuthTest.php
