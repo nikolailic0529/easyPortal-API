@@ -3,7 +3,6 @@
 namespace App\Services\Audit\Listeners;
 
 use App\Events\Subscriber;
-use App\Http\Controllers\Export\Events\QueryExported;
 use App\Services\Audit\Auditor;
 use App\Services\Audit\Contracts\Auditable;
 use App\Services\Audit\Enums\Action;
@@ -44,15 +43,7 @@ class Audit implements Subscriber {
         $this->auditor->create($this->org, $action, $model, $context);
     }
 
-    public function queryExported(QueryExported $event): void {
-        $this->auditor->create($this->org, Action::exported(), null, [
-            'type'  => $event->getType(),
-            'query' => $event->getQuery(),
-        ]);
-    }
-
     public function subscribe(Dispatcher $dispatcher): void {
-        $dispatcher->listen(QueryExported::class, [$this::class, 'queryExported']);
         // Subscribe for model events
         /** @var array<string,Action> $events */
         $events = [

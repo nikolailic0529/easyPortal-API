@@ -4,6 +4,7 @@ namespace App\Services\Audit;
 
 use App\Services\Audit\Listeners\Audit;
 use App\Services\Audit\Listeners\AuthListener;
+use App\Services\Audit\Listeners\ExportListener;
 use Illuminate\Contracts\Events\Dispatcher;
 use Illuminate\Support\ServiceProvider;
 
@@ -14,6 +15,7 @@ class Provider extends ServiceProvider {
         $this->booting(static function (Dispatcher $dispatcher): void {
             $dispatcher->subscribe(Audit::class);
             $dispatcher->subscribe(AuthListener::class);
+            $dispatcher->subscribe(ExportListener::class);
         });
     }
 }

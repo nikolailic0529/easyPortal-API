@@ -2,7 +2,6 @@
 
 namespace App\Services\Audit;
 
-use App\Http\Controllers\Export\Events\QueryExported;
 use App\Models\Audits\Audit;
 use App\Models\ChangeRequest;
 use App\Models\Organization;
@@ -241,41 +240,6 @@ class AuditorTest extends TestCase {
             'email'    => 'test@example.com',
             'password' => '12345',
         ]);
-    }
-
-    /**
-     * @covers ::create
-     *
-     */
-    public function testExported(): void {
-        $query = [
-            'root'    => 'assets',
-            'columns' => [
-                [
-                    'name'  => 'Name',
-                    'value' => 'path.to.property',
-                ],
-            ],
-            'query'   => 'query { asset { id } }',
-        ];
-
-        $this->setUser(User::factory()->make(), $this->setOrganization(Organization::factory()->make()));
-        $this->override(Auditor::class, static function (MockInterface $mock) use ($query): void {
-            $mock
-                ->shouldReceive('create')
-                ->once()
-                ->with(
-                    Mockery::type(CurrentOrganization::class),
-                    Action::exported(),
-                    null,
-                    [
-                        'type'  => 'csv',
-                        'query' => $query,
-                    ],
-                );
-        });
-        $dispatcher = $this->app->make(Dispatcher::class);
-        $dispatcher->dispatch(new QueryExported('csv', $query));
     }
 
     /**
