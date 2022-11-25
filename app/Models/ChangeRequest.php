@@ -6,6 +6,7 @@ use App\Models\Relations\HasFiles;
 use App\Models\Relations\HasOrganization;
 use App\Models\Relations\HasUser;
 use App\Services\Audit\Contracts\Auditable;
+use App\Services\Audit\Traits\AuditableImpl;
 use App\Services\Organization\Eloquent\OwnedByOrganization;
 use App\Services\Organization\Eloquent\OwnedByOrganizationImpl;
 use App\Utils\Eloquent\PolymorphicModel;
@@ -42,6 +43,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  */
 class ChangeRequest extends PolymorphicModel implements OwnedByOrganization, Auditable {
     use HasFactory;
+    use AuditableImpl;
     use OwnedByOrganizationImpl;
     use HasFiles;
     use HasOrganization;

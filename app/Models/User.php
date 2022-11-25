@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Models\Enums\UserType;
 use App\Services\Audit\Contracts\Auditable;
+use App\Services\Audit\Traits\AuditableImpl;
 use App\Services\Auth\Contracts\Enableable;
 use App\Services\Auth\Contracts\HasPermissions;
 use App\Services\Auth\Contracts\Rootable;
@@ -87,6 +88,7 @@ class User extends Model implements
     Rootable,
     Auditable {
     use HasFactory;
+    use AuditableImpl;
     use Authenticatable;
     use Authorizable;
     use MustVerifyEmail;

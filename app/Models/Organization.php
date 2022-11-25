@@ -8,6 +8,7 @@ use App\Models\Enums\OrganizationType;
 use App\Models\Relations\HasChangeRequests;
 use App\Models\Relations\HasCurrency;
 use App\Services\Audit\Contracts\Auditable;
+use App\Services\Audit\Traits\AuditableImpl;
 use App\Services\I18n\Contracts\HasTimezonePreference;
 use App\Services\I18n\Eloquent\TranslatedString;
 use App\Utils\Eloquent\Model;
@@ -68,6 +69,7 @@ class Organization extends Model implements
     HasTimezonePreference,
     Auditable {
     use HasFactory;
+    use AuditableImpl;
     use HasCurrency;
     use HasChangeRequests;
 
