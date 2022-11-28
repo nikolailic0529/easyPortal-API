@@ -29,10 +29,7 @@ use Tests\WithSettings;
 use Tests\WithUser;
 use Throwable;
 
-use function array_combine;
 use function array_keys;
-use function array_map;
-use function array_merge;
 use function count;
 use function trans;
 
@@ -98,8 +95,26 @@ class UpdateTest extends TestCase {
                             update(input: $input) {
                                 result
                                 user {
-                                    given_name
                                     family_name
+                                    given_name
+                                    title
+                                    academic_title
+                                    office_phone
+                                    mobile_phone
+                                    contact_email
+                                    job_title
+                                    timezone
+                                    locale
+                                    organizations {
+                                        enabled
+                                        team {
+                                            id
+                                        }
+                                        role {
+                                            id
+                                        }
+                                    }
+
                                 }
                             }
                         }
@@ -109,32 +124,6 @@ class UpdateTest extends TestCase {
                 $input,
             )
             ->assertThat($expected);
-
-        if ($expected instanceof GraphQLSuccess) {
-            self::assertNotNull($org);
-
-            $properties        = ['photo', 'enabled', 'role_id', 'team_id'];
-            $updatedUser       = User::query()->whereKey($input['id'])->firstOrFail();
-            $updatedOrgUser    = OrganizationUser::query()
-                ->where('organization_id', '=', $org->getKey())
-                ->where('user_id', '=', $input['id'])
-                ->firstOrFail();
-            $expected          = Arr::except($input['input'], ['photo']);
-            $orgUserAttributes = array_keys(Arr::only($expected, $properties));
-            $userAttributes    = array_keys(Arr::except($expected, $properties));
-            $actual            = array_merge(
-                array_combine($userAttributes, array_map(
-                    static fn(string $attr) => $updatedUser->getAttribute($attr),
-                    $userAttributes,
-                )),
-                array_combine($orgUserAttributes, array_map(
-                    static fn(string $attr) => $updatedOrgUser->getAttribute($attr),
-                    $orgUserAttributes,
-                )),
-            );
-
-            self::assertEquals($expected, $actual);
-        }
     }
     // </editor-fold>
 
@@ -150,6 +139,8 @@ class UpdateTest extends TestCase {
             OrganizationUser::factory()->create([
                 'organization_id' => $organization,
                 'user_id'         => $user,
+                'role_id'         => null,
+                'team_id'         => null,
             ]);
             Role::factory()->create([
                 'id'              => '7f29f131-bd8a-41f5-a4d6-98e8e3aa95a7',
@@ -194,8 +185,27 @@ class UpdateTest extends TestCase {
                         new JsonFragment('user.update', [
                             'result' => true,
                             'user'   => [
-                                'given_name'  => 'Updated Given Name',
-                                'family_name' => 'Updated Family Name',
+                                'given_name'     => 'Updated Given Name',
+                                'family_name'    => 'Updated Family Name',
+                                'title'          => 'Mr',
+                                'academic_title' => 'Professor',
+                                'office_phone'   => '+1-202-555-0197',
+                                'mobile_phone'   => '+1-202-555-0147',
+                                'contact_email'  => 'test@gmail.com',
+                                'job_title'      => 'Manger',
+                                'timezone'       => 'Europe/London',
+                                'locale'         => 'en_GB',
+                                'organizations'  => [
+                                    [
+                                        'enabled' => true,
+                                        'role'    => [
+                                            'id' => '7f29f131-bd8a-41f5-a4d6-98e8e3aa95a7',
+                                        ],
+                                        'team'    => [
+                                            'id' => 'd43cb8ab-fae5-4d04-8407-15d979145deb',
+                                        ],
+                                    ],
+                                ],
                             ],
                         ]),
                     ),
@@ -376,13 +386,12 @@ class UpdateTest extends TestCase {
                 'Role should not be reset'                      => [
                     new GraphQLSuccess(
                         'org',
-                        new JsonFragment('user.update', [
-                            'result' => true,
-                            'user'   => [
-                                'given_name'  => 'Updated Given Name',
-                                'family_name' => 'Updated Family Name',
+                        new JsonFragment(
+                            'user.update.user.organizations.0.role',
+                            [
+                                'id' => '53e8f16d-88cf-4bc7-87c9-cf66cdd31e80',
                             ],
-                        ]),
+                        ),
                     ),
                     $settings,
                     static function (MockInterface $mock): void {
@@ -397,7 +406,9 @@ class UpdateTest extends TestCase {
                     },
                     static function (self $test, Organization $organization): User {
                         $user = User::factory()->create();
-                        $role = Role::factory()->create();
+                        $role = Role::factory()->create([
+                            'id' => '53e8f16d-88cf-4bc7-87c9-cf66cdd31e80',
+                        ]);
 
                         OrganizationUser::factory()->create([
                             'organization_id' => $organization,
