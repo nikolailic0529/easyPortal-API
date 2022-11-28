@@ -1091,11 +1091,6 @@ parameters:
 			path: app/GraphQL/Mutations/Me/UpdateMePasswordTest.php
 
 		-
-			message: "#^Cannot call method getKey\\(\\) on App\\\\Models\\\\Organization\\|null\\.$#"
-			count: 1
-			path: app/GraphQL/Mutations/Me/UpdateTest.php
-
-		-
 			message: "#^Property App\\\\Models\\\\ChangeRequest\\:\\:\\$to \\(array\\<string\\>\\) does not accept array\\<int, string\\|null\\>\\.$#"
 			count: 1
 			path: app/GraphQL/Mutations/Message/Create.php
@@ -1239,26 +1234,6 @@ parameters:
 			message: "#^Method App\\\\GraphQL\\\\Mutations\\\\Org\\\\User\\\\InviteTest\\:\\:testInvoke\\(\\) has parameter \\$prepare with no signature specified for Closure\\.$#"
 			count: 1
 			path: app/GraphQL/Mutations/Org/User/InviteTest.php
-
-		-
-			message: "#^Cannot call method getKey\\(\\) on App\\\\Models\\\\Organization\\|null\\.$#"
-			count: 1
-			path: app/GraphQL/Mutations/Org/User/UpdateTest.php
-
-		-
-			message: "#^Method App\\\\GraphQL\\\\Mutations\\\\Org\\\\User\\\\UpdateTest\\:\\:testInvoke\\(\\) has parameter \\$clientFactory with no signature specified for Closure\\.$#"
-			count: 1
-			path: app/GraphQL/Mutations/Org/User/UpdateTest.php
-
-		-
-			message: "#^Method App\\\\GraphQL\\\\Mutations\\\\Org\\\\User\\\\UpdateTest\\:\\:testInvoke\\(\\) has parameter \\$inputFactory with no signature specified for Closure\\.$#"
-			count: 1
-			path: app/GraphQL/Mutations/Org/User/UpdateTest.php
-
-		-
-			message: "#^Method App\\\\GraphQL\\\\Mutations\\\\Org\\\\User\\\\UpdateTest\\:\\:testInvoke\\(\\) has parameter \\$inputUserFactory with no signature specified for Closure\\.$#"
-			count: 1
-			path: app/GraphQL/Mutations/Org/User/UpdateTest.php
 
 		-
 			message: "#^Property App\\\\Models\\\\Invitation\\:\\:\\$sender \\(App\\\\Models\\\\User\\) does not accept App\\\\Models\\\\User\\|null\\.$#"

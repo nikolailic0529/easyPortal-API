@@ -1025,6 +1025,7 @@ input MeUpdateInput {
 
     team_id: ID
     @isNullable
+    @isNotRoot
     @isTeamId
 
     timezone: String
@@ -15089,6 +15090,10 @@ on
     | INPUT_FIELD_DEFINITION
 
 directive @isNotMe
+on
+    | INPUT_FIELD_DEFINITION
+
+directive @isNotRoot
 on
     | INPUT_FIELD_DEFINITION
 

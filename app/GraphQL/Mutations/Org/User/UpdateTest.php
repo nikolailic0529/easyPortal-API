@@ -4,7 +4,6 @@ namespace App\GraphQL\Mutations\Org\User;
 
 use App\GraphQL\Directives\Directives\Mutation\Exceptions\ObjectNotFound;
 use App\Models\Data\Team;
-use App\Models\Enums\UserType;
 use App\Models\Organization;
 use App\Models\OrganizationUser;
 use App\Models\Role;
@@ -22,7 +21,6 @@ use Tests\DataProviders\GraphQL\Organizations\AuthOrgDataProvider;
 use Tests\DataProviders\GraphQL\Users\OrgUserDataProvider;
 use Tests\GraphQL\GraphQLError;
 use Tests\GraphQL\GraphQLSuccess;
-use Tests\GraphQL\GraphQLUnauthorized;
 use Tests\GraphQL\GraphQLValidationError;
 use Tests\GraphQL\JsonFragment;
 use Tests\TestCase;
@@ -53,9 +51,12 @@ class UpdateTest extends TestCase {
      * @covers ::__invoke
      * @dataProvider dataProviderInvoke
      *
-     * @param OrganizationFactory $orgFactory
-     * @param UserFactory         $userFactory
-     * @param SettingsFactory     $settingsFactory
+     * @param OrganizationFactory                                              $orgFactory
+     * @param UserFactory                                                      $userFactory
+     * @param SettingsFactory                                                  $settingsFactory
+     * @param Closure(Client&MockInterface): void|null                         $clientFactory
+     * @param Closure(static, ?Organization, ?User): User|null                 $inputUserFactory
+     * @param Closure(static, ?Organization, ?User): array<string, mixed>|null $inputFactory
      */
     public function testInvoke(
         Response $expected,
@@ -110,6 +111,8 @@ class UpdateTest extends TestCase {
             ->assertThat($expected);
 
         if ($expected instanceof GraphQLSuccess) {
+            self::assertNotNull($org);
+
             $properties        = ['photo', 'enabled', 'role_id', 'team_id'];
             $updatedUser       = User::query()->whereKey($input['id'])->firstOrFail();
             $updatedOrgUser    = OrganizationUser::query()
@@ -367,65 +370,6 @@ class UpdateTest extends TestCase {
                     static function (): array {
                         return [
                             'role_id' => '7f29f131-bd8a-41f5-a4d6-98e8e3aa95a7',
-                        ];
-                    },
-                ],
-                'Root cannot be updated by user'                => [
-                    new GraphQLUnauthorized('org'),
-                    null,
-                    null,
-                    static function (self $test, Organization $organization): User {
-                        $user = User::factory()->create([
-                            'type' => UserType::local(),
-                        ]);
-
-                        OrganizationUser::factory()->create([
-                            'organization_id' => $organization,
-                            'user_id'         => $user,
-                        ]);
-
-                        return $user;
-                    },
-                    static function (self $test): array {
-                        return [
-                            'given_name' => $test->faker->firstName(),
-                        ];
-                    },
-                ],
-                'Root can be updated by root'                   => [
-                    new GraphQLSuccess(
-                        'org',
-                        new JsonFragment('user.update.result', true),
-                    ),
-                    null,
-                    static function (MockInterface $mock): void {
-                        $mock
-                            ->shouldReceive('getUserById')
-                            ->once()
-                            ->andReturn(new KeycloakUser());
-                        $mock
-                            ->shouldReceive('updateUser')
-                            ->once()
-                            ->andReturn(true);
-                    },
-                    static function (self $test, Organization $organization, User $current): User {
-                        $current->type = UserType::local();
-                        $current->save();
-
-                        $user = User::factory()->create([
-                            'type' => UserType::local(),
-                        ]);
-
-                        OrganizationUser::factory()->create([
-                            'organization_id' => $organization,
-                            'user_id'         => $user,
-                        ]);
-
-                        return $user;
-                    },
-                    static function (self $test): array {
-                        return [
-                            'given_name' => $test->faker->firstName(),
                         ];
                     },
                 ],

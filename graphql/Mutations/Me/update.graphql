@@ -22,7 +22,7 @@ input MeUpdateInput {
     homepage: String            @isNullable @isRequired @isMax(value: 255)
     locale: String              @isNullable @isLocale
     timezone: String            @isNullable @isTimezone
-    team_id: ID                 @isNullable @isTeamId
+    team_id: ID                 @isNullable @isNotRoot @isTeamId
     freshchat_id: ID            @isNullable @isUuid
 }
 

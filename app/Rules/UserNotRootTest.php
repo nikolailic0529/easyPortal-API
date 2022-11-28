@@ -58,7 +58,7 @@ class UserNotRootTest extends TestCase {
      *
      * @dataProvider dataProviderPassesMutation
      *
-     * @param Closure(static, ?User): ?Context $contextFactory
+     * @param Closure(static): ?Context $contextFactory
      */
     public function testPassesMutation(bool $expected, Closure $contextFactory): void {
         $rule    = $this->app->make(UserNotRoot::class);
