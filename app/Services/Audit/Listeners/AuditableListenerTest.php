@@ -324,7 +324,7 @@ class AuditableListenerTest extends TestCase {
         return [
             'created'        => [
                 [
-                    'properties' => [
+                    AuditableListener::PROPERTIES => [
                         'property-a' => 'a',
                     ],
                 ],
@@ -351,10 +351,10 @@ class AuditableListenerTest extends TestCase {
             ],
             'updated'        => [
                 [
-                    'properties' => [
+                    AuditableListener::PROPERTIES => [
                         'property-a' => 'a',
                     ],
-                    'relations'  => [
+                    AuditableListener::RELATIONS  => [
                         'relation-a' => [
                             'added'   => [123],
                             'deleted' => [456],
@@ -391,7 +391,7 @@ class AuditableListenerTest extends TestCase {
             ],
             'relations only' => [
                 [
-                    'relations' => [
+                    AuditableListener::RELATIONS => [
                         'relation-a' => [
                             'added'   => [123],
                             'deleted' => [456],

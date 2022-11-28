@@ -14,6 +14,9 @@ use function array_filter;
 use function reset;
 
 class AuditableListener extends Listener {
+    public const PROPERTIES = 'properties';
+    public const RELATIONS  = 'relations';
+
     public function subscribe(Dispatcher $dispatcher): void {
         $events = [
             'eloquent.created',
@@ -69,10 +72,10 @@ class AuditableListener extends Listener {
     protected function getModelContext(Action $action, EloquentObject $object): array {
         $model   = $object->getModel();
         $context = array_filter([
-            'properties' => $action === Action::modelCreated()
+            self::PROPERTIES => $action === Action::modelCreated()
                 ? $object->getProperties()
                 : $object->getChanges(),
-            'relations'  => $model instanceof Auditable
+            self::RELATIONS  => $model instanceof Auditable
                 ? $model->getDirtyRelations()
                 : [],
         ]);

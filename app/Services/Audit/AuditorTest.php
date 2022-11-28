@@ -11,6 +11,7 @@ use App\Services\Audit\Contexts\Auth\SignInFailed;
 use App\Services\Audit\Contexts\Auth\SignOut;
 use App\Services\Audit\Contexts\Context;
 use App\Services\Audit\Enums\Action;
+use App\Services\Audit\Listeners\AuditableListener;
 use App\Services\Organization\CurrentOrganization;
 use App\Utils\Eloquent\Model;
 use Closure;
@@ -54,7 +55,7 @@ class AuditorTest extends TestCase {
                     Action::modelCreated(),
                     $changeRequest,
                     [
-                        'properties' => $properties,
+                        AuditableListener::PROPERTIES => $properties,
                     ],
                 );
         });
@@ -98,8 +99,8 @@ class AuditorTest extends TestCase {
                             && $auditAction === Action::modelUpdated()
                             && $auditModel === $model
                             && $auditUser === null
-                            && isset($auditContext['properties']['updated_at'])
-                            && ($auditContext['properties']['subject'] ?? null) === $changes;
+                            && isset($auditContext[AuditableListener::PROPERTIES]['updated_at'])
+                            && ($auditContext[AuditableListener::PROPERTIES]['subject'] ?? null) === $changes;
                     },
                 );
         });
