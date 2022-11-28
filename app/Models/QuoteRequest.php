@@ -11,7 +11,8 @@ use App\Models\Relations\HasOemNullable;
 use App\Models\Relations\HasOrganization;
 use App\Models\Relations\HasTypeNullable;
 use App\Models\Relations\HasUser;
-use App\Services\Audit\Concerns\Auditable;
+use App\Services\Audit\Contracts\Auditable;
+use App\Services\Audit\Traits\AuditableImpl;
 use App\Services\Organization\Eloquent\OwnedByOrganization;
 use App\Services\Organization\Eloquent\OwnedByOrganizationImpl;
 use App\Utils\Eloquent\Concerns\SyncHasMany;
@@ -57,6 +58,7 @@ use Illuminate\Database\Eloquent\Relations\MorphOne;
  */
 class QuoteRequest extends Model implements OwnedByOrganization, Auditable {
     use HasFactory;
+    use AuditableImpl;
     use OwnedByOrganizationImpl;
     use HasOemNullable;
     use HasCustomerNullable;
@@ -90,6 +92,9 @@ class QuoteRequest extends Model implements OwnedByOrganization, Auditable {
         return $this->qualifyColumn('organization_id');
     }
 
+    /**
+     * @return HasMany<QuoteRequestAsset>
+     */
     public function assets(): HasMany {
         return $this->hasMany(QuoteRequestAsset::class, 'request_id');
     }
@@ -115,6 +120,9 @@ class QuoteRequest extends Model implements OwnedByOrganization, Auditable {
         $this->syncHasMany('documents', $documents);
     }
 
+    /**
+     * @return MorphOne<Contact>
+     */
     public function contact(): MorphOne {
         return $this->morphOne(Contact::class, 'object');
     }

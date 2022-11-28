@@ -6,6 +6,7 @@ use App\GraphQL\Directives\Directives\Mutation\Exceptions\ObjectNotFound;
 use App\Models\Organization;
 use App\Models\Permission;
 use App\Models\Role;
+use App\Models\User;
 use App\Services\Auth\Permission as AuthPermission;
 use App\Services\Auth\Permissions;
 use App\Services\Keycloak\Client\Client;
@@ -19,6 +20,7 @@ use Tests\DataProviders\GraphQL\Organizations\AuthOrgDataProvider;
 use Tests\DataProviders\GraphQL\Users\OrgUserDataProvider;
 use Tests\GraphQL\GraphQLError;
 use Tests\GraphQL\GraphQLSuccess;
+use Tests\GraphQL\GraphQLValidationError;
 use Tests\GraphQL\JsonFragment;
 use Tests\TestCase;
 use Tests\WithOrganization;
@@ -41,9 +43,11 @@ class UpdateTest extends TestCase {
      * @covers ::__invoke
      * @dataProvider dataProviderInvoke
      *
-     * @param OrganizationFactory $orgFactory
-     * @param UserFactory         $userFactory
-     * @param array<string,mixed> $data
+     * @param OrganizationFactory                              $orgFactory
+     * @param UserFactory                                      $userFactory
+     * @param Closure(static, ?Organization, ?User): Role|null $roleFactory
+     * @param Closure(): void|null                             $clientFactory
+     * @param array<string,mixed>                              $data
      */
     public function testInvoke(
         Response $expected,
@@ -54,15 +58,15 @@ class UpdateTest extends TestCase {
         array $data = null,
     ): void {
         // Prepare
-        $organization = $this->setOrganization($orgFactory);
-        $user         = $this->setUser($userFactory, $organization);
+        $org  = $this->setOrganization($orgFactory);
+        $user = $this->setUser($userFactory, $org);
 
         $this->setSettings([
             'ep.keycloak.client_id' => 'client_id',
         ]);
 
         $role   = $roleFactory
-            ? $roleFactory($this, $organization, $user)
+            ? $roleFactory($this, $org, $user)
             : Role::factory()->make();
         $data ??= [
             'name'        => 'wrong',
@@ -107,6 +111,8 @@ class UpdateTest extends TestCase {
 
         if ($expected instanceof GraphQLSuccess) {
             $updated = $role->fresh();
+
+            self::assertNotNull($updated);
 
             if (isset($data['name'])) {
                 self::assertEquals($data['name'], $updated->name);
@@ -208,28 +214,23 @@ class UpdateTest extends TestCase {
                     null,
                     null,
                 ],
-                'Empty name'                         => [
-                    new GraphQLError('org', static function (): array {
-                        return [trans('errors.validation_failed')];
+                'Invalid input'                      => [
+                    new GraphQLValidationError('org', static function (): array {
+                        return [
+                            'input.name'          => [
+                                trans('validation.required'),
+                            ],
+                            'input.permissions.0' => [
+                                trans('validation.org_permission_id'),
+                            ],
+                        ];
                     }),
                     $factory,
                     null,
                     [
                         'name'        => '',
                         'permissions' => [
-                            'fd421bad-069f-491c-ad5f-5841aa9a9dfe',
-                        ],
-                    ],
-                ],
-                'Invalid permissionsIds'             => [
-                    new GraphQLError('org', static function (): array {
-                        return [trans('errors.validation_failed')];
-                    }),
-                    $factory,
-                    null,
-                    [
-                        'permissions' => [
-                            'fd421bad-069f-491c-ad5f-5841aa9a9dfz',
+                            'bfda7bd9-868e-49b2-bb3d-e56e3d23366e',
                         ],
                     ],
                 ],
@@ -244,8 +245,12 @@ class UpdateTest extends TestCase {
                     null,
                 ],
                 'Role exists'                        => [
-                    new GraphQLError('org', static function (): array {
-                        return [trans('errors.validation_failed')];
+                    new GraphQLValidationError('org', static function (): array {
+                        return [
+                            'input.name' => [
+                                trans('validation.org_role_name'),
+                            ],
+                        ];
                     }),
                     static function (TestCase $test, Organization $organization): Role {
                         Role::factory()->create([

@@ -3,7 +3,8 @@
 namespace App\Models;
 
 use App\Models\Relations\HasOrganizationNullable;
-use App\Services\Audit\Concerns\Auditable;
+use App\Services\Audit\Contracts\Auditable;
+use App\Services\Audit\Traits\AuditableImpl;
 use App\Services\Organization\Eloquent\OwnedByOrganization;
 use App\Services\Organization\Eloquent\OwnedByOrganizationImpl;
 use App\Services\Organization\Eloquent\OwnedByShared;
@@ -27,7 +28,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
  * @property CarbonImmutable|null        $deleted_at
  * @property Organization|null           $organization
  * @property Collection<int, Permission> $permissions
- * @property Collection<int, User>       $users
+ * @property-read  Collection<int, User> $users
  * @method static RoleFactory factory(...$parameters)
  * @method static Builder|Role newModelQuery()
  * @method static Builder|Role newQuery()
@@ -35,6 +36,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
  */
 class Role extends Model implements OwnedByOrganization, Auditable, OwnedByShared {
     use HasFactory;
+    use AuditableImpl;
     use HasOrganizationNullable;
     use SyncBelongsToMany;
     use OwnedByOrganizationImpl;

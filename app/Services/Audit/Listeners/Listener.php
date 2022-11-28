@@ -8,8 +8,8 @@ use App\Services\Organization\CurrentOrganization;
 
 abstract class Listener implements Subscriber {
     public function __construct(
-        protected Auditor $auditor,
         protected CurrentOrganization $org,
+        protected Auditor $auditor,
     ) {
         // empty
     }

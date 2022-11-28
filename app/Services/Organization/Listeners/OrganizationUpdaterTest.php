@@ -89,6 +89,7 @@ class OrganizationUpdaterTest extends TestCase {
 
         Organization::factory()->create([
             'id'                => $reseller->getKey(),
+            'name'              => 'anothertestreseller',
             'keycloak_name'     => 'anothertestreseller',
             'keycloak_scope'    => 'anothertestreseller',
             'keycloak_group_id' => 'anothertestgroup',

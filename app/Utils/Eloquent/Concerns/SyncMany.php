@@ -15,9 +15,11 @@ trait SyncMany {
         // Required because Laravel will try to load relation if the attribute
         // has a value. In our case, it will cause additional queries for
         // models created by DataLoader while import.
-        $existing = $model->exists || $model->relationLoaded($relation)
-            ? $model->getAttribute($relation)
-            : new Collection();
+        if (!$model->exists && !$model->relationLoaded($relation)) {
+            $model->setRelation($relation, new Collection());
+        }
+
+        $existing = $model->getAttribute($relation);
 
         assert($existing instanceof Collection);
 
