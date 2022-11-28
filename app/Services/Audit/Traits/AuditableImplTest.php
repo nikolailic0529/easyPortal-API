@@ -2,6 +2,7 @@
 
 namespace App\Services\Audit\Traits;
 
+use App\Services\Audit\Contracts\Auditable;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Tests\TestCase;
@@ -15,11 +16,15 @@ class AuditableImplTest extends TestCase {
      * @covers ::isDirty
      */
     public function testIsDirty(): void {
-        $model = new class() extends Model {
+        $model = new class() extends Model implements Auditable {
             use AuditableImpl;
 
             /**
-             * @param array<string, array{added: array<string|int>, deleted: array<string|int>}> $dirtyRelations
+             * @param array<string, array{
+             *      type: string,
+             *      added: array<string|int>,
+             *      deleted: array<string|int>,
+             *      }> $dirtyRelations
              */
             public function setDirtyRelations(array $dirtyRelations): void {
                 $this->dirtyRelations = $dirtyRelations;
@@ -28,7 +33,13 @@ class AuditableImplTest extends TestCase {
 
         self::assertFalse($model->isDirty());
 
-        $model->setDirtyRelations(['relation' => ['added' => [], 'deleted' => []]]);
+        $model->setDirtyRelations([
+            'relation' => [
+                'type'    => 'Model',
+                'added'   => [],
+                'deleted' => [],
+            ],
+        ]);
 
         self::assertTrue($model->isDirty());
         self::assertFalse($model->isDirty('property'));
@@ -49,6 +60,10 @@ class AuditableImplTest extends TestCase {
              * @var string
              */
             protected $keyType = 'string';
+
+            public function getMorphClass(): string {
+                return 'Test';
+            }
         };
 
         self::assertEquals([], $model->getDirtyRelations());
@@ -86,6 +101,7 @@ class AuditableImplTest extends TestCase {
         self::assertEquals(
             [
                 'objects' => [
+                    'type'    => $model->getMorphClass(),
                     'added'   => [$d->getKey(), $c->getKey()],
                     'deleted' => [$a->getKey()],
                 ],
@@ -98,18 +114,28 @@ class AuditableImplTest extends TestCase {
      * @covers ::syncOriginal
      */
     public function testSyncOriginal(): void {
-        $model = new class() extends Model {
+        $model = new class() extends Model implements Auditable {
             use AuditableImpl;
 
             /**
-             * @param array<string, array{added: array<string|int>, deleted: array<string|int>}> $dirtyRelations
+             * @param array<string, array{
+             *      type: string,
+             *      added: array<string|int>,
+             *      deleted: array<string|int>,
+             *      }> $dirtyRelations
              */
             public function setDirtyRelations(array $dirtyRelations): void {
                 $this->dirtyRelations = $dirtyRelations;
             }
         };
 
-        $model->setDirtyRelations(['relation' => ['added' => [], 'deleted' => []]]);
+        $model->setDirtyRelations([
+            'relation' => [
+                'type'    => 'Model',
+                'added'   => [],
+                'deleted' => [],
+            ],
+        ]);
 
         self::assertNotEmpty($model->getDirtyRelations());
         self::assertSame($model, $model->syncOriginal());

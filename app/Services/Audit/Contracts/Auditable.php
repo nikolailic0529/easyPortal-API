@@ -12,7 +12,7 @@ use App\Utils\Eloquent\Model;
  */
 interface Auditable {
     /**
-     * @return array<string, array{added: array<string|int>, deleted: array<string|int>}>
+     * @return array<string, array{type: string, added: array<string|int>, deleted: array<string|int>}>
      */
     public function getDirtyRelations(): array;
 }

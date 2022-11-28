@@ -19,12 +19,12 @@ use function sort;
  */
 trait AuditableImpl {
     /**
-     * @var array<string, array{added: array<string|int>, deleted: array<string|int>}>
+     * @var array<string, array{type: string, added: array<string|int>, deleted: array<string|int>}>
      */
     private array $dirtyRelations = [];
 
     /**
-     * @return array<string, array{added: array<string|int>, deleted: array<string|int>}>
+     * @return array<string, array{type: string, added: array<string|int>, deleted: array<string|int>}>
      */
     public function getDirtyRelations(): array {
         return $this->dirtyRelations;
@@ -42,17 +42,19 @@ trait AuditableImpl {
 
             assert($existing instanceof Collection);
 
+            $model    = $value->first() ?? $existing->first();
             $mapper   = new GetKey();
             $existing = $existing->map($mapper)->all();
             $current  = $value->map($mapper)->all();
             $deleted  = array_diff($existing, $current);
             $added    = array_diff($current, $existing);
 
-            if (!!$added || !!$deleted) {
+            if ($model instanceof Model && (!!$added || !!$deleted)) {
                 sort($deleted);
                 sort($added);
 
                 $this->dirtyRelations[$relation] = [
+                    'type'    => $model->getMorphClass(),
                     'added'   => $added,
                     'deleted' => $deleted,
                 ];

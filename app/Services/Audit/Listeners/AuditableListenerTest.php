@@ -300,6 +300,7 @@ class AuditableListenerTest extends TestCase {
                         public function getDirtyRelations(): array {
                             return [
                                 'objects' => [
+                                    'type'    => 'Model',
                                     'added'   => ['a'],
                                     'deleted' => [],
                                 ],
