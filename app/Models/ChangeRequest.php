@@ -68,23 +68,4 @@ class ChangeRequest extends Model implements OwnedByOrganization, Auditable {
         'bcc' => 'array',
         'to'  => 'array',
     ];
-
-    /**
-     * @var list<string>
-     */
-    protected $visible = [
-        'organization_id',
-        'user_id',
-        'object_id',
-        'object_type',
-        'subject',
-        'from',
-        'to',
-        'cc',
-        'bcc',
-        'message',
-        'created_at',
-        'updated_at',
-        'deleted_at',
-    ];
 }

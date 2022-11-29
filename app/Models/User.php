@@ -122,28 +122,8 @@ class User extends Model implements
      * @phpcsSuppress SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingAnyTypeHint
      */
     protected $hidden = [
-        // Not used, just for case.
         'password',
         'remember_token',
-    ];
-
-    /**
-     * @var list<string>
-     */
-    protected $visible = [
-        'given_name',
-        'family_name',
-        'email',
-        'email_verified',
-        'phone',
-        'phone_verified',
-        'photo',
-        'locale',
-        'homepage',
-        'timezone',
-        'created_at',
-        'updated_at',
-        'deleted_at',
     ];
 
     /**

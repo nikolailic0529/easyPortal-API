@@ -92,27 +92,6 @@ class Organization extends Model implements
      */
     protected $table = 'organizations';
 
-    /**
-     * @var list<string>
-     */
-    protected $visible = [
-        'branding_dark_theme',
-        'branding_main_color',
-        'branding_secondary_color',
-        'branding_logo_url',
-        'branding_favicon_url',
-        'branding_default_main_color',
-        'branding_default_secondary_color',
-        'branding_default_logo_url',
-        'branding_default_favicon_url',
-        'branding_welcome_image_url',
-        'branding_welcome_heading',
-        'branding_welcome_underline',
-        'created_at',
-        'updated_at',
-        'deleted_at',
-    ];
-
     public function preferredLocale(): ?string {
         return $this->locale;
     }

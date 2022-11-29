@@ -16,17 +16,17 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 /**
  * Audit.
  *
- * @property string                 $id
- * @property Action                 $action
- * @property string|null            $user_id
- * @property string|null            $organization_id
- * @property string|null            $object_id
- * @property string|null            $object_type
- * @property array|null             $context
- * @property CarbonImmutable        $created_at
- * @property CarbonImmutable        $updated_at
- * @property-read Organization|null $organization
- * @property-read User|null         $user
+ * @property string                    $id
+ * @property Action                    $action
+ * @property string|null               $user_id
+ * @property string|null               $organization_id
+ * @property string|null               $object_id
+ * @property string|null               $object_type
+ * @property array<string, mixed>|null $context
+ * @property CarbonImmutable           $created_at
+ * @property CarbonImmutable           $updated_at
+ * @property-read Organization|null    $organization
+ * @property-read User|null            $user
  * @method static AuditFactory factory(...$parameters)
  * @method static Builder|Audit newModelQuery()
  * @method static Builder|Audit newQuery()

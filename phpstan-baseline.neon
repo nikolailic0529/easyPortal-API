@@ -1476,13 +1476,8 @@ parameters:
 			path: app/GraphQL/Providers/ValidationRulesProvider.php
 
 		-
-			message: "#^Method App\\\\GraphQL\\\\Queries\\\\Administration\\\\AuditContext\\:\\:__invoke\\(\\) should return string\\|null but returns string\\|false\\.$#"
-			count: 1
-			path: app/GraphQL/Queries/Administration/AuditContext.php
-
-		-
-			message: "#^Parameter \\#1 \\$model of method class@anonymous/app/GraphQL/Queries/Administration/AuditContext\\.php\\:30\\:\\:getModelArrayableItems\\(\\) expects App\\\\Utils\\\\Eloquent\\\\Model, object given\\.$#"
-			count: 1
+			message: "#^Cannot access offset string on mixed\\.$#"
+			count: 2
 			path: app/GraphQL/Queries/Administration/AuditContext.php
 
 		-
