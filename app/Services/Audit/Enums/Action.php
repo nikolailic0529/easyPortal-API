@@ -49,4 +49,16 @@ class Action extends Enum {
         return static::make('exported');
     }
     // </editor-fold>
+
+    // <editor-fold desc="Org">
+    // =========================================================================
+    /**
+     * If the `object` is not `null` it is means that the User changed organization
+     * to `object`. If the `object` is `null` the User switched organization
+     * to another.
+     */
+    public static function orgChanged(): static {
+        return static::make('org.changed');
+    }
+    // </editor-fold>
 }

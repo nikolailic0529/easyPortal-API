@@ -8,6 +8,7 @@ use App\Services\Organization\CurrentOrganization;
 use App\Services\Organization\RootOrganization;
 use Illuminate\Contracts\Config\Repository;
 use Illuminate\Contracts\Container\Container;
+use Illuminate\Contracts\Events\Dispatcher;
 
 use function is_callable;
 
@@ -22,7 +23,7 @@ trait WithOrganization {
      *
      * @param T|callable(TestCase):T $organization
      *
-     * @return (T is null ? null : Organization)
+     * @return   (T is null ? null : Organization)
      */
     protected function setOrganization(Organization|callable|null $organization): ?Organization {
         if (is_callable($organization)) {
@@ -34,17 +35,19 @@ trait WithOrganization {
                 return $organization;
             });
             $this->app->bind(CurrentOrganization::class, function (): CurrentOrganization {
-                $root      = $this->app->make(RootOrganization::class);
-                $auth      = $this->app->make(Auth::class);
-                $container = $this->app;
+                $root       = $this->app->make(RootOrganization::class);
+                $auth       = $this->app->make(Auth::class);
+                $container  = $this->app;
+                $dispatcher = $this->app->make(Dispatcher::class);
 
-                return new class($root, $auth, $container) extends CurrentOrganization {
+                return new class($dispatcher, $root, $auth, $container) extends CurrentOrganization {
                     public function __construct(
+                        Dispatcher $dispatcher,
                         RootOrganization $root,
                         Auth $auth,
                         protected Container $container,
                     ) {
-                        parent::__construct($root, $auth);
+                        parent::__construct($dispatcher, $root, $auth);
                     }
 
                     protected function getCurrent(): ?Organization {
@@ -82,7 +85,7 @@ trait WithOrganization {
      *
      * @param T|callable(TestCase):T $organization
      *
-     * @return (T is null ? null : Organization)
+     * @return   (T is null ? null : Organization)
      */
     public function setRootOrganization(Organization|callable|null $organization): ?Organization {
         if (is_callable($organization)) {

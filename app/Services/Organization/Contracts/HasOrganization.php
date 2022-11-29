@@ -1,6 +1,6 @@
 <?php declare(strict_types = 1);
 
-namespace App\Services\Organization;
+namespace App\Services\Organization\Contracts;
 
 use App\Models\Organization;
 use Illuminate\Support\Collection;
