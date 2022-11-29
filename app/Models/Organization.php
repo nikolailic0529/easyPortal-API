@@ -92,14 +92,36 @@ class Organization extends Model implements
      */
     protected $table = 'organizations';
 
+    // <editor-fold desc="HasLocalePreference">
+    // =========================================================================
     public function preferredLocale(): ?string {
         return $this->locale;
     }
+    // </editor-fold>
 
+    // <editor-fold desc="HasTimezonePreference">
+    // =========================================================================
     public function preferredTimezone(): ?string {
         return $this->timezone;
     }
+    // </editor-fold>
 
+    // <editor-fold desc="Auditable">
+    // =========================================================================
+    /**
+     * @inheritdoc
+     */
+    public function getInternalAttributes(): array {
+        return [
+            'keycloak_name',
+            'keycloak_scope',
+            'keycloak_group_id',
+        ];
+    }
+    // </editor-fold>
+
+    // <editor-fold desc="Relations">
+    // =========================================================================
     /**
      * @return MorphTo<Reseller, Organization>
      */
@@ -143,4 +165,5 @@ class Organization extends Model implements
     public function organizationUsers(): HasMany {
         return $this->hasMany(OrganizationUser::class);
     }
+    // </editor-fold>
 }

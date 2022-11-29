@@ -162,6 +162,18 @@ class User extends Model implements
     }
     // </editor-fold>
 
+    // <editor-fold desc="Auditable">
+    // =========================================================================
+    /**
+     * @inheritdoc
+     */
+    public function getInternalAttributes(): array {
+        return [
+            'freshchat_id',
+        ];
+    }
+    // </editor-fold>
+
     // <editor-fold desc="Relations">
     // =========================================================================
     /**
