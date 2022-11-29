@@ -169,7 +169,7 @@ class ProcessorTest extends TestCase {
         };
         $chunk     = $this->faker->randomElement([10, 100, 250, 500]);
         $state     = new State([
-            'index'  => $this->faker->numberBetween(1, 100),
+            'index'  => $this->faker->numberBetween(10, 100),
             'limit'  => $this->faker->numberBetween(1, 100),
             'offset' => $this->faker->uuid(),
         ]);
