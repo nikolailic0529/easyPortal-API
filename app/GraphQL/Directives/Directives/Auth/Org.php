@@ -3,8 +3,8 @@
 namespace App\GraphQL\Directives\Directives\Auth;
 
 use App\Services\Auth\Auth;
+use App\Services\Organization\Contracts\HasOrganization;
 use App\Services\Organization\CurrentOrganization;
-use App\Services\Organization\HasOrganization;
 use Illuminate\Contracts\Auth\Authenticatable;
 use Nuwave\Lighthouse\Schema\DirectiveLocator;
 use Nuwave\Lighthouse\Support\Contracts\FieldMiddleware;
