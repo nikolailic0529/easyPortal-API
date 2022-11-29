@@ -10180,6 +10180,7 @@ union Auditable =
     | Role
     | Unknown
     | User
+    | UserOrganization
 
 union SearchResult =
     | Asset

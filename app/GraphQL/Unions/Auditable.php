@@ -5,6 +5,7 @@ namespace App\GraphQL\Unions;
 use App\Models\ChangeRequest;
 use App\Models\Invitation;
 use App\Models\Organization;
+use App\Models\OrganizationUser;
 use App\Models\QuoteRequest;
 use App\Models\Role;
 use App\Models\User;
@@ -22,13 +23,14 @@ class Auditable {
 
     public function __invoke(mixed $root, GraphQLContext $context, ResolveInfo $resolveInfo): Type {
         $type = match (true) {
-            $root instanceof ChangeRequest => 'ChangeRequest',
-            $root instanceof QuoteRequest  => 'QuoteRequest',
-            $root instanceof Organization  => 'Organization',
-            $root instanceof Invitation    => 'Invitation',
-            $root instanceof User          => 'User',
-            $root instanceof Role          => 'Role',
-            default                        => 'Unknown',
+            $root instanceof OrganizationUser => 'UserOrganization',
+            $root instanceof ChangeRequest    => 'ChangeRequest',
+            $root instanceof QuoteRequest     => 'QuoteRequest',
+            $root instanceof Organization     => 'Organization',
+            $root instanceof Invitation       => 'Invitation',
+            $root instanceof User             => 'User',
+            $root instanceof Role             => 'Role',
+            default                           => 'Unknown',
         };
         $type = $this->typeRegistry->get($type);
 
