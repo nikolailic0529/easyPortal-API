@@ -3,6 +3,7 @@
 namespace App\GraphQL\Queries\Administration;
 
 use App\Models\Audits\Audit;
+use App\Services\Audit\Contracts\Auditable;
 use App\Services\Audit\Enums\Action;
 use App\Services\Audit\Listeners\AuditableListener;
 use GraphQL\Type\Definition\ResolveInfo;
@@ -11,9 +12,11 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\Relation;
 use Nuwave\Lighthouse\Support\Contracts\GraphQLContext;
 
-use function array_diff_key;
+use function array_diff;
+use function array_fill_keys;
 use function array_keys;
 use function array_merge;
+use function array_values;
 use function is_a;
 use function is_array;
 use function json_encode;
@@ -43,6 +46,8 @@ class AuditContext {
                 // Hidden properties should not be visible, because it can be insecure
                 // (https://laravel.com/docs/9.x/eloquent-serialization)
                 $this->getModelHiddenProperties($model, $context),
+                // Internal attributes
+                $this->getModelInternalProperties($model, $context),
             );
 
             foreach ($hidden as $property) {
@@ -90,11 +95,8 @@ class AuditContext {
      * @return array<string>
      */
     protected function getModelHiddenProperties(?Model $model, array $context): array {
-        $properties = array_merge(
-            (array) ($context[AuditableListener::PROPERTIES] ?? null),
-            (array) ($context[AuditableListener::RELATIONS] ?? null),
-        );
-        $hidden     = array_keys($properties);
+        $properties = $this->getModelProperties($context);
+        $hidden     = $properties;
 
         if ($model) {
             $visible = (new class() extends Model {
@@ -106,10 +108,44 @@ class AuditContext {
                 public function getModelArrayableItems(Model $model, array $values): array {
                     return $model->getArrayableItems($values);
                 }
-            })->getModelArrayableItems($model, $properties);
-            $hidden  = array_keys(array_diff_key($properties, $visible));
+            })->getModelArrayableItems($model, array_fill_keys($properties, null));
+            $hidden  = array_values(array_diff($properties, array_keys($visible)));
         }
 
         return $hidden;
+    }
+
+    /**
+     * @param array<string, mixed> $context
+     *
+     * @return array<string>
+     */
+    protected function getModelInternalProperties(?Model $model, array $context): array {
+        // Administer?
+        if ($this->gate->check('administer')) {
+            return [];
+        }
+
+        // Auditable?
+        $internal = $model instanceof Auditable
+            ? $model->getInternalAttributes()
+            : $this->getModelProperties($context);
+
+        return $internal;
+    }
+
+    /**
+     * @param array<string, mixed> $context
+     *
+     * @return array<string>
+     */
+    private function getModelProperties(array $context): array {
+        $properties = array_merge(
+            (array) ($context[AuditableListener::PROPERTIES] ?? null),
+            (array) ($context[AuditableListener::RELATIONS] ?? null),
+        );
+        $properties = array_keys($properties);
+
+        return $properties;
     }
 }

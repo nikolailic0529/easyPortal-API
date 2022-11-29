@@ -133,6 +133,13 @@ class AuditableListenerTest extends TestCase {
             public function getDirtyRelations(): array {
                 return [];
             }
+
+            /**
+             * @inheritdoc
+             */
+            public function getInternalAttributes(): array {
+                throw new Exception('should not be called');
+            }
         };
         $context = ['context' => ''];
         $auditor = Mockery::mock(Auditor::class);
@@ -184,6 +191,13 @@ class AuditableListenerTest extends TestCase {
              */
             public function getDirtyRelations(): array {
                 return [];
+            }
+
+            /**
+             * @inheritdoc
+             */
+            public function getInternalAttributes(): array {
+                throw new Exception('should not be called');
             }
         };
         $auditor = Mockery::mock(Auditor::class);
@@ -305,6 +319,13 @@ class AuditableListenerTest extends TestCase {
                                     'deleted' => [],
                                 ],
                             ];
+                        }
+
+                        /**
+                         * @inheritdoc
+                         */
+                        public function getInternalAttributes(): array {
+                            throw new Exception('should not be called');
                         }
                     };
 

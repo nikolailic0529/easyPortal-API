@@ -3,9 +3,11 @@
 namespace App\GraphQL\Queries\Administration;
 
 use App\Models\Audits\Audit;
+use App\Services\Audit\Contracts\Auditable;
 use App\Services\Audit\Enums\Action;
 use App\Services\Audit\Listeners\AuditableListener;
 use Closure;
+use Exception;
 use GraphQL\Type\Definition\ResolveInfo;
 use Illuminate\Contracts\Auth\Access\Gate;
 use Illuminate\Database\Eloquent\Model;
@@ -33,8 +35,17 @@ class AuditContextTest extends TestCase {
      * @param array<mixed>           $expected
      * @param Closure(static): Audit $auditFactory
      */
-    public function testInvoke(array $expected, Closure $auditFactory): void {
-        $gate     = Mockery::mock(Gate::class);
+    public function testInvoke(array $expected, ?bool $administer, Closure $auditFactory): void {
+        $gate = Mockery::mock(Gate::class);
+
+        if ($administer !== null) {
+            $gate
+                ->shouldReceive('check')
+                ->with('administer')
+                ->once()
+                ->andReturn($administer);
+        }
+
         $audit    = $auditFactory($this);
         $context  = new class($gate) extends AuditContext {
             /**
@@ -118,6 +129,169 @@ class AuditContextTest extends TestCase {
             ]),
         );
     }
+
+    /**
+     * @covers ::getModelInternalProperties
+     */
+    public function testGetModelInternalProperties(): void {
+        $gate = Mockery::mock(Gate::class);
+        $gate
+            ->shouldReceive('check')
+            ->once()
+            ->andReturn(false);
+
+        $model   = new class() extends Model implements Auditable {
+            /**
+             * @inheritdoc
+             */
+            public function getDirtyRelations(): array {
+                throw new Exception('should not be called');
+            }
+
+            /**
+             * @inheritdoc
+             */
+            public function getInternalAttributes(): array {
+                return ['b'];
+            }
+        };
+        $context = new class($gate) extends AuditContext {
+            /**
+             * @inheritdoc
+             */
+            public function getModelInternalProperties(?Model $model, array $context): array {
+                return parent::getModelInternalProperties($model, $context);
+            }
+        };
+
+        self::assertEquals(
+            [
+                'b',
+            ],
+            $context->getModelInternalProperties($model, [
+                AuditableListener::PROPERTIES => [
+                    'a' => 123,
+                    'b' => 'b',
+                ],
+                AuditableListener::RELATIONS  => [
+                    'c' => [1, 2, 3],
+                ],
+            ]),
+        );
+    }
+
+    /**
+     * @covers ::getModelInternalProperties
+     */
+    public function testGetModelInternalPropertiesAdminister(): void {
+        $gate = Mockery::mock(Gate::class);
+        $gate
+            ->shouldReceive('check')
+            ->with('administer')
+            ->once()
+            ->andReturn(true);
+
+        $context = new class($gate) extends AuditContext {
+            /**
+             * @inheritdoc
+             */
+            public function getModelInternalProperties(?Model $model, array $context): array {
+                return parent::getModelInternalProperties($model, $context);
+            }
+        };
+
+        self::assertEquals(
+            [
+                // empty
+            ],
+            $context->getModelInternalProperties(null, [
+                AuditableListener::PROPERTIES => [
+                    'a' => 123,
+                    'b' => 'b',
+                ],
+                AuditableListener::RELATIONS  => [
+                    'c' => [1, 2, 3],
+                ],
+            ]),
+        );
+    }
+
+    /**
+     * @covers ::getModelInternalProperties
+     */
+    public function testGetModelInternalPropertiesNotModel(): void {
+        $gate = Mockery::mock(Gate::class);
+        $gate
+            ->shouldReceive('check')
+            ->once()
+            ->andReturn(false);
+
+        $context = new class($gate) extends AuditContext {
+            /**
+             * @inheritdoc
+             */
+            public function getModelInternalProperties(?Model $model, array $context): array {
+                return parent::getModelInternalProperties($model, $context);
+            }
+        };
+
+        self::assertEquals(
+            [
+                'a',
+                'b',
+                'c',
+            ],
+            $context->getModelInternalProperties(null, [
+                AuditableListener::PROPERTIES => [
+                    'a' => 123,
+                    'b' => 'b',
+                ],
+                AuditableListener::RELATIONS  => [
+                    'c' => [1, 2, 3],
+                ],
+            ]),
+        );
+    }
+
+    /**
+     * @covers ::getModelInternalProperties
+     */
+    public function testGetModelInternalPropertiesNotAuditable(): void {
+        $gate = Mockery::mock(Gate::class);
+        $gate
+            ->shouldReceive('check')
+            ->once()
+            ->andReturn(false);
+
+        $model   = new class() extends Model {
+            // empty
+        };
+        $context = new class($gate) extends AuditContext {
+            /**
+             * @inheritdoc
+             */
+            public function getModelInternalProperties(?Model $model, array $context): array {
+                return parent::getModelInternalProperties($model, $context);
+            }
+        };
+
+        self::assertEquals(
+            [
+                'a',
+                'b',
+                'c',
+            ],
+            $context->getModelInternalProperties($model, [
+                AuditableListener::PROPERTIES => [
+                    'a' => 123,
+                    'b' => 'b',
+                ],
+                AuditableListener::RELATIONS  => [
+                    'c' => [1, 2, 3],
+                ],
+            ]),
+        );
+    }
     // </editor-fold>
 
     // <editor-fold desc="DataProviders">
@@ -150,14 +324,34 @@ class AuditContextTest extends TestCase {
                             'added'   => [123],
                             'deleted' => [345],
                         ],
+                        'e' => [
+                            'type'    => '********',
+                            'added'   => ['********'],
+                            'deleted' => ['********'],
+                        ],
                     ],
                 ],
+                false,
                 static function (): Audit {
-                    $model = new class() extends Model {
+                    $model = new class() extends Model implements Auditable {
                         /**
                          * @phpcsSuppress SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingAnyTypeHint
                          */
                         protected $hidden = ['a', 'c'];
+
+                        /**
+                         * @inheritdoc
+                         */
+                        public function getDirtyRelations(): array {
+                            throw new Exception('should not be called');
+                        }
+
+                        /**
+                         * @inheritdoc
+                         */
+                        public function getInternalAttributes(): array {
+                            return ['e'];
+                        }
                     };
 
                     Relation::morphMap(['Test' => $model::class]);
@@ -187,6 +381,11 @@ class AuditContextTest extends TestCase {
                                 'added'   => [123],
                                 'deleted' => [345],
                             ],
+                            'e' => [
+                                'type'    => 'ModelD',
+                                'added'   => [],
+                                'deleted' => [345],
+                            ],
                         ],
                     ];
 
@@ -197,6 +396,7 @@ class AuditContextTest extends TestCase {
                 [
                     'guard' => 'test',
                 ],
+                null,
                 static function (): Audit {
                     $audit              = Audit::factory()->make();
                     $audit->object_type = 'Test';
