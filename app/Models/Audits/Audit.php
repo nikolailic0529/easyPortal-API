@@ -16,17 +16,17 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 /**
  * Audit.
  *
- * @property string                 $id
- * @property Action                 $action
- * @property string|null            $user_id
- * @property string|null            $organization_id
- * @property string|null            $object_id
- * @property string|null            $object_type
- * @property array|null             $context
- * @property CarbonImmutable        $created_at
- * @property CarbonImmutable        $updated_at
- * @property-read Organization|null $organization
- * @property-read User|null         $user
+ * @property string                    $id
+ * @property Action                    $action
+ * @property string|null               $user_id
+ * @property string|null               $organization_id
+ * @property string|null               $object_id
+ * @property string|null               $object_type
+ * @property array<string, mixed>|null $context
+ * @property CarbonImmutable           $created_at
+ * @property CarbonImmutable           $updated_at
+ * @property-read Organization|null    $organization
+ * @property-read User|null            $user
  * @method static AuditFactory factory(...$parameters)
  * @method static Builder|Audit newModelQuery()
  * @method static Builder|Audit newQuery()
@@ -43,19 +43,15 @@ class Audit extends Model implements OwnedByOrganization {
      */
     protected $table = 'audits';
 
-    protected const CASTS = [
-        'context' => 'json',
-        'action'  => Action::class,
-    ] + parent::CASTS;
-
     /**
      * The attributes that should be cast to native types.
      *
-     * @phpcsSuppress SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint
-     *
-     * @var array<string>
+     * @inheritdoc
      */
-    protected $casts = self::CASTS;
+    protected $casts = [
+        'context' => 'json',
+        'action'  => Action::class,
+    ];
 
     /**
      * @return BelongsTo<User, self>

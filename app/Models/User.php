@@ -97,16 +97,6 @@ class User extends Model implements
     use SyncBelongsToMany;
     use SyncHasMany;
 
-    protected const CASTS = [
-        'type'             => UserType::class,
-        'permissions'      => 'array',
-        'email_verified'   => 'bool',
-        'phone_verified'   => 'bool',
-        'enabled'          => 'bool',
-        'synced_at'        => 'datetime',
-        'previous_sign_in' => 'datetime',
-    ] + parent::CASTS;
-
     /**
      * @phpcsSuppress SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint
      *
@@ -132,36 +122,24 @@ class User extends Model implements
      * @phpcsSuppress SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingAnyTypeHint
      */
     protected $hidden = [
-        // Not used, just for case.
         'password',
         'remember_token',
     ];
 
     /**
-     * @var list<string>
-     */
-    protected $visible = [
-        'given_name',
-        'family_name',
-        'email',
-        'email_verified',
-        'phone',
-        'phone_verified',
-        'photo',
-        'locale',
-        'homepage',
-        'timezone',
-        'created_at',
-        'updated_at',
-        'deleted_at',
-    ];
-
-    /**
      * The attributes that should be cast to native types.
      *
-     * @phpcsSuppress SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingAnyTypeHint
+     * @inheritdoc
      */
-    protected $casts = self::CASTS;
+    protected $casts = [
+        'type'             => UserType::class,
+        'permissions'      => 'array',
+        'email_verified'   => 'bool',
+        'phone_verified'   => 'bool',
+        'enabled'          => 'bool',
+        'synced_at'        => 'datetime',
+        'previous_sign_in' => 'datetime',
+    ];
 
     // <editor-fold desc="MustVerifyEmail">
     // =========================================================================
@@ -181,6 +159,18 @@ class User extends Model implements
     // =========================================================================
     public function preferredTimezone(): ?string {
         return $this->timezone;
+    }
+    // </editor-fold>
+
+    // <editor-fold desc="Auditable">
+    // =========================================================================
+    /**
+     * @inheritdoc
+     */
+    public function getInternalAttributes(): array {
+        return [
+            'freshchat_id',
+        ];
     }
     // </editor-fold>
 

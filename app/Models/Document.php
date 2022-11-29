@@ -119,23 +119,19 @@ class Document extends Model implements OwnedByReseller, Searchable {
      */
     use DocumentTypeQueries;
 
-    protected const CASTS = [
+    /**
+     * The attributes that should be cast to native types.
+     *
+     * @inheritdoc
+     */
+    protected $casts = [
         'changed_at'   => 'datetime',
         'synced_at'    => 'datetime',
         'price'        => DocumentPrice::class,
         'price_origin' => Origin::class,
         'start'        => 'date',
         'end'          => 'date',
-    ] + parent::CASTS;
-
-    /**
-     * The attributes that should be cast to native types.
-     *
-     * @phpcsSuppress SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint
-     *
-     * @var array<string>
-     */
-    protected $casts = self::CASTS;
+    ];
 
     /**
      * @phpcsSuppress SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint
@@ -146,6 +142,9 @@ class Document extends Model implements OwnedByReseller, Searchable {
 
     // <editor-fold desc="Relations">
     // =========================================================================
+    /**
+     * @return HasMany<DocumentEntry>
+     */
     public function entries(): HasMany {
         return $this->hasMany(DocumentEntry::class);
     }

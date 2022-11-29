@@ -3,9 +3,10 @@
 namespace App\Models;
 
 use App\Models\Data\Type;
+use App\Models\Relations\HasObject;
 use App\Models\Relations\HasTypes;
+use App\Utils\Eloquent\Model;
 use App\Utils\Eloquent\Pivot;
-use App\Utils\Eloquent\PolymorphicModel;
 use Carbon\CarbonImmutable;
 use Database\Factories\ContactFactory;
 use Illuminate\Database\Eloquent\Builder;
@@ -31,13 +32,10 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  * @method static Builder|Contact newQuery()
  * @method static Builder|Contact query()
  */
-class Contact extends PolymorphicModel {
+class Contact extends Model {
     use HasFactory;
     use HasTypes;
-
-    protected const CASTS = [
-        'phone_valid' => 'bool',
-    ] + parent::CASTS;
+    use HasObject;
 
     /**
      * @phpcsSuppress SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint
@@ -49,11 +47,11 @@ class Contact extends PolymorphicModel {
     /**
      * The attributes that should be cast to native types.
      *
-     * @phpcsSuppress SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint
-     *
-     * @var array<string>
+     * @inheritdoc
      */
-    protected $casts = self::CASTS;
+    protected $casts = [
+        'phone_valid' => 'bool',
+    ];
 
     protected function getTypesPivot(): Pivot {
         return new ContactType();

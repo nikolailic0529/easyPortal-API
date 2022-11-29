@@ -48,22 +48,18 @@ class Log extends Model {
      */
     protected $table = 'logs';
 
-    protected const CASTS = [
+    /**
+     * The attributes that should be cast to native types.
+     *
+     * @inheritdoc
+     */
+    protected $casts = [
         'category'    => Category::class,
         'status'      => Status::class,
         'finished_at' => 'datetime',
         'statistics'  => Statistics::class,
         'context'     => 'json',
-    ] + parent::CASTS;
-
-    /**
-     * The attributes that should be cast to native types.
-     *
-     * @phpcsSuppress SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint
-     *
-     * @var array<string>
-     */
-    protected $casts = self::CASTS;
+    ];
 
     /**
      * @return BelongsTo<self, self>

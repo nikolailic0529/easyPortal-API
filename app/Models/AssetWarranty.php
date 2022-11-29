@@ -69,19 +69,15 @@ class AssetWarranty extends Model implements OwnedByReseller, OwnedByShared {
     use HasStatusNullable;
     use HasTypeNullable;
 
-    protected const CASTS = [
-        'start' => 'date',
-        'end'   => 'date',
-    ] + parent::CASTS;
-
     /**
      * The attributes that should be cast to native types.
      *
-     * @phpcsSuppress SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint
-     *
-     * @var array<string>
+     * @inheritdoc
      */
-    protected $casts = self::CASTS;
+    protected $casts = [
+        'start' => 'date',
+        'end'   => 'date',
+    ];
 
     /**
      * @phpcsSuppress SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint

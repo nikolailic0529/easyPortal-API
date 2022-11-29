@@ -3,13 +3,14 @@
 namespace App\Models;
 
 use App\Models\Relations\HasFiles;
+use App\Models\Relations\HasObject;
 use App\Models\Relations\HasOrganization;
 use App\Models\Relations\HasUser;
 use App\Services\Audit\Contracts\Auditable;
 use App\Services\Audit\Traits\AuditableImpl;
 use App\Services\Organization\Eloquent\OwnedByOrganization;
 use App\Services\Organization\Eloquent\OwnedByOrganizationImpl;
-use App\Utils\Eloquent\PolymorphicModel;
+use App\Utils\Eloquent\Model;
 use Carbon\CarbonImmutable;
 use Database\Factories\ChangeRequestFactory;
 use Illuminate\Database\Eloquent\Builder;
@@ -41,19 +42,14 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  * @method static Builder|ChangeRequest newQuery()
  * @method static Builder|ChangeRequest query()
  */
-class ChangeRequest extends PolymorphicModel implements OwnedByOrganization, Auditable {
+class ChangeRequest extends Model implements OwnedByOrganization, Auditable {
     use HasFactory;
     use AuditableImpl;
     use OwnedByOrganizationImpl;
     use HasFiles;
     use HasOrganization;
     use HasUser;
-
-    protected const CASTS = [
-        'cc'  => 'array',
-        'bcc' => 'array',
-        'to'  => 'array',
-    ] + parent::CASTS;
+    use HasObject;
 
     /**
      * @phpcsSuppress SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint
@@ -65,28 +61,11 @@ class ChangeRequest extends PolymorphicModel implements OwnedByOrganization, Aud
     /**
      * The attributes that should be cast to native types.
      *
-     * @phpcsSuppress SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint
-     *
-     * @var array<string>
+     * @inheritdoc
      */
-    protected $casts = self::CASTS;
-
-    /**
-     * @var list<string>
-     */
-    protected $visible = [
-        'organization_id',
-        'user_id',
-        'object_id',
-        'object_type',
-        'subject',
-        'from',
-        'to',
-        'cc',
-        'bcc',
-        'message',
-        'created_at',
-        'updated_at',
-        'deleted_at',
+    protected $casts = [
+        'cc'  => 'array',
+        'bcc' => 'array',
+        'to'  => 'array',
     ];
 }

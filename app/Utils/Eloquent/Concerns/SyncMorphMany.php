@@ -5,8 +5,8 @@ namespace App\Utils\Eloquent\Concerns;
 use App\Utils\Eloquent\Callbacks\GetKey;
 use App\Utils\Eloquent\Callbacks\SetKey;
 use App\Utils\Eloquent\ModelHelper;
-use App\Utils\Eloquent\PolymorphicModel;
 use Illuminate\Database\Eloquent\Collection as EloquentCollection;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Illuminate\Support\Collection;
 use InvalidArgumentException;
@@ -17,12 +17,12 @@ trait SyncMorphMany {
     use SyncMany;
 
     /**
-     * @template T of PolymorphicModel
+     * @template T of \App\Models\Contact|\App\Models\File
      *
      * @param Collection<array-key, T> $objects
      */
     protected function syncMorphMany(string $relation, Collection $objects): void {
-        // TODO [refactor] Probably we need move it into MorphMany class
+        // todo(Utils/Eloquent): Probably we need move it into MorphMany class
 
         // Prepare
         $morph = (new ModelHelper($this))->getRelation($relation);
@@ -89,7 +89,7 @@ trait SyncMorphMany {
         }
     }
 
-    protected function syncMorphManyDelete(PolymorphicModel $model): void {
+    protected function syncMorphManyDelete(Model $model): void {
         $model->delete();
     }
 }

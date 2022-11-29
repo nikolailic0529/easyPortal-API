@@ -31,6 +31,13 @@ trait AuditableImpl {
     }
 
     /**
+     * @return array<string>
+     */
+    public function getInternalAttributes(): array {
+        return [];
+    }
+
+    /**
      * @param string $relation
      *
      * @return $this

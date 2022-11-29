@@ -56,19 +56,15 @@ class Invitation extends Model implements OwnedByOrganization {
      */
     protected $table = 'invitations';
 
-    protected const CASTS = [
-        'used_at'    => 'datetime',
-        'expired_at' => 'datetime',
-    ] + parent::CASTS;
-
     /**
      * The attributes that should be cast to native types.
      *
-     * @phpcsSuppress SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint
-     *
-     * @var array<string>
+     * @inheritdoc
      */
-    protected $casts = self::CASTS;
+    protected $casts = [
+        'used_at'    => 'datetime',
+        'expired_at' => 'datetime',
+    ];
 
     /**
      * @return BelongsTo<User, self>

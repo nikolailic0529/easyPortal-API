@@ -73,21 +73,17 @@ class Organization extends Model implements
     use HasCurrency;
     use HasChangeRequests;
 
-    protected const CASTS = [
+    /**
+     * The attributes that should be cast to native types.
+     *
+     * @inheritdoc
+     */
+    protected $casts = [
         'type'                       => OrganizationType::class,
         'branding_dark_theme'        => 'bool',
         'branding_welcome_heading'   => TranslatedString::class,
         'branding_welcome_underline' => TranslatedString::class,
-    ] + parent::CASTS;
-
-    /**
-     * The attributes that should be cast to native types.
-     *
-     * @phpcsSuppress SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint
-     *
-     * @var array<string>
-     */
-    protected $casts = self::CASTS;
+    ];
 
     /**
      * @phpcsSuppress SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint
@@ -96,35 +92,36 @@ class Organization extends Model implements
      */
     protected $table = 'organizations';
 
-    /**
-     * @var list<string>
-     */
-    protected $visible = [
-        'branding_dark_theme',
-        'branding_main_color',
-        'branding_secondary_color',
-        'branding_logo_url',
-        'branding_favicon_url',
-        'branding_default_main_color',
-        'branding_default_secondary_color',
-        'branding_default_logo_url',
-        'branding_default_favicon_url',
-        'branding_welcome_image_url',
-        'branding_welcome_heading',
-        'branding_welcome_underline',
-        'created_at',
-        'updated_at',
-        'deleted_at',
-    ];
-
+    // <editor-fold desc="HasLocalePreference">
+    // =========================================================================
     public function preferredLocale(): ?string {
         return $this->locale;
     }
+    // </editor-fold>
 
+    // <editor-fold desc="HasTimezonePreference">
+    // =========================================================================
     public function preferredTimezone(): ?string {
         return $this->timezone;
     }
+    // </editor-fold>
 
+    // <editor-fold desc="Auditable">
+    // =========================================================================
+    /**
+     * @inheritdoc
+     */
+    public function getInternalAttributes(): array {
+        return [
+            'keycloak_name',
+            'keycloak_scope',
+            'keycloak_group_id',
+        ];
+    }
+    // </editor-fold>
+
+    // <editor-fold desc="Relations">
+    // =========================================================================
     /**
      * @return MorphTo<Reseller, Organization>
      */
@@ -168,4 +165,5 @@ class Organization extends Model implements
     public function organizationUsers(): HasMany {
         return $this->hasMany(OrganizationUser::class);
     }
+    // </editor-fold>
 }

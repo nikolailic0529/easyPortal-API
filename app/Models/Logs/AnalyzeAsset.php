@@ -29,15 +29,6 @@ class AnalyzeAsset extends Model {
     use HasFactory;
 
     /**
-     * The attributes that should be cast to native types.
-     */
-    protected const CASTS = [
-        'unknown'       => 'bool',
-        'reseller_null' => 'bool',
-        'customer_null' => 'bool',
-    ] + parent::CASTS;
-
-    /**
      * @phpcsSuppress SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint
      *
      * @var string
@@ -45,9 +36,11 @@ class AnalyzeAsset extends Model {
     protected $table = 'analyze_assets';
 
     /**
-     * @phpcsSuppress SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint
-     *
-     * @var array<string>
+     * @inheritdoc
      */
-    protected $casts = self::CASTS;
+    protected $casts = [
+        'unknown'       => 'bool',
+        'reseller_null' => 'bool',
+        'customer_null' => 'bool',
+    ];
 }

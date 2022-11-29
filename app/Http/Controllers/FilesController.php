@@ -47,7 +47,7 @@ class FilesController extends Controller {
             // empty
         }
 
-        if (!$allowed || !$object) {
+        if (!$allowed) {
             throw new AuthorizationException();
         }
 

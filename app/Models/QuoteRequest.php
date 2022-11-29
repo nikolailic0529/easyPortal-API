@@ -68,10 +68,6 @@ class QuoteRequest extends Model implements OwnedByOrganization, Auditable {
     use HasOrganization;
     use SyncHasMany;
 
-    protected const CASTS = [
-        'user_copy' => 'bool',
-    ] + parent::CASTS;
-
     /**
      * @phpcsSuppress SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint
      *
@@ -82,11 +78,11 @@ class QuoteRequest extends Model implements OwnedByOrganization, Auditable {
     /**
      * The attributes that should be cast to native types.
      *
-     * @phpcsSuppress SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint
-     *
-     * @var array<mixed>
+     * @inheritdoc
      */
-    protected $casts = self::CASTS;
+    protected $casts = [
+        'user_copy' => 'bool',
+    ];
 
     public function getQualifiedOrganizationColumn(): string {
         return $this->qualifyColumn('organization_id');

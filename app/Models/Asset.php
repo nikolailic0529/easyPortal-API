@@ -109,14 +109,6 @@ class Asset extends Model implements OwnedByReseller, Searchable {
     use HasTags;
     use HasChangeRequests;
 
-    protected const CASTS = [
-        'changed_at'          => 'datetime',
-        'synced_at'           => 'datetime',
-        'warranty_end'        => 'date',
-        'warranty_changed_at' => 'datetime',
-        'eosl'                => 'date',
-    ] + parent::CASTS;
-
     /**
      * @phpcsSuppress SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint
      *
@@ -127,11 +119,15 @@ class Asset extends Model implements OwnedByReseller, Searchable {
     /**
      * The attributes that should be cast to native types.
      *
-     * @phpcsSuppress SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint
-     *
-     * @var array<string>
+     * @inheritdoc
      */
-    protected $casts = self::CASTS;
+    protected $casts = [
+        'changed_at'          => 'datetime',
+        'synced_at'           => 'datetime',
+        'warranty_end'        => 'date',
+        'warranty_changed_at' => 'datetime',
+        'eosl'                => 'date',
+    ];
 
     // <editor-fold desc="Relations">
     // =========================================================================
