@@ -21,46 +21,6 @@ jobs:
     uses: ./.github/workflows/phpunit.yml
 
   graphql:
-    runs-on: ubuntu-latest
+    uses: ./.github/workflows/graphql.yml
     needs:
       - phpunit
-    steps:
-      - name: Vars
-        run: |
-          JOB_PWD=tmp
-          GRAPHQL_SCHEMA=app/GraphQL/ServiceTest~public.graphql
-          GRAPHQL_CHANGES="${JOB_PWD}/GraphQLSchemaChanges.txt"
-          GRAPHQL_PREVIOUS="${JOB_PWD}/previous"
-          GRAPHQL_PREVIOUS_SCHEMA="${GRAPHQL_PREVIOUS}/${GRAPHQL_SCHEMA}"
-          GRAPHQL_IS_STRICT="${{ github.event_name == 'pull_request' && github.base_ref == 'dev' && !contains(github.event.pull_request.labels.*.name, '!') }}"
-
-          echo "GRAPHQL_SCHEMA=${GRAPHQL_SCHEMA}"  >> $GITHUB_ENV
-          echo "GRAPHQL_CHANGES=${GRAPHQL_CHANGES}" >> $GITHUB_ENV
-          echo "GRAPHQL_PREVIOUS=${GRAPHQL_PREVIOUS}" >> $GITHUB_ENV
-          echo "GRAPHQL_PREVIOUS_SCHEMA=${GRAPHQL_PREVIOUS_SCHEMA}" >> $GITHUB_ENV
-          echo "GRAPHQL_IS_STRICT="${GRAPHQL_IS_STRICT}"" >> $GITHUB_ENV
-      - name: Checkout
-        uses: actions/checkout@v3
-      - name: Setup Node.js
-        uses: ./.github/actions/node.js
-      - name: Checkout previous
-        uses: actions/checkout@v3
-        with:
-          fetch-depth: 2
-          path: "${{ env.GRAPHQL_PREVIOUS }}"
-          ref: "${{ github.event_name == 'pull_request' && github.event.pull_request.base.ref || '' }}"
-      - name: Switch to previous
-        if: github.event_name != 'pull_request'
-        run: |
-          cd "${{ env.GRAPHQL_PREVIOUS }}"
-          git checkout HEAD~1
-      - name: Check
-        if: hashFiles(env.GRAPHQL_PREVIOUS_SCHEMA)
-        run: |
-          if [ ! $(npx graphql-inspector diff "${{ env.GRAPHQL_PREVIOUS_SCHEMA }}" "${{ env.GRAPHQL_SCHEMA }}" > "${{ env.GRAPHQL_CHANGES }}") ] && [ "${{ env.GRAPHQL_PR_STRICT }}" = 'true' ]; then
-            exit 1;
-          fi
-      - name: Summary
-        if: always() && hashFiles(env.GRAPHQL_CHANGES)
-        run: |
-          cat "${{ env.GRAPHQL_CHANGES }}" >> $GITHUB_STEP_SUMMARY
