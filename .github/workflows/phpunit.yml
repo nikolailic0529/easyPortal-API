@@ -64,7 +64,15 @@ jobs:
         run: |
           echo "::add-matcher::${{ runner.tool_cache }}/php.json"
           echo "::add-matcher::${{ runner.tool_cache }}/phpunit.json"
-      - name: Execute
+      - name: Execute (fast)
+        if: github.event_name == 'pull_request'
+        env:
+          DB_USERNAME: root
+          DB_PASSWORD: ""
+        run: |
+          php artisan test --parallel --recreate-databases --drop-databases --stop-on-failure
+      - name: Execute (full)
+        if: github.event_name != 'pull_request'
         env:
           DB_USERNAME: root
           DB_PASSWORD: ""
