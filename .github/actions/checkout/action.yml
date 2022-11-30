@@ -1,0 +1,12 @@
+name: Checkout
+description: Checkout the project or the package.
+
+runs:
+  using: composite
+  steps:
+    - name: Checkout
+      uses: actions/checkout@v3
+
+    - name: Setup ENV
+      run: |
+        cp .github/default.env .env

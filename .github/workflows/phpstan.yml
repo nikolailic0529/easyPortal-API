@@ -2,21 +2,13 @@ name: PHP Stan
 
 on:
   workflow_call:
-    inputs:
-      php-version:
-        required: true
-        type: string
-      php-extensions:
-        description: "The JSON with required php extensions."
-        required: true
-        type: string
 
 permissions:
   contents: read
 
 jobs:
   analyse:
-    name: analyse
+    name: Analyse
     runs-on: ubuntu-latest
 
     services:
@@ -37,18 +29,9 @@ jobs:
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
-      - name: Install PHP
-        uses: shivammathur/setup-php@v2
-        with:
-          php-version: ${{ inputs.php-version }}
-          extensions: ${{ join(fromJSON(inputs.php-extensions)) }}
-          coverage: none
-      - name: Setup App
-        run: |
-          cp .github/default.env .env
-      - name: Install dependencies
-        uses: ramsey/composer-install@v2
+        uses: ./.github/actions/checkout
+      - name: Setup PHP
+        uses: ./.github/actions/php
       - name: Execute
         run: |
           vendor/bin/phpstan analyse

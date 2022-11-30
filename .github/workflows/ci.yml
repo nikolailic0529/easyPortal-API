@@ -11,34 +11,14 @@ permissions:
   contents: read
 
 jobs:
-  settings:
-    uses: ./.github/workflows/settings.yml
-
   phpcs:
     uses: ./.github/workflows/phpcs.yml
-    needs:
-      - settings
-    with:
-      php-version: ${{ needs.settings.outputs.php-latest }}
-      php-extensions: ${{ needs.settings.outputs.php-extensions }}
 
   phpstan:
     uses: ./.github/workflows/phpstan.yml
-    needs:
-      - settings
-    with:
-      php-version: ${{ needs.settings.outputs.php-latest }}
-      php-extensions: ${{ needs.settings.outputs.php-extensions }}
 
   phpunit:
     uses: ./.github/workflows/phpunit.yml
-    needs:
-      - settings
-      - phpstan
-      - phpcs
-    with:
-      php-versions: ${{ needs.settings.outputs.php-versions }}
-      php-extensions: ${{ needs.settings.outputs.php-extensions }}
 
   graphql:
     runs-on: ubuntu-latest
@@ -62,11 +42,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
       - name: Setup Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: 'lts/*'
-      - name: Install dependencies
-        run: npm ci
+        uses: ./.github/actions/node.js
       - name: Checkout previous
         uses: actions/checkout@v3
         with:
