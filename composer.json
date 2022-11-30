@@ -168,8 +168,8 @@
     ],
     "ci": [
       "@phpstan",
-      "@phpcs",
-      "@test"
+      "@test",
+      "@phpcs"
     ]
   }
 }
