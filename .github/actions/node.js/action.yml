@@ -9,4 +9,5 @@ runs:
       with:
         node-version: 'lts/*'
     - name: Install dependencies
+      shell: bash
       run: npm ci

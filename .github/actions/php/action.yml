@@ -25,6 +25,7 @@ runs:
         tools: cs2pr
 
     - name: Setup ENV
+      shell: bash
       run: |
         cp .github/default.env .env
 
