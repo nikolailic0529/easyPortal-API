@@ -1,0 +1,13 @@
+name: 'Install node.js'
+description: 'Install node.js and dependencies'
+
+runs:
+  using: composite
+  steps:
+    - name: Setup Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: 'lts/*'
+    - name: Install dependencies
+      shell: bash
+      run: npm ci
