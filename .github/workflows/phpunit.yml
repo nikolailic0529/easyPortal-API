@@ -51,7 +51,7 @@ jobs:
 
     steps:
       - name: Checkout
-        uses: ./.github/actions/checkout
+        uses: actions/checkout@v3
       - name: Setup Mysql
         run: |
           docker cp "${{ github.workspace }}/.github/mysql.cnf" mysql:/etc/my.cnf.d/github.cnf
