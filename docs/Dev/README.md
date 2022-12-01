@@ -19,9 +19,18 @@ The application is based on Laravel and Lighthouse. It is uses standard/referenc
 
 ## Key points
 
+### APIs
+
+We have two types of APIs:
+
+* GraphQL. It is one of the main parts of the application; It is based on Lighthouse with several directives which add required functionality;
+* REST. It has only a few endpoints and is mostly used to download files that is not possible through GraphQL;
+
+Both use standard `web` guard and middlewares.
+
 ### Dates
 
-Dates are immutable and use ISO 8601 format for serialization. 
+Dates are immutable and use ISO 8601 format for serialization. Application internal timezone is always `UTC`. GraphQL will also automatically convert incoming `DateTime` into the internal timezone, so you need to worry about it. Please note that `REST` doesn't convert `DateTime` yet.
 
 ### Input validation
 
