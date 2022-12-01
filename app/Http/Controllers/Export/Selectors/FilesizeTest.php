@@ -95,7 +95,7 @@ class FilesizeTest extends TestCase {
             ],
             'null'     => [
                 [
-                    3 => '0',
+                    3 => '0 B',
                 ],
                 3,
                 $selectors,

@@ -59,6 +59,10 @@ class AuditsTest extends TestCase {
                         object_type
                         object_id
                         object {
+                            ... on UserOrganization {
+                                organization_id
+                                __typename
+                            }
                             ... on ChangeRequest {
                                 id
                                 __typename
@@ -127,7 +131,7 @@ class AuditsTest extends TestCase {
                                 'id'              => '7004c31f-5ab7-4109-b03e-415f85c7702b',
                                 'user_id'         => '616ae5d8-3ef5-4603-ae1f-dfdb3d8d1929',
                                 'organization_id' => '6ad1293a-ba5c-459e-9b14-5dbbd09b415f',
-                                'action'          => 'auth.failed',
+                                'action'          => 'AuthFailed',
                                 'context'         => 'null',
                                 'object'          => [
                                     'id'         => '20a03c94-3f5b-46e5-8356-f0989f7aaf82',
@@ -141,7 +145,7 @@ class AuditsTest extends TestCase {
                                 'id'              => '80aff983-7fa5-468c-94ca-22b91ec6b23f',
                                 'user_id'         => '616ae5d8-3ef5-4603-ae1f-dfdb3d8d1929',
                                 'organization_id' => null,
-                                'action'          => 'auth.signedIn',
+                                'action'          => 'AuthSignedIn',
                                 'context'         => '{"key":"value"}',
                                 'object'          => [
                                     'id'         => '616ae5d8-3ef5-4603-ae1f-dfdb3d8d1929',
