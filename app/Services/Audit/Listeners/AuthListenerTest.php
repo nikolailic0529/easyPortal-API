@@ -130,7 +130,7 @@ class AuthListenerTest extends TestCase {
     /**
      * @covers ::__invoke
      */
-    public function testInvokeLogoutEvent(): void {
+    public function testInvokeLogoutEventUser(): void {
         $user  = User::factory()->make(['type' => UserType::local()]);
         $event = new Logout(__FUNCTION__, $user);
 
@@ -151,6 +151,24 @@ class AuthListenerTest extends TestCase {
                 )
                 ->once()
                 ->andReturns();
+        });
+
+        $listener = $this->app->make(AuthListener::class);
+
+        $listener($event);
+    }
+
+    /**
+     * @covers ::__invoke
+     */
+    public function testInvokeLogoutEventGuest(): void {
+        /** @phpstan-ignore-next-line `$user` can be `null` */
+        $event = new Logout(__FUNCTION__, null);
+
+        $this->override(Auditor::class, static function (MockInterface $mock): void {
+            $mock
+                ->shouldReceive('create')
+                ->never();
         });
 
         $listener = $this->app->make(AuthListener::class);

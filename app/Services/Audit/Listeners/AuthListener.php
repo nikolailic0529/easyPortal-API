@@ -39,10 +39,14 @@ class AuthListener extends Listener {
             $action  = Action::authSignedIn();
             $context = new SignIn($event->guard, $event->remember);
         } elseif ($event instanceof Logout) {
-            $org     = $this->getUserOrganization($event->user);
-            $user    = $event->user;
-            $action  = Action::authSignedOut();
-            $context = new SignOut($event->guard);
+            // Guest can call sign out too (it may be useful to recreate session).
+            // Anyway, in this case there are no reasons to record the event.
+            if ($event->user !== null) {
+                $org     = $this->getUserOrganization($event->user);
+                $user    = $event->user;
+                $action  = Action::authSignedOut();
+                $context = new SignOut($event->guard);
+            }
         } elseif ($event instanceof Failed) {
             // There are no guarantees that the User will be signed out and/or
             // that the Current Organization will be reset after signing out.
@@ -61,7 +65,9 @@ class AuthListener extends Listener {
             throw new LogicException('Unknown event O_O');
         }
 
-        $this->auditor->create($org, $action, null, $context, $user);
+        if ($action) {
+            $this->auditor->create($org, $action, null, $context, $user);
+        }
     }
 
     protected function getUserOrganization(Authenticatable $user): OrganizationProvider|Organization|string|null {
