@@ -28,7 +28,7 @@ class ValidationRulesProvider extends LighthouseValidationRulesProvider {
             ? DisableIntrospection::ENABLED
             : DisableIntrospection::DISABLED;
 
-        return array_merge($rules, [
+        return array_merge((array) $rules, [
             DisableIntrospection::class => new DisableIntrospection($enabled),
         ]);
     }

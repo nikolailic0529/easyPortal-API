@@ -19,7 +19,7 @@ class AssetsSynchronizer extends Synchronizer {
     }
 
     protected function getProcessor(SynchronizerState $state): MixedProcessor {
-        return $this->getContainer()->make(Importer::class);
+        return $this->getContainer()->make(Importer::class)->setFrom($state->from);
     }
 
     protected function getOutdatedProcessor(SynchronizerState $state, MixedIterator $iterator): MixedProcessor {

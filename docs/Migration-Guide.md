@@ -45,7 +45,32 @@ EOT
 sudo systemctl stop elasticsearch.service
 
 sudo yum install --enablerepo=elasticsearch elasticsearch
+```
 
+#### Check Settings
+
+```yaml
+# /etc/elasticsearch/elasticsearch.yml
+# For single node
+discovery.type: single-node
+discovery.seed_hosts: [ ]
+
+# Following settings should be commented
+#cluster.initial_master_nodes: ["ep-staging"]
+#http.host: 0.0.0.0
+#transport.host: 0.0.0.0
+
+# SSL is not yet supported by the Application, please make sure that it is disabled.
+xpack.security.http.ssl:
+    enabled: false
+
+xpack.security.transport.ssl:
+    enabled: false
+```
+
+#### Enable & Start
+
+```shell
 sudo systemctl daemon-reload
 sudo systemctl enable elasticsearch.service
 sudo systemctl start elasticsearch.service

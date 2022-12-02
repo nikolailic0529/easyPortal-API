@@ -20,8 +20,8 @@ abstract class ObjectsSync extends ProcessorCommand {
     protected function getCommandSignature(array $signature): array {
         return array_merge(parent::getCommandSignature($signature), [
             '{--from= : Start processing from given DateTime/DateInterval}',
-            '{--outdated : Process outdated ${objects} (default)}',
-            '{--no-outdated : Do not process outdated ${objects}}',
+            '{--outdated : Process outdated ${objects}}',
+            '{--no-outdated : Do not process outdated ${objects} (default)}',
             '{--outdated-limit= : Maximum number of outdated ${objects} to process (default "all")}',
             '{--outdated-expire= : DateTime/DateInterval when ${object} become outdated (default "now")}',
         ]);
@@ -29,7 +29,7 @@ abstract class ObjectsSync extends ProcessorCommand {
 
     protected function process(Formatter $formatter, Processor $processor): int {
         $from           = $this->getDateTimeOption('from');
-        $outdated       = $this->getBoolOption('outdated', true);
+        $outdated       = $this->getBoolOption('outdated', false);
         $outdatedLimit  = $this->getIntOption('outdated-limit');
         $outdatedExpire = $this->getDateTimeOption('outdated-expire');
         $processor      = $processor
