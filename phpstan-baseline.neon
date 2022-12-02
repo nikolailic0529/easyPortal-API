@@ -1466,11 +1466,6 @@ parameters:
 			path: app/GraphQL/Provider.php
 
 		-
-			message: "#^Parameter \\#1 \\.\\.\\.\\$arrays of function array_merge expects array, array\\<string, GraphQL\\\\Validator\\\\Rules\\\\ValidationRule\\>\\|null given\\.$#"
-			count: 1
-			path: app/GraphQL/Providers/ValidationRulesProvider.php
-
-		-
 			message: "#^Cannot access offset string on mixed\\.$#"
 			count: 2
 			path: app/GraphQL/Queries/Administration/AuditContext.php
