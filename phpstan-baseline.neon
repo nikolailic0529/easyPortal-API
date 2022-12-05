@@ -4126,11 +4126,6 @@ parameters:
 			path: app/Services/Logger/Listeners/QueueListener.php
 
 		-
-			message: "#^Property App\\\\Services\\\\Logger\\\\Listeners\\\\QueueListener\\:\\:\\$stopped with generic class WeakMap does not specify its types\\: TKey, TValue$#"
-			count: 1
-			path: app/Services/Logger/Listeners/QueueListener.php
-
-		-
 			message: "#^Parameter \\#1 \\$object_or_class of function is_a expects object\\|string, mixed given\\.$#"
 			count: 1
 			path: app/Services/Logger/Listeners/QueueObject.php
@@ -4421,32 +4416,7 @@ parameters:
 			path: app/Services/Queue/Queue.php
 
 		-
-			message: "#^Negated boolean expression is always false\\.$#"
-			count: 1
-			path: app/Services/Queue/Queue.php
-
-		-
-			message: "#^Only numeric types are allowed in \\+, int\\<0, max\\>\\|null given on the left side\\.$#"
-			count: 1
-			path: app/Services/Queue/Queue.php
-
-		-
 			message: "#^Parameter \\#1 \\$afterIndex of method Laravel\\\\Horizon\\\\Contracts\\\\JobRepository\\:\\:getPending\\(\\) expects string\\|null, int\\<0, max\\>\\|null given\\.$#"
-			count: 1
-			path: app/Services/Queue/Queue.php
-
-		-
-			message: "#^Parameter \\#1 \\$job of method App\\\\Services\\\\Queue\\\\Queue\\:\\:isStopped\\(\\) expects LastDragon_ru\\\\LaraASP\\\\Queue\\\\Queueables\\\\Job, LastDragon_ru\\\\LaraASP\\\\Queue\\\\Queueables\\\\Job\\|null given\\.$#"
-			count: 1
-			path: app/Services/Queue/Queue.php
-
-		-
-			message: "#^Parameter \\#1 \\$name of class App\\\\Services\\\\Queue\\\\JobState constructor expects string, string\\|null given\\.$#"
-			count: 1
-			path: app/Services/Queue/Queue.php
-
-		-
-			message: "#^Parameter \\#1 \\$names of method App\\\\Services\\\\Queue\\\\Queue\\:\\:getStatesFromLogsActive\\(\\) expects Illuminate\\\\Support\\\\Collection\\<int, string\\>, Illuminate\\\\Support\\\\Collection\\<int, int\\> given\\.$#"
 			count: 1
 			path: app/Services/Queue/Queue.php
 
@@ -4461,27 +4431,17 @@ parameters:
 			path: app/Services/Queue/Queue.php
 
 		-
-			message: "#^Parameter \\#2 \\$id of class App\\\\Services\\\\Queue\\\\JobState constructor expects string, string\\|null given\\.$#"
-			count: 1
-			path: app/Services/Queue/Queue.php
-
-		-
-			message: "#^Parameter \\#2 \\$id of method App\\\\Services\\\\Queue\\\\Queue\\:\\:isStopped\\(\\) expects string, string\\|null given\\.$#"
-			count: 1
-			path: app/Services/Queue/Queue.php
-
-		-
 			message: "#^Parameter \\#1 \\$jobs of method class@anonymous/app/Services/Queue/QueueTest\\.php\\:200\\:\\:getStatesFromHorizon\\(\\) expects Illuminate\\\\Support\\\\Collection\\<string, LastDragon_ru\\\\LaraASP\\\\Queue\\\\Queueables\\\\Job\\>, Illuminate\\\\Support\\\\Collection\\<\\(int\\|string\\), App\\\\Services\\\\Queue\\\\Contracts\\\\Stoppable&LastDragon_ru\\\\LaraASP\\\\Queue\\\\Queueables\\\\Job&Mockery\\\\MockInterface\\> given\\.$#"
 			count: 1
 			path: app/Services/Queue/QueueTest.php
 
 		-
-			message: "#^Parameter \\#1 \\$jobs of method class@anonymous/app/Services/Queue/QueueTest\\.php\\:321\\:\\:getStatesFromLogs\\(\\) expects Illuminate\\\\Support\\\\Collection\\<int, LastDragon_ru\\\\LaraASP\\\\Queue\\\\Queueables\\\\Job\\>, Illuminate\\\\Support\\\\Collection\\<\\(int\\|string\\), App\\\\Services\\\\Queue\\\\Contracts\\\\Stoppable&LastDragon_ru\\\\LaraASP\\\\Queue\\\\Queueables\\\\Job&Mockery\\\\MockInterface\\> given\\.$#"
+			message: "#^Parameter \\#1 \\$jobs of method class@anonymous/app/Services/Queue/QueueTest\\.php\\:321\\:\\:getStatesFromLogs\\(\\) expects Illuminate\\\\Support\\\\Collection\\<string, LastDragon_ru\\\\LaraASP\\\\Queue\\\\Queueables\\\\Job\\>, Illuminate\\\\Support\\\\Collection\\<\\(int\\|string\\), App\\\\Services\\\\Queue\\\\Contracts\\\\Stoppable&LastDragon_ru\\\\LaraASP\\\\Queue\\\\Queueables\\\\Job&Mockery\\\\MockInterface\\> given\\.$#"
 			count: 1
 			path: app/Services/Queue/QueueTest.php
 
 		-
-			message: "#^Parameter \\#1 \\$jobs of method class@anonymous/app/Services/Queue/QueueTest\\.php\\:400\\:\\:getStatesFromLogs\\(\\) expects Illuminate\\\\Support\\\\Collection\\<int, LastDragon_ru\\\\LaraASP\\\\Queue\\\\Queueables\\\\Job\\>, Illuminate\\\\Support\\\\Collection\\<\\(int\\|string\\), App\\\\Services\\\\Queue\\\\Contracts\\\\Stoppable&LastDragon_ru\\\\LaraASP\\\\Queue\\\\Queueables\\\\Job&Mockery\\\\MockInterface\\> given\\.$#"
+			message: "#^Parameter \\#1 \\$jobs of method class@anonymous/app/Services/Queue/QueueTest\\.php\\:400\\:\\:getStatesFromLogs\\(\\) expects Illuminate\\\\Support\\\\Collection\\<string, LastDragon_ru\\\\LaraASP\\\\Queue\\\\Queueables\\\\Job\\>, Illuminate\\\\Support\\\\Collection\\<\\(int\\|string\\), App\\\\Services\\\\Queue\\\\Contracts\\\\Stoppable&LastDragon_ru\\\\LaraASP\\\\Queue\\\\Queueables\\\\Job&Mockery\\\\MockInterface\\> given\\.$#"
 			count: 1
 			path: app/Services/Queue/QueueTest.php
 

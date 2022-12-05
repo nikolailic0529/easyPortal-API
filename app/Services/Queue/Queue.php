@@ -155,7 +155,7 @@ class Queue {
         do {
             /** @var array<QueueJob> $jobs */
             $jobs   = $this->repository->getPending($offset);
-            $offset = $offset + count($jobs);
+            $offset = (int) $offset + count($jobs);
 
             foreach ($jobs as $job) {
                 yield $job->id => $job;
@@ -195,7 +195,7 @@ class Queue {
     }
 
     /**
-     * @param Collection<int, Job> $jobs
+     * @param Collection<string, Job> $jobs
      *
      * @return Generator<JobState>
      */
@@ -204,10 +204,8 @@ class Queue {
         // pending list but it may still run. Thus we should also check our
         // logs to make sure that the state is correct.
 
-        // Jobs to check
-        $names = $jobs->keys();
-
-        if (!$names) {
+        // Empty?
+        if ($jobs->isEmpty()) {
             yield from [];
         }
 
@@ -215,6 +213,7 @@ class Queue {
         $key     = static function (Log $log): string {
             return "{$log->object_type}#{$log->object_id}";
         };
+        $names   = $jobs->keys();
         $logs    = $this->getStatesFromLogsActive($names);
         $pending = $this->getStatesFromLogsDispatched($logs)->keyBy($key);
 
@@ -223,12 +222,16 @@ class Queue {
             $id   = $log->object_id;
             $name = $log->object_type;
 
+            if ($name === null || $id === null) {
+                continue;
+            }
+
             // Return
             yield new JobState(
                 $name,
                 $id,
                 true,
-                $this->isStopped($jobs[$name], $id),
+                isset($jobs[$name]) && $this->isStopped($jobs[$name], $id),
                 $pending[$key($log)]->created_at ?? null,
                 $log->created_at,
             );
