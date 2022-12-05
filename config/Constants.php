@@ -277,11 +277,12 @@ interface Constants {
      * to huge memory usage or even fail.
      *
      * The setting allows to enable Telescope when the total of items is known
-     * and less than the setting value.
+     * and less than the setting value. Value `0` disable the limit but not
+     * recommended.
      */
     #[Setting('ep.telescope.processor.limit')]
     #[Group('telescope')]
-    public const EP_TELESCOPE_PROCESSOR_LIMIT = 500;
+    public const EP_TELESCOPE_PROCESSOR_LIMIT = -1;
     // </editor-fold>
 
     // <editor-fold desc="EP">
