@@ -16,6 +16,7 @@ use Throwable;
 
 use function array_fill;
 use function array_map;
+use function ceil;
 use function count;
 use function range;
 
@@ -166,7 +167,13 @@ class CompositeProcessorTest extends TestCase {
             ->once();
         $onChange
             ->shouldHaveBeenCalled()
-            ->times(count($operations));
+            ->times(
+                0
+                + count($operations)
+                + (int) ceil($countA / $chunk)
+                + (int) ceil($countB / $chunk)
+                + (int) ceil($countC / $chunk),
+            );
         $onFinish
             ->shouldHaveBeenCalled()
             ->once();
@@ -252,7 +259,7 @@ class CompositeProcessorTest extends TestCase {
             ->once();
         $onChange
             ->shouldHaveBeenCalled()
-            ->times(1);
+            ->times(2);
         $onFinish
             ->shouldNotHaveBeenCalled();
         $onProcess
