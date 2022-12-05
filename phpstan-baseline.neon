@@ -5181,11 +5181,6 @@ parameters:
 			path: app/Services/Settings/Validation/SettingValueTest.php
 
 		-
-			message: "#^Left side of && is always true\\.$#"
-			count: 1
-			path: app/Services/Tokens/OAuth2Token.php
-
-		-
 			message: "#^Cannot cast mixed to string\\.$#"
 			count: 1
 			path: app/Utils/Cache/CacheKey.php
@@ -5544,6 +5539,11 @@ parameters:
 			message: "#^Parameter \\#1 \\$chunk of method App\\\\Utils\\\\Processor\\\\Processor\\<mixed,mixed,App\\\\Utils\\\\Processor\\\\State\\>\\:\\:setChunkSize\\(\\) expects int\\|null, mixed given\\.$#"
 			count: 1
 			path: app/Utils/Processor/ProcessorTest.php
+
+		-
+			message: "#^Method App\\\\Utils\\\\Processor\\\\ServiceStore\\:\\:get\\(\\) should return array\\<string, mixed\\>\\|null but returns array\\|null\\.$#"
+			count: 1
+			path: app/Utils/Processor/ServiceStore.php
 
 		-
 			message: "#^Property Illuminate\\\\Validation\\\\Validator\\:\\:\\$currentRule \\(string\\) in isset\\(\\) is not nullable\\.$#"
