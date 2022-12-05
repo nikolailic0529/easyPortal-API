@@ -64,6 +64,8 @@ abstract class CompositeProcessor extends Processor {
 
                 $synchronize($current);
 
+                $this->notifyOnChange($state);
+
                 if ($this->isStopped()) {
                     $processor->stop();
                 }
