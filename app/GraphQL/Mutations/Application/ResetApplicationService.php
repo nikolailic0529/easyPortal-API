@@ -3,7 +3,7 @@
 namespace App\GraphQL\Mutations\Application;
 
 use App\Services\Queue\Queue;
-use App\Services\Queue\ServiceResolver;
+use App\Services\Queue\Utils\ServiceResolver;
 
 class ResetApplicationService {
     public function __construct(
@@ -14,12 +14,12 @@ class ResetApplicationService {
     }
 
     /**
-     * @param array<string, mixed> $args
+     * @param array{input:array{name: string}} $args
      *
-     * @return array{setting: array<mixed>}
+     * @return array{result: bool}
      */
     public function __invoke(mixed $root, array $args): array {
-        $service = $this->resolver->get($args['input']['name'] ?? '');
+        $service = $this->resolver->get($args['input']['name']);
         $result  = $this->queue->resetProgress($service);
 
         return [

@@ -3,7 +3,7 @@
 namespace App\Services\Queue\Concerns;
 
 use App\Services\Queue\Exceptions\JobStopped as JobStoppedException;
-use App\Services\Queue\Pinger;
+use App\Services\Queue\Utils\Pinger;
 use Illuminate\Contracts\Container\Container;
 use Illuminate\Contracts\Queue\Job;
 use Illuminate\Queue\InteractsWithQueue;

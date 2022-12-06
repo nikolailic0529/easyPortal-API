@@ -625,7 +625,7 @@ abstract class Processor implements ProcessorContract, MixedProcessor {
                     // is finished. For long-running jobs, this will lead to
                     // huge memory usage and/or fail.
 
-                    if ($limit === null || ($limit > 0 && $state->total !== null && $state->total <= $limit)) {
+                    if ($limit === 0 || ($limit > 0 && $state->total !== null && $state->total <= $limit)) {
                         $result = $callback();
                     } else {
                         Telescope::withoutRecording(static function () use (&$result, $callback): void {

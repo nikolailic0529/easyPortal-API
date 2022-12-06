@@ -1,9 +1,12 @@
 <?php declare(strict_types = 1);
 
-namespace App\Services\Queue;
+namespace App\Services\Queue\Utils;
 
+use App\Services\Queue\CronJob;
 use App\Services\Queue\Events\JobStopped as JobStoppedEvent;
 use App\Services\Queue\Exceptions\JobStopped;
+use App\Services\Queue\Job;
+use App\Services\Queue\Queue;
 use Illuminate\Contracts\Events\Dispatcher;
 use Illuminate\Contracts\Queue\Job as QueueJob;
 use Illuminate\Contracts\Redis\Connection;
@@ -16,7 +19,7 @@ use Tests\TestCase;
 
 /**
  * @internal
- * @coversDefaultClass \App\Services\Queue\Pinger
+ * @coversDefaultClass \App\Services\Queue\Utils\Pinger
  */
 class PingerTest extends TestCase {
     // <editor-fold desc="Tests">
@@ -29,6 +32,7 @@ class PingerTest extends TestCase {
      * @param class-string<CronJob|Job> $class
      */
     public function testPing(string $class): void {
+        $mock   = Mockery::mock($class);
         $pinger = Mockery::mock(Pinger::class);
         $pinger->shouldAllowMockingProtectedMethods();
         $pinger->makePartial();
@@ -39,7 +43,9 @@ class PingerTest extends TestCase {
             ->shouldReceive('prolong')
             ->once();
 
-        $pinger->ping(Mockery::mock($class));
+        self::assertTrue($mock instanceof Job || $mock instanceof CronJob);
+
+        $pinger->ping($mock);
     }
 
     /**
@@ -54,23 +60,17 @@ class PingerTest extends TestCase {
         Event::fake(JobStoppedEvent::class);
 
         // Mocks
-        $uuid     = $this->faker->uuid();
         $queueJob = Mockery::mock(QueueJob::class);
-        $queueJob
-            ->shouldReceive('getJobId')
-            ->once()
-            ->andReturn($uuid);
-
-        $job = Mockery::mock($class);
+        $job      = Mockery::mock($class);
         $job
             ->shouldReceive('getJob')
-            ->twice()
+            ->once()
             ->andReturn($queueJob);
 
         $service = Mockery::mock(Queue::class);
         $service
             ->shouldReceive('isStopped')
-            ->with($job, $uuid)
+            ->with($job)
             ->once()
             ->andReturn(true);
 
@@ -79,6 +79,7 @@ class PingerTest extends TestCase {
 
         // Test
         self::expectException(JobStopped::class);
+        self::assertTrue($job instanceof Job || $job instanceof CronJob);
 
         try {
             $pinger->ping($job);
@@ -151,6 +152,8 @@ class PingerTest extends TestCase {
         $pinger->shouldAllowMockingProtectedMethods();
         $pinger->makePartial();
 
+        self::assertTrue($job instanceof Job || $job instanceof CronJob);
+
         $pinger->prolong($job);
     }
 
@@ -172,6 +175,8 @@ class PingerTest extends TestCase {
         $pinger = Mockery::mock(Pinger::class);
         $pinger->shouldAllowMockingProtectedMethods();
         $pinger->makePartial();
+
+        self::assertTrue($job instanceof Job || $job instanceof CronJob);
 
         $pinger->prolong($job);
     }

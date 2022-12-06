@@ -3,6 +3,7 @@
 namespace App\Services\Queue\Contracts;
 
 use App\Utils\Cache\CacheKeyable;
+use Illuminate\Contracts\Queue\Job;
 
 /**
  * Mark that Job can handle "stop" requests (realization must be provided by the job).
@@ -10,5 +11,5 @@ use App\Utils\Cache\CacheKeyable;
  * @see \App\Services\Queue\Concerns\PingableJob
  */
 interface Stoppable extends CacheKeyable {
-    // empty
+    public function getJob(): Job;
 }

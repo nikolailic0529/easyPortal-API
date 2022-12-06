@@ -3,7 +3,6 @@
 namespace Config;
 
 use App\CacheStores;
-use App\Queues;
 use App\Services\DataLoader\Queue\Jobs\AssetsImporter;
 use App\Services\DataLoader\Queue\Jobs\AssetsSynchronizer;
 use App\Services\DataLoader\Queue\Jobs\CustomersImporter;
@@ -31,13 +30,11 @@ use App\Services\Search\Queue\Jobs\CustomersIndexer as SearchCustomersIndexer;
 use App\Services\Search\Queue\Jobs\DocumentsIndexer as SearchDocumentsIndexer;
 use App\Services\Settings\Attributes\Group;
 use App\Services\Settings\Attributes\Internal;
-use App\Services\Settings\Attributes\Job;
 use App\Services\Settings\Attributes\PublicName;
 use App\Services\Settings\Attributes\Secret;
 use App\Services\Settings\Attributes\Service;
 use App\Services\Settings\Attributes\Setting;
 use App\Services\Settings\Attributes\Type;
-use App\Services\Settings\Jobs\ConfigUpdate;
 use App\Services\Settings\Types\BooleanType;
 use App\Services\Settings\Types\CronExpression;
 use App\Services\Settings\Types\DateTime;
@@ -277,11 +274,12 @@ interface Constants {
      * to huge memory usage or even fail.
      *
      * The setting allows to enable Telescope when the total of items is known
-     * and less than the setting value.
+     * and less than the setting value. Value `0` disable the limit but not
+     * recommended. The `null` or any value below `0` will disable Telescope.
      */
     #[Setting('ep.telescope.processor.limit')]
     #[Group('telescope')]
-    public const EP_TELESCOPE_PROCESSOR_LIMIT = 500;
+    public const EP_TELESCOPE_PROCESSOR_LIMIT = -1;
     // </editor-fold>
 
     // <editor-fold desc="EP">
@@ -833,14 +831,6 @@ interface Constants {
     #[Group('keycloak')]
     #[Type(CronExpression::class)]
     public const EP_KEYCLOAK_PERMISSIONS_SYNCHRONIZER_CRON = '0 0 * * *';
-
-    /**
-     * Queue name.
-     */
-    #[Service(PermissionsSynchronizer::class, 'queue')]
-    #[Group('keycloak')]
-    #[Internal]
-    public const EP_KEYCLOAK_PERMISSIONS_SYNCHRONIZER_QUEUE = Queues::KEYCLOAK;
     // </editor-fold>
 
     // <editor-fold desc="EP_KEYCLOAK_USERS_SYNCHRONIZER">
@@ -861,14 +851,6 @@ interface Constants {
     public const EP_KEYCLOAK_USERS_SYNCHRONIZER_CRON = '0 0 * * *';
 
     /**
-     * Queue name.
-     */
-    #[Service(UsersSynchronizer::class, 'queue')]
-    #[Group('keycloak')]
-    #[Internal]
-    public const EP_KEYCLOAK_USERS_SYNCHRONIZER_QUEUE = Queues::KEYCLOAK;
-
-    /**
      * Chunk size.
      */
     #[Service(UsersSynchronizer::class, 'settings.chunk')]
@@ -877,20 +859,6 @@ interface Constants {
     public const EP_KEYCLOAK_USERS_SYNCHRONIZER_CHUNK = 100;
     // </editor-fold>
 
-    // </editor-fold>
-
-    // <editor-fold desc="EP_SETTINGS">
-    // =========================================================================
-    // <editor-fold desc="EP_SETTINGS_CONFIG_UPDATE">
-    // -------------------------------------------------------------------------
-    /**
-     * Queue name.
-     */
-    #[Job(ConfigUpdate::class, 'queue')]
-    #[Group('ep')]
-    #[Internal]
-    public const EP_SETTINGS_CONFIG_UPDATE_QUEUE = Queues::SETTINGS;
-    // </editor-fold>
     // </editor-fold>
 
     // <editor-fold desc="EP_LOGGER">
@@ -1031,14 +999,6 @@ interface Constants {
     public const EP_DATA_LOADER_RESELLERS_IMPORTER_CRON = '0 0 * * *';
 
     /**
-     * Queue name.
-     */
-    #[Service(ResellersImporter::class, 'queue')]
-    #[Group('data_loader')]
-    #[Internal]
-    public const EP_DATA_LOADER_RESELLERS_IMPORTER_QUEUE = Queues::DATA_LOADER;
-
-    /**
      * Number of seconds the job can run.
      */
     #[Service(ResellersImporter::class, 'timeout')]
@@ -1079,14 +1039,6 @@ interface Constants {
     #[Group('data_loader')]
     #[Type(CronExpression::class)]
     public const EP_DATA_LOADER_RESELLERS_SYNCHRONIZER_CRON = '15 0 * * *';
-
-    /**
-     * Queue name.
-     */
-    #[Service(ResellersSynchronizer::class, 'queue')]
-    #[Group('data_loader')]
-    #[Internal]
-    public const EP_DATA_LOADER_RESELLERS_SYNCHRONIZER_QUEUE = Queues::DATA_LOADER;
 
     /**
      * Number of seconds the job can run.
@@ -1163,14 +1115,6 @@ interface Constants {
     public const EP_DATA_LOADER_CUSTOMERS_IMPORTER_CRON = '0 0 * * *';
 
     /**
-     * Queue name.
-     */
-    #[Service(CustomersImporter::class, 'queue')]
-    #[Group('data_loader')]
-    #[Internal]
-    public const EP_DATA_LOADER_CUSTOMERS_IMPORTER_QUEUE = Queues::DATA_LOADER;
-
-    /**
      * Number of seconds the job can run.
      */
     #[Service(CustomersImporter::class, 'timeout')]
@@ -1211,14 +1155,6 @@ interface Constants {
     #[Group('data_loader')]
     #[Type(CronExpression::class)]
     public const EP_DATA_LOADER_CUSTOMERS_SYNCHRONIZER_CRON = '30 0 * * *';
-
-    /**
-     * Queue name.
-     */
-    #[Service(CustomersSynchronizer::class, 'queue')]
-    #[Group('data_loader')]
-    #[Internal]
-    public const EP_DATA_LOADER_CUSTOMERS_SYNCHRONIZER_QUEUE = Queues::DATA_LOADER;
 
     /**
      * Number of seconds the job can run.
@@ -1295,14 +1231,6 @@ interface Constants {
     public const EP_DATA_LOADER_ASSETS_IMPORTER_CRON = '0 0 * * *';
 
     /**
-     * Queue name.
-     */
-    #[Service(AssetsImporter::class, 'queue')]
-    #[Group('data_loader')]
-    #[Internal]
-    public const EP_DATA_LOADER_ASSETS_IMPORTER_QUEUE = Queues::DATA_LOADER;
-
-    /**
      * Number of seconds the job can run.
      */
     #[Service(AssetsImporter::class, 'timeout')]
@@ -1341,14 +1269,6 @@ interface Constants {
     #[Group('data_loader')]
     #[Type(CronExpression::class)]
     public const EP_DATA_LOADER_ASSETS_SYNCHRONIZER_CRON = '0 1 * * *';
-
-    /**
-     * Queue name.
-     */
-    #[Service(AssetsSynchronizer::class, 'queue')]
-    #[Group('data_loader')]
-    #[Internal]
-    public const EP_DATA_LOADER_ASSETS_SYNCHRONIZER_QUEUE = Queues::DATA_LOADER;
 
     /**
      * Number of seconds the job can run.
@@ -1423,14 +1343,6 @@ interface Constants {
     public const EP_DATA_LOADER_DISTRIBUTORS_IMPORTER_CRON = '0 0 * * *';
 
     /**
-     * Queue name.
-     */
-    #[Service(DistributorsImporter::class, 'queue')]
-    #[Group('data_loader')]
-    #[Internal]
-    public const EP_DATA_LOADER_DISTRIBUTORS_IMPORTER_QUEUE = Queues::DATA_LOADER;
-
-    /**
      * Number of seconds the job can run.
      */
     #[Service(DistributorsImporter::class, 'timeout')]
@@ -1471,14 +1383,6 @@ interface Constants {
     #[Group('data_loader')]
     #[Type(CronExpression::class)]
     public const EP_DATA_LOADER_DISTRIBUTORS_SYNCHRONIZER_CRON = '0 0 * * *';
-
-    /**
-     * Queue name.
-     */
-    #[Service(DistributorsSynchronizer::class, 'queue')]
-    #[Group('data_loader')]
-    #[Internal]
-    public const EP_DATA_LOADER_DISTRIBUTORS_SYNCHRONIZER_QUEUE = Queues::DATA_LOADER;
 
     /**
      * Number of seconds the job can run.
@@ -1555,14 +1459,6 @@ interface Constants {
     public const EP_DATA_LOADER_DOCUMENTS_IMPORTER_CRON = '0 0 * * *';
 
     /**
-     * Queue name.
-     */
-    #[Service(DocumentsImporter::class, 'queue')]
-    #[Group('data_loader')]
-    #[Internal]
-    public const EP_DATA_LOADER_DOCUMENTS_IMPORTER_QUEUE = Queues::DATA_LOADER;
-
-    /**
      * Number of seconds the job can run.
      */
     #[Service(DocumentsImporter::class, 'timeout')]
@@ -1601,14 +1497,6 @@ interface Constants {
     #[Group('data_loader')]
     #[Type(CronExpression::class)]
     public const EP_DATA_LOADER_DOCUMENTS_SYNCHRONIZER_CRON = '0 2 * * *';
-
-    /**
-     * Queue name.
-     */
-    #[Service(DocumentsSynchronizer::class, 'queue')]
-    #[Group('data_loader')]
-    #[Internal]
-    public const EP_DATA_LOADER_DOCUMENTS_SYNCHRONIZER_QUEUE = Queues::DATA_LOADER;
 
     /**
      * Number of seconds the job can run.
@@ -1745,14 +1633,6 @@ interface Constants {
     public const EP_SEARCH_CUSTOMERS_UPDATER_CRON = '0 0 1 * *';
 
     /**
-     * Queue name.
-     */
-    #[Service(SearchCustomersIndexer::class, 'queue')]
-    #[Group('search')]
-    #[Internal]
-    public const EP_SEARCH_CUSTOMERS_UPDATER_QUEUE = Queues::SEARCH;
-
-    /**
      * Number of seconds the job can run.
      */
     #[Service(SearchCustomersIndexer::class, 'timeout')]
@@ -1779,14 +1659,6 @@ interface Constants {
     public const EP_SEARCH_DOCUMENTS_UPDATER_CRON = '0 0 1 * *';
 
     /**
-     * Queue name.
-     */
-    #[Service(SearchDocumentsIndexer::class, 'queue')]
-    #[Group('search')]
-    #[Internal]
-    public const EP_SEARCH_DOCUMENTS_UPDATER_QUEUE = Queues::SEARCH;
-
-    /**
      * Number of seconds the job can run.
      */
     #[Service(SearchDocumentsIndexer::class, 'timeout')]
@@ -1811,14 +1683,6 @@ interface Constants {
     #[Group('search')]
     #[Type(CronExpression::class)]
     public const EP_SEARCH_ASSETS_UPDATER_CRON = '0 0 1 * *';
-
-    /**
-     * Queue name.
-     */
-    #[Service(SearchAssetsIndexer::class, 'queue')]
-    #[Group('search')]
-    #[Internal]
-    public const EP_SEARCH_ASSETS_UPDATER_QUEUE = Queues::SEARCH;
 
     /**
      * Number of seconds the job can run.
@@ -1899,14 +1763,6 @@ interface Constants {
     #[Group('maintenance')]
     #[Type(CronExpression::class)]
     public const EP_MAINTENANCE_START_CRON = '0 0 1 1 *';
-
-    /**
-     * Queue name.
-     */
-    #[Service(MaintenanceStartCronJob::class, 'queue')]
-    #[Group('maintenance')]
-    #[Internal]
-    public const EP_MAINTENANCE_START_QUEUE = Queues::DEFAULT;
     // </editor-fold>
 
     // <editor-fold desc="EP_MAINTENANCE_DISABLE">
@@ -1925,14 +1781,6 @@ interface Constants {
     #[Group('maintenance')]
     #[Type(CronExpression::class)]
     public const EP_MAINTENANCE_COMPLETE_CRON = '0 0 1 1 *';
-
-    /**
-     * Queue name.
-     */
-    #[Service(MaintenanceCompleteCronJob::class, 'queue')]
-    #[Group('maintenance')]
-    #[Internal]
-    public const EP_MAINTENANCE_COMPLETE_QUEUE = Queues::DEFAULT;
     // </editor-fold>
 
     // <editor-fold desc="EP_MAINTENANCE_NOTIFY">
@@ -1951,14 +1799,6 @@ interface Constants {
     #[Group('maintenance')]
     #[Type(CronExpression::class)]
     public const EP_MAINTENANCE_NOTIFY_CRON = '0 0 1 1 *';
-
-    /**
-     * Queue name.
-     */
-    #[Service(MaintenanceNotifyCronJob::class, 'queue')]
-    #[Group('maintenance')]
-    #[Internal]
-    public const EP_MAINTENANCE_NOTIFY_QUEUE = Queues::DEFAULT;
     // </editor-fold>
 
     // <editor-fold desc="EP_MAINTENANCE_TELESCOPE_CLEANER">
@@ -1977,14 +1817,6 @@ interface Constants {
     #[Group('maintenance')]
     #[Type(CronExpression::class)]
     public const EP_MAINTENANCE_TELESCOPE_CLEANER_CRON = '0 0 * * *';
-
-    /**
-     * Queue name.
-     */
-    #[Service(MaintenanceTelescopeCleaner::class, 'queue')]
-    #[Group('maintenance')]
-    #[Internal]
-    public const EP_MAINTENANCE_TELESCOPE_CLEANER_QUEUE = Queues::DEFAULT;
 
     /**
      * Expiration interval.

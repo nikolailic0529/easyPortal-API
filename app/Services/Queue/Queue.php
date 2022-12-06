@@ -45,8 +45,12 @@ class Queue {
         return $this->container;
     }
 
-    public function isStopped(Job $job, string $id): bool {
-        return $job instanceof Stoppable && $this->stop->exists($job, $id);
+    public function isStopped(?Job $job): bool {
+        // Depending on Horizon `trim` settings the job can be removed from the
+        // pending list but it may still run. In this case, `$job` will `null`,
+        // and, unfortunately, I'm not sure how we should handle this case.
+        return $job instanceof Stoppable
+            && $this->stop->isMarked($job);
     }
 
     /**
@@ -57,22 +61,8 @@ class Queue {
      * stopped.
      */
     public function stop(Job $job, string $id = null): bool {
-        // Possible?
-        if (!$job instanceof Stoppable) {
-            return false;
-        }
-
-        // Stop
-        if ($id) {
-            $this->stop->set($job, $id);
-        } else {
-            foreach ($this->getState($job) as $state) {
-                $this->stop->set($job, $state->id);
-            }
-        }
-
-        // Return
-        return true;
+        return $job instanceof Stoppable
+            && $this->stop->mark($job, $id);
     }
 
     public function getName(Job $job): string {
@@ -155,7 +145,7 @@ class Queue {
         do {
             /** @var array<QueueJob> $jobs */
             $jobs   = $this->repository->getPending($offset);
-            $offset = $offset + count($jobs);
+            $offset = (int) $offset + count($jobs);
 
             foreach ($jobs as $job) {
                 yield $job->id => $job;
@@ -187,7 +177,7 @@ class Queue {
                 $job->name,
                 $job->id,
                 $job->status === QueueJob::STATUS_RESERVED,
-                $this->isStopped($jobs[$job->name], $job->id),
+                $this->isStopped($jobs[$job->name]),
                 $this->getDate(json_decode($job->payload, true)['pushedAt'] ?? null),
                 $this->getDate($job->reserved_at ?? null),
             );
@@ -195,7 +185,7 @@ class Queue {
     }
 
     /**
-     * @param Collection<int, Job> $jobs
+     * @param Collection<string, Job> $jobs
      *
      * @return Generator<JobState>
      */
@@ -204,10 +194,8 @@ class Queue {
         // pending list but it may still run. Thus we should also check our
         // logs to make sure that the state is correct.
 
-        // Jobs to check
-        $names = $jobs->keys();
-
-        if (!$names) {
+        // Empty?
+        if ($jobs->isEmpty()) {
             yield from [];
         }
 
@@ -215,6 +203,7 @@ class Queue {
         $key     = static function (Log $log): string {
             return "{$log->object_type}#{$log->object_id}";
         };
+        $names   = $jobs->keys();
         $logs    = $this->getStatesFromLogsActive($names);
         $pending = $this->getStatesFromLogsDispatched($logs)->keyBy($key);
 
@@ -223,12 +212,16 @@ class Queue {
             $id   = $log->object_id;
             $name = $log->object_type;
 
+            if ($name === null || $id === null) {
+                continue;
+            }
+
             // Return
             yield new JobState(
                 $name,
                 $id,
                 true,
-                $this->isStopped($jobs[$name], $id),
+                $this->isStopped($jobs[$name]),
                 $pending[$key($log)]->created_at ?? null,
                 $log->created_at,
             );

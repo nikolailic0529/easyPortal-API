@@ -621,41 +621,6 @@ parameters:
 			path: app/GraphQL/Listeners/CacheExpiredListenerTest.php
 
 		-
-			message: "#^Cannot access offset 'immediately' on mixed\\.$#"
-			count: 1
-			path: app/GraphQL/Mutations/Application/DispatchApplicationService.php
-
-		-
-			message: "#^Cannot access offset 'name' on mixed\\.$#"
-			count: 1
-			path: app/GraphQL/Mutations/Application/DispatchApplicationService.php
-
-		-
-			message: "#^Method App\\\\GraphQL\\\\Mutations\\\\Application\\\\DispatchApplicationService\\:\\:__invoke\\(\\) should return array\\{setting\\: array\\} but returns array\\{result\\: bool\\}\\.$#"
-			count: 1
-			path: app/GraphQL/Mutations/Application/DispatchApplicationService.php
-
-		-
-			message: "#^Parameter \\#1 \\$name of method App\\\\Services\\\\Queue\\\\ServiceResolver\\:\\:get\\(\\) expects string, mixed given\\.$#"
-			count: 1
-			path: app/GraphQL/Mutations/Application/DispatchApplicationService.php
-
-		-
-			message: "#^Cannot access offset 'name' on mixed\\.$#"
-			count: 1
-			path: app/GraphQL/Mutations/Application/ResetApplicationService.php
-
-		-
-			message: "#^Method App\\\\GraphQL\\\\Mutations\\\\Application\\\\ResetApplicationService\\:\\:__invoke\\(\\) should return array\\{setting\\: array\\} but returns array\\{result\\: bool\\}\\.$#"
-			count: 1
-			path: app/GraphQL/Mutations/Application/ResetApplicationService.php
-
-		-
-			message: "#^Parameter \\#1 \\$name of method App\\\\Services\\\\Queue\\\\ServiceResolver\\:\\:get\\(\\) expects string, mixed given\\.$#"
-			count: 1
-			path: app/GraphQL/Mutations/Application/ResetApplicationService.php
-
-		-
 			message: "#^Method App\\\\GraphQL\\\\Mutations\\\\Application\\\\ResetApplicationServiceTest_ServiceA\\:\\:getProgressCallback\\(\\) should return callable\\(\\.\\.\\.mixed\\)\\: App\\\\Services\\\\Queue\\\\Progress\\|null but returns Closure\\(\\)\\: void\\.$#"
 			count: 1
 			path: app/GraphQL/Mutations/Application/ResetApplicationServiceTest.php
@@ -669,21 +634,6 @@ parameters:
 			message: "#^Parameter \\#1 \\$locale of method App\\\\Services\\\\I18n\\\\CurrentLocale\\:\\:set\\(\\) expects string, mixed given\\.$#"
 			count: 1
 			path: app/GraphQL/Mutations/Application/SetApplicationLocale.php
-
-		-
-			message: "#^Cannot access offset 'name' on mixed\\.$#"
-			count: 1
-			path: app/GraphQL/Mutations/Application/StopApplicationService.php
-
-		-
-			message: "#^Method App\\\\GraphQL\\\\Mutations\\\\Application\\\\StopApplicationService\\:\\:__invoke\\(\\) should return array\\{setting\\: array\\} but returns array\\{result\\: bool\\}\\.$#"
-			count: 1
-			path: app/GraphQL/Mutations/Application/StopApplicationService.php
-
-		-
-			message: "#^Parameter \\#1 \\$name of method App\\\\Services\\\\Queue\\\\ServiceResolver\\:\\:get\\(\\) expects string, mixed given\\.$#"
-			count: 1
-			path: app/GraphQL/Mutations/Application/StopApplicationService.php
 
 		-
 			message: "#^Method App\\\\GraphQL\\\\Mutations\\\\Application\\\\UpdateApplicationSettings\\:\\:__invoke\\(\\) should return array\\{setting\\: array\\<string, string\\>\\} but returns array\\{updated\\: array\\}\\.$#"
@@ -4126,11 +4076,6 @@ parameters:
 			path: app/Services/Logger/Listeners/QueueListener.php
 
 		-
-			message: "#^Property App\\\\Services\\\\Logger\\\\Listeners\\\\QueueListener\\:\\:\\$stopped with generic class WeakMap does not specify its types\\: TKey, TValue$#"
-			count: 1
-			path: app/Services/Logger/Listeners/QueueListener.php
-
-		-
 			message: "#^Parameter \\#1 \\$object_or_class of function is_a expects object\\|string, mixed given\\.$#"
 			count: 1
 			path: app/Services/Logger/Listeners/QueueObject.php
@@ -4386,26 +4331,6 @@ parameters:
 			path: app/Services/Queue/Job.php
 
 		-
-			message: "#^Call to method Redis\\:\\:zAdd\\(\\) with incorrect case\\: zadd$#"
-			count: 1
-			path: app/Services/Queue/Pinger.php
-
-		-
-			message: "#^Dynamic call to static method Redis\\:\\:zAdd\\(\\)\\.$#"
-			count: 1
-			path: app/Services/Queue/Pinger.php
-
-		-
-			message: "#^Parameter \\#1 \\$job of method App\\\\Services\\\\Queue\\\\Pinger\\:\\:ping\\(\\) expects App\\\\Services\\\\Queue\\\\CronJob\\|App\\\\Services\\\\Queue\\\\Job, Mockery\\\\MockInterface given\\.$#"
-			count: 2
-			path: app/Services/Queue/PingerTest.php
-
-		-
-			message: "#^Parameter \\#1 \\$job of method App\\\\Services\\\\Queue\\\\Pinger\\:\\:prolong\\(\\) expects App\\\\Services\\\\Queue\\\\CronJob\\|App\\\\Services\\\\Queue\\\\Job, Mockery\\\\MockInterface given\\.$#"
-			count: 2
-			path: app/Services/Queue/PingerTest.php
-
-		-
 			message: "#^Variable property access on App\\\\Utils\\\\Processor\\\\State\\.$#"
 			count: 2
 			path: app/Services/Queue/Progress.php
@@ -4421,32 +4346,7 @@ parameters:
 			path: app/Services/Queue/Queue.php
 
 		-
-			message: "#^Negated boolean expression is always false\\.$#"
-			count: 1
-			path: app/Services/Queue/Queue.php
-
-		-
-			message: "#^Only numeric types are allowed in \\+, int\\<0, max\\>\\|null given on the left side\\.$#"
-			count: 1
-			path: app/Services/Queue/Queue.php
-
-		-
 			message: "#^Parameter \\#1 \\$afterIndex of method Laravel\\\\Horizon\\\\Contracts\\\\JobRepository\\:\\:getPending\\(\\) expects string\\|null, int\\<0, max\\>\\|null given\\.$#"
-			count: 1
-			path: app/Services/Queue/Queue.php
-
-		-
-			message: "#^Parameter \\#1 \\$job of method App\\\\Services\\\\Queue\\\\Queue\\:\\:isStopped\\(\\) expects LastDragon_ru\\\\LaraASP\\\\Queue\\\\Queueables\\\\Job, LastDragon_ru\\\\LaraASP\\\\Queue\\\\Queueables\\\\Job\\|null given\\.$#"
-			count: 1
-			path: app/Services/Queue/Queue.php
-
-		-
-			message: "#^Parameter \\#1 \\$name of class App\\\\Services\\\\Queue\\\\JobState constructor expects string, string\\|null given\\.$#"
-			count: 1
-			path: app/Services/Queue/Queue.php
-
-		-
-			message: "#^Parameter \\#1 \\$names of method App\\\\Services\\\\Queue\\\\Queue\\:\\:getStatesFromLogsActive\\(\\) expects Illuminate\\\\Support\\\\Collection\\<int, string\\>, Illuminate\\\\Support\\\\Collection\\<int, int\\> given\\.$#"
 			count: 1
 			path: app/Services/Queue/Queue.php
 
@@ -4461,27 +4361,17 @@ parameters:
 			path: app/Services/Queue/Queue.php
 
 		-
-			message: "#^Parameter \\#2 \\$id of class App\\\\Services\\\\Queue\\\\JobState constructor expects string, string\\|null given\\.$#"
-			count: 1
-			path: app/Services/Queue/Queue.php
-
-		-
-			message: "#^Parameter \\#2 \\$id of method App\\\\Services\\\\Queue\\\\Queue\\:\\:isStopped\\(\\) expects string, string\\|null given\\.$#"
-			count: 1
-			path: app/Services/Queue/Queue.php
-
-		-
-			message: "#^Parameter \\#1 \\$jobs of method class@anonymous/app/Services/Queue/QueueTest\\.php\\:200\\:\\:getStatesFromHorizon\\(\\) expects Illuminate\\\\Support\\\\Collection\\<string, LastDragon_ru\\\\LaraASP\\\\Queue\\\\Queueables\\\\Job\\>, Illuminate\\\\Support\\\\Collection\\<\\(int\\|string\\), App\\\\Services\\\\Queue\\\\Contracts\\\\Stoppable&LastDragon_ru\\\\LaraASP\\\\Queue\\\\Queueables\\\\Job&Mockery\\\\MockInterface\\> given\\.$#"
+			message: "#^Parameter \\#1 \\$jobs of method class@anonymous/app/Services/Queue/QueueTest\\.php\\:217\\:\\:getStatesFromHorizon\\(\\) expects Illuminate\\\\Support\\\\Collection\\<string, LastDragon_ru\\\\LaraASP\\\\Queue\\\\Queueables\\\\Job\\>, Illuminate\\\\Support\\\\Collection\\<\\(int\\|string\\), App\\\\Services\\\\Queue\\\\Contracts\\\\Stoppable&LastDragon_ru\\\\LaraASP\\\\Queue\\\\Queueables\\\\Job&Mockery\\\\MockInterface\\> given\\.$#"
 			count: 1
 			path: app/Services/Queue/QueueTest.php
 
 		-
-			message: "#^Parameter \\#1 \\$jobs of method class@anonymous/app/Services/Queue/QueueTest\\.php\\:321\\:\\:getStatesFromLogs\\(\\) expects Illuminate\\\\Support\\\\Collection\\<int, LastDragon_ru\\\\LaraASP\\\\Queue\\\\Queueables\\\\Job\\>, Illuminate\\\\Support\\\\Collection\\<\\(int\\|string\\), App\\\\Services\\\\Queue\\\\Contracts\\\\Stoppable&LastDragon_ru\\\\LaraASP\\\\Queue\\\\Queueables\\\\Job&Mockery\\\\MockInterface\\> given\\.$#"
+			message: "#^Parameter \\#1 \\$jobs of method class@anonymous/app/Services/Queue/QueueTest\\.php\\:334\\:\\:getStatesFromLogs\\(\\) expects Illuminate\\\\Support\\\\Collection\\<string, LastDragon_ru\\\\LaraASP\\\\Queue\\\\Queueables\\\\Job\\>, Illuminate\\\\Support\\\\Collection\\<\\(int\\|string\\), App\\\\Services\\\\Queue\\\\Contracts\\\\Stoppable&LastDragon_ru\\\\LaraASP\\\\Queue\\\\Queueables\\\\Job&Mockery\\\\MockInterface\\> given\\.$#"
 			count: 1
 			path: app/Services/Queue/QueueTest.php
 
 		-
-			message: "#^Parameter \\#1 \\$jobs of method class@anonymous/app/Services/Queue/QueueTest\\.php\\:400\\:\\:getStatesFromLogs\\(\\) expects Illuminate\\\\Support\\\\Collection\\<int, LastDragon_ru\\\\LaraASP\\\\Queue\\\\Queueables\\\\Job\\>, Illuminate\\\\Support\\\\Collection\\<\\(int\\|string\\), App\\\\Services\\\\Queue\\\\Contracts\\\\Stoppable&LastDragon_ru\\\\LaraASP\\\\Queue\\\\Queueables\\\\Job&Mockery\\\\MockInterface\\> given\\.$#"
+			message: "#^Parameter \\#1 \\$jobs of method class@anonymous/app/Services/Queue/QueueTest\\.php\\:421\\:\\:getStatesFromLogs\\(\\) expects Illuminate\\\\Support\\\\Collection\\<string, LastDragon_ru\\\\LaraASP\\\\Queue\\\\Queueables\\\\Job\\>, Illuminate\\\\Support\\\\Collection\\<\\(int\\|string\\), App\\\\Services\\\\Queue\\\\Contracts\\\\Stoppable&LastDragon_ru\\\\LaraASP\\\\Queue\\\\Queueables\\\\Job&Mockery\\\\MockInterface\\> given\\.$#"
 			count: 1
 			path: app/Services/Queue/QueueTest.php
 
@@ -4494,6 +4384,16 @@ parameters:
 			message: "#^Parameter \\#2 \\$keys of method App\\\\Services\\\\Queue\\\\Utils\\\\Dispatcher\\<TModel of Illuminate\\\\Database\\\\Eloquent\\\\Model\\>\\:\\:dispatchModels\\(\\) expects array\\<int\\|string\\>, array\\<int, mixed\\> given\\.$#"
 			count: 1
 			path: app/Services/Queue/Utils/Dispatcher.php
+
+		-
+			message: "#^Call to method Redis\\:\\:zAdd\\(\\) with incorrect case\\: zadd$#"
+			count: 1
+			path: app/Services/Queue/Utils/Pinger.php
+
+		-
+			message: "#^Dynamic call to static method Redis\\:\\:zAdd\\(\\)\\.$#"
+			count: 1
+			path: app/Services/Queue/Utils/Pinger.php
 
 		-
 			message: "#^Method App\\\\Services\\\\Recalculator\\\\Exceptions\\\\FailedToRecalculateModel\\:\\:__construct\\(\\) has parameter \\$processor with generic class App\\\\Services\\\\Recalculator\\\\Processor\\\\Processor but does not specify its types\\: TItem, TChunkData, TState$#"
@@ -5181,11 +5081,6 @@ parameters:
 			path: app/Services/Settings/Validation/SettingValueTest.php
 
 		-
-			message: "#^Left side of && is always true\\.$#"
-			count: 1
-			path: app/Services/Tokens/OAuth2Token.php
-
-		-
 			message: "#^Cannot cast mixed to string\\.$#"
 			count: 1
 			path: app/Utils/Cache/CacheKey.php
@@ -5544,6 +5439,11 @@ parameters:
 			message: "#^Parameter \\#1 \\$chunk of method App\\\\Utils\\\\Processor\\\\Processor\\<mixed,mixed,App\\\\Utils\\\\Processor\\\\State\\>\\:\\:setChunkSize\\(\\) expects int\\|null, mixed given\\.$#"
 			count: 1
 			path: app/Utils/Processor/ProcessorTest.php
+
+		-
+			message: "#^Method App\\\\Utils\\\\Processor\\\\ServiceStore\\:\\:get\\(\\) should return array\\<string, mixed\\>\\|null but returns array\\|null\\.$#"
+			count: 1
+			path: app/Utils/Processor/ServiceStore.php
 
 		-
 			message: "#^Property Illuminate\\\\Validation\\\\Validator\\:\\:\\$currentRule \\(string\\) in isset\\(\\) is not nullable\\.$#"

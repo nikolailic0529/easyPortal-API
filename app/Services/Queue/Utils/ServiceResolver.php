@@ -1,8 +1,10 @@
 <?php declare(strict_types = 1);
 
-namespace App\Services\Queue;
+namespace App\Services\Queue\Utils;
 
+use App\Services\Queue\CronJob;
 use App\Services\Queue\Exceptions\ServiceNotFound;
+use App\Services\Queue\Queue;
 use App\Services\Settings\Settings;
 use Illuminate\Contracts\Container\Container;
 
