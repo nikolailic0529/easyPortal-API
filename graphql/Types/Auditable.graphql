@@ -1,0 +1,1 @@
+union Auditable = ChangeRequest | QuoteRequest | Organization | Invitation | User | UserOrganization | Role | Unknown

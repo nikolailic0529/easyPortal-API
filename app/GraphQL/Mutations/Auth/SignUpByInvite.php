@@ -2,6 +2,10 @@
 
 namespace App\GraphQL\Mutations\Auth;
 
+use App\GraphQL\Events\InvitationAccepted;
+use App\GraphQL\Events\InvitationExpired;
+use App\GraphQL\Events\InvitationOutdated;
+use App\GraphQL\Events\InvitationUsed;
 use App\GraphQL\Mutations\Auth\Organization\SignIn;
 use App\GraphQL\Queries\Auth\Invitation as Query;
 use App\Models\Invitation;
@@ -13,10 +17,12 @@ use App\Services\Keycloak\Client\Types\Credential;
 use App\Services\Keycloak\Client\Types\User as KeycloakUser;
 use App\Services\Organization\Eloquent\OwnedByScope;
 use App\Utils\Eloquent\GlobalScopes\GlobalScopes;
+use Illuminate\Contracts\Events\Dispatcher;
 use Illuminate\Support\Facades\Date;
 
 class SignUpByInvite {
     public function __construct(
+        protected Dispatcher $dispatcher,
         protected Client $client,
         protected Query $query,
         protected SignIn $signIn,
@@ -95,14 +101,26 @@ class SignUpByInvite {
         }
 
         if ($this->query->isUsed($invitation)) {
+            $this->dispatcher->dispatch(
+                new InvitationUsed($invitation),
+            );
+
             throw new SignUpByInviteInvitationUsed($invitation);
         }
 
         if ($this->query->isExpired($invitation)) {
+            $this->dispatcher->dispatch(
+                new InvitationExpired($invitation),
+            );
+
             throw new SignUpByInviteInvitationExpired($invitation);
         }
 
         if ($this->query->isOutdated($invitation)) {
+            $this->dispatcher->dispatch(
+                new InvitationOutdated($invitation),
+            );
+
             throw new SignUpByInviteInvitationOutdated($invitation);
         }
 
@@ -151,8 +169,14 @@ class SignUpByInvite {
     protected function markAsUsed(Invitation $invitation, OrganizationUser $organizationUser): bool {
         $invitation->used_at       = Date::now();
         $organizationUser->invited = false;
+        $result                    = $invitation->save() && $organizationUser->save();
 
-        return $invitation->save()
-            && $organizationUser->save();
+        if ($result) {
+            $this->dispatcher->dispatch(
+                new InvitationAccepted($invitation),
+            );
+        }
+
+        return $result;
     }
 }

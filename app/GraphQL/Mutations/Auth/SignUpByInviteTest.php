@@ -2,6 +2,10 @@
 
 namespace App\GraphQL\Mutations\Auth;
 
+use App\GraphQL\Events\InvitationAccepted;
+use App\GraphQL\Events\InvitationExpired;
+use App\GraphQL\Events\InvitationOutdated;
+use App\GraphQL\Events\InvitationUsed;
 use App\GraphQL\Mutations\Auth\Organization\SignIn;
 use App\Models\Invitation;
 use App\Models\Organization;
@@ -12,6 +16,7 @@ use App\Services\Keycloak\Client\Types\User as KeycloakUser;
 use Closure;
 use Illuminate\Contracts\Encryption\Encrypter;
 use Illuminate\Support\Facades\Date;
+use Illuminate\Support\Facades\Event;
 use LastDragon_ru\LaraASP\Testing\Constraints\Response\Response;
 use LastDragon_ru\LaraASP\Testing\Providers\ArrayDataProvider;
 use LastDragon_ru\LaraASP\Testing\Providers\CompositeDataProvider;
@@ -25,6 +30,8 @@ use Tests\TestCase;
 use Tests\WithOrganization;
 use Tests\WithUser;
 use Throwable;
+
+use function is_array;
 
 /**
  * @internal
@@ -40,11 +47,16 @@ class SignUpByInviteTest extends TestCase {
      * @covers ::__invoke
      * @dataProvider dataProviderInvoke
      *
-     * @param OrganizationFactory $orgFactory
-     * @param UserFactory         $userFactory
+     * @param Response|array{Response,class-string}                                  $expected
+     * @param OrganizationFactory                                                    $orgFactory
+     * @param UserFactory                                                            $userFactory
+     * @param Closure(Client&MockInterface): void|null                               $clientFactory
+     * @param Closure(SignIn&MockInterface): void|null                               $queryFactory
+     * @param Closure(static, ?Organization, ?User): array<mixed>|null               $dataFactory
+     * @param Closure(static, ?Organization, ?User, array<mixed>): array<mixed>|null $prepare
      */
     public function testInvoke(
-        Response $expected,
+        Response|array $expected,
         mixed $orgFactory,
         mixed $userFactory = null,
         Closure $clientFactory = null,
@@ -53,12 +65,13 @@ class SignUpByInviteTest extends TestCase {
         Closure $prepare = null,
     ): void {
         // Prepare
-        $org  = $this->setOrganization($orgFactory);
-        $user = $this->setUser($userFactory, $org);
-        $data = [
+        $org   = $this->setOrganization($orgFactory);
+        $user  = $this->setUser($userFactory, $org);
+        $data  = [
             'token' => $this->faker->word(),
             'input' => null,
         ];
+        $event = null;
 
         if ($clientFactory) {
             $this->override(Client::class, $clientFactory);
@@ -74,6 +87,15 @@ class SignUpByInviteTest extends TestCase {
 
         if ($prepare) {
             $prepare($this, $org, $user, $data);
+        }
+
+        if (is_array($expected)) {
+            [$expected, $event] = $expected;
+        }
+
+        // Fake
+        if ($event) {
+            Event::fake($event);
         }
 
         // Test
@@ -97,8 +119,8 @@ class SignUpByInviteTest extends TestCase {
             )
             ->assertThat($expected);
 
-        if ($expected instanceof GraphQLSuccess) {
-            // fixme test properties
+        if ($event) {
+            Event::assertDispatched($event);
         }
     }
     // </editor-fold>
@@ -114,16 +136,19 @@ class SignUpByInviteTest extends TestCase {
             new AuthGuestDataProvider('auth'),
             new ArrayDataProvider([
                 'ok'                                                                      => [
-                    new GraphQLSuccess(
-                        'auth',
-                        new JsonFragment('signUpByInvite', [
-                            'result' => true,
-                            'url'    => 'https://example.com/',
-                            'org'    => [
-                                'id' => 'e0478e7c-53c4-4cbb-927d-636028d1f907',
-                            ],
-                        ]),
-                    ),
+                    [
+                        new GraphQLSuccess(
+                            'auth',
+                            new JsonFragment('signUpByInvite', [
+                                'result' => true,
+                                'url'    => 'https://example.com/',
+                                'org'    => [
+                                    'id' => 'e0478e7c-53c4-4cbb-927d-636028d1f907',
+                                ],
+                            ]),
+                        ),
+                        InvitationAccepted::class,
+                    ],
                     static function (MockInterface $mock): void {
                         $mock
                             ->shouldReceive('updateUser')
@@ -177,16 +202,19 @@ class SignUpByInviteTest extends TestCase {
                     },
                 ],
                 'filled'                                                                  => [
-                    new GraphQLSuccess(
-                        'auth',
-                        new JsonFragment('signUpByInvite', [
-                            'result' => true,
-                            'url'    => 'https://example.com/',
-                            'org'    => [
-                                'id' => 'e0478e7c-53c4-4cbb-927d-636028d1f907',
-                            ],
-                        ]),
-                    ),
+                    [
+                        new GraphQLSuccess(
+                            'auth',
+                            new JsonFragment('signUpByInvite', [
+                                'result' => true,
+                                'url'    => 'https://example.com/',
+                                'org'    => [
+                                    'id' => 'e0478e7c-53c4-4cbb-927d-636028d1f907',
+                                ],
+                            ]),
+                        ),
+                        InvitationAccepted::class,
+                    ],
                     null,
                     static function (MockInterface $mock): void {
                         $mock
@@ -286,9 +314,12 @@ class SignUpByInviteTest extends TestCase {
                     },
                 ],
                 SignUpByInviteInvitationUsed::class                                       => [
-                    new GraphQLError('auth', static function (): Throwable {
-                        return new SignUpByInviteInvitationUsed(new Invitation());
-                    }),
+                    [
+                        new GraphQLError('auth', static function (): Throwable {
+                            return new SignUpByInviteInvitationUsed(new Invitation());
+                        }),
+                        InvitationUsed::class,
+                    ],
                     null,
                     null,
                     static function (self $test): array {
@@ -308,9 +339,12 @@ class SignUpByInviteTest extends TestCase {
                     },
                 ],
                 SignUpByInviteInvitationExpired::class                                    => [
-                    new GraphQLError('auth', static function (): Throwable {
-                        return new SignUpByInviteInvitationExpired(new Invitation());
-                    }),
+                    [
+                        new GraphQLError('auth', static function (): Throwable {
+                            return new SignUpByInviteInvitationExpired(new Invitation());
+                        }),
+                        InvitationExpired::class,
+                    ],
                     null,
                     null,
                     static function (self $test): array {
@@ -330,9 +364,12 @@ class SignUpByInviteTest extends TestCase {
                     },
                 ],
                 SignUpByInviteInvitationOutdated::class                                   => [
-                    new GraphQLError('auth', static function (): Throwable {
-                        return new SignUpByInviteInvitationOutdated(new Invitation());
-                    }),
+                    [
+                        new GraphQLError('auth', static function (): Throwable {
+                            return new SignUpByInviteInvitationOutdated(new Invitation());
+                        }),
+                        InvitationOutdated::class,
+                    ],
                     null,
                     null,
                     static function (self $test): array {

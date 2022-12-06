@@ -234,6 +234,8 @@ class ModelsProvider {
         $audit                         = Audit::factory()->create([
             'organization_id' => $organization,
             'user_id'         => $user,
+            'object_id'       => $reseller->getKey(),
+            'object_type'     => $reseller->getMorphClass(),
         ]);
         $asset                         = Asset::factory()->create([
             'oem_id'      => $oem,

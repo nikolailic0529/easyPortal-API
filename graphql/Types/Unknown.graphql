@@ -1,0 +1,6 @@
+type Unknown {
+    id: ID!
+
+    type: String
+    @field(resolver: "App\\GraphQL\\Resolvers\\TypeNameResolver")
+}

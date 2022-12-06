@@ -2,7 +2,7 @@ input AuditsQuery {
     id: ID!
     user_id: String!
     organization_id: ID!
-    action: String!
+    action: AuditAction!
     object_id: String!
     object_type: String!
     created_at: DateTime!

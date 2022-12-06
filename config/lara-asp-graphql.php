@@ -11,6 +11,7 @@ use App\GraphQL\Directives\Directives\Paginated\Trashed;
 use App\GraphQL\Extensions\LaraAsp\SearchBy\Operators\Comparison\Contains;
 use App\GraphQL\Extensions\LaraAsp\SearchBy\Operators\Comparison\EndsWith;
 use App\Models\Enums\OrganizationType;
+use App\Services\Audit\Enums\Action;
 use LastDragon_ru\LaraASP\Core\Enum as CoreEnum;
 use LastDragon_ru\LaraASP\GraphQL\SearchBy\Contracts\Operator;
 use LastDragon_ru\LaraASP\GraphQL\SearchBy\Definitions\SearchByDirective;
@@ -73,9 +74,10 @@ $settings = [
      * @see \LastDragon_ru\LaraASP\Eloquent\Enum
      */
     'enums'     => [
-        Trashed::class,
-        CachedMode::class,
-        OrganizationType::class,
+        'Trashed'          => Trashed::class,
+        'CachedMode'       => CachedMode::class,
+        'AuditAction'      => Action::class,
+        'OrganizationType' => OrganizationType::class,
     ],
 ];
 
