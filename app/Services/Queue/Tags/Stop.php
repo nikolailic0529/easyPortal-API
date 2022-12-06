@@ -23,15 +23,13 @@ class Stop implements CacheKeyable {
     }
 
     public function isMarked(Stoppable $stoppable): bool {
-        // Explicit? (`id` is unique, so we don't need to check the time)
-        $job = $stoppable->getJob();
-        $id  = $job->getJobId();
-
-        if ($this->service->has([$this, $stoppable, $id])) {
+        // Explicit?
+        if ($this->isMarkedById($stoppable)) {
             return true;
         }
 
         // Is dispatch time known?
+        $job        = $stoppable->getJob();
         $dispatched = $job instanceof Job
             ? $this->getTimestamp($job->payload()['pushedAt'] ?? null)
             : null;
@@ -40,24 +38,9 @@ class Stop implements CacheKeyable {
             return false;
         }
 
-        // Marker?
-        $marker = $this->service->get([$this, $stoppable], function (mixed $timestamp): ?float {
-            return $this->getTimestamp($timestamp);
-        });
-
-        if ($marker !== null && $marker >= $dispatched) {
-            return true;
-        }
-
-        // Restart?
-        $restart = $this->getTimestamp($this->cache->get('illuminate:queue:restart'));
-
-        if ($restart !== null && $restart >= $dispatched) {
-            return true;
-        }
-
         // Return
-        return false;
+        return $this->isMarkedByMarker($stoppable, $dispatched)
+            || $this->isMarkedByQueueRestart($dispatched);
     }
 
     public function mark(Stoppable $job, ?string $id): bool {
@@ -74,5 +57,29 @@ class Stop implements CacheKeyable {
 
     protected function getTimestamp(mixed $timestamp): ?float {
         return filter_var($timestamp, FILTER_VALIDATE_FLOAT, FILTER_NULL_ON_FAILURE);
+    }
+
+    protected function isMarkedById(Stoppable $stoppable): bool {
+        // `id` is unique, so we don't need to check the time
+        $id     = $stoppable->getJob()->getJobId();
+        $marked = $this->service->has([$this, $stoppable, $id]);
+
+        return $marked;
+    }
+
+    protected function isMarkedByMarker(Stoppable $stoppable, float $dispatched): bool {
+        $marker = $this->service->get([$this, $stoppable], function (mixed $timestamp): ?float {
+            return $this->getTimestamp($timestamp);
+        });
+        $marked = $marker !== null && $marker >= $dispatched;
+
+        return $marked;
+    }
+
+    protected function isMarkedByQueueRestart(float $dispatched): bool {
+        $restart = $this->getTimestamp($this->cache->get('illuminate:queue:restart'));
+        $marked  = $restart !== null && $restart >= $dispatched;
+
+        return $marked;
     }
 }

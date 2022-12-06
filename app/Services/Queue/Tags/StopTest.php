@@ -21,7 +21,86 @@ class StopTest extends TestCase {
     /**
      * @covers ::isMarked
      */
-    public function testIsMarkedExplicit(): void {
+    public function testIsMarked(): void {
+        $time = microtime(true);
+        $job  = Mockery::mock(Job::class, JobContract::class, Stoppable::class);
+        $job
+            ->shouldReceive('payload')
+            ->once()
+            ->andReturn([
+                'pushedAt' => $time,
+            ]);
+
+        $stoppable = Mockery::mock(Stoppable::class);
+        $stoppable
+            ->shouldReceive('getJob')
+            ->once()
+            ->andReturn($job);
+
+        $stop = Mockery::mock(Stop::class, [
+            Mockery::mock(Repository::class),
+            Mockery::mock(Service::class),
+        ]);
+        $stop->shouldAllowMockingProtectedMethods();
+        $stop->makePartial();
+        $stop
+            ->shouldReceive('isMarkedById')
+            ->once()
+            ->andReturn(false);
+        $stop
+            ->shouldReceive('isMarkedByMarker')
+            ->once()
+            ->andReturn(false);
+        $stop
+            ->shouldReceive('isMarkedByQueueRestart')
+            ->once()
+            ->andReturn(true);
+
+        self::assertTrue($stop->isMarked($stoppable));
+    }
+
+    /**
+     * @covers ::isMarked
+     */
+    public function testIsMarkedUnknownDispatched(): void {
+        $job = Mockery::mock(Job::class, JobContract::class, Stoppable::class);
+        $job
+            ->shouldReceive('payload')
+            ->once()
+            ->andReturn([
+                // empty
+            ]);
+
+        $stoppable = Mockery::mock(Stoppable::class);
+        $stoppable
+            ->shouldReceive('getJob')
+            ->once()
+            ->andReturn($job);
+
+        $stop = Mockery::mock(Stop::class, [
+            Mockery::mock(Repository::class),
+            Mockery::mock(Service::class),
+        ]);
+        $stop->shouldAllowMockingProtectedMethods();
+        $stop->makePartial();
+        $stop
+            ->shouldReceive('isMarkedById')
+            ->once()
+            ->andReturn(false);
+        $stop
+            ->shouldReceive('isMarkedByMarker')
+            ->never();
+        $stop
+            ->shouldReceive('isMarkedByQueueRestart')
+            ->never();
+
+        self::assertFalse($stop->isMarked($stoppable));
+    }
+
+    /**
+     * @covers ::isMarkedById
+     */
+    public function testIsMarkedById(): void {
         $id  = $this->faker->uuid();
         $job = Mockery::mock(JobContract::class);
         $job
@@ -36,7 +115,11 @@ class StopTest extends TestCase {
             ->andReturn($job);
 
         $service = Mockery::mock(Service::class);
-        $stop    = new Stop(Mockery::mock(Repository::class), $service);
+        $stop    = new class(Mockery::mock(Repository::class), $service) extends Stop {
+            public function isMarkedById(Stoppable $stoppable): bool {
+                return parent::isMarkedById($stoppable);
+            }
+        };
 
         $service
             ->shouldReceive('has')
@@ -44,265 +127,95 @@ class StopTest extends TestCase {
             ->once()
             ->andReturn(true);
 
-        self::assertTrue($stop->isMarked($stoppable));
+        self::assertTrue($stop->isMarkedById($stoppable));
     }
 
     /**
-     * @covers ::isMarked
+     * @covers ::isMarkedByMarker
      */
-    public function testIsMarkedMarker(): void {
-        $id   = $this->faker->uuid();
-        $time = microtime(true);
-        $job  = Mockery::mock(Job::class, JobContract::class, Stoppable::class);
-        $job
-            ->shouldReceive('getJobId')
-            ->once()
-            ->andReturn($id);
-        $job
-            ->shouldReceive('payload')
-            ->once()
-            ->andReturn([
-                'pushedAt' => $time,
-            ]);
-
+    public function testIsMarkedByMarker(): void {
+        $time      = microtime(true);
         $stoppable = Mockery::mock(Stoppable::class);
-        $stoppable
-            ->shouldReceive('getJob')
-            ->once()
-            ->andReturn($job);
+        $service   = Mockery::mock(Service::class);
+        $stop      = new class(Mockery::mock(Repository::class), $service) extends Stop {
+            public function isMarkedByMarker(Stoppable $stoppable, float $dispatched): bool {
+                return parent::isMarkedByMarker($stoppable, $dispatched);
+            }
+        };
 
-        $service = Mockery::mock(Service::class);
-        $stop    = new Stop(Mockery::mock(Repository::class), $service);
-
-        $service
-            ->shouldReceive('has')
-            ->with([$stop, $stoppable, $id])
-            ->once()
-            ->andReturn(false);
         $service
             ->shouldReceive('get')
             ->with([$stop, $stoppable], Mockery::type(Closure::class))
             ->once()
-            ->andReturn($time + 100);
+            ->andReturn($time);
 
-        self::assertTrue($stop->isMarked($stoppable));
+        self::assertTrue($stop->isMarkedByMarker($stoppable, $time - 100));
     }
 
     /**
      * @covers ::isMarked
      */
-    public function testIsMarkedMarkerOutdated(): void {
-        $id   = $this->faker->uuid();
-        $time = microtime(true);
-        $job  = Mockery::mock(Job::class, JobContract::class, Stoppable::class);
-        $job
-            ->shouldReceive('getJobId')
-            ->once()
-            ->andReturn($id);
-        $job
-            ->shouldReceive('payload')
-            ->once()
-            ->andReturn([
-                'pushedAt' => $time,
-            ]);
-
+    public function testIsMarkedByMarkerOutdated(): void {
+        $time      = microtime(true);
         $stoppable = Mockery::mock(Stoppable::class);
-        $stoppable
-            ->shouldReceive('getJob')
-            ->once()
-            ->andReturn($job);
+        $service   = Mockery::mock(Service::class);
+        $stop      = new class(Mockery::mock(Repository::class), $service) extends Stop {
+            public function isMarkedByMarker(Stoppable $stoppable, float $dispatched): bool {
+                return parent::isMarkedByMarker($stoppable, $dispatched);
+            }
+        };
 
+        $service
+            ->shouldReceive('get')
+            ->with([$stop, $stoppable], Mockery::type(Closure::class))
+            ->once()
+            ->andReturn($time);
+
+        self::assertFalse($stop->isMarkedByMarker($stoppable, $time + 100));
+    }
+
+    /**
+     * @covers ::isMarkedByQueueRestart
+     */
+    public function testIsMarkedQueueRestart(): void {
+        $time    = microtime(true);
         $service = Mockery::mock(Service::class);
         $cache   = Mockery::mock(Repository::class);
-        $stop    = new Stop($cache, $service);
-
-        $service
-            ->shouldReceive('has')
-            ->with([$stop, $stoppable, $id])
-            ->once()
-            ->andReturn(false);
-        $service
-            ->shouldReceive('get')
-            ->with([$stop, $stoppable], Mockery::type(Closure::class))
-            ->once()
-            ->andReturn($time - 100);
+        $stop    = new class($cache, $service) extends Stop {
+            public function isMarkedByQueueRestart(float $dispatched): bool {
+                return parent::isMarkedByQueueRestart($dispatched);
+            }
+        };
 
         $cache
             ->shouldReceive('get')
             ->with('illuminate:queue:restart')
             ->once()
-            ->andReturn(null);
+            ->andReturn($time);
 
-        self::assertFalse($stop->isMarked($stoppable));
+        self::assertTrue($stop->isMarkedByQueueRestart($time - 100));
     }
 
     /**
-     * @covers ::isMarked
+     * @covers ::isMarkedByQueueRestart
      */
-    public function testIsMarkedRestart(): void {
-        $id   = $this->faker->uuid();
-        $time = microtime(true);
-        $job  = Mockery::mock(Job::class, JobContract::class, Stoppable::class);
-        $job
-            ->shouldReceive('getJobId')
-            ->once()
-            ->andReturn($id);
-        $job
-            ->shouldReceive('payload')
-            ->once()
-            ->andReturn([
-                'pushedAt' => $time,
-            ]);
-
-        $stoppable = Mockery::mock(Stoppable::class);
-        $stoppable
-            ->shouldReceive('getJob')
-            ->once()
-            ->andReturn($job);
-
+    public function testIsMarkedByQueueRestartOutdated(): void {
+        $time    = microtime(true);
         $service = Mockery::mock(Service::class);
         $cache   = Mockery::mock(Repository::class);
-        $stop    = new Stop($cache, $service);
-
-        $service
-            ->shouldReceive('has')
-            ->with([$stop, $stoppable, $id])
-            ->once()
-            ->andReturn(false);
-        $service
-            ->shouldReceive('get')
-            ->with([$stop, $stoppable], Mockery::type(Closure::class))
-            ->once()
-            ->andReturn(null);
+        $stop    = new class($cache, $service) extends Stop {
+            public function isMarkedByQueueRestart(float $dispatched): bool {
+                return parent::isMarkedByQueueRestart($dispatched);
+            }
+        };
 
         $cache
             ->shouldReceive('get')
             ->with('illuminate:queue:restart')
             ->once()
-            ->andReturn($time + 100);
+            ->andReturn($time);
 
-        self::assertTrue($stop->isMarked($stoppable));
-    }
-
-    /**
-     * @covers ::isMarked
-     */
-    public function testIsMarkedRestartOutdated(): void {
-        $id   = $this->faker->uuid();
-        $time = microtime(true);
-        $job  = Mockery::mock(Job::class, JobContract::class, Stoppable::class);
-        $job
-            ->shouldReceive('getJobId')
-            ->once()
-            ->andReturn($id);
-        $job
-            ->shouldReceive('payload')
-            ->once()
-            ->andReturn([
-                'pushedAt' => $time,
-            ]);
-
-        $stoppable = Mockery::mock(Stoppable::class);
-        $stoppable
-            ->shouldReceive('getJob')
-            ->once()
-            ->andReturn($job);
-
-        $service = Mockery::mock(Service::class);
-        $cache   = Mockery::mock(Repository::class);
-        $stop    = new Stop($cache, $service);
-
-        $service
-            ->shouldReceive('has')
-            ->with([$stop, $stoppable, $id])
-            ->once()
-            ->andReturn(false);
-        $service
-            ->shouldReceive('get')
-            ->with([$stop, $stoppable], Mockery::type(Closure::class))
-            ->once()
-            ->andReturn(null);
-
-        $cache
-            ->shouldReceive('get')
-            ->with('illuminate:queue:restart')
-            ->once()
-            ->andReturn($time - 100);
-
-        self::assertFalse($stop->isMarked($stoppable));
-    }
-
-    /**
-     * @covers ::isMarked
-     */
-    public function testIsMarkedUnknownJob(): void {
-        $id  = $this->faker->uuid();
-        $job = Mockery::mock(JobContract::class, Stoppable::class);
-        $job
-            ->shouldReceive('getJobId')
-            ->once()
-            ->andReturn($id);
-        $job
-            ->shouldReceive('payload')
-            ->never();
-
-        $stoppable = Mockery::mock(Stoppable::class);
-        $stoppable
-            ->shouldReceive('getJob')
-            ->once()
-            ->andReturn($job);
-
-        $service = Mockery::mock(Service::class);
-        $stop    = new Stop(Mockery::mock(Repository::class), $service);
-
-        $service
-            ->shouldReceive('has')
-            ->with([$stop, $stoppable, $id])
-            ->once()
-            ->andReturn(false);
-        $service
-            ->shouldReceive('get')
-            ->never();
-
-        self::assertFalse($stop->isMarked($stoppable));
-    }
-
-    /**
-     * @covers ::isMarked
-     */
-    public function testIsMarkedUnknownDispatched(): void {
-        $id  = $this->faker->uuid();
-        $job = Mockery::mock(Job::class, JobContract::class, Stoppable::class);
-        $job
-            ->shouldReceive('getJobId')
-            ->once()
-            ->andReturn($id);
-        $job
-            ->shouldReceive('payload')
-            ->once()
-            ->andReturn([
-                // empty
-            ]);
-
-        $stoppable = Mockery::mock(Stoppable::class);
-        $stoppable
-            ->shouldReceive('getJob')
-            ->once()
-            ->andReturn($job);
-
-        $service = Mockery::mock(Service::class);
-        $stop    = new Stop(Mockery::mock(Repository::class), $service);
-
-        $service
-            ->shouldReceive('has')
-            ->with([$stop, $stoppable, $id])
-            ->once()
-            ->andReturn(false);
-        $service
-            ->shouldReceive('get')
-            ->never();
-
-        self::assertFalse($stop->isMarked($stoppable));
+        self::assertFalse($stop->isMarkedByQueueRestart($time + 100));
     }
 
     /**
