@@ -27,7 +27,7 @@ class Pinger {
      * @see \App\Services\Queue\Exceptions\JobStopped
      */
     protected function stop(CronJob|Job $job): void {
-        if ($this->service->isStopped($job, $job->getJob()->getJobId())) {
+        if ($this->service->isStopped($job)) {
             $this->dispatcher->dispatch(new JobStoppedEvent($job->getJob()));
 
             throw new JobStopped();

@@ -54,23 +54,17 @@ class PingerTest extends TestCase {
         Event::fake(JobStoppedEvent::class);
 
         // Mocks
-        $uuid     = $this->faker->uuid();
         $queueJob = Mockery::mock(QueueJob::class);
-        $queueJob
-            ->shouldReceive('getJobId')
-            ->once()
-            ->andReturn($uuid);
-
-        $job = Mockery::mock($class);
+        $job      = Mockery::mock($class);
         $job
             ->shouldReceive('getJob')
-            ->twice()
+            ->once()
             ->andReturn($queueJob);
 
         $service = Mockery::mock(Queue::class);
         $service
             ->shouldReceive('isStopped')
-            ->with($job, $uuid)
+            ->with($job)
             ->once()
             ->andReturn(true);
 

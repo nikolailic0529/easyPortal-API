@@ -45,8 +45,12 @@ class Queue {
         return $this->container;
     }
 
-    public function isStopped(Job $job, string $id): bool {
-        return $job instanceof Stoppable && $this->stop->exists($job, $id);
+    public function isStopped(?Job $job): bool {
+        // Depending on Horizon `trim` settings the job can be removed from the
+        // pending list but it may still run. In this case, `$job` will `null`,
+        // and, unfortunately, I'm not sure how we should handle this case.
+        return $job instanceof Stoppable
+            && $this->stop->isMarked($job);
     }
 
     /**
@@ -57,22 +61,8 @@ class Queue {
      * stopped.
      */
     public function stop(Job $job, string $id = null): bool {
-        // Possible?
-        if (!$job instanceof Stoppable) {
-            return false;
-        }
-
-        // Stop
-        if ($id) {
-            $this->stop->set($job, $id);
-        } else {
-            foreach ($this->getState($job) as $state) {
-                $this->stop->set($job, $state->id);
-            }
-        }
-
-        // Return
-        return true;
+        return $job instanceof Stoppable
+            && $this->stop->mark($job, $id);
     }
 
     public function getName(Job $job): string {
@@ -187,7 +177,7 @@ class Queue {
                 $job->name,
                 $job->id,
                 $job->status === QueueJob::STATUS_RESERVED,
-                $this->isStopped($jobs[$job->name], $job->id),
+                $this->isStopped($jobs[$job->name]),
                 $this->getDate(json_decode($job->payload, true)['pushedAt'] ?? null),
                 $this->getDate($job->reserved_at ?? null),
             );
@@ -231,7 +221,7 @@ class Queue {
                 $name,
                 $id,
                 true,
-                isset($jobs[$name]) && $this->isStopped($jobs[$name], $id),
+                $this->isStopped($jobs[$name]),
                 $pending[$key($log)]->created_at ?? null,
                 $log->created_at,
             );
