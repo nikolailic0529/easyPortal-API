@@ -275,7 +275,7 @@ interface Constants {
      *
      * The setting allows to enable Telescope when the total of items is known
      * and less than the setting value. Value `0` disable the limit but not
-     * recommended.
+     * recommended. The `null` or any value below `0` will disable Telescope.
      */
     #[Setting('ep.telescope.processor.limit')]
     #[Group('telescope')]

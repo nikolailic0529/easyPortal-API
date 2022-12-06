@@ -1,15 +1,17 @@
 <?php declare(strict_types = 1);
 
-namespace App\Services\Queue;
+namespace App\Services\Queue\Utils;
 
+use App\Services\Queue\CronJob;
 use App\Services\Queue\Exceptions\ServiceNotFound;
+use App\Services\Queue\Queue;
 use App\Services\Settings\Settings;
 use Mockery;
 use Tests\TestCase;
 
 /**
  * @internal
- * @coversDefaultClass \App\Services\Queue\ServiceResolver
+ * @coversDefaultClass \App\Services\Queue\Utils\ServiceResolver
  */
 class ServiceResolverTest extends TestCase {
     /**

@@ -621,41 +621,6 @@ parameters:
 			path: app/GraphQL/Listeners/CacheExpiredListenerTest.php
 
 		-
-			message: "#^Cannot access offset 'immediately' on mixed\\.$#"
-			count: 1
-			path: app/GraphQL/Mutations/Application/DispatchApplicationService.php
-
-		-
-			message: "#^Cannot access offset 'name' on mixed\\.$#"
-			count: 1
-			path: app/GraphQL/Mutations/Application/DispatchApplicationService.php
-
-		-
-			message: "#^Method App\\\\GraphQL\\\\Mutations\\\\Application\\\\DispatchApplicationService\\:\\:__invoke\\(\\) should return array\\{setting\\: array\\} but returns array\\{result\\: bool\\}\\.$#"
-			count: 1
-			path: app/GraphQL/Mutations/Application/DispatchApplicationService.php
-
-		-
-			message: "#^Parameter \\#1 \\$name of method App\\\\Services\\\\Queue\\\\ServiceResolver\\:\\:get\\(\\) expects string, mixed given\\.$#"
-			count: 1
-			path: app/GraphQL/Mutations/Application/DispatchApplicationService.php
-
-		-
-			message: "#^Cannot access offset 'name' on mixed\\.$#"
-			count: 1
-			path: app/GraphQL/Mutations/Application/ResetApplicationService.php
-
-		-
-			message: "#^Method App\\\\GraphQL\\\\Mutations\\\\Application\\\\ResetApplicationService\\:\\:__invoke\\(\\) should return array\\{setting\\: array\\} but returns array\\{result\\: bool\\}\\.$#"
-			count: 1
-			path: app/GraphQL/Mutations/Application/ResetApplicationService.php
-
-		-
-			message: "#^Parameter \\#1 \\$name of method App\\\\Services\\\\Queue\\\\ServiceResolver\\:\\:get\\(\\) expects string, mixed given\\.$#"
-			count: 1
-			path: app/GraphQL/Mutations/Application/ResetApplicationService.php
-
-		-
 			message: "#^Method App\\\\GraphQL\\\\Mutations\\\\Application\\\\ResetApplicationServiceTest_ServiceA\\:\\:getProgressCallback\\(\\) should return callable\\(\\.\\.\\.mixed\\)\\: App\\\\Services\\\\Queue\\\\Progress\\|null but returns Closure\\(\\)\\: void\\.$#"
 			count: 1
 			path: app/GraphQL/Mutations/Application/ResetApplicationServiceTest.php
@@ -669,21 +634,6 @@ parameters:
 			message: "#^Parameter \\#1 \\$locale of method App\\\\Services\\\\I18n\\\\CurrentLocale\\:\\:set\\(\\) expects string, mixed given\\.$#"
 			count: 1
 			path: app/GraphQL/Mutations/Application/SetApplicationLocale.php
-
-		-
-			message: "#^Cannot access offset 'name' on mixed\\.$#"
-			count: 1
-			path: app/GraphQL/Mutations/Application/StopApplicationService.php
-
-		-
-			message: "#^Method App\\\\GraphQL\\\\Mutations\\\\Application\\\\StopApplicationService\\:\\:__invoke\\(\\) should return array\\{setting\\: array\\} but returns array\\{result\\: bool\\}\\.$#"
-			count: 1
-			path: app/GraphQL/Mutations/Application/StopApplicationService.php
-
-		-
-			message: "#^Parameter \\#1 \\$name of method App\\\\Services\\\\Queue\\\\ServiceResolver\\:\\:get\\(\\) expects string, mixed given\\.$#"
-			count: 1
-			path: app/GraphQL/Mutations/Application/StopApplicationService.php
 
 		-
 			message: "#^Method App\\\\GraphQL\\\\Mutations\\\\Application\\\\UpdateApplicationSettings\\:\\:__invoke\\(\\) should return array\\{setting\\: array\\<string, string\\>\\} but returns array\\{updated\\: array\\}\\.$#"
@@ -4381,26 +4331,6 @@ parameters:
 			path: app/Services/Queue/Job.php
 
 		-
-			message: "#^Call to method Redis\\:\\:zAdd\\(\\) with incorrect case\\: zadd$#"
-			count: 1
-			path: app/Services/Queue/Pinger.php
-
-		-
-			message: "#^Dynamic call to static method Redis\\:\\:zAdd\\(\\)\\.$#"
-			count: 1
-			path: app/Services/Queue/Pinger.php
-
-		-
-			message: "#^Parameter \\#1 \\$job of method App\\\\Services\\\\Queue\\\\Pinger\\:\\:ping\\(\\) expects App\\\\Services\\\\Queue\\\\CronJob\\|App\\\\Services\\\\Queue\\\\Job, Mockery\\\\MockInterface given\\.$#"
-			count: 2
-			path: app/Services/Queue/PingerTest.php
-
-		-
-			message: "#^Parameter \\#1 \\$job of method App\\\\Services\\\\Queue\\\\Pinger\\:\\:prolong\\(\\) expects App\\\\Services\\\\Queue\\\\CronJob\\|App\\\\Services\\\\Queue\\\\Job, Mockery\\\\MockInterface given\\.$#"
-			count: 2
-			path: app/Services/Queue/PingerTest.php
-
-		-
 			message: "#^Variable property access on App\\\\Utils\\\\Processor\\\\State\\.$#"
 			count: 2
 			path: app/Services/Queue/Progress.php
@@ -4454,6 +4384,16 @@ parameters:
 			message: "#^Parameter \\#2 \\$keys of method App\\\\Services\\\\Queue\\\\Utils\\\\Dispatcher\\<TModel of Illuminate\\\\Database\\\\Eloquent\\\\Model\\>\\:\\:dispatchModels\\(\\) expects array\\<int\\|string\\>, array\\<int, mixed\\> given\\.$#"
 			count: 1
 			path: app/Services/Queue/Utils/Dispatcher.php
+
+		-
+			message: "#^Call to method Redis\\:\\:zAdd\\(\\) with incorrect case\\: zadd$#"
+			count: 1
+			path: app/Services/Queue/Utils/Pinger.php
+
+		-
+			message: "#^Dynamic call to static method Redis\\:\\:zAdd\\(\\)\\.$#"
+			count: 1
+			path: app/Services/Queue/Utils/Pinger.php
 
 		-
 			message: "#^Method App\\\\Services\\\\Recalculator\\\\Exceptions\\\\FailedToRecalculateModel\\:\\:__construct\\(\\) has parameter \\$processor with generic class App\\\\Services\\\\Recalculator\\\\Processor\\\\Processor but does not specify its types\\: TItem, TChunkData, TState$#"

@@ -1,9 +1,12 @@
 <?php declare(strict_types = 1);
 
-namespace App\Services\Queue;
+namespace App\Services\Queue\Utils;
 
+use App\Services\Queue\CronJob;
 use App\Services\Queue\Events\JobStopped as JobStoppedEvent;
 use App\Services\Queue\Exceptions\JobStopped;
+use App\Services\Queue\Job;
+use App\Services\Queue\Queue;
 use Illuminate\Contracts\Events\Dispatcher;
 use Illuminate\Queue\Jobs\RedisJob;
 use Illuminate\Queue\RedisQueue;
