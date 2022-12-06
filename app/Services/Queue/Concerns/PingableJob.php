@@ -18,8 +18,9 @@ trait PingableJob {
 
     private ?Pinger $pinger;
 
-    public function getJob(): Job {
-        return $this->job;
+    public function getJob(): ?Job {
+        /* @phpstan-ignore-next-line `$this->job` may be not set when run outside queue */
+        return $this->job ?? null;
     }
 
     private function getPinger(): ?Pinger {

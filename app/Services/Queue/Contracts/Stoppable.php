@@ -11,5 +11,5 @@ use Illuminate\Contracts\Queue\Job;
  * @see \App\Services\Queue\Concerns\PingableJob
  */
 interface Stoppable extends CacheKeyable {
-    public function getJob(): Job;
+    public function getJob(): ?Job;
 }

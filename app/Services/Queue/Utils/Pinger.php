@@ -31,7 +31,9 @@ class Pinger {
      */
     protected function stop(CronJob|Job $job): void {
         if ($this->service->isStopped($job)) {
-            $this->dispatcher->dispatch(new JobStoppedEvent($job->getJob()));
+            if ($job->getJob()) {
+                $this->dispatcher->dispatch(new JobStoppedEvent($job->getJob()));
+            }
 
             throw new JobStopped();
         }
