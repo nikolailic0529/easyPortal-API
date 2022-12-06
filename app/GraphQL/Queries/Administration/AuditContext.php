@@ -52,14 +52,16 @@ class AuditContext {
 
             foreach ($hidden as $property) {
                 // Properties
-                $isProperty = isset($context[AuditableListener::PROPERTIES])
-                    && is_array($context[AuditableListener::PROPERTIES])
-                    && isset($context[AuditableListener::PROPERTIES][$property]);
+                $propertyValue = $context[AuditableListener::PROPERTIES][$property] ?? null;
 
-                if ($isProperty) {
+                if (is_array($propertyValue)) {
                     $context[AuditableListener::PROPERTIES][$property] = [
-                        'value'    => $secret,
-                        'previous' => $secret,
+                        'value'    => ($propertyValue['value'] ?? null) !== null
+                            ? $secret
+                            : null,
+                        'previous' => ($propertyValue['previous'] ?? null) !== null
+                            ? $secret
+                            : null,
                     ];
                 }
 

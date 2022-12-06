@@ -305,12 +305,12 @@ class AuditContextTest extends TestCase {
                 [
                     AuditableListener::PROPERTIES => [
                         'a' => [
-                            'value'    => '********',
+                            'value'    => null,
                             'previous' => '********',
                         ],
                         'b' => [
                             'value'    => 'value-b',
-                            'previous' => 'previous-b',
+                            'previous' => null,
                         ],
                     ],
                     AuditableListener::RELATIONS  => [
@@ -362,12 +362,12 @@ class AuditContextTest extends TestCase {
                     $audit->context     = [
                         AuditableListener::PROPERTIES => [
                             'a' => [
-                                'value'    => 'value-a',
+                                'value'    => null,
                                 'previous' => 'previous-a',
                             ],
                             'b' => [
                                 'value'    => 'value-b',
-                                'previous' => 'previous-b',
+                                'previous' => null,
                             ],
                         ],
                         AuditableListener::RELATIONS  => [
