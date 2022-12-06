@@ -40,14 +40,14 @@ abstract class Synchronizer extends CronJob implements Progressable {
      * @return TSynchronizer
      */
     protected function getProcessor(Container $container, QueueableConfig $config): Processor {
-        $from           = $config->setting('expire')
+        $from           = $config->setting('expire') !== null
             ? Date::now()->sub($config->setting('expire'))
             : null;
         $outdated       = (bool) $config->setting('outdated');
-        $outdatedLimit  = $config->setting('outdated_limit')
+        $outdatedLimit  = $config->setting('outdated_limit') !== null
             ? (int) $config->setting('outdated_limit')
             : null;
-        $outdatedExpire = $config->setting('outdated_expire')
+        $outdatedExpire = $config->setting('outdated_expire') !== null
             ? Date::now()->sub($config->setting('outdated_expire'))
             : null;
         $processor      = $this
