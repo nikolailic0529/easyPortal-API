@@ -5,6 +5,7 @@ namespace App\Services\Queue\Tags;
 use App\Services\Queue\Contracts\Stoppable;
 use App\Services\Queue\Service;
 use App\Utils\Cache\CacheKeyable;
+use Illuminate\Contracts\Cache\Repository;
 use Illuminate\Queue\Jobs\Job;
 
 use function filter_var;
@@ -15,6 +16,7 @@ use const FILTER_VALIDATE_FLOAT;
 
 class Stop implements CacheKeyable {
     public function __construct(
+        protected Repository $cache,
         protected Service $service,
     ) {
         // empty
@@ -44,6 +46,13 @@ class Stop implements CacheKeyable {
         });
 
         if ($marker !== null && $marker >= $dispatched) {
+            return true;
+        }
+
+        // Restart?
+        $restart = $this->getTimestamp($this->cache->get('illuminate:queue:restart'));
+
+        if ($restart !== null && $restart >= $dispatched) {
             return true;
         }
 
