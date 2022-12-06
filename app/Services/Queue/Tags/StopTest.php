@@ -175,6 +175,32 @@ class StopTest extends TestCase {
     }
 
     /**
+     * @covers ::isMarkedById
+     */
+    public function testIsMarkedByIdUnknownJob(): void {
+        $stoppable = Mockery::mock(Stoppable::class);
+        $stoppable
+            ->shouldReceive('getJob')
+            ->once()
+            ->andReturn(null);
+
+        $container = Mockery::mock(Container::class);
+        $service   = Mockery::mock(Service::class);
+        $cache     = Mockery::mock(Repository::class);
+        $stop      = new class($container, $cache, $service) extends Stop {
+            public function isMarkedById(Stoppable $stoppable): bool {
+                return parent::isMarkedById($stoppable);
+            }
+        };
+
+        $service
+            ->shouldReceive('has')
+            ->never();
+
+        self::assertFalse($stop->isMarkedById($stoppable));
+    }
+
+    /**
      * @covers ::isMarkedByMarker
      */
     public function testIsMarkedByMarker(): void {

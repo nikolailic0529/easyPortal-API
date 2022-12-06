@@ -169,6 +169,7 @@ class User extends Model implements
      */
     public function getInternalAttributes(): array {
         return [
+            'type',
             'freshchat_id',
         ];
     }

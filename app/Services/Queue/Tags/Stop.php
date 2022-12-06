@@ -68,8 +68,9 @@ class Stop implements CacheKeyable {
 
     protected function isMarkedById(Stoppable $stoppable): bool {
         // `id` is unique, so we don't need to check the time
-        $id     = $stoppable->getJob()->getJobId();
-        $marked = $this->service->has([$this, $stoppable, $id]);
+        $id     = $stoppable->getJob()?->getJobId();
+        $marked = $id !== null
+            && $this->service->has([$this, $stoppable, $id]);
 
         return $marked;
     }
