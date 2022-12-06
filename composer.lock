@@ -3613,12 +3613,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/LastDragon-ru/lara-asp-formatter.git",
-                "reference": "ede04c095d771cae6fa48a13121bb689dcb6ca5e"
+                "reference": "cd6ef4942caa6ef8c128a19bc515002b42044d51"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/LastDragon-ru/lara-asp-formatter/zipball/ede04c095d771cae6fa48a13121bb689dcb6ca5e",
-                "reference": "ede04c095d771cae6fa48a13121bb689dcb6ca5e",
+                "url": "https://api.github.com/repos/LastDragon-ru/lara-asp-formatter/zipball/cd6ef4942caa6ef8c128a19bc515002b42044d51",
+                "reference": "cd6ef4942caa6ef8c128a19bc515002b42044d51",
                 "shasum": ""
             },
             "require": {
@@ -3678,12 +3678,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/LastDragon-ru/lara-asp-graphql.git",
-                "reference": "c775f025e87d6d913edc9d828d883005e9a52dbd"
+                "reference": "c943e86e4afbb2c2548b37b7638790f4fd157c82"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/LastDragon-ru/lara-asp-graphql/zipball/c775f025e87d6d913edc9d828d883005e9a52dbd",
-                "reference": "c775f025e87d6d913edc9d828d883005e9a52dbd",
+                "url": "https://api.github.com/repos/LastDragon-ru/lara-asp-graphql/zipball/c943e86e4afbb2c2548b37b7638790f4fd157c82",
+                "reference": "c943e86e4afbb2c2548b37b7638790f4fd157c82",
                 "shasum": ""
             },
             "require": {
@@ -3749,12 +3749,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/LastDragon-ru/lara-asp-migrator.git",
-                "reference": "09a580b592cf7443bc81182ba8ba0e463178e467"
+                "reference": "0b967f378045bf6579295c54752239b241d2ddc8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/LastDragon-ru/lara-asp-migrator/zipball/09a580b592cf7443bc81182ba8ba0e463178e467",
-                "reference": "09a580b592cf7443bc81182ba8ba0e463178e467",
+                "url": "https://api.github.com/repos/LastDragon-ru/lara-asp-migrator/zipball/0b967f378045bf6579295c54752239b241d2ddc8",
+                "reference": "0b967f378045bf6579295c54752239b241d2ddc8",
                 "shasum": ""
             },
             "require": {
