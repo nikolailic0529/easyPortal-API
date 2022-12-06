@@ -90,9 +90,9 @@ use function count;
  * @property ServiceLevel|null                   $warrantyServiceLevel
  * @property QuoteRequest|null                   $quoteRequest
  * @method static AssetFactory factory(...$parameters)
- * @method static Builder<Asset> newModelQuery()
- * @method static Builder<Asset> newQuery()
- * @method static Builder<Asset> query()
+ * @method static Builder<Asset>|Asset newModelQuery()
+ * @method static Builder<Asset>|Asset newQuery()
+ * @method static Builder<Asset>|Asset query()
  */
 class Asset extends Model implements OwnedByReseller, Searchable {
     use SearchableImpl;

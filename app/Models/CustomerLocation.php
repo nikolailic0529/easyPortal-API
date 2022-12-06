@@ -29,9 +29,9 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  * @property Location             $location
  * @property Collection<int,Type> $types
  * @method static CustomerLocationFactory factory(...$parameters)
- * @method static Builder<CustomerLocation> newModelQuery()
- * @method static Builder<CustomerLocation> newQuery()
- * @method static Builder<CustomerLocation> query()
+ * @method static Builder<CustomerLocation>|CustomerLocation newModelQuery()
+ * @method static Builder<CustomerLocation>|CustomerLocation newQuery()
+ * @method static Builder<CustomerLocation>|CustomerLocation query()
  */
 class CustomerLocation extends Model {
     use HasFactory;

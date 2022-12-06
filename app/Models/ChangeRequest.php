@@ -38,9 +38,9 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  * @property User                 $user
  * @property Collection<int,File> $files
  * @method static ChangeRequestFactory factory(...$parameters)
- * @method static Builder<ChangeRequest> newModelQuery()
- * @method static Builder<ChangeRequest> newQuery()
- * @method static Builder<ChangeRequest> query()
+ * @method static Builder<ChangeRequest>|ChangeRequest newModelQuery()
+ * @method static Builder<ChangeRequest>|ChangeRequest newQuery()
+ * @method static Builder<ChangeRequest>|ChangeRequest query()
  */
 class ChangeRequest extends Model implements OwnedByOrganization, Auditable {
     use HasFactory;

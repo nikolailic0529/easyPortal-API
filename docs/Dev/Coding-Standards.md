@@ -497,9 +497,9 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
  * @property \Carbon\CarbonImmutable      $created_at
  * @property \Carbon\CarbonImmutable      $updated_at
  * @property string|null                  $deleted_at
- * @method static Builder<User> newModelQuery()
- * @method static Builder<User> newQuery()
- * @method static Builder<User> query()
+ * @method static Builder<User>|User newModelQuery()
+ * @method static Builder<User>|User newQuery()
+ * @method static Builder<User>|User query()
  * @mixin \Eloquent
  */
 class User extends Authenticatable {

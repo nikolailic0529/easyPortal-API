@@ -26,9 +26,9 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
  * @property CarbonImmutable|null        $deleted_at
  * @property-read Collection<int, Asset> $assets
  * @method static CoverageFactory factory(...$parameters)
- * @method static Builder<Coverage> newModelQuery()
- * @method static Builder<Coverage> newQuery()
- * @method static Builder<Coverage> query()
+ * @method static Builder<Coverage>|Coverage newModelQuery()
+ * @method static Builder<Coverage>|Coverage newQuery()
+ * @method static Builder<Coverage>|Coverage query()
  */
 class Coverage extends Model implements DataModel, Translatable {
     use HasFactory;

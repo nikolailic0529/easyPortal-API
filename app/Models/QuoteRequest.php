@@ -52,9 +52,9 @@ use Illuminate\Database\Eloquent\Relations\MorphOne;
  * @property Collection<int, QuoteRequestAsset>    $assets
  * @property Collection<int, QuoteRequestDocument> $documents
  * @method static QuoteRequestFactory factory(...$parameters)
- * @method static Builder<QuoteRequest> newModelQuery()
- * @method static Builder<QuoteRequest> newQuery()
- * @method static Builder<QuoteRequest> query()
+ * @method static Builder<QuoteRequest>|QuoteRequest newModelQuery()
+ * @method static Builder<QuoteRequest>|QuoteRequest newQuery()
+ * @method static Builder<QuoteRequest>|QuoteRequest query()
  */
 class QuoteRequest extends Model implements OwnedByOrganization, Auditable {
     use HasFactory;

@@ -20,9 +20,9 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  * @property CarbonImmutable      $updated_at
  * @property CarbonImmutable|null $deleted_at
  * @method static QuoteRequestDurationFactory factory(...$parameters)
- * @method static Builder<QuoteRequestDuration> newModelQuery()
- * @method static Builder<QuoteRequestDuration> newQuery()
- * @method static Builder<QuoteRequestDuration> query()
+ * @method static Builder<QuoteRequestDuration>|QuoteRequestDuration newModelQuery()
+ * @method static Builder<QuoteRequestDuration>|QuoteRequestDuration newQuery()
+ * @method static Builder<QuoteRequestDuration>|QuoteRequestDuration query()
  */
 class QuoteRequestDuration extends Model implements Translatable {
     use HasFactory;

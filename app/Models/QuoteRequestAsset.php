@@ -28,9 +28,9 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @property-read ServiceLevel|null    $serviceLevel
  * @property-read QuoteRequest         $request
  * @method static QuoteRequestAssetFactory factory(...$parameters)
- * @method static Builder<QuoteRequestAsset> newModelQuery()
- * @method static Builder<QuoteRequestAsset> newQuery()
- * @method static Builder<QuoteRequestAsset> query()
+ * @method static Builder<QuoteRequestAsset>|QuoteRequestAsset newModelQuery()
+ * @method static Builder<QuoteRequestAsset>|QuoteRequestAsset newQuery()
+ * @method static Builder<QuoteRequestAsset>|QuoteRequestAsset query()
  */
 class QuoteRequestAsset extends Model {
     use HasFactory;

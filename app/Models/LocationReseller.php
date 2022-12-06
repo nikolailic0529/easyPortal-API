@@ -20,9 +20,9 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  * @property CarbonImmutable      $updated_at
  * @property CarbonImmutable|null $deleted_at
  * @method static LocationResellerFactory factory(...$parameters)
- * @method static Builder<LocationReseller> newModelQuery()
- * @method static Builder<LocationReseller> newQuery()
- * @method static Builder<LocationReseller> query()
+ * @method static Builder<LocationReseller>|LocationReseller newModelQuery()
+ * @method static Builder<LocationReseller>|LocationReseller newQuery()
+ * @method static Builder<LocationReseller>|LocationReseller query()
  */
 class LocationReseller extends Pivot implements Upsertable {
     use HasFactory;

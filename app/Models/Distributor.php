@@ -19,9 +19,9 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  * @property CarbonImmutable      $updated_at
  * @property CarbonImmutable|null $deleted_at
  * @method static DistributorFactory factory(...$parameters)
- * @method static Builder<Distributor> newModelQuery()
- * @method static Builder<Distributor> newQuery()
- * @method static Builder<Distributor> query()
+ * @method static Builder<Distributor>|Distributor newModelQuery()
+ * @method static Builder<Distributor>|Distributor newQuery()
+ * @method static Builder<Distributor>|Distributor query()
  */
 class Distributor extends Model {
     use HasFactory;

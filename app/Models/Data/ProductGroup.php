@@ -20,9 +20,9 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  * @property CarbonImmutable      $updated_at
  * @property CarbonImmutable|null $deleted_at
  * @method static ProductGroupFactory factory(...$parameters)
- * @method static Builder<ProductGroup> newModelQuery()
- * @method static Builder<ProductGroup> newQuery()
- * @method static Builder<ProductGroup> query()
+ * @method static Builder<ProductGroup>|ProductGroup newModelQuery()
+ * @method static Builder<ProductGroup>|ProductGroup newQuery()
+ * @method static Builder<ProductGroup>|ProductGroup query()
  */
 class ProductGroup extends Model implements DataModel {
     use HasFactory;

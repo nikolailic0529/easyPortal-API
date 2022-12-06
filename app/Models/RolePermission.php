@@ -18,9 +18,9 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  * @property CarbonImmutable      $updated_at
  * @property CarbonImmutable|null $deleted_at
  * @method static RolePermissionFactory factory(...$parameters)
- * @method static Builder<RolePermission> newModelQuery()
- * @method static Builder<RolePermission> newQuery()
- * @method static Builder<RolePermission> query()
+ * @method static Builder<RolePermission>|RolePermission newModelQuery()
+ * @method static Builder<RolePermission>|RolePermission newQuery()
+ * @method static Builder<RolePermission>|RolePermission query()
  */
 class RolePermission extends Pivot {
     use HasFactory;

@@ -37,9 +37,9 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @property Team|null            $team
  * @property User                 $user
  * @method static InvitationFactory factory(...$parameters)
- * @method static Builder<Invitation> newModelQuery()
- * @method static Builder<Invitation> newQuery()
- * @method static Builder<Invitation> query()
+ * @method static Builder<Invitation>|Invitation newModelQuery()
+ * @method static Builder<Invitation>|Invitation newQuery()
+ * @method static Builder<Invitation>|Invitation query()
  */
 class Invitation extends Model implements OwnedByOrganization {
     use HasFactory;

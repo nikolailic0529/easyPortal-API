@@ -25,9 +25,9 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  * @property CarbonImmutable|null           $deleted_at
  * @property-read Collection<int, Document> $documents
  * @method static CurrencyFactory factory(...$parameters)
- * @method static Builder<Currency> newModelQuery()
- * @method static Builder<Currency> newQuery()
- * @method static Builder<Currency> query()
+ * @method static Builder<Currency>|Currency newModelQuery()
+ * @method static Builder<Currency>|Currency newQuery()
+ * @method static Builder<Currency>|Currency query()
  */
 class Currency extends Model implements DataModel, Translatable {
     use HasFactory;

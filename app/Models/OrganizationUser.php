@@ -36,9 +36,9 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  * @property Team|null            $team
  * @property User                 $user
  * @method static OrganizationUserFactory factory(...$parameters)
- * @method static Builder<OrganizationUser> newModelQuery()
- * @method static Builder<OrganizationUser> newQuery()
- * @method static Builder<OrganizationUser> query()
+ * @method static Builder<OrganizationUser>|OrganizationUser newModelQuery()
+ * @method static Builder<OrganizationUser>|OrganizationUser newQuery()
+ * @method static Builder<OrganizationUser>|OrganizationUser query()
  */
 class OrganizationUser extends Pivot implements OwnedByOrganization, Auditable, Upsertable {
     use HasFactory;

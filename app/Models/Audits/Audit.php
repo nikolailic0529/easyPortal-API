@@ -33,9 +33,9 @@ use Illuminate\Support\Facades\DB;
  * @property-read Organization|null    $organization
  * @property-read User|null            $user
  * @method static AuditFactory factory(...$parameters)
- * @method static Builder<Audit> newModelQuery()
- * @method static Builder<Audit> newQuery()
- * @method static Builder<Audit> query()
+ * @method static Builder<Audit>|Audit newModelQuery()
+ * @method static Builder<Audit>|Audit newQuery()
+ * @method static Builder<Audit>|Audit query()
  */
 class Audit extends Model implements OwnedByOrganization {
     use HasFactory;

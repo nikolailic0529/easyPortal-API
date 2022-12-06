@@ -24,9 +24,9 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @property-read QuoteRequestDuration $duration
  * @property-read QuoteRequest         $request
  * @method static QuoteRequestDocumentFactory factory(...$parameters)
- * @method static Builder<QuoteRequestDocument> newModelQuery()
- * @method static Builder<QuoteRequestDocument> newQuery()
- * @method static Builder<QuoteRequestDocument> query()
+ * @method static Builder<QuoteRequestDocument>|QuoteRequestDocument newModelQuery()
+ * @method static Builder<QuoteRequestDocument>|QuoteRequestDocument newQuery()
+ * @method static Builder<QuoteRequestDocument>|QuoteRequestDocument query()
  */
 class QuoteRequestDocument extends Model {
     use HasFactory;
