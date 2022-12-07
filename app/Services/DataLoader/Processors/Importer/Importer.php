@@ -4,6 +4,7 @@ namespace App\Services\DataLoader\Processors\Importer;
 
 use App\Services\DataLoader\Client\Client;
 use App\Services\DataLoader\Collector\Collector;
+use App\Services\DataLoader\Collector\Data;
 use App\Services\DataLoader\Container\Container;
 use App\Services\DataLoader\Container\Isolated;
 use App\Services\DataLoader\Events\DataImported;
@@ -11,6 +12,9 @@ use App\Services\DataLoader\Exceptions\FailedToImportObject;
 use App\Services\DataLoader\Exceptions\ImportError;
 use App\Services\DataLoader\Factory\ModelFactory;
 use App\Services\DataLoader\Resolver\Resolver;
+use App\Services\DataLoader\Schema\Type;
+use App\Services\DataLoader\Schema\TypeWithId;
+use App\Utils\Eloquent\Model;
 use App\Utils\Iterators\Contracts\ObjectIterator;
 use App\Utils\Processor\IteratorProcessor;
 use App\Utils\Processor\State;
@@ -23,10 +27,10 @@ use Throwable;
 use function array_merge;
 
 /**
- * @template TItem of (\App\Services\DataLoader\Schema\Type&\App\Services\DataLoader\Schema\TypeWithId)|ModelObject
- * @template TChunkData of \App\Services\DataLoader\Collector\Data
- * @template TState of \App\Services\DataLoader\Processors\Importer\ImporterState
- * @template TModel of \App\Utils\Eloquent\Model
+ * @template TItem of (Type&TypeWithId)|ModelObject
+ * @template TChunkData of Data
+ * @template TState of ImporterState
+ * @template TModel of Model
  *
  * @extends IteratorProcessor<TItem, TChunkData, TState>
  */

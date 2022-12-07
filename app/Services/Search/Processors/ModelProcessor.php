@@ -36,8 +36,8 @@ use function array_values;
 use function mb_strpos;
 
 /**
- * @template TItem of \Illuminate\Database\Eloquent\Model&\App\Services\Search\Eloquent\Searchable
- * @template TState of \App\Services\Search\Processors\ModelProcessorState<TItem>
+ * @template TItem of Model&Searchable
+ * @template TState of ModelProcessorState<TItem>
  *
  * @extends EloquentProcessor<TItem, null, TState>
  */

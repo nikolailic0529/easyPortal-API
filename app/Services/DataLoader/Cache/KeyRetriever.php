@@ -5,7 +5,7 @@ namespace App\Services\DataLoader\Cache;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * @template TModel of \Illuminate\Database\Eloquent\Model
+ * @template TModel of Model
  */
 interface KeyRetriever {
     /**

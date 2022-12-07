@@ -3,9 +3,10 @@
 namespace App\Services\Search\Processors;
 
 use App\Utils\Processor\EloquentState;
+use Illuminate\Database\Eloquent\Model;
 
 /**
- * @template TModel of \Illuminate\Database\Eloquent\Model
+ * @template TModel of Model
  *
  * @extends EloquentState<TModel>
  */

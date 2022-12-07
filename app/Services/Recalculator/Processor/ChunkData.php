@@ -16,7 +16,7 @@ use stdClass;
 use function array_keys;
 
 /**
- * @template TModel of \Illuminate\Database\Eloquent\Model
+ * @template TModel of Model
  */
 class ChunkData implements OnModelSaved, OnModelDeleted {
     /**

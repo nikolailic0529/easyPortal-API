@@ -6,7 +6,7 @@ use App\Services\Search\Properties\Property;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * @template TModel of \Illuminate\Database\Eloquent\Model
+ * @template TModel of Model
  *
  * @extends Scope<TModel>
  */

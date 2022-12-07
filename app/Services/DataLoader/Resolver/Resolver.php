@@ -28,7 +28,7 @@ use function is_string;
  * Important notes:
  * - providers must be independent of each other.
  *
- * @template TModel of \Illuminate\Database\Eloquent\Model
+ * @template TModel of Model
  *
  * @implements KeyRetriever<TModel>
  *
@@ -272,7 +272,7 @@ abstract class Resolver implements Singleton, KeyRetriever {
     }
 
     /**
-     * @template T of \Illuminate\Database\Eloquent\Builder<TModel>
+     * @template T of Builder<TModel>
      *
      * @param T $builder
      *
@@ -289,7 +289,7 @@ abstract class Resolver implements Singleton, KeyRetriever {
     }
 
     /**
-     * @template T of \Illuminate\Database\Eloquent\Builder<TModel>
+     * @template T of Builder<TModel>
      *
      * @param T $builder
      *

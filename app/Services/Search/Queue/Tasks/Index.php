@@ -5,6 +5,7 @@ namespace App\Services\Search\Queue\Tasks;
 use App\Services\Queue\Concerns\ProcessorJob;
 use App\Services\Queue\Job;
 use App\Services\Search\Processors\ModelProcessor;
+use App\Services\Search\Processors\ModelProcessorState;
 use Illuminate\Contracts\Container\Container;
 use LastDragon_ru\LaraASP\Queue\Configs\QueueableConfig;
 use LastDragon_ru\LaraASP\Queue\Contracts\Initializable;
@@ -19,7 +20,7 @@ use LastDragon_ru\LaraASP\Queue\Contracts\Initializable;
  */
 abstract class Index extends Job implements Initializable {
     /**
-     * @phpstan-use ProcessorJob<ModelProcessor<SearchableModel,\App\Services\Search\Processors\ModelProcessorState<SearchableModel>>>
+     * @phpstan-use ProcessorJob<ModelProcessor<SearchableModel,ModelProcessorState<SearchableModel>>>
      */
     use ProcessorJob;
 

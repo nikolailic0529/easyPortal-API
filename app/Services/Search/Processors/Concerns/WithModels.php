@@ -2,10 +2,12 @@
 
 namespace App\Services\Search\Processors\Concerns;
 
+use Illuminate\Database\Eloquent\Model;
+
 use function array_merge;
 
 /**
- * @template TItem of \Illuminate\Database\Eloquent\Model
+ * @template TItem of Model
  */
 trait WithModels {
     /**

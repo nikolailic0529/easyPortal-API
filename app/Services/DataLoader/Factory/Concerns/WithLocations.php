@@ -15,8 +15,8 @@ use Illuminate\Database\Eloquent\Collection;
 use Throwable;
 
 /**
- * @template C of \App\Models\Reseller|\App\Models\Customer
- * @template L of \App\Models\ResellerLocation|\App\Models\CustomerLocation
+ * @template C of Reseller|Customer
+ * @template L of ResellerLocation|CustomerLocation
  */
 trait WithLocations {
     use Polymorphic;
