@@ -20,7 +20,7 @@ use LastDragon_ru\LaraASP\Eloquent\Iterators\IteratorImpl;
  */
 class EloquentIterator implements ObjectIterator, MixedIterator {
     /**
-     * @phpstan-use Subjects<TModel>
+     * @use Subjects<TModel>
      */
     use Subjects {
         __clone as __cloneSubjects;
@@ -29,7 +29,7 @@ class EloquentIterator implements ObjectIterator, MixedIterator {
     use ChunkSize;
 
     /**
-     * @phpstan-use InitialState<TModel>
+     * @use InitialState<TModel>
      */
     use InitialState;
 

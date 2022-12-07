@@ -74,7 +74,7 @@ class ProcessorJobTest extends TestCase {
 
         $job = new class($service, $processor) extends CronJob implements Progressable {
             /**
-             * @phpstan-use ProcessorJob<Processor<mixed, mixed, State>>
+             * @use ProcessorJob<Processor<mixed, mixed, State>>
              */
             use ProcessorJob;
 
@@ -139,7 +139,7 @@ class ProcessorJobTest extends TestCase {
 
         $job = new class($service, $processor) extends Job {
             /**
-             * @phpstan-use ProcessorJob<Processor<mixed, mixed, State>>
+             * @use ProcessorJob<Processor<mixed, mixed, State>>
              */
             use ProcessorJob;
 
@@ -327,7 +327,7 @@ abstract class ProcessorJobTest__Processor extends IteratorProcessor {
  */
 abstract class ProcessorJobTest__ProcessorJob extends Job implements ConfigurableQueueable, Progressable {
     /**
-     * @phpstan-use ProcessorJob<Processor<mixed, mixed, State>>
+     * @use ProcessorJob<Processor<mixed, mixed, State>>
      */
     use ProcessorJob;
 }

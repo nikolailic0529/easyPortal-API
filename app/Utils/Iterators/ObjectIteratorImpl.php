@@ -24,13 +24,13 @@ use function reset;
  */
 abstract class ObjectIteratorImpl implements ObjectIterator, MixedIterator {
     /**
-     * @phpstan-use Subjects<TItem>
+     * @use Subjects<TItem>
      */
     use Subjects;
     use Properties;
 
     /**
-     * @phpstan-use InitialState<TItem>
+     * @use InitialState<TItem>
      */
     use InitialState;
 

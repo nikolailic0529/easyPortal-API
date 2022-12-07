@@ -53,12 +53,12 @@ class Location extends Model implements DataModel {
     use HasAssets;
 
     /**
-     * @phpstan-use HasResellers<LocationReseller>
+     * @use HasResellers<LocationReseller>
      */
     use HasResellers;
 
     /**
-     * @phpstan-use HasCustomers<LocationCustomer>
+     * @use HasCustomers<LocationCustomer>
      */
     use HasCustomers;
 

@@ -35,7 +35,7 @@ abstract class CompanyFactory extends ModelFactory {
     use WithContacts;
 
     /**
-     * @phpstan-use WithLocations<TCompany, TLocation>
+     * @use WithLocations<TCompany, TLocation>
      */
     use WithLocations;
 

@@ -19,7 +19,7 @@ use LastDragon_ru\LaraASP\Queue\Configs\QueueableConfig;
  */
 abstract class Indexer extends CronJob implements Progressable {
     /**
-     * @phpstan-use ProcessorJob<ModelProcessor<TItem,ModelProcessorState<TItem>>>
+     * @use ProcessorJob<ModelProcessor<TItem,ModelProcessorState<TItem>>>
      */
     use ProcessorJob;
 

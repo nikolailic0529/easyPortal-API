@@ -51,7 +51,7 @@ class WithLocationsTest extends TestCase {
             $this->app->make(LocationFactory::class),
         ) extends ModelFactory {
             /**
-             * @phpstan-use WithLocations<Reseller|Customer,ResellerLocation|CustomerLocation>
+             * @use WithLocations<Reseller|Customer,ResellerLocation|CustomerLocation>
              */
             use WithLocations {
                 companyLocations as public;
@@ -144,7 +144,7 @@ class WithLocationsTest extends TestCase {
 
         $factory = new class($factory) extends ModelFactory {
             /**
-             * @phpstan-use WithLocations<Reseller|Customer,ResellerLocation|CustomerLocation>
+             * @use WithLocations<Reseller|Customer,ResellerLocation|CustomerLocation>
              */
             use WithLocations {
                 location as public;
@@ -195,7 +195,7 @@ class WithLocationsTest extends TestCase {
             $this->app->make(ExceptionHandler::class),
         ) extends ModelFactory {
             /**
-             * @phpstan-use WithLocations<Reseller|Customer,ResellerLocation|CustomerLocation>
+             * @use WithLocations<Reseller|Customer,ResellerLocation|CustomerLocation>
              */
             use WithLocations {
                 companyLocations as public;

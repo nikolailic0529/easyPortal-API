@@ -25,24 +25,24 @@ use function count;
  */
 abstract class ObjectIteratorIterator implements ObjectIterator, MixedIterator, Errorable {
     /**
-     * @phpstan-use PropertiesProxy<TValue>
+     * @use PropertiesProxy<TValue>
      */
     use PropertiesProxy;
 
     /**
-     * @phpstan-use InitialState<TItem>
+     * @use InitialState<TItem>
      */
     use InitialState;
 
     /**
-     * @phpstan-use Subjects<TItem>
+     * @use Subjects<TItem>
      */
     use Subjects {
         Subjects::__clone as __cloneSubjects;
     }
 
     /**
-     * @phpstan-use ErrorableSubjects<ObjectIteratorIteratorError<TValue>>
+     * @use ErrorableSubjects<ObjectIteratorIteratorError<TValue>>
      */
     use ErrorableSubjects {
         ErrorableSubjects::__clone as __cloneErrorableSubjects;

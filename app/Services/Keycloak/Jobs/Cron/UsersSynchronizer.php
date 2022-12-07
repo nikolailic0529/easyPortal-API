@@ -17,7 +17,7 @@ use LastDragon_ru\LaraASP\Queue\Configs\QueueableConfig;
  */
 class UsersSynchronizer extends CronJob implements Progressable {
     /**
-     * @phpstan-use ProcessorJob<TProcessor>
+     * @use ProcessorJob<TProcessor>
      */
     use ProcessorJob;
 

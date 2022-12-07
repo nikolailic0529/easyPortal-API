@@ -14,7 +14,7 @@ use Illuminate\Database\Eloquent\Model;
  */
 abstract class Recalculator extends CronJob implements Progressable {
     /**
-     * @phpstan-use ProcessorJob<EloquentProcessor<TModel,null,EloquentState<TModel>>>
+     * @use ProcessorJob<EloquentProcessor<TModel,null,EloquentState<TModel>>>
      */
     use ProcessorJob;
 }

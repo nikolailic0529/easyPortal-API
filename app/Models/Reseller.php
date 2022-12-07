@@ -63,12 +63,12 @@ class Reseller extends Model implements OwnedByReseller {
     use SyncBelongsToMany;
 
     /**
-     * @phpstan-use HasLocations<ResellerLocation>
+     * @use HasLocations<ResellerLocation>
      */
     use HasLocations;
 
     /**
-     * @phpstan-use HasCustomers<ResellerCustomer>
+     * @use HasCustomers<ResellerCustomer>
      */
     use HasCustomers;
 

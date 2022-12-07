@@ -20,7 +20,7 @@ use LastDragon_ru\LaraASP\Queue\Contracts\Initializable;
  */
 abstract class Index extends Job implements Initializable {
     /**
-     * @phpstan-use ProcessorJob<ModelProcessor<SearchableModel,ModelProcessorState<SearchableModel>>>
+     * @use ProcessorJob<ModelProcessor<SearchableModel,ModelProcessorState<SearchableModel>>>
      */
     use ProcessorJob;
 

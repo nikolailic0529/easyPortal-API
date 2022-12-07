@@ -72,12 +72,12 @@ class Customer extends Model implements OwnedByReseller, Searchable {
     use HasChangeRequests;
 
     /**
-     * @phpstan-use HasLocations<CustomerLocation>
+     * @use HasLocations<CustomerLocation>
      */
     use HasLocations;
 
     /**
-     * @phpstan-use HasResellers<ResellerCustomer>
+     * @use HasResellers<ResellerCustomer>
      */
     use HasResellers;
 
