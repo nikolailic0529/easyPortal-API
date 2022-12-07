@@ -144,7 +144,7 @@ abstract class Processor implements ProcessorContract, MixedProcessor {
                 $this->invoke($state);
             });
         } catch (Interrupt) {
-            // ok
+            $this->stopped = true;
         } finally {
             $this->running = false;
         }

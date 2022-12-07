@@ -2,8 +2,9 @@
 
 namespace App\Utils\Processor;
 
+use App\Utils\Iterators\Contracts\IteratorFatalError;
 use Exception;
 
-class Interrupt extends Exception {
+class Interrupt extends Exception implements IteratorFatalError {
     // empty
 }
