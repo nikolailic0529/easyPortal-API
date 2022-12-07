@@ -19,6 +19,7 @@ use App\Services\Settings\Types\StringType;
 use App\Services\Settings\Types\Type;
 use App\Utils\Cast;
 use App\Utils\Description;
+use Attribute;
 use InvalidArgumentException;
 use ReflectionAttribute;
 use ReflectionClassConstant;
@@ -185,7 +186,7 @@ class Setting {
     }
 
     /**
-     * @template T of \Attribute
+     * @template T of Attribute
      *
      * @param class-string<T> ...$attributes
      *

@@ -5166,8 +5166,13 @@ parameters:
 			path: app/Utils/Eloquent/Model.php
 
 		-
+			message: "#^Parameter \\#1 \\$model of method App\\\\Utils\\\\Eloquent\\\\ModelProperty\\:\\:getRelation\\(\\) expects Illuminate\\\\Database\\\\Eloquent\\\\Builder\\<Illuminate\\\\Database\\\\Eloquent\\\\Model\\>\\|Illuminate\\\\Database\\\\Eloquent\\\\Model, App\\\\Models\\\\Customer\\|Illuminate\\\\Database\\\\Eloquent\\\\Builder\\<App\\\\Models\\\\Customer\\> given\\.$#"
+			count: 1
+			path: app/Utils/Eloquent/ModelPropertyTest.php
+
+		-
 			message: "#^Parameter \\#1 \\$model of method App\\\\Utils\\\\Eloquent\\\\ModelProperty\\:\\:getRelation\\(\\) expects Illuminate\\\\Database\\\\Eloquent\\\\Builder\\<Illuminate\\\\Database\\\\Eloquent\\\\Model\\>\\|Illuminate\\\\Database\\\\Eloquent\\\\Model, Illuminate\\\\Database\\\\Eloquent\\\\Builder\\<App\\\\Models\\\\Customer\\> given\\.$#"
-			count: 2
+			count: 1
 			path: app/Utils/Eloquent/ModelPropertyTest.php
 
 		-

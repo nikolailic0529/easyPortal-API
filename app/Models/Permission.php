@@ -21,9 +21,9 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  * @property-read string          $description
  * @property-read string          $name
  * @method static PermissionFactory factory(...$parameters)
- * @method static Builder|Permission newModelQuery()
- * @method static Builder|Permission newQuery()
- * @method static Builder|Permission query()
+ * @method static Builder<Permission>|Permission newModelQuery()
+ * @method static Builder<Permission>|Permission newQuery()
+ * @method static Builder<Permission>|Permission query()
  */
 class Permission extends Model implements Translatable {
     use HasFactory;

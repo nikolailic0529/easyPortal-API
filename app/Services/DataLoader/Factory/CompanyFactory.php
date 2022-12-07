@@ -2,7 +2,11 @@
 
 namespace App\Services\DataLoader\Factory;
 
+use App\Models\Customer;
+use App\Models\CustomerLocation;
 use App\Models\Data\Status;
+use App\Models\Reseller;
+use App\Models\ResellerLocation;
 use App\Services\DataLoader\Factory\Concerns\WithContacts;
 use App\Services\DataLoader\Factory\Concerns\WithLocations;
 use App\Services\DataLoader\Factory\Concerns\WithStatus;
@@ -20,8 +24,8 @@ use Illuminate\Database\Eloquent\Collection;
 use function array_values;
 
 /**
- * @template TCompany of \App\Models\Reseller|\App\Models\Customer
- * @template TLocation of \App\Models\ResellerLocation|\App\Models\CustomerLocation
+ * @template TCompany of Reseller|Customer
+ * @template TLocation of ResellerLocation|CustomerLocation
  *
  * @extends ModelFactory<TCompany>
  */
@@ -31,7 +35,7 @@ abstract class CompanyFactory extends ModelFactory {
     use WithContacts;
 
     /**
-     * @phpstan-use WithLocations<TCompany, TLocation>
+     * @use WithLocations<TCompany, TLocation>
      */
     use WithLocations;
 

@@ -386,7 +386,7 @@ class DocumentFactoryTest extends TestCase {
      *
      * @dataProvider dataProviderDocument
      *
-     * @template     T of \App\Services\DataLoader\Schema\Document|\App\Services\DataLoader\Schema\ViewDocument
+     * @template     T of Document|ViewDocument
      *
      * @param Closure(static): T $documentFactory
      */
@@ -420,7 +420,7 @@ class DocumentFactoryTest extends TestCase {
      *
      * @dataProvider dataProviderDocument
      *
-     * @template     T of \App\Services\DataLoader\Schema\Document|\App\Services\DataLoader\Schema\ViewDocument
+     * @template     T of Document|ViewDocument
      *
      * @param Closure(static): T $documentFactory
      */

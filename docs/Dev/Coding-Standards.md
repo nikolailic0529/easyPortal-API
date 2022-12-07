@@ -2,41 +2,6 @@
 
 The key words “MUST”, “MUST NOT”, “REQUIRED”, “SHALL”, “SHALL NOT”, “SHOULD”, “SHOULD NOT”, “RECOMMENDED”, “MAY”, and “OPTIONAL” in this document are to be interpreted as described in [RFC 2119](http://tools.ietf.org/html/rfc2119).
 
-* [General](#general)
-    + [Always strict is a MUST](#always-strict-is-a-must)
-    + [The `{` MUST be on the same line](#the-----must-be-on-the-same-line)
-    + [Compound namespaces MUST NOT be used](#compound-namespaces-must-not-be-used)
-    + [Multi-line calls, arguments, and arrays MUST have a comma on the last line](#multi-line-calls--arguments--and-arrays-must-have-a-comma-on-the-last-line)
-    + [Groups of constants, variables, class properties, and arrays MUST be aligned by `=` or `=>` respectively](#groups-of-constants--variables--class-properties--and-arrays-must-be-aligned-by-----or------respectively)
-    + [Every object SHOULD have a body](#every-object-should-have-a-body)
-    + [Each If-ElseIf-ElseIf SHOULD have `else` block](#each-if-elseif-elseif-should-have--else--block)
-    + [Each Switch-Case SHOULD have `default` block](#each-switch-case-should-have--default--block)
-    + [Default value SHOULD be placed before If-ElseIf-Else/Switch-Case block](#default-value-should-be-placed-before-if-elseif-else-switch-case-block)
-    + [Prefixes/Suffixes like `Trait`/`Interface`/`Abstract` SHOULD NOT be used.](#prefixes-suffixes-like--trait---interface---abstract--should-not-be-used)
-    + [You MAY use code-folding to group code by logic](#you-may-use-code-folding-to-group-code-by-logic)
-* [Laravel Best Practices](#laravel-best-practices)
-    + [Auto Complete MUST work](#auto-complete-must-work)
-    + [DI SHOULD be used where possible](#di-should-be-used-where-possible)
-    + [Models](#models)
-        - [Table name MUST be declared](#table-name-must-be-declared)
-        - [Class MUST have proper docblock](#class-must-have-proper-docblock)
-        - [Factories MUST define all properties](#factories-must-define-all-properties)
-    + [Routes](#routes)
-        - [Actions SHOULD be defined via valid callback](#actions-should-be-defined-via-valid-callback)
-    + [GraphQL](#graphql)
-    + [Database Schema & Migrations](#database-schema---migrations)
-    + [See also](#see-also)
-* [Testing](#testing)
-    + [You SHOULD write the tests](#you-should-write-the-tests)
-    + [Test file SHOULD be placed in the same directory with class](#test-file-should-be-placed-in-the-same-directory-with-class)
-    + [Test data SHOULD be placed in the same directory with Test](#test-data-should-be-placed-in-the-same-directory-with-test)
-    + [Simple Mocks SHOULD use anonymous classes](#simple-mocks-should-use-anonymous-classes)
-    + [Each TestCase class MUST have proper docblock](#each-testcase-class-must-have-proper-docblock)
-* [Misc](#misc)
-    + [PHP CodeSniffer](#php-codesniffer)
-    + [Laravel Ide Helper](#laravel-ide-helper)
-
-
 ## General
 
 Code MUST follow all rules outlined in [PSR-12](https://www.php-fig.org/psr/psr-12/) with exceptions/addition declared below.
@@ -62,7 +27,7 @@ class A {
         $a = static function (bool $b): int {
             // ...
         };
-        
+
         // ...
     }
 }
@@ -86,7 +51,7 @@ class IntRule implements Rule {
     public function passes($attribute, $value) {
         return is_int($value);
     }
-    
+
     /**
      * @inheritdoc
      */
@@ -137,11 +102,11 @@ function f(): void {
 <?php declare(strict_types=1);
 
 // Forbidden
-use function Another\Vendor\functionD; 
+use function Another\Vendor\functionD;
 use function Vendor\Package\{functionA, functionB, functionC};
 
 // MUST BE
-use function Another\Vendor\functionD; 
+use function Another\Vendor\functionD;
 use function Vendor\Package\functionA;
 use function Vendor\Package\functionB;
 use function Vendor\Package\functionC;
@@ -170,7 +135,7 @@ class ClassName {
                 'one',
                 'two',
                 'three', // <-- comma
-            ], // <-- comma  
+            ], // <-- comma
         );
     }
 }
@@ -196,7 +161,7 @@ $array = [
 class A {
     public const DateFormat     = 'Y-m-d';
     public const DateTimeFormat = 'Y-m-d\TH:i:sP';
-    
+
     protected Container $container;
     protected array     $properties = [];
     protected ?array    $config     = null;
@@ -276,7 +241,7 @@ switch ('value') {
 
 function IfElseExample(): ?string {
     $value = null;
-    
+
     if ('condition1') {
         // ...
     } elseif ('condition2') {
@@ -286,13 +251,13 @@ function IfElseExample(): ?string {
     } else {
         // empty
     }
-    
+
     return $value;
 }
 
 function SwitchCaseExample(): ?string {
     $value = null;
-    
+
     switch ($value) {
         case 'condition1':
             // ...
@@ -304,7 +269,7 @@ function SwitchCaseExample(): ?string {
             // empty
             break;
     }
-    
+
     return $value;
 }
 ```
@@ -352,11 +317,84 @@ class AuthControllerTest extends TestCase {
 ```
 
 
+### Chained methods SHOULD be indented correctly
+
+```php
+<?php declare(strict_types=1);
+
+// Should be
+$contactsRelation = Contact::factory()
+    ->hasTypes(1, [
+        'id' => 'f9396bc1-2f2f-4c58-2f2f-7a224ac20935',
+    ])
+    ->state(function () {
+        return [
+            'name' => 'contact1',
+        ];
+    })
+    ->create();
+```
+
+### Unused/Dead code MUST be removed
+
+```php
+<?php declare(strict_types=1);
+
+// seems not needed anymore
+// $location = Location::factory()
+//     ->hasTypes(1,[
+//         'id'   => 'f9396bc1-2f2f-4c58-2f2f-7a224ac20934',
+//         'name' => 'name1',
+//         'key'  => 'key1'
+//     ])
+//     ->create();
+```
+
+### Empty line MUST BE added before each logical block/return/etc
+
+```php
+<?php declare(strict_types=1);
+
+// Bad
+function one(): ?string {
+    $value = null;
+    if ('condition1') {
+        // ...
+    } else {
+        // empty
+    }
+    return $value;
+}
+function two(): ?string {
+    $value = null;
+    return $value;
+}
+
+// MUST BE
+function one(): ?string {
+    $value = null;
+
+    if ('condition1') {
+        // ...
+    } else {
+        // empty
+    }
+
+    return $value;
+}
+
+function two(): ?string {
+    $value = null;
+
+    return $value;
+}
+```
+
 ## Laravel Best Practices
 
-### Auto Complete MUST work
+### Auto Complete SHOULD work
 
-Use `ide-helper` (see below) and `/* @var \stdClass $a */` when necessary.
+Use `ide-helper` (see below) and `/* @var \stdClass $a */` when necessary, but it should not make any assumptions about actual types if they cannot be determined by `phpstan`.
 
 
 ### DI SHOULD be used where possible
@@ -367,7 +405,56 @@ not helpers and facades. There are few exceptions:
 - `Illuminate\\Support\\Facades\\Route` should be used for top-level routes;
 
 
+### Localization
+
+
+#### The `trans()` function SHOULD be used
+
+to translate strings.
+
+
+#### Translations MUST be placed on `lang/<lang>.json`
+
+
+Not inside PHP files.
+
+#### Implementation of `Illuminate\Contracts\Validation\InvokableRule` contract SHOULD use `trans()`
+
+instead of ` $fail('validation.string')->translate();`. It is required because `trans()` function will report about missed strings.
+
+```php
+<?php declare(strict_types = 1);
+
+namespace App\Rules\Organization;
+
+use Illuminate\Contracts\Validation\InvokableRule;
+
+use function trans;
+
+class CustomRule implements InvokableRule {
+    /**
+     * @inheritdoc
+     */
+    public function __invoke($attribute, $value, $fail): void {
+        // Bad
+        $fail('validation.string')->translate();;
+
+        // Good
+        $fail(trans('validation.string'));
+    }
+}
+```
+
+
 ### Models
+
+#### Models classes MUST extend [`Model`](../../app/Utils/Eloquent/Model.php)/[`Pivot`](../../app/Utils/Eloquent/Pivot.php)
+
+These classes provide general functionality/extensions and are required to work.
+
+#### Model factories MUST extend [`Factory`](../../app/Utils/Eloquent/Testing/Database/Factory.php)
+
+The class provides required extensions/fixes.
 
 #### Table name MUST be declared
 
@@ -401,6 +488,7 @@ It can be generated by ide-helper. If the schema was updated the recommended way
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
 /**
@@ -417,23 +505,9 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
  * @property \Carbon\CarbonImmutable      $created_at
  * @property \Carbon\CarbonImmutable      $updated_at
  * @property string|null                  $deleted_at
- * @method static \Illuminate\Database\Eloquent\Builder|User newModelQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|User newQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|User query()
- * @method static \Illuminate\Database\Eloquent\Builder|User whereBlocked($value)
- * @method static \Illuminate\Database\Eloquent\Builder|User whereCreatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|User whereDeletedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|User whereEmail($value)
- * @method static \Illuminate\Database\Eloquent\Builder|User whereEmailVerifiedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|User whereFamilyName($value)
- * @method static \Illuminate\Database\Eloquent\Builder|User whereGivenName($value)
- * @method static \Illuminate\Database\Eloquent\Builder|User whereId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|User whereOrganizationId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|User wherePermissions($value)
- * @method static \Illuminate\Database\Eloquent\Builder|User wherePhone($value)
- * @method static \Illuminate\Database\Eloquent\Builder|User wherePhoneVerifiedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|User wherePhoto($value)
- * @method static \Illuminate\Database\Eloquent\Builder|User whereUpdatedAt($value)
+ * @method static Builder<User>|User newModelQuery()
+ * @method static Builder<User>|User newQuery()
+ * @method static Builder<User>|User query()
  * @mixin \Eloquent
  */
 class User extends Authenticatable {
@@ -441,18 +515,45 @@ class User extends Authenticatable {
 }
 ```
 
+#### `Model::getKey()` SHOULD be used to get PK value
 
-#### Factories MUST define all properties
+Not `Model::$id`. The `getKey()` will generate a new valid PK automatically before actual insert, that is required in some situation.
 
-This is required to be able to compare models while testing.
+```php
+<?php declare(strict_types=1);
 
+$org = new \App\Models\Organization();
+
+// Bad
+$user->id;
+
+// Good
+$user->getKey();
+```
+
+#### Attributes SHOULD be used to set relation property
+
+It is required/allow for optimize the number of queries and track relations changes (Audit).
+
+```php
+<?php declare(strict_types=1);
+
+$org  = new \App\Models\Organization();
+$user = new \App\Models\User();
+
+// Bad
+$user->organization_id = $org->getKey();
+
+// Good
+$user->organization = $org;
+```
 
 ### Routes
 
 #### Actions SHOULD be defined via valid callback
 
 ```php
-<?php declare(strict_types=1); 
+<?php declare(strict_types=1);
 
 Route::get('/users', [UserController::class, 'index']);
 ```
@@ -463,10 +564,40 @@ Route::get('/users', [UserController::class, 'index']);
 _TODO_
 
 
-### Database Schema & Migrations
+### Database
 
-The [`database.mwb`](./database.mwb) ([MySQL Workbench](https://www.mysql.com/products/workbench/) Schema) have the biggest priority. Thus the highly recommended way to create migration(s) is using the "Synchronize Model" feature and create a raw-sql migration(s).
+#### The [`database.mwb`](../database.mwb) MUST be used
 
+The [`database.mwb`](../database.mwb) (see [MySQL Workbench](https://www.mysql.com/products/workbench/)) have the biggest priority. It should be changed first. Then the ["Synchronize Model..."](https://dev.mysql.com/doc/workbench/en/wb-database-synchronization.html) should be used to generate the SQL queries to migrate. And, finally, these queries should be placed into raw-migration.
+
+#### Data MUST be migrated while structure changes
+
+Up & Down. As close as possible.
+
+#### Table structure
+
+1. PK must be a UUID
+2. `created_at`, `updated_at`, `deleted_at` are required
+3. Unique keys SHOULD include autogenerated `deleted_not` column (that, as you can see, it is the inverted value of `deleted_at` and required because MySQL ignores `null`s in unique key)
+4. Indexes SHOULD contain columns names separated by `__` and MUST use following prefixes:
+    * `idx__` - normal index
+    * `unique__` - unique index
+    * `fk_` - foreign key
+5. `CREATE TABLE` statement SHOULD not contain engine, collation and other properties
+
+```sql
+CREATE TABLE IF NOT EXISTS `statuses` (
+    /* 1 */ `id` CHAR(36) NOT NULL,
+    /* 3 */ `key` VARCHAR(64) NOT NULL,
+    /* 2 */ `created_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    /* 2 */ `updated_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    /* 2 */ `deleted_at` TIMESTAMP NULL,
+    /* 3 */ `deleted_not` TINYINT(1) GENERATED ALWAYS AS (if((`deleted_at` is null),1,NULL)) STORED,
+    /* 1 */ PRIMARY KEY (`id`),
+    /* 3 */ UNIQUE INDEX `unique__key__deleted_not` (`key` ASC, `deleted_not` ASC) VISIBLE,
+    /* 4 */ INDEX `idx__deleted_at` (`deleted_at` ASC) VISIBLE
+);  /* 5 */
+```
 
 ### See also
 
@@ -479,7 +610,7 @@ _TODO review required_
 
 ## Testing
 
-### You SHOULD write the tests
+### You MUST write the tests
 
 Except for trivial methods like getters/setters.
 
@@ -538,7 +669,7 @@ class AuthControllerTest extends TestCase {
     public function testInfo(): void {
         // ...
     }
-    
+
     /**
      * @coversNothing
      */
@@ -546,6 +677,71 @@ class AuthControllerTest extends TestCase {
         // ...
     }
 }
+```
+
+### DataProviders MUST be prefixed by `dataProvider`
+
+```php
+<?php declare(strict_types = 1);
+
+namespace App\Http\Controllers;
+
+use Tests\TestCase;
+
+/**
+ * @internal
+ * @coversDefaultClass \App\Http\Controllers\AuthController
+ */
+class AuthControllerTest extends TestCase {
+    // <editor-fold desc="Tests">
+    // =========================================================================
+    /**
+     * @covers ::info
+     * @dataProvider dataProviderInfo
+     */
+    public function testInfo(): void {
+        // ...
+    }
+    // </editor-fold>
+
+    // <editor-fold desc="DataProviders">
+    // =========================================================================
+    public function dataProviderInfo(): array {
+        return [];
+    }
+    // </editor-fold>
+}
+```
+
+### Models factories MUST define all properties
+
+This is required to be able to compare models while testing.
+
+
+### Models actories MUST extend `App\Utils\Eloquent\Testing\Database\Factory`
+
+that makes sure that all our features work as expected and also provides a few useful states.
+
+
+### The `Factory::ownedBy()` MUST be used to set the owner
+
+Some records accessible only if they are related to the current organization the `ownedBy()` help to reduce number of lines/code duplication when setting the owner (and also makes possible to use the same code for all types of organization).
+
+```php
+<?php declare(strict_types = 1);
+
+use App\Models\Asset;
+use App\Models\Organization;
+
+// Bad (may fail of $org is not a Reseller)
+$org   = Organization::factory()->create();
+$asset = Asset::factory()->create([
+    'reseller_id' => $org,
+]);
+
+// MUST BE
+$org   = Organization::factory()->create();
+$asset = Asset::factory()->ownedBy($org)->create();
 ```
 
 

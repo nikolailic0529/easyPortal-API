@@ -48,9 +48,9 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @property Collection<int, ResellerLocation> $locations
  * @property Collection<int, Status>           $statuses
  * @method static ResellerFactory factory(...$parameters)
- * @method static Builder|Reseller newModelQuery()
- * @method static Builder|Reseller newQuery()
- * @method static Builder|Reseller query()
+ * @method static Builder<Reseller>|Reseller newModelQuery()
+ * @method static Builder<Reseller>|Reseller newQuery()
+ * @method static Builder<Reseller>|Reseller query()
  */
 class Reseller extends Model implements OwnedByReseller {
     use OwnedByResellerImpl;
@@ -63,12 +63,12 @@ class Reseller extends Model implements OwnedByReseller {
     use SyncBelongsToMany;
 
     /**
-     * @phpstan-use HasLocations<ResellerLocation>
+     * @use HasLocations<ResellerLocation>
      */
     use HasLocations;
 
     /**
-     * @phpstan-use HasCustomers<ResellerCustomer>
+     * @use HasCustomers<ResellerCustomer>
      */
     use HasCustomers;
 

@@ -42,9 +42,9 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  * @property CarbonImmutable      $updated_at
  * @property CarbonImmutable|null $deleted_at
  * @method static KpiFactory factory(...$parameters)
- * @method static Builder|Kpi newModelQuery()
- * @method static Builder|Kpi newQuery()
- * @method static Builder|Kpi query()
+ * @method static Builder<Kpi>|Kpi newModelQuery()
+ * @method static Builder<Kpi>|Kpi newQuery()
+ * @method static Builder<Kpi>|Kpi query()
  */
 class Kpi extends Model {
     use HasFactory;

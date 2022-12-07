@@ -1,6 +1,6 @@
 # Application GraphQL Cache
 
-| [Cache store](./Application-Cache.md) | `permanent` |
+| [Cache store](Cache.md) | `permanent` |
 |---------------------------------------|-------------|
 
 

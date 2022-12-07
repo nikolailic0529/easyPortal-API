@@ -18,9 +18,9 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  * @property CarbonImmutable      $updated_at
  * @property CarbonImmutable|null $deleted_at
  * @method static CustomerStatusFactory factory(...$parameters)
- * @method static Builder|CustomerStatus newModelQuery()
- * @method static Builder|CustomerStatus newQuery()
- * @method static Builder|CustomerStatus query()
+ * @method static Builder<CustomerStatus>|CustomerStatus newModelQuery()
+ * @method static Builder<CustomerStatus>|CustomerStatus newQuery()
+ * @method static Builder<CustomerStatus>|CustomerStatus query()
  */
 class CustomerStatus extends Pivot {
     use HasFactory;

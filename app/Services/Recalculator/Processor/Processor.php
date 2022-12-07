@@ -7,16 +7,18 @@ use App\Services\Recalculator\Exceptions\FailedToRecalculateModel;
 use App\Services\Recalculator\Exceptions\RecalculateError;
 use App\Utils\Eloquent\Events\Subject;
 use App\Utils\Processor\EloquentProcessor;
+use App\Utils\Processor\EloquentState;
 use App\Utils\Processor\State;
 use Illuminate\Contracts\Config\Repository;
 use Illuminate\Contracts\Debug\ExceptionHandler;
 use Illuminate\Contracts\Events\Dispatcher;
+use Illuminate\Database\Eloquent\Model;
 use Throwable;
 
 /**
- * @template TItem of \Illuminate\Database\Eloquent\Model
- * @template TChunkData of \App\Services\Recalculator\Processor\ChunkData<TItem>
- * @template TState of \App\Utils\Processor\EloquentState<TItem>
+ * @template TItem of Model
+ * @template TChunkData of ChunkData<TItem>
+ * @template TState of EloquentState<TItem>
  *
  * @extends EloquentProcessor<TItem, TChunkData, TState>
  */

@@ -25,9 +25,9 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  * @property CarbonImmutable|null           $deleted_at
  * @property-read Collection<int, Document> $documents
  * @method static LanguageFactory factory(...$parameters)
- * @method static Builder|Language newModelQuery()
- * @method static Builder|Language newQuery()
- * @method static Builder|Language query()
+ * @method static Builder<Language>|Language newModelQuery()
+ * @method static Builder<Language>|Language newQuery()
+ * @method static Builder<Language>|Language query()
  */
 class Language extends Model implements DataModel, Translatable {
     use HasFactory;

@@ -40,9 +40,9 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
  * @property-read Collection<int, Location>         $locations
  * @property-read Collection<int, Document>         $quotes
  * @method static TypeFactory factory(...$parameters)
- * @method static Builder|Type newModelQuery()
- * @method static Builder|Type newQuery()
- * @method static Builder|Type query()
+ * @method static Builder<Type>|Type newModelQuery()
+ * @method static Builder<Type>|Type newQuery()
+ * @method static Builder<Type>|Type query()
  */
 class Type extends Model implements DataModel, Translatable {
     use HasFactory;

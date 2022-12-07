@@ -30,9 +30,9 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  * @property Reseller              $reseller
  * @property Collection<int, Type> $types
  * @method static ResellerLocationFactory factory(...$parameters)
- * @method static Builder|ResellerLocation newModelQuery()
- * @method static Builder|ResellerLocation newQuery()
- * @method static Builder|ResellerLocation query()
+ * @method static Builder<ResellerLocation>|ResellerLocation newModelQuery()
+ * @method static Builder<ResellerLocation>|ResellerLocation newQuery()
+ * @method static Builder<ResellerLocation>|ResellerLocation query()
  */
 class ResellerLocation extends Model {
     use HasFactory;

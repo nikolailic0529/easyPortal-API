@@ -72,9 +72,9 @@ use LogicException;
  * @property Collection<int, OrganizationUser> $organizations
  * @property-read Collection<int, UserSearch>  $searches
  * @method static UserFactory factory(...$parameters)
- * @method static Builder|User newModelQuery()
- * @method static Builder|User newQuery()
- * @method static Builder|User query()
+ * @method static Builder<User>|User newModelQuery()
+ * @method static Builder<User>|User newQuery()
+ * @method static Builder<User>|User query()
  */
 class User extends Model implements
     AuthenticatableContract,

@@ -23,9 +23,9 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
  * @property CarbonImmutable|null        $deleted_at
  * @property-read Collection<int, Asset> $assets
  * @method static TagFactory factory(...$parameters)
- * @method static Builder|Tag newModelQuery()
- * @method static Builder|Tag newQuery()
- * @method static Builder|Tag query()
+ * @method static Builder<Tag>|Tag newModelQuery()
+ * @method static Builder<Tag>|Tag newQuery()
+ * @method static Builder<Tag>|Tag query()
  */
 class Tag extends Model implements DataModel {
     use HasFactory;

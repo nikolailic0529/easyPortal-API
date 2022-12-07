@@ -93,9 +93,9 @@ use function count;
  * @property Collection<int, Status>        $statuses
  * @property Type|null                      $type
  * @method static DocumentFactory factory(...$parameters)
- * @method static Builder|Document newModelQuery()
- * @method static Builder|Document newQuery()
- * @method static Builder|Document query()
+ * @method static Builder<Document>|Document newModelQuery()
+ * @method static Builder<Document>|Document newQuery()
+ * @method static Builder<Document>|Document query()
  */
 class Document extends Model implements OwnedByReseller, Searchable {
     use HasFactory;

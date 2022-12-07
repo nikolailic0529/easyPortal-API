@@ -18,9 +18,9 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  * @property CarbonImmutable      $updated_at
  * @property CarbonImmutable|null $deleted_at
  * @method static TeamFactory factory(...$parameters)
- * @method static Builder|Team newModelQuery()
- * @method static Builder|Team newQuery()
- * @method static Builder|Team query()
+ * @method static Builder<Team>|Team newModelQuery()
+ * @method static Builder<Team>|Team newQuery()
+ * @method static Builder<Team>|Team query()
  */
 class Team extends Model implements DataModel {
     use HasFactory;

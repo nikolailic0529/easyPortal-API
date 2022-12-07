@@ -38,9 +38,9 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @property Organization          $organization
  * @property QuoteRequest|null     $quoteRequest
  * @method static NoteFactory factory(...$parameters)
- * @method static Builder|Note newModelQuery()
- * @method static Builder|Note newQuery()
- * @method static Builder|Note query()
+ * @method static Builder<Note>|Note newModelQuery()
+ * @method static Builder<Note>|Note newQuery()
+ * @method static Builder<Note>|Note query()
  */
 class Note extends Model implements OwnedByOrganization {
     use HasFactory;

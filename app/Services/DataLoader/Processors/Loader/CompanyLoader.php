@@ -15,12 +15,12 @@ use function array_merge;
  */
 abstract class CompanyLoader extends Loader {
     /**
-     * @phpstan-use WithAssets<TState>
+     * @use WithAssets<TState>
      */
     use WithAssets;
 
     /**
-     * @phpstan-use DocumentsOperations<TState>
+     * @use DocumentsOperations<TState>
      */
     use DocumentsOperations;
 

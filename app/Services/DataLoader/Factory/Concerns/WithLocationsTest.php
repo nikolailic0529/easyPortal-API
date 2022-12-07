@@ -4,7 +4,9 @@ namespace App\Services\DataLoader\Factory\Concerns;
 
 use App\Exceptions\ErrorReport;
 use App\Models\Customer;
+use App\Models\CustomerLocation;
 use App\Models\Reseller;
+use App\Models\ResellerLocation;
 use App\Services\DataLoader\Exceptions\FailedToProcessLocation;
 use App\Services\DataLoader\Factory\Factories\LocationFactory;
 use App\Services\DataLoader\Factory\ModelFactory;
@@ -49,7 +51,7 @@ class WithLocationsTest extends TestCase {
             $this->app->make(LocationFactory::class),
         ) extends ModelFactory {
             /**
-             * @phpstan-use WithLocations<Reseller|Customer,\App\Models\ResellerLocation|\App\Models\CustomerLocation>
+             * @use WithLocations<Reseller|Customer,ResellerLocation|CustomerLocation>
              */
             use WithLocations {
                 companyLocations as public;
@@ -142,7 +144,7 @@ class WithLocationsTest extends TestCase {
 
         $factory = new class($factory) extends ModelFactory {
             /**
-             * @phpstan-use WithLocations<Reseller|Customer,\App\Models\ResellerLocation|\App\Models\CustomerLocation>
+             * @use WithLocations<Reseller|Customer,ResellerLocation|CustomerLocation>
              */
             use WithLocations {
                 location as public;
@@ -193,7 +195,7 @@ class WithLocationsTest extends TestCase {
             $this->app->make(ExceptionHandler::class),
         ) extends ModelFactory {
             /**
-             * @phpstan-use WithLocations<Reseller|Customer,\App\Models\ResellerLocation|\App\Models\CustomerLocation>
+             * @use WithLocations<Reseller|Customer,ResellerLocation|CustomerLocation>
              */
             use WithLocations {
                 companyLocations as public;

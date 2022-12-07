@@ -2,8 +2,10 @@
 
 namespace App\Services\DataLoader\Factory\Concerns;
 
+use App\Services\DataLoader\Schema\Type;
 use App\Utils\Eloquent\Callbacks\KeysComparator;
 use Closure;
+use Illuminate\Database\Eloquent\Collection as EloquentCollection;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
 use SplObjectStorage;
@@ -13,9 +15,9 @@ use function is_bool;
 
 trait Children {
     /**
-     * @template T of \App\Services\DataLoader\Schema\Type
-     * @template M of \Illuminate\Database\Eloquent\Model
-     * @template C of \Illuminate\Support\Collection<array-key,M>|\Illuminate\Database\Eloquent\Collection<array-key,M>
+     * @template T of Type
+     * @template M of Model
+     * @template C of Collection<array-key,M>|EloquentCollection<array-key,M>
      *
      * @param C                   $existing
      * @param array<?T>           $children

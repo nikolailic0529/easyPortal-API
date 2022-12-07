@@ -18,9 +18,9 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  * @property CarbonImmutable      $updated_at
  * @property CarbonImmutable|null $deleted_at
  * @method static ContactTypeFactory factory(...$parameters)
- * @method static Builder|ContactType newModelQuery()
- * @method static Builder|ContactType newQuery()
- * @method static Builder|ContactType query()
+ * @method static Builder<ContactType>|ContactType newModelQuery()
+ * @method static Builder<ContactType>|ContactType newQuery()
+ * @method static Builder<ContactType>|ContactType query()
  */
 class ContactType extends Pivot {
     use HasFactory;

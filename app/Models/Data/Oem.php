@@ -30,9 +30,9 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @property-read Collection<int, Document>     $documents
  * @property-read Collection<int, ServiceGroup> $groups
  * @method static OemFactory factory(...$parameters)
- * @method static Builder|Oem newModelQuery()
- * @method static Builder|Oem newQuery()
- * @method static Builder|Oem query()
+ * @method static Builder<Oem>|Oem newModelQuery()
+ * @method static Builder<Oem>|Oem newQuery()
+ * @method static Builder<Oem>|Oem query()
  */
 class Oem extends Model implements DataModel, Translatable {
     use HasFactory;

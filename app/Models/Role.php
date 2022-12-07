@@ -30,9 +30,9 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
  * @property Collection<int, Permission> $permissions
  * @property-read  Collection<int, User> $users
  * @method static RoleFactory factory(...$parameters)
- * @method static Builder|Role newModelQuery()
- * @method static Builder|Role newQuery()
- * @method static Builder|Role query()
+ * @method static Builder<Role>|Role newModelQuery()
+ * @method static Builder<Role>|Role newQuery()
+ * @method static Builder<Role>|Role query()
  */
 class Role extends Model implements OwnedByOrganization, Auditable, OwnedByShared {
     use HasFactory;

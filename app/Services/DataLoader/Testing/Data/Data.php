@@ -8,6 +8,7 @@ use App\Services\DataLoader\Client\Client;
 use App\Services\DataLoader\Normalizer\Normalizer;
 use App\Services\DataLoader\Testing\Data\Client as DataClient;
 use App\Utils\Eloquent\GlobalScopes\GlobalScopes;
+use App\Utils\Eloquent\Model;
 use App\Utils\Iterators\Contracts\ObjectIterator;
 use App\Utils\Iterators\ObjectsIterator;
 use Closure;
@@ -229,7 +230,7 @@ abstract class Data {
     }
 
     /**
-     * @template T of \App\Utils\Eloquent\Model
+     * @template T of Model
      *
      * @param class-string<T> $model
      * @param array<string>   $keys

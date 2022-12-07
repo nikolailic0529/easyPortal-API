@@ -44,21 +44,21 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @property-read Collection<int, Customer> $customers
  * @property-read Collection<int, Reseller> $resellers
  * @method static LocationFactory factory(...$parameters)
- * @method static Builder|Location newModelQuery()
- * @method static Builder|Location newQuery()
- * @method static Builder|Location query()
+ * @method static Builder<Location>|Location newModelQuery()
+ * @method static Builder<Location>|Location newQuery()
+ * @method static Builder<Location>|Location query()
  */
 class Location extends Model implements DataModel {
     use HasFactory;
     use HasAssets;
 
     /**
-     * @phpstan-use HasResellers<LocationReseller>
+     * @use HasResellers<LocationReseller>
      */
     use HasResellers;
 
     /**
-     * @phpstan-use HasCustomers<LocationCustomer>
+     * @use HasCustomers<LocationCustomer>
      */
     use HasCustomers;
 

@@ -18,9 +18,9 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  * @property CarbonImmutable      $updated_at
  * @property CarbonImmutable|null $deleted_at
  * @method static ResellerLocationTypeFactory factory(...$parameters)
- * @method static Builder|ResellerLocationType newModelQuery()
- * @method static Builder|ResellerLocationType newQuery()
- * @method static Builder|ResellerLocationType query()
+ * @method static Builder<ResellerLocationType>|ResellerLocationType newModelQuery()
+ * @method static Builder<ResellerLocationType>|ResellerLocationType newQuery()
+ * @method static Builder<ResellerLocationType>|ResellerLocationType query()
  */
 class ResellerLocationType extends Pivot {
     use HasFactory;

@@ -12,7 +12,7 @@ use function is_a;
 use function is_string;
 
 /**
- * @template TModel of \Illuminate\Database\Eloquent\Model
+ * @template TModel of Model
  */
 class Builder extends ScoutBuilder {
     /**

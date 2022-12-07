@@ -26,9 +26,9 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  * @property CarbonImmutable|null $deleted_at
  * @property Oem                  $oem
  * @method static ProductFactory factory(...$parameters)
- * @method static Builder|Product newModelQuery()
- * @method static Builder|Product newQuery()
- * @method static Builder|Product query()
+ * @method static Builder<Product>|Product newModelQuery()
+ * @method static Builder<Product>|Product newQuery()
+ * @method static Builder<Product>|Product query()
  */
 class Product extends Model implements DataModel {
     use HasFactory;

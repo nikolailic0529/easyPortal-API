@@ -31,9 +31,9 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @property Collection<int, ServiceLevel>  $levels
  * @property Oem                            $oem
  * @method static ServiceGroupFactory factory(...$parameters)
- * @method static Builder|ServiceGroup newModelQuery()
- * @method static Builder|ServiceGroup newQuery()
- * @method static Builder|ServiceGroup query()
+ * @method static Builder<ServiceGroup>|ServiceGroup newModelQuery()
+ * @method static Builder<ServiceGroup>|ServiceGroup newQuery()
+ * @method static Builder<ServiceGroup>|ServiceGroup query()
  */
 class ServiceGroup extends Model implements DataModel, Translatable {
     use HasFactory;
