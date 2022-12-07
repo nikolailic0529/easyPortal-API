@@ -2,7 +2,10 @@
 
 namespace App\Services\Audit\Traits;
 
+use App\Models\OrganizationUser;
+use App\Models\User;
 use App\Services\Audit\Contracts\Auditable;
+use App\Utils\Eloquent\GlobalScopes\GlobalScopes;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Tests\TestCase;
@@ -108,6 +111,23 @@ class AuditableImplTest extends TestCase {
             ],
             $model->getDirtyRelations(),
         );
+    }
+
+    /**
+     * @covers ::setRelation
+     */
+    public function testSetRelationEagerLoading(): void {
+        $user = User::factory()->create();
+
+        OrganizationUser::factory()->create([
+            'user_id' => $user,
+        ]);
+
+        GlobalScopes::callWithoutAll(static function () use ($user): void {
+            $user->load('organizations');
+        });
+
+        self::assertEmpty($user->getDirtyRelations());
     }
 
     /**
