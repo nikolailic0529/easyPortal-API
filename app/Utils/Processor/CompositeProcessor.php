@@ -87,10 +87,15 @@ abstract class CompositeProcessor extends Processor {
             })
             ->start();
 
+        // Stopped?
+        if ($processor->isStopped()) {
+            throw new Interrupt();
+        }
+
         // Call operation handler if defined
         $handler = $item->getHandler();
 
-        if ($handler && !$processor->isStopped()) {
+        if ($handler) {
             $handler($state, $result);
         }
     }

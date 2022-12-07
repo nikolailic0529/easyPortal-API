@@ -259,12 +259,12 @@ class CompositeProcessorTest extends TestCase {
             ->once();
         $onChange
             ->shouldHaveBeenCalled()
-            ->times(2);
+            ->times(1);
         $onFinish
             ->shouldNotHaveBeenCalled();
         $onProcess
             ->shouldHaveBeenCalled()
-            ->times($chunk + 1);
+            ->times($chunk);
         $onReport
             ->shouldNotHaveBeenCalled();
 
