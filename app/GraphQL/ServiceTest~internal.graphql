@@ -15035,13 +15035,13 @@ directive @count(
 
     """
     The model to count.
-    Mutually exclusive with the `relation` argument.
+    Mutually exclusive with `relation`.
     """
     model: String
 
     """
     The relationship to count.
-    Mutually exclusive with the `model` argument.
+    Mutually exclusive with `model`.
     """
     relation: String
 
