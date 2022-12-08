@@ -345,6 +345,7 @@ class ConfigurationTest extends TestCase {
             ->getSearchConfiguration()
             ->getMappings();
         $expected = [
+            'dynamic'    => 'strict',
             'properties' => [
                 Configuration::getId()           => [
                     'type' => 'keyword',

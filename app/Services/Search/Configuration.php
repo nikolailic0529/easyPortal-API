@@ -9,6 +9,7 @@ use App\Services\Search\Properties\Property;
 use App\Services\Search\Properties\Relation;
 use App\Services\Search\Properties\Uuid;
 use App\Services\Search\Properties\Value;
+use App\Utils\Eloquent\ModelHelper;
 use App\Utils\Eloquent\ModelProperty;
 use Closure;
 use Illuminate\Database\Eloquent\Model;
@@ -19,6 +20,7 @@ use function array_filter;
 use function array_key_exists;
 use function array_keys;
 use function array_merge;
+use function config;
 use function explode;
 use function is_array;
 use function json_encode;
@@ -225,6 +227,7 @@ class Configuration {
      * @return array<mixed>
      */
     public function getMappings(): array {
+        // Properties
         $mappings = [];
 
         foreach ($this->getProperties() as $key => $properties) {
@@ -241,7 +244,19 @@ class Configuration {
             }
         }
 
+        // Soft Deleted?
+        $isSoftDeletableModel   = (new ModelHelper($this->getModel()))->isSoftDeletable();
+        $isSoftDeletableIndexed = (bool) config('scout.soft_delete', false);
+
+        if ($isSoftDeletableModel && $isSoftDeletableIndexed) {
+            $mappings['__soft_deleted'] = [
+                'type' => 'byte',
+            ];
+        }
+
+        // Return
         return [
+            'dynamic'    => 'strict',
             'properties' => $mappings,
         ];
     }

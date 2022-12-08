@@ -4556,7 +4556,7 @@ parameters:
 			path: app/Services/Search/Builders/UnionBuilder.php
 
 		-
-			message: "#^Method class@anonymous/app/Services/Search/ConfigurationTest\\.php\\:485\\:\\:apply\\(\\) has parameter \\$builder with generic class Illuminate\\\\Database\\\\Eloquent\\\\Builder but does not specify its types\\: TModelClass$#"
+			message: "#^Method class@anonymous/app/Services/Search/ConfigurationTest\\.php\\:486\\:\\:apply\\(\\) has parameter \\$builder with generic class Illuminate\\\\Database\\\\Eloquent\\\\Builder but does not specify its types\\: TModelClass$#"
 			count: 1
 			path: app/Services/Search/ConfigurationTest.php
 
@@ -4746,17 +4746,17 @@ parameters:
 			path: app/Services/Search/Processors/ModelProcessorTest.php
 
 		-
-			message: "#^Method class@anonymous/app/Services/Search/Processors/ModelProcessorTest\\.php\\:164\\:\\:query\\(\\) return type with generic class Illuminate\\\\Database\\\\Eloquent\\\\Builder does not specify its types\\: TModelClass$#"
+			message: "#^Method class@anonymous/app/Services/Search/Processors/ModelProcessorTest\\.php\\:165\\:\\:query\\(\\) return type with generic class Illuminate\\\\Database\\\\Eloquent\\\\Builder does not specify its types\\: TModelClass$#"
 			count: 1
 			path: app/Services/Search/Processors/ModelProcessorTest.php
 
 		-
-			message: "#^Method class@anonymous/app/Services/Search/Processors/ModelProcessorTest\\.php\\:469\\:\\:__construct\\(\\) has parameter \\$attributes with no value type specified in iterable type array\\.$#"
+			message: "#^Method class@anonymous/app/Services/Search/Processors/ModelProcessorTest\\.php\\:470\\:\\:__construct\\(\\) has parameter \\$attributes with no value type specified in iterable type array\\.$#"
 			count: 1
 			path: app/Services/Search/Processors/ModelProcessorTest.php
 
 		-
-			message: "#^Method class@anonymous/app/Services/Search/Processors/ModelProcessorTest\\.php\\:680\\:\\:__construct\\(\\) has parameter \\$attributes with no value type specified in iterable type array\\.$#"
+			message: "#^Method class@anonymous/app/Services/Search/Processors/ModelProcessorTest\\.php\\:681\\:\\:__construct\\(\\) has parameter \\$attributes with no value type specified in iterable type array\\.$#"
 			count: 1
 			path: app/Services/Search/Processors/ModelProcessorTest.php
 
@@ -4806,17 +4806,17 @@ parameters:
 			path: app/Services/Search/Processors/ModelProcessorTest.php
 
 		-
-			message: "#^Parameter \\#1 \\$state of method class@anonymous/app/Services/Search/Processors/ModelProcessorTest\\.php\\:394\\:\\:process\\(\\) expects App\\\\Services\\\\Search\\\\Processors\\\\ModelProcessorState\\<App\\\\Services\\\\Search\\\\Eloquent\\\\Searchable&Illuminate\\\\Database\\\\Eloquent\\\\Model\\>, App\\\\Services\\\\Search\\\\Processors\\\\ModelProcessorState\\<Illuminate\\\\Database\\\\Eloquent\\\\Model\\> given\\.$#"
+			message: "#^Parameter \\#1 \\$state of method class@anonymous/app/Services/Search/Processors/ModelProcessorTest\\.php\\:395\\:\\:process\\(\\) expects App\\\\Services\\\\Search\\\\Processors\\\\ModelProcessorState\\<App\\\\Services\\\\Search\\\\Eloquent\\\\Searchable&Illuminate\\\\Database\\\\Eloquent\\\\Model\\>, App\\\\Services\\\\Search\\\\Processors\\\\ModelProcessorState\\<Illuminate\\\\Database\\\\Eloquent\\\\Model\\> given\\.$#"
 			count: 1
 			path: app/Services/Search/Processors/ModelProcessorTest.php
 
 		-
-			message: "#^Parameter \\#3 \\$item of method class@anonymous/app/Services/Search/Processors/ModelProcessorTest\\.php\\:394\\:\\:process\\(\\) expects App\\\\Services\\\\Search\\\\Eloquent\\\\Searchable&Illuminate\\\\Database\\\\Eloquent\\\\Model, Illuminate\\\\Database\\\\Eloquent\\\\Model&Mockery\\\\MockInterface given\\.$#"
+			message: "#^Parameter \\#3 \\$item of method class@anonymous/app/Services/Search/Processors/ModelProcessorTest\\.php\\:395\\:\\:process\\(\\) expects App\\\\Services\\\\Search\\\\Eloquent\\\\Searchable&Illuminate\\\\Database\\\\Eloquent\\\\Model, Illuminate\\\\Database\\\\Eloquent\\\\Model&Mockery\\\\MockInterface given\\.$#"
 			count: 1
 			path: app/Services/Search/Processors/ModelProcessorTest.php
 
 		-
-			message: "#^Property class@anonymous/app/Services/Search/Processors/ModelProcessorTest\\.php\\:164\\:\\:\\$builder with generic class Illuminate\\\\Database\\\\Eloquent\\\\Builder does not specify its types\\: TModelClass$#"
+			message: "#^Property class@anonymous/app/Services/Search/Processors/ModelProcessorTest\\.php\\:165\\:\\:\\$builder with generic class Illuminate\\\\Database\\\\Eloquent\\\\Builder does not specify its types\\: TModelClass$#"
 			count: 1
 			path: app/Services/Search/Processors/ModelProcessorTest.php
 

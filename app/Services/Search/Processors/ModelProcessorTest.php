@@ -37,6 +37,7 @@ use Tests\WithSearch;
 use Tests\WithSettings;
 
 use function ceil;
+use function config;
 use function count;
 
 /**
@@ -123,7 +124,7 @@ class ModelProcessorTest extends TestCase {
                     && $model->shouldBeSearchable();
             });
 
-        if (!$this->app->make(Repository::class)->get('scout.soft_delete', false)) {
+        if (!config('scout.soft_delete', false)) {
             $expected = $expected
                 ->filter(static function (Model $model): bool {
                     return !$model->trashed();
@@ -465,7 +466,7 @@ class ModelProcessorTest extends TestCase {
      * @return array<string, array<mixed>>
      */
     public function dataProviderCreateIndex(): array {
-        $index = 'test_models@f8a5c8efcc3208e756e3674956b0e5bc370c85d4';
+        $index = 'test_models@23695fcc4e7fe24d04941c94807b66fb638397f8';
         $model = new class() extends Model implements Searchable {
             use SearchableImpl {
                 scoutSearchableAs as public;
