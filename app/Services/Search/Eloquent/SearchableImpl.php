@@ -34,6 +34,7 @@ use function is_array;
 use function is_iterable;
 use function is_null;
 use function is_scalar;
+use function reset;
 
 /**
  * @mixin \App\Utils\Eloquent\Model
@@ -82,7 +83,12 @@ trait SearchableImpl {
     }
 
     public function shouldBeSearchable(): bool {
-        return count(array_filter($this->getSearchConfiguration()->getProperties())) > 0;
+        $properties = $this->getSearchConfiguration()->getProperties();
+        $properties = array_filter($properties, static function (mixed $property): bool {
+            return is_array($property) && $property;
+        });
+
+        return count($properties) > 0;
     }
 
     public function searchIndexShouldBeUpdated(): bool {
@@ -115,7 +121,15 @@ trait SearchableImpl {
         $array = [];
 
         foreach ($configuration->getProperties() as $key => $properties) {
-            $array[$key] = $this->toSearchableArrayProcess($this, $properties);
+            if (is_array($properties)) {
+                $array[$key] = $this->toSearchableArrayProcess($this, $properties);
+            } else {
+                $processed = $this->toSearchableArrayProcess($this, [$key => $properties]);
+
+                if ($processed) {
+                    $array[$key] = reset($processed);
+                }
+            }
         }
 
         // Remove empty nodes

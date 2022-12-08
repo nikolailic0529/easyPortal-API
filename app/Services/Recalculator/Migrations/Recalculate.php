@@ -8,6 +8,14 @@ use LastDragon_ru\LaraASP\Migrator\Migrations\RawDataMigration;
 
 class Recalculate extends RawDataMigration {
     protected function runRawUp(): void {
+        $this->runRecalculate();
+    }
+
+    protected function runRawDown(): void {
+        $this->runRecalculate();
+    }
+
+    protected function runRecalculate(): void {
         $container = $this->getContainer();
         $service   = $container->make(Service::class);
         $models    = $this->getModels();

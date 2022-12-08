@@ -37,6 +37,7 @@ use Tests\WithSearch;
 use Tests\WithSettings;
 
 use function ceil;
+use function config;
 use function count;
 
 /**
@@ -75,11 +76,6 @@ class ModelProcessorTest extends TestCase {
             'scout.queue' => true, // Should be used in any case.
         ]);
 
-        // Fake
-        Event::fake([
-            ModelsImported::class,
-        ]);
-
         // Prepare
         $expected    = $expected($this);
         $chunk       = 1;
@@ -103,7 +99,14 @@ class ModelProcessorTest extends TestCase {
         // Error?
         if ($expected instanceof Exception) {
             self::expectExceptionObject($expected);
+        } else {
+            $this->makeSearchable($expected);
         }
+
+        // Fake
+        Event::fake([
+            ModelsImported::class,
+        ]);
 
         // Call
         $this->app->make(ModelProcessor::class)
@@ -123,7 +126,7 @@ class ModelProcessorTest extends TestCase {
                     && $model->shouldBeSearchable();
             });
 
-        if (!$this->app->make(Repository::class)->get('scout.soft_delete', false)) {
+        if (!config('scout.soft_delete', false)) {
             $expected = $expected
                 ->filter(static function (Model $model): bool {
                     return !$model->trashed();
@@ -465,7 +468,7 @@ class ModelProcessorTest extends TestCase {
      * @return array<string, array<mixed>>
      */
     public function dataProviderCreateIndex(): array {
-        $index = 'test_models@4ba247ffb340f00f8225223275e3aedaf9b531a1';
+        $index = 'test_models@23695fcc4e7fe24d04941c94807b66fb638397f8';
         $model = new class() extends Model implements Searchable {
             use SearchableImpl {
                 scoutSearchableAs as public;

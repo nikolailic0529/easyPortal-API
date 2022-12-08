@@ -198,6 +198,15 @@ class SearchRequestFactoryTest extends TestCase {
                         'a' => 2.0,
                     ],
                 ],
+                'sort'          => [
+                    [
+                        '_score' => 'desc',
+                    ],
+                    [
+                        Configuration::getId() => 'asc',
+                    ],
+                ],
+                'track_scores'  => true,
             ],
         ];
 
@@ -242,7 +251,7 @@ class SearchRequestFactoryTest extends TestCase {
         $expected = [
             'index' => 'a',
             'body'  => [
-                'query' => [
+                'query'        => [
                     'bool' => [
                         'should' => [
                             [
@@ -269,8 +278,17 @@ class SearchRequestFactoryTest extends TestCase {
                         ],
                     ],
                 ],
-                'from'  => 45,
-                'size'  => 123,
+                'from'         => 45,
+                'size'         => 123,
+                'sort'         => [
+                    [
+                        '_score' => 'desc',
+                    ],
+                    [
+                        Configuration::getId() => 'asc',
+                    ],
+                ],
+                'track_scores' => true,
             ],
         ];
 
@@ -375,7 +393,7 @@ class SearchRequestFactoryTest extends TestCase {
                 [
                     'index' => 'index',
                     'body'  => [
-                        'query' => [
+                        'query'        => [
                             'bool' => [
                                 'must'   => $must,
                                 'filter' => [
@@ -385,6 +403,15 @@ class SearchRequestFactoryTest extends TestCase {
                                 ],
                             ],
                         ],
+                        'sort'         => [
+                            [
+                                '_score' => 'desc',
+                            ],
+                            [
+                                Configuration::getId() => 'asc',
+                            ],
+                        ],
+                        'track_scores' => true,
                     ],
                 ],
                 static function (Builder $builder): void {
@@ -395,7 +422,7 @@ class SearchRequestFactoryTest extends TestCase {
                 [
                     'index' => 'index',
                     'body'  => [
-                        'query' => [
+                        'query'        => [
                             'bool' => [
                                 'must'   => $must,
                                 'filter' => [
@@ -408,6 +435,15 @@ class SearchRequestFactoryTest extends TestCase {
                                 ],
                             ],
                         ],
+                        'sort'         => [
+                            [
+                                '_score' => 'desc',
+                            ],
+                            [
+                                Configuration::getId() => 'asc',
+                            ],
+                        ],
+                        'track_scores' => true,
                     ],
                 ],
                 static function (Builder $builder): void {
@@ -419,7 +455,7 @@ class SearchRequestFactoryTest extends TestCase {
                 [
                     'index' => 'index',
                     'body'  => [
-                        'query' => [
+                        'query'        => [
                             'bool' => [
                                 'must'   => $must,
                                 'filter' => [
@@ -435,6 +471,15 @@ class SearchRequestFactoryTest extends TestCase {
                                 ],
                             ],
                         ],
+                        'sort'         => [
+                            [
+                                '_score' => 'desc',
+                            ],
+                            [
+                                Configuration::getId() => 'asc',
+                            ],
+                        ],
+                        'track_scores' => true,
                     ],
                 ],
                 static function (Builder $builder): void {
@@ -445,7 +490,7 @@ class SearchRequestFactoryTest extends TestCase {
                 [
                     'index' => 'index',
                     'body'  => [
-                        'query' => [
+                        'query'        => [
                             'bool' => [
                                 'must'   => $must,
                                 'filter' => [
@@ -464,6 +509,15 @@ class SearchRequestFactoryTest extends TestCase {
                                 ],
                             ],
                         ],
+                        'sort'         => [
+                            [
+                                '_score' => 'desc',
+                            ],
+                            [
+                                Configuration::getId() => 'asc',
+                            ],
+                        ],
+                        'track_scores' => true,
                     ],
                 ],
                 static function (Builder $builder): void {
@@ -475,7 +529,7 @@ class SearchRequestFactoryTest extends TestCase {
                 [
                     'index' => 'index',
                     'body'  => [
-                        'query' => [
+                        'query'        => [
                             'bool' => [
                                 'must'   => $must,
                                 'filter' => [
@@ -494,6 +548,15 @@ class SearchRequestFactoryTest extends TestCase {
                                 ],
                             ],
                         ],
+                        'sort'         => [
+                            [
+                                '_score' => 'desc',
+                            ],
+                            [
+                                Configuration::getId() => 'asc',
+                            ],
+                        ],
+                        'track_scores' => true,
                     ],
                 ],
                 static function (Builder $builder): void {
@@ -505,7 +568,7 @@ class SearchRequestFactoryTest extends TestCase {
                 [
                     'index' => 'index',
                     'body'  => [
-                        'query' => [
+                        'query'        => [
                             'bool' => [
                                 'must'   => $must,
                                 'filter' => [
@@ -524,6 +587,15 @@ class SearchRequestFactoryTest extends TestCase {
                                 ],
                             ],
                         ],
+                        'sort'         => [
+                            [
+                                '_score' => 'desc',
+                            ],
+                            [
+                                Configuration::getId() => 'asc',
+                            ],
+                        ],
+                        'track_scores' => true,
                     ],
                 ],
                 static function (Builder $builder): void {
@@ -535,25 +607,26 @@ class SearchRequestFactoryTest extends TestCase {
                 [
                     'index' => 'index',
                     'body'  => [
-                        'query' => [
+                        'query'        => [
                             'bool' => [
                                 'must' => $must,
                             ],
                         ],
-                        'sort'  => [
+                        'sort'         => [
                             [
-                                Configuration::getPropertyName('key.a') => [
-                                    'order'         => 'asc',
-                                    'unmapped_type' => 'keyword',
-                                ],
+                                Configuration::getPropertyName('key.a') => 'asc',
                             ],
                             [
-                                Configuration::getPropertyName('key.b.keyword') => [
-                                    'order'         => 'desc',
-                                    'unmapped_type' => 'keyword',
-                                ],
+                                Configuration::getPropertyName('key.b.keyword') => 'desc',
+                            ],
+                            [
+                                '_score' => 'desc',
+                            ],
+                            [
+                                Configuration::getId() => 'asc',
                             ],
                         ],
+                        'track_scores' => true,
                     ],
                 ],
                 static function (Builder $builder): array {
@@ -573,13 +646,22 @@ class SearchRequestFactoryTest extends TestCase {
                 [
                     'index' => 'index',
                     'body'  => [
-                        'query' => [
+                        'query'        => [
                             'bool' => [
                                 'must' => $must,
                             ],
                         ],
-                        'from'  => 45,
-                        'size'  => 123,
+                        'from'         => 45,
+                        'size'         => 123,
+                        'sort'         => [
+                            [
+                                '_score' => 'desc',
+                            ],
+                            [
+                                Configuration::getId() => 'asc',
+                            ],
+                        ],
+                        'track_scores' => true,
                     ],
                 ],
                 static function (Builder $builder): void {

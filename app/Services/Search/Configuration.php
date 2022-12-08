@@ -7,7 +7,9 @@ use App\Services\Search\Eloquent\Searchable;
 use App\Services\Search\Properties\Properties;
 use App\Services\Search\Properties\Property;
 use App\Services\Search\Properties\Relation;
+use App\Services\Search\Properties\Uuid;
 use App\Services\Search\Properties\Value;
+use App\Utils\Eloquent\ModelHelper;
 use App\Utils\Eloquent\ModelProperty;
 use Closure;
 use Illuminate\Database\Eloquent\Model;
@@ -18,9 +20,11 @@ use function array_filter;
 use function array_key_exists;
 use function array_keys;
 use function array_merge;
+use function config;
 use function explode;
 use function is_array;
 use function json_encode;
+use function reset;
 use function sha1;
 use function sprintf;
 use function str_starts_with;
@@ -28,11 +32,12 @@ use function str_starts_with;
 use const JSON_THROW_ON_ERROR;
 
 class Configuration {
+    protected const ID         = 'id';
     protected const METADATA   = 'metadata';
     protected const PROPERTIES = 'properties';
 
     /**
-     * @var array<string,array<string, Property>>
+     * @var array<string,Value|array<string, Property>>
      */
     protected array $properties;
 
@@ -57,7 +62,7 @@ class Configuration {
     }
 
     /**
-     * @return array<string,array<string, Property>>
+     * @return array<string,Value|array<string, Property>>
      */
     public function getProperties(): array {
         return $this->properties;
@@ -117,8 +122,17 @@ class Configuration {
         $flat = [];
 
         foreach ($this->getProperties() as $key => $properties) {
-            $key  = $keyer($key, null);
-            $flat = array_merge($flat, $this->getFlatPropertiesProcess($properties, $keyer, $filter, $key));
+            $key = $keyer($key, null);
+
+            if (is_array($properties)) {
+                $flat = array_merge($flat, $this->getFlatPropertiesProcess($properties, $keyer, $filter, $key));
+            } else {
+                $processed = $this->getFlatPropertiesProcess([$key => $properties], $keyer, $filter, $key);
+
+                if ($processed) {
+                    $flat[$key] = reset($processed);
+                }
+            }
         }
 
         return $flat;
@@ -213,13 +227,36 @@ class Configuration {
      * @return array<mixed>
      */
     public function getMappings(): array {
+        // Properties
         $mappings = [];
 
         foreach ($this->getProperties() as $key => $properties) {
-            $mappings[$key]['properties'] = $this->getMappingsProcess($properties);
+            if (is_array($properties)) {
+                $mappings[$key] = [
+                    'properties' => $this->getMappingsProcess($properties),
+                ];
+            } else {
+                $processed = $this->getMappingsProcess([$key => $properties]);
+
+                if ($processed) {
+                    $mappings[$key] = reset($processed);
+                }
+            }
         }
 
+        // Soft Deleted?
+        $isSoftDeletableModel   = (new ModelHelper($this->getModel()))->isSoftDeletable();
+        $isSoftDeletableIndexed = (bool) config('scout.soft_delete', false);
+
+        if ($isSoftDeletableModel && $isSoftDeletableIndexed) {
+            $mappings['__soft_deleted'] = [
+                'type' => 'byte',
+            ];
+        }
+
+        // Return
         return [
+            'dynamic'    => 'strict',
             'properties' => $mappings,
         ];
     }
@@ -250,6 +287,10 @@ class Configuration {
         return $mappings;
     }
 
+    public static function getId(): string {
+        return self::ID;
+    }
+
     public static function getMetadataName(string $name = ''): string {
         return self::METADATA.($name ? ".{$name}" : '');
     }
@@ -262,11 +303,12 @@ class Configuration {
      * @param array<string,Property> $metadata
      * @param array<string,Property> $properties
      *
-     * @return array<string,array<string, Property>>
+     * @return array<string,Value|array<string, Property>>
      */
     protected function buildProperties(array $metadata, array $properties): array {
         $model      = $this->getModel();
         $properties = [
+            self::ID         => new Uuid($this->getModel()->getKeyName(), false),
             self::METADATA   => $metadata,
             self::PROPERTIES => $properties,
         ];
