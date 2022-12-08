@@ -6,7 +6,6 @@ use App\Services\Queue\Contracts\Stoppable;
 use App\Services\Queue\Service;
 use App\Utils\Cache\CacheKeyable;
 use Illuminate\Contracts\Cache\Repository;
-use Illuminate\Contracts\Container\Container;
 use Illuminate\Queue\Jobs\Job;
 
 use function filter_var;
@@ -17,7 +16,6 @@ use const FILTER_VALIDATE_FLOAT;
 
 class Stop implements CacheKeyable {
     public function __construct(
-        protected Container $container,
         protected Repository $cache,
         protected Service $service,
     ) {
@@ -26,7 +24,7 @@ class Stop implements CacheKeyable {
 
     public function isMarked(Stoppable $stoppable): bool {
         // Explicit?
-        if ($this->isMarkedBySignal() || $this->isMarkedById($stoppable)) {
+        if ($this->isMarkedById($stoppable)) {
             return true;
         }
 
@@ -59,11 +57,6 @@ class Stop implements CacheKeyable {
 
     protected function getTimestamp(mixed $timestamp): ?float {
         return filter_var($timestamp, FILTER_VALIDATE_FLOAT, FILTER_NULL_ON_FAILURE);
-    }
-
-    protected function isMarkedBySignal(): bool {
-        return $this->container->resolved('queue.worker')
-            && $this->container->make('queue.worker')->shouldQuit;
     }
 
     protected function isMarkedById(Stoppable $stoppable): bool {
