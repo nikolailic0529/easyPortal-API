@@ -9,6 +9,14 @@ use LastDragon_ru\LaraASP\Migrator\Migrations\RawDataMigration;
 
 class IndexesRebuild extends RawDataMigration {
     protected function runRawUp(): void {
+        $this->runRebuild();
+    }
+
+    protected function runRawDown(): void {
+        $this->runRebuild();
+    }
+
+    protected function runRebuild(): void {
         $container = $this->getContainer();
         $service   = $container->make(Service::class);
         $models    = $this->getSearchableModels();
