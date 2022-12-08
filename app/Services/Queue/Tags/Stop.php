@@ -7,6 +7,7 @@ use App\Services\Queue\Service;
 use App\Utils\Cache\CacheKeyable;
 use Illuminate\Contracts\Cache\Repository;
 use Illuminate\Queue\Jobs\Job;
+use Laravel\Horizon\Contracts\MasterSupervisorRepository;
 
 use function filter_var;
 use function microtime;
@@ -18,13 +19,14 @@ class Stop implements CacheKeyable {
     public function __construct(
         protected Repository $cache,
         protected Service $service,
+        protected MasterSupervisorRepository $repository,
     ) {
         // empty
     }
 
     public function isMarked(Stoppable $stoppable): bool {
         // Explicit?
-        if ($this->isMarkedById($stoppable)) {
+        if ($this->isMarkedBySupervisor() || $this->isMarkedById($stoppable)) {
             return true;
         }
 
@@ -82,5 +84,10 @@ class Stop implements CacheKeyable {
         $marked  = $restart !== null && $restart >= $dispatched;
 
         return $marked;
+    }
+
+    protected function isMarkedBySupervisor(): bool {
+        // The same trick as Horizon UI to detect if Horizon stopped.
+        return !$this->repository->all();
     }
 }

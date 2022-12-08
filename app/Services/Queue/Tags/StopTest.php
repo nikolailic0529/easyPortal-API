@@ -8,6 +8,7 @@ use Closure;
 use Illuminate\Contracts\Cache\Repository;
 use Illuminate\Contracts\Queue\Job as JobContract;
 use Illuminate\Queue\Jobs\Job;
+use Laravel\Horizon\Contracts\MasterSupervisorRepository;
 use Mockery;
 use Tests\TestCase;
 
@@ -40,11 +41,16 @@ class StopTest extends TestCase {
         $stop = Mockery::mock(Stop::class, [
             Mockery::mock(Repository::class),
             Mockery::mock(Service::class),
+            Mockery::mock(MasterSupervisorRepository::class),
         ]);
         $stop->shouldAllowMockingProtectedMethods();
         $stop->makePartial();
         $stop
             ->shouldReceive('isMarkedById')
+            ->once()
+            ->andReturn(false);
+        $stop
+            ->shouldReceive('isMarkedBySupervisor')
             ->once()
             ->andReturn(false);
         $stop
@@ -80,11 +86,16 @@ class StopTest extends TestCase {
         $stop = Mockery::mock(Stop::class, [
             Mockery::mock(Repository::class),
             Mockery::mock(Service::class),
+            Mockery::mock(MasterSupervisorRepository::class),
         ]);
         $stop->shouldAllowMockingProtectedMethods();
         $stop->makePartial();
         $stop
             ->shouldReceive('isMarkedById')
+            ->once()
+            ->andReturn(false);
+        $stop
+            ->shouldReceive('isMarkedBySupervisor')
             ->once()
             ->andReturn(false);
         $stop
@@ -114,8 +125,10 @@ class StopTest extends TestCase {
             ->once()
             ->andReturn($job);
 
-        $service = Mockery::mock(Service::class);
-        $stop    = new class(Mockery::mock(Repository::class), $service) extends Stop {
+        $repository = Mockery::mock(MasterSupervisorRepository::class);
+        $service    = Mockery::mock(Service::class);
+        $cache      = Mockery::mock(Repository::class);
+        $stop       = new class($cache, $service, $repository) extends Stop {
             public function isMarkedById(Stoppable $stoppable): bool {
                 return parent::isMarkedById($stoppable);
             }
@@ -140,9 +153,10 @@ class StopTest extends TestCase {
             ->once()
             ->andReturn(null);
 
-        $service = Mockery::mock(Service::class);
-        $cache   = Mockery::mock(Repository::class);
-        $stop    = new class($cache, $service) extends Stop {
+        $repository = Mockery::mock(MasterSupervisorRepository::class);
+        $service    = Mockery::mock(Service::class);
+        $cache      = Mockery::mock(Repository::class);
+        $stop       = new class($cache, $service, $repository) extends Stop {
             public function isMarkedById(Stoppable $stoppable): bool {
                 return parent::isMarkedById($stoppable);
             }
@@ -159,10 +173,12 @@ class StopTest extends TestCase {
      * @covers ::isMarkedByMarker
      */
     public function testIsMarkedByMarker(): void {
-        $time      = microtime(true);
-        $stoppable = Mockery::mock(Stoppable::class);
-        $service   = Mockery::mock(Service::class);
-        $stop      = new class(Mockery::mock(Repository::class), $service) extends Stop {
+        $time       = microtime(true);
+        $repository = Mockery::mock(MasterSupervisorRepository::class);
+        $stoppable  = Mockery::mock(Stoppable::class);
+        $service    = Mockery::mock(Service::class);
+        $cache      = Mockery::mock(Repository::class);
+        $stop       = new class($cache, $service, $repository) extends Stop {
             public function isMarkedByMarker(Stoppable $stoppable, float $dispatched): bool {
                 return parent::isMarkedByMarker($stoppable, $dispatched);
             }
@@ -181,10 +197,12 @@ class StopTest extends TestCase {
      * @covers ::isMarked
      */
     public function testIsMarkedByMarkerOutdated(): void {
-        $time      = microtime(true);
-        $stoppable = Mockery::mock(Stoppable::class);
-        $service   = Mockery::mock(Service::class);
-        $stop      = new class(Mockery::mock(Repository::class), $service) extends Stop {
+        $time       = microtime(true);
+        $repository = Mockery::mock(MasterSupervisorRepository::class);
+        $stoppable  = Mockery::mock(Stoppable::class);
+        $service    = Mockery::mock(Service::class);
+        $cache      = Mockery::mock(Repository::class);
+        $stop       = new class($cache, $service, $repository) extends Stop {
             public function isMarkedByMarker(Stoppable $stoppable, float $dispatched): bool {
                 return parent::isMarkedByMarker($stoppable, $dispatched);
             }
@@ -203,10 +221,11 @@ class StopTest extends TestCase {
      * @covers ::isMarkedByQueueRestart
      */
     public function testIsMarkedQueueRestart(): void {
-        $time    = microtime(true);
-        $service = Mockery::mock(Service::class);
-        $cache   = Mockery::mock(Repository::class);
-        $stop    = new class($cache, $service) extends Stop {
+        $time       = microtime(true);
+        $repository = Mockery::mock(MasterSupervisorRepository::class);
+        $service    = Mockery::mock(Service::class);
+        $cache      = Mockery::mock(Repository::class);
+        $stop       = new class($cache, $service, $repository) extends Stop {
             public function isMarkedByQueueRestart(float $dispatched): bool {
                 return parent::isMarkedByQueueRestart($dispatched);
             }
@@ -225,10 +244,11 @@ class StopTest extends TestCase {
      * @covers ::isMarkedByQueueRestart
      */
     public function testIsMarkedByQueueRestartOutdated(): void {
-        $time    = microtime(true);
-        $service = Mockery::mock(Service::class);
-        $cache   = Mockery::mock(Repository::class);
-        $stop    = new class($cache, $service) extends Stop {
+        $time       = microtime(true);
+        $repository = Mockery::mock(MasterSupervisorRepository::class);
+        $service    = Mockery::mock(Service::class);
+        $cache      = Mockery::mock(Repository::class);
+        $stop       = new class($cache, $service, $repository) extends Stop {
             public function isMarkedByQueueRestart(float $dispatched): bool {
                 return parent::isMarkedByQueueRestart($dispatched);
             }
@@ -244,13 +264,38 @@ class StopTest extends TestCase {
     }
 
     /**
+     * @covers ::isMarkedBySupervisor
+     */
+    public function testIsMarkedBySignal(): void {
+        $repository = Mockery::mock(MasterSupervisorRepository::class);
+        $service    = Mockery::mock(Service::class);
+        $cache      = Mockery::mock(Repository::class);
+        $stop       = new class($cache, $service, $repository) extends Stop {
+            public function isMarkedBySupervisor(): bool {
+                return parent::isMarkedBySupervisor();
+            }
+        };
+
+        $repository
+            ->shouldReceive('all')
+            ->once()
+            ->andReturn([
+                // empty
+            ]);
+
+        self::assertTrue($stop->isMarkedBySupervisor());
+    }
+
+    /**
      * @covers ::mark
      */
     public function testMark(): void {
-        $id        = $this->faker->uuid();
-        $stoppable = Mockery::mock(Stoppable::class);
-        $service   = Mockery::mock(Service::class);
-        $stop      = new Stop(Mockery::mock(Repository::class), $service);
+        $id         = $this->faker->uuid();
+        $repository = Mockery::mock(MasterSupervisorRepository::class);
+        $stoppable  = Mockery::mock(Stoppable::class);
+        $service    = Mockery::mock(Service::class);
+        $cache      = Mockery::mock(Repository::class);
+        $stop       = new Stop($cache, $service, $repository);
 
         $service
             ->shouldReceive('set')
