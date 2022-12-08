@@ -4,6 +4,7 @@ namespace App\Services\Search\Elastic;
 
 use App\Services\Search\Builders\Builder as SearchBuilder;
 use App\Services\Search\Builders\UnionBuilder as SearchCombinedBuilder;
+use App\Services\Search\Configuration;
 use App\Services\Search\Eloquent\Searchable;
 use App\Services\Search\Properties\Value;
 use Elastic\Adapter\Search\SearchParameters;
@@ -37,7 +38,7 @@ class SearchRequestFactory extends SearchParametersFactory {
      * @inheritDoc
      */
     public function makeFromBuilder(ScoutBuilder $builder, array $options = []): SearchParameters {
-        $request = parent::makeFromBuilder($builder, $options);
+        $request = parent::makeFromBuilder($builder, $options)->trackScores(true);
         $from    = $this->makeOffset($builder, $options);
 
         if ($from) {
@@ -92,7 +93,7 @@ class SearchRequestFactory extends SearchParametersFactory {
 
         foreach ($builder->getModels() as $model => $settings) {
             if (!$search) {
-                $search = (new SearchParametersBuilder(new $model()))->query($query);
+                $search = (new SearchParametersBuilder(new $model()))->query($query)->trackScores(true);
             }
 
             $search->join($model, $settings['boost'] ?? null);
@@ -280,11 +281,12 @@ class SearchRequestFactory extends SearchParametersFactory {
      * @return array<array<string, mixed>>|null
      */
     protected function makeSort(ScoutBuilder $builder): ?array {
+        // Fields
         $sort = (new Collection(parent::makeSort($builder)))
             ->map(static function (array $clause) use ($builder): array {
                 /** @var Model&Searchable $model */
                 $model    = $builder->model;
-                $name     = key($clause);
+                $name     = (string) key($clause);
                 $property = $model->getSearchConfiguration()->getProperty($name);
 
                 if ($property instanceof Value && $property->hasKeyword()) {
@@ -292,15 +294,21 @@ class SearchRequestFactory extends SearchParametersFactory {
                 }
 
                 return [
-                    $name => [
-                        'order'         => reset($clause),
-                        'unmapped_type' => 'keyword',
-                    ],
+                    $name => reset($clause),
                 ];
             })
             ->all();
 
-        return $sort ?: null;
+        // Default
+        $sort[] = [
+            '_score' => 'desc',
+        ];
+        $sort[] = [
+            Configuration::getId() => 'asc',
+        ];
+
+        // Return
+        return $sort;
     }
 
     /**

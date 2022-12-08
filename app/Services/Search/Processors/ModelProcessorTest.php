@@ -76,11 +76,6 @@ class ModelProcessorTest extends TestCase {
             'scout.queue' => true, // Should be used in any case.
         ]);
 
-        // Fake
-        Event::fake([
-            ModelsImported::class,
-        ]);
-
         // Prepare
         $expected    = $expected($this);
         $chunk       = 1;
@@ -104,7 +99,14 @@ class ModelProcessorTest extends TestCase {
         // Error?
         if ($expected instanceof Exception) {
             self::expectExceptionObject($expected);
+        } else {
+            $this->makeSearchable($expected);
         }
+
+        // Fake
+        Event::fake([
+            ModelsImported::class,
+        ]);
 
         // Call
         $this->app->make(ModelProcessor::class)
