@@ -123,6 +123,7 @@ class ConfigurationTest extends TestCase {
 
         // Test
         self::assertEquals([
+            Configuration::getId()           => new Uuid($model->getKeyName(), false),
             Configuration::getMetadataName() => [
                 'sku'  => new Text('abc.sku'),
                 'id'   => new Uuid('oem.id'),
@@ -345,6 +346,9 @@ class ConfigurationTest extends TestCase {
             ->getMappings();
         $expected = [
             'properties' => [
+                Configuration::getId()           => [
+                    'type' => 'keyword',
+                ],
                 Configuration::getMetadataName() => [
                     'properties' => [
                         'meta' => [

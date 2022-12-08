@@ -4556,7 +4556,7 @@ parameters:
 			path: app/Services/Search/Builders/UnionBuilder.php
 
 		-
-			message: "#^Method class@anonymous/app/Services/Search/ConfigurationTest\\.php\\:481\\:\\:apply\\(\\) has parameter \\$builder with generic class Illuminate\\\\Database\\\\Eloquent\\\\Builder but does not specify its types\\: TModelClass$#"
+			message: "#^Method class@anonymous/app/Services/Search/ConfigurationTest\\.php\\:485\\:\\:apply\\(\\) has parameter \\$builder with generic class Illuminate\\\\Database\\\\Eloquent\\\\Builder but does not specify its types\\: TModelClass$#"
 			count: 1
 			path: app/Services/Search/ConfigurationTest.php
 

@@ -465,7 +465,7 @@ class ModelProcessorTest extends TestCase {
      * @return array<string, array<mixed>>
      */
     public function dataProviderCreateIndex(): array {
-        $index = 'test_models@4ba247ffb340f00f8225223275e3aedaf9b531a1';
+        $index = 'test_models@f8a5c8efcc3208e756e3674956b0e5bc370c85d4';
         $model = new class() extends Model implements Searchable {
             use SearchableImpl {
                 scoutSearchableAs as public;

@@ -18,6 +18,7 @@ use function array_map;
 use function array_merge;
 use function end;
 use function implode;
+use function is_array;
 
 class ModelConverter {
     public function __construct() {
@@ -30,10 +31,14 @@ class ModelConverter {
      * @return array<InputObjectType>
      */
     public function toInputObjectTypes(string $model): array {
-        $type       = $this->getModelTypeName($model);
-        $properties = (new $model())->getSearchConfiguration()->getProperties()[Configuration::getPropertyName()];
+        $properties = (new $model())->getSearchConfiguration()->getProperties();
+        $properties = $properties[Configuration::getPropertyName()] ?? null;
+        $typeName   = $this->getModelTypeName($model);
+        $types      = is_array($properties) && $properties
+            ? $this->convert([$typeName], $properties)
+            : [];
 
-        return $this->convert([$type], $properties);
+        return $types;
     }
 
     /**

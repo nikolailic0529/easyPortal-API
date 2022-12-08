@@ -158,6 +158,7 @@ class SearchableImplTest extends TestCase {
         // Test
         $actual   = $model::query()->findOrFail($group->getKey())->toSearchableArray();
         $expected = [
+            Configuration::getId()           => $group->getKey(),
             Configuration::getMetadataName() => [
                 'sku' => $sku,
             ],
@@ -486,6 +487,7 @@ class SearchableImplTest extends TestCase {
 
         self::assertEquals(
             [
+                Configuration::getId()           => new Uuid($model->getKeyName(), false),
                 Configuration::getMetadataName() => [
                     'm' => new Text('m'),
                 ],
