@@ -40,8 +40,8 @@ class EloquentObjectTest extends TestCase {
                 'previous' => $previousKey,
             ],
             'created_at' => [
-                'value'    => $model->created_at,
-                'previous' => $previousCreatedAt,
+                'value'    => $model->created_at->format($model->getDateFormat()),
+                'previous' => $previousCreatedAt->format($model->getDateFormat()),
             ],
         ], $actual);
     }
@@ -67,15 +67,15 @@ class EloquentObjectTest extends TestCase {
                 'previous' => null,
             ],
             'created_at'  => [
-                'value'    => $model->created_at,
+                'value'    => $model->created_at->format($model->getDateFormat()),
                 'previous' => null,
             ],
             'updated_at'  => [
-                'value'    => $model->updated_at,
+                'value'    => $model->updated_at->format($model->getDateFormat()),
                 'previous' => null,
             ],
             'deleted_at'  => [
-                'value'    => $model->deleted_at,
+                'value'    => $model->deleted_at?->format($model->getDateFormat()),
                 'previous' => null,
             ],
             'object_type' => [

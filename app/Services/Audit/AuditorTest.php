@@ -43,7 +43,7 @@ class AuditorTest extends TestCase {
             $properties = [];
             foreach ($changeRequest->getAttributes() as $field => $value) {
                 $properties[$field] = [
-                    'value'    => $changeRequest->getAttribute($field),
+                    'value'    => $value,
                     'previous' => null,
                 ];
             }

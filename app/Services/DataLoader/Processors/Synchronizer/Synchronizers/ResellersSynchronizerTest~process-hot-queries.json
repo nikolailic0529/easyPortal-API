@@ -101,8 +101,8 @@
     {
         "query": "update `resellers` set `synced_at` = ?, `resellers`.`updated_at` = ? where `id` = ?",
         "bindings": [
-            "2022-09-27 00:07:18",
-            "2022-09-27 00:07:21",
+            "2022-09-27 00:06:28",
+            "2022-09-27 00:06:31",
             "003b32d8-2216-4550-ae14-f18ab482e3c7"
         ]
     },
@@ -121,8 +121,8 @@
     {
         "query": "update `resellers` set `synced_at` = ?, `resellers`.`updated_at` = ? where `id` = ?",
         "bindings": [
-            "2022-09-27 00:07:42",
-            "2022-09-27 00:07:45",
+            "2022-09-27 00:06:52",
+            "2022-09-27 00:06:55",
             "0048aae2-ac36-4ab5-a667-c74c3c72b50b"
         ]
     },
@@ -141,8 +141,8 @@
     {
         "query": "update `resellers` set `synced_at` = ?, `resellers`.`updated_at` = ? where `id` = ?",
         "bindings": [
-            "2022-09-27 00:08:06",
-            "2022-09-27 00:08:09",
+            "2022-09-27 00:07:16",
+            "2022-09-27 00:07:19",
             "0059c2eb-e149-4858-94eb-e4ae3525e37e"
         ]
     },
@@ -161,8 +161,8 @@
     {
         "query": "update `resellers` set `synced_at` = ?, `resellers`.`updated_at` = ? where `id` = ?",
         "bindings": [
-            "2022-09-27 00:08:30",
-            "2022-09-27 00:08:33",
+            "2022-09-27 00:07:40",
+            "2022-09-27 00:07:43",
             "005a0ef4-d12a-4d72-93d7-da042004eeb6"
         ]
     },
@@ -181,8 +181,8 @@
     {
         "query": "update `resellers` set `synced_at` = ?, `resellers`.`updated_at` = ? where `id` = ?",
         "bindings": [
-            "2022-09-27 00:08:54",
-            "2022-09-27 00:08:57",
+            "2022-09-27 00:08:04",
+            "2022-09-27 00:08:07",
             "008a65ba-701e-44a7-8923-8d228c97bf7e"
         ]
     },
@@ -295,8 +295,8 @@
     {
         "query": "update `resellers` set `synced_at` = ?, `resellers`.`updated_at` = ? where `id` = ?",
         "bindings": [
-            "2022-09-27 00:09:18",
-            "2022-09-27 00:09:21",
+            "2022-09-27 00:08:28",
+            "2022-09-27 00:08:31",
             "009e19b8-90e1-4a0a-bd2b-d68f9af5db90"
         ]
     },
@@ -315,8 +315,8 @@
     {
         "query": "update `resellers` set `synced_at` = ?, `resellers`.`updated_at` = ? where `id` = ?",
         "bindings": [
-            "2022-09-27 00:09:46",
-            "2022-09-27 00:09:49",
+            "2022-09-27 00:08:56",
+            "2022-09-27 00:08:59",
             "009f8d61-de1c-4cbc-a158-4c3b855889cd"
         ]
     },
@@ -335,8 +335,8 @@
     {
         "query": "update `resellers` set `synced_at` = ?, `resellers`.`updated_at` = ? where `id` = ?",
         "bindings": [
-            "2022-09-27 00:10:14",
-            "2022-09-27 00:10:17",
+            "2022-09-27 00:09:24",
+            "2022-09-27 00:09:27",
             "00ab758b-3c8d-4ce7-8d59-1b96f49dbf83"
         ]
     },
@@ -355,8 +355,8 @@
     {
         "query": "update `resellers` set `synced_at` = ?, `resellers`.`updated_at` = ? where `id` = ?",
         "bindings": [
-            "2022-09-27 00:10:42",
-            "2022-09-27 00:10:45",
+            "2022-09-27 00:09:52",
+            "2022-09-27 00:09:55",
             "00b36fdb-7835-40d5-b942-686d764e9baa"
         ]
     },
@@ -375,8 +375,8 @@
     {
         "query": "update `resellers` set `synced_at` = ?, `resellers`.`updated_at` = ? where `id` = ?",
         "bindings": [
-            "2022-09-27 00:11:10",
-            "2022-09-27 00:11:13",
+            "2022-09-27 00:10:20",
+            "2022-09-27 00:10:23",
             "00b8d679-b5fc-49f3-b4de-167ad2f34e93"
         ]
     },
@@ -472,8 +472,8 @@
     {
         "query": "update `resellers` set `synced_at` = ?, `resellers`.`updated_at` = ? where `id` = ?",
         "bindings": [
-            "2022-09-27 00:11:38",
-            "2022-09-27 00:11:41",
+            "2022-09-27 00:10:48",
+            "2022-09-27 00:10:51",
             "00da719b-7d05-4dd1-addb-8946051f3f89"
         ]
     },
@@ -492,8 +492,8 @@
     {
         "query": "update `resellers` set `synced_at` = ?, `resellers`.`updated_at` = ? where `id` = ?",
         "bindings": [
-            "2022-09-27 00:12:10",
-            "2022-09-27 00:12:13",
+            "2022-09-27 00:11:20",
+            "2022-09-27 00:11:23",
             "00ea64b4-c5a2-4afc-b902-ba5962a9ba1d"
         ]
     },
@@ -512,8 +512,8 @@
     {
         "query": "update `resellers` set `synced_at` = ?, `resellers`.`updated_at` = ? where `id` = ?",
         "bindings": [
-            "2022-09-27 00:12:42",
-            "2022-09-27 00:12:45",
+            "2022-09-27 00:11:52",
+            "2022-09-27 00:11:55",
             "00f45edc-c98a-4a92-a472-8335d829100e"
         ]
     },
@@ -532,8 +532,8 @@
     {
         "query": "update `resellers` set `synced_at` = ?, `resellers`.`updated_at` = ? where `id` = ?",
         "bindings": [
-            "2022-09-27 00:13:14",
-            "2022-09-27 00:13:17",
+            "2022-09-27 00:12:24",
+            "2022-09-27 00:12:27",
             "00f64498-4aa3-49e9-bfcd-6054d95e0f0d"
         ]
     },
@@ -552,8 +552,8 @@
     {
         "query": "update `resellers` set `synced_at` = ?, `resellers`.`updated_at` = ? where `id` = ?",
         "bindings": [
-            "2022-09-27 00:13:46",
-            "2022-09-27 00:13:49",
+            "2022-09-27 00:12:56",
+            "2022-09-27 00:12:59",
             "0114bd6e-ebe7-4cc1-b47f-ccdd5e4b77c6"
         ]
     },
@@ -644,8 +644,8 @@
     {
         "query": "update `resellers` set `synced_at` = ?, `resellers`.`updated_at` = ? where `id` = ?",
         "bindings": [
-            "2022-09-27 00:14:18",
-            "2022-09-27 00:14:21",
+            "2022-09-27 00:13:28",
+            "2022-09-27 00:13:31",
             "0123d583-0e8c-41ca-bd5a-f0682dbb538e"
         ]
     },
@@ -664,8 +664,8 @@
     {
         "query": "update `resellers` set `synced_at` = ?, `resellers`.`updated_at` = ? where `id` = ?",
         "bindings": [
-            "2022-09-27 00:14:54",
-            "2022-09-27 00:14:57",
+            "2022-09-27 00:14:04",
+            "2022-09-27 00:14:07",
             "012701e7-e4d8-46c5-9074-93ee69f0d02d"
         ]
     },
@@ -684,8 +684,8 @@
     {
         "query": "update `resellers` set `synced_at` = ?, `resellers`.`updated_at` = ? where `id` = ?",
         "bindings": [
-            "2022-09-27 00:15:30",
-            "2022-09-27 00:15:33",
+            "2022-09-27 00:14:40",
+            "2022-09-27 00:14:43",
             "013638be-54c1-41d3-bcc0-f2d3dc855a7f"
         ]
     },
@@ -704,8 +704,8 @@
     {
         "query": "update `resellers` set `synced_at` = ?, `resellers`.`updated_at` = ? where `id` = ?",
         "bindings": [
-            "2022-09-27 00:16:06",
-            "2022-09-27 00:16:09",
+            "2022-09-27 00:15:16",
+            "2022-09-27 00:15:19",
             "0145ea46-012f-45d2-8440-71bdaa79fea5"
         ]
     },
@@ -724,8 +724,8 @@
     {
         "query": "update `resellers` set `synced_at` = ?, `resellers`.`updated_at` = ? where `id` = ?",
         "bindings": [
-            "2022-09-27 00:16:42",
-            "2022-09-27 00:16:45",
+            "2022-09-27 00:15:52",
+            "2022-09-27 00:15:55",
             "0152510c-9f5a-4503-ac90-f460bf984f11"
         ]
     },
@@ -816,8 +816,8 @@
     {
         "query": "update `resellers` set `synced_at` = ?, `resellers`.`updated_at` = ? where `id` = ?",
         "bindings": [
-            "2022-09-27 00:17:18",
-            "2022-09-27 00:17:21",
+            "2022-09-27 00:16:28",
+            "2022-09-27 00:16:31",
             "01577398-c7d4-490a-b1aa-85053bb36bb6"
         ]
     },
@@ -836,8 +836,8 @@
     {
         "query": "update `resellers` set `synced_at` = ?, `resellers`.`updated_at` = ? where `id` = ?",
         "bindings": [
-            "2022-09-27 00:17:58",
-            "2022-09-27 00:18:01",
+            "2022-09-27 00:17:08",
+            "2022-09-27 00:17:11",
             "0163199f-31d8-4514-ab3c-569f28009637"
         ]
     },
@@ -856,8 +856,8 @@
     {
         "query": "update `resellers` set `synced_at` = ?, `resellers`.`updated_at` = ? where `id` = ?",
         "bindings": [
-            "2022-09-27 00:18:38",
-            "2022-09-27 00:18:41",
+            "2022-09-27 00:17:48",
+            "2022-09-27 00:17:51",
             "01827078-e639-431c-8ff9-493c8240704c"
         ]
     },
@@ -876,8 +876,8 @@
     {
         "query": "update `resellers` set `synced_at` = ?, `resellers`.`updated_at` = ? where `id` = ?",
         "bindings": [
-            "2022-09-27 00:19:18",
-            "2022-09-27 00:19:21",
+            "2022-09-27 00:18:28",
+            "2022-09-27 00:18:31",
             "01840600-a3ee-421f-a959-299cf6ddfabf"
         ]
     },
@@ -896,8 +896,8 @@
     {
         "query": "update `resellers` set `synced_at` = ?, `resellers`.`updated_at` = ? where `id` = ?",
         "bindings": [
-            "2022-09-27 00:19:58",
-            "2022-09-27 00:20:01",
+            "2022-09-27 00:19:08",
+            "2022-09-27 00:19:11",
             "018a1f3b-3ed2-43dc-97aa-0be915d9d57b"
         ]
     },

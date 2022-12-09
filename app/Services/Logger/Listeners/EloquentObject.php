@@ -40,10 +40,10 @@ class EloquentObject implements LoggerObject {
         $model   = $this->getModel();
         $changes = [];
 
-        foreach ($model->getChanges() as $field => $value) {
+        foreach ($model->getDirty() as $field => $value) {
             $changes[$field] = [
-                'value'    => $model->getAttribute($field),
-                'previous' => $model->getOriginal($field),
+                'value'    => $value,
+                'previous' => $model->getRawOriginal($field),
             ];
         }
 
@@ -59,7 +59,7 @@ class EloquentObject implements LoggerObject {
 
         foreach ($model->getAttributes() as $field => $value) {
             $properties[$field] = [
-                'value'    => $model->getAttribute($field),
+                'value'    => $value,
                 'previous' => null,
             ];
         }
