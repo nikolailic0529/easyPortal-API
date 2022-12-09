@@ -90,7 +90,7 @@ class Provider extends ServiceProvider {
     protected function registerElasticClient(): void {
         $this->app->singleton(ClientBuilderInterface::class, ClientBuilder::class);
         $this->app->bind(Client::class, static function (Container $container): Client {
-            return $container->make(ClientBuilderInterface::class)->default();
+            return $container->make(ClientBuilderInterface::class)->default()->setAsync(false);
         });
     }
     // </editor-fold>
