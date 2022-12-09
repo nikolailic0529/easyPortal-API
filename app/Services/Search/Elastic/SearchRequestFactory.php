@@ -281,6 +281,9 @@ class SearchRequestFactory extends SearchParametersFactory {
      * @return array<array<string, mixed>>|null
      */
     protected function makeSort(ScoutBuilder $builder): ?array {
+        // The 'unmapped_type' is required to avoid error if index have outdated
+        // structure (eg while reindexing).
+
         // Fields
         $sort = (new Collection(parent::makeSort($builder)))
             ->map(static function (array $clause) use ($builder): array {
@@ -294,7 +297,10 @@ class SearchRequestFactory extends SearchParametersFactory {
                 }
 
                 return [
-                    $name => reset($clause),
+                    $name => [
+                        'order'         => reset($clause),
+                        'unmapped_type' => 'keyword',
+                    ],
                 ];
             })
             ->all();
@@ -304,7 +310,10 @@ class SearchRequestFactory extends SearchParametersFactory {
             '_score' => 'desc',
         ];
         $sort[] = [
-            Configuration::getId() => 'asc',
+            Configuration::getId() => [
+                'order'         => 'asc',
+                'unmapped_type' => 'keyword',
+            ],
         ];
 
         // Return

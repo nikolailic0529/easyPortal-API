@@ -203,7 +203,10 @@ class SearchRequestFactoryTest extends TestCase {
                         '_score' => 'desc',
                     ],
                     [
-                        Configuration::getId() => 'asc',
+                        Configuration::getId() => [
+                            'order'         => 'asc',
+                            'unmapped_type' => 'keyword',
+                        ],
                     ],
                 ],
                 'track_scores'  => true,
@@ -285,7 +288,10 @@ class SearchRequestFactoryTest extends TestCase {
                         '_score' => 'desc',
                     ],
                     [
-                        Configuration::getId() => 'asc',
+                        Configuration::getId() => [
+                            'order'         => 'asc',
+                            'unmapped_type' => 'keyword',
+                        ],
                     ],
                 ],
                 'track_scores' => true,
@@ -408,7 +414,10 @@ class SearchRequestFactoryTest extends TestCase {
                                 '_score' => 'desc',
                             ],
                             [
-                                Configuration::getId() => 'asc',
+                                Configuration::getId() => [
+                                    'order'         => 'asc',
+                                    'unmapped_type' => 'keyword',
+                                ],
                             ],
                         ],
                         'track_scores' => true,
@@ -440,7 +449,10 @@ class SearchRequestFactoryTest extends TestCase {
                                 '_score' => 'desc',
                             ],
                             [
-                                Configuration::getId() => 'asc',
+                                Configuration::getId() => [
+                                    'order'         => 'asc',
+                                    'unmapped_type' => 'keyword',
+                                ],
                             ],
                         ],
                         'track_scores' => true,
@@ -476,7 +488,10 @@ class SearchRequestFactoryTest extends TestCase {
                                 '_score' => 'desc',
                             ],
                             [
-                                Configuration::getId() => 'asc',
+                                Configuration::getId() => [
+                                    'order'         => 'asc',
+                                    'unmapped_type' => 'keyword',
+                                ],
                             ],
                         ],
                         'track_scores' => true,
@@ -514,7 +529,10 @@ class SearchRequestFactoryTest extends TestCase {
                                 '_score' => 'desc',
                             ],
                             [
-                                Configuration::getId() => 'asc',
+                                Configuration::getId() => [
+                                    'order'         => 'asc',
+                                    'unmapped_type' => 'keyword',
+                                ],
                             ],
                         ],
                         'track_scores' => true,
@@ -553,7 +571,10 @@ class SearchRequestFactoryTest extends TestCase {
                                 '_score' => 'desc',
                             ],
                             [
-                                Configuration::getId() => 'asc',
+                                Configuration::getId() => [
+                                    'order'         => 'asc',
+                                    'unmapped_type' => 'keyword',
+                                ],
                             ],
                         ],
                         'track_scores' => true,
@@ -592,7 +613,10 @@ class SearchRequestFactoryTest extends TestCase {
                                 '_score' => 'desc',
                             ],
                             [
-                                Configuration::getId() => 'asc',
+                                Configuration::getId() => [
+                                    'order'         => 'asc',
+                                    'unmapped_type' => 'keyword',
+                                ],
                             ],
                         ],
                         'track_scores' => true,
@@ -614,16 +638,25 @@ class SearchRequestFactoryTest extends TestCase {
                         ],
                         'sort'         => [
                             [
-                                Configuration::getPropertyName('key.a') => 'asc',
+                                Configuration::getPropertyName('key.a') => [
+                                    'order'         => 'asc',
+                                    'unmapped_type' => 'keyword',
+                                ],
                             ],
                             [
-                                Configuration::getPropertyName('key.b.keyword') => 'desc',
+                                Configuration::getPropertyName('key.b.keyword') => [
+                                    'order'         => 'desc',
+                                    'unmapped_type' => 'keyword',
+                                ],
                             ],
                             [
                                 '_score' => 'desc',
                             ],
                             [
-                                Configuration::getId() => 'asc',
+                                Configuration::getId() => [
+                                    'order'         => 'asc',
+                                    'unmapped_type' => 'keyword',
+                                ],
                             ],
                         ],
                         'track_scores' => true,
@@ -658,7 +691,10 @@ class SearchRequestFactoryTest extends TestCase {
                                 '_score' => 'desc',
                             ],
                             [
-                                Configuration::getId() => 'asc',
+                                Configuration::getId() => [
+                                    'order'         => 'asc',
+                                    'unmapped_type' => 'keyword',
+                                ],
                             ],
                         ],
                         'track_scores' => true,

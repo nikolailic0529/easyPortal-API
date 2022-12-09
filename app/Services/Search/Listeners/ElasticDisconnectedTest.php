@@ -3,12 +3,13 @@
 namespace App\Services\Search\Listeners;
 
 use App\Exceptions\ErrorReport;
+use App\Services\Search\Elastic\ClientBuilder;
 use App\Services\Search\Exceptions\ElasticUnavailable;
 use Closure;
-use Elastic\Elasticsearch\Client;
+use Elastic\Client\ClientBuilderInterface;
 use Exception;
 use Illuminate\Contracts\Events\Dispatcher;
-use Illuminate\Contracts\Foundation\Application;
+use Mockery;
 use Mockery\MockInterface;
 use Tests\TestCase;
 
@@ -42,11 +43,14 @@ class ElasticDisconnectedTest extends TestCase {
      * @covers ::__invoke
      */
     public function testInvokeNoNodesAvailableException(): void {
-        $this->override(Application::class, static function (MockInterface $mock): void {
+        $this->override(ClientBuilderInterface::class, static function (): MockInterface {
+            $mock = Mockery::mock(ClientBuilder::class);
             $mock
-                ->shouldReceive('forgetInstance')
+                ->shouldReceive('reset')
                 ->once()
-                ->with(Client::class);
+                ->andReturns();
+
+            return $mock;
         });
 
         $event    = new ErrorReport(new ElasticUnavailable(new Exception()));

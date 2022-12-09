@@ -64,4 +64,8 @@ class ClientBuilder extends BaseClientBuilder {
 
         return $client;
     }
+
+    public function reset(): void {
+        $this->cache = [];
+    }
 }
