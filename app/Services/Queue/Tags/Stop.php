@@ -6,6 +6,7 @@ use App\Services\Queue\Contracts\Stoppable;
 use App\Services\Queue\Service;
 use App\Utils\Cache\CacheKeyable;
 use Illuminate\Contracts\Cache\Repository;
+use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Queue\Jobs\Job;
 use Laravel\Horizon\Contracts\MasterSupervisorRepository;
 
@@ -17,6 +18,7 @@ use const FILTER_VALIDATE_FLOAT;
 
 class Stop implements CacheKeyable {
     public function __construct(
+        protected Application $app,
         protected Repository $cache,
         protected Service $service,
         protected MasterSupervisorRepository $repository,
@@ -87,6 +89,11 @@ class Stop implements CacheKeyable {
     }
 
     protected function isMarkedBySupervisor(): bool {
+        // We should not check Horizon status while testing or it will break some tests.
+        if ($this->app->runningUnitTests()) {
+            return false;
+        }
+
         // The same trick as Horizon UI to detect if Horizon stopped.
         return !$this->repository->all();
     }

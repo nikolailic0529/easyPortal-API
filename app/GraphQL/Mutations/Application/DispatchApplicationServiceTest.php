@@ -11,11 +11,9 @@ use App\Services\Settings\Storage;
 use Exception;
 use Illuminate\Contracts\Config\Repository;
 use Illuminate\Contracts\Events\Dispatcher;
-use Laravel\Horizon\Contracts\MasterSupervisorRepository;
 use LastDragon_ru\LaraASP\Testing\Constraints\Response\Response;
 use LastDragon_ru\LaraASP\Testing\Providers\ArrayDataProvider;
 use LastDragon_ru\LaraASP\Testing\Providers\CompositeDataProvider;
-use Mockery\MockInterface;
 use Tests\DataProviders\GraphQL\Organizations\AuthOrgRootDataProvider;
 use Tests\DataProviders\GraphQL\Users\AuthRootDataProvider;
 use Tests\GraphQL\GraphQLError;
@@ -74,19 +72,6 @@ class DispatchApplicationServiceTest extends TestCase {
         $this->app->bind(Settings::class, static function () use ($service): Settings {
             return $service;
         });
-
-        $this->override(
-            MasterSupervisorRepository::class,
-            static function (MockInterface $mock): void {
-                $mock
-                    ->shouldReceive('all')
-                    ->andReturn([
-                        [
-                            'name' => 'test',
-                        ],
-                    ]);
-            },
-        );
 
         // Test
         $this
