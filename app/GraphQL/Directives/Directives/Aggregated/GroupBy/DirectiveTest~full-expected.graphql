@@ -158,13 +158,16 @@ Fetch all Eloquent models and return the collection as the result.
 directive @all(
     """
     Point to a function that provides a Query Builder instance.
-    This replaces the use of a model.
+    Consists of two parts: a class name and a method name, seperated by an `@` symbol.
+    If you pass only a class name, the method name defaults to `__invoke`.
+    Mutually exclusive with `model`.
     """
     builder: String
 
     """
     Specify the class name of the model to use.
     This is only needed when the default model detection does not work.
+    Mutually exclusive with `builder`.
     """
     model: String
 

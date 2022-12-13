@@ -11,6 +11,7 @@ use Illuminate\Database\Eloquent\Builder as EloquentBuilder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\Relation as EloquentRelation;
+use Illuminate\Database\Query\Builder as QueryBuilder;
 use Nuwave\Lighthouse\Schema\Directives\RelationDirective;
 
 use function in_array;
@@ -58,13 +59,21 @@ abstract class Relation extends RelationDirective {
     protected function makeBuilderDecorator(ResolveInfo $resolveInfo): Closure {
         $callback  = $this->orderByCallback;
         $decorator = parent::makeBuilderDecorator($resolveInfo);
-        $decorator = static function (EloquentBuilder|EloquentRelation $builder) use ($callback, $decorator): void {
+        $decorator = static function (
+            EloquentBuilder|EloquentRelation|QueryBuilder $builder,
+        ) use (
+            $callback,
+            $decorator,
+        ): void {
             if ($builder instanceof EloquentRelation) {
                 $builder = $builder->getQuery();
             }
 
             $decorator($builder);
-            $callback($builder);
+
+            if ($builder instanceof EloquentBuilder) {
+                $callback($builder);
+            }
         };
 
         return $decorator;
