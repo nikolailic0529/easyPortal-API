@@ -63,11 +63,13 @@ class Selector implements InvokableRule, DataAwareRule, ValidatorAwareRule {
         }
 
         // In query?
-        if (!$this->getValidator()) {
+        $validator = $this->getValidator();
+
+        if (!$validator) {
             return;
         }
 
-        $query = QueryOperationCache::get($this->getValidator());
+        $query = QueryOperationCache::get($validator);
 
         if (!$query) {
             $fail(trans('validation.http.controllers.export.query_required'));

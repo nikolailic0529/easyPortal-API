@@ -181,11 +181,6 @@ parameters:
 			path: app/GraphQL/Cache.php
 
 		-
-			message: "#^Call to static method PHPUnit\\\\Framework\\\\Assert\\:\\:assertInstanceOf\\(\\) with 'DateTimeInterface' and null will always evaluate to false\\.$#"
-			count: 1
-			path: app/GraphQL/CacheTest.php
-
-		-
 			message: "#^Cannot call method once\\(\\) on mixed\\.$#"
 			count: 2
 			path: app/GraphQL/CacheTest.php
@@ -2326,6 +2321,11 @@ parameters:
 			path: app/Models/Logs/Model.php
 
 		-
+			message: "#^Using nullsafe method call on non\\-nullable type App\\\\Utils\\\\Eloquent\\\\SmartSave\\\\BatchInsert\\. Use \\-\\> instead\\.$#"
+			count: 1
+			path: app/Models/Logs/Model.php
+
+		-
 			message: "#^Instanceof between Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\HasMany\\<\\$this\\(App\\\\Models\\\\Note\\)\\> and Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\HasMany will always evaluate to true\\.$#"
 			count: 1
 			path: app/Models/Note.php
@@ -2517,11 +2517,6 @@ parameters:
 
 		-
 			message: "#^Cannot call method getKey\\(\\) on mixed\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Cache/CacheTest.php
-
-		-
-			message: "#^Parameter \\#1 \\$expected of static method PHPUnit\\\\Framework\\\\Assert\\:\\:assertSame\\(\\) contains unresolvable type\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Cache/CacheTest.php
 
@@ -3561,16 +3556,6 @@ parameters:
 			path: app/Services/Filesystem/JsonStorageTest.php
 
 		-
-			message: "#^Method App\\\\Services\\\\I18n\\\\CurrentLocale\\:\\:get\\(\\) should return string but returns mixed\\.$#"
-			count: 1
-			path: app/Services/I18n/CurrentLocale.php
-
-		-
-			message: "#^Method App\\\\Services\\\\I18n\\\\CurrentTimezone\\:\\:get\\(\\) should return string but returns mixed\\.$#"
-			count: 1
-			path: app/Services/I18n/CurrentTimezone.php
-
-		-
 			message: "#^Method App\\\\Services\\\\I18n\\\\Eloquent\\\\TranslatePropertiesTest__Model\\:\\:getDefaultTranslations\\(\\) should return array\\<string, string\\> but returns array\\<int\\|string, mixed\\>\\.$#"
 			count: 1
 			path: app/Services/I18n/Eloquent/TranslatePropertiesTest.php
@@ -3924,16 +3909,6 @@ parameters:
 			message: "#^Method App\\\\Services\\\\Logger\\\\Action\\:\\:getKey\\(\\) should return string but returns mixed\\.$#"
 			count: 1
 			path: app/Services/Logger/Action.php
-
-		-
-			message: "#^Cannot call method getDuration\\(\\) on App\\\\Services\\\\Logger\\\\Listeners\\\\DataLoaderRequest\\|null\\.$#"
-			count: 2
-			path: app/Services/Logger/Listeners/DataLoaderListener.php
-
-		-
-			message: "#^Cannot call method getTransaction\\(\\) on App\\\\Services\\\\Logger\\\\Listeners\\\\DataLoaderRequest\\|null\\.$#"
-			count: 4
-			path: app/Services/Logger/Listeners/DataLoaderListener.php
 
 		-
 			message: "#^Parameter \\#1 \\$countable of method App\\\\Services\\\\Logger\\\\Logger\\:\\:count\\(\\) expects array\\<string, int\\>, array\\<string, float\\|int\\> given\\.$#"
@@ -4971,11 +4946,6 @@ parameters:
 			path: app/Services/Settings/Settings.php
 
 		-
-			message: "#^Call to static method PHPUnit\\\\Framework\\\\Assert\\:\\:assertIsArray\\(\\) with array\\<App\\\\Services\\\\Settings\\\\Setting\\> will always evaluate to true\\.$#"
-			count: 1
-			path: app/Services/Settings/SettingsTest.php
-
-		-
 			message: "#^Parameter \\#2 \\$value of method class@anonymous/app/Services/Settings/SettingsTest\\.php\\:249\\:\\:parseValue\\(\\) expects string\\|null, mixed given\\.$#"
 			count: 1
 			path: app/Services/Settings/SettingsTest.php
@@ -5161,6 +5131,11 @@ parameters:
 			path: app/Utils/Eloquent/Model.php
 
 		-
+			message: "#^Using nullsafe method call on non\\-nullable type App\\\\Utils\\\\Eloquent\\\\SmartSave\\\\BatchInsert\\. Use \\-\\> instead\\.$#"
+			count: 1
+			path: app/Utils/Eloquent/Model.php
+
+		-
 			message: "#^Parameter \\#1 \\$model of method App\\\\Utils\\\\Eloquent\\\\ModelProperty\\:\\:getRelation\\(\\) expects Illuminate\\\\Database\\\\Eloquent\\\\Builder\\<Illuminate\\\\Database\\\\Eloquent\\\\Model\\>\\|Illuminate\\\\Database\\\\Eloquent\\\\Model, App\\\\Models\\\\Customer\\|Illuminate\\\\Database\\\\Eloquent\\\\Builder\\<App\\\\Models\\\\Customer\\> given\\.$#"
 			count: 1
 			path: app/Utils/Eloquent/ModelPropertyTest.php
@@ -5197,6 +5172,11 @@ parameters:
 
 		-
 			message: "#^Property Illuminate\\\\Database\\\\Query\\\\Builder\\:\\:\\$columns \\(array\\) in isset\\(\\) is not nullable\\.$#"
+			count: 1
+			path: app/Utils/Eloquent/Pivot.php
+
+		-
+			message: "#^Using nullsafe method call on non\\-nullable type App\\\\Utils\\\\Eloquent\\\\SmartSave\\\\BatchInsert\\. Use \\-\\> instead\\.$#"
 			count: 1
 			path: app/Utils/Eloquent/Pivot.php
 

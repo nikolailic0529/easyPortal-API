@@ -135,27 +135,27 @@ class SettingGroupsTest extends TestCase {
                         ];
                     },
                     new class() {
-                        #[SettingAttribute('test.a')]
                         #[GroupAttribute('translated')]
+                        #[SettingAttribute('test.a')]
                         public const SETTING_A = 'a';
 
-                        #[SettingAttribute('test.b')]
                         #[GroupAttribute('translated')]
+                        #[SettingAttribute('test.b')]
                         public const SETTING_B = 'b';
 
-                        #[SettingAttribute('test.c')]
                         #[GroupAttribute('untranslated')]
+                        #[SettingAttribute('test.c')]
                         public const SETTING_C = 'c';
 
                         #[SettingAttribute('test.d')]
                         public const SETTING_D = 'd';
 
-                        #[ServiceAttribute(CronJob::class, 'test.e')]
                         #[GroupAttribute('service')]
+                        #[ServiceAttribute(CronJob::class, 'test.e')]
                         public const SETTING_E = 'e';
 
-                        #[JobAttribute(Job::class, 'test.f')]
                         #[GroupAttribute('job')]
+                        #[JobAttribute(Job::class, 'test.f')]
                         public const SETTING_F = 'f';
                     },
                 ],

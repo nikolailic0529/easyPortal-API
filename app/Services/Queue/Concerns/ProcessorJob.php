@@ -112,13 +112,12 @@ trait ProcessorJob {
         if ($this instanceof Progressable && $service) {
             if ($this instanceof CronJob) {
                 $processor = $processor->setStore(new ServiceStore($service, $this));
-            } elseif ($this->getJob()) {
-                $processor = $processor->setStore(new ServiceStore($service, [
-                    $this,
-                    $this->getJob()->getJobId(),
-                ]));
             } else {
-                // empty
+                $job = $this->getJob();
+
+                if ($job) {
+                    $processor = $processor->setStore(new ServiceStore($service, [$this, $job->getJobId()]));
+                }
             }
         }
 

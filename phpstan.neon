@@ -11,6 +11,7 @@ parameters:
     level: max
 
     # Settings
+    rememberPossiblyImpureFunctionValues: false
     checkGenericClassInNonGenericObjectType: true
     checkMissingCallableSignature: true
     checkModelProperties: true

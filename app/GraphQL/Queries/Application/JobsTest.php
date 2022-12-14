@@ -163,8 +163,8 @@ class JobsTest extends TestCase {
                     },
                     new class() {
                         // Standard settings should be ignored
-                        #[SettingAttribute('test.internal')]
                         #[InternalAttribute]
+                        #[SettingAttribute('test.internal')]
                         public const SETTING_INTERNAL = 'internal';
 
                         /**

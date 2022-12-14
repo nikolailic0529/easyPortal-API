@@ -451,8 +451,12 @@ class Handler extends ExceptionHandler {
             $exception->getMessage(),
         ];
 
-        if ($exception instanceof GenericException && $exception->getPrevious()) {
-            $fingerprint = array_merge($fingerprint, $this->getExceptionFingerprint($exception->getPrevious()));
+        if ($exception instanceof GenericException) {
+            $previous = $exception->getPrevious();
+
+            if ($previous) {
+                $fingerprint = array_merge($fingerprint, $this->getExceptionFingerprint($previous));
+            }
         }
 
         return $fingerprint;

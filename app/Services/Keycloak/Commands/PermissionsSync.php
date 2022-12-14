@@ -112,8 +112,10 @@ class PermissionsSync extends Command {
         }
 
         // Update Org Admin group
-        if ($this->config->get('ep.keycloak.org_admin_group')) {
-            $orgAdminGroup = $this->client->getGroup($this->config->get('ep.keycloak.org_admin_group'));
+        $orgAdminGroupId = $this->config->get('ep.keycloak.org_admin_group');
+
+        if ($orgAdminGroupId) {
+            $orgAdminGroup = $this->client->getGroup($orgAdminGroupId);
 
             if ($orgAdminGroup) {
                 // Update Permissions
@@ -132,7 +134,7 @@ class PermissionsSync extends Command {
                 $role->save();
             } else {
                 $this->exceptionHandler->report(new OrgAdminGroupNotFound(
-                    $this->config->get('ep.keycloak.org_admin_group'),
+                    $orgAdminGroupId,
                 ));
             }
         }

@@ -8,6 +8,8 @@ use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\Session\Session;
 use Illuminate\Contracts\Translation\HasLocalePreference;
 
+use function is_string;
+
 class CurrentLocale {
     public function __construct(
         protected Auth $auth,
@@ -20,20 +22,30 @@ class CurrentLocale {
 
     public function get(): string {
         // Session.locale
-        if ($this->session->has('locale')) {
-            return $this->session->get('locale');
+        $session = $this->session->get('locale');
+
+        if ($session && is_string($session)) {
+            return $session;
         }
 
         // User.locale
         $user = $this->auth->getUser();
 
-        if ($user instanceof HasLocalePreference && $user->preferredLocale()) {
-            return $user->preferredLocale();
+        if ($user instanceof HasLocalePreference) {
+            $preferred = $user->preferredLocale();
+
+            if ($preferred) {
+                return $preferred;
+            }
         }
 
         // Organization.locale
-        if ($this->organization->defined() && $this->organization->preferredLocale()) {
-            return $this->organization->preferredLocale();
+        if ($this->organization->defined()) {
+            $preferred = $this->organization->preferredLocale();
+
+            if ($preferred) {
+                return $preferred;
+            }
         }
 
         // Default

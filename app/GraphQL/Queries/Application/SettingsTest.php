@@ -281,8 +281,8 @@ class SettingsTest extends TestCase {
                         ];
                     },
                     new class() {
-                        #[SettingAttribute('test.internal')]
                         #[InternalAttribute]
+                        #[SettingAttribute('test.internal')]
                         public const SETTING_INTERNAL = 'internal';
 
                         /**
@@ -298,13 +298,13 @@ class SettingsTest extends TestCase {
                         #[TypeAttribute(SettingsTest_TypeWithValues::class)]
                         public const SETTING_ARRAY = [123, 345];
 
+                        #[SecretAttribute]
                         #[SettingAttribute('test.array')]
                         #[TypeAttribute(IntType::class)]
-                        #[SecretAttribute]
                         public const SETTING_ARRAY_SECRET = [123, 345];
 
-                        #[SettingAttribute('test.secret')]
                         #[SecretAttribute]
+                        #[SettingAttribute('test.secret')]
                         public const SETTING_SECRET = 'secret';
 
                         #[SettingAttribute('test.readonly')]

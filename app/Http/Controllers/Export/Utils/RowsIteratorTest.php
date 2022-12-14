@@ -20,7 +20,8 @@ class RowsIteratorTest extends TestCase {
      */
     public function testGetIterator(): void {
         $formatter = $this->app->make(Formatter::class);
-        $offset    = max(0, $this->faker->randomDigit());
+        $offset    = $this->faker->randomDigit();
+        $offset    = max($offset, 0);
         $items     = [
             ['a' => 'AA', 'b' => 'BA', 'id' => 1],
             ['a' => 'AA', 'b' => 'BB', 'id' => 2],

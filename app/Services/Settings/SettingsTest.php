@@ -60,8 +60,8 @@ class SettingsTest extends TestCase {
                     #[SettingAttribute('a')]
                     public const A = 'test';
 
-                    #[SettingAttribute('b')]
                     #[InternalAttribute]
+                    #[SettingAttribute('b')]
                     public const B = 'test';
 
                     #[SettingAttribute('c')]
@@ -94,8 +94,8 @@ class SettingsTest extends TestCase {
                     #[SettingAttribute('a')]
                     public const A = 'test';
 
-                    #[SettingAttribute('b')]
                     #[InternalAttribute]
+                    #[SettingAttribute('b')]
                     public const B = 'test';
 
                     #[SettingAttribute('c')]
@@ -364,8 +364,8 @@ class SettingsTest extends TestCase {
         ) extends Settings {
             protected function getStore(): string {
                 return (new class() {
-                    #[SettingAttribute('a')]
                     #[PublicNameAttribute('publicSettingA')]
+                    #[SettingAttribute('a')]
                     public const A = 'test';
 
                     #[SettingAttribute('b')]

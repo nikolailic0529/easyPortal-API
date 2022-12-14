@@ -124,7 +124,8 @@ class ExportController extends Controller {
                 foreach ($iterator as $index => $row) {
                     // Add
                     $line    = null;
-                    $outline = new RowAttributes(min(7, $row->getLevel()));
+                    $level   = $row->getLevel();
+                    $outline = new RowAttributes(min(7, $level));
 
                     if ($row instanceof HeaderRow) {
                         $line = RowFactory::fromValues($row->getColumns(), $style);

@@ -107,8 +107,8 @@ class SettingTest extends TestCase {
             #[SettingAttribute('config.path')]
             public const TEST = 'test';
 
-            #[SettingAttribute('config.path.secret')]
             #[SecretAttribute]
+            #[SettingAttribute('config.path.secret')]
             public const SECRET = 'test';
         };
         $a     = new Setting(new ReflectionClassConstant($class, 'TEST'));
@@ -144,8 +144,8 @@ class SettingTest extends TestCase {
             #[SettingAttribute('config.path')]
             public const TEST = 'test';
 
-            #[SettingAttribute('config.path.secret')]
             #[InternalAttribute]
+            #[SettingAttribute('config.path.secret')]
             public const INTERNAL = 'test';
         };
         $a     = new Setting(new ReflectionClassConstant($class, 'TEST'));
@@ -246,17 +246,17 @@ class SettingTest extends TestCase {
             #[SettingAttribute('b')]
             public const B = 'test';
 
-            #[SettingAttribute('c')]
             #[SecretAttribute]
+            #[SettingAttribute('c')]
             public const C = 'test';
 
             #[SettingAttribute('d')]
             #[TypeAttribute(IntType::class)]
             public const D = null;
 
+            #[SecretAttribute]
             #[SettingAttribute('e')]
             #[TypeAttribute(IntType::class)]
-            #[SecretAttribute]
             public const E = [1, 2, 3];
         };
         $a     = new Setting(new ReflectionClassConstant($class, 'A'));
@@ -328,12 +328,12 @@ class SettingTest extends TestCase {
      */
     public function testGetGroup(): void {
         $class = new class() {
-            #[SettingAttribute('a')]
             #[GroupAttribute('test')]
+            #[SettingAttribute('a')]
             public const A = 'test';
 
-            #[SettingAttribute('b')]
             #[GroupAttribute('untranslated')]
+            #[SettingAttribute('b')]
             public const B = 'test';
 
             #[SettingAttribute('b')]
@@ -442,8 +442,8 @@ class SettingTest extends TestCase {
             #[SettingAttribute('a')]
             public const A = 'test';
 
-            #[SettingAttribute('b')]
             #[PublicNameAttribute('b')]
+            #[SettingAttribute('b')]
             public const B = 'test';
         };
         $a     = new Setting(new ReflectionClassConstant($class, 'A'));
@@ -461,8 +461,8 @@ class SettingTest extends TestCase {
             #[SettingAttribute('a')]
             public const A = 'test';
 
-            #[SettingAttribute('b')]
             #[PublicNameAttribute('publicNameB')]
+            #[SettingAttribute('b')]
             public const B = 'test';
         };
         $a     = new Setting(new ReflectionClassConstant($class, 'A'));
