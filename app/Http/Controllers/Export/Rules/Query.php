@@ -116,8 +116,10 @@ class Query implements InvokableRule, DataAwareRule, ValidatorAwareRule {
         }
 
         // Save
-        if ($this->getValidator()) {
-            QueryOperationCache::set($this->getValidator(), new QueryOperation($operationNode, $fragments));
+        $validator = $this->getValidator();
+
+        if ($validator) {
+            QueryOperationCache::set($validator, new QueryOperation($operationNode, $fragments));
         }
     }
     //</editor-fold>

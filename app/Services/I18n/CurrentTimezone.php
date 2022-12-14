@@ -8,6 +8,8 @@ use App\Services\Organization\CurrentOrganization;
 use Illuminate\Contracts\Config\Repository;
 use Illuminate\Contracts\Session\Session;
 
+use function is_string;
+
 class CurrentTimezone {
     public function __construct(
         protected Repository $config,
@@ -20,20 +22,30 @@ class CurrentTimezone {
 
     public function get(): string {
         // Session.timezone
-        if ($this->session->has('timezone')) {
-            return $this->session->get('timezone');
+        $session = $this->session->get('timezone');
+
+        if ($session && is_string($session)) {
+            return $session;
         }
 
         // User.timezone
         $user = $this->auth->getUser();
 
-        if ($user instanceof HasTimezonePreference && $user->preferredTimezone()) {
-            return $user->preferredTimezone();
+        if ($user instanceof HasTimezonePreference) {
+            $preferred = $user->preferredTimezone();
+
+            if ($preferred) {
+                return $preferred;
+            }
         }
 
         // Organization.timezone
-        if ($this->organization->defined() && $this->organization->preferredTimezone()) {
-            return $this->organization->preferredTimezone();
+        if ($this->organization->defined()) {
+            $preferred = $this->organization->preferredTimezone();
+
+            if ($preferred) {
+                return $preferred;
+            }
         }
 
         // Default

@@ -67,50 +67,56 @@ class DataLoaderListener extends Listener {
     }
 
     protected function requestSuccess(RequestSuccessful $event): void {
-        $object    = new DataLoaderRequestObject($event);
-        $request   = array_pop($this->stack);
-        $duration  = $request->getDuration();
-        $context   = [
+        if (!$this->stack) {
+            return;
+        }
+
+        $object      = new DataLoaderRequestObject($event);
+        $request     = array_pop($this->stack);
+        $duration    = $request->getDuration();
+        $context     = [
             'objects' => $object->getCount(),
         ];
-        $countable = [
+        $countable   = [
             "{$this->getCategory()}.total.requests.success"                 => 1,
             "{$this->getCategory()}.total.requests.duration"                => $duration,
             "{$this->getCategory()}.requests.{$object->getType()}.success"  => 1,
             "{$this->getCategory()}.requests.{$object->getType()}.objects"  => $object->getCount(),
             "{$this->getCategory()}.requests.{$object->getType()}.duration" => $duration,
         ];
+        $transaction = $request->getTransaction();
 
-        if ($request->getTransaction()) {
-            $this->logger->success($request->getTransaction(), $context, $countable);
+        if ($transaction) {
+            $this->logger->success($transaction, $context, $countable);
         } else {
             $this->logger->count($countable);
         }
     }
 
     protected function requestFailed(RequestFailed $event): void {
-        $object    = new DataLoaderRequestObject($event);
-        $request   = array_pop($this->stack);
-        $duration  = $request->getDuration();
-        $context   = [
+        if (!$this->stack) {
+            return;
+        }
+
+        $object      = new DataLoaderRequestObject($event);
+        $request     = array_pop($this->stack);
+        $duration    = $request->getDuration();
+        $context     = [
             'params'    => $event->getVariables(),
             'response'  => $event->getResponse(),
             'exception' => $event->getException(),
         ];
-        $countable = [
+        $countable   = [
             "{$this->getCategory()}.total.requests.failed"                  => 1,
             "{$this->getCategory()}.total.requests.duration"                => $duration,
             "{$this->getCategory()}.requests.{$object->getType()}.failed"   => 1,
             "{$this->getCategory()}.requests.{$object->getType()}.objects"  => $object->getCount(),
             "{$this->getCategory()}.requests.{$object->getType()}.duration" => $duration,
         ];
+        $transaction = $request->getTransaction();
 
-        if ($request->getTransaction()) {
-            $this->logger->fail(
-                $request->getTransaction(),
-                $context,
-                $countable,
-            );
+        if ($transaction) {
+            $this->logger->fail($transaction, $context, $countable);
         } else {
             $this->logger->event(
                 $this->getCategory(),

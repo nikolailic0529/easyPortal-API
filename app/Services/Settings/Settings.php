@@ -184,11 +184,10 @@ class Settings {
         } else {
             // The most actual value is stored in the config, so we are trying to
             // use it if possible.
-            if ($setting->getPath()) {
-                $value = $this->config->get($setting->getPath());
-            } else {
-                $value = $this->getValue($setting);
-            }
+            $path  = $setting->getPath();
+            $value = $path
+                ? $this->config->get($path)
+                : $this->getValue($setting);
         }
 
         return $this->serializePublicValue($setting, $value);

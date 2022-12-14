@@ -27,12 +27,14 @@ class Pinger {
     /**
      * Checks status of the job and throws exceptions if job marked as stopped.
      *
-     * @see \App\Services\Queue\Exceptions\JobStopped
+     * @see JobStopped
      */
     protected function stop(CronJob|Job $job): void {
         if ($this->service->isStopped($job)) {
-            if ($job->getJob()) {
-                $this->dispatcher->dispatch(new JobStoppedEvent($job->getJob()));
+            $queueJob = $job->getJob();
+
+            if ($queueJob) {
+                $this->dispatcher->dispatch(new JobStoppedEvent($queueJob));
             }
 
             throw new JobStopped();
