@@ -2321,6 +2321,11 @@ parameters:
 			path: app/Models/Logs/Model.php
 
 		-
+			message: "#^Using nullsafe method call on non\\-nullable type App\\\\Utils\\\\Eloquent\\\\SmartSave\\\\BatchInsert\\. Use \\-\\> instead\\.$#"
+			count: 1
+			path: app/Models/Logs/Model.php
+
+		-
 			message: "#^Instanceof between Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\HasMany\\<\\$this\\(App\\\\Models\\\\Note\\)\\> and Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\HasMany will always evaluate to true\\.$#"
 			count: 1
 			path: app/Models/Note.php
@@ -5126,6 +5131,11 @@ parameters:
 			path: app/Utils/Eloquent/Model.php
 
 		-
+			message: "#^Using nullsafe method call on non\\-nullable type App\\\\Utils\\\\Eloquent\\\\SmartSave\\\\BatchInsert\\. Use \\-\\> instead\\.$#"
+			count: 1
+			path: app/Utils/Eloquent/Model.php
+
+		-
 			message: "#^Parameter \\#1 \\$model of method App\\\\Utils\\\\Eloquent\\\\ModelProperty\\:\\:getRelation\\(\\) expects Illuminate\\\\Database\\\\Eloquent\\\\Builder\\<Illuminate\\\\Database\\\\Eloquent\\\\Model\\>\\|Illuminate\\\\Database\\\\Eloquent\\\\Model, App\\\\Models\\\\Customer\\|Illuminate\\\\Database\\\\Eloquent\\\\Builder\\<App\\\\Models\\\\Customer\\> given\\.$#"
 			count: 1
 			path: app/Utils/Eloquent/ModelPropertyTest.php
@@ -5162,6 +5172,11 @@ parameters:
 
 		-
 			message: "#^Property Illuminate\\\\Database\\\\Query\\\\Builder\\:\\:\\$columns \\(array\\) in isset\\(\\) is not nullable\\.$#"
+			count: 1
+			path: app/Utils/Eloquent/Pivot.php
+
+		-
+			message: "#^Using nullsafe method call on non\\-nullable type App\\\\Utils\\\\Eloquent\\\\SmartSave\\\\BatchInsert\\. Use \\-\\> instead\\.$#"
 			count: 1
 			path: app/Utils/Eloquent/Pivot.php
 
