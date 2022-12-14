@@ -173,12 +173,12 @@ class UpdateClientSettingsTest extends TestCase {
                         ],
                     ],
                     new class() {
-                        #[Setting('a')]
                         #[PublicName('publicSettingA')]
+                        #[Setting('a')]
                         public const A = 'test';
 
-                        #[Setting('b')]
                         #[PublicName('publicSettingB')]
+                        #[Setting('b')]
                         public const READONLY = 'readonly';
                     },
                     [

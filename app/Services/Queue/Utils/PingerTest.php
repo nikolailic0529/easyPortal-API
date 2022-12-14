@@ -64,7 +64,7 @@ class PingerTest extends TestCase {
         $job      = Mockery::mock($class);
         $job
             ->shouldReceive('getJob')
-            ->twice()
+            ->once()
             ->andReturn($queueJob);
 
         $service = Mockery::mock(Queue::class);

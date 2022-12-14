@@ -180,8 +180,8 @@ class UpdateApplicationSettingsTest extends TestCase {
                         #[SettingAttribute('int')]
                         public const SETTING_INT = 123;
 
-                        #[SettingAttribute('secret')]
                         #[SecretAttribute]
+                        #[SettingAttribute('secret')]
                         public const SETTING_SECRET = 'secret';
 
                         #[SettingAttribute('string')]
@@ -192,8 +192,8 @@ class UpdateApplicationSettingsTest extends TestCase {
                         #[TypeAttribute(StringType::class)]
                         public const SETTING_ARRAY = ['abc', 'de'];
 
-                        #[SettingAttribute('internal')]
                         #[InternalAttribute]
+                        #[SettingAttribute('internal')]
                         public const SETTING_INTERNAL = 'internal';
 
                         #[SettingAttribute('test.readonly')]

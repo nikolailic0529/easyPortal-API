@@ -136,8 +136,8 @@ class SettingsTest extends TestCase {
                         ],
                     ]),
                     new class() {
-                        #[Setting('a')]
                         #[PublicName('publicSettingA')]
+                        #[Setting('a')]
                         public const A = 'test';
 
                         #[Setting('b')]
