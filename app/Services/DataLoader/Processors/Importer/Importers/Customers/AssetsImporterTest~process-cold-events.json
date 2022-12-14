@@ -11,8 +11,8 @@
             },
             "App\\Models\\Document": [],
             "App\\Models\\Data\\Location": {
-                "c6c09316-c0bc-5fdd-9dda-b4a153151ccc": "c6c09316-c0bc-5fdd-9dda-b4a153151ccc",
-                "dc9ee42a-bf86-5f37-b2b3-fd00288bf18b": "dc9ee42a-bf86-5f37-b2b3-fd00288bf18b"
+                "c4a22828-05b7-5086-ac66-bbb33aeddd37": "c4a22828-05b7-5086-ac66-bbb33aeddd37",
+                "6f0afd36-df2a-5d6c-818b-49095e4ffde1": "6f0afd36-df2a-5d6c-818b-49095e4ffde1"
             },
             "App\\Models\\Asset": {
                 "00f0a6d3-442d-4a31-a573-459ea5f51efd": "00f0a6d3-442d-4a31-a573-459ea5f51efd",

@@ -20,13 +20,13 @@
     {
         "query": "select `locations`.* from `locations` where `locations`.`id` in (?) and `locations`.`deleted_at` is null",
         "bindings": [
-            "2fa7c9a8-3dd2-5e22-8073-42fd33157451"
+            "7d701e09-dde4-544a-a04f-19093ff23b2b"
         ]
     },
     {
         "query": "select `types`.*, `reseller_location_types`.`reseller_location_id` as `pivot_reseller_location_id`, `reseller_location_types`.`type_id` as `pivot_type_id`, `reseller_location_types`.`created_at` as `pivot_created_at`, `reseller_location_types`.`updated_at` as `pivot_updated_at` from `types` inner join `reseller_location_types` on `types`.`id` = `reseller_location_types`.`type_id` where `reseller_location_types`.`deleted_at` is null and `reseller_location_types`.`reseller_location_id` in (?) and `types`.`deleted_at` is null",
         "bindings": [
-            "7d701e09-dde4-544a-a04f-19093ff23b2b"
+            "eabf4f13-5992-5b75-a46c-5738f0e87a69"
         ]
     },
     {
@@ -39,13 +39,13 @@
     {
         "query": "select `kpis`.* from `kpis` where `kpis`.`id` in (?) and `kpis`.`deleted_at` is null",
         "bindings": [
-            "eabf4f13-5992-5b75-a46c-5738f0e87a69"
+            "0a872c01-f844-590a-a819-942bfa09a5d2"
         ]
     },
     {
         "query": "select `types`.*, `contact_types`.`contact_id` as `pivot_contact_id`, `contact_types`.`type_id` as `pivot_type_id`, `contact_types`.`created_at` as `pivot_created_at`, `contact_types`.`updated_at` as `pivot_updated_at` from `types` inner join `contact_types` on `types`.`id` = `contact_types`.`type_id` where `contact_types`.`deleted_at` is null and `contact_types`.`contact_id` in (?) and `types`.`deleted_at` is null",
         "bindings": [
-            "eb616e0a-0031-5990-9a2b-a515560ffd96"
+            "c6c09316-c0bc-5fdd-9dda-b4a153151ccc"
         ]
     },
     {
@@ -132,13 +132,13 @@
     {
         "query": "select `types`.*, `contact_types`.`contact_id` as `pivot_contact_id`, `contact_types`.`type_id` as `pivot_type_id`, `contact_types`.`created_at` as `pivot_created_at`, `contact_types`.`updated_at` as `pivot_updated_at` from `types` inner join `contact_types` on `types`.`id` = `contact_types`.`type_id` where `contact_types`.`deleted_at` is null and `contact_types`.`contact_id` in (?, ?, ?, ?, ?, ?, ?) and `types`.`deleted_at` is null",
         "bindings": [
-            "262a476f-6f6d-5cf0-9a1a-a9881d4a5d4c",
-            "a4774fd9-b268-55a8-9e22-455d21c5b8c2",
-            "ae8fbaf0-d3c3-5777-8532-8bc868ae1de1",
-            "b921b865-6cb1-5f24-8a00-1067b776d781",
-            "c55b0e1b-aba0-5a08-8e7e-7bf1edda2975",
-            "cb25e04c-9e13-5287-815f-58772f12466b",
-            "eb616e0a-0031-5990-9a2b-a515560ffd96"
+            "140d36bc-5ed9-5a1b-829a-9860f973cb92",
+            "1d4bf2a9-7db0-5159-8dbc-e215817b8cb8",
+            "6c6d5af5-90e0-5272-b30d-3aaa2a439633",
+            "a28b62d3-02fa-5d1b-af73-f893652b366d",
+            "c6c09316-c0bc-5fdd-9dda-b4a153151ccc",
+            "ec553a82-56f4-5e32-a673-7374f0ab0def",
+            "f10232e3-9024-567f-9383-55ba191f128d"
         ]
     },
     {

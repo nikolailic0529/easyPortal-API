@@ -28,7 +28,7 @@
             "Contact",
             "Contact Person",
             "Contact Person",
-            "31b78dce-3209-5ef8-946b-1e136f3ce019",
+            "ee3effef-c083-571d-a34e-845632d433f6",
             "2022-02-02 00:00:03",
             "2022-02-02 00:00:03"
         ]
@@ -54,7 +54,7 @@
         "bindings": [
             "KR",
             "Sierra Leone",
-            "ee3effef-c083-571d-a34e-845632d433f6",
+            "28708043-3c85-5a85-8802-e66bf28e8b0a",
             "2022-02-02 00:00:04",
             "2022-02-02 00:00:04"
         ]
@@ -66,7 +66,7 @@
     {
         "query": "select `cities`.* from `cities` where (`country_id` = ? and `key` = ?) and `cities`.`deleted_at` is null limit 1",
         "bindings": [
-            "ee3effef-c083-571d-a34e-845632d433f6",
+            "28708043-3c85-5a85-8802-e66bf28e8b0a",
             "east alia"
         ]
     },
@@ -75,8 +75,8 @@
         "bindings": [
             "East Alia",
             "East Alia",
-            "ee3effef-c083-571d-a34e-845632d433f6",
             "28708043-3c85-5a85-8802-e66bf28e8b0a",
+            "93c66dfd-656e-56ac-b974-7b5df52bae04",
             "2022-02-02 00:00:05",
             "2022-02-02 00:00:05"
         ]
@@ -84,8 +84,8 @@
     {
         "query": "select `locations`.* from `locations` where (`city_id` = ? and `country_id` = ? and CONCAT(`line_one`, IF(`line_two` != '', CONCAT(' ', `line_two`), '')) = ? and `postcode` = ?) and `locations`.`deleted_at` is null limit 1",
         "bindings": [
+            "93c66dfd-656e-56ac-b974-7b5df52bae04",
             "28708043-3c85-5a85-8802-e66bf28e8b0a",
-            "ee3effef-c083-571d-a34e-845632d433f6",
             "69250 pfeffer shore suite 002",
             "10543-3444"
         ]
@@ -93,8 +93,8 @@
     {
         "query": "insert into `locations` (`country_id`, `city_id`, `postcode`, `state`, `line_one`, `line_two`, `latitude`, `longitude`, `geohash`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
-            "ee3effef-c083-571d-a34e-845632d433f6",
             "28708043-3c85-5a85-8802-e66bf28e8b0a",
+            "93c66dfd-656e-56ac-b974-7b5df52bae04",
             "10543-3444",
             "",
             "69250 Pfeffer Shore Suite 002",
@@ -102,7 +102,7 @@
             "19.376457",
             "-80.600122",
             "d5qwjzku113h",
-            "93c66dfd-656e-56ac-b974-7b5df52bae04",
+            "c606c291-dd2d-522d-81dd-c3679d0386f0",
             "2022-02-02 00:00:06",
             "2022-02-02 00:00:06"
         ]
@@ -136,7 +136,7 @@
             0,
             0.0,
             0.0,
-            "7fd91fab-3309-5c6f-afca-f635f213fb13",
+            "f05d35d8-6edc-5c65-a347-f66a691b36e3",
             "2022-02-02 00:00:07",
             "2022-02-02 00:00:07"
         ]
@@ -150,7 +150,7 @@
             0,
             1,
             1,
-            "7fd91fab-3309-5c6f-afca-f635f213fb13",
+            "f05d35d8-6edc-5c65-a347-f66a691b36e3",
             "2022-02-02 00:00:08",
             0,
             0,
@@ -167,7 +167,7 @@
             "+18708525612",
             "lupe.mckenzie@lesch.com",
             true,
-            "f05d35d8-6edc-5c65-a347-f66a691b36e3",
+            "31b78dce-3209-5ef8-946b-1e136f3ce019",
             "2022-02-02 00:00:10",
             "2022-02-02 00:00:10"
         ]
@@ -175,8 +175,8 @@
     {
         "query": "insert into `contact_types` (`type_id`, `contact_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
+            "ee3effef-c083-571d-a34e-845632d433f6",
             "31b78dce-3209-5ef8-946b-1e136f3ce019",
-            "f05d35d8-6edc-5c65-a347-f66a691b36e3",
             "606a1145-730e-5c92-8353-6f54f0ba7ed9",
             "2022-02-02 00:00:11",
             "2022-02-02 00:00:11"
@@ -186,8 +186,8 @@
         "query": "insert into `reseller_locations` (`reseller_id`, `location_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "c0d99925-8b3b-47d8-9db2-9d3a5f5520a2",
-            "93c66dfd-656e-56ac-b974-7b5df52bae04",
             "c606c291-dd2d-522d-81dd-c3679d0386f0",
+            "7fd91fab-3309-5c6f-afca-f635f213fb13",
             "2022-02-02 00:00:12",
             "2022-02-02 00:00:12"
         ]

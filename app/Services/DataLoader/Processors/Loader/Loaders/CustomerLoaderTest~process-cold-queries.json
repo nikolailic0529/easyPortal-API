@@ -50,7 +50,7 @@
             "Contact",
             "Contact Person",
             "Contact Person",
-            "eff80036-c3b7-5820-9ee7-5ed602a3fa8c",
+            "2103bfd2-ec0b-5bd7-96c0-109c7728abc9",
             "2022-02-02 00:00:04",
             "2022-02-02 00:00:04"
         ]
@@ -76,7 +76,7 @@
         "bindings": [
             "GG",
             "Malaysia",
-            "2103bfd2-ec0b-5bd7-96c0-109c7728abc9",
+            "d4432598-2707-5345-af35-faf81dcb43a7",
             "2022-02-02 00:00:05",
             "2022-02-02 00:00:05"
         ]
@@ -88,7 +88,7 @@
     {
         "query": "select `cities`.* from `cities` where (`country_id` = ? and `key` = ?) and `cities`.`deleted_at` is null limit 1",
         "bindings": [
-            "2103bfd2-ec0b-5bd7-96c0-109c7728abc9",
+            "d4432598-2707-5345-af35-faf81dcb43a7",
             "mohrfort"
         ]
     },
@@ -97,8 +97,8 @@
         "bindings": [
             "Mohrfort",
             "Mohrfort",
-            "2103bfd2-ec0b-5bd7-96c0-109c7728abc9",
             "d4432598-2707-5345-af35-faf81dcb43a7",
+            "5e500e66-a38e-5b91-8809-bbeeafa3ce40",
             "2022-02-02 00:00:06",
             "2022-02-02 00:00:06"
         ]
@@ -106,8 +106,8 @@
     {
         "query": "select `locations`.* from `locations` where (`city_id` = ? and `country_id` = ? and CONCAT(`line_one`, IF(`line_two` != '', CONCAT(' ', `line_two`), '')) = ? and `postcode` = ?) and `locations`.`deleted_at` is null limit 1",
         "bindings": [
+            "5e500e66-a38e-5b91-8809-bbeeafa3ce40",
             "d4432598-2707-5345-af35-faf81dcb43a7",
-            "2103bfd2-ec0b-5bd7-96c0-109c7728abc9",
             "207 wunsch freeway apt. 075",
             "81254-3335"
         ]
@@ -115,8 +115,8 @@
     {
         "query": "insert into `locations` (`country_id`, `city_id`, `postcode`, `state`, `line_one`, `line_two`, `latitude`, `longitude`, `geohash`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
-            "2103bfd2-ec0b-5bd7-96c0-109c7728abc9",
             "d4432598-2707-5345-af35-faf81dcb43a7",
+            "5e500e66-a38e-5b91-8809-bbeeafa3ce40",
             "81254-3335",
             "",
             "207 Wunsch Freeway Apt. 075",
@@ -124,7 +124,7 @@
             "78.513635",
             "34.350461",
             "uvbqtsvppf25",
-            "5e500e66-a38e-5b91-8809-bbeeafa3ce40",
+            "d1f188be-5af5-5ef1-aac0-3fe0fe00f0de",
             "2022-02-02 00:00:07",
             "2022-02-02 00:00:07"
         ]
@@ -158,7 +158,7 @@
             0,
             0.0,
             0.0,
-            "5be6c2ad-c211-5e7c-ad6e-c2715cf59541",
+            "32d75fac-c03f-583b-93ef-c33da4962cd9",
             "2022-02-02 00:00:08",
             "2022-02-02 00:00:08"
         ]
@@ -178,7 +178,7 @@
             1,
             1,
             1,
-            "5be6c2ad-c211-5e7c-ad6e-c2715cf59541",
+            "32d75fac-c03f-583b-93ef-c33da4962cd9",
             "2022-02-02 00:00:09",
             "2022-02-02 00:00:10",
             "2022-02-02 00:00:10"
@@ -189,7 +189,7 @@
         "bindings": [
             "f350c0e2-d7d5-5d95-8c8c-f277dc7740e7",
             "04e2ec4e-9bb1-47c7-98f0-6096cd178974",
-            "32d75fac-c03f-583b-93ef-c33da4962cd9",
+            "0701bffb-7dd8-5c19-8f2f-431ce387ae2d",
             "2022-02-02 00:00:11",
             "2022-02-02 00:00:11"
         ]
@@ -203,7 +203,7 @@
             "+15679442292",
             "suzanne64@conn.com",
             true,
-            "0701bffb-7dd8-5c19-8f2f-431ce387ae2d",
+            "eff80036-c3b7-5820-9ee7-5ed602a3fa8c",
             "2022-02-02 00:00:12",
             "2022-02-02 00:00:12"
         ]
@@ -211,8 +211,8 @@
     {
         "query": "insert into `contact_types` (`type_id`, `contact_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
+            "2103bfd2-ec0b-5bd7-96c0-109c7728abc9",
             "eff80036-c3b7-5820-9ee7-5ed602a3fa8c",
-            "0701bffb-7dd8-5c19-8f2f-431ce387ae2d",
             "3279c35a-f28d-5576-acbd-99e76281f455",
             "2022-02-02 00:00:13",
             "2022-02-02 00:00:13"
@@ -222,8 +222,8 @@
         "query": "insert into `customer_locations` (`customer_id`, `location_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "04e2ec4e-9bb1-47c7-98f0-6096cd178974",
-            "5e500e66-a38e-5b91-8809-bbeeafa3ce40",
             "d1f188be-5af5-5ef1-aac0-3fe0fe00f0de",
+            "5be6c2ad-c211-5e7c-ad6e-c2715cf59541",
             "2022-02-02 00:00:14",
             "2022-02-02 00:00:14"
         ]

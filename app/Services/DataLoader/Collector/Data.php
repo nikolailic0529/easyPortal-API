@@ -89,9 +89,7 @@ class Data {
             $this->add(Customer::class, $object->customer_id);
             $this->add(Distributor::class, $object->distributor_id);
         } elseif ($object instanceof Model) {
-            if ($object->hasKey()) {
-                $this->add($object::class, $object->getKey());
-            }
+            $this->add($object::class, $object->getKey());
         } else {
             // empty
         }

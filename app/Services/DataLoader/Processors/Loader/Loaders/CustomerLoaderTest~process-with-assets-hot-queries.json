@@ -20,13 +20,13 @@
     {
         "query": "select `locations`.* from `locations` where `locations`.`id` in (?) and `locations`.`deleted_at` is null",
         "bindings": [
-            "8844b349-c418-58d5-a90e-578712391fd4"
+            "bd7956eb-87ba-5502-85fe-e65fa41f61e3"
         ]
     },
     {
         "query": "select `types`.*, `customer_location_types`.`customer_location_id` as `pivot_customer_location_id`, `customer_location_types`.`type_id` as `pivot_type_id`, `customer_location_types`.`created_at` as `pivot_created_at`, `customer_location_types`.`updated_at` as `pivot_updated_at` from `types` inner join `customer_location_types` on `types`.`id` = `customer_location_types`.`type_id` where `customer_location_types`.`deleted_at` is null and `customer_location_types`.`customer_location_id` in (?) and `types`.`deleted_at` is null",
         "bindings": [
-            "dd500f21-6347-5bd1-8c52-fac465fc3df3"
+            "631331d5-133a-58aa-b04a-adc2f4ab4de8"
         ]
     },
     {
@@ -39,7 +39,7 @@
     {
         "query": "select `kpis`.* from `kpis` where `kpis`.`id` in (?) and `kpis`.`deleted_at` is null",
         "bindings": [
-            "bd7956eb-87ba-5502-85fe-e65fa41f61e3"
+            "1fad2488-e2f2-5e70-bf22-73d83c436433"
         ]
     },
     {
@@ -51,7 +51,7 @@
     {
         "query": "select `kpis`.* from `kpis` where `kpis`.`id` in (?) and `kpis`.`deleted_at` is null",
         "bindings": [
-            "631331d5-133a-58aa-b04a-adc2f4ab4de8"
+            "46010aff-3f3f-5d3c-9f84-2558bdab3904"
         ]
     },
     {
@@ -63,8 +63,8 @@
     {
         "query": "select `types`.*, `contact_types`.`contact_id` as `pivot_contact_id`, `contact_types`.`type_id` as `pivot_type_id`, `contact_types`.`created_at` as `pivot_created_at`, `contact_types`.`updated_at` as `pivot_updated_at` from `types` inner join `contact_types` on `types`.`id` = `contact_types`.`type_id` where `contact_types`.`deleted_at` is null and `contact_types`.`contact_id` in (?, ?) and `types`.`deleted_at` is null",
         "bindings": [
-            "46010aff-3f3f-5d3c-9f84-2558bdab3904",
-            "6488a019-bf5f-5fe4-bc9c-c2033cc50f7e"
+            "5e893dde-8b1b-5477-8629-a11466b4648e",
+            "8844b349-c418-58d5-a90e-578712391fd4"
         ]
     },
     {
@@ -146,42 +146,42 @@
     {
         "query": "select `types`.*, `contact_types`.`contact_id` as `pivot_contact_id`, `contact_types`.`type_id` as `pivot_type_id`, `contact_types`.`created_at` as `pivot_created_at`, `contact_types`.`updated_at` as `pivot_updated_at` from `types` inner join `contact_types` on `types`.`id` = `contact_types`.`type_id` where `contact_types`.`deleted_at` is null and `contact_types`.`contact_id` in (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) and `types`.`deleted_at` is null",
         "bindings": [
-            "21e1fdc7-da5e-5a53-baab-79b0ab6a7811",
-            "2576a497-8705-5953-8b79-5637d8202ae1",
+            "038e3033-d17d-501e-b78d-8ef65f35a7e9",
+            "12427e29-70ac-52aa-8e31-434c5fd27291",
+            "1985019d-c165-5477-97aa-f9a568f50b3e",
+            "24616ad9-9ae2-5c3b-9d7c-019141b57215",
             "26c79ba0-b73e-5a03-8ab6-99a3934685a2",
             "2c5f6e4b-9307-5c62-85db-c38d0005f9e7",
+            "2e5df93d-d93d-514a-b6a6-8b4c976f2c82",
             "31ed22a9-c673-5fe5-8436-d21721e478f2",
-            "329722d6-36d7-5872-ab2b-4c7c44320b1b",
             "39421556-39c8-58be-b763-82fdb32f24d6",
-            "3a0381f5-0f18-53bf-bb6a-0c651c391907",
-            "51cecd7a-639f-5970-ba98-11efaf52a40f",
-            "58686ef0-3947-5e70-accf-0444beda0c52",
-            "58eb7f11-3673-5e8c-aefd-675db53ad3f2",
+            "528b3f81-c203-5f07-8e95-88a43b2a279a",
             "59b443ff-03de-56e8-9811-159e09ac9c3e",
-            "63be4ac4-27cc-545e-9724-8fb8cb909e6c",
+            "64af55eb-9e9b-5a55-bb38-06126bae5398",
+            "6ae3ee0e-23c3-52f1-b678-ff988d191a55",
+            "73cebc34-ee1d-5676-b44c-e8f7e516b02a",
+            "7cb60eb8-327c-54f0-ba93-9c27bc1ebb49",
             "803cd7fb-2fdf-54d3-87f0-9a6c25afc6eb",
-            "9093c09e-92d9-5496-847f-3198115560da",
-            "9983c5a4-989c-588e-8f70-28a60540085e",
-            "9d54f0b3-8562-5dd9-b5be-9eac7101ec5e",
-            "a0394aac-1721-5f3f-b681-a06ffedd5879",
-            "a388f947-2949-50c6-ac99-7ca4b72ab5ad",
-            "a492aba9-396a-5c40-9c74-4ac550fd5357",
-            "b19dcd4b-a888-5211-8ec5-409e9fa87b87",
+            "90078ccc-a6b7-55b0-b4c0-0d51b0b849ca",
+            "a2d64dd3-3e2b-5da5-b14e-f28f08c684dc",
+            "ad540b3d-2eec-5935-b9e3-7511e33b7f90",
             "bb66b173-406a-5451-87a6-6af9f19531c7",
-            "cbcc0fd8-68f1-5c41-8c21-dd9999c861ff",
-            "cdb15464-ec0b-5f02-b771-be88541d86ea",
-            "d4b6ce41-3233-5620-8b36-9811cda1e237",
-            "df18db08-39ca-5c57-9912-a7d67885fe3b",
+            "be42b905-a1df-53d3-ba0b-ca1184ae976f",
+            "c7d0189e-11c3-5b84-aa35-cc0542c5fe98",
+            "ca207bcf-ef8a-59f7-b9a4-de619ff720b2",
+            "da220625-a930-5c6d-9f93-1ce43534d2e5",
+            "dea4b75e-50fc-5804-8a77-16c73bb6e474",
+            "dfbe2dde-158b-5998-8e33-26d67811f801",
             "e010cf97-d0f9-51c2-9603-e79e5b33a2c8",
-            "e6cc63ad-2ec9-524f-be3d-ce960019d5da",
+            "ecbc0724-ace8-5481-8090-effdde8032cc",
             "eef63f6c-6c0a-5942-b916-6252bef6de3c",
-            "f3f7d8cd-f3f3-5cf2-b8e7-b6811350f9df"
+            "efa8ddaa-dfd6-5105-bc66-06b1db29d687"
         ]
     },
     {
         "query": "select `locations`.* from `locations` where `locations`.`id` in (?) and `locations`.`deleted_at` is null",
         "bindings": [
-            "8844b349-c418-58d5-a90e-578712391fd4"
+            "bd7956eb-87ba-5502-85fe-e65fa41f61e3"
         ]
     },
     {
@@ -220,7 +220,7 @@
     {
         "query": "select `locations`.* from `locations` where `locations`.`id` in (?) and `locations`.`deleted_at` is null",
         "bindings": [
-            "177b5db9-4491-5c92-9159-feeaaed04588"
+            "a936db4c-085a-5d5e-b5db-dd15a03b3b44"
         ]
     },
     {
@@ -238,7 +238,7 @@
     {
         "query": "select `locations`.* from `locations` where `locations`.`id` in (?) and `locations`.`deleted_at` is null",
         "bindings": [
-            "8844b349-c418-58d5-a90e-578712391fd4"
+            "bd7956eb-87ba-5502-85fe-e65fa41f61e3"
         ]
     },
     {

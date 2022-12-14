@@ -28,8 +28,8 @@
         "query": "select `types`.*, `contact_types`.`contact_id` as `pivot_contact_id`, `contact_types`.`type_id` as `pivot_type_id`, `contact_types`.`created_at` as `pivot_created_at`, `contact_types`.`updated_at` as `pivot_updated_at` from `types` inner join `contact_types` on `types`.`id` = `contact_types`.`type_id` where `contact_types`.`deleted_at` is null and `contact_types`.`contact_id` in (?, ?, ?) and `types`.`deleted_at` is null",
         "bindings": [
             "3aaf1f1e-53ee-544c-8e1f-9abd27c49719",
-            "5aedbce0-6089-560b-88ea-29dc0a988c02",
-            "db668c52-b580-5d79-bba1-f91c803d5ef7"
+            "53096f4b-5c86-53b2-88f5-d4e08ea8e5b4",
+            "75d0c3bf-b069-551e-9eee-a694ad06703d"
         ]
     },
     {
@@ -65,7 +65,7 @@
     {
         "query": "select `locations`.* from `locations` where `locations`.`id` in (?) and `locations`.`deleted_at` is null",
         "bindings": [
-            "c6c09316-c0bc-5fdd-9dda-b4a153151ccc"
+            "b4ea6545-b7e2-5926-99ef-41115e7de749"
         ]
     },
     {
@@ -84,7 +84,7 @@
     {
         "query": "select `locations`.* from `locations` where `locations`.`id` in (?) and `locations`.`deleted_at` is null",
         "bindings": [
-            "38086b95-d84b-5a54-bbb4-1bbf455ed2df"
+            "8fed5079-8106-53c6-8686-ed17c3e5d1c5"
         ]
     },
     {
