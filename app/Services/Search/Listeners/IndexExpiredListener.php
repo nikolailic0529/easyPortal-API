@@ -2,15 +2,14 @@
 
 namespace App\Services\Search\Listeners;
 
-use App\Events\Subscriber;
 use App\Services\DataLoader\Events\DataImported;
 use App\Services\Recalculator\Events\ModelsRecalculated;
 use App\Services\Search\Indexer;
 use App\Services\Search\Service;
-use Illuminate\Contracts\Events\Dispatcher;
+use App\Utils\Providers\EventsProvider;
 use Illuminate\Database\Eloquent\Model;
 
-class IndexExpiredListener implements Subscriber {
+class IndexExpiredListener implements EventsProvider {
     public function __construct(
         protected Service $service,
         protected Indexer $indexer,
@@ -18,9 +17,14 @@ class IndexExpiredListener implements Subscriber {
         // empty
     }
 
-    public function subscribe(Dispatcher $dispatcher): void {
-        $dispatcher->listen(DataImported::class, $this::class);
-        $dispatcher->listen(ModelsRecalculated::class, $this::class);
+    /**
+     * @inheritDoc
+     */
+    public static function getEvents(): array {
+        return [
+            DataImported::class,
+            ModelsRecalculated::class,
+        ];
     }
 
     public function __invoke(DataImported|ModelsRecalculated $event): void {

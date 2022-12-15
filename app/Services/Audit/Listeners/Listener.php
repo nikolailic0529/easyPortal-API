@@ -2,11 +2,11 @@
 
 namespace App\Services\Audit\Listeners;
 
-use App\Events\Subscriber;
 use App\Services\Audit\Auditor;
 use App\Services\Organization\CurrentOrganization;
+use App\Utils\Providers\EventsProvider;
 
-abstract class Listener implements Subscriber {
+abstract class Listener implements EventsProvider {
     public function __construct(
         protected CurrentOrganization $org,
         protected Auditor $auditor,

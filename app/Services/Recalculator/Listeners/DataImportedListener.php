@@ -2,21 +2,25 @@
 
 namespace App\Services\Recalculator\Listeners;
 
-use App\Events\Subscriber;
 use App\Services\DataLoader\Events\DataImported;
 use App\Services\Recalculator\Recalculator;
-use Illuminate\Contracts\Events\Dispatcher;
+use App\Utils\Providers\EventsProvider;
 use Illuminate\Database\Eloquent\Model;
 
-class DataImportedListener implements Subscriber {
+class DataImportedListener implements EventsProvider {
     public function __construct(
         protected Recalculator $recalculator,
     ) {
         // empty
     }
 
-    public function subscribe(Dispatcher $dispatcher): void {
-        $dispatcher->listen(DataImported::class, $this::class);
+    /**
+     * @inheritDoc
+     */
+    public static function getEvents(): array {
+        return [
+            DataImported::class,
+        ];
     }
 
     public function __invoke(DataImported $event): void {

@@ -2,7 +2,7 @@
 
 namespace App\Services\Logger\Listeners;
 
-use App\Services\Logger\LoggerObject;
+use App\Services\Logger\Contracts\LoggerObject;
 use Illuminate\Contracts\Queue\Job;
 use Illuminate\Support\Arr;
 use LastDragon_ru\LaraASP\Queue\Contracts\Cronable;

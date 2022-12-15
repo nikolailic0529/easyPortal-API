@@ -38,7 +38,7 @@ class AuthListenerTest extends TestCase {
     // <editor-fold desc="Tests">
     // =========================================================================
     /**
-     * @covers ::subscribe
+     * @covers ::getEvents
      */
     public function testSubscribe(): void {
         $user          = Mockery::mock(Authenticatable::class);

@@ -7,10 +7,10 @@ use App\Services\DataLoader\Client\Events\RequestStarted;
 use App\Services\DataLoader\Client\Events\RequestSuccessful;
 use App\Services\Logger\Models\Enums\Category;
 use App\Services\Logger\Models\Enums\Status;
-use Illuminate\Contracts\Events\Dispatcher;
 
 use function array_merge;
 use function array_pop;
+use function config;
 
 class DataLoaderListener extends Listener {
     /**
@@ -18,31 +18,42 @@ class DataLoaderListener extends Listener {
      */
     protected array $stack = [];
 
-    public function subscribe(Dispatcher $dispatcher): void {
-        $dispatcher->listen(RequestStarted::class, $this->getSafeListener(function (RequestStarted $event): void {
-            $this->requestStarted($event);
-        }));
+    /**
+     * @inheritDoc
+     */
+    public static function getEvents(): array {
+        return [
+            RequestStarted::class,
+            RequestSuccessful::class,
+            RequestFailed::class,
+        ];
+    }
 
-        $dispatcher->listen(RequestSuccessful::class, $this->getSafeListener(function (RequestSuccessful $event): void {
-            $this->requestSuccess($event);
-        }));
-
-        $dispatcher->listen(RequestFailed::class, $this->getSafeListener(function (RequestFailed $event): void {
-            $this->requestFailed($event);
-        }));
+    public function __invoke(object $event): void {
+        $this->call(function () use ($event): void {
+            if ($event instanceof RequestStarted) {
+                $this->requestStarted($event);
+            } elseif ($event instanceof RequestSuccessful) {
+                $this->requestSuccess($event);
+            } elseif ($event instanceof RequestFailed) {
+                $this->requestFailed($event);
+            } else {
+                // empty
+            }
+        });
     }
 
     protected function requestStarted(RequestStarted $event): void {
         $object    = new DataLoaderRequestObject($event);
         $context   = $event->getVariables();
-        $enabled   = $this->config->get('ep.logger.data_loader.queries');
+        $enabled   = config('ep.logger.data_loader.queries');
         $countable = [
             "{$this->getCategory()}.total.requests.requests"                => 1,
             "{$this->getCategory()}.requests.{$object->getType()}.requests" => 1,
         ];
 
         if ($object->isMutation()) {
-            $enabled   = $this->config->get('ep.logger.data_loader.mutations');
+            $enabled   = config('ep.logger.data_loader.mutations');
             $countable = array_merge($countable, [
                 "{$this->getCategory()}.total.requests.mutations" => 1,
             ]);

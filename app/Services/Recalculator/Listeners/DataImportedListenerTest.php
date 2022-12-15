@@ -17,7 +17,7 @@ use Tests\TestCase;
  */
 class DataImportedListenerTest extends TestCase {
     /**
-     * @covers ::subscribe
+     * @covers ::getEvents
      */
     public function testSubscribe(): void {
         $this->override(DataImportedListener::class, static function (MockInterface $mock): void {

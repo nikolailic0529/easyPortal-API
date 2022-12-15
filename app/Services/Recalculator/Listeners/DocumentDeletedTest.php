@@ -25,7 +25,7 @@ class DocumentDeletedTest extends TestCase {
     use WithoutGlobalScopes;
 
     /**
-     * @covers ::subscribe
+     * @covers ::getEvents
      */
     public function testSubscribe(): void {
         $this->override(DocumentDeleted::class, static function (MockInterface $mock): void {

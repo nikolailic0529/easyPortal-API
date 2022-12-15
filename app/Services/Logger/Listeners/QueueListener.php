@@ -2,13 +2,14 @@
 
 namespace App\Services\Logger\Listeners;
 
+use App\Services\Logger\Contracts\Registrable;
 use App\Services\Logger\Logger;
 use App\Services\Logger\Models\Enums\Action;
 use App\Services\Logger\Models\Enums\Category;
 use App\Services\Logger\Models\Enums\Status;
 use App\Services\Logger\Models\Log;
 use App\Services\Queue\Events\JobStopped;
-use Illuminate\Contracts\Config\Repository;
+use Illuminate\Container\Container;
 use Illuminate\Contracts\Debug\ExceptionHandler;
 use Illuminate\Contracts\Events\Dispatcher;
 use Illuminate\Contracts\Queue\Job as JobContract;
@@ -23,7 +24,7 @@ use WeakMap;
 use function array_pop;
 use function last;
 
-class QueueListener extends Listener {
+class QueueListener extends Listener implements Registrable {
     /**
      * @var array<array<string,string>>
      */
@@ -34,61 +35,56 @@ class QueueListener extends Listener {
      */
     protected WeakMap $stopped;
 
-    public function __construct(Logger $logger, Repository $config, ExceptionHandler $exceptionHandler) {
-        parent::__construct($logger, $config, $exceptionHandler);
+    public function __construct(Logger $logger, ExceptionHandler $exceptionHandler) {
+        parent::__construct($logger, $exceptionHandler);
 
         $this->stopped = new WeakMap();
     }
 
-    public function subscribe(Dispatcher $dispatcher): void {
-        $dispatcher->listen(
+    /**
+     * @inheritDoc
+     */
+    public static function getEvents(): array {
+        return [
             JobProcessing::class,
-            $this->getSafeListener(function (JobProcessing $event): void {
-                $this->started($event);
-            }),
-        );
-
-        $dispatcher->listen(
             JobProcessed::class,
-            $this->getSafeListener(function (JobProcessed $event): void {
-                $this->success($event);
-            }),
-        );
-
-        $dispatcher->listen(
             JobFailed::class,
-            $this->getSafeListener(function (JobFailed $event): void {
-                $this->failed($event);
-            }),
-        );
-
-        $dispatcher->listen(
             JobExceptionOccurred::class,
-            $this->getSafeListener(function (JobExceptionOccurred $event): void {
-                $this->failed($event);
-            }),
-        );
-
-        $dispatcher->listen(
             JobStopped::class,
-            $this->getSafeListener(function (JobStopped $event): void {
-                $this->stopped($event);
-            }),
-        );
-
-        $dispatcher->listen(
             JobDeleted::class,
-            $this->getSafeListener(function (JobDeleted $event): void {
-                $this->deleted($event);
-            }),
-        );
+            QueueJob::class,
+        ];
+    }
 
-        Queue::createPayloadUsing(function (string $connection, string $queue, array $payload): array {
-            $this->getSafeListener(function () use ($connection, $queue, $payload): void {
-                $this->dispatched(new QueueJob($connection, $queue, $payload));
-            })();
+    public static function register(): void {
+        Queue::createPayloadUsing(static function (string $connection, string $queue, array $payload): array {
+            Container::getInstance()->make(Dispatcher::class)->dispatch(
+                new QueueJob($connection, $queue, $payload),
+            );
 
             return [];
+        });
+    }
+
+    public function __invoke(object $event): void {
+        $this->call(function () use ($event): void {
+            if ($event instanceof QueueJob) {
+                $this->dispatched($event);
+            } elseif ($event instanceof JobProcessing) {
+                $this->started($event);
+            } elseif ($event instanceof JobProcessed) {
+                $this->success($event);
+            } elseif ($event instanceof JobFailed) {
+                $this->failed($event);
+            } elseif ($event instanceof JobExceptionOccurred) {
+                $this->failed($event);
+            } elseif ($event instanceof JobStopped) {
+                $this->stopped($event);
+            } elseif ($event instanceof JobDeleted) {
+                $this->deleted($event);
+            } else {
+                // empty
+            }
         });
     }
 

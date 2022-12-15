@@ -2,28 +2,32 @@
 
 namespace App\GraphQL\Listeners;
 
-use App\Events\Subscriber;
 use App\GraphQL\Cache;
 use App\Services\DataLoader\Events\DataImported;
 use App\Services\I18n\Events\TranslationsUpdated;
 use App\Services\Maintenance\Events\VersionUpdated;
 use App\Services\Recalculator\Events\ModelsRecalculated;
 use App\Services\Settings\Events\SettingsUpdated;
-use Illuminate\Contracts\Events\Dispatcher;
+use App\Utils\Providers\EventsProvider;
 
-class CacheExpiredListener implements Subscriber {
+class CacheExpiredListener implements EventsProvider {
     public function __construct(
         protected Cache $cache,
     ) {
         // empty
     }
 
-    public function subscribe(Dispatcher $dispatcher): void {
-        $dispatcher->listen(DataImported::class, $this::class);
-        $dispatcher->listen(VersionUpdated::class, $this::class);
-        $dispatcher->listen(SettingsUpdated::class, $this::class);
-        $dispatcher->listen(ModelsRecalculated::class, $this::class);
-        $dispatcher->listen(TranslationsUpdated::class, $this::class);
+    /**
+     * @inheritDoc
+     */
+    public static function getEvents(): array {
+        return [
+            DataImported::class,
+            VersionUpdated::class,
+            SettingsUpdated::class,
+            ModelsRecalculated::class,
+            TranslationsUpdated::class,
+        ];
     }
 
     public function __invoke(): void {

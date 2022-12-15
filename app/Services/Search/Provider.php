@@ -15,12 +15,11 @@ use App\Services\Search\Queue\Jobs\AssetsIndexer;
 use App\Services\Search\Queue\Jobs\CustomersIndexer;
 use App\Services\Search\Queue\Jobs\DocumentsIndexer;
 use App\Services\Search\Queue\Tasks\ModelsIndex;
+use App\Utils\Providers\EventServiceProvider;
 use Elastic\Client\ClientBuilderInterface;
 use Elastic\Elasticsearch\Client;
 use Elastic\ScoutDriver\Factories\SearchParametersFactoryInterface;
 use Illuminate\Contracts\Container\Container;
-use Illuminate\Contracts\Events\Dispatcher;
-use Illuminate\Support\ServiceProvider;
 use Laravel\Scout\Builder as ScoutBuilder;
 use Laravel\Scout\Scout;
 use LastDragon_ru\LaraASP\Core\Concerns\ProviderWithCommands;
@@ -30,9 +29,17 @@ use Nuwave\Lighthouse\Schema\Source\SchemaSourceProvider;
 use Nuwave\Lighthouse\Schema\TypeRegistry;
 use Nuwave\Lighthouse\Testing\TestSchemaProvider;
 
-class Provider extends ServiceProvider {
+class Provider extends EventServiceProvider {
     use ProviderWithCommands;
     use ProviderWithSchedule;
+
+    /**
+     * @phpcsSuppress SlevomatCodingStandard.TypeHints.PropertyTypeHint
+     */
+    protected array $listeners = [
+        IndexExpiredListener::class,
+        ElasticDisconnected::class,
+    ];
 
     // <editor-fold desc="Register">
     // =========================================================================
@@ -41,7 +48,6 @@ class Provider extends ServiceProvider {
 
         $this->registerJobs();
         $this->registerBindings();
-        $this->registerListeners();
         $this->registerGraphqlTypes();
         $this->registerElasticClient();
     }
@@ -78,13 +84,6 @@ class Provider extends ServiceProvider {
                 }
             },
         );
-    }
-
-    protected function registerListeners(): void {
-        $this->booting(static function (Dispatcher $dispatcher): void {
-            $dispatcher->subscribe(IndexExpiredListener::class);
-            $dispatcher->subscribe(ElasticDisconnected::class);
-        });
     }
 
     protected function registerElasticClient(): void {

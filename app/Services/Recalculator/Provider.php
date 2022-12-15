@@ -14,27 +14,21 @@ use App\Services\Recalculator\Queue\Jobs\CustomersRecalculator;
 use App\Services\Recalculator\Queue\Jobs\DocumentsRecalculator;
 use App\Services\Recalculator\Queue\Jobs\LocationsRecalculator;
 use App\Services\Recalculator\Queue\Jobs\ResellersRecalculator;
-use Illuminate\Contracts\Events\Dispatcher;
-use Illuminate\Support\ServiceProvider;
+use App\Utils\Providers\EventServiceProvider;
 use LastDragon_ru\LaraASP\Core\Concerns\ProviderWithCommands;
 use LastDragon_ru\LaraASP\Queue\Concerns\ProviderWithSchedule;
 
-class Provider extends ServiceProvider {
+class Provider extends EventServiceProvider {
     use ProviderWithCommands;
     use ProviderWithSchedule;
 
-    public function register(): void {
-        parent::register();
-
-        $this->registerListeners();
-    }
-
-    protected function registerListeners(): void {
-        $this->booting(static function (Dispatcher $dispatcher): void {
-            $dispatcher->subscribe(DataImportedListener::class);
-            $dispatcher->subscribe(DocumentDeleted::class);
-        });
-    }
+    /**
+     * @phpcsSuppress SlevomatCodingStandard.TypeHints.PropertyTypeHint
+     */
+    protected array $listeners = [
+        DataImportedListener::class,
+        DocumentDeleted::class,
+    ];
 
     public function boot(): void {
         $this->bootCommands(

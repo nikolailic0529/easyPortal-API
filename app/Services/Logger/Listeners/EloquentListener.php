@@ -4,62 +4,75 @@ namespace App\Services\Logger\Listeners;
 
 use App\Services\Logger\Models\Enums\Category;
 use App\Services\Logger\Models\Enums\Status;
-use Illuminate\Contracts\Events\Dispatcher;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Str;
 
 use function array_filter;
+use function config;
 use function reset;
 use function str_replace;
 
 class EloquentListener extends Listener {
     use Database;
 
-    public function subscribe(Dispatcher $dispatcher): void {
-        /** @var array<string,string> $events */
-        $events  = [
-            'eloquent.created'      => 'created',
-            'eloquent.updated'      => 'updated',
-            'eloquent.restored'     => 'restored',
-            'eloquent.deleted'      => 'softDeleted',
-            'eloquent.forceDeleted' => 'forceDeleted',
+    /**
+     * @inheritDoc
+     */
+    public static function getEvents(): array {
+        return [
+            'eloquent.created: *',
+            'eloquent.updated: *',
+            'eloquent.restored: *',
+            'eloquent.deleted: *',
+            'eloquent.forceDeleted: *',
         ];
-        $changes = $this->config->get('ep.logger.eloquent.models');
+    }
 
-        foreach ($events as $event => $property) {
-            $dispatcher->listen(
-                "{$event}: *",
-                $this->getSafeListener(function (string $name, array $args) use ($changes, $event, $property): void {
-                    // Should be ignored?
-                    $model = reset($args);
+    /**
+     * @param array<mixed> $args
+     */
+    public function __invoke(string $event, array $args): void {
+        $this->call(function () use ($event, $args): void {
+            // Should be ignored?
+            $model = reset($args);
 
-                    if (!($model instanceof Model) || $this->isConnectionIgnored($model->getConnection())) {
-                        return;
-                    }
+            if (!($model instanceof Model) || $this->isConnectionIgnored($model->getConnection())) {
+                return;
+            }
 
-                    // Log
-                    $object    = new EloquentObject($model);
-                    $action    = $this->getAction($object, $event);
-                    $countable = [
-                        "{$this->getCategory()}.total.models.models"                     => 1,
-                        "{$this->getCategory()}.total.models.{$property}"                => 1,
-                        "{$this->getCategory()}.models.{$object->getType()}.{$property}" => 1,
-                    ];
+            // Property?
+            // todo(Logger): Do we need to check that Model is soft deletable?
+            //      In this case `eloquent.deleted` probably should not be renamed.
+            $name     = Str::after(Str::before($event, ':'), '.');
+            $property = match ($name) {
+                'deleted'      => 'softDeleted',
+                'forceDeleted' => 'forceDeleted',
+                default        => $name,
+            };
 
-                    if ($changes) {
-                        $this->logger->event(
-                            $this->getCategory(),
-                            $action,
-                            Status::success(),
-                            $object,
-                            $this->getContext($object, $action),
-                            $countable,
-                        );
-                    } else {
-                        $this->logger->count($countable);
-                    }
-                }),
-            );
-        }
+            // Log
+            $object    = new EloquentObject($model);
+            $action    = $this->getAction($object, $event);
+            $changes   = config('ep.logger.eloquent.models');
+            $countable = [
+                "{$this->getCategory()}.total.models.models"                     => 1,
+                "{$this->getCategory()}.total.models.{$property}"                => 1,
+                "{$this->getCategory()}.models.{$object->getType()}.{$property}" => 1,
+            ];
+
+            if ($changes) {
+                $this->logger->event(
+                    $this->getCategory(),
+                    $action,
+                    Status::success(),
+                    $object,
+                    $this->getContext($object, $action),
+                    $countable,
+                );
+            } else {
+                $this->logger->count($countable);
+            }
+        });
     }
 
     protected function getAction(EloquentObject $object, string $event): string {

@@ -15,7 +15,7 @@ use function ltrim;
 use function rtrim;
 
 /**
- * Keycloak Provider.
+ * Keycloak EventsProvider.
  *
  * Based on {@see https://github.com/stevenmaguire/oauth2-keycloak}
  */
@@ -42,7 +42,7 @@ class Provider extends AbstractProvider {
     }
 
     /**
-     * @inheritDoc
+     * @param array<mixed> $params
      */
     public function getBaseAccessTokenUrl(array $params): string {
         return $this->getRealmUrl('protocol/openid-connect/token');
@@ -97,6 +97,8 @@ class Provider extends AbstractProvider {
 
     /**
      * @inheritDoc
+     *
+     * @param array<mixed>|string $data
      */
     protected function checkResponse(ResponseInterface $response, $data) {
         if (isset($data['error'])) {

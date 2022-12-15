@@ -17,7 +17,7 @@ use Tests\TestCase;
  */
 class ExportListenerTest extends TestCase {
     /**
-     * @covers ::subscribe
+     * @covers ::getEvents
      */
     public function testSubscribe(): void {
         $exported = new QueryExported('test', [

@@ -2,7 +2,7 @@
 
 namespace App\Services\Logger\Listeners;
 
-use App\Services\Logger\LoggerObject;
+use App\Services\Logger\Contracts\LoggerObject;
 use App\Utils\Eloquent\ModelHelper;
 use Illuminate\Database\Eloquent\Model;
 

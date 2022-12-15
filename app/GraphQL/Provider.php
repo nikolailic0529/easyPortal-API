@@ -11,13 +11,13 @@ use App\GraphQL\Extensions\Lighthouse\Directives\EqDirective;
 use App\GraphQL\Extensions\Lighthouse\Directives\ValidatorDirective;
 use App\GraphQL\Listeners\CacheExpiredListener;
 use App\GraphQL\Providers\ValidationRulesProvider;
+use App\Utils\Providers\EventServiceProvider;
 use Closure;
 use Illuminate\Contracts\Auth\Access\Gate;
 use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Contracts\Config\Repository;
 use Illuminate\Contracts\Container\Container;
 use Illuminate\Contracts\Events\Dispatcher;
-use Illuminate\Support\ServiceProvider;
 use LastDragon_ru\LaraASP\GraphQL\SearchBy\Definitions\SearchByOperatorContainsDirective;
 use LastDragon_ru\LaraASP\GraphQL\SearchBy\Definitions\SearchByOperatorEndsWithDirective;
 use LastDragon_ru\LaraASP\GraphQL\SearchBy\Definitions\SearchByOperatorRelationDirective;
@@ -27,7 +27,14 @@ use Nuwave\Lighthouse\Schema\Directives\EqDirective as LighthouseEqDirective;
 use Nuwave\Lighthouse\Support\Contracts\ProvidesValidationRules;
 use Nuwave\Lighthouse\Validation\ValidatorDirective as LighthouseValidatorDirective;
 
-class Provider extends ServiceProvider {
+class Provider extends EventServiceProvider {
+    /**
+     * @phpcsSuppress SlevomatCodingStandard.TypeHints.PropertyTypeHint
+     */
+    protected array $listeners = [
+        CacheExpiredListener::class,
+    ];
+
     public function register(): void {
         parent::register();
 
@@ -52,7 +59,6 @@ class Provider extends ServiceProvider {
             LighthouseDirectiveLocator $locator,
             ErrorFormatter $formatter,
         ): void {
-            $dispatcher->subscribe(CacheExpiredListener::class);
             $dispatcher->subscribe($locator);
             $dispatcher->listen(
                 ManipulateResult::class,
@@ -82,6 +88,9 @@ class Provider extends ServiceProvider {
         );
     }
 
+    /**
+     * @return Closure(?Authenticatable): bool
+     */
     protected static function getGateCallback(Repository $config): Closure {
         return static function (?Authenticatable $user) use ($config): bool {
             return (bool) $config->get('app.debug');

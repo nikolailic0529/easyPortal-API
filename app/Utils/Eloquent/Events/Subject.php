@@ -2,9 +2,9 @@
 
 namespace App\Utils\Eloquent\Events;
 
-use App\Events\Subscriber;
-use Illuminate\Contracts\Events\Dispatcher;
+use App\Utils\Providers\EventsProvider;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Str;
 use WeakMap;
 
 use function reset;
@@ -15,7 +15,7 @@ use function reset;
  * listeners should be reset between chunks. This class designed specially
  * to solve this problem, so you can relax and don't worry about unsubscribing.
  */
-class Subject implements Subscriber {
+class Subject implements EventsProvider {
     /**
      * @var WeakMap<OnModelSaved, OnModelSaved>
      */
@@ -30,31 +30,44 @@ class Subject implements Subscriber {
         $this->onDelete = new WeakMap();
     }
 
-    public function subscribe(Dispatcher $dispatcher): void {
-        $onSaved = function (string $name, array $args): void {
-            $model = reset($args);
+    /**
+     * @inheritDoc
+     */
+    public static function getEvents(): array {
+        return [
+            'eloquent.created: *',
+            'eloquent.updated: *',
+            'eloquent.deleted: *',
+        ];
+    }
 
-            if ($model instanceof Model) {
+    /**
+     * @param array<mixed> $args
+     */
+    public function __invoke(string $event, array $args): void {
+        $name  = Str::before($event, ':');
+        $model = reset($args);
+
+        if (!($model instanceof Model)) {
+            return;
+        }
+
+        switch ($name) {
+            case 'eloquent.created':
+            case 'eloquent.updated':
                 foreach ($this->onSave as $observer) {
                     $observer->modelSaved($model);
                 }
-            }
-        };
-
-        $dispatcher->listen('eloquent.created: *', $onSaved);
-        $dispatcher->listen('eloquent.updated: *', $onSaved);
-        $dispatcher->listen(
-            'eloquent.deleted: *',
-            function (string $name, array $args): void {
-                $model = reset($args);
-
-                if ($model instanceof Model) {
-                    foreach ($this->onDelete as $observer) {
-                        $observer->modelDeleted($model);
-                    }
+                break;
+            case 'eloquent.deleted':
+                foreach ($this->onDelete as $observer) {
+                    $observer->modelDeleted($model);
                 }
-            },
-        );
+                break;
+            default:
+                // ignore
+                break;
+        }
     }
 
     public function onModelEvent(object $observer): static {

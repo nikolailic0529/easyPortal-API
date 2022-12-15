@@ -2,12 +2,11 @@
 
 namespace App\Services\Search\Listeners;
 
-use App\Events\Subscriber;
 use App\Exceptions\ErrorReport;
 use App\Services\Search\Elastic\ClientBuilder;
 use App\Services\Search\Exceptions\ElasticUnavailable;
+use App\Utils\Providers\EventsProvider;
 use Elastic\Client\ClientBuilderInterface;
-use Illuminate\Contracts\Events\Dispatcher;
 
 /**
  * Resets cached Client instances when connection is closed/failed/etc. It is
@@ -16,15 +15,20 @@ use Illuminate\Contracts\Events\Dispatcher;
  *
  * @see ClientBuilderInterface
  */
-class ElasticDisconnected implements Subscriber {
+class ElasticDisconnected implements EventsProvider {
     public function __construct(
         protected ClientBuilderInterface $builder,
     ) {
         // empty
     }
 
-    public function subscribe(Dispatcher $dispatcher): void {
-        $dispatcher->listen(ErrorReport::class, $this::class);
+    /**
+     * @inheritDoc
+     */
+    public static function getEvents(): array {
+        return [
+            ErrorReport::class,
+        ];
     }
 
     public function __invoke(ErrorReport $event): void {

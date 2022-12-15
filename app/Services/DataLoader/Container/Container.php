@@ -10,7 +10,7 @@ use function is_a;
  * Special container to create Resolvers/Factories/Loaders.
  *
  * The main reasons why it created are
- * - only one instance of each Provider must exist;
+ * - only one instance of each EventsProvider must exist;
  * - instances must be destroyed after data loading;
  * - constructors may require a lot of arguments, this is really annoying to
  *   pass them.
