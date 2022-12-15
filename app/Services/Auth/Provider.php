@@ -19,6 +19,7 @@ class Provider extends EventServiceProvider {
     public function register(): void {
         parent::register();
 
+        $this->app->singleton(Auth::class);
         $this->app->singleton(Permissions::class);
     }
 

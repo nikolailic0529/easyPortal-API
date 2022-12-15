@@ -21,4 +21,21 @@ class Provider extends EventServiceProvider {
         InvitationListener::class,
         OrganizationListener::class,
     ];
+
+    public function register(): void {
+        parent::register();
+
+        $this->registerAuditor();
+        $this->registerListeners();
+    }
+
+    protected function registerAuditor(): void {
+        $this->app->singleton(Auditor::class);
+    }
+
+    protected function registerListeners(): void {
+        foreach ($this->getListeners() as $listener) {
+            $this->app->singleton($listener);
+        }
+    }
 }

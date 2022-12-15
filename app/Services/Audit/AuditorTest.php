@@ -17,6 +17,7 @@ use App\Utils\Eloquent\Model;
 use Closure;
 use Illuminate\Auth\AuthManager;
 use Illuminate\Auth\Events\Login;
+use Illuminate\Auth\Events\Logout;
 use Illuminate\Auth\Events\PasswordReset;
 use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Contracts\Events\Dispatcher;
@@ -192,25 +193,26 @@ class AuditorTest extends TestCase {
     public function testLogout(): void {
         $user = User::factory()->make();
 
-        Auth::guard('web')->login($user);
-
         $this->override(Auditor::class, static function (MockInterface $mock) use ($user): void {
             $mock
                 ->shouldReceive('create')
-                ->once()
                 ->with(
                     Mockery::type(CurrentOrganization::class),
                     Action::authSignedOut(),
                     null,
                     Mockery::on(static function (Context $context): bool {
                         return $context instanceof SignOut
-                            && $context->jsonSerialize() === (new SignOut('web'))->jsonSerialize();
+                            && $context->jsonSerialize() === (new SignOut('test'))->jsonSerialize();
                     }),
                     $user,
-                );
+                )
+                ->once()
+                ->andReturns();
         });
 
-        Auth::logout();
+        $this->app->make(Dispatcher::class)->dispatch(
+            new Logout('test', $user),
+        );
     }
 
     /**

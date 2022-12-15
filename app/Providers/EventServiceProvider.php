@@ -2,7 +2,6 @@
 
 namespace App\Providers;
 
-use App\Services\Organization\Listeners\OrganizationUpdater;
 use App\Utils\Eloquent\Events\Subject;
 use App\Utils\Providers\EventServiceProvider as ServiceProvider;
 use App\Utils\Providers\EventsProvider;
@@ -12,7 +11,6 @@ class EventServiceProvider extends ServiceProvider {
      * @var array<class-string<EventsProvider>>
      */
     protected array $listeners = [
-        OrganizationUpdater::class,
         Subject::class,
     ];
 

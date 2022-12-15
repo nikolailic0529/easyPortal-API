@@ -3,16 +3,11 @@
 namespace App\Services\Organization;
 
 use App\Models\Organization;
-use Illuminate\Contracts\Config\Repository;
+
+use function config;
 
 class RootOrganization extends OrganizationProvider {
     protected Organization|null $current = null;
-
-    public function __construct(
-        protected Repository $config,
-    ) {
-        parent::__construct();
-    }
 
     public function getKey(): string {
         return $this->getRootKey() ?: $this->get()->getKey();
@@ -32,6 +27,6 @@ class RootOrganization extends OrganizationProvider {
     }
 
     protected function getRootKey(): ?string {
-        return $this->config->get('ep.root_organization');
+        return config('ep.root_organization');
     }
 }
