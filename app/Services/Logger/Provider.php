@@ -9,13 +9,14 @@ use App\Services\Logger\Listeners\EloquentListener;
 use App\Services\Logger\Listeners\LogListener;
 use App\Services\Logger\Listeners\QueueListener;
 use App\Utils\Providers\EventServiceProvider;
+use App\Utils\Providers\EventsProvider;
 
 use function config;
 use function is_a;
 
 class Provider extends EventServiceProvider {
     /**
-     * @phpcsSuppress SlevomatCodingStandard.TypeHints.PropertyTypeHint
+     * @var array<class-string<EventsProvider>>
      */
     protected array $listeners = [
         LogListener::class,

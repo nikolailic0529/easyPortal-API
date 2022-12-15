@@ -8,10 +8,11 @@ use App\Services\Audit\Listeners\ExportListener;
 use App\Services\Audit\Listeners\InvitationListener;
 use App\Services\Audit\Listeners\OrganizationListener;
 use App\Utils\Providers\EventServiceProvider;
+use App\Utils\Providers\EventsProvider;
 
 class Provider extends EventServiceProvider {
     /**
-     * @phpcsSuppress SlevomatCodingStandard.TypeHints.PropertyTypeHint
+     * @var array<class-string<EventsProvider>>
      */
     protected array $listeners = [
         AuditableListener::class,

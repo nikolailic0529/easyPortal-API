@@ -12,6 +12,7 @@ use App\GraphQL\Extensions\Lighthouse\Directives\ValidatorDirective;
 use App\GraphQL\Listeners\CacheExpiredListener;
 use App\GraphQL\Providers\ValidationRulesProvider;
 use App\Utils\Providers\EventServiceProvider;
+use App\Utils\Providers\EventsProvider;
 use Closure;
 use Illuminate\Contracts\Auth\Access\Gate;
 use Illuminate\Contracts\Auth\Authenticatable;
@@ -29,7 +30,7 @@ use Nuwave\Lighthouse\Validation\ValidatorDirective as LighthouseValidatorDirect
 
 class Provider extends EventServiceProvider {
     /**
-     * @phpcsSuppress SlevomatCodingStandard.TypeHints.PropertyTypeHint
+     * @var array<class-string<EventsProvider>>
      */
     protected array $listeners = [
         CacheExpiredListener::class,

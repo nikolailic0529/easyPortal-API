@@ -15,6 +15,7 @@ use App\Services\Recalculator\Queue\Jobs\DocumentsRecalculator;
 use App\Services\Recalculator\Queue\Jobs\LocationsRecalculator;
 use App\Services\Recalculator\Queue\Jobs\ResellersRecalculator;
 use App\Utils\Providers\EventServiceProvider;
+use App\Utils\Providers\EventsProvider;
 use LastDragon_ru\LaraASP\Core\Concerns\ProviderWithCommands;
 use LastDragon_ru\LaraASP\Queue\Concerns\ProviderWithSchedule;
 
@@ -23,7 +24,7 @@ class Provider extends EventServiceProvider {
     use ProviderWithSchedule;
 
     /**
-     * @phpcsSuppress SlevomatCodingStandard.TypeHints.PropertyTypeHint
+     * @var array<class-string<EventsProvider>>
      */
     protected array $listeners = [
         DataImportedListener::class,

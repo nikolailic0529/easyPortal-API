@@ -16,6 +16,7 @@ use App\Services\Search\Queue\Jobs\CustomersIndexer;
 use App\Services\Search\Queue\Jobs\DocumentsIndexer;
 use App\Services\Search\Queue\Tasks\ModelsIndex;
 use App\Utils\Providers\EventServiceProvider;
+use App\Utils\Providers\EventsProvider;
 use Elastic\Client\ClientBuilderInterface;
 use Elastic\Elasticsearch\Client;
 use Elastic\ScoutDriver\Factories\SearchParametersFactoryInterface;
@@ -34,7 +35,7 @@ class Provider extends EventServiceProvider {
     use ProviderWithSchedule;
 
     /**
-     * @phpcsSuppress SlevomatCodingStandard.TypeHints.PropertyTypeHint
+     * @var array<class-string<EventsProvider>>
      */
     protected array $listeners = [
         IndexExpiredListener::class,

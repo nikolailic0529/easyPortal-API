@@ -4,12 +4,13 @@ namespace App\Services\Auth;
 
 use App\Services\Auth\Listeners\SignIn;
 use App\Utils\Providers\EventServiceProvider;
+use App\Utils\Providers\EventsProvider;
 use Illuminate\Contracts\Auth\Access\Gate as GateContract;
 use Illuminate\Contracts\Container\Container;
 
 class Provider extends EventServiceProvider {
     /**
-     * @phpcsSuppress SlevomatCodingStandard.TypeHints.PropertyTypeHint
+     * @var array<class-string<EventsProvider>>
      */
     protected array $listeners = [
         SignIn::class,
