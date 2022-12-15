@@ -6,3 +6,4 @@ services:
         class: App\PhpStan\Extensions\Settings\Extension
         tags:
             - phpstan.broker.dynamicMethodReturnTypeExtension
+            - phpstan.broker.dynamicFunctionReturnTypeExtension

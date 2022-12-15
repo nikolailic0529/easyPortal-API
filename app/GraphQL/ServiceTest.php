@@ -5,7 +5,6 @@ namespace App\GraphQL;
 use App\Models\User;
 use GraphQL\Type\Introspection;
 use GraphQL\Utils\BuildClientSchema;
-use Illuminate\Contracts\Config\Repository;
 use LastDragon_ru\LaraASP\Testing\Constraints\Response\Response;
 use LastDragon_ru\LaraASP\Testing\Constraints\Response\StatusCodes\Forbidden;
 use LastDragon_ru\LaraASP\Testing\Constraints\Response\StatusCodes\Ok;
@@ -23,6 +22,7 @@ use Tests\WithSettings;
 use Tests\WithUser;
 
 use function array_map;
+use function config;
 use function dirname;
 use function preg_quote;
 
@@ -101,7 +101,7 @@ class ServiceTest extends TestCase {
      * @dataProvider dataProviderForbiddenDirectives
      */
     public function testForbiddenDirectives(string $directive, ?string $replacement, ?string $regexp): void {
-        $path = $this->app->make(Repository::class)->get('lighthouse.schema.register');
+        $path = (string) config('lighthouse.schema.register');
         $path = dirname($path);
 
         if (!$regexp) {

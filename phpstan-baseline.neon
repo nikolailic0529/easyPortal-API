@@ -2456,11 +2456,6 @@ parameters:
 			path: app/Providers/RouteServiceProvider.php
 
 		-
-			message: "#^Parameter \\#1 \\$value of method Carbon\\\\CarbonImmutable\\:\\:setTimezone\\(\\) expects DateTimeZone\\|string, mixed given\\.$#"
-			count: 1
-			path: app/Rules/DateTime.php
-
-		-
 			message: "#^Anonymous function should return Illuminate\\\\Database\\\\Eloquent\\\\Builder\\<Illuminate\\\\Database\\\\Eloquent\\\\Model\\> but returns Illuminate\\\\Database\\\\Eloquent\\\\Builder\\<App\\\\Models\\\\Role\\>\\.$#"
 			count: 1
 			path: app/Rules/Organization/RoleId.php
@@ -4016,11 +4011,6 @@ parameters:
 			path: app/Services/Logger/Logger.php
 
 		-
-			message: "#^Parameter \\#1 \\$unit of method Carbon\\\\CarbonImmutable\\:\\:sub\\(\\) expects Carbon\\\\CarbonConverterInterface\\|Closure\\|DateInterval\\|string, mixed given\\.$#"
-			count: 1
-			path: app/Services/Logger/Logger.php
-
-		-
 			message: "#^Method App\\\\Services\\\\Logger\\\\Models\\\\Casts\\\\Statistics\\:\\:__get\\(\\) should return float\\|int\\|null but returns mixed\\.$#"
 			count: 1
 			path: app/Services/Logger/Models/Casts/Statistics.php
@@ -5456,11 +5446,6 @@ parameters:
 			path: tests/Helpers/Models.php
 
 		-
-			message: "#^Parameter \\#1 \\$keys of function array_fill_keys expects array, mixed given\\.$#"
-			count: 1
-			path: tests/Helpers/Models.php
-
-		-
 			message: "#^Cannot call method toMutable\\(\\) on Carbon\\\\CarbonImmutable\\|null\\.$#"
 			count: 1
 			path: tests/Helpers/SequenceDateFactory.php
@@ -5502,6 +5487,11 @@ parameters:
 
 		-
 			message: "#^Parameter \\#1 \\$callback of method Illuminate\\\\Support\\\\Collection\\<\\(int\\|string\\),mixed\\>\\:\\:map\\(\\) expects callable\\(mixed, \\(int\\|string\\)\\)\\: mixed, Closure\\(array\\)\\: mixed given\\.$#"
+			count: 1
+			path: tests/TestCase.php
+
+		-
+			message: "#^Parameter \\#2 \\$config of static method Illuminate\\\\Support\\\\Facades\\\\Storage\\:\\:fake\\(\\) expects array, mixed given\\.$#"
 			count: 1
 			path: tests/TestCase.php
 

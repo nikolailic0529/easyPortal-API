@@ -7,6 +7,9 @@ use Illuminate\Notifications\Action;
 
 class GoToApplication extends Action {
     public function __construct(Repository $config) {
-        parent::__construct($config->get('app.name'), $config->get('app.url'));
+        parent::__construct(
+            (string) $config->get('app.name'),
+            (string) $config->get('app.url'),
+        );
     }
 }

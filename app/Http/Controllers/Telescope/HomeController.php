@@ -21,7 +21,7 @@ class HomeController extends TelescopeHomeController {
 
     public function index(): mixed {
         // Telescope cannot run when Laravel installed into subdirectory
-        $path = $this->config->get('telescope.path');
+        $path = (string) $this->config->get('telescope.path');
         $path = $this->url->to($path);
         $path = parse_url($path, PHP_URL_PATH);
         $path = ltrim($path, '/');

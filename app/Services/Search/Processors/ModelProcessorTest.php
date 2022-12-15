@@ -83,9 +83,9 @@ class ModelProcessorTest extends TestCase {
             ? (int) ceil(count($expected) / $chunk)
             : 0;
         $previous    = null;
-        $spyOnInit   = Mockery::spy(function (ModelProcessorState $state) use ($expected): void {
+        $spyOnInit   = Mockery::spy(static function (ModelProcessorState $state) use ($expected): void {
             self::assertEquals(count($expected), $state->total);
-            self::assertFalse($this->app->get(Repository::class)->get('scout.queue'));
+            self::assertFalse((bool) config('scout.queue'));
         });
         $spyOnChange = Mockery::spy(static function (ModelProcessorState $state) use (&$previous, $chunk): void {
             self::assertEquals($previous?->processed + $chunk, $state->processed);

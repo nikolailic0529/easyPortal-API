@@ -27,6 +27,7 @@ use function array_fill_keys;
 use function array_filter;
 use function count;
 use function in_array;
+use function is_int;
 use function json_decode;
 use function reset;
 use function usort;
@@ -233,7 +234,7 @@ class Queue {
         $retryAfter = $this->config->get("queue.connections.{$connection}.retry_after");
         $interval   = null;
 
-        if ($retryAfter) {
+        if ($retryAfter && is_int($retryAfter)) {
             $interval = Date::now()->subSeconds($retryAfter)->diff(Date::now());
         }
 

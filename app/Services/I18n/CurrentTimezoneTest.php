@@ -4,9 +4,10 @@ namespace App\Services\I18n;
 
 use App\Models\Organization;
 use App\Models\User;
-use Illuminate\Contracts\Config\Repository;
 use Illuminate\Contracts\Session\Session;
 use Tests\TestCase;
+
+use function config;
 
 /**
  * @internal
@@ -28,7 +29,7 @@ class CurrentTimezoneTest extends TestCase {
         $timezone->set($expected);
 
         self::assertEquals($expected, $timezone->get());
-        self::assertEquals($default, $this->app->make(Repository::class)->get('app.timezone'));
+        self::assertEquals($default, config('app.timezone'));
     }
 
     /**

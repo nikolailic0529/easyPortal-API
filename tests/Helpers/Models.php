@@ -17,7 +17,7 @@ class Models {
      * @return Collection<class-string<Model>,ReflectionClass<Model>>
      */
     public static function get(): Collection {
-        $ignored = array_fill_keys(config('ide-helper.ignored_models', []), true);
+        $ignored = array_fill_keys((array) config('ide-helper.ignored_models'), true);
 
         return ClassMap::get()->filter(static function (ReflectionClass $class) use ($ignored): bool {
             return $class->isSubclassOf(Model::class)
