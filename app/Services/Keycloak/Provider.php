@@ -7,13 +7,13 @@ use App\Services\Keycloak\Commands\PermissionsSync;
 use App\Services\Keycloak\Commands\UsersSync;
 use App\Services\Keycloak\Jobs\Cron\PermissionsSynchronizer;
 use App\Services\Keycloak\Jobs\Cron\UsersSynchronizer;
+use App\Utils\Providers\ServiceServiceProvider;
 use Illuminate\Auth\AuthManager;
 use Illuminate\Contracts\Foundation\Application;
-use Illuminate\Support\ServiceProvider;
 use LastDragon_ru\LaraASP\Core\Concerns\ProviderWithCommands;
 use LastDragon_ru\LaraASP\Queue\Concerns\ProviderWithSchedule;
 
-class Provider extends ServiceProvider {
+class Provider extends ServiceServiceProvider {
     use ProviderWithCommands;
     use ProviderWithSchedule;
 

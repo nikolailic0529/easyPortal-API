@@ -3,8 +3,8 @@
 namespace App\Providers;
 
 use App\Utils\Eloquent\Events\Subject;
-use App\Utils\Providers\EventServiceProvider as ServiceProvider;
 use App\Utils\Providers\EventsProvider;
+use App\Utils\Providers\ServiceServiceProvider as ServiceProvider;
 
 class EventServiceProvider extends ServiceProvider {
     /**

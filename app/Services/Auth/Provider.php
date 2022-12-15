@@ -3,12 +3,12 @@
 namespace App\Services\Auth;
 
 use App\Services\Auth\Listeners\SignIn;
-use App\Utils\Providers\EventServiceProvider;
 use App\Utils\Providers\EventsProvider;
+use App\Utils\Providers\ServiceServiceProvider;
 use Illuminate\Contracts\Auth\Access\Gate as GateContract;
 use Illuminate\Contracts\Container\Container;
 
-class Provider extends EventServiceProvider {
+class Provider extends ServiceServiceProvider {
     /**
      * @var array<class-string<EventsProvider>>
      */

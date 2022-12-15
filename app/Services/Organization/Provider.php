@@ -3,10 +3,10 @@
 namespace App\Services\Organization;
 
 use App\Services\Organization\Listeners\OrganizationUpdater;
-use App\Utils\Providers\EventServiceProvider;
 use App\Utils\Providers\EventsProvider;
+use App\Utils\Providers\ServiceServiceProvider;
 
-class Provider extends EventServiceProvider {
+class Provider extends ServiceServiceProvider {
     /**
      * @var array<class-string<EventsProvider>>
      */

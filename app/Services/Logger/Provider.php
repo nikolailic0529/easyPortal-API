@@ -8,13 +8,13 @@ use App\Services\Logger\Listeners\DataLoaderListener;
 use App\Services\Logger\Listeners\EloquentListener;
 use App\Services\Logger\Listeners\LogListener;
 use App\Services\Logger\Listeners\QueueListener;
-use App\Utils\Providers\EventServiceProvider;
 use App\Utils\Providers\EventsProvider;
+use App\Utils\Providers\ServiceServiceProvider;
 
 use function config;
 use function is_a;
 
-class Provider extends EventServiceProvider {
+class Provider extends ServiceServiceProvider {
     /**
      * @var array<class-string<EventsProvider>>
      */
@@ -50,7 +50,7 @@ class Provider extends EventServiceProvider {
     /**
      * @inheritDoc
      */
-    public function getListeners(): array {
+    protected function getListeners(): array {
         return config('ep.logger.enabled') ? parent::getListeners() : [];
     }
 }

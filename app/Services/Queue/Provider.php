@@ -2,12 +2,12 @@
 
 namespace App\Services\Queue;
 
+use App\Utils\Providers\ServiceServiceProvider;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Contracts\Config\Repository;
 use Illuminate\Contracts\Container\Container;
-use Illuminate\Support\ServiceProvider;
 
-class Provider extends ServiceProvider {
+class Provider extends ServiceServiceProvider {
     public function boot(): void {
         $this->bootSnapshots();
     }

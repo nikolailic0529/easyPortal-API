@@ -5361,9 +5361,9 @@ parameters:
 			path: app/Utils/Processor/ServiceStore.php
 
 		-
-			message: "#^Method App\\\\Utils\\\\Providers\\\\EventServiceProvider\\:\\:listens\\(\\) return type has no value type specified in iterable type array\\.$#"
+			message: "#^Method App\\\\Utils\\\\Providers\\\\ServiceServiceProvider\\:\\:listens\\(\\) return type has no value type specified in iterable type array\\.$#"
 			count: 1
-			path: app/Utils/Providers/EventServiceProvider.php
+			path: app/Utils/Providers/ServiceServiceProvider.php
 
 		-
 			message: "#^Property Illuminate\\\\Validation\\\\Validator\\:\\:\\$currentRule \\(string\\) in isset\\(\\) is not nullable\\.$#"

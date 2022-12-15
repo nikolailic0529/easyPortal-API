@@ -2,15 +2,30 @@
 
 namespace App\Utils\Providers;
 
+use App\Services\Service;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
 
-class EventServiceProvider extends ServiceProvider {
+class ServiceServiceProvider extends ServiceProvider {
     /**
      * @var array<class-string<EventsProvider>>
      */
     protected array $listeners = [
         // empty
     ];
+
+    public function register(): void {
+        parent::register();
+
+        $this->registerService();
+    }
+
+    protected function registerService(): void {
+        $service = Service::getService($this);
+
+        if ($service) {
+            $this->app->singleton($service);
+        }
+    }
 
     /**
      * Determine if events and listeners should be automatically discovered.
@@ -36,7 +51,7 @@ class EventServiceProvider extends ServiceProvider {
     /**
      * @return array<class-string<EventsProvider>>
      */
-    public function getListeners(): array {
+    protected function getListeners(): array {
         return $this->listeners;
     }
 }

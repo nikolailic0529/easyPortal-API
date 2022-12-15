@@ -11,8 +11,8 @@ use App\GraphQL\Extensions\Lighthouse\Directives\EqDirective;
 use App\GraphQL\Extensions\Lighthouse\Directives\ValidatorDirective;
 use App\GraphQL\Listeners\CacheExpiredListener;
 use App\GraphQL\Providers\ValidationRulesProvider;
-use App\Utils\Providers\EventServiceProvider;
 use App\Utils\Providers\EventsProvider;
+use App\Utils\Providers\ServiceServiceProvider;
 use Closure;
 use Illuminate\Contracts\Auth\Access\Gate;
 use Illuminate\Contracts\Auth\Authenticatable;
@@ -28,7 +28,7 @@ use Nuwave\Lighthouse\Schema\Directives\EqDirective as LighthouseEqDirective;
 use Nuwave\Lighthouse\Support\Contracts\ProvidesValidationRules;
 use Nuwave\Lighthouse\Validation\ValidatorDirective as LighthouseValidatorDirective;
 
-class Provider extends EventServiceProvider {
+class Provider extends ServiceServiceProvider {
     /**
      * @var array<class-string<EventsProvider>>
      */

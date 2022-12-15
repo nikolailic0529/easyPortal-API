@@ -15,8 +15,8 @@ use App\Services\Search\Queue\Jobs\AssetsIndexer;
 use App\Services\Search\Queue\Jobs\CustomersIndexer;
 use App\Services\Search\Queue\Jobs\DocumentsIndexer;
 use App\Services\Search\Queue\Tasks\ModelsIndex;
-use App\Utils\Providers\EventServiceProvider;
 use App\Utils\Providers\EventsProvider;
+use App\Utils\Providers\ServiceServiceProvider;
 use Elastic\Client\ClientBuilderInterface;
 use Elastic\Elasticsearch\Client;
 use Elastic\ScoutDriver\Factories\SearchParametersFactoryInterface;
@@ -30,7 +30,7 @@ use Nuwave\Lighthouse\Schema\Source\SchemaSourceProvider;
 use Nuwave\Lighthouse\Schema\TypeRegistry;
 use Nuwave\Lighthouse\Testing\TestSchemaProvider;
 
-class Provider extends EventServiceProvider {
+class Provider extends ServiceServiceProvider {
     use ProviderWithCommands;
     use ProviderWithSchedule;
 

@@ -7,10 +7,10 @@ use App\Services\Audit\Listeners\AuthListener;
 use App\Services\Audit\Listeners\ExportListener;
 use App\Services\Audit\Listeners\InvitationListener;
 use App\Services\Audit\Listeners\OrganizationListener;
-use App\Utils\Providers\EventServiceProvider;
 use App\Utils\Providers\EventsProvider;
+use App\Utils\Providers\ServiceServiceProvider;
 
-class Provider extends EventServiceProvider {
+class Provider extends ServiceServiceProvider {
     /**
      * @var array<class-string<EventsProvider>>
      */
