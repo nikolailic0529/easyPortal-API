@@ -3,7 +3,10 @@
 namespace App\Utils\Providers;
 
 use App\Services\Service;
+use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
+
+use function is_a;
 
 class ServiceServiceProvider extends ServiceProvider {
     /**
@@ -17,6 +20,7 @@ class ServiceServiceProvider extends ServiceProvider {
         parent::register();
 
         $this->registerService();
+        $this->registerListeners();
     }
 
     protected function registerService(): void {
@@ -24,6 +28,18 @@ class ServiceServiceProvider extends ServiceProvider {
 
         if ($service) {
             $this->app->singleton($service);
+        }
+    }
+
+    protected function registerListeners(): void {
+        foreach ($this->getListeners() as $listener) {
+            if (!is_a($listener, ShouldQueue::class, true)) {
+                $this->app->singleton($listener);
+            }
+
+            if (is_a($listener, Registrable::class, true)) {
+                $listener::register();
+            }
         }
     }
 

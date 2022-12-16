@@ -40,7 +40,7 @@ class Provider extends ServiceServiceProvider {
         parent::register();
 
         $this->registerGraphQL();
-        $this->registerListeners();
+        $this->registerGraphQLListeners();
         $this->registerPlayground();
         $this->registerIntrospection();
     }
@@ -54,7 +54,7 @@ class Provider extends ServiceServiceProvider {
         $this->app->bind(SearchByOperatorRelationDirective::class, RelationOperator::class);
     }
 
-    protected function registerListeners(): void {
+    protected function registerGraphQLListeners(): void {
         $this->booting(static function (
             Dispatcher $dispatcher,
             LighthouseDirectiveLocator $locator,

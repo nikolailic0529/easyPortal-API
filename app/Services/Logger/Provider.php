@@ -2,7 +2,6 @@
 
 namespace App\Services\Logger;
 
-use App\Services\Logger\Contracts\Registrable;
 use App\Services\Logger\Listeners\DatabaseListener;
 use App\Services\Logger\Listeners\DataLoaderListener;
 use App\Services\Logger\Listeners\EloquentListener;
@@ -12,7 +11,6 @@ use App\Utils\Providers\EventsProvider;
 use App\Utils\Providers\ServiceServiceProvider;
 
 use function config;
-use function is_a;
 
 class Provider extends ServiceServiceProvider {
     /**
@@ -29,22 +27,7 @@ class Provider extends ServiceServiceProvider {
     public function register(): void {
         parent::register();
 
-        $this->registerLogger();
-        $this->registerListeners();
-    }
-
-    protected function registerLogger(): void {
         $this->app->singleton(Logger::class);
-    }
-
-    protected function registerListeners(): void {
-        foreach ($this->getListeners() as $listener) {
-            $this->app->singleton($listener);
-
-            if (is_a($listener, Registrable::class, true)) {
-                $listener::register();
-            }
-        }
     }
 
     /**

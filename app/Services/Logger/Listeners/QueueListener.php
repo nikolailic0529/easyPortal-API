@@ -2,13 +2,13 @@
 
 namespace App\Services\Logger\Listeners;
 
-use App\Services\Logger\Contracts\Registrable;
 use App\Services\Logger\Logger;
 use App\Services\Logger\Models\Enums\Action;
 use App\Services\Logger\Models\Enums\Category;
 use App\Services\Logger\Models\Enums\Status;
 use App\Services\Logger\Models\Log;
 use App\Services\Queue\Events\JobStopped;
+use App\Utils\Providers\Registrable;
 use Illuminate\Container\Container;
 use Illuminate\Contracts\Debug\ExceptionHandler;
 use Illuminate\Contracts\Events\Dispatcher;
