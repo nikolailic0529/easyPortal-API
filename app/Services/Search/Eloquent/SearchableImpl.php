@@ -190,11 +190,11 @@ trait SearchableImpl {
     // <editor-fold desc="Search">
     // =========================================================================
     public function getSearchConfiguration(): Configuration {
-        return app()->make(Configuration::class, [
-            'model'      => $this,
-            'metadata'   => static::getSearchMetadata(),
-            'properties' => static::getSearchProperties(),
-        ]);
+        return new Configuration(
+            $this,
+            static::getSearchMetadata(),
+            static::getSearchProperties(),
+        );
     }
 
     public function setSearchableAs(?string $searchableAs): static {
