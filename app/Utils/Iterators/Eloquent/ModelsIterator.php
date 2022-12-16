@@ -6,6 +6,7 @@ use App\Utils\Eloquent\Callbacks\GetKey;
 use App\Utils\Iterators\ObjectIteratorIterator;
 use App\Utils\Iterators\ObjectsIterator;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 use function count;
@@ -18,7 +19,7 @@ use function count;
  * keys into chunks and then load and return models for each chunk. Please note
  * that if model is not exist the item will be skipped.
  *
- * @template TItem of \Illuminate\Database\Eloquent\Model
+ * @template TItem of Model
  *
  * @extends ObjectIteratorIterator<TItem, string|int>
  */

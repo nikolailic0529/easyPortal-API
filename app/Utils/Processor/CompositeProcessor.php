@@ -14,7 +14,7 @@ use function count;
 /**
  * The Processor to combine other processors.
  *
- * @template TState of \App\Utils\Processor\CompositeState
+ * @template TState of CompositeState
  *
  * @extends Processor<CompositeOperation<TState>, null, TState>
  */

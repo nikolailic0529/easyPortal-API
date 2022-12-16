@@ -14,7 +14,7 @@ use Illuminate\Support\Collection as BaseCollection;
 use function count;
 
 /**
- * @template TPivot of \App\Utils\Eloquent\Pivot
+ * @template TPivot of Pivot
  *
  * @property-read Collection<int, Customer> $customers
  * @property BaseCollection<string, TPivot> $customersPivots

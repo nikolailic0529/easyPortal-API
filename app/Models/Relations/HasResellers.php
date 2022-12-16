@@ -12,7 +12,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Collection as BaseCollection;
 
 /**
- * @template TPivot of \App\Utils\Eloquent\Pivot
+ * @template TPivot of Pivot
  *
  * @property-read Collection<int, Reseller> $resellers
  * @property BaseCollection<string,TPivot>  $resellersPivots

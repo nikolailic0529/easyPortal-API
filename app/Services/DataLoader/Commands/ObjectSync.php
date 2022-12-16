@@ -2,6 +2,7 @@
 
 namespace App\Services\DataLoader\Commands;
 
+use App\Services\DataLoader\Processors\Loader\Loader;
 use App\Services\I18n\Formatter;
 use App\Utils\Processor\Commands\ProcessorCommand;
 use App\Utils\Processor\Contracts\Processor;
@@ -9,7 +10,7 @@ use App\Utils\Processor\Contracts\Processor;
 use function array_merge;
 
 /**
- * @template TProcessor of \App\Services\DataLoader\Processors\Loader\Loader
+ * @template TProcessor of Loader
  *
  * @extends ProcessorCommand<TProcessor>
  */

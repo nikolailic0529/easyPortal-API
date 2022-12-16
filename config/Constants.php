@@ -571,8 +571,8 @@ interface Constants {
      * queries only in one process/request, all other processes/requests
      * just wait.
      *
-     * @see \Config\Constants::EP_CACHE_GRAPHQL_LOCK_TIMEOUT
-     * @see \Config\Constants::EP_CACHE_GRAPHQL_LOCK_WAIT
+     * @see Constants::EP_CACHE_GRAPHQL_LOCK_TIMEOUT
+     * @see Constants::EP_CACHE_GRAPHQL_LOCK_WAIT
      */
     #[Setting('ep.cache.graphql.lock_enabled')]
     #[SettingGroup('cache')]
@@ -586,7 +586,7 @@ interface Constants {
      * to execute the code by self). Both values should not be bigger than a
      * few minutes.
      *
-     * @see \Config\Constants::EP_CACHE_GRAPHQL_LOCK_WAIT
+     * @see Constants::EP_CACHE_GRAPHQL_LOCK_WAIT
      */
     #[Setting('ep.cache.graphql.lock_timeout')]
     #[SettingGroup('cache')]
@@ -598,7 +598,7 @@ interface Constants {
      *
      * Should be a bit bigger than lock timeout.
      *
-     * @see \Config\Constants::EP_CACHE_GRAPHQL_LOCK_TIMEOUT
+     * @see Constants::EP_CACHE_GRAPHQL_LOCK_TIMEOUT
      */
     #[Setting('ep.cache.graphql.lock_wait')]
     #[SettingGroup('cache')]
@@ -640,8 +640,8 @@ interface Constants {
     /**
      * GraphQL time interval inside which the value may become expired.
      *
-     * @see \Config\Constants::EP_CACHE_GRAPHQL_LIFETIME
-     * @see \Config\Constants::EP_CACHE_GRAPHQL_TTL_EXPIRATION
+     * @see Constants::EP_CACHE_GRAPHQL_LIFETIME
+     * @see Constants::EP_CACHE_GRAPHQL_TTL_EXPIRATION
      */
     #[Setting('ep.cache.graphql.lifetime_expiration')]
     #[SettingGroup('cache')]

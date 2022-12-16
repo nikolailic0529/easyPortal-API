@@ -3,6 +3,7 @@
 namespace App\Utils\Eloquent\GlobalScopes;
 
 use Closure;
+use Illuminate\Database\Eloquent\Model;
 use InvalidArgumentException;
 
 use function is_a;
@@ -11,7 +12,7 @@ use function sprintf;
 // TODO [laravel] Is there is a better a way for this?
 
 /**
- * @template TModel of \Illuminate\Database\Eloquent\Model
+ * @template TModel of Model
  */
 class State {
     /**

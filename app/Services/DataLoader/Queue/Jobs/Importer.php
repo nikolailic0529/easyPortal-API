@@ -2,6 +2,7 @@
 
 namespace App\Services\DataLoader\Queue\Jobs;
 
+use App\Services\DataLoader\Processors\Synchronizer\Synchronizer;
 use App\Services\Queue\Concerns\ProcessorJob;
 use App\Services\Queue\Contracts\Progressable;
 use App\Services\Queue\CronJob;
@@ -10,7 +11,7 @@ use Illuminate\Contracts\Container\Container;
 use LastDragon_ru\LaraASP\Queue\Configs\QueueableConfig;
 
 /**
- * @template TSynchronizer of \App\Services\DataLoader\Processors\Synchronizer\Synchronizer
+ * @template TSynchronizer of Synchronizer
  */
 abstract class Importer extends CronJob implements Progressable {
     /**

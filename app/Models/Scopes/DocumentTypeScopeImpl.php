@@ -7,7 +7,7 @@ use App\Utils\Eloquent\Model;
 use function app;
 
 /**
- * @see \App\Models\Scopes\DocumentTypeScope
+ * @see DocumentTypeScope
  *
  * @mixin Model
  */

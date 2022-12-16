@@ -2,8 +2,10 @@
 
 namespace App\Utils\Processor;
 
+use Illuminate\Database\Eloquent\Model;
+
 /**
- * @template TModel of \Illuminate\Database\Eloquent\Model
+ * @template TModel of Model
  */
 class EloquentState extends State {
     /**

@@ -6,6 +6,7 @@ use App\GraphQL\Directives\Directives\Cached\ParentValue;
 use App\Services\Search\Builders\Builder as SearchBuilder;
 use GraphQL\Type\Definition\ResolveInfo;
 use Illuminate\Database\Eloquent\Builder as EloquentBuilder;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Query\Builder as QueryBuilder;
 use Nuwave\Lighthouse\Support\Contracts\GraphQLContext;
 use RuntimeException;
@@ -13,7 +14,7 @@ use RuntimeException;
 use function sprintf;
 
 /**
- * @template TModel of \Illuminate\Database\Eloquent\Model
+ * @template TModel of Model
  */
 class BuilderValue extends ParentValue {
     /**
