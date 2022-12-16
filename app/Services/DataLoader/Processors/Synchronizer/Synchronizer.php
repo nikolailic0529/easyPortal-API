@@ -12,7 +12,6 @@ use App\Utils\Processor\CompositeProcessor;
 use App\Utils\Processor\CompositeState;
 use App\Utils\Processor\Contracts\MixedProcessor;
 use App\Utils\Processor\Contracts\Processor;
-use App\Utils\Processor\EmptyProcessor;
 use App\Utils\Processor\State;
 use DateTimeInterface;
 use Illuminate\Contracts\Config\Repository;
@@ -102,9 +101,9 @@ abstract class Synchronizer extends CompositeProcessor implements Isolated {
             ),
             new CompositeOperation(
                 'Sync outdated objects',
-                function (SynchronizerState $state): Processor {
+                function (SynchronizerState $state): ?Processor {
                     if (!$state->withOutdated) {
-                        return $this->getContainer()->make(EmptyProcessor::class);
+                        return null;
                     }
 
                     $iterator  = $this->getModel()::query()

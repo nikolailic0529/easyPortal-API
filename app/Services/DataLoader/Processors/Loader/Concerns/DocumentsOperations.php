@@ -12,11 +12,10 @@ use App\Services\DataLoader\Processors\Loader\CompanyLoaderState;
 use App\Utils\Iterators\Eloquent\EloquentIterator;
 use App\Utils\Processor\CompositeOperation;
 use App\Utils\Processor\Contracts\Processor;
-use App\Utils\Processor\EmptyProcessor;
 use Illuminate\Database\Eloquent\Builder;
 
 /**
- * @template TState of \App\Services\DataLoader\Processors\Loader\CompanyLoaderState
+ * @template TState of CompanyLoaderState
  *
  * @mixin CompanyLoader<TState>
  */
@@ -32,9 +31,9 @@ trait DocumentsOperations {
         return [
             new CompositeOperation(
                 'Update documents',
-                function (CompanyLoaderState $state): Processor {
+                function (CompanyLoaderState $state): ?Processor {
                     if (!$state->withDocuments) {
-                        return $this->getContainer()->make(EmptyProcessor::class);
+                        return null;
                     }
 
                     return $this
@@ -45,9 +44,9 @@ trait DocumentsOperations {
             ),
             new CompositeOperation(
                 'Update outdated documents',
-                function (CompanyLoaderState $state): Processor {
+                function (CompanyLoaderState $state): ?Processor {
                     if ($state->from !== null || !$state->withDocuments) {
-                        return $this->getContainer()->make(EmptyProcessor::class);
+                        return null;
                     }
 
                     $iterator  = $this->getMissedDocuments($state)->getChangeSafeIterator();

@@ -14,7 +14,6 @@ use App\Utils\Iterators\ObjectsIterator;
 use App\Utils\Processor\CompositeOperation;
 use App\Utils\Processor\CompositeState;
 use App\Utils\Processor\Contracts\Processor;
-use App\Utils\Processor\EmptyProcessor;
 use App\Utils\Processor\State;
 use Illuminate\Contracts\Events\Dispatcher;
 
@@ -35,9 +34,9 @@ class AssetLoader extends Loader {
         return [
             new CompositeOperation(
                 'Warranty Check',
-                function (AssetLoaderState $state): Processor {
+                function (AssetLoaderState $state): ?Processor {
                     if (!$state->withWarrantyCheck) {
-                        return $this->getContainer()->make(EmptyProcessor::class);
+                        return null;
                     }
 
                     return $this
