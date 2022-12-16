@@ -31,6 +31,12 @@ class Provider extends ServiceServiceProvider {
         DocumentDeleted::class,
     ];
 
+    public function register(): void {
+        parent::register();
+
+        $this->app->singleton(Recalculator::class);
+    }
+
     public function boot(): void {
         $this->bootCommands(
             ResellersRecalculate::class,

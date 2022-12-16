@@ -6,6 +6,7 @@ use App\Services\Queue\Utils\Dispatcher;
 use App\Services\Search\Eloquent\Searchable;
 use App\Services\Search\Queue\Tasks\ModelIndex;
 use App\Services\Search\Queue\Tasks\ModelsIndex;
+use Illuminate\Container\Container;
 use Illuminate\Database\Eloquent\Model;
 
 /**
@@ -13,7 +14,7 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Indexer extends Dispatcher {
     protected function dispatchModel(string $model, int|string $key): void {
-        $this->getContainer()->make(ModelIndex::class)
+        Container::getInstance()->make(ModelIndex::class)
             ->init($model, $key)
             ->dispatch();
     }
@@ -22,7 +23,7 @@ class Indexer extends Dispatcher {
      * @inheritDoc
      */
     protected function dispatchModels(string $model, array $keys): void {
-        $this->getContainer()->make(ModelsIndex::class)
+        Container::getInstance()->make(ModelsIndex::class)
             ->init($model, $keys)
             ->dispatch();
     }

@@ -20,7 +20,7 @@ class RecalculatorTest extends TestCase {
     public function testDispatchModel(): void {
         $model   = Customer::factory()->make();
         $service = Mockery::mock(Service::class);
-        $indexer = new class($this->app, $service) extends Recalculator {
+        $indexer = new class($service) extends Recalculator {
             public function dispatchModel(string $model, int|string $key): void {
                 parent::dispatchModel($model, $key);
             }
@@ -44,7 +44,7 @@ class RecalculatorTest extends TestCase {
         $modelA  = Customer::factory()->make();
         $modelB  = Customer::factory()->make();
         $service = Mockery::mock(Service::class);
-        $indexer = new class($this->app, $service) extends Recalculator {
+        $indexer = new class($service) extends Recalculator {
             /**
              * @inheritDoc
              */

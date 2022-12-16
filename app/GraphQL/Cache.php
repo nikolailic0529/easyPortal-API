@@ -13,12 +13,12 @@ use Illuminate\Contracts\Cache\Factory as CacheFactory;
 use Illuminate\Contracts\Cache\LockProvider;
 use Illuminate\Contracts\Cache\LockTimeoutException;
 use Illuminate\Contracts\Cache\Repository as CacheContract;
-use Illuminate\Contracts\Config\Repository as ConfigContract;
 use Illuminate\Contracts\Debug\ExceptionHandler;
 use Illuminate\Support\Facades\Date;
 use Throwable;
 
 use function array_merge;
+use function config;
 use function is_array;
 use function max;
 use function min;
@@ -33,13 +33,12 @@ class Cache {
 
     public function __construct(
         protected ExceptionHandler $exceptionHandler,
-        protected ConfigContract $config,
         protected Service $service,
         protected CurrentOrganization $organization,
         protected CurrentLocale $locale,
         CacheFactory $cache,
     ) {
-        if ($this->config->get('ep.cache.graphql.enabled') ?? true) {
+        if (config('ep.cache.graphql.enabled') ?? true) {
             $this->cache = $this->getStore($cache);
         }
     }
@@ -122,8 +121,8 @@ class Cache {
 
         // Lock
         $key  = $this->getKey($key);
-        $time = new CarbonInterval($this->config->get('ep.cache.graphql.lock_timeout') ?: 'PT30S');
-        $wait = new CarbonInterval($this->config->get('ep.cache.graphql.lock_wait') ?: 'PT35S');
+        $time = new CarbonInterval(config('ep.cache.graphql.lock_timeout') ?: 'PT30S');
+        $wait = new CarbonInterval(config('ep.cache.graphql.lock_wait') ?: 'PT35S');
         $lock = $provider->lock($key, (int) $time->totalSeconds);
 
         if ($lock instanceof Lock) {
@@ -147,14 +146,14 @@ class Cache {
     }
 
     public function isQuerySlow(?float $time): bool {
-        $threshold = $this->config->get('ep.cache.graphql.threshold');
+        $threshold = config('ep.cache.graphql.threshold');
         $slow      = $threshold === null || $threshold <= 0 || ($time !== null && $time >= $threshold);
 
         return $slow;
     }
 
     public function isQueryLockable(?float $time): bool {
-        $threshold = $this->config->get('ep.cache.graphql.lock_threshold');
+        $threshold = config('ep.cache.graphql.lock_threshold');
         $lockable  = $threshold === null || $threshold <= 0 || ($time !== null && $time >= $threshold);
 
         return $lockable;
@@ -171,11 +170,11 @@ class Cache {
     }
 
     public function getTtl(): DateInterval {
-        return new DateInterval($this->config->get('ep.cache.graphql.ttl') ?: static::DEFAULT_TTL);
+        return new DateInterval(config('ep.cache.graphql.ttl') ?: static::DEFAULT_TTL);
     }
 
     protected function getStore(CacheFactory $cache): CacheContract {
-        return $cache->store($this->config->get('ep.cache.graphql.store') ?: null);
+        return $cache->store(config('ep.cache.graphql.store') ?: null);
     }
 
     public function markExpired(): static {
@@ -201,7 +200,7 @@ class Cache {
         }
 
         // TTL Expiring?
-        $ttlExpiration = $this->config->get('ep.cache.graphql.ttl_expiration') ?: 'P1D';
+        $ttlExpiration = config('ep.cache.graphql.ttl_expiration') ?: 'P1D';
         $ttlExpiring   = Date::make($expire)->sub($ttlExpiration);
 
         if ($this->isExpiring($expire, $ttlExpiring)) {
@@ -209,7 +208,7 @@ class Cache {
         }
 
         // Minimal lifetime reached?
-        $lifetime = $this->config->get('ep.cache.graphql.lifetime') ?: 'PT1H';
+        $lifetime = config('ep.cache.graphql.lifetime') ?: 'PT1H';
         $minimal  = Date::make($created)->add($lifetime);
 
         if ($current < $minimal) {
@@ -224,7 +223,7 @@ class Cache {
         }
 
         // Expiring?
-        $expiration = $this->config->get('ep.cache.graphql.lifetime_expiration') ?: 'PT1H';
+        $expiration = config('ep.cache.graphql.lifetime_expiration') ?: 'PT1H';
         $expiring   = $minimal->add($expiration);
 
         return $this->isExpiring($minimal, $expiring);
@@ -288,7 +287,7 @@ class Cache {
 
     private function getLockProvider(): ?LockProvider {
         // Enabled?
-        $enabled = $this->config->get('ep.cache.graphql.lock_enabled') ?? true;
+        $enabled = config('ep.cache.graphql.lock_enabled') ?? true;
 
         if (!$enabled) {
             return null;

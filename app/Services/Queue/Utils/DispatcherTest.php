@@ -6,7 +6,7 @@ use App\Services\Queue\Concerns\WithModelKeys;
 use App\Services\Queue\Job;
 use Closure;
 use Exception;
-use Illuminate\Contracts\Container\Container;
+use Illuminate\Container\Container;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Queue;
@@ -35,12 +35,11 @@ class DispatcherTest extends TestCase {
         }
 
         $models     = $factory($this);
-        $dispatcher = new class($this->app, $dispatchable) extends Dispatcher {
+        $dispatcher = new class($dispatchable) extends Dispatcher {
             public function __construct(
-                Container $container,
                 protected bool $dispatchable,
             ) {
-                parent::__construct($container);
+                parent::__construct();
             }
 
             protected function isDispatchable(string $model): bool {
@@ -48,7 +47,7 @@ class DispatcherTest extends TestCase {
             }
 
             protected function dispatchModel(string $model, int|string $key): void {
-                $this->getContainer()->make(DispatcherTest_ModelTask::class)
+                Container::getInstance()->make(DispatcherTest_ModelTask::class)
                     ->init($model, [$key])
                     ->dispatch();
             }
@@ -57,7 +56,7 @@ class DispatcherTest extends TestCase {
              * @inheritDoc
              */
             protected function dispatchModels(string $model, array $keys): void {
-                $this->getContainer()->make(DispatcherTest_ModelsTask::class)
+                Container::getInstance()->make(DispatcherTest_ModelsTask::class)
                     ->init($model, $keys)
                     ->dispatch();
             }

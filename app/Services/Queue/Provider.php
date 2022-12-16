@@ -2,12 +2,20 @@
 
 namespace App\Services\Queue;
 
+use App\Services\Queue\Utils\Pinger;
 use App\Utils\Providers\ServiceServiceProvider;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Contracts\Config\Repository;
 use Illuminate\Contracts\Container\Container;
 
 class Provider extends ServiceServiceProvider {
+    public function register(): void {
+        parent::register();
+
+        $this->app->singleton(Queue::class);
+        $this->app->singleton(Pinger::class);
+    }
+
     public function boot(): void {
         $this->bootSnapshots();
     }

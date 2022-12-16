@@ -18,7 +18,7 @@ class IndexerTest extends TestCase {
      */
     public function testDispatchModel(): void {
         $model   = Customer::factory()->make();
-        $indexer = new class($this->app) extends Indexer {
+        $indexer = new class() extends Indexer {
             public function dispatchModel(string $model, int|string $key): void {
                 parent::dispatchModel($model, $key);
             }
@@ -41,7 +41,7 @@ class IndexerTest extends TestCase {
     public function testDispatchModels(): void {
         $modelA  = Customer::factory()->make();
         $modelB  = Customer::factory()->make();
-        $indexer = new class($this->app) extends Indexer {
+        $indexer = new class() extends Indexer {
             /**
              * @inheritDoc
              */
