@@ -4,6 +4,7 @@ namespace App\Services\Maintenance\Commands;
 
 use App\Services\Maintenance\ApplicationInfo;
 use App\Services\Maintenance\Events\VersionUpdated;
+use Illuminate\Contracts\Console\Kernel;
 use Illuminate\Filesystem\Filesystem;
 use Illuminate\Support\Facades\Event;
 use Mockery\MockInterface;
@@ -14,6 +15,20 @@ use Tests\TestCase;
  * @coversDefaultClass \App\Services\Maintenance\Commands\VersionReset
  */
 class VersionResetTest extends TestCase {
+    /**
+     * @coversNothing
+     */
+    public function testCommand(): void {
+        self::assertCommandDescription('ep:maintenance-version-reset');
+    }
+
+    /**
+     * @coversNothing
+     */
+    public function testRegistration(): void {
+        self::assertArrayHasKey('ep:maintenance-version-reset', $this->app->make(Kernel::class)->all());
+    }
+
     /**
      * @covers ::__invoke
      */

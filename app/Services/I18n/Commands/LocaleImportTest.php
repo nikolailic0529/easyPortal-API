@@ -16,6 +16,13 @@ class LocaleImportTest extends TestCase {
     /**
      * @coversNothing
      */
+    public function testCommand(): void {
+        self::assertCommandDescription('ep:i18n-locale-import');
+    }
+
+    /**
+     * @coversNothing
+     */
     public function testRegistration(): void {
         self::assertArrayHasKey('ep:i18n-locale-import', $this->app->make(Kernel::class)->all());
     }

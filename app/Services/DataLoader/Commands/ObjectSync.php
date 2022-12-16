@@ -17,7 +17,7 @@ abstract class ObjectSync extends ProcessorCommand {
     /**
      * @inheritDoc
      */
-    protected function getCommandSignature(array $signature): array {
+    protected static function getCommandSignature(array $signature): array {
         return array_merge(parent::getCommandSignature($signature), [
             '{id : ${objects} ID}',
         ]);

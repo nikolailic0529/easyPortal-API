@@ -12,6 +12,7 @@ use App\Services\Keycloak\Client\Client;
 use App\Services\Keycloak\Client\Types\Group;
 use App\Services\Keycloak\Client\Types\Role;
 use App\Services\Organization\Eloquent\OwnedByScope;
+use Illuminate\Contracts\Console\Kernel;
 use Illuminate\Support\Facades\Date;
 use Mockery\MockInterface;
 use Tests\TestCase;
@@ -25,6 +26,20 @@ use function array_keys;
 class PermissionsSyncTest extends TestCase {
     // <editor-fold desc="Tests">
     // =========================================================================
+    /**
+     * @coversNothing
+     */
+    public function testCommand(): void {
+        self::assertCommandDescription('ep:keycloak-permissions-sync');
+    }
+
+    /**
+     * @coversNothing
+     */
+    public function testRegistration(): void {
+        self::assertArrayHasKey('ep:keycloak-permissions-sync', $this->app->make(Kernel::class)->all());
+    }
+
     /**
      * @covers ::handle
      */

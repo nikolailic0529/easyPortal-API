@@ -6,6 +6,7 @@ use App\Services\Maintenance\ApplicationInfo;
 use App\Services\Maintenance\Events\VersionUpdated;
 use App\Utils\Console\CommandOptions;
 use Exception;
+use Illuminate\Contracts\Console\Kernel;
 use Illuminate\Filesystem\Filesystem;
 use Illuminate\Support\Facades\Event;
 use Mockery;
@@ -23,6 +24,20 @@ class VersionUpdateTest extends TestCase {
 
     // <editor-fold desc="Tests">
     // =========================================================================
+    /**
+     * @coversNothing
+     */
+    public function testCommand(): void {
+        self::assertCommandDescription('ep:maintenance-version-update');
+    }
+
+    /**
+     * @coversNothing
+     */
+    public function testRegistration(): void {
+        self::assertArrayHasKey('ep:maintenance-version-update', $this->app->make(Kernel::class)->all());
+    }
+
     /**
      * @covers ::__invoke
      *

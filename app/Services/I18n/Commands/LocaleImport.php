@@ -8,7 +8,9 @@ use App\Utils\Console\WithOptions;
 use App\Utils\Console\WithResult;
 use Illuminate\Console\Command;
 use Illuminate\Contracts\Foundation\Application;
+use Symfony\Component\Console\Attribute\AsCommand;
 
+#[AsCommand(name: 'ep:i18n-locale-import')]
 class LocaleImport extends Command {
     use WithOptions;
     use WithResult;

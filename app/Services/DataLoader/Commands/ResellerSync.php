@@ -13,7 +13,7 @@ class ResellerSync extends ObjectSync {
     /**
      * @inheritDoc
      */
-    protected function getCommandSignature(array $signature): array {
+    protected static function getCommandSignature(array $signature): array {
         return array_merge(parent::getCommandSignature($signature), [
             '{--from= : Start processing from given DateTime/DateInterval}',
             '{--a|assets : Load assets}',

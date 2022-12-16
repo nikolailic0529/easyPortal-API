@@ -33,7 +33,7 @@ class IndexesRebuild extends ProcessorCommand {
     /**
      * @inheritDoc
      */
-    protected function getCommandSignature(array $signature): array {
+    protected static function getCommandSignature(array $signature): array {
         return array_merge(parent::getCommandSignature($signature), [
             '{model?* : Model(s) to rebuild (default "all")}',
         ]);

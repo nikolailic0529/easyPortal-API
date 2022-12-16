@@ -6,6 +6,7 @@ use App\Services\I18n\I18n;
 use App\Utils\Console\WithOptions;
 use Illuminate\Console\Command;
 use Illuminate\Contracts\Foundation\Application;
+use Symfony\Component\Console\Attribute\AsCommand;
 
 use function json_encode;
 
@@ -15,6 +16,7 @@ use const JSON_THROW_ON_ERROR;
 use const JSON_UNESCAPED_SLASHES;
 use const JSON_UNESCAPED_UNICODE;
 
+#[AsCommand(name: 'ep:i18n-locale-export')]
 class LocaleExport extends Command {
     use WithOptions;
 

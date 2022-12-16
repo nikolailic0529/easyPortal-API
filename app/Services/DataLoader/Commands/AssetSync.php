@@ -13,7 +13,7 @@ class AssetSync extends ObjectSync {
     /**
      * @inheritDoc
      */
-    protected function getCommandSignature(array $signature): array {
+    protected static function getCommandSignature(array $signature): array {
         return array_merge(parent::getCommandSignature($signature), [
             '{--warranty-check : run warranty check before update}',
             '{--no-warranty-check : do not run warranty check before update (default)}',

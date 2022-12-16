@@ -15,6 +15,13 @@ class OemsImportTest extends TestCase {
     /**
      * @coversNothing
      */
+    public function testCommand(): void {
+        self::assertCommandDescription('ep:data-loader-oems-import');
+    }
+
+    /**
+     * @coversNothing
+     */
     public function testRegistration(): void {
         self::assertArrayHasKey('ep:data-loader-oems-import', $this->app->make(Kernel::class)->all());
     }

@@ -23,7 +23,6 @@ use Elastic\ScoutDriver\Factories\SearchParametersFactoryInterface;
 use Illuminate\Contracts\Container\Container;
 use Laravel\Scout\Builder as ScoutBuilder;
 use Laravel\Scout\Scout;
-use LastDragon_ru\LaraASP\Core\Concerns\ProviderWithCommands;
 use LastDragon_ru\LaraASP\GraphQL\SortBy\Builders\Scout\ColumnResolver;
 use LastDragon_ru\LaraASP\Queue\Concerns\ProviderWithSchedule;
 use Nuwave\Lighthouse\Schema\Source\SchemaSourceProvider;
@@ -31,7 +30,6 @@ use Nuwave\Lighthouse\Schema\TypeRegistry;
 use Nuwave\Lighthouse\Testing\TestSchemaProvider;
 
 class Provider extends ServiceServiceProvider {
-    use ProviderWithCommands;
     use ProviderWithSchedule;
 
     /**
@@ -98,7 +96,7 @@ class Provider extends ServiceServiceProvider {
     // <editor-fold desc="Boot">
     // =========================================================================
     public function boot(): void {
-        $this->bootCommands(
+        $this->commands(
             IndexesRebuild::class,
             FulltextIndexesRebuild::class,
         );

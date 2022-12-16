@@ -26,11 +26,9 @@ use App\Services\DataLoader\Queue\Jobs\DocumentsSynchronizer;
 use App\Services\DataLoader\Queue\Jobs\ResellersImporter;
 use App\Services\DataLoader\Queue\Jobs\ResellersSynchronizer;
 use Illuminate\Support\ServiceProvider;
-use LastDragon_ru\LaraASP\Core\Concerns\ProviderWithCommands;
 use LastDragon_ru\LaraASP\Queue\Concerns\ProviderWithSchedule;
 
 class Provider extends ServiceProvider {
-    use ProviderWithCommands;
     use ProviderWithSchedule;
 
     public function register(): void {
@@ -41,7 +39,7 @@ class Provider extends ServiceProvider {
 
 
     public function boot(): void {
-        $this->bootCommands(
+        $this->commands(
             DistributorsSync::class,
             ResellersSync::class,
             CustomersSync::class,

@@ -4,6 +4,7 @@ namespace App\Services\Maintenance\Commands;
 
 use App\Services\Maintenance\Maintenance;
 use DateTimeInterface;
+use Illuminate\Contracts\Console\Kernel;
 use Illuminate\Support\Facades\Date;
 use Mockery\MockInterface;
 use Tests\TestCase;
@@ -13,6 +14,20 @@ use Tests\TestCase;
  * @coversDefaultClass \App\Services\Maintenance\Commands\Start
  */
 class StartTest extends TestCase {
+    /**
+     * @coversNothing
+     */
+    public function testCommand(): void {
+        self::assertCommandDescription('ep:maintenance-start');
+    }
+
+    /**
+     * @coversNothing
+     */
+    public function testRegistration(): void {
+        self::assertArrayHasKey('ep:maintenance-start', $this->app->make(Kernel::class)->all());
+    }
+
     /**
      * @covers ::handle
      */

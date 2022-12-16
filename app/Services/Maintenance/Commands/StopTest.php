@@ -4,6 +4,7 @@ namespace App\Services\Maintenance\Commands;
 
 use App\Services\Maintenance\Maintenance;
 use App\Services\Maintenance\Settings;
+use Illuminate\Contracts\Console\Kernel;
 use Mockery\MockInterface;
 use Tests\TestCase;
 
@@ -12,6 +13,20 @@ use Tests\TestCase;
  * @coversDefaultClass \App\Services\Maintenance\Commands\Stop
  */
 class StopTest extends TestCase {
+    /**
+     * @coversNothing
+     */
+    public function testCommand(): void {
+        self::assertCommandDescription('ep:maintenance-stop');
+    }
+
+    /**
+     * @coversNothing
+     */
+    public function testRegistration(): void {
+        self::assertArrayHasKey('ep:maintenance-stop', $this->app->make(Kernel::class)->all());
+    }
+
     /**
      * @covers ::handle
      */

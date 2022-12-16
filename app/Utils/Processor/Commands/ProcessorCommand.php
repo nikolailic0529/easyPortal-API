@@ -46,13 +46,13 @@ abstract class ProcessorCommand extends Command {
     public function __construct(
         private Formatter $formatter,
     ) {
-        $replacements      = $this->getReplacements();
+        $replacements      = static::getReplacements();
         $this->signature   = strtr(
-            $this->signature ?: $this->getDefaultCommandSignature(),
+            $this->signature ?: self::getDefaultCommandSignature(),
             $replacements,
         );
         $this->description = Str::ucfirst(strtr(
-            $this->description ?: $this->getDefaultCommandDescription(),
+            $this->description ?: self::getDefaultCommandDescription(),
             $replacements,
         ));
 
@@ -145,25 +145,32 @@ abstract class ProcessorCommand extends Command {
         return self::SUCCESS;
     }
 
+    public static function getDefaultName(): string {
+        $service = Str::snake(static::getReplacementsServiceName(), '-');
+        $command = Str::snake(static::getReplacementsCommandName(), '-');
+        $name    = "ep:{$service}-{$command}";
+
+        return $name;
+    }
+
     /**
      * @return array<string,string>
      */
-    protected function getReplacements(): array {
-        $service = Str::snake($this->getReplacementsServiceName(), '-');
-        $command = Str::snake($this->getReplacementsCommandName(), '-');
+    protected static function getReplacements(): array {
+        $command = Str::snake(static::getReplacementsCommandName(), '-');
         $action  = Str::afterLast($command, '-');
         $objects = Str::studly(Str::beforeLast($command, '-'));
 
         return [
-            '${command}' => "ep:{$service}-{$command}",
+            '${command}' => static::getDefaultName(),
             '${objects}' => $objects,
             '${object}'  => Str::singular($objects),
             '${action}'  => $action,
         ];
     }
 
-    protected function getReplacementsServiceName(): string {
-        $name = Service::getServiceName($this);
+    protected static function getReplacementsServiceName(): string {
+        $name = Service::getServiceName(static::class);
 
         if (!$name) {
             throw new LogicException('Each command must be associated with Service.');
@@ -172,8 +179,8 @@ abstract class ProcessorCommand extends Command {
         return $name;
     }
 
-    protected function getReplacementsCommandName(): string {
-        return (new ReflectionClass($this))->getShortName();
+    protected static function getReplacementsCommandName(): string {
+        return (new ReflectionClass(static::class))->getShortName();
     }
 
     /**
@@ -181,13 +188,13 @@ abstract class ProcessorCommand extends Command {
      *
      * @return array<string>
      */
-    protected function getCommandSignature(array $signature): array {
+    protected static function getCommandSignature(array $signature): array {
         return $signature;
     }
 
-    private function getDefaultCommandSignature(): string {
+    private static function getDefaultCommandSignature(): string {
         // Default
-        $processor = $this->getProcessorClass();
+        $processor = static::getProcessorClass();
         $signature = [
             '${command}',
             '{--state= : Initial state, allows to continue processing (overwrites other options except `--chunk`)}',
@@ -209,18 +216,18 @@ abstract class ProcessorCommand extends Command {
         }
 
         // Return
-        return implode("\n", $this->getCommandSignature($signature));
+        return implode("\n", static::getCommandSignature($signature));
     }
 
-    private function getDefaultCommandDescription(): string {
+    private static function getDefaultCommandDescription(): string {
         return '${action} ${objects}.';
     }
 
     /**
      * @return class-string<TProcessor>
      */
-    protected function getProcessorClass(): string {
-        $class     = new ReflectionClass($this);
+    protected static function getProcessorClass(): string {
+        $class     = new ReflectionClass(static::class);
         $method    = $class->getMethod('__invoke');
         $processor = null;
 

@@ -173,7 +173,7 @@ class ProcessorCommandTest extends TestCase {
                 return $this->process($processor);
             }
 
-            protected function getReplacementsServiceName(): string {
+            protected static function getReplacementsServiceName(): string {
                 return 'Test';
             }
         };
@@ -323,7 +323,7 @@ class ProcessorCommandTest extends TestCase {
                 return $this->process($processor);
             }
 
-            protected function getReplacementsServiceName(): string {
+            protected static function getReplacementsServiceName(): string {
                 return 'Test';
             }
         };
@@ -445,11 +445,11 @@ class ProcessorCommandTest extends TestCase {
  * @extends ProcessorCommand<IteratorProcessor<mixed,mixed,State>>
  */
 abstract class ProcessorCommand__Command extends ProcessorCommand {
-    protected function getReplacementsServiceName(): string {
+    protected static function getReplacementsServiceName(): string {
         return 'Test';
     }
 
-    protected function getReplacementsCommandName(): string {
+    protected static function getReplacementsCommandName(): string {
         return Str::after(parent::getReplacementsCommandName(), '__');
     }
 }

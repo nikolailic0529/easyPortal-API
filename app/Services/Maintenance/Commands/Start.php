@@ -8,7 +8,9 @@ use App\Utils\Console\WithWait;
 use Carbon\CarbonInterval;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Date;
+use Symfony\Component\Console\Attribute\AsCommand;
 
+#[AsCommand(name: 'ep:maintenance-start')]
 class Start extends Command {
     use WithWait;
     use WithOptions;

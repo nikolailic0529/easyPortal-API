@@ -11,15 +11,13 @@ use App\Services\Maintenance\Jobs\NotifyCronJob;
 use App\Services\Maintenance\Jobs\StartCronJob;
 use App\Services\Maintenance\Jobs\TelescopeCleaner;
 use App\Utils\Providers\ServiceServiceProvider;
-use LastDragon_ru\LaraASP\Core\Concerns\ProviderWithCommands;
 use LastDragon_ru\LaraASP\Queue\Concerns\ProviderWithSchedule;
 
 class Provider extends ServiceServiceProvider {
-    use ProviderWithCommands;
     use ProviderWithSchedule;
 
     public function boot(): void {
-        $this->bootCommands(
+        $this->commands(
             Start::class,
             Stop::class,
             VersionReset::class,
