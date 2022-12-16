@@ -3,7 +3,6 @@
 namespace App\Services\DataLoader\Commands;
 
 use App\Services\DataLoader\Processors\Synchronizer\Synchronizer;
-use App\Services\I18n\Formatter;
 use App\Utils\Processor\Commands\ProcessorCommand;
 use App\Utils\Processor\Contracts\Processor;
 
@@ -28,7 +27,7 @@ abstract class ObjectsSync extends ProcessorCommand {
         ]);
     }
 
-    protected function process(Formatter $formatter, Processor $processor): int {
+    protected function process(Processor $processor): int {
         $from           = $this->getDateTimeOption('from');
         $outdated       = $this->getBoolOption('outdated', false);
         $outdatedLimit  = $this->getIntOption('outdated-limit');
@@ -39,6 +38,6 @@ abstract class ObjectsSync extends ProcessorCommand {
             ->setOutdatedLimit($outdatedLimit)
             ->setOutdatedExpire($outdatedExpire);
 
-        return parent::process($formatter, $processor);
+        return parent::process($processor);
     }
 }

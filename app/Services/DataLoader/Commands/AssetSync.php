@@ -3,7 +3,6 @@
 namespace App\Services\DataLoader\Commands;
 
 use App\Services\DataLoader\Processors\Loader\Loaders\AssetLoader;
-use App\Services\I18n\Formatter;
 
 use function array_merge;
 
@@ -21,10 +20,10 @@ class AssetSync extends ObjectSync {
         ]);
     }
 
-    public function __invoke(Formatter $formatter, AssetLoader $loader): int {
+    public function __invoke(AssetLoader $loader): int {
         $loader = $loader
             ->setWithWarrantyCheck($this->getBoolOption('warranty-check', false));
 
-        return $this->process($formatter, $loader);
+        return $this->process($loader);
     }
 }

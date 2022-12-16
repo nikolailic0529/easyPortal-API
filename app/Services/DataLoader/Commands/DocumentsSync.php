@@ -3,13 +3,12 @@
 namespace App\Services\DataLoader\Commands;
 
 use App\Services\DataLoader\Processors\Synchronizer\Synchronizers\DocumentsSynchronizer;
-use App\Services\I18n\Formatter;
 
 /**
  * @extends ObjectsSync<DocumentsSynchronizer>
  */
 class DocumentsSync extends ObjectsSync {
-    public function __invoke(Formatter $formatter, DocumentsSynchronizer $importer): int {
-        return $this->process($formatter, $importer);
+    public function __invoke(DocumentsSynchronizer $importer): int {
+        return $this->process($importer);
     }
 }

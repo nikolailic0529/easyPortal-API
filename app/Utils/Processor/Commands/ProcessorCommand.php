@@ -43,7 +43,9 @@ use const PHP_EOL;
 abstract class ProcessorCommand extends Command {
     use WithOptions;
 
-    public function __construct() {
+    public function __construct(
+        private Formatter $formatter,
+    ) {
         $replacements      = $this->getReplacements();
         $this->signature   = strtr(
             $this->signature ?: $this->getDefaultCommandSignature(),
@@ -60,7 +62,7 @@ abstract class ProcessorCommand extends Command {
     /**
      * @param TProcessor $processor
      */
-    protected function process(Formatter $formatter, Processor $processor): int {
+    protected function process(Processor $processor): int {
         // Prepare
         $progress = $this->output->createProgressBar();
         $service  = $this->getService();
@@ -89,13 +91,13 @@ abstract class ProcessorCommand extends Command {
             '~ %time-remaining:9.9s% M: %usage-memory:11.11s% S: %state-uuid:41s%',
         ]));
 
-        $this->describeProgressBar($formatter, $progress);
+        $this->describeProgressBar($progress);
         $progress->start();
 
         // Process
         $state = null;
-        $sync  = function (State $state) use ($formatter, $progress, $store): void {
-            $this->updateProgressBar($formatter, $progress, $store, $state);
+        $sync  = function (State $state) use ($progress, $store): void {
+            $this->updateProgressBar($progress, $store, $state);
         };
 
         if ($processor instanceof Limitable) {
@@ -130,7 +132,7 @@ abstract class ProcessorCommand extends Command {
 
         // Summary
         if ($processor instanceof CompositeProcessor && $state instanceof CompositeState) {
-            $this->showCompositeProcessorSummary($formatter, $processor, $state);
+            $this->showCompositeProcessorSummary($processor, $state);
         } else {
             $this->newLine();
         }
@@ -246,7 +248,6 @@ abstract class ProcessorCommand extends Command {
     }
 
     private function updateProgressBar(
-        Formatter $formatter,
         ProgressBar $progress,
         ?ProcessorStateStore $store,
         State $state,
@@ -280,7 +281,7 @@ abstract class ProcessorCommand extends Command {
         // Progress
         $progress->setMessage(
             $progress->getMaxSteps()
-                ? $formatter->decimal($progress->getProgressPercent() * 100, 2)
+                ? $this->formatter->decimal($progress->getProgressPercent() * 100, 2)
                 : '???.??',
             'progress',
         );
@@ -295,25 +296,25 @@ abstract class ProcessorCommand extends Command {
             'time-remaining',
         );
         $progress->setMessage(
-            $formatter->filesize(memory_get_usage(true)),
+            $this->formatter->filesize(memory_get_usage(true)),
             'usage-memory',
         );
         $progress->setMessage(
             $state->total !== null
-                ? $formatter->integer($state->total)
+                ? $this->formatter->integer($state->total)
                 : '?',
             'state-total',
         );
         $progress->setMessage(
-            $formatter->integer($state->processed),
+            $this->formatter->integer($state->processed),
             'state-processed',
         );
         $progress->setMessage(
-            $formatter->integer($state->success),
+            $this->formatter->integer($state->success),
             'state-success',
         );
         $progress->setMessage(
-            $formatter->integer($state->failed),
+            $this->formatter->integer($state->failed),
             'state-failed',
         );
         $progress->setMessage(
@@ -322,7 +323,7 @@ abstract class ProcessorCommand extends Command {
         );
     }
 
-    private function describeProgressBar(Formatter $formatter, ProgressBar $progress): void {
+    private function describeProgressBar(ProgressBar $progress): void {
         $progress->setMessage('???.??', 'progress');
         $progress->setMessage('elapsed', 'time-elapsed');
         $progress->setMessage('remaining', 'time-remaining');
@@ -341,17 +342,16 @@ abstract class ProcessorCommand extends Command {
      * @param CompositeProcessor<CompositeState> $processor
      */
     private function showCompositeProcessorSummary(
-        Formatter $formatter,
         CompositeProcessor $processor,
         CompositeState $state,
     ): void {
         $operations = $processor->getOperationsState($state);
-        $integer    = static function (mixed $value, string $style = null) use ($formatter): string {
+        $integer    = function (mixed $value, string $style = null): string {
             $value = filter_var($value, FILTER_VALIDATE_INT);
 
             if ($value !== false) {
                 $zero  = $value === 0;
-                $value = $formatter->integer($value);
+                $value = $this->formatter->integer($value);
 
                 if ($style && !$zero) {
                     $value = "<{$style}>{$value}</{$style}>";

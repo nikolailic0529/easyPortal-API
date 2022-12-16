@@ -2,7 +2,6 @@
 
 namespace App\Services\Search\Commands;
 
-use App\Services\I18n\Formatter;
 use App\Services\Search\Processors\ModelsProcessor;
 use App\Services\Search\Service;
 use App\Utils\Processor\Commands\ProcessorCommand;
@@ -43,7 +42,6 @@ class IndexesRebuild extends ProcessorCommand {
     public function __invoke(
         ExceptionHandler $handler,
         Service $service,
-        Formatter $formatter,
         ModelsProcessor $processor,
     ): int {
         // Models
@@ -69,6 +67,6 @@ class IndexesRebuild extends ProcessorCommand {
         sort($models);
 
         // Run
-        return $this->process($formatter, $processor->setModels($models));
+        return $this->process($processor->setModels($models));
     }
 }

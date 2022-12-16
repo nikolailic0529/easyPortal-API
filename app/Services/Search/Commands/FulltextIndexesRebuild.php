@@ -2,7 +2,6 @@
 
 namespace App\Services\Search\Commands;
 
-use App\Services\I18n\Formatter;
 use App\Services\Search\Processors\FulltextsProcessor;
 use App\Utils\Processor\Commands\ProcessorCommand;
 use Illuminate\Console\Command;
@@ -46,7 +45,7 @@ class FulltextIndexesRebuild extends ProcessorCommand {
             ->all();
     }
 
-    public function __invoke(Formatter $formatter, FulltextsProcessor $processor): int {
+    public function __invoke(FulltextsProcessor $processor): int {
         // Models
         $models  = array_values(array_unique((array) $this->argument('model')) ?: Relation::$morphMap);
         $valid   = array_filter($models, static function (string $model): bool {
@@ -70,6 +69,6 @@ class FulltextIndexesRebuild extends ProcessorCommand {
         sort($valid);
 
         // Return
-        return $this->process($formatter, $processor->setModels($valid));
+        return $this->process($processor->setModels($valid));
     }
 }
