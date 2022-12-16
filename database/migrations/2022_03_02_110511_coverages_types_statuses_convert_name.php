@@ -4,6 +4,7 @@ use App\Models\Data\Coverage;
 use App\Models\Data\Status;
 use App\Models\Data\Type;
 use App\Services\DataLoader\Normalizer\Normalizer;
+use Illuminate\Container\Container;
 use Illuminate\Database\Migrations\Migration;
 
 return new class() extends Migration {
@@ -18,7 +19,7 @@ return new class() extends Migration {
     }
 
     protected function updateTypes(): void {
-        $normalizer = app()->make(Normalizer::class);
+        $normalizer = Container::getInstance()->make(Normalizer::class);
         $types      = Type::query()->get();
 
         foreach ($types as $type) {
@@ -29,7 +30,7 @@ return new class() extends Migration {
     }
 
     protected function updateStatuses(): void {
-        $normalizer = app()->make(Normalizer::class);
+        $normalizer = Container::getInstance()->make(Normalizer::class);
         $statuses   = Status::query()->get();
 
         foreach ($statuses as $status) {
@@ -40,7 +41,7 @@ return new class() extends Migration {
     }
 
     protected function updateCoverages(): void {
-        $normalizer = app()->make(Normalizer::class);
+        $normalizer = Container::getInstance()->make(Normalizer::class);
         $coverages  = Coverage::query()->get();
 
         foreach ($coverages as $coverage) {

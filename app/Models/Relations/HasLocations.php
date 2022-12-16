@@ -4,16 +4,15 @@ namespace App\Models\Relations;
 
 use App\Utils\Eloquent\Concerns\SyncHasMany;
 use App\Utils\Eloquent\Model;
-use Illuminate\Contracts\Config\Repository;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 
-use function app;
+use function config;
 use function count;
 
 /**
- * @template TPivot of \App\Utils\Eloquent\Model
+ * @template TPivot of Model
  *
  * @property int $locations_count
  *
@@ -44,7 +43,7 @@ trait HasLocations {
      * @return HasOne<TPivot>
      */
     public function headquarter(): HasOne {
-        $type = (array) app()->make(Repository::class)->get('ep.headquarter_type');
+        $type = (array) config('ep.headquarter_type');
 
         return $this
             ->hasOne(

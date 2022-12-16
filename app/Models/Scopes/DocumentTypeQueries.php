@@ -2,17 +2,18 @@
 
 namespace App\Models\Scopes;
 
+use App\Models\Data\Type;
+use App\Models\Document;
 use App\Utils\Eloquent\Model;
+use Illuminate\Container\Container;
 use Illuminate\Database\Eloquent\Builder;
 
-use function app;
-
 /**
- * @see \App\Models\Scopes\DocumentTypeScope
+ * @see DocumentTypeScope
  *
  * @mixin Model
  *
- * @template TModel of \App\Models\Document|\App\Models\Data\Type
+ * @template TModel of Document|Type
  *
  * @method Builder<TModel> queryContracts()
  * @method Builder<TModel> queryDocuments()
@@ -27,7 +28,7 @@ trait DocumentTypeQueries {
      * @return T
      */
     public function scopeQueryContracts(Builder $builder): Builder {
-        app()->make(DocumentTypeContractScope::class)->apply($builder, $this);
+        Container::getInstance()->make(DocumentTypeContractScope::class)->apply($builder, $this);
 
         return $builder;
     }
@@ -40,7 +41,7 @@ trait DocumentTypeQueries {
      * @return T
      */
     public function scopeQueryQuotes(Builder $builder): Builder {
-        app()->make(DocumentTypeQuoteType::class)->apply($builder, $this);
+        Container::getInstance()->make(DocumentTypeQuoteType::class)->apply($builder, $this);
 
         return $builder;
     }

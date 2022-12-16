@@ -3,7 +3,7 @@
 namespace App\Exceptions\Handlers;
 
 use App\Services\Maintenance\ApplicationInfo;
-use Illuminate\Config\Repository;
+use Illuminate\Container\Container;
 use ReflectionClass;
 use Sentry\Breadcrumb;
 use Sentry\Event;
@@ -16,9 +16,9 @@ use Sentry\Serializer\RepresentationSerializer;
 use Sentry\StacktraceBuilder;
 use Throwable;
 
-use function app;
 use function array_is_list;
 use function array_merge;
+use function config;
 use function in_array;
 use function is_a;
 use function is_array;
@@ -160,7 +160,7 @@ class SentryHandler {
 
     protected static function getRelease(): string {
         if (!isset(static::$release)) {
-            $info            = app()->make(ApplicationInfo::class);
+            $info            = Container::getInstance()->make(ApplicationInfo::class);
             $package         = $info->getName();
             $version         = $info->getVersion();
             static::$release = "{$package}@{$version}";
@@ -170,8 +170,7 @@ class SentryHandler {
     }
 
     protected static function isIgnoredException(Throwable $exception): bool {
-        $config    = app()->make(Repository::class);
-        $ignored   = (array) $config->get('ep.log.sentry.ignored_exceptions') ?: [];
+        $ignored   = (array) config('ep.log.sentry.ignored_exceptions') ?: [];
         $isIgnored = in_array($exception::class, $ignored, true);
 
         return $isIgnored;
