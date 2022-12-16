@@ -2,32 +2,15 @@
 
 namespace App\Providers;
 
-use App\Events\Subscriber;
-use App\Services\Organization\Listeners\OrganizationUpdater;
 use App\Utils\Eloquent\Events\Subject;
-use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
+use App\Utils\Providers\EventsProvider;
+use App\Utils\Providers\ServiceServiceProvider as ServiceProvider;
 
 class EventServiceProvider extends ServiceProvider {
     /**
-     * The event listener mappings for the application.
-     *
-     * @phpcsSuppress SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint
-     *
-     * @var array<class-string, array<int, class-string>>
+     * @var array<class-string<EventsProvider>>
      */
-    protected $listen = [
-        // empty
-    ];
-
-    /**
-     * The subscriber classes to register.
-     *
-     * @phpcsSuppress SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint
-     *
-     * @var array<class-string<Subscriber>>
-     */
-    protected $subscribe = [
-        OrganizationUpdater::class,
+    protected array $listeners = [
         Subject::class,
     ];
 
@@ -42,12 +25,5 @@ class EventServiceProvider extends ServiceProvider {
      */
     public function boot(): void {
         // empty
-    }
-
-    /**
-     * Determine if events and listeners should be automatically discovered.
-     */
-    public function shouldDiscoverEvents(): bool {
-        return false;
     }
 }

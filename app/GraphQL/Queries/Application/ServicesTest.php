@@ -112,11 +112,6 @@ class ServicesTest extends TestCase {
                 $mock->shouldAllowMockingProtectedMethods();
                 $mock->makePartial();
                 $mock
-                    ->shouldReceive('getContainer')
-                    ->atLeast()
-                    ->once()
-                    ->andReturn($this->app);
-                $mock
                     ->shouldReceive('getStates')
                     ->once()
                     ->andReturn($queueStateFactory($this));

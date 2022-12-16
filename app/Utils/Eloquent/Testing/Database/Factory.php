@@ -10,7 +10,7 @@ use Illuminate\Database\Eloquent\Model;
 use LastDragon_ru\LaraASP\Testing\Database\Eloquent\Factories\Factory as BaseFactory;
 
 /**
- * @template TModel of \Illuminate\Database\Eloquent\Model
+ * @template TModel of Model
  *
  * @method TModel create($attributes = [], ?Model $parent = null)
  *

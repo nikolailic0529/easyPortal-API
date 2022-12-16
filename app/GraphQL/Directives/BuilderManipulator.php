@@ -24,7 +24,7 @@ use function is_array;
 
 abstract class BuilderManipulator extends Manipulator {
     /**
-     * @template T of \GraphQL\Language\AST\Node
+     * @template T of Node
      *
      * @param T $field
      *
@@ -36,7 +36,7 @@ abstract class BuilderManipulator extends Manipulator {
         // https://github.com/webonyx/graphql-php/issues/988
         return (new class([]) extends Node {
             /**
-             * @template T of \GraphQL\Language\AST\Node
+             * @template T of Node
              *
              * @param T $node
              *

@@ -3,7 +3,6 @@
 namespace App\Services\Queue\Utils;
 
 use App\Utils\Eloquent\Callbacks\GetKey;
-use Illuminate\Contracts\Container\Container;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
 
@@ -18,14 +17,8 @@ use function sort;
  * @template TModel of Model
  */
 abstract class Dispatcher {
-    public function __construct(
-        private Container $container,
-    ) {
+    public function __construct() {
         // empty
-    }
-
-    protected function getContainer(): Container {
-        return $this->container;
     }
 
     /**

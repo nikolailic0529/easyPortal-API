@@ -7,15 +7,14 @@ use App\Models\Enums\UserType;
 use App\Models\Organization;
 use App\Models\User;
 use App\Services\Organization\RootOrganization;
+use Illuminate\Container\Container;
 use Illuminate\Support\Facades\Hash;
 use LastDragon_ru\LaraASP\Migrator\Seeders\SmartSeeder;
-
-use function app;
 
 class OrganizationSeeder extends SmartSeeder {
     public function seed(): void {
         // Root organization
-        $root               = app()->make(RootOrganization::class);
+        $root               = Container::getInstance()->make(RootOrganization::class);
         $organization       = new Organization();
         $organization->id   = $root->getKey();
         $organization->name = 'Root Organization';

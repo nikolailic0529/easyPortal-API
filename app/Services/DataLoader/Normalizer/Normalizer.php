@@ -2,7 +2,6 @@
 
 namespace App\Services\DataLoader\Normalizer;
 
-use App\Services\DataLoader\Container\Singleton;
 use App\Services\DataLoader\Normalizer\Normalizers\BoolNormalizer;
 use App\Services\DataLoader\Normalizer\Normalizers\ColorNormalizer;
 use App\Services\DataLoader\Normalizer\Normalizers\DateTimeNormalizer;
@@ -16,7 +15,7 @@ use App\Services\DataLoader\Normalizer\Normalizers\UnsignedNormalizer;
 use App\Services\DataLoader\Normalizer\Normalizers\UuidNormalizer;
 use Carbon\CarbonImmutable;
 
-class Normalizer implements Singleton {
+class Normalizer {
     public function __construct(
         protected UuidNormalizer $uuid,
         protected StringNormalizer $string,

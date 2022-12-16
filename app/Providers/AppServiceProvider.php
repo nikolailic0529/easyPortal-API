@@ -63,7 +63,6 @@ use App\Utils\Validation\Validator;
 use Carbon\Carbon;
 use Carbon\CarbonImmutable;
 use Clockwork\Support\Laravel\ClockworkServiceProvider;
-use Illuminate\Contracts\Config\Repository;
 use Illuminate\Contracts\Validation\Factory as ValidatorFactoryContract;
 use Illuminate\Contracts\Validation\Validator as ValidatorContract;
 use Illuminate\Database\Eloquent\Relations\Relation;
@@ -71,6 +70,7 @@ use Illuminate\Support\Facades\Date;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Validation\Factory as ValidatorFactory;
 
+use function config;
 use function func_get_args;
 
 class AppServiceProvider extends ServiceProvider {
@@ -111,7 +111,7 @@ class AppServiceProvider extends ServiceProvider {
         //
         // https://github.com/itsgoingd/clockwork/issues/444#issuecomment-759626114
 
-        if ($this->app->make(Repository::class)->get('clockwork.enable') !== false) {
+        if (config('clockwork.enable') !== false) {
             $this->app->register(ClockworkServiceProvider::class);
         }
     }

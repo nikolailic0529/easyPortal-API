@@ -21,7 +21,7 @@ use Illuminate\Contracts\Events\Dispatcher;
 /**
  * Load data from API and create app's objects.
  *
- * @template TState of \App\Services\DataLoader\Processors\Loader\LoaderState
+ * @template TState of LoaderState
  *
  * @extends CompositeProcessor<TState>
  */

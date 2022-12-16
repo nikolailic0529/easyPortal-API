@@ -6,7 +6,6 @@ use App\Models\Organization;
 use App\Services\Auth\Auth;
 use App\Services\Organization\CurrentOrganization;
 use App\Services\Organization\RootOrganization;
-use Illuminate\Contracts\Config\Repository;
 use Illuminate\Contracts\Container\Container;
 use Illuminate\Contracts\Events\Dispatcher;
 
@@ -94,14 +93,11 @@ trait WithOrganization {
 
         if ($organization instanceof Organization) {
             $this->app->bind(RootOrganization::class, function () use ($organization): RootOrganization {
-                $config = $this->app->make(Repository::class);
-
-                return new class($config, $organization) extends RootOrganization {
+                return new class($organization) extends RootOrganization {
                     public function __construct(
-                        Repository $config,
                         protected Organization $organization,
                     ) {
-                        parent::__construct($config);
+                        parent::__construct();
                     }
 
                     protected function getCurrent(): ?Organization {

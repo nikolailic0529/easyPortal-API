@@ -12,7 +12,6 @@ use DateInterval;
 use Exception;
 use Illuminate\Contracts\Cache\Factory as CacheFactory;
 use Illuminate\Contracts\Cache\Repository as Cache;
-use Illuminate\Contracts\Config\Repository as Config;
 use JsonSerializable;
 use Mockery;
 use stdClass;
@@ -72,21 +71,8 @@ class ServiceTest extends TestCase {
      * @covers ::set
      */
     public function testSet(): void {
-        $store  = $this->faker->word();
-        $config = Mockery::mock(Config::class);
-        $config
-            ->shouldReceive('get')
-            ->with('ep.cache.service.store')
-            ->once()
-            ->andReturn($store);
-        $config
-            ->shouldReceive('get')
-            ->with('ep.cache.service.ttl')
-            ->times(2)
-            ->andReturn('P1M');
-
-        $cache = Mockery::mock(Cache::class);
-
+        $store   = $this->faker->word();
+        $cache   = Mockery::mock(Cache::class);
         $factory = Mockery::mock(CacheFactory::class);
         $factory
             ->shouldReceive('store')
@@ -94,7 +80,12 @@ class ServiceTest extends TestCase {
             ->once()
             ->andReturn($cache);
 
-        $service = new class($config, $factory) extends Service implements JsonSerializable {
+        $this->setSettings([
+            'ep.cache.service.store' => $store,
+            'ep.cache.service.ttl'   => 'P1M',
+        ]);
+
+        $service = new class($factory) extends Service implements JsonSerializable {
             /**
              * @return array<mixed>
              */

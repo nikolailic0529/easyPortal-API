@@ -9,6 +9,7 @@ use App\Utils\Console\WithOptions;
 use Illuminate\Console\Command;
 use Illuminate\Contracts\Events\Dispatcher;
 use Illuminate\Filesystem\Filesystem;
+use Symfony\Component\Console\Attribute\AsCommand;
 
 use function ltrim;
 use function sprintf;
@@ -16,6 +17,7 @@ use function substr;
 use function trim;
 use function var_export;
 
+#[AsCommand(name: 'ep:maintenance-version-update')]
 class VersionUpdate extends Command {
     use WithOptions;
 

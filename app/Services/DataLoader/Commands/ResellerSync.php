@@ -3,7 +3,6 @@
 namespace App\Services\DataLoader\Commands;
 
 use App\Services\DataLoader\Processors\Loader\Loaders\ResellerLoader;
-use App\Services\I18n\Formatter;
 
 use function array_merge;
 
@@ -14,7 +13,7 @@ class ResellerSync extends ObjectSync {
     /**
      * @inheritDoc
      */
-    protected function getCommandSignature(array $signature): array {
+    protected static function getCommandSignature(array $signature): array {
         return array_merge(parent::getCommandSignature($signature), [
             '{--from= : Start processing from given DateTime/DateInterval}',
             '{--a|assets : Load assets}',
@@ -24,12 +23,12 @@ class ResellerSync extends ObjectSync {
         ]);
     }
 
-    public function __invoke(Formatter $formatter, ResellerLoader $loader): int {
+    public function __invoke(ResellerLoader $loader): int {
         $loader = $loader
             ->setFrom($this->getDateTimeOption('from'))
             ->setWithAssets($this->getBoolOption('assets', false))
             ->setWithDocuments($this->getBoolOption('documents', false));
 
-        return $this->process($formatter, $loader);
+        return $this->process($loader);
     }
 }

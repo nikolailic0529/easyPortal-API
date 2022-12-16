@@ -4,7 +4,9 @@ namespace App\Services\DataLoader\Commands;
 
 use App\Services\DataLoader\Processors\Importer\Importers\OemsImporter;
 use Illuminate\Console\Command;
+use Symfony\Component\Console\Attribute\AsCommand;
 
+#[AsCommand(name: 'ep:data-loader-oems-import')]
 class OemsImport extends Command {
     /**
      * @phpcsSuppress SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint

@@ -8,7 +8,7 @@ use Barryvdh\LaravelIdeHelper\Contracts\ModelHookInterface;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * @see \App\Utils\Eloquent\Concerns\HideGeneratedAttributes
+ * @see HideGeneratedAttributes
  */
 class HideGeneratedAttributesModelHook implements ModelHookInterface {
     public function run(ModelsCommand $command, Model $model): void {

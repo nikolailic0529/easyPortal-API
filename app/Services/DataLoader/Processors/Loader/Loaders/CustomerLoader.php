@@ -19,7 +19,6 @@ use App\Utils\Iterators\ObjectsIterator;
 use App\Utils\Processor\CompositeOperation;
 use App\Utils\Processor\CompositeState;
 use App\Utils\Processor\Contracts\Processor;
-use App\Utils\Processor\EmptyProcessor;
 use App\Utils\Processor\State;
 use Illuminate\Contracts\Events\Dispatcher;
 use Illuminate\Database\Eloquent\Builder;
@@ -41,9 +40,9 @@ class CustomerLoader extends CompanyLoader {
         return [
             new CompositeOperation(
                 'Warranty Check',
-                function (CustomerLoaderState $state): Processor {
+                function (CustomerLoaderState $state): ?Processor {
                     if (!$state->withWarrantyCheck) {
-                        return $this->getContainer()->make(EmptyProcessor::class);
+                        return null;
                     }
 
                     return $this

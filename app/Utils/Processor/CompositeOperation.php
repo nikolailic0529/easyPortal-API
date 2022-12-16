@@ -6,11 +6,11 @@ use App\Utils\Processor\Contracts\MixedProcessor;
 use Closure;
 
 /**
- * @template TState of \App\Utils\Processor\CompositeState
+ * @template TState of CompositeState
  */
 class CompositeOperation {
     /**
-     * @param Closure(TState): MixedProcessor  $factory
+     * @param Closure(TState): ?MixedProcessor $factory
      * @param Closure(TState, bool): void|null $handler
      */
     public function __construct(
@@ -28,7 +28,7 @@ class CompositeOperation {
     /**
      * @param TState $state
      */
-    public function getProcessor(CompositeState $state): MixedProcessor {
+    public function getProcessor(CompositeState $state): ?MixedProcessor {
         return ($this->factory)($state);
     }
 

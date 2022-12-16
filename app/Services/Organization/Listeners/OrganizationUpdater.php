@@ -2,7 +2,6 @@
 
 namespace App\Services\Organization\Listeners;
 
-use App\Events\Subscriber;
 use App\Models\Enums\OrganizationType;
 use App\Models\Organization;
 use App\Services\DataLoader\Events\ResellerUpdated;
@@ -10,18 +9,23 @@ use App\Services\DataLoader\Normalizer\Normalizer;
 use App\Services\DataLoader\Schema\TranslationText;
 use App\Services\I18n\Eloquent\TranslatedString;
 use App\Services\Keycloak\Utils\Map;
-use Illuminate\Contracts\Events\Dispatcher;
+use App\Utils\Providers\EventsProvider;
 use Illuminate\Database\Eloquent\Builder;
 
-class OrganizationUpdater implements Subscriber {
+class OrganizationUpdater implements EventsProvider {
     public function __construct(
         protected Normalizer $normalizer,
     ) {
         // empty
     }
 
-    public function subscribe(Dispatcher $dispatcher): void {
-        $dispatcher->listen(ResellerUpdated::class, $this::class);
+    /**
+     * @inheritDoc
+     */
+    public static function getEvents(): array {
+        return [
+            ResellerUpdated::class,
+        ];
     }
 
     public function handle(ResellerUpdated $event): void {

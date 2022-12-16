@@ -6,10 +6,10 @@ use App\Services\Search\Elastic\Elastic;
 use App\Services\Search\Eloquent\Searchable;
 use Elastic\Elasticsearch\Client;
 use Exception;
-use Illuminate\Contracts\Config\Repository;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\ParallelTesting;
 
+use function config;
 use function str_starts_with;
 
 /**
@@ -143,7 +143,7 @@ trait WithSearch {
     }
 
     private function getSearchIndexPrefix(): string {
-        return $this->app->make(Repository::class)->get('scout.prefix');
+        return (string) config('scout.prefix');
     }
 
     /**

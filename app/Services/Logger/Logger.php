@@ -2,12 +2,12 @@
 
 namespace App\Services\Logger;
 
+use App\Services\Logger\Contracts\LoggerObject;
 use App\Services\Logger\Models\Casts\Statistics;
 use App\Services\Logger\Models\Enums\Category;
 use App\Services\Logger\Models\Enums\Status;
 use App\Services\Logger\Models\Log;
 use Illuminate\Contracts\Auth\Factory;
-use Illuminate\Contracts\Config\Repository;
 use Illuminate\Support\Facades\Date;
 use LogicException;
 use Throwable;
@@ -15,6 +15,7 @@ use Throwable;
 use function array_pop;
 use function array_reverse;
 use function array_slice;
+use function config;
 use function count;
 use function is_array;
 use function sprintf;
@@ -32,7 +33,6 @@ class Logger {
 
     public function __construct(
         protected Factory $auth,
-        protected Repository $config,
     ) {
         // empty
     }
@@ -131,7 +131,7 @@ class Logger {
     }
 
     /**
-     * @param array<string,int> $countable
+     * @param array<string,int|float> $countable
      */
     public function count(array $countable = []): void {
         // Recording or empty?
@@ -142,7 +142,7 @@ class Logger {
         // Update
         /** @var array<Action> $actions */
         $actions = [...$this->stack, $this->action];
-        $dump    = $this->config->get('ep.logger.dump');
+        $dump    = config('ep.logger.dump');
         $dump    = $dump ? Date::now()->sub($dump) : null;
 
         foreach ($actions as $action) {

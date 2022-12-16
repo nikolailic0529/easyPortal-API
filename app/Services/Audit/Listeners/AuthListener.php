@@ -16,15 +16,19 @@ use Illuminate\Auth\Events\Login;
 use Illuminate\Auth\Events\Logout;
 use Illuminate\Auth\Events\PasswordReset;
 use Illuminate\Contracts\Auth\Authenticatable;
-use Illuminate\Contracts\Events\Dispatcher;
 use LogicException;
 
 class AuthListener extends Listener {
-    public function subscribe(Dispatcher $dispatcher): void {
-        $dispatcher->listen(Login::class, $this::class);
-        $dispatcher->listen(Logout::class, $this::class);
-        $dispatcher->listen(Failed::class, $this::class);
-        $dispatcher->listen(PasswordReset::class, $this::class);
+    /**
+     * @inheritDoc
+     */
+    public static function getEvents(): array {
+        return [
+            Login::class,
+            Logout::class,
+            Failed::class,
+            PasswordReset::class,
+        ];
     }
 
     public function __invoke(object $event): void {

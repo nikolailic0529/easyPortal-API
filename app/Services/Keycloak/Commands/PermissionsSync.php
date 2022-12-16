@@ -15,7 +15,9 @@ use Illuminate\Contracts\Config\Repository;
 use Illuminate\Contracts\Debug\ExceptionHandler;
 use Illuminate\Database\Eloquent\Collection as EloquentCollection;
 use Illuminate\Support\Collection;
+use Symfony\Component\Console\Attribute\AsCommand;
 
+#[AsCommand(name: 'ep:keycloak-permissions-sync')]
 class PermissionsSync extends Command {
     /**
      * @phpcsSuppress SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint

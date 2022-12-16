@@ -36,6 +36,7 @@ use App\Utils\Eloquent\Model;
 use App\Utils\Eloquent\Pivot;
 use Carbon\CarbonImmutable;
 use Database\Factories\DocumentFactory;
+use Illuminate\Container\Container;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -43,7 +44,6 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 
-use function app;
 use function count;
 
 /**
@@ -223,15 +223,15 @@ class Document extends Model implements OwnedByReseller, Searchable {
     // <editor-fold desc="Attributes">
     // =========================================================================
     public function getIsContractAttribute(): bool {
-        return app()->make(DocumentTypeContractScope::class)->isContractType($this->type_id);
+        return Container::getInstance()->make(DocumentTypeContractScope::class)->isContractType($this->type_id);
     }
 
     public function getIsQuoteAttribute(): bool {
-        return app()->make(DocumentTypeQuoteType::class)->isQuoteType($this->type_id);
+        return Container::getInstance()->make(DocumentTypeQuoteType::class)->isQuoteType($this->type_id);
     }
 
     public function getIsHiddenAttribute(): bool {
-        return app()->make(DocumentStatusScope::class)->isHidden($this->statuses);
+        return Container::getInstance()->make(DocumentStatusScope::class)->isHidden($this->statuses);
     }
 
     public function getIsVisibleAttribute(): bool {

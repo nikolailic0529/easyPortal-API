@@ -3,20 +3,24 @@
 namespace App\Services\Auth;
 
 use App\Services\Auth\Listeners\SignIn;
+use App\Utils\Providers\EventsProvider;
+use App\Utils\Providers\ServiceServiceProvider;
 use Illuminate\Contracts\Auth\Access\Gate as GateContract;
 use Illuminate\Contracts\Container\Container;
-use Illuminate\Contracts\Events\Dispatcher;
-use Illuminate\Support\ServiceProvider;
 
-class Provider extends ServiceProvider {
+class Provider extends ServiceServiceProvider {
+    /**
+     * @var array<class-string<EventsProvider>>
+     */
+    protected array $listeners = [
+        SignIn::class,
+    ];
+
     public function register(): void {
         parent::register();
 
+        $this->app->singleton(Auth::class);
         $this->app->singleton(Permissions::class);
-
-        $this->booting(static function (Dispatcher $dispatcher): void {
-            $dispatcher->subscribe(SignIn::class);
-        });
     }
 
     public function boot(): void {

@@ -7,6 +7,7 @@ use App\Models\Customer;
 use App\Models\Data\Product;
 use App\Models\Document;
 use Illuminate\Database\Eloquent\Builder as EloquentBuilder;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Query\Builder as QueryBuilder;
 
 use function str_replace;
@@ -22,7 +23,7 @@ class Metadata {
     }
 
     /**
-     * @template T of \Illuminate\Database\Eloquent\Model
+     * @template T of Model
      *
      * @param EloquentBuilder<T>|QueryBuilder $builder
      */

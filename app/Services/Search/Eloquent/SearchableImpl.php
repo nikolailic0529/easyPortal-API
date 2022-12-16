@@ -15,6 +15,7 @@ use App\Utils\Eloquent\ModelProperty;
 use Carbon\CarbonInterface;
 use DateTimeInterface;
 use Elastic\ScoutDriverPlus\Searchable;
+use Illuminate\Container\Container;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection as EloquentCollection;
 use Illuminate\Database\Eloquent\Model;
@@ -24,7 +25,6 @@ use Laravel\Scout\Engines\Engine;
 use Laravel\Scout\ModelObserver;
 use LogicException;
 
-use function app;
 use function array_filter;
 use function array_intersect;
 use function array_keys;
@@ -140,7 +140,7 @@ trait SearchableImpl {
     }
 
     public static function makeAllSearchable(int $chunk = null): void {
-        app(ModelProcessor::class)
+        Container::getInstance()->make(ModelProcessor::class)
             ->setModel(static::class)
             ->setRebuild(true)
             ->setChunkSize($chunk)
@@ -161,7 +161,7 @@ trait SearchableImpl {
      */
     public function queueMakeSearchable(EloquentCollection $models): void {
         if (config('scout.queue')) {
-            app()->make(Indexer::class)->dispatch($models);
+            Container::getInstance()->make(Indexer::class)->dispatch($models);
         } else {
             $this->searchableUsing()->update($models);
         }
@@ -172,7 +172,7 @@ trait SearchableImpl {
      */
     public function queueRemoveFromSearch(EloquentCollection $models): void {
         if (config('scout.queue')) {
-            app()->make(Indexer::class)->dispatch($models);
+            Container::getInstance()->make(Indexer::class)->dispatch($models);
         } else {
             $this->searchableUsing()->delete($models);
         }
@@ -190,11 +190,11 @@ trait SearchableImpl {
     // <editor-fold desc="Search">
     // =========================================================================
     public function getSearchConfiguration(): Configuration {
-        return app()->make(Configuration::class, [
-            'model'      => $this,
-            'metadata'   => static::getSearchMetadata(),
-            'properties' => static::getSearchProperties(),
-        ]);
+        return new Configuration(
+            $this,
+            static::getSearchMetadata(),
+            static::getSearchProperties(),
+        );
     }
 
     public function setSearchableAs(?string $searchableAs): static {

@@ -12,11 +12,10 @@ use App\Services\DataLoader\Processors\Loader\Loader;
 use App\Utils\Iterators\Eloquent\EloquentIterator;
 use App\Utils\Processor\CompositeOperation;
 use App\Utils\Processor\Contracts\Processor;
-use App\Utils\Processor\EmptyProcessor;
 use Illuminate\Database\Eloquent\Builder;
 
 /**
- * @template TState of \App\Services\DataLoader\Processors\Loader\CompanyLoaderState
+ * @template TState of CompanyLoaderState
  *
  * @mixin Loader
  */
@@ -42,9 +41,9 @@ trait WithAssets {
         return [
             new CompositeOperation(
                 'Update assets',
-                function (CompanyLoaderState $state): Processor {
+                function (CompanyLoaderState $state): ?Processor {
                     if (!$state->withAssets) {
-                        return $this->getContainer()->make(EmptyProcessor::class);
+                        return null;
                     }
 
                     return $this
@@ -55,9 +54,9 @@ trait WithAssets {
             ),
             new CompositeOperation(
                 'Update outdated assets',
-                function (CompanyLoaderState $state): Processor {
+                function (CompanyLoaderState $state): ?Processor {
                     if ($state->from !== null || !$state->withAssets) {
-                        return $this->getContainer()->make(EmptyProcessor::class);
+                        return null;
                     }
 
                     $iterator  = $this->getMissedAssets($state)->getChangeSafeIterator();

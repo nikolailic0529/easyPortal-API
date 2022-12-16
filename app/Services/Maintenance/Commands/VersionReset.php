@@ -7,7 +7,9 @@ use App\Services\Maintenance\Events\VersionUpdated;
 use Illuminate\Console\Command;
 use Illuminate\Contracts\Events\Dispatcher;
 use Illuminate\Filesystem\Filesystem;
+use Symfony\Component\Console\Attribute\AsCommand;
 
+#[AsCommand(name: 'ep:maintenance-version-reset')]
 class VersionReset extends Command {
     /**
      * @phpcsSuppress SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint

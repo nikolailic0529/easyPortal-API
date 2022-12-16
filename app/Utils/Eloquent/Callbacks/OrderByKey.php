@@ -3,10 +3,11 @@
 namespace App\Utils\Eloquent\Callbacks;
 
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Model;
 
 class OrderByKey {
     /**
-     * @template T of \Illuminate\Database\Eloquent\Model
+     * @template T of Model
      *
      * @param Builder<T> $builder
      *

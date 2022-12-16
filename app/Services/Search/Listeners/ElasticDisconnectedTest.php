@@ -21,7 +21,7 @@ class ElasticDisconnectedTest extends TestCase {
     // <editor-fold desc="Tests">
     // =========================================================================
     /**
-     * @covers ::subscribe
+     * @covers ::getEvents
      *
      * @dataProvider dataProviderSubscribe
      *

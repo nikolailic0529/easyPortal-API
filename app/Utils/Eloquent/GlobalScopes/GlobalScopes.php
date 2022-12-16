@@ -3,9 +3,10 @@
 namespace App\Utils\Eloquent\GlobalScopes;
 
 use Closure;
+use Illuminate\Database\Eloquent\Model;
 
 /**
- * @template TModel of \Illuminate\Database\Eloquent\Model
+ * @template TModel of Model
  */
 class GlobalScopes {
     /**

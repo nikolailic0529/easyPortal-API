@@ -16,7 +16,7 @@ use Tests\TestCase;
  */
 class OrganizationListenerTest extends TestCase {
     /**
-     * @covers ::subscribe
+     * @covers ::getEvents
      */
     public function testSubscribe(): void {
         $event = new OrganizationChanged(null, null);

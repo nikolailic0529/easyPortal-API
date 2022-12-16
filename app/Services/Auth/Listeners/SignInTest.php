@@ -15,7 +15,7 @@ use Tests\TestCase;
 class SignInTest extends TestCase {
     /**
      * @covers ::__invoke
-     * @covers ::subscribe
+     * @covers ::getEvents
      */
     public function testInvoke(): void {
         $now        = Date::now()->setMicroseconds(0);

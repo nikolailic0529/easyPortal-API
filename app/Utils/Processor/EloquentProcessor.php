@@ -7,6 +7,7 @@ use App\Utils\Iterators\Contracts\ObjectIterator;
 use App\Utils\Iterators\Eloquent\EloquentIterator;
 use App\Utils\Iterators\Eloquent\ModelsIterator;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Model;
 
 use function array_filter;
 use function array_merge;
@@ -16,9 +17,9 @@ use function count;
 /**
  * The Processor for Eloquent Models.
  *
- * @template TItem of \Illuminate\Database\Eloquent\Model
+ * @template TItem of Model
  * @template TChunkData
- * @template TState of \App\Utils\Processor\EloquentState<TItem>
+ * @template TState of EloquentState<TItem>
  *
  * @extends IteratorProcessor<TItem, TChunkData, TState>
  */

@@ -26,7 +26,7 @@ use Tests\WithOrganization;
  */
 class InvitationListenerTest extends TestCase {
     /**
-     * @covers ::subscribe
+     * @covers ::getEvents
      */
     public function testSubscribe(): void {
         $invitation = Invitation::factory()->make();

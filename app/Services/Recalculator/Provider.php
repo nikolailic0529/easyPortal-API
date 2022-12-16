@@ -14,30 +14,29 @@ use App\Services\Recalculator\Queue\Jobs\CustomersRecalculator;
 use App\Services\Recalculator\Queue\Jobs\DocumentsRecalculator;
 use App\Services\Recalculator\Queue\Jobs\LocationsRecalculator;
 use App\Services\Recalculator\Queue\Jobs\ResellersRecalculator;
-use Illuminate\Contracts\Events\Dispatcher;
-use Illuminate\Support\ServiceProvider;
-use LastDragon_ru\LaraASP\Core\Concerns\ProviderWithCommands;
+use App\Utils\Providers\EventsProvider;
+use App\Utils\Providers\ServiceServiceProvider;
 use LastDragon_ru\LaraASP\Queue\Concerns\ProviderWithSchedule;
 
-class Provider extends ServiceProvider {
-    use ProviderWithCommands;
+class Provider extends ServiceServiceProvider {
     use ProviderWithSchedule;
+
+    /**
+     * @var array<class-string<EventsProvider>>
+     */
+    protected array $listeners = [
+        DataImportedListener::class,
+        DocumentDeleted::class,
+    ];
 
     public function register(): void {
         parent::register();
 
-        $this->registerListeners();
-    }
-
-    protected function registerListeners(): void {
-        $this->booting(static function (Dispatcher $dispatcher): void {
-            $dispatcher->subscribe(DataImportedListener::class);
-            $dispatcher->subscribe(DocumentDeleted::class);
-        });
+        $this->app->singleton(Recalculator::class);
     }
 
     public function boot(): void {
-        $this->bootCommands(
+        $this->commands(
             ResellersRecalculate::class,
             CustomersRecalculate::class,
             LocationsRecalculate::class,

@@ -12,7 +12,6 @@ use Illuminate\Contracts\Cache\Lock;
 use Illuminate\Contracts\Cache\LockProvider;
 use Illuminate\Contracts\Cache\LockTimeoutException;
 use Illuminate\Contracts\Cache\Repository as CacheContract;
-use Illuminate\Contracts\Config\Repository as ConfigContract;
 use Illuminate\Contracts\Debug\ExceptionHandler;
 use Illuminate\Support\Facades\Date;
 use Mockery;
@@ -64,12 +63,11 @@ class CacheTest extends TestCase {
         ]);
 
         $handler      = Mockery::mock(ExceptionHandler::class);
-        $config       = $this->app->make(ConfigContract::class);
         $service      = $this->app->make(Service::class);
         $organization = $this->app->make(CurrentOrganization::class);
         $locale       = $this->app->make(CurrentLocale::class);
         $factory      = $this->app->make(CacheFactory::class);
-        $cache        = new class($handler, $config, $service, $organization, $locale, $factory) extends Cache {
+        $cache        = new class($handler, $service, $organization, $locale, $factory) extends Cache {
             public function getExpired(): ?DateTimeInterface {
                 return parent::getExpired();
             }
@@ -92,12 +90,11 @@ class CacheTest extends TestCase {
         ]);
 
         $handler      = Mockery::mock(ExceptionHandler::class);
-        $config       = $this->app->make(ConfigContract::class);
         $service      = $this->app->make(Service::class);
         $organization = $this->app->make(CurrentOrganization::class);
         $locale       = $this->app->make(CurrentLocale::class);
         $factory      = $this->app->make(CacheFactory::class);
-        $cache        = new class($handler, $config, $service, $organization, $locale, $factory) extends Cache {
+        $cache        = new class($handler, $service, $organization, $locale, $factory) extends Cache {
             public function getExpired(): ?DateTimeInterface {
                 return parent::getExpired();
             }
@@ -135,12 +132,11 @@ class CacheTest extends TestCase {
         Date::setTestNow($now);
 
         $handler      = Mockery::mock(ExceptionHandler::class);
-        $config       = $this->app->make(ConfigContract::class);
         $service      = $this->app->make(Service::class);
         $factory      = $this->app->make(CacheFactory::class);
         $organization = Mockery::mock(CurrentOrganization::class);
         $locale       = Mockery::mock(CurrentLocale::class);
-        $cache        = Mockery::mock(Cache::class, [$handler, $config, $service, $organization, $locale, $factory]);
+        $cache        = Mockery::mock(Cache::class, [$handler, $service, $organization, $locale, $factory]);
         $cache->shouldAllowMockingProtectedMethods();
         $cache->makePartial();
         $cache
@@ -183,7 +179,6 @@ class CacheTest extends TestCase {
         ]);
 
         $handler = Mockery::mock(ExceptionHandler::class);
-        $config  = $this->app->make(ConfigContract::class);
         $service = $this->app->make(Service::class);
         $locale  = Mockery::mock(CurrentLocale::class);
         $org     = Mockery::mock(CurrentOrganization::class);
@@ -200,7 +195,7 @@ class CacheTest extends TestCase {
             ->once()
             ->andReturn($store);
 
-        $cache    = new class($handler, $config, $service, $org, $locale, $factory) extends Cache {
+        $cache    = new class($handler, $service, $org, $locale, $factory) extends Cache {
             // empty
         };
         $callback = static function (): void {
@@ -264,10 +259,9 @@ class CacheTest extends TestCase {
 
         $handler      = Mockery::mock(ExceptionHandler::class);
         $service      = $this->app->make(Service::class);
-        $config       = $this->app->make(ConfigContract::class);
         $organization = $this->app->make(CurrentOrganization::class);
         $locale       = $this->app->make(CurrentLocale::class);
-        $cache        = new Cache($handler, $config, $service, $organization, $locale, $cacheFactory);
+        $cache        = new Cache($handler, $service, $organization, $locale, $cacheFactory);
 
         $cache->lock('test', $closure);
 
@@ -299,7 +293,6 @@ class CacheTest extends TestCase {
         ]);
 
         $handler = Mockery::mock(ExceptionHandler::class);
-        $config  = $this->app->make(ConfigContract::class);
         $service = $this->app->make(Service::class);
         $locale  = Mockery::mock(CurrentLocale::class);
         $org     = Mockery::mock(CurrentOrganization::class);
@@ -316,7 +309,7 @@ class CacheTest extends TestCase {
             ->once()
             ->andReturn($store);
 
-        $cache = new class($handler, $config, $service, $org, $locale, $factory) extends Cache {
+        $cache = new class($handler, $service, $org, $locale, $factory) extends Cache {
             // empty
         };
 

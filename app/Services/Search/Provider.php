@@ -15,24 +15,30 @@ use App\Services\Search\Queue\Jobs\AssetsIndexer;
 use App\Services\Search\Queue\Jobs\CustomersIndexer;
 use App\Services\Search\Queue\Jobs\DocumentsIndexer;
 use App\Services\Search\Queue\Tasks\ModelsIndex;
+use App\Utils\Providers\EventsProvider;
+use App\Utils\Providers\ServiceServiceProvider;
 use Elastic\Client\ClientBuilderInterface;
 use Elastic\Elasticsearch\Client;
 use Elastic\ScoutDriver\Factories\SearchParametersFactoryInterface;
 use Illuminate\Contracts\Container\Container;
-use Illuminate\Contracts\Events\Dispatcher;
-use Illuminate\Support\ServiceProvider;
 use Laravel\Scout\Builder as ScoutBuilder;
 use Laravel\Scout\Scout;
-use LastDragon_ru\LaraASP\Core\Concerns\ProviderWithCommands;
 use LastDragon_ru\LaraASP\GraphQL\SortBy\Builders\Scout\ColumnResolver;
 use LastDragon_ru\LaraASP\Queue\Concerns\ProviderWithSchedule;
 use Nuwave\Lighthouse\Schema\Source\SchemaSourceProvider;
 use Nuwave\Lighthouse\Schema\TypeRegistry;
 use Nuwave\Lighthouse\Testing\TestSchemaProvider;
 
-class Provider extends ServiceProvider {
-    use ProviderWithCommands;
+class Provider extends ServiceServiceProvider {
     use ProviderWithSchedule;
+
+    /**
+     * @var array<class-string<EventsProvider>>
+     */
+    protected array $listeners = [
+        IndexExpiredListener::class,
+        ElasticDisconnected::class,
+    ];
 
     // <editor-fold desc="Register">
     // =========================================================================
@@ -41,7 +47,6 @@ class Provider extends ServiceProvider {
 
         $this->registerJobs();
         $this->registerBindings();
-        $this->registerListeners();
         $this->registerGraphqlTypes();
         $this->registerElasticClient();
     }
@@ -80,13 +85,6 @@ class Provider extends ServiceProvider {
         );
     }
 
-    protected function registerListeners(): void {
-        $this->booting(static function (Dispatcher $dispatcher): void {
-            $dispatcher->subscribe(IndexExpiredListener::class);
-            $dispatcher->subscribe(ElasticDisconnected::class);
-        });
-    }
-
     protected function registerElasticClient(): void {
         $this->app->singleton(ClientBuilderInterface::class, ClientBuilder::class);
         $this->app->bind(Client::class, static function (Container $container): Client {
@@ -98,7 +96,7 @@ class Provider extends ServiceProvider {
     // <editor-fold desc="Boot">
     // =========================================================================
     public function boot(): void {
-        $this->bootCommands(
+        $this->commands(
             IndexesRebuild::class,
             FulltextIndexesRebuild::class,
         );

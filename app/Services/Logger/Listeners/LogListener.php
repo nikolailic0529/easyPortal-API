@@ -3,21 +3,25 @@
 namespace App\Services\Logger\Listeners;
 
 use App\Services\Logger\Models\Enums\Category;
-use Illuminate\Contracts\Events\Dispatcher;
 use Illuminate\Log\Events\MessageLogged;
 
 class LogListener extends Listener {
-    public function subscribe(Dispatcher $dispatcher): void {
-        $dispatcher->listen(MessageLogged::class, $this->getSafeListener(function (MessageLogged $event): void {
-            $this->log($event);
-        }));
+    /**
+     * @inheritDoc
+     */
+    public static function getEvents(): array {
+        return [
+            MessageLogged::class,
+        ];
     }
 
-    protected function log(MessageLogged $event): void {
-        $this->logger->count([
-            "{$this->getCategory()}.total.levels"           => 1,
-            "{$this->getCategory()}.levels.{$event->level}" => 1,
-        ]);
+    public function __invoke(MessageLogged $event): void {
+        $this->call(function () use ($event): void {
+            $this->logger->count([
+                "{$this->getCategory()}.total.levels"           => 1,
+                "{$this->getCategory()}.levels.{$event->level}" => 1,
+            ]);
+        });
     }
 
     protected function getCategory(): Category {

@@ -1,0 +1,18 @@
+Description:
+  Sync Users.
+
+Usage:
+  ep:keycloak-users-sync [options]
+
+Options:
+      --state[=STATE]    Initial state, allows to continue processing (overwrites other options except `--chunk`)
+      --chunk[=CHUNK]    Chunk size
+      --limit[=LIMIT]    Maximum number of Users to process
+      --offset[=OFFSET]  Start processing from given offset
+  -h, --help             Display help for the given command. When no command is given display help for the list command
+  -q, --quiet            Do not output any message
+  -V, --version          Display this application version
+      --ansi|--no-ansi   Force (or disable --no-ansi) ANSI output
+  -n, --no-interaction   Do not ask any interactive question
+      --env[=ENV]        The environment the command should run under
+  -v|vv|vvv, --verbose   Increase the verbosity of messages: 1 for normal output, 2 for more verbose output and 3 for debug

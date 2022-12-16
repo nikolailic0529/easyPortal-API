@@ -6,13 +6,12 @@ use App\Models\Relations\HasObject;
 use App\Utils\Eloquent\Model;
 use Carbon\CarbonImmutable;
 use Database\Factories\FileFactory;
+use Illuminate\Container\Container;
 use Illuminate\Contracts\Mail\Attachable;
 use Illuminate\Contracts\Routing\UrlGenerator;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Mail\Attachment;
-
-use function app;
 
 /**
  * File.
@@ -47,7 +46,7 @@ class File extends Model implements Attachable {
     protected $table = 'files';
 
     public function getUrlAttribute(): string {
-        return app()->make(UrlGenerator::class)->route('file', ['file' => $this->getKey()]);
+        return Container::getInstance()->make(UrlGenerator::class)->route('file', ['file' => $this->getKey()]);
     }
 
     public function toMailAttachment(): Attachment {

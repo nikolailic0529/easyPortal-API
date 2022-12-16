@@ -5,7 +5,7 @@ namespace App\Services\DataLoader\Container;
 /**
  * Indicates that the object should be resolved through our container.
  *
- * @see \App\Services\DataLoader\Container\Container
+ * @see Container
  */
 interface Isolated {
     // empty

@@ -165,15 +165,15 @@ class ProcessorCommandTest extends TestCase {
             ->once()
             ->andReturns();
 
-        $command = new class() extends ProcessorCommand {
+        $command = new class($formatter) extends ProcessorCommand {
             /**
              * @param IteratorProcessor<mixed, mixed, State> $processor
              */
-            public function __invoke(Formatter $formatter, IteratorProcessor $processor): int {
-                return $this->process($formatter, $processor);
+            public function __invoke(IteratorProcessor $processor): int {
+                return $this->process($processor);
             }
 
-            protected function getReplacementsServiceName(): string {
+            protected static function getReplacementsServiceName(): string {
                 return 'Test';
             }
         };
@@ -182,7 +182,7 @@ class ProcessorCommandTest extends TestCase {
         $command->setOutput($output);
 
         $expected = Command::SUCCESS;
-        $actual   = $command($formatter, $processor);
+        $actual   = $command($processor);
 
         self::assertEquals($expected, $actual);
     }
@@ -315,15 +315,15 @@ class ProcessorCommandTest extends TestCase {
             ->once()
             ->andReturns();
 
-        $command = new class() extends ProcessorCommand {
+        $command = new class($formatter) extends ProcessorCommand {
             /**
              * @param IteratorProcessor<mixed, mixed, State> $processor
              */
-            public function __invoke(Formatter $formatter, IteratorProcessor $processor): int {
-                return $this->process($formatter, $processor);
+            public function __invoke(IteratorProcessor $processor): int {
+                return $this->process($processor);
             }
 
-            protected function getReplacementsServiceName(): string {
+            protected static function getReplacementsServiceName(): string {
                 return 'Test';
             }
         };
@@ -332,7 +332,7 @@ class ProcessorCommandTest extends TestCase {
         $command->setOutput($output);
 
         $expected = Command::SUCCESS;
-        $actual   = $command($formatter, $processor);
+        $actual   = $command($processor);
 
         self::assertEquals($expected, $actual);
     }
@@ -445,11 +445,11 @@ class ProcessorCommandTest extends TestCase {
  * @extends ProcessorCommand<IteratorProcessor<mixed,mixed,State>>
  */
 abstract class ProcessorCommand__Command extends ProcessorCommand {
-    protected function getReplacementsServiceName(): string {
+    protected static function getReplacementsServiceName(): string {
         return 'Test';
     }
 
-    protected function getReplacementsCommandName(): string {
+    protected static function getReplacementsCommandName(): string {
         return Str::after(parent::getReplacementsCommandName(), '__');
     }
 }

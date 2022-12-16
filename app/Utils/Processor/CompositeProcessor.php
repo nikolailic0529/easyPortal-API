@@ -14,7 +14,7 @@ use function count;
 /**
  * The Processor to combine other processors.
  *
- * @template TState of \App\Utils\Processor\CompositeState
+ * @template TState of CompositeState
  *
  * @extends Processor<CompositeOperation<TState>, null, TState>
  */
@@ -36,7 +36,7 @@ abstract class CompositeProcessor extends Processor {
         // Empty?
         $processor = $item->getProcessor($state);
 
-        if ($processor instanceof EmptyProcessor) {
+        if (!$processor) {
             return;
         }
 
@@ -171,7 +171,7 @@ abstract class CompositeProcessor extends Processor {
             foreach ($this->getOperations($state) as $key => $operation) {
                 $operations[] = [
                     'name'    => $operation->getName(),
-                    'state'   => $operation->getProcessor($state)->setStore($store->setKey($key))->getState(),
+                    'state'   => $operation->getProcessor($state)?->setStore($store->setKey($key))->getState(),
                     'current' => $key === $state->index,
                 ];
             }

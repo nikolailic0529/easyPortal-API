@@ -18,7 +18,7 @@ use function round;
 class SubjectTest extends TestCase {
     /**
      * @covers ::onModelEvent
-     * @covers ::subscribe
+     * @covers ::getEvents
      */
     public function testOnModelEvent(): void {
         $model    = Mockery::mock(Model::class);
@@ -45,7 +45,10 @@ class SubjectTest extends TestCase {
 
         $dispatcher = new Dispatcher();
 
-        $subject->subscribe($dispatcher);
+        foreach (Subject::getEvents() as $event) {
+            $dispatcher->listen($event, [$subject, '__invoke']);
+        }
+
         $subject->onModelEvent($observer);
 
         $dispatcher->dispatch('eloquent.created: any model', [$model]);
@@ -58,7 +61,7 @@ class SubjectTest extends TestCase {
 
     /**
      * @covers ::onModelSaved
-     * @covers ::subscribe
+     * @covers ::getEvents
      */
     public function testOnModelSaved(): void {
         $model    = Mockery::mock(Model::class);
@@ -72,7 +75,10 @@ class SubjectTest extends TestCase {
 
         $dispatcher = new Dispatcher();
 
-        $subject->subscribe($dispatcher);
+        foreach (Subject::getEvents() as $event) {
+            $dispatcher->listen($event, [$subject, '__invoke']);
+        }
+
         $subject->onModelSaved($observer);
 
         $dispatcher->dispatch('eloquent.created: any model', [$model]);
@@ -83,7 +89,7 @@ class SubjectTest extends TestCase {
 
     /**
      * @covers ::onModelDeleted
-     * @covers ::subscribe
+     * @covers ::getEvents
      */
     public function testOnModelDeleted(): void {
         $model    = Mockery::mock(Model::class);
@@ -97,7 +103,10 @@ class SubjectTest extends TestCase {
 
         $dispatcher = new Dispatcher();
 
-        $subject->subscribe($dispatcher);
+        foreach (Subject::getEvents() as $event) {
+            $dispatcher->listen($event, [$subject, '__invoke']);
+        }
+
         $subject->onModelDeleted($observer);
 
         $dispatcher->dispatch('eloquent.deleted: any model', [$model]);

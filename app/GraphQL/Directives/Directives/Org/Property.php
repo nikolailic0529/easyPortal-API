@@ -73,7 +73,7 @@ abstract class Property extends BaseDirective implements ArgBuilderDirective, Fi
     }
 
     /**
-     * @template T of \Illuminate\Database\Eloquent\Builder|\Illuminate\Database\Query\Builder
+     * @template T of EloquentBuilder|QueryBuilder
      *
      * @param T $builder
      *

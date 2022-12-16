@@ -23,7 +23,7 @@ class HomeController extends HorizonHomeController {
         // Horizon cannot run when Laravel installed into subdirectory
         //
         // https://github.com/laravel/horizon/issues/592
-        $path = $this->config->get('horizon.path');
+        $path = (string) $this->config->get('horizon.path');
         $path = $this->url->to($path);
         $path = parse_url($path, PHP_URL_PATH);
         $path = ltrim($path, '/');

@@ -2,6 +2,8 @@
 
 namespace App\Utils\Eloquent\Concerns;
 
+use App\Models\Contact;
+use App\Models\File;
 use App\Utils\Eloquent\Callbacks\GetKey;
 use App\Utils\Eloquent\Callbacks\SetKey;
 use App\Utils\Eloquent\ModelHelper;
@@ -17,7 +19,7 @@ trait SyncMorphMany {
     use SyncMany;
 
     /**
-     * @template T of \App\Models\Contact|\App\Models\File
+     * @template T of Contact|File
      *
      * @param Collection<array-key, T> $objects
      */

@@ -8,16 +8,20 @@ use App\GraphQL\Events\InvitationExpired;
 use App\GraphQL\Events\InvitationOutdated;
 use App\GraphQL\Events\InvitationUsed;
 use App\Services\Audit\Enums\Action;
-use Illuminate\Contracts\Events\Dispatcher;
 use LogicException;
 
 class InvitationListener extends Listener {
-    public function subscribe(Dispatcher $dispatcher): void {
-        $dispatcher->listen(InvitationCreated::class, $this::class);
-        $dispatcher->listen(InvitationAccepted::class, $this::class);
-        $dispatcher->listen(InvitationOutdated::class, $this::class);
-        $dispatcher->listen(InvitationExpired::class, $this::class);
-        $dispatcher->listen(InvitationUsed::class, $this::class);
+    /**
+     * @inheritDoc
+     */
+    public static function getEvents(): array {
+        return [
+            InvitationCreated::class,
+            InvitationAccepted::class,
+            InvitationOutdated::class,
+            InvitationExpired::class,
+            InvitationUsed::class,
+        ];
     }
 
     public function __invoke(object $event): void {

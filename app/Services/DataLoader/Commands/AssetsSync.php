@@ -3,13 +3,12 @@
 namespace App\Services\DataLoader\Commands;
 
 use App\Services\DataLoader\Processors\Synchronizer\Synchronizers\AssetsSynchronizer;
-use App\Services\I18n\Formatter;
 
 /**
  * @extends ObjectsSync<AssetsSynchronizer>
  */
 class AssetsSync extends ObjectsSync {
-    public function __invoke(Formatter $formatter, AssetsSynchronizer $importer): int {
-        return $this->process($formatter, $importer);
+    public function __invoke(AssetsSynchronizer $importer): int {
+        return $this->process($importer);
     }
 }

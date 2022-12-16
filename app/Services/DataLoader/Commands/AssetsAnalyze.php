@@ -21,6 +21,7 @@ use Closure;
 use Config\Constants;
 use Illuminate\Console\Command;
 use Illuminate\Contracts\Config\Repository;
+use Symfony\Component\Console\Attribute\AsCommand;
 
 use function array_filter;
 use function array_map;
@@ -33,6 +34,7 @@ use function str_pad;
 
 use const STR_PAD_LEFT;
 
+#[AsCommand(name: 'ep:data-loader-assets-analyze')]
 class AssetsAnalyze extends Command {
     use WithOptions;
 

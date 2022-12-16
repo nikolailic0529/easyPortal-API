@@ -9,7 +9,7 @@ use App\Utils\Processor\State;
 use function array_merge;
 
 /**
- * @template TState of \App\Services\DataLoader\Processors\Loader\CompanyLoaderState
+ * @template TState of CompanyLoaderState
  *
  * @extends Loader<TState>
  */

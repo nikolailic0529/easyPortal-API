@@ -94,7 +94,7 @@ trait SyncBelongsToMany {
      * class will not be used. The second problem: if the custom class is used
      * the pivots will be loaded twice.
      *
-     * @see \Illuminate\Database\Eloquent\Relations\BelongsToMany::sync()
+     * @see BelongsToMany::sync
      * @see \App\Utils\Eloquent\SmartSave\Upsertable
      *
      * @template T of Pivot

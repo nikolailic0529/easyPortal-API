@@ -11,7 +11,7 @@ use Illuminate\Support\Collection;
 use function reset;
 
 /**
- * @template TModel of \Illuminate\Database\Eloquent\Model
+ * @template TModel of EloquentModel
  *
  * @extends BelongsToMany<EloquentModel>
  */

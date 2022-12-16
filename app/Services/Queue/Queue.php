@@ -14,8 +14,7 @@ use AppendIterator;
 use DateInterval;
 use DateTimeInterface;
 use Generator;
-use Illuminate\Contracts\Config\Repository;
-use Illuminate\Contracts\Container\Container;
+use Illuminate\Container\Container;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Date;
@@ -25,24 +24,20 @@ use NoRewindIterator;
 
 use function array_fill_keys;
 use function array_filter;
+use function config;
 use function count;
 use function in_array;
+use function is_int;
 use function json_decode;
 use function reset;
 use function usort;
 
 class Queue {
     public function __construct(
-        protected Container $container,
-        protected Repository $config,
         protected Stop $stop,
         protected JobRepository $repository,
     ) {
         // empty
-    }
-
-    protected function getContainer(): Container {
-        return $this->container;
     }
 
     public function isStopped(?Job $job): bool {
@@ -71,13 +66,13 @@ class Queue {
 
     public function getProgress(Job $job): ?Progress {
         return $job instanceof Progressable
-            ? $this->getContainer()->call($job->getProgressCallback())
+            ? Container::getInstance()->call($job->getProgressCallback())
             : null;
     }
 
     public function resetProgress(Job $job): bool {
         return $job instanceof Progressable
-            && $this->getContainer()->call($job->getResetProgressCallback());
+            && Container::getInstance()->call($job->getResetProgressCallback());
     }
 
     /**
@@ -229,11 +224,11 @@ class Queue {
     }
 
     protected function getStatesFromLogsExpire(): ?DateInterval {
-        $connection = $this->config->get('queue.default');
-        $retryAfter = $this->config->get("queue.connections.{$connection}.retry_after");
+        $connection = config('queue.default');
+        $retryAfter = config("queue.connections.{$connection}.retry_after");
         $interval   = null;
 
-        if ($retryAfter) {
+        if ($retryAfter && is_int($retryAfter)) {
             $interval = Date::now()->subSeconds($retryAfter)->diff(Date::now());
         }
 

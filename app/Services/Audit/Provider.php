@@ -7,19 +7,24 @@ use App\Services\Audit\Listeners\AuthListener;
 use App\Services\Audit\Listeners\ExportListener;
 use App\Services\Audit\Listeners\InvitationListener;
 use App\Services\Audit\Listeners\OrganizationListener;
-use Illuminate\Contracts\Events\Dispatcher;
-use Illuminate\Support\ServiceProvider;
+use App\Utils\Providers\EventsProvider;
+use App\Utils\Providers\ServiceServiceProvider;
 
-class Provider extends ServiceProvider {
+class Provider extends ServiceServiceProvider {
+    /**
+     * @var array<class-string<EventsProvider>>
+     */
+    protected array $listeners = [
+        AuditableListener::class,
+        AuthListener::class,
+        ExportListener::class,
+        InvitationListener::class,
+        OrganizationListener::class,
+    ];
+
     public function register(): void {
         parent::register();
 
-        $this->booting(static function (Dispatcher $dispatcher): void {
-            $dispatcher->subscribe(AuditableListener::class);
-            $dispatcher->subscribe(AuthListener::class);
-            $dispatcher->subscribe(ExportListener::class);
-            $dispatcher->subscribe(InvitationListener::class);
-            $dispatcher->subscribe(OrganizationListener::class);
-        });
+        $this->app->singleton(Auditor::class);
     }
 }

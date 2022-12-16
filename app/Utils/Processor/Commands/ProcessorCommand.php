@@ -43,14 +43,16 @@ use const PHP_EOL;
 abstract class ProcessorCommand extends Command {
     use WithOptions;
 
-    public function __construct() {
-        $replacements      = $this->getReplacements();
+    public function __construct(
+        private Formatter $formatter,
+    ) {
+        $replacements      = static::getReplacements();
         $this->signature   = strtr(
-            $this->signature ?: $this->getDefaultCommandSignature(),
+            $this->signature ?: self::getDefaultCommandSignature(),
             $replacements,
         );
         $this->description = Str::ucfirst(strtr(
-            $this->description ?: $this->getDefaultCommandDescription(),
+            $this->description ?: self::getDefaultCommandDescription(),
             $replacements,
         ));
 
@@ -60,7 +62,7 @@ abstract class ProcessorCommand extends Command {
     /**
      * @param TProcessor $processor
      */
-    protected function process(Formatter $formatter, Processor $processor): int {
+    protected function process(Processor $processor): int {
         // Prepare
         $progress = $this->output->createProgressBar();
         $service  = $this->getService();
@@ -89,13 +91,13 @@ abstract class ProcessorCommand extends Command {
             '~ %time-remaining:9.9s% M: %usage-memory:11.11s% S: %state-uuid:41s%',
         ]));
 
-        $this->describeProgressBar($formatter, $progress);
+        $this->describeProgressBar($progress);
         $progress->start();
 
         // Process
         $state = null;
-        $sync  = function (State $state) use ($formatter, $progress, $store): void {
-            $this->updateProgressBar($formatter, $progress, $store, $state);
+        $sync  = function (State $state) use ($progress, $store): void {
+            $this->updateProgressBar($progress, $store, $state);
         };
 
         if ($processor instanceof Limitable) {
@@ -130,7 +132,7 @@ abstract class ProcessorCommand extends Command {
 
         // Summary
         if ($processor instanceof CompositeProcessor && $state instanceof CompositeState) {
-            $this->showCompositeProcessorSummary($formatter, $processor, $state);
+            $this->showCompositeProcessorSummary($processor, $state);
         } else {
             $this->newLine();
         }
@@ -143,25 +145,32 @@ abstract class ProcessorCommand extends Command {
         return self::SUCCESS;
     }
 
+    public static function getDefaultName(): string {
+        $service = Str::snake(static::getReplacementsServiceName(), '-');
+        $command = Str::snake(static::getReplacementsCommandName(), '-');
+        $name    = "ep:{$service}-{$command}";
+
+        return $name;
+    }
+
     /**
      * @return array<string,string>
      */
-    protected function getReplacements(): array {
-        $service = Str::snake($this->getReplacementsServiceName(), '-');
-        $command = Str::snake($this->getReplacementsCommandName(), '-');
+    protected static function getReplacements(): array {
+        $command = Str::snake(static::getReplacementsCommandName(), '-');
         $action  = Str::afterLast($command, '-');
         $objects = Str::studly(Str::beforeLast($command, '-'));
 
         return [
-            '${command}' => "ep:{$service}-{$command}",
+            '${command}' => static::getDefaultName(),
             '${objects}' => $objects,
             '${object}'  => Str::singular($objects),
             '${action}'  => $action,
         ];
     }
 
-    protected function getReplacementsServiceName(): string {
-        $name = Service::getServiceName($this);
+    protected static function getReplacementsServiceName(): string {
+        $name = Service::getServiceName(static::class);
 
         if (!$name) {
             throw new LogicException('Each command must be associated with Service.');
@@ -170,8 +179,8 @@ abstract class ProcessorCommand extends Command {
         return $name;
     }
 
-    protected function getReplacementsCommandName(): string {
-        return (new ReflectionClass($this))->getShortName();
+    protected static function getReplacementsCommandName(): string {
+        return (new ReflectionClass(static::class))->getShortName();
     }
 
     /**
@@ -179,13 +188,13 @@ abstract class ProcessorCommand extends Command {
      *
      * @return array<string>
      */
-    protected function getCommandSignature(array $signature): array {
+    protected static function getCommandSignature(array $signature): array {
         return $signature;
     }
 
-    private function getDefaultCommandSignature(): string {
+    private static function getDefaultCommandSignature(): string {
         // Default
-        $processor = $this->getProcessorClass();
+        $processor = static::getProcessorClass();
         $signature = [
             '${command}',
             '{--state= : Initial state, allows to continue processing (overwrites other options except `--chunk`)}',
@@ -207,18 +216,18 @@ abstract class ProcessorCommand extends Command {
         }
 
         // Return
-        return implode("\n", $this->getCommandSignature($signature));
+        return implode("\n", static::getCommandSignature($signature));
     }
 
-    private function getDefaultCommandDescription(): string {
+    private static function getDefaultCommandDescription(): string {
         return '${action} ${objects}.';
     }
 
     /**
      * @return class-string<TProcessor>
      */
-    protected function getProcessorClass(): string {
-        $class     = new ReflectionClass($this);
+    protected static function getProcessorClass(): string {
+        $class     = new ReflectionClass(static::class);
         $method    = $class->getMethod('__invoke');
         $processor = null;
 
@@ -246,7 +255,6 @@ abstract class ProcessorCommand extends Command {
     }
 
     private function updateProgressBar(
-        Formatter $formatter,
         ProgressBar $progress,
         ?ProcessorStateStore $store,
         State $state,
@@ -280,7 +288,7 @@ abstract class ProcessorCommand extends Command {
         // Progress
         $progress->setMessage(
             $progress->getMaxSteps()
-                ? $formatter->decimal($progress->getProgressPercent() * 100, 2)
+                ? $this->formatter->decimal($progress->getProgressPercent() * 100, 2)
                 : '???.??',
             'progress',
         );
@@ -295,25 +303,25 @@ abstract class ProcessorCommand extends Command {
             'time-remaining',
         );
         $progress->setMessage(
-            $formatter->filesize(memory_get_usage(true)),
+            $this->formatter->filesize(memory_get_usage(true)),
             'usage-memory',
         );
         $progress->setMessage(
             $state->total !== null
-                ? $formatter->integer($state->total)
+                ? $this->formatter->integer($state->total)
                 : '?',
             'state-total',
         );
         $progress->setMessage(
-            $formatter->integer($state->processed),
+            $this->formatter->integer($state->processed),
             'state-processed',
         );
         $progress->setMessage(
-            $formatter->integer($state->success),
+            $this->formatter->integer($state->success),
             'state-success',
         );
         $progress->setMessage(
-            $formatter->integer($state->failed),
+            $this->formatter->integer($state->failed),
             'state-failed',
         );
         $progress->setMessage(
@@ -322,7 +330,7 @@ abstract class ProcessorCommand extends Command {
         );
     }
 
-    private function describeProgressBar(Formatter $formatter, ProgressBar $progress): void {
+    private function describeProgressBar(ProgressBar $progress): void {
         $progress->setMessage('???.??', 'progress');
         $progress->setMessage('elapsed', 'time-elapsed');
         $progress->setMessage('remaining', 'time-remaining');
@@ -341,17 +349,16 @@ abstract class ProcessorCommand extends Command {
      * @param CompositeProcessor<CompositeState> $processor
      */
     private function showCompositeProcessorSummary(
-        Formatter $formatter,
         CompositeProcessor $processor,
         CompositeState $state,
     ): void {
         $operations = $processor->getOperationsState($state);
-        $integer    = static function (mixed $value, string $style = null) use ($formatter): string {
+        $integer    = function (mixed $value, string $style = null): string {
             $value = filter_var($value, FILTER_VALIDATE_INT);
 
             if ($value !== false) {
                 $zero  = $value === 0;
-                $value = $formatter->integer($value);
+                $value = $this->formatter->integer($value);
 
                 if ($style && !$zero) {
                     $value = "<{$style}>{$value}</{$style}>";

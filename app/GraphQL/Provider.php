@@ -11,13 +11,14 @@ use App\GraphQL\Extensions\Lighthouse\Directives\EqDirective;
 use App\GraphQL\Extensions\Lighthouse\Directives\ValidatorDirective;
 use App\GraphQL\Listeners\CacheExpiredListener;
 use App\GraphQL\Providers\ValidationRulesProvider;
+use App\Utils\Providers\EventsProvider;
+use App\Utils\Providers\ServiceServiceProvider;
 use Closure;
 use Illuminate\Contracts\Auth\Access\Gate;
 use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Contracts\Config\Repository;
 use Illuminate\Contracts\Container\Container;
 use Illuminate\Contracts\Events\Dispatcher;
-use Illuminate\Support\ServiceProvider;
 use LastDragon_ru\LaraASP\GraphQL\SearchBy\Definitions\SearchByOperatorContainsDirective;
 use LastDragon_ru\LaraASP\GraphQL\SearchBy\Definitions\SearchByOperatorEndsWithDirective;
 use LastDragon_ru\LaraASP\GraphQL\SearchBy\Definitions\SearchByOperatorRelationDirective;
@@ -27,12 +28,19 @@ use Nuwave\Lighthouse\Schema\Directives\EqDirective as LighthouseEqDirective;
 use Nuwave\Lighthouse\Support\Contracts\ProvidesValidationRules;
 use Nuwave\Lighthouse\Validation\ValidatorDirective as LighthouseValidatorDirective;
 
-class Provider extends ServiceProvider {
+class Provider extends ServiceServiceProvider {
+    /**
+     * @var array<class-string<EventsProvider>>
+     */
+    protected array $listeners = [
+        CacheExpiredListener::class,
+    ];
+
     public function register(): void {
         parent::register();
 
         $this->registerGraphQL();
-        $this->registerListeners();
+        $this->registerGraphQLListeners();
         $this->registerPlayground();
         $this->registerIntrospection();
     }
@@ -46,13 +54,12 @@ class Provider extends ServiceProvider {
         $this->app->bind(SearchByOperatorRelationDirective::class, RelationOperator::class);
     }
 
-    protected function registerListeners(): void {
+    protected function registerGraphQLListeners(): void {
         $this->booting(static function (
             Dispatcher $dispatcher,
             LighthouseDirectiveLocator $locator,
             ErrorFormatter $formatter,
         ): void {
-            $dispatcher->subscribe(CacheExpiredListener::class);
             $dispatcher->subscribe($locator);
             $dispatcher->listen(
                 ManipulateResult::class,
@@ -82,6 +89,9 @@ class Provider extends ServiceProvider {
         );
     }
 
+    /**
+     * @return Closure(?Authenticatable): bool
+     */
     protected static function getGateCallback(Repository $config): Closure {
         return static function (?Authenticatable $user) use ($config): bool {
             return (bool) $config->get('app.debug');

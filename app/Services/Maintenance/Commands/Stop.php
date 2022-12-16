@@ -6,7 +6,9 @@ use App\Services\Maintenance\Maintenance;
 use App\Utils\Console\WithOptions;
 use App\Utils\Console\WithWait;
 use Illuminate\Console\Command;
+use Symfony\Component\Console\Attribute\AsCommand;
 
+#[AsCommand(name: 'ep:maintenance-stop')]
 class Stop extends Command {
     use WithWait;
     use WithOptions;

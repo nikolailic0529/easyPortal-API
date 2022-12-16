@@ -4,11 +4,15 @@ namespace App\Services\Audit\Listeners;
 
 use App\Services\Audit\Enums\Action;
 use App\Services\Organization\Events\OrganizationChanged;
-use Illuminate\Contracts\Events\Dispatcher;
 
 class OrganizationListener extends Listener {
-    public function subscribe(Dispatcher $dispatcher): void {
-        $dispatcher->listen(OrganizationChanged::class, $this::class);
+    /**
+     * @inheritDoc
+     */
+    public static function getEvents(): array {
+        return [
+            OrganizationChanged::class,
+        ];
     }
 
     public function __invoke(OrganizationChanged $event): void {

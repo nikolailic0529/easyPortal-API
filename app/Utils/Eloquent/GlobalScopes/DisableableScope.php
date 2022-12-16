@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Scope;
 
 /**
- * @template TModel of \Illuminate\Database\Eloquent\Model
+ * @template TModel of Model
  */
 abstract class DisableableScope implements Scope {
     // <editor-fold desc="Eloquent">

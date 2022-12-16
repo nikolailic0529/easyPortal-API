@@ -18,7 +18,7 @@ use Tests\TestCase;
  */
 class OrganizationUpdaterTest extends TestCase {
     /**
-     * @covers ::subscribe
+     * @covers ::getEvents
      */
     public function testSubscribe(): void {
         Event::fake()->assertListening(ResellerUpdated::class, OrganizationUpdater::class);

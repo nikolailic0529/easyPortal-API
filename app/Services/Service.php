@@ -9,12 +9,12 @@ use Closure;
 use DateInterval;
 use Illuminate\Contracts\Cache\Factory as CacheFactory;
 use Illuminate\Contracts\Cache\Repository as Cache;
-use Illuminate\Contracts\Config\Repository as Config;
 use JsonSerializable;
 
 use function array_merge;
 use function array_slice;
 use function class_exists;
+use function config;
 use function count;
 use function explode;
 use function implode;
@@ -33,11 +33,8 @@ use const JSON_THROW_ON_ERROR;
 abstract class Service {
     protected Cache $cache;
 
-    public function __construct(
-        protected Config $config,
-        CacheFactory $factory,
-    ) {
-        $this->cache = $factory->store($this->config->get('ep.cache.service.store') ?: null);
+    public function __construct(CacheFactory $factory) {
+        $this->cache = $factory->store(config('ep.cache.service.store') ?: null);
     }
 
     /**
@@ -102,7 +99,7 @@ abstract class Service {
     }
 
     protected function getDefaultTtl(): ?DateInterval {
-        return new DateInterval($this->config->get('ep.cache.service.ttl') ?: 'P6M');
+        return new DateInterval(config('ep.cache.service.ttl') ?: 'P6M');
     }
 
     /**

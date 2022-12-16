@@ -1386,11 +1386,6 @@ parameters:
 			path: app/GraphQL/Mutations/User/UpdateTest.php
 
 		-
-			message: "#^Method App\\\\GraphQL\\\\Provider\\:\\:getGateCallback\\(\\) return type has no signature specified for Closure\\.$#"
-			count: 1
-			path: app/GraphQL/Provider.php
-
-		-
 			message: "#^Cannot access offset string on mixed\\.$#"
 			count: 3
 			path: app/GraphQL/Queries/Administration/AuditContext.php
@@ -2456,24 +2451,9 @@ parameters:
 			path: app/Providers/AuthServiceProvider.php
 
 		-
-			message: "#^PHPDoc type array\\<class\\-string, array\\<int, class\\-string\\>\\> of property App\\\\Providers\\\\EventServiceProvider\\:\\:\\$listen is not the same as PHPDoc type array of overridden property Illuminate\\\\Foundation\\\\Support\\\\Providers\\\\EventServiceProvider\\:\\:\\$listen\\.$#"
-			count: 1
-			path: app/Providers/EventServiceProvider.php
-
-		-
-			message: "#^PHPDoc type array\\<class\\-string\\<App\\\\Events\\\\Subscriber\\>\\> of property App\\\\Providers\\\\EventServiceProvider\\:\\:\\$subscribe is not the same as PHPDoc type array of overridden property Illuminate\\\\Foundation\\\\Support\\\\Providers\\\\EventServiceProvider\\:\\:\\$subscribe\\.$#"
-			count: 1
-			path: app/Providers/EventServiceProvider.php
-
-		-
 			message: "#^Cannot access property \\$id on mixed\\.$#"
 			count: 1
 			path: app/Providers/RouteServiceProvider.php
-
-		-
-			message: "#^Parameter \\#1 \\$value of method Carbon\\\\CarbonImmutable\\:\\:setTimezone\\(\\) expects DateTimeZone\\|string, mixed given\\.$#"
-			count: 1
-			path: app/Rules/DateTime.php
 
 		-
 			message: "#^Anonymous function should return Illuminate\\\\Database\\\\Eloquent\\\\Builder\\<Illuminate\\\\Database\\\\Eloquent\\\\Model\\> but returns Illuminate\\\\Database\\\\Eloquent\\\\Builder\\<App\\\\Models\\\\Role\\>\\.$#"
@@ -3886,12 +3866,7 @@ parameters:
 			path: app/Services/Keycloak/Keycloak.php
 
 		-
-			message: "#^Method App\\\\Services\\\\Keycloak\\\\OAuth2\\\\Provider\\:\\:checkResponse\\(\\) has parameter \\$data with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: app/Services/Keycloak/OAuth2/Provider.php
-
-		-
-			message: "#^Method App\\\\Services\\\\Keycloak\\\\OAuth2\\\\Provider\\:\\:getBaseAccessTokenUrl\\(\\) has parameter \\$params with no value type specified in iterable type array\\.$#"
+			message: "#^Parameter \\#1 \\$message of class League\\\\OAuth2\\\\Client\\\\Provider\\\\Exception\\\\IdentityProviderException constructor expects string, mixed given\\.$#"
 			count: 1
 			path: app/Services/Keycloak/OAuth2/Provider.php
 
@@ -3909,11 +3884,6 @@ parameters:
 			message: "#^Method App\\\\Services\\\\Logger\\\\Action\\:\\:getKey\\(\\) should return string but returns mixed\\.$#"
 			count: 1
 			path: app/Services/Logger/Action.php
-
-		-
-			message: "#^Parameter \\#1 \\$countable of method App\\\\Services\\\\Logger\\\\Logger\\:\\:count\\(\\) expects array\\<string, int\\>, array\\<string, float\\|int\\> given\\.$#"
-			count: 1
-			path: app/Services/Logger/Listeners/DataLoaderListener.php
 
 		-
 			message: "#^Parameter \\#3 \\$countable of method App\\\\Services\\\\Logger\\\\Logger\\:\\:fail\\(\\) expects array\\<string, int\\>, array\\<string, float\\|int\\> given\\.$#"
@@ -3941,11 +3911,6 @@ parameters:
 			path: app/Services/Logger/Listeners/DataLoaderRequestObject.php
 
 		-
-			message: "#^Parameter \\#1 \\$countable of method App\\\\Services\\\\Logger\\\\Logger\\:\\:count\\(\\) expects array\\<string, int\\>, array\\<string, float\\|int\\> given\\.$#"
-			count: 1
-			path: app/Services/Logger/Listeners/DatabaseListener.php
-
-		-
 			message: "#^Method App\\\\Services\\\\Logger\\\\Listeners\\\\EloquentListener\\:\\:getContext\\(\\) should return array\\<string, array\\{value\\: mixed, previous\\: mixed\\}\\>\\|null but returns array\\{properties\\: array\\<string, array\\{value\\: mixed, previous\\: mixed\\}\\>\\}\\|null\\.$#"
 			count: 1
 			path: app/Services/Logger/Listeners/EloquentListener.php
@@ -3954,16 +3919,6 @@ parameters:
 			message: "#^Method App\\\\Services\\\\Logger\\\\Listeners\\\\EloquentObject\\:\\:getId\\(\\) should return string\\|null but returns mixed\\.$#"
 			count: 1
 			path: app/Services/Logger/Listeners/EloquentObject.php
-
-		-
-			message: "#^Method App\\\\Services\\\\Logger\\\\Listeners\\\\Listener\\:\\:getSafeListener\\(\\) has parameter \\$closure with no signature specified for Closure\\.$#"
-			count: 1
-			path: app/Services/Logger/Listeners/Listener.php
-
-		-
-			message: "#^Method App\\\\Services\\\\Logger\\\\Listeners\\\\Listener\\:\\:getSafeListener\\(\\) return type has no signature specified for Closure\\.$#"
-			count: 1
-			path: app/Services/Logger/Listeners/Listener.php
 
 		-
 			message: "#^Method App\\\\Services\\\\Logger\\\\Listeners\\\\QueueJob\\:\\:__construct\\(\\) has parameter \\$connectionName with no type specified\\.$#"
@@ -4316,17 +4271,17 @@ parameters:
 			path: app/Services/Queue/Queue.php
 
 		-
-			message: "#^Parameter \\#1 \\$jobs of method class@anonymous/app/Services/Queue/QueueTest\\.php\\:217\\:\\:getStatesFromHorizon\\(\\) expects Illuminate\\\\Support\\\\Collection\\<string, LastDragon_ru\\\\LaraASP\\\\Queue\\\\Queueables\\\\Job\\>, Illuminate\\\\Support\\\\Collection\\<\\(int\\|string\\), App\\\\Services\\\\Queue\\\\Contracts\\\\Stoppable&LastDragon_ru\\\\LaraASP\\\\Queue\\\\Queueables\\\\Job&Mockery\\\\MockInterface\\> given\\.$#"
+			message: "#^Parameter \\#1 \\$jobs of method class@anonymous/app/Services/Queue/QueueTest\\.php\\:216\\:\\:getStatesFromHorizon\\(\\) expects Illuminate\\\\Support\\\\Collection\\<string, LastDragon_ru\\\\LaraASP\\\\Queue\\\\Queueables\\\\Job\\>, Illuminate\\\\Support\\\\Collection\\<\\(int\\|string\\), App\\\\Services\\\\Queue\\\\Contracts\\\\Stoppable&LastDragon_ru\\\\LaraASP\\\\Queue\\\\Queueables\\\\Job&Mockery\\\\MockInterface\\> given\\.$#"
 			count: 1
 			path: app/Services/Queue/QueueTest.php
 
 		-
-			message: "#^Parameter \\#1 \\$jobs of method class@anonymous/app/Services/Queue/QueueTest\\.php\\:334\\:\\:getStatesFromLogs\\(\\) expects Illuminate\\\\Support\\\\Collection\\<string, LastDragon_ru\\\\LaraASP\\\\Queue\\\\Queueables\\\\Job\\>, Illuminate\\\\Support\\\\Collection\\<\\(int\\|string\\), App\\\\Services\\\\Queue\\\\Contracts\\\\Stoppable&LastDragon_ru\\\\LaraASP\\\\Queue\\\\Queueables\\\\Job&Mockery\\\\MockInterface\\> given\\.$#"
+			message: "#^Parameter \\#1 \\$jobs of method class@anonymous/app/Services/Queue/QueueTest\\.php\\:327\\:\\:getStatesFromLogs\\(\\) expects Illuminate\\\\Support\\\\Collection\\<string, LastDragon_ru\\\\LaraASP\\\\Queue\\\\Queueables\\\\Job\\>, Illuminate\\\\Support\\\\Collection\\<\\(int\\|string\\), App\\\\Services\\\\Queue\\\\Contracts\\\\Stoppable&LastDragon_ru\\\\LaraASP\\\\Queue\\\\Queueables\\\\Job&Mockery\\\\MockInterface\\> given\\.$#"
 			count: 1
 			path: app/Services/Queue/QueueTest.php
 
 		-
-			message: "#^Parameter \\#1 \\$jobs of method class@anonymous/app/Services/Queue/QueueTest\\.php\\:421\\:\\:getStatesFromLogs\\(\\) expects Illuminate\\\\Support\\\\Collection\\<string, LastDragon_ru\\\\LaraASP\\\\Queue\\\\Queueables\\\\Job\\>, Illuminate\\\\Support\\\\Collection\\<\\(int\\|string\\), App\\\\Services\\\\Queue\\\\Contracts\\\\Stoppable&LastDragon_ru\\\\LaraASP\\\\Queue\\\\Queueables\\\\Job&Mockery\\\\MockInterface\\> given\\.$#"
+			message: "#^Parameter \\#1 \\$jobs of method class@anonymous/app/Services/Queue/QueueTest\\.php\\:413\\:\\:getStatesFromLogs\\(\\) expects Illuminate\\\\Support\\\\Collection\\<string, LastDragon_ru\\\\LaraASP\\\\Queue\\\\Queueables\\\\Job\\>, Illuminate\\\\Support\\\\Collection\\<\\(int\\|string\\), App\\\\Services\\\\Queue\\\\Contracts\\\\Stoppable&LastDragon_ru\\\\LaraASP\\\\Queue\\\\Queueables\\\\Job&Mockery\\\\MockInterface\\> given\\.$#"
 			count: 1
 			path: app/Services/Queue/QueueTest.php
 
@@ -5406,6 +5361,11 @@ parameters:
 			path: app/Utils/Processor/ServiceStore.php
 
 		-
+			message: "#^Method App\\\\Utils\\\\Providers\\\\ServiceServiceProvider\\:\\:listens\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: app/Utils/Providers/ServiceServiceProvider.php
+
+		-
 			message: "#^Property Illuminate\\\\Validation\\\\Validator\\:\\:\\$currentRule \\(string\\) in isset\\(\\) is not nullable\\.$#"
 			count: 1
 			path: app/Utils/Validation/Validator.php
@@ -5486,11 +5446,6 @@ parameters:
 			path: tests/Helpers/Models.php
 
 		-
-			message: "#^Parameter \\#1 \\$keys of function array_fill_keys expects array, mixed given\\.$#"
-			count: 1
-			path: tests/Helpers/Models.php
-
-		-
 			message: "#^Cannot call method toMutable\\(\\) on Carbon\\\\CarbonImmutable\\|null\\.$#"
 			count: 1
 			path: tests/Helpers/SequenceDateFactory.php
@@ -5532,6 +5487,11 @@ parameters:
 
 		-
 			message: "#^Parameter \\#1 \\$callback of method Illuminate\\\\Support\\\\Collection\\<\\(int\\|string\\),mixed\\>\\:\\:map\\(\\) expects callable\\(mixed, \\(int\\|string\\)\\)\\: mixed, Closure\\(array\\)\\: mixed given\\.$#"
+			count: 1
+			path: tests/TestCase.php
+
+		-
+			message: "#^Parameter \\#2 \\$config of static method Illuminate\\\\Support\\\\Facades\\\\Storage\\:\\:fake\\(\\) expects array, mixed given\\.$#"
 			count: 1
 			path: tests/TestCase.php
 

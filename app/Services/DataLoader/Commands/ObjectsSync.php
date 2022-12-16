@@ -2,14 +2,14 @@
 
 namespace App\Services\DataLoader\Commands;
 
-use App\Services\I18n\Formatter;
+use App\Services\DataLoader\Processors\Synchronizer\Synchronizer;
 use App\Utils\Processor\Commands\ProcessorCommand;
 use App\Utils\Processor\Contracts\Processor;
 
 use function array_merge;
 
 /**
- * @template TProcessor of \App\Services\DataLoader\Processors\Synchronizer\Synchronizer
+ * @template TProcessor of Synchronizer
  *
  * @extends ProcessorCommand<TProcessor>
  */
@@ -17,7 +17,7 @@ abstract class ObjectsSync extends ProcessorCommand {
     /**
      * @inheritDoc
      */
-    protected function getCommandSignature(array $signature): array {
+    protected static function getCommandSignature(array $signature): array {
         return array_merge(parent::getCommandSignature($signature), [
             '{--from= : Start processing from given DateTime/DateInterval}',
             '{--outdated : Process outdated ${objects}}',
@@ -27,7 +27,7 @@ abstract class ObjectsSync extends ProcessorCommand {
         ]);
     }
 
-    protected function process(Formatter $formatter, Processor $processor): int {
+    protected function process(Processor $processor): int {
         $from           = $this->getDateTimeOption('from');
         $outdated       = $this->getBoolOption('outdated', false);
         $outdatedLimit  = $this->getIntOption('outdated-limit');
@@ -38,6 +38,6 @@ abstract class ObjectsSync extends ProcessorCommand {
             ->setOutdatedLimit($outdatedLimit)
             ->setOutdatedExpire($outdatedExpire);
 
-        return parent::process($formatter, $processor);
+        return parent::process($processor);
     }
 }

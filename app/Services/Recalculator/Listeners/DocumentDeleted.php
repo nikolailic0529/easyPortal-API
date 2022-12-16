@@ -2,24 +2,25 @@
 
 namespace App\Services\Recalculator\Listeners;
 
-use App\Events\Subscriber;
 use App\Models\Asset;
 use App\Models\Document;
 use App\Services\Recalculator\Recalculator;
-use Illuminate\Contracts\Events\Dispatcher;
+use App\Utils\Providers\EventsProvider;
 
-class DocumentDeleted implements Subscriber {
+class DocumentDeleted implements EventsProvider {
     public function __construct(
         protected Recalculator $recalculator,
     ) {
         // empty
     }
 
-    public function subscribe(Dispatcher $dispatcher): void {
-        $dispatcher->listen(
+    /**
+     * @inheritDoc
+     */
+    public static function getEvents(): array {
+        return [
             'eloquent.deleted: '.Document::class,
-            $this::class,
-        );
+        ];
     }
 
     public function __invoke(Document $document): void {

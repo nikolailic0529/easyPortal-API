@@ -3,7 +3,6 @@
 namespace App\Services\Logger\Listeners;
 
 use App\Services\Logger\Models\Enums\Category;
-use Illuminate\Contracts\Events\Dispatcher;
 use Illuminate\Database\Events\QueryExecuted;
 
 use function ltrim;
@@ -12,27 +11,32 @@ use function preg_match;
 class DatabaseListener extends Listener {
     use Database;
 
-    public function subscribe(Dispatcher $dispatcher): void {
-        $dispatcher->listen(QueryExecuted::class, $this->getSafeListener(function (QueryExecuted $event): void {
-            $this->query($event);
-        }));
+    /**
+     * @inheritDoc
+     */
+    public static function getEvents(): array {
+        return [
+            QueryExecuted::class,
+        ];
     }
 
-    protected function query(QueryExecuted $event): void {
-        if ($this->isConnectionIgnored($event->connection)) {
-            return;
-        }
+    public function __invoke(QueryExecuted $event): void {
+        $this->call(function () use ($event): void {
+            if ($this->isConnectionIgnored($event->connection)) {
+                return;
+            }
 
-        $category = $this->getCategory();
-        $type     = $this->getType($event->sql);
-        $time     = $event->time / 1000;
+            $category = $this->getCategory();
+            $type     = $this->getType($event->sql);
+            $time     = $event->time / 1000;
 
-        $this->logger->count([
-            "{$category}.total.queries"            => 1,
-            "{$category}.total.duration"           => $time,
-            "{$category}.queries.{$type}.count"    => 1,
-            "{$category}.queries.{$type}.duration" => $time,
-        ]);
+            $this->logger->count([
+                "{$category}.total.queries"            => 1,
+                "{$category}.total.duration"           => $time,
+                "{$category}.queries.{$type}.count"    => 1,
+                "{$category}.queries.{$type}.duration" => $time,
+            ]);
+        });
     }
 
     protected function getCategory(): Category {

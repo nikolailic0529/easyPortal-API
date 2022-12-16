@@ -5,10 +5,10 @@ namespace App\Services\Search\Eloquent;
 use App\Services\Search\Builders\Builder;
 use App\Services\Search\Builders\UnionBuilder;
 use App\Services\Search\Elastic\UnionEngine;
+use Illuminate\Container\Container;
 use Illuminate\Database\Eloquent\Model;
 use Laravel\Scout\Engines\Engine;
 
-use function app;
 use function config;
 
 /**
@@ -25,7 +25,7 @@ class UnionModel extends Model implements Searchable {
     }
 
     public static function search(string $query = ''): Builder {
-        return app()->make(UnionBuilder::class, [
+        return Container::getInstance()->make(UnionBuilder::class, [
             'model'      => new static(),
             'query'      => $query,
             'callback'   => null,
@@ -34,7 +34,7 @@ class UnionModel extends Model implements Searchable {
     }
 
     public function searchableUsing(): Engine {
-        return app()->make(UnionEngine::class);
+        return Container::getInstance()->make(UnionEngine::class);
     }
 
     /**

@@ -2,15 +2,19 @@
 
 namespace App\Services\Auth\Listeners;
 
-use App\Events\Subscriber;
 use App\Models\User;
+use App\Utils\Providers\EventsProvider;
 use Illuminate\Auth\Events\Login;
-use Illuminate\Contracts\Events\Dispatcher;
 use Illuminate\Support\Facades\Date;
 
-class SignIn implements Subscriber {
-    public function subscribe(Dispatcher $dispatcher): void {
-        $dispatcher->listen(Login::class, $this::class);
+class SignIn implements EventsProvider {
+    /**
+     * @inheritDoc
+     */
+    public static function getEvents(): array {
+        return [
+            Login::class,
+        ];
     }
 
     public function __invoke(Login $event): void {

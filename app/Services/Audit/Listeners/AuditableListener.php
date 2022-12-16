@@ -6,7 +6,6 @@ use App\Services\Audit\Contracts\Auditable;
 use App\Services\Audit\Enums\Action;
 use App\Services\Logger\Listeners\EloquentObject;
 use App\Utils\Eloquent\Model;
-use Illuminate\Contracts\Events\Dispatcher;
 use Illuminate\Support\Str;
 use LogicException;
 
@@ -17,17 +16,16 @@ class AuditableListener extends Listener {
     public const PROPERTIES = 'properties';
     public const RELATIONS  = 'relations';
 
-    public function subscribe(Dispatcher $dispatcher): void {
-        $events = [
-            'eloquent.created',
-            'eloquent.updated',
-            'eloquent.deleted',
-            'eloquent.restored',
+    /**
+     * @inheritDoc
+     */
+    public static function getEvents(): array {
+        return [
+            'eloquent.created: *',
+            'eloquent.updated: *',
+            'eloquent.deleted: *',
+            'eloquent.restored: *',
         ];
-
-        foreach ($events as $event) {
-            $dispatcher->listen("{$event}: *", $this::class);
-        }
     }
 
     /**

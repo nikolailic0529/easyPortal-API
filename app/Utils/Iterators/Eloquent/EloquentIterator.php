@@ -9,12 +9,13 @@ use App\Utils\Iterators\Contracts\MixedIterator;
 use App\Utils\Iterators\Contracts\ObjectIterator;
 use Closure;
 use Generator;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
 use LastDragon_ru\LaraASP\Eloquent\Iterators\Iterator as LaraASPIterator;
 use LastDragon_ru\LaraASP\Eloquent\Iterators\IteratorImpl;
 
 /**
- * @template TModel of \Illuminate\Database\Eloquent\Model
+ * @template TModel of Model
  *
  * @implements ObjectIterator<TModel>
  */

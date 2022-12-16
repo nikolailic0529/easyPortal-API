@@ -6,7 +6,7 @@ use App\Services\DataLoader\Client\Events\RequestEvent;
 use App\Services\DataLoader\Client\Events\RequestFailed;
 use App\Services\DataLoader\Client\Events\RequestStarted;
 use App\Services\DataLoader\Client\Events\RequestSuccessful;
-use App\Services\Logger\LoggerObject;
+use App\Services\Logger\Contracts\LoggerObject;
 use Illuminate\Support\Arr;
 
 use function count;

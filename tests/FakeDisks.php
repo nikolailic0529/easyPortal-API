@@ -3,9 +3,10 @@
 namespace Tests;
 
 use App\Services\Filesystem\Disk;
-use Illuminate\Contracts\Config\Repository;
 use Illuminate\Contracts\Filesystem\Filesystem;
 use Illuminate\Support\Facades\Storage;
+
+use function config;
 
 /**
  * @mixin TestCase
@@ -24,8 +25,7 @@ trait FakeDisks {
             $this->app->afterResolving(Disk::class, function (Disk $disk): void {
                 if (!isset($this->fakeDisks[$disk->getName()])) {
                     $name                              = $disk->getName();
-                    $config                            = $this->app()->make(Repository::class);
-                    $settings                          = $config->get("filesystems.disks.{$name}", []);
+                    $settings                          = config("filesystems.disks.{$name}", []);
                     $this->fakeDisks[$disk->getName()] = Storage::fake($name, $settings);
                 }
             });

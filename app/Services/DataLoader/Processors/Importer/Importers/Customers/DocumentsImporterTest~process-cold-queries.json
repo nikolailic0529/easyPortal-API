@@ -39,22 +39,22 @@
         "query": "select `types`.*, `contact_types`.`contact_id` as `pivot_contact_id`, `contact_types`.`type_id` as `pivot_type_id`, `contact_types`.`created_at` as `pivot_created_at`, `contact_types`.`updated_at` as `pivot_updated_at` from `types` inner join `contact_types` on `types`.`id` = `contact_types`.`type_id` where `contact_types`.`deleted_at` is null and `contact_types`.`contact_id` in (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) and `types`.`deleted_at` is null",
         "bindings": [
             "0a872c01-f844-590a-a819-942bfa09a5d2",
-            "173087c2-7a4d-59e4-9dc9-a7e80f20003b",
-            "177b5db9-4491-5c92-9159-feeaaed04588",
-            "1d4bf2a9-7db0-5159-8dbc-e215817b8cb8",
-            "3bde2a54-ec93-5b6a-89f0-e12815e0ff63",
-            "45ce9849-824c-574c-bad4-95920da639a3",
-            "5a7eb8be-0240-5a14-a128-86acb6965218",
-            "5fe37a13-73eb-5901-8211-a80aef9fea78",
-            "6f0afd36-df2a-5d6c-818b-49095e4ffde1",
-            "6fb67836-e7d8-5ddb-9a1e-a6ed4fdd1b2c",
-            "7621f815-df52-5f5e-a92c-9244189847e5",
-            "78b35c64-e599-5c78-a102-5f29323f095f",
+            "22185166-97d1-50fb-a974-ac51dd9d8c7c",
+            "229361f9-056d-5218-a3b0-dcbb4c313111",
+            "2fa7c9a8-3dd2-5e22-8073-42fd33157451",
+            "3c837192-b5e7-5f91-aff4-fd40f49c94ce",
+            "3cf83ea0-7f7c-52ad-a7e6-1dfb72fbb6fa",
             "7d701e09-dde4-544a-a04f-19093ff23b2b",
-            "b21b4808-5998-528c-8e7d-d32fddf76a8a",
-            "cdf952b8-62aa-56e0-9ca1-16f443edde92",
+            "936dff97-6b7c-554d-af86-8196f68fbcca",
+            "9789360b-af6b-5b3d-a707-2c5a29ad7995",
+            "adefed16-5702-56cd-8112-ae204dbbb580",
+            "b4ea6545-b7e2-5926-99ef-41115e7de749",
+            "c41eaa4e-d2f8-515f-8bc7-113fd1484faa",
+            "c6c09316-c0bc-5fdd-9dda-b4a153151ccc",
             "d16a26dd-c9b3-5b59-b2f5-a2b6df3f76b1",
-            "dc9ee42a-bf86-5f37-b2b3-fd00288bf18b"
+            "e61ed796-d98b-525d-a422-6ae25969cb43",
+            "eabf4f13-5992-5b75-a46c-5738f0e87a69",
+            "eb616e0a-0031-5990-9a2b-a515560ffd96"
         ]
     },
     {
@@ -124,7 +124,7 @@
             "Contact",
             "Customer Contact",
             "Customer Contact",
-            "f4656ed7-d921-54bd-b590-81d16d8ff849",
+            "85bab1a7-1d90-5926-942f-2c6889c25826",
             "2022-02-02 00:00:06",
             "2022-02-02 00:00:06"
         ]
@@ -142,7 +142,7 @@
             "Contact",
             "Renewal Contact",
             "Renewal Contact",
-            "85bab1a7-1d90-5926-942f-2c6889c25826",
+            "fe9bc1f8-450c-5b2d-a943-d2988e84bc6d",
             "2022-02-02 00:00:07",
             "2022-02-02 00:00:07"
         ]
@@ -180,7 +180,7 @@
         "bindings": [
             "8f97eff1-dbfa-5293-8b35-e10c52dd0a43",
             "2abdb153-9341-499c-ad38-8a721127f979",
-            "f0a339f3-1039-53ca-a9d3-58225ec65ab5",
+            "3dd8894d-7ea4-552e-9197-edeac41213b6",
             "2022-02-02 00:00:10",
             "2022-02-02 00:00:10"
         ]
@@ -194,7 +194,7 @@
             "+12403737765",
             "griffin94@hotmail.com",
             true,
-            "fe9bc1f8-450c-5b2d-a943-d2988e84bc6d",
+            "f4656ed7-d921-54bd-b590-81d16d8ff849",
             "2022-02-02 00:00:11",
             "2022-02-02 00:00:11"
         ]
@@ -202,9 +202,9 @@
     {
         "query": "insert into `contact_types` (`type_id`, `contact_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
+            "85bab1a7-1d90-5926-942f-2c6889c25826",
             "f4656ed7-d921-54bd-b590-81d16d8ff849",
-            "fe9bc1f8-450c-5b2d-a943-d2988e84bc6d",
-            "3dd8894d-7ea4-552e-9197-edeac41213b6",
+            "1520ef39-4fa3-5233-b829-73397730f218",
             "2022-02-02 00:00:12",
             "2022-02-02 00:00:12"
         ]
@@ -218,7 +218,7 @@
             "+12396904465",
             "batz.henri@hotmail.com",
             true,
-            "1520ef39-4fa3-5233-b829-73397730f218",
+            "f0a339f3-1039-53ca-a9d3-58225ec65ab5",
             "2022-02-02 00:00:13",
             "2022-02-02 00:00:13"
         ]
@@ -226,8 +226,8 @@
     {
         "query": "insert into `contact_types` (`type_id`, `contact_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
-            "85bab1a7-1d90-5926-942f-2c6889c25826",
-            "1520ef39-4fa3-5233-b829-73397730f218",
+            "fe9bc1f8-450c-5b2d-a943-d2988e84bc6d",
+            "f0a339f3-1039-53ca-a9d3-58225ec65ab5",
             "3a4e8177-26b0-552e-a1fc-606eb87aaef4",
             "2022-02-02 00:00:14",
             "2022-02-02 00:00:14"
@@ -460,7 +460,7 @@
         "bindings": [
             "8f97eff1-dbfa-5293-8b35-e10c52dd0a43",
             "4fe10114-41f9-410e-9f3f-b2f42e72f5b8",
-            "885caa41-ce67-5241-b81b-02968b744339",
+            "bb01f74e-ea1b-5429-8bfc-af6ef89ebbf2",
             "2022-02-02 00:00:44",
             "2022-02-02 00:00:44"
         ]
@@ -474,7 +474,7 @@
             "+12403737765",
             "griffin94@hotmail.com",
             true,
-            "4a0381cc-5f50-549d-9681-a9e61e299cfc",
+            "885caa41-ce67-5241-b81b-02968b744339",
             "2022-02-02 00:00:45",
             "2022-02-02 00:00:45"
         ]
@@ -482,9 +482,9 @@
     {
         "query": "insert into `contact_types` (`type_id`, `contact_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
-            "f4656ed7-d921-54bd-b590-81d16d8ff849",
-            "4a0381cc-5f50-549d-9681-a9e61e299cfc",
-            "bb01f74e-ea1b-5429-8bfc-af6ef89ebbf2",
+            "85bab1a7-1d90-5926-942f-2c6889c25826",
+            "885caa41-ce67-5241-b81b-02968b744339",
+            "e1051b18-4663-5d6f-a903-fe90f4e6310a",
             "2022-02-02 00:00:46",
             "2022-02-02 00:00:46"
         ]
@@ -498,7 +498,7 @@
             "+12396904465",
             "batz.henri@hotmail.com",
             true,
-            "e1051b18-4663-5d6f-a903-fe90f4e6310a",
+            "4a0381cc-5f50-549d-9681-a9e61e299cfc",
             "2022-02-02 00:00:47",
             "2022-02-02 00:00:47"
         ]
@@ -506,8 +506,8 @@
     {
         "query": "insert into `contact_types` (`type_id`, `contact_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
-            "85bab1a7-1d90-5926-942f-2c6889c25826",
-            "e1051b18-4663-5d6f-a903-fe90f4e6310a",
+            "fe9bc1f8-450c-5b2d-a943-d2988e84bc6d",
+            "4a0381cc-5f50-549d-9681-a9e61e299cfc",
             "4926f633-fadd-586d-aedf-7c61b3a5d3a8",
             "2022-02-02 00:00:48",
             "2022-02-02 00:00:48"
@@ -740,7 +740,7 @@
         "bindings": [
             "8f97eff1-dbfa-5293-8b35-e10c52dd0a43",
             "76331547-3217-4c18-b7c4-b3448024546e",
-            "47ce9811-0df6-5f12-b213-93e3fb44d00e",
+            "4061ec07-d08b-5a07-9432-f91e21c7635f",
             "2022-02-02 00:01:18",
             "2022-02-02 00:01:18"
         ]
@@ -754,7 +754,7 @@
             "+12403737765",
             "griffin94@hotmail.com",
             true,
-            "be620b0c-b39c-5b70-9bdf-087d60063b7b",
+            "47ce9811-0df6-5f12-b213-93e3fb44d00e",
             "2022-02-02 00:01:19",
             "2022-02-02 00:01:19"
         ]
@@ -762,9 +762,9 @@
     {
         "query": "insert into `contact_types` (`type_id`, `contact_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
-            "f4656ed7-d921-54bd-b590-81d16d8ff849",
-            "be620b0c-b39c-5b70-9bdf-087d60063b7b",
-            "4061ec07-d08b-5a07-9432-f91e21c7635f",
+            "85bab1a7-1d90-5926-942f-2c6889c25826",
+            "47ce9811-0df6-5f12-b213-93e3fb44d00e",
+            "07c876d4-67e7-54d9-a79d-117ea6199921",
             "2022-02-02 00:01:20",
             "2022-02-02 00:01:20"
         ]
@@ -778,7 +778,7 @@
             "+12396904465",
             "batz.henri@hotmail.com",
             true,
-            "07c876d4-67e7-54d9-a79d-117ea6199921",
+            "be620b0c-b39c-5b70-9bdf-087d60063b7b",
             "2022-02-02 00:01:21",
             "2022-02-02 00:01:21"
         ]
@@ -786,8 +786,8 @@
     {
         "query": "insert into `contact_types` (`type_id`, `contact_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
-            "85bab1a7-1d90-5926-942f-2c6889c25826",
-            "07c876d4-67e7-54d9-a79d-117ea6199921",
+            "fe9bc1f8-450c-5b2d-a943-d2988e84bc6d",
+            "be620b0c-b39c-5b70-9bdf-087d60063b7b",
             "e112a3f5-b612-5a5c-8dae-7c5d49d3702c",
             "2022-02-02 00:01:22",
             "2022-02-02 00:01:22"
@@ -1037,7 +1037,7 @@
             "Contact",
             "Hardware System Contact",
             "Hardware System Contact",
-            "da490648-866a-5378-a610-653fa2423123",
+            "e20f5862-c731-53aa-b964-505f3943a6f6",
             "2022-02-02 00:01:52",
             "2022-02-02 00:01:52"
         ]
@@ -1055,7 +1055,7 @@
             "Contact",
             "Software System Contact",
             "Software System Contact",
-            "eed6b1be-ccb5-58d1-9d4c-46ae632817c8",
+            "304b85ee-50c9-5668-a29a-0652ea1436ca",
             "2022-02-02 00:01:53",
             "2022-02-02 00:01:53"
         ]
@@ -1073,7 +1073,7 @@
             "Contact",
             "System Manager Contact",
             "System Manager Contact",
-            "d9749bf5-c57c-56f0-9b73-1f0585439f66",
+            "0314e932-ff4f-5d2e-ac4d-a88f9b67fdfc",
             "2022-02-02 00:01:54",
             "2022-02-02 00:01:54"
         ]
@@ -1111,7 +1111,7 @@
         "bindings": [
             "543639f1-5aaa-547c-b738-053834ad1edb",
             "8cbf5548-0573-48b1-8b5e-3218a3740ccc",
-            "e20f5862-c731-53aa-b964-505f3943a6f6",
+            "95efb1d0-bb22-5761-828d-18f9957d86fe",
             "2022-02-02 00:01:57",
             "2022-02-02 00:01:57"
         ]
@@ -1125,7 +1125,7 @@
             "+16305356782",
             "lgleichner@yahoo.com",
             true,
-            "348ace43-70c4-5e29-a326-9dddadf6d8f7",
+            "da490648-866a-5378-a610-653fa2423123",
             "2022-02-02 00:01:58",
             "2022-02-02 00:01:58"
         ]
@@ -1133,15 +1133,15 @@
     {
         "query": "insert into `contact_types` (`contact_id`, `created_at`, `id`, `type_id`, `updated_at`) values (?, ?, ?, ?, ?), (?, ?, ?, ?, ?)",
         "bindings": [
-            "348ace43-70c4-5e29-a326-9dddadf6d8f7",
-            "2022-02-02 00:01:59",
-            "304b85ee-50c9-5668-a29a-0652ea1436ca",
-            "262a476f-6f6d-5cf0-9a1a-a9881d4a5d4c",
-            "2022-02-02 00:01:59",
-            "348ace43-70c4-5e29-a326-9dddadf6d8f7",
-            "2022-02-02 00:02:00",
-            "0268a4de-6aa9-56ee-9b8d-fce05285f292",
             "da490648-866a-5378-a610-653fa2423123",
+            "2022-02-02 00:01:59",
+            "884ddee2-e537-59fa-ac99-8f27ade3789f",
+            "0e38f938-9e71-5a71-921e-ea469dc57ce3",
+            "2022-02-02 00:01:59",
+            "da490648-866a-5378-a610-653fa2423123",
+            "2022-02-02 00:02:00",
+            "3261fb67-1e2b-508e-9075-c4169774940f",
+            "e20f5862-c731-53aa-b964-505f3943a6f6",
             "2022-02-02 00:02:00"
         ]
     },
@@ -1154,7 +1154,7 @@
             "+19707369945",
             "jsanford@yahoo.com",
             true,
-            "0314e932-ff4f-5d2e-ac4d-a88f9b67fdfc",
+            "eed6b1be-ccb5-58d1-9d4c-46ae632817c8",
             "2022-02-02 00:02:01",
             "2022-02-02 00:02:01"
         ]
@@ -1162,9 +1162,9 @@
     {
         "query": "insert into `contact_types` (`type_id`, `contact_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
-            "0e38f938-9e71-5a71-921e-ea469dc57ce3",
-            "0314e932-ff4f-5d2e-ac4d-a88f9b67fdfc",
-            "95efb1d0-bb22-5761-828d-18f9957d86fe",
+            "5e540a75-3fbd-50b2-97e5-5b244f6a3d52",
+            "eed6b1be-ccb5-58d1-9d4c-46ae632817c8",
+            "b6939d8b-c784-534f-8b45-7bb04de256b4",
             "2022-02-02 00:02:02",
             "2022-02-02 00:02:02"
         ]
@@ -1178,7 +1178,7 @@
             "+13465774731",
             "kody80@yahoo.com",
             true,
-            "884ddee2-e537-59fa-ac99-8f27ade3789f",
+            "d9749bf5-c57c-56f0-9b73-1f0585439f66",
             "2022-02-02 00:02:03",
             "2022-02-02 00:02:03"
         ]
@@ -1186,9 +1186,9 @@
     {
         "query": "insert into `contact_types` (`type_id`, `contact_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
-            "cb25e04c-9e13-5287-815f-58772f12466b",
-            "884ddee2-e537-59fa-ac99-8f27ade3789f",
-            "3261fb67-1e2b-508e-9075-c4169774940f",
+            "2d111a75-b546-5c91-b607-e42a084fd34c",
+            "d9749bf5-c57c-56f0-9b73-1f0585439f66",
+            "1bff7a3d-6c61-5cdf-af8d-a1858161864b",
             "2022-02-02 00:02:04",
             "2022-02-02 00:02:04"
         ]
@@ -1202,7 +1202,7 @@
             "+15858833140",
             null,
             true,
-            "b6939d8b-c784-534f-8b45-7bb04de256b4",
+            "348ace43-70c4-5e29-a326-9dddadf6d8f7",
             "2022-02-02 00:02:05",
             "2022-02-02 00:02:05"
         ]
@@ -1210,9 +1210,9 @@
     {
         "query": "insert into `contact_types` (`type_id`, `contact_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
-            "eed6b1be-ccb5-58d1-9d4c-46ae632817c8",
-            "b6939d8b-c784-534f-8b45-7bb04de256b4",
-            "1bff7a3d-6c61-5cdf-af8d-a1858161864b",
+            "304b85ee-50c9-5668-a29a-0652ea1436ca",
+            "348ace43-70c4-5e29-a326-9dddadf6d8f7",
+            "b4f577e3-e54e-5a39-b008-d22655231a69",
             "2022-02-02 00:02:06",
             "2022-02-02 00:02:06"
         ]
@@ -1226,7 +1226,7 @@
             "+19416569906",
             null,
             true,
-            "b4f577e3-e54e-5a39-b008-d22655231a69",
+            "0268a4de-6aa9-56ee-9b8d-fce05285f292",
             "2022-02-02 00:02:07",
             "2022-02-02 00:02:07"
         ]
@@ -1234,8 +1234,8 @@
     {
         "query": "insert into `contact_types` (`type_id`, `contact_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
-            "d9749bf5-c57c-56f0-9b73-1f0585439f66",
-            "b4f577e3-e54e-5a39-b008-d22655231a69",
+            "0314e932-ff4f-5d2e-ac4d-a88f9b67fdfc",
+            "0268a4de-6aa9-56ee-9b8d-fce05285f292",
             "d258e526-b780-5ea4-a5c9-6e8a17dfc378",
             "2022-02-02 00:02:08",
             "2022-02-02 00:02:08"
@@ -1471,7 +1471,7 @@
         "bindings": [
             "8f97eff1-dbfa-5293-8b35-e10c52dd0a43",
             "99c6ad0a-0f82-481c-8e2a-28fb18428628",
-            "7fe5bbba-186c-5f49-bfd2-0dfd115227b7",
+            "15c4e362-ba7a-58cf-874a-73f3bbe427b5",
             "2022-02-02 00:02:38",
             "2022-02-02 00:02:38"
         ]
@@ -1485,7 +1485,7 @@
             "+12403737765",
             "griffin94@hotmail.com",
             true,
-            "bcc32455-cced-5dc7-a8b7-e48664234c62",
+            "7fe5bbba-186c-5f49-bfd2-0dfd115227b7",
             "2022-02-02 00:02:39",
             "2022-02-02 00:02:39"
         ]
@@ -1493,9 +1493,9 @@
     {
         "query": "insert into `contact_types` (`type_id`, `contact_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
-            "f4656ed7-d921-54bd-b590-81d16d8ff849",
-            "bcc32455-cced-5dc7-a8b7-e48664234c62",
-            "15c4e362-ba7a-58cf-874a-73f3bbe427b5",
+            "85bab1a7-1d90-5926-942f-2c6889c25826",
+            "7fe5bbba-186c-5f49-bfd2-0dfd115227b7",
+            "0defb2ef-f9da-5755-816a-faba7ef9f827",
             "2022-02-02 00:02:40",
             "2022-02-02 00:02:40"
         ]
@@ -1509,7 +1509,7 @@
             "+12396904465",
             "batz.henri@hotmail.com",
             true,
-            "0defb2ef-f9da-5755-816a-faba7ef9f827",
+            "bcc32455-cced-5dc7-a8b7-e48664234c62",
             "2022-02-02 00:02:41",
             "2022-02-02 00:02:41"
         ]
@@ -1517,8 +1517,8 @@
     {
         "query": "insert into `contact_types` (`type_id`, `contact_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
-            "85bab1a7-1d90-5926-942f-2c6889c25826",
-            "0defb2ef-f9da-5755-816a-faba7ef9f827",
+            "fe9bc1f8-450c-5b2d-a943-d2988e84bc6d",
+            "bcc32455-cced-5dc7-a8b7-e48664234c62",
             "58967d3b-00e6-54c0-a14e-3db962a854da",
             "2022-02-02 00:02:42",
             "2022-02-02 00:02:42"
@@ -1759,22 +1759,22 @@
         "query": "select `types`.*, `contact_types`.`contact_id` as `pivot_contact_id`, `contact_types`.`type_id` as `pivot_type_id`, `contact_types`.`created_at` as `pivot_created_at`, `contact_types`.`updated_at` as `pivot_updated_at` from `types` inner join `contact_types` on `types`.`id` = `contact_types`.`type_id` where `contact_types`.`deleted_at` is null and `contact_types`.`contact_id` in (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) and `types`.`deleted_at` is null",
         "bindings": [
             "0a872c01-f844-590a-a819-942bfa09a5d2",
-            "173087c2-7a4d-59e4-9dc9-a7e80f20003b",
-            "177b5db9-4491-5c92-9159-feeaaed04588",
-            "1d4bf2a9-7db0-5159-8dbc-e215817b8cb8",
-            "3bde2a54-ec93-5b6a-89f0-e12815e0ff63",
-            "45ce9849-824c-574c-bad4-95920da639a3",
-            "5a7eb8be-0240-5a14-a128-86acb6965218",
-            "5fe37a13-73eb-5901-8211-a80aef9fea78",
-            "6f0afd36-df2a-5d6c-818b-49095e4ffde1",
-            "6fb67836-e7d8-5ddb-9a1e-a6ed4fdd1b2c",
-            "7621f815-df52-5f5e-a92c-9244189847e5",
-            "78b35c64-e599-5c78-a102-5f29323f095f",
+            "22185166-97d1-50fb-a974-ac51dd9d8c7c",
+            "229361f9-056d-5218-a3b0-dcbb4c313111",
+            "2fa7c9a8-3dd2-5e22-8073-42fd33157451",
+            "3c837192-b5e7-5f91-aff4-fd40f49c94ce",
+            "3cf83ea0-7f7c-52ad-a7e6-1dfb72fbb6fa",
             "7d701e09-dde4-544a-a04f-19093ff23b2b",
-            "b21b4808-5998-528c-8e7d-d32fddf76a8a",
-            "cdf952b8-62aa-56e0-9ca1-16f443edde92",
+            "936dff97-6b7c-554d-af86-8196f68fbcca",
+            "9789360b-af6b-5b3d-a707-2c5a29ad7995",
+            "adefed16-5702-56cd-8112-ae204dbbb580",
+            "b4ea6545-b7e2-5926-99ef-41115e7de749",
+            "c41eaa4e-d2f8-515f-8bc7-113fd1484faa",
+            "c6c09316-c0bc-5fdd-9dda-b4a153151ccc",
             "d16a26dd-c9b3-5b59-b2f5-a2b6df3f76b1",
-            "dc9ee42a-bf86-5f37-b2b3-fd00288bf18b"
+            "e61ed796-d98b-525d-a422-6ae25969cb43",
+            "eabf4f13-5992-5b75-a46c-5738f0e87a69",
+            "eb616e0a-0031-5990-9a2b-a515560ffd96"
         ]
     },
     {
@@ -1814,7 +1814,7 @@
         "bindings": [
             "8f97eff1-dbfa-5293-8b35-e10c52dd0a43",
             "a954e350-fa8a-4f92-b301-ae8e4e6d0022",
-            "42a156c5-a880-5ab9-9de1-8193e95e3549",
+            "8bb66c17-c929-5a98-9427-93b4d8d6a802",
             "2022-02-02 00:03:12",
             "2022-02-02 00:03:12"
         ]
@@ -1828,7 +1828,7 @@
             "+12403737765",
             "griffin94@hotmail.com",
             true,
-            "e1b230ea-d223-5b5c-9b01-cb1b273fe740",
+            "42a156c5-a880-5ab9-9de1-8193e95e3549",
             "2022-02-02 00:03:13",
             "2022-02-02 00:03:13"
         ]
@@ -1836,9 +1836,9 @@
     {
         "query": "insert into `contact_types` (`type_id`, `contact_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
-            "f4656ed7-d921-54bd-b590-81d16d8ff849",
-            "e1b230ea-d223-5b5c-9b01-cb1b273fe740",
-            "8bb66c17-c929-5a98-9427-93b4d8d6a802",
+            "85bab1a7-1d90-5926-942f-2c6889c25826",
+            "42a156c5-a880-5ab9-9de1-8193e95e3549",
+            "e72e21b2-69c6-5c9e-8f4e-a8a4c556f7f4",
             "2022-02-02 00:03:14",
             "2022-02-02 00:03:14"
         ]
@@ -1852,7 +1852,7 @@
             "+12396904465",
             "batz.henri@hotmail.com",
             true,
-            "e72e21b2-69c6-5c9e-8f4e-a8a4c556f7f4",
+            "e1b230ea-d223-5b5c-9b01-cb1b273fe740",
             "2022-02-02 00:03:15",
             "2022-02-02 00:03:15"
         ]
@@ -1860,8 +1860,8 @@
     {
         "query": "insert into `contact_types` (`type_id`, `contact_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
-            "85bab1a7-1d90-5926-942f-2c6889c25826",
-            "e72e21b2-69c6-5c9e-8f4e-a8a4c556f7f4",
+            "fe9bc1f8-450c-5b2d-a943-d2988e84bc6d",
+            "e1b230ea-d223-5b5c-9b01-cb1b273fe740",
             "50e2d0ce-9275-5b65-a998-4f1583d038a9",
             "2022-02-02 00:03:16",
             "2022-02-02 00:03:16"
@@ -2094,7 +2094,7 @@
         "bindings": [
             "8f97eff1-dbfa-5293-8b35-e10c52dd0a43",
             "c8fdd1c2-a581-4cf4-8f49-634a41f08ecf",
-            "56b8303b-2e4f-5535-a199-f1a67d1a533c",
+            "191f5401-6e13-54ac-9f88-95771dc442bf",
             "2022-02-02 00:03:46",
             "2022-02-02 00:03:46"
         ]
@@ -2108,7 +2108,7 @@
             "+12403737765",
             "griffin94@hotmail.com",
             true,
-            "ff76584d-ec0a-5c35-9c23-3f1f7034d040",
+            "56b8303b-2e4f-5535-a199-f1a67d1a533c",
             "2022-02-02 00:03:47",
             "2022-02-02 00:03:47"
         ]
@@ -2116,9 +2116,9 @@
     {
         "query": "insert into `contact_types` (`type_id`, `contact_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
-            "f4656ed7-d921-54bd-b590-81d16d8ff849",
-            "ff76584d-ec0a-5c35-9c23-3f1f7034d040",
-            "191f5401-6e13-54ac-9f88-95771dc442bf",
+            "85bab1a7-1d90-5926-942f-2c6889c25826",
+            "56b8303b-2e4f-5535-a199-f1a67d1a533c",
+            "b92c2025-c5c2-5cfb-92b3-5b7cf18a0da6",
             "2022-02-02 00:03:48",
             "2022-02-02 00:03:48"
         ]
@@ -2132,7 +2132,7 @@
             "+12396904465",
             "batz.henri@hotmail.com",
             true,
-            "b92c2025-c5c2-5cfb-92b3-5b7cf18a0da6",
+            "ff76584d-ec0a-5c35-9c23-3f1f7034d040",
             "2022-02-02 00:03:49",
             "2022-02-02 00:03:49"
         ]
@@ -2140,8 +2140,8 @@
     {
         "query": "insert into `contact_types` (`type_id`, `contact_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
-            "85bab1a7-1d90-5926-942f-2c6889c25826",
-            "b92c2025-c5c2-5cfb-92b3-5b7cf18a0da6",
+            "fe9bc1f8-450c-5b2d-a943-d2988e84bc6d",
+            "ff76584d-ec0a-5c35-9c23-3f1f7034d040",
             "932b74d2-2ffa-5ebb-84b4-63c5aa925463",
             "2022-02-02 00:03:50",
             "2022-02-02 00:03:50"
@@ -2374,7 +2374,7 @@
         "bindings": [
             "8f97eff1-dbfa-5293-8b35-e10c52dd0a43",
             "d3046b7f-880c-4368-b3dd-0b3c8def9a14",
-            "2391efd0-e43c-5817-8b07-0d5f972050da",
+            "cad0331c-a87d-5ca3-ac13-404c558886dd",
             "2022-02-02 00:04:20",
             "2022-02-02 00:04:20"
         ]
@@ -2388,7 +2388,7 @@
             "+12403737765",
             "griffin94@hotmail.com",
             true,
-            "e3634bce-187b-5083-b8dd-95d35f0a6f9a",
+            "2391efd0-e43c-5817-8b07-0d5f972050da",
             "2022-02-02 00:04:21",
             "2022-02-02 00:04:21"
         ]
@@ -2396,9 +2396,9 @@
     {
         "query": "insert into `contact_types` (`type_id`, `contact_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
-            "f4656ed7-d921-54bd-b590-81d16d8ff849",
-            "e3634bce-187b-5083-b8dd-95d35f0a6f9a",
-            "cad0331c-a87d-5ca3-ac13-404c558886dd",
+            "85bab1a7-1d90-5926-942f-2c6889c25826",
+            "2391efd0-e43c-5817-8b07-0d5f972050da",
+            "ef2f5e7e-6338-5515-aa5f-ba98c051289a",
             "2022-02-02 00:04:22",
             "2022-02-02 00:04:22"
         ]
@@ -2412,7 +2412,7 @@
             "+12396904465",
             "batz.henri@hotmail.com",
             true,
-            "ef2f5e7e-6338-5515-aa5f-ba98c051289a",
+            "e3634bce-187b-5083-b8dd-95d35f0a6f9a",
             "2022-02-02 00:04:23",
             "2022-02-02 00:04:23"
         ]
@@ -2420,8 +2420,8 @@
     {
         "query": "insert into `contact_types` (`type_id`, `contact_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
-            "85bab1a7-1d90-5926-942f-2c6889c25826",
-            "ef2f5e7e-6338-5515-aa5f-ba98c051289a",
+            "fe9bc1f8-450c-5b2d-a943-d2988e84bc6d",
+            "e3634bce-187b-5083-b8dd-95d35f0a6f9a",
             "f1ca6da1-67df-5d97-87f4-56681dc1e3cc",
             "2022-02-02 00:04:24",
             "2022-02-02 00:04:24"
@@ -2655,7 +2655,7 @@
         "bindings": [
             "8f97eff1-dbfa-5293-8b35-e10c52dd0a43",
             "d992fa68-ac06-4103-b556-94166adc12ed",
-            "97338d2d-bf73-5ae8-9095-63936bcd2e1c",
+            "016322a4-3114-5373-b5ae-d6bba5a04b14",
             "2022-02-02 00:04:54",
             "2022-02-02 00:04:54"
         ]
@@ -2669,7 +2669,7 @@
             "+12403737765",
             "griffin94@hotmail.com",
             true,
-            "834a6427-5c89-5f63-8199-3efdb412d87b",
+            "97338d2d-bf73-5ae8-9095-63936bcd2e1c",
             "2022-02-02 00:04:55",
             "2022-02-02 00:04:55"
         ]
@@ -2677,9 +2677,9 @@
     {
         "query": "insert into `contact_types` (`type_id`, `contact_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
-            "f4656ed7-d921-54bd-b590-81d16d8ff849",
-            "834a6427-5c89-5f63-8199-3efdb412d87b",
-            "016322a4-3114-5373-b5ae-d6bba5a04b14",
+            "85bab1a7-1d90-5926-942f-2c6889c25826",
+            "97338d2d-bf73-5ae8-9095-63936bcd2e1c",
+            "8fdfe94f-5f2d-59f9-a836-93c02a934391",
             "2022-02-02 00:04:56",
             "2022-02-02 00:04:56"
         ]
@@ -2693,7 +2693,7 @@
             "+12396904465",
             "batz.henri@hotmail.com",
             true,
-            "8fdfe94f-5f2d-59f9-a836-93c02a934391",
+            "834a6427-5c89-5f63-8199-3efdb412d87b",
             "2022-02-02 00:04:57",
             "2022-02-02 00:04:57"
         ]
@@ -2701,8 +2701,8 @@
     {
         "query": "insert into `contact_types` (`type_id`, `contact_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
-            "85bab1a7-1d90-5926-942f-2c6889c25826",
-            "8fdfe94f-5f2d-59f9-a836-93c02a934391",
+            "fe9bc1f8-450c-5b2d-a943-d2988e84bc6d",
+            "834a6427-5c89-5f63-8199-3efdb412d87b",
             "5a8ad59e-46e7-52ff-b48e-e8008dae9000",
             "2022-02-02 00:04:58",
             "2022-02-02 00:04:58"
@@ -2935,7 +2935,7 @@
         "bindings": [
             "8f97eff1-dbfa-5293-8b35-e10c52dd0a43",
             "f9badd49-9104-42bc-8ce3-4a1966d52817",
-            "9e17c071-adca-51fa-bcea-f662055b755c",
+            "bd3d1d06-b27d-5bff-ac2d-d1023c2b57e5",
             "2022-02-02 00:05:28",
             "2022-02-02 00:05:28"
         ]
@@ -2949,7 +2949,7 @@
             "+12403737765",
             "griffin94@hotmail.com",
             true,
-            "c0fd058a-c4ec-5b9e-9773-97230d0ad0a5",
+            "9e17c071-adca-51fa-bcea-f662055b755c",
             "2022-02-02 00:05:29",
             "2022-02-02 00:05:29"
         ]
@@ -2957,9 +2957,9 @@
     {
         "query": "insert into `contact_types` (`type_id`, `contact_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
-            "f4656ed7-d921-54bd-b590-81d16d8ff849",
-            "c0fd058a-c4ec-5b9e-9773-97230d0ad0a5",
-            "bd3d1d06-b27d-5bff-ac2d-d1023c2b57e5",
+            "85bab1a7-1d90-5926-942f-2c6889c25826",
+            "9e17c071-adca-51fa-bcea-f662055b755c",
+            "0e7e572e-285a-51b7-981a-e45d4e61ea22",
             "2022-02-02 00:05:30",
             "2022-02-02 00:05:30"
         ]
@@ -2973,7 +2973,7 @@
             "+12396904465",
             "batz.henri@hotmail.com",
             true,
-            "0e7e572e-285a-51b7-981a-e45d4e61ea22",
+            "c0fd058a-c4ec-5b9e-9773-97230d0ad0a5",
             "2022-02-02 00:05:31",
             "2022-02-02 00:05:31"
         ]
@@ -2981,8 +2981,8 @@
     {
         "query": "insert into `contact_types` (`type_id`, `contact_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
-            "85bab1a7-1d90-5926-942f-2c6889c25826",
-            "0e7e572e-285a-51b7-981a-e45d4e61ea22",
+            "fe9bc1f8-450c-5b2d-a943-d2988e84bc6d",
+            "c0fd058a-c4ec-5b9e-9773-97230d0ad0a5",
             "d867e26f-fd81-53f8-97c3-302dae37d1e2",
             "2022-02-02 00:05:32",
             "2022-02-02 00:05:32"

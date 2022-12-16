@@ -5,7 +5,7 @@ namespace App\Services\DataLoader\Container;
 /**
  * Indicates that the object should be singleton.
  *
- * @see \App\Services\DataLoader\Container\Container
+ * @see Container
  */
 interface Singleton extends Isolated {
     // empty

@@ -14,7 +14,7 @@ use Illuminate\Database\Eloquent\Model;
 use function array_merge;
 
 /**
- * @template TModel of \App\Models\Document|\App\Models\Data\Type
+ * @template TModel of Document|Type
  *
  * @extends DisableableScope<TModel>
  * @implements ScopeWithMetadata<TModel>

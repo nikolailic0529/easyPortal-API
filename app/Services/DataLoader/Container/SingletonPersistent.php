@@ -8,6 +8,6 @@ namespace App\Services\DataLoader\Container;
  *
  * @internal
  */
-interface SingletonPersistent {
+interface SingletonPersistent extends Singleton {
     // empty
 }

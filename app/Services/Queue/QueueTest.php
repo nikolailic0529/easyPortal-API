@@ -116,9 +116,8 @@ class QueueTest extends TestCase {
             ->never();
 
         // Test
-        $config   = $this->app->make(Repository::class);
         $stopTag  = $this->app->make(Stop::class);
-        $actual   = (new Queue($this->app, $config, $stopTag, $repository))->getStates([]);
+        $actual   = (new Queue($stopTag, $repository))->getStates([]);
         $expected = [];
 
         self::assertEquals($expected, $actual);
@@ -214,12 +213,7 @@ class QueueTest extends TestCase {
             ->andReturn(false);
 
         // Queue
-        $queue = new class(
-            $this->app,
-            $this->app->make(Repository::class),
-            $stop,
-            $repository,
-        ) extends Queue {
+        $queue = new class($stop, $repository) extends Queue {
             public function getStatesFromHorizon(Collection $jobs): Generator {
                 return parent::getStatesFromHorizon($jobs);
             }
@@ -330,8 +324,7 @@ class QueueTest extends TestCase {
         // Queue
         $repository = Mockery::mock(JobRepository::class);
         $stopTag    = Mockery::mock(Stop::class);
-        $config     = $this->app->make(Repository::class);
-        $queue      = new class($this->app, $config, $stopTag, $repository) extends Queue {
+        $queue      = new class($stopTag, $repository) extends Queue {
             public function getStatesFromLogs(Collection $jobs): Generator {
                 return parent::getStatesFromLogs($jobs);
             }
@@ -417,8 +410,7 @@ class QueueTest extends TestCase {
         // Queue
         $repository = Mockery::mock(JobRepository::class);
         $stopTag    = Mockery::mock(Stop::class);
-        $config     = $this->app->make(Repository::class);
-        $queue      = new class($this->app, $config, $stopTag, $repository) extends Queue {
+        $queue      = new class($stopTag, $repository) extends Queue {
             public function getStatesFromLogs(Collection $jobs): Generator {
                 return parent::getStatesFromLogs($jobs);
             }
@@ -515,7 +507,6 @@ class QueueTest extends TestCase {
     public function testStop(): void {
         $id        = $this->faker->uuid();
         $job       = Mockery::mock(BaseJob::class);
-        $config    = Mockery::mock(Repository::class);
         $stoppable = Mockery::mock(BaseJob::class, Stoppable::class);
         $stopTag   = Mockery::mock(Stop::class);
         $stopTag
@@ -528,7 +519,7 @@ class QueueTest extends TestCase {
             ->with($stoppable, $id)
             ->once()
             ->andReturn(true);
-        $queue = Mockery::mock(Queue::class, [$this->app, $config, $stopTag, Mockery::mock(JobRepository::class)]);
+        $queue = Mockery::mock(Queue::class, [$stopTag, Mockery::mock(JobRepository::class)]);
         $queue->makePartial();
         $queue
             ->shouldReceive('getState')
@@ -545,7 +536,6 @@ class QueueTest extends TestCase {
     public function testIsStopped(): void {
         $jobA    = Mockery::mock(BaseJob::class, Stoppable::class);
         $jobB    = Mockery::mock(BaseJob::class);
-        $config  = Mockery::mock(Repository::class);
         $stopTag = Mockery::mock(Stop::class);
         $stopTag
             ->shouldReceive('isMarked')
@@ -553,7 +543,7 @@ class QueueTest extends TestCase {
             ->once()
             ->andReturn(true);
 
-        $queue = new Queue($this->app, $config, $stopTag, Mockery::mock(JobRepository::class));
+        $queue = new Queue($stopTag, Mockery::mock(JobRepository::class));
 
         self::assertTrue($queue->isStopped($jobA));
         self::assertFalse($queue->isStopped($jobB));
