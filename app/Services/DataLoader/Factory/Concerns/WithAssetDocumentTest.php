@@ -217,6 +217,10 @@ class WithAssetDocumentTest_Factory extends ModelFactory {
         parent::__construct($exceptionHandler, $normalizer);
     }
 
+    public function getModel(): string {
+        return Model::class;
+    }
+
     public function create(Type $type): ?Model {
         return null;
     }

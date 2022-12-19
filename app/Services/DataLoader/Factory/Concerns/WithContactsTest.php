@@ -56,6 +56,10 @@ class WithContactsTest extends TestCase {
                 // empty
             }
 
+            public function getModel(): string {
+                return Model::class;
+            }
+
             public function create(Type $type): ?Model {
                 return null;
             }
@@ -124,6 +128,10 @@ class WithContactsTest extends TestCase {
                 protected ContactFactory $contacts,
             ) {
                 // empty
+            }
+
+            public function getModel(): string {
+                return Model::class;
             }
 
             public function create(Type $type): ?Model {

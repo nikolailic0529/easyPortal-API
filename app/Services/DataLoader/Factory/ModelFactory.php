@@ -15,6 +15,11 @@ abstract class ModelFactory extends Factory {
     abstract public function create(Type $type): ?Model;
 
     /**
+     * @return class-string<TModel>
+     */
+    abstract public function getModel(): string;
+
+    /**
      * @return TModel|null
      */
     public function find(Type $type): ?Model {

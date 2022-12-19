@@ -124,6 +124,10 @@ class WithKpiTest_Factory extends ModelFactory {
         return $this->normalizer;
     }
 
+    public function getModel(): string {
+        return Model::class;
+    }
+
     public function create(Type $type): ?Model {
         return null;
     }

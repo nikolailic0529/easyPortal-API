@@ -166,6 +166,10 @@ class AssetFactory extends ModelFactory {
 
     // <editor-fold desc="Factory">
     // =========================================================================
+    public function getModel(): string {
+        return Asset::class;
+    }
+
     public function create(Type $type): ?Asset {
         $model = null;
 

@@ -66,6 +66,10 @@ class CustomerFactory extends CompanyFactory {
 
     // <editor-fold desc="Factory">
     // =========================================================================
+    public function getModel(): string {
+        return Customer::class;
+    }
+
     public function find(Type $type): ?Customer {
         return parent::find($type);
     }

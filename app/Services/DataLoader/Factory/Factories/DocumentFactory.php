@@ -223,6 +223,10 @@ class DocumentFactory extends ModelFactory {
 
     // <editor-fold desc="Factory">
     // =========================================================================
+    public function getModel(): string {
+        return DocumentModel::class;
+    }
+
     public function create(Type $type): ?DocumentModel {
         $model = null;
 

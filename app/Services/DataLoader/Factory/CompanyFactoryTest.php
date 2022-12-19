@@ -42,6 +42,10 @@ class CompanyFactoryTest extends TestCase {
                 // empty
             }
 
+            public function getModel(): string {
+                return Model::class;
+            }
+
             public function create(Type $type): ?Model {
                 return null;
             }

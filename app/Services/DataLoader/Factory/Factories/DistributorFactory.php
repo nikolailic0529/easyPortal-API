@@ -29,6 +29,10 @@ class DistributorFactory extends ModelFactory {
         parent::__construct($exceptionHandler, $normalizer);
     }
 
+    public function getModel(): string {
+        return Distributor::class;
+    }
+
     public function find(Type $type): ?Distributor {
         return parent::find($type);
     }

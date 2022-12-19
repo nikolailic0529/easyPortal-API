@@ -49,6 +49,10 @@ class ResellerFactory extends CompanyFactory {
 
     // <editor-fold desc="Factory">
     // =========================================================================
+    public function getModel(): string {
+        return Reseller::class;
+    }
+
     public function find(Type $type): ?Reseller {
         return parent::find($type);
     }

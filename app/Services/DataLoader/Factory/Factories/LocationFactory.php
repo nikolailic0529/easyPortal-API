@@ -47,6 +47,10 @@ class LocationFactory extends ModelFactory {
 
     // <editor-fold desc="Factory">
     // =========================================================================
+    public function getModel(): string {
+        return LocationModel::class;
+    }
+
     public function find(Type $type): ?LocationModel {
         return parent::find($type);
     }
