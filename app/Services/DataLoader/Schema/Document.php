@@ -4,7 +4,7 @@ namespace App\Services\DataLoader\Schema;
 
 use App\Utils\JsonObject\JsonObjectArray;
 
-class Document extends Type implements TypeWithId {
+class Document extends Type implements TypeWithKey {
     public string                      $id;
     public ?string                     $type;
     public ?string                     $documentNumber;
@@ -35,4 +35,8 @@ class Document extends Type implements TypeWithId {
      * @var array<string>|null
      */
     public ?array $status;
+
+    public function getKey(): string {
+        return $this->id;
+    }
 }

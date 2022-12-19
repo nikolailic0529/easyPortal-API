@@ -2,9 +2,6 @@
 
 namespace App\Services\DataLoader\Schema;
 
-/**
- * @property string $id
- */
-interface TypeWithId {
-    // empty
+interface TypeWithKey {
+    public function getKey(): string;
 }

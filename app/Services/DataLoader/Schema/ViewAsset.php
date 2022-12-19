@@ -4,7 +4,7 @@ namespace App\Services\DataLoader\Schema;
 
 use App\Utils\JsonObject\JsonObjectArray;
 
-class ViewAsset extends Type implements TypeWithId {
+class ViewAsset extends Type implements TypeWithKey {
     public string  $id;
     public ?string $resellerId;
     public ?string $customerId;
@@ -50,4 +50,8 @@ class ViewAsset extends Type implements TypeWithId {
     public ?ViewCompany         $reseller;
     public ?ViewCompany         $customer;
     public ?CoverageStatusCheck $coverageStatusCheck;
+
+    public function getKey(): string {
+        return $this->id;
+    }
 }

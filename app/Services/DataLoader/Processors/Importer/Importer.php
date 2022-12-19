@@ -13,7 +13,7 @@ use App\Services\DataLoader\Exceptions\ImportError;
 use App\Services\DataLoader\Factory\ModelFactory;
 use App\Services\DataLoader\Resolver\Resolver;
 use App\Services\DataLoader\Schema\Type;
-use App\Services\DataLoader\Schema\TypeWithId;
+use App\Services\DataLoader\Schema\TypeWithKey;
 use App\Utils\Eloquent\Model;
 use App\Utils\Iterators\Contracts\ObjectIterator;
 use App\Utils\Processor\IteratorProcessor;
@@ -27,7 +27,7 @@ use Throwable;
 use function array_merge;
 
 /**
- * @template TItem of (Type&TypeWithId)|ModelObject
+ * @template TItem of (Type&TypeWithKey)|ModelObject
  * @template TChunkData of Data
  * @template TState of ImporterState
  * @template TModel of Model
