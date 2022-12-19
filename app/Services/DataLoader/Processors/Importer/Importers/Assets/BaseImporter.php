@@ -59,6 +59,7 @@ abstract class BaseImporter extends Importer {
         $assets->loadMissing('location');
         $assets->loadMissing('tags');
         $assets->loadMissing('oem');
+        $assets->loadMissing('coverages');
 
         $locationsResolver->add($assets->pluck('locations')->flatten());
         $contactsResolver->add($assets->pluck('contacts')->flatten());
