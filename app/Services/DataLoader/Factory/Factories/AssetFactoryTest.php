@@ -322,10 +322,7 @@ class AssetFactoryTest extends TestCase {
 
         $factory->create($asset);
 
-        $actual   = array_column($queries->get(), 'query');
-        $expected = $this->getTestData()->json('~createFromAsset-nochanges-expected.json');
-
-        self::assertEquals($expected, $actual);
+        self::assertCount(0, $queries);
     }
 
     /**

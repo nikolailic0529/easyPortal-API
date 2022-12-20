@@ -217,29 +217,14 @@ class AssetFactory extends ModelFactory {
             $model->coverages                 = $this->assetCoverages($asset);
 
             // Warranties
-            if (isset($asset->assetDocument) || isset($asset->coverageStatusCheck)) {
-                try {
-                    // Prefetch
-                    if ($created) {
-                        $model->setRelation('warranties', new EloquentCollection());
-                    } else {
-                        $model->loadMissing('warranties.document.statuses');
-                        $this->getDocumentResolver()->add(
-                            $model->warranties->pluck('document')->flatten(),
-                        );
-                    }
-
-                    // Update
-                    $warrantyChangedAt          = $asset->coverageStatusCheck->coverageStatusUpdatedAt ?? null;
-                    $warrantyChangedAt          = $normalizer->datetime($warrantyChangedAt);
-                    $model->warranties          = $this->assetWarranties($model, $asset);
-                    $model->warranty_changed_at = max($warrantyChangedAt, $model->warranty_changed_at);
-                } finally {
-                    $this->getDocumentResolver()->reset();
-
-                    unset($model->warranties);
-                }
+            if ($created) {
+                $model->setRelation('warranties', new EloquentCollection());
             }
+
+            $warrantyChangedAt          = $asset->coverageStatusCheck->coverageStatusUpdatedAt ?? null;
+            $warrantyChangedAt          = $normalizer->datetime($warrantyChangedAt);
+            $model->warranties          = $this->assetWarranties($model, $asset);
+            $model->warranty_changed_at = max($warrantyChangedAt, $model->warranty_changed_at);
 
             // Save
             if ($model->trashed()) {
@@ -247,6 +232,9 @@ class AssetFactory extends ModelFactory {
             } else {
                 $model->save();
             }
+
+            // Cleanup
+            unset($model->warranties);
 
             // Return
             return $model;

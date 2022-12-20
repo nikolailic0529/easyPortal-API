@@ -64,6 +64,14 @@
         ]
     },
     {
+        "query": "select `documents`.* from `documents` where ((`documents`.`id` = ?) or (`documents`.`id` = ?) or (`documents`.`id` = ?))",
+        "bindings": [
+            "86423562-7ecf-4174-9b1d-9a21cd28d808",
+            "0b45c643-fd82-4e29-9958-a1842c4f32a6",
+            "5c636bd2-bd32-4c47-89d0-5d0474da3eb1"
+        ]
+    },
+    {
         "query": "select `oems`.* from `oems` where `oems`.`deleted_at` is null",
         "bindings": []
     },
@@ -90,14 +98,6 @@
     {
         "query": "select `coverages`.* from `coverages` where `coverages`.`deleted_at` is null",
         "bindings": []
-    },
-    {
-        "query": "select `documents`.* from `documents` where ((`documents`.`id` = ?) or (`documents`.`id` = ?) or (`documents`.`id` = ?))",
-        "bindings": [
-            "86423562-7ecf-4174-9b1d-9a21cd28d808",
-            "0b45c643-fd82-4e29-9958-a1842c4f32a6",
-            "5c636bd2-bd32-4c47-89d0-5d0474da3eb1"
-        ]
     },
     {
         "query": "update `assets` set `synced_at` = ? where `id` in (?) and `assets`.`deleted_at` is null",

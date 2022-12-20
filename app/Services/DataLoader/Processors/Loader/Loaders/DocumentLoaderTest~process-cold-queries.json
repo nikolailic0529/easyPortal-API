@@ -636,15 +636,6 @@
         ]
     },
     {
-        "query": "select `locations`.* from `locations` where (`city_id` = ? and `country_id` = ? and CONCAT(`line_one`, IF(`line_two` != '', CONCAT(' ', `line_two`), '')) = ? and `postcode` = ?) and `locations`.`deleted_at` is null limit 1",
-        "bindings": [
-            "3c837192-b5e7-5f91-aff4-fd40f49c94ce",
-            "6fb67836-e7d8-5ddb-9a1e-a6ed4fdd1b2c",
-            "7658 martina vista",
-            "89915-8265"
-        ]
-    },
-    {
         "query": "select `documents`.* from `documents` where ((`documents`.`id` = ?))",
         "bindings": [
             "00122a07-53e5-4c70-ba6b-bf51fcdd6695"
@@ -654,6 +645,15 @@
         "query": "select `statuses`.*, `document_statuses`.`document_id` as `pivot_document_id`, `document_statuses`.`status_id` as `pivot_status_id`, `document_statuses`.`created_at` as `pivot_created_at`, `document_statuses`.`updated_at` as `pivot_updated_at` from `statuses` inner join `document_statuses` on `statuses`.`id` = `document_statuses`.`status_id` where `document_statuses`.`deleted_at` is null and `document_statuses`.`document_id` in (?) and `statuses`.`deleted_at` is null",
         "bindings": [
             "00122a07-53e5-4c70-ba6b-bf51fcdd6695"
+        ]
+    },
+    {
+        "query": "select `locations`.* from `locations` where (`city_id` = ? and `country_id` = ? and CONCAT(`line_one`, IF(`line_two` != '', CONCAT(' ', `line_two`), '')) = ? and `postcode` = ?) and `locations`.`deleted_at` is null limit 1",
+        "bindings": [
+            "3c837192-b5e7-5f91-aff4-fd40f49c94ce",
+            "6fb67836-e7d8-5ddb-9a1e-a6ed4fdd1b2c",
+            "7658 martina vista",
+            "89915-8265"
         ]
     },
     {
@@ -802,6 +802,18 @@
         ]
     },
     {
+        "query": "select `documents`.* from `documents` where ((`documents`.`id` = ?))",
+        "bindings": [
+            "00122a07-53e5-4c70-ba6b-bf51fcdd6695"
+        ]
+    },
+    {
+        "query": "select `statuses`.*, `document_statuses`.`document_id` as `pivot_document_id`, `document_statuses`.`status_id` as `pivot_status_id`, `document_statuses`.`created_at` as `pivot_created_at`, `document_statuses`.`updated_at` as `pivot_updated_at` from `statuses` inner join `document_statuses` on `statuses`.`id` = `document_statuses`.`status_id` where `document_statuses`.`deleted_at` is null and `document_statuses`.`document_id` in (?) and `statuses`.`deleted_at` is null",
+        "bindings": [
+            "00122a07-53e5-4c70-ba6b-bf51fcdd6695"
+        ]
+    },
+    {
         "query": "update `products` set `name` = ?, `products`.`updated_at` = ? where `id` = ?",
         "bindings": [
             "HPE SV VSA 2014 10TB E-LTU",
@@ -816,18 +828,6 @@
             "6fb67836-e7d8-5ddb-9a1e-a6ed4fdd1b2c",
             "7658 martina vista",
             "89915-8265"
-        ]
-    },
-    {
-        "query": "select `documents`.* from `documents` where ((`documents`.`id` = ?))",
-        "bindings": [
-            "00122a07-53e5-4c70-ba6b-bf51fcdd6695"
-        ]
-    },
-    {
-        "query": "select `statuses`.*, `document_statuses`.`document_id` as `pivot_document_id`, `document_statuses`.`status_id` as `pivot_status_id`, `document_statuses`.`created_at` as `pivot_created_at`, `document_statuses`.`updated_at` as `pivot_updated_at` from `statuses` inner join `document_statuses` on `statuses`.`id` = `document_statuses`.`status_id` where `document_statuses`.`deleted_at` is null and `document_statuses`.`document_id` in (?) and `statuses`.`deleted_at` is null",
-        "bindings": [
-            "00122a07-53e5-4c70-ba6b-bf51fcdd6695"
         ]
     },
     {
@@ -976,15 +976,6 @@
         ]
     },
     {
-        "query": "select `locations`.* from `locations` where (`city_id` = ? and `country_id` = ? and CONCAT(`line_one`, IF(`line_two` != '', CONCAT(' ', `line_two`), '')) = ? and `postcode` = ?) and `locations`.`deleted_at` is null limit 1",
-        "bindings": [
-            "3c837192-b5e7-5f91-aff4-fd40f49c94ce",
-            "6fb67836-e7d8-5ddb-9a1e-a6ed4fdd1b2c",
-            "7658 martina vista",
-            "89915-8265"
-        ]
-    },
-    {
         "query": "select `documents`.* from `documents` where ((`documents`.`id` = ?))",
         "bindings": [
             "00122a07-53e5-4c70-ba6b-bf51fcdd6695"
@@ -994,6 +985,15 @@
         "query": "select `statuses`.*, `document_statuses`.`document_id` as `pivot_document_id`, `document_statuses`.`status_id` as `pivot_status_id`, `document_statuses`.`created_at` as `pivot_created_at`, `document_statuses`.`updated_at` as `pivot_updated_at` from `statuses` inner join `document_statuses` on `statuses`.`id` = `document_statuses`.`status_id` where `document_statuses`.`deleted_at` is null and `document_statuses`.`document_id` in (?) and `statuses`.`deleted_at` is null",
         "bindings": [
             "00122a07-53e5-4c70-ba6b-bf51fcdd6695"
+        ]
+    },
+    {
+        "query": "select `locations`.* from `locations` where (`city_id` = ? and `country_id` = ? and CONCAT(`line_one`, IF(`line_two` != '', CONCAT(' ', `line_two`), '')) = ? and `postcode` = ?) and `locations`.`deleted_at` is null limit 1",
+        "bindings": [
+            "3c837192-b5e7-5f91-aff4-fd40f49c94ce",
+            "6fb67836-e7d8-5ddb-9a1e-a6ed4fdd1b2c",
+            "7658 martina vista",
+            "89915-8265"
         ]
     },
     {
