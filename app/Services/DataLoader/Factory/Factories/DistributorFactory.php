@@ -10,7 +10,6 @@ use App\Services\DataLoader\Resolver\Resolvers\TypeResolver;
 use App\Services\DataLoader\Schema\Company;
 use App\Services\DataLoader\Schema\Type;
 use Illuminate\Contracts\Debug\ExceptionHandler;
-use Illuminate\Support\Facades\Date;
 use InvalidArgumentException;
 
 use function implode;
@@ -65,10 +64,6 @@ class DistributorFactory extends ModelFactory {
             $distributor->id         = $normalizer->uuid($company->id);
             $distributor->name       = $normalizer->string($company->name);
             $distributor->changed_at = $normalizer->datetime($company->updatedAt);
-
-            if ($created) {
-                $distributor->synced_at = Date::now();
-            }
 
             if ($distributor->trashed()) {
                 $distributor->restore();

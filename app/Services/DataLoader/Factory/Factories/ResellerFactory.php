@@ -15,7 +15,6 @@ use App\Services\DataLoader\Schema\Company;
 use App\Services\DataLoader\Schema\Type;
 use Illuminate\Contracts\Debug\ExceptionHandler;
 use Illuminate\Contracts\Events\Dispatcher;
-use Illuminate\Support\Facades\Date;
 use InvalidArgumentException;
 
 use function implode;
@@ -90,10 +89,6 @@ class ResellerFactory extends CompanyFactory {
             $reseller->contacts   = $this->objectContacts($reseller, $company->companyContactPersons);
             $reseller->locations  = $this->companyLocations($reseller, $company->locations);
             $reseller->kpi        = $this->kpi($reseller, $company->companyKpis);
-
-            if ($created) {
-                $reseller->synced_at = Date::now();
-            }
 
             if ($created) {
                 $reseller->assets_count    = 0;

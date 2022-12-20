@@ -326,7 +326,7 @@
     {
         "query": "update `documents` set `synced_at` = ? where `id` in (?, ?, ?, ?, ?) and `documents`.`deleted_at` is null",
         "bindings": [
-            "2022-02-02T00:12:39+00:00",
+            "2022-02-02T00:12:14+00:00",
             "00122a07-53e5-4c70-ba6b-bf51fcdd6695",
             "001b2a01-3d1f-477f-a452-d7a3117cfea4",
             "001f7fd7-fe51-40b7-a0eb-b6e95206ca28",
@@ -683,7 +683,7 @@
     {
         "query": "update `documents` set `synced_at` = ? where `id` in (?, ?, ?, ?, ?) and `documents`.`deleted_at` is null",
         "bindings": [
-            "2022-02-02T00:13:15+00:00",
+            "2022-02-02T00:12:50+00:00",
             "00273116-0826-4d23-a8ff-4d1996890fd9",
             "00508e09-8507-41d1-9fe1-673f613e0275",
             "0057594a-40eb-4e60-99f0-a16e64f42df2",
@@ -1047,7 +1047,7 @@
     {
         "query": "update `documents` set `synced_at` = ? where `id` in (?, ?, ?, ?, ?) and `documents`.`deleted_at` is null",
         "bindings": [
-            "2022-02-02T00:13:51+00:00",
+            "2022-02-02T00:13:26+00:00",
             "00c7d149-de7f-4e05-a0b7-c6db95c03b61",
             "00ca6e1c-8049-4d28-8138-104dc2849bcb",
             "00d2387e-6189-49fb-bb4b-a7d3181f1755",
@@ -1383,7 +1383,7 @@
     {
         "query": "update `documents` set `synced_at` = ? where `id` in (?, ?, ?, ?, ?) and `documents`.`deleted_at` is null",
         "bindings": [
-            "2022-02-02T00:14:27+00:00",
+            "2022-02-02T00:14:02+00:00",
             "0103f123-d0c3-4710-b84b-86c38ff225d0",
             "010ac6c8-375e-4199-a4d0-093d10983ae4",
             "0111d7ae-6397-49b7-a991-2a10ed0ef5e9",
@@ -1667,7 +1667,7 @@
     {
         "query": "update `documents` set `synced_at` = ? where `id` in (?, ?, ?, ?, ?) and `documents`.`deleted_at` is null",
         "bindings": [
-            "2022-02-02T00:15:03+00:00",
+            "2022-02-02T00:14:38+00:00",
             "0130972e-181a-4cc4-a569-54a072e6899a",
             "013db1c0-c4b2-4f3a-830b-58de8b40ccc8",
             "01507408-4666-4b49-b80d-aee66192dcaf",

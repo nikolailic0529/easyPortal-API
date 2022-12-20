@@ -7,6 +7,7 @@ use App\Services\DataLoader\Processors\Importer\Importers\Documents\IteratorImpo
 use App\Services\DataLoader\Testing\Data\Context;
 use App\Services\DataLoader\Testing\Data\DocumentsData;
 use App\Utils\Iterators\Contracts\ObjectIterator;
+use Illuminate\Support\Facades\Date;
 use LastDragon_ru\LaraASP\Testing\Utils\TestData;
 
 class DocumentsIteratorImporterData extends DocumentsData {
@@ -52,6 +53,7 @@ class DocumentsIteratorImporterData extends DocumentsData {
             'type_id'     => null,
             'reseller_id' => null,
             'customer_id' => null,
+            'synced_at'   => Date::now(),
         ]);
 
         return true;

@@ -291,8 +291,8 @@
             "Contract",
             "Contract",
             "a388f947-2949-50c6-ac99-7ca4b72ab5ad",
-            "2022-02-02 00:00:17",
-            "2022-02-02 00:00:17"
+            "2022-02-02 00:00:16",
+            "2022-02-02 00:00:16"
         ]
     },
     {
@@ -309,8 +309,8 @@
             "Expiring",
             "Expiring",
             "cce3dce7-5601-58d1-9117-68e5bc64ea03",
-            "2022-02-02 00:00:18",
-            "2022-02-02 00:00:18"
+            "2022-02-02 00:00:17",
+            "2022-02-02 00:00:17"
         ]
     },
     {
@@ -320,7 +320,7 @@
         ]
     },
     {
-        "query": "insert into `assets` (`id`, `oem_id`, `type_id`, `status_id`, `product_id`, `reseller_id`, `customer_id`, `location_id`, `eosl`, `changed_at`, `serial_number`, `data_quality`, `contracts_active_quantity`, `contacts_count`, `coverages_count`, `synced_at`, `warranty_end`, `warranty_service_group_id`, `warranty_service_level_id`, `warranty_changed_at`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `assets` (`id`, `oem_id`, `type_id`, `status_id`, `product_id`, `reseller_id`, `customer_id`, `location_id`, `eosl`, `changed_at`, `serial_number`, `data_quality`, `contracts_active_quantity`, `contacts_count`, `coverages_count`, `warranty_end`, `warranty_service_group_id`, `warranty_service_level_id`, `warranty_changed_at`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "1c130200-357f-445f-abc5-57808dc9e80d",
             "f494438f-85b3-5bc8-9580-3cd17c2e1b01",
@@ -337,13 +337,12 @@
             0,
             3,
             1,
-            "2022-02-02 00:00:12",
             "2022-12-31 00:00:00",
             null,
             null,
             "2022-10-03 10:35:34",
-            "2022-02-02 00:00:23",
-            "2022-02-02 00:00:23"
+            "2022-02-02 00:00:22",
+            "2022-02-02 00:00:22"
         ]
     },
     {
@@ -356,8 +355,8 @@
             null,
             true,
             "dea4b75e-50fc-5804-8a77-16c73bb6e474",
-            "2022-02-02 00:00:24",
-            "2022-02-02 00:00:24"
+            "2022-02-02 00:00:23",
+            "2022-02-02 00:00:23"
         ]
     },
     {
@@ -366,8 +365,8 @@
             "80314907-365f-5bb1-8eee-dece7330396c",
             "dea4b75e-50fc-5804-8a77-16c73bb6e474",
             "52e767b7-eeb2-5e89-964e-2fe564d58940",
-            "2022-02-02 00:00:25",
-            "2022-02-02 00:00:25"
+            "2022-02-02 00:00:24",
+            "2022-02-02 00:00:24"
         ]
     },
     {
@@ -380,8 +379,8 @@
             "meggie.tremblay@harris.com",
             true,
             "ca207bcf-ef8a-59f7-b9a4-de619ff720b2",
-            "2022-02-02 00:00:26",
-            "2022-02-02 00:00:26"
+            "2022-02-02 00:00:25",
+            "2022-02-02 00:00:25"
         ]
     },
     {
@@ -390,8 +389,8 @@
             "72a3bc57-9110-5502-a1fe-79c99596cfac",
             "ca207bcf-ef8a-59f7-b9a4-de619ff720b2",
             "e6cc63ad-2ec9-524f-be3d-ce960019d5da",
-            "2022-02-02 00:00:27",
-            "2022-02-02 00:00:27"
+            "2022-02-02 00:00:26",
+            "2022-02-02 00:00:26"
         ]
     },
     {
@@ -404,8 +403,8 @@
             "chowe@conroy.info",
             true,
             "528b3f81-c203-5f07-8e95-88a43b2a279a",
-            "2022-02-02 00:00:28",
-            "2022-02-02 00:00:28"
+            "2022-02-02 00:00:27",
+            "2022-02-02 00:00:27"
         ]
     },
     {
@@ -414,8 +413,8 @@
             "e172c416-2d63-5c07-8650-67e3d69fbbb3",
             "528b3f81-c203-5f07-8e95-88a43b2a279a",
             "bc3bbc25-d26a-55e1-93ff-80b179389b24",
-            "2022-02-02 00:00:29",
-            "2022-02-02 00:00:29"
+            "2022-02-02 00:00:28",
+            "2022-02-02 00:00:28"
         ]
     },
     {
@@ -424,8 +423,8 @@
             "6c4d3a6a-b496-5130-a829-f6419759b7a0",
             "1c130200-357f-445f-abc5-57808dc9e80d",
             "82c5ad89-e333-5def-a700-9c36737d6a8a",
-            "2022-02-02 00:00:30",
-            "2022-02-02 00:00:30"
+            "2022-02-02 00:00:29",
+            "2022-02-02 00:00:29"
         ]
     },
     {
@@ -444,8 +443,8 @@
             null,
             null,
             "51cecd7a-639f-5970-ba98-11efaf52a40f",
-            "2022-02-02 00:00:31",
-            "2022-02-02 00:00:31"
+            "2022-02-02 00:00:30",
+            "2022-02-02 00:00:30"
         ]
     },
     {
@@ -455,7 +454,7 @@
         ]
     },
     {
-        "query": "insert into `assets` (`id`, `oem_id`, `type_id`, `status_id`, `product_id`, `reseller_id`, `customer_id`, `location_id`, `eosl`, `changed_at`, `serial_number`, `data_quality`, `contracts_active_quantity`, `contacts_count`, `coverages_count`, `synced_at`, `warranty_end`, `warranty_service_group_id`, `warranty_service_level_id`, `warranty_changed_at`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `assets` (`id`, `oem_id`, `type_id`, `status_id`, `product_id`, `reseller_id`, `customer_id`, `location_id`, `eosl`, `changed_at`, `serial_number`, `data_quality`, `contracts_active_quantity`, `contacts_count`, `coverages_count`, `warranty_end`, `warranty_service_group_id`, `warranty_service_level_id`, `warranty_changed_at`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "1fca119b-4657-4481-86dd-366df5b9c30e",
             "f494438f-85b3-5bc8-9580-3cd17c2e1b01",
@@ -472,13 +471,12 @@
             0,
             3,
             1,
-            "2022-02-02 00:00:33",
             "2022-12-31 00:00:00",
             null,
             null,
             "2022-10-03 10:42:33",
-            "2022-02-02 00:00:42",
-            "2022-02-02 00:00:42"
+            "2022-02-02 00:00:40",
+            "2022-02-02 00:00:40"
         ]
     },
     {
@@ -491,8 +489,8 @@
             null,
             true,
             "a2d64dd3-3e2b-5da5-b14e-f28f08c684dc",
-            "2022-02-02 00:00:43",
-            "2022-02-02 00:00:43"
+            "2022-02-02 00:00:41",
+            "2022-02-02 00:00:41"
         ]
     },
     {
@@ -501,8 +499,8 @@
             "80314907-365f-5bb1-8eee-dece7330396c",
             "a2d64dd3-3e2b-5da5-b14e-f28f08c684dc",
             "f804a2b0-597a-5fe3-a5b0-b23ff9d68adc",
-            "2022-02-02 00:00:44",
-            "2022-02-02 00:00:44"
+            "2022-02-02 00:00:42",
+            "2022-02-02 00:00:42"
         ]
     },
     {
@@ -515,8 +513,8 @@
             "meggie.tremblay@harris.com",
             true,
             "eef63f6c-6c0a-5942-b916-6252bef6de3c",
-            "2022-02-02 00:00:45",
-            "2022-02-02 00:00:45"
+            "2022-02-02 00:00:43",
+            "2022-02-02 00:00:43"
         ]
     },
     {
@@ -525,8 +523,8 @@
             "72a3bc57-9110-5502-a1fe-79c99596cfac",
             "eef63f6c-6c0a-5942-b916-6252bef6de3c",
             "9d54f0b3-8562-5dd9-b5be-9eac7101ec5e",
-            "2022-02-02 00:00:46",
-            "2022-02-02 00:00:46"
+            "2022-02-02 00:00:44",
+            "2022-02-02 00:00:44"
         ]
     },
     {
@@ -539,8 +537,8 @@
             "chowe@conroy.info",
             true,
             "ecbc0724-ace8-5481-8090-effdde8032cc",
-            "2022-02-02 00:00:47",
-            "2022-02-02 00:00:47"
+            "2022-02-02 00:00:45",
+            "2022-02-02 00:00:45"
         ]
     },
     {
@@ -549,8 +547,8 @@
             "e172c416-2d63-5c07-8650-67e3d69fbbb3",
             "ecbc0724-ace8-5481-8090-effdde8032cc",
             "2c9de560-4a87-5702-9143-83a93ffc6734",
-            "2022-02-02 00:00:48",
-            "2022-02-02 00:00:48"
+            "2022-02-02 00:00:46",
+            "2022-02-02 00:00:46"
         ]
     },
     {
@@ -559,8 +557,8 @@
             "6c4d3a6a-b496-5130-a829-f6419759b7a0",
             "1fca119b-4657-4481-86dd-366df5b9c30e",
             "40188fd7-7519-5fc3-830c-67b16963a784",
-            "2022-02-02 00:00:49",
-            "2022-02-02 00:00:49"
+            "2022-02-02 00:00:47",
+            "2022-02-02 00:00:47"
         ]
     },
     {
@@ -579,8 +577,8 @@
             null,
             null,
             "9093c09e-92d9-5496-847f-3198115560da",
-            "2022-02-02 00:00:50",
-            "2022-02-02 00:00:50"
+            "2022-02-02 00:00:48",
+            "2022-02-02 00:00:48"
         ]
     },
     {
@@ -590,7 +588,7 @@
         ]
     },
     {
-        "query": "insert into `assets` (`id`, `oem_id`, `type_id`, `status_id`, `product_id`, `reseller_id`, `customer_id`, `location_id`, `eosl`, `changed_at`, `serial_number`, `data_quality`, `contracts_active_quantity`, `contacts_count`, `coverages_count`, `synced_at`, `warranty_end`, `warranty_service_group_id`, `warranty_service_level_id`, `warranty_changed_at`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `assets` (`id`, `oem_id`, `type_id`, `status_id`, `product_id`, `reseller_id`, `customer_id`, `location_id`, `eosl`, `changed_at`, `serial_number`, `data_quality`, `contracts_active_quantity`, `contacts_count`, `coverages_count`, `warranty_end`, `warranty_service_group_id`, `warranty_service_level_id`, `warranty_changed_at`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "23637b07-98f9-4385-8293-77d72027d920",
             "f494438f-85b3-5bc8-9580-3cd17c2e1b01",
@@ -607,13 +605,12 @@
             0,
             3,
             1,
-            "2022-02-02 00:00:52",
             "2022-12-31 00:00:00",
             null,
             null,
             "2022-10-03 10:49:15",
-            "2022-02-02 00:01:01",
-            "2022-02-02 00:01:01"
+            "2022-02-02 00:00:58",
+            "2022-02-02 00:00:58"
         ]
     },
     {
@@ -626,8 +623,8 @@
             null,
             true,
             "be42b905-a1df-53d3-ba0b-ca1184ae976f",
-            "2022-02-02 00:01:02",
-            "2022-02-02 00:01:02"
+            "2022-02-02 00:00:59",
+            "2022-02-02 00:00:59"
         ]
     },
     {
@@ -636,8 +633,8 @@
             "80314907-365f-5bb1-8eee-dece7330396c",
             "be42b905-a1df-53d3-ba0b-ca1184ae976f",
             "82350c3c-0018-5c2e-9222-d610e1d446b8",
-            "2022-02-02 00:01:03",
-            "2022-02-02 00:01:03"
+            "2022-02-02 00:01:00",
+            "2022-02-02 00:01:00"
         ]
     },
     {
@@ -650,8 +647,8 @@
             "meggie.tremblay@harris.com",
             true,
             "803cd7fb-2fdf-54d3-87f0-9a6c25afc6eb",
-            "2022-02-02 00:01:04",
-            "2022-02-02 00:01:04"
+            "2022-02-02 00:01:01",
+            "2022-02-02 00:01:01"
         ]
     },
     {
@@ -660,8 +657,8 @@
             "72a3bc57-9110-5502-a1fe-79c99596cfac",
             "803cd7fb-2fdf-54d3-87f0-9a6c25afc6eb",
             "9983c5a4-989c-588e-8f70-28a60540085e",
-            "2022-02-02 00:01:05",
-            "2022-02-02 00:01:05"
+            "2022-02-02 00:01:02",
+            "2022-02-02 00:01:02"
         ]
     },
     {
@@ -674,8 +671,8 @@
             "chowe@conroy.info",
             true,
             "038e3033-d17d-501e-b78d-8ef65f35a7e9",
-            "2022-02-02 00:01:06",
-            "2022-02-02 00:01:06"
+            "2022-02-02 00:01:03",
+            "2022-02-02 00:01:03"
         ]
     },
     {
@@ -684,8 +681,8 @@
             "e172c416-2d63-5c07-8650-67e3d69fbbb3",
             "038e3033-d17d-501e-b78d-8ef65f35a7e9",
             "51b211d1-f7cf-5c55-a4c5-07ae38476a17",
-            "2022-02-02 00:01:07",
-            "2022-02-02 00:01:07"
+            "2022-02-02 00:01:04",
+            "2022-02-02 00:01:04"
         ]
     },
     {
@@ -694,8 +691,8 @@
             "6c4d3a6a-b496-5130-a829-f6419759b7a0",
             "23637b07-98f9-4385-8293-77d72027d920",
             "9486e05e-b395-5914-8976-7398f505ed2d",
-            "2022-02-02 00:01:08",
-            "2022-02-02 00:01:08"
+            "2022-02-02 00:01:05",
+            "2022-02-02 00:01:05"
         ]
     },
     {
@@ -714,8 +711,8 @@
             null,
             null,
             "2576a497-8705-5953-8b79-5637d8202ae1",
-            "2022-02-02 00:01:09",
-            "2022-02-02 00:01:09"
+            "2022-02-02 00:01:06",
+            "2022-02-02 00:01:06"
         ]
     },
     {
@@ -725,7 +722,7 @@
         ]
     },
     {
-        "query": "insert into `assets` (`id`, `oem_id`, `type_id`, `status_id`, `product_id`, `reseller_id`, `customer_id`, `location_id`, `eosl`, `changed_at`, `serial_number`, `data_quality`, `contracts_active_quantity`, `contacts_count`, `coverages_count`, `synced_at`, `warranty_end`, `warranty_service_group_id`, `warranty_service_level_id`, `warranty_changed_at`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `assets` (`id`, `oem_id`, `type_id`, `status_id`, `product_id`, `reseller_id`, `customer_id`, `location_id`, `eosl`, `changed_at`, `serial_number`, `data_quality`, `contracts_active_quantity`, `contacts_count`, `coverages_count`, `warranty_end`, `warranty_service_group_id`, `warranty_service_level_id`, `warranty_changed_at`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "321df7d4-feed-4117-ae22-6eec85afb0ef",
             "f494438f-85b3-5bc8-9580-3cd17c2e1b01",
@@ -742,13 +739,12 @@
             0,
             3,
             1,
-            "2022-02-02 00:01:11",
             "2022-12-31 00:00:00",
             null,
             null,
             "2022-10-03 11:28:49",
-            "2022-02-02 00:01:20",
-            "2022-02-02 00:01:20"
+            "2022-02-02 00:01:16",
+            "2022-02-02 00:01:16"
         ]
     },
     {
@@ -761,8 +757,8 @@
             null,
             true,
             "da220625-a930-5c6d-9f93-1ce43534d2e5",
-            "2022-02-02 00:01:21",
-            "2022-02-02 00:01:21"
+            "2022-02-02 00:01:17",
+            "2022-02-02 00:01:17"
         ]
     },
     {
@@ -771,8 +767,8 @@
             "80314907-365f-5bb1-8eee-dece7330396c",
             "da220625-a930-5c6d-9f93-1ce43534d2e5",
             "464f5711-1d74-50ac-ac47-14121162d7fc",
-            "2022-02-02 00:01:22",
-            "2022-02-02 00:01:22"
+            "2022-02-02 00:01:18",
+            "2022-02-02 00:01:18"
         ]
     },
     {
@@ -785,8 +781,8 @@
             "meggie.tremblay@harris.com",
             true,
             "bb66b173-406a-5451-87a6-6af9f19531c7",
-            "2022-02-02 00:01:23",
-            "2022-02-02 00:01:23"
+            "2022-02-02 00:01:19",
+            "2022-02-02 00:01:19"
         ]
     },
     {
@@ -795,8 +791,8 @@
             "72a3bc57-9110-5502-a1fe-79c99596cfac",
             "bb66b173-406a-5451-87a6-6af9f19531c7",
             "b19dcd4b-a888-5211-8ec5-409e9fa87b87",
-            "2022-02-02 00:01:24",
-            "2022-02-02 00:01:24"
+            "2022-02-02 00:01:20",
+            "2022-02-02 00:01:20"
         ]
     },
     {
@@ -809,8 +805,8 @@
             "chowe@conroy.info",
             true,
             "efa8ddaa-dfd6-5105-bc66-06b1db29d687",
-            "2022-02-02 00:01:25",
-            "2022-02-02 00:01:25"
+            "2022-02-02 00:01:21",
+            "2022-02-02 00:01:21"
         ]
     },
     {
@@ -819,8 +815,8 @@
             "e172c416-2d63-5c07-8650-67e3d69fbbb3",
             "efa8ddaa-dfd6-5105-bc66-06b1db29d687",
             "3625f7f5-d8e8-518a-b094-0845e9f7dc16",
-            "2022-02-02 00:01:26",
-            "2022-02-02 00:01:26"
+            "2022-02-02 00:01:22",
+            "2022-02-02 00:01:22"
         ]
     },
     {
@@ -829,8 +825,8 @@
             "6c4d3a6a-b496-5130-a829-f6419759b7a0",
             "321df7d4-feed-4117-ae22-6eec85afb0ef",
             "7313f7af-d5d8-52f2-9dc2-49f0b9212ee5",
-            "2022-02-02 00:01:27",
-            "2022-02-02 00:01:27"
+            "2022-02-02 00:01:23",
+            "2022-02-02 00:01:23"
         ]
     },
     {
@@ -849,8 +845,8 @@
             null,
             null,
             "63be4ac4-27cc-545e-9724-8fb8cb909e6c",
-            "2022-02-02 00:01:28",
-            "2022-02-02 00:01:28"
+            "2022-02-02 00:01:24",
+            "2022-02-02 00:01:24"
         ]
     },
     {
@@ -860,7 +856,7 @@
         ]
     },
     {
-        "query": "insert into `assets` (`id`, `oem_id`, `type_id`, `status_id`, `product_id`, `reseller_id`, `customer_id`, `location_id`, `eosl`, `changed_at`, `serial_number`, `data_quality`, `contracts_active_quantity`, `contacts_count`, `coverages_count`, `synced_at`, `warranty_end`, `warranty_service_group_id`, `warranty_service_level_id`, `warranty_changed_at`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `assets` (`id`, `oem_id`, `type_id`, `status_id`, `product_id`, `reseller_id`, `customer_id`, `location_id`, `eosl`, `changed_at`, `serial_number`, `data_quality`, `contracts_active_quantity`, `contacts_count`, `coverages_count`, `warranty_end`, `warranty_service_group_id`, `warranty_service_level_id`, `warranty_changed_at`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "62bb32a3-3eb2-4aa5-919e-dd2129447d40",
             "f494438f-85b3-5bc8-9580-3cd17c2e1b01",
@@ -877,13 +873,12 @@
             0,
             3,
             1,
-            "2022-02-02 00:01:30",
             "2022-12-31 00:00:00",
             null,
             null,
             "2022-10-03 12:56:48",
-            "2022-02-02 00:01:39",
-            "2022-02-02 00:01:39"
+            "2022-02-02 00:01:34",
+            "2022-02-02 00:01:34"
         ]
     },
     {
@@ -896,8 +891,8 @@
             null,
             true,
             "1985019d-c165-5477-97aa-f9a568f50b3e",
-            "2022-02-02 00:01:40",
-            "2022-02-02 00:01:40"
+            "2022-02-02 00:01:35",
+            "2022-02-02 00:01:35"
         ]
     },
     {
@@ -906,8 +901,8 @@
             "80314907-365f-5bb1-8eee-dece7330396c",
             "1985019d-c165-5477-97aa-f9a568f50b3e",
             "f2c0c6cf-e82b-52ce-a3c9-a983ab673c16",
-            "2022-02-02 00:01:41",
-            "2022-02-02 00:01:41"
+            "2022-02-02 00:01:36",
+            "2022-02-02 00:01:36"
         ]
     },
     {
@@ -920,8 +915,8 @@
             "meggie.tremblay@harris.com",
             true,
             "2c5f6e4b-9307-5c62-85db-c38d0005f9e7",
-            "2022-02-02 00:01:42",
-            "2022-02-02 00:01:42"
+            "2022-02-02 00:01:37",
+            "2022-02-02 00:01:37"
         ]
     },
     {
@@ -930,8 +925,8 @@
             "72a3bc57-9110-5502-a1fe-79c99596cfac",
             "2c5f6e4b-9307-5c62-85db-c38d0005f9e7",
             "f3f7d8cd-f3f3-5cf2-b8e7-b6811350f9df",
-            "2022-02-02 00:01:43",
-            "2022-02-02 00:01:43"
+            "2022-02-02 00:01:38",
+            "2022-02-02 00:01:38"
         ]
     },
     {
@@ -944,8 +939,8 @@
             "chowe@conroy.info",
             true,
             "dfbe2dde-158b-5998-8e33-26d67811f801",
-            "2022-02-02 00:01:44",
-            "2022-02-02 00:01:44"
+            "2022-02-02 00:01:39",
+            "2022-02-02 00:01:39"
         ]
     },
     {
@@ -954,8 +949,8 @@
             "e172c416-2d63-5c07-8650-67e3d69fbbb3",
             "dfbe2dde-158b-5998-8e33-26d67811f801",
             "64f8606e-7426-5c4e-b425-375e6ee81093",
-            "2022-02-02 00:01:45",
-            "2022-02-02 00:01:45"
+            "2022-02-02 00:01:40",
+            "2022-02-02 00:01:40"
         ]
     },
     {
@@ -964,8 +959,8 @@
             "6c4d3a6a-b496-5130-a829-f6419759b7a0",
             "62bb32a3-3eb2-4aa5-919e-dd2129447d40",
             "7f97bb76-534d-5fe4-85ef-5efe666fc598",
-            "2022-02-02 00:01:46",
-            "2022-02-02 00:01:46"
+            "2022-02-02 00:01:41",
+            "2022-02-02 00:01:41"
         ]
     },
     {
@@ -984,8 +979,8 @@
             null,
             null,
             "df18db08-39ca-5c57-9912-a7d67885fe3b",
-            "2022-02-02 00:01:47",
-            "2022-02-02 00:01:47"
+            "2022-02-02 00:01:42",
+            "2022-02-02 00:01:42"
         ]
     },
     {
@@ -995,7 +990,7 @@
         ]
     },
     {
-        "query": "insert into `assets` (`id`, `oem_id`, `type_id`, `status_id`, `product_id`, `reseller_id`, `customer_id`, `location_id`, `eosl`, `changed_at`, `serial_number`, `data_quality`, `contracts_active_quantity`, `contacts_count`, `coverages_count`, `synced_at`, `warranty_end`, `warranty_service_group_id`, `warranty_service_level_id`, `warranty_changed_at`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `assets` (`id`, `oem_id`, `type_id`, `status_id`, `product_id`, `reseller_id`, `customer_id`, `location_id`, `eosl`, `changed_at`, `serial_number`, `data_quality`, `contracts_active_quantity`, `contacts_count`, `coverages_count`, `warranty_end`, `warranty_service_group_id`, `warranty_service_level_id`, `warranty_changed_at`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "84995b8d-8d3e-4ac1-b29e-5a0d605faaee",
             "f494438f-85b3-5bc8-9580-3cd17c2e1b01",
@@ -1012,13 +1007,12 @@
             0,
             3,
             1,
-            "2022-02-02 00:01:49",
             "2022-12-31 00:00:00",
             null,
             null,
             "2022-10-03 13:57:25",
-            "2022-02-02 00:01:58",
-            "2022-02-02 00:01:58"
+            "2022-02-02 00:01:52",
+            "2022-02-02 00:01:52"
         ]
     },
     {
@@ -1031,8 +1025,8 @@
             null,
             true,
             "6ae3ee0e-23c3-52f1-b678-ff988d191a55",
-            "2022-02-02 00:01:59",
-            "2022-02-02 00:01:59"
+            "2022-02-02 00:01:53",
+            "2022-02-02 00:01:53"
         ]
     },
     {
@@ -1041,8 +1035,8 @@
             "80314907-365f-5bb1-8eee-dece7330396c",
             "6ae3ee0e-23c3-52f1-b678-ff988d191a55",
             "71509758-7048-59bb-9235-36ec9e2877dd",
-            "2022-02-02 00:02:00",
-            "2022-02-02 00:02:00"
+            "2022-02-02 00:01:54",
+            "2022-02-02 00:01:54"
         ]
     },
     {
@@ -1055,8 +1049,8 @@
             "meggie.tremblay@harris.com",
             true,
             "31ed22a9-c673-5fe5-8436-d21721e478f2",
-            "2022-02-02 00:02:01",
-            "2022-02-02 00:02:01"
+            "2022-02-02 00:01:55",
+            "2022-02-02 00:01:55"
         ]
     },
     {
@@ -1065,8 +1059,8 @@
             "72a3bc57-9110-5502-a1fe-79c99596cfac",
             "31ed22a9-c673-5fe5-8436-d21721e478f2",
             "3a0381f5-0f18-53bf-bb6a-0c651c391907",
-            "2022-02-02 00:02:02",
-            "2022-02-02 00:02:02"
+            "2022-02-02 00:01:56",
+            "2022-02-02 00:01:56"
         ]
     },
     {
@@ -1079,8 +1073,8 @@
             "chowe@conroy.info",
             true,
             "90078ccc-a6b7-55b0-b4c0-0d51b0b849ca",
-            "2022-02-02 00:02:03",
-            "2022-02-02 00:02:03"
+            "2022-02-02 00:01:57",
+            "2022-02-02 00:01:57"
         ]
     },
     {
@@ -1089,8 +1083,8 @@
             "e172c416-2d63-5c07-8650-67e3d69fbbb3",
             "90078ccc-a6b7-55b0-b4c0-0d51b0b849ca",
             "9a9a20c3-393b-5cf2-a0b9-2cca606a72c1",
-            "2022-02-02 00:02:04",
-            "2022-02-02 00:02:04"
+            "2022-02-02 00:01:58",
+            "2022-02-02 00:01:58"
         ]
     },
     {
@@ -1099,8 +1093,8 @@
             "6c4d3a6a-b496-5130-a829-f6419759b7a0",
             "84995b8d-8d3e-4ac1-b29e-5a0d605faaee",
             "0c6366d6-7166-5635-96a8-62d3afcdbe50",
-            "2022-02-02 00:02:05",
-            "2022-02-02 00:02:05"
+            "2022-02-02 00:01:59",
+            "2022-02-02 00:01:59"
         ]
     },
     {
@@ -1119,8 +1113,8 @@
             null,
             null,
             "21e1fdc7-da5e-5a53-baab-79b0ab6a7811",
-            "2022-02-02 00:02:06",
-            "2022-02-02 00:02:06"
+            "2022-02-02 00:02:00",
+            "2022-02-02 00:02:00"
         ]
     },
     {
@@ -1130,7 +1124,7 @@
         ]
     },
     {
-        "query": "insert into `assets` (`id`, `oem_id`, `type_id`, `status_id`, `product_id`, `reseller_id`, `customer_id`, `location_id`, `eosl`, `changed_at`, `serial_number`, `data_quality`, `contracts_active_quantity`, `contacts_count`, `coverages_count`, `synced_at`, `warranty_end`, `warranty_service_group_id`, `warranty_service_level_id`, `warranty_changed_at`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `assets` (`id`, `oem_id`, `type_id`, `status_id`, `product_id`, `reseller_id`, `customer_id`, `location_id`, `eosl`, `changed_at`, `serial_number`, `data_quality`, `contracts_active_quantity`, `contacts_count`, `coverages_count`, `warranty_end`, `warranty_service_group_id`, `warranty_service_level_id`, `warranty_changed_at`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "b3840368-7ef5-4793-a9b3-242b59bef3ba",
             "f494438f-85b3-5bc8-9580-3cd17c2e1b01",
@@ -1147,13 +1141,12 @@
             0,
             3,
             1,
-            "2022-02-02 00:02:08",
             "2022-12-31 00:00:00",
             null,
             null,
             "2022-10-03 15:33:05",
-            "2022-02-02 00:02:17",
-            "2022-02-02 00:02:17"
+            "2022-02-02 00:02:10",
+            "2022-02-02 00:02:10"
         ]
     },
     {
@@ -1166,8 +1159,8 @@
             null,
             true,
             "7cb60eb8-327c-54f0-ba93-9c27bc1ebb49",
-            "2022-02-02 00:02:18",
-            "2022-02-02 00:02:18"
+            "2022-02-02 00:02:11",
+            "2022-02-02 00:02:11"
         ]
     },
     {
@@ -1176,8 +1169,8 @@
             "80314907-365f-5bb1-8eee-dece7330396c",
             "7cb60eb8-327c-54f0-ba93-9c27bc1ebb49",
             "bf3bbbd7-2cf4-581e-813f-ab1cffc6b930",
-            "2022-02-02 00:02:19",
-            "2022-02-02 00:02:19"
+            "2022-02-02 00:02:12",
+            "2022-02-02 00:02:12"
         ]
     },
     {
@@ -1190,8 +1183,8 @@
             "meggie.tremblay@harris.com",
             true,
             "39421556-39c8-58be-b763-82fdb32f24d6",
-            "2022-02-02 00:02:20",
-            "2022-02-02 00:02:20"
+            "2022-02-02 00:02:13",
+            "2022-02-02 00:02:13"
         ]
     },
     {
@@ -1200,8 +1193,8 @@
             "72a3bc57-9110-5502-a1fe-79c99596cfac",
             "39421556-39c8-58be-b763-82fdb32f24d6",
             "d4b6ce41-3233-5620-8b36-9811cda1e237",
-            "2022-02-02 00:02:21",
-            "2022-02-02 00:02:21"
+            "2022-02-02 00:02:14",
+            "2022-02-02 00:02:14"
         ]
     },
     {
@@ -1214,8 +1207,8 @@
             "chowe@conroy.info",
             true,
             "2e5df93d-d93d-514a-b6a6-8b4c976f2c82",
-            "2022-02-02 00:02:22",
-            "2022-02-02 00:02:22"
+            "2022-02-02 00:02:15",
+            "2022-02-02 00:02:15"
         ]
     },
     {
@@ -1224,8 +1217,8 @@
             "e172c416-2d63-5c07-8650-67e3d69fbbb3",
             "2e5df93d-d93d-514a-b6a6-8b4c976f2c82",
             "84d601f0-4104-5d33-a548-13411619178f",
-            "2022-02-02 00:02:23",
-            "2022-02-02 00:02:23"
+            "2022-02-02 00:02:16",
+            "2022-02-02 00:02:16"
         ]
     },
     {
@@ -1234,8 +1227,8 @@
             "6c4d3a6a-b496-5130-a829-f6419759b7a0",
             "b3840368-7ef5-4793-a9b3-242b59bef3ba",
             "0001642a-7737-5ff6-a6eb-d80cbfe438df",
-            "2022-02-02 00:02:24",
-            "2022-02-02 00:02:24"
+            "2022-02-02 00:02:17",
+            "2022-02-02 00:02:17"
         ]
     },
     {
@@ -1254,8 +1247,8 @@
             null,
             null,
             "58686ef0-3947-5e70-accf-0444beda0c52",
-            "2022-02-02 00:02:25",
-            "2022-02-02 00:02:25"
+            "2022-02-02 00:02:18",
+            "2022-02-02 00:02:18"
         ]
     },
     {
@@ -1265,7 +1258,7 @@
         ]
     },
     {
-        "query": "insert into `assets` (`id`, `oem_id`, `type_id`, `status_id`, `product_id`, `reseller_id`, `customer_id`, `location_id`, `eosl`, `changed_at`, `serial_number`, `data_quality`, `contracts_active_quantity`, `contacts_count`, `coverages_count`, `synced_at`, `warranty_end`, `warranty_service_group_id`, `warranty_service_level_id`, `warranty_changed_at`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `assets` (`id`, `oem_id`, `type_id`, `status_id`, `product_id`, `reseller_id`, `customer_id`, `location_id`, `eosl`, `changed_at`, `serial_number`, `data_quality`, `contracts_active_quantity`, `contacts_count`, `coverages_count`, `warranty_end`, `warranty_service_group_id`, `warranty_service_level_id`, `warranty_changed_at`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "c6719938-99d9-4b17-9f23-611d341861c0",
             "f494438f-85b3-5bc8-9580-3cd17c2e1b01",
@@ -1282,13 +1275,12 @@
             0,
             3,
             1,
-            "2022-02-02 00:02:27",
             "2022-12-31 00:00:00",
             null,
             null,
             "2022-10-03 16:05:29",
-            "2022-02-02 00:02:36",
-            "2022-02-02 00:02:36"
+            "2022-02-02 00:02:28",
+            "2022-02-02 00:02:28"
         ]
     },
     {
@@ -1301,8 +1293,8 @@
             null,
             true,
             "24616ad9-9ae2-5c3b-9d7c-019141b57215",
-            "2022-02-02 00:02:37",
-            "2022-02-02 00:02:37"
+            "2022-02-02 00:02:29",
+            "2022-02-02 00:02:29"
         ]
     },
     {
@@ -1311,8 +1303,8 @@
             "80314907-365f-5bb1-8eee-dece7330396c",
             "24616ad9-9ae2-5c3b-9d7c-019141b57215",
             "8da0f495-c086-58c4-977c-2d03c7990d3c",
-            "2022-02-02 00:02:38",
-            "2022-02-02 00:02:38"
+            "2022-02-02 00:02:30",
+            "2022-02-02 00:02:30"
         ]
     },
     {
@@ -1325,8 +1317,8 @@
             "meggie.tremblay@harris.com",
             true,
             "26c79ba0-b73e-5a03-8ab6-99a3934685a2",
-            "2022-02-02 00:02:39",
-            "2022-02-02 00:02:39"
+            "2022-02-02 00:02:31",
+            "2022-02-02 00:02:31"
         ]
     },
     {
@@ -1335,8 +1327,8 @@
             "72a3bc57-9110-5502-a1fe-79c99596cfac",
             "26c79ba0-b73e-5a03-8ab6-99a3934685a2",
             "58eb7f11-3673-5e8c-aefd-675db53ad3f2",
-            "2022-02-02 00:02:40",
-            "2022-02-02 00:02:40"
+            "2022-02-02 00:02:32",
+            "2022-02-02 00:02:32"
         ]
     },
     {
@@ -1349,8 +1341,8 @@
             "chowe@conroy.info",
             true,
             "73cebc34-ee1d-5676-b44c-e8f7e516b02a",
-            "2022-02-02 00:02:41",
-            "2022-02-02 00:02:41"
+            "2022-02-02 00:02:33",
+            "2022-02-02 00:02:33"
         ]
     },
     {
@@ -1359,8 +1351,8 @@
             "e172c416-2d63-5c07-8650-67e3d69fbbb3",
             "73cebc34-ee1d-5676-b44c-e8f7e516b02a",
             "6c06a485-3276-56e1-9a18-2191f32f62c7",
-            "2022-02-02 00:02:42",
-            "2022-02-02 00:02:42"
+            "2022-02-02 00:02:34",
+            "2022-02-02 00:02:34"
         ]
     },
     {
@@ -1369,8 +1361,8 @@
             "6c4d3a6a-b496-5130-a829-f6419759b7a0",
             "c6719938-99d9-4b17-9f23-611d341861c0",
             "75bd6442-52ab-5389-9942-b01d78cdb7fa",
-            "2022-02-02 00:02:43",
-            "2022-02-02 00:02:43"
+            "2022-02-02 00:02:35",
+            "2022-02-02 00:02:35"
         ]
     },
     {
@@ -1389,8 +1381,8 @@
             null,
             null,
             "329722d6-36d7-5872-ab2b-4c7c44320b1b",
-            "2022-02-02 00:02:44",
-            "2022-02-02 00:02:44"
+            "2022-02-02 00:02:36",
+            "2022-02-02 00:02:36"
         ]
     },
     {
@@ -1400,7 +1392,7 @@
         ]
     },
     {
-        "query": "insert into `assets` (`id`, `oem_id`, `type_id`, `status_id`, `product_id`, `reseller_id`, `customer_id`, `location_id`, `eosl`, `changed_at`, `serial_number`, `data_quality`, `contracts_active_quantity`, `contacts_count`, `coverages_count`, `synced_at`, `warranty_end`, `warranty_service_group_id`, `warranty_service_level_id`, `warranty_changed_at`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `assets` (`id`, `oem_id`, `type_id`, `status_id`, `product_id`, `reseller_id`, `customer_id`, `location_id`, `eosl`, `changed_at`, `serial_number`, `data_quality`, `contracts_active_quantity`, `contacts_count`, `coverages_count`, `warranty_end`, `warranty_service_group_id`, `warranty_service_level_id`, `warranty_changed_at`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "cf0b30ee-0c44-4426-b778-6091c0b3ce8c",
             "f494438f-85b3-5bc8-9580-3cd17c2e1b01",
@@ -1417,13 +1409,12 @@
             0,
             3,
             1,
-            "2022-02-02 00:02:46",
             "2022-12-31 00:00:00",
             null,
             null,
             "2022-10-03 16:23:31",
-            "2022-02-02 00:02:55",
-            "2022-02-02 00:02:55"
+            "2022-02-02 00:02:46",
+            "2022-02-02 00:02:46"
         ]
     },
     {
@@ -1436,8 +1427,8 @@
             null,
             true,
             "c7d0189e-11c3-5b84-aa35-cc0542c5fe98",
-            "2022-02-02 00:02:56",
-            "2022-02-02 00:02:56"
+            "2022-02-02 00:02:47",
+            "2022-02-02 00:02:47"
         ]
     },
     {
@@ -1446,8 +1437,8 @@
             "80314907-365f-5bb1-8eee-dece7330396c",
             "c7d0189e-11c3-5b84-aa35-cc0542c5fe98",
             "06fb8c44-e22c-543e-a6a3-1b28aa969b10",
-            "2022-02-02 00:02:57",
-            "2022-02-02 00:02:57"
+            "2022-02-02 00:02:48",
+            "2022-02-02 00:02:48"
         ]
     },
     {
@@ -1460,8 +1451,8 @@
             "meggie.tremblay@harris.com",
             true,
             "e010cf97-d0f9-51c2-9603-e79e5b33a2c8",
-            "2022-02-02 00:02:58",
-            "2022-02-02 00:02:58"
+            "2022-02-02 00:02:49",
+            "2022-02-02 00:02:49"
         ]
     },
     {
@@ -1470,8 +1461,8 @@
             "72a3bc57-9110-5502-a1fe-79c99596cfac",
             "e010cf97-d0f9-51c2-9603-e79e5b33a2c8",
             "cdb15464-ec0b-5f02-b771-be88541d86ea",
-            "2022-02-02 00:02:59",
-            "2022-02-02 00:02:59"
+            "2022-02-02 00:02:50",
+            "2022-02-02 00:02:50"
         ]
     },
     {
@@ -1484,8 +1475,8 @@
             "chowe@conroy.info",
             true,
             "12427e29-70ac-52aa-8e31-434c5fd27291",
-            "2022-02-02 00:03:00",
-            "2022-02-02 00:03:00"
+            "2022-02-02 00:02:51",
+            "2022-02-02 00:02:51"
         ]
     },
     {
@@ -1494,8 +1485,8 @@
             "e172c416-2d63-5c07-8650-67e3d69fbbb3",
             "12427e29-70ac-52aa-8e31-434c5fd27291",
             "b278d558-f739-5f0b-ab53-244ac8427034",
-            "2022-02-02 00:03:01",
-            "2022-02-02 00:03:01"
+            "2022-02-02 00:02:52",
+            "2022-02-02 00:02:52"
         ]
     },
     {
@@ -1504,8 +1495,8 @@
             "6c4d3a6a-b496-5130-a829-f6419759b7a0",
             "cf0b30ee-0c44-4426-b778-6091c0b3ce8c",
             "c67bdd11-8d01-5575-a878-eb1beb1670b7",
-            "2022-02-02 00:03:02",
-            "2022-02-02 00:03:02"
+            "2022-02-02 00:02:53",
+            "2022-02-02 00:02:53"
         ]
     },
     {
@@ -1524,8 +1515,8 @@
             null,
             null,
             "a492aba9-396a-5c40-9c74-4ac550fd5357",
-            "2022-02-02 00:03:03",
-            "2022-02-02 00:03:03"
+            "2022-02-02 00:02:54",
+            "2022-02-02 00:02:54"
         ]
     },
     {
@@ -1535,7 +1526,7 @@
         ]
     },
     {
-        "query": "insert into `assets` (`id`, `oem_id`, `type_id`, `status_id`, `product_id`, `reseller_id`, `customer_id`, `location_id`, `eosl`, `changed_at`, `serial_number`, `data_quality`, `contracts_active_quantity`, `contacts_count`, `coverages_count`, `synced_at`, `warranty_end`, `warranty_service_group_id`, `warranty_service_level_id`, `warranty_changed_at`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `assets` (`id`, `oem_id`, `type_id`, `status_id`, `product_id`, `reseller_id`, `customer_id`, `location_id`, `eosl`, `changed_at`, `serial_number`, `data_quality`, `contracts_active_quantity`, `contacts_count`, `coverages_count`, `warranty_end`, `warranty_service_group_id`, `warranty_service_level_id`, `warranty_changed_at`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "e37a54bf-89c7-41d0-919d-bf30c307eccc",
             "f494438f-85b3-5bc8-9580-3cd17c2e1b01",
@@ -1552,13 +1543,12 @@
             0,
             3,
             1,
-            "2022-02-02 00:03:05",
             "2022-12-31 00:00:00",
             null,
             null,
             "2022-10-03 16:57:58",
-            "2022-02-02 00:03:14",
-            "2022-02-02 00:03:14"
+            "2022-02-02 00:03:04",
+            "2022-02-02 00:03:04"
         ]
     },
     {
@@ -1571,8 +1561,8 @@
             null,
             true,
             "ad540b3d-2eec-5935-b9e3-7511e33b7f90",
-            "2022-02-02 00:03:15",
-            "2022-02-02 00:03:15"
+            "2022-02-02 00:03:05",
+            "2022-02-02 00:03:05"
         ]
     },
     {
@@ -1581,8 +1571,8 @@
             "80314907-365f-5bb1-8eee-dece7330396c",
             "ad540b3d-2eec-5935-b9e3-7511e33b7f90",
             "6a1b9ab6-38fd-501c-9f7a-c1d081daec92",
-            "2022-02-02 00:03:16",
-            "2022-02-02 00:03:16"
+            "2022-02-02 00:03:06",
+            "2022-02-02 00:03:06"
         ]
     },
     {
@@ -1595,8 +1585,8 @@
             "meggie.tremblay@harris.com",
             true,
             "59b443ff-03de-56e8-9811-159e09ac9c3e",
-            "2022-02-02 00:03:17",
-            "2022-02-02 00:03:17"
+            "2022-02-02 00:03:07",
+            "2022-02-02 00:03:07"
         ]
     },
     {
@@ -1605,8 +1595,8 @@
             "72a3bc57-9110-5502-a1fe-79c99596cfac",
             "59b443ff-03de-56e8-9811-159e09ac9c3e",
             "cbcc0fd8-68f1-5c41-8c21-dd9999c861ff",
-            "2022-02-02 00:03:18",
-            "2022-02-02 00:03:18"
+            "2022-02-02 00:03:08",
+            "2022-02-02 00:03:08"
         ]
     },
     {
@@ -1619,8 +1609,8 @@
             "chowe@conroy.info",
             true,
             "64af55eb-9e9b-5a55-bb38-06126bae5398",
-            "2022-02-02 00:03:19",
-            "2022-02-02 00:03:19"
+            "2022-02-02 00:03:09",
+            "2022-02-02 00:03:09"
         ]
     },
     {
@@ -1629,8 +1619,8 @@
             "e172c416-2d63-5c07-8650-67e3d69fbbb3",
             "64af55eb-9e9b-5a55-bb38-06126bae5398",
             "f2d72bf6-6cd9-5a32-8cf4-e81a16b2b379",
-            "2022-02-02 00:03:20",
-            "2022-02-02 00:03:20"
+            "2022-02-02 00:03:10",
+            "2022-02-02 00:03:10"
         ]
     },
     {
@@ -1639,8 +1629,8 @@
             "6c4d3a6a-b496-5130-a829-f6419759b7a0",
             "e37a54bf-89c7-41d0-919d-bf30c307eccc",
             "1fbb9afa-0878-5e01-b41c-b8fc6b7d69f6",
-            "2022-02-02 00:03:21",
-            "2022-02-02 00:03:21"
+            "2022-02-02 00:03:11",
+            "2022-02-02 00:03:11"
         ]
     },
     {
@@ -1659,14 +1649,14 @@
             null,
             null,
             "a0394aac-1721-5f3f-b681-a06ffedd5879",
-            "2022-02-02 00:03:22",
-            "2022-02-02 00:03:22"
+            "2022-02-02 00:03:12",
+            "2022-02-02 00:03:12"
         ]
     },
     {
         "query": "update `assets` set `synced_at` = ? where `id` in (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) and `assets`.`deleted_at` is null",
         "bindings": [
-            "2022-02-02T00:03:23+00:00",
+            "2022-02-02T00:03:13+00:00",
             "1c130200-357f-445f-abc5-57808dc9e80d",
             "1fca119b-4657-4481-86dd-366df5b9c30e",
             "23637b07-98f9-4385-8293-77d72027d920",
@@ -1787,8 +1777,8 @@
     {
         "query": "update `assets` set `deleted_at` = ?, `assets`.`updated_at` = ? where `id` = ?",
         "bindings": [
-            "2022-02-02 00:03:24",
-            "2022-02-02 00:03:24",
+            "2022-02-02 00:03:14",
+            "2022-02-02 00:03:14",
             "00000000-0000-0000-0000-000000000000"
         ]
     },
@@ -1808,8 +1798,8 @@
             null,
             "HPE Eth 10Gb 2p 562FLR-T Adptr",
             "1ba815db-f567-5129-bdf6-047003465e1d",
-            "2022-02-02 00:03:26",
-            "2022-02-02 00:03:26"
+            "2022-02-02 00:03:16",
+            "2022-02-02 00:03:16"
         ]
     },
     {
@@ -1831,8 +1821,8 @@
             null,
             true,
             "1ae61fa6-0e29-5e6f-afcd-7282bbccdddc",
-            "2022-02-02 00:03:28",
-            "2022-02-02 00:03:28"
+            "2022-02-02 00:03:18",
+            "2022-02-02 00:03:18"
         ]
     },
     {
@@ -1855,8 +1845,8 @@
             "chackett@yahoo.com",
             true,
             "2b853796-4e65-5d99-a405-8894160fb599",
-            "2022-02-02 00:03:29",
-            "2022-02-02 00:03:29"
+            "2022-02-02 00:03:19",
+            "2022-02-02 00:03:19"
         ]
     },
     {
@@ -1885,8 +1875,8 @@
             "Active",
             "Active",
             "59f0eefb-f291-5ceb-bf79-86bb087c25af",
-            "2022-02-02 00:03:34",
-            "2022-02-02 00:03:34"
+            "2022-02-02 00:03:24",
+            "2022-02-02 00:03:24"
         ]
     },
     {
@@ -1903,8 +1893,8 @@
             "FactoryWarranty",
             "Factory Warranty",
             "cf30f413-39f9-5c27-8a7f-d529f1343830",
-            "2022-02-02 00:03:37",
-            "2022-02-02 00:03:37"
+            "2022-02-02 00:03:27",
+            "2022-02-02 00:03:27"
         ]
     },
     {
@@ -1921,8 +1911,8 @@
             "Expired",
             "Expired",
             "36d4c273-3b95-57ed-b7e7-d3dc5905bb96",
-            "2022-02-02 00:03:38",
-            "2022-02-02 00:03:38"
+            "2022-02-02 00:03:28",
+            "2022-02-02 00:03:28"
         ]
     },
     {
@@ -1948,7 +1938,7 @@
             2,
             1,
             "2022-10-03 10:21:33",
-            "2022-02-02 00:03:48",
+            "2022-02-02 00:03:38",
             "150b5f59-abf7-4f1c-97db-8cf06797de26"
         ]
     },
@@ -1956,15 +1946,15 @@
         "query": "insert into `contact_types` (`contact_id`, `created_at`, `id`, `type_id`, `updated_at`) values (?, ?, ?, ?, ?), (?, ?, ?, ?, ?)",
         "bindings": [
             "1ae61fa6-0e29-5e6f-afcd-7282bbccdddc",
-            "2022-02-02 00:04:08",
+            "2022-02-02 00:03:58",
             "339a5f11-9eb0-51d5-b568-f4b395c4305a",
             "80314907-365f-5bb1-8eee-dece7330396c",
-            "2022-02-02 00:04:08",
+            "2022-02-02 00:03:58",
             "2b853796-4e65-5d99-a405-8894160fb599",
-            "2022-02-02 00:04:09",
+            "2022-02-02 00:03:59",
             "fc416316-5cac-58f1-96eb-e92fce98f636",
             "72a3bc57-9110-5502-a1fe-79c99596cfac",
-            "2022-02-02 00:04:09"
+            "2022-02-02 00:03:59"
         ]
     },
     {
@@ -1973,15 +1963,15 @@
             "6c4d3a6a-b496-5130-a829-f6419759b7a0",
             "150b5f59-abf7-4f1c-97db-8cf06797de26",
             "3b44ce09-79e7-5291-b6c0-f2ed59241f5d",
-            "2022-02-02 00:04:10",
-            "2022-02-02 00:04:10"
+            "2022-02-02 00:04:00",
+            "2022-02-02 00:04:00"
         ]
     },
     {
         "query": "insert into `asset_warranties` (`asset_id`, `created_at`, `customer_id`, `description`, `document_id`, `document_number`, `end`, `id`, `reseller_id`, `service_group_id`, `service_level_id`, `start`, `status_id`, `type_id`, `updated_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "150b5f59-abf7-4f1c-97db-8cf06797de26",
-            "2022-02-02 00:04:11",
+            "2022-02-02 00:04:01",
             null,
             "H7J33AC-HPE Foundation Care NBD wDMR SVC",
             null,
@@ -1994,9 +1984,9 @@
             "2019-04-15 00:00:00",
             "59f0eefb-f291-5ceb-bf79-86bb087c25af",
             "a388f947-2949-50c6-ac99-7ca4b72ab5ad",
-            "2022-02-02 00:04:11",
+            "2022-02-02 00:04:01",
             "150b5f59-abf7-4f1c-97db-8cf06797de26",
-            "2022-02-02 00:04:12",
+            "2022-02-02 00:04:02",
             null,
             "HA360AW-Wty: HPE HW Replacement Support",
             null,
@@ -2009,13 +1999,13 @@
             "2018-04-07 00:00:00",
             "36d4c273-3b95-57ed-b7e7-d3dc5905bb96",
             "cf30f413-39f9-5c27-8a7f-d529f1343830",
-            "2022-02-02 00:04:12"
+            "2022-02-02 00:04:02"
         ]
     },
     {
         "query": "update `assets` set `synced_at` = ? where `id` in (?, ?) and `assets`.`deleted_at` is null",
         "bindings": [
-            "2022-02-02T00:04:13+00:00",
+            "2022-02-02T00:04:03+00:00",
             "00000000-0000-0000-0000-000000000000",
             "150b5f59-abf7-4f1c-97db-8cf06797de26"
         ]

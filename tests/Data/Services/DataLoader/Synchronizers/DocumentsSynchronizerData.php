@@ -6,6 +6,7 @@ use App\Models\Document;
 use App\Services\DataLoader\Testing\Data\Context;
 use App\Services\DataLoader\Testing\Data\Data;
 use Illuminate\Console\Command;
+use Illuminate\Support\Facades\Date;
 use LastDragon_ru\LaraASP\Testing\Utils\TestData;
 
 use function array_sum;
@@ -35,6 +36,7 @@ class DocumentsSynchronizerData extends Data {
             'customer_id'    => null,
             'oem_id'         => null,
             'type_id'        => null,
+            'synced_at'      => Date::now(),
         ]);
 
         return $result;

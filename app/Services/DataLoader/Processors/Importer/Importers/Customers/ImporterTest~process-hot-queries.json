@@ -133,7 +133,7 @@
     {
         "query": "update `customers` set `synced_at` = ? where `id` in (?, ?, ?, ?, ?) and `customers`.`deleted_at` is null",
         "bindings": [
-            "2022-02-02T00:05:19+00:00",
+            "2022-02-02T00:04:54+00:00",
             "00002e93-1d51-4a96-bd73-08ca080ac4c0",
             "0006e2e1-8c6d-4ec6-b8b6-bbd2cae09dfa",
             "000777a8-c78b-466e-8e8b-b4b791aa8453",
@@ -272,7 +272,7 @@
     {
         "query": "update `customers` set `synced_at` = ? where `id` in (?, ?, ?, ?, ?) and `customers`.`deleted_at` is null",
         "bindings": [
-            "2022-02-02T00:05:25+00:00",
+            "2022-02-02T00:05:00+00:00",
             "0009dcab-3bf6-44d4-9dc0-6c4ba6041aed",
             "000a64d2-4eb9-496d-b148-587a536b3cc6",
             "000a7db5-fa32-44a6-a10f-a6b4a24af90d",
@@ -405,7 +405,7 @@
     {
         "query": "update `customers` set `synced_at` = ? where `id` in (?, ?, ?, ?, ?) and `customers`.`deleted_at` is null",
         "bindings": [
-            "2022-02-02T00:05:31+00:00",
+            "2022-02-02T00:05:06+00:00",
             "0012fff3-042f-4778-a41c-3c8c37d6f04f",
             "00167526-0153-4f94-9ae3-19c5638d48c5",
             "001e09a7-089c-4af0-8e90-0982a721f611",
@@ -541,7 +541,7 @@
     {
         "query": "update `customers` set `synced_at` = ? where `id` in (?, ?, ?, ?, ?) and `customers`.`deleted_at` is null",
         "bindings": [
-            "2022-02-02T00:05:37+00:00",
+            "2022-02-02T00:05:12+00:00",
             "0035d237-126d-4261-8a6d-43b959ae97a4",
             "0036993f-f08b-4bf2-8f4d-9214280374c3",
             "003bc70b-f740-4c1f-85f0-8003b3fd42e0",
@@ -677,7 +677,7 @@
     {
         "query": "update `customers` set `synced_at` = ? where `id` in (?, ?, ?, ?, ?) and `customers`.`deleted_at` is null",
         "bindings": [
-            "2022-02-02T00:05:43+00:00",
+            "2022-02-02T00:05:18+00:00",
             "004ab855-1d4f-4e0e-949d-e2de2d543349",
             "004d6d19-4a7d-4216-8bd5-55dbfb038e09",
             "00511111-85e8-4b59-bd10-f35db86dbd6e",

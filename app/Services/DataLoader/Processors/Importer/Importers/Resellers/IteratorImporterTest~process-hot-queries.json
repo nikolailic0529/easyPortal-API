@@ -149,7 +149,7 @@
     {
         "query": "update `resellers` set `synced_at` = ? where `id` in (?, ?, ?, ?, ?) and `resellers`.`deleted_at` is null",
         "bindings": [
-            "2022-02-02T00:02:17+00:00",
+            "2022-02-02T00:02:07+00:00",
             "54f7dd6b-5234-4760-947d-c95e10751e18",
             "bd0eec0c-4d48-4840-9ce0-237316c727e1",
             "0917f385-4b97-4313-b255-043ad94683a7",
@@ -296,7 +296,7 @@
     {
         "query": "update `resellers` set `synced_at` = ? where `id` in (?, ?, ?, ?, ?) and `resellers`.`deleted_at` is null",
         "bindings": [
-            "2022-02-02T00:02:23+00:00",
+            "2022-02-02T00:02:13+00:00",
             "d5306966-ab8b-4893-bc85-d7722998b900",
             "a77f6f96-9c33-4e08-9838-ea291d572138",
             "3c01bf74-b2b8-437d-8492-75a061282101",

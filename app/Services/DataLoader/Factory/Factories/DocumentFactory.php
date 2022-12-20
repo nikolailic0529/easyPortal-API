@@ -293,7 +293,6 @@ class DocumentFactory extends ModelFactory {
             $model->number         = $normalizer->string($document->documentNumber) ?: null;
             $model->changed_at     = $normalizer->datetime($document->updatedAt);
             $model->contacts       = $this->objectContacts($model, (array) $document->contactPersons);
-            $model->synced_at      = Date::now();
             $model->deleted_at     = Date::now();
             $model->assets_count   = 0;
             $model->entries_count  = 0;
@@ -380,10 +379,6 @@ class DocumentFactory extends ModelFactory {
             $model->number         = $normalizer->string($document->documentNumber) ?: null;
             $model->changed_at     = $normalizer->datetime($document->updatedAt);
             $model->contacts       = $this->objectContacts($model, (array) $document->contactPersons);
-
-            if ($created) {
-                $model->synced_at = Date::now();
-            }
 
             // Save
             if ($model->trashed()) {

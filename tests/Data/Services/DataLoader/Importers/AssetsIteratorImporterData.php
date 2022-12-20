@@ -7,6 +7,7 @@ use App\Services\DataLoader\Processors\Importer\Importers\Assets\IteratorImporte
 use App\Services\DataLoader\Testing\Data\AssetsData;
 use App\Services\DataLoader\Testing\Data\Context;
 use App\Utils\Iterators\Contracts\ObjectIterator;
+use Illuminate\Support\Facades\Date;
 use LastDragon_ru\LaraASP\Testing\Utils\TestData;
 
 class AssetsIteratorImporterData extends AssetsData {
@@ -55,6 +56,7 @@ class AssetsIteratorImporterData extends AssetsData {
             'product_id'  => null,
             'location_id' => null,
             'status_id'   => null,
+            'synced_at'   => Date::now(),
         ]);
 
         return true;

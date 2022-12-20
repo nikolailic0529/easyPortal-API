@@ -216,10 +216,6 @@ class AssetFactory extends ModelFactory {
             $model->tags                      = $this->assetTags($asset);
             $model->coverages                 = $this->assetCoverages($asset);
 
-            if ($created) {
-                $model->synced_at = Date::now();
-            }
-
             // Warranties
             if (isset($asset->assetDocument) || isset($asset->coverageStatusCheck)) {
                 try {

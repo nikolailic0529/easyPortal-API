@@ -7697,7 +7697,7 @@ interface Company {
     statuses: [Status!]!
     @relation
 
-    synced_at: DateTime!
+    synced_at: DateTime
     updated_at: DateTime!
 }
 
@@ -8477,7 +8477,7 @@ type Asset {
     @relation
 
     status_id: ID
-    synced_at: DateTime!
+    synced_at: DateTime
 
     tags: [Tag!]!
     @relation
@@ -9704,7 +9704,7 @@ implements
     statuses: [Status!]!
     @relation
 
-    synced_at: DateTime!
+    synced_at: DateTime
     updated_at: DateTime!
 }
 
@@ -10168,7 +10168,7 @@ type Document {
     @relation
 
     statuses_count: Int!
-    synced_at: DateTime!
+    synced_at: DateTime
 
     type: Type
     @relation
@@ -14402,7 +14402,7 @@ implements
     statuses: [Status!]!
     @relation
 
-    synced_at: DateTime!
+    synced_at: DateTime
     updated_at: DateTime!
 }
 

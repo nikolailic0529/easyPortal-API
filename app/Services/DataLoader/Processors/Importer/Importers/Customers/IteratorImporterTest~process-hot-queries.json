@@ -152,7 +152,7 @@
     {
         "query": "update `customers` set `synced_at` = ? where `id` in (?, ?, ?, ?, ?) and `customers`.`deleted_at` is null",
         "bindings": [
-            "2022-02-02T00:02:40+00:00",
+            "2022-02-02T00:02:30+00:00",
             "004d6d19-4a7d-4216-8bd5-55dbfb038e09",
             "5b043b1f-c7e6-462a-8090-d8c02a97c2f2",
             "fb368ca1-7aa6-4ec5-8c86-c39e211879e8",
@@ -296,7 +296,7 @@
     {
         "query": "update `customers` set `synced_at` = ? where `id` in (?, ?, ?, ?, ?) and `customers`.`deleted_at` is null",
         "bindings": [
-            "2022-02-02T00:02:46+00:00",
+            "2022-02-02T00:02:36+00:00",
             "6f4a5f12-e0fc-4af6-9ee2-e6830737ac41",
             "7fd29a80-1ab7-4bf8-9750-783245a989f3",
             "e8c4a536-312d-42d1-8b1d-86958d6660f5",

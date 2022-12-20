@@ -19,7 +19,6 @@ use App\Services\DataLoader\Schema\CompanyKpis;
 use App\Services\DataLoader\Schema\Type;
 use Illuminate\Contracts\Debug\ExceptionHandler;
 use Illuminate\Support\Collection;
-use Illuminate\Support\Facades\Date;
 use InvalidArgumentException;
 
 use function implode;
@@ -108,10 +107,6 @@ class CustomerFactory extends CompanyFactory {
             $customer->locations       = $this->companyLocations($customer, $company->locations);
             $customer->kpi             = $this->kpi($customer, $company->companyKpis);
             $customer->resellersPivots = $this->resellers($customer, $company->companyResellerKpis);
-
-            if ($created) {
-                $customer->synced_at = Date::now();
-            }
 
             if ($customer->trashed()) {
                 $customer->restore();

@@ -7,6 +7,7 @@ use App\Services\DataLoader\Processors\Importer\Importers\Distributors\IteratorI
 use App\Services\DataLoader\Testing\Data\Context;
 use App\Services\DataLoader\Testing\Data\Data;
 use App\Utils\Iterators\Contracts\ObjectIterator;
+use Illuminate\Support\Facades\Date;
 use LastDragon_ru\LaraASP\Testing\Utils\TestData;
 
 class DistributorsIteratorImporterData extends Data {
@@ -30,7 +31,8 @@ class DistributorsIteratorImporterData extends Data {
         $result = parent::restore($root, $context);
 
         Distributor::factory()->create([
-            'id' => '00000000-0000-0000-0000-000000000000',
+            'id'        => '00000000-0000-0000-0000-000000000000',
+            'synced_at' => Date::now(),
         ]);
 
         return $result;

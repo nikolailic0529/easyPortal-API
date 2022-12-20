@@ -221,7 +221,7 @@
     {
         "query": "update `documents` set `synced_at` = ? where `id` in (?, ?, ?, ?, ?) and `documents`.`deleted_at` is null",
         "bindings": [
-            "2022-02-02T00:04:44+00:00",
+            "2022-02-02T00:04:34+00:00",
             "2abdb153-9341-499c-ad38-8a721127f979",
             "4fe10114-41f9-410e-9f3f-b2f42e72f5b8",
             "76331547-3217-4c18-b7c4-b3448024546e",
@@ -422,7 +422,7 @@
     {
         "query": "update `documents` set `synced_at` = ? where `id` in (?, ?, ?, ?, ?) and `documents`.`deleted_at` is null",
         "bindings": [
-            "2022-02-02T00:05:20+00:00",
+            "2022-02-02T00:05:10+00:00",
             "a954e350-fa8a-4f92-b301-ae8e4e6d0022",
             "c8fdd1c2-a581-4cf4-8f49-634a41f08ecf",
             "d3046b7f-880c-4368-b3dd-0b3c8def9a14",
