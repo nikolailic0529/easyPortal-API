@@ -1290,6 +1290,7 @@ class DocumentFactoryTest extends TestCase {
     public function testCreateFromDocumentTrashed(): void {
         // Mock
         $this->overrideFinders();
+        $this->overrideAssetFinder();
 
         // Prepare
         $factory  = $this->app->make(DocumentFactoryTest_Factory::class);
