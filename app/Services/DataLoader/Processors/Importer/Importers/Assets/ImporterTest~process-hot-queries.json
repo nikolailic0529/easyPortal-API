@@ -70,12 +70,6 @@
         ]
     },
     {
-        "query": "select `oems`.* from `oems` where `oems`.`id` in (?) and `oems`.`deleted_at` is null",
-        "bindings": [
-            "251d7152-b56c-5cde-853f-fabc530e72db"
-        ]
-    },
-    {
         "query": "select `coverages`.*, `asset_coverages`.`asset_id` as `pivot_asset_id`, `asset_coverages`.`coverage_id` as `pivot_coverage_id`, `asset_coverages`.`created_at` as `pivot_created_at`, `asset_coverages`.`updated_at` as `pivot_updated_at` from `coverages` inner join `asset_coverages` on `coverages`.`id` = `asset_coverages`.`coverage_id` where `asset_coverages`.`deleted_at` is null and `asset_coverages`.`asset_id` in (?, ?, ?, ?, ?) and `coverages`.`deleted_at` is null",
         "bindings": [
             "00000b7e-e7dc-49ee-8294-e4708b2435e4",
@@ -331,12 +325,6 @@
         ]
     },
     {
-        "query": "select `oems`.* from `oems` where `oems`.`id` in (?) and `oems`.`deleted_at` is null",
-        "bindings": [
-            "251d7152-b56c-5cde-853f-fabc530e72db"
-        ]
-    },
-    {
         "query": "select `coverages`.*, `asset_coverages`.`asset_id` as `pivot_asset_id`, `asset_coverages`.`coverage_id` as `pivot_coverage_id`, `asset_coverages`.`created_at` as `pivot_created_at`, `asset_coverages`.`updated_at` as `pivot_updated_at` from `coverages` inner join `asset_coverages` on `coverages`.`id` = `asset_coverages`.`coverage_id` where `asset_coverages`.`deleted_at` is null and `asset_coverages`.`asset_id` in (?, ?, ?, ?, ?) and `coverages`.`deleted_at` is null",
         "bindings": [
             "0003b2e3-f547-441f-8f20-a5a5caa69821",
@@ -560,12 +548,6 @@
         ]
     },
     {
-        "query": "select `oems`.* from `oems` where `oems`.`id` in (?) and `oems`.`deleted_at` is null",
-        "bindings": [
-            "251d7152-b56c-5cde-853f-fabc530e72db"
-        ]
-    },
-    {
         "query": "select `coverages`.*, `asset_coverages`.`asset_id` as `pivot_asset_id`, `asset_coverages`.`coverage_id` as `pivot_coverage_id`, `asset_coverages`.`created_at` as `pivot_created_at`, `asset_coverages`.`updated_at` as `pivot_updated_at` from `coverages` inner join `asset_coverages` on `coverages`.`id` = `asset_coverages`.`coverage_id` where `asset_coverages`.`deleted_at` is null and `asset_coverages`.`asset_id` in (?, ?, ?, ?, ?) and `coverages`.`deleted_at` is null",
         "bindings": [
             "0006ce44-b3c1-4f1e-9de5-a275a3420021",
@@ -780,13 +762,6 @@
             "0009de52-4eaf-49a8-9135-4326dc9df8cb",
             "000a6be5-be43-4291-b0b3-a560814bdfdf",
             "000b9596-d41b-4ddc-86ac-72738c1bda40"
-        ]
-    },
-    {
-        "query": "select `oems`.* from `oems` where `oems`.`id` in (?, ?) and `oems`.`deleted_at` is null",
-        "bindings": [
-            "251d7152-b56c-5cde-853f-fabc530e72db",
-            "721414f7-1764-57b3-a526-3ba3f8d4300b"
         ]
     },
     {
@@ -1010,12 +985,6 @@
             "000e293c-5022-4f56-af50-a7a4f61e6e7f",
             "000e3abe-1f5c-40c4-84ba-469bf049cfc9",
             "000e5f8a-604f-472c-a87e-a753829e97cf"
-        ]
-    },
-    {
-        "query": "select `oems`.* from `oems` where `oems`.`id` in (?) and `oems`.`deleted_at` is null",
-        "bindings": [
-            "251d7152-b56c-5cde-853f-fabc530e72db"
         ]
     },
     {

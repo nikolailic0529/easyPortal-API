@@ -187,12 +187,6 @@
         ]
     },
     {
-        "query": "select `oems`.* from `oems` where `oems`.`id` in (?) and `oems`.`deleted_at` is null",
-        "bindings": [
-            "011d5516-eaff-59d6-afc2-b81baa7a6596"
-        ]
-    },
-    {
         "query": "select `document_entries`.* from `document_entries` where `document_entries`.`document_id` = ? and `document_entries`.`document_id` is not null",
         "bindings": [
             "0aa9d168-1ccd-4ffd-a680-02a04d3e4b9a"
@@ -207,12 +201,6 @@
         ]
     },
     {
-        "query": "select `oems`.* from `oems` where `oems`.`id` in (?) and `oems`.`deleted_at` is null",
-        "bindings": [
-            "011d5516-eaff-59d6-afc2-b81baa7a6596"
-        ]
-    },
-    {
         "query": "select `document_entries`.* from `document_entries` where `document_entries`.`document_id` = ? and `document_entries`.`document_id` is not null",
         "bindings": [
             "0c8324bb-600d-488b-9b53-35ee6849ff59"
@@ -224,12 +212,6 @@
             "3914f1e4-31fe-4e1b-b100-8606984d8373",
             "45cc378c-b7a2-4f0e-b6a4-95304ec3c588",
             "17cd66f7-51e7-4fd1-b524-3060c5a8ecf0"
-        ]
-    },
-    {
-        "query": "select `oems`.* from `oems` where `oems`.`id` in (?) and `oems`.`deleted_at` is null",
-        "bindings": [
-            "011d5516-eaff-59d6-afc2-b81baa7a6596"
         ]
     },
     {
@@ -248,12 +230,6 @@
         ]
     },
     {
-        "query": "select `oems`.* from `oems` where `oems`.`id` in (?) and `oems`.`deleted_at` is null",
-        "bindings": [
-            "011d5516-eaff-59d6-afc2-b81baa7a6596"
-        ]
-    },
-    {
         "query": "select `document_entries`.* from `document_entries` where `document_entries`.`document_id` = ? and `document_entries`.`document_id` is not null",
         "bindings": [
             "083145d4-b350-49cd-9844-d3998c411ce5"
@@ -266,12 +242,6 @@
             "8189abfd-c6f9-4134-9eef-c6c006110cb2",
             "45fc7e2a-7254-4b72-bf7e-7c5740e9b233",
             "423711e2-ad0a-43f3-820d-5ff3f60fa02e"
-        ]
-    },
-    {
-        "query": "select `oems`.* from `oems` where `oems`.`id` in (?) and `oems`.`deleted_at` is null",
-        "bindings": [
-            "011d5516-eaff-59d6-afc2-b81baa7a6596"
         ]
     },
     {
@@ -446,12 +416,6 @@
         ]
     },
     {
-        "query": "select `oems`.* from `oems` where `oems`.`id` in (?) and `oems`.`deleted_at` is null",
-        "bindings": [
-            "011d5516-eaff-59d6-afc2-b81baa7a6596"
-        ]
-    },
-    {
         "query": "select `document_entries`.* from `document_entries` where `document_entries`.`document_id` = ? and `document_entries`.`document_id` is not null",
         "bindings": [
             "0d2169e6-94b7-49ee-8560-80673d7009bf"
@@ -464,12 +428,6 @@
         ]
     },
     {
-        "query": "select `oems`.* from `oems` where `oems`.`id` in (?) and `oems`.`deleted_at` is null",
-        "bindings": [
-            "c4d388f1-1a8f-5261-ba64-8f49e449d38f"
-        ]
-    },
-    {
         "query": "select `document_entries`.* from `document_entries` where `document_entries`.`document_id` = ? and `document_entries`.`document_id` is not null",
         "bindings": [
             "0c890540-172e-41ea-b1f3-f91a899437b5"
@@ -479,12 +437,6 @@
         "query": "select `assets`.* from `assets` where ((`assets`.`id` = ?))",
         "bindings": [
             "e6ba9ff2-f9bc-4740-a659-eff7802ad602"
-        ]
-    },
-    {
-        "query": "select `oems`.* from `oems` where `oems`.`id` in (?) and `oems`.`deleted_at` is null",
-        "bindings": [
-            "011d5516-eaff-59d6-afc2-b81baa7a6596"
         ]
     },
     {
@@ -510,12 +462,6 @@
         ]
     },
     {
-        "query": "select `oems`.* from `oems` where `oems`.`id` in (?) and `oems`.`deleted_at` is null",
-        "bindings": [
-            "011d5516-eaff-59d6-afc2-b81baa7a6596"
-        ]
-    },
-    {
         "query": "select `document_entries`.* from `document_entries` where `document_entries`.`document_id` = ? and `document_entries`.`document_id` is not null",
         "bindings": [
             "0a38d611-f78f-48e4-a861-8d56afaa8154"
@@ -534,12 +480,6 @@
         "bindings": [
             "e551bbce-7cf9-404a-9a00-daa4372b6372",
             "87f9bd7d-33e0-4be1-a1a9-d450ebd95223"
-        ]
-    },
-    {
-        "query": "select `oems`.* from `oems` where `oems`.`id` in (?) and `oems`.`deleted_at` is null",
-        "bindings": [
-            "011d5516-eaff-59d6-afc2-b81baa7a6596"
         ]
     },
     {

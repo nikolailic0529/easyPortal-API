@@ -82,16 +82,26 @@ class WithAssetDocumentTest extends TestCase {
      * @covers ::assetDocumentOem
      */
     public function testAssetDocumentOemNoDocument(): void {
-        $oem        = Oem::factory()->make();
-        $asset      = AssetModel::factory()->make();
-        $asset->oem = $oem;
-        $document   = new ViewAssetDocument([
+        $oem         = Oem::factory()->make();
+        $asset       = AssetModel::factory()->make();
+        $asset->oem  = $oem;
+        $document    = new ViewAssetDocument([
             'document' => null,
         ]);
+        $oemResolver = Mockery::mock(OemResolver::class);
+        $oemResolver
+            ->shouldReceive('getByKey')
+            ->with($asset->oem_id)
+            ->once()
+            ->andReturn($oem);
 
         $factory = Mockery::mock(WithAssetDocumentTest_Factory::class);
         $factory->shouldAllowMockingProtectedMethods();
         $factory->makePartial();
+        $factory
+            ->shouldReceive('getOemResolver')
+            ->once()
+            ->andReturns($oemResolver);
         $factory
             ->shouldReceive('documentOem')
             ->never();

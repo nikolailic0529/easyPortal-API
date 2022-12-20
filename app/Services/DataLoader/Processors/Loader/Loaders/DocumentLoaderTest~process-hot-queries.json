@@ -111,12 +111,6 @@
         ]
     },
     {
-        "query": "select `oems`.* from `oems` where `oems`.`id` in (?) and `oems`.`deleted_at` is null",
-        "bindings": [
-            "c62f10e7-c6a5-515b-ad9e-2a45b83df6d1"
-        ]
-    },
-    {
         "query": "select `document_entries`.* from `document_entries` where `document_entries`.`document_id` = ? and `document_entries`.`document_id` is not null",
         "bindings": [
             "00122a07-53e5-4c70-ba6b-bf51fcdd6695"

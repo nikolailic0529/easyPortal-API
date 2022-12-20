@@ -408,9 +408,6 @@ class DocumentFactory extends ModelFactory {
                 // Prefetch
                 $this->getAssetResolver()->prefetch(
                     array_map(static fn ($entry) => $entry->assetId, $document->documentEntries),
-                    static function (Collection $assets): void {
-                        $assets->loadMissing('oem');
-                    },
                 );
 
                 // Entries
