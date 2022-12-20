@@ -247,33 +247,9 @@
         ]
     },
     {
-        "query": "select `reseller_locations`.* from `reseller_locations` where `reseller_locations`.`reseller_id` in (?) and `reseller_locations`.`deleted_at` is null",
-        "bindings": [
-            "22d7dbf2-977a-49d8-8e4c-cacdaae616b2"
-        ]
-    },
-    {
-        "query": "select `locations`.* from `locations` where `locations`.`id` in (?) and `locations`.`deleted_at` is null",
-        "bindings": [
-            "229361f9-056d-5218-a3b0-dcbb4c313111"
-        ]
-    },
-    {
         "query": "select `customers`.* from `customers` where ((`customers`.`id` = ?))",
         "bindings": [
             "f273feb9-4043-4ce2-9633-2dab7a75c566"
-        ]
-    },
-    {
-        "query": "select `customer_locations`.* from `customer_locations` where `customer_locations`.`customer_id` in (?) and `customer_locations`.`deleted_at` is null",
-        "bindings": [
-            "f273feb9-4043-4ce2-9633-2dab7a75c566"
-        ]
-    },
-    {
-        "query": "select `locations`.* from `locations` where `locations`.`id` in (?) and `locations`.`deleted_at` is null",
-        "bindings": [
-            "81d534c5-a257-5850-afb6-72cad50161b8"
         ]
     },
     {
@@ -283,15 +259,6 @@
     {
         "query": "select `products`.* from `products` where `products`.`deleted_at` is null",
         "bindings": []
-    },
-    {
-        "query": "select `locations`.* from `locations` where (`city_id` = ? and `country_id` = ? and CONCAT(`line_one`, IF(`line_two` != '', CONCAT(' ', `line_two`), '')) = ? and `postcode` = ?) and `locations`.`deleted_at` is null limit 1",
-        "bindings": [
-            "6716429f-fe86-55a7-a6b7-c4b8bbd50d95",
-            "9148c49a-3448-5d2d-a672-98b062156283",
-            "7922 gracie hollow suite 365",
-            "62662-8590"
-        ]
     },
     {
         "query": "select `coverages`.* from `coverages` where `coverages`.`deleted_at` is null",

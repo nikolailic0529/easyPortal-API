@@ -57,34 +57,10 @@
         ]
     },
     {
-        "query": "select `reseller_locations`.* from `reseller_locations` where `reseller_locations`.`reseller_id` in (?) and `reseller_locations`.`deleted_at` is null",
-        "bindings": [
-            "9f6b1030-5d5d-4f0b-b743-2ef69eaf4a44"
-        ]
-    },
-    {
-        "query": "select `locations`.* from `locations` where `locations`.`id` in (?) and `locations`.`deleted_at` is null",
-        "bindings": [
-            "b4ea6545-b7e2-5926-99ef-41115e7de749"
-        ]
-    },
-    {
         "query": "select `customers`.* from `customers` where ((`customers`.`id` = ?) or (`customers`.`id` = ?))",
         "bindings": [
             "e42b0534-878d-4d43-90ec-d9c1cef59b70",
             "9f51cfec-ad89-4d8e-ba36-633cfa0dc14d"
-        ]
-    },
-    {
-        "query": "select `customer_locations`.* from `customer_locations` where `customer_locations`.`customer_id` in (?) and `customer_locations`.`deleted_at` is null",
-        "bindings": [
-            "e42b0534-878d-4d43-90ec-d9c1cef59b70"
-        ]
-    },
-    {
-        "query": "select `locations`.* from `locations` where `locations`.`id` in (?) and `locations`.`deleted_at` is null",
-        "bindings": [
-            "8fed5079-8106-53c6-8686-ed17c3e5d1c5"
         ]
     },
     {
@@ -106,15 +82,6 @@
     {
         "query": "select `cities`.* from `cities` where `cities`.`deleted_at` is null",
         "bindings": []
-    },
-    {
-        "query": "select `locations`.* from `locations` where (`city_id` = ? and `country_id` = ? and CONCAT(`line_one`, IF(`line_two` != '', CONCAT(' ', `line_two`), '')) = ? and `postcode` = ?) and `locations`.`deleted_at` is null limit 1",
-        "bindings": [
-            "975115df-8fcd-59a9-9f8d-59f7cdc40e4c",
-            "06eb2373-101e-59a0-a6bb-bcb22fd5381d",
-            "61440 marks dam apt. 438",
-            "77826-2682"
-        ]
     },
     {
         "query": "select `types`.* from `types` where `types`.`deleted_at` is null",

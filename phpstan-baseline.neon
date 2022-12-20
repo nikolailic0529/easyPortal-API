@@ -2947,7 +2947,7 @@ parameters:
 
 		-
 			message: "#^Parameter \\#1 \\$models of method App\\\\Services\\\\DataLoader\\\\Resolver\\\\Resolver\\<App\\\\Models\\\\Data\\\\Location\\>\\:\\:add\\(\\) expects App\\\\Models\\\\Data\\\\Location\\|array\\<App\\\\Models\\\\Data\\\\Location\\|null\\>\\|Illuminate\\\\Support\\\\Collection\\<\\(int\\|string\\), App\\\\Models\\\\Data\\\\Location\\|null\\>, Illuminate\\\\Support\\\\Collection\\<int, mixed\\> given\\.$#"
-			count: 3
+			count: 1
 			path: app/Services/DataLoader/Processors/Importer/Importers/Assets/BaseImporter.php
 
 		-

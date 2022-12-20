@@ -16,38 +16,11 @@
         ]
     },
     {
-        "query": "select `reseller_locations`.* from `reseller_locations` where `reseller_locations`.`reseller_id` in (?) and `reseller_locations`.`deleted_at` is null",
-        "bindings": [
-            "27faa47d-ab2a-4755-b36b-729114c056d2"
-        ]
-    },
-    {
-        "query": "select `locations`.* from `locations` where `locations`.`id` in (?) and `locations`.`deleted_at` is null",
-        "bindings": [
-            "229361f9-056d-5218-a3b0-dcbb4c313111"
-        ]
-    },
-    {
         "query": "select `customers`.* from `customers` where ((`customers`.`id` = ?) or (`customers`.`id` = ?) or (`customers`.`id` = ?))",
         "bindings": [
             "93da84d9-a8ee-483a-b604-9289d41fd601",
             "13c8f977-00bb-4906-bd59-2bf457cf39cb",
             "fe97f500-c6e4-4968-a312-25d21318297b"
-        ]
-    },
-    {
-        "query": "select `customer_locations`.* from `customer_locations` where `customer_locations`.`customer_id` in (?, ?, ?) and `customer_locations`.`deleted_at` is null",
-        "bindings": [
-            "13c8f977-00bb-4906-bd59-2bf457cf39cb",
-            "93da84d9-a8ee-483a-b604-9289d41fd601",
-            "fe97f500-c6e4-4968-a312-25d21318297b"
-        ]
-    },
-    {
-        "query": "select `locations`.* from `locations` where `locations`.`id` in (?, ?) and `locations`.`deleted_at` is null",
-        "bindings": [
-            "7116180b-5f21-573b-ac0c-656543f0f0e6",
-            "bce374ad-c509-587b-bc55-d6996979b482"
         ]
     },
     {
@@ -117,6 +90,15 @@
     {
         "query": "select `cities`.* from `cities` where `cities`.`deleted_at` is null",
         "bindings": []
+    },
+    {
+        "query": "select `locations`.* from `locations` where (`city_id` = ? and `country_id` = ? and CONCAT(`line_one`, IF(`line_two` != '', CONCAT(' ', `line_two`), '')) = ? and `postcode` = ?) and `locations`.`deleted_at` is null limit 1",
+        "bindings": [
+            "fb20b75a-a1c2-56b1-88f7-0b52a3a36987",
+            "c6c09316-c0bc-5fdd-9dda-b4a153151ccc",
+            "6052 hartmann mission",
+            "80331"
+        ]
     },
     {
         "query": "select `types`.* from `types` where `types`.`deleted_at` is null",
@@ -566,6 +548,15 @@
         ]
     },
     {
+        "query": "select `locations`.* from `locations` where (`city_id` = ? and `country_id` = ? and CONCAT(`line_one`, IF(`line_two` != '', CONCAT(' ', `line_two`), '')) = ? and `postcode` = ?) and `locations`.`deleted_at` is null limit 1",
+        "bindings": [
+            "1757b1ee-fca4-5b6f-8d1f-a97a4a4782b8",
+            "c6c09316-c0bc-5fdd-9dda-b4a153151ccc",
+            "25543 favian ferry",
+            "60031-1134"
+        ]
+    },
+    {
         "query": "select `documents`.* from `documents` where ((`documents`.`id` = ?))",
         "bindings": [
             "c7975b3f-8eb3-4868-ae6a-7b4cddef1324"
@@ -903,38 +894,11 @@
         ]
     },
     {
-        "query": "select `reseller_locations`.* from `reseller_locations` where `reseller_locations`.`reseller_id` in (?) and `reseller_locations`.`deleted_at` is null",
-        "bindings": [
-            "27faa47d-ab2a-4755-b36b-729114c056d2"
-        ]
-    },
-    {
-        "query": "select `locations`.* from `locations` where `locations`.`id` in (?) and `locations`.`deleted_at` is null",
-        "bindings": [
-            "229361f9-056d-5218-a3b0-dcbb4c313111"
-        ]
-    },
-    {
         "query": "select `customers`.* from `customers` where ((`customers`.`id` = ?) or (`customers`.`id` = ?) or (`customers`.`id` = ?))",
         "bindings": [
             "93da84d9-a8ee-483a-b604-9289d41fd601",
             "fe97f500-c6e4-4968-a312-25d21318297b",
             "13c8f977-00bb-4906-bd59-2bf457cf39cb"
-        ]
-    },
-    {
-        "query": "select `customer_locations`.* from `customer_locations` where `customer_locations`.`customer_id` in (?, ?, ?) and `customer_locations`.`deleted_at` is null",
-        "bindings": [
-            "13c8f977-00bb-4906-bd59-2bf457cf39cb",
-            "93da84d9-a8ee-483a-b604-9289d41fd601",
-            "fe97f500-c6e4-4968-a312-25d21318297b"
-        ]
-    },
-    {
-        "query": "select `locations`.* from `locations` where `locations`.`id` in (?, ?) and `locations`.`deleted_at` is null",
-        "bindings": [
-            "7116180b-5f21-573b-ac0c-656543f0f0e6",
-            "bce374ad-c509-587b-bc55-d6996979b482"
         ]
     },
     {
@@ -955,6 +919,15 @@
             "d2fdf81f-8d86-5316-aae0-559ff7d367b6",
             "2022-02-02 00:01:24",
             "2022-02-02 00:01:24"
+        ]
+    },
+    {
+        "query": "select `locations`.* from `locations` where (`city_id` = ? and `country_id` = ? and CONCAT(`line_one`, IF(`line_two` != '', CONCAT(' ', `line_two`), '')) = ? and `postcode` = ?) and `locations`.`deleted_at` is null limit 1",
+        "bindings": [
+            "fb20b75a-a1c2-56b1-88f7-0b52a3a36987",
+            "c6c09316-c0bc-5fdd-9dda-b4a153151ccc",
+            "6052 hartmann mission",
+            "80331"
         ]
     },
     {
@@ -1190,6 +1163,15 @@
             "a3cadd49-00eb-5939-b824-09f3a0884612",
             "fbd55038-efd1-5913-8cb7-72f3eb102abe",
             "2022-02-02 00:01:55"
+        ]
+    },
+    {
+        "query": "select `locations`.* from `locations` where (`city_id` = ? and `country_id` = ? and CONCAT(`line_one`, IF(`line_two` != '', CONCAT(' ', `line_two`), '')) = ? and `postcode` = ?) and `locations`.`deleted_at` is null limit 1",
+        "bindings": [
+            "1757b1ee-fca4-5b6f-8d1f-a97a4a4782b8",
+            "c6c09316-c0bc-5fdd-9dda-b4a153151ccc",
+            "25543 favian ferry",
+            "60031-1134"
         ]
     },
     {
@@ -1624,18 +1606,6 @@
         ]
     },
     {
-        "query": "select `reseller_locations`.* from `reseller_locations` where `reseller_locations`.`reseller_id` in (?) and `reseller_locations`.`deleted_at` is null",
-        "bindings": [
-            "27faa47d-ab2a-4755-b36b-729114c056d2"
-        ]
-    },
-    {
-        "query": "select `locations`.* from `locations` where `locations`.`id` in (?) and `locations`.`deleted_at` is null",
-        "bindings": [
-            "229361f9-056d-5218-a3b0-dcbb4c313111"
-        ]
-    },
-    {
         "query": "select `customers`.* from `customers` where ((`customers`.`id` = ?) or (`customers`.`id` = ?) or (`customers`.`id` = ?))",
         "bindings": [
             "13c8f977-00bb-4906-bd59-2bf457cf39cb",
@@ -1644,18 +1614,12 @@
         ]
     },
     {
-        "query": "select `customer_locations`.* from `customer_locations` where `customer_locations`.`customer_id` in (?, ?, ?) and `customer_locations`.`deleted_at` is null",
+        "query": "select `locations`.* from `locations` where (`city_id` = ? and `country_id` = ? and CONCAT(`line_one`, IF(`line_two` != '', CONCAT(' ', `line_two`), '')) = ? and `postcode` = ?) and `locations`.`deleted_at` is null limit 1",
         "bindings": [
-            "13c8f977-00bb-4906-bd59-2bf457cf39cb",
-            "93da84d9-a8ee-483a-b604-9289d41fd601",
-            "fe97f500-c6e4-4968-a312-25d21318297b"
-        ]
-    },
-    {
-        "query": "select `locations`.* from `locations` where `locations`.`id` in (?, ?) and `locations`.`deleted_at` is null",
-        "bindings": [
-            "7116180b-5f21-573b-ac0c-656543f0f0e6",
-            "bce374ad-c509-587b-bc55-d6996979b482"
+            "fb20b75a-a1c2-56b1-88f7-0b52a3a36987",
+            "c6c09316-c0bc-5fdd-9dda-b4a153151ccc",
+            "6052 hartmann mission",
+            "80331"
         ]
     },
     {
@@ -2059,6 +2023,15 @@
         ]
     },
     {
+        "query": "select `locations`.* from `locations` where (`city_id` = ? and `country_id` = ? and CONCAT(`line_one`, IF(`line_two` != '', CONCAT(' ', `line_two`), '')) = ? and `postcode` = ?) and `locations`.`deleted_at` is null limit 1",
+        "bindings": [
+            "1757b1ee-fca4-5b6f-8d1f-a97a4a4782b8",
+            "c6c09316-c0bc-5fdd-9dda-b4a153151ccc",
+            "25543 favian ferry",
+            "60031-1134"
+        ]
+    },
+    {
         "query": "select `documents`.* from `documents` where ((`documents`.`id` = ?))",
         "bindings": [
             "0455f5c4-aa11-494e-a793-f64acf6b01a9"
@@ -2400,41 +2373,12 @@
         ]
     },
     {
-        "query": "select `reseller_locations`.* from `reseller_locations` where `reseller_locations`.`reseller_id` in (?) and `reseller_locations`.`deleted_at` is null",
-        "bindings": [
-            "27faa47d-ab2a-4755-b36b-729114c056d2"
-        ]
-    },
-    {
-        "query": "select `locations`.* from `locations` where `locations`.`id` in (?) and `locations`.`deleted_at` is null",
-        "bindings": [
-            "229361f9-056d-5218-a3b0-dcbb4c313111"
-        ]
-    },
-    {
         "query": "select `customers`.* from `customers` where ((`customers`.`id` = ?) or (`customers`.`id` = ?) or (`customers`.`id` = ?) or (`customers`.`id` = ?))",
         "bindings": [
             "fe97f500-c6e4-4968-a312-25d21318297b",
             "93da84d9-a8ee-483a-b604-9289d41fd601",
             "412e9b0e-95e8-474a-a8e1-4f526886eb55",
             "13c8f977-00bb-4906-bd59-2bf457cf39cb"
-        ]
-    },
-    {
-        "query": "select `customer_locations`.* from `customer_locations` where `customer_locations`.`customer_id` in (?, ?, ?, ?) and `customer_locations`.`deleted_at` is null",
-        "bindings": [
-            "13c8f977-00bb-4906-bd59-2bf457cf39cb",
-            "412e9b0e-95e8-474a-a8e1-4f526886eb55",
-            "93da84d9-a8ee-483a-b604-9289d41fd601",
-            "fe97f500-c6e4-4968-a312-25d21318297b"
-        ]
-    },
-    {
-        "query": "select `locations`.* from `locations` where `locations`.`id` in (?, ?, ?) and `locations`.`deleted_at` is null",
-        "bindings": [
-            "7116180b-5f21-573b-ac0c-656543f0f0e6",
-            "bce374ad-c509-587b-bc55-d6996979b482",
-            "fdb8251f-d8c8-55fe-b23d-b846d759a893"
         ]
     },
     {
@@ -2455,6 +2399,15 @@
             "5274bc09-68a8-510d-b007-b68d3d828c09",
             "2022-02-02 00:04:49",
             "2022-02-02 00:04:49"
+        ]
+    },
+    {
+        "query": "select `locations`.* from `locations` where (`city_id` = ? and `country_id` = ? and CONCAT(`line_one`, IF(`line_two` != '', CONCAT(' ', `line_two`), '')) = ? and `postcode` = ?) and `locations`.`deleted_at` is null limit 1",
+        "bindings": [
+            "1757b1ee-fca4-5b6f-8d1f-a97a4a4782b8",
+            "c6c09316-c0bc-5fdd-9dda-b4a153151ccc",
+            "25543 favian ferry",
+            "60031-1134"
         ]
     },
     {
@@ -2603,6 +2556,15 @@
         ]
     },
     {
+        "query": "select `locations`.* from `locations` where (`city_id` = ? and `country_id` = ? and CONCAT(`line_one`, IF(`line_two` != '', CONCAT(' ', `line_two`), '')) = ? and `postcode` = ?) and `locations`.`deleted_at` is null limit 1",
+        "bindings": [
+            "fb20b75a-a1c2-56b1-88f7-0b52a3a36987",
+            "c6c09316-c0bc-5fdd-9dda-b4a153151ccc",
+            "6052 hartmann mission",
+            "80331"
+        ]
+    },
+    {
         "query": "select `documents`.* from `documents` where ((`documents`.`id` = ?))",
         "bindings": [
             "b2312283-6c80-4ffb-99c4-375dbbb57e41"
@@ -2745,6 +2707,15 @@
             "8ac645c6-6ff2-579e-87b0-dd99768e1062",
             "2022-02-02 00:05:35",
             "2022-02-02 00:05:35"
+        ]
+    },
+    {
+        "query": "select `locations`.* from `locations` where (`city_id` = ? and `country_id` = ? and CONCAT(`line_one`, IF(`line_two` != '', CONCAT(' ', `line_two`), '')) = ? and `postcode` = ?) and `locations`.`deleted_at` is null limit 1",
+        "bindings": [
+            "a4774fd9-b268-55a8-9e22-455d21c5b8c2",
+            "c6c09316-c0bc-5fdd-9dda-b4a153151ccc",
+            "65785 neha canyon",
+            "55606"
         ]
     },
     {
@@ -3176,18 +3147,6 @@
         ]
     },
     {
-        "query": "select `reseller_locations`.* from `reseller_locations` where `reseller_locations`.`reseller_id` in (?) and `reseller_locations`.`deleted_at` is null",
-        "bindings": [
-            "27faa47d-ab2a-4755-b36b-729114c056d2"
-        ]
-    },
-    {
-        "query": "select `locations`.* from `locations` where `locations`.`id` in (?) and `locations`.`deleted_at` is null",
-        "bindings": [
-            "229361f9-056d-5218-a3b0-dcbb4c313111"
-        ]
-    },
-    {
         "query": "select `customers`.* from `customers` where ((`customers`.`id` = ?) or (`customers`.`id` = ?) or (`customers`.`id` = ?))",
         "bindings": [
             "fe97f500-c6e4-4968-a312-25d21318297b",
@@ -3196,19 +3155,12 @@
         ]
     },
     {
-        "query": "select `customer_locations`.* from `customer_locations` where `customer_locations`.`customer_id` in (?, ?, ?) and `customer_locations`.`deleted_at` is null",
+        "query": "select `locations`.* from `locations` where (`city_id` = ? and `country_id` = ? and CONCAT(`line_one`, IF(`line_two` != '', CONCAT(' ', `line_two`), '')) = ? and `postcode` = ?) and `locations`.`deleted_at` is null limit 1",
         "bindings": [
-            "13c8f977-00bb-4906-bd59-2bf457cf39cb",
-            "412e9b0e-95e8-474a-a8e1-4f526886eb55",
-            "fe97f500-c6e4-4968-a312-25d21318297b"
-        ]
-    },
-    {
-        "query": "select `locations`.* from `locations` where `locations`.`id` in (?, ?, ?) and `locations`.`deleted_at` is null",
-        "bindings": [
-            "7116180b-5f21-573b-ac0c-656543f0f0e6",
-            "bce374ad-c509-587b-bc55-d6996979b482",
-            "fdb8251f-d8c8-55fe-b23d-b846d759a893"
+            "1757b1ee-fca4-5b6f-8d1f-a97a4a4782b8",
+            "c6c09316-c0bc-5fdd-9dda-b4a153151ccc",
+            "25543 favian ferry",
+            "60031-1134"
         ]
     },
     {
@@ -3354,6 +3306,15 @@
             "56458629-0335-5dd3-915f-b09912246073",
             "2022-02-02 00:07:02",
             "2022-02-02 00:07:02"
+        ]
+    },
+    {
+        "query": "select `locations`.* from `locations` where (`city_id` = ? and `country_id` = ? and CONCAT(`line_one`, IF(`line_two` != '', CONCAT(' ', `line_two`), '')) = ? and `postcode` = ?) and `locations`.`deleted_at` is null limit 1",
+        "bindings": [
+            "fb20b75a-a1c2-56b1-88f7-0b52a3a36987",
+            "c6c09316-c0bc-5fdd-9dda-b4a153151ccc",
+            "6052 hartmann mission",
+            "80331"
         ]
     },
     {
@@ -3699,6 +3660,15 @@
             "aa2aabc8-b11c-5518-b040-beabf4ac9cae",
             "2022-02-02 00:07:43",
             "2022-02-02 00:07:43"
+        ]
+    },
+    {
+        "query": "select `locations`.* from `locations` where (`city_id` = ? and `country_id` = ? and CONCAT(`line_one`, IF(`line_two` != '', CONCAT(' ', `line_two`), '')) = ? and `postcode` = ?) and `locations`.`deleted_at` is null limit 1",
+        "bindings": [
+            "a4774fd9-b268-55a8-9e22-455d21c5b8c2",
+            "c6c09316-c0bc-5fdd-9dda-b4a153151ccc",
+            "65785 neha canyon",
+            "55606"
         ]
     },
     {

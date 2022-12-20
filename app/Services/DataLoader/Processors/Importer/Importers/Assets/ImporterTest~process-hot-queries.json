@@ -89,24 +89,6 @@
         ]
     },
     {
-        "query": "select `reseller_locations`.* from `reseller_locations` where `reseller_locations`.`reseller_id` in (?, ?, ?, ?) and `reseller_locations`.`deleted_at` is null",
-        "bindings": [
-            "0fd07b17-3314-40b5-ac32-7189051f773b",
-            "9f6b1030-5d5d-4f0b-b743-2ef69eaf4a44",
-            "a9233c9c-4634-493a-9f12-bef4d1cf3c5e",
-            "c0d99925-8b3b-47d8-9db2-9d3a5f5520a2"
-        ]
-    },
-    {
-        "query": "select `locations`.* from `locations` where `locations`.`id` in (?, ?, ?, ?) and `locations`.`deleted_at` is null",
-        "bindings": [
-            "3b3926b3-8398-5a46-9050-a0f53bfe5e0d",
-            "7d701e09-dde4-544a-a04f-19093ff23b2b",
-            "7e77d19d-2744-51f9-9255-c387ebc28fb1",
-            "e5074e9c-2e3b-50da-8e98-913cba03a90d"
-        ]
-    },
-    {
         "query": "select `customers`.* from `customers` where ((`customers`.`id` = ?) or (`customers`.`id` = ?) or (`customers`.`id` = ?) or (`customers`.`id` = ?) or (`customers`.`id` = ?) or (`customers`.`id` = ?))",
         "bindings": [
             "e42b0534-878d-4d43-90ec-d9c1cef59b70",
@@ -115,26 +97,6 @@
             "0501ec0a-652e-4276-81fa-8e651a098b18",
             "f00d6934-1faa-4e3f-9de9-7f63eb6695a8",
             "bcbc5086-501e-4c1b-ac49-4a969408353d"
-        ]
-    },
-    {
-        "query": "select `customer_locations`.* from `customer_locations` where `customer_locations`.`customer_id` in (?, ?, ?, ?, ?) and `customer_locations`.`deleted_at` is null",
-        "bindings": [
-            "0501ec0a-652e-4276-81fa-8e651a098b18",
-            "bcbc5086-501e-4c1b-ac49-4a969408353d",
-            "e42b0534-878d-4d43-90ec-d9c1cef59b70",
-            "ebe27e11-d579-4b5a-9d7a-9cf020770999",
-            "f00d6934-1faa-4e3f-9de9-7f63eb6695a8"
-        ]
-    },
-    {
-        "query": "select `locations`.* from `locations` where `locations`.`id` in (?, ?, ?, ?, ?) and `locations`.`deleted_at` is null",
-        "bindings": [
-            "09ab79a6-f230-57dd-93e8-a5f1dac9c0b9",
-            "7ff649a5-53ea-547c-8ee3-6516ea7d3cc4",
-            "9c9686b6-57ea-5a48-a06e-35ae444ec8a9",
-            "bb98a69e-0a64-5b2d-a24c-84e3b4cb5d3b",
-            "f102992d-acd0-579d-ae11-b3171a2f6468"
         ]
     },
     {
@@ -158,15 +120,6 @@
         "bindings": []
     },
     {
-        "query": "select `locations`.* from `locations` where (`city_id` = ? and `country_id` = ? and CONCAT(`line_one`, IF(`line_two` != '', CONCAT(' ', `line_two`), '')) = ? and `postcode` = ?) and `locations`.`deleted_at` is null limit 1",
-        "bindings": [
-            "a1fb1ed6-8b63-5848-a444-120c538fff45",
-            "6457d328-11ac-54fe-8bd1-049c19c6eb2d",
-            "661 reina vista",
-            "43748-7409"
-        ]
-    },
-    {
         "query": "select `types`.* from `types` where `types`.`deleted_at` is null",
         "bindings": []
     },
@@ -183,27 +136,9 @@
         ]
     },
     {
-        "query": "select `locations`.* from `locations` where (`city_id` = ? and `country_id` = ? and CONCAT(`line_one`, IF(`line_two` != '', CONCAT(' ', `line_two`), '')) = ? and `postcode` = ?) and `locations`.`deleted_at` is null limit 1",
-        "bindings": [
-            "ecf828f1-0d5d-5c0b-a267-db8715aacfc0",
-            "6457d328-11ac-54fe-8bd1-049c19c6eb2d",
-            "9148 corwin fort",
-            "01076"
-        ]
-    },
-    {
         "query": "select `documents`.* from `documents` where ((`documents`.`id` = ?))",
         "bindings": [
             "a89ff713-3ccb-4966-882c-7debdde2fd20"
-        ]
-    },
-    {
-        "query": "select `locations`.* from `locations` where (`city_id` = ? and `country_id` = ? and CONCAT(`line_one`, IF(`line_two` != '', CONCAT(' ', `line_two`), '')) = ? and `postcode` = ?) and `locations`.`deleted_at` is null limit 1",
-        "bindings": [
-            "6c2705e6-f5e9-539d-b0f3-5e2f93c9da65",
-            "6457d328-11ac-54fe-8bd1-049c19c6eb2d",
-            "2420 dixie harbors suite 349",
-            "44610"
         ]
     },
     {
@@ -215,28 +150,10 @@
         ]
     },
     {
-        "query": "select `locations`.* from `locations` where (`city_id` = ? and `country_id` = ? and CONCAT(`line_one`, IF(`line_two` != '', CONCAT(' ', `line_two`), '')) = ? and `postcode` = ?) and `locations`.`deleted_at` is null limit 1",
-        "bindings": [
-            "99e8cf72-6919-50e1-98f9-a457edfc7cd5",
-            "6457d328-11ac-54fe-8bd1-049c19c6eb2d",
-            "3419 robel views suite 853",
-            "23894-3534"
-        ]
-    },
-    {
         "query": "select `documents`.* from `documents` where ((`documents`.`id` = ?) or (`documents`.`id` = ?))",
         "bindings": [
             "537b6bd3-5cda-414a-ace2-a167d63390ff",
             "bdd8da5e-cefa-4c84-9567-ea3c7a253fc4"
-        ]
-    },
-    {
-        "query": "select `locations`.* from `locations` where (`city_id` = ? and `country_id` = ? and CONCAT(`line_one`, IF(`line_two` != '', CONCAT(' ', `line_two`), '')) = ? and `postcode` = ?) and `locations`.`deleted_at` is null limit 1",
-        "bindings": [
-            "6c99e26a-9721-57a6-a007-3fe4fa145fb1",
-            "6457d328-11ac-54fe-8bd1-049c19c6eb2d",
-            "814 patience crest",
-            "21868"
         ]
     },
     {
@@ -344,24 +261,6 @@
         ]
     },
     {
-        "query": "select `reseller_locations`.* from `reseller_locations` where `reseller_locations`.`reseller_id` in (?, ?, ?, ?) and `reseller_locations`.`deleted_at` is null",
-        "bindings": [
-            "0fd07b17-3314-40b5-ac32-7189051f773b",
-            "6974b5ee-0cb7-4121-9f8f-1995322b540d",
-            "9f6b1030-5d5d-4f0b-b743-2ef69eaf4a44",
-            "a9233c9c-4634-493a-9f12-bef4d1cf3c5e"
-        ]
-    },
-    {
-        "query": "select `locations`.* from `locations` where `locations`.`id` in (?, ?, ?, ?) and `locations`.`deleted_at` is null",
-        "bindings": [
-            "40940c08-224e-5fc1-8090-4fb12d9837d2",
-            "7d701e09-dde4-544a-a04f-19093ff23b2b",
-            "7e77d19d-2744-51f9-9255-c387ebc28fb1",
-            "e5074e9c-2e3b-50da-8e98-913cba03a90d"
-        ]
-    },
-    {
         "query": "select `customers`.* from `customers` where ((`customers`.`id` = ?) or (`customers`.`id` = ?) or (`customers`.`id` = ?) or (`customers`.`id` = ?) or (`customers`.`id` = ?))",
         "bindings": [
             "fc43a19f-45b7-41b6-92e3-6fd2b1200286",
@@ -372,47 +271,9 @@
         ]
     },
     {
-        "query": "select `customer_locations`.* from `customer_locations` where `customer_locations`.`customer_id` in (?, ?, ?, ?, ?) and `customer_locations`.`deleted_at` is null",
-        "bindings": [
-            "43a3e79c-d9f3-4cfd-be5d-edcf133e8f83",
-            "45e609ab-3a89-429e-9462-16db018a7fde",
-            "59d71dc6-ecd0-45de-b11f-794cbde72f2b",
-            "888848ed-fdc8-42c6-b932-15a6f2400b45",
-            "fc43a19f-45b7-41b6-92e3-6fd2b1200286"
-        ]
-    },
-    {
-        "query": "select `locations`.* from `locations` where `locations`.`id` in (?, ?, ?, ?, ?) and `locations`.`deleted_at` is null",
-        "bindings": [
-            "11eed453-01ca-5c6e-b6c3-09ff6948f039",
-            "293d3e50-b0c8-50c5-ba73-83a1bb224242",
-            "47a8f902-a910-5fc4-81c0-ea60d58a61d6",
-            "af9a3e96-44cd-5401-99c7-529e4f095fe9",
-            "d6e02be8-2d67-5369-8597-fb11881fd6b4"
-        ]
-    },
-    {
-        "query": "select `locations`.* from `locations` where (`city_id` = ? and `country_id` = ? and CONCAT(`line_one`, IF(`line_two` != '', CONCAT(' ', `line_two`), '')) = ? and `postcode` = ?) and `locations`.`deleted_at` is null limit 1",
-        "bindings": [
-            "4a8738c1-0b30-5fc8-8c0d-09f9b45b752b",
-            "6457d328-11ac-54fe-8bd1-049c19c6eb2d",
-            "120 jaylan place",
-            "42718"
-        ]
-    },
-    {
         "query": "select `documents`.* from `documents` where ((`documents`.`id` = ?))",
         "bindings": [
             "96376ab8-b900-47e2-8ddb-69c6a2d8c705"
-        ]
-    },
-    {
-        "query": "select `locations`.* from `locations` where (`city_id` = ? and `country_id` = ? and CONCAT(`line_one`, IF(`line_two` != '', CONCAT(' ', `line_two`), '')) = ? and `postcode` = ?) and `locations`.`deleted_at` is null limit 1",
-        "bindings": [
-            "5320d6c8-a553-5538-a8b5-8a78872432a6",
-            "6457d328-11ac-54fe-8bd1-049c19c6eb2d",
-            "45012 altenwerth shoal",
-            "60898-2698"
         ]
     },
     {
@@ -422,27 +283,9 @@
         ]
     },
     {
-        "query": "select `locations`.* from `locations` where (`city_id` = ? and `country_id` = ? and CONCAT(`line_one`, IF(`line_two` != '', CONCAT(' ', `line_two`), '')) = ? and `postcode` = ?) and `locations`.`deleted_at` is null limit 1",
-        "bindings": [
-            "a4e01b29-5114-5224-ad86-58ec6207a679",
-            "6457d328-11ac-54fe-8bd1-049c19c6eb2d",
-            "69743 furman plain suite 772",
-            "11209-1523"
-        ]
-    },
-    {
         "query": "select `documents`.* from `documents` where ((`documents`.`id` = ?))",
         "bindings": [
             "05dd0b5d-f74c-413a-88ed-64e3156355d4"
-        ]
-    },
-    {
-        "query": "select `locations`.* from `locations` where (`city_id` = ? and `country_id` = ? and CONCAT(`line_one`, IF(`line_two` != '', CONCAT(' ', `line_two`), '')) = ? and `postcode` = ?) and `locations`.`deleted_at` is null limit 1",
-        "bindings": [
-            "4f554679-75eb-5a0c-90a8-8e97dab753e6",
-            "6457d328-11ac-54fe-8bd1-049c19c6eb2d",
-            "699 delaney drives suite 056",
-            "87203-3378"
         ]
     },
     {
@@ -451,15 +294,6 @@
             "b3308cf7-dba5-4b95-bcd2-e8e03f4fed1c",
             "6a852493-3e22-4fb8-adc6-14a6bba41279",
             "572e7c44-81b8-436a-a273-f31c498d62bb"
-        ]
-    },
-    {
-        "query": "select `locations`.* from `locations` where (`city_id` = ? and `country_id` = ? and CONCAT(`line_one`, IF(`line_two` != '', CONCAT(' ', `line_two`), '')) = ? and `postcode` = ?) and `locations`.`deleted_at` is null limit 1",
-        "bindings": [
-            "f954be68-5d2b-5987-b367-4cbe22bd541c",
-            "6457d328-11ac-54fe-8bd1-049c19c6eb2d",
-            "3239 renner walk apt. 908",
-            "87304-4170"
         ]
     },
     {
@@ -566,22 +400,6 @@
         ]
     },
     {
-        "query": "select `reseller_locations`.* from `reseller_locations` where `reseller_locations`.`reseller_id` in (?, ?, ?) and `reseller_locations`.`deleted_at` is null",
-        "bindings": [
-            "594184e7-24d4-4614-8db4-fe132adb86f4",
-            "9f6b1030-5d5d-4f0b-b743-2ef69eaf4a44",
-            "a9233c9c-4634-493a-9f12-bef4d1cf3c5e"
-        ]
-    },
-    {
-        "query": "select `locations`.* from `locations` where `locations`.`id` in (?, ?, ?) and `locations`.`deleted_at` is null",
-        "bindings": [
-            "7e77d19d-2744-51f9-9255-c387ebc28fb1",
-            "b4ea6545-b7e2-5926-99ef-41115e7de749",
-            "e5074e9c-2e3b-50da-8e98-913cba03a90d"
-        ]
-    },
-    {
         "query": "select `customers`.* from `customers` where ((`customers`.`id` = ?) or (`customers`.`id` = ?) or (`customers`.`id` = ?) or (`customers`.`id` = ?) or (`customers`.`id` = ?))",
         "bindings": [
             "76eee954-e2a5-4ca9-b87d-a4aadedde9fd",
@@ -592,47 +410,9 @@
         ]
     },
     {
-        "query": "select `customer_locations`.* from `customer_locations` where `customer_locations`.`customer_id` in (?, ?, ?, ?, ?) and `customer_locations`.`deleted_at` is null",
-        "bindings": [
-            "0bf4be29-41e0-4877-a35e-5d8d08f0b618",
-            "164093f3-c8fe-43d6-8580-46558eb6665f",
-            "5a2421d6-ff79-4777-a090-fd0af98ff5f9",
-            "76eee954-e2a5-4ca9-b87d-a4aadedde9fd",
-            "d4d40692-3385-4423-b580-04b645b9c163"
-        ]
-    },
-    {
-        "query": "select `locations`.* from `locations` where `locations`.`id` in (?, ?, ?, ?, ?) and `locations`.`deleted_at` is null",
-        "bindings": [
-            "133c4651-4f1e-5eba-a8cd-bba9cf95854c",
-            "4287c715-9436-5e54-bfef-417dfc6393e1",
-            "5001e105-f058-5309-ab6d-96a534866750",
-            "5fcb4227-48af-521b-9c9d-638b23b4fcaf",
-            "f18c17c6-cdf8-5311-b9ab-d0f46a4a4f34"
-        ]
-    },
-    {
-        "query": "select `locations`.* from `locations` where (`city_id` = ? and `country_id` = ? and CONCAT(`line_one`, IF(`line_two` != '', CONCAT(' ', `line_two`), '')) = ? and `postcode` = ?) and `locations`.`deleted_at` is null limit 1",
-        "bindings": [
-            "91049ed2-1da7-5f8b-9299-795ed6f7e0bc",
-            "6457d328-11ac-54fe-8bd1-049c19c6eb2d",
-            "9359 kaya track",
-            "31465-8990"
-        ]
-    },
-    {
         "query": "select `documents`.* from `documents` where ((`documents`.`id` = ?))",
         "bindings": [
             "d7a00b3c-7854-46a0-a79a-223d85ab1662"
-        ]
-    },
-    {
-        "query": "select `locations`.* from `locations` where (`city_id` = ? and `country_id` = ? and CONCAT(`line_one`, IF(`line_two` != '', CONCAT(' ', `line_two`), '')) = ? and `postcode` = ?) and `locations`.`deleted_at` is null limit 1",
-        "bindings": [
-            "6688f123-4588-50f8-a852-b1416bf9a423",
-            "6457d328-11ac-54fe-8bd1-049c19c6eb2d",
-            "3693 o'keefe park",
-            "79062"
         ]
     },
     {
@@ -642,42 +422,15 @@
         ]
     },
     {
-        "query": "select `locations`.* from `locations` where (`city_id` = ? and `country_id` = ? and CONCAT(`line_one`, IF(`line_two` != '', CONCAT(' ', `line_two`), '')) = ? and `postcode` = ?) and `locations`.`deleted_at` is null limit 1",
-        "bindings": [
-            "cf686d79-d95b-5a72-acaf-83228876cad6",
-            "6457d328-11ac-54fe-8bd1-049c19c6eb2d",
-            "70803 estell mountain",
-            "21194-9549"
-        ]
-    },
-    {
         "query": "select `documents`.* from `documents` where ((`documents`.`id` = ?))",
         "bindings": [
             "9ae87722-9e0b-40c4-bc7e-bada4f97226a"
         ]
     },
     {
-        "query": "select `locations`.* from `locations` where (`city_id` = ? and `country_id` = ? and CONCAT(`line_one`, IF(`line_two` != '', CONCAT(' ', `line_two`), '')) = ? and `postcode` = ?) and `locations`.`deleted_at` is null limit 1",
-        "bindings": [
-            "1fd4d7e7-8853-580d-ba78-6369a862d3b9",
-            "6457d328-11ac-54fe-8bd1-049c19c6eb2d",
-            "690 thalia center apt. 963",
-            "10455"
-        ]
-    },
-    {
         "query": "select `documents`.* from `documents` where ((`documents`.`id` = ?))",
         "bindings": [
             "d5657ba5-1bcc-49a9-ac2f-71e52fdf412a"
-        ]
-    },
-    {
-        "query": "select `locations`.* from `locations` where (`city_id` = ? and `country_id` = ? and CONCAT(`line_one`, IF(`line_two` != '', CONCAT(' ', `line_two`), '')) = ? and `postcode` = ?) and `locations`.`deleted_at` is null limit 1",
-        "bindings": [
-            "5e527480-33dd-517c-9914-fcf995e489bb",
-            "6457d328-11ac-54fe-8bd1-049c19c6eb2d",
-            "95853 koss crossing",
-            "16385"
         ]
     },
     {
@@ -783,22 +536,6 @@
         ]
     },
     {
-        "query": "select `reseller_locations`.* from `reseller_locations` where `reseller_locations`.`reseller_id` in (?, ?, ?) and `reseller_locations`.`deleted_at` is null",
-        "bindings": [
-            "77ec115b-9723-4582-ad45-2b3a83286b1f",
-            "9d9e320d-4e44-4518-a4e6-6bfe7f1c7dd8",
-            "a9233c9c-4634-493a-9f12-bef4d1cf3c5e"
-        ]
-    },
-    {
-        "query": "select `locations`.* from `locations` where `locations`.`id` in (?, ?, ?) and `locations`.`deleted_at` is null",
-        "bindings": [
-            "7e77d19d-2744-51f9-9255-c387ebc28fb1",
-            "a99dadc6-c8b0-51e9-833a-e4974d0befdc",
-            "d784ea67-eeab-5220-acad-43a21486cfa7"
-        ]
-    },
-    {
         "query": "select `customers`.* from `customers` where ((`customers`.`id` = ?) or (`customers`.`id` = ?) or (`customers`.`id` = ?) or (`customers`.`id` = ?) or (`customers`.`id` = ?))",
         "bindings": [
             "d07000c8-54a2-425f-8c9e-48f3bac378d3",
@@ -806,35 +543,6 @@
             "a2a32196-e319-4d35-a821-5e00fbc6feb2",
             "a4390aca-ea05-402c-8f33-a2b6b3b9318c",
             "113876e1-d07b-4e47-b64d-78bbe29dd1e2"
-        ]
-    },
-    {
-        "query": "select `customer_locations`.* from `customer_locations` where `customer_locations`.`customer_id` in (?, ?, ?, ?, ?) and `customer_locations`.`deleted_at` is null",
-        "bindings": [
-            "113876e1-d07b-4e47-b64d-78bbe29dd1e2",
-            "11795862-5654-4f6d-bf4a-da0361b515ed",
-            "a2a32196-e319-4d35-a821-5e00fbc6feb2",
-            "a4390aca-ea05-402c-8f33-a2b6b3b9318c",
-            "d07000c8-54a2-425f-8c9e-48f3bac378d3"
-        ]
-    },
-    {
-        "query": "select `locations`.* from `locations` where `locations`.`id` in (?, ?, ?, ?, ?) and `locations`.`deleted_at` is null",
-        "bindings": [
-            "076d5759-3a8a-56ef-8d40-5fcee0d1863c",
-            "36c57175-8db6-5edf-9d59-0906b322e421",
-            "45fd9403-5d5a-56f2-b8d6-7f62a32f35b3",
-            "6bf95a2d-9947-51a2-b7fe-229dd8f36bb2",
-            "80c5a861-5e9b-5a20-b54b-c914f2dacb39"
-        ]
-    },
-    {
-        "query": "select `locations`.* from `locations` where (`city_id` = ? and `country_id` = ? and CONCAT(`line_one`, IF(`line_two` != '', CONCAT(' ', `line_two`), '')) = ? and `postcode` = ?) and `locations`.`deleted_at` is null limit 1",
-        "bindings": [
-            "17cb9a12-c589-539e-8845-a99f600244dd",
-            "6457d328-11ac-54fe-8bd1-049c19c6eb2d",
-            "9438 cummings prairie",
-            "95014-9372"
         ]
     },
     {
@@ -846,27 +554,9 @@
         ]
     },
     {
-        "query": "select `locations`.* from `locations` where (`city_id` = ? and `country_id` = ? and CONCAT(`line_one`, IF(`line_two` != '', CONCAT(' ', `line_two`), '')) = ? and `postcode` = ?) and `locations`.`deleted_at` is null limit 1",
-        "bindings": [
-            "37e26631-da5d-56f3-a583-5da6f5b66f89",
-            "6457d328-11ac-54fe-8bd1-049c19c6eb2d",
-            "54420 willard pines",
-            "14417"
-        ]
-    },
-    {
         "query": "select `documents`.* from `documents` where ((`documents`.`id` = ?))",
         "bindings": [
             "d93f46f4-bc5c-4f9c-83f8-5fd18df15607"
-        ]
-    },
-    {
-        "query": "select `locations`.* from `locations` where (`city_id` = ? and `country_id` = ? and CONCAT(`line_one`, IF(`line_two` != '', CONCAT(' ', `line_two`), '')) = ? and `postcode` = ?) and `locations`.`deleted_at` is null limit 1",
-        "bindings": [
-            "9c118dce-2641-5013-8b4e-1a5468d8cbe4",
-            "6457d328-11ac-54fe-8bd1-049c19c6eb2d",
-            "16624 polly prairie",
-            "49538"
         ]
     },
     {
@@ -876,27 +566,9 @@
         ]
     },
     {
-        "query": "select `locations`.* from `locations` where (`city_id` = ? and `country_id` = ? and CONCAT(`line_one`, IF(`line_two` != '', CONCAT(' ', `line_two`), '')) = ? and `postcode` = ?) and `locations`.`deleted_at` is null limit 1",
-        "bindings": [
-            "d72e074c-80dc-5b50-8086-ff9bb5bcb59e",
-            "6457d328-11ac-54fe-8bd1-049c19c6eb2d",
-            "20221 bahringer center suite 161",
-            "85086-4093"
-        ]
-    },
-    {
         "query": "select `documents`.* from `documents` where ((`documents`.`id` = ?))",
         "bindings": [
             "73a8938d-da15-4990-a026-b1477a8f3568"
-        ]
-    },
-    {
-        "query": "select `locations`.* from `locations` where (`city_id` = ? and `country_id` = ? and CONCAT(`line_one`, IF(`line_two` != '', CONCAT(' ', `line_two`), '')) = ? and `postcode` = ?) and `locations`.`deleted_at` is null limit 1",
-        "bindings": [
-            "230136d2-3ddc-587a-b847-cadc56b50c3c",
-            "6457d328-11ac-54fe-8bd1-049c19c6eb2d",
-            "2457 justyn square",
-            "94653-1753"
         ]
     },
     {
@@ -1007,24 +679,6 @@
         ]
     },
     {
-        "query": "select `reseller_locations`.* from `reseller_locations` where `reseller_locations`.`reseller_id` in (?, ?, ?, ?) and `reseller_locations`.`deleted_at` is null",
-        "bindings": [
-            "594184e7-24d4-4614-8db4-fe132adb86f4",
-            "77ec115b-9723-4582-ad45-2b3a83286b1f",
-            "9f6b1030-5d5d-4f0b-b743-2ef69eaf4a44",
-            "a9233c9c-4634-493a-9f12-bef4d1cf3c5e"
-        ]
-    },
-    {
-        "query": "select `locations`.* from `locations` where `locations`.`id` in (?, ?, ?, ?) and `locations`.`deleted_at` is null",
-        "bindings": [
-            "7e77d19d-2744-51f9-9255-c387ebc28fb1",
-            "b4ea6545-b7e2-5926-99ef-41115e7de749",
-            "d784ea67-eeab-5220-acad-43a21486cfa7",
-            "e5074e9c-2e3b-50da-8e98-913cba03a90d"
-        ]
-    },
-    {
         "query": "select `customers`.* from `customers` where ((`customers`.`id` = ?) or (`customers`.`id` = ?) or (`customers`.`id` = ?) or (`customers`.`id` = ?) or (`customers`.`id` = ?))",
         "bindings": [
             "d4dbcdd4-e50a-43e2-b1ba-aa35f7eff297",
@@ -1035,47 +689,9 @@
         ]
     },
     {
-        "query": "select `customer_locations`.* from `customer_locations` where `customer_locations`.`customer_id` in (?, ?, ?, ?, ?) and `customer_locations`.`deleted_at` is null",
-        "bindings": [
-            "22de9c32-f3da-4f15-9646-e25b9e0df4e9",
-            "982e95de-6963-4065-a315-4ef9eb6565c0",
-            "a46afc79-df1d-4ed7-b152-374d6b57b106",
-            "b34a93c8-cc76-4346-bdf0-9d67bdb943d1",
-            "d4dbcdd4-e50a-43e2-b1ba-aa35f7eff297"
-        ]
-    },
-    {
-        "query": "select `locations`.* from `locations` where `locations`.`id` in (?, ?, ?, ?, ?) and `locations`.`deleted_at` is null",
-        "bindings": [
-            "5f850542-b06f-52b8-ba48-bb5124d1c408",
-            "66fb4f61-78a8-595f-a4dd-37cd9d9778f8",
-            "6d001b09-1d8f-5058-a0f8-f87ea7f0da7d",
-            "6e36c37a-70d6-52ed-8e75-7ec6b451cf41",
-            "c1f40323-b529-5f35-834c-faff896216cf"
-        ]
-    },
-    {
-        "query": "select `locations`.* from `locations` where (`city_id` = ? and `country_id` = ? and CONCAT(`line_one`, IF(`line_two` != '', CONCAT(' ', `line_two`), '')) = ? and `postcode` = ?) and `locations`.`deleted_at` is null limit 1",
-        "bindings": [
-            "1fd4d7e7-8853-580d-ba78-6369a862d3b9",
-            "6457d328-11ac-54fe-8bd1-049c19c6eb2d",
-            "38191 mavis trail",
-            "10455"
-        ]
-    },
-    {
         "query": "select `documents`.* from `documents` where ((`documents`.`id` = ?))",
         "bindings": [
             "e556a61e-17d0-4695-98f6-6a98612a5ea6"
-        ]
-    },
-    {
-        "query": "select `locations`.* from `locations` where (`city_id` = ? and `country_id` = ? and CONCAT(`line_one`, IF(`line_two` != '', CONCAT(' ', `line_two`), '')) = ? and `postcode` = ?) and `locations`.`deleted_at` is null limit 1",
-        "bindings": [
-            "158ed807-4d87-572f-8ccc-889b26b34dae",
-            "6457d328-11ac-54fe-8bd1-049c19c6eb2d",
-            "354 jackie flats suite 564",
-            "14417"
         ]
     },
     {
@@ -1086,42 +702,15 @@
         ]
     },
     {
-        "query": "select `locations`.* from `locations` where (`city_id` = ? and `country_id` = ? and CONCAT(`line_one`, IF(`line_two` != '', CONCAT(' ', `line_two`), '')) = ? and `postcode` = ?) and `locations`.`deleted_at` is null limit 1",
-        "bindings": [
-            "17cb9a12-c589-539e-8845-a99f600244dd",
-            "6457d328-11ac-54fe-8bd1-049c19c6eb2d",
-            "8652 richmond course",
-            "07039-5623"
-        ]
-    },
-    {
         "query": "select `documents`.* from `documents` where ((`documents`.`id` = ?))",
         "bindings": [
             "d63efcd3-aadd-4d6b-870f-2b86bc8277fa"
         ]
     },
     {
-        "query": "select `locations`.* from `locations` where (`city_id` = ? and `country_id` = ? and CONCAT(`line_one`, IF(`line_two` != '', CONCAT(' ', `line_two`), '')) = ? and `postcode` = ?) and `locations`.`deleted_at` is null limit 1",
-        "bindings": [
-            "aacc1720-be59-5d52-b578-b964b97d1633",
-            "6457d328-11ac-54fe-8bd1-049c19c6eb2d",
-            "5732 noel canyon apt. 107",
-            "36239"
-        ]
-    },
-    {
         "query": "select `documents`.* from `documents` where ((`documents`.`id` = ?))",
         "bindings": [
             "e4e3fc0d-3d58-4056-aeaf-5e098912c2b3"
-        ]
-    },
-    {
-        "query": "select `locations`.* from `locations` where (`city_id` = ? and `country_id` = ? and CONCAT(`line_one`, IF(`line_two` != '', CONCAT(' ', `line_two`), '')) = ? and `postcode` = ?) and `locations`.`deleted_at` is null limit 1",
-        "bindings": [
-            "192eabd8-0bf3-5d84-89fe-686e79b4bd17",
-            "6457d328-11ac-54fe-8bd1-049c19c6eb2d",
-            "667 laila fall",
-            "85357"
         ]
     },
     {

@@ -120,33 +120,9 @@
         ]
     },
     {
-        "query": "select `reseller_locations`.* from `reseller_locations` where `reseller_locations`.`reseller_id` in (?) and `reseller_locations`.`deleted_at` is null",
-        "bindings": [
-            "22d7dbf2-977a-49d8-8e4c-cacdaae616b2"
-        ]
-    },
-    {
-        "query": "select `locations`.* from `locations` where `locations`.`id` in (?) and `locations`.`deleted_at` is null",
-        "bindings": [
-            "229361f9-056d-5218-a3b0-dcbb4c313111"
-        ]
-    },
-    {
         "query": "select `customers`.* from `customers` where ((`customers`.`id` = ?))",
         "bindings": [
             "f273feb9-4043-4ce2-9633-2dab7a75c566"
-        ]
-    },
-    {
-        "query": "select `customer_locations`.* from `customer_locations` where `customer_locations`.`customer_id` in (?) and `customer_locations`.`deleted_at` is null",
-        "bindings": [
-            "f273feb9-4043-4ce2-9633-2dab7a75c566"
-        ]
-    },
-    {
-        "query": "select `locations`.* from `locations` where `locations`.`id` in (?) and `locations`.`deleted_at` is null",
-        "bindings": [
-            "81d534c5-a257-5850-afb6-72cad50161b8"
         ]
     },
     {
@@ -2667,35 +2643,9 @@
         ]
     },
     {
-        "query": "select `reseller_locations`.* from `reseller_locations` where `reseller_locations`.`reseller_id` in (?, ?) and `reseller_locations`.`deleted_at` is null",
-        "bindings": [
-            "22d7dbf2-977a-49d8-8e4c-cacdaae616b2",
-            "77ec115b-9723-4582-ad45-2b3a83286b1f"
-        ]
-    },
-    {
-        "query": "select `locations`.* from `locations` where `locations`.`id` in (?, ?) and `locations`.`deleted_at` is null",
-        "bindings": [
-            "229361f9-056d-5218-a3b0-dcbb4c313111",
-            "fb20b75a-a1c2-56b1-88f7-0b52a3a36987"
-        ]
-    },
-    {
         "query": "select `customers`.* from `customers` where ((`customers`.`id` = ?))",
         "bindings": [
             "bbf64ae3-73cc-4b2a-ac5c-a3a391099b4a"
-        ]
-    },
-    {
-        "query": "select `customer_locations`.* from `customer_locations` where `customer_locations`.`customer_id` in (?) and `customer_locations`.`deleted_at` is null",
-        "bindings": [
-            "bbf64ae3-73cc-4b2a-ac5c-a3a391099b4a"
-        ]
-    },
-    {
-        "query": "select `locations`.* from `locations` where `locations`.`id` in (?) and `locations`.`deleted_at` is null",
-        "bindings": [
-            "6085327e-5386-5ab6-841f-173a19976a13"
         ]
     },
     {

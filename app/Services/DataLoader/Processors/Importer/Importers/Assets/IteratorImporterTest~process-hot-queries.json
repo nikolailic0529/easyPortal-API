@@ -88,20 +88,6 @@
         ]
     },
     {
-        "query": "select `reseller_locations`.* from `reseller_locations` where `reseller_locations`.`reseller_id` in (?, ?) and `reseller_locations`.`deleted_at` is null",
-        "bindings": [
-            "77ec115b-9723-4582-ad45-2b3a83286b1f",
-            "9f6b1030-5d5d-4f0b-b743-2ef69eaf4a44"
-        ]
-    },
-    {
-        "query": "select `locations`.* from `locations` where `locations`.`id` in (?, ?) and `locations`.`deleted_at` is null",
-        "bindings": [
-            "2f80a4c2-e8d4-516d-822a-233c9a874796",
-            "87e3dc13-76b2-5c36-895d-5ab33f29da58"
-        ]
-    },
-    {
         "query": "select `customers`.* from `customers` where ((`customers`.`id` = ?) or (`customers`.`id` = ?) or (`customers`.`id` = ?) or (`customers`.`id` = ?) or (`customers`.`id` = ?))",
         "bindings": [
             "e25e1111-5815-455f-af8b-93665f76b62c",
@@ -109,26 +95,6 @@
             "f0506708-9949-4017-a760-d8e6d0a12838",
             "54126f62-957a-46b1-a8ec-926fa4e94a81",
             "4a4955d5-6c40-456c-94fe-25f41ffb25ef"
-        ]
-    },
-    {
-        "query": "select `customer_locations`.* from `customer_locations` where `customer_locations`.`customer_id` in (?, ?, ?, ?, ?) and `customer_locations`.`deleted_at` is null",
-        "bindings": [
-            "0bf4be29-41e0-4877-a35e-5d8d08f0b618",
-            "4a4955d5-6c40-456c-94fe-25f41ffb25ef",
-            "54126f62-957a-46b1-a8ec-926fa4e94a81",
-            "e25e1111-5815-455f-af8b-93665f76b62c",
-            "f0506708-9949-4017-a760-d8e6d0a12838"
-        ]
-    },
-    {
-        "query": "select `locations`.* from `locations` where `locations`.`id` in (?, ?, ?, ?, ?) and `locations`.`deleted_at` is null",
-        "bindings": [
-            "028ddf1c-1a12-56b8-bfec-67ce41d03b31",
-            "0b3e073f-e90b-529b-851b-6d7473f4c6fb",
-            "37fd6095-39f6-5271-b4d1-b42d41e8ba0c",
-            "4b85c9ce-d525-51f5-ac67-7b616ae6f701",
-            "6e2bd178-651a-5475-b94e-12cdeadaab54"
         ]
     },
     {
@@ -152,15 +118,6 @@
         "bindings": []
     },
     {
-        "query": "select `locations`.* from `locations` where (`city_id` = ? and `country_id` = ? and CONCAT(`line_one`, IF(`line_two` != '', CONCAT(' ', `line_two`), '')) = ? and `postcode` = ?) and `locations`.`deleted_at` is null limit 1",
-        "bindings": [
-            "408630e7-2285-5049-9551-e042944ceb4d",
-            "281fa16d-b7e0-59dc-a2d2-ae493b781896",
-            "98733 murray terrace suite 898",
-            "79465-9082"
-        ]
-    },
-    {
         "query": "select `types`.* from `types` where `types`.`deleted_at` is null",
         "bindings": []
     },
@@ -179,15 +136,6 @@
         ]
     },
     {
-        "query": "select `locations`.* from `locations` where (`city_id` = ? and `country_id` = ? and CONCAT(`line_one`, IF(`line_two` != '', CONCAT(' ', `line_two`), '')) = ? and `postcode` = ?) and `locations`.`deleted_at` is null limit 1",
-        "bindings": [
-            "f713bcdb-2403-5fa5-8eed-6471b19e5dab",
-            "281fa16d-b7e0-59dc-a2d2-ae493b781896",
-            "7563 keith garden suite 809",
-            "77651-8832"
-        ]
-    },
-    {
         "query": "select `documents`.* from `documents` where 0 = 1 and `documents`.`deleted_at` is null",
         "bindings": []
     },
@@ -195,15 +143,6 @@
         "query": "select `documents`.* from `documents` where ((`documents`.`id` = ?))",
         "bindings": [
             "324a347f-bc08-43fa-8acf-fead3e66cf75"
-        ]
-    },
-    {
-        "query": "select `locations`.* from `locations` where (`city_id` = ? and `country_id` = ? and CONCAT(`line_one`, IF(`line_two` != '', CONCAT(' ', `line_two`), '')) = ? and `postcode` = ?) and `locations`.`deleted_at` is null limit 1",
-        "bindings": [
-            "9e1005ae-5a36-5909-8e2d-dab2b617376c",
-            "281fa16d-b7e0-59dc-a2d2-ae493b781896",
-            "310 stroman views suite 075",
-            "49557-2232"
         ]
     },
     {
@@ -217,15 +156,6 @@
         ]
     },
     {
-        "query": "select `locations`.* from `locations` where (`city_id` = ? and `country_id` = ? and CONCAT(`line_one`, IF(`line_two` != '', CONCAT(' ', `line_two`), '')) = ? and `postcode` = ?) and `locations`.`deleted_at` is null limit 1",
-        "bindings": [
-            "fc291207-42a8-5be6-9348-3ca0d0a62f94",
-            "281fa16d-b7e0-59dc-a2d2-ae493b781896",
-            "581 weber coves suite 913",
-            "44266"
-        ]
-    },
-    {
         "query": "select `documents`.* from `documents` where 0 = 1 and `documents`.`deleted_at` is null",
         "bindings": []
     },
@@ -235,15 +165,6 @@
             "4ac48796-4419-4e3b-817d-8e41ffe60189",
             "fa5ac120-cfcd-4403-86ff-e6b76e32e116",
             "9b658237-eaa3-4b04-83d8-0ad1e04b40df"
-        ]
-    },
-    {
-        "query": "select `locations`.* from `locations` where (`city_id` = ? and `country_id` = ? and CONCAT(`line_one`, IF(`line_two` != '', CONCAT(' ', `line_two`), '')) = ? and `postcode` = ?) and `locations`.`deleted_at` is null limit 1",
-        "bindings": [
-            "cc19fbd2-edd0-5137-83f6-673cd5f70152",
-            "281fa16d-b7e0-59dc-a2d2-ae493b781896",
-            "8845 batz turnpike apt. 153",
-            "61339"
         ]
     },
     {
@@ -356,22 +277,6 @@
         ]
     },
     {
-        "query": "select `reseller_locations`.* from `reseller_locations` where `reseller_locations`.`reseller_id` in (?, ?, ?) and `reseller_locations`.`deleted_at` is null",
-        "bindings": [
-            "0fd07b17-3314-40b5-ac32-7189051f773b",
-            "9d9e320d-4e44-4518-a4e6-6bfe7f1c7dd8",
-            "9f6b1030-5d5d-4f0b-b743-2ef69eaf4a44"
-        ]
-    },
-    {
-        "query": "select `locations`.* from `locations` where `locations`.`id` in (?, ?, ?) and `locations`.`deleted_at` is null",
-        "bindings": [
-            "7d701e09-dde4-544a-a04f-19093ff23b2b",
-            "87e3dc13-76b2-5c36-895d-5ab33f29da58",
-            "e8a86988-bac9-5bcb-8947-374b5a44de6a"
-        ]
-    },
-    {
         "query": "select `customers`.* from `customers` where ((`customers`.`id` = ?) or (`customers`.`id` = ?) or (`customers`.`id` = ?) or (`customers`.`id` = ?) or (`customers`.`id` = ?))",
         "bindings": [
             "95ce79c4-7fa9-4004-9486-3adac89c55c0",
@@ -382,47 +287,9 @@
         ]
     },
     {
-        "query": "select `customer_locations`.* from `customer_locations` where `customer_locations`.`customer_id` in (?, ?, ?, ?, ?) and `customer_locations`.`deleted_at` is null",
-        "bindings": [
-            "033bcf58-0dcd-42b6-8765-51b5815b747f",
-            "0c8e4738-9851-438b-acbb-a680be9bafea",
-            "35c87f11-f024-402b-9a9e-49b21d29e804",
-            "7b9dae48-2613-4478-9b2f-842dd7c1db71",
-            "95ce79c4-7fa9-4004-9486-3adac89c55c0"
-        ]
-    },
-    {
-        "query": "select `locations`.* from `locations` where `locations`.`id` in (?, ?, ?, ?, ?) and `locations`.`deleted_at` is null",
-        "bindings": [
-            "282a6c20-0398-570f-9b80-ceeec974d864",
-            "36c57175-8db6-5edf-9d59-0906b322e421",
-            "410f7b03-0541-5200-b4b6-d7fc661a9ea7",
-            "ebd40708-7284-5f9c-8c71-1939d23e50f2",
-            "f5643a94-b0e5-50af-9a1d-251a731128d7"
-        ]
-    },
-    {
-        "query": "select `locations`.* from `locations` where (`city_id` = ? and `country_id` = ? and CONCAT(`line_one`, IF(`line_two` != '', CONCAT(' ', `line_two`), '')) = ? and `postcode` = ?) and `locations`.`deleted_at` is null limit 1",
-        "bindings": [
-            "8634df15-42b7-57e5-bd31-a937b3928ab0",
-            "80aa4e1c-c94c-5c89-ae37-7ba19749cf4e",
-            "728 torphy inlet",
-            "18391"
-        ]
-    },
-    {
         "query": "select `documents`.* from `documents` where ((`documents`.`id` = ?))",
         "bindings": [
             "e241c8c6-5a8c-49c2-9714-bfec047b8ae2"
-        ]
-    },
-    {
-        "query": "select `locations`.* from `locations` where (`city_id` = ? and `country_id` = ? and CONCAT(`line_one`, IF(`line_two` != '', CONCAT(' ', `line_two`), '')) = ? and `postcode` = ?) and `locations`.`deleted_at` is null limit 1",
-        "bindings": [
-            "454fad94-4057-5cb2-8244-8338e4f5b274",
-            "281fa16d-b7e0-59dc-a2d2-ae493b781896",
-            "73818 bins crossroad",
-            "44096-7103"
         ]
     },
     {
@@ -432,27 +299,9 @@
         ]
     },
     {
-        "query": "select `locations`.* from `locations` where (`city_id` = ? and `country_id` = ? and CONCAT(`line_one`, IF(`line_two` != '', CONCAT(' ', `line_two`), '')) = ? and `postcode` = ?) and `locations`.`deleted_at` is null limit 1",
-        "bindings": [
-            "6987de7c-dade-50ee-a9de-7f1f358dc862",
-            "281fa16d-b7e0-59dc-a2d2-ae493b781896",
-            "13101 ortiz mission apt. 959",
-            "35002"
-        ]
-    },
-    {
         "query": "select `documents`.* from `documents` where ((`documents`.`id` = ?))",
         "bindings": [
             "2c59c73c-f361-44bb-aec8-212dbbbdbdad"
-        ]
-    },
-    {
-        "query": "select `locations`.* from `locations` where (`city_id` = ? and `country_id` = ? and CONCAT(`line_one`, IF(`line_two` != '', CONCAT(' ', `line_two`), '')) = ? and `postcode` = ?) and `locations`.`deleted_at` is null limit 1",
-        "bindings": [
-            "a11e99f1-2ecf-5047-b75d-7e0fdc0e0042",
-            "281fa16d-b7e0-59dc-a2d2-ae493b781896",
-            "19798 chadrick port apt. 573",
-            "23344"
         ]
     },
     {
@@ -464,15 +313,6 @@
         "bindings": [
             "72aaeb84-1468-4526-a94d-3dc0c4ce31a1",
             "ec6680a7-beb6-4890-990c-11e0f6feaf1f"
-        ]
-    },
-    {
-        "query": "select `locations`.* from `locations` where (`city_id` = ? and `country_id` = ? and CONCAT(`line_one`, IF(`line_two` != '', CONCAT(' ', `line_two`), '')) = ? and `postcode` = ?) and `locations`.`deleted_at` is null limit 1",
-        "bindings": [
-            "33935b29-d448-597b-94ca-d903033b4c92",
-            "281fa16d-b7e0-59dc-a2d2-ae493b781896",
-            "845 regan ports suite 571",
-            "20698-7961"
         ]
     },
     {

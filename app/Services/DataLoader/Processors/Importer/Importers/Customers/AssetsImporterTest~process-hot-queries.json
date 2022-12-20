@@ -83,33 +83,9 @@
         ]
     },
     {
-        "query": "select `reseller_locations`.* from `reseller_locations` where `reseller_locations`.`reseller_id` in (?) and `reseller_locations`.`deleted_at` is null",
-        "bindings": [
-            "9d9e320d-4e44-4518-a4e6-6bfe7f1c7dd8"
-        ]
-    },
-    {
-        "query": "select `locations`.* from `locations` where `locations`.`id` in (?) and `locations`.`deleted_at` is null",
-        "bindings": [
-            "c4a22828-05b7-5086-ac66-bbb33aeddd37"
-        ]
-    },
-    {
         "query": "select `customers`.* from `customers` where ((`customers`.`id` = ?))",
         "bindings": [
             "019a3b56-b701-4599-8452-2cf9f1f54b26"
-        ]
-    },
-    {
-        "query": "select `customer_locations`.* from `customer_locations` where `customer_locations`.`customer_id` in (?) and `customer_locations`.`deleted_at` is null",
-        "bindings": [
-            "019a3b56-b701-4599-8452-2cf9f1f54b26"
-        ]
-    },
-    {
-        "query": "select `locations`.* from `locations` where `locations`.`id` in (?) and `locations`.`deleted_at` is null",
-        "bindings": [
-            "6f0afd36-df2a-5d6c-818b-49095e4ffde1"
         ]
     },
     {

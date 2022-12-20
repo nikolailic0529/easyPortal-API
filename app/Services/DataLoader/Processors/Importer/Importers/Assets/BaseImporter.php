@@ -54,32 +54,28 @@ abstract class BaseImporter extends Importer {
             ->prefetch($data->get(Asset::class))
             ->getResolved();
 
-        $assets->loadMissing('warranties');
-        $assets->loadMissing('contacts.types');
-        $assets->loadMissing('location');
-        $assets->loadMissing('tags');
-        $assets->loadMissing('coverages');
+        $assets->loadMissing([
+            'warranties',
+            'contacts.types',
+            'location',
+            'tags',
+            'coverages',
+        ]);
 
-        $locationsResolver->add($assets->pluck('locations')->flatten());
+        $locationsResolver->add($assets->pluck('location')->flatten());
         $contactsResolver->add($assets->pluck('contacts')->flatten());
 
         // Resellers
-        $resellers = $container
+        $container
             ->make(ResellerResolver::class)
             ->prefetch($data->get(Reseller::class))
             ->getResolved();
 
-        $resellers->loadMissing('locations.location');
-        $locationsResolver->add($resellers->pluck('locations')->flatten()->pluck('location')->flatten());
-
         // Customers
-        $customers = $container
+        $container
             ->make(CustomerResolver::class)
             ->prefetch($data->get(Customer::class))
             ->getResolved();
-
-        $customers->loadMissing('locations.location');
-        $locationsResolver->add($customers->pluck('locations')->flatten()->pluck('location')->flatten());
 
         // Return
         return $data;

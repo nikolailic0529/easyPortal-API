@@ -412,30 +412,6 @@
         ]
     },
     {
-        "query": "select `reseller_locations`.* from `reseller_locations` where `reseller_locations`.`reseller_id` in (?) and `reseller_locations`.`deleted_at` is null",
-        "bindings": [
-            "a9233c9c-4634-493a-9f12-bef4d1cf3c5e"
-        ]
-    },
-    {
-        "query": "select `locations`.* from `locations` where `locations`.`id` in (?) and `locations`.`deleted_at` is null",
-        "bindings": [
-            "45ce9849-824c-574c-bad4-95920da639a3"
-        ]
-    },
-    {
-        "query": "select `customer_locations`.* from `customer_locations` where `customer_locations`.`customer_id` in (?) and `customer_locations`.`deleted_at` is null",
-        "bindings": [
-            "60e73b13-f741-4c73-a32d-a23fa438d9ad"
-        ]
-    },
-    {
-        "query": "select `locations`.* from `locations` where `locations`.`id` in (?) and `locations`.`deleted_at` is null",
-        "bindings": [
-            "22185166-97d1-50fb-a974-ac51dd9d8c7c"
-        ]
-    },
-    {
         "query": "select `statuses`.* from `statuses` where (`key` = ? and `object_type` = ?) and `statuses`.`deleted_at` is null limit 1",
         "bindings": [
             "active",
@@ -484,6 +460,15 @@
     {
         "query": "select `cities`.* from `cities` where `cities`.`deleted_at` is null",
         "bindings": []
+    },
+    {
+        "query": "select `locations`.* from `locations` where (`city_id` = ? and `country_id` = ? and CONCAT(`line_one`, IF(`line_two` != '', CONCAT(' ', `line_two`), '')) = ? and `postcode` = ?) and `locations`.`deleted_at` is null limit 1",
+        "bindings": [
+            "3c837192-b5e7-5f91-aff4-fd40f49c94ce",
+            "6fb67836-e7d8-5ddb-9a1e-a6ed4fdd1b2c",
+            "7658 martina vista",
+            "89915-8265"
+        ]
     },
     {
         "query": "select `coverages`.* from `coverages` where `coverages`.`deleted_at` is null",
@@ -645,33 +630,18 @@
         ]
     },
     {
-        "query": "select `reseller_locations`.* from `reseller_locations` where `reseller_locations`.`reseller_id` in (?) and `reseller_locations`.`deleted_at` is null",
-        "bindings": [
-            "a9233c9c-4634-493a-9f12-bef4d1cf3c5e"
-        ]
-    },
-    {
-        "query": "select `locations`.* from `locations` where `locations`.`id` in (?) and `locations`.`deleted_at` is null",
-        "bindings": [
-            "45ce9849-824c-574c-bad4-95920da639a3"
-        ]
-    },
-    {
         "query": "select `customers`.* from `customers` where ((`customers`.`id` = ?))",
         "bindings": [
             "60e73b13-f741-4c73-a32d-a23fa438d9ad"
         ]
     },
     {
-        "query": "select `customer_locations`.* from `customer_locations` where `customer_locations`.`customer_id` in (?) and `customer_locations`.`deleted_at` is null",
+        "query": "select `locations`.* from `locations` where (`city_id` = ? and `country_id` = ? and CONCAT(`line_one`, IF(`line_two` != '', CONCAT(' ', `line_two`), '')) = ? and `postcode` = ?) and `locations`.`deleted_at` is null limit 1",
         "bindings": [
-            "60e73b13-f741-4c73-a32d-a23fa438d9ad"
-        ]
-    },
-    {
-        "query": "select `locations`.* from `locations` where `locations`.`id` in (?) and `locations`.`deleted_at` is null",
-        "bindings": [
-            "22185166-97d1-50fb-a974-ac51dd9d8c7c"
+            "3c837192-b5e7-5f91-aff4-fd40f49c94ce",
+            "6fb67836-e7d8-5ddb-9a1e-a6ed4fdd1b2c",
+            "7658 martina vista",
+            "89915-8265"
         ]
     },
     {
@@ -826,33 +796,9 @@
         ]
     },
     {
-        "query": "select `reseller_locations`.* from `reseller_locations` where `reseller_locations`.`reseller_id` in (?) and `reseller_locations`.`deleted_at` is null",
-        "bindings": [
-            "a9233c9c-4634-493a-9f12-bef4d1cf3c5e"
-        ]
-    },
-    {
-        "query": "select `locations`.* from `locations` where `locations`.`id` in (?) and `locations`.`deleted_at` is null",
-        "bindings": [
-            "45ce9849-824c-574c-bad4-95920da639a3"
-        ]
-    },
-    {
         "query": "select `customers`.* from `customers` where ((`customers`.`id` = ?))",
         "bindings": [
             "60e73b13-f741-4c73-a32d-a23fa438d9ad"
-        ]
-    },
-    {
-        "query": "select `customer_locations`.* from `customer_locations` where `customer_locations`.`customer_id` in (?) and `customer_locations`.`deleted_at` is null",
-        "bindings": [
-            "60e73b13-f741-4c73-a32d-a23fa438d9ad"
-        ]
-    },
-    {
-        "query": "select `locations`.* from `locations` where `locations`.`id` in (?) and `locations`.`deleted_at` is null",
-        "bindings": [
-            "22185166-97d1-50fb-a974-ac51dd9d8c7c"
         ]
     },
     {
@@ -861,6 +807,15 @@
             "HPE SV VSA 2014 10TB E-LTU",
             "2022-02-02 00:00:59",
             "8d4b2573-4215-5fbf-a57d-3a98cbc4b0df"
+        ]
+    },
+    {
+        "query": "select `locations`.* from `locations` where (`city_id` = ? and `country_id` = ? and CONCAT(`line_one`, IF(`line_two` != '', CONCAT(' ', `line_two`), '')) = ? and `postcode` = ?) and `locations`.`deleted_at` is null limit 1",
+        "bindings": [
+            "3c837192-b5e7-5f91-aff4-fd40f49c94ce",
+            "6fb67836-e7d8-5ddb-9a1e-a6ed4fdd1b2c",
+            "7658 martina vista",
+            "89915-8265"
         ]
     },
     {
@@ -1015,33 +970,18 @@
         ]
     },
     {
-        "query": "select `reseller_locations`.* from `reseller_locations` where `reseller_locations`.`reseller_id` in (?) and `reseller_locations`.`deleted_at` is null",
-        "bindings": [
-            "a9233c9c-4634-493a-9f12-bef4d1cf3c5e"
-        ]
-    },
-    {
-        "query": "select `locations`.* from `locations` where `locations`.`id` in (?) and `locations`.`deleted_at` is null",
-        "bindings": [
-            "45ce9849-824c-574c-bad4-95920da639a3"
-        ]
-    },
-    {
         "query": "select `customers`.* from `customers` where ((`customers`.`id` = ?))",
         "bindings": [
             "60e73b13-f741-4c73-a32d-a23fa438d9ad"
         ]
     },
     {
-        "query": "select `customer_locations`.* from `customer_locations` where `customer_locations`.`customer_id` in (?) and `customer_locations`.`deleted_at` is null",
+        "query": "select `locations`.* from `locations` where (`city_id` = ? and `country_id` = ? and CONCAT(`line_one`, IF(`line_two` != '', CONCAT(' ', `line_two`), '')) = ? and `postcode` = ?) and `locations`.`deleted_at` is null limit 1",
         "bindings": [
-            "60e73b13-f741-4c73-a32d-a23fa438d9ad"
-        ]
-    },
-    {
-        "query": "select `locations`.* from `locations` where `locations`.`id` in (?) and `locations`.`deleted_at` is null",
-        "bindings": [
-            "22185166-97d1-50fb-a974-ac51dd9d8c7c"
+            "3c837192-b5e7-5f91-aff4-fd40f49c94ce",
+            "6fb67836-e7d8-5ddb-9a1e-a6ed4fdd1b2c",
+            "7658 martina vista",
+            "89915-8265"
         ]
     },
     {
