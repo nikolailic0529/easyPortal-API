@@ -48,6 +48,13 @@ abstract class Resolver implements Singleton, KeyRetriever {
     }
 
     /**
+     * @return TModel|null
+     */
+    public function getByKey(mixed $key): ?Model {
+        return $this->getCache()->getByModelKey($key);
+    }
+
+    /**
      * @return EloquentCollection<int, TModel>
      */
     public function getResolved(): EloquentCollection {

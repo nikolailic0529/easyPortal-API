@@ -2486,11 +2486,6 @@ parameters:
 			path: app/Services/Auth/AuthTest.php
 
 		-
-			message: "#^Method App\\\\Services\\\\DataLoader\\\\Cache\\\\Cache\\:\\:getAll\\(\\) should return Illuminate\\\\Database\\\\Eloquent\\\\Collection\\<int, TModel of Illuminate\\\\Database\\\\Eloquent\\\\Model\\> but returns Illuminate\\\\Database\\\\Eloquent\\\\Collection\\<\\(int\\|string\\), Illuminate\\\\Database\\\\Eloquent\\\\Model\\>\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Cache/Cache.php
-
-		-
 			message: "#^Cannot call method getAttribute\\(\\) on mixed\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Cache/CacheTest.php

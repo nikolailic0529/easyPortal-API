@@ -20,6 +20,10 @@ class Cache {
      */
     protected array $items;
     /**
+     * @var array<mixed, ?TModel>
+     */
+    protected array $models;
+    /**
      * @var array<KeyRetriever<TModel>>
      */
     protected array $retrievers;
@@ -73,10 +77,18 @@ class Cache {
      */
     public function put(Model $model): Model {
         foreach ($this->retrievers as $name => $retriever) {
-            $key = (string) $retriever->getKey($model);
+            // Retriever
+            $retrieverKey = (string) $retriever->getKey($model);
 
-            $this->items[static::NULL_RETRIEVER]->forget([$key]);
-            $this->items[$name]->put($key, $model);
+            $this->items[static::NULL_RETRIEVER]->forget([$retrieverKey]);
+            $this->items[$name]->put($retrieverKey, $model);
+
+            // Model
+            $modelKey = $model->getKey();
+
+            if ($modelKey) {
+                $this->models[$modelKey] = $model;
+            }
         }
 
         return $model;
@@ -128,8 +140,16 @@ class Cache {
             : null;
     }
 
+    /**
+     * @return TModel|null
+     */
+    public function getByModelKey(mixed $key): ?Model {
+        return $this->models[$key] ?? null;
+    }
+
     public function reset(): static {
-        $this->items = [
+        $this->models = [];
+        $this->items  = [
             static::NULL_RETRIEVER => new Collection(),
         ];
 
@@ -157,6 +177,6 @@ class Cache {
             }
         }
 
-        return new EloquentCollection(array_values($all));
+        return EloquentCollection::make(array_values($all));
     }
 }
