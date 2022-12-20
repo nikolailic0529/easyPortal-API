@@ -16219,15 +16219,6 @@
         ]
     },
     {
-        "query": "select `kpis`.* from `kpis` where `kpis`.`id` in (?, ?, ?, ?) and `kpis`.`deleted_at` is null",
-        "bindings": [
-            "184d1473-31b5-5357-85fc-b5f2716fd3a6",
-            "4a3a31b9-e452-5fca-88f2-3bbd2c277448",
-            "c55340b4-4d0a-5fd6-8e6b-6f5de66ae106",
-            "f5394945-ffb7-5ee1-a9f8-29d0e7a1ba43"
-        ]
-    },
-    {
         "query": "select `types`.*, `contact_types`.`contact_id` as `pivot_contact_id`, `contact_types`.`type_id` as `pivot_type_id`, `contact_types`.`created_at` as `pivot_created_at`, `contact_types`.`updated_at` as `pivot_updated_at` from `types` inner join `contact_types` on `types`.`id` = `contact_types`.`type_id` where `contact_types`.`deleted_at` is null and `contact_types`.`contact_id` in (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) and `types`.`deleted_at` is null",
         "bindings": [
             "0096a464-7ca6-53f3-90b5-e75837509152",
@@ -16309,6 +16300,15 @@
             "ee0cf92e-88df-5ead-b549-6d1ee9a804cc",
             "fc0ef2ae-082d-51d9-a88b-2de0c3c92fcd",
             "ff1603eb-a799-5c7e-99e3-420a8f305a08"
+        ]
+    },
+    {
+        "query": "select `kpis`.* from `kpis` where `kpis`.`id` in (?, ?, ?, ?) and `kpis`.`deleted_at` is null",
+        "bindings": [
+            "184d1473-31b5-5357-85fc-b5f2716fd3a6",
+            "4a3a31b9-e452-5fca-88f2-3bbd2c277448",
+            "c55340b4-4d0a-5fd6-8e6b-6f5de66ae106",
+            "f5394945-ffb7-5ee1-a9f8-29d0e7a1ba43"
         ]
     },
     {
