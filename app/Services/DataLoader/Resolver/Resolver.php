@@ -147,16 +147,22 @@ abstract class Resolver implements Singleton, KeyRetriever {
         }
 
         // Prefetch
-        $cache    = $this->getCache();
-        $items    = new EloquentCollection();
-        $internal = [];
+        $cache     = $this->getCache();
+        $items     = new EloquentCollection();
+        $internal  = [];
+        $processed = [];
 
         foreach ($keys as $key) {
-            $key  = $this->getCacheKey($key);
-            $item = $cache->get($key);
+            if ($key === null || isset($processed[$key])) {
+                continue;
+            }
 
-            if ($item === null && !$cache->has($key)) {
-                $internal[] = $key;
+            $processed[$key] = true;
+            $cacheKey        = $this->getCacheKey($key);
+            $item            = $cache->get($cacheKey);
+
+            if ($item === null && !$cache->hasNull($cacheKey)) {
+                $internal[] = $cacheKey;
             } elseif ($item) {
                 $items[] = $item;
             } else {

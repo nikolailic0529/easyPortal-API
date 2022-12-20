@@ -41,7 +41,6 @@ use App\Services\DataLoader\Finders\CustomerFinder;
 use App\Services\DataLoader\Finders\DistributorFinder;
 use App\Services\DataLoader\Finders\ResellerFinder;
 use App\Services\DataLoader\Normalizer\Normalizer;
-use App\Services\DataLoader\Processors\Importer\ImporterChunkData;
 use App\Services\DataLoader\Resolver\Resolvers\AssetResolver;
 use App\Services\DataLoader\Resolver\Resolvers\CurrencyResolver;
 use App\Services\DataLoader\Resolver\Resolvers\CustomerResolver;
@@ -70,6 +69,7 @@ use Illuminate\Support\Facades\Date;
 use InvalidArgumentException;
 use Throwable;
 
+use function array_map;
 use function implode;
 use function sprintf;
 
@@ -407,7 +407,7 @@ class DocumentFactory extends ModelFactory {
             try {
                 // Prefetch
                 $this->getAssetResolver()->prefetch(
-                    (new ImporterChunkData($document->documentEntries))->get(AssetModel::class),
+                    array_map(static fn ($entry) => $entry->assetId, $document->documentEntries),
                     static function (Collection $assets): void {
                         $assets->loadMissing('oem');
                     },
