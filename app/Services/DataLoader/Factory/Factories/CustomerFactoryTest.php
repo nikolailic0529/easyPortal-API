@@ -267,7 +267,7 @@ class CustomerFactoryTest extends TestCase {
 
         $factory->create($company);
 
-        self::assertCount(1, $queries->get());
+        self::assertCount(0, $queries->get());
     }
 
     /**

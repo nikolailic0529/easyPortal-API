@@ -65,7 +65,10 @@ class DistributorFactory extends ModelFactory {
             $distributor->id         = $normalizer->uuid($company->id);
             $distributor->name       = $normalizer->string($company->name);
             $distributor->changed_at = $normalizer->datetime($company->updatedAt);
-            $distributor->synced_at  = Date::now();
+
+            if ($created) {
+                $distributor->synced_at = Date::now();
+            }
 
             if ($distributor->trashed()) {
                 $distributor->restore();

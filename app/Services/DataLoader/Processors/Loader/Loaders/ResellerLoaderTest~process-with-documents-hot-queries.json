@@ -71,16 +71,15 @@
         "bindings": []
     },
     {
-        "query": "update `resellers` set `synced_at` = ?, `resellers`.`updated_at` = ? where `id` = ?",
+        "query": "select `organizations`.* from `organizations` where `organizations`.`id` = ? limit 1",
         "bindings": [
-            "2022-02-02 00:02:24",
-            "2022-02-02 00:02:27",
             "22d7dbf2-977a-49d8-8e4c-cacdaae616b2"
         ]
     },
     {
-        "query": "select `organizations`.* from `organizations` where `organizations`.`id` = ? limit 1",
+        "query": "update `resellers` set `synced_at` = ? where `id` in (?) and `resellers`.`deleted_at` is null",
         "bindings": [
+            "2022-02-02T00:01:31+00:00",
             "22d7dbf2-977a-49d8-8e4c-cacdaae616b2"
         ]
     },
@@ -162,14 +161,6 @@
         "bindings": []
     },
     {
-        "query": "update `documents` set `synced_at` = ?, `documents`.`updated_at` = ? where `id` = ?",
-        "bindings": [
-            "2022-02-02 00:02:50",
-            "2022-02-02 00:02:55",
-            "f7873540-59c2-4019-9522-5e7b299257b1"
-        ]
-    },
-    {
         "query": "select `assets`.* from `assets` where ((`assets`.`id` = ?) or (`assets`.`id` = ?) or (`assets`.`id` = ?) or (`assets`.`id` = ?) or (`assets`.`id` = ?))",
         "bindings": [
             "c30973dd-e7cd-40ae-8bda-021880774e11",
@@ -192,10 +183,9 @@
         ]
     },
     {
-        "query": "update `documents` set `synced_at` = ?, `documents`.`updated_at` = ? where `id` = ?",
+        "query": "update `documents` set `synced_at` = ? where `id` in (?) and `documents`.`deleted_at` is null",
         "bindings": [
-            "2022-02-02 00:03:41",
-            "2022-02-02 00:03:44",
+            "2022-02-02T00:02:09+00:00",
             "f7873540-59c2-4019-9522-5e7b299257b1"
         ]
     },
@@ -203,14 +193,14 @@
         "query": "select count(*) as aggregate from `documents` where `reseller_id` = ? and `synced_at` < ? and `documents`.`deleted_at` is null",
         "bindings": [
             "22d7dbf2-977a-49d8-8e4c-cacdaae616b2",
-            "2022-02-02T00:02:22+00:00"
+            "2022-02-02T00:01:29+00:00"
         ]
     },
     {
         "query": "select `documents`.* from `documents` where `reseller_id` = ? and `synced_at` < ? and `documents`.`deleted_at` is null order by `documents`.`id` asc limit 250 offset 0",
         "bindings": [
             "22d7dbf2-977a-49d8-8e4c-cacdaae616b2",
-            "2022-02-02T00:02:22+00:00"
+            "2022-02-02T00:01:29+00:00"
         ]
     }
 ]

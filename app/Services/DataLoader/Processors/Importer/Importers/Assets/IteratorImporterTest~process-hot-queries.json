@@ -185,14 +185,6 @@
         ]
     },
     {
-        "query": "update `assets` set `synced_at` = ?, `assets`.`updated_at` = ? where `id` = ?",
-        "bindings": [
-            "2022-02-02 00:04:18",
-            "2022-02-02 00:04:42",
-            "2f5dcdae-ed5a-4a87-a9b1-417819b638e4"
-        ]
-    },
-    {
         "query": "select `locations`.* from `locations` where (`city_id` = ? and `country_id` = ? and CONCAT(`line_one`, IF(`line_two` != '', CONCAT(' ', `line_two`), '')) = ? and `postcode` = ?) and `locations`.`deleted_at` is null limit 1",
         "bindings": [
             "f713bcdb-2403-5fa5-8eed-6471b19e5dab",
@@ -212,14 +204,6 @@
         ]
     },
     {
-        "query": "update `assets` set `synced_at` = ?, `assets`.`updated_at` = ? where `id` = ?",
-        "bindings": [
-            "2022-02-02 00:05:16",
-            "2022-02-02 00:05:40",
-            "b9b64396-7d9a-4c4c-bfb3-7c7f0e342ec6"
-        ]
-    },
-    {
         "query": "select `locations`.* from `locations` where (`city_id` = ? and `country_id` = ? and CONCAT(`line_one`, IF(`line_two` != '', CONCAT(' ', `line_two`), '')) = ? and `postcode` = ?) and `locations`.`deleted_at` is null limit 1",
         "bindings": [
             "9e1005ae-5a36-5909-8e2d-dab2b617376c",
@@ -236,14 +220,6 @@
         "query": "select `documents`.* from `documents` where ((`documents`.`id` = ?))",
         "bindings": [
             "0aaf2b0e-ae7d-41b0-a1af-5610d486eb19"
-        ]
-    },
-    {
-        "query": "update `assets` set `synced_at` = ?, `assets`.`updated_at` = ? where `id` = ?",
-        "bindings": [
-            "2022-02-02 00:06:14",
-            "2022-02-02 00:06:40",
-            "fa66f78b-0580-4ca4-8c81-06d2d2f25cf5"
         ]
     },
     {
@@ -268,14 +244,6 @@
         ]
     },
     {
-        "query": "update `assets` set `synced_at` = ?, `assets`.`updated_at` = ? where `id` = ?",
-        "bindings": [
-            "2022-02-02 00:07:14",
-            "2022-02-02 00:07:42",
-            "91fe9f38-1137-424e-bde7-90bd367ee016"
-        ]
-    },
-    {
         "query": "select `locations`.* from `locations` where (`city_id` = ? and `country_id` = ? and CONCAT(`line_one`, IF(`line_two` != '', CONCAT(' ', `line_two`), '')) = ? and `postcode` = ?) and `locations`.`deleted_at` is null limit 1",
         "bindings": [
             "cc19fbd2-edd0-5137-83f6-673cd5f70152",
@@ -295,10 +263,13 @@
         ]
     },
     {
-        "query": "update `assets` set `synced_at` = ?, `assets`.`updated_at` = ? where `id` = ?",
+        "query": "update `assets` set `synced_at` = ? where `id` in (?, ?, ?, ?, ?) and `assets`.`deleted_at` is null",
         "bindings": [
-            "2022-02-02 00:08:16",
-            "2022-02-02 00:08:32",
+            "2022-02-02T00:06:49+00:00",
+            "2f5dcdae-ed5a-4a87-a9b1-417819b638e4",
+            "b9b64396-7d9a-4c4c-bfb3-7c7f0e342ec6",
+            "fa66f78b-0580-4ca4-8c81-06d2d2f25cf5",
+            "91fe9f38-1137-424e-bde7-90bd367ee016",
             "cf82deb8-e098-4f15-98bd-fe890cbc89cf"
         ]
     },
@@ -458,14 +429,6 @@
         ]
     },
     {
-        "query": "update `assets` set `synced_at` = ?, `assets`.`updated_at` = ? where `id` = ?",
-        "bindings": [
-            "2022-02-02 00:09:02",
-            "2022-02-02 00:09:07",
-            "f5135d55-81fd-40e7-9bb5-a227f5516b87"
-        ]
-    },
-    {
         "query": "select `locations`.* from `locations` where (`city_id` = ? and `country_id` = ? and CONCAT(`line_one`, IF(`line_two` != '', CONCAT(' ', `line_two`), '')) = ? and `postcode` = ?) and `locations`.`deleted_at` is null limit 1",
         "bindings": [
             "454fad94-4057-5cb2-8244-8338e4f5b274",
@@ -481,14 +444,6 @@
         ]
     },
     {
-        "query": "update `assets` set `synced_at` = ?, `assets`.`updated_at` = ? where `id` = ?",
-        "bindings": [
-            "2022-02-02 00:09:32",
-            "2022-02-02 00:09:37",
-            "16425fd0-0107-4a3f-a294-d27a5802abfa"
-        ]
-    },
-    {
         "query": "select `locations`.* from `locations` where (`city_id` = ? and `country_id` = ? and CONCAT(`line_one`, IF(`line_two` != '', CONCAT(' ', `line_two`), '')) = ? and `postcode` = ?) and `locations`.`deleted_at` is null limit 1",
         "bindings": [
             "6987de7c-dade-50ee-a9de-7f1f358dc862",
@@ -501,14 +456,6 @@
         "query": "select `documents`.* from `documents` where ((`documents`.`id` = ?))",
         "bindings": [
             "2c59c73c-f361-44bb-aec8-212dbbbdbdad"
-        ]
-    },
-    {
-        "query": "update `assets` set `synced_at` = ?, `assets`.`updated_at` = ? where `id` = ?",
-        "bindings": [
-            "2022-02-02 00:10:02",
-            "2022-02-02 00:10:07",
-            "3a010157-00fa-4110-87d9-cee7a5ba8482"
         ]
     },
     {
@@ -532,14 +479,6 @@
         ]
     },
     {
-        "query": "update `assets` set `synced_at` = ?, `assets`.`updated_at` = ? where `id` = ?",
-        "bindings": [
-            "2022-02-02 00:10:32",
-            "2022-02-02 00:11:04",
-            "5d62ee0b-ebdf-4a76-bcab-60078f6eba32"
-        ]
-    },
-    {
         "query": "select `locations`.* from `locations` where (`city_id` = ? and `country_id` = ? and CONCAT(`line_one`, IF(`line_two` != '', CONCAT(' ', `line_two`), '')) = ? and `postcode` = ?) and `locations`.`deleted_at` is null limit 1",
         "bindings": [
             "33935b29-d448-597b-94ca-d903033b4c92",
@@ -555,10 +494,13 @@
         ]
     },
     {
-        "query": "update `assets` set `synced_at` = ?, `assets`.`updated_at` = ? where `id` = ?",
+        "query": "update `assets` set `synced_at` = ? where `id` in (?, ?, ?, ?, ?) and `assets`.`deleted_at` is null",
         "bindings": [
-            "2022-02-02 00:11:43",
-            "2022-02-02 00:11:48",
+            "2022-02-02T00:07:41+00:00",
+            "f5135d55-81fd-40e7-9bb5-a227f5516b87",
+            "16425fd0-0107-4a3f-a294-d27a5802abfa",
+            "3a010157-00fa-4110-87d9-cee7a5ba8482",
+            "5d62ee0b-ebdf-4a76-bcab-60078f6eba32",
             "b01ad503-d3f7-47d7-96ce-c0d37a9e3307"
         ]
     }

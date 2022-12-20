@@ -107,8 +107,11 @@ class CustomerFactory extends CompanyFactory {
             $customer->contacts        = $this->objectContacts($customer, $company->companyContactPersons);
             $customer->locations       = $this->companyLocations($customer, $company->locations);
             $customer->kpi             = $this->kpi($customer, $company->companyKpis);
-            $customer->synced_at       = Date::now();
             $customer->resellersPivots = $this->resellers($customer, $company->companyResellerKpis);
+
+            if ($created) {
+                $customer->synced_at = Date::now();
+            }
 
             if ($customer->trashed()) {
                 $customer->restore();

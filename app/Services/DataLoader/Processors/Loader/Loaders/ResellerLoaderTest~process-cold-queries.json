@@ -220,5 +220,12 @@
             "2022-02-02 00:00:13",
             "2022-02-02 00:00:13"
         ]
+    },
+    {
+        "query": "update `resellers` set `synced_at` = ? where `id` in (?) and `resellers`.`deleted_at` is null",
+        "bindings": [
+            "2022-02-02T00:00:15+00:00",
+            "c0d99925-8b3b-47d8-9db2-9d3a5f5520a2"
+        ]
     }
 ]

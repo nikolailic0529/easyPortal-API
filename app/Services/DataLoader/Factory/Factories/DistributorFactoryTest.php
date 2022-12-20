@@ -110,7 +110,7 @@ class DistributorFactoryTest extends TestCase {
 
         $factory->create($company);
 
-        self::assertCount(1, $queries);
+        self::assertCount(0, $queries);
     }
 
     /**

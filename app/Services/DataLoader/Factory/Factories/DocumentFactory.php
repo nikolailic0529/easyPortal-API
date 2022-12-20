@@ -380,7 +380,10 @@ class DocumentFactory extends ModelFactory {
             $model->number         = $normalizer->string($document->documentNumber) ?: null;
             $model->changed_at     = $normalizer->datetime($document->updatedAt);
             $model->contacts       = $this->objectContacts($model, (array) $document->contactPersons);
-            $model->synced_at      = Date::now();
+
+            if ($created) {
+                $model->synced_at = Date::now();
+            }
 
             // Save
             if ($model->trashed()) {
@@ -416,8 +419,7 @@ class DocumentFactory extends ModelFactory {
                 );
 
                 // Entries
-                $model->entries   = $this->documentEntries($model, $document);
-                $model->synced_at = Date::now();
+                $model->entries = $this->documentEntries($model, $document);
             } finally {
                 $this->getAssetResolver()->reset();
 

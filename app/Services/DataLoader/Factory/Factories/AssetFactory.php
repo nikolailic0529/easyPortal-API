@@ -215,7 +215,10 @@ class AssetFactory extends ModelFactory {
             $model->contacts                  = $this->objectContacts($model, (array) $asset->latestContactPersons);
             $model->tags                      = $this->assetTags($asset);
             $model->coverages                 = $this->assetCoverages($asset);
-            $model->synced_at                 = Date::now();
+
+            if ($created) {
+                $model->synced_at = Date::now();
+            }
 
             // Warranties
             if (isset($asset->assetDocument) || isset($asset->coverageStatusCheck)) {

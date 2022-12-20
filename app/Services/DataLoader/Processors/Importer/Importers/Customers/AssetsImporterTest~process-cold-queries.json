@@ -985,5 +985,16 @@
             "2022-02-02 00:01:39",
             "2022-02-02 00:01:39"
         ]
+    },
+    {
+        "query": "update `assets` set `synced_at` = ? where `id` in (?, ?, ?, ?, ?) and `assets`.`deleted_at` is null",
+        "bindings": [
+            "2022-02-02T00:01:40+00:00",
+            "00f0a6d3-442d-4a31-a573-459ea5f51efd",
+            "011c4141-aa44-407e-a53c-7328cc6275ab",
+            "01c13a3b-7c8a-4962-865a-ef64ef1b697a",
+            "026d0837-89cd-4431-b317-6b57ce6a0c1f",
+            "02dc80b1-e7fa-4870-bf1e-2180244b13a9"
+        ]
     }
 ]

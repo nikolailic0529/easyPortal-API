@@ -89,14 +89,6 @@
         "bindings": []
     },
     {
-        "query": "update `resellers` set `synced_at` = ?, `resellers`.`updated_at` = ? where `id` = ?",
-        "bindings": [
-            "2022-02-02 00:02:10",
-            "2022-02-02 00:02:13",
-            "54f7dd6b-5234-4760-947d-c95e10751e18"
-        ]
-    },
-    {
         "query": "select `organizations`.* from `organizations` where `organizations`.`id` = ? limit 1",
         "bindings": [
             "54f7dd6b-5234-4760-947d-c95e10751e18"
@@ -105,14 +97,6 @@
     {
         "query": "select `statuses`.*, `reseller_statuses`.`reseller_id` as `pivot_reseller_id`, `reseller_statuses`.`status_id` as `pivot_status_id`, `reseller_statuses`.`created_at` as `pivot_created_at`, `reseller_statuses`.`updated_at` as `pivot_updated_at` from `statuses` inner join `reseller_statuses` on `statuses`.`id` = `reseller_statuses`.`status_id` where `reseller_statuses`.`reseller_id` = ? and `reseller_statuses`.`deleted_at` is null and `statuses`.`deleted_at` is null",
         "bindings": [
-            "bd0eec0c-4d48-4840-9ce0-237316c727e1"
-        ]
-    },
-    {
-        "query": "update `resellers` set `synced_at` = ?, `resellers`.`updated_at` = ? where `id` = ?",
-        "bindings": [
-            "2022-02-02 00:02:34",
-            "2022-02-02 00:02:37",
             "bd0eec0c-4d48-4840-9ce0-237316c727e1"
         ]
     },
@@ -133,14 +117,6 @@
         ]
     },
     {
-        "query": "update `resellers` set `synced_at` = ?, `resellers`.`updated_at` = ? where `id` = ?",
-        "bindings": [
-            "2022-02-02 00:02:58",
-            "2022-02-02 00:03:01",
-            "0917f385-4b97-4313-b255-043ad94683a7"
-        ]
-    },
-    {
         "query": "select `organizations`.* from `organizations` where `organizations`.`id` = ? limit 1",
         "bindings": [
             "0917f385-4b97-4313-b255-043ad94683a7"
@@ -149,14 +125,6 @@
     {
         "query": "select `statuses`.*, `reseller_statuses`.`reseller_id` as `pivot_reseller_id`, `reseller_statuses`.`status_id` as `pivot_status_id`, `reseller_statuses`.`created_at` as `pivot_created_at`, `reseller_statuses`.`updated_at` as `pivot_updated_at` from `statuses` inner join `reseller_statuses` on `statuses`.`id` = `reseller_statuses`.`status_id` where `reseller_statuses`.`reseller_id` = ? and `reseller_statuses`.`deleted_at` is null and `statuses`.`deleted_at` is null",
         "bindings": [
-            "d152bb2f-deae-4106-aac2-6d1aa1517232"
-        ]
-    },
-    {
-        "query": "update `resellers` set `synced_at` = ?, `resellers`.`updated_at` = ? where `id` = ?",
-        "bindings": [
-            "2022-02-02 00:03:22",
-            "2022-02-02 00:03:25",
             "d152bb2f-deae-4106-aac2-6d1aa1517232"
         ]
     },
@@ -173,16 +141,19 @@
         ]
     },
     {
-        "query": "update `resellers` set `synced_at` = ?, `resellers`.`updated_at` = ? where `id` = ?",
+        "query": "select `organizations`.* from `organizations` where `organizations`.`id` = ? limit 1",
         "bindings": [
-            "2022-02-02 00:03:46",
-            "2022-02-02 00:03:49",
             "6a3f5b75-5dc9-4517-aa18-a410644d33fb"
         ]
     },
     {
-        "query": "select `organizations`.* from `organizations` where `organizations`.`id` = ? limit 1",
+        "query": "update `resellers` set `synced_at` = ? where `id` in (?, ?, ?, ?, ?) and `resellers`.`deleted_at` is null",
         "bindings": [
+            "2022-02-02T00:02:17+00:00",
+            "54f7dd6b-5234-4760-947d-c95e10751e18",
+            "bd0eec0c-4d48-4840-9ce0-237316c727e1",
+            "0917f385-4b97-4313-b255-043ad94683a7",
+            "d152bb2f-deae-4106-aac2-6d1aa1517232",
             "6a3f5b75-5dc9-4517-aa18-a410644d33fb"
         ]
     },
@@ -269,14 +240,6 @@
         ]
     },
     {
-        "query": "update `resellers` set `synced_at` = ?, `resellers`.`updated_at` = ? where `id` = ?",
-        "bindings": [
-            "2022-02-02 00:04:10",
-            "2022-02-02 00:04:13",
-            "d5306966-ab8b-4893-bc85-d7722998b900"
-        ]
-    },
-    {
         "query": "select `organizations`.* from `organizations` where `organizations`.`id` = ? limit 1",
         "bindings": [
             "d5306966-ab8b-4893-bc85-d7722998b900"
@@ -289,14 +252,6 @@
         ]
     },
     {
-        "query": "update `resellers` set `synced_at` = ?, `resellers`.`updated_at` = ? where `id` = ?",
-        "bindings": [
-            "2022-02-02 00:04:38",
-            "2022-02-02 00:04:41",
-            "a77f6f96-9c33-4e08-9838-ea291d572138"
-        ]
-    },
-    {
         "query": "select `organizations`.* from `organizations` where `organizations`.`id` = ? limit 1",
         "bindings": [
             "a77f6f96-9c33-4e08-9838-ea291d572138"
@@ -309,14 +264,6 @@
         ]
     },
     {
-        "query": "update `resellers` set `synced_at` = ?, `resellers`.`updated_at` = ? where `id` = ?",
-        "bindings": [
-            "2022-02-02 00:05:06",
-            "2022-02-02 00:05:09",
-            "3c01bf74-b2b8-437d-8492-75a061282101"
-        ]
-    },
-    {
         "query": "select `organizations`.* from `organizations` where `organizations`.`id` = ? limit 1",
         "bindings": [
             "3c01bf74-b2b8-437d-8492-75a061282101"
@@ -325,14 +272,6 @@
     {
         "query": "select `statuses`.*, `reseller_statuses`.`reseller_id` as `pivot_reseller_id`, `reseller_statuses`.`status_id` as `pivot_status_id`, `reseller_statuses`.`created_at` as `pivot_created_at`, `reseller_statuses`.`updated_at` as `pivot_updated_at` from `statuses` inner join `reseller_statuses` on `statuses`.`id` = `reseller_statuses`.`status_id` where `reseller_statuses`.`reseller_id` = ? and `reseller_statuses`.`deleted_at` is null and `statuses`.`deleted_at` is null",
         "bindings": [
-            "2d1c8169-8f80-41bd-8d37-e10936d25546"
-        ]
-    },
-    {
-        "query": "update `resellers` set `synced_at` = ?, `resellers`.`updated_at` = ? where `id` = ?",
-        "bindings": [
-            "2022-02-02 00:05:34",
-            "2022-02-02 00:05:37",
             "2d1c8169-8f80-41bd-8d37-e10936d25546"
         ]
     },
@@ -349,16 +288,19 @@
         ]
     },
     {
-        "query": "update `resellers` set `synced_at` = ?, `resellers`.`updated_at` = ? where `id` = ?",
+        "query": "select `organizations`.* from `organizations` where `organizations`.`id` = ? limit 1",
         "bindings": [
-            "2022-02-02 00:06:02",
-            "2022-02-02 00:06:05",
             "c017d376-0055-42a9-80d8-ac90cef3f0c5"
         ]
     },
     {
-        "query": "select `organizations`.* from `organizations` where `organizations`.`id` = ? limit 1",
+        "query": "update `resellers` set `synced_at` = ? where `id` in (?, ?, ?, ?, ?) and `resellers`.`deleted_at` is null",
         "bindings": [
+            "2022-02-02T00:02:23+00:00",
+            "d5306966-ab8b-4893-bc85-d7722998b900",
+            "a77f6f96-9c33-4e08-9838-ea291d572138",
+            "3c01bf74-b2b8-437d-8492-75a061282101",
+            "2d1c8169-8f80-41bd-8d37-e10936d25546",
             "c017d376-0055-42a9-80d8-ac90cef3f0c5"
         ]
     }

@@ -90,7 +90,10 @@ class ResellerFactory extends CompanyFactory {
             $reseller->contacts   = $this->objectContacts($reseller, $company->companyContactPersons);
             $reseller->locations  = $this->companyLocations($reseller, $company->locations);
             $reseller->kpi        = $this->kpi($reseller, $company->companyKpis);
-            $reseller->synced_at  = Date::now();
+
+            if ($created) {
+                $reseller->synced_at = Date::now();
+            }
 
             if ($created) {
                 $reseller->assets_count    = 0;

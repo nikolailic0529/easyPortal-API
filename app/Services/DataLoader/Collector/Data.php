@@ -148,7 +148,7 @@ class Data {
 
     public function collectObjectChange(object $object): static {
         if (!$this->dirty) {
-            $this->dirty = $object instanceof Model && $this->isModelChanged($object);
+            $this->dirty = $object instanceof Model;
         }
 
         return $this->collect($object);
@@ -168,20 +168,5 @@ class Data {
 
     public function isDirty(): bool {
         return $this->dirty;
-    }
-
-    protected function isModelChanged(Model $model): bool {
-        // Created or Deleted?
-        if ($model->wasRecentlyCreated || !$model->exists) {
-            return true;
-        }
-
-        // Dirty?
-        $dirty = $model->getDirty();
-
-        unset($dirty[$model->getUpdatedAtColumn()]);
-        unset($dirty['synced_at']);
-
-        return (bool) $dirty;
     }
 }
