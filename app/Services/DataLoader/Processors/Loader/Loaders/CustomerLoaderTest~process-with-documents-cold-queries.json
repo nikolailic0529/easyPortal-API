@@ -111,47 +111,9 @@
         ]
     },
     {
-        "query": "select `contacts`.* from `contacts` where `contacts`.`object_id` in (?) and `contacts`.`object_type` = ? and `contacts`.`deleted_at` is null",
-        "bindings": [
-            "9d9e320d-4e44-4518-a4e6-6bfe7f1c7dd8",
-            "Reseller"
-        ]
-    },
-    {
         "query": "select `customers`.* from `customers` where ((`customers`.`id` = ?))",
         "bindings": [
             "004d6d19-4a7d-4216-8bd5-55dbfb038e09"
-        ]
-    },
-    {
-        "query": "select `contacts`.* from `contacts` where `contacts`.`object_id` in (?) and `contacts`.`object_type` = ? and `contacts`.`deleted_at` is null",
-        "bindings": [
-            "004d6d19-4a7d-4216-8bd5-55dbfb038e09",
-            "Customer"
-        ]
-    },
-    {
-        "query": "select `types`.*, `contact_types`.`contact_id` as `pivot_contact_id`, `contact_types`.`type_id` as `pivot_type_id`, `contact_types`.`created_at` as `pivot_created_at`, `contact_types`.`updated_at` as `pivot_updated_at` from `types` inner join `contact_types` on `types`.`id` = `contact_types`.`type_id` where `contact_types`.`deleted_at` is null and `contact_types`.`contact_id` in (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) and `types`.`deleted_at` is null",
-        "bindings": [
-            "140d36bc-5ed9-5a1b-829a-9860f973cb92",
-            "173087c2-7a4d-59e4-9dc9-a7e80f20003b",
-            "177b5db9-4491-5c92-9159-feeaaed04588",
-            "1d4bf2a9-7db0-5159-8dbc-e215817b8cb8",
-            "415803cc-b49e-5033-a639-65bc0920bbb1",
-            "4c01bb5a-8d5e-59ee-a7db-f619415a5da1",
-            "6c6d5af5-90e0-5272-b30d-3aaa2a439633",
-            "6f0afd36-df2a-5d6c-818b-49095e4ffde1",
-            "76657ada-28d9-5d39-8709-2e525e4082c7",
-            "81d534c5-a257-5850-afb6-72cad50161b8",
-            "9ac99690-89a6-5864-872d-b54849763c93",
-            "a28b62d3-02fa-5d1b-af73-f893652b366d",
-            "c55b0e1b-aba0-5a08-8e7e-7bf1edda2975",
-            "dc9ee42a-bf86-5f37-b2b3-fd00288bf18b",
-            "e20bb605-a673-55c2-8df6-e533dbc04caa",
-            "ea851f94-2570-558c-a187-5ce87d26152c",
-            "ec553a82-56f4-5e32-a673-7374f0ab0def",
-            "f10232e3-9024-567f-9383-55ba191f128d",
-            "fcbf624d-7f9a-5aa7-9dc9-3a3badd0b0cc"
         ]
     },
     {
@@ -1045,48 +1007,10 @@
         ]
     },
     {
-        "query": "select `contacts`.* from `contacts` where `contacts`.`object_id` in (?) and `contacts`.`object_type` = ? and `contacts`.`deleted_at` is null",
-        "bindings": [
-            "594184e7-24d4-4614-8db4-fe132adb86f4",
-            "Reseller"
-        ]
-    },
-    {
         "query": "select `customers`.* from `customers` where ((`customers`.`id` = ?) or (`customers`.`id` = ?))",
         "bindings": [
             "004d6d19-4a7d-4216-8bd5-55dbfb038e09",
             "4836835d-a1cf-4521-b422-21dc05c32add"
-        ]
-    },
-    {
-        "query": "select `contacts`.* from `contacts` where `contacts`.`object_id` in (?, ?) and `contacts`.`object_type` = ? and `contacts`.`deleted_at` is null",
-        "bindings": [
-            "004d6d19-4a7d-4216-8bd5-55dbfb038e09",
-            "4836835d-a1cf-4521-b422-21dc05c32add",
-            "Customer"
-        ]
-    },
-    {
-        "query": "select `types`.*, `contact_types`.`contact_id` as `pivot_contact_id`, `contact_types`.`type_id` as `pivot_type_id`, `contact_types`.`created_at` as `pivot_created_at`, `contact_types`.`updated_at` as `pivot_updated_at` from `types` inner join `contact_types` on `types`.`id` = `contact_types`.`type_id` where `contact_types`.`deleted_at` is null and `contact_types`.`contact_id` in (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) and `types`.`deleted_at` is null",
-        "bindings": [
-            "0a872c01-f844-590a-a819-942bfa09a5d2",
-            "12482d8c-0090-5ab9-b933-545ad840484a",
-            "229361f9-056d-5218-a3b0-dcbb4c313111",
-            "2fa7c9a8-3dd2-5e22-8073-42fd33157451",
-            "3cf83ea0-7f7c-52ad-a7e6-1dfb72fbb6fa",
-            "45ce9849-824c-574c-bad4-95920da639a3",
-            "489a1253-814e-5258-b238-fdedf9a9fb9f",
-            "6fb67836-e7d8-5ddb-9a1e-a6ed4fdd1b2c",
-            "740f7727-ed8b-5022-8129-e1e5811b2f03",
-            "76657ada-28d9-5d39-8709-2e525e4082c7",
-            "7d701e09-dde4-544a-a04f-19093ff23b2b",
-            "81d534c5-a257-5850-afb6-72cad50161b8",
-            "9789360b-af6b-5b3d-a707-2c5a29ad7995",
-            "c6c09316-c0bc-5fdd-9dda-b4a153151ccc",
-            "d16a26dd-c9b3-5b59-b2f5-a2b6df3f76b1",
-            "e61ed796-d98b-525d-a422-6ae25969cb43",
-            "eabf4f13-5992-5b75-a46c-5738f0e87a69",
-            "eb616e0a-0031-5990-9a2b-a515560ffd96"
         ]
     },
     {

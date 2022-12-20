@@ -16,45 +16,9 @@
         ]
     },
     {
-        "query": "select `contacts`.* from `contacts` where `contacts`.`object_id` in (?) and `contacts`.`object_type` = ? and `contacts`.`deleted_at` is null",
-        "bindings": [
-            "a9233c9c-4634-493a-9f12-bef4d1cf3c5e",
-            "Reseller"
-        ]
-    },
-    {
         "query": "select `customers`.* from `customers` where ((`customers`.`id` = ?))",
         "bindings": [
             "3adf6426-735c-4f52-9f28-e3ad593e707c"
-        ]
-    },
-    {
-        "query": "select `contacts`.* from `contacts` where `contacts`.`object_id` in (?) and `contacts`.`object_type` = ? and `contacts`.`deleted_at` is null",
-        "bindings": [
-            "3adf6426-735c-4f52-9f28-e3ad593e707c",
-            "Customer"
-        ]
-    },
-    {
-        "query": "select `types`.*, `contact_types`.`contact_id` as `pivot_contact_id`, `contact_types`.`type_id` as `pivot_type_id`, `contact_types`.`created_at` as `pivot_created_at`, `contact_types`.`updated_at` as `pivot_updated_at` from `types` inner join `contact_types` on `types`.`id` = `contact_types`.`type_id` where `contact_types`.`deleted_at` is null and `contact_types`.`contact_id` in (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) and `types`.`deleted_at` is null",
-        "bindings": [
-            "0a872c01-f844-590a-a819-942bfa09a5d2",
-            "22185166-97d1-50fb-a974-ac51dd9d8c7c",
-            "229361f9-056d-5218-a3b0-dcbb4c313111",
-            "2fa7c9a8-3dd2-5e22-8073-42fd33157451",
-            "3c837192-b5e7-5f91-aff4-fd40f49c94ce",
-            "3cf83ea0-7f7c-52ad-a7e6-1dfb72fbb6fa",
-            "7d701e09-dde4-544a-a04f-19093ff23b2b",
-            "936dff97-6b7c-554d-af86-8196f68fbcca",
-            "9789360b-af6b-5b3d-a707-2c5a29ad7995",
-            "adefed16-5702-56cd-8112-ae204dbbb580",
-            "b4ea6545-b7e2-5926-99ef-41115e7de749",
-            "c41eaa4e-d2f8-515f-8bc7-113fd1484faa",
-            "c6c09316-c0bc-5fdd-9dda-b4a153151ccc",
-            "d16a26dd-c9b3-5b59-b2f5-a2b6df3f76b1",
-            "e61ed796-d98b-525d-a422-6ae25969cb43",
-            "eabf4f13-5992-5b75-a46c-5738f0e87a69",
-            "eb616e0a-0031-5990-9a2b-a515560ffd96"
         ]
     },
     {
@@ -1707,45 +1671,9 @@
         ]
     },
     {
-        "query": "select `contacts`.* from `contacts` where `contacts`.`object_id` in (?) and `contacts`.`object_type` = ? and `contacts`.`deleted_at` is null",
-        "bindings": [
-            "a9233c9c-4634-493a-9f12-bef4d1cf3c5e",
-            "Reseller"
-        ]
-    },
-    {
         "query": "select `customers`.* from `customers` where ((`customers`.`id` = ?))",
         "bindings": [
             "3adf6426-735c-4f52-9f28-e3ad593e707c"
-        ]
-    },
-    {
-        "query": "select `contacts`.* from `contacts` where `contacts`.`object_id` in (?) and `contacts`.`object_type` = ? and `contacts`.`deleted_at` is null",
-        "bindings": [
-            "3adf6426-735c-4f52-9f28-e3ad593e707c",
-            "Customer"
-        ]
-    },
-    {
-        "query": "select `types`.*, `contact_types`.`contact_id` as `pivot_contact_id`, `contact_types`.`type_id` as `pivot_type_id`, `contact_types`.`created_at` as `pivot_created_at`, `contact_types`.`updated_at` as `pivot_updated_at` from `types` inner join `contact_types` on `types`.`id` = `contact_types`.`type_id` where `contact_types`.`deleted_at` is null and `contact_types`.`contact_id` in (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) and `types`.`deleted_at` is null",
-        "bindings": [
-            "0a872c01-f844-590a-a819-942bfa09a5d2",
-            "22185166-97d1-50fb-a974-ac51dd9d8c7c",
-            "229361f9-056d-5218-a3b0-dcbb4c313111",
-            "2fa7c9a8-3dd2-5e22-8073-42fd33157451",
-            "3c837192-b5e7-5f91-aff4-fd40f49c94ce",
-            "3cf83ea0-7f7c-52ad-a7e6-1dfb72fbb6fa",
-            "7d701e09-dde4-544a-a04f-19093ff23b2b",
-            "936dff97-6b7c-554d-af86-8196f68fbcca",
-            "9789360b-af6b-5b3d-a707-2c5a29ad7995",
-            "adefed16-5702-56cd-8112-ae204dbbb580",
-            "b4ea6545-b7e2-5926-99ef-41115e7de749",
-            "c41eaa4e-d2f8-515f-8bc7-113fd1484faa",
-            "c6c09316-c0bc-5fdd-9dda-b4a153151ccc",
-            "d16a26dd-c9b3-5b59-b2f5-a2b6df3f76b1",
-            "e61ed796-d98b-525d-a422-6ae25969cb43",
-            "eabf4f13-5992-5b75-a46c-5738f0e87a69",
-            "eb616e0a-0031-5990-9a2b-a515560ffd96"
         ]
     },
     {
