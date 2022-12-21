@@ -28,6 +28,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  * Asset Warranty.
  *
  * @property string               $id
+ * @property string|null          $key
  * @property string               $asset_id
  * @property string|null          $type_id
  * @property string|null          $status_id

@@ -1477,6 +1477,7 @@ class AssetFactoryTest extends TestCase {
         $actual   = $factory->assetWarranty($asset, $entry, $warranty);
         $expected = [
             'id'               => $warranty->getKey(),
+            'key'              => null,
             'start'            => '2019-12-10 00:00:00',
             'end'              => '2024-12-09 00:00:00',
             'asset_id'         => $asset->getKey(),
