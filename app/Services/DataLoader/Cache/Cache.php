@@ -20,10 +20,6 @@ class Cache {
      */
     protected array $items;
     /**
-     * @var array<mixed, ?TModel>
-     */
-    protected array $models;
-    /**
      * @var array<KeyRetriever<TModel>>
      */
     protected array $retrievers;
@@ -77,18 +73,10 @@ class Cache {
      */
     public function put(Model $model): Model {
         foreach ($this->retrievers as $name => $retriever) {
-            // Retriever
-            $retrieverKey = (string) $retriever->getKey($model);
+            $key = (string) $retriever->getKey($model);
 
-            $this->items[static::NULL_RETRIEVER]->forget([$retrieverKey]);
-            $this->items[$name]->put($retrieverKey, $model);
-
-            // Model
-            $modelKey = $model->getKey();
-
-            if ($modelKey) {
-                $this->models[$modelKey] = $model;
-            }
+            $this->items[static::NULL_RETRIEVER]->forget([$key]);
+            $this->items[$name]->put($key, $model);
         }
 
         return $model;
@@ -140,16 +128,8 @@ class Cache {
             : null;
     }
 
-    /**
-     * @return TModel|null
-     */
-    public function getByModelKey(mixed $key): ?Model {
-        return $this->models[$key] ?? null;
-    }
-
     public function reset(): static {
-        $this->models = [];
-        $this->items  = [
+        $this->items = [
             static::NULL_RETRIEVER => new Collection(),
         ];
 

@@ -242,26 +242,6 @@ class CacheTest extends TestCase {
 
         self::assertEquals($items, $cache->getAll());
     }
-
-    /**
-     * @covers ::getByModelKey
-     * @covers ::put
-     */
-    public function testGetByModelKey(): void {
-        $items = $this->items();
-        $cache = $this->cache($items);
-        $item  = $this->faker->randomElement($items->all());
-        $new   = $this->item();
-
-        self::assertInstanceOf(Model::class, $item);
-        self::assertSame($item, $cache->getByModelKey($item->getKey()));
-
-        self::assertNull($cache->getByModelKey($new->getKey()));
-
-        $cache->put($new);
-
-        self::assertSame($new, $cache->getByModelKey($new->getKey()));
-    }
     // </editor-fold>
 
     // <editor-fold desc="Helpers">

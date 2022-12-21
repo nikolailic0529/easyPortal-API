@@ -16,6 +16,11 @@ use Illuminate\Support\Collection;
  */
 class OemResolver extends Resolver implements SingletonPersistent {
     /**
+     * @var array<string, Oem>
+     */
+    protected array $models = [];
+
+    /**
      * @param Closure(Normalizer=): Oem|null $factory
      *
      * @return ($factory is null ? Oem|null : Oem)
@@ -39,5 +44,27 @@ class OemResolver extends Resolver implements SingletonPersistent {
         return [
             'key' => $key,
         ];
+    }
+
+    public function getByKey(?string $key): ?Oem {
+        // Preload
+        $this->getCache();
+
+        // Return
+        return $this->models[$key] ?? null;
+    }
+
+    protected function put(Model|array|Collection $object): void {
+        if ($object instanceof Model) {
+            $this->models[$object->getKey()] = $object;
+        }
+
+        parent::put($object);
+    }
+
+    public function reset(): static {
+        $this->models = [];
+
+        return parent::reset();
     }
 }
