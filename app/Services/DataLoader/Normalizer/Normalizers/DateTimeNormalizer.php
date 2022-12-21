@@ -27,9 +27,9 @@ class DateTimeNormalizer implements ValueNormalizer {
                 $value = Date::createFromTimestampMs($value);
             } elseif (is_string($value)) {
                 if (preg_match('|^\d{4}-\d{2}-\d{2}$|', $value)) {
-                    $value = Date::createFromFormat('Y-m-d', $value, 'UTC')->startOfDay();
+                    $value = (Date::createFromFormat('Y-m-d', $value, 'UTC') ?: null)?->startOfDay();
                 } elseif (preg_match('|^\d{2}/\d{2}/\d{4}$|', $value)) {
-                    $value = Date::createFromFormat('d/m/Y', $value, 'UTC')->startOfDay();
+                    $value = (Date::createFromFormat('d/m/Y', $value, 'UTC') ?: null)?->startOfDay();
                 } else {
                     // empty
                 }
@@ -41,8 +41,8 @@ class DateTimeNormalizer implements ValueNormalizer {
         }
 
         // Set Timezone
-        if ($value instanceof DateTimeInterface) {
-            $value = Carbon::make($value)->toImmutable();
+        if ($value instanceof DateTimeInterface && !($value instanceof CarbonImmutable)) {
+            $value = Carbon::make($value)?->toImmutable();
         }
 
         if ($value instanceof CarbonImmutable) {
