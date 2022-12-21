@@ -69,7 +69,7 @@ class CacheKey implements Stringable {
         foreach ($key as $k => $value) {
             $value = $this->value($value);
 
-            if (is_array($value)) {
+            if (is_array($value) || $value instanceof JsonSerializable) {
                 $value = $this->hash($this->encode($value));
             } elseif (is_string($value) || is_int($value) || is_null($value)) {
                 // as is

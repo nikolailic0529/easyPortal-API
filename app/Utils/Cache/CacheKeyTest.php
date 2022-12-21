@@ -186,11 +186,9 @@ class CacheKeyTest extends TestCase {
                 ],
             ],
             JsonSerializable::class                       => [
-                sha1(json_encode(['json'], JSON_THROW_ON_ERROR)),
+                sha1(json_encode('json', JSON_THROW_ON_ERROR)),
                 [
-                    [
-                        new CacheKeyTest_JsonSerializable('json'),
-                    ],
+                    new CacheKeyTest_JsonSerializable('json'),
                 ],
             ],
             Geohash::class.' (encode)'                    => [
