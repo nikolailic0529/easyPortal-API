@@ -11,6 +11,7 @@ use App\Models\Data\Product;
 use App\Models\Data\Status;
 use App\Models\Data\Type as TypeModel;
 use App\Models\Document;
+use App\Services\DataLoader\Cache\Key;
 use App\Services\DataLoader\Exceptions\AssetLocationNotFound;
 use App\Services\DataLoader\Exceptions\FailedToCreateAssetWarranty;
 use App\Services\DataLoader\Exceptions\FailedToProcessAssetViewDocument;
@@ -339,6 +340,7 @@ class AssetFactory extends ModelFactory {
 
         // Create
         $warranty                ??= new AssetWarranty();
+        $warranty->key             = $this->getWarrantyKey($entry);
         $warranty->start           = $start;
         $warranty->end             = $end;
         $warranty->asset           = $model;
@@ -462,6 +464,7 @@ class AssetFactory extends ModelFactory {
                 // Create/Update
                 /** @var AssetWarranty $warranty */
                 $warranty                  = $existing->get($key) ?: new AssetWarranty();
+                $warranty->key             = $this->getWarrantyKey($assetDocument);
                 $warranty->start           = $start;
                 $warranty->end             = $end;
                 $warranty->asset           = $model;
@@ -596,6 +599,41 @@ class AssetFactory extends ModelFactory {
             && ($end === $warranty->end || $end?->isSameDay($warranty->end) === true);
 
         return $isEqual;
+    }
+
+    protected function getWarrantyKey(AssetWarranty|CoverageEntry|ViewAssetDocument $warranty): ?string {
+        $normalizer = $this->getNormalizer();
+        $key        = null;
+
+        if ($warranty instanceof AssetWarranty) {
+            $key = (string) new Key($normalizer, [
+                'key' => $warranty->key,
+            ]);
+        } elseif ($warranty instanceof CoverageEntry) {
+            $key = (string) new Key($normalizer, [
+                'type'  => $normalizer->string($warranty->type),
+                'start' => $normalizer->datetime($warranty->coverageStartDate),
+                'end'   => $normalizer->datetime($warranty->coverageEndDate),
+            ]);
+        } else {
+            $key = (string) new Key($normalizer, [
+                'document'     => $normalizer->string(
+                    $warranty->document->id ?? $warranty->documentNumber,
+                ),
+                'reseller'     => $normalizer->uuid($warranty->reseller->id ?? null),
+                'customer'     => $normalizer->uuid($warranty->customer->id ?? null),
+                'serviceGroup' => $normalizer->string($warranty->serviceGroupSku),
+                'serviceLevel' => $normalizer->string($warranty->serviceLevelSku),
+                'start'        => $normalizer->datetime(
+                    $warranty->startDate ?? $warranty->document->startDate ?? null,
+                ),
+                'end'          => $normalizer->datetime(
+                    $warranty->endDate ?? $warranty->document->endDate ?? null,
+                ),
+            ]);
+        }
+
+        return $key;
     }
     // </editor-fold>
 }

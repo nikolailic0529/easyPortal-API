@@ -15,6 +15,7 @@ use App\Models\Data\Type as TypeModel;
 use App\Models\Document;
 use App\Models\DocumentEntry as DocumentEntryModel;
 use App\Models\Reseller;
+use App\Services\DataLoader\Cache\Key;
 use App\Services\DataLoader\Container\Container;
 use App\Services\DataLoader\Exceptions\CustomerNotFound;
 use App\Services\DataLoader\Exceptions\FailedToProcessAssetViewDocument;
@@ -765,6 +766,7 @@ class AssetFactoryTest extends TestCase {
      */
     public function testAssetWarrantiesDocuments(): void {
         // Prepare
+        $normalizer      = $this->app->make(Normalizer::class);
         $container       = $this->app->make(Container::class);
         $factory         = $container->make(AssetFactoryTest_Factory::class);
         $type            = TypeModel::factory()->create();
@@ -1001,6 +1003,18 @@ class AssetFactoryTest extends TestCase {
         });
 
         self::assertNotNull($a);
+        self::assertEquals(
+            (string) new Key($normalizer, [
+                'document'     => $documentA->getKey(),
+                'reseller'     => null,
+                'customer'     => null,
+                'serviceGroup' => $serviceGroupSku,
+                'serviceLevel' => $serviceLevelSku,
+                'start'        => $date,
+                'end'          => $date,
+            ]),
+            $a->key,
+        );
         self::assertEquals($date->startOfDay(), $a->start);
         self::assertEquals($date->startOfDay(), $a->end);
         self::assertNull($a->reseller_id);
@@ -1027,6 +1041,18 @@ class AssetFactoryTest extends TestCase {
         });
 
         self::assertNotNull($c);
+        self::assertEquals(
+            (string) new Key($normalizer, [
+                'document'     => $documentB->getKey(),
+                'reseller'     => $resellerB->getKey(),
+                'customer'     => $customerB->getKey(),
+                'serviceGroup' => $serviceGroupSku,
+                'serviceLevel' => null,
+                'start'        => $date,
+                'end'          => $date,
+            ]),
+            $c->key,
+        );
         self::assertEquals($date->startOfDay(), $c->start);
         self::assertEquals($date->startOfDay(), $c->end);
         self::assertEquals($resellerB->getKey(), $c->reseller_id);
@@ -1454,6 +1480,7 @@ class AssetFactoryTest extends TestCase {
         // Create
         $actual   = $factory->assetWarranty($asset, $entry, null);
         $expected = [
+            'key'              => "2024-12-09t000000:2019-12-10t000000:{$entry->type}",
             'start'            => '2019-12-10 00:00:00',
             'end'              => '2024-12-09 00:00:00',
             'asset_id'         => $asset->getKey(),
@@ -1477,7 +1504,7 @@ class AssetFactoryTest extends TestCase {
         $actual   = $factory->assetWarranty($asset, $entry, $warranty);
         $expected = [
             'id'               => $warranty->getKey(),
-            'key'              => null,
+            'key'              => "2024-12-09t000000:2019-12-10t000000:{$entry->type}",
             'start'            => '2019-12-10 00:00:00',
             'end'              => '2024-12-09 00:00:00',
             'asset_id'         => $asset->getKey(),
@@ -1651,10 +1678,20 @@ class AssetFactoryTest extends TestCase {
             ->values();
         $expected = EloquentCollection::make([
             (clone $warrantyShouldBeUpdated)->forceFill([
+                'key'         => (string) new Key($normalizer, [
+                    'type'  => $entryShouldBeUpdated->type,
+                    'start' => $normalizer->datetime($entryShouldBeUpdated->coverageStartDate),
+                    'end'   => $normalizer->datetime($entryShouldBeUpdated->coverageEndDate),
+                ]),
                 'status_id'   => $status->getKey(),
                 'description' => $entryShouldBeUpdated->description,
             ]),
             (clone $warrantyShouldBeReused)->forceFill([
+                'key'         => (string) new Key($normalizer, [
+                    'type'  => $entryShouldBeCreated->type,
+                    'start' => $normalizer->datetime($entryShouldBeCreated->coverageStartDate),
+                    'end'   => $normalizer->datetime($entryShouldBeCreated->coverageEndDate),
+                ]),
                 'start'       => $normalizer->datetime($entryShouldBeCreated->coverageStartDate),
                 'end'         => $normalizer->datetime($entryShouldBeCreated->coverageEndDate),
                 'type_id'     => $type->getKey(),

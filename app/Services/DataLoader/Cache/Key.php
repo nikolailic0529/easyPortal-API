@@ -41,4 +41,16 @@ class Key extends CacheKey {
 
         return $value;
     }
+
+    protected function join(array $parts): string {
+        return mb_strtolower(parent::join($parts));
+    }
+
+    protected function hash(string $value): string {
+        return mb_strtolower(parent::hash($value));
+    }
+
+    protected function encode(mixed $value): string {
+        return mb_strtolower(parent::encode($value));
+    }
 }
