@@ -42,6 +42,9 @@ class Key extends CacheKey {
         return $value;
     }
 
+    /**
+     * @inheritDoc
+     */
     protected function join(array $parts): string {
         return mb_strtolower(parent::join($parts));
     }

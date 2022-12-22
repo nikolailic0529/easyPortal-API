@@ -10,7 +10,6 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
 use SplObjectStorage;
 
-use function array_shift;
 use function assert;
 
 trait Children {
@@ -82,38 +81,27 @@ trait Children {
                 $map[$child] = $model;
             }
 
+            /** @var Collection<array-key,M> $existing phpstan not so smart yet */
             $existing = $existing->flatten(1);
-        }
-
-        // Reuse
-        $reusable = $isReusable
-            ? $existing->filter($isReusable)->all()
-            : $existing->all();
-        $existing = null;
-
-        if ($reusable) {
-            foreach ($map as $child) {
-                if ($map[$child] !== null) {
-                    continue;
-                }
-
-                $map[$child] = array_shift($reusable);
-
-                if (!$reusable) {
-                    break;
-                }
-            }
         }
 
         // Update
         /** @var C $models */
-        $models = new $class();
+        $models   = new $class();
+        $existing = $isReusable
+            ? $existing->filter($isReusable)
+            : $existing;
 
         foreach ($map as $child) {
-            $model = $factory($child, $map[$child]);
+            $model   = $map[$child] ?? $existing->first();
+            $created = $factory($child, $model);
 
-            if ($model !== null) {
-                $models[] = $model;
+            if ($created !== null) {
+                $models[] = $created;
+
+                if ($map[$child] === null) {
+                    $existing->shift();
+                }
             }
         }
 
