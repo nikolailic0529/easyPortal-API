@@ -737,6 +737,22 @@
         ]
     },
     {
+        "query": "update `document_entries` set `asset_id` = ?, `document_entries`.`updated_at` = ? where `id` = ?",
+        "bindings": [
+            "b995fc29-3a21-4442-bf38-3766c31eaaa2",
+            "2022-09-27 01:12:58",
+            "b0f5b610-9ac2-59af-aa6f-53eb64abfea6"
+        ]
+    },
+    {
+        "query": "update `document_entries` set `asset_id` = ?, `document_entries`.`updated_at` = ? where `id` = ?",
+        "bindings": [
+            "deb79ef8-841d-4bca-b99d-03b075644e11",
+            "2022-09-27 01:13:06",
+            "d5c194da-38cc-57c0-89c1-694c8816a755"
+        ]
+    },
+    {
         "query": "select `oem_groups`.* from `oem_groups` where (`key` = ? and `name` = ? and `oem_id` = ?) and `oem_groups`.`deleted_at` is null limit 1",
         "bindings": [
             "4d20401a-4a3d-34fe-adac-a5f30090f945",
@@ -785,7 +801,7 @@
     {
         "query": "update `documents` set `synced_at` = ? where `id` in (?, ?, ?, ?, ?) and `documents`.`deleted_at` is null",
         "bindings": [
-            "2022-09-27T01:13:12+00:00",
+            "2022-09-27T01:13:28+00:00",
             "0103f123-d0c3-4710-b84b-86c38ff225d0",
             "010ac6c8-375e-4199-a4d0-093d10983ae4",
             "0111d7ae-6397-49b7-a991-2a10ed0ef5e9",
@@ -935,6 +951,30 @@
         ]
     },
     {
+        "query": "update `document_entries` set `asset_id` = ?, `document_entries`.`updated_at` = ? where `id` = ?",
+        "bindings": [
+            "80f28f84-5d00-4a7e-9ba8-2cfaf975153a",
+            "2022-09-27 01:13:50",
+            "1f08528a-cf6d-57c1-bb9c-392211b4a2c6"
+        ]
+    },
+    {
+        "query": "update `document_entries` set `asset_id` = ?, `document_entries`.`updated_at` = ? where `id` = ?",
+        "bindings": [
+            "dbe7eabc-c664-48de-ad54-bb08824dc5d9",
+            "2022-09-27 01:13:58",
+            "75b9ecb9-5eff-552e-9f04-bcaed57a3af6"
+        ]
+    },
+    {
+        "query": "update `document_entries` set `asset_id` = ?, `document_entries`.`updated_at` = ? where `id` = ?",
+        "bindings": [
+            "05b13d7a-530c-479b-a293-450d0519b73b",
+            "2022-09-27 01:14:06",
+            "7bc17840-a07e-51d8-a755-316b1728249f"
+        ]
+    },
+    {
         "query": "select `oem_groups`.* from `oem_groups` where (`key` = ? and `name` = ? and `oem_id` = ?) and `oem_groups`.`deleted_at` is null limit 1",
         "bindings": [
             "db6981f7-568c-3a0d-8e02-f7bda39726d4",
@@ -985,7 +1025,7 @@
     {
         "query": "update `documents` set `synced_at` = ? where `id` in (?, ?, ?, ?, ?) and `documents`.`deleted_at` is null",
         "bindings": [
-            "2022-09-27T01:13:48+00:00",
+            "2022-09-27T01:14:28+00:00",
             "0130972e-181a-4cc4-a569-54a072e6899a",
             "013db1c0-c4b2-4f3a-830b-58de8b40ccc8",
             "01507408-4666-4b49-b80d-aee66192dcaf",

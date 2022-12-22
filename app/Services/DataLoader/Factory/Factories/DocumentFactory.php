@@ -13,6 +13,7 @@ use App\Models\Data\Type as TypeModel;
 use App\Models\Document as DocumentModel;
 use App\Models\DocumentEntry as DocumentEntryModel;
 use App\Models\OemGroup;
+use App\Services\DataLoader\Cache\Key;
 use App\Services\DataLoader\Exceptions\AssetNotFound;
 use App\Services\DataLoader\Exceptions\FailedToProcessDocumentEntry;
 use App\Services\DataLoader\Exceptions\FailedToProcessDocumentEntryNoAsset;
@@ -312,42 +313,6 @@ class DocumentFactory extends ModelFactory {
         // Return
         return $model;
     }
-
-    protected function isEntryEqualDocumentEntry(
-        DocumentModel $model,
-        DocumentEntryModel $entry,
-        DocumentEntry $documentEntry,
-    ): bool {
-        // IDs?
-        $normalizer = $this->getNormalizer();
-        $asset      = $normalizer->uuid($documentEntry->assetId);
-        $uid        = $normalizer->uuid($documentEntry->assetDocumentId);
-
-        if ($uid && $entry->uid === $uid) {
-            return $entry->asset_id === null || $asset === null || $entry->asset_id === $asset;
-        }
-
-        if ($entry->uid) {
-            return false;
-        }
-
-        // Compare properties
-        $start   = $normalizer->datetime($documentEntry->startDate);
-        $end     = $normalizer->datetime($documentEntry->endDate);
-        $isEqual = $entry->asset_id === $asset
-            && ($entry->start === $documentEntry->startDate || $entry->start?->isSameDay($start) === true)
-            && ($entry->end === $documentEntry->endDate || $entry->end?->isSameDay($end) === true)
-            && $entry->currency_id === $this->currency($documentEntry->currencyCode)?->getKey()
-            && $entry->list_price === $normalizer->decimal($documentEntry->listPrice)
-            && $entry->renewal === $normalizer->decimal($documentEntry->estimatedValueRenewal)
-            && $entry->monthly_list_price === $normalizer->decimal($documentEntry->lineItemListPrice)
-            && $entry->monthly_retail_price === $normalizer->decimal($documentEntry->lineItemMonthlyRetailPrice)
-            && $entry->service_group_id === $this->documentEntryServiceGroup($model, $documentEntry)?->getKey()
-            && $entry->service_level_id === $this->documentEntryServiceLevel($model, $documentEntry)?->getKey()
-            && $entry->equipment_number === $normalizer->string($documentEntry->equipmentNumber);
-
-        return $isEqual;
-    }
     // </editor-fold>
 
     // <editor-fold desc="Document">
@@ -407,7 +372,7 @@ class DocumentFactory extends ModelFactory {
             try {
                 // Prefetch
                 $this->getAssetResolver()->prefetch(
-                    array_map(static fn ($entry) => $entry->assetId, $document->documentEntries),
+                    array_map(static fn($entry) => $entry->assetId, $document->documentEntries),
                 );
 
                 // Entries
@@ -481,11 +446,9 @@ class DocumentFactory extends ModelFactory {
         $entries = $this->children(
             $entries,
             $document->documentEntries ?? [],
-            static function (DocumentEntryModel $entry): bool {
-                return $entry->uid === null;
-            },
-            function (DocumentEntry $documentEntry, DocumentEntryModel $entry) use ($model): bool {
-                return $this->isEntryEqualDocumentEntry($model, $entry, $documentEntry);
+            null,
+            function (DocumentEntryModel|DocumentEntry $entry): string {
+                return $this->getEntryKey($entry);
             },
             function (DocumentEntry $documentEntry, ?DocumentEntryModel $entry) use ($model): ?DocumentEntryModel {
                 try {
@@ -512,7 +475,7 @@ class DocumentFactory extends ModelFactory {
         $asset                              = $this->documentEntryAsset($model, $documentEntry);
         $entry                            ??= new DocumentEntryModel();
         $normalizer                         = $this->getNormalizer();
-        $entry->uid                         = $normalizer->uuid($documentEntry->assetDocumentId);
+        $entry->uid                         = $this->getEntryKey($documentEntry);
         $entry->document                    = $model;
         $entry->asset                       = $asset;
         $entry->assetType                   = $this->documentEntryAssetType($model, $documentEntry);
@@ -606,6 +569,34 @@ class DocumentFactory extends ModelFactory {
         }
 
         return $level;
+    }
+    // </editor-fold>
+
+    // <editor-fold desc="Helpers">
+    // =========================================================================
+    protected function getEntryKey(DocumentEntryModel|DocumentEntry $entry): string {
+        $normalizer = $this->getNormalizer();
+        $key        = null;
+
+        if ($entry instanceof DocumentEntryModel) {
+            $key = new Key($normalizer, [
+                'key' => $entry->uid,
+            ]);
+        } elseif (isset($entry->assetDocumentId) && $entry->assetDocumentId) {
+            $key = new Key($normalizer, [
+                'key' => $entry->assetDocumentId,
+            ]);
+        } else {
+            $key = new Key($normalizer, [
+                'asset_id'         => $normalizer->uuid($entry->assetId),
+                'start'            => $normalizer->datetime($entry->startDate),
+                'end'              => $normalizer->datetime($entry->endDate),
+                'service_group_id' => $normalizer->string($entry->serviceGroupSku),
+                'service_level_id' => $normalizer->string($entry->serviceLevelSku),
+            ]);
+        }
+
+        return (string) $key;
     }
     // </editor-fold>
 }

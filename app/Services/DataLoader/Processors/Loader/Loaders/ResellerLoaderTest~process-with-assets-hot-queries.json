@@ -277,7 +277,7 @@
     {
         "query": "update `assets` set `synced_at` = ? where `id` in (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) and `assets`.`deleted_at` is null",
         "bindings": [
-            "2022-02-02T00:24:02+00:00",
+            "2022-02-02T00:23:38+00:00",
             "00480f43-35bc-4688-96be-de1840883b61",
             "037abd40-0ed8-492d-85b9-e6fe591e1f2c",
             "06f5cb2c-fde4-4c90-8feb-ec50add1bcc3",

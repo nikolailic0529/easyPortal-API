@@ -10,7 +10,6 @@ use App\Services\Queue\Contracts\NamedJob;
 use ArrayIterator;
 use DateTime;
 use DateTimeInterface;
-use DateTimeZone;
 use Exception;
 use Illuminate\Console\Command;
 use Illuminate\Contracts\Queue\QueueableEntity;
@@ -159,7 +158,7 @@ class CacheKeyTest extends TestCase {
                     new CacheKeyTest_CurrentLocale('en_GB'),
                 ],
             ],
-            CurrentTimezone::class                          => [
+            CurrentTimezone::class                        => [
                 'Europe/Paris',
                 [
                     new CacheKeyTest_CurrentTimezone('Europe/Paris'),
@@ -189,7 +188,7 @@ class CacheKeyTest extends TestCase {
                     new CacheKeyTest_Directive('directive'),
                 ],
             ],
-            DateTimeInterface::class                          => [
+            DateTimeInterface::class                      => [
                 '2022-06-02T145835',
                 [
                     new DateTime('2022-06-02T16:58:35+02:00'),

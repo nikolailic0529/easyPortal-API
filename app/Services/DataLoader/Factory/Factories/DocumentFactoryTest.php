@@ -268,95 +268,6 @@ class DocumentFactoryTest extends TestCase {
     }
 
     /**
-     * @covers ::isEntryEqualDocumentEntry
-     */
-    public function testIsEntryEqualDocumentEntry(): void {
-        // Prepare
-        $oem      = Oem::factory()->create();
-        $group    = ServiceGroup::factory()->create([
-            'oem_id' => $oem,
-        ]);
-        $level    = ServiceLevel::factory()->create([
-            'oem_id'           => $oem,
-            'service_group_id' => $group,
-        ]);
-        $document = DocumentModel::factory()->create([
-            'oem_id' => $oem,
-        ]);
-        $entryA   = DocumentEntryModel::factory()->create([
-            'uid'              => $this->faker->uuid(),
-            'document_id'      => $document,
-            'service_group_id' => $group,
-            'service_level_id' => $level,
-        ]);
-        $entryB   = DocumentEntryModel::factory()->create([
-            'uid'              => null,
-            'document_id'      => $document,
-            'service_group_id' => $group,
-            'service_level_id' => $level,
-        ]);
-        $factory  = new class(
-            $this->app->make(Normalizer::class),
-            $this->app->make(CurrencyResolver::class),
-            $this->app->make(ServiceGroupResolver::class),
-            $this->app->make(ServiceLevelResolver::class),
-        ) extends DocumentFactory {
-            /** @noinspection PhpMissingParentConstructorInspection */
-            public function __construct(
-                protected Normalizer $normalizer,
-                protected CurrencyResolver $currencyResolver,
-                protected ServiceGroupResolver $serviceGroupResolver,
-                protected ServiceLevelResolver $serviceLevelResolver,
-            ) {
-                // empty
-            }
-
-            public function isEntryEqualDocumentEntry(
-                DocumentModel $model,
-                DocumentEntryModel $entry,
-                DocumentEntry $documentEntry,
-            ): bool {
-                return parent::isEntryEqualDocumentEntry($model, $entry, $documentEntry);
-            }
-        };
-
-        // Test
-        self::assertTrue($factory->isEntryEqualDocumentEntry($document, $entryA, new DocumentEntry([
-            'assetDocumentId' => $entryA->uid,
-            'assetId'         => $entryA->asset_id,
-        ])));
-        self::assertFalse($factory->isEntryEqualDocumentEntry($document, $entryA, new DocumentEntry([
-            'assetDocumentId'            => null,
-            'assetId'                    => $this->faker->uuid(),
-            'startDate'                  => (string) $entryA->start?->getTimestampMs(),
-            'endDate'                    => (string) $entryA->end?->getTimestampMs(),
-            'currencyCode'               => $entryA->currency->code ?? null,
-            'listPrice'                  => $entryA->list_price,
-            'estimatedValueRenewal'      => $entryA->renewal,
-            'serviceGroupSku'            => $entryA->serviceGroup->sku ?? null,
-            'serviceLevelSku'            => $entryA->serviceLevel->sku ?? null,
-            'lineItemListPrice'          => $entryA->monthly_list_price,
-            'lineItemMonthlyRetailPrice' => $entryA->monthly_retail_price,
-            'equipmentNumber'            => $entryA->equipment_number,
-        ])));
-
-        self::assertTrue($factory->isEntryEqualDocumentEntry($document, $entryB, new DocumentEntry([
-            'assetDocumentId'            => null,
-            'assetId'                    => $entryB->asset_id,
-            'startDate'                  => (string) $entryB->start?->getTimestampMs(),
-            'endDate'                    => (string) $entryB->end?->getTimestampMs(),
-            'currencyCode'               => $entryB->currency->code ?? null,
-            'listPrice'                  => $entryB->list_price,
-            'estimatedValueRenewal'      => $entryB->renewal,
-            'serviceGroupSku'            => $entryB->serviceGroup->sku ?? null,
-            'serviceLevelSku'            => $entryB->serviceLevel->sku ?? null,
-            'lineItemListPrice'          => $entryB->monthly_list_price,
-            'lineItemMonthlyRetailPrice' => $entryB->monthly_retail_price,
-            'equipmentNumber'            => $entryB->equipment_number,
-        ])));
-    }
-
-    /**
      * @covers ::createFromViewAssetDocument
      */
     public function testCreateFromViewAssetDocumentContactPersonsIsNull(): void {
@@ -968,10 +879,16 @@ class DocumentFactoryTest extends TestCase {
         $entryC       = DocumentEntryModel::factory()->create(array_merge(
             $properties,
             [
+                'id'  => '9245603f-ac6a-4106-86b5-dde70d5aaa69',
                 'uid' => 'c',
             ],
         ));
-        $entryD       = DocumentEntryModel::factory()->create($properties);
+        $entryD       = DocumentEntryModel::factory()->create(array_merge(
+            $properties,
+            [
+                'id' => '7f527959-564a-42b5-be5f-833645cf6481',
+            ],
+        ));
         $object       = new Document([
             'id'                   => $document->getKey(),
             'vendorSpecificFields' => [
@@ -1309,6 +1226,23 @@ class DocumentFactoryTest extends TestCase {
         self::assertNotNull($created);
         self::assertFalse($created->trashed());
     }
+
+    /**
+     * @covers ::getEntryKey
+     *
+     * @dataProvider dataProviderGetEntryKey
+     *
+     * @param Closure(static): (DocumentEntryModel|DocumentEntry) $entryFactory
+     */
+    public function testGetEntryKey(
+        string $expected,
+        Closure $entryFactory,
+    ): void {
+        $factory = $this->app->make(DocumentFactoryTest_Factory::class);
+        $actual  = $factory->getEntryKey($entryFactory($this));
+
+        self::assertEquals($expected, $actual);
+    }
     // </editor-fold>
 
     // <editor-fold desc="DataProviders">
@@ -1402,6 +1336,42 @@ class DocumentFactoryTest extends TestCase {
             ],
         ];
     }
+
+    /**
+     * @return array<mixed>
+     */
+    public function dataProviderGetEntryKey(): array {
+        return [
+            DocumentEntryModel::class                     => [
+                'abcde',
+                static function (): DocumentEntryModel {
+                    return DocumentEntryModel::factory()->make([
+                        'uid' => 'abcde',
+                    ]);
+                },
+            ],
+            DocumentEntry::class                          => [
+                'abcde',
+                static function (): DocumentEntry {
+                    return new DocumentEntry([
+                        'assetDocumentId' => 'abcde',
+                    ]);
+                },
+            ],
+            DocumentEntry::class.'(no `assetDocumentId`)' => [
+                '8f1f45c3-9ad3-4d88-b288-4a54ee4d6af3:2022-10-10t000000:group:level:2022-10-10t000000',
+                static function (): DocumentEntry {
+                    return new DocumentEntry([
+                        'assetId'         => '8f1f45c3-9ad3-4d88-b288-4a54ee4d6af3',
+                        'startDate'       => '2022-10-10',
+                        'endDate'         => '2022-10-10',
+                        'serviceGroupSku' => 'Group',
+                        'serviceLevelSku' => 'Level',
+                    ]);
+                },
+            ],
+        ];
+    }
     // </editor-fold>
 }
 
@@ -1441,5 +1411,9 @@ class DocumentFactoryTest_Factory extends DocumentFactory {
 
     public function documentEntryServiceLevel(DocumentModel $model, DocumentEntry $documentEntry): ?ServiceLevel {
         return parent::documentEntryServiceLevel($model, $documentEntry);
+    }
+
+    public function getEntryKey(DocumentEntry|DocumentEntryModel $entry): string {
+        return parent::getEntryKey($entry);
     }
 }

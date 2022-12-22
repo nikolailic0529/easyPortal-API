@@ -307,11 +307,9 @@ class AssetFactory extends ModelFactory {
         return $this->children(
             $existing,
             $asset->coverageStatusCheck->coverageEntries ?? [],
-            static function (AssetWarranty $warranty): bool {
-                return true;
-            },
-            function (CoverageEntry $entry, AssetWarranty $warranty): bool {
-                return $this->isWarrantyEqualToCoverage($warranty, $entry);
+            null,
+            function (AssetWarranty|CoverageEntry $warranty): string {
+                return $this->getWarrantyKey($warranty);
             },
             function (CoverageEntry $entry, ?AssetWarranty $warranty) use ($model): ?AssetWarranty {
                 try {
@@ -589,34 +587,22 @@ class AssetFactory extends ModelFactory {
 
     // <editor-fold desc="Helpers">
     // =========================================================================
-    protected function isWarrantyEqualToCoverage(AssetWarranty $warranty, CoverageEntry $entry): bool {
-        $normalizer = $this->getNormalizer();
-        $type       = $this->type($warranty, $entry->type)->getKey();
-        $start      = $normalizer->datetime($entry->coverageStartDate);
-        $end        = $normalizer->datetime($entry->coverageEndDate);
-        $isEqual    = $type === $warranty->type_id
-            && ($start === $warranty->start || $start?->isSameDay($warranty->start) === true)
-            && ($end === $warranty->end || $end?->isSameDay($warranty->end) === true);
-
-        return $isEqual;
-    }
-
-    protected function getWarrantyKey(AssetWarranty|CoverageEntry|ViewAssetDocument $warranty): ?string {
+    protected function getWarrantyKey(AssetWarranty|CoverageEntry|ViewAssetDocument $warranty): string {
         $normalizer = $this->getNormalizer();
         $key        = null;
 
         if ($warranty instanceof AssetWarranty) {
-            $key = (string) new Key($normalizer, [
+            $key = new Key($normalizer, [
                 'key' => $warranty->key,
             ]);
         } elseif ($warranty instanceof CoverageEntry) {
-            $key = (string) new Key($normalizer, [
+            $key = new Key($normalizer, [
                 'type'  => $normalizer->string($warranty->type),
                 'start' => $normalizer->datetime($warranty->coverageStartDate),
                 'end'   => $normalizer->datetime($warranty->coverageEndDate),
             ]);
         } else {
-            $key = (string) new Key($normalizer, [
+            $key = new Key($normalizer, [
                 'document'     => $normalizer->string(
                     $warranty->document->id ?? $warranty->documentNumber,
                 ),
@@ -633,7 +619,7 @@ class AssetFactory extends ModelFactory {
             ]);
         }
 
-        return $key;
+        return (string) $key;
     }
     // </editor-fold>
 }
