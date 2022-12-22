@@ -991,6 +991,7 @@ class AssetFactoryTest extends TestCase {
 
         // Pre-test
         self::assertEquals(1, $model->warranties()->count());
+        self::assertEquals(1, $model->warranties->count());
 
         // Test
         $warranties = $factory->assetWarrantiesDocuments($model, $asset, $model->warranties);

@@ -17,8 +17,7 @@
     "insert into `asset_coverages` (`coverage_id`, `asset_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
     "update `asset_coverages` set `deleted_at` = ?, `asset_coverages`.`updated_at` = ? where `id` = ?",
     "update `asset_warranties` set `status_id` = ?, `asset_warranties`.`updated_at` = ? where `id` = ?",
-    "insert into `asset_warranties` (`key`, `start`, `end`, `asset_id`, `type_id`, `status_id`, `description`, `service_group_id`, `service_level_id`, `customer_id`, `reseller_id`, `document_id`, `document_number`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
-    "update `asset_warranties` set `deleted_at` = ?, `asset_warranties`.`updated_at` = ? where `id` = ?",
+    "update `asset_warranties` set `key` = ?, `end` = ?, `asset_warranties`.`updated_at` = ? where `id` = ?",
     "update `asset_warranties` set `deleted_at` = ?, `asset_warranties`.`updated_at` = ? where `id` = ?",
     "update `asset_warranties` set `deleted_at` = ?, `asset_warranties`.`updated_at` = ? where `id` = ?"
 ]

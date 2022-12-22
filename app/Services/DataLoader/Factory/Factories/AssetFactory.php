@@ -51,14 +51,13 @@ use App\Services\DataLoader\Schema\ViewAsset;
 use App\Services\DataLoader\Schema\ViewAssetDocument;
 use Illuminate\Contracts\Debug\ExceptionHandler;
 use Illuminate\Database\Eloquent\Collection as EloquentCollection;
-use Illuminate\Support\Collection;
-use Illuminate\Support\Facades\Date;
 use InvalidArgumentException;
 use Throwable;
 
-use function implode;
+use function array_filter;
 use function max;
 use function sprintf;
+use function usort;
 
 /**
  * @extends ModelFactory<Asset>
@@ -357,21 +356,21 @@ class AssetFactory extends ModelFactory {
     }
 
     /**
-     * @return Collection<int, ViewAssetDocument>
+     * @return array<int, ViewAssetDocument>
      */
-    protected function assetDocuments(Asset $model, ViewAsset $asset): Collection {
+    protected function assetDocuments(Asset $model, ViewAsset $asset): array {
         // Asset.assetDocument is not a document but an array of entries where
         // each entry is the mixin of Document, DocumentEntry, and additional
         // information (that is not available in Document and DocumentEntry)
-        $documents = Collection::make($asset->assetDocument)
-            ->filter(static function (ViewAssetDocument $document): bool {
-                return isset($document->documentNumber)
-                    && $document->deletedAt === null;
-            })
-            ->sort(static function (ViewAssetDocument $a, ViewAssetDocument $b): int {
-                return $a->startDate <=> $b->startDate
-                    ?: $a->endDate <=> $b->endDate;
-            });
+        $documents = array_filter($asset->assetDocument, static function (ViewAssetDocument $document): bool {
+            return isset($document->documentNumber)
+                && $document->deletedAt === null;
+        });
+
+        usort($documents, static function (ViewAssetDocument $a, ViewAssetDocument $b): int {
+            return $a->startDate <=> $b->startDate
+                ?: $a->endDate <=> $b->endDate;
+        });
 
         // Prefetch
         $resolver = $this->getDocumentResolver();
@@ -401,91 +400,80 @@ class AssetFactory extends ModelFactory {
         ViewAsset $asset,
         EloquentCollection $existing,
     ): EloquentCollection {
-        // Prepare
-        /** @var EloquentCollection<array-key, AssetWarranty> $warranties */
-        $warranties     = new EloquentCollection();
-        $existing       = $existing->keyBy(static function (AssetWarranty $warranty): string {
-            return implode('|', [
-                $warranty->document_id ?: $warranty->document_number,
-                $warranty->reseller_id,
-                $warranty->customer_id,
-                $warranty->service_group_id,
-                $warranty->service_level_id,
-                $warranty->start?->startOfDay(),
-                $warranty->end?->startOfDay(),
-            ]);
-        });
-        $assetDocuments = $this->assetDocuments($model, $asset);
+        $created    = [];
+        $documents  = $this->assetDocuments($model, $asset);
+        $warranties = $this->children(
+            $existing,
+            $documents,
+            null,
+            function (AssetWarranty|ViewAssetDocument $warranty): string {
+                return $this->getWarrantyKey($warranty);
+            },
+            function (
+                ViewAssetDocument $assetDocument,
+                ?AssetWarranty $warranty,
+            ) use (
+                $model,
+                &$created,
+            ): ?AssetWarranty {
+                try {
+                    // Valid?
+                    $normalizer = $this->getNormalizer();
+                    $number     = $assetDocument->documentNumber;
+                    $group      = $this->assetDocumentServiceGroup($model, $assetDocument);
+                    $level      = $this->assetDocumentServiceLevel($model, $assetDocument);
+                    $start      = $normalizer->datetime(
+                        $assetDocument->startDate ?? $assetDocument->document->startDate ?? null,
+                    );
+                    $end        = $normalizer->datetime(
+                        $assetDocument->endDate ?? $assetDocument->document->endDate ?? null,
+                    );
 
-        // Warranties
-        $normalizer = $this->getNormalizer();
+                    if (!($number && ($start !== null || $end !== null) && ($group !== null || $level !== null))) {
+                        return null;
+                    }
 
-        foreach ($assetDocuments as $assetDocument) {
-            try {
-                // Valid?
-                $number = $assetDocument->documentNumber;
-                $group  = $this->assetDocumentServiceGroup($model, $assetDocument);
-                $level  = $this->assetDocumentServiceLevel($model, $assetDocument);
-                $start  = $normalizer->datetime(
-                    $assetDocument->startDate ?? $assetDocument->document->startDate ?? null,
-                );
-                $end    = $normalizer->datetime(
-                    $assetDocument->endDate ?? $assetDocument->document->endDate ?? null,
-                );
+                    // Already added?
+                    $key = $this->getWarrantyKey($assetDocument);
 
-                if (!($number && ($start !== null || $end !== null) && ($group !== null || $level !== null))) {
-                    continue;
+                    if (isset($created[$key])) {
+                        $created[$key]->start = max($created[$key]->start, $start);
+                        $created[$key]->end   = max($created[$key]->end, $end);
+
+                        return null;
+                    }
+
+                    // Create/Update
+                    $warranty                ??= new AssetWarranty();
+                    $warranty->key             = $key;
+                    $warranty->start           = $start;
+                    $warranty->end             = $end;
+                    $warranty->asset           = $model;
+                    $warranty->type            = null;
+                    $warranty->status          = null;
+                    $warranty->description     = null;
+                    $warranty->serviceGroup    = $group;
+                    $warranty->serviceLevel    = $level;
+                    $warranty->customer        = $this->customer($assetDocument);
+                    $warranty->reseller        = $this->reseller($assetDocument);
+                    $warranty->document        = $this->assetDocumentDocument($model, $assetDocument);
+                    $warranty->document_number = $number;
+
+                    // Store
+                    $created[$key] = $warranty;
+
+                    // Return
+                    return $warranty;
+                } catch (Throwable $exception) {
+                    $this->getExceptionHandler()->report(
+                        new FailedToCreateAssetWarranty($model, $assetDocument, $exception),
+                    );
                 }
 
-                // Prepare
-                $document = $this->assetDocumentDocument($model, $assetDocument);
-                $reseller = $this->reseller($assetDocument);
-                $customer = $this->customer($assetDocument);
-                $key      = implode('|', [
-                    $document?->getKey() ?: $number,
-                    $reseller?->getKey(),
-                    $customer?->getKey(),
-                    $group?->getKey(),
-                    $level?->getKey(),
-                    Date::make($start)?->startOfDay(),
-                    Date::make($end)?->startOfDay(),
-                ]);
+                return null;
+            },
+        );
 
-                // Already added?
-                if (isset($warranties[$key])) {
-                    $warranties[$key]->start = max($warranties[$key]->start, $start);
-                    $warranties[$key]->end   = max($warranties[$key]->end, $end);
-
-                    continue;
-                }
-
-                // Create/Update
-                /** @var AssetWarranty $warranty */
-                $warranty                  = $existing->get($key) ?: new AssetWarranty();
-                $warranty->key             = $this->getWarrantyKey($assetDocument);
-                $warranty->start           = $start;
-                $warranty->end             = $end;
-                $warranty->asset           = $model;
-                $warranty->type            = null;
-                $warranty->status          = null;
-                $warranty->description     = null;
-                $warranty->serviceGroup    = $group;
-                $warranty->serviceLevel    = $level;
-                $warranty->customer        = $customer;
-                $warranty->reseller        = $reseller;
-                $warranty->document        = $document;
-                $warranty->document_number = $number;
-
-                // Store
-                $warranties[$key] = $warranty;
-            } catch (Throwable $exception) {
-                $this->getExceptionHandler()->report(
-                    new FailedToCreateAssetWarranty($model, $assetDocument, $exception),
-                );
-            }
-        }
-
-        // Return
         return $warranties;
     }
 
