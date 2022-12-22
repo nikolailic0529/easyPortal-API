@@ -104,6 +104,7 @@ class AssetFactoryTest extends TestCase {
      */
     public function testCreateFromAsset(): void {
         // Mock
+        $this->overrideUuidFactory('00000000-0000-0000-0000-000000000000');
         $this->overrideDateFactory('2021-08-30T00:00:00.000+00:00');
         $this->overrideFinders();
 
@@ -223,8 +224,8 @@ class AssetFactoryTest extends TestCase {
                 ->sort(static function (AssetWarranty $a, AssetWarranty $b): int {
                     return $a->start <=> $b->start
                         ?: $a->end <=> $b->end
-                            ?: $a->service_group_id <=> $b->service_group_id
-                                ?: $a->service_level_id <=> $b->service_level_id;
+                        ?: $a->service_group_id <=> $b->service_group_id
+                        ?: $a->service_level_id <=> $b->service_level_id;
                 })
                 ->map(static function (AssetWarranty $warranty): array {
                     return [

@@ -475,7 +475,7 @@ class DocumentFactory extends ModelFactory {
         $asset                              = $this->documentEntryAsset($model, $documentEntry);
         $entry                            ??= new DocumentEntryModel();
         $normalizer                         = $this->getNormalizer();
-        $entry->uid                         = $this->getEntryKey($documentEntry);
+        $entry->key                         = $this->getEntryKey($documentEntry);
         $entry->document                    = $model;
         $entry->asset                       = $asset;
         $entry->assetType                   = $this->documentEntryAssetType($model, $documentEntry);
@@ -580,7 +580,7 @@ class DocumentFactory extends ModelFactory {
 
         if ($entry instanceof DocumentEntryModel) {
             $key = new Key($normalizer, [
-                'key' => $entry->uid,
+                'key' => $entry->key,
             ]);
         } elseif (isset($entry->assetDocumentId) && $entry->assetDocumentId) {
             $key = new Key($normalizer, [
@@ -588,11 +588,11 @@ class DocumentFactory extends ModelFactory {
             ]);
         } else {
             $key = new Key($normalizer, [
-                'asset_id'         => $normalizer->uuid($entry->assetId),
-                'start'            => $normalizer->datetime($entry->startDate),
-                'end'              => $normalizer->datetime($entry->endDate),
-                'service_group_id' => $normalizer->string($entry->serviceGroupSku),
-                'service_level_id' => $normalizer->string($entry->serviceLevelSku),
+                'asset'        => $normalizer->uuid($entry->assetId),
+                'start'        => $normalizer->datetime($entry->startDate),
+                'end'          => $normalizer->datetime($entry->endDate),
+                'serviceGroup' => $normalizer->string($entry->serviceGroupSku),
+                'serviceLevel' => $normalizer->string($entry->serviceLevelSku),
             ]);
         }
 

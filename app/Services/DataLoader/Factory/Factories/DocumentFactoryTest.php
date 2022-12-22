@@ -522,7 +522,7 @@ class DocumentFactoryTest extends TestCase {
         // Base
         $entry = $factory->documentEntry($document, $documentEntry, null);
 
-        self::assertEquals($uid, $entry->uid);
+        self::assertEquals($uid, $entry->key);
         self::assertEquals($asset->getKey(), $entry->asset_id);
         self::assertEquals($assetType->key, $entry->assetType->key ?? null);
         self::assertEquals((new Asset())->getMorphClass(), $entry->assetType->object_type ?? null);
@@ -866,13 +866,13 @@ class DocumentFactoryTest extends TestCase {
         $entryA       = DocumentEntryModel::factory()->create(array_merge(
             $properties,
             [
-                'uid' => 'a',
+                'key' => 'a',
             ],
         ));
         $entryB       = DocumentEntryModel::factory()->create(array_merge(
             $properties,
             [
-                'uid'        => 'b',
+                'key'        => 'b',
                 'removed_at' => Date::now(),
             ],
         ));
@@ -880,7 +880,7 @@ class DocumentFactoryTest extends TestCase {
             $properties,
             [
                 'id'  => '9245603f-ac6a-4106-86b5-dde70d5aaa69',
-                'uid' => 'c',
+                'key' => 'c',
             ],
         ));
         $entryD       = DocumentEntryModel::factory()->create(array_merge(
@@ -1346,7 +1346,7 @@ class DocumentFactoryTest extends TestCase {
                 'abcde',
                 static function (): DocumentEntryModel {
                     return DocumentEntryModel::factory()->make([
-                        'uid' => 'abcde',
+                        'key' => 'abcde',
                     ]);
                 },
             ],
