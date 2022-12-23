@@ -336,7 +336,7 @@ class DocumentFactory extends ModelFactory {
             $model->distributor    = $this->distributor($document);
             $model->start          = $normalizer->datetime($document->startDate);
             $model->end            = $normalizer->datetime($document->endDate);
-            $model->price_origin   = $normalizer->decimal($document->totalNetPrice);
+            $model->price_origin   = $document->totalNetPrice;
             $model->number         = $normalizer->string($document->documentNumber) ?: null;
             $model->changed_at     = $normalizer->datetime($document->updatedAt);
             $model->contacts       = $this->objectContacts($model, (array) $document->contactPersons);
@@ -482,10 +482,10 @@ class DocumentFactory extends ModelFactory {
         $entry->start                       = $normalizer->datetime($documentEntry->startDate);
         $entry->end                         = $normalizer->datetime($documentEntry->endDate);
         $entry->currency                    = $this->currency($documentEntry->currencyCode);
-        $entry->list_price_origin           = $normalizer->decimal($documentEntry->listPrice);
-        $entry->monthly_list_price_origin   = $normalizer->decimal($documentEntry->lineItemListPrice);
-        $entry->monthly_retail_price_origin = $normalizer->decimal($documentEntry->lineItemMonthlyRetailPrice);
-        $entry->renewal_origin              = $normalizer->decimal($documentEntry->estimatedValueRenewal);
+        $entry->list_price_origin           = $documentEntry->listPrice;
+        $entry->monthly_list_price_origin   = $documentEntry->lineItemListPrice;
+        $entry->monthly_retail_price_origin = $documentEntry->lineItemMonthlyRetailPrice;
+        $entry->renewal_origin              = $documentEntry->estimatedValueRenewal;
         $entry->oem_said                    = $normalizer->string($documentEntry->said);
         $entry->oem_sar_number              = $normalizer->string($documentEntry->sarNumber);
         $entry->environment_id              = $normalizer->string($documentEntry->environmentId);

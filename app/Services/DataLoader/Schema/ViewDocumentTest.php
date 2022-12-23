@@ -5,7 +5,6 @@ namespace App\Services\DataLoader\Schema;
 use Tests\TestCase;
 
 use function array_keys;
-use function json_encode;
 
 /**
  * @internal
@@ -16,15 +15,16 @@ class ViewDocumentTest extends TestCase {
      * @covers ::create
      */
     public function testCreate(): void {
-        $json       = $this->getTestData()->json();
+        $json = $this->getTestData()->json();
+
+        self::assertIsArray($json);
+
+        $keys       = array_keys($json);
         $actual     = new ViewDocument($json);
         $properties = ViewDocument::getPropertiesNames();
 
-        self::assertEquals(array_keys($json), $properties);
+        self::assertEqualsCanonicalizing($keys, $properties);
+        self::assertEqualsCanonicalizing($keys, array_keys($actual->getProperties()));
         self::assertInstanceOf(DocumentVendorSpecificField::class, $actual->vendorSpecificFields);
-        self::assertJsonStringEqualsJsonString(
-            json_encode($json),
-            json_encode($actual),
-        );
     }
 }

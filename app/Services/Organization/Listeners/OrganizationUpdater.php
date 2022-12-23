@@ -111,13 +111,13 @@ class OrganizationUpdater implements EventsProvider {
         if (isset($company->brandingData)) {
             $branding                                       = $company->brandingData;
             $organization->analytics_code                   = $normalizer->string($branding->resellerAnalyticsCode);
-            $organization->branding_dark_theme              = $normalizer->boolean($branding->brandingMode);
-            $organization->branding_main_color              = $normalizer->color($branding->mainColor);
-            $organization->branding_secondary_color         = $normalizer->color($branding->secondaryColor);
+            $organization->branding_dark_theme              = $branding->brandingMode;
+            $organization->branding_main_color              = $branding->mainColor;
+            $organization->branding_secondary_color         = $branding->secondaryColor;
             $organization->branding_logo_url                = $normalizer->string($branding->logoUrl);
             $organization->branding_favicon_url             = $normalizer->string($branding->favIconUrl);
-            $organization->branding_default_main_color      = $normalizer->color($branding->defaultMainColor);
-            $organization->branding_default_secondary_color = $normalizer->color($branding->secondaryColorDefault);
+            $organization->branding_default_main_color      = $branding->defaultMainColor;
+            $organization->branding_default_secondary_color = $branding->secondaryColorDefault;
             $organization->branding_default_logo_url        = $normalizer->string($branding->defaultLogoUrl);
             $organization->branding_default_favicon_url     = $normalizer->string($branding->useDefaultFavIcon);
             $organization->branding_welcome_image_url       = $normalizer->string($branding->mainImageOnTheRight);

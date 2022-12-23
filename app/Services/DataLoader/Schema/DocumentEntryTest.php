@@ -5,9 +5,6 @@ namespace App\Services\DataLoader\Schema;
 use Tests\TestCase;
 
 use function array_keys;
-use function json_encode;
-
-use const JSON_THROW_ON_ERROR;
 
 /**
  * @internal
@@ -22,13 +19,11 @@ class DocumentEntryTest extends TestCase {
 
         self::assertIsArray($json);
 
+        $keys       = array_keys($json);
         $actual     = new DocumentEntry($json);
         $properties = DocumentEntry::getPropertiesNames();
 
-        self::assertEquals(array_keys($json), $properties);
-        self::assertJsonStringEqualsJsonString(
-            json_encode($json, JSON_THROW_ON_ERROR),
-            json_encode($actual, JSON_THROW_ON_ERROR),
-        );
+        self::assertEqualsCanonicalizing($keys, $properties);
+        self::assertEqualsCanonicalizing($keys, array_keys($actual->getProperties()));
     }
 }

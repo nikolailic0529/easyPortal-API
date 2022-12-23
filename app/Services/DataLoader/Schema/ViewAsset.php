@@ -2,6 +2,7 @@
 
 namespace App\Services\DataLoader\Schema;
 
+use App\Services\DataLoader\Normalizer\Normalizers\StringNormalizer;
 use App\Services\DataLoader\Normalizer\Normalizers\UuidNormalizer;
 use App\Utils\JsonObject\JsonObjectArray;
 use App\Utils\JsonObject\JsonObjectNormalizer;
@@ -30,8 +31,13 @@ class ViewAsset extends Type implements TypeWithKey {
     public ?string $address;
     public ?string $address2;
     public ?string $country;
+
+    #[JsonObjectNormalizer(StringNormalizer::class)]
     public ?string $latitude;
+
+    #[JsonObjectNormalizer(StringNormalizer::class)]
     public ?string $longitude;
+
     public ?string $countryCode;
     public string  $status;
     public ?string $updatedAt;

@@ -47,6 +47,7 @@ use App\Services\DataLoader\Client\GraphQL\Queries\ResellersCountFrom;
 use App\Services\DataLoader\Exceptions\AssetWarrantyCheckFailed;
 use App\Services\DataLoader\Exceptions\CustomerWarrantyCheckFailed;
 use App\Services\DataLoader\Normalizer\Normalizer;
+use App\Services\DataLoader\Normalizer\Normalizers\BoolNormalizer;
 use App\Services\DataLoader\Schema\Company;
 use App\Services\DataLoader\Schema\CompanyBrandingData;
 use App\Services\DataLoader\Schema\Document;
@@ -484,7 +485,7 @@ class Client {
         $value  = $this->value(new CoverageStatusCheck(), [
             'input' => $input->toArray(),
         ]);
-        $result = $this->normalizer->boolean($value);
+        $result = BoolNormalizer::normalize($value);
         $error  = $result !== true && $value && is_string($value)
             ? ($this->normalizer->string($value) ?: null)
             : null;

@@ -2,6 +2,7 @@
 
 namespace App\Services\DataLoader\Schema;
 
+use App\Services\DataLoader\Normalizer\Normalizers\DecimalNormalizer;
 use App\Services\DataLoader\Normalizer\Normalizers\UuidNormalizer;
 use App\Utils\JsonObject\JsonObjectArray;
 use App\Utils\JsonObject\JsonObjectNormalizer;
@@ -15,7 +16,10 @@ class Document extends Type implements TypeWithKey {
     public ?string $startDate;
     public ?string $endDate;
     public ?string $currencyCode;
+
+    #[JsonObjectNormalizer(DecimalNormalizer::class)]
     public ?string $totalNetPrice;
+
     public ?string $languageCode;
     public ?string $updatedAt;
 

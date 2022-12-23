@@ -344,7 +344,7 @@ class OrganizationUpdaterTest extends TestCase {
         self::assertNotNull($organization);
         self::assertNotNull($branding);
         self::assertEquals(
-            $normalizer->boolean($branding->brandingMode),
+            $branding->brandingMode,
             $organization->branding_dark_theme,
         );
         self::assertEquals(
@@ -352,7 +352,7 @@ class OrganizationUpdaterTest extends TestCase {
             $organization->branding_default_logo_url,
         );
         self::assertEquals(
-            $normalizer->color($branding->defaultMainColor),
+            $branding->defaultMainColor,
             $organization->branding_default_main_color,
         );
         self::assertEquals(
@@ -364,7 +364,7 @@ class OrganizationUpdaterTest extends TestCase {
             $organization->branding_logo_url,
         );
         self::assertEquals(
-            $normalizer->color($branding->mainColor),
+            $branding->mainColor,
             $organization->branding_main_color,
         );
         self::assertEquals(
@@ -372,11 +372,11 @@ class OrganizationUpdaterTest extends TestCase {
             $organization->branding_welcome_image_url,
         );
         self::assertEquals(
-            $normalizer->color($branding->secondaryColor),
+            $branding->secondaryColor,
             $organization->branding_secondary_color,
         );
         self::assertEquals(
-            $normalizer->color($branding->secondaryColorDefault),
+            $branding->secondaryColorDefault,
             $organization->branding_default_secondary_color,
         );
         self::assertEquals(

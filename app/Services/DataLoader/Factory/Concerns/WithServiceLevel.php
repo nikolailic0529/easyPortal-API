@@ -59,7 +59,7 @@ trait WithServiceLevel {
             }
 
             if (!$level->description) {
-                $level->description = $normalizer->text($description) ?: '';
+                $level->description = (string) $description;
             }
 
             $level->save();

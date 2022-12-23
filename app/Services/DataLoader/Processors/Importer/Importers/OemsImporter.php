@@ -6,6 +6,7 @@ use App\Models\Data\Oem;
 use App\Models\Data\ServiceGroup;
 use App\Models\Data\ServiceLevel;
 use App\Services\DataLoader\Normalizer\Normalizer;
+use App\Services\DataLoader\Normalizer\Normalizers\TextNormalizer;
 use App\Services\DataLoader\Processors\Importer\Importers\OemsImporter\CellType;
 use App\Services\DataLoader\Processors\Importer\Importers\OemsImporter\HeaderCell;
 use App\Services\DataLoader\Processors\Importer\Importers\OemsImporter\ParsedRow;
@@ -253,7 +254,7 @@ class OemsImporter implements OnEachRow, WithStartRow, WithEvents, SkipsEmptyRow
 
                 switch ($this->header[$index]->getType()) {
                     case CellType::text():
-                        $value = $this->normalizer->text($value);
+                        $value = TextNormalizer::normalize($value);
                         break;
                     default:
                         $value = $this->normalizer->string($value);

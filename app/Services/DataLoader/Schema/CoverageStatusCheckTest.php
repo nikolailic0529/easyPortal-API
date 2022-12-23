@@ -5,7 +5,6 @@ namespace App\Services\DataLoader\Schema;
 use Tests\TestCase;
 
 use function array_keys;
-use function json_encode;
 use function reset;
 
 /**
@@ -17,16 +16,17 @@ class CoverageStatusCheckTest extends TestCase {
      * @covers ::create
      */
     public function testCreate(): void {
-        $json       = $this->getTestData()->json();
+        $json = $this->getTestData()->json();
+
+        self::assertIsArray($json);
+
+        $keys       = array_keys($json);
         $actual     = new CoverageStatusCheck($json);
         $properties = CoverageStatusCheck::getPropertiesNames();
 
-        self::assertEquals(array_keys($json), $properties);
+        self::assertEqualsCanonicalizing($keys, $properties);
+        self::assertEqualsCanonicalizing($keys, array_keys($actual->getProperties()));
         self::assertCount(2, $actual->coverageEntries);
         self::assertInstanceOf(CoverageEntry::class, reset($actual->coverageEntries));
-        self::assertJsonStringEqualsJsonString(
-            json_encode($json),
-            json_encode($actual),
-        );
     }
 }

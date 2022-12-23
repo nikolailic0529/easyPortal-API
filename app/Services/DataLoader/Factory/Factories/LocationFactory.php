@@ -196,8 +196,6 @@ class LocationFactory extends ModelFactory {
         $lineOne    = $normalizer->string($lineOne);
         $lineTwo    = $normalizer->string($lineTwo);
         $state      = $normalizer->string($state);
-        $latitude   = $normalizer->coordinate($latitude);
-        $longitude  = $normalizer->coordinate($longitude);
         $created    = false;
         $factory    = function (
             LocationModel $location,

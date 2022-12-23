@@ -477,8 +477,8 @@ class LocationFactoryTest extends TestCase {
         self::assertEquals($normalizer->string($state), $created->state);
         self::assertEquals($normalizer->string($lineOne), $created->line_one);
         self::assertEquals($normalizer->string($lineTwo), $created->line_two);
-        self::assertEquals($this->latitude($normalizer->coordinate($latitude)), $created->latitude);
-        self::assertEquals($this->longitude($normalizer->coordinate($longitude)), $created->longitude);
+        self::assertEquals($this->latitude($latitude), $created->latitude);
+        self::assertEquals($this->longitude($longitude), $created->longitude);
         self::assertNotNull($created->geohash);
         self::assertCount(2, $queries);
 

@@ -326,12 +326,11 @@ class AssetFactory extends ModelFactory {
 
     protected function assetWarranty(Asset $model, CoverageEntry $entry, ?AssetWarranty $warranty): ?AssetWarranty {
         // Empty?
-        $normalizer  = $this->getNormalizer();
-        $description = $normalizer->text($entry->description);
-        $start       = $normalizer->datetime($entry->coverageStartDate);
-        $end         = $normalizer->datetime($entry->coverageEndDate);
+        $normalizer = $this->getNormalizer();
+        $start      = $normalizer->datetime($entry->coverageStartDate);
+        $end        = $normalizer->datetime($entry->coverageEndDate);
 
-        if ($description === null && $start === null && $end === null) {
+        if ($entry->description === null && $start === null && $end === null) {
             return null;
         }
 
@@ -343,7 +342,7 @@ class AssetFactory extends ModelFactory {
         $warranty->asset           = $model;
         $warranty->type            = $this->type($warranty, $entry->type);
         $warranty->status          = $this->status($warranty, $entry->status);
-        $warranty->description     = $description;
+        $warranty->description     = $entry->description;
         $warranty->serviceGroup    = null;
         $warranty->serviceLevel    = null;
         $warranty->customer        = null;
