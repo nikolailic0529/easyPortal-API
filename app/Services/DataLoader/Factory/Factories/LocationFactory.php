@@ -20,11 +20,9 @@ use League\Geotools\Geohash\Geohash;
 use Throwable;
 
 use function array_filter;
-use function end;
 use function explode;
 use function implode;
 use function mb_strtoupper;
-use function reset;
 use function sprintf;
 use function str_contains;
 
@@ -55,13 +53,13 @@ class LocationFactory extends ModelFactory {
         return parent::find($type);
     }
 
-    public function create(Type $type): ?LocationModel {
+    public function create(Type $type, bool $update = true): ?LocationModel {
         $model = null;
 
         if ($type instanceof Location) {
-            $model = $this->createFromLocation($type);
+            $model = $this->createFromLocation($type, $update);
         } elseif ($type instanceof ViewAsset) {
-            $model = $this->createFromAsset($type);
+            $model = $this->createFromAsset($type, $update);
         } else {
             throw new InvalidArgumentException(sprintf(
                 'The `$type` must be instance of `%s`.',
@@ -79,49 +77,47 @@ class LocationFactory extends ModelFactory {
         return !($location->zip ?? null) || !($location->city ?? null);
     }
 
-    protected function createFromLocation(Location $location): ?LocationModel {
+    protected function createFromLocation(Location $location, bool $update = true): ?LocationModel {
         // Is empty?
         if ($this->isEmpty($location)) {
             return null;
         }
 
-        // Country is not yet available so we use Unknown
-        $country = $location->countryCode
+        // Country may be unknown so we use Unknown
+        $country = isset($location->countryCode)
             ? $this->country($location->countryCode, $location->country)
             : $this->country(self::UNKNOWN_COUNTRY_CODE, self::UNKNOWN_COUNTRY_NAME);
 
-        // City may contains State
-        $city  = null;
+        // City? (it may contain State)
+        $city  = $location->city;
         $state = '';
 
-        if (str_contains($location->city, ',')) {
-            $parts = explode(',', $location->city, 2);
-            $state = end($parts);
-            $city  = reset($parts);
-        } else {
-            $city = $location->city;
+        if ($city && str_contains($city, ',')) {
+            [$city, $state] = explode(',', $city, 2);
         }
 
-        // City
-        $city = $this->city($country, $city);
+        if (!$city) {
+            return null;
+        }
 
         // Location
         $object = $this->location(
             $country,
-            $city,
-            $location->zip,
+            $this->city($country, $city),
+            (string) $location->zip,
             (string) $location->address,
             '',
             $state,
             $location->latitude,
             $location->longitude,
+            $update,
         );
 
         // Return
         return $object;
     }
 
-    protected function createFromAsset(ViewAsset $asset): ?LocationModel {
+    protected function createFromAsset(ViewAsset $asset, bool $update = true): ?LocationModel {
         $location              = new Location();
         $location->zip         = $asset->zip ?? null;
         $location->city        = $asset->city ?? null;
@@ -131,7 +127,7 @@ class LocationFactory extends ModelFactory {
         $location->latitude    = $asset->latitude ?? null;
         $location->longitude   = $asset->longitude ?? null;
 
-        return $this->createFromLocation($location);
+        return $this->createFromLocation($location, $update);
     }
 
     protected function country(string $code, ?string $name): Country {
@@ -197,9 +193,17 @@ class LocationFactory extends ModelFactory {
         string $state,
         ?string $latitude,
         ?string $longitude,
+        bool $update = true,
     ): LocationModel {
-        $created  = false;
-        $factory  = $this->factory(
+        $normalizer = $this->getNormalizer();
+        $postcode   = $normalizer->string($postcode);
+        $lineOne    = $normalizer->string($lineOne);
+        $lineTwo    = $normalizer->string($lineTwo);
+        $state      = $normalizer->string($state);
+        $latitude   = $normalizer->coordinate($latitude);
+        $longitude  = $normalizer->coordinate($longitude);
+        $created    = false;
+        $factory    = $this->factory(
             function (
                 LocationModel $location,
             ) use (
@@ -214,15 +218,14 @@ class LocationFactory extends ModelFactory {
                 $longitude,
             ): LocationModel {
                 $created             = !$location->exists;
-                $normalizer          = $this->getNormalizer();
                 $location->country   = $country;
                 $location->city      = $city;
-                $location->postcode  = $normalizer->string($postcode);
-                $location->state     = $normalizer->string($state);
-                $location->line_one  = $normalizer->string($lineOne);
-                $location->line_two  = $normalizer->string($lineTwo);
-                $location->latitude  = $normalizer->coordinate($latitude);
-                $location->longitude = $normalizer->coordinate($longitude);
+                $location->postcode  = $postcode;
+                $location->state     = $state;
+                $location->line_one  = $lineOne;
+                $location->line_two  = $lineTwo;
+                $location->latitude  = $latitude;
+                $location->longitude = $longitude;
                 $location->geohash   = $this->geohash($latitude, $longitude);
 
                 $location->save();
@@ -230,7 +233,7 @@ class LocationFactory extends ModelFactory {
                 return $location;
             },
         );
-        $location = $this->locationResolver->get(
+        $location   = $this->locationResolver->get(
             $country,
             $city,
             $postcode,
@@ -241,7 +244,7 @@ class LocationFactory extends ModelFactory {
             },
         );
 
-        if (!$created && !$this->isSearchMode()) {
+        if (!$created && !$this->isSearchMode() && $update) {
             $factory($location);
         }
 
@@ -267,5 +270,5 @@ class LocationFactory extends ModelFactory {
 
         return $geohash;
     }
-    //</editor-fold>
+    // </editor-fold>
 }

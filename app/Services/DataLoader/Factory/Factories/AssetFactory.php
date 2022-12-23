@@ -518,15 +518,15 @@ class AssetFactory extends ModelFactory {
     }
 
     protected function assetLocation(ViewAsset $asset): ?Location {
-        $location = $this->locationFactory->find($asset);
-        $required = !$this->locationFactory->isEmpty($asset);
+        // fixme(DataLoader): Coordinates are not the same across all
+        //      locations :( So to avoid race conditions, we are disallow
+        //      to update them from here.
+        $location = $this->locationFactory->create($asset, false);
 
-        if ($required && !$location) {
-            $location = $this->locationFactory->create($asset);
-
-            if (!$location || !$location->save()) {
-                throw new AssetLocationNotFound($asset->id, $asset);
-            }
+        if (!$location) {
+            $this->getExceptionHandler()->report(
+                new AssetLocationNotFound($asset->id, $asset),
+            );
         }
 
         // Return

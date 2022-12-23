@@ -1230,13 +1230,9 @@ class AssetFactoryTest extends TestCase {
         ]);
         $location  = Location::factory()->create();
         $locations = Mockery::mock(LocationFactory::class);
-
         $locations
-            ->shouldReceive('isEmpty')
-            ->once()
-            ->andReturnFalse();
-        $locations
-            ->shouldReceive('find')
+            ->shouldReceive('create')
+            ->with($asset, false)
             ->once()
             ->andReturn($location);
 
@@ -1252,35 +1248,6 @@ class AssetFactoryTest extends TestCase {
         };
 
         self::assertEquals($location, $factory->assetLocation($asset));
-    }
-
-    /**
-     * @covers ::assetLocation
-     */
-    public function testAssetLocationNoLocation(): void {
-        $asset     = new ViewAsset([
-            'id' => $this->faker->uuid(),
-        ]);
-        $locations = Mockery::mock(LocationFactory::class);
-        $locations->makePartial();
-
-        $locations
-            ->shouldReceive('find')
-            ->once()
-            ->andReturnNull();
-
-        $factory = new class($locations) extends AssetFactory {
-            /** @noinspection PhpMissingParentConstructorInspection */
-            public function __construct(LocationFactory $locations) {
-                $this->locationFactory = $locations;
-            }
-
-            public function assetLocation(ViewAsset $asset): ?Location {
-                return parent::assetLocation($asset);
-            }
-        };
-
-        self::assertNull($factory->assetLocation($asset));
     }
 
     /**

@@ -64,7 +64,7 @@ class LocationFactoryTest extends TestCase {
         if ($expected) {
             $factory->shouldReceive($expected)
                 ->once()
-                ->with($type)
+                ->with($type, true)
                 ->andReturns();
         } else {
             self::expectException(InvalidArgumentException::class);
@@ -118,6 +118,7 @@ class LocationFactoryTest extends TestCase {
                 '',
                 $latitude,
                 $longitude,
+                true,
             )
             ->andReturns();
 
@@ -170,6 +171,7 @@ class LocationFactoryTest extends TestCase {
                 "  {$state}",
                 $latitude,
                 $longitude,
+                true,
             )
             ->andReturns();
 
@@ -237,6 +239,7 @@ class LocationFactoryTest extends TestCase {
                 '',
                 $latitude,
                 $longitude,
+                true,
             )
             ->andReturns();
 
@@ -289,6 +292,7 @@ class LocationFactoryTest extends TestCase {
                 "  {$state}",
                 $latitude,
                 $longitude,
+                true,
             )
             ->andReturns();
 
@@ -437,6 +441,7 @@ class LocationFactoryTest extends TestCase {
                 string $state,
                 ?string $latitude,
                 ?string $longitude,
+                bool $update = true,
             ): LocationModel {
                 return parent::location(
                     $country,
@@ -447,6 +452,7 @@ class LocationFactoryTest extends TestCase {
                     $state,
                     $latitude,
                     $longitude,
+                    $update,
                 );
             }
         };
