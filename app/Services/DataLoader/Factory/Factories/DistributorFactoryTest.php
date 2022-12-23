@@ -24,20 +24,6 @@ class DistributorFactoryTest extends TestCase {
     // <editor-fold desc="Tests">
     // =========================================================================
     /**
-     * @covers ::find
-     */
-    public function testFind(): void {
-        $factory = $this->app->make(DistributorFactory::class);
-        $json    = $this->getTestData()->json('~distributor-full.json');
-        $company = new Company($json);
-        $queries = $this->getQueryLog()->flush();
-
-        $factory->find($company);
-
-        self::assertCount(2, $queries);
-    }
-
-    /**
      * @covers ::create
      *
      * @dataProvider dataProviderCreate

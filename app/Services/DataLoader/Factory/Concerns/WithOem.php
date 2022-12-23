@@ -24,16 +24,14 @@ trait WithOem {
         }
 
         // Find
-        return $this->getOemResolver()->get($key, $this->factory(
-            static function () use ($key): Oem {
-                $oem       = new Oem();
-                $oem->key  = $key;
-                $oem->name = $key;
+        return $this->getOemResolver()->get($key, static function () use ($key): Oem {
+            $oem       = new Oem();
+            $oem->key  = $key;
+            $oem->name = $key;
 
-                $oem->save();
+            $oem->save();
 
-                return $oem;
-            },
-        ));
+            return $oem;
+        });
     }
 }

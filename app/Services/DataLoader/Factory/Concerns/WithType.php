@@ -18,7 +18,7 @@ trait WithType {
 
     protected function type(Model $owner, string $type): Type {
         $type = $this->getNormalizer()->string($type);
-        $type = $this->getTypeResolver()->get($owner, $type, $this->factory(function () use ($owner, $type): Type {
+        $type = $this->getTypeResolver()->get($owner, $type, function () use ($owner, $type): Type {
             $model              = new Type();
             $normalizer         = $this->getNormalizer();
             $model->object_type = $owner->getMorphClass();
@@ -28,7 +28,7 @@ trait WithType {
             $model->save();
 
             return $model;
-        }));
+        });
 
         return $type;
     }

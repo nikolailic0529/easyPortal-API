@@ -52,10 +52,6 @@ class ResellerFactory extends CompanyFactory {
         return Reseller::class;
     }
 
-    public function find(Type $type): ?Reseller {
-        return parent::find($type);
-    }
-
     public function create(Type $type): ?Reseller {
         $model = null;
 
@@ -79,7 +75,7 @@ class ResellerFactory extends CompanyFactory {
     protected function createFromCompany(Company $company): ?Reseller {
         // Get/Create
         $created  = false;
-        $factory  = $this->factory(function (Reseller $reseller) use (&$created, $company): Reseller {
+        $factory  = function (Reseller $reseller) use (&$created, $company): Reseller {
             $created              = !$reseller->exists;
             $normalizer           = $this->getNormalizer();
             $reseller->id         = $normalizer->uuid($company->id);
@@ -104,7 +100,7 @@ class ResellerFactory extends CompanyFactory {
             $this->dispatcher->dispatch(new ResellerUpdated($reseller, $company));
 
             return $reseller;
-        });
+        };
         $reseller = $this->resellerResolver->get(
             $company->id,
             static function () use ($factory): Reseller {
@@ -113,7 +109,7 @@ class ResellerFactory extends CompanyFactory {
         );
 
         // Update
-        if (!$created && !$this->isSearchMode()) {
+        if (!$created) {
             $factory($reseller);
         }
 

@@ -69,10 +69,6 @@ class CustomerFactory extends CompanyFactory {
         return Customer::class;
     }
 
-    public function find(Type $type): ?Customer {
-        return parent::find($type);
-    }
-
     public function create(Type $type): ?Customer {
         $model = null;
 
@@ -96,7 +92,7 @@ class CustomerFactory extends CompanyFactory {
     protected function createFromCompany(Company $company): ?Customer {
         // Get/Create customer
         $created  = false;
-        $factory  = $this->factory(function (Customer $customer) use (&$created, $company): Customer {
+        $factory  = function (Customer $customer) use (&$created, $company): Customer {
             $created                   = !$customer->exists;
             $normalizer                = $this->getNormalizer();
             $customer->id              = $normalizer->uuid($company->id);
@@ -115,13 +111,13 @@ class CustomerFactory extends CompanyFactory {
             }
 
             return $customer;
-        });
+        };
         $customer = $this->customerResolver->get($company->id, static function () use ($factory): Customer {
             return $factory(new Customer());
         });
 
         // Update
-        if (!$created && !$this->isSearchMode()) {
+        if (!$created) {
             $factory($customer);
         }
 

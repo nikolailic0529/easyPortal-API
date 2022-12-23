@@ -25,28 +25,6 @@ class ContactFactoryTest extends TestCase {
     // <editor-fold desc='Tests'>
     // =========================================================================
     /**
-     * @covers ::find
-     */
-    public function testFind(): void {
-        $customer = Customer::factory()->create();
-        $contact  = new CompanyContactPerson([
-            'phoneNumber' => '+495921234554',
-            'vendor'      => 'HPE',
-            'name'        => null,
-            'type'        => 'SYSTEM_MANAGER',
-            'mail'        => 'manger@hpe.com',
-        ]);
-        $factory  = $this->app->make(ContactFactory::class);
-
-        // Exist
-        $queries = $this->getQueryLog()->flush();
-
-        $factory->find($customer, $contact);
-
-        self::assertCount(1, $queries);
-    }
-
-    /**
      * @covers ::create
      *
      * @dataProvider dataProviderCreate

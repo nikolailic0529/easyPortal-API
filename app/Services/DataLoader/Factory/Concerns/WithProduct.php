@@ -26,29 +26,27 @@ trait WithProduct {
         // Get/Create
         $sku     = $this->getNormalizer()->string($sku);
         $created = false;
-        $factory = $this->factory(
-            function (Product $product) use (&$created, $oem, $sku, $name, $eol, $eos): Product {
-                $created      = !$product->exists;
-                $normalizer   = $this->getNormalizer();
-                $product->oem = $oem;
-                $product->sku = $sku;
-                $product->eol = $normalizer->datetime($eol);
-                $product->eos = $normalizer->datetime($eos);
+        $factory = function (Product $product) use (&$created, $oem, $sku, $name, $eol, $eos): Product {
+            $created      = !$product->exists;
+            $normalizer   = $this->getNormalizer();
+            $product->oem = $oem;
+            $product->sku = $sku;
+            $product->eol = $normalizer->datetime($eol);
+            $product->eos = $normalizer->datetime($eos);
 
-                if ($created || !$product->name) {
-                    // Product name may be inconsistent, eg
-                    // - 'HPE Hardware Maintenance Onsite Support'
-                    // - '(Gewährleistung) HPE Hardware Maintenance Onsite Support'
-                    //
-                    // To avoid infinite updates we will not update it at all.
-                    $product->name = (string) $normalizer->string($name);
-                }
+            if ($created || !$product->name) {
+                // Product name may be inconsistent, eg
+                // - 'HPE Hardware Maintenance Onsite Support'
+                // - '(Gewährleistung) HPE Hardware Maintenance Onsite Support'
+                //
+                // To avoid infinite updates we will not update it at all.
+                $product->name = (string) $normalizer->string($name);
+            }
 
-                $product->save();
+            $product->save();
 
-                return $product;
-            },
-        );
+            return $product;
+        };
         $product = $this->getProductResolver()->get(
             $oem,
             $sku,
@@ -58,7 +56,7 @@ trait WithProduct {
         );
 
         // Update
-        if (!$created && !$this->isSearchMode()) {
+        if (!$created) {
             $factory($product);
         }
 

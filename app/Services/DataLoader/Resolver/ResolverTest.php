@@ -6,7 +6,6 @@ use App\Services\DataLoader\Cache\Cache;
 use App\Services\DataLoader\Cache\Key;
 use App\Services\DataLoader\Cache\KeyRetriever;
 use App\Services\DataLoader\Collector\Collector;
-use App\Services\DataLoader\Exceptions\FactorySearchModeException;
 use App\Services\DataLoader\Normalizer\Normalizer;
 use App\Utils\Eloquent\Model;
 use Closure;
@@ -123,7 +122,7 @@ class ResolverTest extends TestCase {
         $collector  = $this->app->make(Collector::class);
         $provider   = new class($normalizer, $collector) extends Resolver {
             public function resolve(mixed $key, Closure $factory = null, bool $find = true): ?EloquentModel {
-                return parent::resolve($key, $factory, true);
+                return parent::resolve($key, $factory, $find);
             }
 
             public function getCache(bool $preload = true): Cache {
@@ -133,14 +132,13 @@ class ResolverTest extends TestCase {
 
         try {
             $provider->resolve($key, static function (): void {
-                throw new FactorySearchModeException();
+                throw new Exception(__METHOD__);
             });
-        } catch (FactorySearchModeException $exception) {
+        } catch (Exception $exception) {
             // empty
         }
 
         self::assertNotNull($exception);
-        self::assertInstanceOf(FactorySearchModeException::class, $exception);
         self::assertTrue($provider->getCache()->has(
             new Key($normalizer, [$key]),
         ));

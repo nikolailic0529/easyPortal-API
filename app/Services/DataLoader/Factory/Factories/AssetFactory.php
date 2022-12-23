@@ -195,7 +195,7 @@ class AssetFactory extends ModelFactory {
     protected function assetAsset(ViewAsset $asset): Asset {
         // Get/Create
         $created = false;
-        $factory = $this->factory(function (Asset $model) use (&$created, $asset): Asset {
+        $factory = function (Asset $model) use (&$created, $asset): Asset {
             // Asset
             $created                          = !$model->exists;
             $normalizer                       = $this->getNormalizer();
@@ -238,7 +238,7 @@ class AssetFactory extends ModelFactory {
 
             // Return
             return $model;
-        });
+        };
         $model   = $this->assetResolver->get(
             $asset->id,
             static function () use ($factory): Asset {
@@ -247,7 +247,7 @@ class AssetFactory extends ModelFactory {
         );
 
         // Update
-        if (!$created && !$this->isSearchMode()) {
+        if (!$created) {
             $factory($model);
         }
 

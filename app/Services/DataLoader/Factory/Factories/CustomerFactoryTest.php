@@ -34,20 +34,6 @@ class CustomerFactoryTest extends TestCase {
     // <editor-fold desc="Tests">
     // =========================================================================
     /**
-     * @covers ::find
-     */
-    public function testFind(): void {
-        $factory = $this->app->make(CustomerFactory::class);
-        $json    = $this->getTestData()->json('~customer-full.json');
-        $company = new Company($json);
-        $queries = $this->getQueryLog()->flush();
-
-        $factory->find($company);
-
-        self::assertCount(1, $queries);
-    }
-
-    /**
      * @covers ::create
      *
      * @dataProvider dataProviderCreate

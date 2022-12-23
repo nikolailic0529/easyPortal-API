@@ -8,9 +8,9 @@ use App\Services\DataLoader\Cache\KeyRetriever;
 use App\Services\DataLoader\Collector\Collector;
 use App\Services\DataLoader\Container\Singleton;
 use App\Services\DataLoader\Container\SingletonPersistent;
-use App\Services\DataLoader\Exceptions\FactorySearchModeException;
 use App\Services\DataLoader\Normalizer\Normalizer;
 use Closure;
+use Exception;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection as EloquentCollection;
 use Illuminate\Database\Eloquent\Model;
@@ -61,7 +61,7 @@ abstract class Resolver implements Singleton, KeyRetriever {
     }
 
     /**
-     * @param Closure(Normalizer=): TModel|null $factory
+     * @param Closure(Normalizer=): ?TModel|null $factory
      *
      * @return ($factory is null ? TModel|null : TModel)
      */
@@ -83,7 +83,7 @@ abstract class Resolver implements Singleton, KeyRetriever {
         if (!$model && $factory) {
             try {
                 $model = $factory($this->normalizer);
-            } catch (FactorySearchModeException $exception) {
+            } catch (Exception $exception) {
                 $this->putNull($key);
 
                 throw $exception;

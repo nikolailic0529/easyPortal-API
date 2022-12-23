@@ -32,10 +32,6 @@ class DistributorFactory extends ModelFactory {
         return Distributor::class;
     }
 
-    public function find(Type $type): ?Distributor {
-        return parent::find($type);
-    }
-
     public function create(Type $type): ?Distributor {
         $model = null;
 
@@ -58,7 +54,7 @@ class DistributorFactory extends ModelFactory {
     protected function createFromCompany(Company $company): ?Distributor {
         // Get/Create
         $created     = false;
-        $factory     = $this->factory(function (Distributor $distributor) use (&$created, $company): Distributor {
+        $factory     = function (Distributor $distributor) use (&$created, $company): Distributor {
             $created                 = !$distributor->exists;
             $normalizer              = $this->getNormalizer();
             $distributor->id         = $normalizer->uuid($company->id);
@@ -72,7 +68,7 @@ class DistributorFactory extends ModelFactory {
             }
 
             return $distributor;
-        });
+        };
         $distributor = $this->distributorResolver->get(
             $company->id,
             static function () use ($factory): Distributor {
@@ -81,7 +77,7 @@ class DistributorFactory extends ModelFactory {
         );
 
         // Update
-        if (!$created && !$this->isSearchMode()) {
+        if (!$created) {
             $factory($distributor);
         }
 

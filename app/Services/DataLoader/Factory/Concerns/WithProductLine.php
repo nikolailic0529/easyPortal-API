@@ -24,8 +24,8 @@ trait WithProductLine {
         }
 
         // Find
-        return $this->getProductLineResolver()->get($key, $this->factory(
-            static function () use ($key): ProductLine {
+        return $this->getProductLineResolver()
+            ->get($key, static function () use ($key): ProductLine {
                 $model       = new ProductLine();
                 $model->key  = $key;
                 $model->name = $key;
@@ -33,7 +33,6 @@ trait WithProductLine {
                 $model->save();
 
                 return $model;
-            },
-        ));
+            });
     }
 }

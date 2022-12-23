@@ -18,13 +18,4 @@ abstract class ModelFactory extends Factory {
      * @return class-string<TModel>
      */
     abstract public function getModel(): string;
-
-    /**
-     * @return TModel|null
-     */
-    public function find(Type $type): ?Model {
-        return $this->inSearchMode(function () use ($type): ?Model {
-            return $this->create($type);
-        });
-    }
 }

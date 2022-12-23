@@ -33,32 +33,39 @@ trait WithServiceLevel {
 
         // Find/Create
         $created = false;
-        $factory = $this->factory(
-            function (ServiceLevel $level) use (&$created, $oem, $group, $sku, $name, $description): ServiceLevel {
-                $created    = !$level->exists;
-                $normalizer = $this->getNormalizer();
+        $factory = function (
+            ServiceLevel $level,
+        ) use (
+            &$created,
+            $oem,
+            $group,
+            $sku,
+            $name,
+            $description,
+        ): ServiceLevel {
+            $created    = !$level->exists;
+            $normalizer = $this->getNormalizer();
 
-                if ($created) {
-                    $level->key          = "{$group->getTranslatableKey()}/{$sku}";
-                    $level->oem          = $oem;
-                    $level->sku          = $sku;
-                    $level->description  = '';
-                    $level->serviceGroup = $group;
-                }
+            if ($created) {
+                $level->key          = "{$group->getTranslatableKey()}/{$sku}";
+                $level->oem          = $oem;
+                $level->sku          = $sku;
+                $level->description  = '';
+                $level->serviceGroup = $group;
+            }
 
-                if (!$level->name || $level->name === $sku) {
-                    $level->name = $normalizer->string($name) ?: $sku;
-                }
+            if (!$level->name || $level->name === $sku) {
+                $level->name = $normalizer->string($name) ?: $sku;
+            }
 
-                if (!$level->description) {
-                    $level->description = $normalizer->text($description) ?: '';
-                }
+            if (!$level->description) {
+                $level->description = $normalizer->text($description) ?: '';
+            }
 
-                $level->save();
+            $level->save();
 
-                return $level;
-            },
-        );
+            return $level;
+        };
         $level   = $this->getServiceLevelResolver()->get(
             $oem,
             $group,
@@ -69,7 +76,7 @@ trait WithServiceLevel {
         );
 
         // Update
-        if (!$created && !$this->isSearchMode()) {
+        if (!$created) {
             $factory($level);
         }
 

@@ -16,7 +16,7 @@ trait WithTag {
     abstract protected function getTagResolver(): TagResolver;
 
     protected function tag(string $name): Tag {
-        $tag = $this->getTagResolver()->get($name, $this->factory(function () use ($name): Tag {
+        $tag = $this->getTagResolver()->get($name, function () use ($name): Tag {
             $model       = new Tag();
             $normalizer  = $this->getNormalizer();
             $model->name = $normalizer->string($name);
@@ -24,7 +24,7 @@ trait WithTag {
             $model->save();
 
             return $model;
-        }));
+        });
 
         return $tag;
     }

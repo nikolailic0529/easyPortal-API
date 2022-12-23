@@ -29,23 +29,6 @@ class ResellerFactoryTest extends TestCase {
     // <editor-fold desc='Tests'>
     // =========================================================================
     /**
-     * @covers ::find
-     */
-    public function testFind(): void {
-        $company = new Company([
-            'id'          => $this->faker->uuid(),
-            'name'        => $this->faker->company(),
-            'companyType' => 'RESELLER',
-        ]);
-        $factory = $this->app->make(ResellerFactory::class);
-        $queries = $this->getQueryLog()->flush();
-
-        $factory->find($company);
-
-        self::assertCount(1, $queries);
-    }
-
-    /**
      * @covers ::create
      *
      * @dataProvider dataProviderCreate

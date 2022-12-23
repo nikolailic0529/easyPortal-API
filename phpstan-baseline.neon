@@ -2666,6 +2666,11 @@ parameters:
 			path: app/Services/DataLoader/Factory/Concerns/WithAssetTest.php
 
 		-
+			message: "#^Parameter \\#2 \\$factory of method App\\\\Services\\\\DataLoader\\\\Resolver\\\\Resolvers\\\\AssetResolver\\:\\:get\\(\\) expects \\(Closure\\(App\\\\Services\\\\DataLoader\\\\Normalizer\\\\Normalizer\\=\\)\\: App\\\\Models\\\\Asset\\)\\|null, Closure\\(\\)\\: App\\\\Models\\\\Asset\\|null given\\.$#"
+			count: 1
+			path: app/Services/DataLoader/Factory/Concerns/WithAssetTest.php
+
+		-
 			message: "#^Access to an undefined property M of App\\\\Models\\\\Contact\\|App\\\\Models\\\\CustomerLocation\\|App\\\\Models\\\\Data\\\\Location\\|App\\\\Models\\\\ResellerLocation\\:\\:\\$types\\.$#"
 			count: 2
 			path: app/Services/DataLoader/Factory/Concerns/WithContactsTest.php
@@ -2686,6 +2691,11 @@ parameters:
 			path: app/Services/DataLoader/Factory/Concerns/WithCustomerTest.php
 
 		-
+			message: "#^Parameter \\#2 \\$factory of method App\\\\Services\\\\DataLoader\\\\Resolver\\\\Resolvers\\\\CustomerResolver\\:\\:get\\(\\) expects \\(Closure\\(App\\\\Services\\\\DataLoader\\\\Normalizer\\\\Normalizer\\=\\)\\: App\\\\Models\\\\Customer\\)\\|null, Closure\\(\\)\\: App\\\\Models\\\\Customer\\|null given\\.$#"
+			count: 1
+			path: app/Services/DataLoader/Factory/Concerns/WithCustomerTest.php
+
+		-
 			message: "#^Method App\\\\Services\\\\DataLoader\\\\Factory\\\\Concerns\\\\WithDistributorTest\\:\\:testDistributorDistributorNotFound\\(\\) has parameter \\$objectFactory with no signature specified for Closure\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Factory/Concerns/WithDistributorTest.php
@@ -2697,6 +2707,11 @@ parameters:
 
 		-
 			message: "#^Method App\\\\Services\\\\DataLoader\\\\Factory\\\\Concerns\\\\WithDistributorTest\\:\\:testDistributorExistsThroughProvider\\(\\) has parameter \\$objectFactory with no signature specified for Closure\\.$#"
+			count: 1
+			path: app/Services/DataLoader/Factory/Concerns/WithDistributorTest.php
+
+		-
+			message: "#^Parameter \\#2 \\$factory of method App\\\\Services\\\\DataLoader\\\\Resolver\\\\Resolvers\\\\DistributorResolver\\:\\:get\\(\\) expects \\(Closure\\(App\\\\Services\\\\DataLoader\\\\Normalizer\\\\Normalizer\\=\\)\\: App\\\\Models\\\\Distributor\\)\\|null, Closure\\(\\)\\: App\\\\Models\\\\Distributor\\|null given\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Factory/Concerns/WithDistributorTest.php
 
@@ -2741,6 +2756,11 @@ parameters:
 			path: app/Services/DataLoader/Factory/Concerns/WithResellerTest.php
 
 		-
+			message: "#^Parameter \\#2 \\$factory of method App\\\\Services\\\\DataLoader\\\\Resolver\\\\Resolvers\\\\ResellerResolver\\:\\:get\\(\\) expects \\(Closure\\(App\\\\Services\\\\DataLoader\\\\Normalizer\\\\Normalizer\\=\\)\\: App\\\\Models\\\\Reseller\\)\\|null, Closure\\(\\)\\: App\\\\Models\\\\Reseller\\|null given\\.$#"
+			count: 1
+			path: app/Services/DataLoader/Factory/Concerns/WithResellerTest.php
+
+		-
 			message: "#^Parameter \\#2 \\.\\.\\.\\$methodNames of method Mockery\\\\LegacyMockInterface\\:\\:shouldReceive\\(\\) expects array\\<string, mixed\\>\\|string, Mockery\\\\Matcher\\\\Any given\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Factory/Concerns/WithResellerTest.php
@@ -2751,12 +2771,17 @@ parameters:
 			path: app/Services/DataLoader/Factory/Concerns/WithStatusTest.php
 
 		-
-			message: "#^Method App\\\\Services\\\\DataLoader\\\\Factory\\\\DependentModelFactory\\:\\:find\\(\\) should return \\(TModel of App\\\\Utils\\\\Eloquent\\\\Model\\)\\|null but returns mixed\\.$#"
+			message: "#^Access to an undefined property M of App\\\\Models\\\\Contact\\|App\\\\Models\\\\CustomerLocation\\|App\\\\Models\\\\Data\\\\Location\\|App\\\\Models\\\\ResellerLocation\\:\\:\\$types\\.$#"
 			count: 1
-			path: app/Services/DataLoader/Factory/DependentModelFactory.php
+			path: app/Services/DataLoader/Factory/Factories/AssetFactory.php
 
 		-
-			message: "#^Access to an undefined property M of App\\\\Models\\\\Contact\\|App\\\\Models\\\\CustomerLocation\\|App\\\\Models\\\\Data\\\\Location\\|App\\\\Models\\\\ResellerLocation\\:\\:\\$types\\.$#"
+			message: "#^Parameter \\#2 \\$factory of method App\\\\Services\\\\DataLoader\\\\Resolver\\\\Resolvers\\\\CustomerResolver\\:\\:get\\(\\) expects \\(Closure\\(App\\\\Services\\\\DataLoader\\\\Normalizer\\\\Normalizer\\=\\)\\: App\\\\Models\\\\Customer\\)\\|null, Closure\\(\\)\\: App\\\\Models\\\\Customer\\|null given\\.$#"
+			count: 1
+			path: app/Services/DataLoader/Factory/Factories/AssetFactory.php
+
+		-
+			message: "#^Parameter \\#2 \\$factory of method App\\\\Services\\\\DataLoader\\\\Resolver\\\\Resolvers\\\\ResellerResolver\\:\\:get\\(\\) expects \\(Closure\\(App\\\\Services\\\\DataLoader\\\\Normalizer\\\\Normalizer\\=\\)\\: App\\\\Models\\\\Reseller\\)\\|null, Closure\\(\\)\\: App\\\\Models\\\\Reseller\\|null given\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Factory/Factories/AssetFactory.php
 
@@ -2777,7 +2802,7 @@ parameters:
 
 		-
 			message: "#^Parameter \\#1 \\$json of class App\\\\Services\\\\DataLoader\\\\Schema\\\\ViewAsset constructor expects array\\<string, mixed\\>, array\\|bool\\|float\\|int\\|string\\|null given\\.$#"
-			count: 12
+			count: 11
 			path: app/Services/DataLoader/Factory/Factories/AssetFactoryTest.php
 
 		-
@@ -2801,6 +2826,11 @@ parameters:
 			path: app/Services/DataLoader/Factory/Factories/CustomerFactory.php
 
 		-
+			message: "#^Parameter \\#2 \\$factory of method App\\\\Services\\\\DataLoader\\\\Resolver\\\\Resolvers\\\\ResellerResolver\\:\\:get\\(\\) expects \\(Closure\\(App\\\\Services\\\\DataLoader\\\\Normalizer\\\\Normalizer\\=\\)\\: App\\\\Models\\\\Reseller\\)\\|null, Closure\\(\\)\\: App\\\\Models\\\\Reseller\\|null given\\.$#"
+			count: 1
+			path: app/Services/DataLoader/Factory/Factories/CustomerFactory.php
+
+		-
 			message: "#^Property App\\\\Models\\\\Customer\\:\\:\\$resellersPivots \\(Illuminate\\\\Support\\\\Collection\\<string, TPivot of App\\\\Utils\\\\Eloquent\\\\Pivot\\>\\) does not accept Illuminate\\\\Support\\\\Collection\\<int, App\\\\Models\\\\ResellerCustomer\\>\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Factory/Factories/CustomerFactory.php
@@ -2817,16 +2847,36 @@ parameters:
 
 		-
 			message: "#^Parameter \\#1 \\$json of class App\\\\Services\\\\DataLoader\\\\Schema\\\\Company constructor expects array\\<string, mixed\\>, array\\|bool\\|float\\|int\\|string\\|null given\\.$#"
-			count: 6
+			count: 5
 			path: app/Services/DataLoader/Factory/Factories/CustomerFactoryTest.php
 
 		-
 			message: "#^Parameter \\#1 \\$json of class App\\\\Services\\\\DataLoader\\\\Schema\\\\Company constructor expects array\\<string, mixed\\>, array\\|bool\\|float\\|int\\|string\\|null given\\.$#"
-			count: 5
+			count: 4
 			path: app/Services/DataLoader/Factory/Factories/DistributorFactoryTest.php
 
 		-
 			message: "#^Access to an undefined property M of App\\\\Models\\\\Contact\\|App\\\\Models\\\\CustomerLocation\\|App\\\\Models\\\\Data\\\\Location\\|App\\\\Models\\\\ResellerLocation\\:\\:\\$types\\.$#"
+			count: 1
+			path: app/Services/DataLoader/Factory/Factories/DocumentFactory.php
+
+		-
+			message: "#^Parameter \\#2 \\$factory of method App\\\\Services\\\\DataLoader\\\\Resolver\\\\Resolvers\\\\AssetResolver\\:\\:get\\(\\) expects \\(Closure\\(App\\\\Services\\\\DataLoader\\\\Normalizer\\\\Normalizer\\=\\)\\: App\\\\Models\\\\Asset\\)\\|null, Closure\\(\\)\\: App\\\\Models\\\\Asset\\|null given\\.$#"
+			count: 1
+			path: app/Services/DataLoader/Factory/Factories/DocumentFactory.php
+
+		-
+			message: "#^Parameter \\#2 \\$factory of method App\\\\Services\\\\DataLoader\\\\Resolver\\\\Resolvers\\\\CustomerResolver\\:\\:get\\(\\) expects \\(Closure\\(App\\\\Services\\\\DataLoader\\\\Normalizer\\\\Normalizer\\=\\)\\: App\\\\Models\\\\Customer\\)\\|null, Closure\\(\\)\\: App\\\\Models\\\\Customer\\|null given\\.$#"
+			count: 1
+			path: app/Services/DataLoader/Factory/Factories/DocumentFactory.php
+
+		-
+			message: "#^Parameter \\#2 \\$factory of method App\\\\Services\\\\DataLoader\\\\Resolver\\\\Resolvers\\\\DistributorResolver\\:\\:get\\(\\) expects \\(Closure\\(App\\\\Services\\\\DataLoader\\\\Normalizer\\\\Normalizer\\=\\)\\: App\\\\Models\\\\Distributor\\)\\|null, Closure\\(\\)\\: App\\\\Models\\\\Distributor\\|null given\\.$#"
+			count: 1
+			path: app/Services/DataLoader/Factory/Factories/DocumentFactory.php
+
+		-
+			message: "#^Parameter \\#2 \\$factory of method App\\\\Services\\\\DataLoader\\\\Resolver\\\\Resolvers\\\\ResellerResolver\\:\\:get\\(\\) expects \\(Closure\\(App\\\\Services\\\\DataLoader\\\\Normalizer\\\\Normalizer\\=\\)\\: App\\\\Models\\\\Reseller\\)\\|null, Closure\\(\\)\\: App\\\\Models\\\\Reseller\\|null given\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Factory/Factories/DocumentFactory.php
 
@@ -2842,11 +2892,6 @@ parameters:
 
 		-
 			message: "#^Method App\\\\Services\\\\DataLoader\\\\Factory\\\\Factories\\\\DocumentFactoryTest\\:\\:testCreate\\(\\) has parameter \\$typeFactory with no signature specified for Closure\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Factories/DocumentFactoryTest.php
-
-		-
-			message: "#^Method App\\\\Services\\\\DataLoader\\\\Factory\\\\Factories\\\\DocumentFactoryTest\\:\\:testFind\\(\\) has parameter \\$typeFactory with no signature specified for Closure\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Factory/Factories/DocumentFactoryTest.php
 
@@ -2874,26 +2919,6 @@ parameters:
 			message: "#^Parameter \\#1 \\$json of class App\\\\Services\\\\DataLoader\\\\Schema\\\\Company constructor expects array\\<string, mixed\\>, array\\|bool\\|float\\|int\\|string\\|null given\\.$#"
 			count: 6
 			path: app/Services/DataLoader/Factory/Factories/ResellerFactoryTest.php
-
-		-
-			message: "#^Method App\\\\Services\\\\DataLoader\\\\Factory\\\\Factory\\:\\:factory\\(\\) has parameter \\$closure with no signature specified for Closure\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Factory.php
-
-		-
-			message: "#^Method App\\\\Services\\\\DataLoader\\\\Factory\\\\Factory\\:\\:factory\\(\\) return type has no signature specified for Closure\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Factory.php
-
-		-
-			message: "#^Method App\\\\Services\\\\DataLoader\\\\Factory\\\\Factory\\:\\:inSearchMode\\(\\) has parameter \\$closure with no signature specified for Closure\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Factory.php
-
-		-
-			message: "#^Method App\\\\Services\\\\DataLoader\\\\Factory\\\\ModelFactory\\:\\:find\\(\\) should return \\(TModel of App\\\\Utils\\\\Eloquent\\\\Model\\)\\|null but returns mixed\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/ModelFactory.php
 
 		-
 			message: "#^Cannot cast mixed to string\\.$#"
@@ -3069,11 +3094,6 @@ parameters:
 			message: "#^Parameter \\#1 \\$object of method App\\\\Services\\\\DataLoader\\\\Resolver\\\\Resolver\\<TModel of Illuminate\\\\Database\\\\Eloquent\\\\Model\\>\\:\\:put\\(\\) expects array\\<\\(TModel of Illuminate\\\\Database\\\\Eloquent\\\\Model\\)\\|null\\>\\|Illuminate\\\\Support\\\\Collection\\<\\(int\\|string\\), \\(TModel of Illuminate\\\\Database\\\\Eloquent\\\\Model\\)\\|null\\>\\|TModel of Illuminate\\\\Database\\\\Eloquent\\\\Model, Illuminate\\\\Support\\\\Collection\\<int, TModel of Illuminate\\\\Database\\\\Eloquent\\\\Model\\> given\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Resolver/Resolver.php
-
-		-
-			message: "#^Call to static method PHPUnit\\\\Framework\\\\Assert\\:\\:assertInstanceOf\\(\\) with 'App\\\\\\\\Services\\\\\\\\DataLoader\\\\\\\\Exceptions\\\\\\\\FactorySearchModeException' and App\\\\Services\\\\DataLoader\\\\Exceptions\\\\FactorySearchModeException will always evaluate to true\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Resolver/ResolverTest.php
 
 		-
 			message: "#^Call to static method PHPUnit\\\\Framework\\\\Assert\\:\\:assertNotNull\\(\\) with Illuminate\\\\Database\\\\Eloquent\\\\Model will always evaluate to true\\.$#"

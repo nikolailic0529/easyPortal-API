@@ -17,8 +17,8 @@ trait WithStatus {
     abstract protected function getStatusResolver(): StatusResolver;
 
     protected function status(Model $owner, string $status): Status {
-        $status = $this->getStatusResolver()->get($owner, $status, $this->factory(
-            function () use ($owner, $status): Status {
+        $status = $this->getStatusResolver()
+            ->get($owner, $status, function () use ($owner, $status): Status {
                 $model              = new Status();
                 $normalizer         = $this->getNormalizer();
                 $model->object_type = $owner->getMorphClass();
@@ -28,8 +28,7 @@ trait WithStatus {
                 $model->save();
 
                 return $model;
-            },
-        ));
+            });
 
         return $status;
     }

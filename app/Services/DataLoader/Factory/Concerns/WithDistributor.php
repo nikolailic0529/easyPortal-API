@@ -30,11 +30,9 @@ trait WithDistributor {
 
         if ($id) {
             $id          = $this->getNormalizer()->uuid($id);
-            $distributor = $this->getDistributorResolver()->get($id, $this->factory(
-                function () use ($id): ?Distributor {
-                    return $this->getDistributorFinder()?->find($id);
-                },
-            ));
+            $distributor = $this->getDistributorResolver()->get($id, function () use ($id): ?Distributor {
+                return $this->getDistributorFinder()?->find($id);
+            });
         }
 
         // Found?

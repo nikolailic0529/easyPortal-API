@@ -49,10 +49,6 @@ class LocationFactory extends ModelFactory {
         return LocationModel::class;
     }
 
-    public function find(Type $type): ?LocationModel {
-        return parent::find($type);
-    }
-
     public function create(Type $type, bool $update = true): ?LocationModel {
         $model = null;
 
@@ -134,7 +130,7 @@ class LocationFactory extends ModelFactory {
         // Get/Create
         $code    = $this->getNormalizer()->string($code);
         $created = false;
-        $factory = $this->factory(function (Country $country) use (&$created, $code, $name): Country {
+        $factory = function (Country $country) use (&$created, $code, $name): Country {
             $created = !$country->exists;
             $code    = mb_strtoupper($code);
 
@@ -147,7 +143,7 @@ class LocationFactory extends ModelFactory {
             }
 
             return $country;
-        });
+        };
         $country = $this->countryResolver->get(
             $code,
             static function () use ($factory): Country {
@@ -156,7 +152,7 @@ class LocationFactory extends ModelFactory {
         );
 
         // Update
-        if (!$created && !$this->isSearchMode()) {
+        if (!$created) {
             $factory($country);
         }
 
@@ -169,7 +165,7 @@ class LocationFactory extends ModelFactory {
         $city = $this->cityResolver->get(
             $country,
             $name,
-            $this->factory(static function () use ($country, $name): City {
+            static function () use ($country, $name): City {
                 $city          = new City();
                 $city->key     = $name;
                 $city->name    = $name;
@@ -178,7 +174,7 @@ class LocationFactory extends ModelFactory {
                 $city->save();
 
                 return $city;
-            }),
+            },
         );
 
         return $city;
@@ -203,36 +199,34 @@ class LocationFactory extends ModelFactory {
         $latitude   = $normalizer->coordinate($latitude);
         $longitude  = $normalizer->coordinate($longitude);
         $created    = false;
-        $factory    = $this->factory(
-            function (
-                LocationModel $location,
-            ) use (
-                &$created,
-                $country,
-                $city,
-                $postcode,
-                $lineOne,
-                $lineTwo,
-                $state,
-                $latitude,
-                $longitude,
-            ): LocationModel {
-                $created             = !$location->exists;
-                $location->country   = $country;
-                $location->city      = $city;
-                $location->postcode  = $postcode;
-                $location->state     = $state;
-                $location->line_one  = $lineOne;
-                $location->line_two  = $lineTwo;
-                $location->latitude  = $latitude;
-                $location->longitude = $longitude;
-                $location->geohash   = $this->geohash($latitude, $longitude);
+        $factory    = function (
+            LocationModel $location,
+        ) use (
+            &$created,
+            $country,
+            $city,
+            $postcode,
+            $lineOne,
+            $lineTwo,
+            $state,
+            $latitude,
+            $longitude,
+        ): LocationModel {
+            $created             = !$location->exists;
+            $location->country   = $country;
+            $location->city      = $city;
+            $location->postcode  = $postcode;
+            $location->state     = $state;
+            $location->line_one  = $lineOne;
+            $location->line_two  = $lineTwo;
+            $location->latitude  = $latitude;
+            $location->longitude = $longitude;
+            $location->geohash   = $this->geohash($latitude, $longitude);
 
-                $location->save();
+            $location->save();
 
-                return $location;
-            },
-        );
+            return $location;
+        };
         $location   = $this->locationResolver->get(
             $country,
             $city,
@@ -244,7 +238,7 @@ class LocationFactory extends ModelFactory {
             },
         );
 
-        if (!$created && !$this->isSearchMode() && $update) {
+        if (!$created && $update) {
             $factory($location);
         }
 

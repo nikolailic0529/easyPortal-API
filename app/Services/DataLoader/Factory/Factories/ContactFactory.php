@@ -29,10 +29,6 @@ class ContactFactory extends DependentModelFactory {
         parent::__construct($exceptionHandler, $normalizer);
     }
 
-    public function find(Model $object, Type $type): ?Contact {
-        return parent::find($object, $type);
-    }
-
     public function create(Model $object, Type $type): ?Contact {
         $model = null;
 
@@ -84,7 +80,7 @@ class ContactFactory extends DependentModelFactory {
             $name,
             $phone,
             $mail,
-            $this->factory(function () use ($object, $name, $phone, $valid, $mail): Contact {
+            function () use ($object, $name, $phone, $valid, $mail): Contact {
                 $model      = new Contact();
                 $normalizer = $this->getNormalizer();
 
@@ -112,7 +108,7 @@ class ContactFactory extends DependentModelFactory {
                 }
 
                 return $model;
-            }),
+            },
         );
 
         return $contact;

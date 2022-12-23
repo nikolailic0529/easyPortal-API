@@ -21,7 +21,7 @@ trait WithLanguage {
         $language = null;
 
         if ($code !== null) {
-            $language = $this->getLanguageResolver()->get($code, $this->factory(function () use ($code): Language {
+            $language = $this->getLanguageResolver()->get($code, function () use ($code): Language {
                 $model       = new Language();
                 $normalizer  = $this->getNormalizer();
                 $model->code = mb_strtolower($normalizer->string($code));
@@ -30,7 +30,7 @@ trait WithLanguage {
                 $model->save();
 
                 return $model;
-            }));
+            });
         }
 
         return $language;

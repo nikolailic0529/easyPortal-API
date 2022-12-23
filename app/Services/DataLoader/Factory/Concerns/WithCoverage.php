@@ -16,7 +16,7 @@ trait WithCoverage {
     abstract protected function getCoverageResolver(): CoverageResolver;
 
     protected function coverage(string $coverage): Coverage {
-        $coverage = $this->getCoverageResolver()->get($coverage, $this->factory(function () use ($coverage): Coverage {
+        $coverage = $this->getCoverageResolver()->get($coverage, function () use ($coverage): Coverage {
             $model       = new Coverage();
             $normalizer  = $this->getNormalizer();
             $model->key  = $normalizer->string($coverage);
@@ -25,7 +25,7 @@ trait WithCoverage {
             $model->save();
 
             return $model;
-        }));
+        });
 
         return $coverage;
     }

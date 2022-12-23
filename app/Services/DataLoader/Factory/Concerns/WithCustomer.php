@@ -38,11 +38,9 @@ trait WithCustomer {
 
         if ($id) {
             $id       = $this->getNormalizer()->uuid($id);
-            $customer = $this->getCustomerResolver()->get($id, $this->factory(
-                function () use ($id): ?Customer {
-                    return $this->getCustomerFinder()?->find($id);
-                },
-            ));
+            $customer = $this->getCustomerResolver()->get($id, function () use ($id): ?Customer {
+                return $this->getCustomerFinder()?->find($id);
+            });
         }
 
         // Found?

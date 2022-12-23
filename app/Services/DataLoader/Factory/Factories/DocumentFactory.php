@@ -127,10 +127,6 @@ class DocumentFactory extends ModelFactory {
         parent::__construct($exceptionHandler, $normalizer);
     }
 
-    public function find(Type $type): ?DocumentModel {
-        return parent::find($type);
-    }
-
     // <editor-fold desc="Getters / Setters">
     // =========================================================================
     public function getDocumentResolver(): DocumentResolver {
@@ -269,7 +265,7 @@ class DocumentFactory extends ModelFactory {
         }
 
         // Get/Create
-        $factory = $this->factory(function (DocumentModel $model) use ($object): DocumentModel {
+        $factory = function (DocumentModel $model) use ($object): DocumentModel {
             // Update
             /** @var Collection<int, Status> $statuses */
             $statuses              = new Collection();
@@ -302,7 +298,7 @@ class DocumentFactory extends ModelFactory {
 
             // Return
             return $model;
-        });
+        };
         $model   = $this->documentResolver->get(
             $object->document->id,
             static function () use ($factory): DocumentModel {
@@ -320,7 +316,7 @@ class DocumentFactory extends ModelFactory {
     protected function createFromDocument(Document $document): ?DocumentModel {
         // Get/Create/Update
         $created = false;
-        $factory = $this->factory(function (DocumentModel $model) use (&$created, $document): DocumentModel {
+        $factory = function (DocumentModel $model) use (&$created, $document): DocumentModel {
             // Update
             $created    = !$model->exists;
             $normalizer = $this->getNormalizer();
@@ -354,7 +350,7 @@ class DocumentFactory extends ModelFactory {
 
             // Return
             return $model;
-        });
+        };
         $model   = $this->documentResolver->get(
             $document->id,
             static function () use ($factory): DocumentModel {
@@ -363,12 +359,12 @@ class DocumentFactory extends ModelFactory {
         );
 
         // Update
-        if (!$created && !$this->isSearchMode()) {
+        if (!$created) {
             $factory($model);
         }
 
         // Entries & Warranties
-        if (!$this->isSearchMode() && isset($document->documentEntries)) {
+        if (isset($document->documentEntries)) {
             try {
                 // Prefetch
                 $this->getAssetResolver()->prefetch(

@@ -39,11 +39,9 @@ trait WithReseller {
 
         if ($id) {
             $id       = $this->getNormalizer()->uuid($id);
-            $reseller = $this->getResellerResolver()->get($id, $this->factory(
-                function () use ($id): ?Reseller {
-                    return $this->getResellerFinder()?->find($id);
-                },
-            ));
+            $reseller = $this->getResellerResolver()->get($id, function () use ($id): ?Reseller {
+                return $this->getResellerFinder()?->find($id);
+            });
         }
 
         // Found?

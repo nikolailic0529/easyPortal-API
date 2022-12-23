@@ -24,8 +24,8 @@ trait WithProductGroup {
         }
 
         // Find
-        return $this->getProductGroupResolver()->get($key, $this->factory(
-            static function () use ($key): ProductGroup {
+        return $this->getProductGroupResolver()
+            ->get($key, static function () use ($key): ProductGroup {
                 $model       = new ProductGroup();
                 $model->key  = $key;
                 $model->name = $key;
@@ -33,7 +33,6 @@ trait WithProductGroup {
                 $model->save();
 
                 return $model;
-            },
-        ));
+            });
     }
 }

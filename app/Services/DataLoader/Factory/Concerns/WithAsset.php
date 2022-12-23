@@ -29,11 +29,9 @@ trait WithAsset {
 
         if ($id) {
             $id    = $this->getNormalizer()->uuid($id);
-            $asset = $this->getAssetResolver()->get($id, $this->factory(
-                function () use ($id): ?Asset {
-                    return $this->getAssetFinder()?->find($id);
-                },
-            ));
+            $asset = $this->getAssetResolver()->get($id, function () use ($id): ?Asset {
+                return $this->getAssetFinder()?->find($id);
+            });
         }
 
         // Found?

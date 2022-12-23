@@ -25,21 +25,19 @@ trait WithPsp {
 
         // Find/Create
         $created = false;
-        $factory = $this->factory(
-            function (Psp $group) use (&$created, $key, $name): Psp {
-                $created    = !$group->exists;
-                $normalizer = $this->getNormalizer();
-                $group->key = $key;
+        $factory = function (Psp $group) use (&$created, $key, $name): Psp {
+            $created    = !$group->exists;
+            $normalizer = $this->getNormalizer();
+            $group->key = $key;
 
-                if (!$group->name || $group->name === $key) {
-                    $group->name = $normalizer->string($name) ?: $key;
-                }
+            if (!$group->name || $group->name === $key) {
+                $group->name = $normalizer->string($name) ?: $key;
+            }
 
-                $group->save();
+            $group->save();
 
-                return $group;
-            },
-        );
+            return $group;
+        };
         $psp     = $this->getPspResolver()->get(
             $key,
             static function () use ($factory): Psp {
@@ -48,7 +46,7 @@ trait WithPsp {
         );
 
         // Update
-        if (!$created && !$this->isSearchMode()) {
+        if (!$created) {
             $factory($psp);
         }
 

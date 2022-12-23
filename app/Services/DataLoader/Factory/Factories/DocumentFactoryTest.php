@@ -66,26 +66,6 @@ class DocumentFactoryTest extends TestCase {
     // <editor-fold desc="Tests">
     // =========================================================================
     /**
-     * @covers ::find
-     *
-     * @dataProvider dataProviderCreate
-     */
-    public function testFind(?string $expected, Closure $typeFactory): void {
-        $type    = $typeFactory($this);
-        $factory = $this->app->make(DocumentFactory::class);
-        $queries = $this->getQueryLog()->flush();
-
-        if (!$expected) {
-            self::expectException(InvalidArgumentException::class);
-            self::expectErrorMessageMatches('/^The `\$type` must be instance of/');
-        }
-
-        $factory->find($type);
-
-        self::assertCount(1, $queries);
-    }
-
-    /**
      * @covers ::create
      *
      * @dataProvider dataProviderCreate

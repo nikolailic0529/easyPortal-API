@@ -26,7 +26,7 @@ trait WithCurrency {
         }
 
         // Find/Create
-        return $this->getCurrencyResolver()->get($code, $this->factory(static function () use ($code): Currency {
+        return $this->getCurrencyResolver()->get($code, static function () use ($code): Currency {
             $model       = new Currency();
             $model->code = mb_strtoupper($code);
             $model->name = $code;
@@ -34,6 +34,6 @@ trait WithCurrency {
             $model->save();
 
             return $model;
-        }));
+        });
     }
 }

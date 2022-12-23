@@ -63,20 +63,6 @@ class AssetFactoryTest extends TestCase {
     // <editor-fold desc="Tests">
     // =========================================================================
     /**
-     * @covers ::find
-     */
-    public function testFind(): void {
-        $factory = $this->app->make(AssetFactory::class);
-        $json    = $this->getTestData()->json('~asset-full.json');
-        $asset   = new ViewAsset($json);
-        $queries = $this->getQueryLog()->flush();
-
-        $factory->find($asset);
-
-        self::assertCount(1, $queries);
-    }
-
-    /**
      * @covers ::create
      *
      * @dataProvider dataProviderCreate
