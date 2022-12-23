@@ -55,7 +55,7 @@ abstract class Resolver implements Singleton, KeyRetriever {
     }
 
     public function reset(): static {
-        $this->getCache(false)->reset();
+        $this->getCache()->reset();
 
         return $this;
     }
@@ -234,15 +234,13 @@ abstract class Resolver implements Singleton, KeyRetriever {
     /**
      * @return Cache<TModel>
      */
-    protected function getCache(bool $preload = true): Cache {
+    protected function getCache(): Cache {
         if (!$this->cache) {
             /** @var Cache<TModel> $cache */
             $cache       = new Cache($this->getKeyRetrievers());
             $this->cache = $cache;
 
-            if ($preload) {
-                $this->put($this->getPreloadedItems());
-            }
+            $this->put($this->getPreloadedItems());
         }
 
         return $this->cache;

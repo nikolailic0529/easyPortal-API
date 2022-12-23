@@ -125,8 +125,8 @@ class ResolverTest extends TestCase {
                 return parent::resolve($key, $factory, $find);
             }
 
-            public function getCache(bool $preload = true): Cache {
-                return parent::getCache($preload);
+            public function getCache(): Cache {
+                return parent::getCache();
             }
         };
 
@@ -282,7 +282,6 @@ class ResolverTest extends TestCase {
         $resolver->makePartial();
         $resolver
             ->shouldReceive('getCache')
-            ->with(false)
             ->once()
             ->andReturn($cache);
 
