@@ -3,8 +3,7 @@
 use App\Models\Data\Coverage;
 use App\Models\Data\Status;
 use App\Models\Data\Type;
-use App\Services\DataLoader\Normalizer\Normalizer;
-use Illuminate\Container\Container;
+use App\Services\DataLoader\Normalizer\Normalizers\NameNormalizer;
 use Illuminate\Database\Migrations\Migration;
 
 return new class() extends Migration {
@@ -19,33 +18,30 @@ return new class() extends Migration {
     }
 
     protected function updateTypes(): void {
-        $normalizer = Container::getInstance()->make(Normalizer::class);
-        $types      = Type::query()->get();
+        $types = Type::query()->get();
 
         foreach ($types as $type) {
-            $type->name = $normalizer->name($type->key);
+            $type->name = NameNormalizer::normalize($type->key);
 
             $type->save();
         }
     }
 
     protected function updateStatuses(): void {
-        $normalizer = Container::getInstance()->make(Normalizer::class);
-        $statuses   = Status::query()->get();
+        $statuses = Status::query()->get();
 
         foreach ($statuses as $status) {
-            $status->name = $normalizer->name($status->key);
+            $status->name = NameNormalizer::normalize($status->key);
 
             $status->save();
         }
     }
 
     protected function updateCoverages(): void {
-        $normalizer = Container::getInstance()->make(Normalizer::class);
-        $coverages  = Coverage::query()->get();
+        $coverages = Coverage::query()->get();
 
         foreach ($coverages as $coverage) {
-            $coverage->name = $normalizer->name($coverage->key);
+            $coverage->name = NameNormalizer::normalize($coverage->key);
 
             $coverage->save();
         }

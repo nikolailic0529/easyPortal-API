@@ -17,7 +17,7 @@ use App\Services\DataLoader\Finders\AssetFinder as AssetFinderContract;
 use App\Services\DataLoader\Finders\CustomerFinder as CustomerFinderContract;
 use App\Services\DataLoader\Finders\DistributorFinder as DistributorFinderContract;
 use App\Services\DataLoader\Finders\ResellerFinder as ResellerFinderContract;
-use App\Services\DataLoader\Normalizer\Normalizer;
+use App\Services\DataLoader\Normalizer\Normalizers\NameNormalizer;
 use App\Services\DataLoader\Schema\Company;
 use App\Services\DataLoader\Schema\Document;
 use App\Services\DataLoader\Schema\ViewAsset;
@@ -174,13 +174,12 @@ trait Helper {
      * @return array<string, array{key: string, name: string}>|null
      */
     protected function getStatuses(Company|Document $object): ?array {
-        $normalizer = $this->app->make(Normalizer::class);
-        $statuses   = [];
+        $statuses = [];
 
         foreach ((array) $object->status as $status) {
             $statuses[$status] = [
                 'key'  => $status,
-                'name' => $normalizer->name($status),
+                'name' => NameNormalizer::normalize($status),
             ];
         }
 
@@ -191,9 +190,8 @@ trait Helper {
      * @return array<string, array{name: ?string, phone: ?string, mail: ?string, types: array<string>}>
      */
     protected function getContacts(ViewAsset|Company|ViewDocument $object): array {
-        $normalizer = $this->app->make(Normalizer::class);
-        $contacts   = [];
-        $persons    = [];
+        $contacts = [];
+        $persons  = [];
 
         if ($object instanceof ViewDocument) {
             $persons = (array) $object->contactPersons;
@@ -224,12 +222,12 @@ trait Helper {
             $key = "{$person->name}/{$phone}";
 
             if (isset($contacts[$key])) {
-                $contacts[$key]['types'][] = $normalizer->name($person->type);
+                $contacts[$key]['types'][] = NameNormalizer::normalize($person->type);
             } else {
                 $contacts[$key] = [
                     'name'  => $person->name,
                     'phone' => $phone,
-                    'types' => [$normalizer->name($person->type)],
+                    'types' => [NameNormalizer::normalize($person->type)],
                     'mail'  => $person->mail,
                 ];
             }
@@ -245,8 +243,7 @@ trait Helper {
      * @return array<mixed>
      */
     protected function getCompanyLocations(Company $company): array {
-        $normalizer = $this->app->make(Normalizer::class);
-        $locations  = [];
+        $locations = [];
 
         foreach ($company->locations as $location) {
             // Is empty
@@ -258,10 +255,10 @@ trait Helper {
             $key = "{$location->zip}/{$location->zip}/{$location->address}";
 
             if (isset($locations[$key])) {
-                $locations[$key]['types'][] = $normalizer->name($location->locationType);
+                $locations[$key]['types'][] = NameNormalizer::normalize($location->locationType);
             } else {
                 $locations[$key] = [
-                    'types'       => [$normalizer->name($location->locationType)],
+                    'types'       => [NameNormalizer::normalize($location->locationType)],
                     'country'     => $location->country ?? 'Unknown Country',
                     'countryCode' => $location->countryCode ?? '??',
                     'postcode'    => $location->zip,
@@ -365,14 +362,13 @@ trait Helper {
      * @return array<string, array{key: string, name: string}>
      */
     protected function getAssetCoverages(ViewAsset $object): array {
-        $normalizer = $this->app->make(Normalizer::class);
-        $coverages  = [];
+        $coverages = [];
 
         foreach ((array) $object->assetCoverage as $coverage) {
             // Add to array
             $coverages[$coverage] = [
                 'key'  => $coverage,
-                'name' => $normalizer->name($coverage),
+                'name' => NameNormalizer::normalize($coverage),
             ];
         }
 

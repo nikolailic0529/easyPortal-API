@@ -5,6 +5,7 @@ namespace App\Services\DataLoader\Factory\Concerns;
 use App\Models\Data\Status;
 use App\Services\DataLoader\Factory\Factory;
 use App\Services\DataLoader\Normalizer\Normalizer;
+use App\Services\DataLoader\Normalizer\Normalizers\NameNormalizer;
 use App\Services\DataLoader\Resolver\Resolvers\StatusResolver;
 use App\Utils\Eloquent\Model;
 
@@ -23,7 +24,7 @@ trait WithStatus {
                 $normalizer         = $this->getNormalizer();
                 $model->object_type = $owner->getMorphClass();
                 $model->key         = $normalizer->string($status);
-                $model->name        = $normalizer->name($status);
+                $model->name        = NameNormalizer::normalize($status);
 
                 $model->save();
 

@@ -8,7 +8,6 @@ use App\Services\DataLoader\Normalizer\Normalizers\DateTimeNormalizer;
 use App\Services\DataLoader\Normalizer\Normalizers\DecimalNormalizer;
 use App\Services\DataLoader\Normalizer\Normalizers\FloatNormalizer;
 use App\Services\DataLoader\Normalizer\Normalizers\IntNormalizer;
-use App\Services\DataLoader\Normalizer\Normalizers\NameNormalizer;
 use App\Services\DataLoader\Normalizer\Normalizers\StringNormalizer;
 use App\Services\DataLoader\Normalizer\Normalizers\TextNormalizer;
 use App\Services\DataLoader\Normalizer\Normalizers\UnsignedNormalizer;
@@ -18,17 +17,7 @@ use Carbon\CarbonImmutable;
  * @deprecated fixme(DataLoader)!: Use {@see \App\Utils\JsonObject\JsonObjectNormalizer} instead
  */
 class Normalizer {
-    public function __construct(
-        protected StringNormalizer $string,
-        protected DateTimeNormalizer $datetime,
-        protected DecimalNormalizer $decimal,
-        protected ColorNormalizer $color,
-        protected TextNormalizer $text,
-        protected NameNormalizer $name,
-        protected IntNormalizer $int,
-        protected FloatNormalizer $float,
-        protected UnsignedNormalizer $unsigned,
-    ) {
+    public function __construct() {
         // empty
     }
 
@@ -64,13 +53,6 @@ class Normalizer {
 
     public function color(mixed $value): ?string {
         return ColorNormalizer::normalize($value);
-    }
-
-    /**
-     * @return ($value is string ? string : string|null)
-     */
-    public function name(mixed $value): ?string {
-        return NameNormalizer::normalize($value);
     }
 
     public function int(mixed $value): ?int {
