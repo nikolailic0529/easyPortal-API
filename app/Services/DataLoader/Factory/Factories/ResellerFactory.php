@@ -78,7 +78,7 @@ class ResellerFactory extends CompanyFactory {
         $factory  = function (Reseller $reseller) use (&$created, $company): Reseller {
             $created              = !$reseller->exists;
             $normalizer           = $this->getNormalizer();
-            $reseller->id         = $normalizer->uuid($company->id);
+            $reseller->id         = $company->id;
             $reseller->name       = $normalizer->string($company->name);
             $reseller->changed_at = $normalizer->datetime($company->updatedAt);
             $reseller->statuses   = $this->companyStatuses($reseller, $company);

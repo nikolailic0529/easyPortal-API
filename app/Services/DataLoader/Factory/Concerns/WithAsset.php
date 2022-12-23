@@ -28,15 +28,15 @@ trait WithAsset {
         $asset = null;
 
         if ($id) {
-            $id    = $this->getNormalizer()->uuid($id);
-            $asset = $this->getAssetResolver()->get($id, function () use ($id): ?Asset {
-                return $this->getAssetFinder()?->find($id);
-            });
-        }
+            $asset = $this->getAssetResolver()->get($id, function () use ($id, $object): Asset {
+                $asset = $this->getAssetFinder()?->find($id);
 
-        // Found?
-        if ($id && !$asset) {
-            throw new AssetNotFound($id, $object);
+                if (!$asset) {
+                    throw new AssetNotFound($id, $object);
+                }
+
+                return $asset;
+            });
         }
 
         // Return

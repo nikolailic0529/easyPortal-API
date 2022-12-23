@@ -101,7 +101,7 @@ class OrganizationUpdater implements EventsProvider {
         }
 
         if (isset($company->keycloakGroupId)) {
-            $organization->keycloak_group_id = $this->normalizer->uuid($company->keycloakGroupId);
+            $organization->keycloak_group_id = $company->keycloakGroupId;
         }
 
         if (isset($company->keycloakName)) {

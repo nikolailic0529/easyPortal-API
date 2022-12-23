@@ -86,15 +86,23 @@ class WithResellerTest extends TestCase {
      */
     public function testResellerResellerNotFound(Closure $objectFactory): void {
         $normalizer = $this->app->make(Normalizer::class);
+        $collector  = Mockery::mock(Collector::class);
         $reseller   = Reseller::factory()->make();
-        $resolver   = Mockery::mock(ResellerResolver::class);
+        $finder     = Mockery::mock(ResellerFinder::class);
+        $finder
+            ->shouldReceive('find')
+            ->with($reseller->getKey())
+            ->once()
+            ->andReturn(null);
+        $resolver = Mockery::mock(ResellerResolver::class, [$normalizer, $collector]);
+        $resolver->shouldAllowMockingProtectedMethods();
+        $resolver->makePartial();
         $resolver
-            ->shouldReceive('get')
-            ->with($reseller->getKey(), Mockery::any())
+            ->shouldReceive('find')
             ->once()
             ->andReturn(null);
 
-        $factory = new WithResellerTestObject($normalizer, $resolver);
+        $factory = new WithResellerTestObject($normalizer, $resolver, $finder);
         $object  = $objectFactory($this, $reseller);
 
         self::expectException(ResellerNotFound::class);

@@ -83,15 +83,23 @@ class WithDistributorTest extends TestCase {
      */
     public function testDistributorDistributorNotFound(Closure $objectFactory): void {
         $normalizer  = $this->app->make(Normalizer::class);
+        $collector   = Mockery::mock(Collector::class);
         $distributor = Distributor::factory()->make();
-        $resolver    = Mockery::mock(DistributorResolver::class);
+        $finder      = Mockery::mock(DistributorFinder::class);
+        $finder
+            ->shouldReceive('find')
+            ->with($distributor->getKey())
+            ->once()
+            ->andReturn(null);
+        $resolver = Mockery::mock(DistributorResolver::class, [$normalizer, $collector]);
+        $resolver->shouldAllowMockingProtectedMethods();
+        $resolver->makePartial();
         $resolver
-            ->shouldReceive('get')
-            ->with($distributor->getKey(), Mockery::any())
+            ->shouldReceive('find')
             ->once()
             ->andReturn(null);
 
-        $factory = new WithDistributorTestObject($normalizer, $resolver);
+        $factory = new WithDistributorTestObject($normalizer, $resolver, $finder);
         $object  = $objectFactory($this, $distributor);
 
         self::expectException(DistributorNotFound::class);

@@ -57,7 +57,7 @@ class DistributorFactory extends ModelFactory {
         $factory     = function (Distributor $distributor) use (&$created, $company): Distributor {
             $created                 = !$distributor->exists;
             $normalizer              = $this->getNormalizer();
-            $distributor->id         = $normalizer->uuid($company->id);
+            $distributor->id         = $company->id;
             $distributor->name       = $normalizer->string($company->name);
             $distributor->changed_at = $normalizer->datetime($company->updatedAt);
 

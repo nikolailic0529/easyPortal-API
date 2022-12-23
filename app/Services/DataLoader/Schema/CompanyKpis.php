@@ -2,8 +2,13 @@
 
 namespace App\Services\DataLoader\Schema;
 
+use App\Services\DataLoader\Normalizer\Normalizers\UuidNormalizer;
+use App\Utils\JsonObject\JsonObjectNormalizer;
+
 class CompanyKpis extends Type {
+    #[JsonObjectNormalizer(UuidNormalizer::class)]
     public ?string $resellerId;
+
     public ?int    $totalAssets;
     public ?int    $activeAssets;
     public ?float  $activeAssetsPercentage;

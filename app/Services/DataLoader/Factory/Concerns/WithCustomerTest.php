@@ -85,15 +85,23 @@ class WithCustomerTest extends TestCase {
      */
     public function testCustomerCustomerNotFound(Closure $objectFactory): void {
         $normalizer = $this->app->make(Normalizer::class);
+        $collector  = Mockery::mock(Collector::class);
         $customer   = Customer::factory()->make();
-        $resolver   = Mockery::mock(CustomerResolver::class);
+        $finder     = Mockery::mock(CustomerFinder::class);
+        $finder
+            ->shouldReceive('find')
+            ->with($customer->getKey())
+            ->once()
+            ->andReturn(null);
+        $resolver = Mockery::mock(CustomerResolver::class, [$normalizer, $collector]);
+        $resolver->shouldAllowMockingProtectedMethods();
+        $resolver->makePartial();
         $resolver
-            ->shouldReceive('get')
-            ->with($customer->getKey(), Mockery::any())
+            ->shouldReceive('find')
             ->once()
             ->andReturn(null);
 
-        $factory = new WithCustomerTestObject($normalizer, $resolver);
+        $factory = new WithCustomerTestObject($normalizer, $resolver, $finder);
         $object  = $objectFactory($this, $customer);
 
         self::expectException(CustomerNotFound::class);

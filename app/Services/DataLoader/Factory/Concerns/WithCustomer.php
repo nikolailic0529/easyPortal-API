@@ -37,15 +37,15 @@ trait WithCustomer {
         $customer = null;
 
         if ($id) {
-            $id       = $this->getNormalizer()->uuid($id);
-            $customer = $this->getCustomerResolver()->get($id, function () use ($id): ?Customer {
-                return $this->getCustomerFinder()?->find($id);
-            });
-        }
+            $customer = $this->getCustomerResolver()->get($id, function () use ($id, $object): Customer {
+                $customer = $this->getCustomerFinder()?->find($id);
 
-        // Found?
-        if ($id && !$customer) {
-            throw new CustomerNotFound($id, $object);
+                if (!$customer) {
+                    throw new CustomerNotFound($id, $object);
+                }
+
+                return $customer;
+            });
         }
 
         // Return

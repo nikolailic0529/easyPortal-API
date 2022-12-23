@@ -2,21 +2,32 @@
 
 namespace App\Services\DataLoader\Schema;
 
+use App\Services\DataLoader\Normalizer\Normalizers\UuidNormalizer;
 use App\Utils\JsonObject\JsonObjectArray;
+use App\Utils\JsonObject\JsonObjectNormalizer;
 
 class Document extends Type implements TypeWithKey {
-    public string                      $id;
-    public ?string                     $type;
-    public ?string                     $documentNumber;
-    public ?string                     $startDate;
-    public ?string                     $endDate;
-    public ?string                     $currencyCode;
-    public ?string                     $totalNetPrice;
-    public ?string                     $languageCode;
-    public ?string                     $updatedAt;
-    public ?string                     $resellerId;
-    public ?string                     $customerId;
-    public ?string                     $distributorId;
+    #[JsonObjectNormalizer(UuidNormalizer::class)]
+    public string $id;
+
+    public ?string $type;
+    public ?string $documentNumber;
+    public ?string $startDate;
+    public ?string $endDate;
+    public ?string $currencyCode;
+    public ?string $totalNetPrice;
+    public ?string $languageCode;
+    public ?string $updatedAt;
+
+    #[JsonObjectNormalizer(UuidNormalizer::class)]
+    public ?string $resellerId;
+
+    #[JsonObjectNormalizer(UuidNormalizer::class)]
+    public ?string $customerId;
+
+    #[JsonObjectNormalizer(UuidNormalizer::class)]
+    public ?string $distributorId;
+
     public DocumentVendorSpecificField $vendorSpecificFields;
 
     /**

@@ -2,9 +2,15 @@
 
 namespace App\Services\DataLoader\Schema;
 
+use App\Services\DataLoader\Normalizer\Normalizers\UuidNormalizer;
+use App\Utils\JsonObject\JsonObjectNormalizer;
+
 class DocumentEntry extends Type {
     public ?string $assetDocumentId;
+
+    #[JsonObjectNormalizer(UuidNormalizer::class)]
     public ?string $assetId;
+
     public ?string $serviceGroupSku;
     public ?string $serviceGroupSkuDescription;
     public ?string $serviceLevelSku;

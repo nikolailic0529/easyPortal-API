@@ -2666,11 +2666,6 @@ parameters:
 			path: app/Services/DataLoader/Factory/Concerns/WithAssetTest.php
 
 		-
-			message: "#^Parameter \\#2 \\$factory of method App\\\\Services\\\\DataLoader\\\\Resolver\\\\Resolvers\\\\AssetResolver\\:\\:get\\(\\) expects \\(Closure\\(App\\\\Services\\\\DataLoader\\\\Normalizer\\\\Normalizer\\=\\)\\: App\\\\Models\\\\Asset\\)\\|null, Closure\\(\\)\\: App\\\\Models\\\\Asset\\|null given\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Concerns/WithAssetTest.php
-
-		-
 			message: "#^Access to an undefined property M of App\\\\Models\\\\Contact\\|App\\\\Models\\\\CustomerLocation\\|App\\\\Models\\\\Data\\\\Location\\|App\\\\Models\\\\ResellerLocation\\:\\:\\$types\\.$#"
 			count: 2
 			path: app/Services/DataLoader/Factory/Concerns/WithContactsTest.php
@@ -2691,11 +2686,6 @@ parameters:
 			path: app/Services/DataLoader/Factory/Concerns/WithCustomerTest.php
 
 		-
-			message: "#^Parameter \\#2 \\$factory of method App\\\\Services\\\\DataLoader\\\\Resolver\\\\Resolvers\\\\CustomerResolver\\:\\:get\\(\\) expects \\(Closure\\(App\\\\Services\\\\DataLoader\\\\Normalizer\\\\Normalizer\\=\\)\\: App\\\\Models\\\\Customer\\)\\|null, Closure\\(\\)\\: App\\\\Models\\\\Customer\\|null given\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Concerns/WithCustomerTest.php
-
-		-
 			message: "#^Method App\\\\Services\\\\DataLoader\\\\Factory\\\\Concerns\\\\WithDistributorTest\\:\\:testDistributorDistributorNotFound\\(\\) has parameter \\$objectFactory with no signature specified for Closure\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Factory/Concerns/WithDistributorTest.php
@@ -2707,11 +2697,6 @@ parameters:
 
 		-
 			message: "#^Method App\\\\Services\\\\DataLoader\\\\Factory\\\\Concerns\\\\WithDistributorTest\\:\\:testDistributorExistsThroughProvider\\(\\) has parameter \\$objectFactory with no signature specified for Closure\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Concerns/WithDistributorTest.php
-
-		-
-			message: "#^Parameter \\#2 \\$factory of method App\\\\Services\\\\DataLoader\\\\Resolver\\\\Resolvers\\\\DistributorResolver\\:\\:get\\(\\) expects \\(Closure\\(App\\\\Services\\\\DataLoader\\\\Normalizer\\\\Normalizer\\=\\)\\: App\\\\Models\\\\Distributor\\)\\|null, Closure\\(\\)\\: App\\\\Models\\\\Distributor\\|null given\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Factory/Concerns/WithDistributorTest.php
 
@@ -2756,11 +2741,6 @@ parameters:
 			path: app/Services/DataLoader/Factory/Concerns/WithResellerTest.php
 
 		-
-			message: "#^Parameter \\#2 \\$factory of method App\\\\Services\\\\DataLoader\\\\Resolver\\\\Resolvers\\\\ResellerResolver\\:\\:get\\(\\) expects \\(Closure\\(App\\\\Services\\\\DataLoader\\\\Normalizer\\\\Normalizer\\=\\)\\: App\\\\Models\\\\Reseller\\)\\|null, Closure\\(\\)\\: App\\\\Models\\\\Reseller\\|null given\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Concerns/WithResellerTest.php
-
-		-
 			message: "#^Parameter \\#2 \\.\\.\\.\\$methodNames of method Mockery\\\\LegacyMockInterface\\:\\:shouldReceive\\(\\) expects array\\<string, mixed\\>\\|string, Mockery\\\\Matcher\\\\Any given\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Factory/Concerns/WithResellerTest.php
@@ -2772,16 +2752,6 @@ parameters:
 
 		-
 			message: "#^Access to an undefined property M of App\\\\Models\\\\Contact\\|App\\\\Models\\\\CustomerLocation\\|App\\\\Models\\\\Data\\\\Location\\|App\\\\Models\\\\ResellerLocation\\:\\:\\$types\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Factories/AssetFactory.php
-
-		-
-			message: "#^Parameter \\#2 \\$factory of method App\\\\Services\\\\DataLoader\\\\Resolver\\\\Resolvers\\\\CustomerResolver\\:\\:get\\(\\) expects \\(Closure\\(App\\\\Services\\\\DataLoader\\\\Normalizer\\\\Normalizer\\=\\)\\: App\\\\Models\\\\Customer\\)\\|null, Closure\\(\\)\\: App\\\\Models\\\\Customer\\|null given\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Factories/AssetFactory.php
-
-		-
-			message: "#^Parameter \\#2 \\$factory of method App\\\\Services\\\\DataLoader\\\\Resolver\\\\Resolvers\\\\ResellerResolver\\:\\:get\\(\\) expects \\(Closure\\(App\\\\Services\\\\DataLoader\\\\Normalizer\\\\Normalizer\\=\\)\\: App\\\\Models\\\\Reseller\\)\\|null, Closure\\(\\)\\: App\\\\Models\\\\Reseller\\|null given\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Factory/Factories/AssetFactory.php
 
@@ -2826,11 +2796,6 @@ parameters:
 			path: app/Services/DataLoader/Factory/Factories/CustomerFactory.php
 
 		-
-			message: "#^Parameter \\#2 \\$factory of method App\\\\Services\\\\DataLoader\\\\Resolver\\\\Resolvers\\\\ResellerResolver\\:\\:get\\(\\) expects \\(Closure\\(App\\\\Services\\\\DataLoader\\\\Normalizer\\\\Normalizer\\=\\)\\: App\\\\Models\\\\Reseller\\)\\|null, Closure\\(\\)\\: App\\\\Models\\\\Reseller\\|null given\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Factories/CustomerFactory.php
-
-		-
 			message: "#^Property App\\\\Models\\\\Customer\\:\\:\\$resellersPivots \\(Illuminate\\\\Support\\\\Collection\\<string, TPivot of App\\\\Utils\\\\Eloquent\\\\Pivot\\>\\) does not accept Illuminate\\\\Support\\\\Collection\\<int, App\\\\Models\\\\ResellerCustomer\\>\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Factory/Factories/CustomerFactory.php
@@ -2857,26 +2822,6 @@ parameters:
 
 		-
 			message: "#^Access to an undefined property M of App\\\\Models\\\\Contact\\|App\\\\Models\\\\CustomerLocation\\|App\\\\Models\\\\Data\\\\Location\\|App\\\\Models\\\\ResellerLocation\\:\\:\\$types\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Factories/DocumentFactory.php
-
-		-
-			message: "#^Parameter \\#2 \\$factory of method App\\\\Services\\\\DataLoader\\\\Resolver\\\\Resolvers\\\\AssetResolver\\:\\:get\\(\\) expects \\(Closure\\(App\\\\Services\\\\DataLoader\\\\Normalizer\\\\Normalizer\\=\\)\\: App\\\\Models\\\\Asset\\)\\|null, Closure\\(\\)\\: App\\\\Models\\\\Asset\\|null given\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Factories/DocumentFactory.php
-
-		-
-			message: "#^Parameter \\#2 \\$factory of method App\\\\Services\\\\DataLoader\\\\Resolver\\\\Resolvers\\\\CustomerResolver\\:\\:get\\(\\) expects \\(Closure\\(App\\\\Services\\\\DataLoader\\\\Normalizer\\\\Normalizer\\=\\)\\: App\\\\Models\\\\Customer\\)\\|null, Closure\\(\\)\\: App\\\\Models\\\\Customer\\|null given\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Factories/DocumentFactory.php
-
-		-
-			message: "#^Parameter \\#2 \\$factory of method App\\\\Services\\\\DataLoader\\\\Resolver\\\\Resolvers\\\\DistributorResolver\\:\\:get\\(\\) expects \\(Closure\\(App\\\\Services\\\\DataLoader\\\\Normalizer\\\\Normalizer\\=\\)\\: App\\\\Models\\\\Distributor\\)\\|null, Closure\\(\\)\\: App\\\\Models\\\\Distributor\\|null given\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Factories/DocumentFactory.php
-
-		-
-			message: "#^Parameter \\#2 \\$factory of method App\\\\Services\\\\DataLoader\\\\Resolver\\\\Resolvers\\\\ResellerResolver\\:\\:get\\(\\) expects \\(Closure\\(App\\\\Services\\\\DataLoader\\\\Normalizer\\\\Normalizer\\=\\)\\: App\\\\Models\\\\Reseller\\)\\|null, Closure\\(\\)\\: App\\\\Models\\\\Reseller\\|null given\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Factory/Factories/DocumentFactory.php
 

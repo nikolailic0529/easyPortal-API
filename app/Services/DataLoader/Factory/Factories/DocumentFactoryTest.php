@@ -609,14 +609,9 @@ class DocumentFactoryTest extends TestCase {
             ->once()
             ->andReturns();
 
-        $normalizer = $this->app->make(Normalizer::class);
-        $factory    = Mockery::mock(DocumentFactoryTest_Factory::class);
+        $factory = Mockery::mock(DocumentFactoryTest_Factory::class);
         $factory->shouldAllowMockingProtectedMethods();
         $factory->makePartial();
-        $factory
-            ->shouldReceive('getNormalizer')
-            ->once()
-            ->andReturn($normalizer);
         $factory
             ->shouldReceive('getExceptionHandler')
             ->once()
@@ -639,14 +634,9 @@ class DocumentFactoryTest extends TestCase {
             'assetId' => null,
         ]);
 
-        $normalizer = $this->app->make(Normalizer::class);
-        $factory    = Mockery::mock(DocumentFactoryTest_Factory::class);
+        $factory = Mockery::mock(DocumentFactoryTest_Factory::class);
         $factory->shouldAllowMockingProtectedMethods();
         $factory->makePartial();
-        $factory
-            ->shouldReceive('getNormalizer')
-            ->once()
-            ->andReturn($normalizer);
         $factory
             ->shouldReceive('asset')
             ->with($entry)

@@ -82,15 +82,24 @@ class WithAssetTest extends TestCase {
      */
     public function testAssetAssetNotFound(Closure $objectFactory): void {
         $normalizer = $this->app->make(Normalizer::class);
+        $collector  = Mockery::mock(Collector::class);
         $asset      = Asset::factory()->make();
-        $resolver   = Mockery::mock(AssetResolver::class);
-        $resolver
-            ->shouldReceive('get')
-            ->with($asset->getKey(), Mockery::any())
+        $finder     = Mockery::mock(AssetFinder::class);
+        $finder
+            ->shouldReceive('find')
+            ->with($asset->getKey())
             ->once()
             ->andReturn(null);
 
-        $factory = new WithAssetTestObject($normalizer, $resolver);
+        $resolver = Mockery::mock(AssetResolver::class, [$normalizer, $collector]);
+        $resolver->shouldAllowMockingProtectedMethods();
+        $resolver->makePartial();
+        $resolver
+            ->shouldReceive('find')
+            ->once()
+            ->andReturn(null);
+
+        $factory = new WithAssetTestObject($normalizer, $resolver, $finder);
         $object  = $objectFactory($this, $asset);
 
         self::expectException(AssetNotFound::class);

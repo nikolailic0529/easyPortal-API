@@ -2,15 +2,22 @@
 
 namespace App\Services\DataLoader\Schema;
 
+use App\Services\DataLoader\Normalizer\Normalizers\UuidNormalizer;
 use App\Utils\JsonObject\JsonObjectArray;
+use App\Utils\JsonObject\JsonObjectNormalizer;
 
 class Company extends Type implements TypeWithKey {
-    public string  $id;
+    #[JsonObjectNormalizer(UuidNormalizer::class)]
+    public string $id;
+
     public string  $name;
     public ?string $companyType;
     public ?string $updatedAt;
     public ?string $keycloakName;
+
+    #[JsonObjectNormalizer(UuidNormalizer::class)]
     public ?string $keycloakGroupId;
+
     public ?string $keycloakClientScopeName;
     /**
      * @var array<CompanyContactPerson>
@@ -29,7 +36,7 @@ class Company extends Type implements TypeWithKey {
     public array $assets;
 
     public ?BrandingData $brandingData;
-    public ?CompanyKpis $companyKpis;
+    public ?CompanyKpis  $companyKpis;
 
     /**
      * @var array<CompanyKpis>|null

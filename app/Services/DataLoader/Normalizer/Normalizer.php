@@ -12,7 +12,6 @@ use App\Services\DataLoader\Normalizer\Normalizers\NameNormalizer;
 use App\Services\DataLoader\Normalizer\Normalizers\StringNormalizer;
 use App\Services\DataLoader\Normalizer\Normalizers\TextNormalizer;
 use App\Services\DataLoader\Normalizer\Normalizers\UnsignedNormalizer;
-use App\Services\DataLoader\Normalizer\Normalizers\UuidNormalizer;
 use Carbon\CarbonImmutable;
 
 /**
@@ -20,7 +19,6 @@ use Carbon\CarbonImmutable;
  */
 class Normalizer {
     public function __construct(
-        protected UuidNormalizer $uuid,
         protected StringNormalizer $string,
         protected DateTimeNormalizer $datetime,
         protected DecimalNormalizer $decimal,
@@ -32,13 +30,6 @@ class Normalizer {
         protected UnsignedNormalizer $unsigned,
     ) {
         // empty
-    }
-
-    /**
-     * @return ($value is string ? string : string|null)
-     */
-    public function uuid(mixed $value): ?string {
-        return UuidNormalizer::normalize($value);
     }
 
     /**

@@ -29,15 +29,15 @@ trait WithDistributor {
         $distributor = null;
 
         if ($id) {
-            $id          = $this->getNormalizer()->uuid($id);
-            $distributor = $this->getDistributorResolver()->get($id, function () use ($id): ?Distributor {
-                return $this->getDistributorFinder()?->find($id);
-            });
-        }
+            $distributor = $this->getDistributorResolver()->get($id, function () use ($id, $object): Distributor {
+                $distributor = $this->getDistributorFinder()?->find($id);
 
-        // Found?
-        if ($id && !$distributor) {
-            throw new DistributorNotFound($id, $object);
+                if (!$distributor) {
+                    throw new DistributorNotFound($id, $object);
+                }
+
+                return $distributor;
+            });
         }
 
         // Return

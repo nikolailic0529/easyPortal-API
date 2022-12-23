@@ -199,7 +199,7 @@ class AssetFactory extends ModelFactory {
             // Asset
             $created                          = !$model->exists;
             $normalizer                       = $this->getNormalizer();
-            $model->id                        = $normalizer->uuid($asset->id);
+            $model->id                        = $asset->id;
             $model->oem                       = $this->assetOem($asset);
             $model->type                      = $this->assetType($asset);
             $model->status                    = $this->assetStatus($asset);
@@ -594,8 +594,8 @@ class AssetFactory extends ModelFactory {
                 'document'     => $normalizer->string(
                     $warranty->document->id ?? $warranty->documentNumber,
                 ),
-                'reseller'     => $normalizer->uuid($warranty->reseller->id ?? null),
-                'customer'     => $normalizer->uuid($warranty->customer->id ?? null),
+                'reseller'     => $warranty->reseller->id ?? null,
+                'customer'     => $warranty->customer->id ?? null,
                 'serviceGroup' => $normalizer->string($warranty->serviceGroupSku),
                 'serviceLevel' => $normalizer->string($warranty->serviceLevelSku),
                 'start'        => $normalizer->datetime(

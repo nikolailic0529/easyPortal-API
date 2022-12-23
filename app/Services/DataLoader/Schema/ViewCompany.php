@@ -2,11 +2,14 @@
 
 namespace App\Services\DataLoader\Schema;
 
+use App\Services\DataLoader\Normalizer\Normalizers\UuidNormalizer;
 use App\Utils\JsonObject\JsonObjectArray;
+use App\Utils\JsonObject\JsonObjectNormalizer;
 
 class ViewCompany extends Type {
-    public string  $id;
-    public string  $name;
+    #[JsonObjectNormalizer(UuidNormalizer::class)]
+    public string $id;
+    public string $name;
 
     /**
      * @var array<CompanyContactPerson>

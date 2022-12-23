@@ -2,12 +2,20 @@
 
 namespace App\Services\DataLoader\Schema;
 
+use App\Services\DataLoader\Normalizer\Normalizers\UuidNormalizer;
 use App\Utils\JsonObject\JsonObjectArray;
+use App\Utils\JsonObject\JsonObjectNormalizer;
 
 class ViewAsset extends Type implements TypeWithKey {
-    public string  $id;
+    #[JsonObjectNormalizer(UuidNormalizer::class)]
+    public string $id;
+
+    #[JsonObjectNormalizer(UuidNormalizer::class)]
     public ?string $resellerId;
+
+    #[JsonObjectNormalizer(UuidNormalizer::class)]
     public ?string $customerId;
+
     public ?string $serialNumber;
     public ?string $assetSkuDescription;
     public ?string $assetTag;

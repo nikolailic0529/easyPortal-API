@@ -271,7 +271,7 @@ class DocumentFactory extends ModelFactory {
             $statuses              = new Collection();
             $document              = $object->document;
             $normalizer            = $this->getNormalizer();
-            $model->id             = $normalizer->uuid($document->id);
+            $model->id             = $document->id;
             $model->oem            = $this->documentOem($document);
             $model->oemGroup       = $this->documentOemGroup($document);
             $model->oem_said       = $normalizer->string($document->vendorSpecificFields->said ?? null);
@@ -321,7 +321,7 @@ class DocumentFactory extends ModelFactory {
             $created    = !$model->exists;
             $normalizer = $this->getNormalizer();
 
-            $model->id             = $normalizer->uuid($document->id);
+            $model->id             = $document->id;
             $model->oem            = $this->documentOem($document);
             $model->oemGroup       = $this->documentOemGroup($document);
             $model->oem_said       = $normalizer->string($document->vendorSpecificFields->said ?? null);
@@ -508,7 +508,7 @@ class DocumentFactory extends ModelFactory {
         try {
             $asset = $this->asset($documentEntry);
 
-            if ($asset === null && $this->getNormalizer()->uuid($documentEntry->assetId) !== null) {
+            if ($asset === null && $documentEntry->assetId !== null) {
                 $this->getExceptionHandler()->report(
                     new FailedToProcessDocumentEntryNoAsset($model, $documentEntry),
                 );
@@ -584,7 +584,7 @@ class DocumentFactory extends ModelFactory {
             ]);
         } else {
             $key = new Key($normalizer, [
-                'asset'        => $normalizer->uuid($entry->assetId),
+                'asset'        => $entry->assetId,
                 'start'        => $normalizer->datetime($entry->startDate),
                 'end'          => $normalizer->datetime($entry->endDate),
                 'serviceGroup' => $normalizer->string($entry->serviceGroupSku),
