@@ -17,7 +17,7 @@ class ColorNormalizerTest extends TestCase {
      * @dataProvider dataProviderNormalize
      */
     public function testNormalize(mixed $expected, mixed $value): void {
-        self::assertEquals($expected, $this->app->make(ColorNormalizer::class)->normalize($value));
+        self::assertEquals($expected, ColorNormalizer::normalize($value));
     }
     // </editor-fold>
 

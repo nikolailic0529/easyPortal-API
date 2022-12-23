@@ -2,7 +2,7 @@
 
 namespace App\Services\DataLoader\Normalizer\Normalizers;
 
-use App\Services\DataLoader\Normalizer\ValueNormalizer;
+use App\Utils\JsonObject\Normalizer;
 
 use function filter_var;
 use function is_bool;
@@ -11,12 +11,8 @@ use function is_string;
 use const FILTER_NULL_ON_FAILURE;
 use const FILTER_VALIDATE_BOOLEAN;
 
-class BoolNormalizer implements ValueNormalizer {
-    public function __construct() {
-        // empty
-    }
-
-    public function normalize(mixed $value): ?bool {
+class BoolNormalizer implements Normalizer {
+    public static function normalize(mixed $value): ?bool {
         // Parse
         if (is_bool($value)) {
             // nothing to do

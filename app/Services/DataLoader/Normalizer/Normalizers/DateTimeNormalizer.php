@@ -2,25 +2,19 @@
 
 namespace App\Services\DataLoader\Normalizer\Normalizers;
 
-use App\Services\DataLoader\Normalizer\ValueNormalizer;
+use App\Utils\JsonObject\Normalizer;
 use Carbon\Carbon;
 use Carbon\CarbonImmutable;
 use DateTimeInterface;
-use Illuminate\Contracts\Config\Repository;
 use Illuminate\Support\Facades\Date;
 
+use function config;
 use function is_int;
 use function is_string;
 use function preg_match;
 
-class DateTimeNormalizer implements ValueNormalizer {
-    public function __construct(
-        protected Repository $config,
-    ) {
-        // empty
-    }
-
-    public function normalize(mixed $value): ?CarbonImmutable {
+class DateTimeNormalizer implements Normalizer {
+    public static function normalize(mixed $value): ?CarbonImmutable {
         // Parse
         if ($value) {
             if (is_int($value) || (is_string($value) && preg_match('/^\d+$/', $value))) {
@@ -46,7 +40,7 @@ class DateTimeNormalizer implements ValueNormalizer {
         }
 
         if ($value instanceof CarbonImmutable) {
-            $tz    = $this->config->get('app.timezone') ?: 'UTC';
+            $tz    = config('app.timezone') ?: 'UTC';
             $value = $value->setTimezone($tz);
         } else {
             $value = null;

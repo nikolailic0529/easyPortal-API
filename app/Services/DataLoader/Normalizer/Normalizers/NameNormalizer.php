@@ -8,7 +8,7 @@ use function preg_replace;
 use function str_replace;
 
 class NameNormalizer extends StringNormalizer {
-    public function normalize(mixed $value): ?string {
+    public static function normalize(mixed $value): ?string {
         $value = parent::normalize($value);
 
         if ($value !== null) {

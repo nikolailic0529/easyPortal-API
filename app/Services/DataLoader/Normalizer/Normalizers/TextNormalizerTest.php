@@ -15,8 +15,8 @@ class TextNormalizerTest extends TestCase {
     public function testNormalize(): void {
         self::assertEquals(
             "Fsfsd  dsfd      dS \n sdfsdf \n ssdfsf \n fd",
-            (new TextNormalizer())->normalize(" Fsfsd  dsfd  \x00   dS \n sdfsdf \r\n ssdfsf \n\r fd\x00 "),
+            TextNormalizer::normalize(" Fsfsd  dsfd  \x00   dS \n sdfsdf \r\n ssdfsf \n\r fd\x00 "),
         );
-        self::assertNull((new TextNormalizer())->normalize(null));
+        self::assertNull(TextNormalizer::normalize(null));
     }
 }

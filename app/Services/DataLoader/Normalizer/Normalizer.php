@@ -15,13 +15,15 @@ use App\Services\DataLoader\Normalizer\Normalizers\UnsignedNormalizer;
 use App\Services\DataLoader\Normalizer\Normalizers\UuidNormalizer;
 use Carbon\CarbonImmutable;
 
+/**
+ * @deprecated fixme(DataLoader)!: Use {@see \App\Utils\JsonObject\JsonObjectNormalizer} instead
+ */
 class Normalizer {
     public function __construct(
         protected UuidNormalizer $uuid,
         protected StringNormalizer $string,
         protected DateTimeNormalizer $datetime,
         protected DecimalNormalizer $decimal,
-        protected BoolNormalizer $boolean,
         protected ColorNormalizer $color,
         protected TextNormalizer $text,
         protected NameNormalizer $name,
@@ -36,33 +38,33 @@ class Normalizer {
      * @return ($value is string ? string : string|null)
      */
     public function uuid(mixed $value): ?string {
-        return $this->uuid->normalize($value);
+        return UuidNormalizer::normalize($value);
     }
 
     /**
      * @return ($value is string ? string : string|null)
      */
     public function string(mixed $value): ?string {
-        return $this->string->normalize($value);
+        return StringNormalizer::normalize($value);
     }
 
     /**
      * @return ($value is string ? string : string|null)
      */
     public function text(mixed $value): ?string {
-        return $this->text->normalize($value);
+        return TextNormalizer::normalize($value);
     }
 
     public function datetime(mixed $value): ?CarbonImmutable {
-        return $this->datetime->normalize($value);
+        return DateTimeNormalizer::normalize($value);
     }
 
     public function decimal(mixed $value): ?string {
-        return $this->decimal->normalize($value);
+        return DecimalNormalizer::normalize($value);
     }
 
     public function boolean(mixed $value): ?bool {
-        return $this->boolean->normalize($value);
+        return BoolNormalizer::normalize($value);
     }
 
     public function coordinate(mixed $value): ?string {
@@ -70,28 +72,28 @@ class Normalizer {
     }
 
     public function color(mixed $value): ?string {
-        return $this->color->normalize($value);
+        return ColorNormalizer::normalize($value);
     }
 
     /**
      * @return ($value is string ? string : string|null)
      */
     public function name(mixed $value): ?string {
-        return $this->name->normalize($value);
+        return NameNormalizer::normalize($value);
     }
 
     public function int(mixed $value): ?int {
-        return $this->int->normalize($value);
+        return IntNormalizer::normalize($value);
     }
 
     public function float(mixed $value): ?float {
-        return $this->float->normalize($value);
+        return FloatNormalizer::normalize($value);
     }
 
     /**
      * @return ($value is float ? float : ($value is int ? int : null))
      */
     public function unsigned(mixed $value): mixed {
-        return $this->unsigned->normalize($value);
+        return UnsignedNormalizer::normalize($value);
     }
 }

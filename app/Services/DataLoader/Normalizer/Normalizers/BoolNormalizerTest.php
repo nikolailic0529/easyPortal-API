@@ -17,7 +17,7 @@ class BoolNormalizerTest extends TestCase {
      * @dataProvider dataProviderNormalize
      */
     public function testNormalize(mixed $expected, mixed $value): void {
-        self::assertEquals($expected, (new BoolNormalizer())->normalize($value));
+        self::assertEquals($expected, BoolNormalizer::normalize($value));
     }
     // </editor-fold>
 

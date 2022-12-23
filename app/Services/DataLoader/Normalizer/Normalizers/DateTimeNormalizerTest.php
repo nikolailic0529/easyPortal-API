@@ -3,8 +3,9 @@
 namespace App\Services\DataLoader\Normalizer\Normalizers;
 
 use DateTimeInterface;
-use Illuminate\Contracts\Config\Repository;
 use Tests\TestCase;
+
+use function config;
 
 /**
  * @internal
@@ -19,12 +20,11 @@ class DateTimeNormalizerTest extends TestCase {
      * @dataProvider dataProviderNormalize
      */
     public function testNormalize(mixed $expected, ?string $tz, mixed $value): void {
-        $config     = $this->app->make(Repository::class);
-        $normalizer = new  DateTimeNormalizer($config);
+        config([
+            'app.timezone' => $tz,
+        ]);
 
-        $config->set('app.timezone', $tz);
-
-        $actual = $normalizer->normalize($value);
+        $actual = DateTimeNormalizer::normalize($value);
         $actual = $actual
             ? $actual->format(DateTimeInterface::RFC3339_EXTENDED)
             : null;

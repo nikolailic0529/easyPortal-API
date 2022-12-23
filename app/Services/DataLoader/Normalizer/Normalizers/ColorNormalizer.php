@@ -3,24 +3,21 @@
 namespace App\Services\DataLoader\Normalizer\Normalizers;
 
 use App\Rules\Color;
-use App\Services\DataLoader\Normalizer\ValueNormalizer;
+use App\Utils\JsonObject\Normalizer;
+use Illuminate\Container\Container;
 use Illuminate\Contracts\Validation\Factory;
 
 use function is_string;
 use function trim;
 
-class ColorNormalizer implements ValueNormalizer {
-    public function __construct(
-        protected Factory $validator,
-    ) {
-        // empty
-    }
-
-    public function normalize(mixed $value): ?string {
+class ColorNormalizer implements Normalizer {
+    public static function normalize(mixed $value): ?string {
         // Parse
         if (is_string($value)) {
             $value     = trim($value);
-            $validator = $this->validator->make(['value' => $value], ['value' => [new Color()]]);
+            $validator = Container::getInstance()
+                ->make(Factory::class)
+                ->make(['value' => $value], ['value' => [new Color()]]);
 
             if ($validator->fails()) {
                 $value = null;

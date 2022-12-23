@@ -17,7 +17,7 @@ class UnsignedNormalizerTest extends TestCase {
      * @dataProvider dataProviderNormalize
      */
     public function testNormalize(mixed $expected, mixed $value): void {
-        self::assertEquals($expected, $this->app->make(UnsignedNormalizer::class)->normalize($value));
+        self::assertEquals($expected, UnsignedNormalizer::normalize($value));
     }
     // </editor-fold>
 

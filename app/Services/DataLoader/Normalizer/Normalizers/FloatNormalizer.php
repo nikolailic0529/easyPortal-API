@@ -2,7 +2,7 @@
 
 namespace App\Services\DataLoader\Normalizer\Normalizers;
 
-use App\Services\DataLoader\Normalizer\ValueNormalizer;
+use App\Utils\JsonObject\Normalizer;
 
 use function filter_var;
 use function is_float;
@@ -12,12 +12,8 @@ use function is_string;
 use const FILTER_FLAG_ALLOW_THOUSAND;
 use const FILTER_VALIDATE_FLOAT;
 
-class FloatNormalizer implements ValueNormalizer {
-    public function __construct() {
-        // empty
-    }
-
-    public function normalize(mixed $value): ?float {
+class FloatNormalizer implements Normalizer {
+    public static function normalize(mixed $value): ?float {
         // Parse
         if (is_int($value) || is_float($value)) {
             $value = (float) $value;

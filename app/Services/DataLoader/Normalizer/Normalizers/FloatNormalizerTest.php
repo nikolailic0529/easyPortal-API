@@ -17,7 +17,7 @@ class FloatNormalizerTest extends TestCase {
      * @dataProvider dataProviderNormalize
      */
     public function testNormalize(mixed $expected, mixed $value): void {
-        self::assertEquals($expected, $this->app->make(FloatNormalizer::class)->normalize($value));
+        self::assertEquals($expected, FloatNormalizer::normalize($value));
     }
     // </editor-fold>
 
