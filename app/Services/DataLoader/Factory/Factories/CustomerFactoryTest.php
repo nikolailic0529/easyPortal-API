@@ -65,8 +65,7 @@ class CustomerFactoryTest extends TestCase {
         $this->overrideDateFactory('2021-08-30T00:00:00.000+00:00');
 
         // Prepare
-        $factory    = $this->app->make(CustomerFactory::class);
-        $normalizer = $this->app->make(Normalizer::class);
+        $factory = $this->app->make(CustomerFactory::class);
 
         // Models
         $reseller = Reseller::factory()->create([
@@ -110,107 +109,107 @@ class CustomerFactoryTest extends TestCase {
         self::assertNotNull($customer->kpi);
         self::assertNotNull($company->companyKpis);
         self::assertEquals(
-            (int) $normalizer->unsigned($normalizer->int($company->companyKpis->totalAssets)),
+            $company->companyKpis->totalAssets ?? 0,
             $customer->kpi->assets_total,
         );
         self::assertEquals(
-            (int) $normalizer->unsigned($normalizer->int($company->companyKpis->activeAssets)),
+            $company->companyKpis->activeAssets ?? 0,
             $customer->kpi->assets_active,
         );
         self::assertEquals(
-            (float) $normalizer->unsigned($normalizer->float($company->companyKpis->activeAssetsPercentage)),
+            $company->companyKpis->activeAssetsPercentage ?? 0,
             $customer->kpi->assets_active_percent,
         );
         self::assertEquals(
-            (int) $normalizer->unsigned($normalizer->int($company->companyKpis->activeCustomers)),
+            $company->companyKpis->activeCustomers ?? 0,
             $customer->kpi->customers_active,
         );
         self::assertEquals(
-            (int) $normalizer->unsigned($normalizer->int($company->companyKpis->newActiveCustomers)),
+            $company->companyKpis->newActiveCustomers ?? 0,
             $customer->kpi->customers_active_new,
         );
         self::assertEquals(
-            (int) $normalizer->unsigned($normalizer->int($company->companyKpis->activeContracts)),
+            $company->companyKpis->activeContracts ?? 0,
             $customer->kpi->contracts_active,
         );
         self::assertEquals(
-            (float) $normalizer->unsigned($normalizer->float($company->companyKpis->activeContractTotalAmount)),
+            $company->companyKpis->activeContractTotalAmount ?? 0,
             $customer->kpi->contracts_active_amount,
         );
         self::assertEquals(
-            (int) $normalizer->unsigned($normalizer->int($company->companyKpis->newActiveContracts)),
+            $company->companyKpis->newActiveContracts ?? 0,
             $customer->kpi->contracts_active_new,
         );
         self::assertEquals(
-            (int) $normalizer->unsigned($normalizer->int($company->companyKpis->expiringContracts)),
+            $company->companyKpis->expiringContracts ?? 0,
             $customer->kpi->contracts_expiring,
         );
         self::assertEquals(
-            (int) $normalizer->unsigned($normalizer->int($company->companyKpis->activeQuotes)),
+            $company->companyKpis->activeQuotes ?? 0,
             $customer->kpi->quotes_active,
         );
         self::assertEquals(
-            (float) $normalizer->unsigned($normalizer->float($company->companyKpis->activeQuotesTotalAmount)),
+            $company->companyKpis->activeQuotesTotalAmount ?? 0,
             $customer->kpi->quotes_active_amount,
         );
         self::assertEquals(
-            (int) $normalizer->unsigned($normalizer->int($company->companyKpis->newActiveQuotes)),
+            $company->companyKpis->newActiveQuotes ?? 0,
             $customer->kpi->quotes_active_new,
         );
         self::assertEquals(
-            (int) $normalizer->unsigned($normalizer->int($company->companyKpis->expiringQuotes)),
+            $company->companyKpis->expiringQuotes ?? 0,
             $customer->kpi->quotes_expiring,
         );
         self::assertEquals(
-            (int) $normalizer->unsigned($normalizer->int($company->companyKpis->expiredQuotes)),
+            $company->companyKpis->expiredQuotes ?? 0,
             $customer->kpi->quotes_expired,
         );
         self::assertEquals(
-            (int) $normalizer->unsigned($normalizer->int($company->companyKpis->expiredContracts)),
+            $company->companyKpis->expiredContracts ?? 0,
             $customer->kpi->contracts_expired,
         );
         self::assertEquals(
-            (int) $normalizer->unsigned($normalizer->int($company->companyKpis->orderedQuotes)),
+            $company->companyKpis->orderedQuotes ?? 0,
             $customer->kpi->quotes_ordered,
         );
         self::assertEquals(
-            (int) $normalizer->unsigned($normalizer->int($company->companyKpis->acceptedQuotes)),
+            $company->companyKpis->acceptedQuotes ?? 0,
             $customer->kpi->quotes_accepted,
         );
         self::assertEquals(
-            (int) $normalizer->unsigned($normalizer->int($company->companyKpis->requestedQuotes)),
+            $company->companyKpis->requestedQuotes ?? 0,
             $customer->kpi->quotes_requested,
         );
         self::assertEquals(
-            (int) $normalizer->unsigned($normalizer->int($company->companyKpis->receivedQuotes)),
+            $company->companyKpis->receivedQuotes ?? 0,
             $customer->kpi->quotes_received,
         );
         self::assertEquals(
-            (int) $normalizer->unsigned($normalizer->int($company->companyKpis->rejectedQuotes)),
+            $company->companyKpis->rejectedQuotes ?? 0,
             $customer->kpi->quotes_rejected,
         );
         self::assertEquals(
-            (int) $normalizer->unsigned($normalizer->int($company->companyKpis->awaitingQuotes)),
+            $company->companyKpis->awaitingQuotes ?? 0,
             $customer->kpi->quotes_awaiting,
         );
         self::assertEquals(
-            (int) $normalizer->unsigned($normalizer->int($company->companyKpis->activeAssetsOnContract)),
+            $company->companyKpis->activeAssetsOnContract ?? 0,
             $customer->kpi->assets_active_on_contract,
         );
         self::assertEquals(
-            (int) $normalizer->unsigned($normalizer->int($company->companyKpis->activeAssetsOnWarranty)),
+            $company->companyKpis->activeAssetsOnWarranty ?? 0,
             $customer->kpi->assets_active_on_warranty,
         );
         self::assertEquals(
-            (int) $normalizer->unsigned($normalizer->int($company->companyKpis->activeExposedAssets)),
+            $company->companyKpis->activeExposedAssets ?? 0,
             $customer->kpi->assets_active_exposed,
         );
         self::assertEquals(
-            (float) $normalizer->unsigned($normalizer->float($company->companyKpis->serviceRevenueTotalAmount)),
+            $company->companyKpis->serviceRevenueTotalAmount ?? 0,
             $customer->kpi->service_revenue_total_amount,
         );
         self::assertEquals(
-            (float) $normalizer->unsigned($normalizer->float($company->companyKpis->serviceRevenueTotalAmountChange)),
+            $company->companyKpis->serviceRevenueTotalAmountChange ?? 0,
             $customer->kpi->service_revenue_total_amount_change,
         );
 

@@ -25,89 +25,36 @@ trait WithKpi {
         $kpi = null;
 
         if ($kpis) {
-            $normalizer = $this->getNormalizer();
-            $kpi        = ($owner->exists || $owner->relationLoaded('kpi') ? $owner->kpi : null) ?: new Kpi();
-            $exists     = $kpi->exists;
+            $kpi    = ($owner->exists || $owner->relationLoaded('kpi') ? $owner->kpi : null) ?: new Kpi();
+            $exists = $kpi->exists;
 
             try {
-                $kpi->assets_total                        = (int) $normalizer->unsigned($normalizer->int(
-                    $kpis->totalAssets ?? null,
-                ));
-                $kpi->assets_active                       = (int) $normalizer->unsigned($normalizer->int(
-                    $kpis->activeAssets ?? null,
-                ));
-                $kpi->assets_active_percent               = (float) $normalizer->unsigned($normalizer->float(
-                    $kpis->activeAssetsPercentage ?? null,
-                ));
-                $kpi->assets_active_on_contract           = (int) $normalizer->unsigned($normalizer->int(
-                    $kpis->activeAssetsOnContract ?? null,
-                ));
-                $kpi->assets_active_on_warranty           = (int) $normalizer->unsigned($normalizer->int(
-                    $kpis->activeAssetsOnWarranty ?? null,
-                ));
-                $kpi->assets_active_exposed               = (int) $normalizer->unsigned($normalizer->int(
-                    $kpis->activeExposedAssets ?? null,
-                ));
-                $kpi->customers_active                    = (int) $normalizer->unsigned($normalizer->int(
-                    $kpis->activeCustomers ?? null,
-                ));
-                $kpi->customers_active_new                = (int) $normalizer->unsigned($normalizer->int(
-                    $kpis->newActiveCustomers ?? null,
-                ));
-                $kpi->contracts_active                    = (int) $normalizer->unsigned($normalizer->int(
-                    $kpis->activeContracts ?? null,
-                ));
-                $kpi->contracts_active_amount             = (float) $normalizer->unsigned($normalizer->float(
-                    $kpis->activeContractTotalAmount ?? null,
-                ));
-                $kpi->contracts_active_new                = (int) $normalizer->unsigned($normalizer->int(
-                    $kpis->newActiveContracts ?? null,
-                ));
-                $kpi->contracts_expiring                  = (int) $normalizer->unsigned($normalizer->int(
-                    $kpis->expiringContracts ?? null,
-                ));
-                $kpi->contracts_expired                   = (int) $normalizer->unsigned($normalizer->int(
-                    $kpis->expiredContracts ?? null,
-                ));
-                $kpi->quotes_active                       = (int) $normalizer->unsigned($normalizer->int(
-                    $kpis->activeQuotes ?? null,
-                ));
-                $kpi->quotes_active_amount                = (float) $normalizer->unsigned($normalizer->float(
-                    $kpis->activeQuotesTotalAmount ?? null,
-                ));
-                $kpi->quotes_active_new                   = (int) $normalizer->unsigned($normalizer->int(
-                    $kpis->newActiveQuotes ?? null,
-                ));
-                $kpi->quotes_expiring                     = (int) $normalizer->unsigned($normalizer->int(
-                    $kpis->expiringQuotes ?? null,
-                ));
-                $kpi->quotes_expired                      = (int) $normalizer->unsigned($normalizer->int(
-                    $kpis->expiredQuotes ?? null,
-                ));
-                $kpi->quotes_ordered                      = (int) $normalizer->unsigned($normalizer->int(
-                    $kpis->orderedQuotes ?? null,
-                ));
-                $kpi->quotes_accepted                     = (int) $normalizer->unsigned($normalizer->int(
-                    $kpis->acceptedQuotes ?? null,
-                ));
-                $kpi->quotes_requested                    = (int) $normalizer->unsigned($normalizer->int(
-                    $kpis->requestedQuotes ?? null,
-                ));
-                $kpi->quotes_received                     = (int) $normalizer->unsigned($normalizer->int(
-                    $kpis->receivedQuotes ?? null,
-                ));
-                $kpi->quotes_rejected                     = (int) $normalizer->unsigned($normalizer->int(
-                    $kpis->rejectedQuotes ?? null,
-                ));
-                $kpi->quotes_awaiting                     = (int) $normalizer->unsigned($normalizer->int(
-                    $kpis->awaitingQuotes ?? null,
-                ));
-                $kpi->service_revenue_total_amount        = (float) $normalizer->unsigned($normalizer->float(
-                    $kpis->serviceRevenueTotalAmount ?? null,
-                ));
-                $kpi->service_revenue_total_amount_change = (float) $normalizer->float(
-                    $kpis->serviceRevenueTotalAmountChange ?? null,
-                );
+                $kpi->assets_total                        = $kpis->totalAssets ?? 0;
+                $kpi->assets_active                       = $kpis->activeAssets ?? 0;
+                $kpi->assets_active_percent               = $kpis->activeAssetsPercentage ?? 0;
+                $kpi->assets_active_on_contract           = $kpis->activeAssetsOnContract ?? 0;
+                $kpi->assets_active_on_warranty           = $kpis->activeAssetsOnWarranty ?? 0;
+                $kpi->assets_active_exposed               = $kpis->activeExposedAssets ?? 0;
+                $kpi->customers_active                    = $kpis->activeCustomers ?? 0;
+                $kpi->customers_active_new                = $kpis->newActiveCustomers ?? 0;
+                $kpi->contracts_active                    = $kpis->activeContracts ?? 0;
+                $kpi->contracts_active_amount             = $kpis->activeContractTotalAmount ?? 0;
+                $kpi->contracts_active_new                = $kpis->newActiveContracts ?? 0;
+                $kpi->contracts_expiring                  = $kpis->expiringContracts ?? 0;
+                $kpi->contracts_expired                   = $kpis->expiredContracts ?? 0;
+                $kpi->quotes_active                       = $kpis->activeQuotes ?? 0;
+                $kpi->quotes_active_amount                = $kpis->activeQuotesTotalAmount ?? 0;
+                $kpi->quotes_active_new                   = $kpis->newActiveQuotes ?? 0;
+                $kpi->quotes_expiring                     = $kpis->expiringQuotes ?? 0;
+                $kpi->quotes_expired                      = $kpis->expiredQuotes ?? 0;
+                $kpi->quotes_ordered                      = $kpis->orderedQuotes ?? 0;
+                $kpi->quotes_accepted                     = $kpis->acceptedQuotes ?? 0;
+                $kpi->quotes_requested                    = $kpis->requestedQuotes ?? 0;
+                $kpi->quotes_received                     = $kpis->receivedQuotes ?? 0;
+                $kpi->quotes_rejected                     = $kpis->rejectedQuotes ?? 0;
+                $kpi->quotes_awaiting                     = $kpis->awaitingQuotes ?? 0;
+                $kpi->service_revenue_total_amount        = $kpis->serviceRevenueTotalAmount ?? 0.0;
+                $kpi->service_revenue_total_amount_change = $kpis->serviceRevenueTotalAmountChange ?? 0.0;
 
                 $kpi->save();
             } catch (Exception $exception) {

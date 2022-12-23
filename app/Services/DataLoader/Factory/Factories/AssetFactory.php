@@ -211,7 +211,7 @@ class AssetFactory extends ModelFactory {
             $model->changed_at                = $asset->updatedAt;
             $model->serial_number             = $normalizer->string($asset->serialNumber);
             $model->data_quality              = $normalizer->string($asset->dataQualityScore);
-            $model->contracts_active_quantity = $normalizer->int($asset->activeContractQuantitySum);
+            $model->contracts_active_quantity = $asset->activeContractQuantitySum;
             $model->contacts                  = $this->objectContacts($model, (array) $asset->latestContactPersons);
             $model->tags                      = $this->assetTags($asset);
             $model->coverages                 = $this->assetCoverages($asset);

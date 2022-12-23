@@ -4,6 +4,7 @@ namespace App\Services\DataLoader\Schema;
 
 use App\Services\DataLoader\Normalizer\Normalizers\DateTimeNormalizer;
 use App\Services\DataLoader\Normalizer\Normalizers\StringNormalizer;
+use App\Services\DataLoader\Normalizer\Normalizers\UnsignedIntNormalizer;
 use App\Services\DataLoader\Normalizer\Normalizers\UuidNormalizer;
 use App\Utils\JsonObject\JsonObjectArray;
 use App\Utils\JsonObject\JsonObjectNormalizer;
@@ -34,11 +35,11 @@ class ViewAsset extends Type implements TypeWithKey {
 
     #[JsonObjectNormalizer(DateTimeNormalizer::class)]
     public ?CarbonImmutable $eoslDate;
-    public ?string $zip;
-    public ?string $city;
-    public ?string $address;
-    public ?string $address2;
-    public ?string $country;
+    public ?string          $zip;
+    public ?string          $city;
+    public ?string          $address;
+    public ?string          $address2;
+    public ?string          $country;
 
     #[JsonObjectNormalizer(StringNormalizer::class)]
     public ?string $latitude;
@@ -57,7 +58,9 @@ class ViewAsset extends Type implements TypeWithKey {
      */
     public ?array $assetCoverage;
     public string $dataQualityScore;
-    public ?int   $activeContractQuantitySum;
+
+    #[JsonObjectNormalizer(UnsignedIntNormalizer::class)]
+    public ?int $activeContractQuantitySum;
 
     /**
      * @var array<ViewAssetDocument>

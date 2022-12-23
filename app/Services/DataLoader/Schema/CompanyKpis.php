@@ -2,6 +2,9 @@
 
 namespace App\Services\DataLoader\Schema;
 
+use App\Services\DataLoader\Normalizer\Normalizers\FloatNormalizer;
+use App\Services\DataLoader\Normalizer\Normalizers\UnsignedFloatNormalizer;
+use App\Services\DataLoader\Normalizer\Normalizers\UnsignedIntNormalizer;
 use App\Services\DataLoader\Normalizer\Normalizers\UuidNormalizer;
 use App\Utils\JsonObject\JsonObjectNormalizer;
 
@@ -9,30 +12,81 @@ class CompanyKpis extends Type {
     #[JsonObjectNormalizer(UuidNormalizer::class)]
     public ?string $resellerId;
 
-    public ?int    $totalAssets;
-    public ?int    $activeAssets;
-    public ?float  $activeAssetsPercentage;
-    public ?int    $activeCustomers;
-    public ?int    $newActiveCustomers;
-    public ?int    $activeContracts;
-    public ?float  $activeContractTotalAmount;
-    public ?int    $newActiveContracts;
-    public ?int    $expiringContracts;
-    public ?int    $activeQuotes;
-    public ?float  $activeQuotesTotalAmount;
-    public ?int    $newActiveQuotes;
-    public ?int    $expiringQuotes;
-    public ?int    $expiredQuotes;
-    public ?int    $expiredContracts;
-    public ?int    $orderedQuotes;
-    public ?int    $acceptedQuotes;
-    public ?int    $requestedQuotes;
-    public ?int    $receivedQuotes;
-    public ?int    $rejectedQuotes;
-    public ?int    $awaitingQuotes;
-    public ?int    $activeAssetsOnContract;
-    public ?int    $activeAssetsOnWarranty;
-    public ?int    $activeExposedAssets;
-    public ?float  $serviceRevenueTotalAmount;
-    public ?float  $serviceRevenueTotalAmountChange;
+    #[JsonObjectNormalizer(UnsignedIntNormalizer::class)]
+    public ?int $totalAssets;
+
+    #[JsonObjectNormalizer(UnsignedIntNormalizer::class)]
+    public ?int $activeAssets;
+
+    #[JsonObjectNormalizer(UnsignedFloatNormalizer::class)]
+    public ?float $activeAssetsPercentage;
+
+    #[JsonObjectNormalizer(UnsignedIntNormalizer::class)]
+    public ?int $activeCustomers;
+
+    #[JsonObjectNormalizer(UnsignedIntNormalizer::class)]
+    public ?int $newActiveCustomers;
+
+    #[JsonObjectNormalizer(UnsignedIntNormalizer::class)]
+    public ?int $activeContracts;
+
+    #[JsonObjectNormalizer(UnsignedFloatNormalizer::class)]
+    public ?float $activeContractTotalAmount;
+
+    #[JsonObjectNormalizer(UnsignedIntNormalizer::class)]
+    public ?int $newActiveContracts;
+
+    #[JsonObjectNormalizer(UnsignedIntNormalizer::class)]
+    public ?int $expiringContracts;
+
+    #[JsonObjectNormalizer(UnsignedIntNormalizer::class)]
+    public ?int $activeQuotes;
+
+    #[JsonObjectNormalizer(UnsignedFloatNormalizer::class)]
+    public ?float $activeQuotesTotalAmount;
+
+    #[JsonObjectNormalizer(UnsignedIntNormalizer::class)]
+    public ?int $newActiveQuotes;
+
+    #[JsonObjectNormalizer(UnsignedIntNormalizer::class)]
+    public ?int $expiringQuotes;
+
+    #[JsonObjectNormalizer(UnsignedIntNormalizer::class)]
+    public ?int $expiredQuotes;
+
+    #[JsonObjectNormalizer(UnsignedIntNormalizer::class)]
+    public ?int $expiredContracts;
+
+    #[JsonObjectNormalizer(UnsignedIntNormalizer::class)]
+    public ?int $orderedQuotes;
+
+    #[JsonObjectNormalizer(UnsignedIntNormalizer::class)]
+    public ?int $acceptedQuotes;
+
+    #[JsonObjectNormalizer(UnsignedIntNormalizer::class)]
+    public ?int $requestedQuotes;
+
+    #[JsonObjectNormalizer(UnsignedIntNormalizer::class)]
+    public ?int $receivedQuotes;
+
+    #[JsonObjectNormalizer(UnsignedIntNormalizer::class)]
+    public ?int $rejectedQuotes;
+
+    #[JsonObjectNormalizer(UnsignedIntNormalizer::class)]
+    public ?int $awaitingQuotes;
+
+    #[JsonObjectNormalizer(UnsignedIntNormalizer::class)]
+    public ?int $activeAssetsOnContract;
+
+    #[JsonObjectNormalizer(UnsignedIntNormalizer::class)]
+    public ?int $activeAssetsOnWarranty;
+
+    #[JsonObjectNormalizer(UnsignedIntNormalizer::class)]
+    public ?int $activeExposedAssets;
+
+    #[JsonObjectNormalizer(UnsignedFloatNormalizer::class)]
+    public ?float $serviceRevenueTotalAmount;
+
+    #[JsonObjectNormalizer(FloatNormalizer::class)]
+    public ?float $serviceRevenueTotalAmountChange;
 }
