@@ -117,13 +117,13 @@ class AssetFactoryTest extends TestCase {
         self::assertEquals($asset->serialNumber, $created->serial_number);
         self::assertEquals($asset->dataQualityScore, $created->data_quality);
         self::assertEquals($asset->activeContractQuantitySum, $created->contracts_active_quantity);
-        self::assertEquals($asset->updatedAt, $this->getDatetime($created->changed_at));
+        self::assertEquals($asset->updatedAt, $created->changed_at);
         self::assertEquals($asset->vendor, $created->oem->key ?? null);
         self::assertEquals($asset->assetSkuDescription, $created->product->name ?? null);
         self::assertEquals($asset->assetSku, $created->product->sku ?? null);
         self::assertNull($created->product->eos ?? null);
-        self::assertEquals($asset->eosDate, (string) ($created->product->eos ?? null));
-        self::assertEquals($asset->eolDate, $this->getDatetime($created->product->eol ?? null));
+        self::assertEquals($asset->eosDate, $created->product->eos ?? null);
+        self::assertEquals($asset->eolDate, $created->product->eol ?? null);
         self::assertNull($created->eosl);
         self::assertEquals($asset->assetType, $created->type->key ?? null);
         self::assertEquals($asset->status, $created->status->key ?? null);
@@ -267,14 +267,14 @@ class AssetFactoryTest extends TestCase {
         self::assertEquals($asset->serialNumber, $updated->serial_number);
         self::assertEquals($asset->dataQualityScore, $updated->data_quality);
         self::assertEquals($asset->activeContractQuantitySum, $updated->contracts_active_quantity);
-        self::assertEquals($asset->updatedAt, $this->getDatetime($updated->changed_at));
+        self::assertEquals($asset->updatedAt, $updated->changed_at);
         self::assertEquals($asset->vendor, $updated->oem->key ?? null);
         self::assertNotNull($created->product);
         self::assertEquals($created->product->name, $updated->product->name ?? null);
         self::assertEquals($asset->assetSku, $updated->product->sku ?? null);
-        self::assertEquals($asset->eosDate, $this->getDatetime($updated->product->eos ?? null));
-        self::assertEquals($asset->eolDate, $this->getDatetime($updated->product->eol ?? null));
-        self::assertEquals($asset->eoslDate, $this->getDatetime($updated->eosl));
+        self::assertEquals($asset->eosDate, $updated->product->eos ?? null);
+        self::assertEquals($asset->eolDate, $updated->product->eol ?? null);
+        self::assertEquals($asset->eoslDate, $updated->eosl);
         self::assertEquals($asset->assetType, $updated->type->key ?? null);
         self::assertEquals($asset->customerId, $updated->customer?->getKey());
         self::assertNotNull($updated->warranty_end);
@@ -364,8 +364,8 @@ class AssetFactoryTest extends TestCase {
         self::assertEquals($asset->assetSkuDescription, $created->product->name ?? null);
         self::assertEquals($asset->assetSku, $created->product->sku ?? null);
         self::assertNull($created->product->eos ?? null);
-        self::assertEquals($asset->eosDate, (string) ($created->product->eos ?? null));
-        self::assertEquals($asset->eolDate, (string) ($created->product->eol ?? null));
+        self::assertEquals($asset->eosDate, $created->product->eos ?? null);
+        self::assertEquals($asset->eolDate, $created->product->eol ?? null);
         self::assertEquals($asset->assetType, $created->type->key ?? null);
         self::assertNull($created->customer_id);
         self::assertNull($created->location_id);
@@ -674,15 +674,9 @@ class AssetFactoryTest extends TestCase {
         ]);
         $documentsWarranties = EloquentCollection::make([$documentsWarranty]);
 
-        $normalizer = $this->app->make(Normalizer::class);
-        $factory    = Mockery::mock(AssetFactory::class);
+        $factory = Mockery::mock(AssetFactory::class);
         $factory->shouldAllowMockingProtectedMethods();
         $factory->makePartial();
-        $factory
-            ->shouldReceive('getNormalizer')
-            ->atLeast()
-            ->once()
-            ->andReturn($normalizer);
         $factory
             ->shouldReceive('assetWarrantiesCoverages')
             ->with($model, $asset, Mockery::on(static function (mixed $existing) use ($coveragesWarranties): bool {
@@ -728,15 +722,9 @@ class AssetFactoryTest extends TestCase {
             'document_number' => $this->faker->uuid(),
         ]);
 
-        $normalizer = $this->app->make(Normalizer::class);
-        $factory    = Mockery::mock(AssetFactory::class);
+        $factory = Mockery::mock(AssetFactory::class);
         $factory->shouldAllowMockingProtectedMethods();
         $factory->makePartial();
-        $factory
-            ->shouldReceive('getNormalizer')
-            ->atLeast()
-            ->once()
-            ->andReturn($normalizer);
         $factory
             ->shouldReceive('assetWarrantiesCoverages')
             ->never();
@@ -1591,8 +1579,8 @@ class AssetFactoryTest extends TestCase {
             (clone $warrantyShouldBeUpdated)->forceFill([
                 'key'         => (string) new Key($normalizer, [
                     'type'  => $entryShouldBeUpdated->type,
-                    'start' => $normalizer->datetime($entryShouldBeUpdated->coverageStartDate),
-                    'end'   => $normalizer->datetime($entryShouldBeUpdated->coverageEndDate),
+                    'start' => $entryShouldBeUpdated->coverageStartDate,
+                    'end'   => $entryShouldBeUpdated->coverageEndDate,
                 ]),
                 'status_id'   => $status->getKey(),
                 'description' => $entryShouldBeUpdated->description,
@@ -1600,11 +1588,11 @@ class AssetFactoryTest extends TestCase {
             (clone $warrantyShouldBeReused)->forceFill([
                 'key'         => (string) new Key($normalizer, [
                     'type'  => $entryShouldBeCreated->type,
-                    'start' => $normalizer->datetime($entryShouldBeCreated->coverageStartDate),
-                    'end'   => $normalizer->datetime($entryShouldBeCreated->coverageEndDate),
+                    'start' => $entryShouldBeCreated->coverageStartDate,
+                    'end'   => $entryShouldBeCreated->coverageEndDate,
                 ]),
-                'start'       => $normalizer->datetime($entryShouldBeCreated->coverageStartDate),
-                'end'         => $normalizer->datetime($entryShouldBeCreated->coverageEndDate),
+                'start'       => $entryShouldBeCreated->coverageStartDate,
+                'end'         => $entryShouldBeCreated->coverageEndDate,
                 'type_id'     => $type->getKey(),
                 'status_id'   => $status->getKey(),
                 'description' => $entryShouldBeCreated->description,

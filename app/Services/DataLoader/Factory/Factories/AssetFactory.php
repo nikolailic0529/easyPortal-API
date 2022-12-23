@@ -207,8 +207,8 @@ class AssetFactory extends ModelFactory {
             $model->reseller                  = $this->reseller($asset);
             $model->customer                  = $this->customer($asset);
             $model->location                  = $this->assetLocation($asset);
-            $model->eosl                      = $normalizer->datetime($asset->eosDate);
-            $model->changed_at                = $normalizer->datetime($asset->updatedAt);
+            $model->eosl                      = $asset->eosDate;
+            $model->changed_at                = $asset->updatedAt;
             $model->serial_number             = $normalizer->string($asset->serialNumber);
             $model->data_quality              = $normalizer->string($asset->dataQualityScore);
             $model->contracts_active_quantity = $normalizer->int($asset->activeContractQuantitySum);
@@ -222,7 +222,6 @@ class AssetFactory extends ModelFactory {
             }
 
             $warrantyChangedAt          = $asset->coverageStatusCheck->coverageStatusUpdatedAt ?? null;
-            $warrantyChangedAt          = $normalizer->datetime($warrantyChangedAt);
             $model->warranties          = $this->assetWarranties($model, $asset);
             $model->warranty_changed_at = max($warrantyChangedAt, $model->warranty_changed_at);
 
@@ -275,7 +274,7 @@ class AssetFactory extends ModelFactory {
 
         // Normal
         if (isset($asset->coverageStatusCheck)) {
-            $warrantyChangedAt = $this->getNormalizer()->datetime($asset->coverageStatusCheck->coverageStatusUpdatedAt);
+            $warrantyChangedAt = $asset->coverageStatusCheck->coverageStatusUpdatedAt;
 
             if ($model->warranty_changed_at <= $warrantyChangedAt) {
                 $coverages = $this->assetWarrantiesCoverages($model, $asset, $coverages);
@@ -326,19 +325,15 @@ class AssetFactory extends ModelFactory {
 
     protected function assetWarranty(Asset $model, CoverageEntry $entry, ?AssetWarranty $warranty): ?AssetWarranty {
         // Empty?
-        $normalizer = $this->getNormalizer();
-        $start      = $normalizer->datetime($entry->coverageStartDate);
-        $end        = $normalizer->datetime($entry->coverageEndDate);
-
-        if ($entry->description === null && $start === null && $end === null) {
+        if ($entry->description === null && $entry->coverageStartDate === null && $entry->coverageEndDate === null) {
             return null;
         }
 
         // Create
         $warranty                ??= new AssetWarranty();
         $warranty->key             = $this->getWarrantyKey($entry);
-        $warranty->start           = $start;
-        $warranty->end             = $end;
+        $warranty->start           = $entry->coverageStartDate;
+        $warranty->end             = $entry->coverageEndDate;
         $warranty->asset           = $model;
         $warranty->type            = $this->type($warranty, $entry->type);
         $warranty->status          = $this->status($warranty, $entry->status);
@@ -417,16 +412,11 @@ class AssetFactory extends ModelFactory {
             ): ?AssetWarranty {
                 try {
                     // Valid?
-                    $normalizer = $this->getNormalizer();
-                    $number     = $assetDocument->documentNumber;
-                    $group      = $this->assetDocumentServiceGroup($model, $assetDocument);
-                    $level      = $this->assetDocumentServiceLevel($model, $assetDocument);
-                    $start      = $normalizer->datetime(
-                        $assetDocument->startDate ?? $assetDocument->document->startDate ?? null,
-                    );
-                    $end        = $normalizer->datetime(
-                        $assetDocument->endDate ?? $assetDocument->document->endDate ?? null,
-                    );
+                    $number = $assetDocument->documentNumber;
+                    $group  = $this->assetDocumentServiceGroup($model, $assetDocument);
+                    $level  = $this->assetDocumentServiceLevel($model, $assetDocument);
+                    $start  = $assetDocument->startDate ?? $assetDocument->document->startDate ?? null;
+                    $end    = $assetDocument->endDate ?? $assetDocument->document->endDate ?? null;
 
                     if (!($number && ($start !== null || $end !== null) && ($group !== null || $level !== null))) {
                         return null;
@@ -585,8 +575,8 @@ class AssetFactory extends ModelFactory {
         } elseif ($warranty instanceof CoverageEntry) {
             $key = new Key($normalizer, [
                 'type'  => $normalizer->string($warranty->type),
-                'start' => $normalizer->datetime($warranty->coverageStartDate),
-                'end'   => $normalizer->datetime($warranty->coverageEndDate),
+                'start' => $warranty->coverageStartDate,
+                'end'   => $warranty->coverageEndDate,
             ]);
         } else {
             $key = new Key($normalizer, [
@@ -597,12 +587,8 @@ class AssetFactory extends ModelFactory {
                 'customer'     => $warranty->customer->id ?? null,
                 'serviceGroup' => $normalizer->string($warranty->serviceGroupSku),
                 'serviceLevel' => $normalizer->string($warranty->serviceLevelSku),
-                'start'        => $normalizer->datetime(
-                    $warranty->startDate ?? $warranty->document->startDate ?? null,
-                ),
-                'end'          => $normalizer->datetime(
-                    $warranty->endDate ?? $warranty->document->endDate ?? null,
-                ),
+                'start'        => $warranty->startDate ?? $warranty->document->startDate ?? null,
+                'end'          => $warranty->endDate ?? $warranty->document->endDate ?? null,
             ]);
         }
 

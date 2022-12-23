@@ -25,9 +25,7 @@ class DateTimeNormalizerTest extends TestCase {
         ]);
 
         $actual = DateTimeNormalizer::normalize($value);
-        $actual = $actual
-            ? $actual->format(DateTimeInterface::RFC3339_EXTENDED)
-            : null;
+        $actual = $actual?->format(DateTimeInterface::RFC3339_EXTENDED);
 
         self::assertEquals($expected, $actual);
     }
@@ -94,6 +92,21 @@ class DateTimeNormalizerTest extends TestCase {
                 null,
                 null,
                 '2102d',
+            ],
+            'ISO + Europe/Moscow'          => [
+                '2102-12-02T04:12:01.000+03:00',
+                'Europe/Moscow',
+                '2102-12-02T01:12:01+00:00',
+            ],
+            'ISO + UTC'                    => [
+                '2102-12-01T22:12:01.000+00:00',
+                'UTC',
+                '2102-12-01T22:12:01+00:00',
+            ],
+            'ISO + null'                   => [
+                '2102-12-01T22:12:01.000+00:00',
+                null,
+                '2102-12-01T22:12:01+00:00',
             ],
         ];
     }

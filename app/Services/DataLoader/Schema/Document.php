@@ -2,10 +2,12 @@
 
 namespace App\Services\DataLoader\Schema;
 
+use App\Services\DataLoader\Normalizer\Normalizers\DateTimeNormalizer;
 use App\Services\DataLoader\Normalizer\Normalizers\DecimalNormalizer;
 use App\Services\DataLoader\Normalizer\Normalizers\UuidNormalizer;
 use App\Utils\JsonObject\JsonObjectArray;
 use App\Utils\JsonObject\JsonObjectNormalizer;
+use Carbon\CarbonImmutable;
 
 class Document extends Type implements TypeWithKey {
     #[JsonObjectNormalizer(UuidNormalizer::class)]
@@ -13,15 +15,22 @@ class Document extends Type implements TypeWithKey {
 
     public ?string $type;
     public ?string $documentNumber;
-    public ?string $startDate;
-    public ?string $endDate;
+
+    #[JsonObjectNormalizer(DateTimeNormalizer::class)]
+    public ?CarbonImmutable $startDate;
+
+    #[JsonObjectNormalizer(DateTimeNormalizer::class)]
+    public ?CarbonImmutable $endDate;
+
     public ?string $currencyCode;
 
     #[JsonObjectNormalizer(DecimalNormalizer::class)]
     public ?string $totalNetPrice;
 
     public ?string $languageCode;
-    public ?string $updatedAt;
+
+    #[JsonObjectNormalizer(DateTimeNormalizer::class)]
+    public ?CarbonImmutable $updatedAt;
 
     #[JsonObjectNormalizer(UuidNormalizer::class)]
     public ?string $resellerId;

@@ -2,10 +2,12 @@
 
 namespace App\Services\DataLoader\Schema;
 
+use App\Services\DataLoader\Normalizer\Normalizers\DateTimeNormalizer;
 use App\Services\DataLoader\Normalizer\Normalizers\DecimalNormalizer;
 use App\Services\DataLoader\Normalizer\Normalizers\TextNormalizer;
 use App\Services\DataLoader\Normalizer\Normalizers\UuidNormalizer;
 use App\Utils\JsonObject\JsonObjectNormalizer;
+use Carbon\CarbonImmutable;
 
 class DocumentEntry extends Type {
     public ?string $assetDocumentId;
@@ -21,8 +23,12 @@ class DocumentEntry extends Type {
     #[JsonObjectNormalizer(TextNormalizer::class)]
     public ?string $serviceFullDescription;
 
-    public ?string $startDate;
-    public ?string $endDate;
+    #[JsonObjectNormalizer(DateTimeNormalizer::class)]
+    public ?CarbonImmutable $startDate;
+
+    #[JsonObjectNormalizer(DateTimeNormalizer::class)]
+    public ?CarbonImmutable $endDate;
+
     public ?string $currencyCode;
     public ?string $languageCode;
 
@@ -48,5 +54,7 @@ class DocumentEntry extends Type {
     public ?string $sarNumber;
     public ?string $pspId;
     public ?string $pspName;
-    public ?string $deletedAt;
+
+    #[JsonObjectNormalizer(DateTimeNormalizer::class)]
+    public ?CarbonImmutable $deletedAt;
 }

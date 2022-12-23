@@ -297,7 +297,7 @@
         "query": "update `document_entries` set `asset_id` = ?, `document_entries`.`updated_at` = ? where `id` = ?",
         "bindings": [
             "badaad57-bac0-45fe-aa6e-c39adfa2cd50",
-            "2022-02-02 00:11:04",
+            "2022-02-02 00:11:13",
             "79b19627-d3f6-5cd1-970f-3a0477843729"
         ]
     },
@@ -305,7 +305,7 @@
         "query": "update `document_entries` set `asset_id` = ?, `document_entries`.`updated_at` = ? where `id` = ?",
         "bindings": [
             "66d66425-88eb-4e21-8626-442673272cc9",
-            "2022-02-02 00:11:12",
+            "2022-02-02 00:11:21",
             "c033225d-8d06-53e4-bd90-3496c4c25907"
         ]
     },
@@ -840,7 +840,7 @@
         "query": "update `document_entries` set `asset_id` = ?, `document_entries`.`updated_at` = ? where `id` = ?",
         "bindings": [
             "3214e980-4568-4a93-89b4-606adb49f0d5",
-            "2022-02-02 00:13:24",
+            "2022-02-02 00:13:33",
             "5c2354ec-f597-51e5-95e7-d5db51674421"
         ]
     },
@@ -848,7 +848,7 @@
         "query": "update `document_entries` set `asset_id` = ?, `document_entries`.`updated_at` = ? where `id` = ?",
         "bindings": [
             "11da3841-4aab-46fc-91c5-d93274ea2d78",
-            "2022-02-02 00:13:32",
+            "2022-02-02 00:13:41",
             "f3d4e786-03ea-5036-9ff5-041546fcad82"
         ]
     },

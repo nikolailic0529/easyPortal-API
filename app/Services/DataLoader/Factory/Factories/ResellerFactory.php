@@ -80,7 +80,7 @@ class ResellerFactory extends CompanyFactory {
             $normalizer           = $this->getNormalizer();
             $reseller->id         = $company->id;
             $reseller->name       = $normalizer->string($company->name);
-            $reseller->changed_at = $normalizer->datetime($company->updatedAt);
+            $reseller->changed_at = $company->updatedAt;
             $reseller->statuses   = $this->companyStatuses($reseller, $company);
             $reseller->contacts   = $this->objectContacts($reseller, $company->companyContactPersons);
             $reseller->locations  = $this->companyLocations($reseller, $company->locations);

@@ -2,9 +2,11 @@
 
 namespace App\Services\DataLoader\Schema;
 
+use App\Services\DataLoader\Normalizer\Normalizers\DateTimeNormalizer;
 use App\Services\DataLoader\Normalizer\Normalizers\UuidNormalizer;
 use App\Utils\JsonObject\JsonObjectArray;
 use App\Utils\JsonObject\JsonObjectNormalizer;
+use Carbon\CarbonImmutable;
 
 class Company extends Type implements TypeWithKey {
     #[JsonObjectNormalizer(UuidNormalizer::class)]
@@ -12,7 +14,10 @@ class Company extends Type implements TypeWithKey {
 
     public string  $name;
     public ?string $companyType;
-    public ?string $updatedAt;
+
+    #[JsonObjectNormalizer(DateTimeNormalizer::class)]
+    public ?CarbonImmutable $updatedAt;
+
     public ?string $keycloakName;
 
     #[JsonObjectNormalizer(UuidNormalizer::class)]

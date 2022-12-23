@@ -7,6 +7,7 @@ use App\Models\Data\Product;
 use App\Services\DataLoader\Factory\Factory;
 use App\Services\DataLoader\Normalizer\Normalizer;
 use App\Services\DataLoader\Resolver\Resolvers\ProductResolver;
+use Carbon\CarbonImmutable;
 
 /**
  * @mixin Factory
@@ -20,8 +21,8 @@ trait WithProduct {
         Oem $oem,
         string $sku,
         ?string $name,
-        ?string $eol,
-        ?string $eos,
+        ?CarbonImmutable $eol,
+        ?CarbonImmutable $eos,
     ): Product {
         // Get/Create
         $sku     = $this->getNormalizer()->string($sku);
@@ -31,8 +32,8 @@ trait WithProduct {
             $normalizer   = $this->getNormalizer();
             $product->oem = $oem;
             $product->sku = $sku;
-            $product->eol = $normalizer->datetime($eol);
-            $product->eos = $normalizer->datetime($eos);
+            $product->eol = $eol;
+            $product->eos = $eos;
 
             if ($created || !$product->name) {
                 // Product name may be inconsistent, eg

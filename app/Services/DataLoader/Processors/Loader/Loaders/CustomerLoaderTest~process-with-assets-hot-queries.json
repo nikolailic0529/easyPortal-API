@@ -92,7 +92,7 @@
     {
         "query": "update `customers` set `synced_at` = ? where `id` in (?) and `customers`.`deleted_at` is null",
         "bindings": [
-            "2022-02-02T00:04:31+00:00",
+            "2022-02-02T00:04:07+00:00",
             "03ee438b-b478-4b4b-86bd-a495f3ab2880"
         ]
     },
@@ -250,7 +250,7 @@
     {
         "query": "update `assets` set `synced_at` = ? where `id` in (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) and `assets`.`deleted_at` is null",
         "bindings": [
-            "2022-02-02T00:08:02+00:00",
+            "2022-02-02T00:06:58+00:00",
             "1c130200-357f-445f-abc5-57808dc9e80d",
             "1fca119b-4657-4481-86dd-366df5b9c30e",
             "23637b07-98f9-4385-8293-77d72027d920",
@@ -267,14 +267,14 @@
         "query": "select count(*) as aggregate from `assets` where `customer_id` = ? and `synced_at` < ? and `assets`.`deleted_at` is null",
         "bindings": [
             "03ee438b-b478-4b4b-86bd-a495f3ab2880",
-            "2022-02-02T00:04:29+00:00"
+            "2022-02-02T00:04:05+00:00"
         ]
     },
     {
         "query": "select `assets`.* from `assets` where `customer_id` = ? and `synced_at` < ? and `assets`.`deleted_at` is null order by `assets`.`id` asc limit 250 offset 0",
         "bindings": [
             "03ee438b-b478-4b4b-86bd-a495f3ab2880",
-            "2022-02-02T00:04:29+00:00"
+            "2022-02-02T00:04:05+00:00"
         ]
     }
 ]

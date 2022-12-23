@@ -91,7 +91,7 @@
     {
         "query": "update `documents` set `synced_at` = ? where `id` in (?) and `documents`.`deleted_at` is null",
         "bindings": [
-            "2022-02-02T00:01:56+00:00",
+            "2022-02-02T00:02:00+00:00",
             "00122a07-53e5-4c70-ba6b-bf51fcdd6695"
         ]
     }

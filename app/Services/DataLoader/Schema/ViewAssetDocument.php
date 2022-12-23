@@ -2,8 +2,10 @@
 
 namespace App\Services\DataLoader\Schema;
 
+use App\Services\DataLoader\Normalizer\Normalizers\DateTimeNormalizer;
 use App\Services\DataLoader\Normalizer\Normalizers\TextNormalizer;
 use App\Utils\JsonObject\JsonObjectNormalizer;
+use Carbon\CarbonImmutable;
 
 class ViewAssetDocument extends Type {
     public ?string $serviceGroupSku;
@@ -16,9 +18,14 @@ class ViewAssetDocument extends Type {
 
     public ?string       $documentNumber;
     public ?ViewDocument $document;
-    public ?string       $startDate;
-    public ?string       $endDate;
-    public ?string       $deletedAt;
+
+    #[JsonObjectNormalizer(DateTimeNormalizer::class)]
+    public ?CarbonImmutable $startDate;
+
+    #[JsonObjectNormalizer(DateTimeNormalizer::class)]
+    public ?CarbonImmutable $endDate;
+
+    public ?string $deletedAt;
 
     public ?ViewCompany $reseller;
     public ?ViewCompany $customer;

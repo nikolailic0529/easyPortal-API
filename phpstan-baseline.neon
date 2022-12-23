@@ -2716,16 +2716,6 @@ parameters:
 			path: app/Services/DataLoader/Factory/Concerns/WithLocationsTest.php
 
 		-
-			message: "#^Cannot call method getTimestamp\\(\\) on Carbon\\\\CarbonImmutable\\|null\\.$#"
-			count: 2
-			path: app/Services/DataLoader/Factory/Concerns/WithProductTest.php
-
-		-
-			message: "#^Parameter \\#5 \\$eos of method class@anonymous/app/Services/DataLoader/Factory/Concerns/WithProductTest\\.php\\:32\\:\\:product\\(\\) expects string\\|null, mixed given\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Concerns/WithProductTest.php
-
-		-
 			message: "#^Method App\\\\Services\\\\DataLoader\\\\Factory\\\\Concerns\\\\WithResellerTest\\:\\:testResellerExistsThroughFinder\\(\\) has parameter \\$objectFactory with no signature specified for Closure\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Factory/Concerns/WithResellerTest.php
@@ -2864,6 +2854,16 @@ parameters:
 			message: "#^Parameter \\#1 \\$json of class App\\\\Services\\\\DataLoader\\\\Schema\\\\Company constructor expects array\\<string, mixed\\>, array\\|bool\\|float\\|int\\|string\\|null given\\.$#"
 			count: 6
 			path: app/Services/DataLoader/Factory/Factories/ResellerFactoryTest.php
+
+		-
+			message: "#^Instanceof between Carbon\\\\CarbonImmutable and Carbon\\\\CarbonImmutable will always evaluate to true\\.$#"
+			count: 1
+			path: app/Services/DataLoader/Normalizer/Normalizers/DateTimeNormalizer.php
+
+		-
+			message: "#^Result of && is always false\\.$#"
+			count: 1
+			path: app/Services/DataLoader/Normalizer/Normalizers/DateTimeNormalizer.php
 
 		-
 			message: "#^Cannot cast mixed to string\\.$#"

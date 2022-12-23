@@ -88,7 +88,7 @@ class CustomerFactoryTest extends TestCase {
         self::assertTrue($customer->wasRecentlyCreated);
         self::assertEquals($company->id, $customer->getKey());
         self::assertEquals($company->name, $customer->name);
-        self::assertEquals($company->updatedAt, $this->getDatetime($customer->changed_at));
+        self::assertEquals($company->updatedAt, $customer->changed_at);
         self::assertCount(2, $customer->statuses);
         self::assertEquals(2, $customer->statuses_count);
         self::assertEquals($this->getStatuses($company), $this->getModelStatuses($customer));
@@ -227,7 +227,7 @@ class CustomerFactoryTest extends TestCase {
         self::assertSame($customer, $updated);
         self::assertEquals($company->id, $updated->getKey());
         self::assertEquals($company->name, $updated->name);
-        self::assertEquals($company->updatedAt, $this->getDatetime($updated->changed_at));
+        self::assertEquals($company->updatedAt, $updated->changed_at);
         self::assertCount(1, $updated->statuses);
         self::assertEquals(1, $updated->statuses_count);
         self::assertEquals($this->getStatuses($company), $this->getModelStatuses($updated));

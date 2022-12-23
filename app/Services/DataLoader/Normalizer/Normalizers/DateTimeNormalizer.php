@@ -24,11 +24,13 @@ class DateTimeNormalizer implements Normalizer {
                     $value = (Date::createFromFormat('Y-m-d', $value, 'UTC') ?: null)?->startOfDay();
                 } elseif (preg_match('|^\d{2}/\d{2}/\d{4}$|', $value)) {
                     $value = (Date::createFromFormat('d/m/Y', $value, 'UTC') ?: null)?->startOfDay();
+                } elseif (preg_match('|^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}\+\d{2}:\d{2}$|', $value)) {
+                    $value = Date::createFromFormat(DateTimeInterface::ATOM, $value);
                 } else {
-                    // empty
+                    $value = null;
                 }
             } else {
-                // empty
+                $value = null;
             }
         } else {
             $value = null;

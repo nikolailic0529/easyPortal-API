@@ -64,28 +64,28 @@ class WithProductTest extends TestCase {
                 $oem,
                 $product->sku,
                 $product->name,
-                "{$product->eol->getTimestamp()}000",
-                "{$product->eos->getTimestamp()}000",
+                $product->eol,
+                $product->eos,
             )->withoutRelations(),
         );
         self::assertCount(1, $queries);
 
         // If model exists and changed - it should be updated except `name`
         $queries = $this->getQueryLog()->flush();
-        $newEos  = $this->faker->randomElement(['', null]);
-        $newEol  = Date::now();
+        $newEos  = ($this->faker->boolean() ? Date::now() : null)?->startOfDay();
+        $newEol  = Date::now()->startOfDay();
         $newName = $this->faker->sentence();
         $updated = $factory->product(
             $oem,
             $product->sku,
             $newName,
-            "{$newEol->getTimestamp()}000",
+            $newEol,
             $newEos,
         );
 
         self::assertEquals($product->name, $updated->name);
-        self::assertEquals($newEol, $newEol);
-        self::assertNull($updated->eos);
+        self::assertEquals($newEol, $updated->eol);
+        self::assertEquals($newEos, $updated->eos);
 
         self::assertCount(1, $queries);
 
@@ -100,8 +100,8 @@ class WithProductTest extends TestCase {
             $oem,
             $product->sku,
             $newName,
-            (string) $product->eol?->getTimestampMs(),
-            (string) $product->eos?->getTimestampMs(),
+            $product->eol,
+            $product->eos,
         );
 
         self::assertEquals($newName, $updated->name);

@@ -97,7 +97,7 @@ class CustomerFactory extends CompanyFactory {
             $normalizer                = $this->getNormalizer();
             $customer->id              = $company->id;
             $customer->name            = $normalizer->string($company->name);
-            $customer->changed_at      = $normalizer->datetime($company->updatedAt);
+            $customer->changed_at      = $company->updatedAt;
             $customer->statuses        = $this->companyStatuses($customer, $company);
             $customer->contacts        = $this->objectContacts($customer, $company->companyContactPersons);
             $customer->locations       = $this->companyLocations($customer, $company->locations);

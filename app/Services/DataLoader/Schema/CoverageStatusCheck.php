@@ -2,11 +2,16 @@
 
 namespace App\Services\DataLoader\Schema;
 
+use App\Services\DataLoader\Normalizer\Normalizers\DateTimeNormalizer;
 use App\Utils\JsonObject\JsonObjectArray;
+use App\Utils\JsonObject\JsonObjectNormalizer;
+use Carbon\CarbonImmutable;
 
 class CoverageStatusCheck extends Type {
     public string $coverageStatus;
-    public string $coverageStatusUpdatedAt;
+
+    #[JsonObjectNormalizer(DateTimeNormalizer::class)]
+    public CarbonImmutable $coverageStatusUpdatedAt;
 
     /**
      * @var array<CoverageEntry>

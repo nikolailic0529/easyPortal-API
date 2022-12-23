@@ -122,9 +122,9 @@ class DocumentFactoryTest extends TestCase {
         self::assertEquals('0056523287', $created->number);
         self::assertNull($created->price);
         self::assertNull($created->price_origin);
-        self::assertNull($this->getDatetime($created->start));
+        self::assertNull($created->start);
         self::assertEquals('1614470400000', $this->getDatetime($created->end));
-        self::assertNull($this->getDatetime($created->changed_at));
+        self::assertNull($created->changed_at);
         self::assertEquals('HPE', $created->oem->key ?? null);
         self::assertEquals('MultiNational Quote', $created->type->key ?? null);
         self::assertEquals('CUR', $created->currency->code ?? null);
@@ -538,14 +538,14 @@ class DocumentFactoryTest extends TestCase {
         self::assertNull($entry->deleted_at);
 
         // Removing
-        $documentEntry->deletedAt = $this->getDatetime(Date::now());
+        $documentEntry->deletedAt = Date::now();
         $entry                    = $factory->documentEntry($document, $documentEntry, null);
 
         self::assertNotNull($entry->removed_at);
         self::assertNotNull($entry->deleted_at);
 
         // Removing (no update)
-        $documentEntry->deletedAt = $this->getDatetime(Date::now());
+        $documentEntry->deletedAt = Date::now();
         $date                     = Date::now()->setMilliseconds(0);
         $model                    = DocumentEntryModel::factory()->create([
             'deleted_at' => $date,
@@ -1043,9 +1043,9 @@ class DocumentFactoryTest extends TestCase {
         self::assertEquals($this->getStatuses($object), $this->getModelStatuses($created));
         self::assertEquals('1292.16', $created->price);
         self::assertEquals('1292.16', $created->price_origin);
-        self::assertNull($this->getDatetime($created->start));
+        self::assertNull($created->start);
         self::assertEquals('1614470400000', $this->getDatetime($created->end));
-        self::assertNull($this->getDatetime($created->changed_at));
+        self::assertNull($created->changed_at);
         self::assertEquals('HPE', $created->oem->key ?? null);
         self::assertEquals('MultiNational Quote', $created->type->key ?? null);
         self::assertEquals('CUR', $created->currency->code ?? null);
@@ -1079,7 +1079,7 @@ class DocumentFactoryTest extends TestCase {
         self::assertEquals('HPE', $e->serviceLevel->oem->key ?? null);
         self::assertEquals('145.00', $e->renewal);
         self::assertEquals('145.00', $e->renewal_origin);
-        self::assertNull($this->getDatetime($e->end));
+        self::assertNull($e->end);
         self::assertEquals('1614470400000', $this->getDatetime($e->start));
         self::assertEquals('Hardware', $e->assetType->key ?? null);
         self::assertEquals('45.00', $e->monthly_list_price);

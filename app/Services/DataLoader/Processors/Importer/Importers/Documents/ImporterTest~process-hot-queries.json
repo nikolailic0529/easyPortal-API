@@ -371,7 +371,7 @@
         "query": "update `document_entries` set `asset_id` = ?, `document_entries`.`updated_at` = ? where `id` = ?",
         "bindings": [
             "03741ca3-4375-4ca9-af0e-a705b5b7c767",
-            "2022-02-02 00:12:43",
+            "2022-02-02 00:12:46",
             "949e7669-0c68-55bb-a8a7-51fec6a2d9ef"
         ]
     },
@@ -379,7 +379,7 @@
         "query": "update `document_entries` set `asset_id` = ?, `document_entries`.`updated_at` = ? where `id` = ?",
         "bindings": [
             "b01498b9-fa6d-43a0-a1d4-a387b957865a",
-            "2022-02-02 00:12:51",
+            "2022-02-02 00:12:54",
             "d2e678eb-9cf8-54b6-99d1-db8a653b51e0"
         ]
     },
@@ -756,7 +756,7 @@
         "query": "update `document_entries` set `asset_id` = ?, `document_entries`.`updated_at` = ? where `id` = ?",
         "bindings": [
             "b995fc29-3a21-4442-bf38-3766c31eaaa2",
-            "2022-02-02 00:14:04",
+            "2022-02-02 00:14:10",
             "1ddea75c-8b7a-53b9-9468-edcbcbaf509f"
         ]
     },
@@ -764,7 +764,7 @@
         "query": "update `document_entries` set `asset_id` = ?, `document_entries`.`updated_at` = ? where `id` = ?",
         "bindings": [
             "deb79ef8-841d-4bca-b99d-03b075644e11",
-            "2022-02-02 00:14:12",
+            "2022-02-02 00:14:18",
             "b85f3300-3a02-5a5e-91af-6fc60703b1ca"
         ]
     },
@@ -970,7 +970,7 @@
         "query": "update `document_entries` set `asset_id` = ?, `document_entries`.`updated_at` = ? where `id` = ?",
         "bindings": [
             "80f28f84-5d00-4a7e-9ba8-2cfaf975153a",
-            "2022-02-02 00:14:56",
+            "2022-02-02 00:15:02",
             "81d0d604-f851-5531-95e2-d3d902047d6d"
         ]
     },
@@ -978,7 +978,7 @@
         "query": "update `document_entries` set `asset_id` = ?, `document_entries`.`updated_at` = ? where `id` = ?",
         "bindings": [
             "dbe7eabc-c664-48de-ad54-bb08824dc5d9",
-            "2022-02-02 00:15:04",
+            "2022-02-02 00:15:10",
             "90ef5874-83da-5254-bf86-671643acf56c"
         ]
     },
@@ -986,7 +986,7 @@
         "query": "update `document_entries` set `asset_id` = ?, `document_entries`.`updated_at` = ? where `id` = ?",
         "bindings": [
             "05b13d7a-530c-479b-a293-450d0519b73b",
-            "2022-02-02 00:15:12",
+            "2022-02-02 00:15:18",
             "c6cd22cc-57bf-57ab-b866-bbdf21ee672e"
         ]
     },

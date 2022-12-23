@@ -2,10 +2,12 @@
 
 namespace App\Services\DataLoader\Schema;
 
+use App\Services\DataLoader\Normalizer\Normalizers\DateTimeNormalizer;
 use App\Services\DataLoader\Normalizer\Normalizers\StringNormalizer;
 use App\Services\DataLoader\Normalizer\Normalizers\UuidNormalizer;
 use App\Utils\JsonObject\JsonObjectArray;
 use App\Utils\JsonObject\JsonObjectNormalizer;
+use Carbon\CarbonImmutable;
 
 class ViewAsset extends Type implements TypeWithKey {
     #[JsonObjectNormalizer(UuidNormalizer::class)]
@@ -23,9 +25,15 @@ class ViewAsset extends Type implements TypeWithKey {
     public ?string $assetType;
     public ?string $vendor;
     public ?string $assetSku;
-    public ?string $eolDate;
-    public ?string $eosDate;
-    public ?string $eoslDate;
+
+    #[JsonObjectNormalizer(DateTimeNormalizer::class)]
+    public ?CarbonImmutable $eolDate;
+
+    #[JsonObjectNormalizer(DateTimeNormalizer::class)]
+    public ?CarbonImmutable $eosDate;
+
+    #[JsonObjectNormalizer(DateTimeNormalizer::class)]
+    public ?CarbonImmutable $eoslDate;
     public ?string $zip;
     public ?string $city;
     public ?string $address;
@@ -40,7 +48,9 @@ class ViewAsset extends Type implements TypeWithKey {
 
     public ?string $countryCode;
     public string  $status;
-    public ?string $updatedAt;
+
+    #[JsonObjectNormalizer(DateTimeNormalizer::class)]
+    public ?CarbonImmutable $updatedAt;
 
     /**
      * @var array<string>|null

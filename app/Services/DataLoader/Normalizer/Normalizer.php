@@ -2,12 +2,10 @@
 
 namespace App\Services\DataLoader\Normalizer;
 
-use App\Services\DataLoader\Normalizer\Normalizers\DateTimeNormalizer;
 use App\Services\DataLoader\Normalizer\Normalizers\FloatNormalizer;
 use App\Services\DataLoader\Normalizer\Normalizers\IntNormalizer;
 use App\Services\DataLoader\Normalizer\Normalizers\StringNormalizer;
 use App\Services\DataLoader\Normalizer\Normalizers\UnsignedNormalizer;
-use Carbon\CarbonImmutable;
 
 /**
  * @deprecated fixme(DataLoader)!: Use {@see \App\Utils\JsonObject\JsonObjectNormalizer} instead
@@ -22,10 +20,6 @@ class Normalizer {
      */
     public function string(mixed $value): ?string {
         return StringNormalizer::normalize($value);
-    }
-
-    public function datetime(mixed $value): ?CarbonImmutable {
-        return DateTimeNormalizer::normalize($value);
     }
 
     public function int(mixed $value): ?int {

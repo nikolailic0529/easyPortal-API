@@ -59,7 +59,7 @@ class DistributorFactory extends ModelFactory {
             $normalizer              = $this->getNormalizer();
             $distributor->id         = $company->id;
             $distributor->name       = $normalizer->string($company->name);
-            $distributor->changed_at = $normalizer->datetime($company->updatedAt);
+            $distributor->changed_at = $company->updatedAt;
 
             if ($distributor->trashed()) {
                 $distributor->restore();

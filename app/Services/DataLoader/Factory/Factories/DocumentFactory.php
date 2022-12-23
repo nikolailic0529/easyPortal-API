@@ -284,11 +284,11 @@ class DocumentFactory extends ModelFactory {
             $model->currency       = $this->currency($document->currencyCode);
             $model->language       = $this->language($document->languageCode);
             $model->distributor    = $this->distributor($document);
-            $model->start          = $normalizer->datetime($document->startDate);
-            $model->end            = $normalizer->datetime($document->endDate);
+            $model->start          = $document->startDate;
+            $model->end            = $document->endDate;
             $model->price_origin   = null;
             $model->number         = $normalizer->string($document->documentNumber) ?: null;
-            $model->changed_at     = $normalizer->datetime($document->updatedAt);
+            $model->changed_at     = $document->updatedAt;
             $model->contacts       = $this->objectContacts($model, (array) $document->contactPersons);
             $model->deleted_at     = Date::now();
             $model->assets_count   = 0;
@@ -334,11 +334,11 @@ class DocumentFactory extends ModelFactory {
             $model->currency       = $this->currency($document->currencyCode);
             $model->language       = $this->language($document->languageCode);
             $model->distributor    = $this->distributor($document);
-            $model->start          = $normalizer->datetime($document->startDate);
-            $model->end            = $normalizer->datetime($document->endDate);
+            $model->start          = $document->startDate;
+            $model->end            = $document->endDate;
             $model->price_origin   = $document->totalNetPrice;
             $model->number         = $normalizer->string($document->documentNumber) ?: null;
-            $model->changed_at     = $normalizer->datetime($document->updatedAt);
+            $model->changed_at     = $document->updatedAt;
             $model->contacts       = $this->objectContacts($model, (array) $document->contactPersons);
 
             // Save
@@ -479,8 +479,8 @@ class DocumentFactory extends ModelFactory {
         $entry->productLine                 = $this->documentEntryProductLine($model, $documentEntry);
         $entry->productGroup                = $this->documentEntryProductGroup($model, $documentEntry);
         $entry->serial_number               = $asset->serial_number ?? null;
-        $entry->start                       = $normalizer->datetime($documentEntry->startDate);
-        $entry->end                         = $normalizer->datetime($documentEntry->endDate);
+        $entry->start                       = $documentEntry->startDate;
+        $entry->end                         = $documentEntry->endDate;
         $entry->currency                    = $this->currency($documentEntry->currencyCode);
         $entry->list_price_origin           = $documentEntry->listPrice;
         $entry->monthly_list_price_origin   = $documentEntry->lineItemListPrice;
@@ -494,7 +494,7 @@ class DocumentFactory extends ModelFactory {
         $entry->serviceGroup                = $this->documentEntryServiceGroup($model, $documentEntry);
         $entry->serviceLevel                = $this->documentEntryServiceLevel($model, $documentEntry);
         $entry->psp                         = $this->documentEntryPsp($model, $documentEntry);
-        $entry->removed_at                  = $normalizer->datetime($documentEntry->deletedAt);
+        $entry->removed_at                  = $documentEntry->deletedAt;
         $entry->deleted_at                  = $entry->removed_at
             ? ($entry->deleted_at ?? Date::now())
             : null;
@@ -585,8 +585,8 @@ class DocumentFactory extends ModelFactory {
         } else {
             $key = new Key($normalizer, [
                 'asset'        => $entry->assetId,
-                'start'        => $normalizer->datetime($entry->startDate),
-                'end'          => $normalizer->datetime($entry->endDate),
+                'start'        => $entry->startDate,
+                'end'          => $entry->endDate,
                 'serviceGroup' => $normalizer->string($entry->serviceGroupSku),
                 'serviceLevel' => $normalizer->string($entry->serviceLevelSku),
             ]);

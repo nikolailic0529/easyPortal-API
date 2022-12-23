@@ -72,7 +72,7 @@ class DistributorFactoryTest extends TestCase {
         self::assertTrue($distributor->wasRecentlyCreated);
         self::assertEquals($company->id, $distributor->getKey());
         self::assertEquals($company->name, $distributor->name);
-        self::assertEquals($company->updatedAt, $this->getDatetime($distributor->changed_at));
+        self::assertEquals($company->updatedAt, $distributor->changed_at);
 
         // Distributor should be updated
         $json     = $this->getTestData()->json('~distributor-changed.json');
@@ -87,7 +87,7 @@ class DistributorFactoryTest extends TestCase {
         self::assertSame($distributor, $updated);
         self::assertEquals($company->id, $updated->getKey());
         self::assertEquals($company->name, $updated->name);
-        self::assertEquals($company->updatedAt, $this->getDatetime($updated->changed_at));
+        self::assertEquals($company->updatedAt, $updated->changed_at);
 
         // No changes
         $json    = $this->getTestData()->json('~distributor-changed.json');
