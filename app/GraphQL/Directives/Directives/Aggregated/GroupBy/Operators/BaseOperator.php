@@ -19,6 +19,8 @@ use Nuwave\Lighthouse\Execution\Arguments\Argument;
 use function implode;
 
 abstract class BaseOperator extends OperatorDirective {
+    public const KEY = '__key';
+
     public static function getDirectiveName(): string {
         return implode('', [
             '@',
@@ -47,12 +49,13 @@ abstract class BaseOperator extends OperatorDirective {
         }
 
         // Query
-        $grammar = $builder->getGrammar();
-        $column  = Cast::toString($property->getName());
-        $query   = $builder
+        $expression = self::KEY;
+        $grammar    = $builder->getGrammar();
+        $column     = Cast::toString($property->getName());
+        $query      = $builder
             ->toBase()
             ->select([
-                DB::raw("{$this->getKeyExpression($builder, $column)} as {$grammar->wrap('key')}"),
+                DB::raw("{$this->getKeyExpression($builder, $column)} as {$grammar->wrap($expression)}"),
             ]);
 
         if ($query->distinct === false) {
@@ -60,22 +63,22 @@ abstract class BaseOperator extends OperatorDirective {
                 ->addSelect(
                     DB::raw("count(*) as {$grammar->wrap('count')}"),
                 )
-                ->groupBy('key');
+                ->groupBy($expression);
         } else {
             $query = $query->getConnection()
                 ->table($query, 'query')
                 ->select([
-                    DB::raw($grammar->wrap('key')),
+                    DB::raw($grammar->wrap($expression)),
                     DB::raw("count(*) as {$grammar->wrap('count')}"),
                 ])
-                ->groupBy('key');
+                ->groupBy($expression);
         }
 
         // Sort
         $direction = $this->getKeyDirection($argument);
 
         if ($direction) {
-            $query = $query->orderBy('key', $direction);
+            $query = $query->orderBy($expression, $direction);
         }
 
         /** @phpstan-ignore-next-line builder is different but it is ok in this case */

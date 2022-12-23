@@ -87,14 +87,14 @@ class AsDateTest extends TestCase {
                     [
                         'query'    => <<<'SQL'
                             select
-                                DATE_FORMAT(`tmp`.`a`, '%Y-%m-%d') as `key`,
+                                DATE_FORMAT(`tmp`.`a`, '%Y-%m-%d') as `__key`,
                                 count(*) as `count`
                             from
                                 `tmp`
                             group by
-                                `key`
+                                `__key`
                             order by
-                                `key` asc
+                                `__key` asc
                         SQL
                         ,
                         'bindings' => [],
@@ -106,14 +106,14 @@ class AsDateTest extends TestCase {
                     [
                         'query'    => <<<'SQL'
                             select
-                                DATE_FORMAT(`tmp`.`a`, '%Y-%m-%d') as `key`,
+                                DATE_FORMAT(`tmp`.`a`, '%Y-%m-%d') as `__key`,
                                 count(*) as `count`
                             from
                                 `tmp`
                             group by
-                                `key`
+                                `__key`
                             order by
-                                `key` desc
+                                `__key` desc
                         SQL
                         ,
                         'bindings' => [],
@@ -125,14 +125,14 @@ class AsDateTest extends TestCase {
                     [
                         'query'    => <<<'SQL'
                             select
-                                `tmp`.`date_column` as `key`,
+                                `tmp`.`date_column` as `__key`,
                                 count(*) as `count`
                             from
                                 `tmp`
                             group by
-                                `key`
+                                `__key`
                             order by
-                                `key` asc
+                                `__key` asc
                         SQL
                         ,
                         'bindings' => [],
@@ -144,14 +144,14 @@ class AsDateTest extends TestCase {
                     [
                         'query'    => <<<'SQL'
                             select
-                                `tmp`.`date_column_immutable` as `key`,
+                                `tmp`.`date_column_immutable` as `__key`,
                                 count(*) as `count`
                             from
                                 `tmp`
                             group by
-                                `key`
+                                `__key`
                             order by
-                                `key` desc
+                                `__key` desc
                         SQL
                         ,
                         'bindings' => [],

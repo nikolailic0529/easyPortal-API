@@ -103,14 +103,14 @@ class BaseOperatorTest extends TestCase {
                 [
                     'query'    => <<<'SQL'
                             select
-                                `tmp`.`a` as `key`,
+                                `tmp`.`a` as `__key`,
                                 count(*) as `count`
                             from
                                 `tmp`
                             group by
-                                `key`
+                                `__key`
                             order by
-                                `key` asc
+                                `__key` asc
                         SQL
                     ,
                     'bindings' => [],
@@ -123,14 +123,14 @@ class BaseOperatorTest extends TestCase {
                 [
                     'query'    => <<<'SQL'
                             select
-                                `tmp`.`a` as `key`,
+                                `tmp`.`a` as `__key`,
                                 count(*) as `count`
                             from
                                 `tmp`
                             group by
-                                `key`
+                                `__key`
                             order by
-                                `key` desc
+                                `__key` desc
                         SQL
                     ,
                     'bindings' => [],
@@ -143,19 +143,19 @@ class BaseOperatorTest extends TestCase {
                 [
                     'query'    => <<<'SQL'
                         select
-                            `key`,
+                            `__key`,
                             count(*) as `count`
                         from
                             (
                                 select
-                                    distinct `tmp`.`a` as `key`
+                                    distinct `tmp`.`a` as `__key`
                                 from
                                     `tmp`
                             ) as `query`
                         group by
-                            `key`
+                            `__key`
                         order by
-                            `key` desc
+                            `__key` desc
                         SQL
                     ,
                     'bindings' => [],

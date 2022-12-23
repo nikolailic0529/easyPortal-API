@@ -297,14 +297,14 @@ class DirectiveTest extends TestCase {
                     [
                         'query'    => <<<'SQL'
                             select
-                                `tmp`.`a` as `key`,
+                                `tmp`.`a` as `__key`,
                                 count(*) as `count`
                             from
                                 `tmp`
                             group by
-                                `key`
+                                `__key`
                             order by
-                                `key` asc
+                                `__key` asc
                         SQL
                         ,
                         'bindings' => [],
@@ -317,12 +317,12 @@ class DirectiveTest extends TestCase {
                     [
                         'query'    => <<<'SQL'
                             select
-                                `tmp`.`parent_id` as `key`,
+                                `tmp`.`parent_id` as `__key`,
                                 count(*) as `count`
                             from
                                 `tmp`
                             group by
-                                `key`
+                                `__key`
                             order by
                                 (
                                     select

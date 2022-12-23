@@ -95,12 +95,12 @@ class RelationTest extends TestCase {
                     [
                         'query'    => <<<'SQL'
                             select
-                                `tmp`.`parent_id` as `key`,
+                                `tmp`.`parent_id` as `__key`,
                                 count(*) as `count`
                             from
                                 `tmp`
                             group by
-                                `key`
+                                `__key`
                             order by
                                 (
                                     select
@@ -125,12 +125,12 @@ class RelationTest extends TestCase {
                     [
                         'query'    => <<<'SQL'
                             select
-                                `tmp`.`parent_id` as `key`,
+                                `tmp`.`parent_id` as `__key`,
                                 count(*) as `count`
                             from
                                 `tmp`
                             group by
-                                `key`
+                                `__key`
                             order by
                                 (
                                     select
