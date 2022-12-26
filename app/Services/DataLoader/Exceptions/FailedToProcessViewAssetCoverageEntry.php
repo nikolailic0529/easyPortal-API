@@ -3,7 +3,7 @@
 namespace App\Services\DataLoader\Exceptions;
 
 use App\Models\Asset;
-use App\Services\DataLoader\Schema\CoverageEntry;
+use App\Services\DataLoader\Schema\Types\CoverageEntry;
 use Throwable;
 
 use function sprintf;

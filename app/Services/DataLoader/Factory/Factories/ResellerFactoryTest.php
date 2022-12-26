@@ -4,8 +4,8 @@ namespace App\Services\DataLoader\Factory\Factories;
 
 use App\Models\Reseller;
 use App\Services\DataLoader\Events\ResellerUpdated;
-use App\Services\DataLoader\Schema\Company;
 use App\Services\DataLoader\Schema\Type;
+use App\Services\DataLoader\Schema\Types\Company;
 use App\Services\DataLoader\Testing\Helper;
 use Illuminate\Support\Facades\Event;
 use InvalidArgumentException;

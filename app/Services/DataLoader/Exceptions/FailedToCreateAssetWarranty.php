@@ -3,7 +3,7 @@
 namespace App\Services\DataLoader\Exceptions;
 
 use App\Models\Asset;
-use App\Services\DataLoader\Schema\ViewAssetDocument;
+use App\Services\DataLoader\Schema\Types\ViewAssetDocument;
 use Throwable;
 
 use function sprintf;

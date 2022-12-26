@@ -27,12 +27,12 @@ use App\Services\DataLoader\Resolver\Resolvers\ServiceGroupResolver;
 use App\Services\DataLoader\Resolver\Resolvers\ServiceLevelResolver;
 use App\Services\DataLoader\Resolver\Resolvers\StatusResolver;
 use App\Services\DataLoader\Resolver\Resolvers\TypeResolver;
-use App\Services\DataLoader\Schema\Document;
-use App\Services\DataLoader\Schema\DocumentEntry;
 use App\Services\DataLoader\Schema\Type;
-use App\Services\DataLoader\Schema\ViewAsset;
-use App\Services\DataLoader\Schema\ViewAssetDocument;
-use App\Services\DataLoader\Schema\ViewDocument;
+use App\Services\DataLoader\Schema\Types\Document;
+use App\Services\DataLoader\Schema\Types\DocumentEntry;
+use App\Services\DataLoader\Schema\Types\ViewAsset;
+use App\Services\DataLoader\Schema\Types\ViewAssetDocument;
+use App\Services\DataLoader\Schema\Types\ViewDocument;
 use App\Services\DataLoader\Testing\Helper;
 use App\Utils\Eloquent\Callbacks\GetKey;
 use Closure;
@@ -261,6 +261,7 @@ class DocumentFactoryTest extends TestCase {
         $object  = reset($asset->assetDocument);
 
         self::assertInstanceOf(ViewAssetDocument::class, $object);
+        self::assertNotNull($object->document);
 
         // Set property to null
         $object->document->contactPersons = null;
@@ -277,7 +278,7 @@ class DocumentFactoryTest extends TestCase {
      *
      * @dataProvider dataProviderDocument
      *
-     * @template     T of Document|ViewDocument
+     * @template T of Document|ViewDocument
      *
      * @param Closure(static): T $documentFactory
      */

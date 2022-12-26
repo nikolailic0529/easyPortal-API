@@ -1111,17 +1111,17 @@ parameters:
 			path: app/GraphQL/Mutations/Org/Update.php
 
 		-
-			message: "#^Property App\\\\Services\\\\DataLoader\\\\Schema\\\\CompanyBrandingData\\:\\:\\$mainColor \\(string\\|null\\) does not accept mixed\\.$#"
+			message: "#^Property App\\\\Services\\\\DataLoader\\\\Schema\\\\Inputs\\\\CompanyBrandingData\\:\\:\\$mainColor \\(string\\|null\\) does not accept mixed\\.$#"
 			count: 1
 			path: app/GraphQL/Mutations/Org/Update.php
 
 		-
-			message: "#^Property App\\\\Services\\\\DataLoader\\\\Schema\\\\CompanyBrandingData\\:\\:\\$resellerAnalyticsCode \\(string\\|null\\) does not accept mixed\\.$#"
+			message: "#^Property App\\\\Services\\\\DataLoader\\\\Schema\\\\Inputs\\\\CompanyBrandingData\\:\\:\\$resellerAnalyticsCode \\(string\\|null\\) does not accept mixed\\.$#"
 			count: 1
 			path: app/GraphQL/Mutations/Org/Update.php
 
 		-
-			message: "#^Property App\\\\Services\\\\DataLoader\\\\Schema\\\\CompanyBrandingData\\:\\:\\$secondaryColor \\(string\\|null\\) does not accept mixed\\.$#"
+			message: "#^Property App\\\\Services\\\\DataLoader\\\\Schema\\\\Inputs\\\\CompanyBrandingData\\:\\:\\$secondaryColor \\(string\\|null\\) does not accept mixed\\.$#"
 			count: 1
 			path: app/GraphQL/Mutations/Org/Update.php
 
@@ -2576,11 +2576,6 @@ parameters:
 			path: app/Services/DataLoader/Commands/AssetsAnalyze.php
 
 		-
-			message: "#^Method App\\\\Services\\\\DataLoader\\\\Commands\\\\AssetsAnalyze\\:\\:getIterator\\(\\) should return App\\\\Services\\\\DataLoader\\\\Client\\\\QueryIterator\\<App\\\\Services\\\\DataLoader\\\\Schema\\\\ViewAsset, array\\> but returns App\\\\Utils\\\\Iterators\\\\Contracts\\\\ObjectIterator\\<App\\\\Services\\\\DataLoader\\\\Schema\\\\ViewAsset\\>\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Commands/AssetsAnalyze.php
-
-		-
 			message: "#^Method App\\\\Services\\\\DataLoader\\\\Commands\\\\AssetsAnalyze\\:\\:getPrefetcher\\(\\) return type has no signature specified for Closure\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Commands/AssetsAnalyze.php
@@ -2761,7 +2756,7 @@ parameters:
 			path: app/Services/DataLoader/Factory/Factories/AssetFactoryTest.php
 
 		-
-			message: "#^Parameter \\#1 \\$json of class App\\\\Services\\\\DataLoader\\\\Schema\\\\ViewAsset constructor expects array\\<string, mixed\\>, array\\|bool\\|float\\|int\\|string\\|null given\\.$#"
+			message: "#^Parameter \\#1 \\$json of class App\\\\Services\\\\DataLoader\\\\Schema\\\\Types\\\\ViewAsset constructor expects array\\<string, mixed\\>, array\\|bool\\|float\\|int\\|string\\|null given\\.$#"
 			count: 11
 			path: app/Services/DataLoader/Factory/Factories/AssetFactoryTest.php
 
@@ -2801,12 +2796,12 @@ parameters:
 			path: app/Services/DataLoader/Factory/Factories/CustomerFactoryTest.php
 
 		-
-			message: "#^Parameter \\#1 \\$json of class App\\\\Services\\\\DataLoader\\\\Schema\\\\Company constructor expects array\\<string, mixed\\>, array\\|bool\\|float\\|int\\|string\\|null given\\.$#"
+			message: "#^Parameter \\#1 \\$json of class App\\\\Services\\\\DataLoader\\\\Schema\\\\Types\\\\Company constructor expects array\\<string, mixed\\>, array\\|bool\\|float\\|int\\|string\\|null given\\.$#"
 			count: 5
 			path: app/Services/DataLoader/Factory/Factories/CustomerFactoryTest.php
 
 		-
-			message: "#^Parameter \\#1 \\$json of class App\\\\Services\\\\DataLoader\\\\Schema\\\\Company constructor expects array\\<string, mixed\\>, array\\|bool\\|float\\|int\\|string\\|null given\\.$#"
+			message: "#^Parameter \\#1 \\$json of class App\\\\Services\\\\DataLoader\\\\Schema\\\\Types\\\\Company constructor expects array\\<string, mixed\\>, array\\|bool\\|float\\|int\\|string\\|null given\\.$#"
 			count: 4
 			path: app/Services/DataLoader/Factory/Factories/DistributorFactoryTest.php
 
@@ -2821,22 +2816,17 @@ parameters:
 			path: app/Services/DataLoader/Factory/Factories/DocumentFactoryTest.php
 
 		-
-			message: "#^Cannot access property \\$contactPersons on App\\\\Services\\\\DataLoader\\\\Schema\\\\ViewDocument\\|null\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Factories/DocumentFactoryTest.php
-
-		-
 			message: "#^Method App\\\\Services\\\\DataLoader\\\\Factory\\\\Factories\\\\DocumentFactoryTest\\:\\:testCreate\\(\\) has parameter \\$typeFactory with no signature specified for Closure\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Factory/Factories/DocumentFactoryTest.php
 
 		-
-			message: "#^Parameter \\#1 \\$json of class App\\\\Services\\\\DataLoader\\\\Schema\\\\Document constructor expects array\\<string, mixed\\>, array\\|bool\\|float\\|int\\|string\\|null given\\.$#"
+			message: "#^Parameter \\#1 \\$json of class App\\\\Services\\\\DataLoader\\\\Schema\\\\Types\\\\Document constructor expects array\\<string, mixed\\>, array\\|bool\\|float\\|int\\|string\\|null given\\.$#"
 			count: 5
 			path: app/Services/DataLoader/Factory/Factories/DocumentFactoryTest.php
 
 		-
-			message: "#^Parameter \\#1 \\$json of class App\\\\Services\\\\DataLoader\\\\Schema\\\\ViewAsset constructor expects array\\<string, mixed\\>, array\\|bool\\|float\\|int\\|string\\|null given\\.$#"
+			message: "#^Parameter \\#1 \\$json of class App\\\\Services\\\\DataLoader\\\\Schema\\\\Types\\\\ViewAsset constructor expects array\\<string, mixed\\>, array\\|bool\\|float\\|int\\|string\\|null given\\.$#"
 			count: 7
 			path: app/Services/DataLoader/Factory/Factories/DocumentFactoryTest.php
 
@@ -2851,7 +2841,7 @@ parameters:
 			path: app/Services/DataLoader/Factory/Factories/LocationFactoryTest.php
 
 		-
-			message: "#^Parameter \\#1 \\$json of class App\\\\Services\\\\DataLoader\\\\Schema\\\\Company constructor expects array\\<string, mixed\\>, array\\|bool\\|float\\|int\\|string\\|null given\\.$#"
+			message: "#^Parameter \\#1 \\$json of class App\\\\Services\\\\DataLoader\\\\Schema\\\\Types\\\\Company constructor expects array\\<string, mixed\\>, array\\|bool\\|float\\|int\\|string\\|null given\\.$#"
 			count: 6
 			path: app/Services/DataLoader/Factory/Factories/ResellerFactoryTest.php
 
@@ -3049,36 +3039,6 @@ parameters:
 			message: "#^Cannot call method once\\(\\) on mixed\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Resolver/ResolverTest.php
-
-		-
-			message: "#^Parameter \\#1 \\$array of function reset expects array\\|object, array\\<App\\\\Services\\\\DataLoader\\\\Schema\\\\TranslationText\\>\\|null given\\.$#"
-			count: 2
-			path: app/Services/DataLoader/Schema/BrandingDataTest.php
-
-		-
-			message: "#^Parameter \\#2 \\$haystack of static method PHPUnit\\\\Framework\\\\Assert\\:\\:assertCount\\(\\) expects Countable\\|iterable, array\\<App\\\\Services\\\\DataLoader\\\\Schema\\\\TranslationText\\>\\|null given\\.$#"
-			count: 2
-			path: app/Services/DataLoader/Schema/BrandingDataTest.php
-
-		-
-			message: "#^Call to static method PHPUnit\\\\Framework\\\\Assert\\:\\:assertInstanceOf\\(\\) with 'App\\\\\\\\Services\\\\\\\\DataLoader\\\\\\\\Schema\\\\\\\\DocumentVendorSpecificField' and App\\\\Services\\\\DataLoader\\\\Schema\\\\DocumentVendorSpecificField will always evaluate to true\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Schema/DocumentTest.php
-
-		-
-			message: "#^Call to static method PHPUnit\\\\Framework\\\\Assert\\:\\:assertInstanceOf\\(\\) with 'App\\\\\\\\Services\\\\\\\\DataLoader\\\\\\\\Schema\\\\\\\\CoverageEntry' and App\\\\Services\\\\DataLoader\\\\Schema\\\\CoverageEntry will always evaluate to true\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Schema/ViewAssetTest.php
-
-		-
-			message: "#^Call to static method PHPUnit\\\\Framework\\\\Assert\\:\\:assertInstanceOf\\(\\) with 'App\\\\\\\\Services\\\\\\\\DataLoader\\\\\\\\Schema\\\\\\\\ViewAssetDocument' and App\\\\Services\\\\DataLoader\\\\Schema\\\\ViewAssetDocument will always evaluate to true\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Schema/ViewAssetTest.php
-
-		-
-			message: "#^Call to static method PHPUnit\\\\Framework\\\\Assert\\:\\:assertInstanceOf\\(\\) with 'App\\\\\\\\Services\\\\\\\\DataLoader\\\\\\\\Schema\\\\\\\\DocumentVendorSpecificField' and App\\\\Services\\\\DataLoader\\\\Schema\\\\DocumentVendorSpecificField will always evaluate to true\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Schema/ViewDocumentTest.php
 
 		-
 			message: "#^Cannot access offset 'response' on array\\|bool\\|float\\|int\\|string\\|null\\.$#"

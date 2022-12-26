@@ -9,7 +9,7 @@ use App\Models\Reseller;
 use App\Models\ResellerLocation;
 use App\Services\DataLoader\Exceptions\FailedToProcessLocation;
 use App\Services\DataLoader\Factory\Factories\LocationFactory;
-use App\Services\DataLoader\Schema\Location;
+use App\Services\DataLoader\Schema\Types\Location;
 use Illuminate\Contracts\Debug\ExceptionHandler;
 use Illuminate\Database\Eloquent\Collection;
 use Throwable;

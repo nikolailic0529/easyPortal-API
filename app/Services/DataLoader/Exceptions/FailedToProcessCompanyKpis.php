@@ -5,7 +5,7 @@ namespace App\Services\DataLoader\Exceptions;
 use App\Models\Customer;
 use App\Models\Reseller;
 use App\Models\ResellerCustomer;
-use App\Services\DataLoader\Schema\CompanyKpis;
+use App\Services\DataLoader\Schema\Types\CompanyKpis;
 use Throwable;
 
 use function sprintf;

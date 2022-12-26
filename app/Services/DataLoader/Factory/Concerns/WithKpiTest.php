@@ -6,8 +6,8 @@ use App\Models\Customer;
 use App\Models\Kpi;
 use App\Services\DataLoader\Factory\ModelFactory;
 use App\Services\DataLoader\Normalizer\Normalizer;
-use App\Services\DataLoader\Schema\CompanyKpis;
 use App\Services\DataLoader\Schema\Type;
+use App\Services\DataLoader\Schema\Types\CompanyKpis;
 use App\Utils\Eloquent\Model;
 use Tests\TestCase;
 

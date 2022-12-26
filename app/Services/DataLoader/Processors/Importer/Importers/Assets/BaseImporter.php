@@ -23,7 +23,7 @@ use App\Services\DataLoader\Resolver\Resolvers\CustomerResolver;
 use App\Services\DataLoader\Resolver\Resolvers\DocumentResolver;
 use App\Services\DataLoader\Resolver\Resolvers\LocationResolver;
 use App\Services\DataLoader\Resolver\Resolvers\ResellerResolver;
-use App\Services\DataLoader\Schema\ViewAsset;
+use App\Services\DataLoader\Schema\Types\ViewAsset;
 use App\Utils\Processor\State;
 
 /**

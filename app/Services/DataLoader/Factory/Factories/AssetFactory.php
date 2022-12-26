@@ -9,6 +9,7 @@ use App\Models\Data\Location;
 use App\Models\Data\Oem;
 use App\Models\Data\Product;
 use App\Models\Data\Status;
+use App\Models\Data\Tag;
 use App\Models\Data\Type as TypeModel;
 use App\Models\Document;
 use App\Services\DataLoader\Cache\Key;
@@ -45,10 +46,10 @@ use App\Services\DataLoader\Resolver\Resolvers\ServiceLevelResolver;
 use App\Services\DataLoader\Resolver\Resolvers\StatusResolver;
 use App\Services\DataLoader\Resolver\Resolvers\TagResolver;
 use App\Services\DataLoader\Resolver\Resolvers\TypeResolver;
-use App\Services\DataLoader\Schema\CoverageEntry;
 use App\Services\DataLoader\Schema\Type;
-use App\Services\DataLoader\Schema\ViewAsset;
-use App\Services\DataLoader\Schema\ViewAssetDocument;
+use App\Services\DataLoader\Schema\Types\CoverageEntry;
+use App\Services\DataLoader\Schema\Types\ViewAsset;
+use App\Services\DataLoader\Schema\Types\ViewAssetDocument;
 use Illuminate\Contracts\Debug\ExceptionHandler;
 use Illuminate\Database\Eloquent\Collection as EloquentCollection;
 use InvalidArgumentException;
@@ -527,10 +528,10 @@ class AssetFactory extends ModelFactory {
     }
 
     /**
-     * @return EloquentCollection<array-key, \App\Models\Data\Tag>
+     * @return EloquentCollection<array-key, Tag>
      */
     protected function assetTags(ViewAsset $asset): EloquentCollection {
-        /** @var EloquentCollection<array-key, \App\Models\Data\Tag> $tags */
+        /** @var EloquentCollection<array-key, Tag> $tags */
         $tags = new EloquentCollection();
         $name = $this->getNormalizer()->string($asset->assetTag);
 
@@ -545,7 +546,7 @@ class AssetFactory extends ModelFactory {
      * @return EloquentCollection<array-key, Coverage>
      */
     protected function assetCoverages(ViewAsset $asset): EloquentCollection {
-        /** @var EloquentCollection<array-key, \App\Models\Data\Coverage> $statuses */
+        /** @var EloquentCollection<array-key, Coverage> $statuses */
         $statuses   = new EloquentCollection();
         $normalizer = $this->getNormalizer();
 

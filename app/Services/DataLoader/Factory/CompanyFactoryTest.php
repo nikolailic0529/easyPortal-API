@@ -4,8 +4,8 @@ namespace App\Services\DataLoader\Factory;
 
 use App\Services\DataLoader\Normalizer\Normalizer;
 use App\Services\DataLoader\Resolver\Resolvers\StatusResolver;
-use App\Services\DataLoader\Schema\Company as CompanyObject;
 use App\Services\DataLoader\Schema\Type;
+use App\Services\DataLoader\Schema\Types\Company as CompanyObject;
 use App\Services\DataLoader\Testing\Helper;
 use App\Utils\Eloquent\Model;
 use Illuminate\Database\Eloquent\Collection;

@@ -7,8 +7,8 @@ use App\Services\DataLoader\Factory\ModelFactory;
 use App\Services\DataLoader\Normalizer\Normalizer;
 use App\Services\DataLoader\Resolver\Resolvers\DistributorResolver;
 use App\Services\DataLoader\Resolver\Resolvers\TypeResolver;
-use App\Services\DataLoader\Schema\Company;
 use App\Services\DataLoader\Schema\Type;
+use App\Services\DataLoader\Schema\Types\Company;
 use Illuminate\Contracts\Debug\ExceptionHandler;
 use InvalidArgumentException;
 

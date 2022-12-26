@@ -9,7 +9,7 @@ use App\Models\ResellerCustomer;
 use App\Services\DataLoader\Exceptions\FailedToProcessCompanyKpis;
 use App\Services\DataLoader\Factory\Factory;
 use App\Services\DataLoader\Normalizer\Normalizer;
-use App\Services\DataLoader\Schema\CompanyKpis;
+use App\Services\DataLoader\Schema\Types\CompanyKpis;
 use Exception;
 use Illuminate\Contracts\Debug\ExceptionHandler;
 

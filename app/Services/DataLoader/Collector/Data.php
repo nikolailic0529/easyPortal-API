@@ -8,12 +8,12 @@ use App\Models\Data\Location;
 use App\Models\Distributor;
 use App\Models\Document;
 use App\Models\Reseller;
-use App\Services\DataLoader\Schema\CompanyKpis as SchemaCompanyKpis;
-use App\Services\DataLoader\Schema\Document as SchemaDocument;
-use App\Services\DataLoader\Schema\DocumentEntry as SchemaDocumentEntry;
-use App\Services\DataLoader\Schema\ViewAsset as SchemaViewAsset;
-use App\Services\DataLoader\Schema\ViewAssetDocument as SchemaViewAssetDocument;
-use App\Services\DataLoader\Schema\ViewDocument as SchemaViewDocument;
+use App\Services\DataLoader\Schema\Types\CompanyKpis as SchemaCompanyKpis;
+use App\Services\DataLoader\Schema\Types\Document as SchemaDocument;
+use App\Services\DataLoader\Schema\Types\DocumentEntry as SchemaDocumentEntry;
+use App\Services\DataLoader\Schema\Types\ViewAsset as SchemaViewAsset;
+use App\Services\DataLoader\Schema\Types\ViewAssetDocument as SchemaViewAssetDocument;
+use App\Services\DataLoader\Schema\Types\ViewDocument as SchemaViewDocument;
 use App\Utils\Eloquent\Model;
 use Illuminate\Support\Arr;
 

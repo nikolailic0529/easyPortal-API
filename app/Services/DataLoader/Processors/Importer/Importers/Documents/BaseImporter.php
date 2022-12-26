@@ -22,7 +22,7 @@ use App\Services\DataLoader\Resolver\Resolvers\ContactResolver;
 use App\Services\DataLoader\Resolver\Resolvers\CustomerResolver;
 use App\Services\DataLoader\Resolver\Resolvers\DocumentResolver;
 use App\Services\DataLoader\Resolver\Resolvers\ResellerResolver;
-use App\Services\DataLoader\Schema\Document as SchemaDocument;
+use App\Services\DataLoader\Schema\Types\Document as SchemaDocument;
 use App\Utils\Processor\State;
 
 /**

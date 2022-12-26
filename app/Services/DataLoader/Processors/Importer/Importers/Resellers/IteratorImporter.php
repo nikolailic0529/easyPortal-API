@@ -4,7 +4,7 @@ namespace App\Services\DataLoader\Processors\Importer\Importers\Resellers;
 
 use App\Models\Reseller;
 use App\Services\DataLoader\Processors\Importer\Concerns\WithIterator;
-use App\Services\DataLoader\Schema\Company;
+use App\Services\DataLoader\Schema\Types\Company;
 use App\Utils\Processor\State;
 
 /**
@@ -19,7 +19,7 @@ class IteratorImporter extends BaseImporter {
     /**
      * @param BaseImporterState $state
      *
-     * @return Company|null
+     * @return \App\Services\DataLoader\Schema\Types\Company|null
      */
     protected function getItem(State $state, string $item): mixed {
         return $this->getClient()->getResellerById($item);

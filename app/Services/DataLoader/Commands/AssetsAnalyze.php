@@ -5,18 +5,18 @@ namespace App\Services\DataLoader\Commands;
 use App\Models\Logs\AnalyzeAsset;
 use App\Services\DataLoader\Client\Client;
 use App\Services\DataLoader\Client\GraphQL\GraphQL;
-use App\Services\DataLoader\Client\QueryIterator;
 use App\Services\DataLoader\Resolver\Resolvers\AnalyzeAssetResolver;
 use App\Services\DataLoader\Resolver\Resolvers\AssetResolver;
 use App\Services\DataLoader\Resolver\Resolvers\CustomerResolver;
 use App\Services\DataLoader\Resolver\Resolvers\ResellerResolver;
-use App\Services\DataLoader\Schema\Company;
-use App\Services\DataLoader\Schema\CompanyType;
 use App\Services\DataLoader\Schema\Type;
-use App\Services\DataLoader\Schema\ViewAsset;
-use App\Services\DataLoader\Schema\ViewCompany;
+use App\Services\DataLoader\Schema\Types\Company;
+use App\Services\DataLoader\Schema\Types\CompanyType;
+use App\Services\DataLoader\Schema\Types\ViewAsset;
+use App\Services\DataLoader\Schema\Types\ViewCompany;
 use App\Utils\Console\WithOptions;
 use App\Utils\Eloquent\GlobalScopes\GlobalScopes;
+use App\Utils\Iterators\Contracts\ObjectIterator;
 use Closure;
 use Config\Constants;
 use Illuminate\Console\Command;
@@ -116,10 +116,10 @@ class AssetsAnalyze extends Command {
     }
 
     /**
-     * @param QueryIterator<ViewAsset, array<mixed>> $iterator
+     * @param ObjectIterator<ViewAsset> $iterator
      */
     protected function process(
-        QueryIterator $iterator,
+        ObjectIterator $iterator,
         AssetResolver $assetResolver,
         ResellerResolver $resellerResolver,
         CustomerResolver $customerResolver,
@@ -276,9 +276,9 @@ class AssetsAnalyze extends Command {
     }
 
     /**
-     * @return QueryIterator<ViewAsset, array<mixed>>
+     * @return ObjectIterator<ViewAsset>
      */
-    protected function getIterator(Client $client, ?string $lastId, int $chunk): QueryIterator {
+    protected function getIterator(Client $client, ?string $lastId, int $chunk): ObjectIterator {
         return $client
             ->getLastIdBasedIterator(
                 new class() extends GraphQL {

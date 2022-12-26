@@ -4,7 +4,7 @@ namespace App\Services\DataLoader\Processors\Importer\Importers\Distributors;
 
 use App\Models\Distributor;
 use App\Services\DataLoader\Processors\Importer\ImporterChunkData;
-use App\Services\DataLoader\Schema\Company;
+use App\Services\DataLoader\Schema\Types\Company;
 
 class BaseImporterChunkData extends ImporterChunkData {
     public function collect(mixed $object): static {

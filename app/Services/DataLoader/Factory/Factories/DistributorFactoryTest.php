@@ -3,8 +3,8 @@
 namespace App\Services\DataLoader\Factory\Factories;
 
 use App\Models\Distributor;
-use App\Services\DataLoader\Schema\Company;
 use App\Services\DataLoader\Schema\Type;
+use App\Services\DataLoader\Schema\Types\Company;
 use App\Services\DataLoader\Testing\Helper;
 use InvalidArgumentException;
 use LastDragon_ru\LaraASP\Testing\Database\QueryLog\WithQueryLog;

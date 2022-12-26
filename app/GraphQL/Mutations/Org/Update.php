@@ -4,9 +4,9 @@ namespace App\GraphQL\Mutations\Org;
 
 use App\Models\Organization;
 use App\Services\DataLoader\Client\Client;
-use App\Services\DataLoader\Schema\CompanyBrandingData;
-use App\Services\DataLoader\Schema\InputTranslationText;
-use App\Services\DataLoader\Schema\UpdateCompanyFile;
+use App\Services\DataLoader\Schema\Inputs\CompanyBrandingData;
+use App\Services\DataLoader\Schema\Inputs\InputTranslationText;
+use App\Services\DataLoader\Schema\Inputs\UpdateCompanyFile;
 use App\Services\Filesystem\ModelDiskFactory;
 use App\Services\I18n\Eloquent\TranslatedString;
 use App\Services\Keycloak\Utils\Map;

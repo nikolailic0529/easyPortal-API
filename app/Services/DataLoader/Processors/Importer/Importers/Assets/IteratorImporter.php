@@ -4,7 +4,7 @@ namespace App\Services\DataLoader\Processors\Importer\Importers\Assets;
 
 use App\Models\Asset;
 use App\Services\DataLoader\Processors\Importer\Concerns\WithIterator;
-use App\Services\DataLoader\Schema\ViewAsset;
+use App\Services\DataLoader\Schema\Types\ViewAsset;
 use App\Utils\Processor\State;
 
 /**

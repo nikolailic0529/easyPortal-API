@@ -10,7 +10,7 @@ use App\Services\DataLoader\Factory\Factory;
 use App\Services\DataLoader\Finders\AssetFinder;
 use App\Services\DataLoader\Normalizer\Normalizer;
 use App\Services\DataLoader\Resolver\Resolvers\AssetResolver;
-use App\Services\DataLoader\Schema\DocumentEntry;
+use App\Services\DataLoader\Schema\Types\DocumentEntry;
 use Closure;
 use Mockery;
 use Tests\TestCase;
