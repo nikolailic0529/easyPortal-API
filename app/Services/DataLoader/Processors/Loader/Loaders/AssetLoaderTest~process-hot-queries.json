@@ -45,27 +45,15 @@
         ]
     },
     {
-        "query": "select `oems`.* from `oems` where `oems`.`id` in (?) and `oems`.`deleted_at` is null",
+        "query": "select `coverages`.*, `asset_coverages`.`asset_id` as `pivot_asset_id`, `asset_coverages`.`coverage_id` as `pivot_coverage_id`, `asset_coverages`.`created_at` as `pivot_created_at`, `asset_coverages`.`updated_at` as `pivot_updated_at` from `coverages` inner join `asset_coverages` on `coverages`.`id` = `asset_coverages`.`coverage_id` where `asset_coverages`.`deleted_at` is null and `asset_coverages`.`asset_id` in (?) and `coverages`.`deleted_at` is null",
         "bindings": [
-            "c91d62df-ee07-5725-ba42-d9895cf9b282"
+            "00000b7e-e7dc-49ee-8294-e4708b2435e4"
         ]
     },
     {
         "query": "select `resellers`.* from `resellers` where ((`resellers`.`id` = ?))",
         "bindings": [
             "9f6b1030-5d5d-4f0b-b743-2ef69eaf4a44"
-        ]
-    },
-    {
-        "query": "select `reseller_locations`.* from `reseller_locations` where `reseller_locations`.`reseller_id` in (?) and `reseller_locations`.`deleted_at` is null",
-        "bindings": [
-            "9f6b1030-5d5d-4f0b-b743-2ef69eaf4a44"
-        ]
-    },
-    {
-        "query": "select `locations`.* from `locations` where `locations`.`id` in (?) and `locations`.`deleted_at` is null",
-        "bindings": [
-            "b4ea6545-b7e2-5926-99ef-41115e7de749"
         ]
     },
     {
@@ -76,15 +64,11 @@
         ]
     },
     {
-        "query": "select `customer_locations`.* from `customer_locations` where `customer_locations`.`customer_id` in (?) and `customer_locations`.`deleted_at` is null",
+        "query": "select `documents`.* from `documents` where ((`documents`.`id` = ?) or (`documents`.`id` = ?) or (`documents`.`id` = ?))",
         "bindings": [
-            "e42b0534-878d-4d43-90ec-d9c1cef59b70"
-        ]
-    },
-    {
-        "query": "select `locations`.* from `locations` where `locations`.`id` in (?) and `locations`.`deleted_at` is null",
-        "bindings": [
-            "8fed5079-8106-53c6-8686-ed17c3e5d1c5"
+            "86423562-7ecf-4174-9b1d-9a21cd28d808",
+            "0b45c643-fd82-4e29-9958-a1842c4f32a6",
+            "5c636bd2-bd32-4c47-89d0-5d0474da3eb1"
         ]
     },
     {
@@ -108,15 +92,6 @@
         "bindings": []
     },
     {
-        "query": "select `locations`.* from `locations` where (`city_id` = ? and `country_id` = ? and CONCAT(`line_one`, IF(`line_two` != '', CONCAT(' ', `line_two`), '')) = ? and `postcode` = ?) and `locations`.`deleted_at` is null limit 1",
-        "bindings": [
-            "975115df-8fcd-59a9-9f8d-59f7cdc40e4c",
-            "06eb2373-101e-59a0-a6bb-bcb22fd5381d",
-            "61440 marks dam apt. 438",
-            "77826-2682"
-        ]
-    },
-    {
         "query": "select `types`.* from `types` where `types`.`deleted_at` is null",
         "bindings": []
     },
@@ -125,24 +100,9 @@
         "bindings": []
     },
     {
-        "query": "select `coverages`.*, `asset_coverages`.`asset_id` as `pivot_asset_id`, `asset_coverages`.`coverage_id` as `pivot_coverage_id`, `asset_coverages`.`created_at` as `pivot_created_at`, `asset_coverages`.`updated_at` as `pivot_updated_at` from `coverages` inner join `asset_coverages` on `coverages`.`id` = `asset_coverages`.`coverage_id` where `asset_coverages`.`asset_id` = ? and `asset_coverages`.`deleted_at` is null and `coverages`.`deleted_at` is null",
+        "query": "update `assets` set `synced_at` = ? where `id` in (?) and `assets`.`deleted_at` is null",
         "bindings": [
-            "00000b7e-e7dc-49ee-8294-e4708b2435e4"
-        ]
-    },
-    {
-        "query": "select `documents`.* from `documents` where ((`documents`.`id` = ?) or (`documents`.`id` = ?) or (`documents`.`id` = ?))",
-        "bindings": [
-            "86423562-7ecf-4174-9b1d-9a21cd28d808",
-            "0b45c643-fd82-4e29-9958-a1842c4f32a6",
-            "5c636bd2-bd32-4c47-89d0-5d0474da3eb1"
-        ]
-    },
-    {
-        "query": "update `assets` set `synced_at` = ?, `assets`.`updated_at` = ? where `id` = ?",
-        "bindings": [
-            "2022-02-02 00:00:37",
-            "2022-02-02 00:00:54",
+            "2022-02-02T00:00:59+00:00",
             "00000b7e-e7dc-49ee-8294-e4708b2435e4"
         ]
     }

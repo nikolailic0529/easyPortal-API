@@ -13,6 +13,7 @@ use App\Models\Data\Type as TypeModel;
 use App\Models\Document as DocumentModel;
 use App\Models\DocumentEntry as DocumentEntryModel;
 use App\Models\OemGroup;
+use App\Services\DataLoader\Cache\Key;
 use App\Services\DataLoader\Exceptions\AssetNotFound;
 use App\Services\DataLoader\Exceptions\FailedToProcessDocumentEntry;
 use App\Services\DataLoader\Exceptions\FailedToProcessDocumentEntryNoAsset;
@@ -40,8 +41,6 @@ use App\Services\DataLoader\Finders\AssetFinder;
 use App\Services\DataLoader\Finders\CustomerFinder;
 use App\Services\DataLoader\Finders\DistributorFinder;
 use App\Services\DataLoader\Finders\ResellerFinder;
-use App\Services\DataLoader\Normalizer\Normalizer;
-use App\Services\DataLoader\Processors\Importer\ImporterChunkData;
 use App\Services\DataLoader\Resolver\Resolvers\AssetResolver;
 use App\Services\DataLoader\Resolver\Resolvers\CurrencyResolver;
 use App\Services\DataLoader\Resolver\Resolvers\CustomerResolver;
@@ -59,17 +58,18 @@ use App\Services\DataLoader\Resolver\Resolvers\ServiceGroupResolver;
 use App\Services\DataLoader\Resolver\Resolvers\ServiceLevelResolver;
 use App\Services\DataLoader\Resolver\Resolvers\StatusResolver;
 use App\Services\DataLoader\Resolver\Resolvers\TypeResolver;
-use App\Services\DataLoader\Schema\Document;
-use App\Services\DataLoader\Schema\DocumentEntry;
 use App\Services\DataLoader\Schema\Type;
-use App\Services\DataLoader\Schema\ViewAssetDocument;
-use App\Services\DataLoader\Schema\ViewDocument;
+use App\Services\DataLoader\Schema\Types\Document;
+use App\Services\DataLoader\Schema\Types\DocumentEntry;
+use App\Services\DataLoader\Schema\Types\ViewAssetDocument;
+use App\Services\DataLoader\Schema\Types\ViewDocument;
 use Illuminate\Contracts\Debug\ExceptionHandler;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\Date;
 use InvalidArgumentException;
 use Throwable;
 
+use function array_map;
 use function implode;
 use function sprintf;
 
@@ -99,7 +99,6 @@ class DocumentFactory extends ModelFactory {
 
     public function __construct(
         ExceptionHandler $exceptionHandler,
-        Normalizer $normalizer,
         protected OemResolver $oemResolver,
         protected TypeResolver $typeResolver,
         protected StatusResolver $statusResolver,
@@ -123,11 +122,7 @@ class DocumentFactory extends ModelFactory {
         protected ?CustomerFinder $customerFinder = null,
         protected ?AssetFinder $assetFinder = null,
     ) {
-        parent::__construct($exceptionHandler, $normalizer);
-    }
-
-    public function find(Type $type): ?DocumentModel {
-        return parent::find($type);
+        parent::__construct($exceptionHandler);
     }
 
     // <editor-fold desc="Getters / Setters">
@@ -223,6 +218,10 @@ class DocumentFactory extends ModelFactory {
 
     // <editor-fold desc="Factory">
     // =========================================================================
+    public function getModel(): string {
+        return DocumentModel::class;
+    }
+
     public function create(Type $type): ?DocumentModel {
         $model = null;
 
@@ -264,18 +263,17 @@ class DocumentFactory extends ModelFactory {
         }
 
         // Get/Create
-        $factory = $this->factory(function (DocumentModel $model) use ($object): DocumentModel {
+        $factory = function (DocumentModel $model) use ($object): DocumentModel {
             // Update
             /** @var Collection<int, Status> $statuses */
             $statuses              = new Collection();
             $document              = $object->document;
-            $normalizer            = $this->getNormalizer();
-            $model->id             = $normalizer->uuid($document->id);
+            $model->id             = $document->id;
             $model->oem            = $this->documentOem($document);
             $model->oemGroup       = $this->documentOemGroup($document);
-            $model->oem_said       = $normalizer->string($document->vendorSpecificFields->said ?? null);
-            $model->oem_amp_id     = $normalizer->string($document->vendorSpecificFields->ampId ?? null);
-            $model->oem_sar_number = $normalizer->string($document->vendorSpecificFields->sar ?? null);
+            $model->oem_said       = $document->vendorSpecificFields->said ?? null;
+            $model->oem_amp_id     = $document->vendorSpecificFields->ampId ?? null;
+            $model->oem_sar_number = $document->vendorSpecificFields->sar ?? null;
             $model->type           = $this->documentType($document);
             $model->statuses       = $statuses;
             $model->reseller       = $this->reseller($document);
@@ -283,13 +281,12 @@ class DocumentFactory extends ModelFactory {
             $model->currency       = $this->currency($document->currencyCode);
             $model->language       = $this->language($document->languageCode);
             $model->distributor    = $this->distributor($document);
-            $model->start          = $normalizer->datetime($document->startDate);
-            $model->end            = $normalizer->datetime($document->endDate);
+            $model->start          = $document->startDate;
+            $model->end            = $document->endDate;
             $model->price_origin   = null;
-            $model->number         = $normalizer->string($document->documentNumber) ?: null;
-            $model->changed_at     = $normalizer->datetime($document->updatedAt);
+            $model->number         = $document->documentNumber ?: null;
+            $model->changed_at     = $document->updatedAt;
             $model->contacts       = $this->objectContacts($model, (array) $document->contactPersons);
-            $model->synced_at      = Date::now();
             $model->deleted_at     = Date::now();
             $model->assets_count   = 0;
             $model->entries_count  = 0;
@@ -298,7 +295,7 @@ class DocumentFactory extends ModelFactory {
 
             // Return
             return $model;
-        });
+        };
         $model   = $this->documentResolver->get(
             $object->document->id,
             static function () use ($factory): DocumentModel {
@@ -309,42 +306,6 @@ class DocumentFactory extends ModelFactory {
         // Return
         return $model;
     }
-
-    protected function isEntryEqualDocumentEntry(
-        DocumentModel $model,
-        DocumentEntryModel $entry,
-        DocumentEntry $documentEntry,
-    ): bool {
-        // IDs?
-        $normalizer = $this->getNormalizer();
-        $asset      = $normalizer->uuid($documentEntry->assetId);
-        $uid        = $normalizer->uuid($documentEntry->assetDocumentId);
-
-        if ($uid && $entry->uid === $uid) {
-            return $entry->asset_id === null || $asset === null || $entry->asset_id === $asset;
-        }
-
-        if ($entry->uid) {
-            return false;
-        }
-
-        // Compare properties
-        $start   = $normalizer->datetime($documentEntry->startDate);
-        $end     = $normalizer->datetime($documentEntry->endDate);
-        $isEqual = $entry->asset_id === $asset
-            && ($entry->start === $documentEntry->startDate || $entry->start?->isSameDay($start) === true)
-            && ($entry->end === $documentEntry->endDate || $entry->end?->isSameDay($end) === true)
-            && $entry->currency_id === $this->currency($documentEntry->currencyCode)?->getKey()
-            && $entry->list_price === $normalizer->decimal($documentEntry->listPrice)
-            && $entry->renewal === $normalizer->decimal($documentEntry->estimatedValueRenewal)
-            && $entry->monthly_list_price === $normalizer->decimal($documentEntry->lineItemListPrice)
-            && $entry->monthly_retail_price === $normalizer->decimal($documentEntry->lineItemMonthlyRetailPrice)
-            && $entry->service_group_id === $this->documentEntryServiceGroup($model, $documentEntry)?->getKey()
-            && $entry->service_level_id === $this->documentEntryServiceLevel($model, $documentEntry)?->getKey()
-            && $entry->equipment_number === $normalizer->string($documentEntry->equipmentNumber);
-
-        return $isEqual;
-    }
     // </editor-fold>
 
     // <editor-fold desc="Document">
@@ -352,17 +313,16 @@ class DocumentFactory extends ModelFactory {
     protected function createFromDocument(Document $document): ?DocumentModel {
         // Get/Create/Update
         $created = false;
-        $factory = $this->factory(function (DocumentModel $model) use (&$created, $document): DocumentModel {
+        $factory = function (DocumentModel $model) use (&$created, $document): DocumentModel {
             // Update
-            $created    = !$model->exists;
-            $normalizer = $this->getNormalizer();
+            $created = !$model->exists;
 
-            $model->id             = $normalizer->uuid($document->id);
+            $model->id             = $document->id;
             $model->oem            = $this->documentOem($document);
             $model->oemGroup       = $this->documentOemGroup($document);
-            $model->oem_said       = $normalizer->string($document->vendorSpecificFields->said ?? null);
-            $model->oem_amp_id     = $normalizer->string($document->vendorSpecificFields->ampId ?? null);
-            $model->oem_sar_number = $normalizer->string($document->vendorSpecificFields->sar ?? null);
+            $model->oem_said       = $document->vendorSpecificFields->said ?? null;
+            $model->oem_amp_id     = $document->vendorSpecificFields->ampId ?? null;
+            $model->oem_sar_number = $document->vendorSpecificFields->sar ?? null;
             $model->type           = $this->documentType($document);
             $model->statuses       = $this->documentStatuses($model, $document);
             $model->reseller       = $this->reseller($document);
@@ -370,13 +330,12 @@ class DocumentFactory extends ModelFactory {
             $model->currency       = $this->currency($document->currencyCode);
             $model->language       = $this->language($document->languageCode);
             $model->distributor    = $this->distributor($document);
-            $model->start          = $normalizer->datetime($document->startDate);
-            $model->end            = $normalizer->datetime($document->endDate);
-            $model->price_origin   = $normalizer->decimal($document->totalNetPrice);
-            $model->number         = $normalizer->string($document->documentNumber) ?: null;
-            $model->changed_at     = $normalizer->datetime($document->updatedAt);
+            $model->start          = $document->startDate;
+            $model->end            = $document->endDate;
+            $model->price_origin   = $document->totalNetPrice;
+            $model->number         = $document->documentNumber ?: null;
+            $model->changed_at     = $document->updatedAt;
             $model->contacts       = $this->objectContacts($model, (array) $document->contactPersons);
-            $model->synced_at      = Date::now();
 
             // Save
             if ($model->trashed()) {
@@ -387,7 +346,7 @@ class DocumentFactory extends ModelFactory {
 
             // Return
             return $model;
-        });
+        };
         $model   = $this->documentResolver->get(
             $document->id,
             static function () use ($factory): DocumentModel {
@@ -396,24 +355,20 @@ class DocumentFactory extends ModelFactory {
         );
 
         // Update
-        if (!$created && !$this->isSearchMode()) {
+        if (!$created) {
             $factory($model);
         }
 
         // Entries & Warranties
-        if (!$this->isSearchMode() && isset($document->documentEntries)) {
+        if (isset($document->documentEntries)) {
             try {
                 // Prefetch
                 $this->getAssetResolver()->prefetch(
-                    (new ImporterChunkData($document->documentEntries))->get(AssetModel::class),
-                    static function (Collection $assets): void {
-                        $assets->loadMissing('oem');
-                    },
+                    array_map(static fn($entry) => $entry->assetId, $document->documentEntries),
                 );
 
                 // Entries
-                $model->entries   = $this->documentEntries($model, $document);
-                $model->synced_at = Date::now();
+                $model->entries = $this->documentEntries($model, $document);
             } finally {
                 $this->getAssetResolver()->reset();
 
@@ -443,7 +398,7 @@ class DocumentFactory extends ModelFactory {
     }
 
     protected function documentType(Document|ViewDocument $document): ?TypeModel {
-        return isset($document->type) && $this->getNormalizer()->string($document->type)
+        return isset($document->type) && $document->type
             ? $this->type(new DocumentModel(), $document->type)
             : null;
     }
@@ -453,12 +408,9 @@ class DocumentFactory extends ModelFactory {
      */
     protected function documentStatuses(DocumentModel $model, Document $document): Collection {
         /** @var Collection<string, Status> $statuses */
-        $statuses   = new Collection();
-        $normalizer = $this->getNormalizer();
+        $statuses = new Collection();
 
         foreach ($document->status ?? [] as $status) {
-            $status = $normalizer->string($status);
-
             if ($status) {
                 $status                 = $this->status($model, $status);
                 $statuses[$status->key] = $status;
@@ -483,11 +435,9 @@ class DocumentFactory extends ModelFactory {
         $entries = $this->children(
             $entries,
             $document->documentEntries ?? [],
-            static function (DocumentEntryModel $entry): bool {
-                return $entry->uid === null;
-            },
-            function (DocumentEntry $documentEntry, DocumentEntryModel $entry) use ($model): bool {
-                return $this->isEntryEqualDocumentEntry($model, $entry, $documentEntry);
+            null,
+            function (DocumentEntryModel|DocumentEntry $entry): string {
+                return $this->getEntryKey($entry);
             },
             function (DocumentEntry $documentEntry, ?DocumentEntryModel $entry) use ($model): ?DocumentEntryModel {
                 try {
@@ -513,8 +463,7 @@ class DocumentFactory extends ModelFactory {
     ): DocumentEntryModel {
         $asset                              = $this->documentEntryAsset($model, $documentEntry);
         $entry                            ??= new DocumentEntryModel();
-        $normalizer                         = $this->getNormalizer();
-        $entry->uid                         = $normalizer->uuid($documentEntry->assetDocumentId);
+        $entry->key                         = $this->getEntryKey($documentEntry);
         $entry->document                    = $model;
         $entry->asset                       = $asset;
         $entry->assetType                   = $this->documentEntryAssetType($model, $documentEntry);
@@ -522,22 +471,22 @@ class DocumentFactory extends ModelFactory {
         $entry->productLine                 = $this->documentEntryProductLine($model, $documentEntry);
         $entry->productGroup                = $this->documentEntryProductGroup($model, $documentEntry);
         $entry->serial_number               = $asset->serial_number ?? null;
-        $entry->start                       = $normalizer->datetime($documentEntry->startDate);
-        $entry->end                         = $normalizer->datetime($documentEntry->endDate);
+        $entry->start                       = $documentEntry->startDate;
+        $entry->end                         = $documentEntry->endDate;
         $entry->currency                    = $this->currency($documentEntry->currencyCode);
-        $entry->list_price_origin           = $normalizer->decimal($documentEntry->listPrice);
-        $entry->monthly_list_price_origin   = $normalizer->decimal($documentEntry->lineItemListPrice);
-        $entry->monthly_retail_price_origin = $normalizer->decimal($documentEntry->lineItemMonthlyRetailPrice);
-        $entry->renewal_origin              = $normalizer->decimal($documentEntry->estimatedValueRenewal);
-        $entry->oem_said                    = $normalizer->string($documentEntry->said);
-        $entry->oem_sar_number              = $normalizer->string($documentEntry->sarNumber);
-        $entry->environment_id              = $normalizer->string($documentEntry->environmentId);
-        $entry->equipment_number            = $normalizer->string($documentEntry->equipmentNumber);
+        $entry->list_price_origin           = $documentEntry->listPrice;
+        $entry->monthly_list_price_origin   = $documentEntry->lineItemListPrice;
+        $entry->monthly_retail_price_origin = $documentEntry->lineItemMonthlyRetailPrice;
+        $entry->renewal_origin              = $documentEntry->estimatedValueRenewal;
+        $entry->oem_said                    = $documentEntry->said;
+        $entry->oem_sar_number              = $documentEntry->sarNumber;
+        $entry->environment_id              = $documentEntry->environmentId;
+        $entry->equipment_number            = $documentEntry->equipmentNumber;
         $entry->language                    = $this->language($documentEntry->languageCode);
         $entry->serviceGroup                = $this->documentEntryServiceGroup($model, $documentEntry);
         $entry->serviceLevel                = $this->documentEntryServiceLevel($model, $documentEntry);
         $entry->psp                         = $this->documentEntryPsp($model, $documentEntry);
-        $entry->removed_at                  = $normalizer->datetime($documentEntry->deletedAt);
+        $entry->removed_at                  = $documentEntry->deletedAt;
         $entry->deleted_at                  = $entry->removed_at
             ? ($entry->deleted_at ?? Date::now())
             : null;
@@ -551,7 +500,7 @@ class DocumentFactory extends ModelFactory {
         try {
             $asset = $this->asset($documentEntry);
 
-            if ($asset === null && $this->getNormalizer()->uuid($documentEntry->assetId) !== null) {
+            if ($asset === null && $documentEntry->assetId !== null) {
                 $this->getExceptionHandler()->report(
                     new FailedToProcessDocumentEntryNoAsset($model, $documentEntry),
                 );
@@ -564,7 +513,7 @@ class DocumentFactory extends ModelFactory {
     }
 
     protected function documentEntryAssetType(DocumentModel $model, DocumentEntry $documentEntry): ?TypeModel {
-        $type = $this->getNormalizer()->string($documentEntry->assetProductType);
+        $type = $documentEntry->assetProductType;
         $type = $type
             ? $this->type(new AssetModel(), $type)
             : null;
@@ -608,6 +557,33 @@ class DocumentFactory extends ModelFactory {
         }
 
         return $level;
+    }
+    // </editor-fold>
+
+    // <editor-fold desc="Helpers">
+    // =========================================================================
+    protected function getEntryKey(DocumentEntryModel|DocumentEntry $entry): string {
+        $key = null;
+
+        if ($entry instanceof DocumentEntryModel) {
+            $key = new Key([
+                'key' => $entry->key,
+            ]);
+        } elseif (isset($entry->assetDocumentId) && $entry->assetDocumentId) {
+            $key = new Key([
+                'key' => $entry->assetDocumentId,
+            ]);
+        } else {
+            $key = new Key([
+                'asset'        => $entry->assetId,
+                'start'        => $entry->startDate,
+                'end'          => $entry->endDate,
+                'serviceGroup' => $entry->serviceGroupSku,
+                'serviceLevel' => $entry->serviceLevelSku,
+            ]);
+        }
+
+        return (string) $key;
     }
     // </editor-fold>
 }

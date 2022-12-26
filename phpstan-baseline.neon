@@ -1111,17 +1111,17 @@ parameters:
 			path: app/GraphQL/Mutations/Org/Update.php
 
 		-
-			message: "#^Property App\\\\Services\\\\DataLoader\\\\Schema\\\\CompanyBrandingData\\:\\:\\$mainColor \\(string\\|null\\) does not accept mixed\\.$#"
+			message: "#^Property App\\\\Services\\\\DataLoader\\\\Schema\\\\Inputs\\\\CompanyBrandingData\\:\\:\\$mainColor \\(string\\|null\\) does not accept mixed\\.$#"
 			count: 1
 			path: app/GraphQL/Mutations/Org/Update.php
 
 		-
-			message: "#^Property App\\\\Services\\\\DataLoader\\\\Schema\\\\CompanyBrandingData\\:\\:\\$resellerAnalyticsCode \\(string\\|null\\) does not accept mixed\\.$#"
+			message: "#^Property App\\\\Services\\\\DataLoader\\\\Schema\\\\Inputs\\\\CompanyBrandingData\\:\\:\\$resellerAnalyticsCode \\(string\\|null\\) does not accept mixed\\.$#"
 			count: 1
 			path: app/GraphQL/Mutations/Org/Update.php
 
 		-
-			message: "#^Property App\\\\Services\\\\DataLoader\\\\Schema\\\\CompanyBrandingData\\:\\:\\$secondaryColor \\(string\\|null\\) does not accept mixed\\.$#"
+			message: "#^Property App\\\\Services\\\\DataLoader\\\\Schema\\\\Inputs\\\\CompanyBrandingData\\:\\:\\$secondaryColor \\(string\\|null\\) does not accept mixed\\.$#"
 			count: 1
 			path: app/GraphQL/Mutations/Org/Update.php
 
@@ -2486,11 +2486,6 @@ parameters:
 			path: app/Services/Auth/AuthTest.php
 
 		-
-			message: "#^Method App\\\\Services\\\\DataLoader\\\\Cache\\\\Cache\\:\\:getAll\\(\\) should return Illuminate\\\\Database\\\\Eloquent\\\\Collection\\<int, TModel of Illuminate\\\\Database\\\\Eloquent\\\\Model\\> but returns Illuminate\\\\Database\\\\Eloquent\\\\Collection\\<\\(int\\|string\\), Illuminate\\\\Database\\\\Eloquent\\\\Model\\>\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Cache/Cache.php
-
-		-
 			message: "#^Cannot call method getAttribute\\(\\) on mixed\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Cache/CacheTest.php
@@ -2578,11 +2573,6 @@ parameters:
 		-
 			message: "#^Instanceof between string and App\\\\Services\\\\DataLoader\\\\Schema\\\\Type will always evaluate to false\\.$#"
 			count: 2
-			path: app/Services/DataLoader/Commands/AssetsAnalyze.php
-
-		-
-			message: "#^Method App\\\\Services\\\\DataLoader\\\\Commands\\\\AssetsAnalyze\\:\\:getIterator\\(\\) should return App\\\\Services\\\\DataLoader\\\\Client\\\\QueryIterator\\<App\\\\Services\\\\DataLoader\\\\Schema\\\\ViewAsset, array\\> but returns App\\\\Utils\\\\Iterators\\\\Contracts\\\\ObjectIterator\\<App\\\\Services\\\\DataLoader\\\\Schema\\\\ViewAsset\\>\\.$#"
-			count: 1
 			path: app/Services/DataLoader/Commands/AssetsAnalyze.php
 
 		-
@@ -2721,16 +2711,6 @@ parameters:
 			path: app/Services/DataLoader/Factory/Concerns/WithLocationsTest.php
 
 		-
-			message: "#^Cannot call method getTimestamp\\(\\) on Carbon\\\\CarbonImmutable\\|null\\.$#"
-			count: 2
-			path: app/Services/DataLoader/Factory/Concerns/WithProductTest.php
-
-		-
-			message: "#^Parameter \\#5 \\$eos of method class@anonymous/app/Services/DataLoader/Factory/Concerns/WithProductTest\\.php\\:32\\:\\:product\\(\\) expects string\\|null, mixed given\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Concerns/WithProductTest.php
-
-		-
 			message: "#^Method App\\\\Services\\\\DataLoader\\\\Factory\\\\Concerns\\\\WithResellerTest\\:\\:testResellerExistsThroughFinder\\(\\) has parameter \\$objectFactory with no signature specified for Closure\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Factory/Concerns/WithResellerTest.php
@@ -2756,17 +2736,7 @@ parameters:
 			path: app/Services/DataLoader/Factory/Concerns/WithStatusTest.php
 
 		-
-			message: "#^Method App\\\\Services\\\\DataLoader\\\\Factory\\\\DependentModelFactory\\:\\:find\\(\\) should return \\(TModel of App\\\\Utils\\\\Eloquent\\\\Model\\)\\|null but returns mixed\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/DependentModelFactory.php
-
-		-
 			message: "#^Access to an undefined property M of App\\\\Models\\\\Contact\\|App\\\\Models\\\\CustomerLocation\\|App\\\\Models\\\\Data\\\\Location\\|App\\\\Models\\\\ResellerLocation\\:\\:\\$types\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Factories/AssetFactory.php
-
-		-
-			message: "#^Parameter \\#1 \\$models of method App\\\\Services\\\\DataLoader\\\\Resolver\\\\Resolver\\<App\\\\Models\\\\Document\\>\\:\\:add\\(\\) expects App\\\\Models\\\\Document\\|array\\<App\\\\Models\\\\Document\\|null\\>\\|Illuminate\\\\Support\\\\Collection\\<\\(int\\|string\\), App\\\\Models\\\\Document\\|null\\>, Illuminate\\\\Support\\\\Collection\\<int, mixed\\> given\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Factory/Factories/AssetFactory.php
 
@@ -2786,13 +2756,13 @@ parameters:
 			path: app/Services/DataLoader/Factory/Factories/AssetFactoryTest.php
 
 		-
-			message: "#^Parameter \\#1 \\$json of class App\\\\Services\\\\DataLoader\\\\Schema\\\\ViewAsset constructor expects array\\<string, mixed\\>, array\\|bool\\|float\\|int\\|string\\|null given\\.$#"
-			count: 12
+			message: "#^Parameter \\#1 \\$json of class App\\\\Services\\\\DataLoader\\\\Schema\\\\Types\\\\ViewAsset constructor expects array\\<string, mixed\\>, array\\|bool\\|float\\|int\\|string\\|null given\\.$#"
+			count: 11
 			path: app/Services/DataLoader/Factory/Factories/AssetFactoryTest.php
 
 		-
 			message: "#^Call to static method PHPUnit\\\\Framework\\\\Assert\\:\\:assertNotNull\\(\\) with App\\\\Models\\\\Contact will always evaluate to true\\.$#"
-			count: 2
+			count: 1
 			path: app/Services/DataLoader/Factory/Factories/ContactFactoryTest.php
 
 		-
@@ -2826,13 +2796,13 @@ parameters:
 			path: app/Services/DataLoader/Factory/Factories/CustomerFactoryTest.php
 
 		-
-			message: "#^Parameter \\#1 \\$json of class App\\\\Services\\\\DataLoader\\\\Schema\\\\Company constructor expects array\\<string, mixed\\>, array\\|bool\\|float\\|int\\|string\\|null given\\.$#"
-			count: 6
+			message: "#^Parameter \\#1 \\$json of class App\\\\Services\\\\DataLoader\\\\Schema\\\\Types\\\\Company constructor expects array\\<string, mixed\\>, array\\|bool\\|float\\|int\\|string\\|null given\\.$#"
+			count: 5
 			path: app/Services/DataLoader/Factory/Factories/CustomerFactoryTest.php
 
 		-
-			message: "#^Parameter \\#1 \\$json of class App\\\\Services\\\\DataLoader\\\\Schema\\\\Company constructor expects array\\<string, mixed\\>, array\\|bool\\|float\\|int\\|string\\|null given\\.$#"
-			count: 5
+			message: "#^Parameter \\#1 \\$json of class App\\\\Services\\\\DataLoader\\\\Schema\\\\Types\\\\Company constructor expects array\\<string, mixed\\>, array\\|bool\\|float\\|int\\|string\\|null given\\.$#"
+			count: 4
 			path: app/Services/DataLoader/Factory/Factories/DistributorFactoryTest.php
 
 		-
@@ -2846,49 +2816,19 @@ parameters:
 			path: app/Services/DataLoader/Factory/Factories/DocumentFactoryTest.php
 
 		-
-			message: "#^Cannot access property \\$contactPersons on App\\\\Services\\\\DataLoader\\\\Schema\\\\ViewDocument\\|null\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Factories/DocumentFactoryTest.php
-
-		-
 			message: "#^Method App\\\\Services\\\\DataLoader\\\\Factory\\\\Factories\\\\DocumentFactoryTest\\:\\:testCreate\\(\\) has parameter \\$typeFactory with no signature specified for Closure\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Factory/Factories/DocumentFactoryTest.php
 
 		-
-			message: "#^Method App\\\\Services\\\\DataLoader\\\\Factory\\\\Factories\\\\DocumentFactoryTest\\:\\:testFind\\(\\) has parameter \\$typeFactory with no signature specified for Closure\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Factories/DocumentFactoryTest.php
-
-		-
-			message: "#^Parameter \\#1 \\$json of class App\\\\Services\\\\DataLoader\\\\Schema\\\\Document constructor expects array\\<string, mixed\\>, array\\|bool\\|float\\|int\\|string\\|null given\\.$#"
+			message: "#^Parameter \\#1 \\$json of class App\\\\Services\\\\DataLoader\\\\Schema\\\\Types\\\\Document constructor expects array\\<string, mixed\\>, array\\|bool\\|float\\|int\\|string\\|null given\\.$#"
 			count: 5
 			path: app/Services/DataLoader/Factory/Factories/DocumentFactoryTest.php
 
 		-
-			message: "#^Parameter \\#1 \\$json of class App\\\\Services\\\\DataLoader\\\\Schema\\\\ViewAsset constructor expects array\\<string, mixed\\>, array\\|bool\\|float\\|int\\|string\\|null given\\.$#"
+			message: "#^Parameter \\#1 \\$json of class App\\\\Services\\\\DataLoader\\\\Schema\\\\Types\\\\ViewAsset constructor expects array\\<string, mixed\\>, array\\|bool\\|float\\|int\\|string\\|null given\\.$#"
 			count: 7
 			path: app/Services/DataLoader/Factory/Factories/DocumentFactoryTest.php
-
-		-
-			message: "#^Parameter \\#1 \\$haystack of function str_contains expects string, string\\|null given\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Factories/LocationFactory.php
-
-		-
-			message: "#^Parameter \\#2 \\$name of method App\\\\Services\\\\DataLoader\\\\Factory\\\\Factories\\\\LocationFactory\\:\\:city\\(\\) expects string, string\\|null given\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Factories/LocationFactory.php
-
-		-
-			message: "#^Parameter \\#2 \\$string of function explode expects string, string\\|null given\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Factories/LocationFactory.php
-
-		-
-			message: "#^Parameter \\#3 \\$postcode of method App\\\\Services\\\\DataLoader\\\\Factory\\\\Factories\\\\LocationFactory\\:\\:location\\(\\) expects string, string\\|null given\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Factories/LocationFactory.php
 
 		-
 			message: "#^Parameter \\#1 \\$state of method Database\\\\Factories\\\\Data\\\\LocationFactory\\:\\:hasCity\\(\\) expects array\\<string, mixed\\>\\|\\(callable\\(array\\<string, mixed\\>, Illuminate\\\\Database\\\\Eloquent\\\\Model\\|null\\)\\: array\\<string, mixed\\>\\), Database\\\\Factories\\\\Data\\\\CityFactory given\\.$#"
@@ -2901,58 +2841,23 @@ parameters:
 			path: app/Services/DataLoader/Factory/Factories/LocationFactoryTest.php
 
 		-
-			message: "#^Parameter \\#1 \\$json of class App\\\\Services\\\\DataLoader\\\\Schema\\\\Company constructor expects array\\<string, mixed\\>, array\\|bool\\|float\\|int\\|string\\|null given\\.$#"
+			message: "#^Parameter \\#1 \\$json of class App\\\\Services\\\\DataLoader\\\\Schema\\\\Types\\\\Company constructor expects array\\<string, mixed\\>, array\\|bool\\|float\\|int\\|string\\|null given\\.$#"
 			count: 6
 			path: app/Services/DataLoader/Factory/Factories/ResellerFactoryTest.php
 
 		-
-			message: "#^Method App\\\\Services\\\\DataLoader\\\\Factory\\\\Factory\\:\\:factory\\(\\) has parameter \\$closure with no signature specified for Closure\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Factory.php
-
-		-
-			message: "#^Method App\\\\Services\\\\DataLoader\\\\Factory\\\\Factory\\:\\:factory\\(\\) return type has no signature specified for Closure\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Factory.php
-
-		-
-			message: "#^Method App\\\\Services\\\\DataLoader\\\\Factory\\\\Factory\\:\\:inSearchMode\\(\\) has parameter \\$closure with no signature specified for Closure\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Factory.php
-
-		-
-			message: "#^Method App\\\\Services\\\\DataLoader\\\\Factory\\\\ModelFactory\\:\\:find\\(\\) should return \\(TModel of App\\\\Utils\\\\Eloquent\\\\Model\\)\\|null but returns mixed\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/ModelFactory.php
-
-		-
-			message: "#^Cannot call method startOfDay\\(\\) on Carbon\\\\CarbonImmutable\\|false\\.$#"
-			count: 2
-			path: app/Services/DataLoader/Normalizer/Normalizers/DateTimeNormalizer.php
-
-		-
-			message: "#^Cannot call method toImmutable\\(\\) on Carbon\\\\Carbon\\|null\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Normalizer/Normalizers/DateTimeNormalizer.php
-
-		-
-			message: "#^Cannot cast mixed to string\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Normalizer/Normalizers/StringNormalizer.php
-
-		-
-			message: "#^Cannot cast mixed to string\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Normalizer/Normalizers/TextNormalizer.php
-
-		-
 			message: "#^Parameter \\#1 \\$models of method App\\\\Services\\\\DataLoader\\\\Resolver\\\\Resolver\\<App\\\\Models\\\\Contact\\>\\:\\:add\\(\\) expects App\\\\Models\\\\Contact\\|array\\<App\\\\Models\\\\Contact\\|null\\>\\|Illuminate\\\\Support\\\\Collection\\<\\(int\\|string\\), App\\\\Models\\\\Contact\\|null\\>, Illuminate\\\\Support\\\\Collection\\<int, mixed\\> given\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Processors/Importer/Importers/Assets/BaseImporter.php
 
 		-
 			message: "#^Parameter \\#1 \\$models of method App\\\\Services\\\\DataLoader\\\\Resolver\\\\Resolver\\<App\\\\Models\\\\Data\\\\Location\\>\\:\\:add\\(\\) expects App\\\\Models\\\\Data\\\\Location\\|array\\<App\\\\Models\\\\Data\\\\Location\\|null\\>\\|Illuminate\\\\Support\\\\Collection\\<\\(int\\|string\\), App\\\\Models\\\\Data\\\\Location\\|null\\>, Illuminate\\\\Support\\\\Collection\\<int, mixed\\> given\\.$#"
-			count: 3
+			count: 1
+			path: app/Services/DataLoader/Processors/Importer/Importers/Assets/BaseImporter.php
+
+		-
+			message: "#^Parameter \\#1 \\$models of method App\\\\Services\\\\DataLoader\\\\Resolver\\\\Resolver\\<App\\\\Models\\\\Document\\>\\:\\:add\\(\\) expects App\\\\Models\\\\Document\\|array\\<App\\\\Models\\\\Document\\|null\\>\\|Illuminate\\\\Support\\\\Collection\\<\\(int\\|string\\), App\\\\Models\\\\Document\\|null\\>, Illuminate\\\\Support\\\\Collection\\<int, mixed\\> given\\.$#"
+			count: 1
 			path: app/Services/DataLoader/Processors/Importer/Importers/Assets/BaseImporter.php
 
 		-
@@ -2967,7 +2872,7 @@ parameters:
 
 		-
 			message: "#^Parameter \\#1 \\$models of method App\\\\Services\\\\DataLoader\\\\Resolver\\\\Resolver\\<App\\\\Models\\\\Contact\\>\\:\\:add\\(\\) expects App\\\\Models\\\\Contact\\|array\\<App\\\\Models\\\\Contact\\|null\\>\\|Illuminate\\\\Support\\\\Collection\\<\\(int\\|string\\), App\\\\Models\\\\Contact\\|null\\>, Illuminate\\\\Support\\\\Collection\\<int, mixed\\> given\\.$#"
-			count: 3
+			count: 1
 			path: app/Services/DataLoader/Processors/Importer/Importers/Documents/BaseImporter.php
 
 		-
@@ -3106,11 +3011,6 @@ parameters:
 			path: app/Services/DataLoader/Resolver/Resolver.php
 
 		-
-			message: "#^Call to static method PHPUnit\\\\Framework\\\\Assert\\:\\:assertInstanceOf\\(\\) with 'App\\\\\\\\Services\\\\\\\\DataLoader\\\\\\\\Exceptions\\\\\\\\FactorySearchModeException' and App\\\\Services\\\\DataLoader\\\\Exceptions\\\\FactorySearchModeException will always evaluate to true\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Resolver/ResolverTest.php
-
-		-
 			message: "#^Call to static method PHPUnit\\\\Framework\\\\Assert\\:\\:assertNotNull\\(\\) with Illuminate\\\\Database\\\\Eloquent\\\\Model will always evaluate to true\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Resolver/ResolverTest.php
@@ -3119,336 +3019,6 @@ parameters:
 			message: "#^Cannot call method once\\(\\) on mixed\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Resolver/ResolverTest.php
-
-		-
-			message: "#^Parameter \\#1 \\$array of function array_keys expects array, array\\|bool\\|float\\|int\\|string\\|null given\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Schema/BrandingDataTest.php
-
-		-
-			message: "#^Parameter \\#1 \\$array of function reset expects array\\|object, array\\<App\\\\Services\\\\DataLoader\\\\Schema\\\\TranslationText\\>\\|null given\\.$#"
-			count: 2
-			path: app/Services/DataLoader/Schema/BrandingDataTest.php
-
-		-
-			message: "#^Parameter \\#1 \\$expectedJson of static method PHPUnit\\\\Framework\\\\Assert\\:\\:assertJsonStringEqualsJsonString\\(\\) expects string, string\\|false given\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Schema/BrandingDataTest.php
-
-		-
-			message: "#^Parameter \\#1 \\$json of class App\\\\Services\\\\DataLoader\\\\Schema\\\\BrandingData constructor expects array\\<string, mixed\\>, array\\|bool\\|float\\|int\\|string\\|null given\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Schema/BrandingDataTest.php
-
-		-
-			message: "#^Parameter \\#2 \\$actualJson of static method PHPUnit\\\\Framework\\\\Assert\\:\\:assertJsonStringEqualsJsonString\\(\\) expects string, string\\|false given\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Schema/BrandingDataTest.php
-
-		-
-			message: "#^Parameter \\#2 \\$haystack of static method PHPUnit\\\\Framework\\\\Assert\\:\\:assertCount\\(\\) expects Countable\\|iterable, array\\<App\\\\Services\\\\DataLoader\\\\Schema\\\\TranslationText\\>\\|null given\\.$#"
-			count: 2
-			path: app/Services/DataLoader/Schema/BrandingDataTest.php
-
-		-
-			message: "#^Parameter \\#1 \\$array of function array_keys expects array, array\\|bool\\|float\\|int\\|string\\|null given\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Schema/CentralAssetDbStatisticsTest.php
-
-		-
-			message: "#^Parameter \\#1 \\$expectedJson of static method PHPUnit\\\\Framework\\\\Assert\\:\\:assertJsonStringEqualsJsonString\\(\\) expects string, string\\|false given\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Schema/CentralAssetDbStatisticsTest.php
-
-		-
-			message: "#^Parameter \\#1 \\$json of class App\\\\Services\\\\DataLoader\\\\Schema\\\\CentralAssetDbStatistics constructor expects array\\<string, mixed\\>, array\\|bool\\|float\\|int\\|string\\|null given\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Schema/CentralAssetDbStatisticsTest.php
-
-		-
-			message: "#^Parameter \\#2 \\$actualJson of static method PHPUnit\\\\Framework\\\\Assert\\:\\:assertJsonStringEqualsJsonString\\(\\) expects string, string\\|false given\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Schema/CentralAssetDbStatisticsTest.php
-
-		-
-			message: "#^Parameter \\#1 \\$array of function array_keys expects array, array\\|bool\\|float\\|int\\|string\\|null given\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Schema/CompanyContactPersonTest.php
-
-		-
-			message: "#^Parameter \\#1 \\$expectedJson of static method PHPUnit\\\\Framework\\\\Assert\\:\\:assertJsonStringEqualsJsonString\\(\\) expects string, string\\|false given\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Schema/CompanyContactPersonTest.php
-
-		-
-			message: "#^Parameter \\#1 \\$json of class App\\\\Services\\\\DataLoader\\\\Schema\\\\CompanyContactPerson constructor expects array\\<string, mixed\\>, array\\|bool\\|float\\|int\\|string\\|null given\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Schema/CompanyContactPersonTest.php
-
-		-
-			message: "#^Parameter \\#2 \\$actualJson of static method PHPUnit\\\\Framework\\\\Assert\\:\\:assertJsonStringEqualsJsonString\\(\\) expects string, string\\|false given\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Schema/CompanyContactPersonTest.php
-
-		-
-			message: "#^Parameter \\#1 \\$array of function array_keys expects array, array\\|bool\\|float\\|int\\|string\\|null given\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Schema/CompanyKpisTest.php
-
-		-
-			message: "#^Parameter \\#1 \\$expectedJson of static method PHPUnit\\\\Framework\\\\Assert\\:\\:assertJsonStringEqualsJsonString\\(\\) expects string, string\\|false given\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Schema/CompanyKpisTest.php
-
-		-
-			message: "#^Parameter \\#1 \\$json of class App\\\\Services\\\\DataLoader\\\\Schema\\\\CompanyKpis constructor expects array\\<string, mixed\\>, array\\|bool\\|float\\|int\\|string\\|null given\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Schema/CompanyKpisTest.php
-
-		-
-			message: "#^Parameter \\#2 \\$actualJson of static method PHPUnit\\\\Framework\\\\Assert\\:\\:assertJsonStringEqualsJsonString\\(\\) expects string, string\\|false given\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Schema/CompanyKpisTest.php
-
-		-
-			message: "#^Parameter \\#1 \\$array of function array_keys expects array, array\\|bool\\|float\\|int\\|string\\|null given\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Schema/CompanyTest.php
-
-		-
-			message: "#^Parameter \\#1 \\$expectedJson of static method PHPUnit\\\\Framework\\\\Assert\\:\\:assertJsonStringEqualsJsonString\\(\\) expects string, string\\|false given\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Schema/CompanyTest.php
-
-		-
-			message: "#^Parameter \\#1 \\$json of class App\\\\Services\\\\DataLoader\\\\Schema\\\\Company constructor expects array\\<string, mixed\\>, array\\|bool\\|float\\|int\\|string\\|null given\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Schema/CompanyTest.php
-
-		-
-			message: "#^Parameter \\#2 \\$actualJson of static method PHPUnit\\\\Framework\\\\Assert\\:\\:assertJsonStringEqualsJsonString\\(\\) expects string, string\\|false given\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Schema/CompanyTest.php
-
-		-
-			message: "#^Parameter \\#1 \\$array of function array_keys expects array, array\\|bool\\|float\\|int\\|string\\|null given\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Schema/CompanyTypeTest.php
-
-		-
-			message: "#^Parameter \\#1 \\$expectedJson of static method PHPUnit\\\\Framework\\\\Assert\\:\\:assertJsonStringEqualsJsonString\\(\\) expects string, string\\|false given\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Schema/CompanyTypeTest.php
-
-		-
-			message: "#^Parameter \\#1 \\$json of class App\\\\Services\\\\DataLoader\\\\Schema\\\\CompanyType constructor expects array\\<string, mixed\\>, array\\|bool\\|float\\|int\\|string\\|null given\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Schema/CompanyTypeTest.php
-
-		-
-			message: "#^Parameter \\#2 \\$actualJson of static method PHPUnit\\\\Framework\\\\Assert\\:\\:assertJsonStringEqualsJsonString\\(\\) expects string, string\\|false given\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Schema/CompanyTypeTest.php
-
-		-
-			message: "#^Parameter \\#1 \\$array of function array_keys expects array, array\\|bool\\|float\\|int\\|string\\|null given\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Schema/CoverageEntryTest.php
-
-		-
-			message: "#^Parameter \\#1 \\$expectedJson of static method PHPUnit\\\\Framework\\\\Assert\\:\\:assertJsonStringEqualsJsonString\\(\\) expects string, string\\|false given\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Schema/CoverageEntryTest.php
-
-		-
-			message: "#^Parameter \\#1 \\$json of class App\\\\Services\\\\DataLoader\\\\Schema\\\\CoverageEntry constructor expects array\\<string, mixed\\>, array\\|bool\\|float\\|int\\|string\\|null given\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Schema/CoverageEntryTest.php
-
-		-
-			message: "#^Parameter \\#2 \\$actualJson of static method PHPUnit\\\\Framework\\\\Assert\\:\\:assertJsonStringEqualsJsonString\\(\\) expects string, string\\|false given\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Schema/CoverageEntryTest.php
-
-		-
-			message: "#^Parameter \\#1 \\$array of function array_keys expects array, array\\|bool\\|float\\|int\\|string\\|null given\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Schema/CoverageStatusCheckTest.php
-
-		-
-			message: "#^Parameter \\#1 \\$expectedJson of static method PHPUnit\\\\Framework\\\\Assert\\:\\:assertJsonStringEqualsJsonString\\(\\) expects string, string\\|false given\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Schema/CoverageStatusCheckTest.php
-
-		-
-			message: "#^Parameter \\#1 \\$json of class App\\\\Services\\\\DataLoader\\\\Schema\\\\CoverageStatusCheck constructor expects array\\<string, mixed\\>, array\\|bool\\|float\\|int\\|string\\|null given\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Schema/CoverageStatusCheckTest.php
-
-		-
-			message: "#^Parameter \\#2 \\$actualJson of static method PHPUnit\\\\Framework\\\\Assert\\:\\:assertJsonStringEqualsJsonString\\(\\) expects string, string\\|false given\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Schema/CoverageStatusCheckTest.php
-
-		-
-			message: "#^Call to static method PHPUnit\\\\Framework\\\\Assert\\:\\:assertInstanceOf\\(\\) with 'App\\\\\\\\Services\\\\\\\\DataLoader\\\\\\\\Schema\\\\\\\\DocumentVendorSpecificField' and App\\\\Services\\\\DataLoader\\\\Schema\\\\DocumentVendorSpecificField will always evaluate to true\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Schema/DocumentTest.php
-
-		-
-			message: "#^Parameter \\#1 \\$array of function array_keys expects array, array\\|bool\\|float\\|int\\|string\\|null given\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Schema/DocumentTest.php
-
-		-
-			message: "#^Parameter \\#1 \\$expectedJson of static method PHPUnit\\\\Framework\\\\Assert\\:\\:assertJsonStringEqualsJsonString\\(\\) expects string, string\\|false given\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Schema/DocumentTest.php
-
-		-
-			message: "#^Parameter \\#1 \\$json of class App\\\\Services\\\\DataLoader\\\\Schema\\\\Document constructor expects array\\<string, mixed\\>, array\\|bool\\|float\\|int\\|string\\|null given\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Schema/DocumentTest.php
-
-		-
-			message: "#^Parameter \\#2 \\$actualJson of static method PHPUnit\\\\Framework\\\\Assert\\:\\:assertJsonStringEqualsJsonString\\(\\) expects string, string\\|false given\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Schema/DocumentTest.php
-
-		-
-			message: "#^Parameter \\#1 \\$array of function array_keys expects array, array\\|bool\\|float\\|int\\|string\\|null given\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Schema/DocumentVendorSpecificFieldTest.php
-
-		-
-			message: "#^Parameter \\#1 \\$expectedJson of static method PHPUnit\\\\Framework\\\\Assert\\:\\:assertJsonStringEqualsJsonString\\(\\) expects string, string\\|false given\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Schema/DocumentVendorSpecificFieldTest.php
-
-		-
-			message: "#^Parameter \\#1 \\$json of class App\\\\Services\\\\DataLoader\\\\Schema\\\\DocumentVendorSpecificField constructor expects array\\<string, mixed\\>, array\\|bool\\|float\\|int\\|string\\|null given\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Schema/DocumentVendorSpecificFieldTest.php
-
-		-
-			message: "#^Parameter \\#2 \\$actualJson of static method PHPUnit\\\\Framework\\\\Assert\\:\\:assertJsonStringEqualsJsonString\\(\\) expects string, string\\|false given\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Schema/DocumentVendorSpecificFieldTest.php
-
-		-
-			message: "#^Parameter \\#1 \\$array of function array_keys expects array, array\\|bool\\|float\\|int\\|string\\|null given\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Schema/LocationTest.php
-
-		-
-			message: "#^Parameter \\#1 \\$expectedJson of static method PHPUnit\\\\Framework\\\\Assert\\:\\:assertJsonStringEqualsJsonString\\(\\) expects string, string\\|false given\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Schema/LocationTest.php
-
-		-
-			message: "#^Parameter \\#1 \\$json of class App\\\\Services\\\\DataLoader\\\\Schema\\\\Location constructor expects array\\<string, mixed\\>, array\\|bool\\|float\\|int\\|string\\|null given\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Schema/LocationTest.php
-
-		-
-			message: "#^Parameter \\#2 \\$actualJson of static method PHPUnit\\\\Framework\\\\Assert\\:\\:assertJsonStringEqualsJsonString\\(\\) expects string, string\\|false given\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Schema/LocationTest.php
-
-		-
-			message: "#^Parameter \\#1 \\$array of function array_keys expects array, array\\|bool\\|float\\|int\\|string\\|null given\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Schema/ViewAssetDocumentTest.php
-
-		-
-			message: "#^Parameter \\#1 \\$expectedJson of static method PHPUnit\\\\Framework\\\\Assert\\:\\:assertJsonStringEqualsJsonString\\(\\) expects string, string\\|false given\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Schema/ViewAssetDocumentTest.php
-
-		-
-			message: "#^Parameter \\#1 \\$json of class App\\\\Services\\\\DataLoader\\\\Schema\\\\ViewAssetDocument constructor expects array\\<string, mixed\\>, array\\|bool\\|float\\|int\\|string\\|null given\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Schema/ViewAssetDocumentTest.php
-
-		-
-			message: "#^Parameter \\#2 \\$actualJson of static method PHPUnit\\\\Framework\\\\Assert\\:\\:assertJsonStringEqualsJsonString\\(\\) expects string, string\\|false given\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Schema/ViewAssetDocumentTest.php
-
-		-
-			message: "#^Call to static method PHPUnit\\\\Framework\\\\Assert\\:\\:assertInstanceOf\\(\\) with 'App\\\\\\\\Services\\\\\\\\DataLoader\\\\\\\\Schema\\\\\\\\CoverageEntry' and App\\\\Services\\\\DataLoader\\\\Schema\\\\CoverageEntry will always evaluate to true\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Schema/ViewAssetTest.php
-
-		-
-			message: "#^Call to static method PHPUnit\\\\Framework\\\\Assert\\:\\:assertInstanceOf\\(\\) with 'App\\\\\\\\Services\\\\\\\\DataLoader\\\\\\\\Schema\\\\\\\\ViewAssetDocument' and App\\\\Services\\\\DataLoader\\\\Schema\\\\ViewAssetDocument will always evaluate to true\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Schema/ViewAssetTest.php
-
-		-
-			message: "#^Parameter \\#1 \\$array of function array_keys expects array, array\\|bool\\|float\\|int\\|string\\|null given\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Schema/ViewAssetTest.php
-
-		-
-			message: "#^Parameter \\#1 \\$expectedJson of static method PHPUnit\\\\Framework\\\\Assert\\:\\:assertJsonStringEqualsJsonString\\(\\) expects string, string\\|false given\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Schema/ViewAssetTest.php
-
-		-
-			message: "#^Parameter \\#1 \\$json of class App\\\\Services\\\\DataLoader\\\\Schema\\\\ViewAsset constructor expects array\\<string, mixed\\>, array\\|bool\\|float\\|int\\|string\\|null given\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Schema/ViewAssetTest.php
-
-		-
-			message: "#^Parameter \\#2 \\$actualJson of static method PHPUnit\\\\Framework\\\\Assert\\:\\:assertJsonStringEqualsJsonString\\(\\) expects string, string\\|false given\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Schema/ViewAssetTest.php
-
-		-
-			message: "#^Parameter \\#1 \\$array of function array_keys expects array, array\\|bool\\|float\\|int\\|string\\|null given\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Schema/ViewCompanyTest.php
-
-		-
-			message: "#^Parameter \\#1 \\$expectedJson of static method PHPUnit\\\\Framework\\\\Assert\\:\\:assertJsonStringEqualsJsonString\\(\\) expects string, string\\|false given\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Schema/ViewCompanyTest.php
-
-		-
-			message: "#^Parameter \\#1 \\$json of class App\\\\Services\\\\DataLoader\\\\Schema\\\\ViewCompany constructor expects array\\<string, mixed\\>, array\\|bool\\|float\\|int\\|string\\|null given\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Schema/ViewCompanyTest.php
-
-		-
-			message: "#^Parameter \\#2 \\$actualJson of static method PHPUnit\\\\Framework\\\\Assert\\:\\:assertJsonStringEqualsJsonString\\(\\) expects string, string\\|false given\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Schema/ViewCompanyTest.php
-
-		-
-			message: "#^Call to static method PHPUnit\\\\Framework\\\\Assert\\:\\:assertInstanceOf\\(\\) with 'App\\\\\\\\Services\\\\\\\\DataLoader\\\\\\\\Schema\\\\\\\\DocumentVendorSpecificField' and App\\\\Services\\\\DataLoader\\\\Schema\\\\DocumentVendorSpecificField will always evaluate to true\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Schema/ViewDocumentTest.php
-
-		-
-			message: "#^Parameter \\#1 \\$array of function array_keys expects array, array\\|bool\\|float\\|int\\|string\\|null given\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Schema/ViewDocumentTest.php
-
-		-
-			message: "#^Parameter \\#1 \\$expectedJson of static method PHPUnit\\\\Framework\\\\Assert\\:\\:assertJsonStringEqualsJsonString\\(\\) expects string, string\\|false given\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Schema/ViewDocumentTest.php
-
-		-
-			message: "#^Parameter \\#1 \\$json of class App\\\\Services\\\\DataLoader\\\\Schema\\\\ViewDocument constructor expects array\\<string, mixed\\>, array\\|bool\\|float\\|int\\|string\\|null given\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Schema/ViewDocumentTest.php
-
-		-
-			message: "#^Parameter \\#2 \\$actualJson of static method PHPUnit\\\\Framework\\\\Assert\\:\\:assertJsonStringEqualsJsonString\\(\\) expects string, string\\|false given\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Schema/ViewDocumentTest.php
 
 		-
 			message: "#^Cannot access offset 'response' on array\\|bool\\|float\\|int\\|string\\|null\\.$#"

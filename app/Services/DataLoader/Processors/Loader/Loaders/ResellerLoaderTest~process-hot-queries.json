@@ -37,15 +37,15 @@
         ]
     },
     {
-        "query": "select `kpis`.* from `kpis` where `kpis`.`id` in (?) and `kpis`.`deleted_at` is null",
-        "bindings": [
-            "f05d35d8-6edc-5c65-a347-f66a691b36e3"
-        ]
-    },
-    {
         "query": "select `types`.*, `contact_types`.`contact_id` as `pivot_contact_id`, `contact_types`.`type_id` as `pivot_type_id`, `contact_types`.`created_at` as `pivot_created_at`, `contact_types`.`updated_at` as `pivot_updated_at` from `types` inner join `contact_types` on `types`.`id` = `contact_types`.`type_id` where `contact_types`.`deleted_at` is null and `contact_types`.`contact_id` in (?) and `types`.`deleted_at` is null",
         "bindings": [
             "31b78dce-3209-5ef8-946b-1e136f3ce019"
+        ]
+    },
+    {
+        "query": "select `kpis`.* from `kpis` where `kpis`.`id` in (?) and `kpis`.`deleted_at` is null",
+        "bindings": [
+            "f05d35d8-6edc-5c65-a347-f66a691b36e3"
         ]
     },
     {
@@ -67,14 +67,6 @@
         "bindings": []
     },
     {
-        "query": "update `resellers` set `synced_at` = ?, `resellers`.`updated_at` = ? where `id` = ?",
-        "bindings": [
-            "2022-02-02 00:00:18",
-            "2022-02-02 00:00:21",
-            "c0d99925-8b3b-47d8-9db2-9d3a5f5520a2"
-        ]
-    },
-    {
         "query": "select `organizations`.* from `organizations` where `organizations`.`id` = ? limit 1",
         "bindings": [
             "c0d99925-8b3b-47d8-9db2-9d3a5f5520a2"
@@ -85,7 +77,14 @@
         "bindings": [
             "{\"de_DE\":\"Ut molestias illo fugiat optio repellat rerum.\",\"en_GB\":\"Soluta aut et quas nisi.\",\"fr_FR\":\"Soluta aut et quas nisi.\"}",
             "{\"de_DE\":\"Possimus et placeat maiores.\",\"en_GB\":\"Molestiae voluptatem nisi eaque alias quis enim.\",\"fr_FR\":\"Molestiae voluptatem nisi eaque alias quis enim.\"}",
-            "2022-02-02 00:00:41",
+            "2022-02-02 00:00:18",
+            "c0d99925-8b3b-47d8-9db2-9d3a5f5520a2"
+        ]
+    },
+    {
+        "query": "update `resellers` set `synced_at` = ? where `id` in (?) and `resellers`.`deleted_at` is null",
+        "bindings": [
+            "2022-02-02T00:00:31+00:00",
             "c0d99925-8b3b-47d8-9db2-9d3a5f5520a2"
         ]
     }

@@ -69,6 +69,7 @@ class ResellerLoaderData extends AssetsData {
                     'product_id'  => null,
                     'location_id' => null,
                     'status_id'   => null,
+                    'synced_at'   => Date::now(),
                 ]);
 
                 if (!Asset::query()->whereKey(static::ASSET)->exists()) {
@@ -107,6 +108,7 @@ class ResellerLoaderData extends AssetsData {
                     'type_id'     => null,
                     'reseller_id' => static::RESELLER,
                     'customer_id' => null,
+                    'synced_at'   => Date::now(),
                 ]);
 
                 if (!Document::query()->withTrashed()->whereKey(static::DOCUMENT)->exists()) {

@@ -4,10 +4,9 @@ namespace App\Services\DataLoader\Factory\Factories;
 
 use App\Models\Contact;
 use App\Services\DataLoader\Factory\DependentModelFactory;
-use App\Services\DataLoader\Normalizer\Normalizer;
 use App\Services\DataLoader\Resolver\Resolvers\ContactResolver;
-use App\Services\DataLoader\Schema\CompanyContactPerson;
 use App\Services\DataLoader\Schema\Type;
+use App\Services\DataLoader\Schema\Types\CompanyContactPerson;
 use App\Utils\Eloquent\Model;
 use Illuminate\Contracts\Debug\ExceptionHandler;
 use InvalidArgumentException;
@@ -23,14 +22,9 @@ use function sprintf;
 class ContactFactory extends DependentModelFactory {
     public function __construct(
         ExceptionHandler $exceptionHandler,
-        Normalizer $normalizer,
         protected ContactResolver $contactResolver,
     ) {
-        parent::__construct($exceptionHandler, $normalizer);
-    }
-
-    public function find(Model $object, Type $type): ?Contact {
-        return parent::find($object, $type);
+        parent::__construct($exceptionHandler);
     }
 
     public function create(Model $object, Type $type): ?Contact {
@@ -84,22 +78,8 @@ class ContactFactory extends DependentModelFactory {
             $name,
             $phone,
             $mail,
-            $this->factory(function () use ($object, $name, $phone, $valid, $mail): Contact {
-                $model      = new Contact();
-                $normalizer = $this->getNormalizer();
-
-                if (!is_null($name)) {
-                    $name = $normalizer->string($name);
-                }
-
-                if (!is_null($phone)) {
-                    $phone = $normalizer->string($phone);
-                }
-
-                if (!is_null($mail)) {
-                    $mail = $normalizer->string($mail);
-                }
-
+            static function () use ($object, $name, $phone, $valid, $mail): Contact {
+                $model               = new Contact();
                 $model->object_type  = $object->getMorphClass();
                 $model->object_id    = $object->getKey();
                 $model->name         = $name;
@@ -112,7 +92,7 @@ class ContactFactory extends DependentModelFactory {
                 }
 
                 return $model;
-            }),
+            },
         );
 
         return $contact;

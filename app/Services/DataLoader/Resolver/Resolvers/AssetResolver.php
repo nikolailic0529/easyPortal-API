@@ -3,7 +3,6 @@
 namespace App\Services\DataLoader\Resolver\Resolvers;
 
 use App\Models\Asset;
-use App\Services\DataLoader\Normalizer\Normalizer;
 use App\Services\DataLoader\Resolver\Resolver;
 use Closure;
 use Illuminate\Database\Eloquent\Builder;
@@ -13,7 +12,7 @@ use Illuminate\Database\Eloquent\Builder;
  */
 class AssetResolver extends Resolver {
     /**
-     * @param Closure(Normalizer=): Asset|null $factory
+     * @param Closure(): Asset|null $factory
      *
      * @return ($factory is null ? Asset|null : Asset)
      */

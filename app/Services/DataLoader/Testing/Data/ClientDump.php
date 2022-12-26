@@ -2,10 +2,10 @@
 
 namespace App\Services\DataLoader\Testing\Data;
 
-use App\Services\DataLoader\Schema\CentralAssetDbStatistics;
-use App\Services\DataLoader\Schema\Company;
-use App\Services\DataLoader\Schema\Document;
-use App\Services\DataLoader\Schema\ViewAsset;
+use App\Services\DataLoader\Schema\Types\CentralAssetDbStatistics;
+use App\Services\DataLoader\Schema\Types\Company;
+use App\Services\DataLoader\Schema\Types\Document;
+use App\Services\DataLoader\Schema\Types\ViewAsset;
 use App\Utils\JsonObject\JsonObject;
 use App\Utils\JsonObject\JsonObjectIterator;
 use Exception;

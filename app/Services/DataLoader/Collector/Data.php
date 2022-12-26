@@ -8,12 +8,12 @@ use App\Models\Data\Location;
 use App\Models\Distributor;
 use App\Models\Document;
 use App\Models\Reseller;
-use App\Services\DataLoader\Schema\CompanyKpis as SchemaCompanyKpis;
-use App\Services\DataLoader\Schema\Document as SchemaDocument;
-use App\Services\DataLoader\Schema\DocumentEntry as SchemaDocumentEntry;
-use App\Services\DataLoader\Schema\ViewAsset as SchemaViewAsset;
-use App\Services\DataLoader\Schema\ViewAssetDocument as SchemaViewAssetDocument;
-use App\Services\DataLoader\Schema\ViewDocument as SchemaViewDocument;
+use App\Services\DataLoader\Schema\Types\CompanyKpis as SchemaCompanyKpis;
+use App\Services\DataLoader\Schema\Types\Document as SchemaDocument;
+use App\Services\DataLoader\Schema\Types\DocumentEntry as SchemaDocumentEntry;
+use App\Services\DataLoader\Schema\Types\ViewAsset as SchemaViewAsset;
+use App\Services\DataLoader\Schema\Types\ViewAssetDocument as SchemaViewAssetDocument;
+use App\Services\DataLoader\Schema\Types\ViewDocument as SchemaViewDocument;
 use App\Utils\Eloquent\Model;
 use Illuminate\Support\Arr;
 
@@ -148,7 +148,7 @@ class Data {
 
     public function collectObjectChange(object $object): static {
         if (!$this->dirty) {
-            $this->dirty = $object instanceof Model && $this->isModelChanged($object);
+            $this->dirty = $object instanceof Model;
         }
 
         return $this->collect($object);
@@ -168,20 +168,5 @@ class Data {
 
     public function isDirty(): bool {
         return $this->dirty;
-    }
-
-    protected function isModelChanged(Model $model): bool {
-        // Created or Deleted?
-        if ($model->wasRecentlyCreated || !$model->exists) {
-            return true;
-        }
-
-        // Dirty?
-        $dirty = $model->getDirty();
-
-        unset($dirty[$model->getUpdatedAtColumn()]);
-        unset($dirty['synced_at']);
-
-        return (bool) $dirty;
     }
 }

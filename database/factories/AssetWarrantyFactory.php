@@ -28,6 +28,7 @@ class AssetWarrantyFactory extends Factory {
     public function definition(): array {
         return [
             'id'               => $this->faker->uuid(),
+            'key'              => null,
             'asset_id'         => Asset::factory(),
             'type_id'          => null,
             'status_id'        => null,

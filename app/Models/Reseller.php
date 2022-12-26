@@ -35,7 +35,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @property int                               $contacts_count
  * @property int                               $statuses_count
  * @property CarbonImmutable|null              $changed_at
- * @property CarbonImmutable                   $synced_at
+ * @property CarbonImmutable|null              $synced_at
  * @property CarbonImmutable                   $created_at
  * @property CarbonImmutable                   $updated_at
  * @property CarbonImmutable|null              $deleted_at

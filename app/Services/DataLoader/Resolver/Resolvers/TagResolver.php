@@ -5,7 +5,6 @@ namespace App\Services\DataLoader\Resolver\Resolvers;
 use App\Models\Data\Tag;
 use App\Services\DataLoader\Cache\Key;
 use App\Services\DataLoader\Container\SingletonPersistent;
-use App\Services\DataLoader\Normalizer\Normalizer;
 use App\Services\DataLoader\Resolver\Resolver;
 use Closure;
 use Illuminate\Database\Eloquent\Builder;
@@ -17,7 +16,7 @@ use Illuminate\Support\Collection;
  */
 class TagResolver extends Resolver implements SingletonPersistent {
     /**
-     * @param Closure(Normalizer=): Tag|null $factory
+     * @param Closure(): Tag|null $factory
      *
      * @return ($factory is null ? Tag|null : Tag)
      */

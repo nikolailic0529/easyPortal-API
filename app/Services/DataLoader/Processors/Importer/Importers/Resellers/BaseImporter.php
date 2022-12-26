@@ -10,9 +10,8 @@ use App\Services\DataLoader\Resolver\Resolver;
 use App\Services\DataLoader\Resolver\Resolvers\ContactResolver;
 use App\Services\DataLoader\Resolver\Resolvers\LocationResolver;
 use App\Services\DataLoader\Resolver\Resolvers\ResellerResolver;
-use App\Services\DataLoader\Schema\Company;
+use App\Services\DataLoader\Schema\Types\Company;
 use App\Utils\Processor\State;
-use Illuminate\Database\Eloquent\Collection;
 
 /**
  * @template TState of BaseImporterState
@@ -41,14 +40,11 @@ abstract class BaseImporter extends Importer {
 
         $resellers->loadMissing('locations.location');
         $resellers->loadMissing('locations.types');
-        $resellers->loadMissing('contacts');
+        $resellers->loadMissing('contacts.types');
         $resellers->loadMissing('kpi');
 
         $locationsResolver->add($resellers->pluck('locations')->flatten()->pluck('location')->flatten());
         $contactsResolver->add($resellers->pluck('contacts')->flatten());
-
-        // Other
-        (new Collection($contactsResolver->getResolved()))->loadMissing('types');
 
         // Return
         return $data;

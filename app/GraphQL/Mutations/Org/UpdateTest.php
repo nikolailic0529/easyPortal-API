@@ -5,7 +5,7 @@ namespace App\GraphQL\Mutations\Org;
 use App\Models\Data\Currency;
 use App\Models\Reseller;
 use App\Services\DataLoader\Client\Client;
-use App\Services\DataLoader\Schema\InputTranslationText;
+use App\Services\DataLoader\Schema\Inputs\InputTranslationText;
 use App\Services\I18n\Eloquent\TranslatedString;
 use Closure;
 use Illuminate\Contracts\Config\Repository;

@@ -4,42 +4,34 @@ namespace App\Services\DataLoader\Factory\Concerns;
 
 use App\Models\Data\Psp;
 use App\Services\DataLoader\Factory\Factory;
-use App\Services\DataLoader\Normalizer\Normalizer;
 use App\Services\DataLoader\Resolver\Resolvers\PspResolver;
 
 /**
  * @mixin Factory
  */
 trait WithPsp {
-    abstract protected function getNormalizer(): Normalizer;
-
     abstract protected function getPspResolver(): PspResolver;
 
     protected function psp(?string $key, string $name = null): ?Psp {
         // Null?
-        $key = $this->getNormalizer()->string($key) ?: null;
-
-        if ($key === null) {
+        if ($key === null || $key === '') {
             return null;
         }
 
         // Find/Create
         $created = false;
-        $factory = $this->factory(
-            function (Psp $group) use (&$created, $key, $name): Psp {
-                $created    = !$group->exists;
-                $normalizer = $this->getNormalizer();
-                $group->key = $key;
+        $factory = static function (Psp $group) use (&$created, $key, $name): Psp {
+            $created    = !$group->exists;
+            $group->key = $key;
 
-                if (!$group->name || $group->name === $key) {
-                    $group->name = $normalizer->string($name) ?: $key;
-                }
+            if (!$group->name || $group->name === $key) {
+                $group->name = $name ?: $key;
+            }
 
-                $group->save();
+            $group->save();
 
-                return $group;
-            },
-        );
+            return $group;
+        };
         $psp     = $this->getPspResolver()->get(
             $key,
             static function () use ($factory): Psp {
@@ -48,7 +40,7 @@ trait WithPsp {
         );
 
         // Update
-        if (!$created && !$this->isSearchMode()) {
+        if (!$created) {
             $factory($psp);
         }
 

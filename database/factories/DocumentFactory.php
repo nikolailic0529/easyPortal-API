@@ -51,7 +51,7 @@ class DocumentFactory extends Factory {
             'oem_amp_id'     => null,
             'oem_sar_number' => null,
             'changed_at'     => null,
-            'synced_at'      => Date::now(),
+            'synced_at'      => null,
             'created_at'     => Date::now(),
             'updated_at'     => Date::now(),
             'deleted_at'     => null,

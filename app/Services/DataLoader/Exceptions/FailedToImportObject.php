@@ -6,35 +6,25 @@ use App\Exceptions\Contracts\GenericException;
 use App\Services\DataLoader\Processors\Importer\Importer;
 use App\Services\DataLoader\Processors\Importer\ModelObject;
 use App\Services\DataLoader\Schema\Type;
-use App\Services\DataLoader\Schema\TypeWithId;
+use App\Services\DataLoader\Schema\TypeWithKey;
 use Throwable;
 
 use function sprintf;
 
 final class FailedToImportObject extends FailedToProcessObject implements GenericException {
+    /**
+     * @param (Type&TypeWithKey)|ModelObject $object
+     */
     public function __construct(
         protected Importer $importer,
         protected Type $object,
         Throwable $previous = null,
     ) {
-        $id    = null;
-        $class = $this->object instanceof ModelObject
-            ? $this->object->model->getMorphClass()
-            : $this->object->getName();
-
-        if ($this->object instanceof ModelObject) {
-            $id = $this->object->model->getKey();
-        } elseif ($this->object instanceof TypeWithId) {
-            $id = $this->object->id;
-        } else {
-            // empty
-        }
-
         parent::__construct(
             sprintf(
                 'Failed to import %s `%s`.',
-                $class,
-                $id ?? '<unknown>',
+                $this->object->getName(),
+                $this->object->getKey(),
             ),
             $previous,
         );

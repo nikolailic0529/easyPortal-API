@@ -4,34 +4,12 @@
         "bindings": []
     },
     {
-        "query": "update `distributors` set `synced_at` = ?, `distributors`.`updated_at` = ? where `id` = ?",
+        "query": "update `distributors` set `synced_at` = ? where `id` in (?, ?, ?, ?) and `distributors`.`deleted_at` is null",
         "bindings": [
-            "2022-09-16 00:00:18",
-            "2022-09-16 00:00:21",
-            "0920a7cb-3cf1-4a7d-bd84-f255cb753dec"
-        ]
-    },
-    {
-        "query": "update `distributors` set `synced_at` = ?, `distributors`.`updated_at` = ? where `id` = ?",
-        "bindings": [
-            "2022-09-16 00:00:42",
-            "2022-09-16 00:00:45",
-            "1af1c44e-8112-4e72-9654-b11c705e9372"
-        ]
-    },
-    {
-        "query": "update `distributors` set `synced_at` = ?, `distributors`.`updated_at` = ? where `id` = ?",
-        "bindings": [
-            "2022-09-16 00:01:06",
-            "2022-09-16 00:01:09",
-            "a985a692-c063-499a-ab2f-0a2adef86a3f"
-        ]
-    },
-    {
-        "query": "update `distributors` set `synced_at` = ?, `distributors`.`updated_at` = ? where `id` = ?",
-        "bindings": [
-            "2022-09-16 00:01:30",
-            "2022-09-16 00:01:33",
+            "2022-09-16T00:00:19+00:00",
+            "0920a7cb-3cf1-4a7d-bd84-f255cb753dec",
+            "1af1c44e-8112-4e72-9654-b11c705e9372",
+            "a985a692-c063-499a-ab2f-0a2adef86a3f",
             "efc39adf-0497-40a3-a6e6-bbd692f87516"
         ]
     }

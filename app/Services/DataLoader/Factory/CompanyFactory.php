@@ -13,10 +13,9 @@ use App\Services\DataLoader\Factory\Concerns\WithStatus;
 use App\Services\DataLoader\Factory\Concerns\WithType;
 use App\Services\DataLoader\Factory\Factories\ContactFactory;
 use App\Services\DataLoader\Factory\Factories\LocationFactory;
-use App\Services\DataLoader\Normalizer\Normalizer;
 use App\Services\DataLoader\Resolver\Resolvers\StatusResolver;
 use App\Services\DataLoader\Resolver\Resolvers\TypeResolver;
-use App\Services\DataLoader\Schema\Company;
+use App\Services\DataLoader\Schema\Types\Company;
 use App\Utils\Eloquent\Model;
 use Illuminate\Contracts\Debug\ExceptionHandler;
 use Illuminate\Database\Eloquent\Collection;
@@ -41,13 +40,12 @@ abstract class CompanyFactory extends ModelFactory {
 
     public function __construct(
         ExceptionHandler $exceptionHandler,
-        Normalizer $normalizer,
         protected TypeResolver $typeResolver,
         protected StatusResolver $statusResolver,
         protected ContactFactory $contactFactory,
         protected LocationFactory $locationFactory,
     ) {
-        parent::__construct($exceptionHandler, $normalizer);
+        parent::__construct($exceptionHandler);
     }
 
     // <editor-fold desc="Getters / Setters">
@@ -78,8 +76,6 @@ abstract class CompanyFactory extends ModelFactory {
         $statuses = [];
 
         foreach ($company->status ?? [] as $status) {
-            $status = $this->getNormalizer()->string($status);
-
             if ($status) {
                 $status                      = $this->status($owner, $status);
                 $statuses[$status->getKey()] = $status;

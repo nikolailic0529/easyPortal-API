@@ -66,7 +66,7 @@ use function count;
  * @property int                                 $contacts_count
  * @property int                                 $coverages_count
  * @property CarbonImmutable|null                $changed_at
- * @property CarbonImmutable                     $synced_at
+ * @property CarbonImmutable|null                $synced_at
  * @property CarbonImmutable                     $created_at
  * @property CarbonImmutable                     $updated_at
  * @property CarbonImmutable|null                $deleted_at
@@ -344,16 +344,41 @@ class Asset extends Model implements OwnedByReseller, Searchable {
      * @param Collection<array-key, AssetWarranty> $warranties
      */
     public static function getLastWarranty(Collection $warranties): ?AssetWarranty {
-        return $warranties
-            ->filter(static function (AssetWarranty $warranty): bool {
-                return !$warranty->isExtended()
-                    || ($warranty->document && $warranty->document->is_visible && $warranty->document->is_contract);
-            })
-            ->sort(static function (AssetWarranty $a, AssetWarranty $b): int {
-                return $b->end <=> $a->end
-                    ?: $a->getKey() <=> $b->getKey();
-            })
-            ->first();
+        $lastWarranty = null;
+        $warranties   = $warranties->sort(static function (AssetWarranty $a, AssetWarranty $b): int {
+            return $b->end <=> $a->end
+                ?: $a->getKey() <=> $b->getKey();
+        });
+
+        foreach ($warranties as $warranty) {
+            if (self::getLastWarrantyIsVisibleWarranty($warranty)) {
+                $lastWarranty = $warranty;
+                break;
+            }
+        }
+
+        return $lastWarranty;
     }
+
+    private static function getLastWarrantyIsVisibleWarranty(AssetWarranty $warranty): bool {
+        // Extended?
+        if (!$warranty->isExtended()) {
+            return true;
+        }
+
+        // Document?
+        $document  = $warranty->document;
+        $isVisible = $document
+            && $document->is_visible
+            && $document->is_contract;
+
+        if (!$isVisible) {
+            return false;
+        }
+
+        // Ok
+        return true;
+    }
+
     // </editor-fold>
 }

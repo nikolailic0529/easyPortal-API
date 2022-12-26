@@ -4,7 +4,7 @@ namespace App\Services\DataLoader\Factory\Concerns;
 
 use App\Models\Contact;
 use App\Services\DataLoader\Factory\Factories\ContactFactory;
-use App\Services\DataLoader\Schema\CompanyContactPerson;
+use App\Services\DataLoader\Schema\Types\CompanyContactPerson;
 use App\Utils\Eloquent\Model;
 use Illuminate\Database\Eloquent\Collection;
 

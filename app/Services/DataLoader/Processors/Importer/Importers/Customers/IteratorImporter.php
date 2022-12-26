@@ -4,7 +4,7 @@ namespace App\Services\DataLoader\Processors\Importer\Importers\Customers;
 
 use App\Models\Customer;
 use App\Services\DataLoader\Processors\Importer\Concerns\WithIterator;
-use App\Services\DataLoader\Schema\Company;
+use App\Services\DataLoader\Schema\Types\Company;
 use App\Utils\Processor\State;
 
 /**

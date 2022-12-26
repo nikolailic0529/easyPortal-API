@@ -14,9 +14,8 @@ use App\Services\DataLoader\Resolver\Resolvers\ContactResolver;
 use App\Services\DataLoader\Resolver\Resolvers\CustomerResolver;
 use App\Services\DataLoader\Resolver\Resolvers\LocationResolver;
 use App\Services\DataLoader\Resolver\Resolvers\ResellerResolver;
-use App\Services\DataLoader\Schema\Company;
+use App\Services\DataLoader\Schema\Types\Company;
 use App\Utils\Processor\State;
-use Illuminate\Database\Eloquent\Collection;
 
 /**
  * @template TState of BaseImporterState
@@ -47,7 +46,7 @@ abstract class BaseImporter extends Importer {
 
         $customers->loadMissing('locations.location');
         $customers->loadMissing('locations.types');
-        $customers->loadMissing('contacts');
+        $customers->loadMissing('contacts.types');
         $customers->loadMissing('kpi');
         $customers->loadMissing('resellersPivots.kpi');
 
@@ -58,9 +57,6 @@ abstract class BaseImporter extends Importer {
         $this->getContainer()
             ->make(ResellerResolver::class)
             ->prefetch($data->get(Reseller::class));
-
-        // Other
-        (new Collection($contactsResolver->getResolved()))->loadMissing('types');
 
         // Return
         return $data;

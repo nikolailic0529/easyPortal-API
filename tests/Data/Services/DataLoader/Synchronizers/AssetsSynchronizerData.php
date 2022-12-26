@@ -6,6 +6,7 @@ use App\Models\Asset;
 use App\Services\DataLoader\Testing\Data\Context;
 use App\Services\DataLoader\Testing\Data\Data;
 use Illuminate\Console\Command;
+use Illuminate\Support\Facades\Date;
 use LastDragon_ru\LaraASP\Testing\Utils\TestData;
 
 use function array_sum;
@@ -37,6 +38,7 @@ class AssetsSynchronizerData extends Data {
             'product_id'  => null,
             'location_id' => null,
             'status_id'   => null,
+            'synced_at'   => Date::now(),
         ]);
 
         return $result;

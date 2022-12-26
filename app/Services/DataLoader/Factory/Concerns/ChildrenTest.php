@@ -2,6 +2,7 @@
 
 namespace App\Services\DataLoader\Factory\Concerns;
 
+use App\Services\DataLoader\Cache\Key;
 use App\Services\DataLoader\Schema\Type;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
@@ -55,8 +56,20 @@ class ChildrenTest extends TestCase {
                 'property' => $type->property ?? null,
             ]);
         };
-        $isEqual              = static function (ChildrenTest_Type $type, Model $model): bool {
-            return $model->getAttribute('key') === $type->key;
+        $keyer                = static function (Model|ChildrenTest_Type $object): string {
+            $key = null;
+
+            if ($object instanceof Model) {
+                $key = new Key([
+                    'key' => $object->getAttribute('key'),
+                ]);
+            } else {
+                $key = new Key([
+                    'key' => $object->key,
+                ]);
+            }
+
+            return (string) $key;
         };
         $isReusable           = static function (Model $model) use ($modelShouldBeIgnored): bool {
             return $model->getKey() !== $modelShouldBeIgnored->getKey();
@@ -69,7 +82,7 @@ class ChildrenTest extends TestCase {
 
         $existing = new Collection([$modelShouldBeUpdated, $modelShouldBeDeleted, $modelShouldBeReused]);
         $entries  = [$typeShouldBeCreated, $typeShouldBeUpdated];
-        $actual   = $children->children($existing, $entries, $isReusable, $isEqual, $factory);
+        $actual   = $children->children($existing, $entries, $isReusable, $keyer, $factory);
         $expected = new Collection([
             tap(clone $model, static function (Model $model) use ($modelShouldBeReused, $typeShouldBeCreated): void {
                 $model->setAttribute('id', $modelShouldBeReused->getKey());

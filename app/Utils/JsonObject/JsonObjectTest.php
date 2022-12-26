@@ -8,8 +8,12 @@ use InvalidArgumentException;
 use Tests\TestCase;
 
 use function count;
+use function filter_var;
 use function sprintf;
 use function tap;
+
+use const FILTER_NULL_ON_FAILURE;
+use const FILTER_VALIDATE_BOOLEAN;
 
 /**
  * @internal
@@ -21,26 +25,28 @@ class JsonObjectTest extends TestCase {
      */
     public function testConstruct(): void {
         $expected = tap(new JsonObjectTest_Parent(), static function (JsonObjectTest_Parent $parent): void {
-            $parent->i        = 123;
-            $parent->b        = true;
-            $parent->f        = 1.2;
-            $parent->s        = '123';
-            $parent->d        = Date::make('2018-05-23T13:43:32+00:00');
-            $parent->nullable = null;
-            $parent->array    = [
+            $parent->i          = 123;
+            $parent->b          = true;
+            $parent->f          = 1.2;
+            $parent->s          = '123';
+            $parent->d          = Date::make('2018-05-23T13:43:32+00:00');
+            $parent->nullable   = null;
+            $parent->normalized = true;
+            $parent->array      = [
                 'i' => 123,
                 'b' => true,
                 'f' => 1.2,
                 's' => '123',
             ];
-            $parent->children = [
+            $parent->children   = [
                 tap(new JsonObjectTest_Child(), static function (JsonObjectTest_Child $child): void {
-                    $child->i        = 345;
-                    $child->b        = false;
-                    $child->f        = 3.5;
-                    $child->s        = '345';
-                    $child->d        = Date::make('2021-05-23T13:43:32+00:00');
-                    $child->children = [
+                    $child->i          = 345;
+                    $child->b          = false;
+                    $child->f          = 3.5;
+                    $child->s          = '345';
+                    $child->d          = Date::make('2021-05-23T13:43:32+00:00');
+                    $child->normalized = null;
+                    $child->children   = [
                         tap(new JsonObjectTest_Child(), static function (JsonObjectTest_Child $child): void {
                             $child->i = 345;
                             $child->b = false;
@@ -60,26 +66,28 @@ class JsonObjectTest extends TestCase {
             ];
         });
         $actual   = new JsonObjectTest_Parent([
-            'i'        => 123,
-            'b'        => true,
-            'f'        => 1.2,
-            's'        => '123',
-            'd'        => '2018-05-23T13:43:32+00:00',
-            'nullable' => null,
-            'array'    => [
+            'i'          => 123,
+            'b'          => true,
+            'f'          => 1.2,
+            's'          => '123',
+            'd'          => '2018-05-23T13:43:32+00:00',
+            'nullable'   => null,
+            'normalized' => '1',
+            'array'      => [
                 'i' => 123,
                 'b' => true,
                 'f' => 1.2,
                 's' => '123',
             ],
-            'children' => [
+            'children'   => [
                 [
-                    'i'        => 345,
-                    'b'        => false,
-                    'f'        => 3.5,
-                    's'        => '345',
-                    'd'        => '2021-05-23T13:43:32+00:00',
-                    'children' => [
+                    'i'          => 345,
+                    'b'          => false,
+                    'f'          => 3.5,
+                    's'          => '345',
+                    'd'          => '2021-05-23T13:43:32+00:00',
+                    'normalized' => 'sfsdf',
+                    'children'   => [
                         [
                             'i' => 345,
                             'b' => false,
@@ -189,9 +197,8 @@ class JsonObjectTest extends TestCase {
             'unknown',
         )));
 
-        self::assertNotNull(
-            $object->unknown, /** @phpstan-ignore-line needed for test */
-        );
+        /** @phpstan-ignore-next-line needed for test */
+        self::assertNotNull($object->unknown);
     }
 
     /**
@@ -302,6 +309,9 @@ class JsonObjectTest_Parent extends JsonObject {
      * @var array<mixed>|null
      */
     public array|null $nullable;
+
+    #[JsonObjectNormalizer(JsonObjectTest_Normalizer::class)]
+    public bool $normalized;
 }
 
 /**
@@ -320,4 +330,17 @@ class JsonObjectTest_Child extends JsonObject {
      */
     #[JsonObjectArray(JsonObjectTest_Child::class)]
     public array|null $children;
+
+    #[JsonObjectNormalizer(JsonObjectTest_Normalizer::class)]
+    public ?bool $normalized;
+}
+
+/**
+ * @internal
+ * @noinspection PhpMultipleClassesDeclarationsInOneFile
+ */
+class JsonObjectTest_Normalizer implements Normalizer {
+    public static function normalize(mixed $value): mixed {
+        return filter_var($value, FILTER_VALIDATE_BOOLEAN, FILTER_NULL_ON_FAILURE);
+    }
 }

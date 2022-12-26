@@ -64,5 +64,5 @@ type Document {
     @paginatedRelation
 
     changed_at: DateTime
-    synced_at: DateTime!
+    synced_at: DateTime
 }

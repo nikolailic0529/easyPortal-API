@@ -22,9 +22,8 @@ use App\Services\DataLoader\Resolver\Resolvers\ContactResolver;
 use App\Services\DataLoader\Resolver\Resolvers\CustomerResolver;
 use App\Services\DataLoader\Resolver\Resolvers\DocumentResolver;
 use App\Services\DataLoader\Resolver\Resolvers\ResellerResolver;
-use App\Services\DataLoader\Schema\Document as SchemaDocument;
+use App\Services\DataLoader\Schema\Types\Document as SchemaDocument;
 use App\Utils\Processor\State;
-use Illuminate\Database\Eloquent\Collection;
 
 /**
  * @template TState of BaseImporterState
@@ -54,34 +53,21 @@ abstract class BaseImporter extends Importer {
             ->getResolved();
 
         $documents->loadMissing([
-            'contacts',
+            'contacts.types',
             'statuses',
         ]);
 
         $contactsResolver->add($documents->pluck('contacts')->flatten());
 
         // Resellers
-        $resellers = $this->getContainer()
+        $this->getContainer()
             ->make(ResellerResolver::class)
-            ->prefetch($data->get(Reseller::class))
-            ->getResolved();
-
-        $resellers->loadMissing('contacts');
-
-        $contactsResolver->add($resellers->pluck('contacts')->flatten());
+            ->prefetch($data->get(Reseller::class));
 
         // Customers
-        $customers = $this->getContainer()
+        $this->getContainer()
             ->make(CustomerResolver::class)
-            ->prefetch($data->get(Customer::class))
-            ->getResolved();
-
-        $customers->loadMissing('contacts');
-
-        $contactsResolver->add($customers->pluck('contacts')->flatten());
-
-        // Other
-        (new Collection($contactsResolver->getResolved()))->loadMissing('types');
+            ->prefetch($data->get(Customer::class));
 
         // Return
         return $data;

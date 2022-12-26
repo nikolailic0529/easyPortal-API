@@ -6,20 +6,17 @@ use App\Models\Reseller;
 use App\Services\DataLoader\Exceptions\ResellerNotFound;
 use App\Services\DataLoader\Factory\Factory;
 use App\Services\DataLoader\Finders\ResellerFinder;
-use App\Services\DataLoader\Normalizer\Normalizer;
 use App\Services\DataLoader\Resolver\Resolvers\ResellerResolver;
-use App\Services\DataLoader\Schema\CompanyKpis;
-use App\Services\DataLoader\Schema\Document;
-use App\Services\DataLoader\Schema\ViewAsset;
-use App\Services\DataLoader\Schema\ViewAssetDocument;
-use App\Services\DataLoader\Schema\ViewDocument;
+use App\Services\DataLoader\Schema\Types\CompanyKpis;
+use App\Services\DataLoader\Schema\Types\Document;
+use App\Services\DataLoader\Schema\Types\ViewAsset;
+use App\Services\DataLoader\Schema\Types\ViewAssetDocument;
+use App\Services\DataLoader\Schema\Types\ViewDocument;
 
 /**
  * @mixin Factory
  */
 trait WithReseller {
-    abstract protected function getNormalizer(): Normalizer;
-
     abstract protected function getResellerFinder(): ?ResellerFinder;
 
     abstract protected function getResellerResolver(): ResellerResolver;
@@ -38,17 +35,15 @@ trait WithReseller {
         $reseller = null;
 
         if ($id) {
-            $id       = $this->getNormalizer()->uuid($id);
-            $reseller = $this->getResellerResolver()->get($id, $this->factory(
-                function () use ($id): ?Reseller {
-                    return $this->getResellerFinder()?->find($id);
-                },
-            ));
-        }
+            $reseller = $this->getResellerResolver()->get($id, function () use ($id, $object): Reseller {
+                $reseller = $this->getResellerFinder()?->find($id);
 
-        // Found?
-        if ($id && !$reseller) {
-            throw new ResellerNotFound($id, $object);
+                if (!$reseller) {
+                    throw new ResellerNotFound($id, $object);
+                }
+
+                return $reseller;
+            });
         }
 
         // Return

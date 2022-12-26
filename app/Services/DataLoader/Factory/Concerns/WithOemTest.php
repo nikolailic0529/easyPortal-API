@@ -4,7 +4,6 @@ namespace App\Services\DataLoader\Factory\Concerns;
 
 use App\Models\Data\Oem;
 use App\Services\DataLoader\Factory\Factory;
-use App\Services\DataLoader\Normalizer\Normalizer;
 use App\Services\DataLoader\Resolver\Resolvers\OemResolver;
 use LastDragon_ru\LaraASP\Testing\Database\QueryLog\WithQueryLog;
 use Tests\TestCase;
@@ -20,17 +19,15 @@ class WithOemTest extends TestCase {
      * @covers ::oem
      */
     public function testOemExistsThroughProvider(): void {
-        $oem        = Oem::factory()->create();
-        $normalizer = $this->app->make(Normalizer::class);
-        $resolver   = $this->app->make(OemResolver::class);
-        $factory    = new class($normalizer, $resolver) extends Factory {
+        $oem      = Oem::factory()->create();
+        $resolver = $this->app->make(OemResolver::class);
+        $factory  = new class($resolver) extends Factory {
             use WithOem {
                 oem as public;
             }
 
             /** @noinspection PhpMissingParentConstructorInspection */
             public function __construct(
-                protected Normalizer $normalizer,
                 protected OemResolver $oemResolver,
             ) {
                 // empty
@@ -43,7 +40,7 @@ class WithOemTest extends TestCase {
 
         // If not - it should be created
         $queries = $this->getQueryLog();
-        $created = $factory->oem(' SKU ');
+        $created = $factory->oem('SKU');
 
         self::assertNotNull($created);
         self::assertTrue($created->wasRecentlyCreated);
@@ -60,6 +57,6 @@ class WithOemTest extends TestCase {
         $queries->flush();
 
         // Empty sku
-        self::assertNull($factory->oem(' '));
+        self::assertNull($factory->oem(''));
     }
 }

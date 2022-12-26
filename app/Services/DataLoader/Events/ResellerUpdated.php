@@ -3,7 +3,7 @@
 namespace App\Services\DataLoader\Events;
 
 use App\Models\Reseller;
-use App\Services\DataLoader\Schema\Company;
+use App\Services\DataLoader\Schema\Types\Company;
 use Illuminate\Queue\SerializesModels;
 
 class ResellerUpdated {

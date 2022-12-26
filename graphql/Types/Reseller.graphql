@@ -4,7 +4,7 @@ type Reseller implements Company {
     id: ID!
     name: String!
     changed_at: DateTime
-    synced_at: DateTime!
+    synced_at: DateTime
     created_at: DateTime!
     updated_at: DateTime!
     deleted_at: DateTime

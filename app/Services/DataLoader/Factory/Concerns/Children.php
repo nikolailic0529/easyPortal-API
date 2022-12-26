@@ -10,8 +10,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
 use SplObjectStorage;
 
-use function array_shift;
-use function is_bool;
+use function assert;
 
 trait Children {
     /**
@@ -19,19 +18,19 @@ trait Children {
      * @template M of Model
      * @template C of Collection<array-key,M>|EloquentCollection<array-key,M>
      *
-     * @param C                   $existing
-     * @param array<?T>           $children
-     * @param Closure(M): bool    $isReusable
-     * @param Closure(T, M): bool $isEqual
-     * @param Closure(T, ?M): ?M  $factory
+     * @param C                     $existing
+     * @param array<?T>             $children
+     * @param Closure(M): bool|null $isReusable
+     * @param Closure(M|T): string  $keyer
+     * @param Closure(T, ?M): ?M    $factory
      *
      * @return C
      */
     protected function children(
         Collection $existing,
         array $children,
-        Closure $isReusable,
-        Closure $isEqual,
+        ?Closure $isReusable,
+        Closure $keyer,
         Closure $factory,
     ): Collection {
         // Often children don't have ID for this reason we were tried to compare
@@ -39,54 +38,70 @@ trait Children {
         // queries anyway. So we are trying to re-use removed entries to
         // reduce the number of queries.
 
-        // Map children to existing
-        /** @var SplObjectStorage<T, ?M> $map */
-        $map      = new SplObjectStorage();
-        $existing = $existing->sort(new KeysComparator());
+        // Existing?
+        if ($existing->isEmpty()) {
+            /** @var C $models */
+            $models = new ($existing::class)();
 
-        foreach ($children as $child) {
-            if ($child === null) {
-                continue;
-            }
-
-            $key         = $existing->search(static function (Model $model) use ($isEqual, $child): bool {
-                return $isEqual($child, $model);
-            });
-            $map[$child] = null;
-
-            if (!is_bool($key)) {
-                $map[$child] = $existing->get($key);
-
-                $existing->forget($key);
-            }
-        }
-
-        // Reuse
-        if (!$existing->isEmpty()) {
-            $reusable = $existing->filter($isReusable)->all();
-
-            foreach ($map as $child) {
-                if ($map[$child] !== null) {
+            foreach ($children as $child) {
+                if ($child === null) {
                     continue;
                 }
 
-                if ($reusable) {
-                    $map[$child] = array_shift($reusable);
-                } else {
-                    break;
+                $model = $factory($child, null);
+
+                if ($model !== null) {
+                    $models[] = $model;
                 }
             }
+
+            return $models;
+        }
+
+        // Map children to existing
+        /** @var SplObjectStorage<T, ?M> $map */
+        $map   = new SplObjectStorage();
+        $class = $existing::class;
+
+        if (!$existing->isEmpty()) {
+            // There are no guarantees that the key is unique, so `groupBy` is used.
+            $existing = $existing->sort(new KeysComparator())->groupBy($keyer);
+
+            foreach ($children as $child) {
+                if ($child === null) {
+                    continue;
+                }
+
+                $key   = $keyer($child);
+                $group = $existing[$key] ?? null;
+                $model = $group?->shift();
+
+                assert($model === null || $model instanceof Model);
+
+                $map[$child] = $model;
+            }
+
+            /** @var Collection<array-key,M> $existing phpstan not so smart yet */
+            $existing = $existing->flatten(1);
         }
 
         // Update
         /** @var C $models */
-        $models = new ($existing::class)();
+        $models   = new $class();
+        $existing = $isReusable
+            ? $existing->filter($isReusable)
+            : $existing;
 
         foreach ($map as $child) {
-            $created = $factory($child, $map[$child]);
+            $model   = $map[$child] ?? $existing->first();
+            $created = $factory($child, $model);
 
             if ($created !== null) {
                 $models[] = $created;
+
+                if ($map[$child] === null) {
+                    $existing->shift();
+                }
             }
         }
 

@@ -7,7 +7,6 @@ use App\Models\Data\ServiceGroup;
 use App\Models\Data\ServiceLevel;
 use App\Services\DataLoader\Cache\Key;
 use App\Services\DataLoader\Container\SingletonPersistent;
-use App\Services\DataLoader\Normalizer\Normalizer;
 use App\Services\DataLoader\Resolver\Resolver;
 use Closure;
 use Illuminate\Database\Eloquent\Model;
@@ -18,7 +17,7 @@ use Illuminate\Support\Collection;
  */
 class ServiceLevelResolver extends Resolver implements SingletonPersistent {
     /**
-     * @param Closure(Normalizer=): ServiceLevel|null $factory
+     * @param Closure(): ServiceLevel|null $factory
      *
      * @return ($factory is null ? ServiceLevel|null : ServiceLevel)
      */

@@ -6,7 +6,6 @@ use App\Models\Data\City;
 use App\Models\Data\Country;
 use App\Models\Data\Location;
 use App\Services\DataLoader\Cache\Key;
-use App\Services\DataLoader\Normalizer\Normalizer;
 use App\Services\DataLoader\Resolver\Resolver;
 use Closure;
 use Illuminate\Database\Eloquent\Builder;
@@ -18,7 +17,7 @@ use Illuminate\Support\Facades\DB;
  */
 class LocationResolver extends Resolver {
     /**
-     * @param Closure(Normalizer=): Location|null $factory
+     * @param Closure(): Location|null $factory
      *
      * @return ($factory is null ? Location|null : Location)
      */

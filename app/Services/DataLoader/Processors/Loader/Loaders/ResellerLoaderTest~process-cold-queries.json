@@ -142,7 +142,7 @@
         ]
     },
     {
-        "query": "insert into `resellers` (`id`, `name`, `changed_at`, `statuses_count`, `contacts_count`, `locations_count`, `kpi_id`, `synced_at`, `assets_count`, `customers_count`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `resellers` (`id`, `name`, `changed_at`, `statuses_count`, `contacts_count`, `locations_count`, `kpi_id`, `assets_count`, `customers_count`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "c0d99925-8b3b-47d8-9db2-9d3a5f5520a2",
             "Bauch-Bosco",
@@ -151,11 +151,10 @@
             1,
             1,
             "f05d35d8-6edc-5c65-a347-f66a691b36e3",
+            0,
+            0,
             "2022-02-02 00:00:08",
-            0,
-            0,
-            "2022-02-02 00:00:09",
-            "2022-02-02 00:00:09"
+            "2022-02-02 00:00:08"
         ]
     },
     {
@@ -168,8 +167,8 @@
             "lupe.mckenzie@lesch.com",
             true,
             "31b78dce-3209-5ef8-946b-1e136f3ce019",
-            "2022-02-02 00:00:10",
-            "2022-02-02 00:00:10"
+            "2022-02-02 00:00:09",
+            "2022-02-02 00:00:09"
         ]
     },
     {
@@ -178,8 +177,8 @@
             "ee3effef-c083-571d-a34e-845632d433f6",
             "31b78dce-3209-5ef8-946b-1e136f3ce019",
             "606a1145-730e-5c92-8353-6f54f0ba7ed9",
-            "2022-02-02 00:00:11",
-            "2022-02-02 00:00:11"
+            "2022-02-02 00:00:10",
+            "2022-02-02 00:00:10"
         ]
     },
     {
@@ -188,8 +187,8 @@
             "c0d99925-8b3b-47d8-9db2-9d3a5f5520a2",
             "c606c291-dd2d-522d-81dd-c3679d0386f0",
             "7fd91fab-3309-5c6f-afca-f635f213fb13",
-            "2022-02-02 00:00:12",
-            "2022-02-02 00:00:12"
+            "2022-02-02 00:00:11",
+            "2022-02-02 00:00:11"
         ]
     },
     {
@@ -217,8 +216,15 @@
             null,
             "{\"de_DE\":\"Ut molestias illo fugiat optio repellat rerum.\",\"en_GB\":\"Soluta aut et quas nisi.\",\"fr_FR\":\"Soluta aut et quas nisi.\"}",
             "{\"de_DE\":\"Possimus et placeat maiores.\",\"en_GB\":\"Molestiae voluptatem nisi eaque alias quis enim.\",\"fr_FR\":\"Molestiae voluptatem nisi eaque alias quis enim.\"}",
-            "2022-02-02 00:00:13",
-            "2022-02-02 00:00:13"
+            "2022-02-02 00:00:12",
+            "2022-02-02 00:00:12"
+        ]
+    },
+    {
+        "query": "update `resellers` set `synced_at` = ? where `id` in (?) and `resellers`.`deleted_at` is null",
+        "bindings": [
+            "2022-02-02T00:00:14+00:00",
+            "c0d99925-8b3b-47d8-9db2-9d3a5f5520a2"
         ]
     }
 ]

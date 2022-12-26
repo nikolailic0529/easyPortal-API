@@ -6,19 +6,16 @@ use App\Models\Customer;
 use App\Services\DataLoader\Exceptions\CustomerNotFound;
 use App\Services\DataLoader\Factory\Factory;
 use App\Services\DataLoader\Finders\CustomerFinder;
-use App\Services\DataLoader\Normalizer\Normalizer;
 use App\Services\DataLoader\Resolver\Resolvers\CustomerResolver;
-use App\Services\DataLoader\Schema\Document;
-use App\Services\DataLoader\Schema\ViewAsset;
-use App\Services\DataLoader\Schema\ViewAssetDocument;
-use App\Services\DataLoader\Schema\ViewDocument;
+use App\Services\DataLoader\Schema\Types\Document;
+use App\Services\DataLoader\Schema\Types\ViewAsset;
+use App\Services\DataLoader\Schema\Types\ViewAssetDocument;
+use App\Services\DataLoader\Schema\Types\ViewDocument;
 
 /**
  * @mixin Factory
  */
 trait WithCustomer {
-    abstract protected function getNormalizer(): Normalizer;
-
     abstract protected function getCustomerFinder(): ?CustomerFinder;
 
     abstract protected function getCustomerResolver(): CustomerResolver;
@@ -37,17 +34,15 @@ trait WithCustomer {
         $customer = null;
 
         if ($id) {
-            $id       = $this->getNormalizer()->uuid($id);
-            $customer = $this->getCustomerResolver()->get($id, $this->factory(
-                function () use ($id): ?Customer {
-                    return $this->getCustomerFinder()?->find($id);
-                },
-            ));
-        }
+            $customer = $this->getCustomerResolver()->get($id, function () use ($id, $object): Customer {
+                $customer = $this->getCustomerFinder()?->find($id);
 
-        // Found?
-        if ($id && !$customer) {
-            throw new CustomerNotFound($id, $object);
+                if (!$customer) {
+                    throw new CustomerNotFound($id, $object);
+                }
+
+                return $customer;
+            });
         }
 
         // Return

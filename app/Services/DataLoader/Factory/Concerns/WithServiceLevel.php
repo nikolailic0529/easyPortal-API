@@ -6,15 +6,12 @@ use App\Models\Data\Oem;
 use App\Models\Data\ServiceGroup;
 use App\Models\Data\ServiceLevel;
 use App\Services\DataLoader\Factory\Factory;
-use App\Services\DataLoader\Normalizer\Normalizer;
 use App\Services\DataLoader\Resolver\Resolvers\ServiceLevelResolver;
 
 /**
  * @mixin Factory
  */
 trait WithServiceLevel {
-    abstract protected function getNormalizer(): Normalizer;
-
     abstract protected function getServiceLevelResolver(): ServiceLevelResolver;
 
     protected function serviceLevel(
@@ -24,41 +21,45 @@ trait WithServiceLevel {
         string $name = null,
         string $description = null,
     ): ?ServiceLevel {
-        // Null?
-        $sku = $this->getNormalizer()->string($sku) ?: null;
-
-        if ($sku === null) {
+        // Empty?
+        if ($sku === '') {
             return null;
         }
 
         // Find/Create
         $created = false;
-        $factory = $this->factory(
-            function (ServiceLevel $level) use (&$created, $oem, $group, $sku, $name, $description): ServiceLevel {
-                $created    = !$level->exists;
-                $normalizer = $this->getNormalizer();
+        $factory = static function (
+            ServiceLevel $level,
+        ) use (
+            &$created,
+            $oem,
+            $group,
+            $sku,
+            $name,
+            $description,
+        ): ServiceLevel {
+            $created = !$level->exists;
 
-                if ($created) {
-                    $level->key          = "{$group->getTranslatableKey()}/{$sku}";
-                    $level->oem          = $oem;
-                    $level->sku          = $sku;
-                    $level->description  = '';
-                    $level->serviceGroup = $group;
-                }
+            if ($created) {
+                $level->key          = "{$group->getTranslatableKey()}/{$sku}";
+                $level->oem          = $oem;
+                $level->sku          = $sku;
+                $level->description  = '';
+                $level->serviceGroup = $group;
+            }
 
-                if (!$level->name || $level->name === $sku) {
-                    $level->name = $normalizer->string($name) ?: $sku;
-                }
+            if (!$level->name || $level->name === $sku) {
+                $level->name = $name ?: $sku;
+            }
 
-                if (!$level->description) {
-                    $level->description = $normalizer->text($description) ?: '';
-                }
+            if (!$level->description) {
+                $level->description = (string) $description;
+            }
 
-                $level->save();
+            $level->save();
 
-                return $level;
-            },
-        );
+            return $level;
+        };
         $level   = $this->getServiceLevelResolver()->get(
             $oem,
             $group,
@@ -69,7 +70,7 @@ trait WithServiceLevel {
         );
 
         // Update
-        if (!$created && !$this->isSearchMode()) {
+        if (!$created) {
             $factory($level);
         }
 

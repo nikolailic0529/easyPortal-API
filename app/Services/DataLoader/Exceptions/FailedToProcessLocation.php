@@ -4,7 +4,7 @@ namespace App\Services\DataLoader\Exceptions;
 
 use App\Models\Customer;
 use App\Models\Reseller;
-use App\Services\DataLoader\Schema\Location;
+use App\Services\DataLoader\Schema\Types\Location;
 use Throwable;
 
 use function sprintf;

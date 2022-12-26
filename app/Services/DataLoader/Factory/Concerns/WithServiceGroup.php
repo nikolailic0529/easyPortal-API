@@ -5,47 +5,39 @@ namespace App\Services\DataLoader\Factory\Concerns;
 use App\Models\Data\Oem;
 use App\Models\Data\ServiceGroup;
 use App\Services\DataLoader\Factory\Factory;
-use App\Services\DataLoader\Normalizer\Normalizer;
 use App\Services\DataLoader\Resolver\Resolvers\ServiceGroupResolver;
 
 /**
  * @mixin Factory
  */
 trait WithServiceGroup {
-    abstract protected function getNormalizer(): Normalizer;
-
     abstract protected function getServiceGroupResolver(): ServiceGroupResolver;
 
     protected function serviceGroup(Oem $oem, string $sku, string $name = null): ?ServiceGroup {
-        // Null?
-        $sku = $this->getNormalizer()->string($sku) ?: null;
-
-        if ($sku === null) {
+        // Empty?
+        if ($sku === '') {
             return null;
         }
 
         // Find/Create
         $created = false;
-        $factory = $this->factory(
-            function (ServiceGroup $group) use (&$created, $oem, $sku, $name): ServiceGroup {
-                $created    = !$group->exists;
-                $normalizer = $this->getNormalizer();
+        $factory = static function (ServiceGroup $group) use (&$created, $oem, $sku, $name): ServiceGroup {
+            $created = !$group->exists;
 
-                if ($created) {
-                    $group->key = "{$oem->getTranslatableKey()}/{$sku}";
-                    $group->oem = $oem;
-                    $group->sku = $sku;
-                }
+            if ($created) {
+                $group->key = "{$oem->getTranslatableKey()}/{$sku}";
+                $group->oem = $oem;
+                $group->sku = $sku;
+            }
 
-                if (!$group->name || $group->name === $sku) {
-                    $group->name = $normalizer->string($name) ?: $sku;
-                }
+            if (!$group->name || $group->name === $sku) {
+                $group->name = $name ?: $sku;
+            }
 
-                $group->save();
+            $group->save();
 
-                return $group;
-            },
-        );
+            return $group;
+        };
         $group   = $this->getServiceGroupResolver()->get(
             $oem,
             $sku,
@@ -55,7 +47,7 @@ trait WithServiceGroup {
         );
 
         // Update
-        if (!$created && !$this->isSearchMode()) {
+        if (!$created) {
             $factory($group);
         }
 

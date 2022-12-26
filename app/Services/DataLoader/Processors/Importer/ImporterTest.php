@@ -6,7 +6,7 @@ use App\Services\DataLoader\Collector\Data;
 use App\Services\DataLoader\Factory\ModelFactory;
 use App\Services\DataLoader\Resolver\Resolver;
 use App\Services\DataLoader\Schema\Type;
-use App\Services\DataLoader\Schema\TypeWithId;
+use App\Services\DataLoader\Schema\TypeWithKey;
 use App\Utils\Eloquent\Model;
 use Mockery;
 use Tests\TestCase;
@@ -61,8 +61,12 @@ class ImporterTest extends TestCase {
         // Prepare
         $id       = $this->faker->uuid();
         $data     = new Data();
-        $type     = new class(['id' => $id]) extends Type implements TypeWithId {
+        $type     = new class(['id' => $id]) extends Type implements TypeWithKey {
             public string $id;
+
+            public function getKey(): string {
+                return $this->id;
+            }
         };
         $factory  = Mockery::mock(ModelFactory::class);
         $resolver = Mockery::mock(Resolver::class);

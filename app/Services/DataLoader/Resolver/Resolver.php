@@ -8,9 +8,8 @@ use App\Services\DataLoader\Cache\KeyRetriever;
 use App\Services\DataLoader\Collector\Collector;
 use App\Services\DataLoader\Container\Singleton;
 use App\Services\DataLoader\Container\SingletonPersistent;
-use App\Services\DataLoader\Exceptions\FactorySearchModeException;
-use App\Services\DataLoader\Normalizer\Normalizer;
 use Closure;
+use Exception;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection as EloquentCollection;
 use Illuminate\Database\Eloquent\Model;
@@ -41,7 +40,6 @@ abstract class Resolver implements Singleton, KeyRetriever {
     protected Cache|null $cache = null;
 
     public function __construct(
-        protected Normalizer $normalizer,
         protected Collector $collector,
     ) {
         // empty
@@ -55,13 +53,13 @@ abstract class Resolver implements Singleton, KeyRetriever {
     }
 
     public function reset(): static {
-        $this->getCache(false)->reset();
+        $this->getCache()->reset();
 
         return $this;
     }
 
     /**
-     * @param Closure(Normalizer=): TModel|null $factory
+     * @param Closure(): TModel|null $factory
      *
      * @return ($factory is null ? TModel|null : TModel)
      */
@@ -82,8 +80,8 @@ abstract class Resolver implements Singleton, KeyRetriever {
         // Not found? Well, maybe we can create?
         if (!$model && $factory) {
             try {
-                $model = $factory($this->normalizer);
-            } catch (FactorySearchModeException $exception) {
+                $model = $factory();
+            } catch (Exception $exception) {
                 $this->putNull($key);
 
                 throw $exception;
@@ -147,16 +145,22 @@ abstract class Resolver implements Singleton, KeyRetriever {
         }
 
         // Prefetch
-        $cache    = $this->getCache();
-        $items    = new EloquentCollection();
-        $internal = [];
+        $cache     = $this->getCache();
+        $items     = new EloquentCollection();
+        $internal  = [];
+        $processed = [];
 
         foreach ($keys as $key) {
-            $key  = $this->getCacheKey($key);
-            $item = $cache->get($key);
+            if ($key === null || isset($processed[$key])) {
+                continue;
+            }
 
-            if ($item === null && !$cache->has($key)) {
-                $internal[] = $key;
+            $processed[$key] = true;
+            $cacheKey        = $this->getCacheKey($key);
+            $item            = $cache->get($cacheKey);
+
+            if ($item === null && !$cache->hasNull($cacheKey)) {
+                $internal[] = $cacheKey;
             } elseif ($item) {
                 $items[] = $item;
             } else {
@@ -228,22 +232,20 @@ abstract class Resolver implements Singleton, KeyRetriever {
     /**
      * @return Cache<TModel>
      */
-    protected function getCache(bool $preload = true): Cache {
+    protected function getCache(): Cache {
         if (!$this->cache) {
             /** @var Cache<TModel> $cache */
             $cache       = new Cache($this->getKeyRetrievers());
             $this->cache = $cache;
 
-            if ($preload) {
-                $this->put($this->getPreloadedItems());
-            }
+            $this->put($this->getPreloadedItems());
         }
 
         return $this->cache;
     }
 
     protected function getCacheKey(mixed $key): Key {
-        return new Key($this->normalizer, is_array($key) ? $key : [$key]);
+        return new Key(is_array($key) ? $key : [$key]);
     }
 
     /**

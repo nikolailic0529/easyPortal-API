@@ -5,7 +5,6 @@ namespace App\Services\DataLoader\Resolver\Resolvers;
 use App\Models\Data\Oem;
 use App\Models\OemGroup;
 use App\Services\DataLoader\Cache\Key;
-use App\Services\DataLoader\Normalizer\Normalizer;
 use App\Services\DataLoader\Resolver\Resolver;
 use Closure;
 use Illuminate\Database\Eloquent\Builder;
@@ -16,7 +15,7 @@ use Illuminate\Database\Eloquent\Model;
  */
 class OemGroupResolver extends Resolver {
     /**
-     * @param Closure(Normalizer=): OemGroup|null $factory
+     * @param Closure(): OemGroup|null $factory
      *
      * @return ($factory is null ? OemGroup|null : OemGroup)
      */

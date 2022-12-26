@@ -5,9 +5,8 @@ namespace App\Services\DataLoader\Factory\Concerns;
 use App\Models\Customer;
 use App\Models\Kpi;
 use App\Services\DataLoader\Factory\ModelFactory;
-use App\Services\DataLoader\Normalizer\Normalizer;
-use App\Services\DataLoader\Schema\CompanyKpis;
 use App\Services\DataLoader\Schema\Type;
+use App\Services\DataLoader\Schema\Types\CompanyKpis;
 use App\Utils\Eloquent\Model;
 use Tests\TestCase;
 
@@ -20,7 +19,7 @@ class WithKpiTest extends TestCase {
      * @covers ::kpi
      */
     public function testKpiNull(): void {
-        $factory  = new WithKpiTest_Factory($this->app->make(Normalizer::class));
+        $factory  = new WithKpiTest_Factory();
         $owner    = Customer::factory()->make();
         $kpis     = null;
         $actual   = $factory->kpi($owner, $kpis);
@@ -33,7 +32,7 @@ class WithKpiTest extends TestCase {
      * @covers ::kpi
      */
     public function testKpi(): void {
-        $factory  = new WithKpiTest_Factory($this->app->make(Normalizer::class));
+        $factory  = new WithKpiTest_Factory();
         $owner    = Customer::factory()->make();
         $kpis     = new CompanyKpis([
             'totalAssets' => $this->faker->randomNumber(),
@@ -53,7 +52,7 @@ class WithKpiTest extends TestCase {
      * @covers ::kpi
      */
     public function testKpiUpdated(): void {
-        $factory  = new WithKpiTest_Factory($this->app->make(Normalizer::class));
+        $factory  = new WithKpiTest_Factory();
         $kpi      = Kpi::factory()->create([
             'assets_total' => 0,
         ]);
@@ -76,7 +75,7 @@ class WithKpiTest extends TestCase {
      * @covers ::kpi
      */
     public function testKpiNegative(): void {
-        $factory  = new WithKpiTest_Factory($this->app->make(Normalizer::class));
+        $factory  = new WithKpiTest_Factory();
         $kpi      = Kpi::factory()->create([
             'assets_total' => 123,
         ]);
@@ -114,14 +113,12 @@ class WithKpiTest_Factory extends ModelFactory {
     }
 
     /** @noinspection PhpMissingParentConstructorInspection */
-    public function __construct(
-        protected Normalizer $normalizer,
-    ) {
+    public function __construct() {
         // empty
     }
 
-    protected function getNormalizer(): Normalizer {
-        return $this->normalizer;
+    public function getModel(): string {
+        return Model::class;
     }
 
     public function create(Type $type): ?Model {

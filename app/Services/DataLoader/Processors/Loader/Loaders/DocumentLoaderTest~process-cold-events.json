@@ -11,7 +11,6 @@
             },
             "App\\Models\\Document": [],
             "App\\Models\\Data\\Location": {
-                "45ce9849-824c-574c-bad4-95920da639a3": "45ce9849-824c-574c-bad4-95920da639a3",
                 "22185166-97d1-50fb-a974-ac51dd9d8c7c": "22185166-97d1-50fb-a974-ac51dd9d8c7c"
             },
             "App\\Models\\Asset": {
@@ -48,7 +47,6 @@
                 "00122a07-53e5-4c70-ba6b-bf51fcdd6695": "00122a07-53e5-4c70-ba6b-bf51fcdd6695"
             },
             "App\\Models\\Data\\Location": {
-                "45ce9849-824c-574c-bad4-95920da639a3": "45ce9849-824c-574c-bad4-95920da639a3",
                 "22185166-97d1-50fb-a974-ac51dd9d8c7c": "22185166-97d1-50fb-a974-ac51dd9d8c7c"
             },
             "App\\Models\\Asset": {
@@ -85,7 +83,6 @@
                 "00122a07-53e5-4c70-ba6b-bf51fcdd6695": "00122a07-53e5-4c70-ba6b-bf51fcdd6695"
             },
             "App\\Models\\Data\\Location": {
-                "45ce9849-824c-574c-bad4-95920da639a3": "45ce9849-824c-574c-bad4-95920da639a3",
                 "22185166-97d1-50fb-a974-ac51dd9d8c7c": "22185166-97d1-50fb-a974-ac51dd9d8c7c"
             },
             "App\\Models\\Asset": {
@@ -122,7 +119,6 @@
                 "00122a07-53e5-4c70-ba6b-bf51fcdd6695": "00122a07-53e5-4c70-ba6b-bf51fcdd6695"
             },
             "App\\Models\\Data\\Location": {
-                "45ce9849-824c-574c-bad4-95920da639a3": "45ce9849-824c-574c-bad4-95920da639a3",
                 "22185166-97d1-50fb-a974-ac51dd9d8c7c": "22185166-97d1-50fb-a974-ac51dd9d8c7c"
             },
             "App\\Models\\Asset": {
@@ -159,7 +155,6 @@
                 "00122a07-53e5-4c70-ba6b-bf51fcdd6695": "00122a07-53e5-4c70-ba6b-bf51fcdd6695"
             },
             "App\\Models\\Data\\Location": {
-                "45ce9849-824c-574c-bad4-95920da639a3": "45ce9849-824c-574c-bad4-95920da639a3",
                 "22185166-97d1-50fb-a974-ac51dd9d8c7c": "22185166-97d1-50fb-a974-ac51dd9d8c7c"
             },
             "App\\Models\\Asset": {

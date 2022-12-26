@@ -2,6 +2,7 @@
 
 namespace App\GraphQL\Directives\Directives\Aggregated\GroupBy\Types;
 
+use App\GraphQL\Directives\Directives\Aggregated\GroupBy\Operators\BaseOperator;
 use GraphQL\Language\AST\TypeDefinitionNode;
 use GraphQL\Language\Parser;
 use LastDragon_ru\LaraASP\GraphQL\Builder\Contracts\TypeDefinition;
@@ -25,11 +26,12 @@ class Group implements TypeDefinition {
         $type = null;
 
         if (is_null($scalar) && is_null($nullable)) {
+            $key  = BaseOperator::KEY;
             $type = Parser::objectTypeDefinition(
             /** @lang GraphQL */
                 <<<GRAPHQL
                 type {$name} {
-                    key: String
+                    key: String @rename(attribute: "{$key}")
                     count: Int!
                 }
                 GRAPHQL,

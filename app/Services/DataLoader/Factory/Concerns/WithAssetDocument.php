@@ -6,19 +6,22 @@ use App\Models\Asset as AssetModel;
 use App\Models\Data\Oem;
 use App\Models\Data\ServiceGroup;
 use App\Models\Data\ServiceLevel;
-use App\Services\DataLoader\Schema\Document;
-use App\Services\DataLoader\Schema\ViewAssetDocument;
-use App\Services\DataLoader\Schema\ViewDocument;
+use App\Services\DataLoader\Resolver\Resolvers\OemResolver;
+use App\Services\DataLoader\Schema\Types\Document;
+use App\Services\DataLoader\Schema\Types\ViewAssetDocument;
+use App\Services\DataLoader\Schema\Types\ViewDocument;
 
 trait WithAssetDocument {
     use WithOem;
     use WithServiceGroup;
     use WithServiceLevel;
 
+    abstract protected function getOemResolver(): OemResolver;
+
     protected function assetDocumentOem(AssetModel $asset, ViewAssetDocument $assetDocument): ?Oem {
         return isset($assetDocument->document)
             ? $this->documentOem($assetDocument->document)
-            : $asset->oem;
+            : $this->getOemResolver()->getByKey($asset->oem_id);
     }
 
     protected function assetDocumentServiceGroup(AssetModel $asset, ViewAssetDocument $assetDocument): ?ServiceGroup {

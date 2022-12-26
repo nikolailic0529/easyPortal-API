@@ -7,7 +7,6 @@ use App\Services\DataLoader\Client\Events\RequestSuccessful;
 use App\Services\DataLoader\Client\Exceptions\DataLoaderRequestRateTooLarge;
 use App\Services\DataLoader\Client\Exceptions\GraphQLRequestFailed;
 use App\Services\DataLoader\Client\GraphQL\GraphQL;
-use App\Services\DataLoader\Normalizer\Normalizer;
 use App\Services\DataLoader\Schema\Schema;
 use GraphQL\Utils\BuildClientSchema;
 use Illuminate\Contracts\Config\Repository;
@@ -123,12 +122,11 @@ class ClientTest extends TestCase {
             ->once()
             ->andReturns();
 
-        $handler    = Mockery::mock(ExceptionHandler::class);
-        $config     = Mockery::mock(Repository::class);
-        $client     = Mockery::mock(Factory::class);
-        $token      = Mockery::mock(Token::class);
-        $normalizer = Mockery::mock(Normalizer::class);
-        $client     = Mockery::mock(Client::class, [$handler, $dispatcher, $config, $client, $token, $normalizer]);
+        $handler = Mockery::mock(ExceptionHandler::class);
+        $config  = Mockery::mock(Repository::class);
+        $client  = Mockery::mock(Factory::class);
+        $token   = Mockery::mock(Token::class);
+        $client  = Mockery::mock(Client::class, [$handler, $dispatcher, $config, $client, $token]);
         $client->shouldAllowMockingProtectedMethods();
         $client->makePartial();
         $client
@@ -159,12 +157,11 @@ class ClientTest extends TestCase {
             ->once()
             ->andReturns();
 
-        $handler    = Mockery::mock(ExceptionHandler::class);
-        $config     = Mockery::mock(Repository::class);
-        $client     = Mockery::mock(Factory::class);
-        $token      = Mockery::mock(Token::class);
-        $normalizer = Mockery::mock(Normalizer::class);
-        $client     = Mockery::mock(Client::class, [$handler, $dispatcher, $config, $client, $token, $normalizer]);
+        $handler = Mockery::mock(ExceptionHandler::class);
+        $config  = Mockery::mock(Repository::class);
+        $client  = Mockery::mock(Factory::class);
+        $token   = Mockery::mock(Token::class);
+        $client  = Mockery::mock(Client::class, [$handler, $dispatcher, $config, $client, $token]);
         $client->shouldAllowMockingProtectedMethods();
         $client->makePartial();
         $client
@@ -201,12 +198,11 @@ class ClientTest extends TestCase {
             ->once()
             ->andReturns();
 
-        $handler    = Mockery::mock(ExceptionHandler::class);
-        $config     = Mockery::mock(Repository::class);
-        $client     = Mockery::mock(Factory::class);
-        $token      = Mockery::mock(Token::class);
-        $normalizer = Mockery::mock(Normalizer::class);
-        $client     = Mockery::mock(Client::class, [$handler, $dispatcher, $config, $client, $token, $normalizer]);
+        $handler = Mockery::mock(ExceptionHandler::class);
+        $config  = Mockery::mock(Repository::class);
+        $client  = Mockery::mock(Factory::class);
+        $token   = Mockery::mock(Token::class);
+        $client  = Mockery::mock(Client::class, [$handler, $dispatcher, $config, $client, $token]);
         $client->shouldAllowMockingProtectedMethods();
         $client->makePartial();
         $client

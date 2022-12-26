@@ -11,7 +11,6 @@
             },
             "App\\Models\\Document": [],
             "App\\Models\\Data\\Location": {
-                "c4a22828-05b7-5086-ac66-bbb33aeddd37": "c4a22828-05b7-5086-ac66-bbb33aeddd37",
                 "6f0afd36-df2a-5d6c-818b-49095e4ffde1": "6f0afd36-df2a-5d6c-818b-49095e4ffde1"
             },
             "App\\Models\\Asset": {

@@ -1,0 +1,27 @@
+<?php declare(strict_types = 1);
+
+namespace App\Services\DataLoader\Normalizers;
+
+use App\Utils\JsonObject\Normalizer;
+use Stringable;
+
+use function is_string;
+use function preg_replace;
+use function trim;
+
+class StringNormalizer implements Normalizer {
+    /**
+     * @return ($value is string ? string : string|null)
+     */
+    public static function normalize(mixed $value): ?string {
+        if (is_string($value) || $value instanceof Stringable) {
+            $value = (string) $value;
+            $value = (string) preg_replace('/[\s\x00]+/ui', ' ', $value);
+            $value = trim($value);
+        } else {
+            $value = null;
+        }
+
+        return $value;
+    }
+}

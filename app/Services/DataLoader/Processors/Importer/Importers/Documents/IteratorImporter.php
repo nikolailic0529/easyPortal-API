@@ -4,7 +4,7 @@ namespace App\Services\DataLoader\Processors\Importer\Importers\Documents;
 
 use App\Models\Document;
 use App\Services\DataLoader\Processors\Importer\Concerns\WithIterator;
-use App\Services\DataLoader\Schema\Document as DataLoaderDocument;
+use App\Services\DataLoader\Schema\Types\Document as DataLoaderDocument;
 use App\Utils\Processor\State;
 
 /**

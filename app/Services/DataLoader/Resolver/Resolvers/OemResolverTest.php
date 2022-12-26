@@ -29,8 +29,8 @@ class OemResolverTest extends TestCase {
         Oem::factory()->create(['key' => 'c']);
 
         // Run
-        $provider = $this->app->make(OemResolver::class);
-        $actual   = $provider->get('a', $factory);
+        $resolver = $this->app->make(OemResolver::class);
+        $actual   = $resolver->get('a', $factory);
         $queries  = $this->getQueryLog();
 
         $queries->flush();
@@ -39,15 +39,15 @@ class OemResolverTest extends TestCase {
         self::assertEquals('a', $actual->key);
 
         // Second call should return same instance
-        self::assertSame($actual, $provider->get('a', $factory));
-        self::assertSame($actual, $provider->get(' a ', $factory));
-        self::assertSame($actual, $provider->get('A', $factory));
+        self::assertSame($actual, $resolver->get('a', $factory));
+        self::assertSame($actual, $resolver->get(' a ', $factory));
+        self::assertSame($actual, $resolver->get('A', $factory));
 
         // All value should be loaded, so get() should not perform any queries
-        $provider->get('b', $factory);
+        $resolver->get('b', $factory);
         self::assertCount(0, $queries);
 
-        $provider->get('c', $factory);
+        $resolver->get('c', $factory);
         self::assertCount(0, $queries);
 
         // If value not found the new object should be created
@@ -57,7 +57,7 @@ class OemResolverTest extends TestCase {
                 'name' => 'unKnown',
             ]);
         });
-        $created = $provider->get(' unKnown ', Closure::fromCallable($spy));
+        $created = $resolver->get(' unKnown ', Closure::fromCallable($spy));
 
         $spy->shouldHaveBeenCalled();
 
@@ -68,7 +68,7 @@ class OemResolverTest extends TestCase {
         $queries->flush();
 
         // The created object should be in cache
-        self::assertSame($created, $provider->get('unknoWn', $factory));
+        self::assertSame($created, $resolver->get('unknoWn', $factory));
         self::assertCount(0, $queries);
 
         // Created object should NOT be found
@@ -76,9 +76,25 @@ class OemResolverTest extends TestCase {
 
         $queries->flush();
 
-        self::assertNull($provider->get($c->key));
+        self::assertNull($resolver->get($c->key));
         self::assertCount(0, $queries);
 
         $queries->flush();
+    }
+
+    /**
+     * @covers ::put
+     * @covers ::reset
+     * @covers ::getByKey
+     */
+    public function testModels(): void {
+        $resolver = $this->app->make(OemResolver::class);
+        $oem      = Oem::factory()->create();
+
+        self::assertEquals($oem, $resolver->getByKey($oem->getKey()));
+
+        $resolver->reset();
+
+        self::assertNull($resolver->getByKey($oem->getKey()));
     }
 }

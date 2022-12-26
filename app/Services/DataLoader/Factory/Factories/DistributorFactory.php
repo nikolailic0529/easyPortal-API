@@ -4,13 +4,11 @@ namespace App\Services\DataLoader\Factory\Factories;
 
 use App\Models\Distributor;
 use App\Services\DataLoader\Factory\ModelFactory;
-use App\Services\DataLoader\Normalizer\Normalizer;
 use App\Services\DataLoader\Resolver\Resolvers\DistributorResolver;
 use App\Services\DataLoader\Resolver\Resolvers\TypeResolver;
-use App\Services\DataLoader\Schema\Company;
 use App\Services\DataLoader\Schema\Type;
+use App\Services\DataLoader\Schema\Types\Company;
 use Illuminate\Contracts\Debug\ExceptionHandler;
-use Illuminate\Support\Facades\Date;
 use InvalidArgumentException;
 
 use function implode;
@@ -22,15 +20,14 @@ use function sprintf;
 class DistributorFactory extends ModelFactory {
     public function __construct(
         ExceptionHandler $exceptionHandler,
-        Normalizer $normalizer,
         protected TypeResolver $typeResolver,
         protected DistributorResolver $distributorResolver,
     ) {
-        parent::__construct($exceptionHandler, $normalizer);
+        parent::__construct($exceptionHandler);
     }
 
-    public function find(Type $type): ?Distributor {
-        return parent::find($type);
+    public function getModel(): string {
+        return Distributor::class;
     }
 
     public function create(Type $type): ?Distributor {
@@ -55,13 +52,11 @@ class DistributorFactory extends ModelFactory {
     protected function createFromCompany(Company $company): ?Distributor {
         // Get/Create
         $created     = false;
-        $factory     = $this->factory(function (Distributor $distributor) use (&$created, $company): Distributor {
+        $factory     = static function (Distributor $distributor) use (&$created, $company): Distributor {
             $created                 = !$distributor->exists;
-            $normalizer              = $this->getNormalizer();
-            $distributor->id         = $normalizer->uuid($company->id);
-            $distributor->name       = $normalizer->string($company->name);
-            $distributor->changed_at = $normalizer->datetime($company->updatedAt);
-            $distributor->synced_at  = Date::now();
+            $distributor->id         = $company->id;
+            $distributor->name       = $company->name;
+            $distributor->changed_at = $company->updatedAt;
 
             if ($distributor->trashed()) {
                 $distributor->restore();
@@ -70,7 +65,7 @@ class DistributorFactory extends ModelFactory {
             }
 
             return $distributor;
-        });
+        };
         $distributor = $this->distributorResolver->get(
             $company->id,
             static function () use ($factory): Distributor {
@@ -79,7 +74,7 @@ class DistributorFactory extends ModelFactory {
         );
 
         // Update
-        if (!$created && !$this->isSearchMode()) {
+        if (!$created) {
             $factory($distributor);
         }
 

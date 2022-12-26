@@ -4,6 +4,7 @@ namespace App\Services\DataLoader\Processors\Importer\Importers\Assets;
 
 use App\Models\Asset;
 use App\Models\Customer;
+use App\Models\Document;
 use App\Models\Reseller;
 use App\Services\DataLoader\Factory\Factories\AssetFactory;
 use App\Services\DataLoader\Factory\ModelFactory;
@@ -19,9 +20,10 @@ use App\Services\DataLoader\Resolver\Resolver;
 use App\Services\DataLoader\Resolver\Resolvers\AssetResolver;
 use App\Services\DataLoader\Resolver\Resolvers\ContactResolver;
 use App\Services\DataLoader\Resolver\Resolvers\CustomerResolver;
+use App\Services\DataLoader\Resolver\Resolvers\DocumentResolver;
 use App\Services\DataLoader\Resolver\Resolvers\LocationResolver;
 use App\Services\DataLoader\Resolver\Resolvers\ResellerResolver;
-use App\Services\DataLoader\Schema\ViewAsset;
+use App\Services\DataLoader\Schema\Types\ViewAsset;
 use App\Utils\Processor\State;
 
 /**
@@ -45,6 +47,7 @@ abstract class BaseImporter extends Importer {
         // Prepare
         $data              = $this->makeData($items);
         $container         = $this->getContainer();
+        $documentsResolver = $container->make(DocumentResolver::class);
         $locationsResolver = $container->make(LocationResolver::class);
         $contactsResolver  = $container->make(ContactResolver::class);
 
@@ -54,32 +57,34 @@ abstract class BaseImporter extends Importer {
             ->prefetch($data->get(Asset::class))
             ->getResolved();
 
-        $assets->loadMissing('warranties');
-        $assets->loadMissing('contacts.types');
-        $assets->loadMissing('location');
-        $assets->loadMissing('tags');
-        $assets->loadMissing('oem');
+        $assets->loadMissing([
+            'warranties.document',
+            'contacts.types',
+            'location',
+            'tags',
+            'coverages',
+        ]);
 
-        $locationsResolver->add($assets->pluck('locations')->flatten());
+        $documentsResolver->add($assets->pluck('warranties')->flatten()->pluck('document')->flatten());
+        $locationsResolver->add($assets->pluck('location')->flatten());
         $contactsResolver->add($assets->pluck('contacts')->flatten());
 
         // Resellers
-        $resellers = $container
+        $container
             ->make(ResellerResolver::class)
-            ->prefetch($data->get(Reseller::class))
-            ->getResolved();
-
-        $resellers->loadMissing('locations.location');
-        $locationsResolver->add($resellers->pluck('locations')->flatten()->pluck('location')->flatten());
+            ->prefetch($data->get(Reseller::class));
 
         // Customers
-        $customers = $container
+        $container
             ->make(CustomerResolver::class)
-            ->prefetch($data->get(Customer::class))
+            ->prefetch($data->get(Customer::class));
+
+        // Documents
+        $documents = $documentsResolver
+            ->prefetch($data->get(Document::class))
             ->getResolved();
 
-        $customers->loadMissing('locations.location');
-        $locationsResolver->add($customers->pluck('locations')->flatten()->pluck('location')->flatten());
+        $documents->loadMissing('statuses');
 
         // Return
         return $data;

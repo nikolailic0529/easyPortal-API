@@ -16,45 +16,9 @@
         ]
     },
     {
-        "query": "select `contacts`.* from `contacts` where `contacts`.`object_id` in (?) and `contacts`.`object_type` = ? and `contacts`.`deleted_at` is null",
-        "bindings": [
-            "a9233c9c-4634-493a-9f12-bef4d1cf3c5e",
-            "Reseller"
-        ]
-    },
-    {
         "query": "select `customers`.* from `customers` where ((`customers`.`id` = ?))",
         "bindings": [
             "3adf6426-735c-4f52-9f28-e3ad593e707c"
-        ]
-    },
-    {
-        "query": "select `contacts`.* from `contacts` where `contacts`.`object_id` in (?) and `contacts`.`object_type` = ? and `contacts`.`deleted_at` is null",
-        "bindings": [
-            "3adf6426-735c-4f52-9f28-e3ad593e707c",
-            "Customer"
-        ]
-    },
-    {
-        "query": "select `types`.*, `contact_types`.`contact_id` as `pivot_contact_id`, `contact_types`.`type_id` as `pivot_type_id`, `contact_types`.`created_at` as `pivot_created_at`, `contact_types`.`updated_at` as `pivot_updated_at` from `types` inner join `contact_types` on `types`.`id` = `contact_types`.`type_id` where `contact_types`.`deleted_at` is null and `contact_types`.`contact_id` in (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) and `types`.`deleted_at` is null",
-        "bindings": [
-            "0a872c01-f844-590a-a819-942bfa09a5d2",
-            "22185166-97d1-50fb-a974-ac51dd9d8c7c",
-            "229361f9-056d-5218-a3b0-dcbb4c313111",
-            "2fa7c9a8-3dd2-5e22-8073-42fd33157451",
-            "3c837192-b5e7-5f91-aff4-fd40f49c94ce",
-            "3cf83ea0-7f7c-52ad-a7e6-1dfb72fbb6fa",
-            "7d701e09-dde4-544a-a04f-19093ff23b2b",
-            "936dff97-6b7c-554d-af86-8196f68fbcca",
-            "9789360b-af6b-5b3d-a707-2c5a29ad7995",
-            "adefed16-5702-56cd-8112-ae204dbbb580",
-            "b4ea6545-b7e2-5926-99ef-41115e7de749",
-            "c41eaa4e-d2f8-515f-8bc7-113fd1484faa",
-            "c6c09316-c0bc-5fdd-9dda-b4a153151ccc",
-            "d16a26dd-c9b3-5b59-b2f5-a2b6df3f76b1",
-            "e61ed796-d98b-525d-a422-6ae25969cb43",
-            "eabf4f13-5992-5b75-a46c-5738f0e87a69",
-            "eb616e0a-0031-5990-9a2b-a515560ffd96"
         ]
     },
     {
@@ -83,8 +47,8 @@
             "CANCELLED",
             "Cancelled",
             "8f97eff1-dbfa-5293-8b35-e10c52dd0a43",
-            "2022-02-02 00:00:01",
-            "2022-02-02 00:00:01"
+            "2022-02-02 00:00:16",
+            "2022-02-02 00:00:16"
         ]
     },
     {
@@ -103,8 +67,8 @@
             "EUR",
             "EUR",
             "0c377cde-0cf9-5eea-8d4a-3f0bc159695b",
-            "2022-02-02 00:00:02",
-            "2022-02-02 00:00:02"
+            "2022-02-02 00:00:17",
+            "2022-02-02 00:00:17"
         ]
     },
     {
@@ -125,8 +89,8 @@
             "Customer Contact",
             "Customer Contact",
             "85bab1a7-1d90-5926-942f-2c6889c25826",
-            "2022-02-02 00:00:06",
-            "2022-02-02 00:00:06"
+            "2022-02-02 00:00:18",
+            "2022-02-02 00:00:18"
         ]
     },
     {
@@ -143,12 +107,12 @@
             "Renewal Contact",
             "Renewal Contact",
             "fe9bc1f8-450c-5b2d-a943-d2988e84bc6d",
-            "2022-02-02 00:00:07",
-            "2022-02-02 00:00:07"
+            "2022-02-02 00:00:19",
+            "2022-02-02 00:00:19"
         ]
     },
     {
-        "query": "insert into `documents` (`id`, `oem_id`, `oem_group_id`, `oem_said`, `oem_amp_id`, `oem_sar_number`, `type_id`, `statuses_count`, `reseller_id`, `customer_id`, `currency_id`, `language_id`, `distributor_id`, `start`, `end`, `price_origin`, `price`, `number`, `changed_at`, `contacts_count`, `synced_at`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `documents` (`id`, `oem_id`, `oem_group_id`, `oem_said`, `oem_amp_id`, `oem_sar_number`, `type_id`, `statuses_count`, `reseller_id`, `customer_id`, `currency_id`, `language_id`, `distributor_id`, `start`, `end`, `price_origin`, `price`, `number`, `changed_at`, `contacts_count`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "2abdb153-9341-499c-ad38-8a721127f979",
             "fdb8251f-d8c8-55fe-b23d-b846d759a893",
@@ -170,9 +134,8 @@
             "0aa8316b-72d9-3e39-b177-b8c879d739f3",
             "2022-06-03 16:00:03",
             2,
-            "2022-02-02 00:00:08",
-            "2022-02-02 00:00:09",
-            "2022-02-02 00:00:09"
+            "2022-02-02 00:00:20",
+            "2022-02-02 00:00:20"
         ]
     },
     {
@@ -181,8 +144,8 @@
             "8f97eff1-dbfa-5293-8b35-e10c52dd0a43",
             "2abdb153-9341-499c-ad38-8a721127f979",
             "3dd8894d-7ea4-552e-9197-edeac41213b6",
-            "2022-02-02 00:00:10",
-            "2022-02-02 00:00:10"
+            "2022-02-02 00:00:21",
+            "2022-02-02 00:00:21"
         ]
     },
     {
@@ -195,8 +158,8 @@
             "griffin94@hotmail.com",
             true,
             "f4656ed7-d921-54bd-b590-81d16d8ff849",
-            "2022-02-02 00:00:11",
-            "2022-02-02 00:00:11"
+            "2022-02-02 00:00:22",
+            "2022-02-02 00:00:22"
         ]
     },
     {
@@ -205,8 +168,8 @@
             "85bab1a7-1d90-5926-942f-2c6889c25826",
             "f4656ed7-d921-54bd-b590-81d16d8ff849",
             "1520ef39-4fa3-5233-b829-73397730f218",
-            "2022-02-02 00:00:12",
-            "2022-02-02 00:00:12"
+            "2022-02-02 00:00:23",
+            "2022-02-02 00:00:23"
         ]
     },
     {
@@ -219,8 +182,8 @@
             "batz.henri@hotmail.com",
             true,
             "f0a339f3-1039-53ca-a9d3-58225ec65ab5",
-            "2022-02-02 00:00:13",
-            "2022-02-02 00:00:13"
+            "2022-02-02 00:00:24",
+            "2022-02-02 00:00:24"
         ]
     },
     {
@@ -229,8 +192,8 @@
             "fe9bc1f8-450c-5b2d-a943-d2988e84bc6d",
             "f0a339f3-1039-53ca-a9d3-58225ec65ab5",
             "3a4e8177-26b0-552e-a1fc-606eb87aaef4",
-            "2022-02-02 00:00:14",
-            "2022-02-02 00:00:14"
+            "2022-02-02 00:00:25",
+            "2022-02-02 00:00:25"
         ]
     },
     {
@@ -241,29 +204,22 @@
         ]
     },
     {
-        "query": "select `oems`.* from `oems` where `oems`.`id` in (?) and `oems`.`deleted_at` is null",
-        "bindings": [
-            "78110809-b73a-5055-9977-86dc1a9f89c4"
-        ]
-    },
-    {
         "query": "select `document_entries`.* from `document_entries` where `document_entries`.`document_id` = ? and `document_entries`.`document_id` is not null",
         "bindings": [
             "2abdb153-9341-499c-ad38-8a721127f979"
         ]
     },
     {
-        "query": "update `documents` set `synced_at` = ?, `entries_count` = ?, `assets_count` = ?, `documents`.`updated_at` = ? where `id` = ?",
+        "query": "update `documents` set `entries_count` = ?, `assets_count` = ?, `documents`.`updated_at` = ? where `id` = ?",
         "bindings": [
-            "2022-02-02 00:00:15",
             5,
             2,
-            "2022-02-02 00:00:18",
+            "2022-02-02 00:00:26",
             "2abdb153-9341-499c-ad38-8a721127f979"
         ]
     },
     {
-        "query": "insert into `document_entries` (`asset_id`, `asset_type_id`, `created_at`, `currency_id`, `deleted_at`, `document_id`, `end`, `environment_id`, `equipment_number`, `id`, `language_id`, `list_price`, `list_price_origin`, `monthly_list_price`, `monthly_list_price_origin`, `monthly_retail_price`, `monthly_retail_price_origin`, `oem_said`, `oem_sar_number`, `product_group_id`, `product_id`, `product_line_id`, `psp_id`, `removed_at`, `renewal`, `renewal_origin`, `serial_number`, `service_group_id`, `service_level_id`, `start`, `uid`, `updated_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `document_entries` (`asset_id`, `asset_type_id`, `created_at`, `currency_id`, `deleted_at`, `document_id`, `end`, `environment_id`, `equipment_number`, `id`, `key`, `language_id`, `list_price`, `list_price_origin`, `monthly_list_price`, `monthly_list_price_origin`, `monthly_retail_price`, `monthly_retail_price_origin`, `oem_said`, `oem_sar_number`, `product_group_id`, `product_id`, `product_line_id`, `psp_id`, `removed_at`, `renewal`, `renewal_origin`, `serial_number`, `service_group_id`, `service_level_id`, `start`, `updated_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "9f93f878-cec2-4098-96f9-66af77ccac84",
             null,
@@ -275,6 +231,7 @@
             null,
             null,
             "2d28422f-f75e-54ad-a657-ccd20b752663",
+            "cc066298-a859-494e-9251-4a2ad5c2858a-237164",
             null,
             "306.36",
             "306.36",
@@ -295,7 +252,6 @@
             null,
             null,
             null,
-            "cc066298-a859-494e-9251-4a2ad5c2858a-237164",
             "2022-02-02 00:00:34",
             "9f93f878-cec2-4098-96f9-66af77ccac84",
             null,
@@ -307,6 +263,7 @@
             null,
             null,
             "d460b75a-9d0b-5296-9829-70321cd73017",
+            "cc066298-a859-494e-9251-4a2ad5c2858a-237179",
             null,
             "61.27",
             "61.27",
@@ -327,7 +284,6 @@
             null,
             null,
             null,
-            "cc066298-a859-494e-9251-4a2ad5c2858a-237179",
             "2022-02-02 00:00:35",
             "9f93f878-cec2-4098-96f9-66af77ccac84",
             null,
@@ -339,6 +295,7 @@
             null,
             null,
             "b084b802-c4da-51b9-b2a3-0d5a5e17b97d",
+            "cc066298-a859-494e-9251-4a2ad5c2858a-237194",
             null,
             "0.00",
             "0.00",
@@ -359,7 +316,6 @@
             null,
             null,
             null,
-            "cc066298-a859-494e-9251-4a2ad5c2858a-237194",
             "2022-02-02 00:00:36",
             "80837ca0-5a91-4d09-991e-85ec6960a6ef",
             null,
@@ -371,6 +327,7 @@
             null,
             null,
             "4fd0c106-17dc-506e-91ce-339f36836c1f",
+            "cc066298-a859-494e-9251-4a2ad5c2858a-237165",
             null,
             "306.36",
             "306.36",
@@ -391,7 +348,6 @@
             null,
             null,
             null,
-            "cc066298-a859-494e-9251-4a2ad5c2858a-237165",
             "2022-02-02 00:00:37",
             "80837ca0-5a91-4d09-991e-85ec6960a6ef",
             null,
@@ -403,6 +359,7 @@
             null,
             null,
             "d2c1b057-10b2-5118-8173-cf58f918cf5b",
+            "cc066298-a859-494e-9251-4a2ad5c2858a-237195",
             null,
             "0.00",
             "0.00",
@@ -423,12 +380,11 @@
             null,
             null,
             null,
-            "cc066298-a859-494e-9251-4a2ad5c2858a-237195",
             "2022-02-02 00:00:38"
         ]
     },
     {
-        "query": "insert into `documents` (`id`, `oem_id`, `oem_group_id`, `oem_said`, `oem_amp_id`, `oem_sar_number`, `type_id`, `statuses_count`, `reseller_id`, `customer_id`, `currency_id`, `language_id`, `distributor_id`, `start`, `end`, `price_origin`, `price`, `number`, `changed_at`, `contacts_count`, `synced_at`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `documents` (`id`, `oem_id`, `oem_group_id`, `oem_said`, `oem_amp_id`, `oem_sar_number`, `type_id`, `statuses_count`, `reseller_id`, `customer_id`, `currency_id`, `language_id`, `distributor_id`, `start`, `end`, `price_origin`, `price`, `number`, `changed_at`, `contacts_count`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "4fe10114-41f9-410e-9f3f-b2f42e72f5b8",
             "fdb8251f-d8c8-55fe-b23d-b846d759a893",
@@ -450,9 +406,8 @@
             "f1f8fc49-f463-3d9a-bad5-6601d2487c87",
             "2022-06-03 16:00:07",
             2,
-            "2022-02-02 00:00:42",
-            "2022-02-02 00:00:43",
-            "2022-02-02 00:00:43"
+            "2022-02-02 00:00:39",
+            "2022-02-02 00:00:39"
         ]
     },
     {
@@ -461,8 +416,8 @@
             "8f97eff1-dbfa-5293-8b35-e10c52dd0a43",
             "4fe10114-41f9-410e-9f3f-b2f42e72f5b8",
             "bb01f74e-ea1b-5429-8bfc-af6ef89ebbf2",
-            "2022-02-02 00:00:44",
-            "2022-02-02 00:00:44"
+            "2022-02-02 00:00:40",
+            "2022-02-02 00:00:40"
         ]
     },
     {
@@ -475,8 +430,8 @@
             "griffin94@hotmail.com",
             true,
             "885caa41-ce67-5241-b81b-02968b744339",
-            "2022-02-02 00:00:45",
-            "2022-02-02 00:00:45"
+            "2022-02-02 00:00:41",
+            "2022-02-02 00:00:41"
         ]
     },
     {
@@ -485,8 +440,8 @@
             "85bab1a7-1d90-5926-942f-2c6889c25826",
             "885caa41-ce67-5241-b81b-02968b744339",
             "e1051b18-4663-5d6f-a903-fe90f4e6310a",
-            "2022-02-02 00:00:46",
-            "2022-02-02 00:00:46"
+            "2022-02-02 00:00:42",
+            "2022-02-02 00:00:42"
         ]
     },
     {
@@ -499,8 +454,8 @@
             "batz.henri@hotmail.com",
             true,
             "4a0381cc-5f50-549d-9681-a9e61e299cfc",
-            "2022-02-02 00:00:47",
-            "2022-02-02 00:00:47"
+            "2022-02-02 00:00:43",
+            "2022-02-02 00:00:43"
         ]
     },
     {
@@ -509,8 +464,8 @@
             "fe9bc1f8-450c-5b2d-a943-d2988e84bc6d",
             "4a0381cc-5f50-549d-9681-a9e61e299cfc",
             "4926f633-fadd-586d-aedf-7c61b3a5d3a8",
-            "2022-02-02 00:00:48",
-            "2022-02-02 00:00:48"
+            "2022-02-02 00:00:44",
+            "2022-02-02 00:00:44"
         ]
     },
     {
@@ -521,33 +476,26 @@
         ]
     },
     {
-        "query": "select `oems`.* from `oems` where `oems`.`id` in (?) and `oems`.`deleted_at` is null",
-        "bindings": [
-            "78110809-b73a-5055-9977-86dc1a9f89c4"
-        ]
-    },
-    {
         "query": "select `document_entries`.* from `document_entries` where `document_entries`.`document_id` = ? and `document_entries`.`document_id` is not null",
         "bindings": [
             "4fe10114-41f9-410e-9f3f-b2f42e72f5b8"
         ]
     },
     {
-        "query": "update `documents` set `synced_at` = ?, `entries_count` = ?, `assets_count` = ?, `documents`.`updated_at` = ? where `id` = ?",
+        "query": "update `documents` set `entries_count` = ?, `assets_count` = ?, `documents`.`updated_at` = ? where `id` = ?",
         "bindings": [
-            "2022-02-02 00:00:49",
             5,
             2,
-            "2022-02-02 00:00:52",
+            "2022-02-02 00:00:45",
             "4fe10114-41f9-410e-9f3f-b2f42e72f5b8"
         ]
     },
     {
-        "query": "insert into `document_entries` (`asset_id`, `asset_type_id`, `created_at`, `currency_id`, `deleted_at`, `document_id`, `end`, `environment_id`, `equipment_number`, `id`, `language_id`, `list_price`, `list_price_origin`, `monthly_list_price`, `monthly_list_price_origin`, `monthly_retail_price`, `monthly_retail_price_origin`, `oem_said`, `oem_sar_number`, `product_group_id`, `product_id`, `product_line_id`, `psp_id`, `removed_at`, `renewal`, `renewal_origin`, `serial_number`, `service_group_id`, `service_level_id`, `start`, `uid`, `updated_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `document_entries` (`asset_id`, `asset_type_id`, `created_at`, `currency_id`, `deleted_at`, `document_id`, `end`, `environment_id`, `equipment_number`, `id`, `key`, `language_id`, `list_price`, `list_price_origin`, `monthly_list_price`, `monthly_list_price_origin`, `monthly_retail_price`, `monthly_retail_price_origin`, `oem_said`, `oem_sar_number`, `product_group_id`, `product_id`, `product_line_id`, `psp_id`, `removed_at`, `renewal`, `renewal_origin`, `serial_number`, `service_group_id`, `service_level_id`, `start`, `updated_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "9f93f878-cec2-4098-96f9-66af77ccac84",
             null,
-            "2022-02-02 00:01:08",
+            "2022-02-02 00:00:53",
             "0c377cde-0cf9-5eea-8d4a-3f0bc159695b",
             null,
             "4fe10114-41f9-410e-9f3f-b2f42e72f5b8",
@@ -555,6 +503,7 @@
             null,
             null,
             "c2f1f322-b6b4-5be5-8b65-997d09df282f",
+            "da5c7e59-2cec-4efa-a0ba-78faaf793990-237209",
             null,
             "719.10",
             "719.10",
@@ -575,11 +524,10 @@
             null,
             null,
             null,
-            "da5c7e59-2cec-4efa-a0ba-78faaf793990-237209",
-            "2022-02-02 00:01:08",
+            "2022-02-02 00:00:53",
             "9f93f878-cec2-4098-96f9-66af77ccac84",
             null,
-            "2022-02-02 00:01:09",
+            "2022-02-02 00:00:54",
             "0c377cde-0cf9-5eea-8d4a-3f0bc159695b",
             null,
             "4fe10114-41f9-410e-9f3f-b2f42e72f5b8",
@@ -587,6 +535,7 @@
             null,
             null,
             "7d2f99c6-7607-5fb6-8d4b-fbe040d4a7bb",
+            "da5c7e59-2cec-4efa-a0ba-78faaf793990-237224",
             null,
             "143.82",
             "143.82",
@@ -607,11 +556,10 @@
             null,
             null,
             null,
-            "da5c7e59-2cec-4efa-a0ba-78faaf793990-237224",
-            "2022-02-02 00:01:09",
+            "2022-02-02 00:00:54",
             "9f93f878-cec2-4098-96f9-66af77ccac84",
             null,
-            "2022-02-02 00:01:10",
+            "2022-02-02 00:00:55",
             "0c377cde-0cf9-5eea-8d4a-3f0bc159695b",
             null,
             "4fe10114-41f9-410e-9f3f-b2f42e72f5b8",
@@ -619,6 +567,7 @@
             null,
             null,
             "e08260bd-ba8d-557f-82fc-a0e98029ec1d",
+            "da5c7e59-2cec-4efa-a0ba-78faaf793990-237239",
             null,
             "0.00",
             "0.00",
@@ -639,11 +588,10 @@
             null,
             null,
             null,
-            "da5c7e59-2cec-4efa-a0ba-78faaf793990-237239",
-            "2022-02-02 00:01:10",
+            "2022-02-02 00:00:55",
             "80837ca0-5a91-4d09-991e-85ec6960a6ef",
             null,
-            "2022-02-02 00:01:11",
+            "2022-02-02 00:00:56",
             "0c377cde-0cf9-5eea-8d4a-3f0bc159695b",
             null,
             "4fe10114-41f9-410e-9f3f-b2f42e72f5b8",
@@ -651,6 +599,7 @@
             null,
             null,
             "f0f94dfb-f890-5638-b393-333888de1775",
+            "da5c7e59-2cec-4efa-a0ba-78faaf793990-237225",
             null,
             "143.82",
             "143.82",
@@ -671,11 +620,10 @@
             null,
             null,
             null,
-            "da5c7e59-2cec-4efa-a0ba-78faaf793990-237225",
-            "2022-02-02 00:01:11",
+            "2022-02-02 00:00:56",
             "80837ca0-5a91-4d09-991e-85ec6960a6ef",
             null,
-            "2022-02-02 00:01:12",
+            "2022-02-02 00:00:57",
             "0c377cde-0cf9-5eea-8d4a-3f0bc159695b",
             null,
             "4fe10114-41f9-410e-9f3f-b2f42e72f5b8",
@@ -683,6 +631,7 @@
             null,
             null,
             "eb332e1d-fc94-5760-8678-97c526bbc125",
+            "da5c7e59-2cec-4efa-a0ba-78faaf793990-237210",
             null,
             "719.10",
             "719.10",
@@ -703,12 +652,11 @@
             null,
             null,
             null,
-            "da5c7e59-2cec-4efa-a0ba-78faaf793990-237210",
-            "2022-02-02 00:01:12"
+            "2022-02-02 00:00:57"
         ]
     },
     {
-        "query": "insert into `documents` (`id`, `oem_id`, `oem_group_id`, `oem_said`, `oem_amp_id`, `oem_sar_number`, `type_id`, `statuses_count`, `reseller_id`, `customer_id`, `currency_id`, `language_id`, `distributor_id`, `start`, `end`, `price_origin`, `price`, `number`, `changed_at`, `contacts_count`, `synced_at`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `documents` (`id`, `oem_id`, `oem_group_id`, `oem_said`, `oem_amp_id`, `oem_sar_number`, `type_id`, `statuses_count`, `reseller_id`, `customer_id`, `currency_id`, `language_id`, `distributor_id`, `start`, `end`, `price_origin`, `price`, `number`, `changed_at`, `contacts_count`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "76331547-3217-4c18-b7c4-b3448024546e",
             "fdb8251f-d8c8-55fe-b23d-b846d759a893",
@@ -730,9 +678,8 @@
             "229df4e7-cef7-3fef-a1a8-f3d256158a25",
             "2022-06-03 16:00:09",
             2,
-            "2022-02-02 00:01:16",
-            "2022-02-02 00:01:17",
-            "2022-02-02 00:01:17"
+            "2022-02-02 00:00:58",
+            "2022-02-02 00:00:58"
         ]
     },
     {
@@ -741,8 +688,8 @@
             "8f97eff1-dbfa-5293-8b35-e10c52dd0a43",
             "76331547-3217-4c18-b7c4-b3448024546e",
             "4061ec07-d08b-5a07-9432-f91e21c7635f",
-            "2022-02-02 00:01:18",
-            "2022-02-02 00:01:18"
+            "2022-02-02 00:00:59",
+            "2022-02-02 00:00:59"
         ]
     },
     {
@@ -755,8 +702,8 @@
             "griffin94@hotmail.com",
             true,
             "47ce9811-0df6-5f12-b213-93e3fb44d00e",
-            "2022-02-02 00:01:19",
-            "2022-02-02 00:01:19"
+            "2022-02-02 00:01:00",
+            "2022-02-02 00:01:00"
         ]
     },
     {
@@ -765,8 +712,8 @@
             "85bab1a7-1d90-5926-942f-2c6889c25826",
             "47ce9811-0df6-5f12-b213-93e3fb44d00e",
             "07c876d4-67e7-54d9-a79d-117ea6199921",
-            "2022-02-02 00:01:20",
-            "2022-02-02 00:01:20"
+            "2022-02-02 00:01:01",
+            "2022-02-02 00:01:01"
         ]
     },
     {
@@ -779,8 +726,8 @@
             "batz.henri@hotmail.com",
             true,
             "be620b0c-b39c-5b70-9bdf-087d60063b7b",
-            "2022-02-02 00:01:21",
-            "2022-02-02 00:01:21"
+            "2022-02-02 00:01:02",
+            "2022-02-02 00:01:02"
         ]
     },
     {
@@ -789,8 +736,8 @@
             "fe9bc1f8-450c-5b2d-a943-d2988e84bc6d",
             "be620b0c-b39c-5b70-9bdf-087d60063b7b",
             "e112a3f5-b612-5a5c-8dae-7c5d49d3702c",
-            "2022-02-02 00:01:22",
-            "2022-02-02 00:01:22"
+            "2022-02-02 00:01:03",
+            "2022-02-02 00:01:03"
         ]
     },
     {
@@ -801,33 +748,26 @@
         ]
     },
     {
-        "query": "select `oems`.* from `oems` where `oems`.`id` in (?) and `oems`.`deleted_at` is null",
-        "bindings": [
-            "78110809-b73a-5055-9977-86dc1a9f89c4"
-        ]
-    },
-    {
         "query": "select `document_entries`.* from `document_entries` where `document_entries`.`document_id` = ? and `document_entries`.`document_id` is not null",
         "bindings": [
             "76331547-3217-4c18-b7c4-b3448024546e"
         ]
     },
     {
-        "query": "update `documents` set `synced_at` = ?, `entries_count` = ?, `assets_count` = ?, `documents`.`updated_at` = ? where `id` = ?",
+        "query": "update `documents` set `entries_count` = ?, `assets_count` = ?, `documents`.`updated_at` = ? where `id` = ?",
         "bindings": [
-            "2022-02-02 00:01:23",
             5,
             2,
-            "2022-02-02 00:01:26",
+            "2022-02-02 00:01:04",
             "76331547-3217-4c18-b7c4-b3448024546e"
         ]
     },
     {
-        "query": "insert into `document_entries` (`asset_id`, `asset_type_id`, `created_at`, `currency_id`, `deleted_at`, `document_id`, `end`, `environment_id`, `equipment_number`, `id`, `language_id`, `list_price`, `list_price_origin`, `monthly_list_price`, `monthly_list_price_origin`, `monthly_retail_price`, `monthly_retail_price_origin`, `oem_said`, `oem_sar_number`, `product_group_id`, `product_id`, `product_line_id`, `psp_id`, `removed_at`, `renewal`, `renewal_origin`, `serial_number`, `service_group_id`, `service_level_id`, `start`, `uid`, `updated_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `document_entries` (`asset_id`, `asset_type_id`, `created_at`, `currency_id`, `deleted_at`, `document_id`, `end`, `environment_id`, `equipment_number`, `id`, `key`, `language_id`, `list_price`, `list_price_origin`, `monthly_list_price`, `monthly_list_price_origin`, `monthly_retail_price`, `monthly_retail_price_origin`, `oem_said`, `oem_sar_number`, `product_group_id`, `product_id`, `product_line_id`, `psp_id`, `removed_at`, `renewal`, `renewal_origin`, `serial_number`, `service_group_id`, `service_level_id`, `start`, `updated_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "9f93f878-cec2-4098-96f9-66af77ccac84",
             null,
-            "2022-02-02 00:01:42",
+            "2022-02-02 00:01:12",
             "0c377cde-0cf9-5eea-8d4a-3f0bc159695b",
             null,
             "76331547-3217-4c18-b7c4-b3448024546e",
@@ -835,6 +775,7 @@
             null,
             null,
             "b4f932d3-6231-5d8b-a158-617c38d9ebdd",
+            "e9baa622-42b1-445b-a6ec-a85ec30c5fb8-232524",
             null,
             "143.82",
             "143.82",
@@ -855,11 +796,10 @@
             null,
             null,
             null,
-            "e9baa622-42b1-445b-a6ec-a85ec30c5fb8-232524",
-            "2022-02-02 00:01:42",
+            "2022-02-02 00:01:12",
             "9f93f878-cec2-4098-96f9-66af77ccac84",
             null,
-            "2022-02-02 00:01:43",
+            "2022-02-02 00:01:13",
             "0c377cde-0cf9-5eea-8d4a-3f0bc159695b",
             null,
             "76331547-3217-4c18-b7c4-b3448024546e",
@@ -867,6 +807,7 @@
             null,
             null,
             "059e44b8-e3ad-5096-804e-49c8a2a45d59",
+            "e9baa622-42b1-445b-a6ec-a85ec30c5fb8-232539",
             null,
             "0.00",
             "0.00",
@@ -887,11 +828,10 @@
             null,
             null,
             null,
-            "e9baa622-42b1-445b-a6ec-a85ec30c5fb8-232539",
-            "2022-02-02 00:01:43",
+            "2022-02-02 00:01:13",
             "9f93f878-cec2-4098-96f9-66af77ccac84",
             null,
-            "2022-02-02 00:01:44",
+            "2022-02-02 00:01:14",
             "0c377cde-0cf9-5eea-8d4a-3f0bc159695b",
             null,
             "76331547-3217-4c18-b7c4-b3448024546e",
@@ -899,6 +839,7 @@
             null,
             null,
             "c4087e0f-8cd0-5692-8e96-d7422e6ef40d",
+            "e9baa622-42b1-445b-a6ec-a85ec30c5fb8-232509",
             null,
             "719.10",
             "719.10",
@@ -919,11 +860,10 @@
             null,
             null,
             null,
-            "e9baa622-42b1-445b-a6ec-a85ec30c5fb8-232509",
-            "2022-02-02 00:01:44",
+            "2022-02-02 00:01:14",
             "80837ca0-5a91-4d09-991e-85ec6960a6ef",
             null,
-            "2022-02-02 00:01:45",
+            "2022-02-02 00:01:15",
             "0c377cde-0cf9-5eea-8d4a-3f0bc159695b",
             null,
             "76331547-3217-4c18-b7c4-b3448024546e",
@@ -931,6 +871,7 @@
             null,
             null,
             "cb002ab6-4758-5e94-adad-6c86e6d175d9",
+            "e9baa622-42b1-445b-a6ec-a85ec30c5fb8-232510",
             null,
             "719.10",
             "719.10",
@@ -951,11 +892,10 @@
             null,
             null,
             null,
-            "e9baa622-42b1-445b-a6ec-a85ec30c5fb8-232510",
-            "2022-02-02 00:01:45",
+            "2022-02-02 00:01:15",
             "80837ca0-5a91-4d09-991e-85ec6960a6ef",
             null,
-            "2022-02-02 00:01:46",
+            "2022-02-02 00:01:16",
             "0c377cde-0cf9-5eea-8d4a-3f0bc159695b",
             null,
             "76331547-3217-4c18-b7c4-b3448024546e",
@@ -963,6 +903,7 @@
             null,
             null,
             "26a16be9-938e-52e8-9b1d-a89efa7c2e18",
+            "e9baa622-42b1-445b-a6ec-a85ec30c5fb8-232540",
             null,
             "0.00",
             "0.00",
@@ -983,8 +924,7 @@
             null,
             null,
             null,
-            "e9baa622-42b1-445b-a6ec-a85ec30c5fb8-232540",
-            "2022-02-02 00:01:46"
+            "2022-02-02 00:01:16"
         ]
     },
     {
@@ -1002,8 +942,8 @@
             "8b34890d-fff3-3a7e-a136-f1a66c501db3",
             "",
             "95054435-8b26-53f2-9d39-70f2aaa46f2b",
-            "2022-02-02 00:01:47",
-            "2022-02-02 00:01:47"
+            "2022-02-02 00:01:17",
+            "2022-02-02 00:01:17"
         ]
     },
     {
@@ -1020,8 +960,8 @@
             "EXPIRED",
             "Expired",
             "543639f1-5aaa-547c-b738-053834ad1edb",
-            "2022-02-02 00:01:48",
-            "2022-02-02 00:01:48"
+            "2022-02-02 00:01:18",
+            "2022-02-02 00:01:18"
         ]
     },
     {
@@ -1038,8 +978,8 @@
             "Hardware System Contact",
             "Hardware System Contact",
             "e20f5862-c731-53aa-b964-505f3943a6f6",
-            "2022-02-02 00:01:52",
-            "2022-02-02 00:01:52"
+            "2022-02-02 00:01:19",
+            "2022-02-02 00:01:19"
         ]
     },
     {
@@ -1056,8 +996,8 @@
             "Software System Contact",
             "Software System Contact",
             "304b85ee-50c9-5668-a29a-0652ea1436ca",
-            "2022-02-02 00:01:53",
-            "2022-02-02 00:01:53"
+            "2022-02-02 00:01:20",
+            "2022-02-02 00:01:20"
         ]
     },
     {
@@ -1074,12 +1014,12 @@
             "System Manager Contact",
             "System Manager Contact",
             "0314e932-ff4f-5d2e-ac4d-a88f9b67fdfc",
-            "2022-02-02 00:01:54",
-            "2022-02-02 00:01:54"
+            "2022-02-02 00:01:21",
+            "2022-02-02 00:01:21"
         ]
     },
     {
-        "query": "insert into `documents` (`id`, `oem_id`, `oem_group_id`, `oem_said`, `oem_amp_id`, `oem_sar_number`, `type_id`, `statuses_count`, `reseller_id`, `customer_id`, `currency_id`, `language_id`, `distributor_id`, `start`, `end`, `price_origin`, `price`, `number`, `changed_at`, `contacts_count`, `synced_at`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `documents` (`id`, `oem_id`, `oem_group_id`, `oem_said`, `oem_amp_id`, `oem_sar_number`, `type_id`, `statuses_count`, `reseller_id`, `customer_id`, `currency_id`, `language_id`, `distributor_id`, `start`, `end`, `price_origin`, `price`, `number`, `changed_at`, `contacts_count`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "8cbf5548-0573-48b1-8b5e-3218a3740ccc",
             "fdb8251f-d8c8-55fe-b23d-b846d759a893",
@@ -1101,9 +1041,8 @@
             "efc18ae9-06fe-3fea-b916-bb923d278520",
             "2022-06-03 13:27:26",
             5,
-            "2022-02-02 00:01:55",
-            "2022-02-02 00:01:56",
-            "2022-02-02 00:01:56"
+            "2022-02-02 00:01:22",
+            "2022-02-02 00:01:22"
         ]
     },
     {
@@ -1112,8 +1051,8 @@
             "543639f1-5aaa-547c-b738-053834ad1edb",
             "8cbf5548-0573-48b1-8b5e-3218a3740ccc",
             "95efb1d0-bb22-5761-828d-18f9957d86fe",
-            "2022-02-02 00:01:57",
-            "2022-02-02 00:01:57"
+            "2022-02-02 00:01:23",
+            "2022-02-02 00:01:23"
         ]
     },
     {
@@ -1126,23 +1065,23 @@
             "lgleichner@yahoo.com",
             true,
             "da490648-866a-5378-a610-653fa2423123",
-            "2022-02-02 00:01:58",
-            "2022-02-02 00:01:58"
+            "2022-02-02 00:01:24",
+            "2022-02-02 00:01:24"
         ]
     },
     {
         "query": "insert into `contact_types` (`contact_id`, `created_at`, `id`, `type_id`, `updated_at`) values (?, ?, ?, ?, ?), (?, ?, ?, ?, ?)",
         "bindings": [
             "da490648-866a-5378-a610-653fa2423123",
-            "2022-02-02 00:01:59",
+            "2022-02-02 00:01:25",
             "884ddee2-e537-59fa-ac99-8f27ade3789f",
             "0e38f938-9e71-5a71-921e-ea469dc57ce3",
-            "2022-02-02 00:01:59",
+            "2022-02-02 00:01:25",
             "da490648-866a-5378-a610-653fa2423123",
-            "2022-02-02 00:02:00",
+            "2022-02-02 00:01:26",
             "3261fb67-1e2b-508e-9075-c4169774940f",
             "e20f5862-c731-53aa-b964-505f3943a6f6",
-            "2022-02-02 00:02:00"
+            "2022-02-02 00:01:26"
         ]
     },
     {
@@ -1155,8 +1094,8 @@
             "jsanford@yahoo.com",
             true,
             "eed6b1be-ccb5-58d1-9d4c-46ae632817c8",
-            "2022-02-02 00:02:01",
-            "2022-02-02 00:02:01"
+            "2022-02-02 00:01:27",
+            "2022-02-02 00:01:27"
         ]
     },
     {
@@ -1165,8 +1104,8 @@
             "5e540a75-3fbd-50b2-97e5-5b244f6a3d52",
             "eed6b1be-ccb5-58d1-9d4c-46ae632817c8",
             "b6939d8b-c784-534f-8b45-7bb04de256b4",
-            "2022-02-02 00:02:02",
-            "2022-02-02 00:02:02"
+            "2022-02-02 00:01:28",
+            "2022-02-02 00:01:28"
         ]
     },
     {
@@ -1179,8 +1118,8 @@
             "kody80@yahoo.com",
             true,
             "d9749bf5-c57c-56f0-9b73-1f0585439f66",
-            "2022-02-02 00:02:03",
-            "2022-02-02 00:02:03"
+            "2022-02-02 00:01:29",
+            "2022-02-02 00:01:29"
         ]
     },
     {
@@ -1189,8 +1128,8 @@
             "2d111a75-b546-5c91-b607-e42a084fd34c",
             "d9749bf5-c57c-56f0-9b73-1f0585439f66",
             "1bff7a3d-6c61-5cdf-af8d-a1858161864b",
-            "2022-02-02 00:02:04",
-            "2022-02-02 00:02:04"
+            "2022-02-02 00:01:30",
+            "2022-02-02 00:01:30"
         ]
     },
     {
@@ -1203,8 +1142,8 @@
             null,
             true,
             "348ace43-70c4-5e29-a326-9dddadf6d8f7",
-            "2022-02-02 00:02:05",
-            "2022-02-02 00:02:05"
+            "2022-02-02 00:01:31",
+            "2022-02-02 00:01:31"
         ]
     },
     {
@@ -1213,8 +1152,8 @@
             "304b85ee-50c9-5668-a29a-0652ea1436ca",
             "348ace43-70c4-5e29-a326-9dddadf6d8f7",
             "b4f577e3-e54e-5a39-b008-d22655231a69",
-            "2022-02-02 00:02:06",
-            "2022-02-02 00:02:06"
+            "2022-02-02 00:01:32",
+            "2022-02-02 00:01:32"
         ]
     },
     {
@@ -1227,8 +1166,8 @@
             null,
             true,
             "0268a4de-6aa9-56ee-9b8d-fce05285f292",
-            "2022-02-02 00:02:07",
-            "2022-02-02 00:02:07"
+            "2022-02-02 00:01:33",
+            "2022-02-02 00:01:33"
         ]
     },
     {
@@ -1237,8 +1176,8 @@
             "0314e932-ff4f-5d2e-ac4d-a88f9b67fdfc",
             "0268a4de-6aa9-56ee-9b8d-fce05285f292",
             "d258e526-b780-5ea4-a5c9-6e8a17dfc378",
-            "2022-02-02 00:02:08",
-            "2022-02-02 00:02:08"
+            "2022-02-02 00:01:34",
+            "2022-02-02 00:01:34"
         ]
     },
     {
@@ -1252,33 +1191,26 @@
         ]
     },
     {
-        "query": "select `oems`.* from `oems` where `oems`.`id` in (?) and `oems`.`deleted_at` is null",
-        "bindings": [
-            "fdb8251f-d8c8-55fe-b23d-b846d759a893"
-        ]
-    },
-    {
         "query": "select `document_entries`.* from `document_entries` where `document_entries`.`document_id` = ? and `document_entries`.`document_id` is not null",
         "bindings": [
             "8cbf5548-0573-48b1-8b5e-3218a3740ccc"
         ]
     },
     {
-        "query": "update `documents` set `synced_at` = ?, `entries_count` = ?, `assets_count` = ?, `documents`.`updated_at` = ? where `id` = ?",
+        "query": "update `documents` set `entries_count` = ?, `assets_count` = ?, `documents`.`updated_at` = ? where `id` = ?",
         "bindings": [
-            "2022-02-02 00:02:09",
             5,
             5,
-            "2022-02-02 00:02:12",
+            "2022-02-02 00:01:35",
             "8cbf5548-0573-48b1-8b5e-3218a3740ccc"
         ]
     },
     {
-        "query": "insert into `document_entries` (`asset_id`, `asset_type_id`, `created_at`, `currency_id`, `deleted_at`, `document_id`, `end`, `environment_id`, `equipment_number`, `id`, `language_id`, `list_price`, `list_price_origin`, `monthly_list_price`, `monthly_list_price_origin`, `monthly_retail_price`, `monthly_retail_price_origin`, `oem_said`, `oem_sar_number`, `product_group_id`, `product_id`, `product_line_id`, `psp_id`, `removed_at`, `renewal`, `renewal_origin`, `serial_number`, `service_group_id`, `service_level_id`, `start`, `uid`, `updated_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `document_entries` (`asset_id`, `asset_type_id`, `created_at`, `currency_id`, `deleted_at`, `document_id`, `end`, `environment_id`, `equipment_number`, `id`, `key`, `language_id`, `list_price`, `list_price_origin`, `monthly_list_price`, `monthly_list_price_origin`, `monthly_retail_price`, `monthly_retail_price_origin`, `oem_said`, `oem_sar_number`, `product_group_id`, `product_id`, `product_line_id`, `psp_id`, `removed_at`, `renewal`, `renewal_origin`, `serial_number`, `service_group_id`, `service_level_id`, `start`, `updated_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "7771c7c6-6ce7-497e-9cec-1fdcc7bea9fb",
             null,
-            "2022-02-02 00:02:28",
+            "2022-02-02 00:01:43",
             "0c377cde-0cf9-5eea-8d4a-3f0bc159695b",
             null,
             "8cbf5548-0573-48b1-8b5e-3218a3740ccc",
@@ -1286,6 +1218,7 @@
             null,
             null,
             "908e4234-77aa-5c8c-be6d-63786da84156",
+            "3619bae0-71d1-41d9-aff8-52b0bec69d76-1041176",
             null,
             null,
             null,
@@ -1306,11 +1239,10 @@
             null,
             null,
             null,
-            "3619bae0-71d1-41d9-aff8-52b0bec69d76-1041176",
-            "2022-02-02 00:02:28",
+            "2022-02-02 00:01:43",
             "369b5a9f-1f10-4bb0-a406-e86d0cb2d57c",
             null,
-            "2022-02-02 00:02:29",
+            "2022-02-02 00:01:44",
             "0c377cde-0cf9-5eea-8d4a-3f0bc159695b",
             null,
             "8cbf5548-0573-48b1-8b5e-3218a3740ccc",
@@ -1318,6 +1250,7 @@
             null,
             null,
             "1ff3d7d6-bd2e-5483-8144-c8465c482946",
+            "3619bae0-71d1-41d9-aff8-52b0bec69d76-1041172",
             null,
             "0.00",
             "0.00",
@@ -1338,11 +1271,10 @@
             null,
             null,
             null,
-            "3619bae0-71d1-41d9-aff8-52b0bec69d76-1041172",
-            "2022-02-02 00:02:29",
+            "2022-02-02 00:01:44",
             "cafefe1f-3cd2-4116-be2b-e432b1ddc84c",
             null,
-            "2022-02-02 00:02:30",
+            "2022-02-02 00:01:45",
             "0c377cde-0cf9-5eea-8d4a-3f0bc159695b",
             null,
             "8cbf5548-0573-48b1-8b5e-3218a3740ccc",
@@ -1350,6 +1282,7 @@
             null,
             null,
             "54dcfbbf-102a-5276-9abb-0d0d169c9fbe",
+            "3619bae0-71d1-41d9-aff8-52b0bec69d76-1041173",
             null,
             "2385.48",
             "2385.48",
@@ -1370,11 +1303,10 @@
             null,
             null,
             null,
-            "3619bae0-71d1-41d9-aff8-52b0bec69d76-1041173",
-            "2022-02-02 00:02:30",
+            "2022-02-02 00:01:45",
             "3413507d-1308-42a9-a768-f546028c5b0f",
             null,
-            "2022-02-02 00:02:31",
+            "2022-02-02 00:01:46",
             "0c377cde-0cf9-5eea-8d4a-3f0bc159695b",
             null,
             "8cbf5548-0573-48b1-8b5e-3218a3740ccc",
@@ -1382,6 +1314,7 @@
             null,
             null,
             "c84bb68e-1cf2-5d94-b87e-f36e1b55e725",
+            "3619bae0-71d1-41d9-aff8-52b0bec69d76-1041170",
             null,
             "0.00",
             "0.00",
@@ -1402,11 +1335,10 @@
             null,
             null,
             null,
-            "3619bae0-71d1-41d9-aff8-52b0bec69d76-1041170",
-            "2022-02-02 00:02:31",
+            "2022-02-02 00:01:46",
             "618e3369-365f-4738-b134-a4333a7842cb",
             null,
-            "2022-02-02 00:02:32",
+            "2022-02-02 00:01:47",
             "0c377cde-0cf9-5eea-8d4a-3f0bc159695b",
             null,
             "8cbf5548-0573-48b1-8b5e-3218a3740ccc",
@@ -1414,6 +1346,7 @@
             null,
             null,
             "891e274f-76f8-568c-b17d-3112ed56e2ab",
+            "3619bae0-71d1-41d9-aff8-52b0bec69d76-1041175",
             null,
             null,
             null,
@@ -1434,12 +1367,11 @@
             null,
             null,
             null,
-            "3619bae0-71d1-41d9-aff8-52b0bec69d76-1041175",
-            "2022-02-02 00:02:32"
+            "2022-02-02 00:01:47"
         ]
     },
     {
-        "query": "insert into `documents` (`id`, `oem_id`, `oem_group_id`, `oem_said`, `oem_amp_id`, `oem_sar_number`, `type_id`, `statuses_count`, `reseller_id`, `customer_id`, `currency_id`, `language_id`, `distributor_id`, `start`, `end`, `price_origin`, `price`, `number`, `changed_at`, `contacts_count`, `synced_at`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `documents` (`id`, `oem_id`, `oem_group_id`, `oem_said`, `oem_amp_id`, `oem_sar_number`, `type_id`, `statuses_count`, `reseller_id`, `customer_id`, `currency_id`, `language_id`, `distributor_id`, `start`, `end`, `price_origin`, `price`, `number`, `changed_at`, `contacts_count`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "99c6ad0a-0f82-481c-8e2a-28fb18428628",
             "fdb8251f-d8c8-55fe-b23d-b846d759a893",
@@ -1461,9 +1393,8 @@
             "355d3e6a-35c3-381a-a212-0c6b9e2e42dd",
             "2022-06-03 16:00:10",
             2,
-            "2022-02-02 00:02:36",
-            "2022-02-02 00:02:37",
-            "2022-02-02 00:02:37"
+            "2022-02-02 00:01:48",
+            "2022-02-02 00:01:48"
         ]
     },
     {
@@ -1472,8 +1403,8 @@
             "8f97eff1-dbfa-5293-8b35-e10c52dd0a43",
             "99c6ad0a-0f82-481c-8e2a-28fb18428628",
             "15c4e362-ba7a-58cf-874a-73f3bbe427b5",
-            "2022-02-02 00:02:38",
-            "2022-02-02 00:02:38"
+            "2022-02-02 00:01:49",
+            "2022-02-02 00:01:49"
         ]
     },
     {
@@ -1486,8 +1417,8 @@
             "griffin94@hotmail.com",
             true,
             "7fe5bbba-186c-5f49-bfd2-0dfd115227b7",
-            "2022-02-02 00:02:39",
-            "2022-02-02 00:02:39"
+            "2022-02-02 00:01:50",
+            "2022-02-02 00:01:50"
         ]
     },
     {
@@ -1496,8 +1427,8 @@
             "85bab1a7-1d90-5926-942f-2c6889c25826",
             "7fe5bbba-186c-5f49-bfd2-0dfd115227b7",
             "0defb2ef-f9da-5755-816a-faba7ef9f827",
-            "2022-02-02 00:02:40",
-            "2022-02-02 00:02:40"
+            "2022-02-02 00:01:51",
+            "2022-02-02 00:01:51"
         ]
     },
     {
@@ -1510,8 +1441,8 @@
             "batz.henri@hotmail.com",
             true,
             "bcc32455-cced-5dc7-a8b7-e48664234c62",
-            "2022-02-02 00:02:41",
-            "2022-02-02 00:02:41"
+            "2022-02-02 00:01:52",
+            "2022-02-02 00:01:52"
         ]
     },
     {
@@ -1520,8 +1451,8 @@
             "fe9bc1f8-450c-5b2d-a943-d2988e84bc6d",
             "bcc32455-cced-5dc7-a8b7-e48664234c62",
             "58967d3b-00e6-54c0-a14e-3db962a854da",
-            "2022-02-02 00:02:42",
-            "2022-02-02 00:02:42"
+            "2022-02-02 00:01:53",
+            "2022-02-02 00:01:53"
         ]
     },
     {
@@ -1533,33 +1464,26 @@
         ]
     },
     {
-        "query": "select `oems`.* from `oems` where `oems`.`id` in (?) and `oems`.`deleted_at` is null",
-        "bindings": [
-            "fdb8251f-d8c8-55fe-b23d-b846d759a893"
-        ]
-    },
-    {
         "query": "select `document_entries`.* from `document_entries` where `document_entries`.`document_id` = ? and `document_entries`.`document_id` is not null",
         "bindings": [
             "99c6ad0a-0f82-481c-8e2a-28fb18428628"
         ]
     },
     {
-        "query": "update `documents` set `synced_at` = ?, `entries_count` = ?, `assets_count` = ?, `documents`.`updated_at` = ? where `id` = ?",
+        "query": "update `documents` set `entries_count` = ?, `assets_count` = ?, `documents`.`updated_at` = ? where `id` = ?",
         "bindings": [
-            "2022-02-02 00:02:43",
             5,
             3,
-            "2022-02-02 00:02:46",
+            "2022-02-02 00:01:54",
             "99c6ad0a-0f82-481c-8e2a-28fb18428628"
         ]
     },
     {
-        "query": "insert into `document_entries` (`asset_id`, `asset_type_id`, `created_at`, `currency_id`, `deleted_at`, `document_id`, `end`, `environment_id`, `equipment_number`, `id`, `language_id`, `list_price`, `list_price_origin`, `monthly_list_price`, `monthly_list_price_origin`, `monthly_retail_price`, `monthly_retail_price_origin`, `oem_said`, `oem_sar_number`, `product_group_id`, `product_id`, `product_line_id`, `psp_id`, `removed_at`, `renewal`, `renewal_origin`, `serial_number`, `service_group_id`, `service_level_id`, `start`, `uid`, `updated_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `document_entries` (`asset_id`, `asset_type_id`, `created_at`, `currency_id`, `deleted_at`, `document_id`, `end`, `environment_id`, `equipment_number`, `id`, `key`, `language_id`, `list_price`, `list_price_origin`, `monthly_list_price`, `monthly_list_price_origin`, `monthly_retail_price`, `monthly_retail_price_origin`, `oem_said`, `oem_sar_number`, `product_group_id`, `product_id`, `product_line_id`, `psp_id`, `removed_at`, `renewal`, `renewal_origin`, `serial_number`, `service_group_id`, `service_level_id`, `start`, `updated_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "47848bf4-0b54-4579-a5b1-203bc1577ea7",
             null,
-            "2022-02-02 00:03:02",
+            "2022-02-02 00:02:02",
             "0c377cde-0cf9-5eea-8d4a-3f0bc159695b",
             null,
             "99c6ad0a-0f82-481c-8e2a-28fb18428628",
@@ -1567,6 +1491,7 @@
             null,
             null,
             "e80b4c88-8046-50eb-be18-b435fcf59302",
+            "c8d9c967-a6db-4083-8e35-7e528bd7a255-223289",
             null,
             "965.35",
             "965.35",
@@ -1587,11 +1512,10 @@
             null,
             null,
             null,
-            "c8d9c967-a6db-4083-8e35-7e528bd7a255-223289",
-            "2022-02-02 00:03:02",
+            "2022-02-02 00:02:02",
             "47848bf4-0b54-4579-a5b1-203bc1577ea7",
             null,
-            "2022-02-02 00:03:03",
+            "2022-02-02 00:02:03",
             "0c377cde-0cf9-5eea-8d4a-3f0bc159695b",
             null,
             "99c6ad0a-0f82-481c-8e2a-28fb18428628",
@@ -1599,6 +1523,7 @@
             null,
             null,
             "1d4db845-6758-57a5-8514-8d2ead89aa4c",
+            "c8d9c967-a6db-4083-8e35-7e528bd7a255-223293",
             null,
             "224.50",
             "224.50",
@@ -1619,11 +1544,10 @@
             null,
             null,
             null,
-            "c8d9c967-a6db-4083-8e35-7e528bd7a255-223293",
-            "2022-02-02 00:03:03",
+            "2022-02-02 00:02:03",
             "f9b047ea-900f-46ab-8908-0eb2e620c55f",
             null,
-            "2022-02-02 00:03:04",
+            "2022-02-02 00:02:04",
             "0c377cde-0cf9-5eea-8d4a-3f0bc159695b",
             null,
             "99c6ad0a-0f82-481c-8e2a-28fb18428628",
@@ -1631,6 +1555,7 @@
             null,
             null,
             "2524348f-207f-5b94-b08a-481133c60c17",
+            "c8d9c967-a6db-4083-8e35-7e528bd7a255-223292",
             null,
             "224.50",
             "224.50",
@@ -1651,11 +1576,10 @@
             null,
             null,
             null,
-            "c8d9c967-a6db-4083-8e35-7e528bd7a255-223292",
-            "2022-02-02 00:03:04",
+            "2022-02-02 00:02:04",
             "f9b047ea-900f-46ab-8908-0eb2e620c55f",
             null,
-            "2022-02-02 00:03:05",
+            "2022-02-02 00:02:05",
             "0c377cde-0cf9-5eea-8d4a-3f0bc159695b",
             null,
             "99c6ad0a-0f82-481c-8e2a-28fb18428628",
@@ -1663,6 +1587,7 @@
             null,
             null,
             "5f09baac-4724-5119-afeb-4f2e1a3b940d",
+            "c8d9c967-a6db-4083-8e35-7e528bd7a255-223288",
             null,
             "965.35",
             "965.35",
@@ -1683,11 +1608,10 @@
             null,
             null,
             null,
-            "c8d9c967-a6db-4083-8e35-7e528bd7a255-223288",
-            "2022-02-02 00:03:05",
+            "2022-02-02 00:02:05",
             "ff950443-871e-4576-87ad-4365fb234232",
             null,
-            "2022-02-02 00:03:06",
+            "2022-02-02 00:02:06",
             "0c377cde-0cf9-5eea-8d4a-3f0bc159695b",
             null,
             "99c6ad0a-0f82-481c-8e2a-28fb18428628",
@@ -1695,6 +1619,7 @@
             null,
             null,
             "420031f5-a891-50eb-8c04-d9809fb6242d",
+            "c8d9c967-a6db-4083-8e35-7e528bd7a255-223290",
             null,
             "965.35",
             "965.35",
@@ -1715,8 +1640,18 @@
             null,
             null,
             null,
-            "c8d9c967-a6db-4083-8e35-7e528bd7a255-223290",
-            "2022-02-02 00:03:06"
+            "2022-02-02 00:02:06"
+        ]
+    },
+    {
+        "query": "update `documents` set `synced_at` = ? where `id` in (?, ?, ?, ?, ?) and `documents`.`deleted_at` is null",
+        "bindings": [
+            "2022-02-02T00:02:07+00:00",
+            "2abdb153-9341-499c-ad38-8a721127f979",
+            "4fe10114-41f9-410e-9f3f-b2f42e72f5b8",
+            "76331547-3217-4c18-b7c4-b3448024546e",
+            "8cbf5548-0573-48b1-8b5e-3218a3740ccc",
+            "99c6ad0a-0f82-481c-8e2a-28fb18428628"
         ]
     },
     {
@@ -1736,45 +1671,9 @@
         ]
     },
     {
-        "query": "select `contacts`.* from `contacts` where `contacts`.`object_id` in (?) and `contacts`.`object_type` = ? and `contacts`.`deleted_at` is null",
-        "bindings": [
-            "a9233c9c-4634-493a-9f12-bef4d1cf3c5e",
-            "Reseller"
-        ]
-    },
-    {
         "query": "select `customers`.* from `customers` where ((`customers`.`id` = ?))",
         "bindings": [
             "3adf6426-735c-4f52-9f28-e3ad593e707c"
-        ]
-    },
-    {
-        "query": "select `contacts`.* from `contacts` where `contacts`.`object_id` in (?) and `contacts`.`object_type` = ? and `contacts`.`deleted_at` is null",
-        "bindings": [
-            "3adf6426-735c-4f52-9f28-e3ad593e707c",
-            "Customer"
-        ]
-    },
-    {
-        "query": "select `types`.*, `contact_types`.`contact_id` as `pivot_contact_id`, `contact_types`.`type_id` as `pivot_type_id`, `contact_types`.`created_at` as `pivot_created_at`, `contact_types`.`updated_at` as `pivot_updated_at` from `types` inner join `contact_types` on `types`.`id` = `contact_types`.`type_id` where `contact_types`.`deleted_at` is null and `contact_types`.`contact_id` in (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) and `types`.`deleted_at` is null",
-        "bindings": [
-            "0a872c01-f844-590a-a819-942bfa09a5d2",
-            "22185166-97d1-50fb-a974-ac51dd9d8c7c",
-            "229361f9-056d-5218-a3b0-dcbb4c313111",
-            "2fa7c9a8-3dd2-5e22-8073-42fd33157451",
-            "3c837192-b5e7-5f91-aff4-fd40f49c94ce",
-            "3cf83ea0-7f7c-52ad-a7e6-1dfb72fbb6fa",
-            "7d701e09-dde4-544a-a04f-19093ff23b2b",
-            "936dff97-6b7c-554d-af86-8196f68fbcca",
-            "9789360b-af6b-5b3d-a707-2c5a29ad7995",
-            "adefed16-5702-56cd-8112-ae204dbbb580",
-            "b4ea6545-b7e2-5926-99ef-41115e7de749",
-            "c41eaa4e-d2f8-515f-8bc7-113fd1484faa",
-            "c6c09316-c0bc-5fdd-9dda-b4a153151ccc",
-            "d16a26dd-c9b3-5b59-b2f5-a2b6df3f76b1",
-            "e61ed796-d98b-525d-a422-6ae25969cb43",
-            "eabf4f13-5992-5b75-a46c-5738f0e87a69",
-            "eb616e0a-0031-5990-9a2b-a515560ffd96"
         ]
     },
     {
@@ -1782,7 +1681,7 @@
         "bindings": []
     },
     {
-        "query": "insert into `documents` (`id`, `oem_id`, `oem_group_id`, `oem_said`, `oem_amp_id`, `oem_sar_number`, `type_id`, `statuses_count`, `reseller_id`, `customer_id`, `currency_id`, `language_id`, `distributor_id`, `start`, `end`, `price_origin`, `price`, `number`, `changed_at`, `contacts_count`, `synced_at`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `documents` (`id`, `oem_id`, `oem_group_id`, `oem_said`, `oem_amp_id`, `oem_sar_number`, `type_id`, `statuses_count`, `reseller_id`, `customer_id`, `currency_id`, `language_id`, `distributor_id`, `start`, `end`, `price_origin`, `price`, `number`, `changed_at`, `contacts_count`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "a954e350-fa8a-4f92-b301-ae8e4e6d0022",
             "fdb8251f-d8c8-55fe-b23d-b846d759a893",
@@ -1804,9 +1703,8 @@
             "707c3e4a-b111-324b-8621-5c61fe008285",
             "2022-06-03 16:00:10",
             2,
-            "2022-02-02 00:03:10",
-            "2022-02-02 00:03:11",
-            "2022-02-02 00:03:11"
+            "2022-02-02 00:02:23",
+            "2022-02-02 00:02:23"
         ]
     },
     {
@@ -1815,8 +1713,8 @@
             "8f97eff1-dbfa-5293-8b35-e10c52dd0a43",
             "a954e350-fa8a-4f92-b301-ae8e4e6d0022",
             "8bb66c17-c929-5a98-9427-93b4d8d6a802",
-            "2022-02-02 00:03:12",
-            "2022-02-02 00:03:12"
+            "2022-02-02 00:02:24",
+            "2022-02-02 00:02:24"
         ]
     },
     {
@@ -1829,8 +1727,8 @@
             "griffin94@hotmail.com",
             true,
             "42a156c5-a880-5ab9-9de1-8193e95e3549",
-            "2022-02-02 00:03:13",
-            "2022-02-02 00:03:13"
+            "2022-02-02 00:02:25",
+            "2022-02-02 00:02:25"
         ]
     },
     {
@@ -1839,8 +1737,8 @@
             "85bab1a7-1d90-5926-942f-2c6889c25826",
             "42a156c5-a880-5ab9-9de1-8193e95e3549",
             "e72e21b2-69c6-5c9e-8f4e-a8a4c556f7f4",
-            "2022-02-02 00:03:14",
-            "2022-02-02 00:03:14"
+            "2022-02-02 00:02:26",
+            "2022-02-02 00:02:26"
         ]
     },
     {
@@ -1853,8 +1751,8 @@
             "batz.henri@hotmail.com",
             true,
             "e1b230ea-d223-5b5c-9b01-cb1b273fe740",
-            "2022-02-02 00:03:15",
-            "2022-02-02 00:03:15"
+            "2022-02-02 00:02:27",
+            "2022-02-02 00:02:27"
         ]
     },
     {
@@ -1863,8 +1761,8 @@
             "fe9bc1f8-450c-5b2d-a943-d2988e84bc6d",
             "e1b230ea-d223-5b5c-9b01-cb1b273fe740",
             "50e2d0ce-9275-5b65-a998-4f1583d038a9",
-            "2022-02-02 00:03:16",
-            "2022-02-02 00:03:16"
+            "2022-02-02 00:02:28",
+            "2022-02-02 00:02:28"
         ]
     },
     {
@@ -1875,33 +1773,26 @@
         ]
     },
     {
-        "query": "select `oems`.* from `oems` where `oems`.`id` in (?) and `oems`.`deleted_at` is null",
-        "bindings": [
-            "78110809-b73a-5055-9977-86dc1a9f89c4"
-        ]
-    },
-    {
         "query": "select `document_entries`.* from `document_entries` where `document_entries`.`document_id` = ? and `document_entries`.`document_id` is not null",
         "bindings": [
             "a954e350-fa8a-4f92-b301-ae8e4e6d0022"
         ]
     },
     {
-        "query": "update `documents` set `synced_at` = ?, `entries_count` = ?, `assets_count` = ?, `documents`.`updated_at` = ? where `id` = ?",
+        "query": "update `documents` set `entries_count` = ?, `assets_count` = ?, `documents`.`updated_at` = ? where `id` = ?",
         "bindings": [
-            "2022-02-02 00:03:17",
             5,
             2,
-            "2022-02-02 00:03:20",
+            "2022-02-02 00:02:29",
             "a954e350-fa8a-4f92-b301-ae8e4e6d0022"
         ]
     },
     {
-        "query": "insert into `document_entries` (`asset_id`, `asset_type_id`, `created_at`, `currency_id`, `deleted_at`, `document_id`, `end`, `environment_id`, `equipment_number`, `id`, `language_id`, `list_price`, `list_price_origin`, `monthly_list_price`, `monthly_list_price_origin`, `monthly_retail_price`, `monthly_retail_price_origin`, `oem_said`, `oem_sar_number`, `product_group_id`, `product_id`, `product_line_id`, `psp_id`, `removed_at`, `renewal`, `renewal_origin`, `serial_number`, `service_group_id`, `service_level_id`, `start`, `uid`, `updated_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `document_entries` (`asset_id`, `asset_type_id`, `created_at`, `currency_id`, `deleted_at`, `document_id`, `end`, `environment_id`, `equipment_number`, `id`, `key`, `language_id`, `list_price`, `list_price_origin`, `monthly_list_price`, `monthly_list_price_origin`, `monthly_retail_price`, `monthly_retail_price_origin`, `oem_said`, `oem_sar_number`, `product_group_id`, `product_id`, `product_line_id`, `psp_id`, `removed_at`, `renewal`, `renewal_origin`, `serial_number`, `service_group_id`, `service_level_id`, `start`, `updated_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "9f93f878-cec2-4098-96f9-66af77ccac84",
             null,
-            "2022-02-02 00:03:36",
+            "2022-02-02 00:02:37",
             "0c377cde-0cf9-5eea-8d4a-3f0bc159695b",
             null,
             "a954e350-fa8a-4f92-b301-ae8e4e6d0022",
@@ -1909,6 +1800,7 @@
             null,
             null,
             "8ec60209-cc99-5a1c-979f-dc1085e1790c",
+            "89087b57-2f95-46f4-bcb2-b33678e78269-232226",
             null,
             "0.00",
             "0.00",
@@ -1929,11 +1821,10 @@
             null,
             null,
             null,
-            "89087b57-2f95-46f4-bcb2-b33678e78269-232226",
-            "2022-02-02 00:03:36",
+            "2022-02-02 00:02:37",
             "9f93f878-cec2-4098-96f9-66af77ccac84",
             null,
-            "2022-02-02 00:03:37",
+            "2022-02-02 00:02:38",
             "0c377cde-0cf9-5eea-8d4a-3f0bc159695b",
             null,
             "a954e350-fa8a-4f92-b301-ae8e4e6d0022",
@@ -1941,6 +1832,7 @@
             null,
             null,
             "047ef3a5-de03-5c61-b6c5-75ce13d154cd",
+            "89087b57-2f95-46f4-bcb2-b33678e78269-232196",
             null,
             "306.36",
             "306.36",
@@ -1961,11 +1853,10 @@
             null,
             null,
             null,
-            "89087b57-2f95-46f4-bcb2-b33678e78269-232196",
-            "2022-02-02 00:03:37",
+            "2022-02-02 00:02:38",
             "9f93f878-cec2-4098-96f9-66af77ccac84",
             null,
-            "2022-02-02 00:03:38",
+            "2022-02-02 00:02:39",
             "0c377cde-0cf9-5eea-8d4a-3f0bc159695b",
             null,
             "a954e350-fa8a-4f92-b301-ae8e4e6d0022",
@@ -1973,6 +1864,7 @@
             null,
             null,
             "e5cda7e8-5f81-5a0d-b79d-092047bdb2c2",
+            "89087b57-2f95-46f4-bcb2-b33678e78269-232211",
             null,
             "61.27",
             "61.27",
@@ -1993,11 +1885,10 @@
             null,
             null,
             null,
-            "89087b57-2f95-46f4-bcb2-b33678e78269-232211",
-            "2022-02-02 00:03:38",
+            "2022-02-02 00:02:39",
             "80837ca0-5a91-4d09-991e-85ec6960a6ef",
             null,
-            "2022-02-02 00:03:39",
+            "2022-02-02 00:02:40",
             "0c377cde-0cf9-5eea-8d4a-3f0bc159695b",
             null,
             "a954e350-fa8a-4f92-b301-ae8e4e6d0022",
@@ -2005,6 +1896,7 @@
             null,
             null,
             "2fcbbfd9-e8dd-579d-a76f-b57ea31370e1",
+            "89087b57-2f95-46f4-bcb2-b33678e78269-232197",
             null,
             "306.36",
             "306.36",
@@ -2025,11 +1917,10 @@
             null,
             null,
             null,
-            "89087b57-2f95-46f4-bcb2-b33678e78269-232197",
-            "2022-02-02 00:03:39",
+            "2022-02-02 00:02:40",
             "80837ca0-5a91-4d09-991e-85ec6960a6ef",
             null,
-            "2022-02-02 00:03:40",
+            "2022-02-02 00:02:41",
             "0c377cde-0cf9-5eea-8d4a-3f0bc159695b",
             null,
             "a954e350-fa8a-4f92-b301-ae8e4e6d0022",
@@ -2037,6 +1928,7 @@
             null,
             null,
             "994a8c4e-1088-5eb2-85cd-5bc6a6310a93",
+            "89087b57-2f95-46f4-bcb2-b33678e78269-232212",
             null,
             "61.27",
             "61.27",
@@ -2057,12 +1949,11 @@
             null,
             null,
             null,
-            "89087b57-2f95-46f4-bcb2-b33678e78269-232212",
-            "2022-02-02 00:03:40"
+            "2022-02-02 00:02:41"
         ]
     },
     {
-        "query": "insert into `documents` (`id`, `oem_id`, `oem_group_id`, `oem_said`, `oem_amp_id`, `oem_sar_number`, `type_id`, `statuses_count`, `reseller_id`, `customer_id`, `currency_id`, `language_id`, `distributor_id`, `start`, `end`, `price_origin`, `price`, `number`, `changed_at`, `contacts_count`, `synced_at`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `documents` (`id`, `oem_id`, `oem_group_id`, `oem_said`, `oem_amp_id`, `oem_sar_number`, `type_id`, `statuses_count`, `reseller_id`, `customer_id`, `currency_id`, `language_id`, `distributor_id`, `start`, `end`, `price_origin`, `price`, `number`, `changed_at`, `contacts_count`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "c8fdd1c2-a581-4cf4-8f49-634a41f08ecf",
             "fdb8251f-d8c8-55fe-b23d-b846d759a893",
@@ -2084,9 +1975,8 @@
             "14fbac0d-00b8-3dab-8b74-dae785f4ddaf",
             "2022-06-03 16:00:11",
             2,
-            "2022-02-02 00:03:44",
-            "2022-02-02 00:03:45",
-            "2022-02-02 00:03:45"
+            "2022-02-02 00:02:42",
+            "2022-02-02 00:02:42"
         ]
     },
     {
@@ -2095,8 +1985,8 @@
             "8f97eff1-dbfa-5293-8b35-e10c52dd0a43",
             "c8fdd1c2-a581-4cf4-8f49-634a41f08ecf",
             "191f5401-6e13-54ac-9f88-95771dc442bf",
-            "2022-02-02 00:03:46",
-            "2022-02-02 00:03:46"
+            "2022-02-02 00:02:43",
+            "2022-02-02 00:02:43"
         ]
     },
     {
@@ -2109,8 +1999,8 @@
             "griffin94@hotmail.com",
             true,
             "56b8303b-2e4f-5535-a199-f1a67d1a533c",
-            "2022-02-02 00:03:47",
-            "2022-02-02 00:03:47"
+            "2022-02-02 00:02:44",
+            "2022-02-02 00:02:44"
         ]
     },
     {
@@ -2119,8 +2009,8 @@
             "85bab1a7-1d90-5926-942f-2c6889c25826",
             "56b8303b-2e4f-5535-a199-f1a67d1a533c",
             "b92c2025-c5c2-5cfb-92b3-5b7cf18a0da6",
-            "2022-02-02 00:03:48",
-            "2022-02-02 00:03:48"
+            "2022-02-02 00:02:45",
+            "2022-02-02 00:02:45"
         ]
     },
     {
@@ -2133,8 +2023,8 @@
             "batz.henri@hotmail.com",
             true,
             "ff76584d-ec0a-5c35-9c23-3f1f7034d040",
-            "2022-02-02 00:03:49",
-            "2022-02-02 00:03:49"
+            "2022-02-02 00:02:46",
+            "2022-02-02 00:02:46"
         ]
     },
     {
@@ -2143,8 +2033,8 @@
             "fe9bc1f8-450c-5b2d-a943-d2988e84bc6d",
             "ff76584d-ec0a-5c35-9c23-3f1f7034d040",
             "932b74d2-2ffa-5ebb-84b4-63c5aa925463",
-            "2022-02-02 00:03:50",
-            "2022-02-02 00:03:50"
+            "2022-02-02 00:02:47",
+            "2022-02-02 00:02:47"
         ]
     },
     {
@@ -2155,33 +2045,26 @@
         ]
     },
     {
-        "query": "select `oems`.* from `oems` where `oems`.`id` in (?) and `oems`.`deleted_at` is null",
-        "bindings": [
-            "78110809-b73a-5055-9977-86dc1a9f89c4"
-        ]
-    },
-    {
         "query": "select `document_entries`.* from `document_entries` where `document_entries`.`document_id` = ? and `document_entries`.`document_id` is not null",
         "bindings": [
             "c8fdd1c2-a581-4cf4-8f49-634a41f08ecf"
         ]
     },
     {
-        "query": "update `documents` set `synced_at` = ?, `entries_count` = ?, `assets_count` = ?, `documents`.`updated_at` = ? where `id` = ?",
+        "query": "update `documents` set `entries_count` = ?, `assets_count` = ?, `documents`.`updated_at` = ? where `id` = ?",
         "bindings": [
-            "2022-02-02 00:03:51",
             5,
             2,
-            "2022-02-02 00:03:54",
+            "2022-02-02 00:02:48",
             "c8fdd1c2-a581-4cf4-8f49-634a41f08ecf"
         ]
     },
     {
-        "query": "insert into `document_entries` (`asset_id`, `asset_type_id`, `created_at`, `currency_id`, `deleted_at`, `document_id`, `end`, `environment_id`, `equipment_number`, `id`, `language_id`, `list_price`, `list_price_origin`, `monthly_list_price`, `monthly_list_price_origin`, `monthly_retail_price`, `monthly_retail_price_origin`, `oem_said`, `oem_sar_number`, `product_group_id`, `product_id`, `product_line_id`, `psp_id`, `removed_at`, `renewal`, `renewal_origin`, `serial_number`, `service_group_id`, `service_level_id`, `start`, `uid`, `updated_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `document_entries` (`asset_id`, `asset_type_id`, `created_at`, `currency_id`, `deleted_at`, `document_id`, `end`, `environment_id`, `equipment_number`, `id`, `key`, `language_id`, `list_price`, `list_price_origin`, `monthly_list_price`, `monthly_list_price_origin`, `monthly_retail_price`, `monthly_retail_price_origin`, `oem_said`, `oem_sar_number`, `product_group_id`, `product_id`, `product_line_id`, `psp_id`, `removed_at`, `renewal`, `renewal_origin`, `serial_number`, `service_group_id`, `service_level_id`, `start`, `updated_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "9f93f878-cec2-4098-96f9-66af77ccac84",
             null,
-            "2022-02-02 00:04:10",
+            "2022-02-02 00:02:56",
             "0c377cde-0cf9-5eea-8d4a-3f0bc159695b",
             null,
             "c8fdd1c2-a581-4cf4-8f49-634a41f08ecf",
@@ -2189,6 +2072,7 @@
             null,
             null,
             "bf55e882-978f-542d-8954-3311c30baac8",
+            "de6186f3-2534-4a3f-88f6-5e1772cdc777-232151",
             null,
             "162.00",
             "162.00",
@@ -2209,11 +2093,10 @@
             null,
             null,
             null,
-            "de6186f3-2534-4a3f-88f6-5e1772cdc777-232151",
-            "2022-02-02 00:04:10",
+            "2022-02-02 00:02:56",
             "9f93f878-cec2-4098-96f9-66af77ccac84",
             null,
-            "2022-02-02 00:04:11",
+            "2022-02-02 00:02:57",
             "0c377cde-0cf9-5eea-8d4a-3f0bc159695b",
             null,
             "c8fdd1c2-a581-4cf4-8f49-634a41f08ecf",
@@ -2221,6 +2104,7 @@
             null,
             null,
             "f483f22f-08cf-5095-83a4-a5d60efc4941",
+            "de6186f3-2534-4a3f-88f6-5e1772cdc777-232166",
             null,
             "32.40",
             "32.40",
@@ -2241,11 +2125,10 @@
             null,
             null,
             null,
-            "de6186f3-2534-4a3f-88f6-5e1772cdc777-232166",
-            "2022-02-02 00:04:11",
+            "2022-02-02 00:02:57",
             "9f93f878-cec2-4098-96f9-66af77ccac84",
             null,
-            "2022-02-02 00:04:12",
+            "2022-02-02 00:02:58",
             "0c377cde-0cf9-5eea-8d4a-3f0bc159695b",
             null,
             "c8fdd1c2-a581-4cf4-8f49-634a41f08ecf",
@@ -2253,6 +2136,7 @@
             null,
             null,
             "4b78b2bb-ebf1-5560-ae16-1fdfce99a9fe",
+            "de6186f3-2534-4a3f-88f6-5e1772cdc777-232181",
             null,
             "0.00",
             "0.00",
@@ -2273,11 +2157,10 @@
             null,
             null,
             null,
-            "de6186f3-2534-4a3f-88f6-5e1772cdc777-232181",
-            "2022-02-02 00:04:12",
+            "2022-02-02 00:02:58",
             "80837ca0-5a91-4d09-991e-85ec6960a6ef",
             null,
-            "2022-02-02 00:04:13",
+            "2022-02-02 00:02:59",
             "0c377cde-0cf9-5eea-8d4a-3f0bc159695b",
             null,
             "c8fdd1c2-a581-4cf4-8f49-634a41f08ecf",
@@ -2285,6 +2168,7 @@
             null,
             null,
             "60e07e52-6704-5c13-ba23-c44fec57ce69",
+            "de6186f3-2534-4a3f-88f6-5e1772cdc777-232167",
             null,
             "32.40",
             "32.40",
@@ -2305,11 +2189,10 @@
             null,
             null,
             null,
-            "de6186f3-2534-4a3f-88f6-5e1772cdc777-232167",
-            "2022-02-02 00:04:13",
+            "2022-02-02 00:02:59",
             "80837ca0-5a91-4d09-991e-85ec6960a6ef",
             null,
-            "2022-02-02 00:04:14",
+            "2022-02-02 00:03:00",
             "0c377cde-0cf9-5eea-8d4a-3f0bc159695b",
             null,
             "c8fdd1c2-a581-4cf4-8f49-634a41f08ecf",
@@ -2317,6 +2200,7 @@
             null,
             null,
             "9106aed9-8a5c-5a6c-8412-18a8998e7d3c",
+            "de6186f3-2534-4a3f-88f6-5e1772cdc777-232182",
             null,
             "0.00",
             "0.00",
@@ -2337,12 +2221,11 @@
             null,
             null,
             null,
-            "de6186f3-2534-4a3f-88f6-5e1772cdc777-232182",
-            "2022-02-02 00:04:14"
+            "2022-02-02 00:03:00"
         ]
     },
     {
-        "query": "insert into `documents` (`id`, `oem_id`, `oem_group_id`, `oem_said`, `oem_amp_id`, `oem_sar_number`, `type_id`, `statuses_count`, `reseller_id`, `customer_id`, `currency_id`, `language_id`, `distributor_id`, `start`, `end`, `price_origin`, `price`, `number`, `changed_at`, `contacts_count`, `synced_at`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `documents` (`id`, `oem_id`, `oem_group_id`, `oem_said`, `oem_amp_id`, `oem_sar_number`, `type_id`, `statuses_count`, `reseller_id`, `customer_id`, `currency_id`, `language_id`, `distributor_id`, `start`, `end`, `price_origin`, `price`, `number`, `changed_at`, `contacts_count`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "d3046b7f-880c-4368-b3dd-0b3c8def9a14",
             "fdb8251f-d8c8-55fe-b23d-b846d759a893",
@@ -2364,9 +2247,8 @@
             "9f27e830-4f7b-3103-993e-33a883265577",
             "2022-06-03 16:00:11",
             2,
-            "2022-02-02 00:04:18",
-            "2022-02-02 00:04:19",
-            "2022-02-02 00:04:19"
+            "2022-02-02 00:03:01",
+            "2022-02-02 00:03:01"
         ]
     },
     {
@@ -2375,8 +2257,8 @@
             "8f97eff1-dbfa-5293-8b35-e10c52dd0a43",
             "d3046b7f-880c-4368-b3dd-0b3c8def9a14",
             "cad0331c-a87d-5ca3-ac13-404c558886dd",
-            "2022-02-02 00:04:20",
-            "2022-02-02 00:04:20"
+            "2022-02-02 00:03:02",
+            "2022-02-02 00:03:02"
         ]
     },
     {
@@ -2389,8 +2271,8 @@
             "griffin94@hotmail.com",
             true,
             "2391efd0-e43c-5817-8b07-0d5f972050da",
-            "2022-02-02 00:04:21",
-            "2022-02-02 00:04:21"
+            "2022-02-02 00:03:03",
+            "2022-02-02 00:03:03"
         ]
     },
     {
@@ -2399,8 +2281,8 @@
             "85bab1a7-1d90-5926-942f-2c6889c25826",
             "2391efd0-e43c-5817-8b07-0d5f972050da",
             "ef2f5e7e-6338-5515-aa5f-ba98c051289a",
-            "2022-02-02 00:04:22",
-            "2022-02-02 00:04:22"
+            "2022-02-02 00:03:04",
+            "2022-02-02 00:03:04"
         ]
     },
     {
@@ -2413,8 +2295,8 @@
             "batz.henri@hotmail.com",
             true,
             "e3634bce-187b-5083-b8dd-95d35f0a6f9a",
-            "2022-02-02 00:04:23",
-            "2022-02-02 00:04:23"
+            "2022-02-02 00:03:05",
+            "2022-02-02 00:03:05"
         ]
     },
     {
@@ -2423,8 +2305,8 @@
             "fe9bc1f8-450c-5b2d-a943-d2988e84bc6d",
             "e3634bce-187b-5083-b8dd-95d35f0a6f9a",
             "f1ca6da1-67df-5d97-87f4-56681dc1e3cc",
-            "2022-02-02 00:04:24",
-            "2022-02-02 00:04:24"
+            "2022-02-02 00:03:06",
+            "2022-02-02 00:03:06"
         ]
     },
     {
@@ -2436,33 +2318,26 @@
         ]
     },
     {
-        "query": "select `oems`.* from `oems` where `oems`.`id` in (?) and `oems`.`deleted_at` is null",
-        "bindings": [
-            "fdb8251f-d8c8-55fe-b23d-b846d759a893"
-        ]
-    },
-    {
         "query": "select `document_entries`.* from `document_entries` where `document_entries`.`document_id` = ? and `document_entries`.`document_id` is not null",
         "bindings": [
             "d3046b7f-880c-4368-b3dd-0b3c8def9a14"
         ]
     },
     {
-        "query": "update `documents` set `synced_at` = ?, `entries_count` = ?, `assets_count` = ?, `documents`.`updated_at` = ? where `id` = ?",
+        "query": "update `documents` set `entries_count` = ?, `assets_count` = ?, `documents`.`updated_at` = ? where `id` = ?",
         "bindings": [
-            "2022-02-02 00:04:25",
             5,
             3,
-            "2022-02-02 00:04:28",
+            "2022-02-02 00:03:07",
             "d3046b7f-880c-4368-b3dd-0b3c8def9a14"
         ]
     },
     {
-        "query": "insert into `document_entries` (`asset_id`, `asset_type_id`, `created_at`, `currency_id`, `deleted_at`, `document_id`, `end`, `environment_id`, `equipment_number`, `id`, `language_id`, `list_price`, `list_price_origin`, `monthly_list_price`, `monthly_list_price_origin`, `monthly_retail_price`, `monthly_retail_price_origin`, `oem_said`, `oem_sar_number`, `product_group_id`, `product_id`, `product_line_id`, `psp_id`, `removed_at`, `renewal`, `renewal_origin`, `serial_number`, `service_group_id`, `service_level_id`, `start`, `uid`, `updated_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `document_entries` (`asset_id`, `asset_type_id`, `created_at`, `currency_id`, `deleted_at`, `document_id`, `end`, `environment_id`, `equipment_number`, `id`, `key`, `language_id`, `list_price`, `list_price_origin`, `monthly_list_price`, `monthly_list_price_origin`, `monthly_retail_price`, `monthly_retail_price_origin`, `oem_said`, `oem_sar_number`, `product_group_id`, `product_id`, `product_line_id`, `psp_id`, `removed_at`, `renewal`, `renewal_origin`, `serial_number`, `service_group_id`, `service_level_id`, `start`, `updated_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "47848bf4-0b54-4579-a5b1-203bc1577ea7",
             null,
-            "2022-02-02 00:04:44",
+            "2022-02-02 00:03:15",
             "0c377cde-0cf9-5eea-8d4a-3f0bc159695b",
             null,
             "d3046b7f-880c-4368-b3dd-0b3c8def9a14",
@@ -2470,6 +2345,7 @@
             null,
             null,
             "0e6c6597-7216-5d5d-b056-e0585b86843a",
+            "89b024b9-c40d-4a2b-a43e-63a8886018cd-223309",
             null,
             "1060.42",
             "1060.42",
@@ -2490,11 +2366,10 @@
             null,
             null,
             null,
-            "89b024b9-c40d-4a2b-a43e-63a8886018cd-223309",
-            "2022-02-02 00:04:44",
+            "2022-02-02 00:03:15",
             "47848bf4-0b54-4579-a5b1-203bc1577ea7",
             null,
-            "2022-02-02 00:04:45",
+            "2022-02-02 00:03:16",
             "0c377cde-0cf9-5eea-8d4a-3f0bc159695b",
             null,
             "d3046b7f-880c-4368-b3dd-0b3c8def9a14",
@@ -2502,6 +2377,7 @@
             null,
             null,
             "100433a5-7e4a-5205-8a29-037d12e71770",
+            "89b024b9-c40d-4a2b-a43e-63a8886018cd-223305",
             null,
             "4559.80",
             "4559.80",
@@ -2522,11 +2398,10 @@
             null,
             null,
             null,
-            "89b024b9-c40d-4a2b-a43e-63a8886018cd-223305",
-            "2022-02-02 00:04:45",
+            "2022-02-02 00:03:16",
             "f9b047ea-900f-46ab-8908-0eb2e620c55f",
             null,
-            "2022-02-02 00:04:46",
+            "2022-02-02 00:03:17",
             "0c377cde-0cf9-5eea-8d4a-3f0bc159695b",
             null,
             "d3046b7f-880c-4368-b3dd-0b3c8def9a14",
@@ -2534,6 +2409,7 @@
             null,
             null,
             "19f42a22-dc0a-5dfb-ab49-4229c753e23d",
+            "89b024b9-c40d-4a2b-a43e-63a8886018cd-223308",
             null,
             "1060.42",
             "1060.42",
@@ -2554,11 +2430,10 @@
             null,
             null,
             null,
-            "89b024b9-c40d-4a2b-a43e-63a8886018cd-223308",
-            "2022-02-02 00:04:46",
+            "2022-02-02 00:03:17",
             "f9b047ea-900f-46ab-8908-0eb2e620c55f",
             null,
-            "2022-02-02 00:04:47",
+            "2022-02-02 00:03:18",
             "0c377cde-0cf9-5eea-8d4a-3f0bc159695b",
             null,
             "d3046b7f-880c-4368-b3dd-0b3c8def9a14",
@@ -2566,6 +2441,7 @@
             null,
             null,
             "8677e6f6-0b22-5087-b43d-fdd5bd533542",
+            "89b024b9-c40d-4a2b-a43e-63a8886018cd-223304",
             null,
             "4559.80",
             "4559.80",
@@ -2586,11 +2462,10 @@
             null,
             null,
             null,
-            "89b024b9-c40d-4a2b-a43e-63a8886018cd-223304",
-            "2022-02-02 00:04:47",
+            "2022-02-02 00:03:18",
             "ff950443-871e-4576-87ad-4365fb234232",
             null,
-            "2022-02-02 00:04:48",
+            "2022-02-02 00:03:19",
             "0c377cde-0cf9-5eea-8d4a-3f0bc159695b",
             null,
             "d3046b7f-880c-4368-b3dd-0b3c8def9a14",
@@ -2598,6 +2473,7 @@
             null,
             null,
             "549b380e-d6db-5c02-8a96-fafb80852f23",
+            "89b024b9-c40d-4a2b-a43e-63a8886018cd-223310",
             null,
             "1060.42",
             "1060.42",
@@ -2618,12 +2494,11 @@
             null,
             null,
             null,
-            "89b024b9-c40d-4a2b-a43e-63a8886018cd-223310",
-            "2022-02-02 00:04:48"
+            "2022-02-02 00:03:19"
         ]
     },
     {
-        "query": "insert into `documents` (`id`, `oem_id`, `oem_group_id`, `oem_said`, `oem_amp_id`, `oem_sar_number`, `type_id`, `statuses_count`, `reseller_id`, `customer_id`, `currency_id`, `language_id`, `distributor_id`, `start`, `end`, `price_origin`, `price`, `number`, `changed_at`, `contacts_count`, `synced_at`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `documents` (`id`, `oem_id`, `oem_group_id`, `oem_said`, `oem_amp_id`, `oem_sar_number`, `type_id`, `statuses_count`, `reseller_id`, `customer_id`, `currency_id`, `language_id`, `distributor_id`, `start`, `end`, `price_origin`, `price`, `number`, `changed_at`, `contacts_count`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "d992fa68-ac06-4103-b556-94166adc12ed",
             "fdb8251f-d8c8-55fe-b23d-b846d759a893",
@@ -2645,9 +2520,8 @@
             "d01da63d-efb1-3d9e-8c65-4bf15c742afb",
             "2022-06-03 16:00:11",
             2,
-            "2022-02-02 00:04:52",
-            "2022-02-02 00:04:53",
-            "2022-02-02 00:04:53"
+            "2022-02-02 00:03:20",
+            "2022-02-02 00:03:20"
         ]
     },
     {
@@ -2656,8 +2530,8 @@
             "8f97eff1-dbfa-5293-8b35-e10c52dd0a43",
             "d992fa68-ac06-4103-b556-94166adc12ed",
             "016322a4-3114-5373-b5ae-d6bba5a04b14",
-            "2022-02-02 00:04:54",
-            "2022-02-02 00:04:54"
+            "2022-02-02 00:03:21",
+            "2022-02-02 00:03:21"
         ]
     },
     {
@@ -2670,8 +2544,8 @@
             "griffin94@hotmail.com",
             true,
             "97338d2d-bf73-5ae8-9095-63936bcd2e1c",
-            "2022-02-02 00:04:55",
-            "2022-02-02 00:04:55"
+            "2022-02-02 00:03:22",
+            "2022-02-02 00:03:22"
         ]
     },
     {
@@ -2680,8 +2554,8 @@
             "85bab1a7-1d90-5926-942f-2c6889c25826",
             "97338d2d-bf73-5ae8-9095-63936bcd2e1c",
             "8fdfe94f-5f2d-59f9-a836-93c02a934391",
-            "2022-02-02 00:04:56",
-            "2022-02-02 00:04:56"
+            "2022-02-02 00:03:23",
+            "2022-02-02 00:03:23"
         ]
     },
     {
@@ -2694,8 +2568,8 @@
             "batz.henri@hotmail.com",
             true,
             "834a6427-5c89-5f63-8199-3efdb412d87b",
-            "2022-02-02 00:04:57",
-            "2022-02-02 00:04:57"
+            "2022-02-02 00:03:24",
+            "2022-02-02 00:03:24"
         ]
     },
     {
@@ -2704,8 +2578,8 @@
             "fe9bc1f8-450c-5b2d-a943-d2988e84bc6d",
             "834a6427-5c89-5f63-8199-3efdb412d87b",
             "5a8ad59e-46e7-52ff-b48e-e8008dae9000",
-            "2022-02-02 00:04:58",
-            "2022-02-02 00:04:58"
+            "2022-02-02 00:03:25",
+            "2022-02-02 00:03:25"
         ]
     },
     {
@@ -2716,33 +2590,26 @@
         ]
     },
     {
-        "query": "select `oems`.* from `oems` where `oems`.`id` in (?) and `oems`.`deleted_at` is null",
-        "bindings": [
-            "78110809-b73a-5055-9977-86dc1a9f89c4"
-        ]
-    },
-    {
         "query": "select `document_entries`.* from `document_entries` where `document_entries`.`document_id` = ? and `document_entries`.`document_id` is not null",
         "bindings": [
             "d992fa68-ac06-4103-b556-94166adc12ed"
         ]
     },
     {
-        "query": "update `documents` set `synced_at` = ?, `entries_count` = ?, `assets_count` = ?, `documents`.`updated_at` = ? where `id` = ?",
+        "query": "update `documents` set `entries_count` = ?, `assets_count` = ?, `documents`.`updated_at` = ? where `id` = ?",
         "bindings": [
-            "2022-02-02 00:04:59",
             5,
             2,
-            "2022-02-02 00:05:02",
+            "2022-02-02 00:03:26",
             "d992fa68-ac06-4103-b556-94166adc12ed"
         ]
     },
     {
-        "query": "insert into `document_entries` (`asset_id`, `asset_type_id`, `created_at`, `currency_id`, `deleted_at`, `document_id`, `end`, `environment_id`, `equipment_number`, `id`, `language_id`, `list_price`, `list_price_origin`, `monthly_list_price`, `monthly_list_price_origin`, `monthly_retail_price`, `monthly_retail_price_origin`, `oem_said`, `oem_sar_number`, `product_group_id`, `product_id`, `product_line_id`, `psp_id`, `removed_at`, `renewal`, `renewal_origin`, `serial_number`, `service_group_id`, `service_level_id`, `start`, `uid`, `updated_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `document_entries` (`asset_id`, `asset_type_id`, `created_at`, `currency_id`, `deleted_at`, `document_id`, `end`, `environment_id`, `equipment_number`, `id`, `key`, `language_id`, `list_price`, `list_price_origin`, `monthly_list_price`, `monthly_list_price_origin`, `monthly_retail_price`, `monthly_retail_price_origin`, `oem_said`, `oem_sar_number`, `product_group_id`, `product_id`, `product_line_id`, `psp_id`, `removed_at`, `renewal`, `renewal_origin`, `serial_number`, `service_group_id`, `service_level_id`, `start`, `updated_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "9f93f878-cec2-4098-96f9-66af77ccac84",
             null,
-            "2022-02-02 00:05:18",
+            "2022-02-02 00:03:34",
             "0c377cde-0cf9-5eea-8d4a-3f0bc159695b",
             null,
             "d992fa68-ac06-4103-b556-94166adc12ed",
@@ -2750,6 +2617,7 @@
             null,
             null,
             "6b3ddcd8-5bf7-5e46-a4bb-e07ec3583555",
+            "2efebc53-5cb3-42f3-9f8d-e26f4a2ab086-237053",
             null,
             "0.00",
             "0.00",
@@ -2770,11 +2638,10 @@
             null,
             null,
             null,
-            "2efebc53-5cb3-42f3-9f8d-e26f4a2ab086-237053",
-            "2022-02-02 00:05:18",
+            "2022-02-02 00:03:34",
             "9f93f878-cec2-4098-96f9-66af77ccac84",
             null,
-            "2022-02-02 00:05:19",
+            "2022-02-02 00:03:35",
             "0c377cde-0cf9-5eea-8d4a-3f0bc159695b",
             null,
             "d992fa68-ac06-4103-b556-94166adc12ed",
@@ -2782,6 +2649,7 @@
             null,
             null,
             "9385b42d-79df-59c7-a97b-0249ced49534",
+            "2efebc53-5cb3-42f3-9f8d-e26f4a2ab086-237038",
             null,
             "32.40",
             "32.40",
@@ -2802,11 +2670,10 @@
             null,
             null,
             null,
-            "2efebc53-5cb3-42f3-9f8d-e26f4a2ab086-237038",
-            "2022-02-02 00:05:19",
+            "2022-02-02 00:03:35",
             "9f93f878-cec2-4098-96f9-66af77ccac84",
             null,
-            "2022-02-02 00:05:20",
+            "2022-02-02 00:03:36",
             "0c377cde-0cf9-5eea-8d4a-3f0bc159695b",
             null,
             "d992fa68-ac06-4103-b556-94166adc12ed",
@@ -2814,6 +2681,7 @@
             null,
             null,
             "1a365db6-0ad7-5a89-ba20-878a7c90a7ac",
+            "2efebc53-5cb3-42f3-9f8d-e26f4a2ab086-237023",
             null,
             "162.00",
             "162.00",
@@ -2834,11 +2702,10 @@
             null,
             null,
             null,
-            "2efebc53-5cb3-42f3-9f8d-e26f4a2ab086-237023",
-            "2022-02-02 00:05:20",
+            "2022-02-02 00:03:36",
             "80837ca0-5a91-4d09-991e-85ec6960a6ef",
             null,
-            "2022-02-02 00:05:21",
+            "2022-02-02 00:03:37",
             "0c377cde-0cf9-5eea-8d4a-3f0bc159695b",
             null,
             "d992fa68-ac06-4103-b556-94166adc12ed",
@@ -2846,6 +2713,7 @@
             null,
             null,
             "2bd97667-6f35-5ed7-96c0-abd46f090342",
+            "2efebc53-5cb3-42f3-9f8d-e26f4a2ab086-237024",
             null,
             "162.00",
             "162.00",
@@ -2866,11 +2734,10 @@
             null,
             null,
             null,
-            "2efebc53-5cb3-42f3-9f8d-e26f4a2ab086-237024",
-            "2022-02-02 00:05:21",
+            "2022-02-02 00:03:37",
             "80837ca0-5a91-4d09-991e-85ec6960a6ef",
             null,
-            "2022-02-02 00:05:22",
+            "2022-02-02 00:03:38",
             "0c377cde-0cf9-5eea-8d4a-3f0bc159695b",
             null,
             "d992fa68-ac06-4103-b556-94166adc12ed",
@@ -2878,6 +2745,7 @@
             null,
             null,
             "d8bbcaee-334b-5f72-b0d5-9f486788b682",
+            "2efebc53-5cb3-42f3-9f8d-e26f4a2ab086-237054",
             null,
             "0.00",
             "0.00",
@@ -2898,12 +2766,11 @@
             null,
             null,
             null,
-            "2efebc53-5cb3-42f3-9f8d-e26f4a2ab086-237054",
-            "2022-02-02 00:05:22"
+            "2022-02-02 00:03:38"
         ]
     },
     {
-        "query": "insert into `documents` (`id`, `oem_id`, `oem_group_id`, `oem_said`, `oem_amp_id`, `oem_sar_number`, `type_id`, `statuses_count`, `reseller_id`, `customer_id`, `currency_id`, `language_id`, `distributor_id`, `start`, `end`, `price_origin`, `price`, `number`, `changed_at`, `contacts_count`, `synced_at`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `documents` (`id`, `oem_id`, `oem_group_id`, `oem_said`, `oem_amp_id`, `oem_sar_number`, `type_id`, `statuses_count`, `reseller_id`, `customer_id`, `currency_id`, `language_id`, `distributor_id`, `start`, `end`, `price_origin`, `price`, `number`, `changed_at`, `contacts_count`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "f9badd49-9104-42bc-8ce3-4a1966d52817",
             "fdb8251f-d8c8-55fe-b23d-b846d759a893",
@@ -2925,9 +2792,8 @@
             "c43e384c-f9f6-382e-990b-44ad354be9e1",
             "2022-06-03 16:00:12",
             2,
-            "2022-02-02 00:05:26",
-            "2022-02-02 00:05:27",
-            "2022-02-02 00:05:27"
+            "2022-02-02 00:03:39",
+            "2022-02-02 00:03:39"
         ]
     },
     {
@@ -2936,8 +2802,8 @@
             "8f97eff1-dbfa-5293-8b35-e10c52dd0a43",
             "f9badd49-9104-42bc-8ce3-4a1966d52817",
             "bd3d1d06-b27d-5bff-ac2d-d1023c2b57e5",
-            "2022-02-02 00:05:28",
-            "2022-02-02 00:05:28"
+            "2022-02-02 00:03:40",
+            "2022-02-02 00:03:40"
         ]
     },
     {
@@ -2950,8 +2816,8 @@
             "griffin94@hotmail.com",
             true,
             "9e17c071-adca-51fa-bcea-f662055b755c",
-            "2022-02-02 00:05:29",
-            "2022-02-02 00:05:29"
+            "2022-02-02 00:03:41",
+            "2022-02-02 00:03:41"
         ]
     },
     {
@@ -2960,8 +2826,8 @@
             "85bab1a7-1d90-5926-942f-2c6889c25826",
             "9e17c071-adca-51fa-bcea-f662055b755c",
             "0e7e572e-285a-51b7-981a-e45d4e61ea22",
-            "2022-02-02 00:05:30",
-            "2022-02-02 00:05:30"
+            "2022-02-02 00:03:42",
+            "2022-02-02 00:03:42"
         ]
     },
     {
@@ -2974,8 +2840,8 @@
             "batz.henri@hotmail.com",
             true,
             "c0fd058a-c4ec-5b9e-9773-97230d0ad0a5",
-            "2022-02-02 00:05:31",
-            "2022-02-02 00:05:31"
+            "2022-02-02 00:03:43",
+            "2022-02-02 00:03:43"
         ]
     },
     {
@@ -2984,8 +2850,8 @@
             "fe9bc1f8-450c-5b2d-a943-d2988e84bc6d",
             "c0fd058a-c4ec-5b9e-9773-97230d0ad0a5",
             "d867e26f-fd81-53f8-97c3-302dae37d1e2",
-            "2022-02-02 00:05:32",
-            "2022-02-02 00:05:32"
+            "2022-02-02 00:03:44",
+            "2022-02-02 00:03:44"
         ]
     },
     {
@@ -2997,33 +2863,26 @@
         ]
     },
     {
-        "query": "select `oems`.* from `oems` where `oems`.`id` in (?) and `oems`.`deleted_at` is null",
-        "bindings": [
-            "fdb8251f-d8c8-55fe-b23d-b846d759a893"
-        ]
-    },
-    {
         "query": "select `document_entries`.* from `document_entries` where `document_entries`.`document_id` = ? and `document_entries`.`document_id` is not null",
         "bindings": [
             "f9badd49-9104-42bc-8ce3-4a1966d52817"
         ]
     },
     {
-        "query": "update `documents` set `synced_at` = ?, `entries_count` = ?, `assets_count` = ?, `documents`.`updated_at` = ? where `id` = ?",
+        "query": "update `documents` set `entries_count` = ?, `assets_count` = ?, `documents`.`updated_at` = ? where `id` = ?",
         "bindings": [
-            "2022-02-02 00:05:33",
             5,
             3,
-            "2022-02-02 00:05:36",
+            "2022-02-02 00:03:45",
             "f9badd49-9104-42bc-8ce3-4a1966d52817"
         ]
     },
     {
-        "query": "insert into `document_entries` (`asset_id`, `asset_type_id`, `created_at`, `currency_id`, `deleted_at`, `document_id`, `end`, `environment_id`, `equipment_number`, `id`, `language_id`, `list_price`, `list_price_origin`, `monthly_list_price`, `monthly_list_price_origin`, `monthly_retail_price`, `monthly_retail_price_origin`, `oem_said`, `oem_sar_number`, `product_group_id`, `product_id`, `product_line_id`, `psp_id`, `removed_at`, `renewal`, `renewal_origin`, `serial_number`, `service_group_id`, `service_level_id`, `start`, `uid`, `updated_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `document_entries` (`asset_id`, `asset_type_id`, `created_at`, `currency_id`, `deleted_at`, `document_id`, `end`, `environment_id`, `equipment_number`, `id`, `key`, `language_id`, `list_price`, `list_price_origin`, `monthly_list_price`, `monthly_list_price_origin`, `monthly_retail_price`, `monthly_retail_price_origin`, `oem_said`, `oem_sar_number`, `product_group_id`, `product_id`, `product_line_id`, `psp_id`, `removed_at`, `renewal`, `renewal_origin`, `serial_number`, `service_group_id`, `service_level_id`, `start`, `updated_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "47848bf4-0b54-4579-a5b1-203bc1577ea7",
             null,
-            "2022-02-02 00:05:52",
+            "2022-02-02 00:03:53",
             "0c377cde-0cf9-5eea-8d4a-3f0bc159695b",
             null,
             "f9badd49-9104-42bc-8ce3-4a1966d52817",
@@ -3031,6 +2890,7 @@
             null,
             null,
             "a0883c32-7a54-5c79-8b31-13c171b9b806",
+            "b3177a73-6db5-422d-bbf2-50410125ff2c-223297",
             null,
             "1858.90",
             "1858.90",
@@ -3051,11 +2911,10 @@
             null,
             null,
             null,
-            "b3177a73-6db5-422d-bbf2-50410125ff2c-223297",
-            "2022-02-02 00:05:52",
+            "2022-02-02 00:03:53",
             "47848bf4-0b54-4579-a5b1-203bc1577ea7",
             null,
-            "2022-02-02 00:05:53",
+            "2022-02-02 00:03:54",
             "0c377cde-0cf9-5eea-8d4a-3f0bc159695b",
             null,
             "f9badd49-9104-42bc-8ce3-4a1966d52817",
@@ -3063,6 +2922,7 @@
             null,
             null,
             "33105877-b4f3-50a3-bff4-39cf33cdf957",
+            "b3177a73-6db5-422d-bbf2-50410125ff2c-223301",
             null,
             "432.30",
             "432.30",
@@ -3083,11 +2943,10 @@
             null,
             null,
             null,
-            "b3177a73-6db5-422d-bbf2-50410125ff2c-223301",
-            "2022-02-02 00:05:53",
+            "2022-02-02 00:03:54",
             "f9b047ea-900f-46ab-8908-0eb2e620c55f",
             null,
-            "2022-02-02 00:05:54",
+            "2022-02-02 00:03:55",
             "0c377cde-0cf9-5eea-8d4a-3f0bc159695b",
             null,
             "f9badd49-9104-42bc-8ce3-4a1966d52817",
@@ -3095,6 +2954,7 @@
             null,
             null,
             "0bb1f93e-f7e3-5623-866b-ff5cd4397459",
+            "b3177a73-6db5-422d-bbf2-50410125ff2c-223296",
             null,
             "1858.90",
             "1858.90",
@@ -3115,11 +2975,10 @@
             null,
             null,
             null,
-            "b3177a73-6db5-422d-bbf2-50410125ff2c-223296",
-            "2022-02-02 00:05:54",
+            "2022-02-02 00:03:55",
             "f9b047ea-900f-46ab-8908-0eb2e620c55f",
             null,
-            "2022-02-02 00:05:55",
+            "2022-02-02 00:03:56",
             "0c377cde-0cf9-5eea-8d4a-3f0bc159695b",
             null,
             "f9badd49-9104-42bc-8ce3-4a1966d52817",
@@ -3127,6 +2986,7 @@
             null,
             null,
             "73508027-747f-5dca-aac1-75ad5b241289",
+            "b3177a73-6db5-422d-bbf2-50410125ff2c-223300",
             null,
             "432.30",
             "432.30",
@@ -3147,11 +3007,10 @@
             null,
             null,
             null,
-            "b3177a73-6db5-422d-bbf2-50410125ff2c-223300",
-            "2022-02-02 00:05:55",
+            "2022-02-02 00:03:56",
             "ff950443-871e-4576-87ad-4365fb234232",
             null,
-            "2022-02-02 00:05:56",
+            "2022-02-02 00:03:57",
             "0c377cde-0cf9-5eea-8d4a-3f0bc159695b",
             null,
             "f9badd49-9104-42bc-8ce3-4a1966d52817",
@@ -3159,6 +3018,7 @@
             null,
             null,
             "3d8eba1f-dfdb-5602-b43b-b97c30afc3a2",
+            "b3177a73-6db5-422d-bbf2-50410125ff2c-223302",
             null,
             "432.30",
             "432.30",
@@ -3179,8 +3039,18 @@
             null,
             null,
             null,
-            "b3177a73-6db5-422d-bbf2-50410125ff2c-223302",
-            "2022-02-02 00:05:56"
+            "2022-02-02 00:03:57"
+        ]
+    },
+    {
+        "query": "update `documents` set `synced_at` = ? where `id` in (?, ?, ?, ?, ?) and `documents`.`deleted_at` is null",
+        "bindings": [
+            "2022-02-02T00:03:58+00:00",
+            "a954e350-fa8a-4f92-b301-ae8e4e6d0022",
+            "c8fdd1c2-a581-4cf4-8f49-634a41f08ecf",
+            "d3046b7f-880c-4368-b3dd-0b3c8def9a14",
+            "d992fa68-ac06-4103-b556-94166adc12ed",
+            "f9badd49-9104-42bc-8ce3-4a1966d52817"
         ]
     }
 ]

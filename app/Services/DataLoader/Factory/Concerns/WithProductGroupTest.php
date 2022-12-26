@@ -4,7 +4,6 @@ namespace App\Services\DataLoader\Factory\Concerns;
 
 use App\Models\Data\ProductGroup;
 use App\Services\DataLoader\Factory\Factory;
-use App\Services\DataLoader\Normalizer\Normalizer;
 use App\Services\DataLoader\Resolver\Resolvers\ProductGroupResolver;
 use LastDragon_ru\LaraASP\Testing\Database\QueryLog\WithQueryLog;
 use Tests\TestCase;
@@ -20,17 +19,15 @@ class WithProductGroupTest extends TestCase {
      * @covers ::productGroup
      */
     public function testProductGroup(): void {
-        $group      = ProductGroup::factory()->create();
-        $normalizer = $this->app->make(Normalizer::class);
-        $resolver   = $this->app->make(ProductGroupResolver::class);
-        $factory    = new class($normalizer, $resolver) extends Factory {
+        $group    = ProductGroup::factory()->create();
+        $resolver = $this->app->make(ProductGroupResolver::class);
+        $factory  = new class($resolver) extends Factory {
             use WithProductGroup {
                 productGroup as public;
             }
 
             /** @noinspection PhpMissingParentConstructorInspection */
             public function __construct(
-                protected Normalizer $normalizer,
                 protected ProductGroupResolver $productGroupResolver,
             ) {
                 // empty
@@ -43,7 +40,7 @@ class WithProductGroupTest extends TestCase {
 
         // If not - it should be created
         $queries = $this->getQueryLog()->flush();
-        $created = $factory->productGroup(' KEY ');
+        $created = $factory->productGroup('KEY');
 
         self::assertNotNull($created);
         self::assertTrue($created->wasRecentlyCreated);
@@ -58,6 +55,6 @@ class WithProductGroupTest extends TestCase {
         self::assertCount(0, $queries);
 
         // Empty key
-        self::assertNull($factory->productGroup(' '));
+        self::assertNull($factory->productGroup(''));
     }
 }

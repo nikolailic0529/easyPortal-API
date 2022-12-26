@@ -14,7 +14,6 @@ use App\Services\DataLoader\Commands\DocumentSync;
 use App\Services\DataLoader\Commands\OemsImport;
 use App\Services\DataLoader\Commands\ResellersSync;
 use App\Services\DataLoader\Commands\ResellerSync;
-use App\Services\DataLoader\Normalizer\Normalizer;
 use App\Services\DataLoader\Queue\Jobs\AssetsImporter;
 use App\Services\DataLoader\Queue\Jobs\AssetsSynchronizer;
 use App\Services\DataLoader\Queue\Jobs\CustomersImporter;
@@ -30,13 +29,6 @@ use LastDragon_ru\LaraASP\Queue\Concerns\ProviderWithSchedule;
 
 class Provider extends ServiceProvider {
     use ProviderWithSchedule;
-
-    public function register(): void {
-        parent::register();
-
-        $this->app->singleton(Normalizer::class);
-    }
-
 
     public function boot(): void {
         $this->commands(

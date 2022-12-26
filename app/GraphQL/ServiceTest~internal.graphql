@@ -7697,7 +7697,7 @@ interface Company {
     statuses: [Status!]!
     @relation
 
-    synced_at: DateTime!
+    synced_at: DateTime
     updated_at: DateTime!
 }
 
@@ -7798,7 +7798,11 @@ scalar Url
 
 type AggregatedGroupByTypeGroup {
     count: Int!
+
     key: String
+    @rename(
+        attribute: "__key"
+    )
 }
 
 """
@@ -8477,7 +8481,7 @@ type Asset {
     @relation
 
     status_id: ID
-    synced_at: DateTime!
+    synced_at: DateTime
 
     tags: [Tag!]!
     @relation
@@ -9704,7 +9708,7 @@ implements
     statuses: [Status!]!
     @relation
 
-    synced_at: DateTime!
+    synced_at: DateTime
     updated_at: DateTime!
 }
 
@@ -10168,7 +10172,7 @@ type Document {
     @relation
 
     statuses_count: Int!
-    synced_at: DateTime!
+    synced_at: DateTime
 
     type: Type
     @relation
@@ -14402,7 +14406,7 @@ implements
     statuses: [Status!]!
     @relation
 
-    synced_at: DateTime!
+    synced_at: DateTime
     updated_at: DateTime!
 }
 
@@ -15400,6 +15404,22 @@ directive @relation(
 )
 on
     | FIELD_DEFINITION
+
+"""
+Change the internally used name of a field or argument.
+
+This does not change the schema from a client perspective.
+"""
+directive @rename(
+    """
+    The internal name of an attribute/property/key.
+    """
+    attribute: String!
+)
+on
+    | ARGUMENT_DEFINITION
+    | FIELD_DEFINITION
+    | INPUT_FIELD_DEFINITION
 
 """
 Validate an argument using [Laravel validation](https://laravel.com/docs/validation).

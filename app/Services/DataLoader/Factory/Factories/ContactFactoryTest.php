@@ -4,10 +4,9 @@ namespace App\Services\DataLoader\Factory\Factories;
 
 use App\Models\Contact;
 use App\Models\Customer;
-use App\Services\DataLoader\Normalizer\Normalizer;
 use App\Services\DataLoader\Resolver\Resolvers\ContactResolver;
-use App\Services\DataLoader\Schema\CompanyContactPerson;
 use App\Services\DataLoader\Schema\Type;
+use App\Services\DataLoader\Schema\Types\CompanyContactPerson;
 use App\Utils\Eloquent\Model;
 use Closure;
 use InvalidArgumentException;
@@ -24,28 +23,6 @@ class ContactFactoryTest extends TestCase {
 
     // <editor-fold desc='Tests'>
     // =========================================================================
-    /**
-     * @covers ::find
-     */
-    public function testFind(): void {
-        $customer = Customer::factory()->create();
-        $contact  = new CompanyContactPerson([
-            'phoneNumber' => '+495921234554',
-            'vendor'      => 'HPE',
-            'name'        => null,
-            'type'        => 'SYSTEM_MANAGER',
-            'mail'        => 'manger@hpe.com',
-        ]);
-        $factory  = $this->app->make(ContactFactory::class);
-
-        // Exist
-        $queries = $this->getQueryLog()->flush();
-
-        $factory->find($customer, $contact);
-
-        self::assertCount(1, $queries);
-    }
-
     /**
      * @covers ::create
      *
@@ -110,18 +87,16 @@ class ContactFactoryTest extends TestCase {
      */
     public function testContact(Closure $factory): void {
         // Prepare
-        $normalizer = $this->app->make(Normalizer::class);
-        $resolver   = $this->app->make(ContactResolver::class);
-        $customer   = $factory($this);
-        $contact    = Contact::factory()->create([
+        $resolver = $this->app->make(ContactResolver::class);
+        $customer = $factory($this);
+        $contact  = Contact::factory()->create([
             'object_type' => $customer->getMorphClass(),
             'object_id'   => $customer->getKey(),
         ]);
 
-        $factory = new class($normalizer, $resolver) extends ContactFactory {
+        $factory = new class($resolver) extends ContactFactory {
             /** @noinspection PhpMissingParentConstructorInspection */
             public function __construct(
-                protected Normalizer $normalizer,
                 protected ContactResolver $contactResolver,
             ) {
                 // empty
@@ -156,9 +131,8 @@ class ContactFactoryTest extends TestCase {
 
         // If not - it should be created
         $queries = $this->getQueryLog()->flush();
-        $created = $factory->contact($customer, ' new  Name ', ' phone   number ', false, ' email ');
+        $created = $factory->contact($customer, 'new Name', 'phone number', false, 'email');
 
-        self::assertNotNull($created);
         self::assertEquals($customer->exists, $created->exists);
         self::assertEquals($customer->getMorphClass(), $created->object_type);
         self::assertEquals($customer->getKey(), $created->object_id);

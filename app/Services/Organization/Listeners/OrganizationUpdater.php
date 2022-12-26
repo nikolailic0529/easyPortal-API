@@ -5,17 +5,14 @@ namespace App\Services\Organization\Listeners;
 use App\Models\Enums\OrganizationType;
 use App\Models\Organization;
 use App\Services\DataLoader\Events\ResellerUpdated;
-use App\Services\DataLoader\Normalizer\Normalizer;
-use App\Services\DataLoader\Schema\TranslationText;
+use App\Services\DataLoader\Schema\Types\TranslationText;
 use App\Services\I18n\Eloquent\TranslatedString;
 use App\Services\Keycloak\Utils\Map;
 use App\Utils\Providers\EventsProvider;
 use Illuminate\Database\Eloquent\Builder;
 
 class OrganizationUpdater implements EventsProvider {
-    public function __construct(
-        protected Normalizer $normalizer,
-    ) {
+    public function __construct() {
         // empty
     }
 
@@ -93,34 +90,33 @@ class OrganizationUpdater implements EventsProvider {
         }
 
         // Update
-        $normalizer         = $this->normalizer;
         $organization->name = $reseller->name;
 
         if (isset($company->keycloakClientScopeName)) {
-            $organization->keycloak_scope = $this->normalizer->string($company->keycloakClientScopeName);
+            $organization->keycloak_scope = $company->keycloakClientScopeName;
         }
 
         if (isset($company->keycloakGroupId)) {
-            $organization->keycloak_group_id = $this->normalizer->uuid($company->keycloakGroupId);
+            $organization->keycloak_group_id = $company->keycloakGroupId;
         }
 
         if (isset($company->keycloakName)) {
-            $organization->keycloak_name = $this->normalizer->string($company->keycloakName);
+            $organization->keycloak_name = $company->keycloakName;
         }
 
         if (isset($company->brandingData)) {
             $branding                                       = $company->brandingData;
-            $organization->analytics_code                   = $normalizer->string($branding->resellerAnalyticsCode);
-            $organization->branding_dark_theme              = $normalizer->boolean($branding->brandingMode);
-            $organization->branding_main_color              = $normalizer->color($branding->mainColor);
-            $organization->branding_secondary_color         = $normalizer->color($branding->secondaryColor);
-            $organization->branding_logo_url                = $normalizer->string($branding->logoUrl);
-            $organization->branding_favicon_url             = $normalizer->string($branding->favIconUrl);
-            $organization->branding_default_main_color      = $normalizer->color($branding->defaultMainColor);
-            $organization->branding_default_secondary_color = $normalizer->color($branding->secondaryColorDefault);
-            $organization->branding_default_logo_url        = $normalizer->string($branding->defaultLogoUrl);
-            $organization->branding_default_favicon_url     = $normalizer->string($branding->useDefaultFavIcon);
-            $organization->branding_welcome_image_url       = $normalizer->string($branding->mainImageOnTheRight);
+            $organization->analytics_code                   = $branding->resellerAnalyticsCode;
+            $organization->branding_dark_theme              = $branding->brandingMode;
+            $organization->branding_main_color              = $branding->mainColor;
+            $organization->branding_secondary_color         = $branding->secondaryColor;
+            $organization->branding_logo_url                = $branding->logoUrl;
+            $organization->branding_favicon_url             = $branding->favIconUrl;
+            $organization->branding_default_main_color      = $branding->defaultMainColor;
+            $organization->branding_default_secondary_color = $branding->secondaryColorDefault;
+            $organization->branding_default_logo_url        = $branding->defaultLogoUrl;
+            $organization->branding_default_favicon_url     = $branding->useDefaultFavIcon;
+            $organization->branding_welcome_image_url       = $branding->mainImageOnTheRight;
             $organization->branding_welcome_heading         = $this->getTranslatedString($branding->mainHeadingText);
             $organization->branding_welcome_underline       = $this->getTranslatedString($branding->underlineText);
         }
@@ -139,8 +135,8 @@ class OrganizationUpdater implements EventsProvider {
             $string = new TranslatedString();
 
             foreach ($translations as $translation) {
-                $text               = $this->normalizer->string($translation->text);
-                $locale             = $this->normalizer->string($translation->language_code);
+                $text               = $translation->text;
+                $locale             = $translation->language_code;
                 $appLocale          = Map::getAppLocale($locale) ?? $locale;
                 $string[$appLocale] = $text;
             }

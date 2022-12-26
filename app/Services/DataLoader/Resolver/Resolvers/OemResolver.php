@@ -5,7 +5,6 @@ namespace App\Services\DataLoader\Resolver\Resolvers;
 use App\Models\Data\Oem;
 use App\Services\DataLoader\Cache\Key;
 use App\Services\DataLoader\Container\SingletonPersistent;
-use App\Services\DataLoader\Normalizer\Normalizer;
 use App\Services\DataLoader\Resolver\Resolver;
 use Closure;
 use Illuminate\Database\Eloquent\Model;
@@ -16,7 +15,12 @@ use Illuminate\Support\Collection;
  */
 class OemResolver extends Resolver implements SingletonPersistent {
     /**
-     * @param Closure(Normalizer=): Oem|null $factory
+     * @var array<string, Oem>
+     */
+    protected array $models = [];
+
+    /**
+     * @param Closure(): Oem|null $factory
      *
      * @return ($factory is null ? Oem|null : Oem)
      */
@@ -39,5 +43,27 @@ class OemResolver extends Resolver implements SingletonPersistent {
         return [
             'key' => $key,
         ];
+    }
+
+    public function getByKey(?string $key): ?Oem {
+        // Preload
+        $this->getCache();
+
+        // Return
+        return $this->models[$key] ?? null;
+    }
+
+    protected function put(Model|array|Collection $object): void {
+        if ($object instanceof Model) {
+            $this->models[$object->getKey()] = $object;
+        }
+
+        parent::put($object);
+    }
+
+    public function reset(): static {
+        $this->models = [];
+
+        return parent::reset();
     }
 }

@@ -111,10 +111,6 @@ class DataTest extends TestCase {
         $data->shouldAllowMockingProtectedMethods();
         $data->makePartial();
         $data
-            ->shouldReceive('isModelChanged')
-            ->once()
-            ->andReturn(true);
-        $data
             ->shouldReceive('collect')
             ->with($model)
             ->twice();
@@ -135,9 +131,6 @@ class DataTest extends TestCase {
         $data   = Mockery::mock(Data::class);
         $data->shouldAllowMockingProtectedMethods();
         $data->makePartial();
-        $data
-            ->shouldReceive('isModelChanged')
-            ->never();
 
         self::assertFalse($data->isDirty());
 
@@ -155,9 +148,6 @@ class DataTest extends TestCase {
         $data  = Mockery::mock(Data::class);
         $data->shouldAllowMockingProtectedMethods();
         $data->makePartial();
-        $data
-            ->shouldReceive('isModelChanged')
-            ->never();
         $data
             ->shouldReceive('collect')
             ->with($model)
@@ -179,9 +169,6 @@ class DataTest extends TestCase {
         $data   = Mockery::mock(Data::class);
         $data->shouldAllowMockingProtectedMethods();
         $data->makePartial();
-        $data
-            ->shouldReceive('isModelChanged')
-            ->never();
 
         self::assertFalse($data->isDirty());
 

@@ -1,5 +1,5 @@
 [
     "select `distributors`.* from `distributors`",
     "select `distributors`.* from `distributors` where (`distributors`.`id` = ?) limit 1",
-    "insert into `distributors` (`id`, `name`, `changed_at`, `synced_at`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?)"
+    "insert into `distributors` (`id`, `name`, `changed_at`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)"
 ]

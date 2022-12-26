@@ -31,6 +31,7 @@
     "distributorId": "2d4c0f62-7e8f-4001-b16a-131db759c3f4",
     "documentEntries": [
         {
+            "assetDocumentId": "688b9621-3244-464b-9468-3cd74f5eaacf",
             "assetId": "c0200a6c-1b8a-4365-9f1b-32d753194335",
             "serviceLevelSku": "HA151AC",
             "serviceGroupSku": "H7J34AC",
@@ -38,7 +39,20 @@
             "endDate": null,
             "listPrice": "48",
             "currencyCode": "EUR",
-            "estimatedValueRenewal": "145"
+            "estimatedValueRenewal": "145",
+            "assetProductType": null,
+            "assetProductLine": null,
+            "assetProductGroupDescription": null,
+            "lineItemListPrice": null,
+            "lineItemMonthlyRetailPrice": null,
+            "said": null,
+            "sarNumber": null,
+            "environmentId": null,
+            "equipmentNumber": null,
+            "languageCode": null,
+            "pspId": null,
+            "pspName": null,
+            "deletedAt": null
         }
     ]
 }

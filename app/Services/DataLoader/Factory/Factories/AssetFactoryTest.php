@@ -15,24 +15,25 @@ use App\Models\Data\Type as TypeModel;
 use App\Models\Document;
 use App\Models\DocumentEntry as DocumentEntryModel;
 use App\Models\Reseller;
+use App\Services\DataLoader\Cache\Key;
 use App\Services\DataLoader\Container\Container;
 use App\Services\DataLoader\Exceptions\CustomerNotFound;
 use App\Services\DataLoader\Exceptions\FailedToProcessAssetViewDocument;
 use App\Services\DataLoader\Exceptions\FailedToProcessViewAssetCoverageEntry;
 use App\Services\DataLoader\Exceptions\ResellerNotFound;
-use App\Services\DataLoader\Normalizer\Normalizer;
 use App\Services\DataLoader\Resolver\Resolvers\CoverageResolver;
 use App\Services\DataLoader\Resolver\Resolvers\DocumentResolver;
 use App\Services\DataLoader\Resolver\Resolvers\StatusResolver;
 use App\Services\DataLoader\Resolver\Resolvers\TagResolver;
 use App\Services\DataLoader\Resolver\Resolvers\TypeResolver;
-use App\Services\DataLoader\Schema\CoverageEntry;
 use App\Services\DataLoader\Schema\Type;
-use App\Services\DataLoader\Schema\ViewAsset;
-use App\Services\DataLoader\Schema\ViewAssetDocument;
+use App\Services\DataLoader\Schema\Types\CoverageEntry;
+use App\Services\DataLoader\Schema\Types\ViewAsset;
+use App\Services\DataLoader\Schema\Types\ViewAssetDocument;
 use App\Services\DataLoader\Testing\Helper;
 use App\Utils\Eloquent\Callbacks\GetKey;
 use App\Utils\Eloquent\Callbacks\KeysComparator;
+use Closure;
 use Illuminate\Contracts\Debug\ExceptionHandler;
 use Illuminate\Database\Eloquent\Collection as EloquentCollection;
 use Illuminate\Support\Collection;
@@ -47,6 +48,7 @@ use Tests\WithoutGlobalScopes;
 
 use function array_column;
 use function count;
+use function implode;
 
 /**
  * @internal
@@ -59,20 +61,6 @@ class AssetFactoryTest extends TestCase {
 
     // <editor-fold desc="Tests">
     // =========================================================================
-    /**
-     * @covers ::find
-     */
-    public function testFind(): void {
-        $factory = $this->app->make(AssetFactory::class);
-        $json    = $this->getTestData()->json('~asset-full.json');
-        $asset   = new ViewAsset($json);
-        $queries = $this->getQueryLog()->flush();
-
-        $factory->find($asset);
-
-        self::assertCount(1, $queries);
-    }
-
     /**
      * @covers ::create
      *
@@ -101,6 +89,7 @@ class AssetFactoryTest extends TestCase {
      */
     public function testCreateFromAsset(): void {
         // Mock
+        $this->overrideUuidFactory('00000000-0000-0000-0000-000000000000');
         $this->overrideDateFactory('2021-08-30T00:00:00.000+00:00');
         $this->overrideFinders();
 
@@ -127,13 +116,13 @@ class AssetFactoryTest extends TestCase {
         self::assertEquals($asset->serialNumber, $created->serial_number);
         self::assertEquals($asset->dataQualityScore, $created->data_quality);
         self::assertEquals($asset->activeContractQuantitySum, $created->contracts_active_quantity);
-        self::assertEquals($asset->updatedAt, $this->getDatetime($created->changed_at));
+        self::assertEquals($asset->updatedAt, $created->changed_at);
         self::assertEquals($asset->vendor, $created->oem->key ?? null);
         self::assertEquals($asset->assetSkuDescription, $created->product->name ?? null);
         self::assertEquals($asset->assetSku, $created->product->sku ?? null);
         self::assertNull($created->product->eos ?? null);
-        self::assertEquals($asset->eosDate, (string) ($created->product->eos ?? null));
-        self::assertEquals($asset->eolDate, $this->getDatetime($created->product->eol ?? null));
+        self::assertEquals($asset->eosDate, $created->product->eos ?? null);
+        self::assertEquals($asset->eolDate, $created->product->eol ?? null);
         self::assertNull($created->eosl);
         self::assertEquals($asset->assetType, $created->type->key ?? null);
         self::assertEquals($asset->status, $created->status->key ?? null);
@@ -277,14 +266,14 @@ class AssetFactoryTest extends TestCase {
         self::assertEquals($asset->serialNumber, $updated->serial_number);
         self::assertEquals($asset->dataQualityScore, $updated->data_quality);
         self::assertEquals($asset->activeContractQuantitySum, $updated->contracts_active_quantity);
-        self::assertEquals($asset->updatedAt, $this->getDatetime($updated->changed_at));
+        self::assertEquals($asset->updatedAt, $updated->changed_at);
         self::assertEquals($asset->vendor, $updated->oem->key ?? null);
         self::assertNotNull($created->product);
         self::assertEquals($created->product->name, $updated->product->name ?? null);
         self::assertEquals($asset->assetSku, $updated->product->sku ?? null);
-        self::assertEquals($asset->eosDate, $this->getDatetime($updated->product->eos ?? null));
-        self::assertEquals($asset->eolDate, $this->getDatetime($updated->product->eol ?? null));
-        self::assertEquals($asset->eoslDate, $this->getDatetime($updated->eosl));
+        self::assertEquals($asset->eosDate, $updated->product->eos ?? null);
+        self::assertEquals($asset->eolDate, $updated->product->eol ?? null);
+        self::assertEquals($asset->eoslDate, $updated->eosl);
         self::assertEquals($asset->assetType, $updated->type->key ?? null);
         self::assertEquals($asset->customerId, $updated->customer?->getKey());
         self::assertNotNull($updated->warranty_end);
@@ -322,10 +311,7 @@ class AssetFactoryTest extends TestCase {
 
         $factory->create($asset);
 
-        $actual   = array_column($queries->get(), 'query');
-        $expected = $this->getTestData()->json('~createFromAsset-nochanges-expected.json');
-
-        self::assertEquals($expected, $actual);
+        self::assertCount(0, $queries);
     }
 
     /**
@@ -377,8 +363,8 @@ class AssetFactoryTest extends TestCase {
         self::assertEquals($asset->assetSkuDescription, $created->product->name ?? null);
         self::assertEquals($asset->assetSku, $created->product->sku ?? null);
         self::assertNull($created->product->eos ?? null);
-        self::assertEquals($asset->eosDate, (string) ($created->product->eos ?? null));
-        self::assertEquals($asset->eolDate, (string) ($created->product->eol ?? null));
+        self::assertEquals($asset->eosDate, $created->product->eos ?? null);
+        self::assertEquals($asset->eolDate, $created->product->eol ?? null);
         self::assertEquals($asset->assetType, $created->type->key ?? null);
         self::assertNull($created->customer_id);
         self::assertNull($created->location_id);
@@ -687,15 +673,9 @@ class AssetFactoryTest extends TestCase {
         ]);
         $documentsWarranties = EloquentCollection::make([$documentsWarranty]);
 
-        $normalizer = $this->app->make(Normalizer::class);
-        $factory    = Mockery::mock(AssetFactory::class);
+        $factory = Mockery::mock(AssetFactory::class);
         $factory->shouldAllowMockingProtectedMethods();
         $factory->makePartial();
-        $factory
-            ->shouldReceive('getNormalizer')
-            ->atLeast()
-            ->once()
-            ->andReturn($normalizer);
         $factory
             ->shouldReceive('assetWarrantiesCoverages')
             ->with($model, $asset, Mockery::on(static function (mixed $existing) use ($coveragesWarranties): bool {
@@ -741,15 +721,9 @@ class AssetFactoryTest extends TestCase {
             'document_number' => $this->faker->uuid(),
         ]);
 
-        $normalizer = $this->app->make(Normalizer::class);
-        $factory    = Mockery::mock(AssetFactory::class);
+        $factory = Mockery::mock(AssetFactory::class);
         $factory->shouldAllowMockingProtectedMethods();
         $factory->makePartial();
-        $factory
-            ->shouldReceive('getNormalizer')
-            ->atLeast()
-            ->once()
-            ->andReturn($normalizer);
         $factory
             ->shouldReceive('assetWarrantiesCoverages')
             ->never();
@@ -990,6 +964,7 @@ class AssetFactoryTest extends TestCase {
 
         // Pre-test
         self::assertEquals(1, $model->warranties()->count());
+        self::assertEquals(1, $model->warranties->count());
 
         // Test
         $warranties = $factory->assetWarrantiesDocuments($model, $asset, $model->warranties);
@@ -1004,6 +979,18 @@ class AssetFactoryTest extends TestCase {
         });
 
         self::assertNotNull($a);
+        self::assertEquals(
+            (string) new Key([
+                'document'     => $documentA->getKey(),
+                'reseller'     => null,
+                'customer'     => null,
+                'serviceGroup' => $serviceGroupSku,
+                'serviceLevel' => $serviceLevelSku,
+                'start'        => $date,
+                'end'          => $date,
+            ]),
+            $a->key,
+        );
         self::assertEquals($date->startOfDay(), $a->start);
         self::assertEquals($date->startOfDay(), $a->end);
         self::assertNull($a->reseller_id);
@@ -1030,6 +1017,18 @@ class AssetFactoryTest extends TestCase {
         });
 
         self::assertNotNull($c);
+        self::assertEquals(
+            (string) new Key([
+                'document'     => $documentB->getKey(),
+                'reseller'     => $resellerB->getKey(),
+                'customer'     => $customerB->getKey(),
+                'serviceGroup' => $serviceGroupSku,
+                'serviceLevel' => null,
+                'start'        => $date,
+                'end'          => $date,
+            ]),
+            $c->key,
+        );
         self::assertEquals($date->startOfDay(), $c->start);
         self::assertEquals($date->startOfDay(), $c->end);
         self::assertEquals($resellerB->getKey(), $c->reseller_id);
@@ -1127,16 +1126,11 @@ class AssetFactoryTest extends TestCase {
      * @covers ::assetType
      */
     public function testAssetType(): void {
-        $normalizer = $this->app->make(Normalizer::class);
-        $asset      = new ViewAsset(['assetType' => $this->faker->word()]);
-        $factory    = Mockery::mock(AssetFactoryTest_Factory::class);
+        $asset   = new ViewAsset(['assetType' => $this->faker->word()]);
+        $factory = Mockery::mock(AssetFactoryTest_Factory::class);
         $factory->shouldAllowMockingProtectedMethods();
         $factory->makePartial();
 
-        $factory
-            ->shouldReceive('getNormalizer')
-            ->once()
-            ->andReturn($normalizer);
         $factory
             ->shouldReceive('type')
             ->with(Mockery::any(), $asset->assetType)
@@ -1203,13 +1197,9 @@ class AssetFactoryTest extends TestCase {
         ]);
         $location  = Location::factory()->create();
         $locations = Mockery::mock(LocationFactory::class);
-
         $locations
-            ->shouldReceive('isEmpty')
-            ->once()
-            ->andReturnFalse();
-        $locations
-            ->shouldReceive('find')
+            ->shouldReceive('create')
+            ->with($asset, false)
             ->once()
             ->andReturn($location);
 
@@ -1225,35 +1215,6 @@ class AssetFactoryTest extends TestCase {
         };
 
         self::assertEquals($location, $factory->assetLocation($asset));
-    }
-
-    /**
-     * @covers ::assetLocation
-     */
-    public function testAssetLocationNoLocation(): void {
-        $asset     = new ViewAsset([
-            'id' => $this->faker->uuid(),
-        ]);
-        $locations = Mockery::mock(LocationFactory::class);
-        $locations->makePartial();
-
-        $locations
-            ->shouldReceive('find')
-            ->once()
-            ->andReturnNull();
-
-        $factory = new class($locations) extends AssetFactory {
-            /** @noinspection PhpMissingParentConstructorInspection */
-            public function __construct(LocationFactory $locations) {
-                $this->locationFactory = $locations;
-            }
-
-            public function assetLocation(ViewAsset $asset): ?Location {
-                return parent::assetLocation($asset);
-            }
-        };
-
-        self::assertNull($factory->assetLocation($asset));
     }
 
     /**
@@ -1279,12 +1240,10 @@ class AssetFactoryTest extends TestCase {
      */
     public function testAssetTags(): void {
         $factory = new class(
-            $this->app->make(Normalizer::class),
             $this->app->make(TagResolver::class),
         ) extends AssetFactory {
             /** @noinspection PhpMissingParentConstructorInspection */
             public function __construct(
-                protected Normalizer $normalizer,
                 protected TagResolver $tagResolver,
             ) {
                 // empty
@@ -1319,12 +1278,10 @@ class AssetFactoryTest extends TestCase {
      */
     public function testAssetCoverages(): void {
         $factory = new class(
-            $this->app->make(Normalizer::class),
             $this->app->make(CoverageResolver::class),
         ) extends AssetFactory {
             /** @noinspection PhpMissingParentConstructorInspection */
             public function __construct(
-                protected Normalizer $normalizer,
                 protected CoverageResolver $coverageResolver,
             ) {
                 // empty
@@ -1362,59 +1319,6 @@ class AssetFactoryTest extends TestCase {
     }
 
     /**
-     * @covers ::isWarrantyEqualToCoverage
-     */
-    public function testIsWarrantyEqualToCoverage(): void {
-        // Prepare
-        $type     = TypeModel::factory()->create([
-            'object_type' => (new AssetWarranty())->getMorphClass(),
-        ]);
-        $warranty = AssetWarranty::factory()->make([
-            'type_id' => $type,
-            'start'   => $this->faker->dateTime(),
-            'end'     => $this->faker->dateTime(),
-        ]);
-        $factory  = new class(
-            $this->app->make(Normalizer::class),
-            $this->app->make(TypeResolver::class),
-        ) extends AssetFactory {
-            /** @noinspection PhpMissingParentConstructorInspection */
-            public function __construct(
-                protected Normalizer $normalizer,
-                protected TypeResolver $typeResolver,
-            ) {
-                // empty
-            }
-
-            public function isWarrantyEqualToCoverage(AssetWarranty $warranty, CoverageEntry $entry): bool {
-                return parent::isWarrantyEqualToCoverage($warranty, $entry);
-            }
-        };
-
-        // Test
-        self::assertTrue($factory->isWarrantyEqualToCoverage($warranty, new CoverageEntry([
-            'type'              => " {$type->key} ",
-            'coverageStartDate' => "{$warranty->start?->getTimestampMs()}",
-            'coverageEndDate'   => "{$warranty->end?->getTimestampMs()}",
-        ])));
-        self::assertFalse($factory->isWarrantyEqualToCoverage($warranty, new CoverageEntry([
-            'type'              => 'another type',
-            'coverageStartDate' => "{$warranty->start?->getTimestampMs()}",
-            'coverageEndDate'   => "{$warranty->end?->getTimestampMs()}",
-        ])));
-        self::assertFalse($factory->isWarrantyEqualToCoverage($warranty, new CoverageEntry([
-            'type'              => " {$type->key} ",
-            'coverageStartDate' => "{$warranty->start?->addDay()->getTimestampMs()}",
-            'coverageEndDate'   => "{$warranty->end?->getTimestampMs()}",
-        ])));
-        self::assertFalse($factory->isWarrantyEqualToCoverage($warranty, new CoverageEntry([
-            'type'              => " {$type->key} ",
-            'coverageStartDate' => "{$warranty->start?->getTimestampMs()}",
-            'coverageEndDate'   => "{$warranty->end?->addDay()->getTimestampMs()}",
-        ])));
-    }
-
-    /**
      * @covers ::assetWarranty
      */
     public function testAssetWarranty(): void {
@@ -1432,13 +1336,11 @@ class AssetFactoryTest extends TestCase {
             'status'            => $status->key,
             'description'       => $this->faker->text(),
         ]);
-        $normalizer     = $this->app->make(Normalizer::class);
         $typeResolver   = $this->app->make(TypeResolver::class);
         $statusResolver = $this->app->make(StatusResolver::class);
-        $factory        = new class($normalizer, $typeResolver, $statusResolver) extends AssetFactory {
+        $factory        = new class($typeResolver, $statusResolver) extends AssetFactory {
             /** @noinspection PhpMissingParentConstructorInspection */
             public function __construct(
-                protected Normalizer $normalizer,
                 protected TypeResolver $typeResolver,
                 protected StatusResolver $statusResolver,
             ) {
@@ -1457,6 +1359,7 @@ class AssetFactoryTest extends TestCase {
         // Create
         $actual   = $factory->assetWarranty($asset, $entry, null);
         $expected = [
+            'key'              => "2024-12-09t000000:2019-12-10t000000:{$entry->type}",
             'start'            => '2019-12-10 00:00:00',
             'end'              => '2024-12-09 00:00:00',
             'asset_id'         => $asset->getKey(),
@@ -1480,6 +1383,7 @@ class AssetFactoryTest extends TestCase {
         $actual   = $factory->assetWarranty($asset, $entry, $warranty);
         $expected = [
             'id'               => $warranty->getKey(),
+            'key'              => "2024-12-09t000000:2019-12-10t000000:{$entry->type}",
             'start'            => '2019-12-10 00:00:00',
             'end'              => '2024-12-09 00:00:00',
             'asset_id'         => $asset->getKey(),
@@ -1506,26 +1410,23 @@ class AssetFactoryTest extends TestCase {
      * @covers ::assetWarranty
      */
     public function testAssetWarrantyEmpty(): void {
-        $asset      = Asset::factory()->make();
-        $type       = TypeModel::factory()->create([
+        $asset   = Asset::factory()->make();
+        $type    = TypeModel::factory()->create([
             'object_type' => (new AssetWarranty())->getMorphClass(),
         ]);
-        $status     = Status::factory()->create([
+        $status  = Status::factory()->create([
             'object_type' => (new AssetWarranty())->getMorphClass(),
         ]);
-        $entry      = new CoverageEntry([
+        $entry   = new CoverageEntry([
             'coverageStartDate' => null,
             'coverageEndDate'   => null,
             'type'              => $type->key,
             'status'            => $status->key,
             'description'       => null,
         ]);
-        $normalizer = $this->app->make(Normalizer::class);
-        $factory    = new class($normalizer) extends AssetFactory {
+        $factory = new class() extends AssetFactory {
             /** @noinspection PhpMissingParentConstructorInspection */
-            public function __construct(
-                protected Normalizer $normalizer,
-            ) {
+            public function __construct() {
                 // empty
             }
 
@@ -1545,6 +1446,8 @@ class AssetFactoryTest extends TestCase {
      * @covers ::assetWarrantiesCoverages
      */
     public function testAssetWarrantiesCoverages(): void {
+        $start                   = Date::make($this->faker->dateTime());
+        $end                     = Date::make($this->faker->dateTime());
         $asset                   = Asset::factory()->create();
         $type                    = TypeModel::factory()->create([
             'object_type' => (new AssetWarranty())->getMorphClass(),
@@ -1558,8 +1461,13 @@ class AssetFactoryTest extends TestCase {
             'customer_id'     => null,
             'asset_id'        => $asset,
             'type_id'         => $type,
-            'start'           => Date::make($this->faker->dateTime())?->startOfDay(),
-            'end'             => Date::make($this->faker->dateTime())?->startOfDay(),
+            'start'           => Date::make($start)?->startOfDay(),
+            'end'             => Date::make($end)?->startOfDay(),
+            'key'             => (string) new Key([
+                'type'  => $type->key,
+                'start' => $start?->startOfDay(),
+                'end'   => $end?->startOfDay(),
+            ]),
         ]);
         $warrantyShouldBeReused  = Collection::make([
             AssetWarranty::factory()->create([
@@ -1622,14 +1530,12 @@ class AssetFactoryTest extends TestCase {
                     ->andReturns();
             },
         );
-        $normalizer     = $this->app->make(Normalizer::class);
         $typeResolver   = $this->app->make(TypeResolver::class);
         $statusResolver = $this->app->make(StatusResolver::class);
-        $factory        = new class($handler, $normalizer, $typeResolver, $statusResolver) extends AssetFactory {
+        $factory        = new class($handler, $typeResolver, $statusResolver) extends AssetFactory {
             /** @noinspection PhpMissingParentConstructorInspection */
             public function __construct(
                 protected ExceptionHandler $exceptionHandler,
-                protected Normalizer $normalizer,
                 protected TypeResolver $typeResolver,
                 protected StatusResolver $statusResolver,
             ) {
@@ -1653,12 +1559,22 @@ class AssetFactoryTest extends TestCase {
             ->values();
         $expected = EloquentCollection::make([
             (clone $warrantyShouldBeUpdated)->forceFill([
+                'key'         => (string) new Key([
+                    'type'  => $entryShouldBeUpdated->type,
+                    'start' => $entryShouldBeUpdated->coverageStartDate,
+                    'end'   => $entryShouldBeUpdated->coverageEndDate,
+                ]),
                 'status_id'   => $status->getKey(),
                 'description' => $entryShouldBeUpdated->description,
             ]),
             (clone $warrantyShouldBeReused)->forceFill([
-                'start'       => $normalizer->datetime($entryShouldBeCreated->coverageStartDate),
-                'end'         => $normalizer->datetime($entryShouldBeCreated->coverageEndDate),
+                'key'         => (string) new Key([
+                    'type'  => $entryShouldBeCreated->type,
+                    'start' => $entryShouldBeCreated->coverageStartDate,
+                    'end'   => $entryShouldBeCreated->coverageEndDate,
+                ]),
+                'start'       => $entryShouldBeCreated->coverageStartDate,
+                'end'         => $entryShouldBeCreated->coverageEndDate,
                 'type_id'     => $type->getKey(),
                 'status_id'   => $status->getKey(),
                 'description' => $entryShouldBeCreated->description,
@@ -1667,6 +1583,23 @@ class AssetFactoryTest extends TestCase {
             ->sort(new KeysComparator())
             ->map($map)
             ->values();
+
+        self::assertEquals($expected, $actual);
+    }
+
+    /**
+     * @covers ::getWarrantyKey
+     *
+     * @dataProvider dataProviderGetWarrantyKey
+     *
+     * @param Closure(static): (ViewAssetDocument|AssetWarranty|CoverageEntry) $warrantyFactory
+     */
+    public function testGetWarrantyKey(
+        string $expected,
+        Closure $warrantyFactory,
+    ): void {
+        $factory = $this->app->make(AssetFactoryTest_Factory::class);
+        $actual  = $factory->getWarrantyKey($warrantyFactory($this));
 
         self::assertEquals($expected, $actual);
     }
@@ -1684,6 +1617,60 @@ class AssetFactoryTest extends TestCase {
                 null,
                 new class() extends Type {
                     // empty
+                },
+            ],
+        ];
+    }
+
+    /**
+     * @return array<mixed>
+     */
+    public function dataProviderGetWarrantyKey(): array {
+        return [
+            ViewAssetDocument::class => [
+                implode(':', [
+                    '59b94807-0ff9-4b80-bd8c-8e542de16055',
+                    'b61875df-9906-4cac-8367-6d2b45005a0c',
+                    '2024-10-10t000000',
+                    '657f9c9f-9225-4551-ad50-243c8cada684',
+                    'group',
+                    'level',
+                    '2022-10-10t000000',
+                ]),
+                static function (): ViewAssetDocument {
+                    return new ViewAssetDocument([
+                        'document'        => [
+                            'id'        => 'b61875df-9906-4cac-8367-6d2b45005a0c',
+                            'startDate' => '2022-10-10',
+                        ],
+                        'reseller'        => [
+                            'id' => '657f9c9f-9225-4551-ad50-243c8cada684',
+                        ],
+                        'customer'        => [
+                            'id' => '59b94807-0ff9-4b80-bd8c-8e542de16055',
+                        ],
+                        'serviceGroupSku' => 'Group',
+                        'serviceLevelSku' => 'Level',
+                        'endDate'         => '2024-10-10',
+                    ]);
+                },
+            ],
+            AssetWarranty::class     => [
+                'abcde',
+                static function (): AssetWarranty {
+                    return AssetWarranty::factory()->make([
+                        'key' => 'abcde',
+                    ]);
+                },
+            ],
+            CoverageEntry::class     => [
+                '2024-10-10t000000:2022-10-10t000000:unknown',
+                static function (): CoverageEntry {
+                    return new CoverageEntry([
+                        'coverageStartDate' => '2022-10-10',
+                        'coverageEndDate'   => '2024-10-10',
+                        'type'              => 'unknown',
+                    ]);
                 },
             ],
         ];
@@ -1727,5 +1714,9 @@ class AssetFactoryTest_Factory extends AssetFactory {
         EloquentCollection $existing,
     ): EloquentCollection {
         return parent::assetWarrantiesDocuments($model, $asset, $existing);
+    }
+
+    public function getWarrantyKey(ViewAssetDocument|AssetWarranty|CoverageEntry $warranty): string {
+        return parent::getWarrantyKey($warranty);
     }
 }

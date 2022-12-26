@@ -37,6 +37,12 @@
         ]
     },
     {
+        "query": "select `types`.*, `contact_types`.`contact_id` as `pivot_contact_id`, `contact_types`.`type_id` as `pivot_type_id`, `contact_types`.`created_at` as `pivot_created_at`, `contact_types`.`updated_at` as `pivot_updated_at` from `types` inner join `contact_types` on `types`.`id` = `contact_types`.`type_id` where `contact_types`.`deleted_at` is null and `contact_types`.`contact_id` in (?) and `types`.`deleted_at` is null",
+        "bindings": [
+            "eff80036-c3b7-5820-9ee7-5ed602a3fa8c"
+        ]
+    },
+    {
         "query": "select `kpis`.* from `kpis` where `kpis`.`id` in (?) and `kpis`.`deleted_at` is null",
         "bindings": [
             "32d75fac-c03f-583b-93ef-c33da4962cd9"
@@ -46,12 +52,6 @@
         "query": "select `reseller_customers`.* from `reseller_customers` where `reseller_customers`.`customer_id` in (?) and `reseller_customers`.`deleted_at` is null",
         "bindings": [
             "04e2ec4e-9bb1-47c7-98f0-6096cd178974"
-        ]
-    },
-    {
-        "query": "select `types`.*, `contact_types`.`contact_id` as `pivot_contact_id`, `contact_types`.`type_id` as `pivot_type_id`, `contact_types`.`created_at` as `pivot_created_at`, `contact_types`.`updated_at` as `pivot_updated_at` from `types` inner join `contact_types` on `types`.`id` = `contact_types`.`type_id` where `contact_types`.`deleted_at` is null and `contact_types`.`contact_id` in (?) and `types`.`deleted_at` is null",
-        "bindings": [
-            "eff80036-c3b7-5820-9ee7-5ed602a3fa8c"
         ]
     },
     {
@@ -77,10 +77,9 @@
         "bindings": []
     },
     {
-        "query": "update `customers` set `synced_at` = ?, `customers`.`updated_at` = ? where `id` = ?",
+        "query": "update `customers` set `synced_at` = ? where `id` in (?) and `customers`.`deleted_at` is null",
         "bindings": [
-            "2022-02-02 00:00:18",
-            "2022-02-02 00:00:21",
+            "2022-02-02T00:00:18+00:00",
             "04e2ec4e-9bb1-47c7-98f0-6096cd178974"
         ]
     }

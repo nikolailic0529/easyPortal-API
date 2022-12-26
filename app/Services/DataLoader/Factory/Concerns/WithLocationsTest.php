@@ -10,10 +10,9 @@ use App\Models\ResellerLocation;
 use App\Services\DataLoader\Exceptions\FailedToProcessLocation;
 use App\Services\DataLoader\Factory\Factories\LocationFactory;
 use App\Services\DataLoader\Factory\ModelFactory;
-use App\Services\DataLoader\Normalizer\Normalizer;
 use App\Services\DataLoader\Resolver\Resolvers\TypeResolver;
-use App\Services\DataLoader\Schema\Location;
 use App\Services\DataLoader\Schema\Type;
+use App\Services\DataLoader\Schema\Types\Location;
 use App\Utils\Eloquent\Model;
 use Closure;
 use Exception;
@@ -46,7 +45,6 @@ class WithLocationsTest extends TestCase {
         $company = $companyFactory($this);
         $factory = new class(
             $this->app->make(ExceptionHandler::class),
-            $this->app->make(Normalizer::class),
             $this->app->make(TypeResolver::class),
             $this->app->make(LocationFactory::class),
         ) extends ModelFactory {
@@ -60,11 +58,14 @@ class WithLocationsTest extends TestCase {
             /** @noinspection PhpMissingParentConstructorInspection */
             public function __construct(
                 protected ExceptionHandler $exceptionHandler,
-                protected Normalizer $normalizer,
                 protected TypeResolver $typeResolver,
                 protected LocationFactory $locationFactory,
             ) {
                 // empty
+            }
+
+            public function getModel(): string {
+                return Model::class;
             }
 
             public function create(Type $type): ?Model {
@@ -157,6 +158,10 @@ class WithLocationsTest extends TestCase {
                 // empty
             }
 
+            public function getModel(): string {
+                return Model::class;
+            }
+
             public function create(Type $type): ?Model {
                 return null;
             }
@@ -207,6 +212,10 @@ class WithLocationsTest extends TestCase {
                 protected ExceptionHandler $exceptionHandler,
             ) {
                 // empty
+            }
+
+            public function getModel(): string {
+                return Model::class;
             }
 
             public function create(Type $type): ?Model {

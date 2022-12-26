@@ -6328,7 +6328,7 @@ interface Company {
     kpi: Kpi
     name: String!
     statuses: [Status!]!
-    synced_at: DateTime!
+    synced_at: DateTime
     updated_at: DateTime!
 }
 
@@ -6795,7 +6795,7 @@ type Asset {
     serial_number: String
     status: Status
     status_id: ID
-    synced_at: DateTime!
+    synced_at: DateTime
     tags: [Tag!]!
     type: Type
     type_id: ID
@@ -7453,7 +7453,7 @@ implements
 
     quotes_count: Int!
     statuses: [Status!]!
-    synced_at: DateTime!
+    synced_at: DateTime
     updated_at: DateTime!
 }
 
@@ -7662,7 +7662,7 @@ type Document {
     start: Date
     statuses: [Status!]!
     statuses_count: Int!
-    synced_at: DateTime!
+    synced_at: DateTime
     type: Type
     type_id: ID
     updated_at: DateTime!
@@ -9896,7 +9896,7 @@ implements
     ): DocumentsAggregated
 
     statuses: [Status!]!
-    synced_at: DateTime!
+    synced_at: DateTime
     updated_at: DateTime!
 }
 

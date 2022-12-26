@@ -17,20 +17,6 @@
         ]
     },
     {
-        "query": "select `reseller_locations`.* from `reseller_locations` where `reseller_locations`.`reseller_id` in (?, ?) and `reseller_locations`.`deleted_at` is null",
-        "bindings": [
-            "77ec115b-9723-4582-ad45-2b3a83286b1f",
-            "9f6b1030-5d5d-4f0b-b743-2ef69eaf4a44"
-        ]
-    },
-    {
-        "query": "select `locations`.* from `locations` where `locations`.`id` in (?, ?) and `locations`.`deleted_at` is null",
-        "bindings": [
-            "2f80a4c2-e8d4-516d-822a-233c9a874796",
-            "87e3dc13-76b2-5c36-895d-5ab33f29da58"
-        ]
-    },
-    {
         "query": "select `customers`.* from `customers` where ((`customers`.`id` = ?) or (`customers`.`id` = ?) or (`customers`.`id` = ?) or (`customers`.`id` = ?) or (`customers`.`id` = ?))",
         "bindings": [
             "e25e1111-5815-455f-af8b-93665f76b62c",
@@ -41,23 +27,15 @@
         ]
     },
     {
-        "query": "select `customer_locations`.* from `customer_locations` where `customer_locations`.`customer_id` in (?, ?, ?, ?, ?) and `customer_locations`.`deleted_at` is null",
+        "query": "select `documents`.* from `documents` where ((`documents`.`id` = ?) or (`documents`.`id` = ?) or (`documents`.`id` = ?) or (`documents`.`id` = ?) or (`documents`.`id` = ?) or (`documents`.`id` = ?) or (`documents`.`id` = ?))",
         "bindings": [
-            "0bf4be29-41e0-4877-a35e-5d8d08f0b618",
-            "4a4955d5-6c40-456c-94fe-25f41ffb25ef",
-            "54126f62-957a-46b1-a8ec-926fa4e94a81",
-            "e25e1111-5815-455f-af8b-93665f76b62c",
-            "f0506708-9949-4017-a760-d8e6d0a12838"
-        ]
-    },
-    {
-        "query": "select `locations`.* from `locations` where `locations`.`id` in (?, ?, ?, ?, ?) and `locations`.`deleted_at` is null",
-        "bindings": [
-            "028ddf1c-1a12-56b8-bfec-67ce41d03b31",
-            "0b3e073f-e90b-529b-851b-6d7473f4c6fb",
-            "37fd6095-39f6-5271-b4d1-b42d41e8ba0c",
-            "4b85c9ce-d525-51f5-ac67-7b616ae6f701",
-            "6e2bd178-651a-5475-b94e-12cdeadaab54"
+            "b9379a91-e7c8-4652-85b8-b340bfa68f49",
+            "324a347f-bc08-43fa-8acf-fead3e66cf75",
+            "0aaf2b0e-ae7d-41b0-a1af-5610d486eb19",
+            "4ac48796-4419-4e3b-817d-8e41ffe60189",
+            "fa5ac120-cfcd-4403-86ff-e6b76e32e116",
+            "9b658237-eaa3-4b04-83d8-0ad1e04b40df",
+            "f1c53ec9-7dd1-43cd-978b-2dd80be52a7e"
         ]
     },
     {
@@ -70,8 +48,8 @@
             "HPE",
             "HPE",
             "77b77ef3-0b8f-573f-a002-b612c29ef2a6",
-            "2022-02-02 00:00:01",
-            "2022-02-02 00:00:01"
+            "2022-02-02 00:00:59",
+            "2022-02-02 00:00:59"
         ]
     },
     {
@@ -92,8 +70,8 @@
             "ACTIVE",
             "Active",
             "331ec4c6-b480-527e-9af7-785fc53ae611",
-            "2022-02-02 00:00:02",
-            "2022-02-02 00:00:02"
+            "2022-02-02 00:01:00",
+            "2022-02-02 00:01:00"
         ]
     },
     {
@@ -116,8 +94,8 @@
             null,
             "HPE 300GB SAS 10K SFF SC DS HDD",
             "88313475-8f64-56ea-8421-a3e7c1ac4559",
-            "2022-02-02 00:00:03",
-            "2022-02-02 00:00:03"
+            "2022-02-02 00:01:01",
+            "2022-02-02 00:01:01"
         ]
     },
     {
@@ -136,8 +114,8 @@
             "DM",
             "Sudan",
             "281fa16d-b7e0-59dc-a2d2-ae493b781896",
-            "2022-02-02 00:00:04",
-            "2022-02-02 00:00:04"
+            "2022-02-02 00:01:02",
+            "2022-02-02 00:01:02"
         ]
     },
     {
@@ -158,8 +136,8 @@
             "East Ewaldport",
             "281fa16d-b7e0-59dc-a2d2-ae493b781896",
             "408630e7-2285-5049-9551-e042944ceb4d",
-            "2022-02-02 00:00:05",
-            "2022-02-02 00:00:05"
+            "2022-02-02 00:01:03",
+            "2022-02-02 00:01:03"
         ]
     },
     {
@@ -184,8 +162,8 @@
             "-10.185557",
             "5gbg01pp52f4",
             "5805230b-b911-5b0c-ab1b-670e88304dc4",
-            "2022-02-02 00:00:06",
-            "2022-02-02 00:00:06"
+            "2022-02-02 00:01:04",
+            "2022-02-02 00:01:04"
         ]
     },
     {
@@ -206,8 +184,8 @@
             "EndUser Contact",
             "End User Contact",
             "fe1343b9-b7d3-58b0-8f58-db5419e3736e",
-            "2022-02-02 00:00:08",
-            "2022-02-02 00:00:08"
+            "2022-02-02 00:01:05",
+            "2022-02-02 00:01:05"
         ]
     },
     {
@@ -224,8 +202,8 @@
             "Distributor Contact",
             "Distributor Contact",
             "6bead99c-0349-5d88-8119-bcb3dc6fc611",
-            "2022-02-02 00:00:09",
-            "2022-02-02 00:00:09"
+            "2022-02-02 00:01:06",
+            "2022-02-02 00:01:06"
         ]
     },
     {
@@ -242,8 +220,8 @@
             "Reseller Contact",
             "Reseller Contact",
             "79d540cc-c86f-52a3-83ba-d6a2287289ea",
-            "2022-02-02 00:00:10",
-            "2022-02-02 00:00:10"
+            "2022-02-02 00:01:07",
+            "2022-02-02 00:01:07"
         ]
     },
     {
@@ -262,8 +240,8 @@
             "COVERED",
             "Covered",
             "50e49187-ef54-545a-8459-78057a562697",
-            "2022-02-02 00:00:11",
-            "2022-02-02 00:00:11"
+            "2022-02-02 00:01:08",
+            "2022-02-02 00:01:08"
         ]
     },
     {
@@ -280,8 +258,8 @@
             "Contract",
             "Contract",
             "d8443f90-1c85-5c83-a150-a5c53bc3013c",
-            "2022-02-02 00:00:17",
-            "2022-02-02 00:00:17"
+            "2022-02-02 00:01:09",
+            "2022-02-02 00:01:09"
         ]
     },
     {
@@ -298,8 +276,8 @@
             "Active",
             "Active",
             "a5c34a58-7ad3-5e28-9f0d-ca3fa67ac56a",
-            "2022-02-02 00:00:18",
-            "2022-02-02 00:00:18"
+            "2022-02-02 00:01:10",
+            "2022-02-02 00:01:10"
         ]
     },
     {
@@ -316,8 +294,8 @@
             "FactoryWarranty",
             "Factory Warranty",
             "87ab3c95-1b69-57ce-a91f-5b0d725f94e2",
-            "2022-02-02 00:00:21",
-            "2022-02-02 00:00:21"
+            "2022-02-02 00:01:11",
+            "2022-02-02 00:01:11"
         ]
     },
     {
@@ -334,18 +312,12 @@
             "Expired",
             "Expired",
             "c2f3f0b8-d0d2-5d00-8bcd-221bf0b35911",
-            "2022-02-02 00:00:22",
-            "2022-02-02 00:00:22"
+            "2022-02-02 00:01:12",
+            "2022-02-02 00:01:12"
         ]
     },
     {
-        "query": "select `documents`.* from `documents` where ((`documents`.`id` = ?))",
-        "bindings": [
-            "b9379a91-e7c8-4652-85b8-b340bfa68f49"
-        ]
-    },
-    {
-        "query": "insert into `assets` (`id`, `oem_id`, `type_id`, `status_id`, `product_id`, `reseller_id`, `customer_id`, `location_id`, `eosl`, `changed_at`, `serial_number`, `data_quality`, `contracts_active_quantity`, `contacts_count`, `coverages_count`, `synced_at`, `warranty_end`, `warranty_service_group_id`, `warranty_service_level_id`, `warranty_changed_at`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `assets` (`id`, `oem_id`, `type_id`, `status_id`, `product_id`, `reseller_id`, `customer_id`, `location_id`, `eosl`, `changed_at`, `serial_number`, `data_quality`, `contracts_active_quantity`, `contacts_count`, `coverages_count`, `warranty_end`, `warranty_service_group_id`, `warranty_service_level_id`, `warranty_changed_at`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "2f5dcdae-ed5a-4a87-a9b1-417819b638e4",
             "77b77ef3-0b8f-573f-a002-b612c29ef2a6",
@@ -362,13 +334,12 @@
             0,
             3,
             1,
-            "2022-02-02 00:00:12",
             "2023-11-30 00:00:00",
             null,
             null,
             "2022-10-03 11:24:08",
-            "2022-02-02 00:00:29",
-            "2022-02-02 00:00:29"
+            "2022-02-02 00:01:17",
+            "2022-02-02 00:01:17"
         ]
     },
     {
@@ -381,8 +352,8 @@
             null,
             true,
             "317051ab-383c-55fc-a38d-e1ba7d1c5185",
-            "2022-02-02 00:00:30",
-            "2022-02-02 00:00:30"
+            "2022-02-02 00:01:18",
+            "2022-02-02 00:01:18"
         ]
     },
     {
@@ -391,8 +362,8 @@
             "fe1343b9-b7d3-58b0-8f58-db5419e3736e",
             "317051ab-383c-55fc-a38d-e1ba7d1c5185",
             "e6dd1acf-a5df-51b4-9baf-02656be60e65",
-            "2022-02-02 00:00:31",
-            "2022-02-02 00:00:31"
+            "2022-02-02 00:01:19",
+            "2022-02-02 00:01:19"
         ]
     },
     {
@@ -405,8 +376,8 @@
             "alberto59@gmail.com",
             true,
             "3a9fc444-5aa7-51cc-978b-d3548295cc52",
-            "2022-02-02 00:00:32",
-            "2022-02-02 00:00:32"
+            "2022-02-02 00:01:20",
+            "2022-02-02 00:01:20"
         ]
     },
     {
@@ -415,8 +386,8 @@
             "6bead99c-0349-5d88-8119-bcb3dc6fc611",
             "3a9fc444-5aa7-51cc-978b-d3548295cc52",
             "c4610f8b-d463-5c64-9bfa-af018d308e40",
-            "2022-02-02 00:00:33",
-            "2022-02-02 00:00:33"
+            "2022-02-02 00:01:21",
+            "2022-02-02 00:01:21"
         ]
     },
     {
@@ -429,8 +400,8 @@
             "mallory89@will.org",
             true,
             "ca6b907e-b88a-531b-8b2f-c7c190700878",
-            "2022-02-02 00:00:34",
-            "2022-02-02 00:00:34"
+            "2022-02-02 00:01:22",
+            "2022-02-02 00:01:22"
         ]
     },
     {
@@ -439,8 +410,8 @@
             "79d540cc-c86f-52a3-83ba-d6a2287289ea",
             "ca6b907e-b88a-531b-8b2f-c7c190700878",
             "c5274723-f3c8-50aa-9541-47890d498c10",
-            "2022-02-02 00:00:35",
-            "2022-02-02 00:00:35"
+            "2022-02-02 00:01:23",
+            "2022-02-02 00:01:23"
         ]
     },
     {
@@ -449,43 +420,45 @@
             "50e49187-ef54-545a-8459-78057a562697",
             "2f5dcdae-ed5a-4a87-a9b1-417819b638e4",
             "32a8ad11-622b-5430-b2b4-9e155d27116e",
-            "2022-02-02 00:00:36",
-            "2022-02-02 00:00:36"
+            "2022-02-02 00:01:24",
+            "2022-02-02 00:01:24"
         ]
     },
     {
-        "query": "insert into `asset_warranties` (`asset_id`, `created_at`, `customer_id`, `description`, `document_id`, `document_number`, `end`, `id`, `reseller_id`, `service_group_id`, `service_level_id`, `start`, `status_id`, `type_id`, `updated_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `asset_warranties` (`asset_id`, `created_at`, `customer_id`, `description`, `document_id`, `document_number`, `end`, `id`, `key`, `reseller_id`, `service_group_id`, `service_level_id`, `start`, `status_id`, `type_id`, `updated_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "2f5dcdae-ed5a-4a87-a9b1-417819b638e4",
-            "2022-02-02 00:00:37",
+            "2022-02-02 00:01:25",
             null,
             "H7J32AC-HPE Foundation Care NBD SVC",
             null,
             null,
             "2023-11-30 00:00:00",
             "f2b5d886-242c-5ef0-a74a-7ca761ef8781",
+            "2023-11-30t000000:2018-11-27t000000:contract",
             null,
             null,
             null,
             "2018-11-27 00:00:00",
             "a5c34a58-7ad3-5e28-9f0d-ca3fa67ac56a",
             "d8443f90-1c85-5c83-a150-a5c53bc3013c",
-            "2022-02-02 00:00:37",
+            "2022-02-02 00:01:25",
             "2f5dcdae-ed5a-4a87-a9b1-417819b638e4",
-            "2022-02-02 00:00:38",
+            "2022-02-02 00:01:26",
             null,
             "HA155BW-Wty: HPE Parts Exchange Support",
             null,
             null,
             "2021-12-15 00:00:00",
             "37433aa8-3c22-5eeb-9551-d239d05d3578",
+            "2021-12-15t000000:2018-11-16t000000:factorywarranty",
             null,
             null,
             null,
             "2018-11-16 00:00:00",
             "c2f3f0b8-d0d2-5d00-8bcd-221bf0b35911",
             "87ab3c95-1b69-57ce-a91f-5b0d725f94e2",
-            "2022-02-02 00:00:38"
+            "2022-02-02 00:01:26"
         ]
     },
     {
@@ -504,8 +477,8 @@
             null,
             "HPE 800W FS Plat Ht Plg LH Pwr Sply Kit",
             "00a2dac8-f974-5e30-8852-b78b9beab383",
-            "2022-02-02 00:00:39",
-            "2022-02-02 00:00:39"
+            "2022-02-02 00:01:27",
+            "2022-02-02 00:01:27"
         ]
     },
     {
@@ -522,8 +495,8 @@
             "West Hailee",
             "281fa16d-b7e0-59dc-a2d2-ae493b781896",
             "f713bcdb-2403-5fa5-8eed-6471b19e5dab",
-            "2022-02-02 00:00:40",
-            "2022-02-02 00:00:40"
+            "2022-02-02 00:01:28",
+            "2022-02-02 00:01:28"
         ]
     },
     {
@@ -548,8 +521,8 @@
             "-140.402937",
             "0ukjv0ctwqq1",
             "62e6b36b-f582-5fec-a446-6b7d18ac45da",
-            "2022-02-02 00:00:41",
-            "2022-02-02 00:00:41"
+            "2022-02-02 00:01:29",
+            "2022-02-02 00:01:29"
         ]
     },
     {
@@ -566,18 +539,12 @@
             "Expiring",
             "Expiring",
             "75e0518b-6c70-543c-afe9-ddd1c05da81d",
-            "2022-02-02 00:00:50",
-            "2022-02-02 00:00:50"
+            "2022-02-02 00:01:30",
+            "2022-02-02 00:01:30"
         ]
     },
     {
-        "query": "select `documents`.* from `documents` where ((`documents`.`id` = ?))",
-        "bindings": [
-            "324a347f-bc08-43fa-8acf-fead3e66cf75"
-        ]
-    },
-    {
-        "query": "insert into `assets` (`id`, `oem_id`, `type_id`, `status_id`, `product_id`, `reseller_id`, `customer_id`, `location_id`, `eosl`, `changed_at`, `serial_number`, `data_quality`, `contracts_active_quantity`, `contacts_count`, `coverages_count`, `synced_at`, `warranty_end`, `warranty_service_group_id`, `warranty_service_level_id`, `warranty_changed_at`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `assets` (`id`, `oem_id`, `type_id`, `status_id`, `product_id`, `reseller_id`, `customer_id`, `location_id`, `eosl`, `changed_at`, `serial_number`, `data_quality`, `contracts_active_quantity`, `contacts_count`, `coverages_count`, `warranty_end`, `warranty_service_group_id`, `warranty_service_level_id`, `warranty_changed_at`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "b9b64396-7d9a-4c4c-bfb3-7c7f0e342ec6",
             "77b77ef3-0b8f-573f-a002-b612c29ef2a6",
@@ -594,13 +561,12 @@
             0,
             3,
             1,
-            "2022-02-02 00:00:43",
             "2024-09-11 00:00:00",
             null,
             null,
             "2022-10-03 15:41:48",
-            "2022-02-02 00:00:57",
-            "2022-02-02 00:00:57"
+            "2022-02-02 00:01:35",
+            "2022-02-02 00:01:35"
         ]
     },
     {
@@ -613,8 +579,8 @@
             null,
             true,
             "b4fccd4c-af69-50ec-a8fd-1ed63cf0f496",
-            "2022-02-02 00:00:58",
-            "2022-02-02 00:00:58"
+            "2022-02-02 00:01:36",
+            "2022-02-02 00:01:36"
         ]
     },
     {
@@ -623,8 +589,8 @@
             "fe1343b9-b7d3-58b0-8f58-db5419e3736e",
             "b4fccd4c-af69-50ec-a8fd-1ed63cf0f496",
             "ab17ffcc-a2c5-5ef4-b2e0-f6a965282572",
-            "2022-02-02 00:00:59",
-            "2022-02-02 00:00:59"
+            "2022-02-02 00:01:37",
+            "2022-02-02 00:01:37"
         ]
     },
     {
@@ -637,8 +603,8 @@
             "alberto59@gmail.com",
             true,
             "e2e55482-65d0-524d-881f-61c4f7cddf6f",
-            "2022-02-02 00:01:00",
-            "2022-02-02 00:01:00"
+            "2022-02-02 00:01:38",
+            "2022-02-02 00:01:38"
         ]
     },
     {
@@ -647,8 +613,8 @@
             "6bead99c-0349-5d88-8119-bcb3dc6fc611",
             "e2e55482-65d0-524d-881f-61c4f7cddf6f",
             "5b2e6db9-fe43-5f48-ae49-b2de648e1baf",
-            "2022-02-02 00:01:01",
-            "2022-02-02 00:01:01"
+            "2022-02-02 00:01:39",
+            "2022-02-02 00:01:39"
         ]
     },
     {
@@ -661,8 +627,8 @@
             "mallory89@will.org",
             true,
             "6cbc91f0-ec04-51f1-b366-4ec55dfb27a0",
-            "2022-02-02 00:01:02",
-            "2022-02-02 00:01:02"
+            "2022-02-02 00:01:40",
+            "2022-02-02 00:01:40"
         ]
     },
     {
@@ -671,8 +637,8 @@
             "79d540cc-c86f-52a3-83ba-d6a2287289ea",
             "6cbc91f0-ec04-51f1-b366-4ec55dfb27a0",
             "e3decd0a-d1fa-5a75-b3f7-e0021b930229",
-            "2022-02-02 00:01:03",
-            "2022-02-02 00:01:03"
+            "2022-02-02 00:01:41",
+            "2022-02-02 00:01:41"
         ]
     },
     {
@@ -681,43 +647,45 @@
             "50e49187-ef54-545a-8459-78057a562697",
             "b9b64396-7d9a-4c4c-bfb3-7c7f0e342ec6",
             "f1371b91-baea-54ab-ac0b-95af9f9302ab",
-            "2022-02-02 00:01:04",
-            "2022-02-02 00:01:04"
+            "2022-02-02 00:01:42",
+            "2022-02-02 00:01:42"
         ]
     },
     {
-        "query": "insert into `asset_warranties` (`asset_id`, `created_at`, `customer_id`, `description`, `document_id`, `document_number`, `end`, `id`, `reseller_id`, `service_group_id`, `service_level_id`, `start`, `status_id`, `type_id`, `updated_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `asset_warranties` (`asset_id`, `created_at`, `customer_id`, `description`, `document_id`, `document_number`, `end`, `id`, `key`, `reseller_id`, `service_group_id`, `service_level_id`, `start`, `status_id`, `type_id`, `updated_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "b9b64396-7d9a-4c4c-bfb3-7c7f0e342ec6",
-            "2022-02-02 00:01:05",
+            "2022-02-02 00:01:43",
             null,
             "H7J32AC-HPE Foundation Care NBD SVC",
             null,
             null,
             "2024-09-11 00:00:00",
             "b789b870-9dbf-5fb9-aa30-1d4576358493",
+            "2024-09-11t000000:2019-09-12t000000:contract",
             null,
             null,
             null,
             "2019-09-12 00:00:00",
             "a5c34a58-7ad3-5e28-9f0d-ca3fa67ac56a",
             "d8443f90-1c85-5c83-a150-a5c53bc3013c",
-            "2022-02-02 00:01:05",
+            "2022-02-02 00:01:43",
             "b9b64396-7d9a-4c4c-bfb3-7c7f0e342ec6",
-            "2022-02-02 00:01:06",
+            "2022-02-02 00:01:44",
             null,
             "HA155BW-Wty: HPE Parts Exchange Support",
             null,
             null,
             "2022-10-03 00:00:00",
             "10e95d72-fa09-5b3e-a9a4-dd6805d4af92",
+            "2022-10-03t000000:2019-09-04t000000:factorywarranty",
             null,
             null,
             null,
             "2019-09-04 00:00:00",
             "75e0518b-6c70-543c-afe9-ddd1c05da81d",
             "87ab3c95-1b69-57ce-a91f-5b0d725f94e2",
-            "2022-02-02 00:01:06"
+            "2022-02-02 00:01:44"
         ]
     },
     {
@@ -736,8 +704,8 @@
             null,
             "HPE 3PAR 8000 2TB+SW 7.2K SFF HDD",
             "ddf43566-04c5-5583-ae52-c8d896bd7898",
-            "2022-02-02 00:01:07",
-            "2022-02-02 00:01:07"
+            "2022-02-02 00:01:45",
+            "2022-02-02 00:01:45"
         ]
     },
     {
@@ -754,8 +722,8 @@
             "Conroyfort",
             "281fa16d-b7e0-59dc-a2d2-ae493b781896",
             "9e1005ae-5a36-5909-8e2d-dab2b617376c",
-            "2022-02-02 00:01:08",
-            "2022-02-02 00:01:08"
+            "2022-02-02 00:01:46",
+            "2022-02-02 00:01:46"
         ]
     },
     {
@@ -780,18 +748,12 @@
             "-18.804934",
             "7w4su068tm8f",
             "efc82177-cc97-5f29-bede-5bff52e767fa",
-            "2022-02-02 00:01:09",
-            "2022-02-02 00:01:09"
+            "2022-02-02 00:01:47",
+            "2022-02-02 00:01:47"
         ]
     },
     {
-        "query": "select `documents`.* from `documents` where ((`documents`.`id` = ?))",
-        "bindings": [
-            "0aaf2b0e-ae7d-41b0-a1af-5610d486eb19"
-        ]
-    },
-    {
-        "query": "insert into `assets` (`id`, `oem_id`, `type_id`, `status_id`, `product_id`, `reseller_id`, `customer_id`, `location_id`, `eosl`, `changed_at`, `serial_number`, `data_quality`, `contracts_active_quantity`, `contacts_count`, `coverages_count`, `synced_at`, `warranty_end`, `warranty_service_group_id`, `warranty_service_level_id`, `warranty_changed_at`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `assets` (`id`, `oem_id`, `type_id`, `status_id`, `product_id`, `reseller_id`, `customer_id`, `location_id`, `eosl`, `changed_at`, `serial_number`, `data_quality`, `contracts_active_quantity`, `contacts_count`, `coverages_count`, `warranty_end`, `warranty_service_group_id`, `warranty_service_level_id`, `warranty_changed_at`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "fa66f78b-0580-4ca4-8c81-06d2d2f25cf5",
             "77b77ef3-0b8f-573f-a002-b612c29ef2a6",
@@ -808,13 +770,12 @@
             0,
             3,
             1,
-            "2022-02-02 00:01:11",
             "2023-07-31 00:00:00",
             null,
             null,
             "2022-10-03 17:42:06",
-            "2022-02-02 00:01:28",
-            "2022-02-02 00:01:28"
+            "2022-02-02 00:01:52",
+            "2022-02-02 00:01:52"
         ]
     },
     {
@@ -827,8 +788,8 @@
             null,
             true,
             "02c1068e-62b2-5279-84a8-212725b9551b",
-            "2022-02-02 00:01:29",
-            "2022-02-02 00:01:29"
+            "2022-02-02 00:01:53",
+            "2022-02-02 00:01:53"
         ]
     },
     {
@@ -837,8 +798,8 @@
             "fe1343b9-b7d3-58b0-8f58-db5419e3736e",
             "02c1068e-62b2-5279-84a8-212725b9551b",
             "38a10352-9c0f-5e89-807f-52912fbc0594",
-            "2022-02-02 00:01:30",
-            "2022-02-02 00:01:30"
+            "2022-02-02 00:01:54",
+            "2022-02-02 00:01:54"
         ]
     },
     {
@@ -851,8 +812,8 @@
             "alberto59@gmail.com",
             true,
             "4f936b2a-afb0-5585-ad0d-e037a1079ee3",
-            "2022-02-02 00:01:31",
-            "2022-02-02 00:01:31"
+            "2022-02-02 00:01:55",
+            "2022-02-02 00:01:55"
         ]
     },
     {
@@ -861,8 +822,8 @@
             "6bead99c-0349-5d88-8119-bcb3dc6fc611",
             "4f936b2a-afb0-5585-ad0d-e037a1079ee3",
             "bc7a9e24-1db3-5df0-bc18-0b8a97ab6d3a",
-            "2022-02-02 00:01:32",
-            "2022-02-02 00:01:32"
+            "2022-02-02 00:01:56",
+            "2022-02-02 00:01:56"
         ]
     },
     {
@@ -875,8 +836,8 @@
             "mallory89@will.org",
             true,
             "48b67d6b-68f2-560a-ae5f-b272568571ce",
-            "2022-02-02 00:01:33",
-            "2022-02-02 00:01:33"
+            "2022-02-02 00:01:57",
+            "2022-02-02 00:01:57"
         ]
     },
     {
@@ -885,8 +846,8 @@
             "79d540cc-c86f-52a3-83ba-d6a2287289ea",
             "48b67d6b-68f2-560a-ae5f-b272568571ce",
             "af4f181a-3319-533e-a703-33b073f011d7",
-            "2022-02-02 00:01:34",
-            "2022-02-02 00:01:34"
+            "2022-02-02 00:01:58",
+            "2022-02-02 00:01:58"
         ]
     },
     {
@@ -895,43 +856,45 @@
             "50e49187-ef54-545a-8459-78057a562697",
             "fa66f78b-0580-4ca4-8c81-06d2d2f25cf5",
             "fd327754-6595-5fa2-ac32-3a4bf8ee8881",
-            "2022-02-02 00:01:35",
-            "2022-02-02 00:01:35"
+            "2022-02-02 00:01:59",
+            "2022-02-02 00:01:59"
         ]
     },
     {
-        "query": "insert into `asset_warranties` (`asset_id`, `created_at`, `customer_id`, `description`, `document_id`, `document_number`, `end`, `id`, `reseller_id`, `service_group_id`, `service_level_id`, `start`, `status_id`, `type_id`, `updated_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `asset_warranties` (`asset_id`, `created_at`, `customer_id`, `description`, `document_id`, `document_number`, `end`, `id`, `key`, `reseller_id`, `service_group_id`, `service_level_id`, `start`, `status_id`, `type_id`, `updated_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "fa66f78b-0580-4ca4-8c81-06d2d2f25cf5",
-            "2022-02-02 00:01:36",
+            "2022-02-02 00:02:00",
             null,
             "H1K92AC-HPE Proactive Care 24x7 SVC",
             null,
             null,
             "2023-07-16 00:00:00",
             "ac61d9b3-bd35-5d8d-91cf-e12facdb6be9",
+            "2023-07-16t000000:2020-07-17t000000:contract",
             null,
             null,
             null,
             "2020-07-17 00:00:00",
             "a5c34a58-7ad3-5e28-9f0d-ca3fa67ac56a",
             "d8443f90-1c85-5c83-a150-a5c53bc3013c",
-            "2022-02-02 00:01:36",
+            "2022-02-02 00:02:00",
             "fa66f78b-0580-4ca4-8c81-06d2d2f25cf5",
-            "2022-02-02 00:01:37",
+            "2022-02-02 00:02:01",
             null,
             "HA155BW-Wty: HPE Parts Exchange Support",
             null,
             null,
             "2023-07-31 00:00:00",
             "d063f61c-0dfb-526d-a9cd-7044b5a2e418",
+            "2023-07-31t000000:2020-07-02t000000:factorywarranty",
             null,
             null,
             null,
             "2020-07-02 00:00:00",
             "a5c34a58-7ad3-5e28-9f0d-ca3fa67ac56a",
             "87ab3c95-1b69-57ce-a91f-5b0d725f94e2",
-            "2022-02-02 00:01:37"
+            "2022-02-02 00:02:01"
         ]
     },
     {
@@ -950,8 +913,8 @@
             null,
             "HP M6710 900GB 6G SAS 10K 2.5in HDD",
             "1033b54f-7670-5680-9f65-3bf2fec7dc6e",
-            "2022-02-02 00:01:38",
-            "2022-02-02 00:01:38"
+            "2022-02-02 00:02:02",
+            "2022-02-02 00:02:02"
         ]
     },
     {
@@ -968,8 +931,8 @@
             "Jeffrystad",
             "281fa16d-b7e0-59dc-a2d2-ae493b781896",
             "fc291207-42a8-5be6-9348-3ca0d0a62f94",
-            "2022-02-02 00:01:39",
-            "2022-02-02 00:01:39"
+            "2022-02-02 00:02:03",
+            "2022-02-02 00:02:03"
         ]
     },
     {
@@ -994,20 +957,12 @@
             "149.588388",
             "pm43gcwgy0f9",
             "15cc9317-288d-5cd1-ad0e-774cad37862b",
-            "2022-02-02 00:01:40",
-            "2022-02-02 00:01:40"
+            "2022-02-02 00:02:04",
+            "2022-02-02 00:02:04"
         ]
     },
     {
-        "query": "select `documents`.* from `documents` where ((`documents`.`id` = ?) or (`documents`.`id` = ?) or (`documents`.`id` = ?))",
-        "bindings": [
-            "4ac48796-4419-4e3b-817d-8e41ffe60189",
-            "fa5ac120-cfcd-4403-86ff-e6b76e32e116",
-            "9b658237-eaa3-4b04-83d8-0ad1e04b40df"
-        ]
-    },
-    {
-        "query": "insert into `assets` (`id`, `oem_id`, `type_id`, `status_id`, `product_id`, `reseller_id`, `customer_id`, `location_id`, `eosl`, `changed_at`, `serial_number`, `data_quality`, `contracts_active_quantity`, `contacts_count`, `coverages_count`, `synced_at`, `warranty_end`, `warranty_service_group_id`, `warranty_service_level_id`, `warranty_changed_at`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `assets` (`id`, `oem_id`, `type_id`, `status_id`, `product_id`, `reseller_id`, `customer_id`, `location_id`, `eosl`, `changed_at`, `serial_number`, `data_quality`, `contracts_active_quantity`, `contacts_count`, `coverages_count`, `warranty_end`, `warranty_service_group_id`, `warranty_service_level_id`, `warranty_changed_at`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "91fe9f38-1137-424e-bde7-90bd367ee016",
             "77b77ef3-0b8f-573f-a002-b612c29ef2a6",
@@ -1024,13 +979,12 @@
             0,
             3,
             1,
-            "2022-02-02 00:01:42",
             "2023-04-30 00:00:00",
             null,
             null,
             "2022-10-03 14:21:05",
-            "2022-02-02 00:02:01",
-            "2022-02-02 00:02:01"
+            "2022-02-02 00:02:09",
+            "2022-02-02 00:02:09"
         ]
     },
     {
@@ -1043,8 +997,8 @@
             "princess.ullrich@gmail.com",
             true,
             "f1ed92cb-03c7-5943-9f9a-71f03b7f745f",
-            "2022-02-02 00:02:02",
-            "2022-02-02 00:02:02"
+            "2022-02-02 00:02:10",
+            "2022-02-02 00:02:10"
         ]
     },
     {
@@ -1053,8 +1007,8 @@
             "fe1343b9-b7d3-58b0-8f58-db5419e3736e",
             "f1ed92cb-03c7-5943-9f9a-71f03b7f745f",
             "e8cbe61c-7b4c-53b9-8f2d-b63af24ae207",
-            "2022-02-02 00:02:03",
-            "2022-02-02 00:02:03"
+            "2022-02-02 00:02:11",
+            "2022-02-02 00:02:11"
         ]
     },
     {
@@ -1067,8 +1021,8 @@
             "christiansen.josefina@buckridge.com",
             true,
             "e4221d96-498b-51ab-894b-5df42fb58427",
-            "2022-02-02 00:02:04",
-            "2022-02-02 00:02:04"
+            "2022-02-02 00:02:12",
+            "2022-02-02 00:02:12"
         ]
     },
     {
@@ -1077,8 +1031,8 @@
             "6bead99c-0349-5d88-8119-bcb3dc6fc611",
             "e4221d96-498b-51ab-894b-5df42fb58427",
             "47ba8bed-fefb-57e4-88d7-2ca95e11215b",
-            "2022-02-02 00:02:05",
-            "2022-02-02 00:02:05"
+            "2022-02-02 00:02:13",
+            "2022-02-02 00:02:13"
         ]
     },
     {
@@ -1091,8 +1045,8 @@
             "lauryn.jones@yahoo.com",
             true,
             "bfeef820-815f-5a5a-aec4-53793f274c9f",
-            "2022-02-02 00:02:06",
-            "2022-02-02 00:02:06"
+            "2022-02-02 00:02:14",
+            "2022-02-02 00:02:14"
         ]
     },
     {
@@ -1101,8 +1055,8 @@
             "79d540cc-c86f-52a3-83ba-d6a2287289ea",
             "bfeef820-815f-5a5a-aec4-53793f274c9f",
             "64bd44f1-abaa-525f-9c17-f62d626ff056",
-            "2022-02-02 00:02:07",
-            "2022-02-02 00:02:07"
+            "2022-02-02 00:02:15",
+            "2022-02-02 00:02:15"
         ]
     },
     {
@@ -1111,43 +1065,45 @@
             "50e49187-ef54-545a-8459-78057a562697",
             "91fe9f38-1137-424e-bde7-90bd367ee016",
             "8f62aaad-8674-5b9e-ae8a-e0e1aaba5ba6",
-            "2022-02-02 00:02:08",
-            "2022-02-02 00:02:08"
+            "2022-02-02 00:02:16",
+            "2022-02-02 00:02:16"
         ]
     },
     {
-        "query": "insert into `asset_warranties` (`asset_id`, `created_at`, `customer_id`, `description`, `document_id`, `document_number`, `end`, `id`, `reseller_id`, `service_group_id`, `service_level_id`, `start`, `status_id`, `type_id`, `updated_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `asset_warranties` (`asset_id`, `created_at`, `customer_id`, `description`, `document_id`, `document_number`, `end`, `id`, `key`, `reseller_id`, `service_group_id`, `service_level_id`, `start`, `status_id`, `type_id`, `updated_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "91fe9f38-1137-424e-bde7-90bd367ee016",
-            "2022-02-02 00:02:09",
+            "2022-02-02 00:02:17",
             null,
             "H7J34AC-HPE Foundation Care 24x7 SVC",
             null,
             null,
             "2023-04-30 00:00:00",
             "1d1b883c-b811-5f3c-ab87-aa50afad81e9",
+            "2023-04-30t000000:2021-06-01t000000:contract",
             null,
             null,
             null,
             "2021-06-01 00:00:00",
             "a5c34a58-7ad3-5e28-9f0d-ca3fa67ac56a",
             "d8443f90-1c85-5c83-a150-a5c53bc3013c",
-            "2022-02-02 00:02:09",
+            "2022-02-02 00:02:17",
             "91fe9f38-1137-424e-bde7-90bd367ee016",
-            "2022-02-02 00:02:10",
+            "2022-02-02 00:02:18",
             null,
             "",
             null,
             null,
             "2021-02-26 00:00:00",
             "2221f06d-4a12-5b5e-8a8c-c3802da7edb0",
+            "2021-02-26t000000:2021-02-26t000000:factorywarranty",
             null,
             null,
             null,
             "2021-02-26 00:00:00",
             "c2f3f0b8-d0d2-5d00-8bcd-221bf0b35911",
             "87ab3c95-1b69-57ce-a91f-5b0d725f94e2",
-            "2022-02-02 00:02:10"
+            "2022-02-02 00:02:18"
         ]
     },
     {
@@ -1166,8 +1122,8 @@
             null,
             "HPE BLc VC Flex-10\/10D Module Opt",
             "04ec28e5-1389-5fdf-9da9-6998b25957e2",
-            "2022-02-02 00:02:11",
-            "2022-02-02 00:02:11"
+            "2022-02-02 00:02:19",
+            "2022-02-02 00:02:19"
         ]
     },
     {
@@ -1184,8 +1140,8 @@
             "Haneborough",
             "281fa16d-b7e0-59dc-a2d2-ae493b781896",
             "cc19fbd2-edd0-5137-83f6-673cd5f70152",
-            "2022-02-02 00:02:12",
-            "2022-02-02 00:02:12"
+            "2022-02-02 00:02:20",
+            "2022-02-02 00:02:20"
         ]
     },
     {
@@ -1210,8 +1166,8 @@
             "37.222934",
             "hbdqp00zmhr2",
             "4793737d-682b-5172-b43d-d02d4d0f0baf",
-            "2022-02-02 00:02:13",
-            "2022-02-02 00:02:13"
+            "2022-02-02 00:02:21",
+            "2022-02-02 00:02:21"
         ]
     },
     {
@@ -1226,18 +1182,12 @@
             "CONFLICT",
             "Conflict",
             "ebb56938-034d-5fe6-8d76-98ccb7e06281",
-            "2022-02-02 00:02:15",
-            "2022-02-02 00:02:15"
+            "2022-02-02 00:02:22",
+            "2022-02-02 00:02:22"
         ]
     },
     {
-        "query": "select `documents`.* from `documents` where ((`documents`.`id` = ?))",
-        "bindings": [
-            "f1c53ec9-7dd1-43cd-978b-2dd80be52a7e"
-        ]
-    },
-    {
-        "query": "insert into `assets` (`id`, `oem_id`, `type_id`, `status_id`, `product_id`, `reseller_id`, `customer_id`, `location_id`, `eosl`, `changed_at`, `serial_number`, `data_quality`, `contracts_active_quantity`, `contacts_count`, `coverages_count`, `synced_at`, `warranty_end`, `warranty_service_group_id`, `warranty_service_level_id`, `warranty_changed_at`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `assets` (`id`, `oem_id`, `type_id`, `status_id`, `product_id`, `reseller_id`, `customer_id`, `location_id`, `eosl`, `changed_at`, `serial_number`, `data_quality`, `contracts_active_quantity`, `contacts_count`, `coverages_count`, `warranty_end`, `warranty_service_group_id`, `warranty_service_level_id`, `warranty_changed_at`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "cf82deb8-e098-4f15-98bd-fe890cbc89cf",
             "77b77ef3-0b8f-573f-a002-b612c29ef2a6",
@@ -1254,7 +1204,6 @@
             0,
             3,
             1,
-            "2022-02-02 00:02:16",
             "2022-12-31 00:00:00",
             null,
             null,
@@ -1346,8 +1295,9 @@
         ]
     },
     {
-        "query": "insert into `asset_warranties` (`start`, `end`, `asset_id`, `type_id`, `status_id`, `description`, `service_group_id`, `service_level_id`, `customer_id`, `reseller_id`, `document_id`, `document_number`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `asset_warranties` (`key`, `start`, `end`, `asset_id`, `type_id`, `status_id`, `description`, `service_group_id`, `service_level_id`, `customer_id`, `reseller_id`, `document_id`, `document_number`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
+            "2022-12-31t000000:2019-01-01t000000:contract",
             "2019-01-01 00:00:00",
             "2022-12-31 00:00:00",
             "cf82deb8-e098-4f15-98bd-fe890cbc89cf",
@@ -1363,6 +1313,17 @@
             "3f223392-c0b3-59dd-a58b-7fa4bfdcde3e",
             "2022-02-02 00:02:33",
             "2022-02-02 00:02:33"
+        ]
+    },
+    {
+        "query": "update `assets` set `synced_at` = ? where `id` in (?, ?, ?, ?, ?) and `assets`.`deleted_at` is null",
+        "bindings": [
+            "2022-02-02T00:02:34+00:00",
+            "2f5dcdae-ed5a-4a87-a9b1-417819b638e4",
+            "b9b64396-7d9a-4c4c-bfb3-7c7f0e342ec6",
+            "fa66f78b-0580-4ca4-8c81-06d2d2f25cf5",
+            "91fe9f38-1137-424e-bde7-90bd367ee016",
+            "cf82deb8-e098-4f15-98bd-fe890cbc89cf"
         ]
     },
     {
@@ -1384,22 +1345,6 @@
         ]
     },
     {
-        "query": "select `reseller_locations`.* from `reseller_locations` where `reseller_locations`.`reseller_id` in (?, ?, ?) and `reseller_locations`.`deleted_at` is null",
-        "bindings": [
-            "0fd07b17-3314-40b5-ac32-7189051f773b",
-            "9d9e320d-4e44-4518-a4e6-6bfe7f1c7dd8",
-            "9f6b1030-5d5d-4f0b-b743-2ef69eaf4a44"
-        ]
-    },
-    {
-        "query": "select `locations`.* from `locations` where `locations`.`id` in (?, ?, ?) and `locations`.`deleted_at` is null",
-        "bindings": [
-            "7d701e09-dde4-544a-a04f-19093ff23b2b",
-            "87e3dc13-76b2-5c36-895d-5ab33f29da58",
-            "e8a86988-bac9-5bcb-8947-374b5a44de6a"
-        ]
-    },
-    {
         "query": "select `customers`.* from `customers` where ((`customers`.`id` = ?) or (`customers`.`id` = ?) or (`customers`.`id` = ?) or (`customers`.`id` = ?) or (`customers`.`id` = ?))",
         "bindings": [
             "95ce79c4-7fa9-4004-9486-3adac89c55c0",
@@ -1410,23 +1355,14 @@
         ]
     },
     {
-        "query": "select `customer_locations`.* from `customer_locations` where `customer_locations`.`customer_id` in (?, ?, ?, ?, ?) and `customer_locations`.`deleted_at` is null",
+        "query": "select `documents`.* from `documents` where ((`documents`.`id` = ?) or (`documents`.`id` = ?) or (`documents`.`id` = ?) or (`documents`.`id` = ?) or (`documents`.`id` = ?) or (`documents`.`id` = ?))",
         "bindings": [
-            "033bcf58-0dcd-42b6-8765-51b5815b747f",
-            "0c8e4738-9851-438b-acbb-a680be9bafea",
-            "35c87f11-f024-402b-9a9e-49b21d29e804",
-            "7b9dae48-2613-4478-9b2f-842dd7c1db71",
-            "95ce79c4-7fa9-4004-9486-3adac89c55c0"
-        ]
-    },
-    {
-        "query": "select `locations`.* from `locations` where `locations`.`id` in (?, ?, ?, ?, ?) and `locations`.`deleted_at` is null",
-        "bindings": [
-            "282a6c20-0398-570f-9b80-ceeec974d864",
-            "36c57175-8db6-5edf-9d59-0906b322e421",
-            "410f7b03-0541-5200-b4b6-d7fc661a9ea7",
-            "ebd40708-7284-5f9c-8c71-1939d23e50f2",
-            "f5643a94-b0e5-50af-9a1d-251a731128d7"
+            "e241c8c6-5a8c-49c2-9714-bfec047b8ae2",
+            "ca7c16f8-33c8-4dee-87db-16117f0f47f3",
+            "2c59c73c-f361-44bb-aec8-212dbbbdbdad",
+            "72aaeb84-1468-4526-a94d-3dc0c4ce31a1",
+            "ec6680a7-beb6-4890-990c-11e0f6feaf1f",
+            "9a70b84c-b534-4cda-a1d9-c5eb2072c276"
         ]
     },
     {
@@ -1445,8 +1381,8 @@
             null,
             "",
             "3bc46004-de49-5632-a723-b86b80b27d99",
-            "2022-02-02 00:02:34",
-            "2022-02-02 00:02:34"
+            "2022-02-02 00:03:12",
+            "2022-02-02 00:03:12"
         ]
     },
     {
@@ -1461,8 +1397,8 @@
             "GS",
             "Mexico",
             "80aa4e1c-c94c-5c89-ae37-7ba19749cf4e",
-            "2022-02-02 00:02:35",
-            "2022-02-02 00:02:35"
+            "2022-02-02 00:03:13",
+            "2022-02-02 00:03:13"
         ]
     },
     {
@@ -1479,8 +1415,8 @@
             "Sabrynatown",
             "80aa4e1c-c94c-5c89-ae37-7ba19749cf4e",
             "8634df15-42b7-57e5-bd31-a937b3928ab0",
-            "2022-02-02 00:02:36",
-            "2022-02-02 00:02:36"
+            "2022-02-02 00:03:14",
+            "2022-02-02 00:03:14"
         ]
     },
     {
@@ -1505,8 +1441,8 @@
             "-48.565449",
             "dcv7nb78rn89",
             "51635101-342f-51dc-a632-8dbe55f0f483",
-            "2022-02-02 00:02:37",
-            "2022-02-02 00:02:37"
+            "2022-02-02 00:03:15",
+            "2022-02-02 00:03:15"
         ]
     },
     {
@@ -1521,18 +1457,12 @@
             "ARCHIVED",
             "Archived",
             "34a7da9a-bc4f-54fd-9dcd-2a128111703d",
-            "2022-02-02 00:02:39",
-            "2022-02-02 00:02:39"
+            "2022-02-02 00:03:16",
+            "2022-02-02 00:03:16"
         ]
     },
     {
-        "query": "select `documents`.* from `documents` where ((`documents`.`id` = ?))",
-        "bindings": [
-            "e241c8c6-5a8c-49c2-9714-bfec047b8ae2"
-        ]
-    },
-    {
-        "query": "insert into `assets` (`id`, `oem_id`, `type_id`, `status_id`, `product_id`, `reseller_id`, `customer_id`, `location_id`, `eosl`, `changed_at`, `serial_number`, `data_quality`, `contracts_active_quantity`, `contacts_count`, `coverages_count`, `synced_at`, `warranty_end`, `warranty_service_group_id`, `warranty_service_level_id`, `warranty_changed_at`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `assets` (`id`, `oem_id`, `type_id`, `status_id`, `product_id`, `reseller_id`, `customer_id`, `location_id`, `eosl`, `changed_at`, `serial_number`, `data_quality`, `contracts_active_quantity`, `contacts_count`, `coverages_count`, `warranty_end`, `warranty_service_group_id`, `warranty_service_level_id`, `warranty_changed_at`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "f5135d55-81fd-40e7-9bb5-a227f5516b87",
             "77b77ef3-0b8f-573f-a002-b612c29ef2a6",
@@ -1549,13 +1479,12 @@
             0,
             3,
             1,
-            "2022-02-02 00:02:40",
             null,
             null,
             null,
             null,
-            "2022-02-02 00:02:43",
-            "2022-02-02 00:02:43"
+            "2022-02-02 00:03:17",
+            "2022-02-02 00:03:17"
         ]
     },
     {
@@ -1568,8 +1497,8 @@
             null,
             null,
             "3c026542-d391-53ec-9347-9259b3273f0e",
-            "2022-02-02 00:02:44",
-            "2022-02-02 00:02:44"
+            "2022-02-02 00:03:18",
+            "2022-02-02 00:03:18"
         ]
     },
     {
@@ -1578,8 +1507,8 @@
             "fe1343b9-b7d3-58b0-8f58-db5419e3736e",
             "3c026542-d391-53ec-9347-9259b3273f0e",
             "3ae023d1-b8f5-57f8-a1b7-bfaf06529170",
-            "2022-02-02 00:02:45",
-            "2022-02-02 00:02:45"
+            "2022-02-02 00:03:19",
+            "2022-02-02 00:03:19"
         ]
     },
     {
@@ -1592,8 +1521,8 @@
             "ghuels@yahoo.com",
             true,
             "1ace8308-6aef-58ce-a765-da8d639d4850",
-            "2022-02-02 00:02:46",
-            "2022-02-02 00:02:46"
+            "2022-02-02 00:03:20",
+            "2022-02-02 00:03:20"
         ]
     },
     {
@@ -1602,8 +1531,8 @@
             "6bead99c-0349-5d88-8119-bcb3dc6fc611",
             "1ace8308-6aef-58ce-a765-da8d639d4850",
             "c13d8cb8-5079-51ef-8669-39b214f2fe8a",
-            "2022-02-02 00:02:47",
-            "2022-02-02 00:02:47"
+            "2022-02-02 00:03:21",
+            "2022-02-02 00:03:21"
         ]
     },
     {
@@ -1616,8 +1545,8 @@
             "upredovic@hotmail.com",
             true,
             "37c15085-2a21-5b39-8bd4-5cccab74a28f",
-            "2022-02-02 00:02:48",
-            "2022-02-02 00:02:48"
+            "2022-02-02 00:03:22",
+            "2022-02-02 00:03:22"
         ]
     },
     {
@@ -1626,8 +1555,8 @@
             "79d540cc-c86f-52a3-83ba-d6a2287289ea",
             "37c15085-2a21-5b39-8bd4-5cccab74a28f",
             "142a49a5-10b2-5c52-9295-d3b905c78563",
-            "2022-02-02 00:02:49",
-            "2022-02-02 00:02:49"
+            "2022-02-02 00:03:23",
+            "2022-02-02 00:03:23"
         ]
     },
     {
@@ -1636,8 +1565,8 @@
             "34a7da9a-bc4f-54fd-9dcd-2a128111703d",
             "f5135d55-81fd-40e7-9bb5-a227f5516b87",
             "3bc8c58c-e4a6-5d39-b8f8-d7eeedf30b5c",
-            "2022-02-02 00:02:50",
-            "2022-02-02 00:02:50"
+            "2022-02-02 00:03:24",
+            "2022-02-02 00:03:24"
         ]
     },
     {
@@ -1654,8 +1583,8 @@
             "Friesenshire",
             "281fa16d-b7e0-59dc-a2d2-ae493b781896",
             "454fad94-4057-5cb2-8244-8338e4f5b274",
-            "2022-02-02 00:02:51",
-            "2022-02-02 00:02:51"
+            "2022-02-02 00:03:25",
+            "2022-02-02 00:03:25"
         ]
     },
     {
@@ -1680,18 +1609,12 @@
             "1.464482",
             "hjc09kd6sguv",
             "33a7aaa9-7ff2-5519-b0af-64c0ab962c4b",
-            "2022-02-02 00:02:52",
-            "2022-02-02 00:02:52"
+            "2022-02-02 00:03:26",
+            "2022-02-02 00:03:26"
         ]
     },
     {
-        "query": "select `documents`.* from `documents` where ((`documents`.`id` = ?))",
-        "bindings": [
-            "ca7c16f8-33c8-4dee-87db-16117f0f47f3"
-        ]
-    },
-    {
-        "query": "insert into `assets` (`id`, `oem_id`, `type_id`, `status_id`, `product_id`, `reseller_id`, `customer_id`, `location_id`, `eosl`, `changed_at`, `serial_number`, `data_quality`, `contracts_active_quantity`, `contacts_count`, `coverages_count`, `synced_at`, `warranty_end`, `warranty_service_group_id`, `warranty_service_level_id`, `warranty_changed_at`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `assets` (`id`, `oem_id`, `type_id`, `status_id`, `product_id`, `reseller_id`, `customer_id`, `location_id`, `eosl`, `changed_at`, `serial_number`, `data_quality`, `contracts_active_quantity`, `contacts_count`, `coverages_count`, `warranty_end`, `warranty_service_group_id`, `warranty_service_level_id`, `warranty_changed_at`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "16425fd0-0107-4a3f-a294-d27a5802abfa",
             "77b77ef3-0b8f-573f-a002-b612c29ef2a6",
@@ -1708,13 +1631,12 @@
             0,
             3,
             1,
-            "2022-02-02 00:02:54",
             null,
             null,
             null,
             null,
-            "2022-02-02 00:02:57",
-            "2022-02-02 00:02:57"
+            "2022-02-02 00:03:27",
+            "2022-02-02 00:03:27"
         ]
     },
     {
@@ -1727,8 +1649,8 @@
             null,
             true,
             "4de5dec1-3390-5936-9db3-b710e1442eeb",
-            "2022-02-02 00:02:58",
-            "2022-02-02 00:02:58"
+            "2022-02-02 00:03:28",
+            "2022-02-02 00:03:28"
         ]
     },
     {
@@ -1737,8 +1659,8 @@
             "fe1343b9-b7d3-58b0-8f58-db5419e3736e",
             "4de5dec1-3390-5936-9db3-b710e1442eeb",
             "c7654ff6-d0f2-5e27-b408-d0ab0a493045",
-            "2022-02-02 00:02:59",
-            "2022-02-02 00:02:59"
+            "2022-02-02 00:03:29",
+            "2022-02-02 00:03:29"
         ]
     },
     {
@@ -1751,8 +1673,8 @@
             "itzel.muller@gmail.com",
             true,
             "377f26d6-af90-58c4-b6f6-aa64dbd78375",
-            "2022-02-02 00:03:00",
-            "2022-02-02 00:03:00"
+            "2022-02-02 00:03:30",
+            "2022-02-02 00:03:30"
         ]
     },
     {
@@ -1761,8 +1683,8 @@
             "6bead99c-0349-5d88-8119-bcb3dc6fc611",
             "377f26d6-af90-58c4-b6f6-aa64dbd78375",
             "02d1d0a1-e864-572b-ac0d-e4e50abecb98",
-            "2022-02-02 00:03:01",
-            "2022-02-02 00:03:01"
+            "2022-02-02 00:03:31",
+            "2022-02-02 00:03:31"
         ]
     },
     {
@@ -1775,8 +1697,8 @@
             "marshall.braun@williamson.com",
             true,
             "2b84fa63-0f38-5de1-8f7e-f49bb10eaffe",
-            "2022-02-02 00:03:02",
-            "2022-02-02 00:03:02"
+            "2022-02-02 00:03:32",
+            "2022-02-02 00:03:32"
         ]
     },
     {
@@ -1785,8 +1707,8 @@
             "79d540cc-c86f-52a3-83ba-d6a2287289ea",
             "2b84fa63-0f38-5de1-8f7e-f49bb10eaffe",
             "b7ff4978-23b2-5ef0-8787-56cd6f651af6",
-            "2022-02-02 00:03:03",
-            "2022-02-02 00:03:03"
+            "2022-02-02 00:03:33",
+            "2022-02-02 00:03:33"
         ]
     },
     {
@@ -1795,15 +1717,15 @@
             "34a7da9a-bc4f-54fd-9dcd-2a128111703d",
             "16425fd0-0107-4a3f-a294-d27a5802abfa",
             "35c44cd6-0191-5246-9b59-cf3ab93ede3a",
-            "2022-02-02 00:03:04",
-            "2022-02-02 00:03:04"
+            "2022-02-02 00:03:34",
+            "2022-02-02 00:03:34"
         ]
     },
     {
         "query": "update `products` set `name` = ?, `products`.`updated_at` = ? where `id` = ?",
         "bindings": [
             "HPE 96W Smart Stg Li-ion Batt 145mm Kit",
-            "2022-02-02 00:03:05",
+            "2022-02-02 00:03:35",
             "3bc46004-de49-5632-a723-b86b80b27d99"
         ]
     },
@@ -1821,8 +1743,8 @@
             "Robertschester",
             "281fa16d-b7e0-59dc-a2d2-ae493b781896",
             "6987de7c-dade-50ee-a9de-7f1f358dc862",
-            "2022-02-02 00:03:13",
-            "2022-02-02 00:03:13"
+            "2022-02-02 00:03:43",
+            "2022-02-02 00:03:43"
         ]
     },
     {
@@ -1847,18 +1769,12 @@
             "154.677208",
             "xkjgxf0921mw",
             "20cd5cbd-ad74-5354-bda4-c688e39cee1b",
-            "2022-02-02 00:03:14",
-            "2022-02-02 00:03:14"
+            "2022-02-02 00:03:44",
+            "2022-02-02 00:03:44"
         ]
     },
     {
-        "query": "select `documents`.* from `documents` where ((`documents`.`id` = ?))",
-        "bindings": [
-            "2c59c73c-f361-44bb-aec8-212dbbbdbdad"
-        ]
-    },
-    {
-        "query": "insert into `assets` (`id`, `oem_id`, `type_id`, `status_id`, `product_id`, `reseller_id`, `customer_id`, `location_id`, `eosl`, `changed_at`, `serial_number`, `data_quality`, `contracts_active_quantity`, `contacts_count`, `coverages_count`, `synced_at`, `warranty_end`, `warranty_service_group_id`, `warranty_service_level_id`, `warranty_changed_at`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `assets` (`id`, `oem_id`, `type_id`, `status_id`, `product_id`, `reseller_id`, `customer_id`, `location_id`, `eosl`, `changed_at`, `serial_number`, `data_quality`, `contracts_active_quantity`, `contacts_count`, `coverages_count`, `warranty_end`, `warranty_service_group_id`, `warranty_service_level_id`, `warranty_changed_at`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "3a010157-00fa-4110-87d9-cee7a5ba8482",
             "77b77ef3-0b8f-573f-a002-b612c29ef2a6",
@@ -1875,13 +1791,12 @@
             0,
             3,
             1,
-            "2022-02-02 00:03:16",
             null,
             null,
             null,
             null,
-            "2022-02-02 00:03:19",
-            "2022-02-02 00:03:19"
+            "2022-02-02 00:03:45",
+            "2022-02-02 00:03:45"
         ]
     },
     {
@@ -1894,8 +1809,8 @@
             null,
             true,
             "f2ad4757-1fae-5cdf-94f5-bf376c43debd",
-            "2022-02-02 00:03:20",
-            "2022-02-02 00:03:20"
+            "2022-02-02 00:03:46",
+            "2022-02-02 00:03:46"
         ]
     },
     {
@@ -1904,8 +1819,8 @@
             "fe1343b9-b7d3-58b0-8f58-db5419e3736e",
             "f2ad4757-1fae-5cdf-94f5-bf376c43debd",
             "0ffbe81a-4d4a-5300-b737-186054976a6c",
-            "2022-02-02 00:03:21",
-            "2022-02-02 00:03:21"
+            "2022-02-02 00:03:47",
+            "2022-02-02 00:03:47"
         ]
     },
     {
@@ -1918,8 +1833,8 @@
             "alberto59@gmail.com",
             true,
             "1108f529-6acb-5ef2-b76c-06c5bb24cf54",
-            "2022-02-02 00:03:22",
-            "2022-02-02 00:03:22"
+            "2022-02-02 00:03:48",
+            "2022-02-02 00:03:48"
         ]
     },
     {
@@ -1928,8 +1843,8 @@
             "6bead99c-0349-5d88-8119-bcb3dc6fc611",
             "1108f529-6acb-5ef2-b76c-06c5bb24cf54",
             "314f690e-50c9-5325-92f3-848e12fbee3f",
-            "2022-02-02 00:03:23",
-            "2022-02-02 00:03:23"
+            "2022-02-02 00:03:49",
+            "2022-02-02 00:03:49"
         ]
     },
     {
@@ -1942,8 +1857,8 @@
             "dawson.wuckert@hotmail.com",
             true,
             "9fa2f3c1-5511-5eb4-92b5-19998a92f69d",
-            "2022-02-02 00:03:24",
-            "2022-02-02 00:03:24"
+            "2022-02-02 00:03:50",
+            "2022-02-02 00:03:50"
         ]
     },
     {
@@ -1952,8 +1867,8 @@
             "79d540cc-c86f-52a3-83ba-d6a2287289ea",
             "9fa2f3c1-5511-5eb4-92b5-19998a92f69d",
             "e35828b5-f350-5e19-9d69-1214eceb6936",
-            "2022-02-02 00:03:25",
-            "2022-02-02 00:03:25"
+            "2022-02-02 00:03:51",
+            "2022-02-02 00:03:51"
         ]
     },
     {
@@ -1962,8 +1877,8 @@
             "34a7da9a-bc4f-54fd-9dcd-2a128111703d",
             "3a010157-00fa-4110-87d9-cee7a5ba8482",
             "7a554a55-0f04-5738-b6da-38be367f590e",
-            "2022-02-02 00:03:26",
-            "2022-02-02 00:03:26"
+            "2022-02-02 00:03:52",
+            "2022-02-02 00:03:52"
         ]
     },
     {
@@ -1982,8 +1897,8 @@
             null,
             "HPE M6710 1.2TB 12G SAS 10K 2.5in HDD",
             "e691b934-0e85-5612-8720-d354eb7232dd",
-            "2022-02-02 00:03:27",
-            "2022-02-02 00:03:27"
+            "2022-02-02 00:03:53",
+            "2022-02-02 00:03:53"
         ]
     },
     {
@@ -2000,8 +1915,8 @@
             "Bradtkeshire",
             "281fa16d-b7e0-59dc-a2d2-ae493b781896",
             "a11e99f1-2ecf-5047-b75d-7e0fdc0e0042",
-            "2022-02-02 00:03:28",
-            "2022-02-02 00:03:28"
+            "2022-02-02 00:03:54",
+            "2022-02-02 00:03:54"
         ]
     },
     {
@@ -2026,19 +1941,12 @@
             "50.38414",
             "th5bdd8t7w1y",
             "38d38cf8-5a4d-521c-ace3-d9416945d34b",
-            "2022-02-02 00:03:29",
-            "2022-02-02 00:03:29"
+            "2022-02-02 00:03:55",
+            "2022-02-02 00:03:55"
         ]
     },
     {
-        "query": "select `documents`.* from `documents` where ((`documents`.`id` = ?) or (`documents`.`id` = ?))",
-        "bindings": [
-            "72aaeb84-1468-4526-a94d-3dc0c4ce31a1",
-            "ec6680a7-beb6-4890-990c-11e0f6feaf1f"
-        ]
-    },
-    {
-        "query": "insert into `assets` (`id`, `oem_id`, `type_id`, `status_id`, `product_id`, `reseller_id`, `customer_id`, `location_id`, `eosl`, `changed_at`, `serial_number`, `data_quality`, `contracts_active_quantity`, `contacts_count`, `coverages_count`, `synced_at`, `warranty_end`, `warranty_service_group_id`, `warranty_service_level_id`, `warranty_changed_at`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `assets` (`id`, `oem_id`, `type_id`, `status_id`, `product_id`, `reseller_id`, `customer_id`, `location_id`, `eosl`, `changed_at`, `serial_number`, `data_quality`, `contracts_active_quantity`, `contacts_count`, `coverages_count`, `warranty_end`, `warranty_service_group_id`, `warranty_service_level_id`, `warranty_changed_at`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "5d62ee0b-ebdf-4a76-bcab-60078f6eba32",
             "77b77ef3-0b8f-573f-a002-b612c29ef2a6",
@@ -2055,13 +1963,12 @@
             0,
             2,
             1,
-            "2022-02-02 00:03:31",
             "2023-05-31 00:00:00",
             null,
             null,
             "2022-10-03 12:49:00",
-            "2022-02-02 00:03:52",
-            "2022-02-02 00:03:52"
+            "2022-02-02 00:04:00",
+            "2022-02-02 00:04:00"
         ]
     },
     {
@@ -2074,8 +1981,8 @@
             "alberto59@gmail.com",
             true,
             "9c1e8d95-14b2-5653-a3f6-9c92da375755",
-            "2022-02-02 00:03:53",
-            "2022-02-02 00:03:53"
+            "2022-02-02 00:04:01",
+            "2022-02-02 00:04:01"
         ]
     },
     {
@@ -2084,8 +1991,8 @@
             "6bead99c-0349-5d88-8119-bcb3dc6fc611",
             "9c1e8d95-14b2-5653-a3f6-9c92da375755",
             "970a09a0-1cf5-5afe-b3a6-029f4c53acc8",
-            "2022-02-02 00:03:54",
-            "2022-02-02 00:03:54"
+            "2022-02-02 00:04:02",
+            "2022-02-02 00:04:02"
         ]
     },
     {
@@ -2098,8 +2005,8 @@
             "marshall.braun@williamson.com",
             true,
             "8e985e7a-837d-557b-adc0-bc63dc5fe1a5",
-            "2022-02-02 00:03:55",
-            "2022-02-02 00:03:55"
+            "2022-02-02 00:04:03",
+            "2022-02-02 00:04:03"
         ]
     },
     {
@@ -2108,8 +2015,8 @@
             "79d540cc-c86f-52a3-83ba-d6a2287289ea",
             "8e985e7a-837d-557b-adc0-bc63dc5fe1a5",
             "fe566ce0-e110-5ed6-ae08-b1239cfc6589",
-            "2022-02-02 00:03:56",
-            "2022-02-02 00:03:56"
+            "2022-02-02 00:04:04",
+            "2022-02-02 00:04:04"
         ]
     },
     {
@@ -2118,43 +2025,45 @@
             "50e49187-ef54-545a-8459-78057a562697",
             "5d62ee0b-ebdf-4a76-bcab-60078f6eba32",
             "7cb76eeb-f716-5f46-873b-f54ef866bffb",
-            "2022-02-02 00:03:57",
-            "2022-02-02 00:03:57"
+            "2022-02-02 00:04:05",
+            "2022-02-02 00:04:05"
         ]
     },
     {
-        "query": "insert into `asset_warranties` (`asset_id`, `created_at`, `customer_id`, `description`, `document_id`, `document_number`, `end`, `id`, `reseller_id`, `service_group_id`, `service_level_id`, `start`, `status_id`, `type_id`, `updated_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `asset_warranties` (`asset_id`, `created_at`, `customer_id`, `description`, `document_id`, `document_number`, `end`, `id`, `key`, `reseller_id`, `service_group_id`, `service_level_id`, `start`, `status_id`, `type_id`, `updated_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "5d62ee0b-ebdf-4a76-bcab-60078f6eba32",
-            "2022-02-02 00:03:58",
+            "2022-02-02 00:04:06",
             null,
             "H7J34AC-HPE Foundation Care 24x7 SVC",
             null,
             null,
             "2023-05-31 00:00:00",
             "c7eb23ab-243d-5d52-b816-9a35a078c446",
+            "2023-05-31t000000:2020-06-01t000000:contract",
             null,
             null,
             null,
             "2020-06-01 00:00:00",
             "a5c34a58-7ad3-5e28-9f0d-ca3fa67ac56a",
             "d8443f90-1c85-5c83-a150-a5c53bc3013c",
-            "2022-02-02 00:03:58",
+            "2022-02-02 00:04:06",
             "5d62ee0b-ebdf-4a76-bcab-60078f6eba32",
-            "2022-02-02 00:03:59",
+            "2022-02-02 00:04:07",
             null,
             "HA155BW-Wty: HPE Parts Exchange Support",
             null,
             null,
             "2018-06-02 00:00:00",
             "825aea7d-be4b-5f12-8b39-cc90b7d30cc7",
+            "2018-06-02t000000:2015-05-04t000000:factorywarranty",
             null,
             null,
             null,
             "2015-05-04 00:00:00",
             "c2f3f0b8-d0d2-5d00-8bcd-221bf0b35911",
             "87ab3c95-1b69-57ce-a91f-5b0d725f94e2",
-            "2022-02-02 00:03:59"
+            "2022-02-02 00:04:07"
         ]
     },
     {
@@ -2173,8 +2082,8 @@
             null,
             "HPE 3PAR 7400 OS Suite Drv E-LTU",
             "3a086f38-0d6b-5f05-8a60-e1e0e7d5ae39",
-            "2022-02-02 00:04:00",
-            "2022-02-02 00:04:00"
+            "2022-02-02 00:04:08",
+            "2022-02-02 00:04:08"
         ]
     },
     {
@@ -2191,8 +2100,8 @@
             "North Michael",
             "281fa16d-b7e0-59dc-a2d2-ae493b781896",
             "33935b29-d448-597b-94ca-d903033b4c92",
-            "2022-02-02 00:04:01",
-            "2022-02-02 00:04:01"
+            "2022-02-02 00:04:09",
+            "2022-02-02 00:04:09"
         ]
     },
     {
@@ -2217,18 +2126,12 @@
             "92.816578",
             "q0dp81fyxj8c",
             "bf9179ee-6ab7-50a2-ad39-c63ae12f32b9",
-            "2022-02-02 00:04:02",
-            "2022-02-02 00:04:02"
+            "2022-02-02 00:04:10",
+            "2022-02-02 00:04:10"
         ]
     },
     {
-        "query": "select `documents`.* from `documents` where ((`documents`.`id` = ?))",
-        "bindings": [
-            "9a70b84c-b534-4cda-a1d9-c5eb2072c276"
-        ]
-    },
-    {
-        "query": "insert into `assets` (`id`, `oem_id`, `type_id`, `status_id`, `product_id`, `reseller_id`, `customer_id`, `location_id`, `eosl`, `changed_at`, `serial_number`, `data_quality`, `contracts_active_quantity`, `contacts_count`, `coverages_count`, `synced_at`, `warranty_end`, `warranty_service_group_id`, `warranty_service_level_id`, `warranty_changed_at`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `assets` (`id`, `oem_id`, `type_id`, `status_id`, `product_id`, `reseller_id`, `customer_id`, `location_id`, `eosl`, `changed_at`, `serial_number`, `data_quality`, `contracts_active_quantity`, `contacts_count`, `coverages_count`, `warranty_end`, `warranty_service_group_id`, `warranty_service_level_id`, `warranty_changed_at`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "b01ad503-d3f7-47d7-96ce-c0d37a9e3307",
             "77b77ef3-0b8f-573f-a002-b612c29ef2a6",
@@ -2245,13 +2148,12 @@
             0,
             3,
             1,
-            "2022-02-02 00:04:04",
             null,
             null,
             null,
             null,
-            "2022-02-02 00:04:07",
-            "2022-02-02 00:04:07"
+            "2022-02-02 00:04:11",
+            "2022-02-02 00:04:11"
         ]
     },
     {
@@ -2264,8 +2166,8 @@
             null,
             true,
             "9a1260ee-4ef6-59d4-85b9-87e7ccb728e5",
-            "2022-02-02 00:04:08",
-            "2022-02-02 00:04:08"
+            "2022-02-02 00:04:12",
+            "2022-02-02 00:04:12"
         ]
     },
     {
@@ -2274,8 +2176,8 @@
             "fe1343b9-b7d3-58b0-8f58-db5419e3736e",
             "9a1260ee-4ef6-59d4-85b9-87e7ccb728e5",
             "9ab0285c-cbcc-533a-9c22-7e8bcc1d472d",
-            "2022-02-02 00:04:09",
-            "2022-02-02 00:04:09"
+            "2022-02-02 00:04:13",
+            "2022-02-02 00:04:13"
         ]
     },
     {
@@ -2288,8 +2190,8 @@
             "alberto59@gmail.com",
             true,
             "1fcc0887-c87c-5680-8669-1583ffc7659f",
-            "2022-02-02 00:04:10",
-            "2022-02-02 00:04:10"
+            "2022-02-02 00:04:14",
+            "2022-02-02 00:04:14"
         ]
     },
     {
@@ -2298,8 +2200,8 @@
             "6bead99c-0349-5d88-8119-bcb3dc6fc611",
             "1fcc0887-c87c-5680-8669-1583ffc7659f",
             "44a1d7c8-6311-508d-b1ac-4976773162b2",
-            "2022-02-02 00:04:11",
-            "2022-02-02 00:04:11"
+            "2022-02-02 00:04:15",
+            "2022-02-02 00:04:15"
         ]
     },
     {
@@ -2312,8 +2214,8 @@
             "mallory89@will.org",
             true,
             "0e6e80d9-ee7f-55a1-b1c5-e0b2a17cc36c",
-            "2022-02-02 00:04:12",
-            "2022-02-02 00:04:12"
+            "2022-02-02 00:04:16",
+            "2022-02-02 00:04:16"
         ]
     },
     {
@@ -2322,8 +2224,8 @@
             "79d540cc-c86f-52a3-83ba-d6a2287289ea",
             "0e6e80d9-ee7f-55a1-b1c5-e0b2a17cc36c",
             "589ba767-5b9c-58e0-98ae-2d0c73b450d0",
-            "2022-02-02 00:04:13",
-            "2022-02-02 00:04:13"
+            "2022-02-02 00:04:17",
+            "2022-02-02 00:04:17"
         ]
     },
     {
@@ -2332,8 +2234,19 @@
             "34a7da9a-bc4f-54fd-9dcd-2a128111703d",
             "b01ad503-d3f7-47d7-96ce-c0d37a9e3307",
             "a9959f9f-bb93-5076-ae5c-b82b4df996df",
-            "2022-02-02 00:04:14",
-            "2022-02-02 00:04:14"
+            "2022-02-02 00:04:18",
+            "2022-02-02 00:04:18"
+        ]
+    },
+    {
+        "query": "update `assets` set `synced_at` = ? where `id` in (?, ?, ?, ?, ?) and `assets`.`deleted_at` is null",
+        "bindings": [
+            "2022-02-02T00:04:19+00:00",
+            "f5135d55-81fd-40e7-9bb5-a227f5516b87",
+            "16425fd0-0107-4a3f-a294-d27a5802abfa",
+            "3a010157-00fa-4110-87d9-cee7a5ba8482",
+            "5d62ee0b-ebdf-4a76-bcab-60078f6eba32",
+            "b01ad503-d3f7-47d7-96ce-c0d37a9e3307"
         ]
     },
     {
@@ -2366,14 +2279,23 @@
         ]
     },
     {
-        "query": "select `oems`.* from `oems` where 0 = 1 and `oems`.`deleted_at` is null",
-        "bindings": []
+        "query": "select `coverages`.*, `asset_coverages`.`asset_id` as `pivot_asset_id`, `asset_coverages`.`coverage_id` as `pivot_coverage_id`, `asset_coverages`.`created_at` as `pivot_created_at`, `asset_coverages`.`updated_at` as `pivot_updated_at` from `coverages` inner join `asset_coverages` on `coverages`.`id` = `asset_coverages`.`coverage_id` where `asset_coverages`.`deleted_at` is null and `asset_coverages`.`asset_id` in (?) and `coverages`.`deleted_at` is null",
+        "bindings": [
+            "00000000-0000-0000-0000-000000000000"
+        ]
     },
     {
         "query": "update `assets` set `deleted_at` = ?, `assets`.`updated_at` = ? where `id` = ?",
         "bindings": [
-            "2022-02-02 00:04:15",
-            "2022-02-02 00:04:15",
+            "2022-02-02 00:04:20",
+            "2022-02-02 00:04:20",
+            "00000000-0000-0000-0000-000000000000"
+        ]
+    },
+    {
+        "query": "update `assets` set `synced_at` = ? where `id` in (?) and `assets`.`deleted_at` is null",
+        "bindings": [
+            "2022-02-02T00:04:22+00:00",
             "00000000-0000-0000-0000-000000000000"
         ]
     }

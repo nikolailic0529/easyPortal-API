@@ -4,7 +4,6 @@ namespace App\Services\DataLoader\Factory\Concerns;
 
 use App\Models\Data\Currency;
 use App\Services\DataLoader\Factory\ModelFactory;
-use App\Services\DataLoader\Normalizer\Normalizer;
 use App\Services\DataLoader\Resolver\Resolvers\CurrencyResolver;
 use App\Services\DataLoader\Schema\Type;
 use App\Utils\Eloquent\Model;
@@ -23,35 +22,33 @@ class WithCurrencyTest extends TestCase {
      */
     public function testCurrency(): void {
         // Prepare
-        $normalizer = $this->app->make(Normalizer::class);
-        $resolver   = $this->app->make(CurrencyResolver::class);
-        $currency   = Currency::factory()->create();
-        $factory    = new class($normalizer, $resolver) extends ModelFactory {
+        $resolver = $this->app->make(CurrencyResolver::class);
+        $currency = Currency::factory()->create();
+        $factory  = new class($resolver) extends ModelFactory {
             use WithCurrency {
                 currency as public;
             }
 
             /** @noinspection PhpMissingParentConstructorInspection */
             public function __construct(
-                protected Normalizer $normalizer,
                 protected CurrencyResolver $currencyResolver,
             ) {
                 // empty
-            }
-
-            protected function getNormalizer(): Normalizer {
-                return $this->normalizer;
             }
 
             protected function getCurrencyResolver(): CurrencyResolver {
                 return $this->currencyResolver;
             }
 
+            public function getModel(): string {
+                return Model::class;
+            }
+
             public function create(Type $type): ?Model {
                 return null;
             }
         };
-        $queries    = $this->getQueryLog();
+        $queries  = $this->getQueryLog();
 
         // If model exists - no action required
         self::assertEquals($currency, $factory->currency($currency->code));
@@ -60,7 +57,7 @@ class WithCurrencyTest extends TestCase {
         $queries->flush();
 
         // If not - it should be created
-        $created = $factory->currency('new ');
+        $created = $factory->currency('new');
 
         self::assertNotNull($created);
         self::assertTrue($created->wasRecentlyCreated);
@@ -72,6 +69,6 @@ class WithCurrencyTest extends TestCase {
 
         // If null or empty - null should be returned
         self::assertNull($factory->currency(null));
-        self::assertNull($factory->currency('  '));
+        self::assertNull($factory->currency(''));
     }
 }

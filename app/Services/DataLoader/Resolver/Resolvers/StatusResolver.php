@@ -5,7 +5,6 @@ namespace App\Services\DataLoader\Resolver\Resolvers;
 use App\Models\Data\Status;
 use App\Services\DataLoader\Cache\Key;
 use App\Services\DataLoader\Container\SingletonPersistent;
-use App\Services\DataLoader\Normalizer\Normalizer;
 use App\Services\DataLoader\Resolver\Resolver;
 use Closure;
 use Illuminate\Database\Eloquent\Builder;
@@ -17,7 +16,7 @@ use Illuminate\Support\Collection;
  */
 class StatusResolver extends Resolver implements SingletonPersistent {
     /**
-     * @param Closure(Normalizer=): Status|null $factory
+     * @param Closure(): Status|null $factory
      *
      * @return ($factory is null ? Status|null : Status)
      */

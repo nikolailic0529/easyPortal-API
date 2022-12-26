@@ -13,7 +13,7 @@ use App\Services\DataLoader\Exceptions\ImportError;
 use App\Services\DataLoader\Factory\ModelFactory;
 use App\Services\DataLoader\Resolver\Resolver;
 use App\Services\DataLoader\Schema\Type;
-use App\Services\DataLoader\Schema\TypeWithId;
+use App\Services\DataLoader\Schema\TypeWithKey;
 use App\Utils\Eloquent\Model;
 use App\Utils\Iterators\Contracts\ObjectIterator;
 use App\Utils\Processor\IteratorProcessor;
@@ -22,12 +22,14 @@ use DateTimeInterface;
 use Illuminate\Contracts\Config\Repository;
 use Illuminate\Contracts\Debug\ExceptionHandler;
 use Illuminate\Contracts\Events\Dispatcher;
+use Illuminate\Support\Facades\Date;
 use Throwable;
 
+use function array_map;
 use function array_merge;
 
 /**
- * @template TItem of (Type&TypeWithId)|ModelObject
+ * @template TItem of (Type&TypeWithKey)|ModelObject
  * @template TChunkData of Data
  * @template TState of ImporterState
  * @template TModel of Model
@@ -159,6 +161,24 @@ abstract class Importer extends IteratorProcessor implements Isolated {
      * @inheritDoc
      */
     protected function chunkProcessed(State $state, array $items, mixed $data): void {
+        // Mark as synchronized
+        // The `withoutTimestamps` method is used because we just need to mark
+        // when the model was synchronized (on another side we know nothing about
+        // properties changes, thus setting the `updated_at` doesn't look good).
+        $class = $this->getFactory()->getModel();
+        $model = new $class();
+        $keys  = array_map(static fn ($item) => $item->getKey(), $items);
+
+        if ($keys) {
+            $class::withoutTimestamps(static function () use ($model, $keys): void {
+                $model::query()
+                    ->whereIn($model->getKeyName(), $keys)
+                    ->update([
+                        'synced_at' => Date::now(),
+                    ]);
+            });
+        }
+
         // Reset container
         $this->getContainer()->forgetInstances();
 

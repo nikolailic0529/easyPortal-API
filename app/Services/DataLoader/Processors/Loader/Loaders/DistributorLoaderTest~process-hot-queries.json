@@ -10,10 +10,9 @@
         "bindings": []
     },
     {
-        "query": "update `distributors` set `synced_at` = ?, `distributors`.`updated_at` = ? where `id` = ?",
+        "query": "update `distributors` set `synced_at` = ? where `id` in (?) and `distributors`.`deleted_at` is null",
         "bindings": [
-            "2022-02-02 00:00:08",
-            "2022-02-02 00:00:11",
+            "2022-02-02T00:00:08+00:00",
             "1af1c44e-8112-4e72-9654-b11c705e9372"
         ]
     }

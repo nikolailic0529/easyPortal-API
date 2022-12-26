@@ -4,9 +4,12 @@ namespace App\Utils\Cache;
 
 use App\Models\Organization;
 use App\Services\I18n\CurrentLocale;
+use App\Services\I18n\CurrentTimezone;
 use App\Services\Organization\OrganizationProvider;
 use App\Services\Queue\Contracts\NamedJob;
 use ArrayIterator;
+use DateTime;
+use DateTimeInterface;
 use Exception;
 use Illuminate\Console\Command;
 use Illuminate\Contracts\Queue\QueueableEntity;
@@ -155,6 +158,12 @@ class CacheKeyTest extends TestCase {
                     new CacheKeyTest_CurrentLocale('en_GB'),
                 ],
             ],
+            CurrentTimezone::class                        => [
+                'Europe/Paris',
+                [
+                    new CacheKeyTest_CurrentTimezone('Europe/Paris'),
+                ],
+            ],
             OrganizationProvider::class.' (non root)'     => [
                 'Organization:f1067c2c-ce60-46de-9be7-ac0b82d70f70',
                 [
@@ -179,6 +188,12 @@ class CacheKeyTest extends TestCase {
                     new CacheKeyTest_Directive('directive'),
                 ],
             ],
+            DateTimeInterface::class                      => [
+                '2022-06-02T145835',
+                [
+                    new DateTime('2022-06-02T16:58:35+02:00'),
+                ],
+            ],
             Traversable::class                            => [
                 sha1(json_encode(['a' => 123, 'b' => 'value'], JSON_THROW_ON_ERROR)),
                 [
@@ -186,11 +201,9 @@ class CacheKeyTest extends TestCase {
                 ],
             ],
             JsonSerializable::class                       => [
-                sha1(json_encode(['json'], JSON_THROW_ON_ERROR)),
+                sha1(json_encode('json', JSON_THROW_ON_ERROR)),
                 [
-                    [
-                        new CacheKeyTest_JsonSerializable('json'),
-                    ],
+                    new CacheKeyTest_JsonSerializable('json'),
                 ],
             ],
             Geohash::class.' (encode)'                    => [
@@ -431,6 +444,23 @@ class CacheKeyTest_CurrentLocale extends CurrentLocale {
 
     public function get(): string {
         return $this->locale;
+    }
+}
+
+/**
+ * @internal
+ * @noinspection PhpMultipleClassesDeclarationsInOneFile
+ */
+class CacheKeyTest_CurrentTimezone extends CurrentTimezone {
+    /** @noinspection PhpMissingParentConstructorInspection */
+    public function __construct(
+        protected string $timezone,
+    ) {
+        // empty
+    }
+
+    public function get(): string {
+        return $this->timezone;
     }
 }
 

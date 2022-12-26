@@ -4,7 +4,6 @@ namespace App\Services\DataLoader\Resolver\Resolvers;
 
 use App\Models\Contact;
 use App\Services\DataLoader\Cache\Key;
-use App\Services\DataLoader\Normalizer\Normalizer;
 use App\Services\DataLoader\Resolver\Resolver;
 use Closure;
 use Illuminate\Database\Eloquent\Builder;
@@ -15,7 +14,7 @@ use Illuminate\Database\Eloquent\Model;
  */
 class ContactResolver extends Resolver {
     /**
-     * @param Closure(Normalizer=): Contact|null $factory
+     * @param Closure(): Contact|null $factory
      *
      * @return ($factory is null ? Contact|null : Contact)
      */

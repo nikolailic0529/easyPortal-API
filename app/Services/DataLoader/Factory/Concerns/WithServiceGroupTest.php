@@ -5,7 +5,6 @@ namespace App\Services\DataLoader\Factory\Concerns;
 use App\Models\Data\Oem;
 use App\Models\Data\ServiceGroup;
 use App\Services\DataLoader\Factory\Factory;
-use App\Services\DataLoader\Normalizer\Normalizer;
 use App\Services\DataLoader\Resolver\Resolvers\ServiceGroupResolver;
 use LastDragon_ru\LaraASP\Testing\Database\QueryLog\WithQueryLog;
 use Tests\TestCase;
@@ -22,20 +21,18 @@ class WithServiceGroupTest extends TestCase {
      */
     public function testServiceGroup(): void {
         // Prepare
-        $oem        = Oem::factory()->create();
-        $group      = ServiceGroup::factory()->create([
+        $oem      = Oem::factory()->create();
+        $group    = ServiceGroup::factory()->create([
             'oem_id' => $oem,
         ]);
-        $normalizer = $this->app->make(Normalizer::class);
-        $resolver   = $this->app->make(ServiceGroupResolver::class);
-        $factory    = new class($normalizer, $resolver) extends Factory {
+        $resolver = $this->app->make(ServiceGroupResolver::class);
+        $factory  = new class($resolver) extends Factory {
             use WithServiceGroup {
                 serviceGroup as public;
             }
 
             /** @noinspection PhpMissingParentConstructorInspection */
             public function __construct(
-                protected Normalizer $normalizer,
                 protected ServiceGroupResolver $serviceGroupResolver,
             ) {
                 // empty

@@ -6,8 +6,7 @@ use App\Models\Enums\OrganizationType;
 use App\Models\Organization;
 use App\Models\Reseller;
 use App\Services\DataLoader\Events\ResellerUpdated;
-use App\Services\DataLoader\Normalizer\Normalizer;
-use App\Services\DataLoader\Schema\Company;
+use App\Services\DataLoader\Schema\Types\Company;
 use Illuminate\Support\Facades\Date;
 use Illuminate\Support\Facades\Event;
 use Tests\TestCase;
@@ -338,66 +337,65 @@ class OrganizationUpdaterTest extends TestCase {
         $updater->handle($event);
 
         $organization = Organization::query()->whereKey($reseller->getKey())->first();
-        $normalizer   = $this->app->make(Normalizer::class);
         $branding     = $company->brandingData;
 
         self::assertNotNull($organization);
         self::assertNotNull($branding);
         self::assertEquals(
-            $normalizer->boolean($branding->brandingMode),
+            $branding->brandingMode,
             $organization->branding_dark_theme,
         );
         self::assertEquals(
-            $normalizer->string($branding->defaultLogoUrl),
+            $branding->defaultLogoUrl,
             $organization->branding_default_logo_url,
         );
         self::assertEquals(
-            $normalizer->color($branding->defaultMainColor),
+            $branding->defaultMainColor,
             $organization->branding_default_main_color,
         );
         self::assertEquals(
-            $normalizer->string($branding->favIconUrl),
+            $branding->favIconUrl,
             $organization->branding_favicon_url,
         );
         self::assertEquals(
-            $normalizer->string($branding->logoUrl),
+            $branding->logoUrl,
             $organization->branding_logo_url,
         );
         self::assertEquals(
-            $normalizer->color($branding->mainColor),
+            $branding->mainColor,
             $organization->branding_main_color,
         );
         self::assertEquals(
-            $normalizer->string($branding->mainImageOnTheRight),
+            $branding->mainImageOnTheRight,
             $organization->branding_welcome_image_url,
         );
         self::assertEquals(
-            $normalizer->color($branding->secondaryColor),
+            $branding->secondaryColor,
             $organization->branding_secondary_color,
         );
         self::assertEquals(
-            $normalizer->color($branding->secondaryColorDefault),
+            $branding->secondaryColorDefault,
             $organization->branding_default_secondary_color,
         );
         self::assertEquals(
-            $normalizer->string($branding->useDefaultFavIcon),
+            $branding->useDefaultFavIcon,
             $organization->branding_default_favicon_url,
         );
         self::assertEquals(
-            $normalizer->string($branding->resellerAnalyticsCode),
+            $branding->resellerAnalyticsCode,
             $organization->analytics_code,
         );
         self::assertEquals(
             [
-                'en_GB'   => $normalizer->string($branding->mainHeadingText[0]->text ?? null),
-                'unknown' => $normalizer->string($branding->mainHeadingText[1]->text ?? null),
+                'en_GB'   => $branding->mainHeadingText[0]->text ?? null,
+                'unknown' => $branding->mainHeadingText[1]->text ?? null,
             ],
             $organization->branding_welcome_heading->toArray(),
         );
         self::assertEquals(
             [
-                'en_GB'   => $normalizer->string($branding->underlineText[0]->text ?? null),
-                'unknown' => $normalizer->string($branding->underlineText[1]->text ?? null),
+                'en_GB'   => $branding->underlineText[0]->text ?? null,
+                'unknown' => $branding->underlineText[1]->text ?? null,
             ],
             $organization->branding_welcome_underline->toArray(),
         );

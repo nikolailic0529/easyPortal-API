@@ -148,7 +148,11 @@ input SortByClauseCustomerLocation {
 
 type AggregatedGroupByTypeGroup {
     count: Int!
+
     key: String
+    @rename(
+        attribute: "__key"
+    )
 }
 
 """
@@ -439,6 +443,22 @@ directive @relation(
 )
 on
     | FIELD_DEFINITION
+
+"""
+Change the internally used name of a field or argument.
+
+This does not change the schema from a client perspective.
+"""
+directive @rename(
+    """
+    The internal name of an attribute/property/key.
+    """
+    attribute: String!
+)
+on
+    | ARGUMENT_DEFINITION
+    | FIELD_DEFINITION
+    | INPUT_FIELD_DEFINITION
 
 """
 Validate an argument using [Laravel validation](https://laravel.com/docs/validation).

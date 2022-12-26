@@ -34,7 +34,7 @@ use function sprintf;
  * Document Entry.
  *
  * @property string               $id
- * @property string|null          $uid
+ * @property string|null          $key
  * @property string               $document_id
  * @property string|null          $asset_id
  * @property string|null          $asset_type_id

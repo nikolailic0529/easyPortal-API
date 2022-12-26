@@ -3,8 +3,8 @@
 namespace App\Services\DataLoader\Factory\Factories;
 
 use App\Models\Distributor;
-use App\Services\DataLoader\Schema\Company;
 use App\Services\DataLoader\Schema\Type;
+use App\Services\DataLoader\Schema\Types\Company;
 use App\Services\DataLoader\Testing\Helper;
 use InvalidArgumentException;
 use LastDragon_ru\LaraASP\Testing\Database\QueryLog\WithQueryLog;
@@ -23,20 +23,6 @@ class DistributorFactoryTest extends TestCase {
 
     // <editor-fold desc="Tests">
     // =========================================================================
-    /**
-     * @covers ::find
-     */
-    public function testFind(): void {
-        $factory = $this->app->make(DistributorFactory::class);
-        $json    = $this->getTestData()->json('~distributor-full.json');
-        $company = new Company($json);
-        $queries = $this->getQueryLog()->flush();
-
-        $factory->find($company);
-
-        self::assertCount(2, $queries);
-    }
-
     /**
      * @covers ::create
      *
@@ -86,7 +72,7 @@ class DistributorFactoryTest extends TestCase {
         self::assertTrue($distributor->wasRecentlyCreated);
         self::assertEquals($company->id, $distributor->getKey());
         self::assertEquals($company->name, $distributor->name);
-        self::assertEquals($company->updatedAt, $this->getDatetime($distributor->changed_at));
+        self::assertEquals($company->updatedAt, $distributor->changed_at);
 
         // Distributor should be updated
         $json     = $this->getTestData()->json('~distributor-changed.json');
@@ -101,7 +87,7 @@ class DistributorFactoryTest extends TestCase {
         self::assertSame($distributor, $updated);
         self::assertEquals($company->id, $updated->getKey());
         self::assertEquals($company->name, $updated->name);
-        self::assertEquals($company->updatedAt, $this->getDatetime($updated->changed_at));
+        self::assertEquals($company->updatedAt, $updated->changed_at);
 
         // No changes
         $json    = $this->getTestData()->json('~distributor-changed.json');
@@ -110,7 +96,7 @@ class DistributorFactoryTest extends TestCase {
 
         $factory->create($company);
 
-        self::assertCount(1, $queries);
+        self::assertCount(0, $queries);
     }
 
     /**

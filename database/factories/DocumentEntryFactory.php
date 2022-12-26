@@ -32,7 +32,7 @@ class DocumentEntryFactory extends Factory {
     public function definition(): array {
         return [
             'id'                          => $this->faker->uuid(),
-            'uid'                         => null,
+            'key'                         => null,
             'document_id'                 => Document::factory(),
             'asset_id'                    => Asset::factory(),
             'asset_type_id'               => null,

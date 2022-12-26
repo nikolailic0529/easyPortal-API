@@ -4,34 +4,12 @@
         "bindings": []
     },
     {
-        "query": "update `distributors` set `synced_at` = ?, `distributors`.`updated_at` = ? where `id` = ?",
+        "query": "update `distributors` set `synced_at` = ? where `id` in (?, ?, ?, ?) and `distributors`.`deleted_at` is null",
         "bindings": [
-            "2022-02-02 00:00:14",
-            "2022-02-02 00:00:17",
-            "0920a7cb-3cf1-4a7d-bd84-f255cb753dec"
-        ]
-    },
-    {
-        "query": "update `distributors` set `synced_at` = ?, `distributors`.`updated_at` = ? where `id` = ?",
-        "bindings": [
-            "2022-02-02 00:00:38",
-            "2022-02-02 00:00:41",
-            "1af1c44e-8112-4e72-9654-b11c705e9372"
-        ]
-    },
-    {
-        "query": "update `distributors` set `synced_at` = ?, `distributors`.`updated_at` = ? where `id` = ?",
-        "bindings": [
-            "2022-02-02 00:01:02",
-            "2022-02-02 00:01:05",
-            "a985a692-c063-499a-ab2f-0a2adef86a3f"
-        ]
-    },
-    {
-        "query": "update `distributors` set `synced_at` = ?, `distributors`.`updated_at` = ? where `id` = ?",
-        "bindings": [
-            "2022-02-02 00:01:26",
-            "2022-02-02 00:01:29",
+            "2022-02-02T00:00:14+00:00",
+            "0920a7cb-3cf1-4a7d-bd84-f255cb753dec",
+            "1af1c44e-8112-4e72-9654-b11c705e9372",
+            "a985a692-c063-499a-ab2f-0a2adef86a3f",
             "efc39adf-0497-40a3-a6e6-bbd692f87516"
         ]
     }

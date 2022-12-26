@@ -170,7 +170,7 @@
         ]
     },
     {
-        "query": "insert into `customers` (`id`, `name`, `changed_at`, `statuses_count`, `contacts_count`, `locations_count`, `kpi_id`, `synced_at`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `customers` (`id`, `name`, `changed_at`, `statuses_count`, `contacts_count`, `locations_count`, `kpi_id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "04e2ec4e-9bb1-47c7-98f0-6096cd178974",
             "Wuckert LLC",
@@ -180,8 +180,7 @@
             1,
             "32d75fac-c03f-583b-93ef-c33da4962cd9",
             "2022-02-02 00:00:09",
-            "2022-02-02 00:00:10",
-            "2022-02-02 00:00:10"
+            "2022-02-02 00:00:09"
         ]
     },
     {
@@ -190,8 +189,8 @@
             "f350c0e2-d7d5-5d95-8c8c-f277dc7740e7",
             "04e2ec4e-9bb1-47c7-98f0-6096cd178974",
             "0701bffb-7dd8-5c19-8f2f-431ce387ae2d",
-            "2022-02-02 00:00:11",
-            "2022-02-02 00:00:11"
+            "2022-02-02 00:00:10",
+            "2022-02-02 00:00:10"
         ]
     },
     {
@@ -204,8 +203,8 @@
             "suzanne64@conn.com",
             true,
             "eff80036-c3b7-5820-9ee7-5ed602a3fa8c",
-            "2022-02-02 00:00:12",
-            "2022-02-02 00:00:12"
+            "2022-02-02 00:00:11",
+            "2022-02-02 00:00:11"
         ]
     },
     {
@@ -214,8 +213,8 @@
             "2103bfd2-ec0b-5bd7-96c0-109c7728abc9",
             "eff80036-c3b7-5820-9ee7-5ed602a3fa8c",
             "3279c35a-f28d-5576-acbd-99e76281f455",
-            "2022-02-02 00:00:13",
-            "2022-02-02 00:00:13"
+            "2022-02-02 00:00:12",
+            "2022-02-02 00:00:12"
         ]
     },
     {
@@ -224,8 +223,15 @@
             "04e2ec4e-9bb1-47c7-98f0-6096cd178974",
             "d1f188be-5af5-5ef1-aac0-3fe0fe00f0de",
             "5be6c2ad-c211-5e7c-ad6e-c2715cf59541",
-            "2022-02-02 00:00:14",
-            "2022-02-02 00:00:14"
+            "2022-02-02 00:00:13",
+            "2022-02-02 00:00:13"
+        ]
+    },
+    {
+        "query": "update `customers` set `synced_at` = ? where `id` in (?) and `customers`.`deleted_at` is null",
+        "bindings": [
+            "2022-02-02T00:00:14+00:00",
+            "04e2ec4e-9bb1-47c7-98f0-6096cd178974"
         ]
     }
 ]

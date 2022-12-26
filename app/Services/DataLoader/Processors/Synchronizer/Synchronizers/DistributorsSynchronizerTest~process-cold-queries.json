@@ -13,47 +13,53 @@
         ]
     },
     {
-        "query": "insert into `distributors` (`id`, `name`, `changed_at`, `synced_at`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?)",
+        "query": "insert into `distributors` (`id`, `name`, `changed_at`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "0920a7cb-3cf1-4a7d-bd84-f255cb753dec",
             "Schowalter-Grady",
             "2022-06-27 12:43:36",
-            "2022-09-16 00:00:03",
-            "2022-09-16 00:00:04",
-            "2022-09-16 00:00:04"
+            "2022-09-16 00:00:06",
+            "2022-09-16 00:00:06"
         ]
     },
     {
-        "query": "insert into `distributors` (`id`, `name`, `changed_at`, `synced_at`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?)",
+        "query": "insert into `distributors` (`id`, `name`, `changed_at`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "1af1c44e-8112-4e72-9654-b11c705e9372",
             "Lang, Lockman and Murray",
             "2022-06-27 12:44:03",
-            "2022-09-16 00:00:06",
             "2022-09-16 00:00:07",
             "2022-09-16 00:00:07"
         ]
     },
     {
-        "query": "insert into `distributors` (`id`, `name`, `changed_at`, `synced_at`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?)",
+        "query": "insert into `distributors` (`id`, `name`, `changed_at`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "a985a692-c063-499a-ab2f-0a2adef86a3f",
             "Herman, Altenwerth and Schuster",
             "2022-06-27 12:48:23",
-            "2022-09-16 00:00:09",
-            "2022-09-16 00:00:10",
-            "2022-09-16 00:00:10"
+            "2022-09-16 00:00:08",
+            "2022-09-16 00:00:08"
         ]
     },
     {
-        "query": "insert into `distributors` (`id`, `name`, `changed_at`, `synced_at`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?)",
+        "query": "insert into `distributors` (`id`, `name`, `changed_at`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "efc39adf-0497-40a3-a6e6-bbd692f87516",
             "Howell and Sons",
             "2022-06-27 12:50:38",
-            "2022-09-16 00:00:12",
-            "2022-09-16 00:00:13",
-            "2022-09-16 00:00:13"
+            "2022-09-16 00:00:09",
+            "2022-09-16 00:00:09"
+        ]
+    },
+    {
+        "query": "update `distributors` set `synced_at` = ? where `id` in (?, ?, ?, ?) and `distributors`.`deleted_at` is null",
+        "bindings": [
+            "2022-09-16T00:00:10+00:00",
+            "0920a7cb-3cf1-4a7d-bd84-f255cb753dec",
+            "1af1c44e-8112-4e72-9654-b11c705e9372",
+            "a985a692-c063-499a-ab2f-0a2adef86a3f",
+            "efc39adf-0497-40a3-a6e6-bbd692f87516"
         ]
     },
     {
@@ -82,8 +88,15 @@
     {
         "query": "update `distributors` set `deleted_at` = ?, `distributors`.`updated_at` = ? where `id` = ?",
         "bindings": [
-            "2022-09-16 00:00:14",
-            "2022-09-16 00:00:14",
+            "2022-09-16 00:00:11",
+            "2022-09-16 00:00:11",
+            "00000000-0000-0000-0000-000000000000"
+        ]
+    },
+    {
+        "query": "update `distributors` set `synced_at` = ? where `id` in (?) and `distributors`.`deleted_at` is null",
+        "bindings": [
+            "2022-09-16T00:00:13+00:00",
             "00000000-0000-0000-0000-000000000000"
         ]
     }

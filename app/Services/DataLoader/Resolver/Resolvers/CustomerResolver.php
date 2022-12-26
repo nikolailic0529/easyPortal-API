@@ -3,7 +3,6 @@
 namespace App\Services\DataLoader\Resolver\Resolvers;
 
 use App\Models\Customer;
-use App\Services\DataLoader\Normalizer\Normalizer;
 use App\Services\DataLoader\Resolver\Resolver;
 use Closure;
 use Illuminate\Database\Eloquent\Builder;
@@ -13,7 +12,7 @@ use Illuminate\Database\Eloquent\Builder;
  */
 class CustomerResolver extends Resolver {
     /**
-     * @param Closure(Normalizer=): Customer|null $factory
+     * @param Closure(): Customer|null $factory
      *
      * @return ($factory is null ? Customer|null : Customer)
      */

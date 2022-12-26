@@ -244,7 +244,14 @@ abstract class JsonObject implements JsonSerializable, Arrayable, Countable {
                         return is_object($json) ? $json : ($json !== null ? new $class($json) : null);
                     };
                 } else {
-                    // error?
+                    $normalizer = $property->getAttributes(JsonObjectNormalizer::class);
+                    $normalizer = (reset($normalizer) ?: null)?->newInstance();
+
+                    if ($normalizer instanceof JsonObjectNormalizer) {
+                        $factory = static function (mixed $value) use ($normalizer): mixed {
+                            return $normalizer->normalize($value);
+                        };
+                    }
                 }
 
                 if ($factory && $isArray) {

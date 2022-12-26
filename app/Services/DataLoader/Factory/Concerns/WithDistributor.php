@@ -6,17 +6,14 @@ use App\Models\Distributor;
 use App\Services\DataLoader\Exceptions\DistributorNotFound;
 use App\Services\DataLoader\Factory\Factory;
 use App\Services\DataLoader\Finders\DistributorFinder;
-use App\Services\DataLoader\Normalizer\Normalizer;
 use App\Services\DataLoader\Resolver\Resolvers\DistributorResolver;
-use App\Services\DataLoader\Schema\Document;
-use App\Services\DataLoader\Schema\ViewDocument;
+use App\Services\DataLoader\Schema\Types\Document;
+use App\Services\DataLoader\Schema\Types\ViewDocument;
 
 /**
  * @mixin Factory
  */
 trait WithDistributor {
-    abstract protected function getNormalizer(): Normalizer;
-
     abstract protected function getDistributorFinder(): ?DistributorFinder;
 
     abstract protected function getDistributorResolver(): DistributorResolver;
@@ -29,17 +26,15 @@ trait WithDistributor {
         $distributor = null;
 
         if ($id) {
-            $id          = $this->getNormalizer()->uuid($id);
-            $distributor = $this->getDistributorResolver()->get($id, $this->factory(
-                function () use ($id): ?Distributor {
-                    return $this->getDistributorFinder()?->find($id);
-                },
-            ));
-        }
+            $distributor = $this->getDistributorResolver()->get($id, function () use ($id, $object): Distributor {
+                $distributor = $this->getDistributorFinder()?->find($id);
 
-        // Found?
-        if ($id && !$distributor) {
-            throw new DistributorNotFound($id, $object);
+                if (!$distributor) {
+                    throw new DistributorNotFound($id, $object);
+                }
+
+                return $distributor;
+            });
         }
 
         // Return

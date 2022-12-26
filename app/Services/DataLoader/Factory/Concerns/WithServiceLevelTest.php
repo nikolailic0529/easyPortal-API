@@ -6,7 +6,6 @@ use App\Models\Data\Oem;
 use App\Models\Data\ServiceGroup;
 use App\Models\Data\ServiceLevel;
 use App\Services\DataLoader\Factory\Factory;
-use App\Services\DataLoader\Normalizer\Normalizer;
 use App\Services\DataLoader\Resolver\Resolvers\ServiceLevelResolver;
 use LastDragon_ru\LaraASP\Testing\Database\QueryLog\WithQueryLog;
 use Tests\TestCase;
@@ -23,24 +22,22 @@ class WithServiceLevelTest extends TestCase {
      */
     public function testServiceLevel(): void {
         // Prepare
-        $oem        = Oem::factory()->create();
-        $group      = ServiceGroup::factory()->create([
+        $oem      = Oem::factory()->create();
+        $group    = ServiceGroup::factory()->create([
             'oem_id' => $oem,
         ]);
-        $level      = ServiceLevel::factory()->create([
+        $level    = ServiceLevel::factory()->create([
             'oem_id'           => $oem,
             'service_group_id' => $group,
         ]);
-        $normalizer = $this->app->make(Normalizer::class);
-        $resolver   = $this->app->make(ServiceLevelResolver::class);
-        $factory    = new class($normalizer, $resolver) extends Factory {
+        $resolver = $this->app->make(ServiceLevelResolver::class);
+        $factory  = new class($resolver) extends Factory {
             use WithServiceLevel {
                 serviceLevel as public;
             }
 
             /** @noinspection PhpMissingParentConstructorInspection */
             public function __construct(
-                protected Normalizer $normalizer,
                 protected ServiceLevelResolver $serviceLevelResolver,
             ) {
                 // empty

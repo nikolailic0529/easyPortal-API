@@ -46,13 +46,14 @@ use App\Services\DataLoader\Client\GraphQL\Queries\ResellersCount;
 use App\Services\DataLoader\Client\GraphQL\Queries\ResellersCountFrom;
 use App\Services\DataLoader\Exceptions\AssetWarrantyCheckFailed;
 use App\Services\DataLoader\Exceptions\CustomerWarrantyCheckFailed;
-use App\Services\DataLoader\Normalizer\Normalizer;
-use App\Services\DataLoader\Schema\Company;
-use App\Services\DataLoader\Schema\CompanyBrandingData;
-use App\Services\DataLoader\Schema\Document;
-use App\Services\DataLoader\Schema\TriggerCoverageStatusCheck;
-use App\Services\DataLoader\Schema\UpdateCompanyFile;
-use App\Services\DataLoader\Schema\ViewAsset;
+use App\Services\DataLoader\Normalizers\BoolNormalizer;
+use App\Services\DataLoader\Normalizers\StringNormalizer;
+use App\Services\DataLoader\Schema\Inputs\CompanyBrandingData;
+use App\Services\DataLoader\Schema\Inputs\TriggerCoverageStatusCheck;
+use App\Services\DataLoader\Schema\Inputs\UpdateCompanyFile;
+use App\Services\DataLoader\Schema\Types\Company;
+use App\Services\DataLoader\Schema\Types\Document;
+use App\Services\DataLoader\Schema\Types\ViewAsset;
 use App\Utils\Iterators\Contracts\ObjectIterator;
 use Closure;
 use DateTimeInterface;
@@ -88,7 +89,6 @@ class Client {
         protected Repository $config,
         protected Factory $client,
         protected Token $token,
-        protected Normalizer $normalizer,
     ) {
         // empty
     }
@@ -484,9 +484,9 @@ class Client {
         $value  = $this->value(new CoverageStatusCheck(), [
             'input' => $input->toArray(),
         ]);
-        $result = $this->normalizer->boolean($value);
+        $result = BoolNormalizer::normalize($value);
         $error  = $result !== true && $value && is_string($value)
-            ? ($this->normalizer->string($value) ?: null)
+            ? (StringNormalizer::normalize($value) ?: null)
             : null;
 
         return (bool) $result;

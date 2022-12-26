@@ -3,8 +3,12 @@
 namespace App\Utils\Cache;
 
 use App\Services\I18n\CurrentLocale;
+use App\Services\I18n\CurrentTimezone;
 use App\Services\Organization\OrganizationProvider;
 use App\Services\Queue\Contracts\NamedJob;
+use DateTime;
+use DateTimeInterface;
+use DateTimeZone;
 use Illuminate\Console\Command;
 use Illuminate\Contracts\Queue\QueueableEntity;
 use Illuminate\Database\Eloquent\Model;
@@ -69,7 +73,7 @@ class CacheKey implements Stringable {
         foreach ($key as $k => $value) {
             $value = $this->value($value);
 
-            if (is_array($value)) {
+            if (is_array($value) || $value instanceof JsonSerializable) {
                 $value = $this->hash($this->encode($value));
             } elseif (is_string($value) || is_int($value) || is_null($value)) {
                 // as is
@@ -125,8 +129,16 @@ class CacheKey implements Stringable {
             }
         } elseif ($value instanceof CurrentLocale) {
             $normalized = $value->get();
+        } elseif ($value instanceof CurrentTimezone) {
+            $normalized = $value->get();
         } elseif ($value instanceof BaseDirective) {
             $normalized = "@{$value->name()}";
+        } elseif ($value instanceof DateTimeInterface) {
+            // Separator (`:`) used to split key into sections in Redis Commander,
+            // so we are to avoid it inside key.
+            $normalized = DateTime::createFromInterface($value)
+                ->setTimezone(new DateTimeZone('UTC'))
+                ->format('Y-m-d\THis');
         } elseif ($value instanceof Geohash) {
             $normalized = $value->getGeohash()
                 ?: (new Geohash())->encode($value->getCoordinate())->getGeohash();

@@ -6,7 +6,6 @@ use App\Models\Data\Oem;
 use App\Models\Data\Product;
 use App\Services\DataLoader\Cache\Key;
 use App\Services\DataLoader\Container\SingletonPersistent;
-use App\Services\DataLoader\Normalizer\Normalizer;
 use App\Services\DataLoader\Resolver\Resolver;
 use Closure;
 use Illuminate\Database\Eloquent\Builder;
@@ -18,7 +17,7 @@ use Illuminate\Support\Collection;
  */
 class ProductResolver extends Resolver implements SingletonPersistent {
     /**
-     * @param Closure(Normalizer=): Product|null $factory
+     * @param Closure(): Product|null $factory
      *
      * @return ($factory is null ? Product|null : Product)
      */

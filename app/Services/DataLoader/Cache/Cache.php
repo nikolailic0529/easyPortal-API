@@ -157,6 +157,6 @@ class Cache {
             }
         }
 
-        return new EloquentCollection(array_values($all));
+        return EloquentCollection::make(array_values($all));
     }
 }
