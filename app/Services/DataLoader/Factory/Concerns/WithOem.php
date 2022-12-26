@@ -17,9 +17,7 @@ trait WithOem {
 
     protected function oem(?string $key): ?Oem {
         // Null?
-        $key = $this->getNormalizer()->string($key) ?: null;
-
-        if ($key === null) {
+        if ($key === null || $key === '') {
             return null;
         }
 

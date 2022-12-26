@@ -54,11 +54,10 @@ class DistributorFactory extends ModelFactory {
     protected function createFromCompany(Company $company): ?Distributor {
         // Get/Create
         $created     = false;
-        $factory     = function (Distributor $distributor) use (&$created, $company): Distributor {
+        $factory     = static function (Distributor $distributor) use (&$created, $company): Distributor {
             $created                 = !$distributor->exists;
-            $normalizer              = $this->getNormalizer();
             $distributor->id         = $company->id;
-            $distributor->name       = $normalizer->string($company->name);
+            $distributor->name       = $company->name;
             $distributor->changed_at = $company->updatedAt;
 
             if ($distributor->trashed()) {

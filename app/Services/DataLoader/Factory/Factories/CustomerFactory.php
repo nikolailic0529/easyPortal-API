@@ -94,9 +94,8 @@ class CustomerFactory extends CompanyFactory {
         $created  = false;
         $factory  = function (Customer $customer) use (&$created, $company): Customer {
             $created                   = !$customer->exists;
-            $normalizer                = $this->getNormalizer();
             $customer->id              = $company->id;
-            $customer->name            = $normalizer->string($company->name);
+            $customer->name            = $company->name;
             $customer->changed_at      = $company->updatedAt;
             $customer->statuses        = $this->companyStatuses($customer, $company);
             $customer->contacts        = $this->objectContacts($customer, $company->companyContactPersons);

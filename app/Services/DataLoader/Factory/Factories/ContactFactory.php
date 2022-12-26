@@ -80,22 +80,8 @@ class ContactFactory extends DependentModelFactory {
             $name,
             $phone,
             $mail,
-            function () use ($object, $name, $phone, $valid, $mail): Contact {
-                $model      = new Contact();
-                $normalizer = $this->getNormalizer();
-
-                if (!is_null($name)) {
-                    $name = $normalizer->string($name);
-                }
-
-                if (!is_null($phone)) {
-                    $phone = $normalizer->string($phone);
-                }
-
-                if (!is_null($mail)) {
-                    $mail = $normalizer->string($mail);
-                }
-
+            static function () use ($object, $name, $phone, $valid, $mail): Contact {
+                $model               = new Contact();
                 $model->object_type  = $object->getMorphClass();
                 $model->object_id    = $object->getKey();
                 $model->name         = $name;

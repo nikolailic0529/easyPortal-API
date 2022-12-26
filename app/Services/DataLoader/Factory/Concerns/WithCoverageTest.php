@@ -64,7 +64,7 @@ class WithCoverageTest extends TestCase {
 
         // If not - it should be created
         $queries = $this->getQueryLog()->flush();
-        $created = $factory->coverage('new ');
+        $created = $factory->coverage('new');
 
         self::assertTrue($created->wasRecentlyCreated);
         self::assertEquals('new', $created->key);

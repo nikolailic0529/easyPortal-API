@@ -25,6 +25,7 @@ use function implode;
 use function mb_strtoupper;
 use function sprintf;
 use function str_contains;
+use function trim;
 
 /**
  * @extends ModelFactory<LocationModel>
@@ -90,6 +91,7 @@ class LocationFactory extends ModelFactory {
 
         if ($city && str_contains($city, ',')) {
             [$city, $state] = explode(',', $city, 2);
+            $state          = trim($state);
         }
 
         if (!$city) {
@@ -128,16 +130,14 @@ class LocationFactory extends ModelFactory {
 
     protected function country(string $code, ?string $name): Country {
         // Get/Create
-        $code    = $this->getNormalizer()->string($code);
         $created = false;
-        $factory = function (Country $country) use (&$created, $code, $name): Country {
+        $factory = static function (Country $country) use (&$created, $code, $name): Country {
             $created = !$country->exists;
             $code    = mb_strtoupper($code);
 
             if ($created || $country->name === self::UNKNOWN_COUNTRY_NAME || $country->name === $code) {
-                $normalizer    = $this->getNormalizer();
                 $country->code = $code;
-                $country->name = $normalizer->string($name) ?: $code;
+                $country->name = $name ?: $code;
 
                 $country->save();
             }
@@ -161,7 +161,6 @@ class LocationFactory extends ModelFactory {
     }
 
     protected function city(Country $country, string $name): City {
-        $name = $this->getNormalizer()->string($name);
         $city = $this->cityResolver->get(
             $country,
             $name,
@@ -191,13 +190,8 @@ class LocationFactory extends ModelFactory {
         ?string $longitude,
         bool $update = true,
     ): LocationModel {
-        $normalizer = $this->getNormalizer();
-        $postcode   = $normalizer->string($postcode);
-        $lineOne    = $normalizer->string($lineOne);
-        $lineTwo    = $normalizer->string($lineTwo);
-        $state      = $normalizer->string($state);
-        $created    = false;
-        $factory    = function (
+        $created  = false;
+        $factory  = function (
             LocationModel $location,
         ) use (
             &$created,
@@ -225,7 +219,7 @@ class LocationFactory extends ModelFactory {
 
             return $location;
         };
-        $location   = $this->locationResolver->get(
+        $location = $this->locationResolver->get(
             $country,
             $city,
             $postcode,

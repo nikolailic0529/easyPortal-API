@@ -3,6 +3,7 @@
 namespace App\Services\DataLoader\Schema\Types;
 
 use App\Services\DataLoader\Normalizer\Normalizers\DateTimeNormalizer;
+use App\Services\DataLoader\Normalizer\Normalizers\StringNormalizer;
 use App\Services\DataLoader\Normalizer\Normalizers\UuidNormalizer;
 use App\Services\DataLoader\Schema\Type;
 use App\Services\DataLoader\Schema\TypeWithKey;
@@ -14,28 +15,36 @@ class Company extends Type implements TypeWithKey {
     #[JsonObjectNormalizer(UuidNormalizer::class)]
     public string $id;
 
-    public string  $name;
+    #[JsonObjectNormalizer(StringNormalizer::class)]
+    public string $name;
+
+    #[JsonObjectNormalizer(StringNormalizer::class)]
     public ?string $companyType;
 
     #[JsonObjectNormalizer(DateTimeNormalizer::class)]
     public ?CarbonImmutable $updatedAt;
 
+    #[JsonObjectNormalizer(StringNormalizer::class)]
     public ?string $keycloakName;
 
     #[JsonObjectNormalizer(UuidNormalizer::class)]
     public ?string $keycloakGroupId;
 
+    #[JsonObjectNormalizer(StringNormalizer::class)]
     public ?string $keycloakClientScopeName;
+
     /**
      * @var array<CompanyContactPerson>
      */
     #[JsonObjectArray(CompanyContactPerson::class)]
     public array $companyContactPersons;
+
     /**
      * @var array<Location>
      */
     #[JsonObjectArray(Location::class)]
     public array $locations;
+
     /**
      * @var array<ViewAsset>
      */
@@ -54,6 +63,7 @@ class Company extends Type implements TypeWithKey {
     /**
      * @var array<string>|null
      */
+    #[JsonObjectNormalizer(StringNormalizer::class)]
     public ?array $status;
 
     public function getKey(): string {

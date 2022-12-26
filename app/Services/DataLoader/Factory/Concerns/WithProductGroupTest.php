@@ -43,7 +43,7 @@ class WithProductGroupTest extends TestCase {
 
         // If not - it should be created
         $queries = $this->getQueryLog()->flush();
-        $created = $factory->productGroup(' KEY ');
+        $created = $factory->productGroup('KEY');
 
         self::assertNotNull($created);
         self::assertTrue($created->wasRecentlyCreated);
@@ -58,6 +58,6 @@ class WithProductGroupTest extends TestCase {
         self::assertCount(0, $queries);
 
         // Empty key
-        self::assertNull($factory->productGroup(' '));
+        self::assertNull($factory->productGroup(''));
     }
 }

@@ -25,11 +25,9 @@ trait WithProduct {
         ?CarbonImmutable $eos,
     ): Product {
         // Get/Create
-        $sku     = $this->getNormalizer()->string($sku);
         $created = false;
-        $factory = function (Product $product) use (&$created, $oem, $sku, $name, $eol, $eos): Product {
+        $factory = static function (Product $product) use (&$created, $oem, $sku, $name, $eol, $eos): Product {
             $created      = !$product->exists;
-            $normalizer   = $this->getNormalizer();
             $product->oem = $oem;
             $product->sku = $sku;
             $product->eol = $eol;
@@ -41,7 +39,7 @@ trait WithProduct {
                 // - '(Gewährleistung) HPE Hardware Maintenance Onsite Support'
                 //
                 // To avoid infinite updates we will not update it at all.
-                $product->name = (string) $normalizer->string($name);
+                $product->name = (string) $name;
             }
 
             $product->save();

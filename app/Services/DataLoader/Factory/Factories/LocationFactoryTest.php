@@ -147,7 +147,7 @@ class LocationFactoryTest extends TestCase {
                 $location->zip,
                 $location->address,
                 '',
-                "  {$state}",
+                $state,
                 $latitude,
                 $longitude,
                 true,
@@ -240,7 +240,7 @@ class LocationFactoryTest extends TestCase {
         $assert    = new ViewAsset([
             'zip'         => $this->faker->postcode(),
             'address'     => $this->faker->streetAddress(),
-            'city'        => "{$cityName},  {$state}",
+            'city'        => "{$cityName}, {$state}",
             'country'     => $country->name,
             'countryCode' => $country->code,
             'latitude'    => $latitude,
@@ -268,7 +268,7 @@ class LocationFactoryTest extends TestCase {
                 $assert->zip,
                 $assert->address,
                 '',
-                "  {$state}",
+                $state,
                 $latitude,
                 $longitude,
                 true,
@@ -309,7 +309,7 @@ class LocationFactoryTest extends TestCase {
 
         // If not - it should be created
         $queries = $this->getQueryLog()->flush();
-        $created = $factory->country(' ?? ', ' Country  Name ');
+        $created = $factory->country('??', 'Country Name');
 
         self::assertTrue($created->wasRecentlyCreated);
         self::assertEquals('??', $created->code);
@@ -317,14 +317,14 @@ class LocationFactoryTest extends TestCase {
         self::assertCount(2, $queries);
 
         // No name -> code should be used
-        $created = $factory->country(' AB ', null);
+        $created = $factory->country('AB', null);
 
         self::assertEquals('AB', $created->code);
         self::assertEquals('AB', $created->name);
 
         // No name -> name should be updated
         $queries = $this->getQueryLog()->flush();
-        $created = $factory->country(' AB ', ' Name ');
+        $created = $factory->country('AB', 'Name');
 
         self::assertEquals('AB', $created->code);
         self::assertEquals('Name', $created->name);
@@ -332,14 +332,14 @@ class LocationFactoryTest extends TestCase {
 
         // Unknown Country -> name should be updated
         $queries = $this->getQueryLog()->flush();
-        $updated = $factory->country($factory->country(' UN ', ' Unknown Country ')->code, ' Name ');
+        $updated = $factory->country($factory->country('UN', 'Unknown Country')->code, 'Name');
 
         self::assertEquals('Name', $updated->name);
         self::assertCount(3, $queries);
 
         // Name -> should not be updated
         $queries = $this->getQueryLog()->flush();
-        $updated = $factory->country($factory->country(' NA ', ' Name ')->code, ' New Name ');
+        $updated = $factory->country($factory->country('NA', 'Name')->code, 'New Name');
 
         self::assertEquals('Name', $updated->name);
         self::assertCount(2, $queries);
@@ -379,7 +379,7 @@ class LocationFactoryTest extends TestCase {
 
         // If not - it should be created
         $queries = $this->getQueryLog()->flush();
-        $created = $factory->city($country, ' City  Name ');
+        $created = $factory->city($country, 'City Name');
 
         self::assertTrue($created->wasRecentlyCreated);
         self::assertEquals($country->getKey(), $created->country_id);
@@ -473,10 +473,10 @@ class LocationFactoryTest extends TestCase {
 
         self::assertEquals($country->getKey(), $created->country_id);
         self::assertEquals($city->getKey(), $created->city_id);
-        self::assertEquals($normalizer->string($postcode), $created->postcode);
-        self::assertEquals($normalizer->string($state), $created->state);
-        self::assertEquals($normalizer->string($lineOne), $created->line_one);
-        self::assertEquals($normalizer->string($lineTwo), $created->line_two);
+        self::assertEquals($postcode, $created->postcode);
+        self::assertEquals($state, $created->state);
+        self::assertEquals($lineOne, $created->line_one);
+        self::assertEquals($lineTwo, $created->line_two);
         self::assertEquals($this->latitude($latitude), $created->latitude);
         self::assertEquals($this->longitude($longitude), $created->longitude);
         self::assertNotNull($created->geohash);
@@ -498,7 +498,7 @@ class LocationFactoryTest extends TestCase {
         );
 
         self::assertSame($created, $updated);
-        self::assertEquals($normalizer->string($state), $updated->state);
+        self::assertEquals($state, $updated->state);
         self::assertCount(1, $queries);
     }
 

@@ -61,7 +61,7 @@ class WithStatusTest extends TestCase {
 
         // If not - it should be created
         $queries = $this->getQueryLog()->flush();
-        $created = $factory->status($customer, ' New  status ');
+        $created = $factory->status($customer, 'New status');
 
         self::assertNotNull($created);
         self::assertTrue($created->wasRecentlyCreated);

@@ -64,7 +64,7 @@ class WithCurrencyTest extends TestCase {
         $queries->flush();
 
         // If not - it should be created
-        $created = $factory->currency('new ');
+        $created = $factory->currency('new');
 
         self::assertNotNull($created);
         self::assertTrue($created->wasRecentlyCreated);
@@ -76,6 +76,6 @@ class WithCurrencyTest extends TestCase {
 
         // If null or empty - null should be returned
         self::assertNull($factory->currency(null));
-        self::assertNull($factory->currency('  '));
+        self::assertNull($factory->currency(''));
     }
 }

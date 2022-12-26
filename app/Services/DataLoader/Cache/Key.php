@@ -3,6 +3,7 @@
 namespace App\Services\DataLoader\Cache;
 
 use App\Services\DataLoader\Normalizer\Normalizer;
+use App\Services\DataLoader\Normalizer\Normalizers\StringNormalizer;
 use App\Utils\Cache\CacheKey;
 
 use function is_string;
@@ -35,7 +36,7 @@ class Key extends CacheKey {
         $value = parent::value($value);
 
         if (is_string($value)) {
-            $value = $this->normalizer->string($value);
+            $value = StringNormalizer::normalize($value);
             $value = mb_strtolower($value);
         }
 

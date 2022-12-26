@@ -6,6 +6,7 @@ use App\Models\Data\Oem;
 use App\Models\OemGroup;
 use App\Services\DataLoader\Factory\Factory;
 use App\Services\DataLoader\Normalizer\Normalizer;
+use App\Services\DataLoader\Normalizer\Normalizers\NameNormalizer;
 use App\Services\DataLoader\Resolver\Resolvers\OemGroupResolver;
 
 /**
@@ -18,12 +19,11 @@ trait WithOemGroup {
 
     protected function oemGroup(Oem $oem, string $key, string $name): OemGroup {
         $group = $this->getOemGroupResolver()
-            ->get($oem, $key, $name, function () use ($oem, $key, $name): OemGroup {
+            ->get($oem, $key, $name, static function () use ($oem, $key, $name): OemGroup {
                 $model       = new OemGroup();
-                $normalizer  = $this->getNormalizer();
                 $model->oem  = $oem;
-                $model->key  = $normalizer->string($key);
-                $model->name = $normalizer->string($name);
+                $model->key  = $key;
+                $model->name = NameNormalizer::normalize($name);
 
                 $model->save();
 

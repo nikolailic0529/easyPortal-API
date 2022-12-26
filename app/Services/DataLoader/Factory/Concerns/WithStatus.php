@@ -19,11 +19,10 @@ trait WithStatus {
 
     protected function status(Model $owner, string $status): Status {
         $status = $this->getStatusResolver()
-            ->get($owner, $status, function () use ($owner, $status): Status {
+            ->get($owner, $status, static function () use ($owner, $status): Status {
                 $model              = new Status();
-                $normalizer         = $this->getNormalizer();
                 $model->object_type = $owner->getMorphClass();
-                $model->key         = $normalizer->string($status);
+                $model->key         = $status;
                 $model->name        = NameNormalizer::normalize($status);
 
                 $model->save();

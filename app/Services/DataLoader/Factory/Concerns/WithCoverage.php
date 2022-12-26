@@ -17,10 +17,9 @@ trait WithCoverage {
     abstract protected function getCoverageResolver(): CoverageResolver;
 
     protected function coverage(string $coverage): Coverage {
-        $coverage = $this->getCoverageResolver()->get($coverage, function () use ($coverage): Coverage {
+        $coverage = $this->getCoverageResolver()->get($coverage, static function () use ($coverage): Coverage {
             $model       = new Coverage();
-            $normalizer  = $this->getNormalizer();
-            $model->key  = $normalizer->string($coverage);
+            $model->key  = $coverage;
             $model->name = NameNormalizer::normalize($coverage);
 
             $model->save();

@@ -278,7 +278,7 @@ class DocumentFactoryTest extends TestCase {
      *
      * @dataProvider dataProviderDocument
      *
-     * @template T of Document|ViewDocument
+     * @template     T of Document|ViewDocument
      *
      * @param Closure(static): T $documentFactory
      */
@@ -317,26 +317,18 @@ class DocumentFactoryTest extends TestCase {
      * @param Closure(static): T $documentFactory
      */
     public function testDocumentType(Closure $documentFactory): void {
-        $normalizer = $this->app->make(Normalizer::class);
-        $document   = $documentFactory($this);
-        $factory    = Mockery::mock(DocumentFactoryTest_Factory::class);
+        $document = $documentFactory($this);
+        $factory  = Mockery::mock(DocumentFactoryTest_Factory::class);
         $factory->shouldAllowMockingProtectedMethods();
         $factory->makePartial();
 
         if ($document->type) {
-            $factory
-                ->shouldReceive('getNormalizer')
-                ->once()
-                ->andReturn($normalizer);
             $factory
                 ->shouldReceive('type')
                 ->with(Mockery::any(), $document->type)
                 ->once()
                 ->andReturns();
         } else {
-            $factory
-                ->shouldReceive('getNormalizer')
-                ->never();
             $factory
                 ->shouldReceive('type')
                 ->never();
@@ -651,19 +643,14 @@ class DocumentFactoryTest extends TestCase {
      * @covers ::documentEntryAssetType
      */
     public function testDocumentEntryAssetType(): void {
-        $type       = TypeModel::factory()->make();
-        $model      = DocumentModel::factory()->create();
-        $entry      = new DocumentEntry([
+        $type    = TypeModel::factory()->make();
+        $model   = DocumentModel::factory()->create();
+        $entry   = new DocumentEntry([
             'assetProductType' => $type->key,
         ]);
-        $normalizer = $this->app->make(Normalizer::class);
-        $factory    = Mockery::mock(DocumentFactory::class);
+        $factory = Mockery::mock(DocumentFactory::class);
         $factory->shouldAllowMockingProtectedMethods();
         $factory->makePartial();
-        $factory
-            ->shouldReceive('getNormalizer')
-            ->once()
-            ->andReturn($normalizer);
         $factory
             ->shouldReceive('type')
             ->with(Mockery::any(), $type->key)

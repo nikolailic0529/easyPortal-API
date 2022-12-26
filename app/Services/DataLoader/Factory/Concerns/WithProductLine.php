@@ -17,9 +17,7 @@ trait WithProductLine {
 
     protected function productLine(?string $key): ?ProductLine {
         // Null?
-        $key = $this->getNormalizer()->string($key) ?: null;
-
-        if ($key === null) {
+        if ($key === null || $key === '') {
             return null;
         }
 

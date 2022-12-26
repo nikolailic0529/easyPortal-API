@@ -64,7 +64,7 @@ class WithLanguageTest extends TestCase {
 
         // If not - it should be created
         $queries = $this->getQueryLog()->flush();
-        $created = $factory->language('nw ');
+        $created = $factory->language('nw');
 
         self::assertNotNull($created);
         self::assertTrue($created->wasRecentlyCreated);

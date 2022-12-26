@@ -43,7 +43,7 @@ class WithOemTest extends TestCase {
 
         // If not - it should be created
         $queries = $this->getQueryLog();
-        $created = $factory->oem(' SKU ');
+        $created = $factory->oem('SKU');
 
         self::assertNotNull($created);
         self::assertTrue($created->wasRecentlyCreated);
@@ -60,6 +60,6 @@ class WithOemTest extends TestCase {
         $queries->flush();
 
         // Empty sku
-        self::assertNull($factory->oem(' '));
+        self::assertNull($factory->oem(''));
     }
 }

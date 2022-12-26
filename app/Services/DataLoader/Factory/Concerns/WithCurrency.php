@@ -19,9 +19,7 @@ trait WithCurrency {
 
     protected function currency(?string $code): ?Currency {
         // Null?
-        $code = $this->getNormalizer()->string($code) ?: null;
-
-        if ($code === null) {
+        if ($code === null || $code === '') {
             return null;
         }
 

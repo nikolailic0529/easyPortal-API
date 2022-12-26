@@ -21,11 +21,10 @@ trait WithLanguage {
         $language = null;
 
         if ($code !== null) {
-            $language = $this->getLanguageResolver()->get($code, function () use ($code): Language {
+            $language = $this->getLanguageResolver()->get($code, static function () use ($code): Language {
                 $model       = new Language();
-                $normalizer  = $this->getNormalizer();
-                $model->code = mb_strtolower($normalizer->string($code));
-                $model->name = $normalizer->string($code);
+                $model->code = mb_strtolower($code);
+                $model->name = $code;
 
                 $model->save();
 

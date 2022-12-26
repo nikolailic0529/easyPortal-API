@@ -61,7 +61,7 @@ class WithTypeTest extends TestCase {
 
         // If not - it should be created
         $queries = $this->getQueryLog()->flush();
-        $created = $factory->type($customer, ' New  type ');
+        $created = $factory->type($customer, 'New type');
 
         self::assertTrue($created->wasRecentlyCreated);
         self::assertEquals($customer->getMorphClass(), $created->object_type);

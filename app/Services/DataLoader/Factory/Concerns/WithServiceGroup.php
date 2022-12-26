@@ -17,18 +17,15 @@ trait WithServiceGroup {
     abstract protected function getServiceGroupResolver(): ServiceGroupResolver;
 
     protected function serviceGroup(Oem $oem, string $sku, string $name = null): ?ServiceGroup {
-        // Null?
-        $sku = $this->getNormalizer()->string($sku) ?: null;
-
-        if ($sku === null) {
+        // Empty?
+        if ($sku === '') {
             return null;
         }
 
         // Find/Create
         $created = false;
-        $factory = function (ServiceGroup $group) use (&$created, $oem, $sku, $name): ServiceGroup {
-            $created    = !$group->exists;
-            $normalizer = $this->getNormalizer();
+        $factory = static function (ServiceGroup $group) use (&$created, $oem, $sku, $name): ServiceGroup {
+            $created = !$group->exists;
 
             if ($created) {
                 $group->key = "{$oem->getTranslatableKey()}/{$sku}";
@@ -37,7 +34,7 @@ trait WithServiceGroup {
             }
 
             if (!$group->name || $group->name === $sku) {
-                $group->name = $normalizer->string($name) ?: $sku;
+                $group->name = $name ?: $sku;
             }
 
             $group->save();

@@ -7,10 +7,19 @@ use App\Services\DataLoader\Schema\Type;
 use App\Utils\JsonObject\JsonObjectNormalizer;
 
 class Location extends Type {
+    #[JsonObjectNormalizer(StringNormalizer::class)]
     public ?string $zip;
+
+    #[JsonObjectNormalizer(StringNormalizer::class)]
     public ?string $address;
+
+    #[JsonObjectNormalizer(StringNormalizer::class)]
     public ?string $city;
+
+    #[JsonObjectNormalizer(StringNormalizer::class)]
     public ?string $locationType;
+
+    #[JsonObjectNormalizer(StringNormalizer::class)]
     public ?string $country;
 
     #[JsonObjectNormalizer(StringNormalizer::class)]
@@ -19,5 +28,6 @@ class Location extends Type {
     #[JsonObjectNormalizer(StringNormalizer::class)]
     public ?string $longitude;
 
+    #[JsonObjectNormalizer(StringNormalizer::class)]
     public ?string $countryCode;
 }

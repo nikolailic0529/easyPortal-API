@@ -48,6 +48,7 @@ use App\Services\DataLoader\Exceptions\AssetWarrantyCheckFailed;
 use App\Services\DataLoader\Exceptions\CustomerWarrantyCheckFailed;
 use App\Services\DataLoader\Normalizer\Normalizer;
 use App\Services\DataLoader\Normalizer\Normalizers\BoolNormalizer;
+use App\Services\DataLoader\Normalizer\Normalizers\StringNormalizer;
 use App\Services\DataLoader\Schema\Inputs\CompanyBrandingData;
 use App\Services\DataLoader\Schema\Inputs\TriggerCoverageStatusCheck;
 use App\Services\DataLoader\Schema\Inputs\UpdateCompanyFile;
@@ -487,7 +488,7 @@ class Client {
         ]);
         $result = BoolNormalizer::normalize($value);
         $error  = $result !== true && $value && is_string($value)
-            ? ($this->normalizer->string($value) ?: null)
+            ? (StringNormalizer::normalize($value) ?: null)
             : null;
 
         return (bool) $result;

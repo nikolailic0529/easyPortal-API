@@ -24,16 +24,14 @@ trait WithServiceLevel {
         string $name = null,
         string $description = null,
     ): ?ServiceLevel {
-        // Null?
-        $sku = $this->getNormalizer()->string($sku) ?: null;
-
-        if ($sku === null) {
+        // Empty?
+        if ($sku === '') {
             return null;
         }
 
         // Find/Create
         $created = false;
-        $factory = function (
+        $factory = static function (
             ServiceLevel $level,
         ) use (
             &$created,
@@ -43,8 +41,7 @@ trait WithServiceLevel {
             $name,
             $description,
         ): ServiceLevel {
-            $created    = !$level->exists;
-            $normalizer = $this->getNormalizer();
+            $created = !$level->exists;
 
             if ($created) {
                 $level->key          = "{$group->getTranslatableKey()}/{$sku}";
@@ -55,7 +52,7 @@ trait WithServiceLevel {
             }
 
             if (!$level->name || $level->name === $sku) {
-                $level->name = $normalizer->string($name) ?: $sku;
+                $level->name = $name ?: $sku;
             }
 
             if (!$level->description) {

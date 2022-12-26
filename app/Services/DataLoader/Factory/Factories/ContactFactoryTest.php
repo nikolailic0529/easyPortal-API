@@ -134,9 +134,8 @@ class ContactFactoryTest extends TestCase {
 
         // If not - it should be created
         $queries = $this->getQueryLog()->flush();
-        $created = $factory->contact($customer, ' new  Name ', ' phone   number ', false, ' email ');
+        $created = $factory->contact($customer, 'new Name', 'phone number', false, 'email');
 
-        self::assertNotNull($created);
         self::assertEquals($customer->exists, $created->exists);
         self::assertEquals($customer->getMorphClass(), $created->object_type);
         self::assertEquals($customer->getKey(), $created->object_id);

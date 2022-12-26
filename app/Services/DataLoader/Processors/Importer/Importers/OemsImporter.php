@@ -6,6 +6,7 @@ use App\Models\Data\Oem;
 use App\Models\Data\ServiceGroup;
 use App\Models\Data\ServiceLevel;
 use App\Services\DataLoader\Normalizer\Normalizer;
+use App\Services\DataLoader\Normalizer\Normalizers\StringNormalizer;
 use App\Services\DataLoader\Normalizer\Normalizers\TextNormalizer;
 use App\Services\DataLoader\Processors\Importer\Importers\OemsImporter\CellType;
 use App\Services\DataLoader\Processors\Importer\Importers\OemsImporter\HeaderCell;
@@ -170,7 +171,7 @@ class OemsImporter implements OnEachRow, WithStartRow, WithEvents, SkipsEmptyRow
             $property = 0;
 
             foreach ($row->getCellIterator() as $index => $cell) {
-                $value  = $this->normalizer->string($this->getCellValue($cell));
+                $value  = StringNormalizer::normalize($this->getCellValue($cell));
                 $lang   = mb_strtolower((string) $value);
                 $key    = null;
                 $type   = null;
@@ -257,7 +258,7 @@ class OemsImporter implements OnEachRow, WithStartRow, WithEvents, SkipsEmptyRow
                         $value = TextNormalizer::normalize($value);
                         break;
                     default:
-                        $value = $this->normalizer->string($value);
+                        $value = StringNormalizer::normalize($value);
                         break;
                 }
 

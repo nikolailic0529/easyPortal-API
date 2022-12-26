@@ -22,11 +22,22 @@ class ViewAsset extends Type implements TypeWithKey {
     #[JsonObjectNormalizer(UuidNormalizer::class)]
     public ?string $customerId;
 
+    #[JsonObjectNormalizer(StringNormalizer::class)]
     public ?string $serialNumber;
+
+    #[JsonObjectNormalizer(StringNormalizer::class)]
     public ?string $assetSkuDescription;
+
+    #[JsonObjectNormalizer(StringNormalizer::class)]
     public ?string $assetTag;
+
+    #[JsonObjectNormalizer(StringNormalizer::class)]
     public ?string $assetType;
+
+    #[JsonObjectNormalizer(StringNormalizer::class)]
     public ?string $vendor;
+
+    #[JsonObjectNormalizer(StringNormalizer::class)]
     public ?string $assetSku;
 
     #[JsonObjectNormalizer(DateTimeNormalizer::class)]
@@ -37,11 +48,21 @@ class ViewAsset extends Type implements TypeWithKey {
 
     #[JsonObjectNormalizer(DateTimeNormalizer::class)]
     public ?CarbonImmutable $eoslDate;
-    public ?string          $zip;
-    public ?string          $city;
-    public ?string          $address;
-    public ?string          $address2;
-    public ?string          $country;
+
+    #[JsonObjectNormalizer(StringNormalizer::class)]
+    public ?string $zip;
+
+    #[JsonObjectNormalizer(StringNormalizer::class)]
+    public ?string $city;
+
+    #[JsonObjectNormalizer(StringNormalizer::class)]
+    public ?string $address;
+
+    #[JsonObjectNormalizer(StringNormalizer::class)]
+    public ?string $address2;
+
+    #[JsonObjectNormalizer(StringNormalizer::class)]
+    public ?string $country;
 
     #[JsonObjectNormalizer(StringNormalizer::class)]
     public ?string $latitude;
@@ -49,8 +70,11 @@ class ViewAsset extends Type implements TypeWithKey {
     #[JsonObjectNormalizer(StringNormalizer::class)]
     public ?string $longitude;
 
+    #[JsonObjectNormalizer(StringNormalizer::class)]
     public ?string $countryCode;
-    public string  $status;
+
+    #[JsonObjectNormalizer(StringNormalizer::class)]
+    public string $status;
 
     #[JsonObjectNormalizer(DateTimeNormalizer::class)]
     public ?CarbonImmutable $updatedAt;
@@ -58,7 +82,10 @@ class ViewAsset extends Type implements TypeWithKey {
     /**
      * @var array<string>|null
      */
+    #[JsonObjectNormalizer(StringNormalizer::class)]
     public ?array $assetCoverage;
+
+    #[JsonObjectNormalizer(StringNormalizer::class)]
     public string $dataQualityScore;
 
     #[JsonObjectNormalizer(UnsignedIntNormalizer::class)]

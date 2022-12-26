@@ -43,7 +43,7 @@ class WithProductLineTest extends TestCase {
 
         // If not - it should be created
         $queries = $this->getQueryLog()->flush();
-        $created = $factory->productLine(' KEY ');
+        $created = $factory->productLine('KEY');
 
         self::assertNotNull($created);
         self::assertTrue($created->wasRecentlyCreated);
@@ -58,6 +58,6 @@ class WithProductLineTest extends TestCase {
         self::assertCount(0, $queries);
 
         // Empty key
-        self::assertNull($factory->productLine(' '));
+        self::assertNull($factory->productLine(''));
     }
 }

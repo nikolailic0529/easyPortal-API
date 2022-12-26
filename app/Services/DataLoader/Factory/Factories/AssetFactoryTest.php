@@ -210,8 +210,8 @@ class AssetFactoryTest extends TestCase {
                 ->sort(static function (AssetWarranty $a, AssetWarranty $b): int {
                     return $a->start <=> $b->start
                         ?: $a->end <=> $b->end
-                        ?: $a->service_group_id <=> $b->service_group_id
-                        ?: $a->service_level_id <=> $b->service_level_id;
+                            ?: $a->service_group_id <=> $b->service_group_id
+                                ?: $a->service_level_id <=> $b->service_level_id;
                 })
                 ->map(static function (AssetWarranty $warranty): array {
                     return [
@@ -1128,16 +1128,11 @@ class AssetFactoryTest extends TestCase {
      * @covers ::assetType
      */
     public function testAssetType(): void {
-        $normalizer = $this->app->make(Normalizer::class);
-        $asset      = new ViewAsset(['assetType' => $this->faker->word()]);
-        $factory    = Mockery::mock(AssetFactoryTest_Factory::class);
+        $asset   = new ViewAsset(['assetType' => $this->faker->word()]);
+        $factory = Mockery::mock(AssetFactoryTest_Factory::class);
         $factory->shouldAllowMockingProtectedMethods();
         $factory->makePartial();
 
-        $factory
-            ->shouldReceive('getNormalizer')
-            ->once()
-            ->andReturn($normalizer);
         $factory
             ->shouldReceive('type')
             ->with(Mockery::any(), $asset->assetType)

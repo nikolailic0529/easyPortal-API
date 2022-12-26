@@ -56,7 +56,7 @@ class WithTagTest extends TestCase {
         self::assertCount(1, $queries);
 
         // If not - it should be created
-        $created = $factory->tag(' New  Tag ');
+        $created = $factory->tag('New Tag');
 
         self::assertTrue($created->wasRecentlyCreated);
         self::assertEquals('New Tag', $created->name);

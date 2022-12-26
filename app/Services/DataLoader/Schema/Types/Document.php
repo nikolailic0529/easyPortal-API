@@ -4,6 +4,7 @@ namespace App\Services\DataLoader\Schema\Types;
 
 use App\Services\DataLoader\Normalizer\Normalizers\DateTimeNormalizer;
 use App\Services\DataLoader\Normalizer\Normalizers\DecimalNormalizer;
+use App\Services\DataLoader\Normalizer\Normalizers\StringNormalizer;
 use App\Services\DataLoader\Normalizer\Normalizers\UuidNormalizer;
 use App\Services\DataLoader\Schema\Type;
 use App\Services\DataLoader\Schema\TypeWithKey;
@@ -15,7 +16,10 @@ class Document extends Type implements TypeWithKey {
     #[JsonObjectNormalizer(UuidNormalizer::class)]
     public string $id;
 
+    #[JsonObjectNormalizer(StringNormalizer::class)]
     public ?string $type;
+
+    #[JsonObjectNormalizer(StringNormalizer::class)]
     public ?string $documentNumber;
 
     #[JsonObjectNormalizer(DateTimeNormalizer::class)]
@@ -24,11 +28,13 @@ class Document extends Type implements TypeWithKey {
     #[JsonObjectNormalizer(DateTimeNormalizer::class)]
     public ?CarbonImmutable $endDate;
 
+    #[JsonObjectNormalizer(StringNormalizer::class)]
     public ?string $currencyCode;
 
     #[JsonObjectNormalizer(DecimalNormalizer::class)]
     public ?string $totalNetPrice;
 
+    #[JsonObjectNormalizer(StringNormalizer::class)]
     public ?string $languageCode;
 
     #[JsonObjectNormalizer(DateTimeNormalizer::class)]
@@ -60,6 +66,7 @@ class Document extends Type implements TypeWithKey {
     /**
      * @var array<string>|null
      */
+    #[JsonObjectNormalizer(StringNormalizer::class)]
     public ?array $status;
 
     public function getKey(): string {

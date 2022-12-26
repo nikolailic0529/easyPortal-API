@@ -17,21 +17,18 @@ trait WithPsp {
 
     protected function psp(?string $key, string $name = null): ?Psp {
         // Null?
-        $key = $this->getNormalizer()->string($key) ?: null;
-
-        if ($key === null) {
+        if ($key === null || $key === '') {
             return null;
         }
 
         // Find/Create
         $created = false;
-        $factory = function (Psp $group) use (&$created, $key, $name): Psp {
+        $factory = static function (Psp $group) use (&$created, $key, $name): Psp {
             $created    = !$group->exists;
-            $normalizer = $this->getNormalizer();
             $group->key = $key;
 
             if (!$group->name || $group->name === $key) {
-                $group->name = $normalizer->string($name) ?: $key;
+                $group->name = $name ?: $key;
             }
 
             $group->save();

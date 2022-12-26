@@ -3,6 +3,7 @@
 namespace App\Services\DataLoader\Schema\Types;
 
 use App\Services\DataLoader\Normalizer\Normalizers\DateTimeNormalizer;
+use App\Services\DataLoader\Normalizer\Normalizers\StringNormalizer;
 use App\Services\DataLoader\Normalizer\Normalizers\UuidNormalizer;
 use App\Services\DataLoader\Schema\Type;
 use App\Services\DataLoader\Schema\TypeWithKey;
@@ -14,7 +15,10 @@ class ViewDocument extends Type implements TypeWithKey {
     #[JsonObjectNormalizer(UuidNormalizer::class)]
     public string $id;
 
+    #[JsonObjectNormalizer(StringNormalizer::class)]
     public ?string $type;
+
+    #[JsonObjectNormalizer(StringNormalizer::class)]
     public ?string $documentNumber;
 
     #[JsonObjectNormalizer(DateTimeNormalizer::class)]
@@ -23,13 +27,17 @@ class ViewDocument extends Type implements TypeWithKey {
     #[JsonObjectNormalizer(DateTimeNormalizer::class)]
     public ?CarbonImmutable $endDate;
 
+    #[JsonObjectNormalizer(StringNormalizer::class)]
     public ?string $currencyCode;
+
+    #[JsonObjectNormalizer(StringNormalizer::class)]
     public ?string $languageCode;
 
     #[JsonObjectNormalizer(DateTimeNormalizer::class)]
     public ?CarbonImmutable $updatedAt;
 
     public DocumentVendorSpecificField $vendorSpecificFields;
+
     /**
      * @var array<CompanyContactPerson>
      */

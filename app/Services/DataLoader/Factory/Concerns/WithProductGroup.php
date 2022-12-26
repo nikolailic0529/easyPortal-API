@@ -17,9 +17,7 @@ trait WithProductGroup {
 
     protected function productGroup(?string $key): ?ProductGroup {
         // Null?
-        $key = $this->getNormalizer()->string($key) ?: null;
-
-        if ($key === null) {
+        if ($key === null || $key === '') {
             return null;
         }
 

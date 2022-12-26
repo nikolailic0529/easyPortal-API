@@ -48,7 +48,6 @@ trait Polymorphic {
 
             // Type defined?
             $type = $getType($object);
-            $type = $this->getNormalizer()->string($type);
 
             if ($type === null || $type === '') {
                 $models[$model] = [];

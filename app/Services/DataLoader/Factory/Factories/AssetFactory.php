@@ -199,7 +199,6 @@ class AssetFactory extends ModelFactory {
         $factory = function (Asset $model) use (&$created, $asset): Asset {
             // Asset
             $created                          = !$model->exists;
-            $normalizer                       = $this->getNormalizer();
             $model->id                        = $asset->id;
             $model->oem                       = $this->assetOem($asset);
             $model->type                      = $this->assetType($asset);
@@ -210,8 +209,8 @@ class AssetFactory extends ModelFactory {
             $model->location                  = $this->assetLocation($asset);
             $model->eosl                      = $asset->eosDate;
             $model->changed_at                = $asset->updatedAt;
-            $model->serial_number             = $normalizer->string($asset->serialNumber);
-            $model->data_quality              = $normalizer->string($asset->dataQualityScore);
+            $model->serial_number             = $asset->serialNumber;
+            $model->data_quality              = $asset->dataQualityScore;
             $model->contracts_active_quantity = $asset->activeContractQuantitySum;
             $model->contacts                  = $this->objectContacts($model, (array) $asset->latestContactPersons);
             $model->tags                      = $this->assetTags($asset);
@@ -489,7 +488,7 @@ class AssetFactory extends ModelFactory {
     }
 
     protected function assetType(ViewAsset $asset): ?TypeModel {
-        return isset($asset->assetType) && $this->getNormalizer()->string($asset->assetType)
+        return isset($asset->assetType) && $asset->assetType
             ? $this->type(new Asset(), $asset->assetType)
             : null;
     }
@@ -533,7 +532,7 @@ class AssetFactory extends ModelFactory {
     protected function assetTags(ViewAsset $asset): EloquentCollection {
         /** @var EloquentCollection<array-key, Tag> $tags */
         $tags = new EloquentCollection();
-        $name = $this->getNormalizer()->string($asset->assetTag);
+        $name = $asset->assetTag;
 
         if ($name) {
             $tags[] = $this->tag($name);
@@ -547,12 +546,9 @@ class AssetFactory extends ModelFactory {
      */
     protected function assetCoverages(ViewAsset $asset): EloquentCollection {
         /** @var EloquentCollection<array-key, Coverage> $statuses */
-        $statuses   = new EloquentCollection();
-        $normalizer = $this->getNormalizer();
+        $statuses = new EloquentCollection();
 
         foreach ($asset->assetCoverage ?? [] as $coverage) {
-            $coverage = $normalizer->string($coverage);
-
             if ($coverage) {
                 $coverage                 = $this->coverage($coverage);
                 $statuses[$coverage->key] = $coverage;
@@ -575,19 +571,17 @@ class AssetFactory extends ModelFactory {
             ]);
         } elseif ($warranty instanceof CoverageEntry) {
             $key = new Key($normalizer, [
-                'type'  => $normalizer->string($warranty->type),
+                'type'  => $warranty->type,
                 'start' => $warranty->coverageStartDate,
                 'end'   => $warranty->coverageEndDate,
             ]);
         } else {
             $key = new Key($normalizer, [
-                'document'     => $normalizer->string(
-                    $warranty->document->id ?? $warranty->documentNumber,
-                ),
+                'document'     => $warranty->document->id ?? $warranty->documentNumber,
                 'reseller'     => $warranty->reseller->id ?? null,
                 'customer'     => $warranty->customer->id ?? null,
-                'serviceGroup' => $normalizer->string($warranty->serviceGroupSku),
-                'serviceLevel' => $normalizer->string($warranty->serviceLevelSku),
+                'serviceGroup' => $warranty->serviceGroupSku,
+                'serviceLevel' => $warranty->serviceLevelSku,
                 'start'        => $warranty->startDate ?? $warranty->document->startDate ?? null,
                 'end'          => $warranty->endDate ?? $warranty->document->endDate ?? null,
             ]);

@@ -108,6 +108,6 @@ class WithPspTest extends TestCase {
         self::assertCount(2, $queries);
 
         // Empty key
-        self::assertNull($factory->psp(' '));
+        self::assertNull($factory->psp(''));
     }
 }

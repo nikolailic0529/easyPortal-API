@@ -171,7 +171,6 @@ abstract class Data {
 
         foreach ($context[Context::TYPES] as $key) {
             // Create
-            $key  = $this->normalizer->string($key);
             $type = TypeModel::query()->where('object_type', '=', $owner)->where('key', '=', $key)->first();
 
             if (!$type) {

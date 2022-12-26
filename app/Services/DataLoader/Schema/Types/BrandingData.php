@@ -4,6 +4,7 @@ namespace App\Services\DataLoader\Schema\Types;
 
 use App\Services\DataLoader\Normalizer\Normalizers\BoolNormalizer;
 use App\Services\DataLoader\Normalizer\Normalizers\ColorNormalizer;
+use App\Services\DataLoader\Normalizer\Normalizers\StringNormalizer;
 use App\Services\DataLoader\Schema\Type;
 use App\Utils\JsonObject\JsonObjectArray;
 use App\Utils\JsonObject\JsonObjectNormalizer;
@@ -21,15 +22,25 @@ class BrandingData extends Type {
     #[JsonObjectNormalizer(ColorNormalizer::class)]
     public ?string $secondaryColorDefault;
 
+    #[JsonObjectNormalizer(StringNormalizer::class)]
     public ?string $defaultLogoUrl;
+
+    #[JsonObjectNormalizer(StringNormalizer::class)]
     public ?string $favIconUrl;
+
+    #[JsonObjectNormalizer(StringNormalizer::class)]
     public ?string $useDefaultFavIcon;
+
+    #[JsonObjectNormalizer(StringNormalizer::class)]
     public ?string $resellerAnalyticsCode;
 
     #[JsonObjectNormalizer(BoolNormalizer::class)]
     public ?bool $brandingMode;
 
+    #[JsonObjectNormalizer(StringNormalizer::class)]
     public ?string $mainImageOnTheRight;
+
+    #[JsonObjectNormalizer(StringNormalizer::class)]
     public ?string $logoUrl;
 
     /**

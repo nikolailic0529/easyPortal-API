@@ -78,8 +78,6 @@ abstract class CompanyFactory extends ModelFactory {
         $statuses = [];
 
         foreach ($company->status ?? [] as $status) {
-            $status = $this->getNormalizer()->string($status);
-
             if ($status) {
                 $status                      = $this->status($owner, $status);
                 $statuses[$status->getKey()] = $status;
