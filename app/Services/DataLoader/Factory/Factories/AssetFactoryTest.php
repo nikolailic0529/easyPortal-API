@@ -21,7 +21,6 @@ use App\Services\DataLoader\Exceptions\CustomerNotFound;
 use App\Services\DataLoader\Exceptions\FailedToProcessAssetViewDocument;
 use App\Services\DataLoader\Exceptions\FailedToProcessViewAssetCoverageEntry;
 use App\Services\DataLoader\Exceptions\ResellerNotFound;
-use App\Services\DataLoader\Normalizer\Normalizer;
 use App\Services\DataLoader\Resolver\Resolvers\CoverageResolver;
 use App\Services\DataLoader\Resolver\Resolvers\DocumentResolver;
 use App\Services\DataLoader\Resolver\Resolvers\StatusResolver;
@@ -743,7 +742,6 @@ class AssetFactoryTest extends TestCase {
      */
     public function testAssetWarrantiesDocuments(): void {
         // Prepare
-        $normalizer      = $this->app->make(Normalizer::class);
         $container       = $this->app->make(Container::class);
         $factory         = $container->make(AssetFactoryTest_Factory::class);
         $type            = TypeModel::factory()->create();
@@ -982,7 +980,7 @@ class AssetFactoryTest extends TestCase {
 
         self::assertNotNull($a);
         self::assertEquals(
-            (string) new Key($normalizer, [
+            (string) new Key([
                 'document'     => $documentA->getKey(),
                 'reseller'     => null,
                 'customer'     => null,
@@ -1020,7 +1018,7 @@ class AssetFactoryTest extends TestCase {
 
         self::assertNotNull($c);
         self::assertEquals(
-            (string) new Key($normalizer, [
+            (string) new Key([
                 'document'     => $documentB->getKey(),
                 'reseller'     => $resellerB->getKey(),
                 'customer'     => $customerB->getKey(),
@@ -1242,12 +1240,10 @@ class AssetFactoryTest extends TestCase {
      */
     public function testAssetTags(): void {
         $factory = new class(
-            $this->app->make(Normalizer::class),
             $this->app->make(TagResolver::class),
         ) extends AssetFactory {
             /** @noinspection PhpMissingParentConstructorInspection */
             public function __construct(
-                protected Normalizer $normalizer,
                 protected TagResolver $tagResolver,
             ) {
                 // empty
@@ -1282,12 +1278,10 @@ class AssetFactoryTest extends TestCase {
      */
     public function testAssetCoverages(): void {
         $factory = new class(
-            $this->app->make(Normalizer::class),
             $this->app->make(CoverageResolver::class),
         ) extends AssetFactory {
             /** @noinspection PhpMissingParentConstructorInspection */
             public function __construct(
-                protected Normalizer $normalizer,
                 protected CoverageResolver $coverageResolver,
             ) {
                 // empty
@@ -1342,13 +1336,11 @@ class AssetFactoryTest extends TestCase {
             'status'            => $status->key,
             'description'       => $this->faker->text(),
         ]);
-        $normalizer     = $this->app->make(Normalizer::class);
         $typeResolver   = $this->app->make(TypeResolver::class);
         $statusResolver = $this->app->make(StatusResolver::class);
-        $factory        = new class($normalizer, $typeResolver, $statusResolver) extends AssetFactory {
+        $factory        = new class($typeResolver, $statusResolver) extends AssetFactory {
             /** @noinspection PhpMissingParentConstructorInspection */
             public function __construct(
-                protected Normalizer $normalizer,
                 protected TypeResolver $typeResolver,
                 protected StatusResolver $statusResolver,
             ) {
@@ -1418,26 +1410,23 @@ class AssetFactoryTest extends TestCase {
      * @covers ::assetWarranty
      */
     public function testAssetWarrantyEmpty(): void {
-        $asset      = Asset::factory()->make();
-        $type       = TypeModel::factory()->create([
+        $asset   = Asset::factory()->make();
+        $type    = TypeModel::factory()->create([
             'object_type' => (new AssetWarranty())->getMorphClass(),
         ]);
-        $status     = Status::factory()->create([
+        $status  = Status::factory()->create([
             'object_type' => (new AssetWarranty())->getMorphClass(),
         ]);
-        $entry      = new CoverageEntry([
+        $entry   = new CoverageEntry([
             'coverageStartDate' => null,
             'coverageEndDate'   => null,
             'type'              => $type->key,
             'status'            => $status->key,
             'description'       => null,
         ]);
-        $normalizer = $this->app->make(Normalizer::class);
-        $factory    = new class($normalizer) extends AssetFactory {
+        $factory = new class() extends AssetFactory {
             /** @noinspection PhpMissingParentConstructorInspection */
-            public function __construct(
-                protected Normalizer $normalizer,
-            ) {
+            public function __construct() {
                 // empty
             }
 
@@ -1457,7 +1446,6 @@ class AssetFactoryTest extends TestCase {
      * @covers ::assetWarrantiesCoverages
      */
     public function testAssetWarrantiesCoverages(): void {
-        $normalizer              = $this->app->make(Normalizer::class);
         $start                   = Date::make($this->faker->dateTime());
         $end                     = Date::make($this->faker->dateTime());
         $asset                   = Asset::factory()->create();
@@ -1475,7 +1463,7 @@ class AssetFactoryTest extends TestCase {
             'type_id'         => $type,
             'start'           => Date::make($start)?->startOfDay(),
             'end'             => Date::make($end)?->startOfDay(),
-            'key'             => (string) new Key($normalizer, [
+            'key'             => (string) new Key([
                 'type'  => $type->key,
                 'start' => $start?->startOfDay(),
                 'end'   => $end?->startOfDay(),
@@ -1544,11 +1532,10 @@ class AssetFactoryTest extends TestCase {
         );
         $typeResolver   = $this->app->make(TypeResolver::class);
         $statusResolver = $this->app->make(StatusResolver::class);
-        $factory        = new class($handler, $normalizer, $typeResolver, $statusResolver) extends AssetFactory {
+        $factory        = new class($handler, $typeResolver, $statusResolver) extends AssetFactory {
             /** @noinspection PhpMissingParentConstructorInspection */
             public function __construct(
                 protected ExceptionHandler $exceptionHandler,
-                protected Normalizer $normalizer,
                 protected TypeResolver $typeResolver,
                 protected StatusResolver $statusResolver,
             ) {
@@ -1572,7 +1559,7 @@ class AssetFactoryTest extends TestCase {
             ->values();
         $expected = EloquentCollection::make([
             (clone $warrantyShouldBeUpdated)->forceFill([
-                'key'         => (string) new Key($normalizer, [
+                'key'         => (string) new Key([
                     'type'  => $entryShouldBeUpdated->type,
                     'start' => $entryShouldBeUpdated->coverageStartDate,
                     'end'   => $entryShouldBeUpdated->coverageEndDate,
@@ -1581,7 +1568,7 @@ class AssetFactoryTest extends TestCase {
                 'description' => $entryShouldBeUpdated->description,
             ]),
             (clone $warrantyShouldBeReused)->forceFill([
-                'key'         => (string) new Key($normalizer, [
+                'key'         => (string) new Key([
                     'type'  => $entryShouldBeCreated->type,
                     'start' => $entryShouldBeCreated->coverageStartDate,
                     'end'   => $entryShouldBeCreated->coverageEndDate,

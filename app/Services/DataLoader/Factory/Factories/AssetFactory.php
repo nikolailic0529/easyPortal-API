@@ -33,7 +33,6 @@ use App\Services\DataLoader\Factory\Concerns\WithType;
 use App\Services\DataLoader\Factory\ModelFactory;
 use App\Services\DataLoader\Finders\CustomerFinder;
 use App\Services\DataLoader\Finders\ResellerFinder;
-use App\Services\DataLoader\Normalizer\Normalizer;
 use App\Services\DataLoader\Resolver\Resolvers\AssetResolver;
 use App\Services\DataLoader\Resolver\Resolvers\CoverageResolver;
 use App\Services\DataLoader\Resolver\Resolvers\CustomerResolver;
@@ -80,7 +79,6 @@ class AssetFactory extends ModelFactory {
 
     public function __construct(
         ExceptionHandler $exceptionHandler,
-        Normalizer $normalizer,
         protected AssetResolver $assetResolver,
         protected OemResolver $oemResolver,
         protected TypeResolver $typeResolver,
@@ -99,7 +97,7 @@ class AssetFactory extends ModelFactory {
         protected ?ResellerFinder $resellerFinder = null,
         protected ?CustomerFinder $customerFinder = null,
     ) {
-        parent::__construct($exceptionHandler, $normalizer);
+        parent::__construct($exceptionHandler);
     }
 
     // <editor-fold desc="Getters / Setters">
@@ -562,21 +560,20 @@ class AssetFactory extends ModelFactory {
     // <editor-fold desc="Helpers">
     // =========================================================================
     protected function getWarrantyKey(AssetWarranty|CoverageEntry|ViewAssetDocument $warranty): string {
-        $normalizer = $this->getNormalizer();
-        $key        = null;
+        $key = null;
 
         if ($warranty instanceof AssetWarranty) {
-            $key = new Key($normalizer, [
+            $key = new Key([
                 'key' => $warranty->key,
             ]);
         } elseif ($warranty instanceof CoverageEntry) {
-            $key = new Key($normalizer, [
+            $key = new Key([
                 'type'  => $warranty->type,
                 'start' => $warranty->coverageStartDate,
                 'end'   => $warranty->coverageEndDate,
             ]);
         } else {
-            $key = new Key($normalizer, [
+            $key = new Key([
                 'document'     => $warranty->document->id ?? $warranty->documentNumber,
                 'reseller'     => $warranty->reseller->id ?? null,
                 'customer'     => $warranty->customer->id ?? null,

@@ -6,7 +6,6 @@ use App\Models\Asset;
 use App\Models\Customer;
 use App\Models\Distributor;
 use App\Models\Reseller;
-use App\Services\DataLoader\Normalizer\Normalizer;
 use App\Services\DataLoader\Schema\Types\CompanyKpis;
 use App\Services\DataLoader\Schema\Types\Document;
 use App\Services\DataLoader\Schema\Types\ViewAsset;
@@ -24,7 +23,6 @@ use const SORT_REGULAR;
 class ClientDumpContext {
     public function __construct(
         protected Generator $faker,
-        protected Normalizer $normalizer,
     ) {
         // empty
     }

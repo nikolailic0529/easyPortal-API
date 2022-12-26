@@ -14,7 +14,6 @@ use App\Models\Document as DocumentModel;
 use App\Models\DocumentEntry as DocumentEntryModel;
 use App\Models\OemGroup;
 use App\Services\DataLoader\Exceptions\FailedToProcessDocumentEntryNoAsset;
-use App\Services\DataLoader\Normalizer\Normalizer;
 use App\Services\DataLoader\Resolver\Resolvers\AssetResolver;
 use App\Services\DataLoader\Resolver\Resolvers\CurrencyResolver;
 use App\Services\DataLoader\Resolver\Resolvers\LanguageResolver;
@@ -344,12 +343,10 @@ class DocumentFactoryTest extends TestCase {
         // Prepare
         $owner   = new DocumentModel();
         $factory = new class(
-            $this->app->make(Normalizer::class),
             $this->app->make(StatusResolver::class),
         ) extends DocumentFactory {
             /** @noinspection PhpMissingParentConstructorInspection */
             public function __construct(
-                protected Normalizer $normalizer,
                 protected StatusResolver $statusResolver,
             ) {
                 // empty
@@ -452,7 +449,6 @@ class DocumentFactoryTest extends TestCase {
         ]);
 
         $factory = new class(
-            $this->app->make(Normalizer::class),
             $this->app->make(TypeResolver::class),
             $this->app->make(LanguageResolver::class),
             $this->app->make(AssetResolver::class),
@@ -467,7 +463,6 @@ class DocumentFactoryTest extends TestCase {
         ) extends DocumentFactory {
             /** @noinspection PhpMissingParentConstructorInspection */
             public function __construct(
-                protected Normalizer $normalizer,
                 protected TypeResolver $typeResolver,
                 protected LanguageResolver $languageResolver,
                 protected AssetResolver $assetResolver,
@@ -928,7 +923,6 @@ class DocumentFactoryTest extends TestCase {
             ],
         ]);
         $factory      = new class(
-            $this->app->make(Normalizer::class),
             $this->app->make(AssetResolver::class),
             $this->app->make(ProductResolver::class),
             $this->app->make(OemResolver::class),
@@ -938,7 +932,6 @@ class DocumentFactoryTest extends TestCase {
         ) extends DocumentFactory {
             /** @noinspection PhpMissingParentConstructorInspection */
             public function __construct(
-                protected Normalizer $normalizer,
                 protected AssetResolver $assetResolver,
                 protected ProductResolver $productResolver,
                 protected OemResolver $oemResolver,

@@ -6,7 +6,6 @@ use App\Models\Customer;
 use App\Services\DataLoader\Exceptions\CustomerNotFound;
 use App\Services\DataLoader\Factory\Factory;
 use App\Services\DataLoader\Finders\CustomerFinder;
-use App\Services\DataLoader\Normalizer\Normalizer;
 use App\Services\DataLoader\Resolver\Resolvers\CustomerResolver;
 use App\Services\DataLoader\Schema\Types\Document;
 use App\Services\DataLoader\Schema\Types\ViewAsset;
@@ -17,8 +16,6 @@ use App\Services\DataLoader\Schema\Types\ViewDocument;
  * @mixin Factory
  */
 trait WithCustomer {
-    abstract protected function getNormalizer(): Normalizer;
-
     abstract protected function getCustomerFinder(): ?CustomerFinder;
 
     abstract protected function getCustomerResolver(): CustomerResolver;

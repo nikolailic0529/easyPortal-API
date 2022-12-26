@@ -13,7 +13,6 @@ use App\Services\DataLoader\Factory\Concerns\WithStatus;
 use App\Services\DataLoader\Factory\Concerns\WithType;
 use App\Services\DataLoader\Factory\Factories\ContactFactory;
 use App\Services\DataLoader\Factory\Factories\LocationFactory;
-use App\Services\DataLoader\Normalizer\Normalizer;
 use App\Services\DataLoader\Resolver\Resolvers\StatusResolver;
 use App\Services\DataLoader\Resolver\Resolvers\TypeResolver;
 use App\Services\DataLoader\Schema\Types\Company;
@@ -41,13 +40,12 @@ abstract class CompanyFactory extends ModelFactory {
 
     public function __construct(
         ExceptionHandler $exceptionHandler,
-        Normalizer $normalizer,
         protected TypeResolver $typeResolver,
         protected StatusResolver $statusResolver,
         protected ContactFactory $contactFactory,
         protected LocationFactory $locationFactory,
     ) {
-        parent::__construct($exceptionHandler, $normalizer);
+        parent::__construct($exceptionHandler);
     }
 
     // <editor-fold desc="Getters / Setters">

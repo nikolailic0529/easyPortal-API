@@ -6,7 +6,6 @@ use App\Models\Data\City;
 use App\Models\Data\Country;
 use App\Services\DataLoader\Cache\Key;
 use App\Services\DataLoader\Container\SingletonPersistent;
-use App\Services\DataLoader\Normalizer\Normalizer;
 use App\Services\DataLoader\Resolver\Resolver;
 use Closure;
 use Illuminate\Database\Eloquent\Builder;
@@ -18,7 +17,7 @@ use Illuminate\Support\Collection;
  */
 class CityResolver extends Resolver implements SingletonPersistent {
     /**
-     * @param Closure(Normalizer=): City|null $factory
+     * @param Closure(): City|null $factory
      *
      * @return ($factory is null ? City|null : City)
      */

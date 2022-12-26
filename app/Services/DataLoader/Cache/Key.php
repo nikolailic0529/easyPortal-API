@@ -2,7 +2,6 @@
 
 namespace App\Services\DataLoader\Cache;
 
-use App\Services\DataLoader\Normalizer\Normalizer;
 use App\Services\DataLoader\Normalizer\Normalizers\StringNormalizer;
 use App\Utils\Cache\CacheKey;
 
@@ -14,10 +13,7 @@ class Key extends CacheKey {
     /**
      * @inheritDoc
      */
-    public function __construct(
-        protected Normalizer $normalizer,
-        array $key,
-    ) {
+    public function __construct(array $key) {
         parent::__construct($key);
     }
 

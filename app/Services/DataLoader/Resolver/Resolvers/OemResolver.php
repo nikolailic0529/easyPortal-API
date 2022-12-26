@@ -5,7 +5,6 @@ namespace App\Services\DataLoader\Resolver\Resolvers;
 use App\Models\Data\Oem;
 use App\Services\DataLoader\Cache\Key;
 use App\Services\DataLoader\Container\SingletonPersistent;
-use App\Services\DataLoader\Normalizer\Normalizer;
 use App\Services\DataLoader\Resolver\Resolver;
 use Closure;
 use Illuminate\Database\Eloquent\Model;
@@ -21,7 +20,7 @@ class OemResolver extends Resolver implements SingletonPersistent {
     protected array $models = [];
 
     /**
-     * @param Closure(Normalizer=): Oem|null $factory
+     * @param Closure(): Oem|null $factory
      *
      * @return ($factory is null ? Oem|null : Oem)
      */

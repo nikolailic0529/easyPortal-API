@@ -4,7 +4,6 @@ namespace App\Services\DataLoader\Factory\Concerns;
 
 use App\Models\Data\ProductLine;
 use App\Services\DataLoader\Factory\Factory;
-use App\Services\DataLoader\Normalizer\Normalizer;
 use App\Services\DataLoader\Resolver\Resolvers\ProductLineResolver;
 use LastDragon_ru\LaraASP\Testing\Database\QueryLog\WithQueryLog;
 use Tests\TestCase;
@@ -20,17 +19,15 @@ class WithProductLineTest extends TestCase {
      * @covers ::productLine
      */
     public function testProductLine(): void {
-        $line       = ProductLine::factory()->create();
-        $normalizer = $this->app->make(Normalizer::class);
-        $resolver   = $this->app->make(ProductLineResolver::class);
-        $factory    = new class($normalizer, $resolver) extends Factory {
+        $line     = ProductLine::factory()->create();
+        $resolver = $this->app->make(ProductLineResolver::class);
+        $factory  = new class($resolver) extends Factory {
             use WithProductLine {
                 productLine as public;
             }
 
             /** @noinspection PhpMissingParentConstructorInspection */
             public function __construct(
-                protected Normalizer $normalizer,
                 protected ProductLineResolver $productLineResolver,
             ) {
                 // empty

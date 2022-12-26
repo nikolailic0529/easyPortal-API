@@ -6,7 +6,6 @@ use App\Models\Contact;
 use App\Models\Customer;
 use App\Services\DataLoader\Factory\Factories\ContactFactory;
 use App\Services\DataLoader\Factory\ModelFactory;
-use App\Services\DataLoader\Normalizer\Normalizer;
 use App\Services\DataLoader\Resolver\Resolvers\TypeResolver;
 use App\Services\DataLoader\Schema\Type;
 use App\Services\DataLoader\Schema\Types\CompanyContactPerson;
@@ -38,7 +37,6 @@ class WithContactsTest extends TestCase {
 
         $factory = new class(
             $this->app->make(ExceptionHandler::class),
-            $this->app->make(Normalizer::class),
             $this->app->make(TypeResolver::class),
             $this->app->make(ContactFactory::class),
         ) extends ModelFactory {
@@ -49,7 +47,6 @@ class WithContactsTest extends TestCase {
             /** @noinspection PhpMissingParentConstructorInspection */
             public function __construct(
                 protected ExceptionHandler $exceptionHandler,
-                protected Normalizer $normalizer,
                 protected TypeResolver $typeResolver,
                 protected ContactFactory $contacts,
             ) {

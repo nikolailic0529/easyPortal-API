@@ -4,7 +4,6 @@ namespace App\Services\DataLoader\Factory\Factories;
 
 use App\Models\Distributor;
 use App\Services\DataLoader\Factory\ModelFactory;
-use App\Services\DataLoader\Normalizer\Normalizer;
 use App\Services\DataLoader\Resolver\Resolvers\DistributorResolver;
 use App\Services\DataLoader\Resolver\Resolvers\TypeResolver;
 use App\Services\DataLoader\Schema\Type;
@@ -21,11 +20,10 @@ use function sprintf;
 class DistributorFactory extends ModelFactory {
     public function __construct(
         ExceptionHandler $exceptionHandler,
-        Normalizer $normalizer,
         protected TypeResolver $typeResolver,
         protected DistributorResolver $distributorResolver,
     ) {
-        parent::__construct($exceptionHandler, $normalizer);
+        parent::__construct($exceptionHandler);
     }
 
     public function getModel(): string {

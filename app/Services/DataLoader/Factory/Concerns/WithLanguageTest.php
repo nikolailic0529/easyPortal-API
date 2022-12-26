@@ -4,7 +4,6 @@ namespace App\Services\DataLoader\Factory\Concerns;
 
 use App\Models\Data\Language;
 use App\Services\DataLoader\Factory\ModelFactory;
-use App\Services\DataLoader\Normalizer\Normalizer;
 use App\Services\DataLoader\Resolver\Resolvers\LanguageResolver;
 use App\Services\DataLoader\Schema\Type;
 use App\Utils\Eloquent\Model;
@@ -23,24 +22,18 @@ class WithLanguageTest extends TestCase {
      */
     public function testLanguage(): void {
         // Prepare
-        $normalizer = $this->app->make(Normalizer::class);
-        $resolver   = $this->app->make(LanguageResolver::class);
-        $language   = Language::factory()->create();
-        $factory    = new class($normalizer, $resolver) extends ModelFactory {
+        $resolver = $this->app->make(LanguageResolver::class);
+        $language = Language::factory()->create();
+        $factory  = new class($resolver) extends ModelFactory {
             use WithLanguage {
                 language as public;
             }
 
             /** @noinspection PhpMissingParentConstructorInspection */
             public function __construct(
-                protected Normalizer $normalizer,
                 protected LanguageResolver $languageResolver,
             ) {
                 // empty
-            }
-
-            protected function getNormalizer(): Normalizer {
-                return $this->normalizer;
             }
 
             protected function getLanguageResolver(): LanguageResolver {

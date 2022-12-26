@@ -5,15 +5,12 @@ namespace App\Services\DataLoader\Factory\Concerns;
 use App\Models\Data\Oem;
 use App\Models\Data\ServiceGroup;
 use App\Services\DataLoader\Factory\Factory;
-use App\Services\DataLoader\Normalizer\Normalizer;
 use App\Services\DataLoader\Resolver\Resolvers\ServiceGroupResolver;
 
 /**
  * @mixin Factory
  */
 trait WithServiceGroup {
-    abstract protected function getNormalizer(): Normalizer;
-
     abstract protected function getServiceGroupResolver(): ServiceGroupResolver;
 
     protected function serviceGroup(Oem $oem, string $sku, string $name = null): ?ServiceGroup {

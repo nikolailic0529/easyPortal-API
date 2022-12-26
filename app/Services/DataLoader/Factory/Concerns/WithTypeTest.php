@@ -5,7 +5,6 @@ namespace App\Services\DataLoader\Factory\Concerns;
 use App\Models\Customer;
 use App\Models\Data\Type as TypeModel;
 use App\Services\DataLoader\Factory\DependentModelFactory;
-use App\Services\DataLoader\Normalizer\Normalizer;
 use App\Services\DataLoader\Resolver\Resolvers\TypeResolver;
 use App\Services\DataLoader\Schema\Type;
 use App\Utils\Eloquent\Model;
@@ -24,21 +23,19 @@ class WithTypeTest extends TestCase {
      */
     public function testType(): void {
         // Prepare
-        $normalizer = $this->app->make(Normalizer::class);
-        $resolver   = $this->app->make(TypeResolver::class);
-        $customer   = Customer::factory()->make();
-        $type       = TypeModel::factory()->create([
+        $resolver = $this->app->make(TypeResolver::class);
+        $customer = Customer::factory()->make();
+        $type     = TypeModel::factory()->create([
             'object_type' => $customer->getMorphClass(),
         ]);
 
-        $factory = new class($normalizer, $resolver) extends DependentModelFactory {
+        $factory = new class($resolver) extends DependentModelFactory {
             use WithType {
                 type as public;
             }
 
             /** @noinspection PhpMissingParentConstructorInspection */
             public function __construct(
-                protected Normalizer $normalizer,
                 protected TypeResolver $types,
             ) {
                 // empty

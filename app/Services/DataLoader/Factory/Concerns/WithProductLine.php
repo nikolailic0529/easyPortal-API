@@ -4,15 +4,12 @@ namespace App\Services\DataLoader\Factory\Concerns;
 
 use App\Models\Data\ProductLine;
 use App\Services\DataLoader\Factory\Factory;
-use App\Services\DataLoader\Normalizer\Normalizer;
 use App\Services\DataLoader\Resolver\Resolvers\ProductLineResolver;
 
 /**
  * @mixin Factory
  */
 trait WithProductLine {
-    abstract protected function getNormalizer(): Normalizer;
-
     abstract protected function getProductLineResolver(): ProductLineResolver;
 
     protected function productLine(?string $key): ?ProductLine {

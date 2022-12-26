@@ -5,7 +5,6 @@ namespace App\Services\DataLoader\Factory\Concerns;
 use App\Models\Data\Oem;
 use App\Models\Data\Product;
 use App\Services\DataLoader\Factory\Factory;
-use App\Services\DataLoader\Normalizer\Normalizer;
 use App\Services\DataLoader\Resolver\Resolvers\ProductResolver;
 use Carbon\CarbonImmutable;
 
@@ -13,8 +12,6 @@ use Carbon\CarbonImmutable;
  * @mixin Factory
  */
 trait WithProduct {
-    abstract protected function getNormalizer(): Normalizer;
-
     abstract protected function getProductResolver(): ProductResolver;
 
     protected function product(

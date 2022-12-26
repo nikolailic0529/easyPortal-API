@@ -46,7 +46,6 @@ use App\Services\DataLoader\Client\GraphQL\Queries\ResellersCount;
 use App\Services\DataLoader\Client\GraphQL\Queries\ResellersCountFrom;
 use App\Services\DataLoader\Exceptions\AssetWarrantyCheckFailed;
 use App\Services\DataLoader\Exceptions\CustomerWarrantyCheckFailed;
-use App\Services\DataLoader\Normalizer\Normalizer;
 use App\Services\DataLoader\Normalizer\Normalizers\BoolNormalizer;
 use App\Services\DataLoader\Normalizer\Normalizers\StringNormalizer;
 use App\Services\DataLoader\Schema\Inputs\CompanyBrandingData;
@@ -90,7 +89,6 @@ class Client {
         protected Repository $config,
         protected Factory $client,
         protected Token $token,
-        protected Normalizer $normalizer,
     ) {
         // empty
     }

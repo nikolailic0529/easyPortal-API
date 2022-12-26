@@ -6,15 +6,12 @@ use App\Models\Data\Oem;
 use App\Models\Data\ServiceGroup;
 use App\Models\Data\ServiceLevel;
 use App\Services\DataLoader\Factory\Factory;
-use App\Services\DataLoader\Normalizer\Normalizer;
 use App\Services\DataLoader\Resolver\Resolvers\ServiceLevelResolver;
 
 /**
  * @mixin Factory
  */
 trait WithServiceLevel {
-    abstract protected function getNormalizer(): Normalizer;
-
     abstract protected function getServiceLevelResolver(): ServiceLevelResolver;
 
     protected function serviceLevel(

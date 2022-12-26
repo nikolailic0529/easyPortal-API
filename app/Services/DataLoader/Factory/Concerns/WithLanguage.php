@@ -4,7 +4,6 @@ namespace App\Services\DataLoader\Factory\Concerns;
 
 use App\Models\Data\Language;
 use App\Services\DataLoader\Factory\Factory;
-use App\Services\DataLoader\Normalizer\Normalizer;
 use App\Services\DataLoader\Resolver\Resolvers\LanguageResolver;
 
 use function mb_strtolower;
@@ -13,8 +12,6 @@ use function mb_strtolower;
  * @mixin Factory
  */
 trait WithLanguage {
-    abstract protected function getNormalizer(): Normalizer;
-
     abstract protected function getLanguageResolver(): LanguageResolver;
 
     protected function language(?string $code): ?Language {

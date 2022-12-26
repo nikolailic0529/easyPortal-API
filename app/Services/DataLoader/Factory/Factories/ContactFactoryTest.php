@@ -4,7 +4,6 @@ namespace App\Services\DataLoader\Factory\Factories;
 
 use App\Models\Contact;
 use App\Models\Customer;
-use App\Services\DataLoader\Normalizer\Normalizer;
 use App\Services\DataLoader\Resolver\Resolvers\ContactResolver;
 use App\Services\DataLoader\Schema\Type;
 use App\Services\DataLoader\Schema\Types\CompanyContactPerson;
@@ -88,18 +87,16 @@ class ContactFactoryTest extends TestCase {
      */
     public function testContact(Closure $factory): void {
         // Prepare
-        $normalizer = $this->app->make(Normalizer::class);
-        $resolver   = $this->app->make(ContactResolver::class);
-        $customer   = $factory($this);
-        $contact    = Contact::factory()->create([
+        $resolver = $this->app->make(ContactResolver::class);
+        $customer = $factory($this);
+        $contact  = Contact::factory()->create([
             'object_type' => $customer->getMorphClass(),
             'object_id'   => $customer->getKey(),
         ]);
 
-        $factory = new class($normalizer, $resolver) extends ContactFactory {
+        $factory = new class($resolver) extends ContactFactory {
             /** @noinspection PhpMissingParentConstructorInspection */
             public function __construct(
-                protected Normalizer $normalizer,
                 protected ContactResolver $contactResolver,
             ) {
                 // empty

@@ -4,7 +4,6 @@ namespace App\Services\DataLoader\Factory\Concerns;
 
 use App\Models\Data\Product;
 use App\Services\DataLoader\Factory\ModelFactory;
-use App\Services\DataLoader\Normalizer\Normalizer;
 use App\Services\DataLoader\Resolver\Resolvers\ProductResolver;
 use App\Services\DataLoader\Schema\Type;
 use App\Utils\Eloquent\Model;
@@ -24,19 +23,17 @@ class WithProductTest extends TestCase {
      */
     public function testProduct(): void {
         // Prepare
-        $normalizer = $this->app->make(Normalizer::class);
-        $resolver   = $this->app->make(ProductResolver::class);
-        $product    = Product::factory()->create();
-        $oem        = $product->oem;
+        $resolver = $this->app->make(ProductResolver::class);
+        $product  = Product::factory()->create();
+        $oem      = $product->oem;
 
-        $factory = new class($normalizer, $resolver) extends ModelFactory {
+        $factory = new class($resolver) extends ModelFactory {
             use WithProduct {
                 product as public;
             }
 
             /** @noinspection PhpMissingParentConstructorInspection */
             public function __construct(
-                protected Normalizer $normalizer,
                 protected ProductResolver $productResolver,
             ) {
                 // empty

@@ -8,7 +8,6 @@ use App\Services\DataLoader\Cache\KeyRetriever;
 use App\Services\DataLoader\Collector\Collector;
 use App\Services\DataLoader\Container\Singleton;
 use App\Services\DataLoader\Container\SingletonPersistent;
-use App\Services\DataLoader\Normalizer\Normalizer;
 use Closure;
 use Exception;
 use Illuminate\Database\Eloquent\Builder;
@@ -41,7 +40,6 @@ abstract class Resolver implements Singleton, KeyRetriever {
     protected Cache|null $cache = null;
 
     public function __construct(
-        protected Normalizer $normalizer,
         protected Collector $collector,
     ) {
         // empty
@@ -61,7 +59,7 @@ abstract class Resolver implements Singleton, KeyRetriever {
     }
 
     /**
-     * @param Closure(Normalizer=): ?TModel|null $factory
+     * @param Closure(): TModel|null $factory
      *
      * @return ($factory is null ? TModel|null : TModel)
      */
@@ -82,7 +80,7 @@ abstract class Resolver implements Singleton, KeyRetriever {
         // Not found? Well, maybe we can create?
         if (!$model && $factory) {
             try {
-                $model = $factory($this->normalizer);
+                $model = $factory();
             } catch (Exception $exception) {
                 $this->putNull($key);
 
@@ -247,7 +245,7 @@ abstract class Resolver implements Singleton, KeyRetriever {
     }
 
     protected function getCacheKey(mixed $key): Key {
-        return new Key($this->normalizer, is_array($key) ? $key : [$key]);
+        return new Key(is_array($key) ? $key : [$key]);
     }
 
     /**

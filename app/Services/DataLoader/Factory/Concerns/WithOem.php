@@ -4,15 +4,12 @@ namespace App\Services\DataLoader\Factory\Concerns;
 
 use App\Models\Data\Oem;
 use App\Services\DataLoader\Factory\Factory;
-use App\Services\DataLoader\Normalizer\Normalizer;
 use App\Services\DataLoader\Resolver\Resolvers\OemResolver;
 
 /**
  * @mixin Factory
  */
 trait WithOem {
-    abstract protected function getNormalizer(): Normalizer;
-
     abstract protected function getOemResolver(): OemResolver;
 
     protected function oem(?string $key): ?Oem {

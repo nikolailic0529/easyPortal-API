@@ -6,7 +6,6 @@ use App\Models\Asset;
 use App\Services\DataLoader\Exceptions\AssetNotFound;
 use App\Services\DataLoader\Factory\Factory;
 use App\Services\DataLoader\Finders\AssetFinder;
-use App\Services\DataLoader\Normalizer\Normalizer;
 use App\Services\DataLoader\Resolver\Resolvers\AssetResolver;
 use App\Services\DataLoader\Schema\Types\DocumentEntry;
 
@@ -14,8 +13,6 @@ use App\Services\DataLoader\Schema\Types\DocumentEntry;
  * @mixin Factory
  */
 trait WithAsset {
-    abstract protected function getNormalizer(): Normalizer;
-
     abstract protected function getAssetFinder(): ?AssetFinder;
 
     abstract protected function getAssetResolver(): AssetResolver;

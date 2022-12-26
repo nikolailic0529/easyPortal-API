@@ -41,7 +41,6 @@ use App\Services\DataLoader\Finders\AssetFinder;
 use App\Services\DataLoader\Finders\CustomerFinder;
 use App\Services\DataLoader\Finders\DistributorFinder;
 use App\Services\DataLoader\Finders\ResellerFinder;
-use App\Services\DataLoader\Normalizer\Normalizer;
 use App\Services\DataLoader\Resolver\Resolvers\AssetResolver;
 use App\Services\DataLoader\Resolver\Resolvers\CurrencyResolver;
 use App\Services\DataLoader\Resolver\Resolvers\CustomerResolver;
@@ -100,7 +99,6 @@ class DocumentFactory extends ModelFactory {
 
     public function __construct(
         ExceptionHandler $exceptionHandler,
-        Normalizer $normalizer,
         protected OemResolver $oemResolver,
         protected TypeResolver $typeResolver,
         protected StatusResolver $statusResolver,
@@ -124,7 +122,7 @@ class DocumentFactory extends ModelFactory {
         protected ?CustomerFinder $customerFinder = null,
         protected ?AssetFinder $assetFinder = null,
     ) {
-        parent::__construct($exceptionHandler, $normalizer);
+        parent::__construct($exceptionHandler);
     }
 
     // <editor-fold desc="Getters / Setters">
@@ -565,19 +563,18 @@ class DocumentFactory extends ModelFactory {
     // <editor-fold desc="Helpers">
     // =========================================================================
     protected function getEntryKey(DocumentEntryModel|DocumentEntry $entry): string {
-        $normalizer = $this->getNormalizer();
-        $key        = null;
+        $key = null;
 
         if ($entry instanceof DocumentEntryModel) {
-            $key = new Key($normalizer, [
+            $key = new Key([
                 'key' => $entry->key,
             ]);
         } elseif (isset($entry->assetDocumentId) && $entry->assetDocumentId) {
-            $key = new Key($normalizer, [
+            $key = new Key([
                 'key' => $entry->assetDocumentId,
             ]);
         } else {
-            $key = new Key($normalizer, [
+            $key = new Key([
                 'asset'        => $entry->assetId,
                 'start'        => $entry->startDate,
                 'end'          => $entry->endDate,

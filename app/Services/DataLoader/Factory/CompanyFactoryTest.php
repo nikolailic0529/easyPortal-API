@@ -2,7 +2,6 @@
 
 namespace App\Services\DataLoader\Factory;
 
-use App\Services\DataLoader\Normalizer\Normalizer;
 use App\Services\DataLoader\Resolver\Resolvers\StatusResolver;
 use App\Services\DataLoader\Schema\Type;
 use App\Services\DataLoader\Schema\Types\Company as CompanyObject;
@@ -31,12 +30,10 @@ class CompanyFactoryTest extends TestCase {
             }
         };
         $factory = new class(
-            $this->app->make(Normalizer::class),
             $this->app->make(StatusResolver::class),
         ) extends CompanyFactory {
             /** @noinspection PhpMissingParentConstructorInspection */
             public function __construct(
-                protected Normalizer $normalizer,
                 protected StatusResolver $statusResolver,
             ) {
                 // empty

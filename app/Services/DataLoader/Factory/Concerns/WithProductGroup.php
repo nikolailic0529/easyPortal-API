@@ -4,15 +4,12 @@ namespace App\Services\DataLoader\Factory\Concerns;
 
 use App\Models\Data\ProductGroup;
 use App\Services\DataLoader\Factory\Factory;
-use App\Services\DataLoader\Normalizer\Normalizer;
 use App\Services\DataLoader\Resolver\Resolvers\ProductGroupResolver;
 
 /**
  * @mixin Factory
  */
 trait WithProductGroup {
-    abstract protected function getNormalizer(): Normalizer;
-
     abstract protected function getProductGroupResolver(): ProductGroupResolver;
 
     protected function productGroup(?string $key): ?ProductGroup {

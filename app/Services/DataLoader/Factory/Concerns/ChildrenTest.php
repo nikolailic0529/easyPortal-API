@@ -3,7 +3,6 @@
 namespace App\Services\DataLoader\Factory\Concerns;
 
 use App\Services\DataLoader\Cache\Key;
-use App\Services\DataLoader\Normalizer\Normalizer;
 use App\Services\DataLoader\Schema\Type;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
@@ -57,16 +56,15 @@ class ChildrenTest extends TestCase {
                 'property' => $type->property ?? null,
             ]);
         };
-        $keyer                = function (Model|ChildrenTest_Type $object): string {
-            $normalizer = $this->app->make(Normalizer::class);
-            $key        = null;
+        $keyer                = static function (Model|ChildrenTest_Type $object): string {
+            $key = null;
 
             if ($object instanceof Model) {
-                $key = new Key($normalizer, [
+                $key = new Key([
                     'key' => $object->getAttribute('key'),
                 ]);
             } else {
-                $key = new Key($normalizer, [
+                $key = new Key([
                     'key' => $object->key,
                 ]);
             }

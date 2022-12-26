@@ -8,7 +8,6 @@ use App\Models\Reseller;
 use App\Models\ResellerCustomer;
 use App\Services\DataLoader\Exceptions\FailedToProcessCompanyKpis;
 use App\Services\DataLoader\Factory\Factory;
-use App\Services\DataLoader\Normalizer\Normalizer;
 use App\Services\DataLoader\Schema\Types\CompanyKpis;
 use Exception;
 use Illuminate\Contracts\Debug\ExceptionHandler;
@@ -17,8 +16,6 @@ use Illuminate\Contracts\Debug\ExceptionHandler;
  * @mixin Factory
  */
 trait WithKpi {
-    abstract protected function getNormalizer(): Normalizer;
-
     abstract protected function getExceptionHandler(): ExceptionHandler;
 
     protected function kpi(Reseller|Customer|ResellerCustomer $owner, ?CompanyKpis $kpis): ?Kpi {

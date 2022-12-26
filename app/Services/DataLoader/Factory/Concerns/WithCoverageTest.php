@@ -4,7 +4,6 @@ namespace App\Services\DataLoader\Factory\Concerns;
 
 use App\Models\Data\Coverage;
 use App\Services\DataLoader\Factory\ModelFactory;
-use App\Services\DataLoader\Normalizer\Normalizer;
 use App\Services\DataLoader\Resolver\Resolvers\CoverageResolver;
 use App\Services\DataLoader\Schema\Type;
 use App\Utils\Eloquent\Model;
@@ -23,24 +22,18 @@ class WithCoverageTest extends TestCase {
      */
     public function testOem(): void {
         // Prepare
-        $normalizer = $this->app->make(Normalizer::class);
-        $resolver   = $this->app->make(CoverageResolver::class);
-        $coverage   = Coverage::factory()->create();
-        $factory    = new class($normalizer, $resolver) extends ModelFactory {
+        $resolver = $this->app->make(CoverageResolver::class);
+        $coverage = Coverage::factory()->create();
+        $factory  = new class($resolver) extends ModelFactory {
             use WithCoverage {
                 coverage as public;
             }
 
             /** @noinspection PhpMissingParentConstructorInspection */
             public function __construct(
-                protected Normalizer $normalizer,
                 protected CoverageResolver $coverageResolver,
             ) {
                 // empty
-            }
-
-            protected function getNormalizer(): Normalizer {
-                return $this->normalizer;
             }
 
             protected function getCoverageResolver(): CoverageResolver {

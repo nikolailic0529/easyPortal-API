@@ -5,7 +5,6 @@ namespace App\Services\Organization\Listeners;
 use App\Models\Enums\OrganizationType;
 use App\Models\Organization;
 use App\Services\DataLoader\Events\ResellerUpdated;
-use App\Services\DataLoader\Normalizer\Normalizer;
 use App\Services\DataLoader\Schema\Types\TranslationText;
 use App\Services\I18n\Eloquent\TranslatedString;
 use App\Services\Keycloak\Utils\Map;
@@ -13,9 +12,7 @@ use App\Utils\Providers\EventsProvider;
 use Illuminate\Database\Eloquent\Builder;
 
 class OrganizationUpdater implements EventsProvider {
-    public function __construct(
-        protected Normalizer $normalizer,
-    ) {
+    public function __construct() {
         // empty
     }
 

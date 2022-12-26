@@ -4,7 +4,6 @@ namespace App\Services\DataLoader\Factory\Concerns;
 
 use App\Models\Data\Type;
 use App\Services\DataLoader\Factory\Factory;
-use App\Services\DataLoader\Normalizer\Normalizer;
 use App\Services\DataLoader\Normalizer\Normalizers\NameNormalizer;
 use App\Services\DataLoader\Resolver\Resolvers\TypeResolver;
 use App\Utils\Eloquent\Model;
@@ -13,8 +12,6 @@ use App\Utils\Eloquent\Model;
  * @mixin Factory
  */
 trait WithType {
-    abstract protected function getNormalizer(): Normalizer;
-
     abstract protected function getTypeResolver(): TypeResolver;
 
     protected function type(Model $owner, string $type): Type {

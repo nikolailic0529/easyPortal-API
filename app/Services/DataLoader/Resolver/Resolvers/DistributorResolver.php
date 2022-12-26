@@ -3,7 +3,6 @@
 namespace App\Services\DataLoader\Resolver\Resolvers;
 
 use App\Models\Distributor;
-use App\Services\DataLoader\Normalizer\Normalizer;
 use App\Services\DataLoader\Resolver\Resolver;
 use Closure;
 use Illuminate\Database\Eloquent\Builder;
@@ -14,7 +13,7 @@ use Illuminate\Support\Collection;
  */
 class DistributorResolver extends Resolver {
     /**
-     * @param Closure(Normalizer=): Distributor|null $factory
+     * @param Closure(): Distributor|null $factory
      *
      * @return ($factory is null ? Distributor|null : Distributor)
      */

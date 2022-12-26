@@ -3,7 +3,6 @@
 namespace App\Services\DataLoader\Resolver\Resolvers;
 
 use App\Models\Document;
-use App\Services\DataLoader\Normalizer\Normalizer;
 use App\Services\DataLoader\Resolver\Resolver;
 use Closure;
 use Illuminate\Database\Eloquent\Builder;
@@ -13,7 +12,7 @@ use Illuminate\Database\Eloquent\Builder;
  */
 class DocumentResolver extends Resolver {
     /**
-     * @param Closure(Normalizer=): Document|null $factory
+     * @param Closure(): Document|null $factory
      *
      * @return ($factory is null ? Document|null : Document)
      */

@@ -5,7 +5,6 @@ namespace App\Services\DataLoader\Resolver\Resolvers;
 use App\Models\Data\Country;
 use App\Services\DataLoader\Cache\Key;
 use App\Services\DataLoader\Container\SingletonPersistent;
-use App\Services\DataLoader\Normalizer\Normalizer;
 use App\Services\DataLoader\Resolver\Resolver;
 use Closure;
 use Illuminate\Database\Eloquent\Builder;
@@ -17,7 +16,7 @@ use Illuminate\Support\Collection;
  */
 class CountryResolver extends Resolver implements SingletonPersistent {
     /**
-     * @param Closure(Normalizer=): Country|null $factory
+     * @param Closure(): Country|null $factory
      *
      * @return ($factory is null ? Country|null : Country)
      */

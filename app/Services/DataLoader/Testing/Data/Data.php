@@ -5,7 +5,6 @@ namespace App\Services\DataLoader\Testing\Data;
 use App\Models\Data\Type as TypeModel;
 use App\Models\Document as DocumentModel;
 use App\Services\DataLoader\Client\Client;
-use App\Services\DataLoader\Normalizer\Normalizer;
 use App\Services\DataLoader\Testing\Data\Client as DataClient;
 use App\Utils\Eloquent\GlobalScopes\GlobalScopes;
 use App\Utils\Eloquent\Model;
@@ -45,7 +44,6 @@ abstract class Data {
         protected Application $app,
         protected Repository $config,
         protected Generator $faker,
-        protected Normalizer $normalizer,
     ) {
         // empty
     }

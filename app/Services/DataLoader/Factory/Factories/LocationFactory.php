@@ -6,7 +6,6 @@ use App\Models\Data\City;
 use App\Models\Data\Country;
 use App\Models\Data\Location as LocationModel;
 use App\Services\DataLoader\Factory\ModelFactory;
-use App\Services\DataLoader\Normalizer\Normalizer;
 use App\Services\DataLoader\Resolver\Resolvers\CityResolver;
 use App\Services\DataLoader\Resolver\Resolvers\CountryResolver;
 use App\Services\DataLoader\Resolver\Resolvers\LocationResolver;
@@ -36,12 +35,11 @@ class LocationFactory extends ModelFactory {
 
     public function __construct(
         ExceptionHandler $exceptionHandler,
-        Normalizer $normalizer,
         protected CountryResolver $countryResolver,
         protected CityResolver $cityResolver,
         protected LocationResolver $locationResolver,
     ) {
-        parent::__construct($exceptionHandler, $normalizer);
+        parent::__construct($exceptionHandler);
     }
 
     // <editor-fold desc="Factory">

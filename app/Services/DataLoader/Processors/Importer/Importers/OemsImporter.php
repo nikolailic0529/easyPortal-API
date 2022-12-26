@@ -5,7 +5,6 @@ namespace App\Services\DataLoader\Processors\Importer\Importers;
 use App\Models\Data\Oem;
 use App\Models\Data\ServiceGroup;
 use App\Models\Data\ServiceLevel;
-use App\Services\DataLoader\Normalizer\Normalizer;
 use App\Services\DataLoader\Normalizer\Normalizers\StringNormalizer;
 use App\Services\DataLoader\Normalizer\Normalizers\TextNormalizer;
 use App\Services\DataLoader\Processors\Importer\Importers\OemsImporter\CellType;
@@ -49,7 +48,6 @@ class OemsImporter implements OnEachRow, WithStartRow, WithEvents, SkipsEmptyRow
 
     public function __construct(
         protected Application $app,
-        protected Normalizer $normalizer,
         protected OemResolver $oemResolver,
         protected ServiceGroupResolver $serviceGroupResolver,
         protected ServiceLevelResolver $serviceLevelResolver,

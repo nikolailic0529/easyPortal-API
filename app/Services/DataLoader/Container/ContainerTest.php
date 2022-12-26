@@ -3,7 +3,6 @@
 namespace App\Services\DataLoader\Container;
 
 use App\Services\DataLoader\Factory\Factory;
-use App\Services\DataLoader\Normalizer\Normalizer;
 use App\Services\DataLoader\Resolver\Resolver;
 use Illuminate\Contracts\Debug\ExceptionHandler;
 use Illuminate\Database\Eloquent\Model;
@@ -128,10 +127,9 @@ class ContainerTest_Resolver extends Resolver {
 class ContainerTest_Factory extends Factory {
     public function __construct(
         ExceptionHandler $exceptionHandler,
-        Normalizer $normalizer,
         public ContainerTest_Singleton $singleton,
     ) {
-        parent::__construct($exceptionHandler, $normalizer);
+        parent::__construct($exceptionHandler);
     }
 }
 

@@ -4,7 +4,6 @@ namespace App\Services\DataLoader\Factory\Factories;
 
 use App\Models\Contact;
 use App\Services\DataLoader\Factory\DependentModelFactory;
-use App\Services\DataLoader\Normalizer\Normalizer;
 use App\Services\DataLoader\Resolver\Resolvers\ContactResolver;
 use App\Services\DataLoader\Schema\Type;
 use App\Services\DataLoader\Schema\Types\CompanyContactPerson;
@@ -23,10 +22,9 @@ use function sprintf;
 class ContactFactory extends DependentModelFactory {
     public function __construct(
         ExceptionHandler $exceptionHandler,
-        Normalizer $normalizer,
         protected ContactResolver $contactResolver,
     ) {
-        parent::__construct($exceptionHandler, $normalizer);
+        parent::__construct($exceptionHandler);
     }
 
     public function create(Model $object, Type $type): ?Contact {

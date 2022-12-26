@@ -4,7 +4,6 @@ namespace App\Services\DataLoader\Factory\Concerns;
 
 use App\Models\OemGroup;
 use App\Services\DataLoader\Factory\ModelFactory;
-use App\Services\DataLoader\Normalizer\Normalizer;
 use App\Services\DataLoader\Resolver\Resolvers\OemGroupResolver;
 use App\Services\DataLoader\Schema\Type;
 use App\Utils\Eloquent\Model;
@@ -23,19 +22,17 @@ class WithOemGroupTest extends TestCase {
      */
     public function testOemGroup(): void {
         // Prepare
-        $normalizer = $this->app->make(Normalizer::class);
-        $resolver   = $this->app->make(OemGroupResolver::class);
-        $group      = OemGroup::factory()->create();
-        $oem        = $group->oem;
+        $resolver = $this->app->make(OemGroupResolver::class);
+        $group    = OemGroup::factory()->create();
+        $oem      = $group->oem;
 
-        $factory = new class($normalizer, $resolver) extends ModelFactory {
+        $factory = new class($resolver) extends ModelFactory {
             use WithOemGroup {
                 oemGroup as public;
             }
 
             /** @noinspection PhpMissingParentConstructorInspection */
             public function __construct(
-                protected Normalizer $normalizer,
                 protected OemGroupResolver $oemGroupResolver,
             ) {
                 // empty

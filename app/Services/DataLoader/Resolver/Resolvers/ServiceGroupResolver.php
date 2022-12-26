@@ -6,7 +6,6 @@ use App\Models\Data\Oem;
 use App\Models\Data\ServiceGroup;
 use App\Services\DataLoader\Cache\Key;
 use App\Services\DataLoader\Container\SingletonPersistent;
-use App\Services\DataLoader\Normalizer\Normalizer;
 use App\Services\DataLoader\Resolver\Resolver;
 use Closure;
 use Illuminate\Database\Eloquent\Model;
@@ -17,7 +16,7 @@ use Illuminate\Support\Collection;
  */
 class ServiceGroupResolver extends Resolver implements SingletonPersistent {
     /**
-     * @param Closure(Normalizer=): ServiceGroup|null $factory
+     * @param Closure(): ServiceGroup|null $factory
      *
      * @return ($factory is null ? ServiceGroup|null : ServiceGroup)
      */

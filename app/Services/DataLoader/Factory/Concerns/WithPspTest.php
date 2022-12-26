@@ -4,7 +4,6 @@ namespace App\Services\DataLoader\Factory\Concerns;
 
 use App\Models\Data\Psp;
 use App\Services\DataLoader\Factory\Factory;
-use App\Services\DataLoader\Normalizer\Normalizer;
 use App\Services\DataLoader\Resolver\Resolvers\PspResolver;
 use LastDragon_ru\LaraASP\Testing\Database\QueryLog\WithQueryLog;
 use Tests\TestCase;
@@ -21,17 +20,15 @@ class WithPspTest extends TestCase {
      */
     public function testPsp(): void {
         // Prepare
-        $psp        = Psp::factory()->create();
-        $normalizer = $this->app->make(Normalizer::class);
-        $resolver   = $this->app->make(PspResolver::class);
-        $factory    = new class($normalizer, $resolver) extends Factory {
+        $psp      = Psp::factory()->create();
+        $resolver = $this->app->make(PspResolver::class);
+        $factory  = new class($resolver) extends Factory {
             use WithPsp {
                 psp as public;
             }
 
             /** @noinspection PhpMissingParentConstructorInspection */
             public function __construct(
-                protected Normalizer $normalizer,
                 protected PspResolver $pspResolver,
             ) {
                 // empty

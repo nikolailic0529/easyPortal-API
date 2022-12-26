@@ -7,7 +7,6 @@ use App\Models\Kpi;
 use App\Models\Reseller;
 use App\Models\ResellerCustomer;
 use App\Services\DataLoader\Finders\ResellerFinder;
-use App\Services\DataLoader\Normalizer\Normalizer;
 use App\Services\DataLoader\Resolver\Resolvers\ResellerResolver;
 use App\Services\DataLoader\Schema\Type;
 use App\Services\DataLoader\Schema\Types\Company;
@@ -338,12 +337,10 @@ class CustomerFactoryTest extends TestCase {
             ],
         ]);
 
-        $normalizer = $this->app->make(Normalizer::class);
-        $resellers  = $this->app->make(ResellerResolver::class);
-        $factory    = new class($normalizer, $resellers) extends CustomerFactory {
+        $resellers = $this->app->make(ResellerResolver::class);
+        $factory   = new class($resellers) extends CustomerFactory {
             /** @noinspection PhpMissingParentConstructorInspection */
             public function __construct(
-                protected Normalizer $normalizer,
                 protected ResellerResolver $resellerResolver,
                 protected ?ResellerFinder $resellerFinder = null,
             ) {

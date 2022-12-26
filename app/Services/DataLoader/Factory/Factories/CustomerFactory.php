@@ -9,7 +9,6 @@ use App\Services\DataLoader\Factory\CompanyFactory;
 use App\Services\DataLoader\Factory\Concerns\WithKpi;
 use App\Services\DataLoader\Factory\Concerns\WithReseller;
 use App\Services\DataLoader\Finders\ResellerFinder;
-use App\Services\DataLoader\Normalizer\Normalizer;
 use App\Services\DataLoader\Resolver\Resolvers\CustomerResolver;
 use App\Services\DataLoader\Resolver\Resolvers\ResellerResolver;
 use App\Services\DataLoader\Resolver\Resolvers\StatusResolver;
@@ -33,7 +32,6 @@ class CustomerFactory extends CompanyFactory {
 
     public function __construct(
         ExceptionHandler $exceptionHandler,
-        Normalizer $normalizer,
         TypeResolver $typeResolver,
         StatusResolver $statusResolver,
         ContactFactory $contactFactory,
@@ -44,7 +42,6 @@ class CustomerFactory extends CompanyFactory {
     ) {
         parent::__construct(
             $exceptionHandler,
-            $normalizer,
             $typeResolver,
             $statusResolver,
             $contactFactory,
