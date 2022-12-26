@@ -1,14 +1,14 @@
 <?php declare(strict_types = 1);
 
-namespace App\Services\DataLoader\Normalizer\Normalizers;
+namespace App\Services\DataLoader\Normalizers;
 
 use Tests\TestCase;
 
 /**
  * @internal
- * @coversDefaultClass \App\Services\DataLoader\Normalizer\Normalizers\FloatNormalizer
+ * @coversDefaultClass \App\Services\DataLoader\Normalizers\IntNormalizer
  */
-class FloatNormalizerTest extends TestCase {
+class IntNormalizerTest extends TestCase {
     // <editor-fold desc="Tests">
     // =========================================================================
     /**
@@ -17,7 +17,7 @@ class FloatNormalizerTest extends TestCase {
      * @dataProvider dataProviderNormalize
      */
     public function testNormalize(mixed $expected, mixed $value): void {
-        self::assertEquals($expected, FloatNormalizer::normalize($value));
+        self::assertEquals($expected, IntNormalizer::normalize($value));
     }
     // </editor-fold>
 
@@ -31,11 +31,12 @@ class FloatNormalizerTest extends TestCase {
             'null'                => [null, null],
             'bool'                => [null, true],
             'array'               => [null, [4, 3, 2.2]],
-            'float'               => [123_213.3566, 123_213.3566],
-            'int'                 => [123_213.00, 123_213],
-            'negative'            => [-1.00, -1],
-            'string'              => [123_213.36, '123,213.36'],
-            'string no decimal'   => [123_213.00, '123,213'],
+            'float'               => [123_213, 123_213.3566],
+            'round'               => [123_214, 123_213.5],
+            'int'                 => [123_213, 123_213],
+            'negative'            => [-1, -1],
+            'string'              => [123_213, '123,213.36'],
+            'string no decimal'   => [123_213, '123,213'],
             'string not a number' => [null, 'string'],
         ];
     }

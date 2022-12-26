@@ -1,9 +1,8 @@
 <?php declare(strict_types = 1);
 
-namespace App\Services\DataLoader\Normalizer\Normalizers;
+namespace App\Services\DataLoader\Normalizers;
 
 use App\Utils\JsonObject\Normalizer;
-use Carbon\Carbon;
 use Carbon\CarbonImmutable;
 use DateTimeInterface;
 use Illuminate\Support\Facades\Date;
@@ -37,10 +36,6 @@ class DateTimeNormalizer implements Normalizer {
         }
 
         // Set Timezone
-        if ($value instanceof DateTimeInterface && !($value instanceof CarbonImmutable)) {
-            $value = Carbon::make($value)?->toImmutable();
-        }
-
         if ($value instanceof CarbonImmutable) {
             $tz    = config('app.timezone') ?: 'UTC';
             $value = $value->setTimezone($tz);

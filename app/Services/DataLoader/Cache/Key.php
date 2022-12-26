@@ -2,7 +2,7 @@
 
 namespace App\Services\DataLoader\Cache;
 
-use App\Services\DataLoader\Normalizer\Normalizers\StringNormalizer;
+use App\Services\DataLoader\Normalizers\StringNormalizer;
 use App\Utils\Cache\CacheKey;
 
 use function is_string;

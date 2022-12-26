@@ -1,11 +1,11 @@
 <?php declare(strict_types = 1);
 
-namespace App\Services\DataLoader\Normalizer\Normalizers;
+namespace App\Services\DataLoader\Normalizers;
 
 use function max;
 
-class UnsignedIntNormalizer extends IntNormalizer {
-    public static function normalize(mixed $value): ?int {
+class UnsignedFloatNormalizer extends FloatNormalizer {
+    public static function normalize(mixed $value): ?float {
         $value = parent::normalize($value);
 
         if ($value) {

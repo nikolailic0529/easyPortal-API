@@ -2,8 +2,8 @@
 
 namespace App\Services\DataLoader\Schema\Types;
 
-use App\Services\DataLoader\Normalizer\Normalizers\DateTimeNormalizer;
-use App\Services\DataLoader\Normalizer\Normalizers\StringNormalizer;
+use App\Services\DataLoader\Normalizers\DateTimeNormalizer;
+use App\Services\DataLoader\Normalizers\StringNormalizer;
 use App\Services\DataLoader\Schema\Type;
 use App\Utils\JsonObject\JsonObjectArray;
 use App\Utils\JsonObject\JsonObjectNormalizer;

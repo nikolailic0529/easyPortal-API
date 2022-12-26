@@ -3,7 +3,7 @@
 use App\Models\Data\Coverage;
 use App\Models\Data\Status;
 use App\Models\Data\Type;
-use App\Services\DataLoader\Normalizer\Normalizers\NameNormalizer;
+use App\Services\DataLoader\Normalizers\NameNormalizer;
 use Illuminate\Database\Migrations\Migration;
 
 return new class() extends Migration {

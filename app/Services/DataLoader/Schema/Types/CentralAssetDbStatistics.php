@@ -2,7 +2,7 @@
 
 namespace App\Services\DataLoader\Schema\Types;
 
-use App\Services\DataLoader\Normalizer\Normalizers\IntNormalizer;
+use App\Services\DataLoader\Normalizers\IntNormalizer;
 use App\Services\DataLoader\Schema\Type;
 use App\Utils\JsonObject\JsonObjectNormalizer;
 

@@ -17,7 +17,7 @@ use App\Services\DataLoader\Finders\AssetFinder as AssetFinderContract;
 use App\Services\DataLoader\Finders\CustomerFinder as CustomerFinderContract;
 use App\Services\DataLoader\Finders\DistributorFinder as DistributorFinderContract;
 use App\Services\DataLoader\Finders\ResellerFinder as ResellerFinderContract;
-use App\Services\DataLoader\Normalizer\Normalizers\NameNormalizer;
+use App\Services\DataLoader\Normalizers\NameNormalizer;
 use App\Services\DataLoader\Schema\Types\Company;
 use App\Services\DataLoader\Schema\Types\Document;
 use App\Services\DataLoader\Schema\Types\ViewAsset;

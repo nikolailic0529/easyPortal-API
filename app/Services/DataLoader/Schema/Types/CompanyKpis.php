@@ -2,10 +2,10 @@
 
 namespace App\Services\DataLoader\Schema\Types;
 
-use App\Services\DataLoader\Normalizer\Normalizers\FloatNormalizer;
-use App\Services\DataLoader\Normalizer\Normalizers\UnsignedFloatNormalizer;
-use App\Services\DataLoader\Normalizer\Normalizers\UnsignedIntNormalizer;
-use App\Services\DataLoader\Normalizer\Normalizers\UuidNormalizer;
+use App\Services\DataLoader\Normalizers\FloatNormalizer;
+use App\Services\DataLoader\Normalizers\UnsignedFloatNormalizer;
+use App\Services\DataLoader\Normalizers\UnsignedIntNormalizer;
+use App\Services\DataLoader\Normalizers\UuidNormalizer;
 use App\Services\DataLoader\Schema\Type;
 use App\Utils\JsonObject\JsonObjectNormalizer;
 

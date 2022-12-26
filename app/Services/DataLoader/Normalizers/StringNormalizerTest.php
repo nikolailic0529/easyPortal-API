@@ -1,12 +1,12 @@
 <?php declare(strict_types = 1);
 
-namespace App\Services\DataLoader\Normalizer\Normalizers;
+namespace App\Services\DataLoader\Normalizers;
 
 use Tests\TestCase;
 
 /**
  * @internal
- * @coversDefaultClass \App\Services\DataLoader\Normalizer\Normalizers\StringNormalizer
+ * @coversDefaultClass \App\Services\DataLoader\Normalizers\StringNormalizer
  */
 class StringNormalizerTest extends TestCase {
     /**

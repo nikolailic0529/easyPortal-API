@@ -2846,26 +2846,6 @@ parameters:
 			path: app/Services/DataLoader/Factory/Factories/ResellerFactoryTest.php
 
 		-
-			message: "#^Instanceof between Carbon\\\\CarbonImmutable and Carbon\\\\CarbonImmutable will always evaluate to true\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Normalizer/Normalizers/DateTimeNormalizer.php
-
-		-
-			message: "#^Result of && is always false\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Normalizer/Normalizers/DateTimeNormalizer.php
-
-		-
-			message: "#^Cannot cast mixed to string\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Normalizer/Normalizers/StringNormalizer.php
-
-		-
-			message: "#^Cannot cast mixed to string\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Normalizer/Normalizers/TextNormalizer.php
-
-		-
 			message: "#^Parameter \\#1 \\$models of method App\\\\Services\\\\DataLoader\\\\Resolver\\\\Resolver\\<App\\\\Models\\\\Contact\\>\\:\\:add\\(\\) expects App\\\\Models\\\\Contact\\|array\\<App\\\\Models\\\\Contact\\|null\\>\\|Illuminate\\\\Support\\\\Collection\\<\\(int\\|string\\), App\\\\Models\\\\Contact\\|null\\>, Illuminate\\\\Support\\\\Collection\\<int, mixed\\> given\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Processors/Importer/Importers/Assets/BaseImporter.php

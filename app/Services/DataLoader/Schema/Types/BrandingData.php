@@ -2,9 +2,9 @@
 
 namespace App\Services\DataLoader\Schema\Types;
 
-use App\Services\DataLoader\Normalizer\Normalizers\BoolNormalizer;
-use App\Services\DataLoader\Normalizer\Normalizers\ColorNormalizer;
-use App\Services\DataLoader\Normalizer\Normalizers\StringNormalizer;
+use App\Services\DataLoader\Normalizers\BoolNormalizer;
+use App\Services\DataLoader\Normalizers\ColorNormalizer;
+use App\Services\DataLoader\Normalizers\StringNormalizer;
 use App\Services\DataLoader\Schema\Type;
 use App\Utils\JsonObject\JsonObjectArray;
 use App\Utils\JsonObject\JsonObjectNormalizer;

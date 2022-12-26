@@ -2,11 +2,11 @@
 
 namespace App\Services\DataLoader\Schema\Types;
 
-use App\Services\DataLoader\Normalizer\Normalizers\DateTimeNormalizer;
-use App\Services\DataLoader\Normalizer\Normalizers\DecimalNormalizer;
-use App\Services\DataLoader\Normalizer\Normalizers\StringNormalizer;
-use App\Services\DataLoader\Normalizer\Normalizers\TextNormalizer;
-use App\Services\DataLoader\Normalizer\Normalizers\UuidNormalizer;
+use App\Services\DataLoader\Normalizers\DateTimeNormalizer;
+use App\Services\DataLoader\Normalizers\DecimalNormalizer;
+use App\Services\DataLoader\Normalizers\StringNormalizer;
+use App\Services\DataLoader\Normalizers\TextNormalizer;
+use App\Services\DataLoader\Normalizers\UuidNormalizer;
 use App\Services\DataLoader\Schema\Type;
 use App\Utils\JsonObject\JsonObjectNormalizer;
 use Carbon\CarbonImmutable;

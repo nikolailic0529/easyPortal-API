@@ -4,7 +4,7 @@ namespace App\Services\DataLoader\Factory\Concerns;
 
 use App\Models\Data\Status;
 use App\Services\DataLoader\Factory\Factory;
-use App\Services\DataLoader\Normalizer\Normalizers\NameNormalizer;
+use App\Services\DataLoader\Normalizers\NameNormalizer;
 use App\Services\DataLoader\Resolver\Resolvers\StatusResolver;
 use App\Utils\Eloquent\Model;
 
