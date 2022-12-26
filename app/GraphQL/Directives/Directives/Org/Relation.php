@@ -4,11 +4,11 @@ namespace App\GraphQL\Directives\Directives\Org;
 
 use App\Services\Organization\CurrentOrganization;
 use App\Utils\Eloquent\ModelHelper;
-use GraphQL\Type\Definition\ResolveInfo;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Nuwave\Lighthouse\Execution\BatchLoader\BatchLoaderRegistry;
 use Nuwave\Lighthouse\Execution\BatchLoader\RelationBatchLoader;
+use Nuwave\Lighthouse\Execution\ResolveInfo;
 use Nuwave\Lighthouse\Schema\Directives\BaseDirective;
 use Nuwave\Lighthouse\Schema\Directives\RelationDirectiveHelpers;
 use Nuwave\Lighthouse\Schema\Values\FieldValue;

@@ -2,7 +2,7 @@
 
 namespace App\GraphQL\Queries\Map;
 
-use GraphQL\Type\Definition\ResolveInfo;
+use Nuwave\Lighthouse\Execution\ResolveInfo;
 use Nuwave\Lighthouse\Support\Contracts\GraphQLContext;
 
 class Map {

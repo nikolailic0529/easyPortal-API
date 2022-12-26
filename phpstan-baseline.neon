@@ -296,7 +296,7 @@ parameters:
 			path: app/GraphQL/Directives/Directives/Cached/CachedTest.php
 
 		-
-			message: "#^Parameter \\#1 \\$resolver of method App\\\\GraphQL\\\\Directives\\\\Directives\\\\Cached\\\\Cached\\:\\:resolve\\(\\) expects callable\\(mixed, array, Nuwave\\\\Lighthouse\\\\Support\\\\Contracts\\\\GraphQLContext, GraphQL\\\\Type\\\\Definition\\\\ResolveInfo\\)\\: mixed, Mockery\\\\MockInterface given\\.$#"
+			message: "#^Parameter \\#1 \\$resolver of method App\\\\GraphQL\\\\Directives\\\\Directives\\\\Cached\\\\Cached\\:\\:resolve\\(\\) expects callable\\(mixed, array, Nuwave\\\\Lighthouse\\\\Support\\\\Contracts\\\\GraphQLContext, Nuwave\\\\Lighthouse\\\\Execution\\\\ResolveInfo\\)\\: mixed, Mockery\\\\MockInterface given\\.$#"
 			count: 7
 			path: app/GraphQL/Directives/Directives/Cached/CachedTest.php
 

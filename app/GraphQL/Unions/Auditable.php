@@ -9,10 +9,8 @@ use App\Models\OrganizationUser;
 use App\Models\QuoteRequest;
 use App\Models\Role;
 use App\Models\User;
-use GraphQL\Type\Definition\ResolveInfo;
 use GraphQL\Type\Definition\Type;
 use Nuwave\Lighthouse\Schema\TypeRegistry;
-use Nuwave\Lighthouse\Support\Contracts\GraphQLContext;
 
 class Auditable {
     public function __construct(
@@ -21,7 +19,7 @@ class Auditable {
         // empty
     }
 
-    public function __invoke(mixed $root, GraphQLContext $context, ResolveInfo $resolveInfo): Type {
+    public function __invoke(mixed $root): Type {
         $type = match (true) {
             $root instanceof OrganizationUser => 'UserOrganization',
             $root instanceof ChangeRequest    => 'ChangeRequest',

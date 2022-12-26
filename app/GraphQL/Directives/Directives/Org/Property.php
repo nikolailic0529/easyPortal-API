@@ -4,7 +4,6 @@ namespace App\GraphQL\Directives\Directives\Org;
 
 use App\Services\Organization\CurrentOrganization;
 use GraphQL\Type\Definition\NonNull;
-use GraphQL\Type\Definition\ResolveInfo;
 use GraphQL\Type\Definition\Type;
 use Illuminate\Database\Eloquent\Builder as EloquentBuilder;
 use Illuminate\Database\Eloquent\Model;
@@ -12,6 +11,7 @@ use Illuminate\Database\Query\Builder as QueryBuilder;
 use InvalidArgumentException;
 use Nuwave\Lighthouse\Execution\BatchLoader\BatchLoaderRegistry;
 use Nuwave\Lighthouse\Execution\BatchLoader\RelationBatchLoader;
+use Nuwave\Lighthouse\Execution\ResolveInfo;
 use Nuwave\Lighthouse\Schema\Directives\BaseDirective;
 use Nuwave\Lighthouse\Schema\Directives\RelationDirectiveHelpers;
 use Nuwave\Lighthouse\Schema\Values\FieldValue;

@@ -22,6 +22,7 @@ parameters:
         - "#^Dynamic call to static method Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\[^\\\\]+(\\<[^>]+\\>)?\\:\\:[^(]+\\(\\)\\.$#"
         - "#^Dynamic call to static method Symfony\\\\Component\\\\HttpFoundation\\\\Response\\:\\:isSuccessful\\(\\)\\.$#"
         - "#^Dynamic call to static method Illuminate\\\\Database\\\\Connection\\:\\:[^(]+\\(\\)\\.$#"
+        - "#^Dynamic call to static method Illuminate\\\\Http\\\\Client\\\\PendingRequest\\:\\:[^(]+\\(\\)\\.$#"
 
         # Sometimes it is needed...
         # https://github.com/phpstan/phpstan/issues/3296

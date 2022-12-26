@@ -8,11 +8,11 @@ use App\Services\Audit\Enums\Action;
 use App\Services\Audit\Listeners\AuditableListener;
 use Closure;
 use Exception;
-use GraphQL\Type\Definition\ResolveInfo;
 use Illuminate\Contracts\Auth\Access\Gate;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\Relation;
 use Mockery;
+use Nuwave\Lighthouse\Execution\ResolveInfo;
 use Nuwave\Lighthouse\Support\Contracts\GraphQLContext;
 use Tests\TestCase;
 

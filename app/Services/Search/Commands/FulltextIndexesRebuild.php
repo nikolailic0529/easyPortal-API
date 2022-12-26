@@ -28,7 +28,7 @@ class FulltextIndexesRebuild extends ProcessorCommand {
     /**
      * @phpcsSuppress SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint
      *
-     * @var string
+     * @var string|null
      */
     protected $description = 'Rebuild the FULLTEXT indexes for models.';
 
