@@ -118,7 +118,7 @@ class HandlerTest extends TestCase {
             }
         }
 
-        $this->override('log', static function () use ($logger): mixed {
+        $this->override(LogManager::class, static function () use ($logger): mixed {
             return $logger;
         });
 

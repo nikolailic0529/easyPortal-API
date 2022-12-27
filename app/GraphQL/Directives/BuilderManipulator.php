@@ -22,7 +22,7 @@ use function assert;
 use function get_object_vars;
 use function is_array;
 
-abstract class BuilderManipulator extends Manipulator {
+class BuilderManipulator extends Manipulator {
     /**
      * @template T of Node
      *
@@ -30,7 +30,7 @@ abstract class BuilderManipulator extends Manipulator {
      *
      * @return T
      */
-    protected function clone(Node $field): Node {
+    public function clone(Node $field): Node {
         // Seems will be solved in webonyx/graphql-php v15?
         //
         // https://github.com/webonyx/graphql-php/issues/988
@@ -91,7 +91,7 @@ abstract class BuilderManipulator extends Manipulator {
      *              : FieldDefinition|null
      *      )))
      */
-    protected function getObjectField(
+    public function getObjectField(
         InputObjectTypeDefinitionNode|ObjectTypeDefinitionNode|InputObjectType|ObjectType $object,
         string $name,
     ): InputValueDefinitionNode|FieldDefinitionNode|InputObjectField|FieldDefinition|null {
@@ -117,20 +117,22 @@ abstract class BuilderManipulator extends Manipulator {
      *
      * @return T
      */
-    protected function applyManipulators(
+    public function applyManipulators(
         ObjectTypeDefinitionNode|FieldDefinitionNode|InputValueDefinitionNode $node,
         ObjectTypeDefinitionNode $parentObject = null,
         FieldDefinitionNode $parentField = null,
     ): ObjectTypeDefinitionNode|FieldDefinitionNode|InputValueDefinitionNode {
         // There is no way to guarantee that manipulators will be applied for
         // newly added types and fields :(
+        $document   = $this->getDocument();
+        $directives = $this->getDirectives();
 
         if ($node instanceof ObjectTypeDefinitionNode) {
             /** @see ASTBuilder::applyTypeDefinitionManipulators() */
-            $manipulators = $this->directives->associatedOfType($node, TypeManipulator::class);
+            $manipulators = $directives->associatedOfType($node, TypeManipulator::class);
 
             foreach ($manipulators as $manipulator) {
-                $manipulator->manipulateTypeDefinition($this->document, $node);
+                $manipulator->manipulateTypeDefinition($document, $node);
             }
 
             foreach ($node->fields as $field) {
@@ -140,10 +142,10 @@ abstract class BuilderManipulator extends Manipulator {
             }
         } elseif ($node instanceof FieldDefinitionNode) {
             /** @see ASTBuilder::applyFieldManipulators() */
-            $manipulators = $this->directives->associatedOfType($node, FieldManipulator::class);
+            $manipulators = $directives->associatedOfType($node, FieldManipulator::class);
 
             foreach ($manipulators as $manipulator) {
-                $manipulator->manipulateFieldDefinition($this->document, $node, $parentObject);
+                $manipulator->manipulateFieldDefinition($document, $node, $parentObject);
             }
 
             foreach ($node->arguments as $argument) {
@@ -153,10 +155,10 @@ abstract class BuilderManipulator extends Manipulator {
             }
         } else {
             /** @see ASTBuilder::applyArgManipulators() */
-            $manipulators = $this->directives->associatedOfType($node, ArgManipulator::class);
+            $manipulators = $directives->associatedOfType($node, ArgManipulator::class);
 
             foreach ($manipulators as $manipulator) {
-                $manipulator->manipulateArgDefinition($this->document, $node, $parentField, $parentObject);
+                $manipulator->manipulateArgDefinition($document, $node, $parentField, $parentObject);
             }
         }
 
