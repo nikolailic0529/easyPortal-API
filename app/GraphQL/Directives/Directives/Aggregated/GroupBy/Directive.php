@@ -2,14 +2,16 @@
 
 namespace App\GraphQL\Directives\Directives\Aggregated\GroupBy;
 
+use Exception;
 use GraphQL\Language\AST\FieldDefinitionNode;
 use GraphQL\Language\AST\InputValueDefinitionNode;
+use GraphQL\Language\AST\ListTypeNode;
+use GraphQL\Language\AST\NamedTypeNode;
+use GraphQL\Language\AST\NonNullTypeNode;
 use GraphQL\Language\AST\ObjectTypeDefinitionNode;
-use Illuminate\Database\Eloquent\Builder as EloquentBuilder;
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Query\Builder as QueryBuilder;
-use LastDragon_ru\LaraASP\GraphQL\Builder\Contracts\TypeProvider;
+use Illuminate\Container\Container;
 use LastDragon_ru\LaraASP\GraphQL\Builder\Directives\HandlerDirective;
+use LastDragon_ru\LaraASP\GraphQL\Builder\Manipulator as BaseManipulator;
 use Nuwave\Lighthouse\Schema\AST\DocumentAST;
 use Nuwave\Lighthouse\Support\Contracts\ArgBuilderDirective;
 use Nuwave\Lighthouse\Support\Contracts\ArgManipulator;
@@ -32,23 +34,25 @@ abstract class Directive extends HandlerDirective implements ArgManipulator, Arg
         FieldDefinitionNode &$parentField,
         ObjectTypeDefinitionNode &$parentType,
     ): void {
-        $this->getContainer()
-            ->make(Manipulator::class, ['document' => $documentAST])
+        Container::getInstance()
+            ->make(Manipulator::class, [
+                'document'    => $documentAST,
+                'builderInfo' => $this->getBuilderInfo($parentField),
+            ])
             ->update($this, $parentType, $parentField, $argDefinition);
     }
 
-    /**
-     * @inheritDoc
-     * @return EloquentBuilder<Model>|QueryBuilder
-     */
-    public function handleBuilder($builder, mixed $value): EloquentBuilder|QueryBuilder {
-        return $this->handleAnyBuilder($builder, $value);
+    protected function isTypeName(string $name): bool {
+        throw new Exception('Should not be used.');
     }
 
-    public function getTypeProvider(DocumentAST $document): TypeProvider {
-        return $this->getContainer()->make(Manipulator::class, [
-            'document' => $document,
-        ]);
+    protected function getArgDefinitionType(
+        BaseManipulator $manipulator,
+        DocumentAST $document,
+        InputValueDefinitionNode $argument,
+        FieldDefinitionNode $field,
+    ): ListTypeNode|NamedTypeNode|NonNullTypeNode {
+        throw new Exception('Should not be used.');
     }
 
     public function getArgumentValue(string $name, mixed $default = null): mixed {

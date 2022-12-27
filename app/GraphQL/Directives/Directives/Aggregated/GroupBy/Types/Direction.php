@@ -2,9 +2,12 @@
 
 namespace App\GraphQL\Directives\Directives\Aggregated\GroupBy\Types;
 
+use App\GraphQL\Directives\Directives\Aggregated\GroupBy\Directive;
 use GraphQL\Language\AST\TypeDefinitionNode;
 use GraphQL\Language\Parser;
+use LastDragon_ru\LaraASP\GraphQL\Builder\BuilderInfo;
 use LastDragon_ru\LaraASP\GraphQL\Builder\Contracts\TypeDefinition;
+use LastDragon_ru\LaraASP\GraphQL\Builder\Manipulator;
 
 use function is_null;
 
@@ -13,19 +16,20 @@ class Direction implements TypeDefinition {
         // empty
     }
 
-    public static function getName(): string {
-        return 'Direction';
+    public static function getTypeName(BuilderInfo $builder, ?string $type, ?bool $nullable): string {
+        return Directive::NAME.'TypeDirection';
     }
 
     public function getTypeDefinitionNode(
+        Manipulator $manipulator,
         string $name,
-        string $scalar = null,
-        bool $nullable = null,
+        ?string $type,
+        ?bool $nullable,
     ): ?TypeDefinitionNode {
-        $type = null;
+        $node = null;
 
-        if (is_null($scalar) && is_null($nullable)) {
-            $type = Parser::enumTypeDefinition(
+        if (is_null($type) && is_null($nullable)) {
+            $node = Parser::enumTypeDefinition(
             /** @lang GraphQL */
                 <<<GRAPHQL
                 """
@@ -39,6 +43,6 @@ class Direction implements TypeDefinition {
             );
         }
 
-        return $type;
+        return $node;
     }
 }

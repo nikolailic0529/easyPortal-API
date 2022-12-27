@@ -5,7 +5,7 @@ namespace App\GraphQL\Directives\Directives\Aggregated\GroupBy\Operators;
 use Closure;
 use LastDragon_ru\LaraASP\GraphQL\Builder\Property;
 use LastDragon_ru\LaraASP\GraphQL\SortBy\Directives\Directive;
-use LastDragon_ru\LaraASP\GraphQL\Testing\Package\BuilderDataProvider;
+use LastDragon_ru\LaraASP\GraphQL\Testing\Package\DataProviders\BuilderDataProvider;
 use LastDragon_ru\LaraASP\Testing\Providers\ArrayDataProvider;
 use LastDragon_ru\LaraASP\Testing\Providers\CompositeDataProvider;
 use Nuwave\Lighthouse\Execution\Arguments\Argument;
@@ -60,15 +60,15 @@ class AsStringTest extends TestCase {
                 $schema   = (string) $test->printGraphQLSchema(
                 /** @lang GraphQL */
                     <<<'GRAPHQL'
-                type Query {
-                    test(input: Test @aggregatedGroupBy): String! @mock
-                }
+                    type Query {
+                        test(input: Test @aggregatedGroupBy): String! @mock
+                    }
 
-                input Test {
-                    a: ID!
-                    b: String
-                }
-                GRAPHQL,
+                    input Test {
+                        a: ID!
+                        b: String
+                    }
+                    GRAPHQL,
                 );
                 $argument = $test->getGraphQLArgument(
                     'AggregatedGroupByTypeDirection!',

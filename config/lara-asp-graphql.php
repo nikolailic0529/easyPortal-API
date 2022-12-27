@@ -48,7 +48,9 @@ $settings = [
             'Date'                    => [
                 SearchByOperators::Number,
             ],
-            'DateTime'                => 'Date',
+            'DateTime'                => [
+                'Date',
+            ],
             'Url'                     => [
                 SearchByOperators::String,
             ],

@@ -46,11 +46,6 @@ parameters:
 			path: app/Exceptions/HandlerTest.php
 
 		-
-			message: "#^Parameter \\#1 \\$class of method Tests\\\\TestCase\\:\\:override\\(\\) expects class\\-string\\<log\\|\\(Mockery\\\\MockInterface&Psr\\\\Log\\\\LoggerInterface\\)\\>, string given\\.$#"
-			count: 1
-			path: app/Exceptions/HandlerTest.php
-
-		-
 			message: "#^Parameter \\#1 \\$level of method Monolog\\\\Handler\\\\AbstractHandler\\:\\:__construct\\(\\) expects 100\\|200\\|250\\|300\\|400\\|500\\|550\\|600\\|'ALERT'\\|'alert'\\|'CRITICAL'\\|'critical'\\|'DEBUG'\\|'debug'\\|'EMERGENCY'\\|'emergency'\\|'ERROR'\\|'error'\\|'INFO'\\|'info'\\|'NOTICE'\\|'notice'\\|'WARNING'\\|'warning', int given\\.$#"
 			count: 1
 			path: app/Exceptions/Handlers/MailableHandler.php
@@ -236,11 +231,6 @@ parameters:
 			path: app/GraphQL/Directives/Directives/Aggregated/CountTest.php
 
 		-
-			message: "#^Method App\\\\GraphQL\\\\Directives\\\\Directives\\\\Aggregated\\\\GroupBy\\\\Directive\\:\\:handleBuilder\\(\\) has parameter \\$builder with generic class Illuminate\\\\Database\\\\Eloquent\\\\Builder but does not specify its types\\: TModelClass$#"
-			count: 1
-			path: app/GraphQL/Directives/Directives/Aggregated/GroupBy/Directive.php
-
-		-
 			message: "#^Call to an undefined method Nuwave\\\\Lighthouse\\\\Schema\\\\Directives\\\\BaseDirective\\:\\:handleBuilder\\(\\)\\.$#"
 			count: 1
 			path: app/GraphQL/Directives/Directives/Aggregated/GroupBy/DirectiveTest.php
@@ -317,11 +307,6 @@ parameters:
 
 		-
 			message: "#^Parameter \\#1 \\$directive of method App\\\\GraphQL\\\\Directives\\\\Directives\\\\Mutation\\\\Manipulator\\:\\:getDirectiveName\\(\\) expects class\\-string\\<Nuwave\\\\Lighthouse\\\\Support\\\\Contracts\\\\Directive\\>, string given\\.$#"
-			count: 1
-			path: app/GraphQL/Directives/Directives/Mutation/Mutation.php
-
-		-
-			message: "#^Parameter \\#2 \\$class of method App\\\\GraphQL\\\\Directives\\\\Directives\\\\Mutation\\\\Manipulator\\:\\:getNodeDirective\\(\\) expects class\\-string\\<T of Nuwave\\\\Lighthouse\\\\Support\\\\Contracts\\\\Directive\\>, string given\\.$#"
 			count: 1
 			path: app/GraphQL/Directives/Directives/Mutation/Mutation.php
 

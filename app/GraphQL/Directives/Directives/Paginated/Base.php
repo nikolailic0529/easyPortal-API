@@ -8,10 +8,12 @@ use GraphQL\Language\AST\FieldDefinitionNode;
 use GraphQL\Language\AST\ObjectTypeDefinitionNode;
 use Illuminate\Contracts\Container\Container;
 use Illuminate\Database\Eloquent\Builder;
+use LastDragon_ru\LaraASP\GraphQL\Builder\BuilderInfo;
 use Nuwave\Lighthouse\Schema\AST\DocumentAST;
 use Nuwave\Lighthouse\Schema\Directives\BaseDirective;
 use Nuwave\Lighthouse\Support\Contracts\FieldBuilderDirective;
 use Nuwave\Lighthouse\Support\Contracts\FieldManipulator;
+use stdClass;
 
 abstract class Base extends BaseDirective implements FieldManipulator, FieldBuilderDirective {
     use BuilderArguments;
@@ -29,7 +31,10 @@ abstract class Base extends BaseDirective implements FieldManipulator, FieldBuil
         ObjectTypeDefinitionNode &$parentType,
     ): void {
         $this->container
-            ->make(Manipulator::class, ['document' => $documentAST])
+            ->make(Manipulator::class, [
+                'document'    => $documentAST,
+                'builderInfo' => new BuilderInfo('Any', new stdClass()),
+            ])
             ->update($parentType, $fieldDefinition);
     }
 

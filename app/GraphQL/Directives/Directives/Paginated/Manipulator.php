@@ -19,6 +19,7 @@ use Illuminate\Database\Eloquent\Relations\Relation;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
+use LastDragon_ru\LaraASP\GraphQL\Builder\BuilderInfo;
 use LastDragon_ru\LaraASP\GraphQL\SearchBy\Definitions\SearchByDirective;
 use LastDragon_ru\LaraASP\GraphQL\SortBy\Definitions\SortByDirective;
 use LogicException;
@@ -37,14 +38,14 @@ use function str_ends_with;
 
 class Manipulator extends BuilderManipulator {
     public function __construct(
-        Container $container,
         DirectiveLocator $directives,
         DocumentAST $document,
         TypeRegistry $types,
+        BuilderInfo $builderInfo,
         protected Repository $config,
         protected AggregatedGroupByDirective $groupByDirective,
     ) {
-        parent::__construct($container, $directives, $document, $types);
+        parent::__construct($directives, $document, $types, $builderInfo);
     }
 
     // <editor-fold desc="Manipulate">
@@ -103,7 +104,7 @@ class Manipulator extends BuilderManipulator {
 
         // Cleanup directives
         foreach ($aggregated->directives as $key => $directive) {
-            $directive = $this->directives->create($directive->name->value);
+            $directive = $this->getDirectives()->create($directive->name->value);
 
             if ($directive instanceof Base || $directive instanceof RelationDirective) {
                 unset($aggregated->directives[$key]);
@@ -167,7 +168,7 @@ class Manipulator extends BuilderManipulator {
         ];
 
         if (!$isNested && !$isSearch) {
-            $returnType   = $this->groupByDirective->getTypeProvider($this->document)->getType(Group::class);
+            $returnType   = $this->getType(Group::class, null, null);
             $sortByType   = (new Collection($node->arguments))
                 ->first(function (InputValueDefinitionNode $arg): bool {
                     return $this->getNodeDirective($arg, SortByDirective::class) !== null;

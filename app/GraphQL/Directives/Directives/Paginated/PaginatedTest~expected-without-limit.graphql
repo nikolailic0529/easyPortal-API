@@ -107,13 +107,13 @@ input SearchByConditionCustomerSearch {
     Property condition.
     """
     id: SearchByScalarID
-    @searchByProperty
+    @searchByOperatorProperty
 
     """
     Property condition.
     """
     key: SearchByScalarID
-    @searchByProperty
+    @searchByOperatorProperty
 
     """
     Not.
@@ -152,20 +152,60 @@ input SearchByScalarID {
 }
 
 """
-Sort clause for type Customer (only one property allowed at a time).
+Available conditions for `input CustomerSearch` (only one property allowed at a time).
+"""
+input SearchByScoutConditionCustomerSearch {
+    """
+    All of the conditions must be true.
+    """
+    allOf: [SearchByScoutConditionCustomerSearch!]
+    @searchByOperatorAllOf
+
+    """
+    Property condition.
+    """
+    id: SearchByScoutScalarID
+    @searchByOperatorProperty
+
+    """
+    Property condition.
+    """
+    key: SearchByScoutScalarID
+    @searchByOperatorProperty
+}
+
+"""
+Available operators for `scalar ID!` (only one operator allowed at a time).
+"""
+input SearchByScoutScalarID {
+    """
+    Equal (`=`).
+    """
+    equal: ID
+    @searchByOperatorEqual
+
+    """
+    Within a set of values.
+    """
+    in: [ID!]
+    @searchByOperatorIn
+}
+
+"""
+Sort clause for `type Customer` (only one property allowed at a time).
 """
 input SortByClauseCustomer {
     """
     Property clause.
     """
     id: SortByTypeDirection
-    @sortByOperatorProperty
+    @sortByOperatorField
 
     """
     Property clause.
     """
     key: SortByTypeDirection
-    @sortByOperatorProperty
+    @sortByOperatorField
 }
 
 type AggregatedGroupByTypeGroup {
@@ -424,7 +464,7 @@ type Query {
         search: String!
         @search
 
-        where: SearchByConditionCustomerSearch
+        where: SearchByScoutConditionCustomerSearch
         @searchBy
     ): [Customer!]!
     @paginated
@@ -433,7 +473,7 @@ type Query {
         search: String!
         @search
 
-        where: SearchByConditionCustomerSearch
+        where: SearchByScoutConditionCustomerSearch
         @searchBy
     ): CustomersSearchAggregated
     @aggregated(
@@ -742,7 +782,7 @@ directive @searchByOperatorNotIn
 on
     | INPUT_FIELD_DEFINITION
 
-directive @searchByProperty
+directive @searchByOperatorProperty
 on
     | INPUT_FIELD_DEFINITION
 
@@ -753,6 +793,6 @@ directive @sortBy
 on
     | ARGUMENT_DEFINITION
 
-directive @sortByOperatorProperty
+directive @sortByOperatorField
 on
     | INPUT_FIELD_DEFINITION

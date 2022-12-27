@@ -25,9 +25,7 @@ use Laravel\Scout\Builder as ScoutBuilder;
 use Laravel\Scout\Scout;
 use LastDragon_ru\LaraASP\GraphQL\Builder\Contracts\Scout\FieldResolver;
 use LastDragon_ru\LaraASP\Queue\Concerns\ProviderWithSchedule;
-use Nuwave\Lighthouse\Schema\Source\SchemaSourceProvider;
 use Nuwave\Lighthouse\Schema\TypeRegistry;
-use Nuwave\Lighthouse\Testing\TestSchemaProvider;
 
 class Provider extends ServiceServiceProvider {
     use ProviderWithSchedule;
@@ -67,18 +65,12 @@ class Provider extends ServiceServiceProvider {
         $this->app->afterResolving(
             TypeRegistry::class,
             static function (TypeRegistry $types, Container $container): void {
-                // Test schema?
-                if ($container->make(SchemaSourceProvider::class) instanceof TestSchemaProvider) {
-                    return;
-                }
-
-                // Convert
                 $converter = $container->make(ModelConverter::class);
                 $service   = $container->make(Service::class);
 
                 foreach ($service->getSearchableModels() as $model) {
-                    foreach ($converter->toInputObjectTypes($model) as $type) {
-                        $types->register($type);
+                    foreach ($converter->toInputObjectTypes($model) as $type => $factory) {
+                        $types->registerLazy($type, $factory);
                     }
                 }
             },

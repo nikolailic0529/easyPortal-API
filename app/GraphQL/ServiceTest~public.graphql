@@ -2340,11 +2340,6 @@ input SearchByConditionCompaniesQuery {
     assets: SearchByComplexRelationAssetsQuery
 
     """
-    Property condition.
-    """
-    assets_count: SearchByScalarInt
-
-    """
     Relationship condition.
     """
     contacts: SearchByComplexRelationContactsQuery
@@ -2373,11 +2368,6 @@ input SearchByConditionCompaniesQuery {
     Relationship condition.
     """
     locations: SearchByComplexRelationCompanyLocationsQuery
-
-    """
-    Property condition.
-    """
-    locations_count: SearchByScalarInt
 
     """
     Property condition.
@@ -3963,6 +3953,11 @@ input SearchByScalarBoolean {
     Equal (`=`).
     """
     equal: Boolean
+
+    """
+    Not Equal (`!=`).
+    """
+    notEqual: Boolean
 }
 
 """
@@ -3983,6 +3978,11 @@ input SearchByScalarBooleanOrNull {
     Is NULL?
     """
     isNull: SearchByTypeFlag
+
+    """
+    Not Equal (`!=`).
+    """
+    notEqual: Boolean
 }
 
 """
@@ -4879,7 +4879,7 @@ input SetApplicationLocaleInput {
 }
 
 """
-Sort clause for input ApplicationLogsSort (only one property allowed at a time).
+Sort clause for `input ApplicationLogsSort` (only one property allowed at a time).
 """
 input SortByClauseApplicationLogsSort {
     """
@@ -4899,57 +4899,7 @@ input SortByClauseApplicationLogsSort {
 }
 
 """
-Sort clause for input AssetsSearchCustomerSort (only one property allowed at a time).
-"""
-input SortByClauseAssetsSearchCustomerSort {
-    """
-    Property clause.
-    """
-    name: SortByTypeDirection
-}
-
-"""
-Sort clause for input AssetsSearchProductSort (only one property allowed at a time).
-"""
-input SortByClauseAssetsSearchProductSort {
-    """
-    Property clause.
-    """
-    name: SortByTypeDirection
-
-    """
-    Property clause.
-    """
-    sku: SortByTypeDirection
-}
-
-"""
-Sort clause for input AssetsSearchSort (only one property allowed at a time).
-"""
-input SortByClauseAssetsSearchSort {
-    """
-    Property clause.
-    """
-    customer: SortByClauseAssetsSearchCustomerSort
-
-    """
-    Property clause.
-    """
-    nickname: SortByTypeDirection
-
-    """
-    Property clause.
-    """
-    product: SortByClauseAssetsSearchProductSort
-
-    """
-    Property clause.
-    """
-    serial_number: SortByTypeDirection
-}
-
-"""
-Sort clause for input AssetsSort (only one property allowed at a time).
+Sort clause for `input AssetsSort` (only one property allowed at a time).
 """
 input SortByClauseAssetsSort {
     """
@@ -5089,7 +5039,7 @@ input SortByClauseAssetsSort {
 }
 
 """
-Sort clause for input AuditsSort (only one property allowed at a time).
+Sort clause for `input AuditsSort` (only one property allowed at a time).
 """
 input SortByClauseAuditsSort {
     """
@@ -5134,7 +5084,7 @@ input SortByClauseAuditsSort {
 }
 
 """
-Sort clause for input ChangeRequestsSort (only one property allowed at a time).
+Sort clause for `input ChangeRequestsSort` (only one property allowed at a time).
 """
 input SortByClauseChangeRequestsSort {
     """
@@ -5174,7 +5124,7 @@ input SortByClauseChangeRequestsSort {
 }
 
 """
-Sort clause for input CitiesSort (only one property allowed at a time).
+Sort clause for `input CitiesSort` (only one property allowed at a time).
 """
 input SortByClauseCitiesSort {
     """
@@ -5199,23 +5149,13 @@ input SortByClauseCitiesSort {
 }
 
 """
-Sort clause for input CompaniesSort (only one property allowed at a time).
+Sort clause for `input CompaniesSort` (only one property allowed at a time).
 """
 input SortByClauseCompaniesSort {
     """
     Property clause.
     """
-    assets_count: SortByTypeDirection
-
-    """
-    Property clause.
-    """
     contacts_count: SortByTypeDirection
-
-    """
-    Property clause.
-    """
-    contracts_count: SortByTypeDirection
 
     """
     Property clause.
@@ -5245,16 +5185,11 @@ input SortByClauseCompaniesSort {
     """
     Property clause.
     """
-    quotes_count: SortByTypeDirection
-
-    """
-    Property clause.
-    """
     updated_at: SortByTypeDirection
 }
 
 """
-Sort clause for input CompanyLocationsSort (only one property allowed at a time).
+Sort clause for `input CompanyLocationsSort` (only one property allowed at a time).
 """
 input SortByClauseCompanyLocationsSort {
     """
@@ -5269,7 +5204,7 @@ input SortByClauseCompanyLocationsSort {
 }
 
 """
-Sort clause for input ContactsSort (only one property allowed at a time).
+Sort clause for `input ContactsSort` (only one property allowed at a time).
 """
 input SortByClauseContactsSort {
     """
@@ -5309,7 +5244,7 @@ input SortByClauseContactsSort {
 }
 
 """
-Sort clause for input CountriesSort (only one property allowed at a time).
+Sort clause for `input CountriesSort` (only one property allowed at a time).
 """
 input SortByClauseCountriesSort {
     """
@@ -5329,7 +5264,7 @@ input SortByClauseCountriesSort {
 }
 
 """
-Sort clause for input CurrenciesSort (only one property allowed at a time).
+Sort clause for `input CurrenciesSort` (only one property allowed at a time).
 """
 input SortByClauseCurrenciesSort {
     """
@@ -5339,42 +5274,7 @@ input SortByClauseCurrenciesSort {
 }
 
 """
-Sort clause for input CustomersSearchHeadquarterCitySort (only one property allowed at a time).
-"""
-input SortByClauseCustomersSearchHeadquarterCitySort {
-    """
-    Property clause.
-    """
-    name: SortByTypeDirection
-}
-
-"""
-Sort clause for input CustomersSearchHeadquarterSort (only one property allowed at a time).
-"""
-input SortByClauseCustomersSearchHeadquarterSort {
-    """
-    Property clause.
-    """
-    city: SortByClauseCustomersSearchHeadquarterCitySort
-}
-
-"""
-Sort clause for input CustomersSearchSort (only one property allowed at a time).
-"""
-input SortByClauseCustomersSearchSort {
-    """
-    Property clause.
-    """
-    headquarter: SortByClauseCustomersSearchHeadquarterSort
-
-    """
-    Property clause.
-    """
-    name: SortByTypeDirection
-}
-
-"""
-Sort clause for input DistributorsSort (only one property allowed at a time).
+Sort clause for `input DistributorsSort` (only one property allowed at a time).
 """
 input SortByClauseDistributorsSort {
     """
@@ -5404,7 +5304,7 @@ input SortByClauseDistributorsSort {
 }
 
 """
-Sort clause for input DocumentEntriesSort (only one property allowed at a time).
+Sort clause for `input DocumentEntriesSort` (only one property allowed at a time).
 """
 input SortByClauseDocumentEntriesSort {
     """
@@ -5589,77 +5489,7 @@ input SortByClauseDocumentEntriesSort {
 }
 
 """
-Sort clause for input DocumentsSearchCustomerSort (only one property allowed at a time).
-"""
-input SortByClauseDocumentsSearchCustomerSort {
-    """
-    Property clause.
-    """
-    name: SortByTypeDirection
-}
-
-"""
-Sort clause for input DocumentsSearchEntriesProductSort (only one property allowed at a time).
-"""
-input SortByClauseDocumentsSearchEntriesProductSort {
-    """
-    Property clause.
-    """
-    name: SortByTypeDirection
-
-    """
-    Property clause.
-    """
-    sku: SortByTypeDirection
-}
-
-"""
-Sort clause for input DocumentsSearchEntriesSort (only one property allowed at a time).
-"""
-input SortByClauseDocumentsSearchEntriesSort {
-    """
-    Property clause.
-    """
-    product: SortByClauseDocumentsSearchEntriesProductSort
-
-    """
-    Property clause.
-    """
-    serial_number: SortByTypeDirection
-}
-
-"""
-Sort clause for input DocumentsSearchSort (only one property allowed at a time).
-"""
-input SortByClauseDocumentsSearchSort {
-    """
-    Property clause.
-    """
-    customer: SortByClauseDocumentsSearchCustomerSort
-
-    """
-    Property clause.
-    """
-    end: SortByTypeDirection
-
-    """
-    Property clause.
-    """
-    entries: SortByClauseDocumentsSearchEntriesSort
-
-    """
-    Property clause.
-    """
-    number: SortByTypeDirection
-
-    """
-    Property clause.
-    """
-    start: SortByTypeDirection
-}
-
-"""
-Sort clause for input DocumentsSort (only one property allowed at a time).
+Sort clause for `input DocumentsSort` (only one property allowed at a time).
 """
 input SortByClauseDocumentsSort {
     """
@@ -5789,7 +5619,7 @@ input SortByClauseDocumentsSort {
 }
 
 """
-Sort clause for input LanguagesSort (only one property allowed at a time).
+Sort clause for `input LanguagesSort` (only one property allowed at a time).
 """
 input SortByClauseLanguagesSort {
     """
@@ -5799,7 +5629,7 @@ input SortByClauseLanguagesSort {
 }
 
 """
-Sort clause for input LocationsSort (only one property allowed at a time).
+Sort clause for `input LocationsSort` (only one property allowed at a time).
 """
 input SortByClauseLocationsSort {
     """
@@ -5859,7 +5689,7 @@ input SortByClauseLocationsSort {
 }
 
 """
-Sort clause for input MeSearchSort (only one property allowed at a time).
+Sort clause for `input MeSearchSort` (only one property allowed at a time).
 """
 input SortByClauseMeSearchSort {
     """
@@ -5889,7 +5719,7 @@ input SortByClauseMeSearchSort {
 }
 
 """
-Sort clause for input NotesSort (only one property allowed at a time).
+Sort clause for `input NotesSort` (only one property allowed at a time).
 """
 input SortByClauseNotesSort {
     """
@@ -5924,7 +5754,7 @@ input SortByClauseNotesSort {
 }
 
 """
-Sort clause for input OemGroupsSort (only one property allowed at a time).
+Sort clause for `input OemGroupsSort` (only one property allowed at a time).
 """
 input SortByClauseOemGroupsSort {
     """
@@ -5959,7 +5789,7 @@ input SortByClauseOemGroupsSort {
 }
 
 """
-Sort clause for input OemsSort (only one property allowed at a time).
+Sort clause for `input OemsSort` (only one property allowed at a time).
 """
 input SortByClauseOemsSort {
     """
@@ -5979,7 +5809,7 @@ input SortByClauseOemsSort {
 }
 
 """
-Sort clause for input OrganizationsSort (only one property allowed at a time).
+Sort clause for `input OrganizationsSort` (only one property allowed at a time).
 """
 input SortByClauseOrganizationsSort {
     """
@@ -6014,7 +5844,7 @@ input SortByClauseOrganizationsSort {
 }
 
 """
-Sort clause for input ProductGroupsSort (only one property allowed at a time).
+Sort clause for `input ProductGroupsSort` (only one property allowed at a time).
 """
 input SortByClauseProductGroupsSort {
     """
@@ -6034,7 +5864,7 @@ input SortByClauseProductGroupsSort {
 }
 
 """
-Sort clause for input ProductLinesSort (only one property allowed at a time).
+Sort clause for `input ProductLinesSort` (only one property allowed at a time).
 """
 input SortByClauseProductLinesSort {
     """
@@ -6054,7 +5884,7 @@ input SortByClauseProductLinesSort {
 }
 
 """
-Sort clause for input ProductsSort (only one property allowed at a time).
+Sort clause for `input ProductsSort` (only one property allowed at a time).
 """
 input SortByClauseProductsSort {
     """
@@ -6094,7 +5924,7 @@ input SortByClauseProductsSort {
 }
 
 """
-Sort clause for input PspsSort (only one property allowed at a time).
+Sort clause for `input PspsSort` (only one property allowed at a time).
 """
 input SortByClausePspsSort {
     """
@@ -6114,7 +5944,7 @@ input SortByClausePspsSort {
 }
 
 """
-Sort clause for input ServiceGroupsSort (only one property allowed at a time).
+Sort clause for `input ServiceGroupsSort` (only one property allowed at a time).
 """
 input SortByClauseServiceGroupsSort {
     """
@@ -6134,7 +5964,7 @@ input SortByClauseServiceGroupsSort {
 }
 
 """
-Sort clause for input ServiceLevelsSort (only one property allowed at a time).
+Sort clause for `input ServiceLevelsSort` (only one property allowed at a time).
 """
 input SortByClauseServiceLevelsSort {
     """
@@ -6164,7 +5994,7 @@ input SortByClauseServiceLevelsSort {
 }
 
 """
-Sort clause for input StatusesSort (only one property allowed at a time).
+Sort clause for `input StatusesSort` (only one property allowed at a time).
 """
 input SortByClauseStatusesSort {
     """
@@ -6174,7 +6004,7 @@ input SortByClauseStatusesSort {
 }
 
 """
-Sort clause for type Tag (only one property allowed at a time).
+Sort clause for `type Tag` (only one property allowed at a time).
 """
 input SortByClauseTag {
     """
@@ -6189,7 +6019,7 @@ input SortByClauseTag {
 }
 
 """
-Sort clause for input TypesSort (only one property allowed at a time).
+Sort clause for `input TypesSort` (only one property allowed at a time).
 """
 input SortByClauseTypesSort {
     """
@@ -6199,7 +6029,7 @@ input SortByClauseTypesSort {
 }
 
 """
-Sort clause for input UsersSort (only one property allowed at a time).
+Sort clause for `input UsersSort` (only one property allowed at a time).
 """
 input SortByClauseUsersSort {
     """
@@ -6241,6 +6071,161 @@ input SortByClauseUsersSort {
     Property clause.
     """
     updated_at: SortByTypeDirection
+}
+
+"""
+Sort clause for `input AssetsSearchCustomerSort` (only one property allowed at a time).
+"""
+input SortByScoutClauseAssetsSearchCustomerSort {
+    """
+    Property clause.
+    """
+    name: SortByTypeDirection
+}
+
+"""
+Sort clause for `input AssetsSearchProductSort` (only one property allowed at a time).
+"""
+input SortByScoutClauseAssetsSearchProductSort {
+    """
+    Property clause.
+    """
+    name: SortByTypeDirection
+
+    """
+    Property clause.
+    """
+    sku: SortByTypeDirection
+}
+
+"""
+Sort clause for `input AssetsSearchSort` (only one property allowed at a time).
+"""
+input SortByScoutClauseAssetsSearchSort {
+    """
+    Property clause.
+    """
+    customer: SortByScoutClauseAssetsSearchCustomerSort
+
+    """
+    Property clause.
+    """
+    nickname: SortByTypeDirection
+
+    """
+    Property clause.
+    """
+    product: SortByScoutClauseAssetsSearchProductSort
+
+    """
+    Property clause.
+    """
+    serial_number: SortByTypeDirection
+}
+
+"""
+Sort clause for `input CustomersSearchHeadquarterCitySort` (only one property allowed at a time).
+"""
+input SortByScoutClauseCustomersSearchHeadquarterCitySort {
+    """
+    Property clause.
+    """
+    name: SortByTypeDirection
+}
+
+"""
+Sort clause for `input CustomersSearchHeadquarterSort` (only one property allowed at a time).
+"""
+input SortByScoutClauseCustomersSearchHeadquarterSort {
+    """
+    Property clause.
+    """
+    city: SortByScoutClauseCustomersSearchHeadquarterCitySort
+}
+
+"""
+Sort clause for `input CustomersSearchSort` (only one property allowed at a time).
+"""
+input SortByScoutClauseCustomersSearchSort {
+    """
+    Property clause.
+    """
+    headquarter: SortByScoutClauseCustomersSearchHeadquarterSort
+
+    """
+    Property clause.
+    """
+    name: SortByTypeDirection
+}
+
+"""
+Sort clause for `input DocumentsSearchCustomerSort` (only one property allowed at a time).
+"""
+input SortByScoutClauseDocumentsSearchCustomerSort {
+    """
+    Property clause.
+    """
+    name: SortByTypeDirection
+}
+
+"""
+Sort clause for `input DocumentsSearchEntriesProductSort` (only one property allowed at a time).
+"""
+input SortByScoutClauseDocumentsSearchEntriesProductSort {
+    """
+    Property clause.
+    """
+    name: SortByTypeDirection
+
+    """
+    Property clause.
+    """
+    sku: SortByTypeDirection
+}
+
+"""
+Sort clause for `input DocumentsSearchEntriesSort` (only one property allowed at a time).
+"""
+input SortByScoutClauseDocumentsSearchEntriesSort {
+    """
+    Property clause.
+    """
+    product: SortByScoutClauseDocumentsSearchEntriesProductSort
+
+    """
+    Property clause.
+    """
+    serial_number: SortByTypeDirection
+}
+
+"""
+Sort clause for `input DocumentsSearchSort` (only one property allowed at a time).
+"""
+input SortByScoutClauseDocumentsSearchSort {
+    """
+    Property clause.
+    """
+    customer: SortByScoutClauseDocumentsSearchCustomerSort
+
+    """
+    Property clause.
+    """
+    end: SortByTypeDirection
+
+    """
+    Property clause.
+    """
+    entries: SortByScoutClauseDocumentsSearchEntriesSort
+
+    """
+    Property clause.
+    """
+    number: SortByTypeDirection
+
+    """
+    Property clause.
+    """
+    start: SortByTypeDirection
 }
 
 input StopApplicationServiceInput {
@@ -8988,7 +8973,7 @@ type Query {
     assetsSearch(
         limit: Int! = 25
         offset: Int! = 0
-        order: [SortByClauseAssetsSearchSort!]
+        order: [SortByScoutClauseAssetsSearchSort!]
         search: SearchString!
     ): [Asset!]!
 
@@ -9124,7 +9109,7 @@ type Query {
     contractsSearch(
         limit: Int! = 25
         offset: Int! = 0
-        order: [SortByClauseDocumentsSearchSort!]
+        order: [SortByScoutClauseDocumentsSearchSort!]
         search: SearchString!
     ): [Document!]!
 
@@ -9231,7 +9216,7 @@ type Query {
     customersSearch(
         limit: Int! = 25
         offset: Int! = 0
-        order: [SortByClauseCustomersSearchSort!]
+        order: [SortByScoutClauseCustomersSearchSort!]
         search: SearchString!
     ): [Customer!]!
 
@@ -9529,7 +9514,7 @@ type Query {
     quotesSearch(
         limit: Int! = 25
         offset: Int! = 0
-        order: [SortByClauseDocumentsSearchSort!]
+        order: [SortByScoutClauseDocumentsSearchSort!]
         search: SearchString!
     ): [Document!]!
 

@@ -26,6 +26,7 @@ use Nuwave\Lighthouse\Support\Contracts\GraphQLContext;
 
 use function array_filter;
 use function assert;
+use function class_exists;
 use function count;
 use function implode;
 use function is_object;
@@ -150,7 +151,8 @@ abstract class Mutation extends BaseDirective implements FieldResolver, FieldMan
         foreach ($fieldTypeDefinition->fields as $field) {
             $mutations = $requiredDirectives
                 ->filter(static function (string $directive) use ($manipulator, $field): bool {
-                    return (bool) $manipulator->getNodeDirective($field, $directive);
+                    return class_exists($directive)
+                        && $manipulator->getNodeDirective($field, $directive) !== null;
                 });
 
             if ($mutations->isEmpty()) {
