@@ -21,27 +21,27 @@ parameters:
 			path: app/Exceptions/Handler.php
 
 		-
-			message: "#^Method class@anonymous/app/Exceptions/HandlerTest\\.php\\:280\\:\\:context\\(\\) return type has no value type specified in iterable type array\\.$#"
+			message: "#^Method class@anonymous/app/Exceptions/HandlerTest\\.php\\:277\\:\\:context\\(\\) return type has no value type specified in iterable type array\\.$#"
 			count: 1
 			path: app/Exceptions/HandlerTest.php
 
 		-
-			message: "#^Method class@anonymous/app/Exceptions/HandlerTest\\.php\\:288\\:\\:getContext\\(\\) should return array\\<string, mixed\\> but returns array\\<int, int\\>\\.$#"
+			message: "#^Method class@anonymous/app/Exceptions/HandlerTest\\.php\\:285\\:\\:getContext\\(\\) should return array\\<string, mixed\\> but returns array\\<int, int\\>\\.$#"
 			count: 1
 			path: app/Exceptions/HandlerTest.php
 
 		-
-			message: "#^Method class@anonymous/app/Exceptions/HandlerTest\\.php\\:33\\:\\:context\\(\\) return type has no value type specified in iterable type array\\.$#"
+			message: "#^Method class@anonymous/app/Exceptions/HandlerTest\\.php\\:32\\:\\:context\\(\\) return type has no value type specified in iterable type array\\.$#"
 			count: 1
 			path: app/Exceptions/HandlerTest.php
 
 		-
-			message: "#^Method class@anonymous/app/Exceptions/HandlerTest\\.php\\:33\\:\\:extensionsContent\\(\\) should return array\\<string, mixed\\> but returns array\\<int, string\\>\\.$#"
+			message: "#^Method class@anonymous/app/Exceptions/HandlerTest\\.php\\:32\\:\\:extensionsContent\\(\\) should return array\\<string, mixed\\> but returns array\\<int, string\\>\\.$#"
 			count: 1
 			path: app/Exceptions/HandlerTest.php
 
 		-
-			message: "#^Method class@anonymous/app/Exceptions/HandlerTest\\.php\\:33\\:\\:getContext\\(\\) should return array\\<string, mixed\\> but returns array\\<int, int\\>\\.$#"
+			message: "#^Method class@anonymous/app/Exceptions/HandlerTest\\.php\\:32\\:\\:getContext\\(\\) should return array\\<string, mixed\\> but returns array\\<int, int\\>\\.$#"
 			count: 1
 			path: app/Exceptions/HandlerTest.php
 

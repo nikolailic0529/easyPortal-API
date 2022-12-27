@@ -21,7 +21,6 @@ use GraphQL\Type\Definition\InputObjectField;
 use GraphQL\Type\Definition\InputObjectType;
 use GraphQL\Type\Definition\ObjectType;
 use GraphQL\Type\Definition\Type;
-use Illuminate\Contracts\Container\Container;
 use Illuminate\Support\Str;
 use LastDragon_ru\LaraASP\GraphQL\Builder\BuilderInfo;
 use Nuwave\Lighthouse\Schema\AST\DocumentAST;

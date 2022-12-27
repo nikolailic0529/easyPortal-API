@@ -2,12 +2,12 @@
 
 namespace App\Services\Search\GraphQL;
 
-use Closure;
 use App\Services\Search\Eloquent\Searchable;
 use App\Services\Search\Eloquent\SearchableImpl;
 use App\Services\Search\Properties\Properties;
 use App\Services\Search\Properties\Relation;
 use App\Services\Search\Properties\Text;
+use Closure;
 use GraphQL\Type\Definition\Type;
 use GraphQL\Utils\SchemaPrinter;
 use Illuminate\Database\Eloquent\Model;

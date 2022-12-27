@@ -18,11 +18,5 @@
         "bindings": [
             "2482aaa9-b619-4fc2-8d25-e6d9dd7e6be3"
         ]
-    },
-    {
-        "query": "select `customers`.* from `customers` where `customers`.`id` > ? order by `customers`.`id` asc limit 250 offset 0",
-        "bindings": [
-            "2482aaa9-b619-4fc2-8d25-e6d9dd7e6be3"
-        ]
     }
 ]

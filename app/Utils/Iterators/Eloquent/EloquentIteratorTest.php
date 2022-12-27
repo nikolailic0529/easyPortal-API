@@ -47,7 +47,7 @@ class EloquentIteratorTest extends TestCase {
 
         self::assertEquals($expected, $actual);
 
-        self::assertCount(2, $queries);
+        self::assertCount(1, $queries);
 
         $queries->flush();
 
@@ -59,7 +59,7 @@ class EloquentIteratorTest extends TestCase {
 
         self::assertEquals($expected, $actual);
 
-        self::assertCount(4, $queries);
+        self::assertCount(3, $queries);
 
         $queries->flush();
 

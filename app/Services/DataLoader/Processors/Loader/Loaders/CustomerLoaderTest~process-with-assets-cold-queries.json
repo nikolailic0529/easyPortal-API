@@ -1625,14 +1625,6 @@
         ]
     },
     {
-        "query": "select `assets`.* from `assets` where `customer_id` = ? and `synced_at` < ? and `assets`.`id` > ? and `assets`.`deleted_at` is null order by `assets`.`id` asc limit 250 offset 0",
-        "bindings": [
-            "03ee438b-b478-4b4b-86bd-a495f3ab2880",
-            "2022-02-02T00:00:01+00:00",
-            "150b5f59-abf7-4f1c-97db-8cf06797de26"
-        ]
-    },
-    {
         "query": "select `assets`.* from `assets` where ((`assets`.`id` = ?) or (`assets`.`id` = ?))",
         "bindings": [
             "00000000-0000-0000-0000-000000000000",

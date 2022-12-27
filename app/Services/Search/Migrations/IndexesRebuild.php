@@ -18,7 +18,7 @@ class IndexesRebuild extends RawDataMigration {
     }
 
     protected function runRebuild(): void {
-        $container =Container::getInstance();
+        $container = Container::getInstance();
         $service   = $container->make(Service::class);
         $models    = $this->getSearchableModels();
 

@@ -5439,13 +5439,6 @@
         ]
     },
     {
-        "query": "select `customers`.* from `customers` where `synced_at` < ? and `customers`.`id` > ? and `customers`.`deleted_at` is null order by `customers`.`id` asc limit 5 offset 0",
-        "bindings": [
-            "2022-09-27T00:00:01+00:00",
-            "00000000-0000-0000-0000-000000000000"
-        ]
-    },
-    {
         "query": "select `customers`.* from `customers` where ((`customers`.`id` = ?))",
         "bindings": [
             "00000000-0000-0000-0000-000000000000"
