@@ -19,7 +19,6 @@ use OpenSpout\Writer\Common\Manager\WorksheetManagerInterface;
 use OpenSpout\Writer\XLSX\Helper\DateHelper;
 use OpenSpout\Writer\XLSX\Manager\Style\StyleManager;
 use OpenSpout\Writer\XLSX\Options;
-use function fwrite;
 
 /**
  * @internal
@@ -94,7 +93,7 @@ final class WorksheetManager implements WorksheetManagerInterface
     {
         if (!$row->isEmpty()) {
             $this->addNonEmptyRow($worksheet, $row);
-        } elseif ($this->options->getRowAttributes($row)) {
+        } elseif (!$this->options->getRowAttributes($row)->isEmpty()) {
             $this->addEmptyRow($worksheet, $row);
         }
 
@@ -122,16 +121,12 @@ final class WorksheetManager implements WorksheetManagerInterface
     {
         $sheetFilePointer = $worksheet->getFilePointer();
         $rowStyle = $row->getStyle();
-        $rowNumCells = $row->getNumCells();
         $rowIndexOneBased = $worksheet->getLastWrittenRowIndex() + 1;
-        $rowHasCustomHeight = $this->options->DEFAULT_ROW_HEIGHT > 0 ? '1' : '0';
-        $rowAttributes = ''
-            ." r=\"{$rowIndexOneBased}\""
-            ." spans=\"1:{$rowNumCells}\""
-            ." customHeight=\"{$rowHasCustomHeight}\""
-            .$this->getRowAttributes($row);
-
-        $rowXML = "<row{$rowAttributes}>";
+        $numCells = $row->getNumCells();
+        $rowAttributes = $this->getRowAttributes($row);
+        $rowHeight = $row->getHeight();
+        $hasCustomHeight = ($this->options->DEFAULT_ROW_HEIGHT > 0 || $rowHeight > 0) ? '1' : '0';
+        $rowXML = "<row r=\"{$rowIndexOneBased}\" spans=\"1:{$numCells}\" ".($rowHeight > 0 ? "ht=\"{$rowHeight}\" " : '')."customHeight=\"{$hasCustomHeight}\"{$rowAttributes}>";
 
         foreach ($row->getCells() as $columnIndexZeroBased => $cell) {
             $registeredStyle = $this->applyStyleAndRegister($cell, $rowStyle);
@@ -170,29 +165,28 @@ final class WorksheetManager implements WorksheetManagerInterface
         $rowXML = "<row{$rowAttributes}></row>";
 
         $wasWriteSuccessful = fwrite($sheetFilePointer, $rowXML);
-        if (false === $wasWriteSuccessful) {
-            throw new IOException("Unable to write data in {$worksheet->getFilePath()}");
-        }
+        \assert(false !== $wasWriteSuccessful);
     }
 
-    private function getRowAttributes(Row $row): string {
+    private function getRowAttributes(Row $row): string
+    {
         $rowAttributes = $this->options->getRowAttributes($row);
 
-        if (!$rowAttributes) {
+        if ($rowAttributes->isEmpty()) {
             return '';
         }
 
         $xmlAttributes = '';
 
         if (!$rowAttributes->isVisible()) {
-            $xmlAttributes .= " hidden=\"true\"";
+            $xmlAttributes .= ' hidden="true"';
         }
 
         if ($rowAttributes->isCollapsed()) {
-            $xmlAttributes .= " collapsed=\"true\"";
+            $xmlAttributes .= ' collapsed="true"';
         }
 
-        if ($rowAttributes->getOutlineLevel() !== null) {
+        if (null !== $rowAttributes->getOutlineLevel()) {
             $xmlAttributes .= " outlineLevel=\"{$rowAttributes->getOutlineLevel()}\"";
         }
 
