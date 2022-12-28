@@ -23,7 +23,6 @@
     "fruitcake/laravel-cors": "^3.0",
     "guzzlehttp/guzzle": "^7.0.1",
     "h4cc/wkhtmltopdf-amd64": "^0.12.4",
-    "jetbrains/phpstorm-attributes": "^1.0",
     "laravel/framework": "^9.4.1",
     "laravel/horizon": "^5.7",
     "laravel/scout": "^9.2",
