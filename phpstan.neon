@@ -21,6 +21,10 @@ parameters:
         - ./.phpstan/Stubs/Geotools.php
         - ./.phpstan/Stubs/Faker.php
 
+    # Editor
+    editorUrl: 'phpstorm://open?file=%%relFile%%&line=%%line%%'
+    editorUrlTitle: '%%file%%:%%line%%'
+
 includes:
     # Extensions
     - ./vendor/phpstan/phpstan/conf/bleedingEdge.neon
