@@ -15,6 +15,7 @@ use Exception;
 use GraphQL\Language\AST\DirectiveNode;
 use GraphQL\Language\AST\FieldDefinitionNode;
 use GraphQL\Language\AST\NameNode;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Builder as EloquentBuilder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -22,6 +23,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Query\Builder as QueryBuilder;
 use InvalidArgumentException;
 use LastDragon_ru\LaraASP\Eloquent\Exceptions\PropertyIsNotRelation;
+use LastDragon_ru\LaraASP\GraphQL\Builder\Property as BuilderProperty;
 use LastDragon_ru\LaraASP\Testing\Providers\ArrayDataProvider;
 use LastDragon_ru\LaraASP\Testing\Providers\CompositeDataProvider;
 use LastDragon_ru\LaraASP\Testing\Providers\MergeDataProvider;
@@ -47,14 +49,15 @@ class PropertyTest extends TestCase {
     // <editor-fold desc="Tests">
     // =========================================================================
     /**
-     * @covers ::handleBuilder
+     * @covers ::extend
      *
-     * @dataProvider dataProviderHandleBuilder
+     * @dataProvider dataProviderExtend
      *
      * @param Exception|class-string<Exception>|array{query: string, bindings: array<mixed>} $expected
+     * @param Closure(static): object                                                        $builderFactory
      * @param OrganizationFactory                                                            $orgFactory
      */
-    public function testHandleBuilder(
+    public function testExtend(
         Exception|string|array $expected,
         Closure $builderFactory,
         mixed $orgFactory = null,
@@ -75,15 +78,19 @@ class PropertyTest extends TestCase {
             $this->setOrganization($orgFactory);
         }
 
-        $directive      = $this->app->make(OrgPropertyDirective::class)
-            ->hydrate(new DirectiveNode([]), new FieldDefinitionNode([
-                'name' => new NameNode(['value' => 'property']),
-            ]));
-        $builderFactory = $builderFactory($this);
-        $builderFactory = $directive->handleBuilder($builderFactory, null);
-        $builderFactory = $directive->handleBuilder($builderFactory, null);
+        $property  = new BuilderProperty('property', 'operator');
+        $directive = $this->app->make(OrgPropertyDirective::class);
 
-        self::assertDatabaseQueryEquals($expected, $builderFactory);
+        $directive->hydrate(new DirectiveNode([]), new FieldDefinitionNode([
+            'name' => new NameNode(['value' => $property->getParent()->getName()]),
+        ]));
+
+        $builder = $builderFactory($this);
+        $builder = $directive->extend($builder, $property);
+        $builder = $directive->extend($builder, $property);
+
+        self::assertInstanceOf(Builder::class, $builder);
+        self::assertDatabaseQueryEquals($expected, $builder);
     }
 
     /**
@@ -136,7 +143,7 @@ class PropertyTest extends TestCase {
     /**
      * @return array<string,mixed>
      */
-    public function dataProviderHandleBuilder(): array {
+    public function dataProviderExtend(): array {
         return (new MergeDataProvider([
             QueryBuilder::class    => new CompositeDataProvider(
                 new QueryBuilderDataProvider(),

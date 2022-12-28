@@ -2,20 +2,21 @@
 
 namespace App\GraphQL\Directives\Directives\Org;
 
+use App\GraphQL\Extensions\LaraAsp\Builder\Contracts\Extender;
 use App\Services\Organization\CurrentOrganization;
+use GraphQL\Language\AST\DirectiveNode;
 use GraphQL\Type\Definition\NonNull;
 use GraphQL\Type\Definition\Type;
 use Illuminate\Database\Eloquent\Builder as EloquentBuilder;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Query\Builder as QueryBuilder;
 use InvalidArgumentException;
+use LastDragon_ru\LaraASP\GraphQL\Builder\Property as BuilderProperty;
 use Nuwave\Lighthouse\Execution\BatchLoader\BatchLoaderRegistry;
 use Nuwave\Lighthouse\Execution\BatchLoader\RelationBatchLoader;
 use Nuwave\Lighthouse\Execution\ResolveInfo;
 use Nuwave\Lighthouse\Schema\Directives\BaseDirective;
 use Nuwave\Lighthouse\Schema\Directives\RelationDirectiveHelpers;
 use Nuwave\Lighthouse\Schema\Values\FieldValue;
-use Nuwave\Lighthouse\Support\Contracts\ArgBuilderDirective;
 use Nuwave\Lighthouse\Support\Contracts\FieldResolver;
 use Nuwave\Lighthouse\Support\Contracts\GraphQLContext;
 
@@ -25,7 +26,7 @@ use function sprintf;
 
 // TODO Update property description?
 
-abstract class Property extends BaseDirective implements ArgBuilderDirective, FieldResolver {
+abstract class Property extends BaseDirective implements FieldResolver, Extender {
     use RelationDirectiveHelpers;
 
     public function __construct(
@@ -72,35 +73,6 @@ abstract class Property extends BaseDirective implements ArgBuilderDirective, Fi
         return $fieldValue;
     }
 
-    /**
-     * @template T of EloquentBuilder|QueryBuilder
-     *
-     * @param T $builder
-     *
-     * @return T
-     */
-    public function handleBuilder($builder, mixed $value): EloquentBuilder|QueryBuilder {
-        // Query?
-        if (!($builder instanceof EloquentBuilder)) {
-            throw new InvalidArgumentException(sprintf(
-                'Builder must be instance of `%s`, `%s` given.',
-                EloquentBuilder::class,
-                $builder::class,
-            ));
-        }
-
-        // Add property
-        $name  = $this->nodeName();
-        $query = (new Loader($this->organization, $name))->getQuery($builder);
-
-        if ($query) {
-            $builder = $builder->selectSub($query->limit(1), $name);
-        }
-
-        // Return
-        return $builder;
-    }
-
     protected function getDefaultValue(Type $type): mixed {
         $value = null;
 
@@ -114,4 +86,37 @@ abstract class Property extends BaseDirective implements ArgBuilderDirective, Fi
 
         return $value;
     }
+
+    // <editor-fold desc="Extender">
+    // =========================================================================
+    public function getFieldDirective(): ?DirectiveNode {
+        return $this->directiveNode;
+    }
+
+    public function isBuilderSupported(object $builder): bool {
+        return $builder instanceof EloquentBuilder;
+    }
+
+    public function extend(object $builder, BuilderProperty $property): object {
+        // Supported?
+        if (!($builder instanceof EloquentBuilder)) {
+            throw new InvalidArgumentException(sprintf(
+                'Builder must be instance of `%s`, `%s` given.',
+                EloquentBuilder::class,
+                $builder::class,
+            ));
+        }
+
+        // Add property
+        $name  = $property->getParent()->getName();
+        $query = (new Loader($this->organization, $name))->getQuery($builder);
+
+        if ($query) {
+            $builder->selectSub($query->limit(1), $name);
+        }
+
+        // Return
+        return $builder;
+    }
+    // </editor-fold>
 }

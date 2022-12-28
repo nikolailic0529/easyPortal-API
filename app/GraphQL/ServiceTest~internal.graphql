@@ -2936,6 +2936,13 @@ input SearchByConditionCompaniesQuery {
     @searchByOperatorRelation
 
     """
+    Property condition.
+    """
+    assets_count: SearchByScalarInt
+    @searchByOperatorProperty
+    @orgProperty
+
+    """
     Relationship condition.
     """
     contacts: SearchByComplexRelationContactsQuery
@@ -2970,6 +2977,13 @@ input SearchByConditionCompaniesQuery {
     """
     locations: SearchByComplexRelationCompanyLocationsQuery
     @searchByOperatorRelation
+
+    """
+    Property condition.
+    """
+    locations_count: SearchByScalarInt
+    @searchByOperatorProperty
+    @orgProperty
 
     """
     Property condition.
@@ -6252,8 +6266,22 @@ input SortByClauseCompaniesSort {
     """
     Property clause.
     """
+    assets_count: SortByTypeDirection
+    @sortByOperatorField
+    @orgProperty
+
+    """
+    Property clause.
+    """
     contacts_count: SortByTypeDirection
     @sortByOperatorField
+
+    """
+    Property clause.
+    """
+    contracts_count: SortByTypeDirection
+    @sortByOperatorField
+    @orgProperty
 
     """
     Property clause.
@@ -6284,6 +6312,13 @@ input SortByClauseCompaniesSort {
     """
     name: SortByTypeDirection
     @sortByOperatorField
+
+    """
+    Property clause.
+    """
+    quotes_count: SortByTypeDirection
+    @sortByOperatorField
+    @orgProperty
 
     """
     Property clause.

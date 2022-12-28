@@ -421,16 +421,6 @@ parameters:
 			path: app/GraphQL/Directives/Directives/Org/PropertyTest.php
 
 		-
-			message: "#^Call to an undefined method Nuwave\\\\Lighthouse\\\\Schema\\\\Directives\\\\BaseDirective\\:\\:handleBuilder\\(\\)\\.$#"
-			count: 2
-			path: app/GraphQL/Directives/Directives/Org/PropertyTest.php
-
-		-
-			message: "#^Method App\\\\GraphQL\\\\Directives\\\\Directives\\\\Org\\\\PropertyTest\\:\\:testHandleBuilder\\(\\) has parameter \\$builderFactory with no signature specified for Closure\\.$#"
-			count: 1
-			path: app/GraphQL/Directives/Directives/Org/PropertyTest.php
-
-		-
 			message: "#^Method App\\\\GraphQL\\\\Directives\\\\Directives\\\\Org\\\\PropertyTest\\:\\:testResolveField\\(\\) has parameter \\$factory with no signature specified for Closure\\.$#"
 			count: 1
 			path: app/GraphQL/Directives/Directives/Org/PropertyTest.php
