@@ -18,6 +18,7 @@ use Tests\DataProviders\GraphQL\Organizations\AuthOrgResellerDataProvider;
 use Tests\DataProviders\GraphQL\Organizations\OrgRootDataProvider;
 use Tests\DataProviders\GraphQL\Users\OrgUserDataProvider;
 use Tests\GraphQL\GraphQLPaginated;
+use Tests\GraphQL\GraphQLSuccess;
 use Tests\TestCase;
 use Tests\WithOrganization;
 use Tests\WithSettings;
@@ -154,6 +155,49 @@ class CustomersTest extends TestCase {
                 }
             }
         }')->assertThat($expected);
+    }
+
+    /**
+     * @dataProvider dataProviderOrgProperty
+     *
+     * @param OrganizationFactory                              $orgFactory
+     * @param UserFactory                                      $userFactory
+     * @param SettingsFactory                                  $settingsFactory
+     * @param Closure(static, ?Organization, ?User): void|null $customerFactory
+     * @param array<string, mixed>                             $variables
+     */
+    public function testOrgProperty(
+        Response $expected,
+        mixed $orgFactory,
+        mixed $userFactory = null,
+        mixed $settingsFactory = null,
+        Closure $customerFactory = null,
+        array $variables = [],
+    ): void {
+        // Prepare
+        $org  = $this->setOrganization($orgFactory);
+        $user = $this->setUser($userFactory, $org);
+
+        $this->setSettings($settingsFactory);
+
+        if ($customerFactory) {
+            $customerFactory($this, $org, $user);
+        }
+
+        // Test
+        $this
+            ->graphQL(
+            /** @lang GraphQL */
+                <<<'GRAPHQL'
+                query test($where: SearchByConditionCompaniesQuery, $order: [SortByClauseCompaniesSort!]) {
+                    customers(where: $where, order: $order) {
+                        assets_count
+                    }
+                }
+                GRAPHQL,
+                $variables,
+            )
+            ->assertThat($expected);
     }
     // </editor-fold>
 
@@ -418,6 +462,91 @@ class CustomersTest extends TestCase {
                                     'location_id' => $location,
                                 ]);
                         },
+                    ],
+                ]),
+            ),
+        ]))->getData();
+    }
+
+    /**
+     * @return array<mixed>
+     */
+    public function dataProviderOrgProperty(): array {
+        return (new MergeDataProvider([
+            'organization' => new CompositeDataProvider(
+                new AuthOrgResellerDataProvider('customers'),
+                new OrgUserDataProvider('customers', [
+                    'customers-view',
+                ]),
+                new ArrayDataProvider([
+                    'ok' => [
+                        new GraphQLSuccess(
+                            'customers',
+                            [
+                                [
+                                    'assets_count' => 4,
+                                ],
+                                [
+                                    'assets_count' => 3,
+                                ],
+                                [
+                                    'assets_count' => 2,
+                                ],
+                            ],
+                        ),
+                        [
+                            // empty
+                        ],
+                        static function (TestCase $test, Organization $org): void {
+                            $reseller = Reseller::factory()->create([
+                                'id' => $org,
+                            ]);
+
+                            Customer::factory()
+                                ->create([
+                                    'assets_count' => 0,
+                                ])
+                                ->resellers()
+                                ->attach($reseller, [
+                                    'assets_count' => 1,
+                                ]);
+                            Customer::factory()
+                                ->create([
+                                    'assets_count' => 0,
+                                ])
+                                ->resellers()
+                                ->attach($reseller, [
+                                    'assets_count' => 2,
+                                ]);
+                            Customer::factory()
+                                ->create([
+                                    'assets_count' => 0,
+                                ])
+                                ->resellers()
+                                ->attach($reseller, [
+                                    'assets_count' => 3,
+                                ]);
+                            Customer::factory()
+                                ->create([
+                                    'assets_count' => 0,
+                                ])
+                                ->resellers()
+                                ->attach($reseller, [
+                                    'assets_count' => 4,
+                                ]);
+                        },
+                        [
+                            'where' => [
+                                'assets_count' => [
+                                    'greaterThan' => 1,
+                                ],
+                            ],
+                            'order' => [
+                                [
+                                    'assets_count' => 'desc',
+                                ],
+                            ],
+                        ],
                     ],
                 ]),
             ),

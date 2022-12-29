@@ -4,13 +4,19 @@ namespace App\GraphQL\Directives\Directives\Org;
 
 use App\GraphQL\Extensions\LaraAsp\Builder\Contracts\Extender;
 use App\Services\Organization\CurrentOrganization;
+use App\Services\Organization\Eloquent\OwnedByScope;
+use Closure;
 use GraphQL\Language\AST\DirectiveNode;
 use GraphQL\Type\Definition\NonNull;
 use GraphQL\Type\Definition\Type;
-use Illuminate\Database\Eloquent\Builder as EloquentBuilder;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use InvalidArgumentException;
+use LastDragon_ru\LaraASP\GraphQL\Builder\Contracts\Handler;
 use LastDragon_ru\LaraASP\GraphQL\Builder\Property as BuilderProperty;
+use LastDragon_ru\LaraASP\GraphQL\SearchBy\Definitions\SearchByDirective;
+use LastDragon_ru\LaraASP\GraphQL\SortBy\Definitions\SortByDirective;
 use Nuwave\Lighthouse\Execution\BatchLoader\BatchLoaderRegistry;
 use Nuwave\Lighthouse\Execution\BatchLoader\RelationBatchLoader;
 use Nuwave\Lighthouse\Execution\ResolveInfo;
@@ -94,25 +100,70 @@ abstract class Property extends BaseDirective implements FieldResolver, Extender
     }
 
     public function isBuilderSupported(object $builder): bool {
-        return $builder instanceof EloquentBuilder;
+        return $builder instanceof Builder;
     }
 
-    public function extend(object $builder, BuilderProperty $property): object {
+    public function extend(Handler $handler, object $builder, BuilderProperty $property, Closure $callback): object {
         // Supported?
-        if (!($builder instanceof EloquentBuilder)) {
+        if (!($builder instanceof Builder)) {
             throw new InvalidArgumentException(sprintf(
                 'Builder must be instance of `%s`, `%s` given.',
-                EloquentBuilder::class,
+                Builder::class,
                 $builder::class,
             ));
         }
 
-        // Add property
-        $name  = $property->getParent()->getName();
-        $query = (new Loader($this->organization, $name))->getQuery($builder);
+        // Root organization should always use original property
+        if ($this->organization->isRoot()) {
+            return $builder;
+        }
 
-        if ($query) {
-            $builder->selectSub($query->limit(1), $name);
+        // Add property
+        if ($handler instanceof SearchByDirective) {
+            $model         = $builder->getModel();
+            $ownedProperty = OwnedByScope::getProperty($this->organization, $model);
+            $relationName  = $ownedProperty?->getRelationName();
+            $relation      = $ownedProperty?->getRelation($model);
+
+            if (!$model::hasGlobalScope(OwnedByScope::class)) {
+                throw new InvalidArgumentException(sprintf(
+                    'Model `%s` doesn\'t use the `%s` scope.',
+                    $model::class,
+                    OwnedByScope::class,
+                ));
+            }
+
+            if (!($relation instanceof BelongsToMany)) {
+                throw new InvalidArgumentException(sprintf(
+                    'Relation `%s` is not supported.',
+                    $relation ? $relation::class : '',
+                ));
+            }
+
+            if ($ownedProperty && $relationName) {
+                $builder->whereHas(
+                    $relationName,
+                    function (Builder $query) use ($ownedProperty, $relation, $property, $callback): void {
+                        $callback(
+                            $query->where(
+                                $query->qualifyColumn($ownedProperty->getName()),
+                                '=',
+                                $this->organization->getKey(),
+                            ),
+                            new BuilderProperty($relation->getTable(), $property->getName()),
+                        );
+                    },
+                );
+            }
+        } elseif ($handler instanceof SortByDirective) {
+            $name  = $property->getName();
+            $query = (new Loader($this->organization, $name))->getQuery($builder);
+
+            if ($query) {
+                $builder->selectSub($query->limit(1), $name);
+            }
+        } else {
+            // empty
         }
 
         // Return

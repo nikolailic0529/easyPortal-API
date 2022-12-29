@@ -3,32 +3,50 @@
 namespace App\GraphQL\Extensions\LaraAsp\Builder\Traits;
 
 use App\GraphQL\Extensions\LaraAsp\Builder\Contracts\Extender;
-use Illuminate\Support\Collection;
 use LastDragon_ru\LaraASP\GraphQL\Builder\Directives\HandlerDirective;
 use LastDragon_ru\LaraASP\GraphQL\Builder\Property;
 use Nuwave\Lighthouse\Execution\Arguments\ArgumentSet;
+
+use function array_key_first;
+use function reset;
 
 /**
  * @mixin HandlerDirective
  */
 trait HandlerExtender {
     protected function call(object $builder, Property $property, ArgumentSet $operator): object {
-        $filter = static function (mixed $directive) use ($builder): bool {
-            return $directive instanceof Extender
-                && $directive->isBuilderSupported($builder);
-        };
+        $extended = $builder;
+        $argument = reset($operator->arguments);
 
-        foreach ($operator->arguments as $name => $argument) {
-            /** @var Collection<int, Extender> $extenders */
-            $extenders = $argument->directives->filter($filter);
+        if ($argument) {
+            $name     = array_key_first($operator->arguments);
+            $filter   = static function (mixed $directive) use ($builder): bool {
+                return $directive instanceof Extender
+                    && $directive->isBuilderSupported($builder);
+            };
+            $extender = $argument->directives->filter($filter)->first();
 
-            foreach ($extenders as $extender) {
-                $builder = $extender->extend($builder, $property->getChild($name));
+            if ($name && $extender instanceof Extender) {
+                $extender->extend(
+                    $this,
+                    $builder,
+                    new Property($name),
+                    function (object $builder, Property $property) use (&$extended, $argument): void {
+                        $extended = null;
+                        $operator = $argument->value;
+
+                        if ($operator instanceof ArgumentSet) {
+                            parent::call($builder, $property, $operator);
+                        }
+                    },
+                );
             }
-
-            break;
         }
 
-        return parent::call($builder, $property, $operator);
+        if ($extended) {
+            $builder = parent::call($extended, $property, $operator);
+        }
+
+        return $builder;
     }
 }

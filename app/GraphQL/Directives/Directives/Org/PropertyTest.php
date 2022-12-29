@@ -23,10 +23,14 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Query\Builder as QueryBuilder;
 use InvalidArgumentException;
 use LastDragon_ru\LaraASP\Eloquent\Exceptions\PropertyIsNotRelation;
+use LastDragon_ru\LaraASP\GraphQL\Builder\Contracts\Handler;
 use LastDragon_ru\LaraASP\GraphQL\Builder\Property as BuilderProperty;
+use LastDragon_ru\LaraASP\GraphQL\SearchBy\Definitions\SearchByDirective;
+use LastDragon_ru\LaraASP\GraphQL\SortBy\Definitions\SortByDirective;
 use LastDragon_ru\LaraASP\Testing\Providers\ArrayDataProvider;
 use LastDragon_ru\LaraASP\Testing\Providers\CompositeDataProvider;
 use LastDragon_ru\LaraASP\Testing\Providers\MergeDataProvider;
+use LastDragon_ru\LaraASP\Testing\Providers\UnknownValue;
 use PHPUnit\Framework\Constraint\Constraint;
 use Tests\DataProviders\Builders\QueryBuilderDataProvider;
 use Tests\GraphQL\GraphQLSuccess;
@@ -54,11 +58,13 @@ class PropertyTest extends TestCase {
      * @dataProvider dataProviderExtend
      *
      * @param Exception|class-string<Exception>|array{query: string, bindings: array<mixed>} $expected
+     * @param Closure(static): Handler                                                       $handlerFactory
      * @param Closure(static): object                                                        $builderFactory
      * @param OrganizationFactory                                                            $orgFactory
      */
     public function testExtend(
         Exception|string|array $expected,
+        Closure $handlerFactory,
         Closure $builderFactory,
         mixed $orgFactory = null,
         bool $organizationIsRoot = false,
@@ -78,16 +84,25 @@ class PropertyTest extends TestCase {
             $this->setOrganization($orgFactory);
         }
 
-        $property  = new BuilderProperty('property', 'operator');
+        $property  = new BuilderProperty('parent', 'property');
         $directive = $this->app->make(OrgPropertyDirective::class);
 
         $directive->hydrate(new DirectiveNode([]), new FieldDefinitionNode([
-            'name' => new NameNode(['value' => $property->getParent()->getName()]),
+            'name' => new NameNode(['value' => $property->getName()]),
         ]));
 
+        $handler = $handlerFactory($this);
         $builder = $builderFactory($this);
-        $builder = $directive->extend($builder, $property);
-        $builder = $directive->extend($builder, $property);
+        $builder = $directive->extend($handler, $builder, $property, static function (): void {
+            // empty
+        });
+
+        if ($handler instanceof SortByDirective) {
+            // Only one sorting clause should be added
+            $builder = $directive->extend($handler, $builder, $property, static function (): void {
+                // empty
+            });
+        }
 
         self::assertInstanceOf(Builder::class, $builder);
         self::assertDatabaseQueryEquals($expected, $builder);
@@ -145,175 +160,376 @@ class PropertyTest extends TestCase {
      */
     public function dataProviderExtend(): array {
         return (new MergeDataProvider([
-            QueryBuilder::class    => new CompositeDataProvider(
-                new QueryBuilderDataProvider(),
+            SearchByDirective::class => new CompositeDataProvider(
                 new ArrayDataProvider([
-                    'unsupported' => [
-                        new InvalidArgumentException(sprintf(
-                            'Builder must be instance of `%s`, `%s` given.',
-                            EloquentBuilder::class,
-                            QueryBuilder::class,
-                        )),
+                    'directive' => [
+                        new UnknownValue(),
+                        static function (TestCase $test): Handler {
+                            return $test->app()->make(SearchByDirective::class);
+                        },
                     ],
                 ]),
+                new MergeDataProvider([
+                    QueryBuilder::class    => new CompositeDataProvider(
+                        new QueryBuilderDataProvider(),
+                        new ArrayDataProvider([
+                            'unsupported' => [
+                                new InvalidArgumentException(sprintf(
+                                    'Builder must be instance of `%s`, `%s` given.',
+                                    EloquentBuilder::class,
+                                    QueryBuilder::class,
+                                )),
+                            ],
+                        ]),
+                    ),
+                    EloquentBuilder::class => new ArrayDataProvider([
+                        'no scope'             => [
+                            new InvalidArgumentException(sprintf(
+                                'Model `%s` doesn\'t use the `%s` scope.',
+                                PropertyTest_ModelWithoutScope::class,
+                                OwnedByScope::class,
+                            )),
+                            static function (): EloquentBuilder {
+                                return PropertyTest_ModelWithoutScope::query();
+                            },
+                            static function (): Organization {
+                                return Organization::factory()->make();
+                            },
+                            false,
+                        ],
+                        'not a relation'       => [
+                            PropertyIsNotRelation::class,
+                            static function (): EloquentBuilder {
+                                return PropertyTest_ModelWithScopeNotRelation::query();
+                            },
+                            static function (): Organization {
+                                return Organization::factory()->make();
+                            },
+                        ],
+                        'unsupported relation' => [
+                            new InvalidArgumentException(sprintf(
+                                'Relation `%s` is not supported.',
+                                BelongsTo::class,
+                            )),
+                            static function (): EloquentBuilder {
+                                return PropertyTest_ModelWithScopeRelationUnsupported::query();
+                            },
+                            static function (): Organization {
+                                return Organization::factory()->make();
+                            },
+                            false,
+                        ],
+                        'no organization'      => [
+                            UnknownOrganization::class,
+                            static function (): EloquentBuilder {
+                                return PropertyTest_ModelWithScopeRelationSupported::query();
+                            },
+                        ],
+                        'root organization'    => [
+                            [
+                                'query'    => <<<'SQL'
+                                select
+                                    *
+                                from
+                                    `model_with_relation_supported`
+                                SQL
+                                ,
+                                'bindings' => [
+                                    // empty
+                                ],
+                            ],
+                            static function (): EloquentBuilder {
+                                return PropertyTest_ModelWithScopeRelationSupported::query();
+                            },
+                            static function (): Organization {
+                                return Organization::factory()->make([
+                                    'id' => '1cc137a2-61e5-4069-a407-f0e1f32dc634',
+                                ]);
+                            },
+                            true,
+                        ],
+                        'without select'       => [
+                            [
+                                'query'    => <<<'SQL'
+                                select
+                                    *
+                                from
+                                    `model_with_relation_supported`
+                                where
+                                    exists (
+                                        select
+                                            *
+                                        from
+                                            `model_without_scopes`
+                                            inner join `pivot`
+                                                on `model_without_scopes`.`relatedKey` = `pivot`.`relatedPivotKey`
+                                        where
+                                            `model_with_relation_supported`.`parentKey` = `pivot`.`foreignPivotKey`
+                                            and `model_without_scopes`.`id` = ?
+                                    )
+                                    and `model_with_relation_supported`.`parentKey` in (
+                                        select
+                                            distinct `pivot`.`foreignPivotKey`
+                                        from
+                                            `model_without_scopes`
+                                            inner join `pivot`
+                                                on `model_without_scopes`.`relatedKey` = `pivot`.`relatedPivotKey`
+                                        where
+                                            `model_without_scopes`.`id` = ?
+                                    )
+                                SQL
+                                ,
+                                'bindings' => [
+                                    '6aa25c7f-55f7-4ff5-acfe-783b2dd1da47',
+                                    '6aa25c7f-55f7-4ff5-acfe-783b2dd1da47',
+                                ],
+                            ],
+                            static function (): EloquentBuilder {
+                                return PropertyTest_ModelWithScopeRelationSupported::query();
+                            },
+                            static function (): Organization {
+                                return Organization::factory()->make([
+                                    'id' => '6aa25c7f-55f7-4ff5-acfe-783b2dd1da47',
+                                ]);
+                            },
+                        ],
+                        'with select'          => [
+                            [
+                                'query'    => <<<'SQL'
+                                select
+                                    `id`
+                                from
+                                    `model_with_relation_supported`
+                                where
+                                    exists (
+                                        select
+                                            *
+                                        from
+                                            `model_without_scopes`
+                                            inner join `pivot`
+                                                on `model_without_scopes`.`relatedKey` = `pivot`.`relatedPivotKey`
+                                        where
+                                            `model_with_relation_supported`.`parentKey` = `pivot`.`foreignPivotKey`
+                                            and `model_without_scopes`.`id` = ?
+                                    )
+                                    and `model_with_relation_supported`.`parentKey` in (
+                                        select
+                                            distinct `pivot`.`foreignPivotKey`
+                                        from
+                                            `model_without_scopes`
+                                            inner join `pivot`
+                                                on `model_without_scopes`.`relatedKey` = `pivot`.`relatedPivotKey`
+                                        where
+                                            `model_without_scopes`.`id` = ?
+                                    )
+                                SQL
+                                ,
+                                'bindings' => [
+                                    '21a50911-912b-4543-b721-51c7398e8384',
+                                    '21a50911-912b-4543-b721-51c7398e8384',
+                                ],
+                            ],
+                            static function (): EloquentBuilder {
+                                return PropertyTest_ModelWithScopeRelationSupported::query()->select('id');
+                            },
+                            static function (): Organization {
+                                return Organization::factory()->make([
+                                    'id' => '21a50911-912b-4543-b721-51c7398e8384',
+                                ]);
+                            },
+                        ],
+                    ]),
+                ]),
             ),
-            EloquentBuilder::class => new ArrayDataProvider([
-                'no scope'             => [
-                    new InvalidArgumentException(sprintf(
-                        'Model `%s` doesn\'t use the `%s` scope.',
-                        PropertyTest_ModelWithoutScope::class,
-                        OwnedByScope::class,
-                    )),
-                    static function (): EloquentBuilder {
-                        return PropertyTest_ModelWithoutScope::query();
-                    },
-                ],
-                'not a relation'       => [
-                    PropertyIsNotRelation::class,
-                    static function (): EloquentBuilder {
-                        return PropertyTest_ModelWithScopeNotRelation::query();
-                    },
-                    static function (): Organization {
-                        return Organization::factory()->make();
-                    },
-                ],
-                'unsupported relation' => [
-                    new InvalidArgumentException(sprintf(
-                        'Relation `%s` is not supported.',
-                        BelongsTo::class,
-                    )),
-                    static function (): EloquentBuilder {
-                        return PropertyTest_ModelWithScopeRelationUnsupported::query();
-                    },
-                ],
-                'no organization'      => [
-                    UnknownOrganization::class,
-                    static function (): EloquentBuilder {
-                        return PropertyTest_ModelWithScopeRelationSupported::query();
-                    },
-                ],
-                'root organization'    => [
-                    [
-                        'query'    => <<<'SQL'
-                            select
-                                *
-                            from
-                                `model_with_relation_supported`
-                            SQL
-                        ,
-                        'bindings' => [
-                            // empty
-                        ],
+            SortByDirective::class   => new CompositeDataProvider(
+                new ArrayDataProvider([
+                    'directive' => [
+                        new UnknownValue(),
+                        static function (TestCase $test): Handler {
+                            return $test->app()->make(SortByDirective::class);
+                        },
                     ],
-                    static function (): EloquentBuilder {
-                        return PropertyTest_ModelWithScopeRelationSupported::query();
-                    },
-                    static function (): Organization {
-                        return Organization::factory()->make([
-                            'id' => '1cc137a2-61e5-4069-a407-f0e1f32dc634',
-                        ]);
-                    },
-                    true,
-                ],
-                'without select'       => [
-                    [
-                        'query'    => <<<'SQL'
-                            select
-                                `model_with_relation_supported`.*,
-                                1 as `org_property__property`,
-                                (
-                                    select
-                                        `pivot`.`property`
-                                    from
-                                        `model_without_scopes`
-                                    inner join `pivot`
-                                        on `model_without_scopes`.`relatedKey` = `pivot`.`relatedPivotKey`
-                                    where
-                                        `model_without_scopes`.`id` = ?
-                                        and
-                                        `pivot`.`foreignPivotKey` = `model_with_relation_supported`.`parentKey`
-                                    limit
-                                        1
-                                ) as `property`
-                            from
-                                `model_with_relation_supported`
-                            where
-                                `model_with_relation_supported`.`parentKey` in (
-                                    select
-                                        distinct `pivot`.`foreignPivotKey`
-                                    from
-                                        `model_without_scopes`
-                                    inner join `pivot`
-                                        on `model_without_scopes`.`relatedKey` = `pivot`.`relatedPivotKey`
-                                    where
-                                        `model_without_scopes`.`id` = ?
-                                )
-                            SQL
-                        ,
-                        'bindings' => [
-                            '6aa25c7f-55f7-4ff5-acfe-783b2dd1da47',
-                            '6aa25c7f-55f7-4ff5-acfe-783b2dd1da47',
+                ]),
+                new MergeDataProvider([
+                    QueryBuilder::class    => new CompositeDataProvider(
+                        new QueryBuilderDataProvider(),
+                        new ArrayDataProvider([
+                            'unsupported' => [
+                                new InvalidArgumentException(sprintf(
+                                    'Builder must be instance of `%s`, `%s` given.',
+                                    EloquentBuilder::class,
+                                    QueryBuilder::class,
+                                )),
+                            ],
+                        ]),
+                    ),
+                    EloquentBuilder::class => new ArrayDataProvider([
+                        'no scope'             => [
+                            new InvalidArgumentException(sprintf(
+                                'Model `%s` doesn\'t use the `%s` scope.',
+                                PropertyTest_ModelWithoutScope::class,
+                                OwnedByScope::class,
+                            )),
+                            static function (): EloquentBuilder {
+                                return PropertyTest_ModelWithoutScope::query();
+                            },
+                            static function (): Organization {
+                                return Organization::factory()->make();
+                            },
+                            false,
                         ],
-                    ],
-                    static function (): EloquentBuilder {
-                        return PropertyTest_ModelWithScopeRelationSupported::query();
-                    },
-                    static function (): Organization {
-                        return Organization::factory()->make([
-                            'id' => '6aa25c7f-55f7-4ff5-acfe-783b2dd1da47',
-                        ]);
-                    },
-                ],
-                'with select'          => [
-                    [
-                        'query'    => <<<'SQL'
-                            select
-                                `id`,
-                                1 as `org_property__property`,
-                                (
-                                    select
-                                        `pivot`.`property`
-                                    from
-                                        `model_without_scopes`
-                                    inner join `pivot`
-                                        on `model_without_scopes`.`relatedKey` = `pivot`.`relatedPivotKey`
-                                    where
-                                        `model_without_scopes`.`id` = ?
-                                        and
-                                        `pivot`.`foreignPivotKey` = `model_with_relation_supported`.`parentKey`
-                                    limit
-                                        1
-                                ) as `property`
-                            from
-                                `model_with_relation_supported`
-                            where
-                                `model_with_relation_supported`.`parentKey` in (
-                                    select
-                                        distinct `pivot`.`foreignPivotKey`
-                                    from
-                                        `model_without_scopes`
-                                    inner join `pivot`
-                                        on `model_without_scopes`.`relatedKey` = `pivot`.`relatedPivotKey`
-                                    where
-                                        `model_without_scopes`.`id` = ?
-                                )
-                            SQL
-                        ,
-                        'bindings' => [
-                            '21a50911-912b-4543-b721-51c7398e8384',
-                            '21a50911-912b-4543-b721-51c7398e8384',
+                        'not a relation'       => [
+                            PropertyIsNotRelation::class,
+                            static function (): EloquentBuilder {
+                                return PropertyTest_ModelWithScopeNotRelation::query();
+                            },
+                            static function (): Organization {
+                                return Organization::factory()->make();
+                            },
                         ],
-                    ],
-                    static function (): EloquentBuilder {
-                        return PropertyTest_ModelWithScopeRelationSupported::query()->select('id');
-                    },
-                    static function (): Organization {
-                        return Organization::factory()->make([
-                            'id' => '21a50911-912b-4543-b721-51c7398e8384',
-                        ]);
-                    },
-                ],
-            ]),
+                        'unsupported relation' => [
+                            new InvalidArgumentException(sprintf(
+                                'Relation `%s` is not supported.',
+                                BelongsTo::class,
+                            )),
+                            static function (): EloquentBuilder {
+                                return PropertyTest_ModelWithScopeRelationUnsupported::query();
+                            },
+                            static function (): Organization {
+                                return Organization::factory()->make();
+                            },
+                            false,
+                        ],
+                        'no organization'      => [
+                            UnknownOrganization::class,
+                            static function (): EloquentBuilder {
+                                return PropertyTest_ModelWithScopeRelationSupported::query();
+                            },
+                        ],
+                        'root organization'    => [
+                            [
+                                'query'    => <<<'SQL'
+                                select
+                                    *
+                                from
+                                    `model_with_relation_supported`
+                                SQL
+                                ,
+                                'bindings' => [
+                                    // empty
+                                ],
+                            ],
+                            static function (): EloquentBuilder {
+                                return PropertyTest_ModelWithScopeRelationSupported::query();
+                            },
+                            static function (): Organization {
+                                return Organization::factory()->make([
+                                    'id' => '1cc137a2-61e5-4069-a407-f0e1f32dc634',
+                                ]);
+                            },
+                            true,
+                        ],
+                        'without select'       => [
+                            [
+                                'query'    => <<<'SQL'
+                                select
+                                    `model_with_relation_supported`.*,
+                                    1 as `org_property__property`,
+                                    (
+                                        select
+                                            `pivot`.`property`
+                                        from
+                                            `model_without_scopes`
+                                        inner join `pivot`
+                                            on `model_without_scopes`.`relatedKey` = `pivot`.`relatedPivotKey`
+                                        where
+                                            `model_without_scopes`.`id` = ?
+                                            and
+                                            `pivot`.`foreignPivotKey` = `model_with_relation_supported`.`parentKey`
+                                        limit
+                                            1
+                                    ) as `property`
+                                from
+                                    `model_with_relation_supported`
+                                where
+                                    `model_with_relation_supported`.`parentKey` in (
+                                        select
+                                            distinct `pivot`.`foreignPivotKey`
+                                        from
+                                            `model_without_scopes`
+                                        inner join `pivot`
+                                            on `model_without_scopes`.`relatedKey` = `pivot`.`relatedPivotKey`
+                                        where
+                                            `model_without_scopes`.`id` = ?
+                                    )
+                                SQL
+                                ,
+                                'bindings' => [
+                                    '6aa25c7f-55f7-4ff5-acfe-783b2dd1da47',
+                                    '6aa25c7f-55f7-4ff5-acfe-783b2dd1da47',
+                                ],
+                            ],
+                            static function (): EloquentBuilder {
+                                return PropertyTest_ModelWithScopeRelationSupported::query();
+                            },
+                            static function (): Organization {
+                                return Organization::factory()->make([
+                                    'id' => '6aa25c7f-55f7-4ff5-acfe-783b2dd1da47',
+                                ]);
+                            },
+                        ],
+                        'with select'          => [
+                            [
+                                'query'    => <<<'SQL'
+                                select
+                                    `id`,
+                                    1 as `org_property__property`,
+                                    (
+                                        select
+                                            `pivot`.`property`
+                                        from
+                                            `model_without_scopes`
+                                        inner join `pivot`
+                                            on `model_without_scopes`.`relatedKey` = `pivot`.`relatedPivotKey`
+                                        where
+                                            `model_without_scopes`.`id` = ?
+                                            and
+                                            `pivot`.`foreignPivotKey` = `model_with_relation_supported`.`parentKey`
+                                        limit
+                                            1
+                                    ) as `property`
+                                from
+                                    `model_with_relation_supported`
+                                where
+                                    `model_with_relation_supported`.`parentKey` in (
+                                        select
+                                            distinct `pivot`.`foreignPivotKey`
+                                        from
+                                            `model_without_scopes`
+                                        inner join `pivot`
+                                            on `model_without_scopes`.`relatedKey` = `pivot`.`relatedPivotKey`
+                                        where
+                                            `model_without_scopes`.`id` = ?
+                                    )
+                                SQL
+                                ,
+                                'bindings' => [
+                                    '21a50911-912b-4543-b721-51c7398e8384',
+                                    '21a50911-912b-4543-b721-51c7398e8384',
+                                ],
+                            ],
+                            static function (): EloquentBuilder {
+                                return PropertyTest_ModelWithScopeRelationSupported::query()->select('id');
+                            },
+                            static function (): Organization {
+                                return Organization::factory()->make([
+                                    'id' => '21a50911-912b-4543-b721-51c7398e8384',
+                                ]);
+                            },
+                        ],
+                    ]),
+                ]),
+            ),
         ]))->getData();
     }
 
