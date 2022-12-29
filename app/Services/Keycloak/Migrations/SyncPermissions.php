@@ -3,6 +3,7 @@
 namespace App\Services\Keycloak\Migrations;
 
 use App\Services\Keycloak\Jobs\Cron\PermissionsSynchronizer;
+use Illuminate\Container\Container;
 use LastDragon_ru\LaraASP\Migrator\Migrations\RawDataMigration;
 
 class SyncPermissions extends RawDataMigration {
@@ -15,6 +16,6 @@ class SyncPermissions extends RawDataMigration {
     }
 
     private function sync(): void {
-        $this->getContainer()->make(PermissionsSynchronizer::class)->dispatch();
+        Container::getInstance()->make(PermissionsSynchronizer::class)->dispatch();
     }
 }

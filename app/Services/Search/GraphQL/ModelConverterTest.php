@@ -7,6 +7,7 @@ use App\Services\Search\Eloquent\SearchableImpl;
 use App\Services\Search\Properties\Properties;
 use App\Services\Search\Properties\Relation;
 use App\Services\Search\Properties\Text;
+use Closure;
 use GraphQL\Type\Definition\Type;
 use GraphQL\Utils\SchemaPrinter;
 use Illuminate\Database\Eloquent\Model;
@@ -37,11 +38,11 @@ class ModelConverterTest extends TestCase {
     // <editor-fold desc="Helpers">
     // =========================================================================
     /**
-     * @param array<Type> $types
+     * @param array<string, Closure(): Type> $types
      */
     protected function getGraphQL(array $types): string {
-        $schema = array_map(static function (Type $type): string {
-            return SchemaPrinter::printType($type);
+        $schema = array_map(static function (Closure $type): string {
+            return SchemaPrinter::printType($type());
         }, $types);
         $schema = implode("\n", $schema)."\n";
 

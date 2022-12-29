@@ -3,6 +3,7 @@
 namespace App\Services\Recalculator\Migrations;
 
 use App\Services\Recalculator\Service;
+use Illuminate\Container\Container;
 use Illuminate\Database\Eloquent\Model;
 use LastDragon_ru\LaraASP\Migrator\Migrations\RawDataMigration;
 
@@ -16,7 +17,7 @@ class Recalculate extends RawDataMigration {
     }
 
     protected function runRecalculate(): void {
-        $container = $this->getContainer();
+        $container = Container::getInstance();
         $service   = $container->make(Service::class);
         $models    = $this->getModels();
 
@@ -33,7 +34,7 @@ class Recalculate extends RawDataMigration {
      * @return array<class-string<Model>>
      */
     protected function getModels(): array {
-        $service = $this->getContainer()->make(Service::class);
+        $service = Container::getInstance()->make(Service::class);
         $models  = $service->getRecalculableModels();
 
         return $models;

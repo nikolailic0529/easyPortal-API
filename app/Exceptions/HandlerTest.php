@@ -11,7 +11,6 @@ use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Event;
 use Mockery;
 use Nuwave\Lighthouse\Exceptions\RendersErrorsExtensions;
-use Psr\Log\LoggerInterface;
 use Psr\Log\LogLevel;
 use Tests\TestCase;
 use Tests\WithSettings;
@@ -92,7 +91,7 @@ class HandlerTest extends TestCase {
         $config  = $this->app->make(Repository::class);
         $handler = $this->app->make(Handler::class);
         $context = null;
-        $logger  = Mockery::mock(LoggerInterface::class);
+        $logger  = Mockery::mock(LogManager::class);
         $logger
             ->shouldReceive('log')
             ->with($expected['level'], $expected['message'], Mockery::any())
@@ -118,9 +117,7 @@ class HandlerTest extends TestCase {
             }
         }
 
-        $this->override('log', static function () use ($logger): mixed {
-            return $logger;
-        });
+        $this->instance('log', $logger);
 
         $handler->report($exception);
 

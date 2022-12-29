@@ -2,7 +2,7 @@
 
 namespace App\GraphQL\Directives\Directives\Cached;
 
-use GraphQL\Type\Definition\ResolveInfo;
+use Nuwave\Lighthouse\Execution\ResolveInfo;
 use Nuwave\Lighthouse\Support\Contracts\GraphQLContext;
 
 class ParentValue {

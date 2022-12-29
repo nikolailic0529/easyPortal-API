@@ -98,26 +98,26 @@ input AggregatedGroupByClauseProperties {
 }
 
 """
-Sort clause for input Nested (only one property allowed at a time).
+Sort clause for `input Nested` (only one property allowed at a time).
 """
 input SortByClauseNested {
     """
     Property clause.
     """
     id: SortByTypeDirection
-    @sortByOperatorProperty
+    @sortByOperatorField
 
     """
     Property clause.
     """
     nested: SortByClauseNested
-    @sortByProperty
+    @sortByOperatorProperty
 
     """
     Property clause.
     """
     value: SortByTypeDirection
-    @sortByOperatorProperty
+    @sortByOperatorField
 }
 
 type AggregatedGroupByTypeGroup {
@@ -199,10 +199,10 @@ on
     | FIELD_DEFINITION
     | INPUT_FIELD_DEFINITION
 
-directive @sortByOperatorProperty
+directive @sortByOperatorField
 on
     | INPUT_FIELD_DEFINITION
 
-directive @sortByProperty
+directive @sortByOperatorProperty
 on
     | INPUT_FIELD_DEFINITION

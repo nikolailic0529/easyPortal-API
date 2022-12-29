@@ -28,13 +28,6 @@ class RecalculateTest extends TestCase {
         $migration = Mockery::mock(Recalculate::class);
         $migration->shouldAllowMockingProtectedMethods();
         $migration->makePartial();
-        $migration
-            ->shouldReceive('getContainer')
-            ->atLeast()
-            ->once()
-            ->andReturn(
-                $this->app,
-            );
 
         $this->override(Service::class, static function (MockInterface $mock) use ($job, $model): void {
             $mock

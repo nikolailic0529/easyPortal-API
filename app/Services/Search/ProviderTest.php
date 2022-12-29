@@ -11,7 +11,7 @@ use Elastic\ScoutDriver\Factories\SearchParametersFactoryInterface;
 use Illuminate\Database\Eloquent\Model;
 use Laravel\Scout\Builder as ScoutBuilder;
 use Laravel\Scout\Searchable as ScoutSearchable;
-use LastDragon_ru\LaraASP\GraphQL\SortBy\Builders\Scout\ColumnResolver;
+use LastDragon_ru\LaraASP\GraphQL\Builder\Contracts\Scout\FieldResolver;
 use ReflectionClass;
 use Tests\Helpers\Models;
 use Tests\TestCase;
@@ -48,7 +48,7 @@ class ProviderTest extends TestCase {
             $this->app->make(ClientBuilderInterface::class),
         );
 
-        self::assertTrue($this->app->bound(ColumnResolver::class));
+        self::assertTrue($this->app->bound(FieldResolver::class));
     }
 
     public function testProperSearchableTraitUsed(): void {

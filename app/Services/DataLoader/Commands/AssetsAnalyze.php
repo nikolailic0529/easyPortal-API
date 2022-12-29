@@ -51,7 +51,7 @@ class AssetsAnalyze extends Command {
     /**
      * @phpcsSuppress SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint
      *
-     * @var string
+     * @var string|null
      */
     protected $description = 'Analyze assets to find assets without reseller/customer or missed in database.';
 

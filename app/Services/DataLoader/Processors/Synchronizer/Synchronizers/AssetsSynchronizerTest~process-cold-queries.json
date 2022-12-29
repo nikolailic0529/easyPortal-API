@@ -16755,13 +16755,6 @@
         ]
     },
     {
-        "query": "select `assets`.* from `assets` where `synced_at` < ? and `assets`.`id` > ? and `assets`.`deleted_at` is null order by `assets`.`id` asc limit 5 offset 0",
-        "bindings": [
-            "2022-09-27T00:00:01+00:00",
-            "00000000-0000-0000-0000-000000000000"
-        ]
-    },
-    {
         "query": "select `assets`.* from `assets` where ((`assets`.`id` = ?))",
         "bindings": [
             "00000000-0000-0000-0000-000000000000"

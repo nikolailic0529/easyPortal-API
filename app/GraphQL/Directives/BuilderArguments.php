@@ -4,11 +4,11 @@ namespace App\GraphQL\Directives;
 
 use App\Services\Search\Builders\Builder as SearchBuilder;
 use App\Utils\Eloquent\ModelHelper;
-use GraphQL\Type\Definition\ResolveInfo;
 use Illuminate\Database\Eloquent\Builder as EloquentBuilder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Query\Builder as QueryBuilder;
 use InvalidArgumentException;
+use Nuwave\Lighthouse\Execution\ResolveInfo;
 use Nuwave\Lighthouse\Schema\Directives\BaseDirective;
 use Nuwave\Lighthouse\Support\Contracts\GraphQLContext;
 

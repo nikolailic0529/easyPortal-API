@@ -4,6 +4,7 @@ namespace App\Services\Settings\Migrations;
 
 use App\Services\Settings\Settings;
 use App\Services\Settings\Storage;
+use Illuminate\Container\Container;
 use LastDragon_ru\LaraASP\Migrator\Migrations\RawDataMigration;
 use RuntimeException;
 
@@ -54,11 +55,11 @@ abstract class SettingsRename extends RawDataMigration {
     }
 
     protected function getSettings(): Settings {
-        return $this->getContainer()->make(Settings::class);
+        return Container::getInstance()->make(Settings::class);
     }
 
     protected function getStorage(): Storage {
-        return $this->getContainer()->make(Storage::class);
+        return Container::getInstance()->make(Storage::class);
     }
 
     /**

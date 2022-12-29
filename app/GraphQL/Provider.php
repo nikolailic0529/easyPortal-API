@@ -3,9 +3,13 @@
 namespace App\GraphQL;
 
 use App\Exceptions\GraphQL\ErrorFormatter;
+use App\GraphQL\Extensions\LaraAsp\SearchBy\Directives\Directive as SearchBy;
 use App\GraphQL\Extensions\LaraAsp\SearchBy\Operators\Comparison\Contains as ContainsOperator;
 use App\GraphQL\Extensions\LaraAsp\SearchBy\Operators\Comparison\EndsWith as EndsWithOperator;
 use App\GraphQL\Extensions\LaraAsp\SearchBy\Operators\Complex\Relation as RelationOperator;
+use App\GraphQL\Extensions\LaraAsp\SearchBy\Types\Condition as ConditionType;
+use App\GraphQL\Extensions\LaraAsp\SortBy\Directives\Directive as SortBy;
+use App\GraphQL\Extensions\LaraAsp\SortBy\Types\Clause as ClauseType;
 use App\GraphQL\Extensions\Lighthouse\DirectiveLocator;
 use App\GraphQL\Extensions\Lighthouse\Directives\EqDirective;
 use App\GraphQL\Extensions\Lighthouse\Directives\ValidatorDirective;
@@ -19,9 +23,13 @@ use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Contracts\Config\Repository;
 use Illuminate\Contracts\Container\Container;
 use Illuminate\Contracts\Events\Dispatcher;
+use LastDragon_ru\LaraASP\GraphQL\SearchBy\Definitions\SearchByDirective;
 use LastDragon_ru\LaraASP\GraphQL\SearchBy\Definitions\SearchByOperatorContainsDirective;
 use LastDragon_ru\LaraASP\GraphQL\SearchBy\Definitions\SearchByOperatorEndsWithDirective;
 use LastDragon_ru\LaraASP\GraphQL\SearchBy\Definitions\SearchByOperatorRelationDirective;
+use LastDragon_ru\LaraASP\GraphQL\SearchBy\Types\Condition as SearchByTypeCondition;
+use LastDragon_ru\LaraASP\GraphQL\SortBy\Definitions\SortByDirective;
+use LastDragon_ru\LaraASP\GraphQL\SortBy\Types\Clause as SortByClause;
 use Nuwave\Lighthouse\Events\ManipulateResult;
 use Nuwave\Lighthouse\Schema\DirectiveLocator as LighthouseDirectiveLocator;
 use Nuwave\Lighthouse\Schema\Directives\EqDirective as LighthouseEqDirective;
@@ -49,9 +57,15 @@ class Provider extends ServiceServiceProvider {
         $this->app->singleton(LighthouseDirectiveLocator::class, DirectiveLocator::class);
         $this->app->bind(LighthouseValidatorDirective::class, ValidatorDirective::class);
         $this->app->bind(LighthouseEqDirective::class, EqDirective::class);
+
+        $this->app->bind(SearchByDirective::class, SearchBy::class);
+        $this->app->bind(SearchByTypeCondition::class, ConditionType::class);
         $this->app->bind(SearchByOperatorContainsDirective::class, ContainsOperator::class);
         $this->app->bind(SearchByOperatorEndsWithDirective::class, EndsWithOperator::class);
         $this->app->bind(SearchByOperatorRelationDirective::class, RelationOperator::class);
+
+        $this->app->bind(SortByDirective::class, SortBy::class);
+        $this->app->bind(SortByClause::class, ClauseType::class);
     }
 
     protected function registerGraphQLListeners(): void {

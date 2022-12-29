@@ -4,7 +4,6 @@ namespace App\GraphQL\Directives\Directives;
 
 use App\Utils\Eloquent\Callbacks\OrderByKey;
 use Closure;
-use GraphQL\Type\Definition\ResolveInfo;
 use Illuminate\Contracts\Config\Repository;
 use Illuminate\Database\DatabaseManager;
 use Illuminate\Database\Eloquent\Builder as EloquentBuilder;
@@ -12,6 +11,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\Relation as EloquentRelation;
 use Illuminate\Database\Query\Builder as QueryBuilder;
+use Nuwave\Lighthouse\Execution\ResolveInfo;
 use Nuwave\Lighthouse\Schema\Directives\RelationDirective;
 
 use function in_array;

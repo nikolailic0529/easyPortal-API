@@ -21,8 +21,8 @@ use GraphQL\Type\Definition\InputObjectField;
 use GraphQL\Type\Definition\InputObjectType;
 use GraphQL\Type\Definition\ObjectType;
 use GraphQL\Type\Definition\Type;
-use Illuminate\Contracts\Container\Container;
 use Illuminate\Support\Str;
+use LastDragon_ru\LaraASP\GraphQL\Builder\BuilderInfo;
 use Nuwave\Lighthouse\Schema\AST\DocumentAST;
 use Nuwave\Lighthouse\Schema\DirectiveLocator;
 use Nuwave\Lighthouse\Schema\TypeRegistry;
@@ -32,17 +32,20 @@ use function count;
 use function is_string;
 use function str_starts_with;
 
+/**
+ * @deprecated Would be good to convert into Operator/Type
+ */
 class Manipulator extends BuilderManipulator {
     public function __construct(
-        Container $container,
         DirectiveLocator $directives,
         DocumentAST $document,
         TypeRegistry $types,
+        BuilderInfo $builderInfo,
         private Relation $relationDirective,
         private AsDate $asDateDirective,
         private AsString $asStringDirective,
     ) {
-        parent::__construct($container, $directives, $document, $types);
+        parent::__construct($directives, $document, $types, $builderInfo);
     }
 
     // <editor-fold desc="Getters / Setters">
@@ -100,7 +103,7 @@ class Manipulator extends BuilderManipulator {
         $node->type = $type;
 
         if ($this->getNodeDirective($field, Aggregated::class) === null) {
-            $group       = $this->getType(Group::class);
+            $group       = $this->getType(Group::class, null, null);
             $field->type = Parser::typeReference("[{$group}!]!");
         }
     }
@@ -242,6 +245,7 @@ class Manipulator extends BuilderManipulator {
                         $fieldOperator,
                         $fieldType,
                         $fieldName,
+                        null,
                     ),
                 );
             }

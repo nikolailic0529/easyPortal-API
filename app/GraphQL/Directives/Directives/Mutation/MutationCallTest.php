@@ -302,32 +302,31 @@ class MutationCallTest extends TestCase {
         $directives->setResolved('isValid', MutationCallTest_Directive::class);
         $directives->setResolved('isValidLaravel', MutationCallTest_LaravelDirective::class);
 
-        $input = $this
-            ->getGraphQLSchema(
+        $this->useGraphQLSchema(
             /* @lang GraphQL */
-                <<<'GRAPHQL'
-                type Query {
-                    mocked: String @mock
-                }
+            <<<'GRAPHQL'
+            type Query {
+                mocked: String @mock
+            }
 
-                type Mutation {
-                    test(input: TestInput): Boolean @mock
-                }
+            type Mutation {
+                test(input: TestInput): Boolean @mock
+            }
 
-                input TestInput {
-                    a: Int @isValid
-                    b: [TestItem] @isValid
-                    c: Boolean
-                }
+            input TestInput {
+                a: Int @isValid
+                b: [TestItem] @isValid
+                c: Boolean
+            }
 
-                input TestItem {
-                    a: Int @isValid @isValid
-                    c: Boolean @isValidLaravel
-                }
-                GRAPHQL,
-            )
-            ->getType('TestInput')
-            ?->astNode;
+            input TestItem {
+                a: Int @isValid @isValid
+                c: Boolean @isValidLaravel
+            }
+            GRAPHQL,
+        );
+
+        $input = $this->getGraphQLSchemaBuilder()->schema()->getType('TestInput')?->astNode;
 
         self::assertInstanceOf(InputObjectTypeDefinitionNode::class, $input);
 

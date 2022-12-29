@@ -21,32 +21,27 @@ parameters:
 			path: app/Exceptions/Handler.php
 
 		-
-			message: "#^Method class@anonymous/app/Exceptions/HandlerTest\\.php\\:280\\:\\:context\\(\\) return type has no value type specified in iterable type array\\.$#"
+			message: "#^Method class@anonymous/app/Exceptions/HandlerTest\\.php\\:277\\:\\:context\\(\\) return type has no value type specified in iterable type array\\.$#"
 			count: 1
 			path: app/Exceptions/HandlerTest.php
 
 		-
-			message: "#^Method class@anonymous/app/Exceptions/HandlerTest\\.php\\:288\\:\\:getContext\\(\\) should return array\\<string, mixed\\> but returns array\\<int, int\\>\\.$#"
+			message: "#^Method class@anonymous/app/Exceptions/HandlerTest\\.php\\:285\\:\\:getContext\\(\\) should return array\\<string, mixed\\> but returns array\\<int, int\\>\\.$#"
 			count: 1
 			path: app/Exceptions/HandlerTest.php
 
 		-
-			message: "#^Method class@anonymous/app/Exceptions/HandlerTest\\.php\\:33\\:\\:context\\(\\) return type has no value type specified in iterable type array\\.$#"
+			message: "#^Method class@anonymous/app/Exceptions/HandlerTest\\.php\\:32\\:\\:context\\(\\) return type has no value type specified in iterable type array\\.$#"
 			count: 1
 			path: app/Exceptions/HandlerTest.php
 
 		-
-			message: "#^Method class@anonymous/app/Exceptions/HandlerTest\\.php\\:33\\:\\:extensionsContent\\(\\) should return array\\<string, mixed\\> but returns array\\<int, string\\>\\.$#"
+			message: "#^Method class@anonymous/app/Exceptions/HandlerTest\\.php\\:32\\:\\:extensionsContent\\(\\) should return array\\<string, mixed\\> but returns array\\<int, string\\>\\.$#"
 			count: 1
 			path: app/Exceptions/HandlerTest.php
 
 		-
-			message: "#^Method class@anonymous/app/Exceptions/HandlerTest\\.php\\:33\\:\\:getContext\\(\\) should return array\\<string, mixed\\> but returns array\\<int, int\\>\\.$#"
-			count: 1
-			path: app/Exceptions/HandlerTest.php
-
-		-
-			message: "#^Parameter \\#1 \\$class of method Tests\\\\TestCase\\:\\:override\\(\\) expects class\\-string\\<log\\|\\(Mockery\\\\MockInterface&Psr\\\\Log\\\\LoggerInterface\\)\\>, string given\\.$#"
+			message: "#^Method class@anonymous/app/Exceptions/HandlerTest\\.php\\:32\\:\\:getContext\\(\\) should return array\\<string, mixed\\> but returns array\\<int, int\\>\\.$#"
 			count: 1
 			path: app/Exceptions/HandlerTest.php
 
@@ -236,11 +231,6 @@ parameters:
 			path: app/GraphQL/Directives/Directives/Aggregated/CountTest.php
 
 		-
-			message: "#^Method App\\\\GraphQL\\\\Directives\\\\Directives\\\\Aggregated\\\\GroupBy\\\\Directive\\:\\:handleBuilder\\(\\) has parameter \\$builder with generic class Illuminate\\\\Database\\\\Eloquent\\\\Builder but does not specify its types\\: TModelClass$#"
-			count: 1
-			path: app/GraphQL/Directives/Directives/Aggregated/GroupBy/Directive.php
-
-		-
 			message: "#^Call to an undefined method Nuwave\\\\Lighthouse\\\\Schema\\\\Directives\\\\BaseDirective\\:\\:handleBuilder\\(\\)\\.$#"
 			count: 1
 			path: app/GraphQL/Directives/Directives/Aggregated/GroupBy/DirectiveTest.php
@@ -296,7 +286,7 @@ parameters:
 			path: app/GraphQL/Directives/Directives/Cached/CachedTest.php
 
 		-
-			message: "#^Parameter \\#1 \\$resolver of method App\\\\GraphQL\\\\Directives\\\\Directives\\\\Cached\\\\Cached\\:\\:resolve\\(\\) expects callable\\(mixed, array, Nuwave\\\\Lighthouse\\\\Support\\\\Contracts\\\\GraphQLContext, GraphQL\\\\Type\\\\Definition\\\\ResolveInfo\\)\\: mixed, Mockery\\\\MockInterface given\\.$#"
+			message: "#^Parameter \\#1 \\$resolver of method App\\\\GraphQL\\\\Directives\\\\Directives\\\\Cached\\\\Cached\\:\\:resolve\\(\\) expects callable\\(mixed, array, Nuwave\\\\Lighthouse\\\\Support\\\\Contracts\\\\GraphQLContext, Nuwave\\\\Lighthouse\\\\Execution\\\\ResolveInfo\\)\\: mixed, Mockery\\\\MockInterface given\\.$#"
 			count: 7
 			path: app/GraphQL/Directives/Directives/Cached/CachedTest.php
 
@@ -317,11 +307,6 @@ parameters:
 
 		-
 			message: "#^Parameter \\#1 \\$directive of method App\\\\GraphQL\\\\Directives\\\\Directives\\\\Mutation\\\\Manipulator\\:\\:getDirectiveName\\(\\) expects class\\-string\\<Nuwave\\\\Lighthouse\\\\Support\\\\Contracts\\\\Directive\\>, string given\\.$#"
-			count: 1
-			path: app/GraphQL/Directives/Directives/Mutation/Mutation.php
-
-		-
-			message: "#^Parameter \\#2 \\$class of method App\\\\GraphQL\\\\Directives\\\\Directives\\\\Mutation\\\\Manipulator\\:\\:getNodeDirective\\(\\) expects class\\-string\\<T of Nuwave\\\\Lighthouse\\\\Support\\\\Contracts\\\\Directive\\>, string given\\.$#"
 			count: 1
 			path: app/GraphQL/Directives/Directives/Mutation/Mutation.php
 
@@ -432,16 +417,6 @@ parameters:
 
 		-
 			message: "#^Anonymous function should return App\\\\Models\\\\Organization but returns App\\\\Models\\\\Organization\\|null\\.$#"
-			count: 1
-			path: app/GraphQL/Directives/Directives/Org/PropertyTest.php
-
-		-
-			message: "#^Call to an undefined method Nuwave\\\\Lighthouse\\\\Schema\\\\Directives\\\\BaseDirective\\:\\:handleBuilder\\(\\)\\.$#"
-			count: 2
-			path: app/GraphQL/Directives/Directives/Org/PropertyTest.php
-
-		-
-			message: "#^Method App\\\\GraphQL\\\\Directives\\\\Directives\\\\Org\\\\PropertyTest\\:\\:testHandleBuilder\\(\\) has parameter \\$builderFactory with no signature specified for Closure\\.$#"
 			count: 1
 			path: app/GraphQL/Directives/Directives/Org/PropertyTest.php
 

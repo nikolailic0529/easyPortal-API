@@ -4,10 +4,10 @@ namespace App\GraphQL\Directives\Directives\Aggregated;
 
 use App\GraphQL\Directives\Directives\Cached\ParentValue;
 use App\Services\Search\Builders\Builder as SearchBuilder;
-use GraphQL\Type\Definition\ResolveInfo;
 use Illuminate\Database\Eloquent\Builder as EloquentBuilder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Query\Builder as QueryBuilder;
+use Nuwave\Lighthouse\Execution\ResolveInfo;
 use Nuwave\Lighthouse\Support\Contracts\GraphQLContext;
 use RuntimeException;
 

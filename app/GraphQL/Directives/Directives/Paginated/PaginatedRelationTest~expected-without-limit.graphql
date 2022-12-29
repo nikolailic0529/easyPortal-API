@@ -85,13 +85,13 @@ input SearchByConditionCustomerSearch {
     Property condition.
     """
     id: SearchByScalarID
-    @searchByProperty
+    @searchByOperatorProperty
 
     """
     Property condition.
     """
     key: SearchByScalarID
-    @searchByProperty
+    @searchByOperatorProperty
 
     """
     Not.
@@ -130,20 +130,20 @@ input SearchByScalarID {
 }
 
 """
-Sort clause for type CustomerLocation (only one property allowed at a time).
+Sort clause for `type CustomerLocation` (only one property allowed at a time).
 """
 input SortByClauseCustomerLocation {
     """
     Property clause.
     """
     id: SortByTypeDirection
-    @sortByOperatorProperty
+    @sortByOperatorField
 
     """
     Property clause.
     """
     key: SortByTypeDirection
-    @sortByOperatorProperty
+    @sortByOperatorField
 }
 
 type AggregatedGroupByTypeGroup {
@@ -523,7 +523,7 @@ directive @searchByOperatorNotIn
 on
     | INPUT_FIELD_DEFINITION
 
-directive @searchByProperty
+directive @searchByOperatorProperty
 on
     | INPUT_FIELD_DEFINITION
 
@@ -534,6 +534,6 @@ directive @sortBy
 on
     | ARGUMENT_DEFINITION
 
-directive @sortByOperatorProperty
+directive @sortByOperatorField
 on
     | INPUT_FIELD_DEFINITION

@@ -11,12 +11,12 @@ use App\Utils\Eloquent\ModelHelper;
 use Closure;
 use GraphQL\Language\AST\FieldDefinitionNode;
 use GraphQL\Language\AST\ObjectTypeDefinitionNode;
-use GraphQL\Type\Definition\ResolveInfo;
 use Illuminate\Contracts\Container\Container;
 use Illuminate\Database\Eloquent\Builder as EloquentBuilder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
 use Nuwave\Lighthouse\Exceptions\DefinitionException;
+use Nuwave\Lighthouse\Execution\ResolveInfo;
 use Nuwave\Lighthouse\Schema\AST\DocumentAST;
 use Nuwave\Lighthouse\Schema\Directives\BaseDirective;
 use Nuwave\Lighthouse\Schema\Values\FieldValue;
@@ -26,6 +26,7 @@ use Nuwave\Lighthouse\Support\Contracts\GraphQLContext;
 
 use function array_filter;
 use function assert;
+use function class_exists;
 use function count;
 use function implode;
 use function is_object;
@@ -150,7 +151,8 @@ abstract class Mutation extends BaseDirective implements FieldResolver, FieldMan
         foreach ($fieldTypeDefinition->fields as $field) {
             $mutations = $requiredDirectives
                 ->filter(static function (string $directive) use ($manipulator, $field): bool {
-                    return (bool) $manipulator->getNodeDirective($field, $directive);
+                    return class_exists($directive)
+                        && $manipulator->getNodeDirective($field, $directive) !== null;
                 });
 
             if ($mutations->isEmpty()) {

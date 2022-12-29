@@ -21,7 +21,7 @@ class VersionReset extends Command {
     /**
      * @phpcsSuppress SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint
      *
-     * @var string
+     * @var string|null
      */
     protected $description = <<<'DESC'
         Resets application version.

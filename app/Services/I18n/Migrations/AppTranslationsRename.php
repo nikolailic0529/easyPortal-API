@@ -4,6 +4,7 @@ namespace App\Services\I18n\Migrations;
 
 use App\Services\Filesystem\Disks\AppDisk;
 use App\Services\I18n\Storages\AppTranslations;
+use Illuminate\Container\Container;
 use LastDragon_ru\LaraASP\Migrator\Migrations\RawDataMigration;
 use RuntimeException;
 
@@ -51,7 +52,7 @@ abstract class AppTranslationsRename extends RawDataMigration {
     }
 
     protected function getStorage(string $locale): AppTranslations {
-        return new AppTranslations($this->getContainer()->make(AppDisk::class), $locale);
+        return new AppTranslations(Container::getInstance()->make(AppDisk::class), $locale);
     }
 
     /**

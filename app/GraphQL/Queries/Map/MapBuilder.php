@@ -5,7 +5,6 @@ namespace App\GraphQL\Queries\Map;
 use App\GraphQL\Directives\Directives\Cached\ParentValue;
 use App\Models\Asset;
 use App\Models\Data\Location;
-use GraphQL\Type\Definition\ResolveInfo;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Query\Expression;
 use Illuminate\Support\Arr;
@@ -15,6 +14,7 @@ use League\Geotools\Geohash\Geohash;
 use League\Geotools\Polygon\Polygon;
 use Nuwave\Lighthouse\Execution\Arguments\Argument;
 use Nuwave\Lighthouse\Execution\Arguments\ArgumentSet;
+use Nuwave\Lighthouse\Execution\ResolveInfo;
 use Nuwave\Lighthouse\Support\Contracts\GraphQLContext;
 use stdClass;
 

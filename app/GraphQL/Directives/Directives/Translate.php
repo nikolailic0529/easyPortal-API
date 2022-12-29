@@ -3,7 +3,7 @@
 namespace App\GraphQL\Directives\Directives;
 
 use App\Services\I18n\Contracts\Translatable;
-use GraphQL\Type\Definition\ResolveInfo;
+use Nuwave\Lighthouse\Execution\ResolveInfo;
 use Nuwave\Lighthouse\Schema\Directives\BaseDirective;
 use Nuwave\Lighthouse\Schema\Factories\FieldFactory;
 use Nuwave\Lighthouse\Schema\RootType;

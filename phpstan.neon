@@ -18,9 +18,12 @@ parameters:
 
     # Stubs
     stubFiles:
-        - ./vendor/nuwave/lighthouse/_ide_helper.php
         - ./.phpstan/Stubs/Geotools.php
         - ./.phpstan/Stubs/Faker.php
+
+    # Editor
+    editorUrl: 'phpstorm://open?file=%%relFile%%&line=%%line%%'
+    editorUrlTitle: '%%file%%:%%line%%'
 
 includes:
     # Extensions

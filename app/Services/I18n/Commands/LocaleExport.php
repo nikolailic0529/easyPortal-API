@@ -31,7 +31,7 @@ class LocaleExport extends Command {
     /**
      * @phpcsSuppress SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint
      *
-     * @var string
+     * @var string|null
      */
     protected $description = 'Dump locale translations.';
 

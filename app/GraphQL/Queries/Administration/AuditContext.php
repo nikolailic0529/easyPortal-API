@@ -6,10 +6,10 @@ use App\Models\Audits\Audit;
 use App\Services\Audit\Contracts\Auditable;
 use App\Services\Audit\Enums\Action;
 use App\Services\Audit\Listeners\AuditableListener;
-use GraphQL\Type\Definition\ResolveInfo;
 use Illuminate\Contracts\Auth\Access\Gate;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\Relation;
+use Nuwave\Lighthouse\Execution\ResolveInfo;
 use Nuwave\Lighthouse\Support\Contracts\GraphQLContext;
 
 use function array_diff;

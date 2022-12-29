@@ -27,7 +27,7 @@ class LocaleImport extends Command {
     /**
      * @phpcsSuppress SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint
      *
-     * @var string
+     * @var string|null
      */
     protected $description = 'Import locale translations.';
 

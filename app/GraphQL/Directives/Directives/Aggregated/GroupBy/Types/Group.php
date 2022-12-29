@@ -2,10 +2,13 @@
 
 namespace App\GraphQL\Directives\Directives\Aggregated\GroupBy\Types;
 
+use App\GraphQL\Directives\Directives\Aggregated\GroupBy\Directive;
 use App\GraphQL\Directives\Directives\Aggregated\GroupBy\Operators\BaseOperator;
 use GraphQL\Language\AST\TypeDefinitionNode;
 use GraphQL\Language\Parser;
+use LastDragon_ru\LaraASP\GraphQL\Builder\BuilderInfo;
 use LastDragon_ru\LaraASP\GraphQL\Builder\Contracts\TypeDefinition;
+use LastDragon_ru\LaraASP\GraphQL\Builder\Manipulator;
 
 use function is_null;
 
@@ -14,20 +17,21 @@ class Group implements TypeDefinition {
         // empty
     }
 
-    public static function getName(): string {
-        return 'Group';
+    public static function getTypeName(BuilderInfo $builder, ?string $type, ?bool $nullable): string {
+        return Directive::NAME.'TypeGroup';
     }
 
     public function getTypeDefinitionNode(
+        Manipulator $manipulator,
         string $name,
-        string $scalar = null,
-        bool $nullable = null,
+        ?string $type,
+        ?bool $nullable,
     ): ?TypeDefinitionNode {
-        $type = null;
+        $node = null;
 
-        if (is_null($scalar) && is_null($nullable)) {
+        if (is_null($type) && is_null($nullable)) {
             $key  = BaseOperator::KEY;
-            $type = Parser::objectTypeDefinition(
+            $node = Parser::objectTypeDefinition(
             /** @lang GraphQL */
                 <<<GRAPHQL
                 type {$name} {
@@ -38,6 +42,6 @@ class Group implements TypeDefinition {
             );
         }
 
-        return $type;
+        return $node;
     }
 }

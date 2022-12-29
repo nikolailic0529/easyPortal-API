@@ -2258,7 +2258,7 @@ input SearchByConditionApplicationLogsQuery {
     Property condition.
     """
     action: SearchByScalarString
-    @searchByProperty
+    @searchByOperatorProperty
 
     """
     All of the conditions must be true.
@@ -2276,31 +2276,31 @@ input SearchByConditionApplicationLogsQuery {
     Property condition.
     """
     category: SearchByScalarString
-    @searchByProperty
+    @searchByOperatorProperty
 
     """
     Property condition.
     """
     created_at: SearchByScalarDateTime
-    @searchByProperty
+    @searchByOperatorProperty
 
     """
     Property condition.
     """
     duration: SearchByScalarFloatOrNull
-    @searchByProperty
+    @searchByOperatorProperty
 
     """
     Property condition.
     """
     finished_at: SearchByScalarDateTimeOrNull
-    @searchByProperty
+    @searchByOperatorProperty
 
     """
     Property condition.
     """
     id: SearchByScalarID
-    @searchByProperty
+    @searchByOperatorProperty
 
     """
     Not.
@@ -2312,19 +2312,19 @@ input SearchByConditionApplicationLogsQuery {
     Property condition.
     """
     object_id: SearchByScalarIDOrNull
-    @searchByProperty
+    @searchByOperatorProperty
 
     """
     Property condition.
     """
     object_type: SearchByScalarStringOrNull
-    @searchByProperty
+    @searchByOperatorProperty
 
     """
     Property condition.
     """
     status: SearchByScalarStringOrNull
-    @searchByProperty
+    @searchByOperatorProperty
 }
 
 """
@@ -2446,7 +2446,7 @@ input SearchByConditionAssetWarrantiesQuery {
     Property condition.
     """
     customer_id: SearchByScalarIDOrNull
-    @searchByProperty
+    @searchByOperatorProperty
 
     """
     Relationship condition.
@@ -2458,25 +2458,25 @@ input SearchByConditionAssetWarrantiesQuery {
     Property condition.
     """
     document_id: SearchByScalarIDOrNull
-    @searchByProperty
+    @searchByOperatorProperty
 
     """
     Property condition.
     """
     document_number: SearchByScalarStringOrNull
-    @searchByProperty
+    @searchByOperatorProperty
 
     """
     Property condition.
     """
     end: SearchByScalarDateOrNull
-    @searchByProperty
+    @searchByOperatorProperty
 
     """
     Property condition.
     """
     id: SearchByScalarID
-    @searchByProperty
+    @searchByOperatorProperty
 
     """
     Not.
@@ -2494,25 +2494,25 @@ input SearchByConditionAssetWarrantiesQuery {
     Property condition.
     """
     reseller_id: SearchByScalarIDOrNull
-    @searchByProperty
+    @searchByOperatorProperty
 
     """
     Property condition.
     """
     service_group_id: SearchByScalarIDOrNull
-    @searchByProperty
+    @searchByOperatorProperty
 
     """
     Property condition.
     """
     service_level_id: SearchByScalarIDOrNull
-    @searchByProperty
+    @searchByOperatorProperty
 
     """
     Property condition.
     """
     start: SearchByScalarDateOrNull
-    @searchByProperty
+    @searchByOperatorProperty
 }
 
 """
@@ -2541,7 +2541,7 @@ input SearchByConditionAssetsQuery {
     Property condition.
     """
     contracts_active_quantity: SearchByScalarIntOrNull
-    @searchByProperty
+    @searchByOperatorProperty
 
     """
     Relationship condition.
@@ -2553,7 +2553,7 @@ input SearchByConditionAssetsQuery {
     Property condition.
     """
     coverages_count: SearchByScalarInt
-    @searchByProperty
+    @searchByOperatorProperty
 
     """
     Relationship condition.
@@ -2565,19 +2565,19 @@ input SearchByConditionAssetsQuery {
     Property condition.
     """
     customer_id: SearchByScalarIDOrNull
-    @searchByProperty
+    @searchByOperatorProperty
 
     """
     Property condition.
     """
     eosl: SearchByScalarDateOrNull
-    @searchByProperty
+    @searchByOperatorProperty
 
     """
     Property condition.
     """
     id: SearchByScalarID
-    @searchByProperty
+    @searchByOperatorProperty
 
     """
     Relationship condition.
@@ -2589,13 +2589,13 @@ input SearchByConditionAssetsQuery {
     Property condition.
     """
     location_id: SearchByScalarIDOrNull
-    @searchByProperty
+    @searchByOperatorProperty
 
     """
     Property condition.
     """
     nickname: SearchByScalarStringOrNull
-    @searchByProperty
+    @searchByOperatorProperty
 
     """
     Not.
@@ -2613,7 +2613,7 @@ input SearchByConditionAssetsQuery {
     Property condition.
     """
     oem_id: SearchByScalarIDOrNull
-    @searchByProperty
+    @searchByOperatorProperty
 
     """
     Relationship condition.
@@ -2625,7 +2625,7 @@ input SearchByConditionAssetsQuery {
     Property condition.
     """
     product_id: SearchByScalarIDOrNull
-    @searchByProperty
+    @searchByOperatorProperty
 
     """
     Relationship condition.
@@ -2643,13 +2643,13 @@ input SearchByConditionAssetsQuery {
     Property condition.
     """
     reseller_id: SearchByScalarIDOrNull
-    @searchByProperty
+    @searchByOperatorProperty
 
     """
     Property condition.
     """
     serial_number: SearchByScalarStringOrNull
-    @searchByProperty
+    @searchByOperatorProperty
 
     """
     Relationship condition.
@@ -2661,7 +2661,7 @@ input SearchByConditionAssetsQuery {
     Property condition.
     """
     status_id: SearchByScalarIDOrNull
-    @searchByProperty
+    @searchByOperatorProperty
 
     """
     Relationship condition.
@@ -2679,7 +2679,7 @@ input SearchByConditionAssetsQuery {
     Property condition.
     """
     type_id: SearchByScalarIDOrNull
-    @searchByProperty
+    @searchByOperatorProperty
 
     """
     Relationship condition.
@@ -2703,19 +2703,19 @@ input SearchByConditionAssetsQuery {
     Property condition.
     """
     warranty_end: SearchByScalarDateOrNull
-    @searchByProperty
+    @searchByOperatorProperty
 
     """
     Property condition.
     """
     warranty_service_group_id: SearchByScalarIDOrNull
-    @searchByProperty
+    @searchByOperatorProperty
 
     """
     Property condition.
     """
     warranty_service_level_id: SearchByScalarIDOrNull
-    @searchByProperty
+    @searchByOperatorProperty
 }
 
 """
@@ -2726,7 +2726,7 @@ input SearchByConditionAuditsQuery {
     Property condition.
     """
     action: SearchByEnumAuditAction
-    @searchByProperty
+    @searchByOperatorProperty
 
     """
     All of the conditions must be true.
@@ -2744,13 +2744,13 @@ input SearchByConditionAuditsQuery {
     Property condition.
     """
     created_at: SearchByScalarDateTime
-    @searchByProperty
+    @searchByOperatorProperty
 
     """
     Property condition.
     """
     id: SearchByScalarID
-    @searchByProperty
+    @searchByOperatorProperty
 
     """
     Not.
@@ -2762,13 +2762,13 @@ input SearchByConditionAuditsQuery {
     Property condition.
     """
     object_id: SearchByScalarString
-    @searchByProperty
+    @searchByOperatorProperty
 
     """
     Property condition.
     """
     object_type: SearchByScalarString
-    @searchByProperty
+    @searchByOperatorProperty
 
     """
     Relationship condition.
@@ -2780,13 +2780,13 @@ input SearchByConditionAuditsQuery {
     Property condition.
     """
     organization_id: SearchByScalarID
-    @searchByProperty
+    @searchByOperatorProperty
 
     """
     Property condition.
     """
     updated_at: SearchByScalarDateTime
-    @searchByProperty
+    @searchByOperatorProperty
 
     """
     Relationship condition.
@@ -2798,7 +2798,7 @@ input SearchByConditionAuditsQuery {
     Property condition.
     """
     user_id: SearchByScalarString
-    @searchByProperty
+    @searchByOperatorProperty
 }
 
 """
@@ -2821,19 +2821,19 @@ input SearchByConditionChangeRequestsQuery {
     Property condition.
     """
     from: SearchByScalarString
-    @searchByProperty
+    @searchByOperatorProperty
 
     """
     Property condition.
     """
     id: SearchByScalarID
-    @searchByProperty
+    @searchByOperatorProperty
 
     """
     Property condition.
     """
     message: SearchByScalarString
-    @searchByProperty
+    @searchByOperatorProperty
 
     """
     Not.
@@ -2845,7 +2845,7 @@ input SearchByConditionChangeRequestsQuery {
     Property condition.
     """
     subject: SearchByScalarString
-    @searchByProperty
+    @searchByOperatorProperty
 
     """
     Relationship condition.
@@ -2857,7 +2857,7 @@ input SearchByConditionChangeRequestsQuery {
     Property condition.
     """
     user_id: SearchByScalarID
-    @searchByProperty
+    @searchByOperatorProperty
 }
 
 """
@@ -2886,7 +2886,7 @@ input SearchByConditionCitiesQuery {
     Property condition.
     """
     country_id: SearchByScalarID
-    @searchByProperty
+    @searchByOperatorProperty
 
     """
     Relationship condition.
@@ -2898,13 +2898,13 @@ input SearchByConditionCitiesQuery {
     Property condition.
     """
     id: SearchByScalarID
-    @searchByProperty
+    @searchByOperatorProperty
 
     """
     Property condition.
     """
     name: SearchByScalarString
-    @searchByProperty
+    @searchByOperatorProperty
 
     """
     Not.
@@ -2939,7 +2939,8 @@ input SearchByConditionCompaniesQuery {
     Property condition.
     """
     assets_count: SearchByScalarInt
-    @searchByProperty
+    @searchByOperatorProperty
+    @orgProperty
 
     """
     Relationship condition.
@@ -2951,7 +2952,7 @@ input SearchByConditionCompaniesQuery {
     Property condition.
     """
     contacts_count: SearchByScalarInt
-    @searchByProperty
+    @searchByOperatorProperty
 
     """
     Relationship condition.
@@ -2969,7 +2970,7 @@ input SearchByConditionCompaniesQuery {
     Property condition.
     """
     id: SearchByScalarID
-    @searchByProperty
+    @searchByOperatorProperty
 
     """
     Relationship condition.
@@ -2981,13 +2982,14 @@ input SearchByConditionCompaniesQuery {
     Property condition.
     """
     locations_count: SearchByScalarInt
-    @searchByProperty
+    @searchByOperatorProperty
+    @orgProperty
 
     """
     Property condition.
     """
     name: SearchByScalarString
-    @searchByProperty
+    @searchByOperatorProperty
 
     """
     Not.
@@ -3011,7 +3013,7 @@ input SearchByConditionCompaniesQuery {
     Property condition.
     """
     statuses_count: SearchByScalarInt
-    @searchByProperty
+    @searchByOperatorProperty
 }
 
 """
@@ -3034,7 +3036,7 @@ input SearchByConditionCompanyLocationsQuery {
     Property condition.
     """
     id: SearchByScalarID
-    @searchByProperty
+    @searchByOperatorProperty
 
     """
     Relationship condition.
@@ -3046,7 +3048,7 @@ input SearchByConditionCompanyLocationsQuery {
     Property condition.
     """
     location_id: SearchByScalarID
-    @searchByProperty
+    @searchByOperatorProperty
 
     """
     Not.
@@ -3110,19 +3112,19 @@ input SearchByConditionContactsQuery {
     Property condition.
     """
     email: SearchByScalarEmailOrNull
-    @searchByProperty
+    @searchByOperatorProperty
 
     """
     Property condition.
     """
     id: SearchByScalarID
-    @searchByProperty
+    @searchByOperatorProperty
 
     """
     Property condition.
     """
     name: SearchByScalarStringOrNull
-    @searchByProperty
+    @searchByOperatorProperty
 
     """
     Not.
@@ -3134,13 +3136,13 @@ input SearchByConditionContactsQuery {
     Property condition.
     """
     phone_number: SearchByScalarPhoneNumberOrNull
-    @searchByProperty
+    @searchByOperatorProperty
 
     """
     Property condition.
     """
     phone_valid: SearchByScalarBooleanOrNull
-    @searchByProperty
+    @searchByOperatorProperty
 
     """
     Relationship condition.
@@ -3239,7 +3241,7 @@ input SearchByConditionCountriesQuery {
     Property condition.
     """
     code: SearchByScalarString
-    @searchByProperty
+    @searchByOperatorProperty
 
     """
     Relationship condition.
@@ -3251,13 +3253,13 @@ input SearchByConditionCountriesQuery {
     Property condition.
     """
     id: SearchByScalarID
-    @searchByProperty
+    @searchByOperatorProperty
 
     """
     Property condition.
     """
     name: SearchByScalarString
-    @searchByProperty
+    @searchByOperatorProperty
 
     """
     Not.
@@ -3286,7 +3288,7 @@ input SearchByConditionCoveragesQuery {
     Property condition.
     """
     id: SearchByScalarID
-    @searchByProperty
+    @searchByOperatorProperty
 
     """
     Not.
@@ -3402,13 +3404,13 @@ input SearchByConditionDistributorsQuery {
     Property condition.
     """
     id: SearchByScalarID
-    @searchByProperty
+    @searchByOperatorProperty
 
     """
     Property condition.
     """
     name: SearchByScalarString
-    @searchByProperty
+    @searchByOperatorProperty
 
     """
     Not.
@@ -3449,13 +3451,13 @@ input SearchByConditionDocumentEntriesQuery {
     Property condition.
     """
     asset_id: SearchByScalarIDOrNull
-    @searchByProperty
+    @searchByOperatorProperty
 
     """
     Property condition.
     """
     asset_type_id: SearchByScalarIDOrNull
-    @searchByProperty
+    @searchByOperatorProperty
 
     """
     Relationship condition.
@@ -3467,37 +3469,37 @@ input SearchByConditionDocumentEntriesQuery {
     Property condition.
     """
     currency_id: SearchByScalarIDOrNull
-    @searchByProperty
+    @searchByOperatorProperty
 
     """
     Property condition.
     """
     document_id: SearchByScalarID
-    @searchByProperty
+    @searchByOperatorProperty
 
     """
     Property condition.
     """
     end: SearchByScalarDateOrNull
-    @searchByProperty
+    @searchByOperatorProperty
 
     """
     Property condition.
     """
     environment_id: SearchByScalarStringOrNull
-    @searchByProperty
+    @searchByOperatorProperty
 
     """
     Property condition.
     """
     equipment_number: SearchByScalarStringOrNull
-    @searchByProperty
+    @searchByOperatorProperty
 
     """
     Property condition.
     """
     id: SearchByScalarID
-    @searchByProperty
+    @searchByOperatorProperty
 
     """
     Relationship condition.
@@ -3509,25 +3511,25 @@ input SearchByConditionDocumentEntriesQuery {
     Property condition.
     """
     language_id: SearchByScalarIDOrNull
-    @searchByProperty
+    @searchByOperatorProperty
 
     """
     Property condition.
     """
     list_price: SearchByScalarFloatOrNull
-    @searchByProperty
+    @searchByOperatorProperty
 
     """
     Property condition.
     """
     monthly_list_price: SearchByScalarFloatOrNull
-    @searchByProperty
+    @searchByOperatorProperty
 
     """
     Property condition.
     """
     monthly_retail_price: SearchByScalarFloatOrNull
-    @searchByProperty
+    @searchByOperatorProperty
 
     """
     Not.
@@ -3539,13 +3541,13 @@ input SearchByConditionDocumentEntriesQuery {
     Property condition.
     """
     oem_said: SearchByScalarStringOrNull
-    @searchByProperty
+    @searchByOperatorProperty
 
     """
     Property condition.
     """
     oem_sar_number: SearchByScalarStringOrNull
-    @searchByProperty
+    @searchByOperatorProperty
 
     """
     Relationship condition.
@@ -3569,19 +3571,19 @@ input SearchByConditionDocumentEntriesQuery {
     Property condition.
     """
     product_group_id: SearchByScalarIDOrNull
-    @searchByProperty
+    @searchByOperatorProperty
 
     """
     Property condition.
     """
     product_id: SearchByScalarIDOrNull
-    @searchByProperty
+    @searchByOperatorProperty
 
     """
     Property condition.
     """
     product_line_id: SearchByScalarIDOrNull
-    @searchByProperty
+    @searchByOperatorProperty
 
     """
     Relationship condition.
@@ -3593,25 +3595,25 @@ input SearchByConditionDocumentEntriesQuery {
     Property condition.
     """
     psp_id: SearchByScalarIDOrNull
-    @searchByProperty
+    @searchByOperatorProperty
 
     """
     Property condition.
     """
     removed_at: SearchByScalarDateTimeOrNull
-    @searchByProperty
+    @searchByOperatorProperty
 
     """
     Property condition.
     """
     renewal: SearchByScalarFloatOrNull
-    @searchByProperty
+    @searchByOperatorProperty
 
     """
     Property condition.
     """
     serial_number: SearchByScalarStringOrNull
-    @searchByProperty
+    @searchByOperatorProperty
 
     """
     Relationship condition.
@@ -3629,19 +3631,19 @@ input SearchByConditionDocumentEntriesQuery {
     Property condition.
     """
     service_group_id: SearchByScalarIDOrNull
-    @searchByProperty
+    @searchByOperatorProperty
 
     """
     Property condition.
     """
     service_level_id: SearchByScalarIDOrNull
-    @searchByProperty
+    @searchByOperatorProperty
 
     """
     Property condition.
     """
     start: SearchByScalarDateOrNull
-    @searchByProperty
+    @searchByOperatorProperty
 }
 
 """
@@ -3676,7 +3678,7 @@ input SearchByConditionDocumentsQuery {
     Property condition.
     """
     contacts_count: SearchByScalarInt
-    @searchByProperty
+    @searchByOperatorProperty
 
     """
     Relationship condition.
@@ -3688,7 +3690,7 @@ input SearchByConditionDocumentsQuery {
     Property condition.
     """
     currency_id: SearchByScalarIDOrNull
-    @searchByProperty
+    @searchByOperatorProperty
 
     """
     Relationship condition.
@@ -3700,7 +3702,7 @@ input SearchByConditionDocumentsQuery {
     Property condition.
     """
     customer_id: SearchByScalarIDOrNull
-    @searchByProperty
+    @searchByOperatorProperty
 
     """
     Relationship condition.
@@ -3712,13 +3714,13 @@ input SearchByConditionDocumentsQuery {
     Property condition.
     """
     distributor_id: SearchByScalarIDOrNull
-    @searchByProperty
+    @searchByOperatorProperty
 
     """
     Property condition.
     """
     end: SearchByScalarDate
-    @searchByProperty
+    @searchByOperatorProperty
 
     """
     Relationship condition.
@@ -3730,13 +3732,13 @@ input SearchByConditionDocumentsQuery {
     Property condition.
     """
     entries_count: SearchByScalarInt
-    @searchByProperty
+    @searchByOperatorProperty
 
     """
     Property condition.
     """
     id: SearchByScalarID
-    @searchByProperty
+    @searchByOperatorProperty
 
     """
     Relationship condition.
@@ -3748,7 +3750,7 @@ input SearchByConditionDocumentsQuery {
     Property condition.
     """
     language_id: SearchByScalarIDOrNull
-    @searchByProperty
+    @searchByOperatorProperty
 
     """
     Not.
@@ -3760,7 +3762,7 @@ input SearchByConditionDocumentsQuery {
     Property condition.
     """
     number: SearchByScalarStringOrNull
-    @searchByProperty
+    @searchByOperatorProperty
 
     """
     Relationship condition.
@@ -3778,31 +3780,31 @@ input SearchByConditionDocumentsQuery {
     Property condition.
     """
     oem_amp_id: SearchByScalarStringOrNull
-    @searchByProperty
+    @searchByOperatorProperty
 
     """
     Property condition.
     """
     oem_group_id: SearchByScalarIDOrNull
-    @searchByProperty
+    @searchByOperatorProperty
 
     """
     Property condition.
     """
     oem_id: SearchByScalarIDOrNull
-    @searchByProperty
+    @searchByOperatorProperty
 
     """
     Property condition.
     """
     oem_said: SearchByScalarStringOrNull
-    @searchByProperty
+    @searchByOperatorProperty
 
     """
     Property condition.
     """
     oem_sar_number: SearchByScalarStringOrNull
-    @searchByProperty
+    @searchByOperatorProperty
 
     """
     Relationship condition.
@@ -3814,13 +3816,13 @@ input SearchByConditionDocumentsQuery {
     Property condition.
     """
     reseller_id: SearchByScalarIDOrNull
-    @searchByProperty
+    @searchByOperatorProperty
 
     """
     Property condition.
     """
     start: SearchByScalarDate
-    @searchByProperty
+    @searchByOperatorProperty
 
     """
     Relationship condition.
@@ -3832,13 +3834,13 @@ input SearchByConditionDocumentsQuery {
     Property condition.
     """
     statuses_count: SearchByScalarInt
-    @searchByProperty
+    @searchByOperatorProperty
 
     """
     Property condition.
     """
     type_id: SearchByScalarIDOrNull
-    @searchByProperty
+    @searchByOperatorProperty
 }
 
 """
@@ -3902,7 +3904,7 @@ input SearchByConditionLocationsQuery {
     Property condition.
     """
     city_id: SearchByScalarID
-    @searchByProperty
+    @searchByOperatorProperty
 
     """
     Relationship condition.
@@ -3914,7 +3916,7 @@ input SearchByConditionLocationsQuery {
     Property condition.
     """
     country_id: SearchByScalarID
-    @searchByProperty
+    @searchByOperatorProperty
 
     """
     Relationship condition.
@@ -3926,31 +3928,31 @@ input SearchByConditionLocationsQuery {
     Property condition.
     """
     id: SearchByScalarID
-    @searchByProperty
+    @searchByOperatorProperty
 
     """
     Property condition.
     """
     latitude: SearchByScalarFloatOrNull
-    @searchByProperty
+    @searchByOperatorProperty
 
     """
     Property condition.
     """
     line_one: SearchByScalarString
-    @searchByProperty
+    @searchByOperatorProperty
 
     """
     Property condition.
     """
     line_two: SearchByScalarString
-    @searchByProperty
+    @searchByOperatorProperty
 
     """
     Property condition.
     """
     longitude: SearchByScalarFloatOrNull
-    @searchByProperty
+    @searchByOperatorProperty
 
     """
     Not.
@@ -3962,13 +3964,13 @@ input SearchByConditionLocationsQuery {
     Property condition.
     """
     postcode: SearchByScalarString
-    @searchByProperty
+    @searchByOperatorProperty
 
     """
     Property condition.
     """
     state: SearchByScalarString
-    @searchByProperty
+    @searchByOperatorProperty
 }
 
 """
@@ -3997,7 +3999,7 @@ input SearchByConditionMapQuery {
     Property condition.
     """
     city_id: SearchByScalarID
-    @searchByProperty
+    @searchByOperatorProperty
 
     """
     Relationship condition.
@@ -4009,7 +4011,7 @@ input SearchByConditionMapQuery {
     Property condition.
     """
     country_id: SearchByScalarID
-    @searchByProperty
+    @searchByOperatorProperty
 
     """
     Not.
@@ -4021,13 +4023,13 @@ input SearchByConditionMapQuery {
     Property condition.
     """
     postcode: SearchByScalarString
-    @searchByProperty
+    @searchByOperatorProperty
 
     """
     Property condition.
     """
     state: SearchByScalarString
-    @searchByProperty
+    @searchByOperatorProperty
 }
 
 """
@@ -4050,25 +4052,25 @@ input SearchByConditionMeSearchQuery {
     Property condition.
     """
     created_at: SearchByScalarDateTime
-    @searchByProperty
+    @searchByOperatorProperty
 
     """
     Property condition.
     """
     id: SearchByScalarID
-    @searchByProperty
+    @searchByOperatorProperty
 
     """
     Property condition.
     """
     key: SearchByScalarString
-    @searchByProperty
+    @searchByOperatorProperty
 
     """
     Property condition.
     """
     name: SearchByScalarString
-    @searchByProperty
+    @searchByOperatorProperty
 
     """
     Not.
@@ -4103,13 +4105,13 @@ input SearchByConditionNotesQuery {
     Property condition.
     """
     note: SearchByScalarHtmlStringOrNull
-    @searchByProperty
+    @searchByOperatorProperty
 
     """
     Property condition.
     """
     pinned: SearchByScalarBoolean
-    @searchByProperty
+    @searchByOperatorProperty
 
     """
     Relationship condition.
@@ -4121,7 +4123,7 @@ input SearchByConditionNotesQuery {
     Property condition.
     """
     user_id: SearchByScalarID
-    @searchByProperty
+    @searchByOperatorProperty
 }
 
 """
@@ -4144,19 +4146,19 @@ input SearchByConditionOemGroupsQuery {
     Property condition.
     """
     id: SearchByScalarID
-    @searchByProperty
+    @searchByOperatorProperty
 
     """
     Property condition.
     """
     key: SearchByScalarString
-    @searchByProperty
+    @searchByOperatorProperty
 
     """
     Property condition.
     """
     name: SearchByScalarString
-    @searchByProperty
+    @searchByOperatorProperty
 
     """
     Not.
@@ -4226,19 +4228,19 @@ input SearchByConditionOrganizationsQuery {
     Property condition.
     """
     email: SearchByScalarEmailOrNull
-    @searchByProperty
+    @searchByOperatorProperty
 
     """
     Property condition.
     """
     id: SearchByScalarID
-    @searchByProperty
+    @searchByOperatorProperty
 
     """
     Property condition.
     """
     name: SearchByScalarString
-    @searchByProperty
+    @searchByOperatorProperty
 
     """
     Not.
@@ -4250,13 +4252,13 @@ input SearchByConditionOrganizationsQuery {
     Property condition.
     """
     type: SearchByEnumOrganizationType
-    @searchByProperty
+    @searchByOperatorProperty
 
     """
     Property condition.
     """
     website_url: SearchByScalarUrlOrNull
-    @searchByProperty
+    @searchByOperatorProperty
 }
 
 """
@@ -4279,19 +4281,19 @@ input SearchByConditionProductGroupsQuery {
     Property condition.
     """
     id: SearchByScalarID
-    @searchByProperty
+    @searchByOperatorProperty
 
     """
     Property condition.
     """
     key: SearchByScalarString
-    @searchByProperty
+    @searchByOperatorProperty
 
     """
     Property condition.
     """
     name: SearchByScalarString
-    @searchByProperty
+    @searchByOperatorProperty
 
     """
     Not.
@@ -4320,19 +4322,19 @@ input SearchByConditionProductLinesQuery {
     Property condition.
     """
     id: SearchByScalarID
-    @searchByProperty
+    @searchByOperatorProperty
 
     """
     Property condition.
     """
     key: SearchByScalarString
-    @searchByProperty
+    @searchByOperatorProperty
 
     """
     Property condition.
     """
     name: SearchByScalarString
-    @searchByProperty
+    @searchByOperatorProperty
 
     """
     Not.
@@ -4373,13 +4375,13 @@ input SearchByConditionProductsQuery {
     Property condition.
     """
     id: SearchByScalarID
-    @searchByProperty
+    @searchByOperatorProperty
 
     """
     Property condition.
     """
     name: SearchByScalarString
-    @searchByProperty
+    @searchByOperatorProperty
 
     """
     Not.
@@ -4397,13 +4399,13 @@ input SearchByConditionProductsQuery {
     Property condition.
     """
     oem_id: SearchByScalarID
-    @searchByProperty
+    @searchByOperatorProperty
 
     """
     Property condition.
     """
     sku: SearchByScalarString
-    @searchByProperty
+    @searchByOperatorProperty
 }
 
 """
@@ -4426,19 +4428,19 @@ input SearchByConditionPspsQuery {
     Property condition.
     """
     id: SearchByScalarID
-    @searchByProperty
+    @searchByOperatorProperty
 
     """
     Property condition.
     """
     key: SearchByScalarString
-    @searchByProperty
+    @searchByOperatorProperty
 
     """
     Property condition.
     """
     name: SearchByScalarString
-    @searchByProperty
+    @searchByOperatorProperty
 
     """
     Not.
@@ -4531,7 +4533,7 @@ input SearchByConditionServiceGroupsQuery {
     Property condition.
     """
     id: SearchByScalarID
-    @searchByProperty
+    @searchByOperatorProperty
 
     """
     Not.
@@ -4549,13 +4551,13 @@ input SearchByConditionServiceGroupsQuery {
     Property condition.
     """
     oem_id: SearchByScalarID
-    @searchByProperty
+    @searchByOperatorProperty
 
     """
     Property condition.
     """
     sku: SearchByScalarString
-    @searchByProperty
+    @searchByOperatorProperty
 }
 
 """
@@ -4584,7 +4586,7 @@ input SearchByConditionServiceLevelsQuery {
     Property condition.
     """
     id: SearchByScalarID
-    @searchByProperty
+    @searchByOperatorProperty
 
     """
     Not.
@@ -4602,7 +4604,7 @@ input SearchByConditionServiceLevelsQuery {
     Property condition.
     """
     oem_id: SearchByScalarID
-    @searchByProperty
+    @searchByOperatorProperty
 
     """
     Relationship condition.
@@ -4614,13 +4616,13 @@ input SearchByConditionServiceLevelsQuery {
     Property condition.
     """
     service_group_id: SearchByScalarID
-    @searchByProperty
+    @searchByOperatorProperty
 
     """
     Property condition.
     """
     sku: SearchByScalarString
-    @searchByProperty
+    @searchByOperatorProperty
 }
 
 """
@@ -4643,7 +4645,7 @@ input SearchByConditionStatusesQuery {
     Property condition.
     """
     id: SearchByScalarID
-    @searchByProperty
+    @searchByOperatorProperty
 
     """
     Not.
@@ -4678,13 +4680,13 @@ input SearchByConditionTagsQuery {
     Property condition.
     """
     id: SearchByScalarID
-    @searchByProperty
+    @searchByOperatorProperty
 
     """
     Property condition.
     """
     name: SearchByScalarString
-    @searchByProperty
+    @searchByOperatorProperty
 
     """
     Not.
@@ -4713,7 +4715,7 @@ input SearchByConditionTypesQuery {
     Property condition.
     """
     id: SearchByScalarID
-    @searchByProperty
+    @searchByOperatorProperty
 
     """
     Not.
@@ -4742,31 +4744,31 @@ input SearchByConditionUsersQuery {
     Property condition.
     """
     email: SearchByScalarEmail
-    @searchByProperty
+    @searchByOperatorProperty
 
     """
     Property condition.
     """
     enabled: SearchByScalarBoolean
-    @searchByProperty
+    @searchByOperatorProperty
 
     """
     Property condition.
     """
     family_name: SearchByScalarString
-    @searchByProperty
+    @searchByOperatorProperty
 
     """
     Property condition.
     """
     given_name: SearchByScalarString
-    @searchByProperty
+    @searchByOperatorProperty
 
     """
     Property condition.
     """
     id: SearchByScalarID
-    @searchByProperty
+    @searchByOperatorProperty
 
     """
     Not.
@@ -4778,7 +4780,7 @@ input SearchByConditionUsersQuery {
     Property condition.
     """
     previous_sign_in: SearchByScalarDateTimeOrNull
-    @searchByProperty
+    @searchByOperatorProperty
 }
 
 """
@@ -4848,6 +4850,12 @@ input SearchByScalarBoolean {
     """
     equal: Boolean
     @searchByOperatorEqual
+
+    """
+    Not Equal (`!=`).
+    """
+    notEqual: Boolean
+    @searchByOperatorNotEqual
 }
 
 """
@@ -4871,6 +4879,12 @@ input SearchByScalarBooleanOrNull {
     """
     isNull: SearchByTypeFlag
     @searchByOperatorIsNull
+
+    """
+    Not Equal (`!=`).
+    """
+    notEqual: Boolean
+    @searchByOperatorNotEqual
 }
 
 """
@@ -5927,1601 +5941,1604 @@ input SetApplicationLocaleInput {
 }
 
 """
-Sort clause for input ApplicationLogsSort (only one property allowed at a time).
+Sort clause for `input ApplicationLogsSort` (only one property allowed at a time).
 """
 input SortByClauseApplicationLogsSort {
     """
     Property clause.
     """
     created_at: SortByTypeDirection
-    @sortByOperatorProperty
+    @sortByOperatorField
 
     """
     Property clause.
     """
     duration: SortByTypeDirection
-    @sortByOperatorProperty
+    @sortByOperatorField
 
     """
     Property clause.
     """
     finished_at: SortByTypeDirection
-    @sortByOperatorProperty
+    @sortByOperatorField
 }
 
 """
-Sort clause for input AssetsSearchCustomerSort (only one property allowed at a time).
-"""
-input SortByClauseAssetsSearchCustomerSort {
-    """
-    Property clause.
-    """
-    name: SortByTypeDirection
-    @sortByOperatorProperty
-}
-
-"""
-Sort clause for input AssetsSearchProductSort (only one property allowed at a time).
-"""
-input SortByClauseAssetsSearchProductSort {
-    """
-    Property clause.
-    """
-    name: SortByTypeDirection
-    @sortByOperatorProperty
-
-    """
-    Property clause.
-    """
-    sku: SortByTypeDirection
-    @sortByOperatorProperty
-}
-
-"""
-Sort clause for input AssetsSearchSort (only one property allowed at a time).
-"""
-input SortByClauseAssetsSearchSort {
-    """
-    Property clause.
-    """
-    customer: SortByClauseAssetsSearchCustomerSort
-    @sortByProperty
-
-    """
-    Property clause.
-    """
-    nickname: SortByTypeDirection
-    @sortByOperatorProperty
-
-    """
-    Property clause.
-    """
-    product: SortByClauseAssetsSearchProductSort
-    @sortByProperty
-
-    """
-    Property clause.
-    """
-    serial_number: SortByTypeDirection
-    @sortByOperatorProperty
-}
-
-"""
-Sort clause for input AssetsSort (only one property allowed at a time).
+Sort clause for `input AssetsSort` (only one property allowed at a time).
 """
 input SortByClauseAssetsSort {
     """
     Property clause.
     """
     contracts_active_quantity: SortByTypeDirection
-    @sortByOperatorProperty
+    @sortByOperatorField
 
     """
     Property clause.
     """
     created_at: SortByTypeDirection
-    @sortByOperatorProperty
+    @sortByOperatorField
 
     """
     Property clause.
     """
     customer: SortByClauseCompaniesSort
-    @sortByProperty
+    @sortByOperatorProperty
 
     """
     Property clause.
     """
     customer_id: SortByTypeDirection
-    @sortByOperatorProperty
+    @sortByOperatorField
 
     """
     Property clause.
     """
     deleted_at: SortByTypeDirection
-    @sortByOperatorProperty
+    @sortByOperatorField
 
     """
     Property clause.
     """
     eosl: SortByTypeDirection
-    @sortByOperatorProperty
+    @sortByOperatorField
 
     """
     Property clause.
     """
     id: SortByTypeDirection
-    @sortByOperatorProperty
+    @sortByOperatorField
 
     """
     Property clause.
     """
     location: SortByClauseLocationsSort
-    @sortByProperty
+    @sortByOperatorProperty
 
     """
     Property clause.
     """
     location_id: SortByTypeDirection
-    @sortByOperatorProperty
+    @sortByOperatorField
 
     """
     Property clause.
     """
     nickname: SortByTypeDirection
-    @sortByOperatorProperty
+    @sortByOperatorField
 
     """
     Property clause.
     """
     oem: SortByClauseOemsSort
-    @sortByProperty
+    @sortByOperatorProperty
 
     """
     Property clause.
     """
     oem_id: SortByTypeDirection
-    @sortByOperatorProperty
+    @sortByOperatorField
 
     """
     Property clause.
     """
     product: SortByClauseProductsSort
-    @sortByProperty
+    @sortByOperatorProperty
 
     """
     Property clause.
     """
     product_id: SortByTypeDirection
-    @sortByOperatorProperty
+    @sortByOperatorField
 
     """
     Property clause.
     """
     reseller: SortByClauseCompaniesSort
-    @sortByProperty
+    @sortByOperatorProperty
 
     """
     Property clause.
     """
     reseller_id: SortByTypeDirection
-    @sortByOperatorProperty
+    @sortByOperatorField
 
     """
     Property clause.
     """
     serial_number: SortByTypeDirection
-    @sortByOperatorProperty
+    @sortByOperatorField
 
     """
     Property clause.
     """
     status: SortByClauseStatusesSort
-    @sortByProperty
+    @sortByOperatorProperty
 
     """
     Property clause.
     """
     status_id: SortByTypeDirection
-    @sortByOperatorProperty
+    @sortByOperatorField
 
     """
     Property clause.
     """
     type: SortByClauseTypesSort
-    @sortByProperty
+    @sortByOperatorProperty
 
     """
     Property clause.
     """
     type_id: SortByTypeDirection
-    @sortByOperatorProperty
+    @sortByOperatorField
 
     """
     Property clause.
     """
     updated_at: SortByTypeDirection
-    @sortByOperatorProperty
+    @sortByOperatorField
 
     """
     Property clause.
     """
     warrantyServiceGroup: SortByClauseServiceGroupsSort
-    @sortByProperty
+    @sortByOperatorProperty
 
     """
     Property clause.
     """
     warrantyServiceLevel: SortByClauseServiceLevelsSort
-    @sortByProperty
+    @sortByOperatorProperty
 
     """
     Property clause.
     """
     warranty_end: SortByTypeDirection
-    @sortByOperatorProperty
+    @sortByOperatorField
 
     """
     Property clause.
     """
     warranty_service_group_id: SortByTypeDirection
-    @sortByOperatorProperty
+    @sortByOperatorField
 
     """
     Property clause.
     """
     warranty_service_level_id: SortByTypeDirection
-    @sortByOperatorProperty
+    @sortByOperatorField
 }
 
 """
-Sort clause for input AuditsSort (only one property allowed at a time).
+Sort clause for `input AuditsSort` (only one property allowed at a time).
 """
 input SortByClauseAuditsSort {
     """
     Property clause.
     """
     action: SortByTypeDirection
-    @sortByOperatorProperty
+    @sortByOperatorField
 
     """
     Property clause.
     """
     created_at: SortByTypeDirection
-    @sortByOperatorProperty
+    @sortByOperatorField
 
     """
     Property clause.
     """
     id: SortByTypeDirection
-    @sortByOperatorProperty
+    @sortByOperatorField
 
     """
     Property clause.
     """
     object_id: SortByTypeDirection
-    @sortByOperatorProperty
+    @sortByOperatorField
 
     """
     Property clause.
     """
     object_type: SortByTypeDirection
-    @sortByOperatorProperty
+    @sortByOperatorField
 
     """
     Property clause.
     """
     organization_id: SortByTypeDirection
-    @sortByOperatorProperty
+    @sortByOperatorField
 
     """
     Property clause.
     """
     updated_at: SortByTypeDirection
-    @sortByOperatorProperty
+    @sortByOperatorField
 
     """
     Property clause.
     """
     user_id: SortByTypeDirection
-    @sortByOperatorProperty
+    @sortByOperatorField
 }
 
 """
-Sort clause for input ChangeRequestsSort (only one property allowed at a time).
+Sort clause for `input ChangeRequestsSort` (only one property allowed at a time).
 """
 input SortByClauseChangeRequestsSort {
     """
     Property clause.
     """
     created_at: SortByTypeDirection
-    @sortByOperatorProperty
+    @sortByOperatorField
 
     """
     Property clause.
     """
     deleted_at: SortByTypeDirection
-    @sortByOperatorProperty
+    @sortByOperatorField
 
     """
     Property clause.
     """
     from: SortByTypeDirection
-    @sortByOperatorProperty
+    @sortByOperatorField
 
     """
     Property clause.
     """
     id: SortByTypeDirection
-    @sortByOperatorProperty
+    @sortByOperatorField
 
     """
     Property clause.
     """
     updated_at: SortByTypeDirection
-    @sortByOperatorProperty
+    @sortByOperatorField
 
     """
     Property clause.
     """
     user: SortByClauseUsersSort
-    @sortByProperty
+    @sortByOperatorProperty
 
     """
     Property clause.
     """
     user_id: SortByTypeDirection
-    @sortByOperatorProperty
+    @sortByOperatorField
 }
 
 """
-Sort clause for input CitiesSort (only one property allowed at a time).
+Sort clause for `input CitiesSort` (only one property allowed at a time).
 """
 input SortByClauseCitiesSort {
     """
     Property clause.
     """
     country: SortByClauseCountriesSort
-    @sortByProperty
+    @sortByOperatorProperty
 
     """
     Property clause.
     """
     country_id: SortByTypeDirection
-    @sortByOperatorProperty
+    @sortByOperatorField
 
     """
     Property clause.
     """
     id: SortByTypeDirection
-    @sortByOperatorProperty
+    @sortByOperatorField
 
     """
     Property clause.
     """
     name: SortByTypeDirection
-    @sortByOperatorProperty
+    @sortByOperatorField
 }
 
 """
-Sort clause for input CompaniesSort (only one property allowed at a time).
+Sort clause for `input CompaniesSort` (only one property allowed at a time).
 """
 input SortByClauseCompaniesSort {
     """
     Property clause.
     """
     assets_count: SortByTypeDirection
-    @sortByOperatorProperty
+    @sortByOperatorField
+    @orgProperty
 
     """
     Property clause.
     """
     contacts_count: SortByTypeDirection
-    @sortByOperatorProperty
+    @sortByOperatorField
 
     """
     Property clause.
     """
     contracts_count: SortByTypeDirection
-    @sortByOperatorProperty
+    @sortByOperatorField
+    @orgProperty
 
     """
     Property clause.
     """
     created_at: SortByTypeDirection
-    @sortByOperatorProperty
+    @sortByOperatorField
 
     """
     Property clause.
     """
     deleted_at: SortByTypeDirection
-    @sortByOperatorProperty
+    @sortByOperatorField
 
     """
     Property clause.
     """
     headquarter: SortByClauseCompanyLocationsSort
-    @sortByProperty
+    @sortByOperatorProperty
 
     """
     Property clause.
     """
     locations_count: SortByTypeDirection
-    @sortByOperatorProperty
+    @sortByOperatorField
 
     """
     Property clause.
     """
     name: SortByTypeDirection
-    @sortByOperatorProperty
+    @sortByOperatorField
 
     """
     Property clause.
     """
     quotes_count: SortByTypeDirection
-    @sortByOperatorProperty
+    @sortByOperatorField
+    @orgProperty
 
     """
     Property clause.
     """
     updated_at: SortByTypeDirection
-    @sortByOperatorProperty
+    @sortByOperatorField
 }
 
 """
-Sort clause for input CompanyLocationsSort (only one property allowed at a time).
+Sort clause for `input CompanyLocationsSort` (only one property allowed at a time).
 """
 input SortByClauseCompanyLocationsSort {
     """
     Property clause.
     """
     location: SortByClauseLocationsSort
-    @sortByProperty
+    @sortByOperatorProperty
 
     """
     Property clause.
     """
     location_id: SortByTypeDirection
-    @sortByOperatorProperty
+    @sortByOperatorField
 }
 
 """
-Sort clause for input ContactsSort (only one property allowed at a time).
+Sort clause for `input ContactsSort` (only one property allowed at a time).
 """
 input SortByClauseContactsSort {
     """
     Property clause.
     """
     created_at: SortByTypeDirection
-    @sortByOperatorProperty
+    @sortByOperatorField
 
     """
     Property clause.
     """
     deleted_at: SortByTypeDirection
-    @sortByOperatorProperty
+    @sortByOperatorField
 
     """
     Property clause.
     """
     email: SortByTypeDirection
-    @sortByOperatorProperty
+    @sortByOperatorField
 
     """
     Property clause.
     """
     name: SortByTypeDirection
-    @sortByOperatorProperty
+    @sortByOperatorField
 
     """
     Property clause.
     """
     phone_number: SortByTypeDirection
-    @sortByOperatorProperty
+    @sortByOperatorField
 
     """
     Property clause.
     """
     phone_valid: SortByTypeDirection
-    @sortByOperatorProperty
+    @sortByOperatorField
 
     """
     Property clause.
     """
     updated_at: SortByTypeDirection
-    @sortByOperatorProperty
+    @sortByOperatorField
 }
 
 """
-Sort clause for input CountriesSort (only one property allowed at a time).
+Sort clause for `input CountriesSort` (only one property allowed at a time).
 """
 input SortByClauseCountriesSort {
     """
     Property clause.
     """
     code: SortByTypeDirection
-    @sortByOperatorProperty
+    @sortByOperatorField
 
     """
     Property clause.
     """
     id: SortByTypeDirection
-    @sortByOperatorProperty
+    @sortByOperatorField
 
     """
     Property clause.
     """
     name: SortByTypeDirection
-    @sortByOperatorProperty
+    @sortByOperatorField
 }
 
 """
-Sort clause for input CurrenciesSort (only one property allowed at a time).
+Sort clause for `input CurrenciesSort` (only one property allowed at a time).
 """
 input SortByClauseCurrenciesSort {
     """
     Property clause.
     """
     code: SortByTypeDirection
-    @sortByOperatorProperty
+    @sortByOperatorField
 }
 
 """
-Sort clause for input CustomersSearchHeadquarterCitySort (only one property allowed at a time).
-"""
-input SortByClauseCustomersSearchHeadquarterCitySort {
-    """
-    Property clause.
-    """
-    name: SortByTypeDirection
-    @sortByOperatorProperty
-}
-
-"""
-Sort clause for input CustomersSearchHeadquarterSort (only one property allowed at a time).
-"""
-input SortByClauseCustomersSearchHeadquarterSort {
-    """
-    Property clause.
-    """
-    city: SortByClauseCustomersSearchHeadquarterCitySort
-    @sortByProperty
-}
-
-"""
-Sort clause for input CustomersSearchSort (only one property allowed at a time).
-"""
-input SortByClauseCustomersSearchSort {
-    """
-    Property clause.
-    """
-    headquarter: SortByClauseCustomersSearchHeadquarterSort
-    @sortByProperty
-
-    """
-    Property clause.
-    """
-    name: SortByTypeDirection
-    @sortByOperatorProperty
-}
-
-"""
-Sort clause for input DistributorsSort (only one property allowed at a time).
+Sort clause for `input DistributorsSort` (only one property allowed at a time).
 """
 input SortByClauseDistributorsSort {
     """
     Property clause.
     """
     created_at: SortByTypeDirection
-    @sortByOperatorProperty
+    @sortByOperatorField
 
     """
     Property clause.
     """
     deleted_at: SortByTypeDirection
-    @sortByOperatorProperty
+    @sortByOperatorField
 
     """
     Property clause.
     """
     id: SortByTypeDirection
-    @sortByOperatorProperty
+    @sortByOperatorField
 
     """
     Property clause.
     """
     name: SortByTypeDirection
-    @sortByOperatorProperty
+    @sortByOperatorField
 
     """
     Property clause.
     """
     updated_at: SortByTypeDirection
-    @sortByOperatorProperty
+    @sortByOperatorField
 }
 
 """
-Sort clause for input DocumentEntriesSort (only one property allowed at a time).
+Sort clause for `input DocumentEntriesSort` (only one property allowed at a time).
 """
 input SortByClauseDocumentEntriesSort {
     """
     Property clause.
     """
     asset: SortByClauseAssetsSort
-    @sortByProperty
+    @sortByOperatorProperty
 
     """
     Property clause.
     """
     assetType: SortByClauseTypesSort
-    @sortByProperty
+    @sortByOperatorProperty
 
     """
     Property clause.
     """
     asset_id: SortByTypeDirection
-    @sortByOperatorProperty
+    @sortByOperatorField
 
     """
     Property clause.
     """
     asset_type_id: SortByTypeDirection
-    @sortByOperatorProperty
+    @sortByOperatorField
 
     """
     Property clause.
     """
     created_at: SortByTypeDirection
-    @sortByOperatorProperty
+    @sortByOperatorField
 
     """
     Property clause.
     """
     currency: SortByClauseCurrenciesSort
-    @sortByProperty
+    @sortByOperatorProperty
 
     """
     Property clause.
     """
     currency_id: SortByTypeDirection
-    @sortByOperatorProperty
+    @sortByOperatorField
 
     """
     Property clause.
     """
     deleted_at: SortByTypeDirection
-    @sortByOperatorProperty
+    @sortByOperatorField
 
     """
     Property clause.
     """
     end: SortByTypeDirection
-    @sortByOperatorProperty
+    @sortByOperatorField
 
     """
     Property clause.
     """
     environment_id: SortByTypeDirection
-    @sortByOperatorProperty
+    @sortByOperatorField
 
     """
     Property clause.
     """
     equipment_number: SortByTypeDirection
-    @sortByOperatorProperty
+    @sortByOperatorField
 
     """
     Property clause.
     """
     id: SortByTypeDirection
-    @sortByOperatorProperty
+    @sortByOperatorField
 
     """
     Property clause.
     """
     language: SortByClauseLanguagesSort
-    @sortByProperty
+    @sortByOperatorProperty
 
     """
     Property clause.
     """
     language_id: SortByTypeDirection
-    @sortByOperatorProperty
+    @sortByOperatorField
 
     """
     Property clause.
     """
     list_price: SortByTypeDirection
-    @sortByOperatorProperty
+    @sortByOperatorField
 
     """
     Property clause.
     """
     monthly_list_price: SortByTypeDirection
-    @sortByOperatorProperty
+    @sortByOperatorField
 
     """
     Property clause.
     """
     monthly_retail_price: SortByTypeDirection
-    @sortByOperatorProperty
+    @sortByOperatorField
 
     """
     Property clause.
     """
     oem_said: SortByTypeDirection
-    @sortByOperatorProperty
+    @sortByOperatorField
 
     """
     Property clause.
     """
     oem_sar_number: SortByTypeDirection
-    @sortByOperatorProperty
+    @sortByOperatorField
 
     """
     Property clause.
     """
     product: SortByClauseProductsSort
-    @sortByProperty
+    @sortByOperatorProperty
 
     """
     Property clause.
     """
     productGroup: SortByClauseProductGroupsSort
-    @sortByProperty
+    @sortByOperatorProperty
 
     """
     Property clause.
     """
     productLine: SortByClauseProductLinesSort
-    @sortByProperty
+    @sortByOperatorProperty
 
     """
     Property clause.
     """
     product_group_id: SortByTypeDirection
-    @sortByOperatorProperty
+    @sortByOperatorField
 
     """
     Property clause.
     """
     product_id: SortByTypeDirection
-    @sortByOperatorProperty
+    @sortByOperatorField
 
     """
     Property clause.
     """
     product_line_id: SortByTypeDirection
-    @sortByOperatorProperty
+    @sortByOperatorField
 
     """
     Property clause.
     """
     psp: SortByClausePspsSort
-    @sortByProperty
+    @sortByOperatorProperty
 
     """
     Property clause.
     """
     psp_id: SortByTypeDirection
-    @sortByOperatorProperty
+    @sortByOperatorField
 
     """
     Property clause.
     """
     removed_at: SortByTypeDirection
-    @sortByOperatorProperty
+    @sortByOperatorField
 
     """
     Property clause.
     """
     renewal: SortByTypeDirection
-    @sortByOperatorProperty
+    @sortByOperatorField
 
     """
     Property clause.
     """
     serial_number: SortByTypeDirection
-    @sortByOperatorProperty
+    @sortByOperatorField
 
     """
     Property clause.
     """
     serviceGroup: SortByClauseServiceGroupsSort
-    @sortByProperty
+    @sortByOperatorProperty
 
     """
     Property clause.
     """
     serviceLevel: SortByClauseServiceLevelsSort
-    @sortByProperty
+    @sortByOperatorProperty
 
     """
     Property clause.
     """
     service_group_id: SortByTypeDirection
-    @sortByOperatorProperty
+    @sortByOperatorField
 
     """
     Property clause.
     """
     service_level_id: SortByTypeDirection
-    @sortByOperatorProperty
+    @sortByOperatorField
 
     """
     Property clause.
     """
     start: SortByTypeDirection
-    @sortByOperatorProperty
+    @sortByOperatorField
 
     """
     Property clause.
     """
     updated_at: SortByTypeDirection
-    @sortByOperatorProperty
+    @sortByOperatorField
 }
 
 """
-Sort clause for input DocumentsSearchCustomerSort (only one property allowed at a time).
-"""
-input SortByClauseDocumentsSearchCustomerSort {
-    """
-    Property clause.
-    """
-    name: SortByTypeDirection
-    @sortByOperatorProperty
-}
-
-"""
-Sort clause for input DocumentsSearchEntriesProductSort (only one property allowed at a time).
-"""
-input SortByClauseDocumentsSearchEntriesProductSort {
-    """
-    Property clause.
-    """
-    name: SortByTypeDirection
-    @sortByOperatorProperty
-
-    """
-    Property clause.
-    """
-    sku: SortByTypeDirection
-    @sortByOperatorProperty
-}
-
-"""
-Sort clause for input DocumentsSearchEntriesSort (only one property allowed at a time).
-"""
-input SortByClauseDocumentsSearchEntriesSort {
-    """
-    Property clause.
-    """
-    product: SortByClauseDocumentsSearchEntriesProductSort
-    @sortByProperty
-
-    """
-    Property clause.
-    """
-    serial_number: SortByTypeDirection
-    @sortByOperatorProperty
-}
-
-"""
-Sort clause for input DocumentsSearchSort (only one property allowed at a time).
-"""
-input SortByClauseDocumentsSearchSort {
-    """
-    Property clause.
-    """
-    customer: SortByClauseDocumentsSearchCustomerSort
-    @sortByProperty
-
-    """
-    Property clause.
-    """
-    end: SortByTypeDirection
-    @sortByOperatorProperty
-
-    """
-    Property clause.
-    """
-    entries: SortByClauseDocumentsSearchEntriesSort
-    @sortByProperty
-
-    """
-    Property clause.
-    """
-    number: SortByTypeDirection
-    @sortByOperatorProperty
-
-    """
-    Property clause.
-    """
-    start: SortByTypeDirection
-    @sortByOperatorProperty
-}
-
-"""
-Sort clause for input DocumentsSort (only one property allowed at a time).
+Sort clause for `input DocumentsSort` (only one property allowed at a time).
 """
 input SortByClauseDocumentsSort {
     """
     Property clause.
     """
     created_at: SortByTypeDirection
-    @sortByOperatorProperty
+    @sortByOperatorField
 
     """
     Property clause.
     """
     currency: SortByClauseCurrenciesSort
-    @sortByProperty
+    @sortByOperatorProperty
 
     """
     Property clause.
     """
     currency_id: SortByTypeDirection
-    @sortByOperatorProperty
+    @sortByOperatorField
 
     """
     Property clause.
     """
     customer: SortByClauseCompaniesSort
-    @sortByProperty
+    @sortByOperatorProperty
 
     """
     Property clause.
     """
     customer_id: SortByTypeDirection
-    @sortByOperatorProperty
+    @sortByOperatorField
 
     """
     Property clause.
     """
     deleted_at: SortByTypeDirection
-    @sortByOperatorProperty
+    @sortByOperatorField
 
     """
     Property clause.
     """
     distributor: SortByClauseDistributorsSort
-    @sortByProperty
+    @sortByOperatorProperty
 
     """
     Property clause.
     """
     distributor_id: SortByTypeDirection
-    @sortByOperatorProperty
+    @sortByOperatorField
 
     """
     Property clause.
     """
     end: SortByTypeDirection
-    @sortByOperatorProperty
+    @sortByOperatorField
 
     """
     Property clause.
     """
     id: SortByTypeDirection
-    @sortByOperatorProperty
+    @sortByOperatorField
 
     """
     Property clause.
     """
     language: SortByClauseLanguagesSort
-    @sortByProperty
+    @sortByOperatorProperty
 
     """
     Property clause.
     """
     language_id: SortByTypeDirection
-    @sortByOperatorProperty
+    @sortByOperatorField
 
     """
     Property clause.
     """
     number: SortByTypeDirection
-    @sortByOperatorProperty
+    @sortByOperatorField
 
     """
     Property clause.
     """
     oem: SortByClauseOemsSort
-    @sortByProperty
+    @sortByOperatorProperty
 
     """
     Property clause.
     """
     oemGroup: SortByClauseOemGroupsSort
-    @sortByProperty
+    @sortByOperatorProperty
 
     """
     Property clause.
     """
     oem_amp_id: SortByTypeDirection
-    @sortByOperatorProperty
+    @sortByOperatorField
 
     """
     Property clause.
     """
     oem_group_id: SortByTypeDirection
-    @sortByOperatorProperty
+    @sortByOperatorField
 
     """
     Property clause.
     """
     oem_id: SortByTypeDirection
-    @sortByOperatorProperty
+    @sortByOperatorField
 
     """
     Property clause.
     """
     oem_said: SortByTypeDirection
-    @sortByOperatorProperty
+    @sortByOperatorField
 
     """
     Property clause.
     """
     oem_sar_number: SortByTypeDirection
-    @sortByOperatorProperty
+    @sortByOperatorField
 
     """
     Property clause.
     """
     price: SortByTypeDirection
-    @sortByOperatorProperty
+    @sortByOperatorField
 
     """
     Property clause.
     """
     reseller: SortByClauseCompaniesSort
-    @sortByProperty
+    @sortByOperatorProperty
 
     """
     Property clause.
     """
     reseller_id: SortByTypeDirection
-    @sortByOperatorProperty
+    @sortByOperatorField
 
     """
     Property clause.
     """
     start: SortByTypeDirection
-    @sortByOperatorProperty
+    @sortByOperatorField
 
     """
     Property clause.
     """
     updated_at: SortByTypeDirection
-    @sortByOperatorProperty
+    @sortByOperatorField
 }
 
 """
-Sort clause for input LanguagesSort (only one property allowed at a time).
+Sort clause for `input LanguagesSort` (only one property allowed at a time).
 """
 input SortByClauseLanguagesSort {
     """
     Property clause.
     """
     code: SortByTypeDirection
-    @sortByOperatorProperty
+    @sortByOperatorField
 }
 
 """
-Sort clause for input LocationsSort (only one property allowed at a time).
+Sort clause for `input LocationsSort` (only one property allowed at a time).
 """
 input SortByClauseLocationsSort {
     """
     Property clause.
     """
     city: SortByClauseCitiesSort
-    @sortByProperty
+    @sortByOperatorProperty
 
     """
     Property clause.
     """
     city_id: SortByTypeDirection
-    @sortByOperatorProperty
+    @sortByOperatorField
 
     """
     Property clause.
     """
     country: SortByClauseCountriesSort
-    @sortByProperty
+    @sortByOperatorProperty
 
     """
     Property clause.
     """
     country_id: SortByTypeDirection
-    @sortByOperatorProperty
+    @sortByOperatorField
 
     """
     Property clause.
     """
     created_at: SortByTypeDirection
-    @sortByOperatorProperty
+    @sortByOperatorField
 
     """
     Property clause.
     """
     deleted_at: SortByTypeDirection
-    @sortByOperatorProperty
+    @sortByOperatorField
 
     """
     Property clause.
     """
     line_one: SortByTypeDirection
-    @sortByOperatorProperty
+    @sortByOperatorField
 
     """
     Property clause.
     """
     line_two: SortByTypeDirection
-    @sortByOperatorProperty
+    @sortByOperatorField
 
     """
     Property clause.
     """
     postcode: SortByTypeDirection
-    @sortByOperatorProperty
+    @sortByOperatorField
 
     """
     Property clause.
     """
     state: SortByTypeDirection
-    @sortByOperatorProperty
+    @sortByOperatorField
 
     """
     Property clause.
     """
     updated_at: SortByTypeDirection
-    @sortByOperatorProperty
+    @sortByOperatorField
 }
 
 """
-Sort clause for input MeSearchSort (only one property allowed at a time).
+Sort clause for `input MeSearchSort` (only one property allowed at a time).
 """
 input SortByClauseMeSearchSort {
     """
     Property clause.
     """
     created_at: SortByTypeDirection
-    @sortByOperatorProperty
+    @sortByOperatorField
 
     """
     Property clause.
     """
     deleted_at: SortByTypeDirection
-    @sortByOperatorProperty
+    @sortByOperatorField
 
     """
     Property clause.
     """
     key: SortByTypeDirection
-    @sortByOperatorProperty
+    @sortByOperatorField
 
     """
     Property clause.
     """
     name: SortByTypeDirection
-    @sortByOperatorProperty
+    @sortByOperatorField
 
     """
     Property clause.
     """
     updated_at: SortByTypeDirection
-    @sortByOperatorProperty
+    @sortByOperatorField
 }
 
 """
-Sort clause for input NotesSort (only one property allowed at a time).
+Sort clause for `input NotesSort` (only one property allowed at a time).
 """
 input SortByClauseNotesSort {
     """
     Property clause.
     """
     created_at: SortByTypeDirection
-    @sortByOperatorProperty
+    @sortByOperatorField
 
     """
     Property clause.
     """
     deleted_at: SortByTypeDirection
-    @sortByOperatorProperty
+    @sortByOperatorField
 
     """
     Property clause.
     """
     pinned: SortByTypeDirection
-    @sortByOperatorProperty
+    @sortByOperatorField
 
     """
     Property clause.
     """
     updated_at: SortByTypeDirection
-    @sortByOperatorProperty
+    @sortByOperatorField
 
     """
     Property clause.
     """
     user: SortByClauseUsersSort
-    @sortByProperty
+    @sortByOperatorProperty
 
     """
     Property clause.
     """
     user_id: SortByTypeDirection
-    @sortByOperatorProperty
+    @sortByOperatorField
 }
 
 """
-Sort clause for input OemGroupsSort (only one property allowed at a time).
+Sort clause for `input OemGroupsSort` (only one property allowed at a time).
 """
 input SortByClauseOemGroupsSort {
     """
     Property clause.
     """
     created_at: SortByTypeDirection
-    @sortByOperatorProperty
+    @sortByOperatorField
 
     """
     Property clause.
     """
     deleted_at: SortByTypeDirection
-    @sortByOperatorProperty
+    @sortByOperatorField
 
     """
     Property clause.
     """
     id: SortByTypeDirection
-    @sortByOperatorProperty
+    @sortByOperatorField
 
     """
     Property clause.
     """
     key: SortByTypeDirection
-    @sortByOperatorProperty
+    @sortByOperatorField
 
     """
     Property clause.
     """
     name: SortByTypeDirection
-    @sortByOperatorProperty
+    @sortByOperatorField
 
     """
     Property clause.
     """
     updated_at: SortByTypeDirection
-    @sortByOperatorProperty
+    @sortByOperatorField
 }
 
 """
-Sort clause for input OemsSort (only one property allowed at a time).
+Sort clause for `input OemsSort` (only one property allowed at a time).
 """
 input SortByClauseOemsSort {
     """
     Property clause.
     """
     id: SortByTypeDirection
-    @sortByOperatorProperty
+    @sortByOperatorField
 
     """
     Property clause.
     """
     key: SortByTypeDirection
-    @sortByOperatorProperty
+    @sortByOperatorField
 
     """
     Property clause.
     """
     name: SortByTypeDirection
-    @sortByOperatorProperty
+    @sortByOperatorField
 }
 
 """
-Sort clause for input OrganizationsSort (only one property allowed at a time).
+Sort clause for `input OrganizationsSort` (only one property allowed at a time).
 """
 input SortByClauseOrganizationsSort {
     """
     Property clause.
     """
     created_at: SortByTypeDirection
-    @sortByOperatorProperty
+    @sortByOperatorField
 
     """
     Property clause.
     """
     deleted_at: SortByTypeDirection
-    @sortByOperatorProperty
+    @sortByOperatorField
 
     """
     Property clause.
     """
     email: SortByTypeDirection
-    @sortByOperatorProperty
+    @sortByOperatorField
 
     """
     Property clause.
     """
     name: SortByTypeDirection
-    @sortByOperatorProperty
+    @sortByOperatorField
 
     """
     Property clause.
     """
     updated_at: SortByTypeDirection
-    @sortByOperatorProperty
+    @sortByOperatorField
 
     """
     Property clause.
     """
     website_url: SortByTypeDirection
-    @sortByOperatorProperty
+    @sortByOperatorField
 }
 
 """
-Sort clause for input ProductGroupsSort (only one property allowed at a time).
+Sort clause for `input ProductGroupsSort` (only one property allowed at a time).
 """
 input SortByClauseProductGroupsSort {
     """
     Property clause.
     """
     id: SortByTypeDirection
-    @sortByOperatorProperty
+    @sortByOperatorField
 
     """
     Property clause.
     """
     key: SortByTypeDirection
-    @sortByOperatorProperty
+    @sortByOperatorField
 
     """
     Property clause.
     """
     name: SortByTypeDirection
-    @sortByOperatorProperty
+    @sortByOperatorField
 }
 
 """
-Sort clause for input ProductLinesSort (only one property allowed at a time).
+Sort clause for `input ProductLinesSort` (only one property allowed at a time).
 """
 input SortByClauseProductLinesSort {
     """
     Property clause.
     """
     id: SortByTypeDirection
-    @sortByOperatorProperty
+    @sortByOperatorField
 
     """
     Property clause.
     """
     key: SortByTypeDirection
-    @sortByOperatorProperty
+    @sortByOperatorField
 
     """
     Property clause.
     """
     name: SortByTypeDirection
-    @sortByOperatorProperty
+    @sortByOperatorField
 }
 
 """
-Sort clause for input ProductsSort (only one property allowed at a time).
+Sort clause for `input ProductsSort` (only one property allowed at a time).
 """
 input SortByClauseProductsSort {
     """
     Property clause.
     """
     eol: SortByTypeDirection
-    @sortByOperatorProperty
+    @sortByOperatorField
 
     """
     Property clause.
     """
     eos: SortByTypeDirection
-    @sortByOperatorProperty
+    @sortByOperatorField
 
     """
     Property clause.
     """
     id: SortByTypeDirection
-    @sortByOperatorProperty
+    @sortByOperatorField
 
     """
     Property clause.
     """
     name: SortByTypeDirection
-    @sortByOperatorProperty
+    @sortByOperatorField
 
     """
     Property clause.
     """
     oem: SortByClauseOemsSort
-    @sortByProperty
+    @sortByOperatorProperty
 
     """
     Property clause.
     """
     oem_id: SortByTypeDirection
-    @sortByOperatorProperty
+    @sortByOperatorField
 
     """
     Property clause.
     """
     sku: SortByTypeDirection
-    @sortByOperatorProperty
+    @sortByOperatorField
 }
 
 """
-Sort clause for input PspsSort (only one property allowed at a time).
+Sort clause for `input PspsSort` (only one property allowed at a time).
 """
 input SortByClausePspsSort {
     """
     Property clause.
     """
     id: SortByTypeDirection
-    @sortByOperatorProperty
+    @sortByOperatorField
 
     """
     Property clause.
     """
     key: SortByTypeDirection
-    @sortByOperatorProperty
+    @sortByOperatorField
 
     """
     Property clause.
     """
     name: SortByTypeDirection
-    @sortByOperatorProperty
+    @sortByOperatorField
 }
 
 """
-Sort clause for input ServiceGroupsSort (only one property allowed at a time).
+Sort clause for `input ServiceGroupsSort` (only one property allowed at a time).
 """
 input SortByClauseServiceGroupsSort {
     """
     Property clause.
     """
     oem: SortByClauseOemsSort
-    @sortByProperty
+    @sortByOperatorProperty
 
     """
     Property clause.
     """
     oem_id: SortByTypeDirection
-    @sortByOperatorProperty
+    @sortByOperatorField
 
     """
     Property clause.
     """
     sku: SortByTypeDirection
-    @sortByOperatorProperty
+    @sortByOperatorField
 }
 
 """
-Sort clause for input ServiceLevelsSort (only one property allowed at a time).
+Sort clause for `input ServiceLevelsSort` (only one property allowed at a time).
 """
 input SortByClauseServiceLevelsSort {
     """
     Property clause.
     """
     oem: SortByClauseOemsSort
-    @sortByProperty
+    @sortByOperatorProperty
 
     """
     Property clause.
     """
     oem_id: SortByTypeDirection
-    @sortByOperatorProperty
+    @sortByOperatorField
 
     """
     Property clause.
     """
     serviceGroup: SortByClauseServiceGroupsSort
-    @sortByProperty
+    @sortByOperatorProperty
 
     """
     Property clause.
     """
     service_group_id: SortByTypeDirection
-    @sortByOperatorProperty
+    @sortByOperatorField
 
     """
     Property clause.
     """
     sku: SortByTypeDirection
-    @sortByOperatorProperty
+    @sortByOperatorField
 }
 
 """
-Sort clause for input StatusesSort (only one property allowed at a time).
+Sort clause for `input StatusesSort` (only one property allowed at a time).
 """
 input SortByClauseStatusesSort {
     """
     Property clause.
     """
     name: SortByTypeDirection
-    @sortByOperatorProperty
+    @sortByOperatorField
 }
 
 """
-Sort clause for type Tag (only one property allowed at a time).
+Sort clause for `type Tag` (only one property allowed at a time).
 """
 input SortByClauseTag {
     """
     Property clause.
     """
     id: SortByTypeDirection
-    @sortByOperatorProperty
+    @sortByOperatorField
 
     """
     Property clause.
     """
     name: SortByTypeDirection
-    @sortByOperatorProperty
+    @sortByOperatorField
 }
 
 """
-Sort clause for input TypesSort (only one property allowed at a time).
+Sort clause for `input TypesSort` (only one property allowed at a time).
 """
 input SortByClauseTypesSort {
     """
     Property clause.
     """
     name: SortByTypeDirection
-    @sortByOperatorProperty
+    @sortByOperatorField
 }
 
 """
-Sort clause for input UsersSort (only one property allowed at a time).
+Sort clause for `input UsersSort` (only one property allowed at a time).
 """
 input SortByClauseUsersSort {
     """
     Property clause.
     """
     created_at: SortByTypeDirection
-    @sortByOperatorProperty
+    @sortByOperatorField
 
     """
     Property clause.
     """
     deleted_at: SortByTypeDirection
-    @sortByOperatorProperty
+    @sortByOperatorField
 
     """
     Property clause.
     """
     email: SortByTypeDirection
-    @sortByOperatorProperty
+    @sortByOperatorField
 
     """
     Property clause.
     """
     enabled: SortByTypeDirection
-    @sortByOperatorProperty
+    @sortByOperatorField
 
     """
     Property clause.
     """
     family_name: SortByTypeDirection
-    @sortByOperatorProperty
+    @sortByOperatorField
 
     """
     Property clause.
     """
     given_name: SortByTypeDirection
-    @sortByOperatorProperty
+    @sortByOperatorField
 
     """
     Property clause.
     """
     previous_sign_in: SortByTypeDirection
-    @sortByOperatorProperty
+    @sortByOperatorField
 
     """
     Property clause.
     """
     updated_at: SortByTypeDirection
+    @sortByOperatorField
+}
+
+"""
+Sort clause for `input AssetsSearchCustomerSort` (only one property allowed at a time).
+"""
+input SortByScoutClauseAssetsSearchCustomerSort {
+    """
+    Property clause.
+    """
+    name: SortByTypeDirection
+    @sortByOperatorField
+}
+
+"""
+Sort clause for `input AssetsSearchProductSort` (only one property allowed at a time).
+"""
+input SortByScoutClauseAssetsSearchProductSort {
+    """
+    Property clause.
+    """
+    name: SortByTypeDirection
+    @sortByOperatorField
+
+    """
+    Property clause.
+    """
+    sku: SortByTypeDirection
+    @sortByOperatorField
+}
+
+"""
+Sort clause for `input AssetsSearchSort` (only one property allowed at a time).
+"""
+input SortByScoutClauseAssetsSearchSort {
+    """
+    Property clause.
+    """
+    customer: SortByScoutClauseAssetsSearchCustomerSort
     @sortByOperatorProperty
+
+    """
+    Property clause.
+    """
+    nickname: SortByTypeDirection
+    @sortByOperatorField
+
+    """
+    Property clause.
+    """
+    product: SortByScoutClauseAssetsSearchProductSort
+    @sortByOperatorProperty
+
+    """
+    Property clause.
+    """
+    serial_number: SortByTypeDirection
+    @sortByOperatorField
+}
+
+"""
+Sort clause for `input CustomersSearchHeadquarterCitySort` (only one property allowed at a time).
+"""
+input SortByScoutClauseCustomersSearchHeadquarterCitySort {
+    """
+    Property clause.
+    """
+    name: SortByTypeDirection
+    @sortByOperatorField
+}
+
+"""
+Sort clause for `input CustomersSearchHeadquarterSort` (only one property allowed at a time).
+"""
+input SortByScoutClauseCustomersSearchHeadquarterSort {
+    """
+    Property clause.
+    """
+    city: SortByScoutClauseCustomersSearchHeadquarterCitySort
+    @sortByOperatorProperty
+}
+
+"""
+Sort clause for `input CustomersSearchSort` (only one property allowed at a time).
+"""
+input SortByScoutClauseCustomersSearchSort {
+    """
+    Property clause.
+    """
+    headquarter: SortByScoutClauseCustomersSearchHeadquarterSort
+    @sortByOperatorProperty
+
+    """
+    Property clause.
+    """
+    name: SortByTypeDirection
+    @sortByOperatorField
+}
+
+"""
+Sort clause for `input DocumentsSearchCustomerSort` (only one property allowed at a time).
+"""
+input SortByScoutClauseDocumentsSearchCustomerSort {
+    """
+    Property clause.
+    """
+    name: SortByTypeDirection
+    @sortByOperatorField
+}
+
+"""
+Sort clause for `input DocumentsSearchEntriesProductSort` (only one property allowed at a time).
+"""
+input SortByScoutClauseDocumentsSearchEntriesProductSort {
+    """
+    Property clause.
+    """
+    name: SortByTypeDirection
+    @sortByOperatorField
+
+    """
+    Property clause.
+    """
+    sku: SortByTypeDirection
+    @sortByOperatorField
+}
+
+"""
+Sort clause for `input DocumentsSearchEntriesSort` (only one property allowed at a time).
+"""
+input SortByScoutClauseDocumentsSearchEntriesSort {
+    """
+    Property clause.
+    """
+    product: SortByScoutClauseDocumentsSearchEntriesProductSort
+    @sortByOperatorProperty
+
+    """
+    Property clause.
+    """
+    serial_number: SortByTypeDirection
+    @sortByOperatorField
+}
+
+"""
+Sort clause for `input DocumentsSearchSort` (only one property allowed at a time).
+"""
+input SortByScoutClauseDocumentsSearchSort {
+    """
+    Property clause.
+    """
+    customer: SortByScoutClauseDocumentsSearchCustomerSort
+    @sortByOperatorProperty
+
+    """
+    Property clause.
+    """
+    end: SortByTypeDirection
+    @sortByOperatorField
+
+    """
+    Property clause.
+    """
+    entries: SortByScoutClauseDocumentsSearchEntriesSort
+    @sortByOperatorProperty
+
+    """
+    Property clause.
+    """
+    number: SortByTypeDirection
+    @sortByOperatorField
+
+    """
+    Property clause.
+    """
+    start: SortByTypeDirection
+    @sortByOperatorField
 }
 
 input StopApplicationServiceInput {
@@ -12473,7 +12490,7 @@ type Query {
         )
         @paginatedOffset
 
-        order: [SortByClauseAssetsSearchSort!]
+        order: [SortByScoutClauseAssetsSearchSort!]
         @sortBy
 
         search: SearchString!
@@ -12759,7 +12776,7 @@ type Query {
         )
         @paginatedOffset
 
-        order: [SortByClauseDocumentsSearchSort!]
+        order: [SortByScoutClauseDocumentsSearchSort!]
         @sortBy
 
         search: SearchString!
@@ -12974,7 +12991,7 @@ type Query {
         )
         @paginatedOffset
 
-        order: [SortByClauseCustomersSearchSort!]
+        order: [SortByScoutClauseCustomersSearchSort!]
         @sortBy
 
         search: SearchString!
@@ -13607,7 +13624,7 @@ type Query {
         )
         @paginatedOffset
 
-        order: [SortByClauseDocumentsSearchSort!]
+        order: [SortByScoutClauseDocumentsSearchSort!]
         @sortBy
 
         search: SearchString!
@@ -15569,15 +15586,16 @@ directive @searchByOperatorNotIn
 on
     | INPUT_FIELD_DEFINITION
 
+directive @searchByOperatorProperty
+on
+    | INPUT_FIELD_DEFINITION
+
 directive @searchByOperatorRelation
 on
+    | FIELD_DEFINITION
     | INPUT_FIELD_DEFINITION
 
 directive @searchByOperatorStartsWith
-on
-    | INPUT_FIELD_DEFINITION
-
-directive @searchByProperty
 on
     | INPUT_FIELD_DEFINITION
 
@@ -15588,11 +15606,11 @@ directive @sortBy
 on
     | ARGUMENT_DEFINITION
 
-directive @sortByOperatorProperty
+directive @sortByOperatorField
 on
     | INPUT_FIELD_DEFINITION
 
-directive @sortByProperty
+directive @sortByOperatorProperty
 on
     | INPUT_FIELD_DEFINITION
 

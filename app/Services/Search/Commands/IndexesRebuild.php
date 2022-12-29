@@ -26,7 +26,7 @@ class IndexesRebuild extends ProcessorCommand {
     /**
      * @phpcsSuppress SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint
      *
-     * @var string
+     * @var string|null
      */
     protected $description = 'Rebuild the search index for the given model(s).';
 

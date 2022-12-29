@@ -19,7 +19,6 @@ use OpenSpout\Writer\Common\Manager\WorksheetManagerInterface;
 use OpenSpout\Writer\XLSX\Helper\DateHelper;
 use OpenSpout\Writer\XLSX\Manager\Style\StyleManager;
 use OpenSpout\Writer\XLSX\Options;
-use function fwrite;
 
 /**
  * @internal
@@ -34,6 +33,9 @@ final class WorksheetManager implements WorksheetManagerInterface
      * @see https://support.office.com/en-us/article/Excel-specifications-and-limits-ca36e2dc-1f09-4620-b726-67c00b05040f [Excel 2013/2016]
      */
     public const MAX_CHARACTERS_PER_CELL = 32767;
+
+    /** @var CommentsManager Manages comments */
+    private CommentsManager $commentsManager;
 
     private Options $options;
 
@@ -59,6 +61,7 @@ final class WorksheetManager implements WorksheetManagerInterface
         Options $options,
         StyleManager $styleManager,
         StyleMerger $styleMerger,
+        CommentsManager $commentsManager,
         SharedStringsManager $sharedStringsManager,
         XLSXEscaper $stringsEscaper,
         StringHelper $stringHelper
@@ -66,6 +69,7 @@ final class WorksheetManager implements WorksheetManagerInterface
         $this->options = $options;
         $this->styleManager = $styleManager;
         $this->styleMerger = $styleMerger;
+        $this->commentsManager = $commentsManager;
         $this->sharedStringsManager = $sharedStringsManager;
         $this->stringsEscaper = $stringsEscaper;
         $this->stringHelper = $stringHelper;
@@ -85,6 +89,7 @@ final class WorksheetManager implements WorksheetManagerInterface
         \assert(false !== $sheetFilePointer);
 
         $worksheet->setFilePointer($sheetFilePointer);
+        $this->commentsManager->createWorksheetCommentFiles($worksheet);
     }
 
     /**
@@ -94,7 +99,8 @@ final class WorksheetManager implements WorksheetManagerInterface
     {
         if (!$row->isEmpty()) {
             $this->addNonEmptyRow($worksheet, $row);
-        } elseif ($this->options->getRowAttributes($row)) {
+            $this->commentsManager->addComments($worksheet, $row);
+        } elseif (!$this->options->getRowAttributes($row)->isEmpty()) {
             $this->addEmptyRow($worksheet, $row);
         }
 
@@ -106,6 +112,7 @@ final class WorksheetManager implements WorksheetManagerInterface
      */
     public function close(Worksheet $worksheet): void
     {
+        $this->commentsManager->closeWorksheetCommentFiles($worksheet);
         fclose($worksheet->getFilePointer());
     }
 
@@ -122,16 +129,12 @@ final class WorksheetManager implements WorksheetManagerInterface
     {
         $sheetFilePointer = $worksheet->getFilePointer();
         $rowStyle = $row->getStyle();
-        $rowNumCells = $row->getNumCells();
         $rowIndexOneBased = $worksheet->getLastWrittenRowIndex() + 1;
-        $rowHasCustomHeight = $this->options->DEFAULT_ROW_HEIGHT > 0 ? '1' : '0';
-        $rowAttributes = ''
-            ." r=\"{$rowIndexOneBased}\""
-            ." spans=\"1:{$rowNumCells}\""
-            ." customHeight=\"{$rowHasCustomHeight}\""
-            .$this->getRowAttributes($row);
-
-        $rowXML = "<row{$rowAttributes}>";
+        $numCells = $row->getNumCells();
+        $rowAttributes = $this->getRowAttributes($row);
+        $rowHeight = $row->getHeight();
+        $hasCustomHeight = ($this->options->DEFAULT_ROW_HEIGHT > 0 || $rowHeight > 0) ? '1' : '0';
+        $rowXML = "<row r=\"{$rowIndexOneBased}\" spans=\"1:{$numCells}\" ".($rowHeight > 0 ? "ht=\"{$rowHeight}\" " : '')."customHeight=\"{$hasCustomHeight}\"{$rowAttributes}>";
 
         foreach ($row->getCells() as $columnIndexZeroBased => $cell) {
             $registeredStyle = $this->applyStyleAndRegister($cell, $rowStyle);
@@ -170,29 +173,28 @@ final class WorksheetManager implements WorksheetManagerInterface
         $rowXML = "<row{$rowAttributes}></row>";
 
         $wasWriteSuccessful = fwrite($sheetFilePointer, $rowXML);
-        if (false === $wasWriteSuccessful) {
-            throw new IOException("Unable to write data in {$worksheet->getFilePath()}");
-        }
+        \assert(false !== $wasWriteSuccessful);
     }
 
-    private function getRowAttributes(Row $row): string {
+    private function getRowAttributes(Row $row): string
+    {
         $rowAttributes = $this->options->getRowAttributes($row);
 
-        if (!$rowAttributes) {
+        if ($rowAttributes->isEmpty()) {
             return '';
         }
 
         $xmlAttributes = '';
 
         if (!$rowAttributes->isVisible()) {
-            $xmlAttributes .= " hidden=\"true\"";
+            $xmlAttributes .= ' hidden="true"';
         }
 
         if ($rowAttributes->isCollapsed()) {
-            $xmlAttributes .= " collapsed=\"true\"";
+            $xmlAttributes .= ' collapsed="true"';
         }
 
-        if ($rowAttributes->getOutlineLevel() !== null) {
+        if (null !== $rowAttributes->getOutlineLevel()) {
             $xmlAttributes .= " outlineLevel=\"{$rowAttributes->getOutlineLevel()}\"";
         }
 

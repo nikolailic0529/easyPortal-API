@@ -8,6 +8,7 @@ use App\Services\Search\Properties\Properties;
 use App\Services\Search\Properties\Property;
 use App\Services\Search\Properties\Relation;
 use App\Services\Search\Properties\Value;
+use Closure;
 use GraphQL\Type\Definition\InputObjectType;
 use GraphQL\Type\Definition\Type;
 use Illuminate\Database\Eloquent\Model;
@@ -28,7 +29,7 @@ class ModelConverter {
     /**
      * @param class-string<Model&Searchable> $model
      *
-     * @return array<InputObjectType>
+     * @return array<string, Closure(): InputObjectType>
      */
     public function toInputObjectTypes(string $model): array {
         $properties = (new $model())->getSearchConfiguration()->getProperties();
@@ -45,7 +46,7 @@ class ModelConverter {
      * @param array<int, string>      $path
      * @param array<string, Property> $properties
      *
-     * @return array<InputObjectType>
+     * @return array<string, Closure(): InputObjectType>
      */
     protected function convert(array $path, array $properties): array {
         $types  = [];
@@ -68,10 +69,14 @@ class ModelConverter {
             }
         }
 
-        $types[] = new InputObjectType([
-            'name'   => $this->getTypeName($path),
+        $name         = $this->getTypeName($path);
+        $type         = new InputObjectType([
+            'name'   => $name,
             'fields' => $fields,
         ]);
+        $types[$name] = static function () use ($type): InputObjectType {
+            return $type;
+        };
 
         return $types;
     }

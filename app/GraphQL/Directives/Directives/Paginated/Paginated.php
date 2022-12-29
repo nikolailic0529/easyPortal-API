@@ -2,8 +2,8 @@
 
 namespace App\GraphQL\Directives\Directives\Paginated;
 
-use GraphQL\Type\Definition\ResolveInfo;
 use Illuminate\Support\Collection;
+use Nuwave\Lighthouse\Execution\ResolveInfo;
 use Nuwave\Lighthouse\Schema\Values\FieldValue;
 use Nuwave\Lighthouse\Support\Contracts\FieldResolver;
 use Nuwave\Lighthouse\Support\Contracts\GraphQLContext;
