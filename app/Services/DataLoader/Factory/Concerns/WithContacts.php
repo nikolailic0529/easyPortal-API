@@ -22,7 +22,7 @@ trait WithContacts {
      *
      * @return Collection<array-key, Contact>
      */
-    protected function objectContacts(Model $owner, array $persons): Collection {
+    protected function contacts(Model $owner, array $persons): Collection {
         return $this->polymorphic(
             $owner,
             $persons,

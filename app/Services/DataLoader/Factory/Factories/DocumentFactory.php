@@ -288,7 +288,7 @@ class DocumentFactory extends ModelFactory {
             $model->price_origin   = null;
             $model->number         = $document->documentNumber ?: null;
             $model->changed_at     = $document->updatedAt;
-            $model->contacts       = $this->objectContacts($model, (array) $document->contactPersons);
+            $model->contacts       = $this->contacts($model, (array) $document->contactPersons);
             $model->deleted_at     = Date::now();
             $model->assets_count   = 0;
             $model->entries_count  = 0;
@@ -344,7 +344,7 @@ class DocumentFactory extends ModelFactory {
             $model->price_origin   = $document->totalNetPrice;
             $model->number         = $document->documentNumber ?: null;
             $model->changed_at     = $document->updatedAt;
-            $model->contacts       = $this->objectContacts($model, (array) $document->contactPersons);
+            $model->contacts       = $this->contacts($model, (array) $document->contactPersons);
 
             // Save
             if ($model->trashed()) {

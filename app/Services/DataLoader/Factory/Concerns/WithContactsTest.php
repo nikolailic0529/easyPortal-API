@@ -27,9 +27,9 @@ class WithContactsTest extends TestCase {
     // <editor-fold desc="Tests">
     // =========================================================================
     /**
-     * @covers ::objectContacts
+     * @covers ::contacts
      */
-    public function testCustomerContacts(): void {
+    public function testContacts(): void {
         // Prepare
         $owner    = Customer::factory()->make();
         $existing = Contact::factory(2)->make([
@@ -45,7 +45,7 @@ class WithContactsTest extends TestCase {
             $this->app->make(ContactResolver::class),
         ) extends ModelFactory {
             use WithContacts {
-                objectContacts as public;
+                contacts as public;
             }
 
             /** @noinspection PhpMissingParentConstructorInspection */
@@ -75,7 +75,7 @@ class WithContactsTest extends TestCase {
         };
 
         // Empty call should return empty array
-        self::assertTrue($factory->objectContacts($owner, [])->isEmpty());
+        self::assertTrue($factory->contacts($owner, [])->isEmpty());
 
         // Repeated objects should be missed
         $ca = tap(new CompanyContactPerson(), function (CompanyContactPerson $person): void {
@@ -85,7 +85,7 @@ class WithContactsTest extends TestCase {
             $person->mail        = $this->faker->email();
         });
 
-        self::assertCount(1, $factory->objectContacts($owner, [$ca, $ca]));
+        self::assertCount(1, $factory->contacts($owner, [$ca, $ca]));
 
         // Objects should be grouped by type
         $cb     = tap(new CompanyContactPerson(), function (CompanyContactPerson $person) use ($ca): void {
@@ -94,7 +94,7 @@ class WithContactsTest extends TestCase {
             $person->phoneNumber = $ca->phoneNumber;
             $person->mail        = $ca->mail;
         });
-        $actual = $factory->objectContacts($owner, [$ca, $cb]);
+        $actual = $factory->contacts($owner, [$ca, $cb]);
         $first  = $actual->first();
 
         self::assertNotNull($first);

@@ -25,7 +25,7 @@ class ResellerFactoryTest extends TestCase {
     use WithQueryLog;
     use Helper;
 
-    // <editor-fold desc='Tests'>
+    // <editor-fold desc="Tests">
     // =========================================================================
     /**
      * @covers ::create
@@ -314,7 +314,7 @@ class ResellerFactoryTest extends TestCase {
     }
     // </editor-fold>
 
-    // <editor-fold desc='DataProviders'>
+    // <editor-fold desc="DataProviders">
     // =========================================================================
     /**
      * @return array<mixed>

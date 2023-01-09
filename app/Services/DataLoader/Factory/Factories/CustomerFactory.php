@@ -105,7 +105,7 @@ class CustomerFactory extends CompanyFactory {
             $customer->name            = $company->name;
             $customer->changed_at      = $company->updatedAt;
             $customer->statuses        = $this->companyStatuses($customer, $company);
-            $customer->contacts        = $this->objectContacts($customer, $company->companyContactPersons);
+            $customer->contacts        = $this->contacts($customer, $company->companyContactPersons);
             $customer->locations       = $this->companyLocations($customer, $company->locations);
             $customer->kpi             = $this->kpi($customer, $company->companyKpis);
             $customer->resellersPivots = $this->resellers($customer, $company->companyResellerKpis);

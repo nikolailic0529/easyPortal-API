@@ -219,7 +219,7 @@ class AssetFactory extends ModelFactory {
             $model->serial_number             = $asset->serialNumber;
             $model->data_quality              = $asset->dataQualityScore;
             $model->contracts_active_quantity = $asset->activeContractQuantitySum;
-            $model->contacts                  = $this->objectContacts($model, (array) $asset->latestContactPersons);
+            $model->contacts                  = $this->contacts($model, (array) $asset->latestContactPersons);
             $model->tags                      = $this->assetTags($asset);
             $model->coverages                 = $this->assetCoverages($asset);
 
