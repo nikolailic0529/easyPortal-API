@@ -9,6 +9,7 @@ use App\Services\DataLoader\Factory\CompanyFactory;
 use App\Services\DataLoader\Factory\Concerns\WithKpi;
 use App\Services\DataLoader\Factory\Concerns\WithReseller;
 use App\Services\DataLoader\Finders\ResellerFinder;
+use App\Services\DataLoader\Resolver\Resolvers\ContactResolver;
 use App\Services\DataLoader\Resolver\Resolvers\CustomerResolver;
 use App\Services\DataLoader\Resolver\Resolvers\ResellerResolver;
 use App\Services\DataLoader\Resolver\Resolvers\StatusResolver;
@@ -34,7 +35,7 @@ class CustomerFactory extends CompanyFactory {
         ExceptionHandler $exceptionHandler,
         TypeResolver $typeResolver,
         StatusResolver $statusResolver,
-        ContactFactory $contactFactory,
+        ContactResolver $contactReseller,
         LocationFactory $locationFactory,
         protected CustomerResolver $customerResolver,
         protected ResellerResolver $resellerResolver,
@@ -44,7 +45,7 @@ class CustomerFactory extends CompanyFactory {
             $exceptionHandler,
             $typeResolver,
             $statusResolver,
-            $contactFactory,
+            $contactReseller,
             $locationFactory,
         );
     }

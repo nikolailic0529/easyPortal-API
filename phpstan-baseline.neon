@@ -2736,16 +2736,6 @@ parameters:
 			path: app/Services/DataLoader/Factory/Factories/AssetFactoryTest.php
 
 		-
-			message: "#^Call to static method PHPUnit\\\\Framework\\\\Assert\\:\\:assertNotNull\\(\\) with App\\\\Models\\\\Contact will always evaluate to true\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Factories/ContactFactoryTest.php
-
-		-
-			message: "#^Method App\\\\Services\\\\DataLoader\\\\Factory\\\\Factories\\\\ContactFactoryTest\\:\\:testContact\\(\\) has parameter \\$factory with no signature specified for Closure\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Factories/ContactFactoryTest.php
-
-		-
 			message: "#^Illuminate\\\\Support\\\\Collection\\<\\*NEVER\\*, \\*NEVER\\*\\> does not accept App\\\\Models\\\\ResellerCustomer\\.$#"
 			count: 2
 			path: app/Services/DataLoader/Factory/Factories/CustomerFactory.php

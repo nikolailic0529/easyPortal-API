@@ -11,8 +11,8 @@ use App\Services\DataLoader\Factory\Concerns\WithContacts;
 use App\Services\DataLoader\Factory\Concerns\WithLocations;
 use App\Services\DataLoader\Factory\Concerns\WithStatus;
 use App\Services\DataLoader\Factory\Concerns\WithType;
-use App\Services\DataLoader\Factory\Factories\ContactFactory;
 use App\Services\DataLoader\Factory\Factories\LocationFactory;
+use App\Services\DataLoader\Resolver\Resolvers\ContactResolver;
 use App\Services\DataLoader\Resolver\Resolvers\StatusResolver;
 use App\Services\DataLoader\Resolver\Resolvers\TypeResolver;
 use App\Services\DataLoader\Schema\Types\Company;
@@ -42,7 +42,7 @@ abstract class CompanyFactory extends ModelFactory {
         ExceptionHandler $exceptionHandler,
         protected TypeResolver $typeResolver,
         protected StatusResolver $statusResolver,
-        protected ContactFactory $contactFactory,
+        protected ContactResolver $contactReseller,
         protected LocationFactory $locationFactory,
     ) {
         parent::__construct($exceptionHandler);
@@ -50,8 +50,8 @@ abstract class CompanyFactory extends ModelFactory {
 
     // <editor-fold desc="Getters / Setters">
     // =========================================================================
-    protected function getContactsFactory(): ContactFactory {
-        return $this->contactFactory;
+    protected function getContactsResolver(): ContactResolver {
+        return $this->contactReseller;
     }
 
     protected function getLocationFactory(): LocationFactory {

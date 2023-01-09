@@ -34,6 +34,7 @@ use App\Services\DataLoader\Factory\ModelFactory;
 use App\Services\DataLoader\Finders\CustomerFinder;
 use App\Services\DataLoader\Finders\ResellerFinder;
 use App\Services\DataLoader\Resolver\Resolvers\AssetResolver;
+use App\Services\DataLoader\Resolver\Resolvers\ContactResolver;
 use App\Services\DataLoader\Resolver\Resolvers\CoverageResolver;
 use App\Services\DataLoader\Resolver\Resolvers\CustomerResolver;
 use App\Services\DataLoader\Resolver\Resolvers\DocumentResolver;
@@ -88,7 +89,7 @@ class AssetFactory extends ModelFactory {
         protected DocumentResolver $documentResolver,
         protected DocumentFactory $documentFactory,
         protected LocationFactory $locationFactory,
-        protected ContactFactory $contactFactory,
+        protected ContactResolver $contactResolver,
         protected StatusResolver $statusResolver,
         protected CoverageResolver $coverageResolver,
         protected TagResolver $tagResolver,
@@ -118,8 +119,8 @@ class AssetFactory extends ModelFactory {
         return $this->customerFinder;
     }
 
-    protected function getContactsFactory(): ContactFactory {
-        return $this->contactFactory;
+    protected function getContactsResolver(): ContactResolver {
+        return $this->contactResolver;
     }
 
     protected function getDocumentFactory(): DocumentFactory {

@@ -42,6 +42,7 @@ use App\Services\DataLoader\Finders\CustomerFinder;
 use App\Services\DataLoader\Finders\DistributorFinder;
 use App\Services\DataLoader\Finders\ResellerFinder;
 use App\Services\DataLoader\Resolver\Resolvers\AssetResolver;
+use App\Services\DataLoader\Resolver\Resolvers\ContactResolver;
 use App\Services\DataLoader\Resolver\Resolvers\CurrencyResolver;
 use App\Services\DataLoader\Resolver\Resolvers\CustomerResolver;
 use App\Services\DataLoader\Resolver\Resolvers\DistributorResolver;
@@ -112,7 +113,7 @@ class DocumentFactory extends ModelFactory {
         protected DocumentResolver $documentResolver,
         protected LanguageResolver $languageResolver,
         protected DistributorResolver $distributorResolver,
-        protected ContactFactory $contactFactory,
+        protected ContactResolver $contactResolver,
         protected OemGroupResolver $oemGroupResolver,
         protected ServiceGroupResolver $serviceGroupResolver,
         protected ServiceLevelResolver $serviceLevelResolver,
@@ -155,8 +156,8 @@ class DocumentFactory extends ModelFactory {
         return $this->customerFinder;
     }
 
-    protected function getContactsFactory(): ContactFactory {
-        return $this->contactFactory;
+    protected function getContactsResolver(): ContactResolver {
+        return $this->contactResolver;
     }
 
     protected function getOemResolver(): OemResolver {
