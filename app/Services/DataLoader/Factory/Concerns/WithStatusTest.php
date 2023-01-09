@@ -4,7 +4,7 @@ namespace App\Services\DataLoader\Factory\Concerns;
 
 use App\Models\Customer;
 use App\Models\Data\Status as StatusModel;
-use App\Services\DataLoader\Factory\DependentModelFactory;
+use App\Services\DataLoader\Factory\ModelFactory;
 use App\Services\DataLoader\Resolver\Resolvers\StatusResolver;
 use App\Services\DataLoader\Schema\Type;
 use App\Utils\Eloquent\Model;
@@ -29,7 +29,7 @@ class WithStatusTest extends TestCase {
             'object_type' => $customer->getMorphClass(),
         ]);
 
-        $factory = new class($resolver) extends DependentModelFactory {
+        $factory = new class($resolver) extends ModelFactory {
             use WithStatus {
                 status as public;
             }
@@ -45,8 +45,12 @@ class WithStatusTest extends TestCase {
                 return $this->statusResolver;
             }
 
-            public function create(Model $object, Type $type): ?Model {
+            public function create(Type $type): ?Model {
                 return null;
+            }
+
+            public function getModel(): string {
+                return Model::class;
             }
         };
 

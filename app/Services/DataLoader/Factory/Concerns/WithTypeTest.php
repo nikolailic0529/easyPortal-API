@@ -4,7 +4,7 @@ namespace App\Services\DataLoader\Factory\Concerns;
 
 use App\Models\Customer;
 use App\Models\Data\Type as TypeModel;
-use App\Services\DataLoader\Factory\DependentModelFactory;
+use App\Services\DataLoader\Factory\ModelFactory;
 use App\Services\DataLoader\Resolver\Resolvers\TypeResolver;
 use App\Services\DataLoader\Schema\Type;
 use App\Utils\Eloquent\Model;
@@ -29,7 +29,7 @@ class WithTypeTest extends TestCase {
             'object_type' => $customer->getMorphClass(),
         ]);
 
-        $factory = new class($resolver) extends DependentModelFactory {
+        $factory = new class($resolver) extends ModelFactory {
             use WithType {
                 type as public;
             }
@@ -41,8 +41,12 @@ class WithTypeTest extends TestCase {
                 // empty
             }
 
-            public function create(Model $object, Type $type): ?Model {
+            public function create(Type $type): ?Model {
                 return null;
+            }
+
+            public function getModel(): string {
+                return Model::class;
             }
 
             protected function getTypeResolver(): TypeResolver {
