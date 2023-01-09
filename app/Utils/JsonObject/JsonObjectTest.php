@@ -9,11 +9,14 @@ use Tests\TestCase;
 
 use function count;
 use function filter_var;
+use function json_encode;
+use function sha1;
 use function sprintf;
 use function tap;
 
 use const FILTER_NULL_ON_FAILURE;
 use const FILTER_VALIDATE_BOOLEAN;
+use const JSON_THROW_ON_ERROR;
 
 /**
  * @internal
@@ -276,6 +279,36 @@ class JsonObjectTest extends TestCase {
                 ['i' => 1],
                 ['i' => 2],
             ]),
+        );
+    }
+
+    /**
+     * @covers ::getHash
+     */
+    public function testGetHash(): void {
+        $child  = new JsonObjectTest_Child([
+            'i' => 123,
+        ]);
+        $object = new JsonObjectTest_Child([
+            'i'        => 567,
+            'b'        => true,
+            'children' => [$child],
+        ]);
+
+        self::assertEquals(
+            sha1(json_encode(
+                [
+                    'i'        => 567,
+                    'b'        => true,
+                    'children' => [
+                        [
+                            'i' => 123,
+                        ],
+                    ],
+                ],
+                JSON_THROW_ON_ERROR,
+            )),
+            $object->getHash(),
         );
     }
 }
