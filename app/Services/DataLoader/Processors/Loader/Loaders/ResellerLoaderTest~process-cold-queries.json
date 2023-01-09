@@ -142,9 +142,10 @@
         ]
     },
     {
-        "query": "insert into `resellers` (`id`, `name`, `changed_at`, `statuses_count`, `contacts_count`, `locations_count`, `kpi_id`, `assets_count`, `customers_count`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `resellers` (`id`, `hash`, `name`, `changed_at`, `statuses_count`, `contacts_count`, `locations_count`, `kpi_id`, `assets_count`, `customers_count`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "c0d99925-8b3b-47d8-9db2-9d3a5f5520a2",
+            "99f7a38861125a339f20324a2398360e16d346e4",
             "Bauch-Bosco",
             "2022-07-07 01:15:07",
             0,

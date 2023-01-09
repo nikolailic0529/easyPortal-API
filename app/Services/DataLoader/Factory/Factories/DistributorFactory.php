@@ -53,8 +53,17 @@ class DistributorFactory extends ModelFactory {
         // Get/Create
         $created     = false;
         $factory     = static function (Distributor $distributor) use (&$created, $company): Distributor {
-            $created                 = !$distributor->exists;
+            // Unchanged?
+            $created = !$distributor->exists;
+            $hash    = $company->getHash();
+
+            if ($hash === $distributor->hash) {
+                return $distributor;
+            }
+
+            // Update
             $distributor->id         = $company->id;
+            $distributor->hash       = $hash;
             $distributor->name       = $company->name;
             $distributor->changed_at = $company->updatedAt;
 

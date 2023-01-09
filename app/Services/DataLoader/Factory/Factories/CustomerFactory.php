@@ -90,8 +90,17 @@ class CustomerFactory extends CompanyFactory {
         // Get/Create customer
         $created  = false;
         $factory  = function (Customer $customer) use (&$created, $company): Customer {
-            $created                   = !$customer->exists;
+            // Unchanged?
+            $created = !$customer->exists;
+            $hash    = $company->getHash();
+
+            if ($hash === $customer->hash) {
+                return $customer;
+            }
+
+            // Update
             $customer->id              = $company->id;
+            $customer->hash            = $hash;
             $customer->name            = $company->name;
             $customer->changed_at      = $company->updatedAt;
             $customer->statuses        = $this->companyStatuses($customer, $company);

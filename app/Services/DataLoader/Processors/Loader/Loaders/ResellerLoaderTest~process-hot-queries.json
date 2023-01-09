@@ -49,42 +49,9 @@
         ]
     },
     {
-        "query": "select `statuses`.*, `reseller_statuses`.`reseller_id` as `pivot_reseller_id`, `reseller_statuses`.`status_id` as `pivot_status_id`, `reseller_statuses`.`created_at` as `pivot_created_at`, `reseller_statuses`.`updated_at` as `pivot_updated_at` from `statuses` inner join `reseller_statuses` on `statuses`.`id` = `reseller_statuses`.`status_id` where `reseller_statuses`.`reseller_id` = ? and `reseller_statuses`.`deleted_at` is null and `statuses`.`deleted_at` is null",
-        "bindings": [
-            "c0d99925-8b3b-47d8-9db2-9d3a5f5520a2"
-        ]
-    },
-    {
-        "query": "select `types`.* from `types` where `types`.`deleted_at` is null",
-        "bindings": []
-    },
-    {
-        "query": "select `countries`.* from `countries` where `countries`.`deleted_at` is null",
-        "bindings": []
-    },
-    {
-        "query": "select `cities`.* from `cities` where `cities`.`deleted_at` is null",
-        "bindings": []
-    },
-    {
-        "query": "select `organizations`.* from `organizations` where `organizations`.`id` = ? limit 1",
-        "bindings": [
-            "c0d99925-8b3b-47d8-9db2-9d3a5f5520a2"
-        ]
-    },
-    {
-        "query": "update `organizations` set `branding_welcome_heading` = ?, `branding_welcome_underline` = ?, `organizations`.`updated_at` = ? where `id` = ?",
-        "bindings": [
-            "{\"de_DE\":\"Ut molestias illo fugiat optio repellat rerum.\",\"en_GB\":\"Soluta aut et quas nisi.\",\"fr_FR\":\"Soluta aut et quas nisi.\"}",
-            "{\"de_DE\":\"Possimus et placeat maiores.\",\"en_GB\":\"Molestiae voluptatem nisi eaque alias quis enim.\",\"fr_FR\":\"Molestiae voluptatem nisi eaque alias quis enim.\"}",
-            "2022-02-02 00:00:18",
-            "c0d99925-8b3b-47d8-9db2-9d3a5f5520a2"
-        ]
-    },
-    {
         "query": "update `resellers` set `synced_at` = ? where `id` in (?) and `resellers`.`deleted_at` is null",
         "bindings": [
-            "2022-02-02T00:00:31+00:00",
+            "2022-02-02T00:00:18+00:00",
             "c0d99925-8b3b-47d8-9db2-9d3a5f5520a2"
         ]
     }

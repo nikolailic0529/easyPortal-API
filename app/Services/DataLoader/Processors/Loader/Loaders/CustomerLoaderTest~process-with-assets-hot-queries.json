@@ -68,28 +68,6 @@
         ]
     },
     {
-        "query": "select `statuses`.* from `statuses` where `statuses`.`deleted_at` is null",
-        "bindings": []
-    },
-    {
-        "query": "select `statuses`.*, `customer_statuses`.`customer_id` as `pivot_customer_id`, `customer_statuses`.`status_id` as `pivot_status_id`, `customer_statuses`.`created_at` as `pivot_created_at`, `customer_statuses`.`updated_at` as `pivot_updated_at` from `statuses` inner join `customer_statuses` on `statuses`.`id` = `customer_statuses`.`status_id` where `customer_statuses`.`customer_id` = ? and `customer_statuses`.`deleted_at` is null and `statuses`.`deleted_at` is null",
-        "bindings": [
-            "03ee438b-b478-4b4b-86bd-a495f3ab2880"
-        ]
-    },
-    {
-        "query": "select `types`.* from `types` where `types`.`deleted_at` is null",
-        "bindings": []
-    },
-    {
-        "query": "select `countries`.* from `countries` where `countries`.`deleted_at` is null",
-        "bindings": []
-    },
-    {
-        "query": "select `cities`.* from `cities` where `cities`.`deleted_at` is null",
-        "bindings": []
-    },
-    {
         "query": "update `customers` set `synced_at` = ? where `id` in (?) and `customers`.`deleted_at` is null",
         "bindings": [
             "2022-02-02T00:04:07+00:00",
@@ -236,21 +214,9 @@
         ]
     },
     {
-        "query": "select `oems`.* from `oems` where `oems`.`deleted_at` is null",
-        "bindings": []
-    },
-    {
-        "query": "select `products`.* from `products` where `products`.`deleted_at` is null",
-        "bindings": []
-    },
-    {
-        "query": "select `coverages`.* from `coverages` where `coverages`.`deleted_at` is null",
-        "bindings": []
-    },
-    {
         "query": "update `assets` set `synced_at` = ? where `id` in (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) and `assets`.`deleted_at` is null",
         "bindings": [
-            "2022-02-02T00:06:58+00:00",
+            "2022-02-02T00:05:18+00:00",
             "1c130200-357f-445f-abc5-57808dc9e80d",
             "1fca119b-4657-4481-86dd-366df5b9c30e",
             "23637b07-98f9-4385-8293-77d72027d920",

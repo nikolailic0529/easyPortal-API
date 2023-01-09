@@ -61,26 +61,6 @@
         ]
     },
     {
-        "query": "select `oems`.* from `oems` where `oems`.`deleted_at` is null",
-        "bindings": []
-    },
-    {
-        "query": "select `types`.* from `types` where `types`.`deleted_at` is null",
-        "bindings": []
-    },
-    {
-        "query": "select `statuses`.* from `statuses` where `statuses`.`deleted_at` is null",
-        "bindings": []
-    },
-    {
-        "query": "select `currencies`.* from `currencies` where `currencies`.`deleted_at` is null",
-        "bindings": []
-    },
-    {
-        "query": "select `distributors`.* from `distributors`",
-        "bindings": []
-    },
-    {
         "query": "select `assets`.* from `assets` where ((`assets`.`id` = ?) or (`assets`.`id` = ?))",
         "bindings": [
             "9f93f878-cec2-4098-96f9-66af77ccac84",
@@ -120,14 +100,6 @@
         ]
     },
     {
-        "query": "select `oem_groups`.* from `oem_groups` where (`key` = ? and `name` = ? and `oem_id` = ?) and `oem_groups`.`deleted_at` is null limit 1",
-        "bindings": [
-            "8b34890d-fff3-3a7e-a136-f1a66c501db3",
-            "",
-            "fdb8251f-d8c8-55fe-b23d-b846d759a893"
-        ]
-    },
-    {
         "query": "select `assets`.* from `assets` where ((`assets`.`id` = ?) or (`assets`.`id` = ?) or (`assets`.`id` = ?) or (`assets`.`id` = ?) or (`assets`.`id` = ?))",
         "bindings": [
             "7771c7c6-6ce7-497e-9cec-1fdcc7bea9fb",
@@ -160,7 +132,7 @@
     {
         "query": "update `documents` set `synced_at` = ? where `id` in (?, ?, ?, ?, ?) and `documents`.`deleted_at` is null",
         "bindings": [
-            "2022-02-02T00:04:34+00:00",
+            "2022-02-02T00:04:14+00:00",
             "2abdb153-9341-499c-ad38-8a721127f979",
             "4fe10114-41f9-410e-9f3f-b2f42e72f5b8",
             "76331547-3217-4c18-b7c4-b3448024546e",
@@ -225,10 +197,6 @@
         "bindings": [
             "3adf6426-735c-4f52-9f28-e3ad593e707c"
         ]
-    },
-    {
-        "query": "select `distributors`.* from `distributors`",
-        "bindings": []
     },
     {
         "query": "select `assets`.* from `assets` where ((`assets`.`id` = ?) or (`assets`.`id` = ?))",
@@ -300,7 +268,7 @@
     {
         "query": "update `documents` set `synced_at` = ? where `id` in (?, ?, ?, ?, ?) and `documents`.`deleted_at` is null",
         "bindings": [
-            "2022-02-02T00:05:10+00:00",
+            "2022-02-02T00:04:30+00:00",
             "a954e350-fa8a-4f92-b301-ae8e4e6d0022",
             "c8fdd1c2-a581-4cf4-8f49-634a41f08ecf",
             "d3046b7f-880c-4368-b3dd-0b3c8def9a14",

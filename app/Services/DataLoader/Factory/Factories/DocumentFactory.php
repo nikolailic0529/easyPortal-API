@@ -269,6 +269,7 @@ class DocumentFactory extends ModelFactory {
             $statuses              = new Collection();
             $document              = $object->document;
             $model->id             = $document->id;
+            $model->hash           = null;
             $model->oem            = $this->documentOem($document);
             $model->oemGroup       = $this->documentOemGroup($document);
             $model->oem_said       = $document->vendorSpecificFields->said ?? null;
@@ -314,10 +315,17 @@ class DocumentFactory extends ModelFactory {
         // Get/Create/Update
         $created = false;
         $factory = function (DocumentModel $model) use (&$created, $document): DocumentModel {
-            // Update
+            // Unchanged?
             $created = !$model->exists;
+            $hash    = $document->getHash();
 
+            if ($hash === $model->hash) {
+                return $model;
+            }
+
+            // Update
             $model->id             = $document->id;
+            $model->hash           = $hash;
             $model->oem            = $this->documentOem($document);
             $model->oemGroup       = $this->documentOemGroup($document);
             $model->oem_said       = $document->vendorSpecificFields->said ?? null;
@@ -461,8 +469,17 @@ class DocumentFactory extends ModelFactory {
         DocumentEntry $documentEntry,
         ?DocumentEntryModel $entry,
     ): DocumentEntryModel {
+        // Unchanged?
+        $hash = $documentEntry->getHash();
+
+        if ($entry && $hash === $entry->hash) {
+            return $entry;
+        }
+
+        // Create/Update
         $asset                              = $this->documentEntryAsset($model, $documentEntry);
         $entry                            ??= new DocumentEntryModel();
+        $entry->hash                        = $hash;
         $entry->key                         = $this->getEntryKey($documentEntry);
         $entry->document                    = $model;
         $entry->asset                       = $asset;

@@ -50,6 +50,7 @@ class DocumentFactory extends Factory {
             'language_id'    => null,
             'oem_amp_id'     => null,
             'oem_sar_number' => null,
+            'hash'           => null,
             'changed_at'     => null,
             'synced_at'      => null,
             'created_at'     => Date::now(),

@@ -1359,6 +1359,7 @@ class AssetFactoryTest extends TestCase {
         // Create
         $actual   = $factory->assetWarranty($asset, $entry, null);
         $expected = [
+            'hash'             => $entry->getHash(),
             'key'              => "2024-12-09t000000:2019-12-10t000000:{$entry->type}",
             'start'            => '2019-12-10 00:00:00',
             'end'              => '2024-12-09 00:00:00',
@@ -1383,6 +1384,7 @@ class AssetFactoryTest extends TestCase {
         $actual   = $factory->assetWarranty($asset, $entry, $warranty);
         $expected = [
             'id'               => $warranty->getKey(),
+            'hash'             => $entry->getHash(),
             'key'              => "2024-12-09t000000:2019-12-10t000000:{$entry->type}",
             'start'            => '2019-12-10 00:00:00',
             'end'              => '2024-12-09 00:00:00',
@@ -1566,6 +1568,7 @@ class AssetFactoryTest extends TestCase {
                 ]),
                 'status_id'   => $status->getKey(),
                 'description' => $entryShouldBeUpdated->description,
+                'hash'        => $entryShouldBeUpdated->getHash(),
             ]),
             (clone $warrantyShouldBeReused)->forceFill([
                 'key'         => (string) new Key([
@@ -1578,6 +1581,7 @@ class AssetFactoryTest extends TestCase {
                 'type_id'     => $type->getKey(),
                 'status_id'   => $status->getKey(),
                 'description' => $entryShouldBeCreated->description,
+                'hash'        => $entryShouldBeCreated->getHash(),
             ]),
         ])
             ->sort(new KeysComparator())

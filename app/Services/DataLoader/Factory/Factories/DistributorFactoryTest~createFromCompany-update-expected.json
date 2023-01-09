@@ -1,3 +1,3 @@
 [
-    "update `distributors` set `name` = ?, `changed_at` = ?, `distributors`.`updated_at` = ? where `id` = ?"
+    "update `distributors` set `hash` = ?, `name` = ?, `changed_at` = ?, `distributors`.`updated_at` = ? where `id` = ?"
 ]

@@ -101,37 +101,9 @@
         ]
     },
     {
-        "query": "select `oems`.* from `oems` where `oems`.`deleted_at` is null",
-        "bindings": []
-    },
-    {
-        "query": "select `statuses`.* from `statuses` where `statuses`.`deleted_at` is null",
-        "bindings": []
-    },
-    {
-        "query": "select `products`.* from `products` where `products`.`deleted_at` is null",
-        "bindings": []
-    },
-    {
-        "query": "select `countries`.* from `countries` where `countries`.`deleted_at` is null",
-        "bindings": []
-    },
-    {
-        "query": "select `cities`.* from `cities` where `cities`.`deleted_at` is null",
-        "bindings": []
-    },
-    {
-        "query": "select `types`.* from `types` where `types`.`deleted_at` is null",
-        "bindings": []
-    },
-    {
-        "query": "select `coverages`.* from `coverages` where `coverages`.`deleted_at` is null",
-        "bindings": []
-    },
-    {
         "query": "update `assets` set `synced_at` = ? where `id` in (?, ?, ?, ?, ?) and `assets`.`deleted_at` is null",
         "bindings": [
-            "2022-02-02T00:02:41+00:00",
+            "2022-02-02T00:02:09+00:00",
             "00f0a6d3-442d-4a31-a573-459ea5f51efd",
             "011c4141-aa44-407e-a53c-7328cc6275ab",
             "01c13a3b-7c8a-4962-865a-ef64ef1b697a",

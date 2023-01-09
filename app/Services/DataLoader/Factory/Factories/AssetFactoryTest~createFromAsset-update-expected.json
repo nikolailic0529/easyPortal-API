@@ -10,14 +10,14 @@
     "insert into `coverages` (`key`, `name`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
     "select `statuses`.* from `statuses` where (`key` = ? and `object_type` = ?) and `statuses`.`deleted_at` is null limit 1",
     "insert into `statuses` (`object_type`, `key`, `name`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?)",
-    "update `assets` set `reseller_id` = ?, `location_id` = ?, `eosl` = ?, `changed_at` = ?, `data_quality` = ?, `contracts_active_quantity` = ?, `contacts_count` = ?, `warranty_end` = ?, `assets`.`updated_at` = ? where `id` = ?",
+    "update `assets` set `hash` = ?, `reseller_id` = ?, `location_id` = ?, `eosl` = ?, `changed_at` = ?, `data_quality` = ?, `contracts_active_quantity` = ?, `contacts_count` = ?, `warranty_end` = ?, `assets`.`updated_at` = ? where `id` = ?",
     "update `contacts` set `deleted_at` = ?, `contacts`.`updated_at` = ? where `id` = ?",
     "insert into `asset_tags` (`tag_id`, `asset_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
     "update `asset_tags` set `deleted_at` = ?, `asset_tags`.`updated_at` = ? where `id` = ?",
     "insert into `asset_coverages` (`coverage_id`, `asset_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
     "update `asset_coverages` set `deleted_at` = ?, `asset_coverages`.`updated_at` = ? where `id` = ?",
-    "update `asset_warranties` set `status_id` = ?, `asset_warranties`.`updated_at` = ? where `id` = ?",
-    "update `asset_warranties` set `key` = ?, `end` = ?, `asset_warranties`.`updated_at` = ? where `id` = ?",
+    "update `asset_warranties` set `status_id` = ?, `hash` = ?, `asset_warranties`.`updated_at` = ? where `id` = ?",
+    "update `asset_warranties` set `key` = ?, `end` = ?, `hash` = ?, `asset_warranties`.`updated_at` = ? where `id` = ?",
     "update `asset_warranties` set `deleted_at` = ?, `asset_warranties`.`updated_at` = ? where `id` = ?",
     "update `asset_warranties` set `deleted_at` = ?, `asset_warranties`.`updated_at` = ? where `id` = ?"
 ]

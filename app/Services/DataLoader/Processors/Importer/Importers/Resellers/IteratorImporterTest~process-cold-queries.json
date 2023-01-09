@@ -140,9 +140,10 @@
         ]
     },
     {
-        "query": "insert into `resellers` (`id`, `name`, `changed_at`, `statuses_count`, `contacts_count`, `locations_count`, `kpi_id`, `assets_count`, `customers_count`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `resellers` (`id`, `hash`, `name`, `changed_at`, `statuses_count`, `contacts_count`, `locations_count`, `kpi_id`, `assets_count`, `customers_count`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "54f7dd6b-5234-4760-947d-c95e10751e18",
+            "3da646f243d577061fbdd3661fdbb314338f79e4",
             "Schiller-Graham",
             "2022-07-07 00:56:28",
             0,
@@ -306,9 +307,10 @@
         ]
     },
     {
-        "query": "insert into `resellers` (`id`, `name`, `changed_at`, `statuses_count`, `contacts_count`, `locations_count`, `kpi_id`, `assets_count`, `customers_count`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `resellers` (`id`, `hash`, `name`, `changed_at`, `statuses_count`, `contacts_count`, `locations_count`, `kpi_id`, `assets_count`, `customers_count`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "bd0eec0c-4d48-4840-9ce0-237316c727e1",
+            "bd416049c09c86cc2fae6a15ea8346ddeeb65942",
             "Carroll Group",
             "2022-07-07 01:14:43",
             0,
@@ -502,9 +504,10 @@
         ]
     },
     {
-        "query": "insert into `resellers` (`id`, `name`, `changed_at`, `statuses_count`, `contacts_count`, `locations_count`, `kpi_id`, `assets_count`, `customers_count`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `resellers` (`id`, `hash`, `name`, `changed_at`, `statuses_count`, `contacts_count`, `locations_count`, `kpi_id`, `assets_count`, `customers_count`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "0917f385-4b97-4313-b255-043ad94683a7",
+            "a531847062ef54eaae00eca2559adef335006254",
             "Goodwin, Littel and Kuphal",
             "2022-07-07 22:30:40",
             1,
@@ -678,9 +681,10 @@
         ]
     },
     {
-        "query": "insert into `resellers` (`id`, `name`, `changed_at`, `statuses_count`, `contacts_count`, `locations_count`, `kpi_id`, `assets_count`, `customers_count`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `resellers` (`id`, `hash`, `name`, `changed_at`, `statuses_count`, `contacts_count`, `locations_count`, `kpi_id`, `assets_count`, `customers_count`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "d152bb2f-deae-4106-aac2-6d1aa1517232",
+            "715ad912e2902d9bfcd3f9e2995d866309364011",
             "Gleason Group",
             "2022-07-07 01:16:33",
             0,
@@ -804,9 +808,10 @@
         ]
     },
     {
-        "query": "insert into `resellers` (`id`, `name`, `changed_at`, `statuses_count`, `contacts_count`, `locations_count`, `kpi_id`, `assets_count`, `customers_count`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `resellers` (`id`, `hash`, `name`, `changed_at`, `statuses_count`, `contacts_count`, `locations_count`, `kpi_id`, `assets_count`, `customers_count`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "6a3f5b75-5dc9-4517-aa18-a410644d33fb",
+            "ac0bc6b6d7a7ac6bd0799b2ed19d2466afbd20fa",
             "Swaniawski, Pagac and Towne",
             "2022-07-07 01:00:05",
             0,
@@ -975,9 +980,10 @@
         ]
     },
     {
-        "query": "insert into `resellers` (`id`, `name`, `changed_at`, `statuses_count`, `contacts_count`, `locations_count`, `kpi_id`, `assets_count`, `customers_count`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `resellers` (`id`, `hash`, `name`, `changed_at`, `statuses_count`, `contacts_count`, `locations_count`, `kpi_id`, `assets_count`, `customers_count`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "d5306966-ab8b-4893-bc85-d7722998b900",
+            "000574b4339074e6457f99d8b5b3301acbbbd7b7",
             "Tromp-Ullrich",
             "2022-07-07 01:16:52",
             0,
@@ -1173,9 +1179,10 @@
         ]
     },
     {
-        "query": "insert into `resellers` (`id`, `name`, `changed_at`, `statuses_count`, `contacts_count`, `locations_count`, `kpi_id`, `assets_count`, `customers_count`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `resellers` (`id`, `hash`, `name`, `changed_at`, `statuses_count`, `contacts_count`, `locations_count`, `kpi_id`, `assets_count`, `customers_count`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "a77f6f96-9c33-4e08-9838-ea291d572138",
+            "1ed847c22d808e622c87e9b3d66d3bf17a22fa81",
             "Runolfsdottir-Roob",
             "2022-07-07 01:12:08",
             0,
@@ -1347,9 +1354,10 @@
         ]
     },
     {
-        "query": "insert into `resellers` (`id`, `name`, `changed_at`, `statuses_count`, `contacts_count`, `locations_count`, `kpi_id`, `assets_count`, `customers_count`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `resellers` (`id`, `hash`, `name`, `changed_at`, `statuses_count`, `contacts_count`, `locations_count`, `kpi_id`, `assets_count`, `customers_count`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "3c01bf74-b2b8-437d-8492-75a061282101",
+            "f569d0d749af5abf765bb32547ea5ffd05472ac9",
             "Dickens, Considine and Reichert",
             "2022-07-07 00:51:55",
             0,
@@ -1497,9 +1505,10 @@
         ]
     },
     {
-        "query": "insert into `resellers` (`id`, `name`, `changed_at`, `statuses_count`, `contacts_count`, `locations_count`, `kpi_id`, `assets_count`, `customers_count`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `resellers` (`id`, `hash`, `name`, `changed_at`, `statuses_count`, `contacts_count`, `locations_count`, `kpi_id`, `assets_count`, `customers_count`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "2d1c8169-8f80-41bd-8d37-e10936d25546",
+            "c829c8428333eff3851606f8c6a66af67dc4a7f4",
             "Orn-Gibson",
             "2022-07-07 00:49:20",
             0,
@@ -1671,9 +1680,10 @@
         ]
     },
     {
-        "query": "insert into `resellers` (`id`, `name`, `changed_at`, `statuses_count`, `contacts_count`, `locations_count`, `kpi_id`, `assets_count`, `customers_count`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `resellers` (`id`, `hash`, `name`, `changed_at`, `statuses_count`, `contacts_count`, `locations_count`, `kpi_id`, `assets_count`, `customers_count`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "c017d376-0055-42a9-80d8-ac90cef3f0c5",
+            "0fba4ef287fec33bac22a118e69926e27db2e0ff",
             "Rice LLC",
             "2022-07-07 01:15:02",
             0,

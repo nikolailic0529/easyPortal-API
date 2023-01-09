@@ -1,6 +1,6 @@
 [
     "select `kpis`.* from `kpis` where `kpis`.`id` = ? and `kpis`.`deleted_at` is null limit 1",
-    "update `customers` set `name` = ?, `changed_at` = ?, `statuses_count` = ?, `contacts_count` = ?, `locations_count` = ?, `kpi_id` = ?, `customers`.`updated_at` = ? where `id` = ?",
+    "update `customers` set `hash` = ?, `name` = ?, `changed_at` = ?, `statuses_count` = ?, `contacts_count` = ?, `locations_count` = ?, `kpi_id` = ?, `customers`.`updated_at` = ? where `id` = ?",
     "update `customer_statuses` set `deleted_at` = ?, `customer_statuses`.`updated_at` = ? where `id` = ?",
     "update `contacts` set `deleted_at` = ?, `contacts`.`updated_at` = ? where `id` = ?",
     "update `contacts` set `deleted_at` = ?, `contacts`.`updated_at` = ? where `id` = ?",

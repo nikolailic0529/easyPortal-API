@@ -195,9 +195,17 @@ class AssetFactory extends ModelFactory {
         // Get/Create
         $created = false;
         $factory = function (Asset $model) use (&$created, $asset): Asset {
+            // Unchanged?
+            $created = !$model->exists;
+            $hash    = $asset->getHash();
+
+            if ($hash === $model->hash) {
+                return $model;
+            }
+
             // Asset
-            $created                          = !$model->exists;
             $model->id                        = $asset->id;
+            $model->hash                      = $hash;
             $model->oem                       = $this->assetOem($asset);
             $model->type                      = $this->assetType($asset);
             $model->status                    = $this->assetStatus($asset);
@@ -327,8 +335,16 @@ class AssetFactory extends ModelFactory {
             return null;
         }
 
+        // Unchanged?
+        $hash = $entry->getHash();
+
+        if ($warranty && $hash === $warranty->hash) {
+            return $warranty;
+        }
+
         // Create
         $warranty                ??= new AssetWarranty();
+        $warranty->hash            = $hash;
         $warranty->key             = $this->getWarrantyKey($entry);
         $warranty->start           = $entry->coverageStartDate;
         $warranty->end             = $entry->coverageEndDate;
@@ -430,8 +446,16 @@ class AssetFactory extends ModelFactory {
                         return null;
                     }
 
+                    // Unchanged?
+                    $hash = $assetDocument->getHash();
+
+                    if ($warranty && $hash === $warranty->hash) {
+                        return $warranty;
+                    }
+
                     // Create/Update
                     $warranty                ??= new AssetWarranty();
+                    $warranty->hash            = $hash;
                     $warranty->key             = $key;
                     $warranty->start           = $start;
                     $warranty->end             = $end;

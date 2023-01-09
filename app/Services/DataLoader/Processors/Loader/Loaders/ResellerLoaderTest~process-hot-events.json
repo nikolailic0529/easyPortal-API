@@ -8,21 +8,6 @@
             },
             "App\\Models\\Customer": [],
             "App\\Models\\Document": [],
-            "App\\Models\\Data\\Location": {
-                "c606c291-dd2d-522d-81dd-c3679d0386f0": "c606c291-dd2d-522d-81dd-c3679d0386f0"
-            },
-            "App\\Models\\Asset": []
-        }
-    },
-    {
-        "event": "App\\Services\\DataLoader\\Events\\DataImported",
-        "data": {
-            "App\\Models\\Distributor": [],
-            "App\\Models\\Reseller": {
-                "c0d99925-8b3b-47d8-9db2-9d3a5f5520a2": "c0d99925-8b3b-47d8-9db2-9d3a5f5520a2"
-            },
-            "App\\Models\\Customer": [],
-            "App\\Models\\Document": [],
             "App\\Models\\Data\\Location": [],
             "App\\Models\\Asset": []
         }

@@ -68,28 +68,6 @@
         ]
     },
     {
-        "query": "select `statuses`.* from `statuses` where `statuses`.`deleted_at` is null",
-        "bindings": []
-    },
-    {
-        "query": "select `statuses`.*, `customer_statuses`.`customer_id` as `pivot_customer_id`, `customer_statuses`.`status_id` as `pivot_status_id`, `customer_statuses`.`created_at` as `pivot_created_at`, `customer_statuses`.`updated_at` as `pivot_updated_at` from `statuses` inner join `customer_statuses` on `statuses`.`id` = `customer_statuses`.`status_id` where `customer_statuses`.`customer_id` = ? and `customer_statuses`.`deleted_at` is null and `statuses`.`deleted_at` is null",
-        "bindings": [
-            "004d6d19-4a7d-4216-8bd5-55dbfb038e09"
-        ]
-    },
-    {
-        "query": "select `types`.* from `types` where `types`.`deleted_at` is null",
-        "bindings": []
-    },
-    {
-        "query": "select `countries`.* from `countries` where `countries`.`deleted_at` is null",
-        "bindings": []
-    },
-    {
-        "query": "select `cities`.* from `cities` where `cities`.`deleted_at` is null",
-        "bindings": []
-    },
-    {
         "query": "update `customers` set `synced_at` = ? where `id` in (?) and `customers`.`deleted_at` is null",
         "bindings": [
             "2022-02-02T00:00:03+00:00",
@@ -138,6 +116,14 @@
             "2022-02-02 00:00:13",
             "2022-02-02 00:00:13"
         ]
+    },
+    {
+        "query": "select `types`.* from `types` where `types`.`deleted_at` is null",
+        "bindings": []
+    },
+    {
+        "query": "select `statuses`.* from `statuses` where `statuses`.`deleted_at` is null",
+        "bindings": []
     },
     {
         "query": "select `statuses`.* from `statuses` where (`key` = ? and `object_type` = ?) and `statuses`.`deleted_at` is null limit 1",
@@ -254,9 +240,10 @@
         ]
     },
     {
-        "query": "insert into `documents` (`id`, `oem_id`, `oem_group_id`, `oem_said`, `oem_amp_id`, `oem_sar_number`, `type_id`, `statuses_count`, `reseller_id`, `customer_id`, `currency_id`, `language_id`, `distributor_id`, `start`, `end`, `price_origin`, `price`, `number`, `changed_at`, `contacts_count`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `documents` (`id`, `hash`, `oem_id`, `oem_group_id`, `oem_said`, `oem_amp_id`, `oem_sar_number`, `type_id`, `statuses_count`, `reseller_id`, `customer_id`, `currency_id`, `language_id`, `distributor_id`, `start`, `end`, `price_origin`, `price`, `number`, `changed_at`, `contacts_count`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "76148cc9-ada8-4219-b2c9-ba75ce8423fe",
+            "e28117d5e92068bdf2851d37c76759f4a5a8efca",
             "2262e255-99d6-599a-8e2f-87c5bd861f28",
             "5a87dcde-3a7c-55d8-afc0-1e2942c232fd",
             null,
@@ -423,7 +410,7 @@
         ]
     },
     {
-        "query": "insert into `document_entries` (`asset_id`, `asset_type_id`, `created_at`, `currency_id`, `deleted_at`, `document_id`, `end`, `environment_id`, `equipment_number`, `id`, `key`, `language_id`, `list_price`, `list_price_origin`, `monthly_list_price`, `monthly_list_price_origin`, `monthly_retail_price`, `monthly_retail_price_origin`, `oem_said`, `oem_sar_number`, `product_group_id`, `product_id`, `product_line_id`, `psp_id`, `removed_at`, `renewal`, `renewal_origin`, `serial_number`, `service_group_id`, `service_level_id`, `start`, `updated_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `document_entries` (`asset_id`, `asset_type_id`, `created_at`, `currency_id`, `deleted_at`, `document_id`, `end`, `environment_id`, `equipment_number`, `hash`, `id`, `key`, `language_id`, `list_price`, `list_price_origin`, `monthly_list_price`, `monthly_list_price_origin`, `monthly_retail_price`, `monthly_retail_price_origin`, `oem_said`, `oem_sar_number`, `product_group_id`, `product_id`, `product_line_id`, `psp_id`, `removed_at`, `renewal`, `renewal_origin`, `serial_number`, `service_group_id`, `service_level_id`, `start`, `updated_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "c1197a7f-7d6d-4e61-8c2e-f9ea27497921",
             null,
@@ -434,6 +421,7 @@
             null,
             null,
             null,
+            "871ffa05654a27df4e546de48c610523bec03587",
             "cf884135-a1af-5152-8863-1cf2960cdb6b",
             "649b76de-6994-462c-a7a2-4d358afcfe82-737432",
             null,
@@ -466,6 +454,7 @@
             null,
             null,
             null,
+            "79695eaf2c38bb2d38736b411a1ec5ce79209c18",
             "c831d200-35e0-5bc7-870f-77b89621ad36",
             "649b76de-6994-462c-a7a2-4d358afcfe82-737433",
             null,
@@ -510,9 +499,10 @@
         ]
     },
     {
-        "query": "insert into `documents` (`id`, `oem_id`, `oem_group_id`, `oem_said`, `oem_amp_id`, `oem_sar_number`, `type_id`, `statuses_count`, `reseller_id`, `customer_id`, `currency_id`, `language_id`, `distributor_id`, `start`, `end`, `price_origin`, `price`, `number`, `changed_at`, `contacts_count`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `documents` (`id`, `hash`, `oem_id`, `oem_group_id`, `oem_said`, `oem_amp_id`, `oem_sar_number`, `type_id`, `statuses_count`, `reseller_id`, `customer_id`, `currency_id`, `language_id`, `distributor_id`, `start`, `end`, `price_origin`, `price`, `number`, `changed_at`, `contacts_count`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "7d8fb7d1-092f-43e3-9437-09706ef9cbf6",
+            "bbf24bd378de24db8a2cc06871065023aeeec5c2",
             "2262e255-99d6-599a-8e2f-87c5bd861f28",
             "5a87dcde-3a7c-55d8-afc0-1e2942c232fd",
             "ef9b3ff5-9d8e-3400-a6f5-703dc1d25a02",
@@ -650,7 +640,7 @@
         ]
     },
     {
-        "query": "insert into `document_entries` (`asset_id`, `asset_type_id`, `created_at`, `currency_id`, `deleted_at`, `document_id`, `end`, `environment_id`, `equipment_number`, `id`, `key`, `language_id`, `list_price`, `list_price_origin`, `monthly_list_price`, `monthly_list_price_origin`, `monthly_retail_price`, `monthly_retail_price_origin`, `oem_said`, `oem_sar_number`, `product_group_id`, `product_id`, `product_line_id`, `psp_id`, `removed_at`, `renewal`, `renewal_origin`, `serial_number`, `service_group_id`, `service_level_id`, `start`, `updated_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `document_entries` (`asset_id`, `asset_type_id`, `created_at`, `currency_id`, `deleted_at`, `document_id`, `end`, `environment_id`, `equipment_number`, `hash`, `id`, `key`, `language_id`, `list_price`, `list_price_origin`, `monthly_list_price`, `monthly_list_price_origin`, `monthly_retail_price`, `monthly_retail_price_origin`, `oem_said`, `oem_sar_number`, `product_group_id`, `product_id`, `product_line_id`, `psp_id`, `removed_at`, `renewal`, `renewal_origin`, `serial_number`, `service_group_id`, `service_level_id`, `start`, `updated_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "c1197a7f-7d6d-4e61-8c2e-f9ea27497921",
             null,
@@ -661,6 +651,7 @@
             null,
             null,
             null,
+            "296042fd9fa2601f7f1b9cb95c5e0aad43d4ab6c",
             "64a92e66-0607-553d-a85a-05ee44f84c84",
             "e0eb37d9-fcba-4aa9-b3de-f2e1cb26842a-1218056",
             null,
@@ -693,6 +684,7 @@
             null,
             null,
             null,
+            "3986adfa7def8de7ee13af9147013e9d40bd2f6f",
             "a89d2e86-a3a8-50ab-87b0-cefd2413b6e8",
             "e0eb37d9-fcba-4aa9-b3de-f2e1cb26842a-1218055",
             null,
@@ -773,9 +765,10 @@
         ]
     },
     {
-        "query": "insert into `documents` (`id`, `oem_id`, `oem_group_id`, `oem_said`, `oem_amp_id`, `oem_sar_number`, `type_id`, `statuses_count`, `reseller_id`, `customer_id`, `currency_id`, `language_id`, `distributor_id`, `start`, `end`, `price_origin`, `price`, `number`, `changed_at`, `contacts_count`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `documents` (`id`, `hash`, `oem_id`, `oem_group_id`, `oem_said`, `oem_amp_id`, `oem_sar_number`, `type_id`, `statuses_count`, `reseller_id`, `customer_id`, `currency_id`, `language_id`, `distributor_id`, `start`, `end`, `price_origin`, `price`, `number`, `changed_at`, `contacts_count`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "f3a8ba95-ce52-49bb-ba31-3402337e421d",
+            "ffa3ad550ca0d5a403d0d728562a67280f264b93",
             "2262e255-99d6-599a-8e2f-87c5bd861f28",
             null,
             null,
@@ -879,7 +872,7 @@
         ]
     },
     {
-        "query": "insert into `document_entries` (`asset_id`, `asset_type_id`, `created_at`, `currency_id`, `deleted_at`, `document_id`, `end`, `environment_id`, `equipment_number`, `id`, `key`, `language_id`, `list_price`, `list_price_origin`, `monthly_list_price`, `monthly_list_price_origin`, `monthly_retail_price`, `monthly_retail_price_origin`, `oem_said`, `oem_sar_number`, `product_group_id`, `product_id`, `product_line_id`, `psp_id`, `removed_at`, `renewal`, `renewal_origin`, `serial_number`, `service_group_id`, `service_level_id`, `start`, `updated_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `document_entries` (`asset_id`, `asset_type_id`, `created_at`, `currency_id`, `deleted_at`, `document_id`, `end`, `environment_id`, `equipment_number`, `hash`, `id`, `key`, `language_id`, `list_price`, `list_price_origin`, `monthly_list_price`, `monthly_list_price_origin`, `monthly_retail_price`, `monthly_retail_price_origin`, `oem_said`, `oem_sar_number`, `product_group_id`, `product_id`, `product_line_id`, `psp_id`, `removed_at`, `renewal`, `renewal_origin`, `serial_number`, `service_group_id`, `service_level_id`, `start`, `updated_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "c1197a7f-7d6d-4e61-8c2e-f9ea27497921",
             null,
@@ -890,6 +883,7 @@
             null,
             null,
             null,
+            "b5a338a005c9ef12d5f6451abd7a06c230ab6f47",
             "ca03181a-94bf-5377-b99a-ab8c3edc7d9d",
             "7542998e-7157-4fcf-939f-5e7dea3c513a-270459",
             null,
@@ -922,6 +916,7 @@
             null,
             null,
             null,
+            "5dfa48c61672a194cee79ce6b594c0b1d0326eca",
             "3f6a38a6-23ab-59af-8dd5-f64f7a2b5b9a",
             "7542998e-7157-4fcf-939f-5e7dea3c513a-270458",
             null,
@@ -1102,7 +1097,7 @@
         ]
     },
     {
-        "query": "update `documents` set `oem_said` = ?, `oem_group_id` = ?, `customer_id` = ?, `reseller_id` = ?, `distributor_id` = ?, `number` = ?, `start` = ?, `end` = ?, `price` = ?, `price_origin` = ?, `currency_id` = ?, `oem_amp_id` = ?, `contacts_count` = ?, `statuses_count` = ?, `changed_at` = ?, `documents`.`updated_at` = ? where `id` = ?",
+        "query": "update `documents` set `oem_said` = ?, `oem_group_id` = ?, `customer_id` = ?, `reseller_id` = ?, `distributor_id` = ?, `number` = ?, `start` = ?, `end` = ?, `price` = ?, `price_origin` = ?, `currency_id` = ?, `oem_amp_id` = ?, `contacts_count` = ?, `statuses_count` = ?, `hash` = ?, `changed_at` = ?, `documents`.`updated_at` = ? where `id` = ?",
         "bindings": [
             "8897c643-d152-3de9-af86-7f0bb35f8e8f",
             "22b86c36-0bf0-5e52-8bbf-8fcdf0e111aa",
@@ -1118,6 +1113,7 @@
             "83-B015802-WW",
             2,
             1,
+            "3b45358e0e9d1d5084205a3b229ca5672c11befb",
             "2022-10-03 12:27:50",
             "2022-02-02 00:01:35",
             "070157ef-c7c4-4a57-8e67-94c30dfe068e"
@@ -1181,7 +1177,7 @@
         ]
     },
     {
-        "query": "insert into `document_entries` (`asset_id`, `asset_type_id`, `created_at`, `currency_id`, `deleted_at`, `document_id`, `end`, `environment_id`, `equipment_number`, `id`, `key`, `language_id`, `list_price`, `list_price_origin`, `monthly_list_price`, `monthly_list_price_origin`, `monthly_retail_price`, `monthly_retail_price_origin`, `oem_said`, `oem_sar_number`, `product_group_id`, `product_id`, `product_line_id`, `psp_id`, `removed_at`, `renewal`, `renewal_origin`, `serial_number`, `service_group_id`, `service_level_id`, `start`, `updated_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `document_entries` (`asset_id`, `asset_type_id`, `created_at`, `currency_id`, `deleted_at`, `document_id`, `end`, `environment_id`, `equipment_number`, `hash`, `id`, `key`, `language_id`, `list_price`, `list_price_origin`, `monthly_list_price`, `monthly_list_price_origin`, `monthly_retail_price`, `monthly_retail_price_origin`, `oem_said`, `oem_sar_number`, `product_group_id`, `product_id`, `product_line_id`, `psp_id`, `removed_at`, `renewal`, `renewal_origin`, `serial_number`, `service_group_id`, `service_level_id`, `start`, `updated_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "c88f00d2-f207-4fc5-9b8a-a0762edfb7eb",
             null,
@@ -1192,6 +1188,7 @@
             null,
             null,
             null,
+            "a6ef0960350c056b063c23dea106e11dca1cd5d9",
             "7a17faca-0331-511d-b769-b37b57bb4b2b",
             "7024031e-7fa0-40c1-87d4-ff2aa0a4ce5a-1069628",
             null,
@@ -1224,6 +1221,7 @@
             null,
             null,
             null,
+            "4d638a3abab39d5c2a09a49ed1beaf8265c76e8a",
             "7e6d3290-97ea-52a5-a367-266933299575",
             "7024031e-7fa0-40c1-87d4-ff2aa0a4ce5a-1069634",
             null,
@@ -1256,6 +1254,7 @@
             null,
             null,
             null,
+            "3d2422e3204d63d74bdfbf7499949aed3cffd291",
             "e3100002-c535-5697-a7ea-d3bd7b5b1ac7",
             "7024031e-7fa0-40c1-87d4-ff2aa0a4ce5a-1069632",
             null,
@@ -1288,6 +1287,7 @@
             null,
             null,
             null,
+            "8bc3e35f0893b48ccf4cebe1ea9698392c53b575",
             "833b45b9-49a1-5d77-b8a3-ecb3e78a52eb",
             "7024031e-7fa0-40c1-87d4-ff2aa0a4ce5a-1069636",
             null,
@@ -1320,6 +1320,7 @@
             null,
             null,
             null,
+            "e7263987f71c8822b3a42edf7238d8962b95e56f",
             "f53e45ea-9540-5751-93e5-31da4f4c848e",
             "7024031e-7fa0-40c1-87d4-ff2aa0a4ce5a-1069630",
             null,

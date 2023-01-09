@@ -73,8 +73,17 @@ class ResellerFactory extends CompanyFactory {
         // Get/Create
         $created  = false;
         $factory  = function (Reseller $reseller) use (&$created, $company): Reseller {
-            $created              = !$reseller->exists;
+            // Unchanged?
+            $created = !$reseller->exists;
+            $hash    = $company->getHash();
+
+            if ($hash === $reseller->hash) {
+                return $reseller;
+            }
+
+            // Update
             $reseller->id         = $company->id;
+            $reseller->hash       = $hash;
             $reseller->name       = $company->name;
             $reseller->changed_at = $company->updatedAt;
             $reseller->statuses   = $this->companyStatuses($reseller, $company);

@@ -35,6 +35,7 @@ class CustomerFactory extends Factory {
             'locations_count' => 0,
             'contacts_count'  => 0,
             'statuses_count'  => 0,
+            'hash'            => null,
             'changed_at'      => null,
             'synced_at'       => null,
             'created_at'      => Date::now(),
