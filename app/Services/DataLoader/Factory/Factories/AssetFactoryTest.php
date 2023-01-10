@@ -1190,31 +1190,52 @@ class AssetFactoryTest extends TestCase {
      * @covers ::assetLocation
      */
     public function testAssetLocation(): void {
-        $customer  = Customer::factory()->make();
-        $asset     = new ViewAsset([
+        $customer = Customer::factory()->make();
+        $location = Location::factory()->create();
+        $asset    = new ViewAsset([
             'id'         => $this->faker->uuid(),
             'customerId' => $customer->getKey(),
         ]);
-        $location  = Location::factory()->create();
-        $locations = Mockery::mock(LocationFactory::class);
-        $locations
-            ->shouldReceive('create')
-            ->with($asset, false)
+        $factory  = Mockery::mock(AssetFactory::class);
+        $factory->shouldAllowMockingProtectedMethods();
+        $factory->makePartial();
+        $factory
+            ->shouldReceive('isLocationEmpty')
+            ->once()
+            ->andReturn(false);
+        $factory
+            ->shouldReceive('location')
+            ->with(
+                Mockery::any(),
+                false,
+            )
             ->once()
             ->andReturn($location);
 
-        $factory = new class($locations) extends AssetFactory {
-            /** @noinspection PhpMissingParentConstructorInspection */
-            public function __construct(LocationFactory $locations) {
-                $this->locationFactory = $locations;
-            }
-
-            public function assetLocation(ViewAsset $asset): ?Location {
-                return parent::assetLocation($asset);
-            }
-        };
-
         self::assertEquals($location, $factory->assetLocation($asset));
+    }
+
+    /**
+     * @covers ::assetLocation
+     */
+    public function testAssetLocationEmpty(): void {
+        $customer = Customer::factory()->make();
+        $asset    = new ViewAsset([
+            'id'         => $this->faker->uuid(),
+            'customerId' => $customer->getKey(),
+        ]);
+        $factory  = Mockery::mock(AssetFactory::class);
+        $factory->shouldAllowMockingProtectedMethods();
+        $factory->makePartial();
+        $factory
+            ->shouldReceive('isLocationEmpty')
+            ->once()
+            ->andReturn(true);
+        $factory
+            ->shouldReceive('location')
+            ->never();
+
+        self::assertNull($factory->assetLocation($asset));
     }
 
     /**

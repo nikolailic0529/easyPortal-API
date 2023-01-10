@@ -5,7 +5,7 @@ namespace App\Services\DataLoader\Factory\Factories;
 use App\Models\Asset;
 use App\Models\AssetWarranty;
 use App\Models\Data\Coverage;
-use App\Models\Data\Location;
+use App\Models\Data\Location as LocationModel;
 use App\Models\Data\Oem;
 use App\Models\Data\Product;
 use App\Models\Data\Status;
@@ -22,6 +22,7 @@ use App\Services\DataLoader\Factory\Concerns\WithAssetDocument;
 use App\Services\DataLoader\Factory\Concerns\WithContacts;
 use App\Services\DataLoader\Factory\Concerns\WithCoverage;
 use App\Services\DataLoader\Factory\Concerns\WithCustomer;
+use App\Services\DataLoader\Factory\Concerns\WithLocations;
 use App\Services\DataLoader\Factory\Concerns\WithOem;
 use App\Services\DataLoader\Factory\Concerns\WithProduct;
 use App\Services\DataLoader\Factory\Concerns\WithReseller;
@@ -34,10 +35,13 @@ use App\Services\DataLoader\Factory\ModelFactory;
 use App\Services\DataLoader\Finders\CustomerFinder;
 use App\Services\DataLoader\Finders\ResellerFinder;
 use App\Services\DataLoader\Resolver\Resolvers\AssetResolver;
+use App\Services\DataLoader\Resolver\Resolvers\CityResolver;
 use App\Services\DataLoader\Resolver\Resolvers\ContactResolver;
+use App\Services\DataLoader\Resolver\Resolvers\CountryResolver;
 use App\Services\DataLoader\Resolver\Resolvers\CoverageResolver;
 use App\Services\DataLoader\Resolver\Resolvers\CustomerResolver;
 use App\Services\DataLoader\Resolver\Resolvers\DocumentResolver;
+use App\Services\DataLoader\Resolver\Resolvers\LocationResolver;
 use App\Services\DataLoader\Resolver\Resolvers\OemResolver;
 use App\Services\DataLoader\Resolver\Resolvers\ProductResolver;
 use App\Services\DataLoader\Resolver\Resolvers\ResellerResolver;
@@ -48,6 +52,7 @@ use App\Services\DataLoader\Resolver\Resolvers\TagResolver;
 use App\Services\DataLoader\Resolver\Resolvers\TypeResolver;
 use App\Services\DataLoader\Schema\Type;
 use App\Services\DataLoader\Schema\Types\CoverageEntry;
+use App\Services\DataLoader\Schema\Types\Location;
 use App\Services\DataLoader\Schema\Types\ViewAsset;
 use App\Services\DataLoader\Schema\Types\ViewAssetDocument;
 use Illuminate\Contracts\Debug\ExceptionHandler;
@@ -56,6 +61,7 @@ use InvalidArgumentException;
 use Throwable;
 
 use function array_filter;
+use function implode;
 use function max;
 use function sprintf;
 use function usort;
@@ -72,6 +78,7 @@ class AssetFactory extends ModelFactory {
     use WithProduct;
     use WithStatus;
     use WithContacts;
+    use WithLocations;
     use WithTag;
     use WithCoverage;
     use WithServiceGroup;
@@ -88,13 +95,15 @@ class AssetFactory extends ModelFactory {
         protected ResellerResolver $resellerResolver,
         protected DocumentResolver $documentResolver,
         protected DocumentFactory $documentFactory,
-        protected LocationFactory $locationFactory,
         protected ContactResolver $contactResolver,
         protected StatusResolver $statusResolver,
         protected CoverageResolver $coverageResolver,
         protected TagResolver $tagResolver,
         protected ServiceGroupResolver $serviceGroupResolver,
         protected ServiceLevelResolver $serviceLevelResolver,
+        protected LocationResolver $locationResolver,
+        protected CountryResolver $countryResolver,
+        protected CityResolver $cityResolver,
         protected ?ResellerFinder $resellerFinder = null,
         protected ?CustomerFinder $customerFinder = null,
     ) {
@@ -161,6 +170,18 @@ class AssetFactory extends ModelFactory {
 
     protected function getServiceLevelResolver(): ServiceLevelResolver {
         return $this->serviceLevelResolver;
+    }
+
+    protected function getLocationResolver(): LocationResolver {
+        return $this->locationResolver;
+    }
+
+    protected function getCountryResolver(): CountryResolver {
+        return $this->countryResolver;
+    }
+
+    protected function getCityResolver(): CityResolver {
+        return $this->cityResolver;
     }
     // </editor-fold>
 
@@ -529,20 +550,33 @@ class AssetFactory extends ModelFactory {
         return $product;
     }
 
-    protected function assetLocation(ViewAsset $asset): ?Location {
-        // fixme(DataLoader): Coordinates are not the same across all
-        //      locations :( So to avoid race conditions, we are disallow
-        //      to update them from here.
-        $location = $this->locationFactory->create($asset, false);
+    protected function assetLocation(ViewAsset $asset): ?LocationModel {
+        $model    = null;
+        $location = new Location([
+            'zip'         => $asset->zip ?? null,
+            'city'        => $asset->city ?? null,
+            'address'     => implode(' ', array_filter([$asset->address ?? null, $asset->address2 ?? null])),
+            'country'     => $asset->country ?? null,
+            'countryCode' => $asset->countryCode ?? null,
+            'latitude'    => $asset->latitude ?? null,
+            'longitude'   => $asset->longitude ?? null,
+        ]);
 
-        if (!$location) {
-            $this->getExceptionHandler()->report(
-                new AssetLocationNotFound($asset->id, $asset),
-            );
+        if (!$this->isLocationEmpty($location)) {
+            // fixme(DataLoader): Coordinates are not the same across all
+            //      locations :( So to avoid race conditions, we are disallow
+            //      to update them from here.
+            $model = $this->location($location, false);
+
+            if (!$model) {
+                $this->getExceptionHandler()->report(
+                    new AssetLocationNotFound($asset->id, $asset),
+                );
+            }
         }
 
         // Return
-        return $location;
+        return $model;
     }
 
     protected function assetStatus(ViewAsset $asset): Status {

@@ -2,27 +2,22 @@
 
 namespace App\Services\DataLoader\Factory\Concerns;
 
-use App\Exceptions\ErrorReport;
-use App\Models\Customer;
-use App\Models\CustomerLocation;
-use App\Models\Reseller;
-use App\Models\ResellerLocation;
-use App\Services\DataLoader\Exceptions\FailedToProcessLocation;
-use App\Services\DataLoader\Factory\Factories\LocationFactory;
+use App\Models\Data\City;
+use App\Models\Data\Country;
+use App\Models\Data\Location as LocationModel;
 use App\Services\DataLoader\Factory\ModelFactory;
-use App\Services\DataLoader\Resolver\Resolvers\TypeResolver;
+use App\Services\DataLoader\Resolver\Resolvers\CityResolver;
+use App\Services\DataLoader\Resolver\Resolvers\CountryResolver;
+use App\Services\DataLoader\Resolver\Resolvers\LocationResolver;
 use App\Services\DataLoader\Schema\Type;
 use App\Services\DataLoader\Schema\Types\Location;
+use App\Services\DataLoader\Testing\Helper;
 use App\Utils\Eloquent\Model;
 use Closure;
 use Exception;
-use Illuminate\Contracts\Debug\ExceptionHandler;
-use Illuminate\Support\Facades\Event;
-use Mockery;
 use Tests\TestCase;
 use Tests\WithoutGlobalScopes;
-
-use function tap;
+use Tests\WithQueryLogs;
 
 /**
  * @internal
@@ -30,132 +25,53 @@ use function tap;
  */
 class WithLocationsTest extends TestCase {
     use WithoutGlobalScopes;
+    use WithQueryLogs;
+    use Helper;
 
     // <editor-fold desc="Tests">
     // =========================================================================
     /**
-     * @covers ::companyLocations
-     *
-     * @dataProvider dataProviderCompanyLocations
-     *
-     * @param Closure(static): (Reseller|Customer) $companyFactory
-     */
-    public function testCompanyLocations(Closure $companyFactory): void {
-        // Prepare
-        $company = $companyFactory($this);
-        $factory = new class(
-            $this->app->make(ExceptionHandler::class),
-            $this->app->make(TypeResolver::class),
-            $this->app->make(LocationFactory::class),
-        ) extends ModelFactory {
-            /**
-             * @use WithLocations<Reseller|Customer,ResellerLocation|CustomerLocation>
-             */
-            use WithLocations {
-                companyLocations as public;
-            }
-
-            /** @noinspection PhpMissingParentConstructorInspection */
-            public function __construct(
-                protected ExceptionHandler $exceptionHandler,
-                protected TypeResolver $typeResolver,
-                protected LocationFactory $locationFactory,
-            ) {
-                // empty
-            }
-
-            public function getModel(): string {
-                return Model::class;
-            }
-
-            public function create(Type $type): ?Model {
-                return null;
-            }
-
-            protected function getLocationFactory(): LocationFactory {
-                return $this->locationFactory;
-            }
-
-            protected function getTypeResolver(): TypeResolver {
-                return $this->typeResolver;
-            }
-        };
-
-        // Empty call should return empty array
-        self::assertTrue($factory->companyLocations($company, [])->isEmpty());
-
-        // Repeated objects should be missed
-        $ca = tap(new Location(), function (Location $location): void {
-            $location->country      = $this->faker->country();
-            $location->countryCode  = $this->faker->countryCode();
-            $location->latitude     = null;
-            $location->longitude    = null;
-            $location->zip          = $this->faker->postcode();
-            $location->city         = $this->faker->city();
-            $location->address      = $this->faker->streetAddress();
-            $location->locationType = (string) $this->faker->randomNumber();
-        });
-
-        self::assertCount(1, $factory->companyLocations($company, [$ca, $ca]));
-
-        // Objects should be grouped by type
-        $cb     = tap(new Location(), function (Location $location) use ($ca): void {
-            $location->country      = $ca->country;
-            $location->countryCode  = $ca->countryCode;
-            $location->latitude     = $ca->latitude;
-            $location->longitude    = $ca->longitude;
-            $location->zip          = $ca->zip;
-            $location->city         = $ca->city;
-            $location->address      = $ca->address;
-            $location->locationType = $this->faker->word();
-        });
-        $actual = $factory->companyLocations($company, [$ca, $cb]);
-        $first  = $actual->first();
-
-        self::assertNotNull($first);
-        self::assertCount(1, $actual);
-        self::assertCount(2, $first->types);
-        self::assertEquals($cb->zip, $first->location->postcode);
-        self::assertEquals($cb->city, $first->location->city->name);
-        self::assertEquals($cb->address, $first->location->line_one);
-
-        // locationType can be null
-        $cc     = tap(clone $ca, static function (Location $location): void {
-            $location->locationType = null;
-        });
-        $actual = $factory->companyLocations($company, [$cc]);
-        $first  = $actual->first();
-
-        self::assertNotNull($first);
-        self::assertCount(1, $actual);
-        self::assertCount(0, $first->types);
-    }
-
-    /**
      * @covers ::location
      */
     public function testLocation(): void {
-        $location = new Location();
-        $factory  = Mockery::mock(LocationFactory::class);
-        $factory
-            ->shouldReceive('create')
-            ->with($location)
-            ->once()
-            ->andReturns();
-
-        $factory = new class($factory) extends ModelFactory {
-            /**
-             * @use WithLocations<Reseller|Customer,ResellerLocation|CustomerLocation>
-             */
+        // Prepare
+        $country = Country::factory()->create();
+        $city    = City::factory()->create([
+            'country_id' => $country,
+        ]);
+        $model   = LocationModel::factory()->create([
+            'country_id' => $country,
+            'city_id'    => $city,
+            'line_two'   => '',
+        ]);
+        $factory = new class(
+            $this->app->make(LocationResolver::class),
+            $this->app->make(CountryResolver::class),
+            $this->app->make(CityResolver::class),
+        ) extends ModelFactory {
             use WithLocations {
                 location as public;
             }
 
             /** @noinspection PhpMissingParentConstructorInspection */
             public function __construct(
-                protected LocationFactory $locations,
+                protected LocationResolver $locationResolver,
+                protected CountryResolver $countryResolver,
+                protected CityResolver $cityResolver,
             ) {
                 // empty
+            }
+
+            protected function getLocationResolver(): LocationResolver {
+                return $this->locationResolver;
+            }
+
+            protected function getCountryResolver(): CountryResolver {
+                return $this->countryResolver;
+            }
+
+            protected function getCityResolver(): CityResolver {
+                return $this->cityResolver;
             }
 
             public function getModel(): string {
@@ -165,53 +81,129 @@ class WithLocationsTest extends TestCase {
             public function create(Type $type): ?Model {
                 return null;
             }
-
-            protected function getLocationFactory(): LocationFactory {
-                return $this->locations;
-            }
-
-            protected function getTypeResolver(): TypeResolver {
-                throw new Exception('Should not be called.');
-            }
         };
 
-        $factory->location($location);
+        // If model exists - no action required
+        $model    = $model->loadMissing(['country', 'city']);
+        $queries  = $this->getQueryLog()->flush();
+        $location = new Location([
+            'zip'          => $model->postcode,
+            'address'      => "{$model->line_one} {$model->line_two}",
+            'city'         => "{$city->key}, {$model->state}",
+            'locationType' => null,
+            'latitude'     => $model->latitude,
+            'longitude'    => $model->longitude,
+            'country'      => $country->name,
+            'countryCode'  => $country->code,
+        ]);
+
+        self::assertEquals($model, $factory->location($location));
+        self::assertCount(3, $queries);
+
+        // If not - it should be created
+        $state     = $this->faker->state();
+        $postcode  = $this->faker->postcode();
+        $lineOne   = $this->faker->streetAddress();
+        $lineTwo   = $this->faker->secondaryAddress();
+        $latitude  = (string) $this->faker->latitude();
+        $longitude = (string) $this->faker->longitude();
+        $queries   = $this->getQueryLog()->flush();
+        $location  = new Location([
+            'zip'          => $postcode,
+            'address'      => "{$lineOne} {$lineTwo}",
+            'city'         => "{$city->key}, {$state}",
+            'locationType' => null,
+            'latitude'     => $latitude,
+            'longitude'    => $longitude,
+            'country'      => $country->name,
+            'countryCode'  => $country->code,
+        ]);
+        $created   = $factory->location($location);
+
+        self::assertNotNull($created);
+        self::assertEquals($country->getKey(), $created->country_id);
+        self::assertEquals($city->getKey(), $created->city_id);
+        self::assertEquals($postcode, $created->postcode);
+        self::assertEquals($state, $created->state);
+        self::assertEquals("{$lineOne} {$lineTwo}", $created->line_one);
+        self::assertEquals('', $created->line_two);
+        self::assertEquals($this->latitude($latitude), $created->latitude);
+        self::assertEquals($this->longitude($longitude), $created->longitude);
+        self::assertNotNull($created->geohash);
+        self::assertCount(2, $queries);
+
+        // If state empty it should be updated
+        $state          = "{$state} 2";
+        $location->city = "{$city->key}, {$state}";
+        $created->state = '';
+        $queries        = $this->getQueryLog()->flush();
+        $updated        = $factory->location($location, false);
+
+        self::assertSame($created, $updated);
+        self::assertEquals('', $updated->state);
+
+        $updated = $factory->location($location);
+
+        self::assertSame($created, $updated);
+        self::assertEquals($state, $updated->state);
+        self::assertCount(1, $queries);
+
+        // If empty the `null` should be returned
+        $queries = $this->getQueryLog()->flush();
+
+        self::assertNull($factory->location(new Location([
+            'zip'          => '', // empty
+            'address'      => "{$model->line_one} {$model->line_two}",
+            'city'         => "{$city->key}, {$model->state}",
+            'locationType' => null,
+            'latitude'     => $model->latitude,
+            'longitude'    => $model->longitude,
+            'country'      => $country->name,
+            'countryCode'  => $country->code,
+        ])));
+        self::assertNull($factory->location(new Location([
+            'zip'          => $model->postcode,
+            'address'      => "{$model->line_one} {$model->line_two}",
+            'city'         => '', // empty
+            'locationType' => null,
+            'latitude'     => $model->latitude,
+            'longitude'    => $model->longitude,
+            'country'      => $country->name,
+            'countryCode'  => $country->code,
+        ])));
+
+        self::assertCount(0, $queries);
     }
 
     /**
-     * @covers ::companyLocations
+     * @covers ::country
      */
-    public function testCompanyLocationsInvalidLocation(): void {
-        // Fake
-        Event::fake(ErrorReport::class);
-
+    public function testCountry(): void {
         // Prepare
-        $owner    = new Customer();
-        $location = new Location();
-        $factory  = Mockery::mock(LocationFactory::class);
-        $factory
-            ->shouldReceive('create')
-            ->with($location)
-            ->once()
-            ->andThrow(new Exception(__METHOD__));
-
-        $factory = new class(
-            $factory,
-            $this->app->make(ExceptionHandler::class),
-        ) extends ModelFactory {
-            /**
-             * @use WithLocations<Reseller|Customer,ResellerLocation|CustomerLocation>
-             */
+        $resolver = $this->app->make(CountryResolver::class);
+        $country  = Country::factory()->create();
+        $factory  = new class($resolver) extends ModelFactory {
             use WithLocations {
-                companyLocations as public;
+                country as public;
             }
 
             /** @noinspection PhpMissingParentConstructorInspection */
             public function __construct(
-                protected LocationFactory $locations,
-                protected ExceptionHandler $exceptionHandler,
+                protected CountryResolver $countryResolver,
             ) {
                 // empty
+            }
+
+            protected function getLocationResolver(): LocationResolver {
+                throw new Exception('should not be called');
+            }
+
+            protected function getCountryResolver(): CountryResolver {
+                return $this->countryResolver;
+            }
+
+            protected function getCityResolver(): CityResolver {
+                throw new Exception('should not be called');
             }
 
             public function getModel(): string {
@@ -221,39 +213,239 @@ class WithLocationsTest extends TestCase {
             public function create(Type $type): ?Model {
                 return null;
             }
+        };
 
-            protected function getLocationFactory(): LocationFactory {
-                return $this->locations;
+        // If model exists - no action required
+        $queries = $this->getQueryLog()->flush();
+
+        self::assertEquals($country, $factory->country($country->code, $country->name));
+        self::assertCount(1, $queries);
+
+        // If not - it should be created
+        $queries = $this->getQueryLog()->flush();
+        $created = $factory->country('??', 'Country Name');
+
+        self::assertTrue($created->wasRecentlyCreated);
+        self::assertEquals('??', $created->code);
+        self::assertEquals('Country Name', $created->name);
+        self::assertCount(2, $queries);
+
+        // No name -> code should be used
+        $created = $factory->country('AB', null);
+
+        self::assertEquals('AB', $created->code);
+        self::assertEquals('AB', $created->name);
+
+        // No name -> name should be updated
+        $queries = $this->getQueryLog()->flush();
+        $created = $factory->country('AB', 'Name');
+
+        self::assertEquals('AB', $created->code);
+        self::assertEquals('Name', $created->name);
+        self::assertCount(1, $queries);
+
+        // Unknown Country -> name should be updated
+        $queries = $this->getQueryLog()->flush();
+        $updated = $factory->country($factory->country('UN', 'Unknown Country')->code, 'Name');
+
+        self::assertEquals('Name', $updated->name);
+        self::assertCount(3, $queries);
+
+        // Name -> should not be updated
+        $queries = $this->getQueryLog()->flush();
+        $updated = $factory->country($factory->country('XX', 'Name')->code, 'New Name');
+
+        self::assertEquals('Name', $updated->name);
+        self::assertCount(2, $queries);
+    }
+
+    /**
+     * @covers ::city
+     */
+    public function testCity(): void {
+        // Prepare
+        $country  = Country::factory()->create();
+        $city     = City::factory()->create([
+            'country_id' => $country,
+        ]);
+        $resolver = $this->app->make(CityResolver::class);
+        $factory  = new class($resolver) extends ModelFactory {
+            use WithLocations {
+                city as public;
             }
 
-            protected function getTypeResolver(): TypeResolver {
-                throw new Exception('Should not be called.');
+            /** @noinspection PhpMissingParentConstructorInspection */
+            public function __construct(
+                protected CityResolver $cityResolver,
+            ) {
+                // empty
+            }
+
+            protected function getLocationResolver(): LocationResolver {
+                throw new Exception('should not be called');
+            }
+
+            protected function getCountryResolver(): CountryResolver {
+                throw new Exception('should not be called');
+            }
+
+            protected function getCityResolver(): CityResolver {
+                return $this->cityResolver;
+            }
+
+            public function getModel(): string {
+                return Model::class;
+            }
+
+            public function create(Type $type): ?Model {
+                return null;
             }
         };
 
-        self::assertEmpty($factory->companyLocations($owner, [$location]));
+        // If model exists - no action required
+        $queries = $this->getQueryLog()->flush();
 
-        Event::assertDispatched(ErrorReport::class, static function (ErrorReport $event): bool {
-            return $event->getError() instanceof FailedToProcessLocation;
-        });
+        self::assertEquals($city, $factory->city($country, $city->key));
+        self::assertCount(1, $queries);
+
+        // If not - it should be created
+        $queries = $this->getQueryLog()->flush();
+        $created = $factory->city($country, 'City Name');
+
+        self::assertTrue($created->wasRecentlyCreated);
+        self::assertEquals($country->getKey(), $created->country_id);
+        self::assertEquals('City Name', $created->key);
+        self::assertEquals('City Name', $created->name);
+        self::assertCount(2, $queries);
+    }
+
+    /**
+     * @covers ::geohash
+     *
+     * @dataProvider dataProviderGeohash
+     */
+    public function testGeohash(?string $expected, ?string $latitude, ?string $longitude): void {
+        $factory = new class() extends ModelFactory {
+            use WithLocations {
+                geohash as public;
+            }
+
+            /** @noinspection PhpMissingParentConstructorInspection */
+            public function __construct() {
+                // empty
+            }
+
+            protected function getLocationResolver(): LocationResolver {
+                throw new Exception('should not be called');
+            }
+
+            protected function getCountryResolver(): CountryResolver {
+                throw new Exception('should not be called');
+            }
+
+            protected function getCityResolver(): CityResolver {
+                throw new Exception('should not be called');
+            }
+
+            public function getModel(): string {
+                return Model::class;
+            }
+
+            public function create(Type $type): ?Model {
+                return null;
+            }
+        };
+
+        self::assertEquals($expected, $factory->geohash($latitude, $longitude));
+    }
+
+    /**
+     * @covers ::isLocationEmpty
+     *
+     * @dataProvider dataProviderIsLocationEmpty
+     *
+     * @param Closure(static): Location $locationFactory
+     */
+    public function testIsLocationEmpty(bool $expected, Closure $locationFactory): void {
+        $location = $locationFactory($this);
+        $factory  = new class() extends ModelFactory {
+            use WithLocations {
+                isLocationEmpty as public;
+            }
+
+            /** @noinspection PhpMissingParentConstructorInspection */
+            public function __construct() {
+                // empty
+            }
+
+            protected function getLocationResolver(): LocationResolver {
+                throw new Exception('should not be called');
+            }
+
+            protected function getCountryResolver(): CountryResolver {
+                throw new Exception('should not be called');
+            }
+
+            protected function getCityResolver(): CityResolver {
+                throw new Exception('should not be called');
+            }
+
+            public function getModel(): string {
+                return Model::class;
+            }
+
+            public function create(Type $type): ?Model {
+                return null;
+            }
+        };
+
+        self::assertEquals($expected, $factory->isLocationEmpty($location));
     }
     // </editor-fold>
 
     // <editor-fold desc="DataProviders">
     // =========================================================================
     /**
-     * @return array<string, array{Closure(): (Reseller|Customer)}>
+     * @return array<mixed>
      */
-    public function dataProviderCompanyLocations(): array {
+    public function dataProviderGeohash(): array {
         return [
-            Reseller::class => [
-                static function (): Reseller {
-                    return Reseller::factory()->create();
+            'null'              => [null, null, null],
+            'latitude is null'  => [null, null, '43.296482'],
+            'longitude is null' => [null, '5.36978', null],
+            'valid'             => ['spey61yhkcnp', '43.296482', '5.36978'],
+            'invalid'           => [null, 'a', 'b'],
+        ];
+    }
+
+    /**
+     * @return array<mixed>
+     */
+    public function dataProviderIsLocationEmpty(): array {
+        return [
+            'ok'      => [
+                false,
+                static function (TestCase $test): Location {
+                    return new Location([
+                        'zip'  => $test->faker->postcode(),
+                        'city' => $test->faker->city(),
+                    ]);
                 },
             ],
-            Customer::class => [
-                static function (): Customer {
-                    return Customer::factory()->create();
+            'no zip'  => [
+                true,
+                static function (TestCase $test): Location {
+                    return new Location([
+                        'city' => $test->faker->city(),
+                    ]);
+                },
+            ],
+            'no city' => [
+                true,
+                static function (TestCase $test): Location {
+                    return new Location([
+                        'zip' => $test->faker->postcode(),
+                    ]);
                 },
             ],
         ];

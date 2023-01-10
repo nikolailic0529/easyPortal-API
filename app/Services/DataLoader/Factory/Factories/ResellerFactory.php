@@ -7,7 +7,10 @@ use App\Models\ResellerLocation;
 use App\Services\DataLoader\Events\ResellerUpdated;
 use App\Services\DataLoader\Factory\CompanyFactory;
 use App\Services\DataLoader\Factory\Concerns\WithKpi;
+use App\Services\DataLoader\Resolver\Resolvers\CityResolver;
 use App\Services\DataLoader\Resolver\Resolvers\ContactResolver;
+use App\Services\DataLoader\Resolver\Resolvers\CountryResolver;
+use App\Services\DataLoader\Resolver\Resolvers\LocationResolver;
 use App\Services\DataLoader\Resolver\Resolvers\ResellerResolver;
 use App\Services\DataLoader\Resolver\Resolvers\StatusResolver;
 use App\Services\DataLoader\Resolver\Resolvers\TypeResolver;
@@ -31,7 +34,9 @@ class ResellerFactory extends CompanyFactory {
         TypeResolver $typeResolver,
         StatusResolver $statusResolver,
         ContactResolver $contactReseller,
-        LocationFactory $locationFactory,
+        LocationResolver $locationResolver,
+        CountryResolver $countryResolver,
+        CityResolver $cityResolver,
         protected Dispatcher $dispatcher,
         protected ResellerResolver $resellerResolver,
     ) {
@@ -40,7 +45,9 @@ class ResellerFactory extends CompanyFactory {
             $typeResolver,
             $statusResolver,
             $contactReseller,
-            $locationFactory,
+            $locationResolver,
+            $countryResolver,
+            $cityResolver,
         );
     }
 
