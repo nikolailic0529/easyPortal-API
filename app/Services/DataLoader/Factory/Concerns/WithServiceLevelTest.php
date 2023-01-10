@@ -49,7 +49,7 @@ class WithServiceLevelTest extends TestCase {
                 return $this->serviceLevelResolver;
             }
 
-            public function create(Type $type): ?Model {
+            public function create(Type $type, bool $force = false): ?Model {
                 return null;
             }
 

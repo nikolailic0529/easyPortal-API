@@ -229,7 +229,7 @@ class WithAssetDocumentTest_Factory extends Factory {
         return Model::class;
     }
 
-    public function create(Type $type): ?Model {
+    public function create(Type $type, bool $force = false): ?Model {
         return null;
     }
 

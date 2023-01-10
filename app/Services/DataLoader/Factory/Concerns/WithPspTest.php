@@ -40,7 +40,7 @@ class WithPspTest extends TestCase {
                 return $this->pspResolver;
             }
 
-            public function create(Type $type): ?Model {
+            public function create(Type $type, bool $force = false): ?Model {
                 return null;
             }
 

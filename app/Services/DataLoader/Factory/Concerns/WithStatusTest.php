@@ -45,7 +45,7 @@ class WithStatusTest extends TestCase {
                 return $this->statusResolver;
             }
 
-            public function create(Type $type): ?Model {
+            public function create(Type $type, bool $force = false): ?Model {
                 return null;
             }
 

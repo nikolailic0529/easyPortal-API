@@ -50,7 +50,7 @@
         <env name="EP_CACHE_GRAPHQL_ENABLED" value="false"/>
         <env name="EP_CACHE_GRAPHQL_STORE" value="null"/>
         <env name="EP_CACHE_SERVICE_STORE" value="null"/>
-        <env name="EP_DATA_LOADER_ENABLED" value="true"/>
+        <env name="EP_DATA_LOADER_ENABLED" value="false"/>
         <env name="EP_KEYCLOAK_ENABLED" value="false"/>
         <env name="EP_DOCUMENT_STATUSES_HIDDEN" value="f1fa29b8-0c94-4ddc-b69c-6f87ae684989"/>
         <env name="EP_DOCUMENT_STATUSES_NO_PRICE" value="d1265751-0595-4e2e-a257-2537b5177f78"/>

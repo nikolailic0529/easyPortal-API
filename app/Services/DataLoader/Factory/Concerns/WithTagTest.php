@@ -37,7 +37,7 @@ class WithTagTest extends TestCase {
                 // empty
             }
 
-            public function create(Type $type): ?Model {
+            public function create(Type $type, bool $force = false): ?Model {
                 return null;
             }
 

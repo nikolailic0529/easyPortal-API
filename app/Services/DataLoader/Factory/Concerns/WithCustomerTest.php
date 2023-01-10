@@ -195,7 +195,7 @@ class WithCustomerTestObject extends Factory {
         return $this->customerFinder;
     }
 
-    public function create(Type $type): ?Model {
+    public function create(Type $type, bool $force = false): ?Model {
         return null;
     }
 

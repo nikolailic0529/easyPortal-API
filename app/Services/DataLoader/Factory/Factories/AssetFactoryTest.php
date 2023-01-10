@@ -67,6 +67,7 @@ class AssetFactoryTest extends TestCase {
      * @dataProvider dataProviderCreate
      */
     public function testCreate(?string $expected, Type $type): void {
+        $force   = $this->faker->boolean();
         $factory = Mockery::mock(AssetFactory::class);
         $factory->makePartial();
         $factory->shouldAllowMockingProtectedMethods();
@@ -74,14 +75,14 @@ class AssetFactoryTest extends TestCase {
         if ($expected) {
             $factory->shouldReceive($expected)
                 ->once()
-                ->with($type)
+                ->with($type, $force)
                 ->andReturns();
         } else {
             self::expectException(InvalidArgumentException::class);
             self::expectErrorMessageMatches('/^The `\$type` must be instance of/');
         }
 
-        $factory->create($type);
+        $factory->create($type, $force);
     }
 
     /**
@@ -651,6 +652,7 @@ class AssetFactoryTest extends TestCase {
      * @covers ::assetWarranties
      */
     public function testAssetWarranties(): void {
+        $force               = $this->faker->boolean();
         $model               = Asset::factory()->create();
         $asset               = new ViewAsset([
             'coverageStatusCheck' => [
@@ -678,24 +680,34 @@ class AssetFactoryTest extends TestCase {
         $factory->makePartial();
         $factory
             ->shouldReceive('assetWarrantiesCoverages')
-            ->with($model, $asset, Mockery::on(static function (mixed $existing) use ($coveragesWarranties): bool {
-                return $existing instanceof EloquentCollection
-                    && $existing->map(new GetKey())->all() === $coveragesWarranties->map(new GetKey())->all();
-            }))
+            ->with(
+                $model,
+                $asset,
+                Mockery::on(static function (mixed $existing) use ($coveragesWarranties): bool {
+                    return $existing instanceof EloquentCollection
+                        && $existing->map(new GetKey())->all() === $coveragesWarranties->map(new GetKey())->all();
+                }),
+                $force,
+            )
             ->once()
             ->andReturn($coveragesWarranties);
         $factory
             ->shouldReceive('assetWarrantiesDocuments')
-            ->with($model, $asset, Mockery::on(static function (mixed $existing) use ($documentsWarranties): bool {
-                return $existing instanceof EloquentCollection
-                    && $existing->map(new GetKey())->all() === $documentsWarranties->map(new GetKey())->all();
-            }))
+            ->with(
+                $model,
+                $asset,
+                Mockery::on(static function (mixed $existing) use ($documentsWarranties): bool {
+                    return $existing instanceof EloquentCollection
+                        && $existing->map(new GetKey())->all() === $documentsWarranties->map(new GetKey())->all();
+                }),
+                $force,
+            )
             ->once()
             ->andReturn($documentsWarranties);
 
         self::assertEquals(
             EloquentCollection::make([$coveragesWarranty, $documentsWarranty]),
-            $factory->assetWarranties($model, $asset),
+            $factory->assetWarranties($model, $asset, $force),
         );
     }
 
@@ -733,7 +745,7 @@ class AssetFactoryTest extends TestCase {
 
         self::assertEquals(
             Collection::make([$coveragesWarranty->getKey(), $documentsWarranty->getKey()])->all(),
-            $factory->assetWarranties($model, $asset)->map(new GetKey())->all(),
+            $factory->assetWarranties($model, $asset, false)->map(new GetKey())->all(),
         );
     }
 
@@ -967,7 +979,7 @@ class AssetFactoryTest extends TestCase {
         self::assertEquals(1, $model->warranties->count());
 
         // Test
-        $warranties = $factory->assetWarrantiesDocuments($model, $asset, $model->warranties);
+        $warranties = $factory->assetWarrantiesDocuments($model, $asset, $model->warranties, false);
 
         self::assertCount(5, $warranties);
 
@@ -1372,13 +1384,14 @@ class AssetFactoryTest extends TestCase {
                 Asset $model,
                 CoverageEntry $entry,
                 ?AssetWarranty $warranty,
+                bool $force,
             ): ?AssetWarranty {
-                return parent::assetWarranty($model, $entry, $warranty);
+                return parent::assetWarranty($model, $entry, $warranty, $force);
             }
         };
 
         // Create
-        $actual   = $factory->assetWarranty($asset, $entry, null);
+        $actual   = $factory->assetWarranty($asset, $entry, null, false);
         $expected = [
             'hash'             => $entry->getHash(),
             'key'              => "2024-12-09t000000:2019-12-10t000000:{$entry->type}",
@@ -1402,7 +1415,7 @@ class AssetFactoryTest extends TestCase {
 
         // Update
         $warranty = AssetWarranty::factory()->create();
-        $actual   = $factory->assetWarranty($asset, $entry, $warranty);
+        $actual   = $factory->assetWarranty($asset, $entry, $warranty, false);
         $expected = [
             'id'               => $warranty->getKey(),
             'hash'             => $entry->getHash(),
@@ -1457,12 +1470,13 @@ class AssetFactoryTest extends TestCase {
                 Asset $model,
                 CoverageEntry $entry,
                 ?AssetWarranty $warranty,
+                bool $force,
             ): ?AssetWarranty {
-                return parent::assetWarranty($model, $entry, $warranty);
+                return parent::assetWarranty($model, $entry, $warranty, $force);
             }
         };
 
-        self::assertNull($factory->assetWarranty($asset, $entry, null));
+        self::assertNull($factory->assetWarranty($asset, $entry, null, false));
     }
 
     /**
@@ -1569,14 +1583,15 @@ class AssetFactoryTest extends TestCase {
                 Asset $model,
                 ViewAsset $asset,
                 EloquentCollection $existing,
+                bool $force,
             ): EloquentCollection {
-                return parent::assetWarrantiesCoverages($model, $asset, $existing);
+                return parent::assetWarrantiesCoverages($model, $asset, $existing, $force);
             }
         };
 
         $map      = static fn(AssetWarranty $warranty) => $warranty->getAttributes();
         $actual   = $factory
-            ->assetWarrantiesCoverages($asset, $viewAsset, $asset->warranties)
+            ->assetWarrantiesCoverages($asset, $viewAsset, $asset->warranties, false)
             ->sort(new KeysComparator())
             ->map($map)
             ->values();
@@ -1737,8 +1752,9 @@ class AssetFactoryTest_Factory extends AssetFactory {
         Asset $model,
         ViewAsset $asset,
         EloquentCollection $existing,
+        bool $force,
     ): EloquentCollection {
-        return parent::assetWarrantiesDocuments($model, $asset, $existing);
+        return parent::assetWarrantiesDocuments($model, $asset, $existing, $force);
     }
 
     public function getWarrantyKey(ViewAssetDocument|AssetWarranty|CoverageEntry $warranty): string {

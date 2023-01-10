@@ -39,7 +39,7 @@ class WithProductLineTest extends TestCase {
                 return $this->productLineResolver;
             }
 
-            public function create(Type $type): ?Model {
+            public function create(Type $type, bool $force = false): ?Model {
                 return null;
             }
 

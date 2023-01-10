@@ -191,11 +191,11 @@ class AssetFactory extends Factory {
         return Asset::class;
     }
 
-    public function create(Type $type): ?Asset {
+    public function create(Type $type, bool $force = false): ?Asset {
         $model = null;
 
         if ($type instanceof ViewAsset) {
-            $model = $this->createFromAsset($type);
+            $model = $this->createFromAsset($type, $force);
         } else {
             throw new InvalidArgumentException(sprintf(
                 'The `$type` must be instance of `%s`.',
@@ -209,19 +209,19 @@ class AssetFactory extends Factory {
 
     // <editor-fold desc="Functions">
     // =========================================================================
-    protected function createFromAsset(ViewAsset $asset): ?Asset {
-        return $this->assetAsset($asset);
+    protected function createFromAsset(ViewAsset $asset, bool $force): ?Asset {
+        return $this->assetAsset($asset, $force);
     }
 
-    protected function assetAsset(ViewAsset $asset): Asset {
+    protected function assetAsset(ViewAsset $asset, bool $force): Asset {
         // Get/Create
         $created = false;
-        $factory = function (Asset $model) use (&$created, $asset): Asset {
+        $factory = function (Asset $model) use ($force, &$created, $asset): Asset {
             // Unchanged?
             $created = !$model->exists;
             $hash    = $asset->getHash();
 
-            if ($hash === $model->hash) {
+            if ($force === false && $hash === $model->hash) {
                 return $model;
             }
 
@@ -250,7 +250,7 @@ class AssetFactory extends Factory {
             }
 
             $warrantyChangedAt          = $asset->coverageStatusCheck->coverageStatusUpdatedAt ?? null;
-            $model->warranties          = $this->assetWarranties($model, $asset);
+            $model->warranties          = $this->assetWarranties($model, $asset, $force);
             $model->warranty_changed_at = max($warrantyChangedAt, $model->warranty_changed_at);
 
             // Save
@@ -285,7 +285,7 @@ class AssetFactory extends Factory {
     /**
      * @return EloquentCollection<int, AssetWarranty>
      */
-    protected function assetWarranties(Asset $model, ViewAsset $asset): EloquentCollection {
+    protected function assetWarranties(Asset $model, ViewAsset $asset, bool $force): EloquentCollection {
         // Split by source (ViewAssetDocument or CoverageEntry)
         /** @var EloquentCollection<int, AssetWarranty> $warranties */
         $warranties = new EloquentCollection();
@@ -305,13 +305,13 @@ class AssetFactory extends Factory {
             $warrantyChangedAt = $asset->coverageStatusCheck->coverageStatusUpdatedAt;
 
             if ($model->warranty_changed_at <= $warrantyChangedAt) {
-                $coverages = $this->assetWarrantiesCoverages($model, $asset, $coverages);
+                $coverages = $this->assetWarrantiesCoverages($model, $asset, $coverages, $force);
             }
         }
 
         // Documents
         if (isset($asset->assetDocument)) {
-            $documents = $this->assetWarrantiesDocuments($model, $asset, $documents);
+            $documents = $this->assetWarrantiesDocuments($model, $asset, $documents, $force);
         }
 
         // Return
@@ -329,6 +329,7 @@ class AssetFactory extends Factory {
         Asset $model,
         ViewAsset $asset,
         EloquentCollection $existing,
+        bool $force,
     ): EloquentCollection {
         return $this->children(
             $existing,
@@ -337,9 +338,9 @@ class AssetFactory extends Factory {
             function (AssetWarranty|CoverageEntry $warranty): string {
                 return $this->getWarrantyKey($warranty);
             },
-            function (CoverageEntry $entry, ?AssetWarranty $warranty) use ($model): ?AssetWarranty {
+            function (CoverageEntry $entry, ?AssetWarranty $warranty) use ($force, $model): ?AssetWarranty {
                 try {
-                    return $this->assetWarranty($model, $entry, $warranty);
+                    return $this->assetWarranty($model, $entry, $warranty, $force);
                 } catch (Throwable $exception) {
                     $this->getExceptionHandler()->report(
                         new FailedToProcessViewAssetCoverageEntry($model, $entry, $exception),
@@ -351,7 +352,12 @@ class AssetFactory extends Factory {
         );
     }
 
-    protected function assetWarranty(Asset $model, CoverageEntry $entry, ?AssetWarranty $warranty): ?AssetWarranty {
+    protected function assetWarranty(
+        Asset $model,
+        CoverageEntry $entry,
+        ?AssetWarranty $warranty,
+        bool $force,
+    ): ?AssetWarranty {
         // Empty?
         if ($entry->description === null && $entry->coverageStartDate === null && $entry->coverageEndDate === null) {
             return null;
@@ -360,7 +366,7 @@ class AssetFactory extends Factory {
         // Unchanged?
         $hash = $entry->getHash();
 
-        if ($warranty && $hash === $warranty->hash) {
+        if ($warranty && $force === false && $hash === $warranty->hash) {
             return $warranty;
         }
 
@@ -429,6 +435,7 @@ class AssetFactory extends Factory {
         Asset $model,
         ViewAsset $asset,
         EloquentCollection $existing,
+        bool $force,
     ): EloquentCollection {
         $created    = [];
         $documents  = $this->assetDocuments($model, $asset);
@@ -443,6 +450,7 @@ class AssetFactory extends Factory {
                 ViewAssetDocument $assetDocument,
                 ?AssetWarranty $warranty,
             ) use (
+                $force,
                 $model,
                 &$created,
             ): ?AssetWarranty {
@@ -471,7 +479,7 @@ class AssetFactory extends Factory {
                     // Unchanged?
                     $hash = $assetDocument->getHash();
 
-                    if ($warranty && $hash === $warranty->hash) {
+                    if ($warranty && $force === false && $hash === $warranty->hash) {
                         return $warranty;
                     }
 

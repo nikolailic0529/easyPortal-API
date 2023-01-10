@@ -2776,11 +2776,6 @@ parameters:
 			path: app/Services/DataLoader/Factory/Factories/DocumentFactoryTest.php
 
 		-
-			message: "#^Method App\\\\Services\\\\DataLoader\\\\Factory\\\\Factories\\\\DocumentFactoryTest\\:\\:testCreate\\(\\) has parameter \\$typeFactory with no signature specified for Closure\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Factories/DocumentFactoryTest.php
-
-		-
 			message: "#^Parameter \\#1 \\$json of class App\\\\Services\\\\DataLoader\\\\Schema\\\\Types\\\\Document constructor expects array\\<string, mixed\\>, array\\|bool\\|float\\|int\\|string\\|null given\\.$#"
 			count: 5
 			path: app/Services/DataLoader/Factory/Factories/DocumentFactoryTest.php

@@ -39,7 +39,7 @@ class WithProductGroupTest extends TestCase {
                 return $this->productGroupResolver;
             }
 
-            public function create(Type $type): ?Model {
+            public function create(Type $type, bool $force = false): ?Model {
                 return null;
             }
 

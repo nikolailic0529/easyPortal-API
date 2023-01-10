@@ -223,13 +223,13 @@ class DocumentFactory extends Factory {
         return DocumentModel::class;
     }
 
-    public function create(Type $type): ?DocumentModel {
+    public function create(Type $type, bool $force = false): ?DocumentModel {
         $model = null;
 
         if ($type instanceof Document) {
-            $model = $this->createFromDocument($type);
+            $model = $this->createFromDocument($type, $force);
         } elseif ($type instanceof ViewAssetDocument) {
-            $model = $this->createFromViewAssetDocument($type);
+            $model = $this->createFromViewAssetDocument($type, $force);
         } else {
             throw new InvalidArgumentException(sprintf(
                 'The `$type` must be instance of `%s`.',
@@ -257,7 +257,7 @@ class DocumentFactory extends Factory {
      * Because data is incomplete and/or maybe outdated, the method will not
      * update the existing Document and will not try to create entries.
      */
-    protected function createFromViewAssetDocument(ViewAssetDocument $object): ?DocumentModel {
+    protected function createFromViewAssetDocument(ViewAssetDocument $object, bool $force): ?DocumentModel {
         // Document exists?
         if (!isset($object->document->id)) {
             return null;
@@ -312,15 +312,15 @@ class DocumentFactory extends Factory {
 
     // <editor-fold desc="Document">
     // =========================================================================
-    protected function createFromDocument(Document $document): ?DocumentModel {
+    protected function createFromDocument(Document $document, bool $force): ?DocumentModel {
         // Get/Create/Update
         $created = false;
-        $factory = function (DocumentModel $model) use (&$created, $document): DocumentModel {
+        $factory = function (DocumentModel $model) use ($force, &$created, $document): DocumentModel {
             // Unchanged?
             $created = !$model->exists;
             $hash    = $document->getHash();
 
-            if ($hash === $model->hash) {
+            if ($force === false && $hash === $model->hash) {
                 return $model;
             }
 
@@ -377,7 +377,7 @@ class DocumentFactory extends Factory {
                 );
 
                 // Entries
-                $model->entries = $this->documentEntries($model, $document);
+                $model->entries = $this->documentEntries($model, $document, $force);
             } finally {
                 $this->getAssetResolver()->reset();
 
@@ -432,7 +432,7 @@ class DocumentFactory extends Factory {
     /**
      * @return Collection<array-key, DocumentEntryModel>
      */
-    protected function documentEntries(DocumentModel $model, Document $document): Collection {
+    protected function documentEntries(DocumentModel $model, Document $document, bool $force): Collection {
         // Preload existing entries
         $entries = $model->exists
             ? $model->entries()->withTrashed()->get()
@@ -448,9 +448,15 @@ class DocumentFactory extends Factory {
             function (DocumentEntryModel|DocumentEntry $entry): string {
                 return $this->getEntryKey($entry);
             },
-            function (DocumentEntry $documentEntry, ?DocumentEntryModel $entry) use ($model): ?DocumentEntryModel {
+            function (
+                DocumentEntry $documentEntry,
+                ?DocumentEntryModel $entry,
+            ) use (
+                $model,
+                $force,
+            ): ?DocumentEntryModel {
                 try {
-                    return $this->documentEntry($model, $documentEntry, $entry);
+                    return $this->documentEntry($model, $documentEntry, $entry, $force);
                 } catch (Throwable $exception) {
                     $this->getExceptionHandler()->report(
                         new FailedToProcessDocumentEntry($model, $documentEntry, $exception),
@@ -469,11 +475,12 @@ class DocumentFactory extends Factory {
         DocumentModel $model,
         DocumentEntry $documentEntry,
         ?DocumentEntryModel $entry,
+        bool $force,
     ): DocumentEntryModel {
         // Unchanged?
         $hash = $documentEntry->getHash();
 
-        if ($entry && $hash === $entry->hash) {
+        if ($entry && $force === false && $hash === $entry->hash) {
             return $entry;
         }
 

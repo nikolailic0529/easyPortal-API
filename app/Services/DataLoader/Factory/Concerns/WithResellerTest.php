@@ -203,7 +203,7 @@ class WithResellerTestObject extends Factory {
         return $this->resellerFinder;
     }
 
-    public function create(Type $type): ?Model {
+    public function create(Type $type, bool $force = false): ?Model {
         return null;
     }
 

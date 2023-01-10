@@ -32,7 +32,7 @@ abstract class Factory implements Isolated {
     /**
      * @return TModel|null
      */
-    abstract public function create(Type $type): ?Model;
+    abstract public function create(Type $type, bool $force = false): ?Model;
 
     /**
      * @return class-string<TModel>

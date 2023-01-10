@@ -30,11 +30,11 @@ class DistributorFactory extends Factory {
         return Distributor::class;
     }
 
-    public function create(Type $type): ?Distributor {
+    public function create(Type $type, bool $force = false): ?Distributor {
         $model = null;
 
         if ($type instanceof Company) {
-            $model = $this->createFromCompany($type);
+            $model = $this->createFromCompany($type, $force);
         } else {
             throw new InvalidArgumentException(sprintf(
                 'The `$type` must be instance of `%s`.',
@@ -49,15 +49,15 @@ class DistributorFactory extends Factory {
 
     // <editor-fold desc="Functions">
     // =========================================================================
-    protected function createFromCompany(Company $company): ?Distributor {
+    protected function createFromCompany(Company $company, bool $force): ?Distributor {
         // Get/Create
         $created     = false;
-        $factory     = static function (Distributor $distributor) use (&$created, $company): Distributor {
+        $factory     = static function (Distributor $distributor) use ($force, &$created, $company): Distributor {
             // Unchanged?
             $created = !$distributor->exists;
             $hash    = $company->getHash();
 
-            if ($hash === $distributor->hash) {
+            if ($force === false && $hash === $distributor->hash) {
                 return $distributor;
             }
 

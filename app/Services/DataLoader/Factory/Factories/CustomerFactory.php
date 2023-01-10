@@ -74,11 +74,11 @@ class CustomerFactory extends CompanyFactory {
         return Customer::class;
     }
 
-    public function create(Type $type): ?Customer {
+    public function create(Type $type, bool $force = false): ?Customer {
         $model = null;
 
         if ($type instanceof Company) {
-            $model = $this->createFromCompany($type);
+            $model = $this->createFromCompany($type, $force);
         } else {
             throw new InvalidArgumentException(sprintf(
                 'The `$type` must be instance of `%s`.',
@@ -94,15 +94,15 @@ class CustomerFactory extends CompanyFactory {
 
     // <editor-fold desc="Functions">
     // =========================================================================
-    protected function createFromCompany(Company $company): ?Customer {
+    protected function createFromCompany(Company $company, bool $force): ?Customer {
         // Get/Create customer
         $created  = false;
-        $factory  = function (Customer $customer) use (&$created, $company): Customer {
+        $factory  = function (Customer $customer) use ($force, &$created, $company): Customer {
             // Unchanged?
             $created = !$customer->exists;
             $hash    = $company->getHash();
 
-            if ($hash === $customer->hash) {
+            if ($force === false && $hash === $customer->hash) {
                 return $customer;
             }
 

@@ -39,7 +39,7 @@ class WithOemTest extends TestCase {
                 return $this->oemResolver;
             }
 
-            public function create(Type $type): ?Model {
+            public function create(Type $type, bool $force = false): ?Model {
                 return null;
             }
 
