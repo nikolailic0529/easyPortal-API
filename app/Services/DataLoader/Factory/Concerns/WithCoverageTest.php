@@ -3,7 +3,7 @@
 namespace App\Services\DataLoader\Factory\Concerns;
 
 use App\Models\Data\Coverage;
-use App\Services\DataLoader\Factory\ModelFactory;
+use App\Services\DataLoader\Factory\Factory;
 use App\Services\DataLoader\Resolver\Resolvers\CoverageResolver;
 use App\Services\DataLoader\Schema\Type;
 use App\Utils\Eloquent\Model;
@@ -24,7 +24,7 @@ class WithCoverageTest extends TestCase {
         // Prepare
         $resolver = $this->app->make(CoverageResolver::class);
         $coverage = Coverage::factory()->create();
-        $factory  = new class($resolver) extends ModelFactory {
+        $factory  = new class($resolver) extends Factory {
             use WithCoverage {
                 coverage as public;
             }

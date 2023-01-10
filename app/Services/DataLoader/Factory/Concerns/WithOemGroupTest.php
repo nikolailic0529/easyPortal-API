@@ -3,7 +3,7 @@
 namespace App\Services\DataLoader\Factory\Concerns;
 
 use App\Models\OemGroup;
-use App\Services\DataLoader\Factory\ModelFactory;
+use App\Services\DataLoader\Factory\Factory;
 use App\Services\DataLoader\Resolver\Resolvers\OemGroupResolver;
 use App\Services\DataLoader\Schema\Type;
 use App\Utils\Eloquent\Model;
@@ -26,7 +26,7 @@ class WithOemGroupTest extends TestCase {
         $group    = OemGroup::factory()->create();
         $oem      = $group->oem;
 
-        $factory = new class($resolver) extends ModelFactory {
+        $factory = new class($resolver) extends Factory {
             use WithOemGroup {
                 oemGroup as public;
             }

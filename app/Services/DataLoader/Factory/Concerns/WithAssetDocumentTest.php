@@ -6,7 +6,7 @@ use App\Models\Asset as AssetModel;
 use App\Models\Data\Oem;
 use App\Models\Data\ServiceGroup;
 use App\Models\Data\ServiceLevel;
-use App\Services\DataLoader\Factory\ModelFactory;
+use App\Services\DataLoader\Factory\Factory;
 use App\Services\DataLoader\Resolver\Resolvers\OemResolver;
 use App\Services\DataLoader\Resolver\Resolvers\ServiceGroupResolver;
 use App\Services\DataLoader\Resolver\Resolvers\ServiceLevelResolver;
@@ -204,9 +204,9 @@ class WithAssetDocumentTest extends TestCase {
  * @internal
  * @noinspection PhpMultipleClassesDeclarationsInOneFile
  *
- * @extends ModelFactory<Model>
+ * @extends Factory<Model>
  */
-class WithAssetDocumentTest_Factory extends ModelFactory {
+class WithAssetDocumentTest_Factory extends Factory {
     use WithAssetDocument {
         documentOem as public;
         assetDocumentOem as public;

@@ -4,7 +4,7 @@ namespace App\Services\DataLoader\Factory\Concerns;
 
 use App\Models\Customer;
 use App\Models\Data\Type as TypeModel;
-use App\Services\DataLoader\Factory\ModelFactory;
+use App\Services\DataLoader\Factory\Factory;
 use App\Services\DataLoader\Resolver\Resolvers\TypeResolver;
 use App\Services\DataLoader\Schema\Type;
 use App\Utils\Eloquent\Model;
@@ -29,7 +29,7 @@ class WithTypeTest extends TestCase {
             'object_type' => $customer->getMorphClass(),
         ]);
 
-        $factory = new class($resolver) extends ModelFactory {
+        $factory = new class($resolver) extends Factory {
             use WithType {
                 type as public;
             }

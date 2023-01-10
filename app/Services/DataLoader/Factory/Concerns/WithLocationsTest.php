@@ -5,7 +5,7 @@ namespace App\Services\DataLoader\Factory\Concerns;
 use App\Models\Data\City;
 use App\Models\Data\Country;
 use App\Models\Data\Location as LocationModel;
-use App\Services\DataLoader\Factory\ModelFactory;
+use App\Services\DataLoader\Factory\Factory;
 use App\Services\DataLoader\Resolver\Resolvers\CityResolver;
 use App\Services\DataLoader\Resolver\Resolvers\CountryResolver;
 use App\Services\DataLoader\Resolver\Resolvers\LocationResolver;
@@ -48,7 +48,7 @@ class WithLocationsTest extends TestCase {
             $this->app->make(LocationResolver::class),
             $this->app->make(CountryResolver::class),
             $this->app->make(CityResolver::class),
-        ) extends ModelFactory {
+        ) extends Factory {
             use WithLocations {
                 location as public;
             }
@@ -182,7 +182,7 @@ class WithLocationsTest extends TestCase {
         // Prepare
         $resolver = $this->app->make(CountryResolver::class);
         $country  = Country::factory()->create();
-        $factory  = new class($resolver) extends ModelFactory {
+        $factory  = new class($resolver) extends Factory {
             use WithLocations {
                 country as public;
             }
@@ -269,7 +269,7 @@ class WithLocationsTest extends TestCase {
             'country_id' => $country,
         ]);
         $resolver = $this->app->make(CityResolver::class);
-        $factory  = new class($resolver) extends ModelFactory {
+        $factory  = new class($resolver) extends Factory {
             use WithLocations {
                 city as public;
             }
@@ -325,7 +325,7 @@ class WithLocationsTest extends TestCase {
      * @dataProvider dataProviderGeohash
      */
     public function testGeohash(?string $expected, ?string $latitude, ?string $longitude): void {
-        $factory = new class() extends ModelFactory {
+        $factory = new class() extends Factory {
             use WithLocations {
                 geohash as public;
             }
@@ -368,7 +368,7 @@ class WithLocationsTest extends TestCase {
      */
     public function testIsLocationEmpty(bool $expected, Closure $locationFactory): void {
         $location = $locationFactory($this);
-        $factory  = new class() extends ModelFactory {
+        $factory  = new class() extends Factory {
             use WithLocations {
                 isLocationEmpty as public;
             }

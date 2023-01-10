@@ -3,7 +3,7 @@
 namespace App\Services\DataLoader\Factory\Concerns;
 
 use App\Models\Data\Product;
-use App\Services\DataLoader\Factory\ModelFactory;
+use App\Services\DataLoader\Factory\Factory;
 use App\Services\DataLoader\Resolver\Resolvers\ProductResolver;
 use App\Services\DataLoader\Schema\Type;
 use App\Utils\Eloquent\Model;
@@ -27,7 +27,7 @@ class WithProductTest extends TestCase {
         $product  = Product::factory()->create();
         $oem      = $product->oem;
 
-        $factory = new class($resolver) extends ModelFactory {
+        $factory = new class($resolver) extends Factory {
             use WithProduct {
                 product as public;
             }

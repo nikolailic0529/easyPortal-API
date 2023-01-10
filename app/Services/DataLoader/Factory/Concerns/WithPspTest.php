@@ -5,6 +5,8 @@ namespace App\Services\DataLoader\Factory\Concerns;
 use App\Models\Data\Psp;
 use App\Services\DataLoader\Factory\Factory;
 use App\Services\DataLoader\Resolver\Resolvers\PspResolver;
+use App\Services\DataLoader\Schema\Type;
+use App\Utils\Eloquent\Model;
 use LastDragon_ru\LaraASP\Testing\Database\QueryLog\WithQueryLog;
 use Tests\TestCase;
 
@@ -36,6 +38,14 @@ class WithPspTest extends TestCase {
 
             protected function getPspResolver(): PspResolver {
                 return $this->pspResolver;
+            }
+
+            public function create(Type $type): ?Model {
+                return null;
+            }
+
+            public function getModel(): string {
+                return Model::class;
             }
         };
 

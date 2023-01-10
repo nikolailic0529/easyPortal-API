@@ -4,7 +4,7 @@ namespace App\Services\DataLoader\Factory\Concerns;
 
 use App\Models\Customer;
 use App\Models\Kpi;
-use App\Services\DataLoader\Factory\ModelFactory;
+use App\Services\DataLoader\Factory\Factory;
 use App\Services\DataLoader\Schema\Type;
 use App\Services\DataLoader\Schema\Types\CompanyKpis;
 use App\Utils\Eloquent\Model;
@@ -105,9 +105,9 @@ class WithKpiTest extends TestCase {
  * @internal
  * @noinspection PhpMultipleClassesDeclarationsInOneFile
  *
- * @extends ModelFactory<Model>
+ * @extends Factory<Model>
  */
-class WithKpiTest_Factory extends ModelFactory {
+class WithKpiTest_Factory extends Factory {
     use WithKpi {
         kpi as public;
     }

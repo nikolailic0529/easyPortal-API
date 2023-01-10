@@ -6,7 +6,7 @@ use App\Models\Customer;
 use App\Models\Document;
 use App\Models\Reseller;
 use App\Services\DataLoader\Factory\Factories\DocumentFactory;
-use App\Services\DataLoader\Factory\ModelFactory;
+use App\Services\DataLoader\Factory\Factory;
 use App\Services\DataLoader\Finders\AssetFinder;
 use App\Services\DataLoader\Finders\CustomerFinder;
 use App\Services\DataLoader\Finders\DistributorFinder;
@@ -80,7 +80,7 @@ abstract class BaseImporter extends Importer {
         return new ImporterChunkData($items);
     }
 
-    protected function makeFactory(State $state): ModelFactory {
+    protected function makeFactory(State $state): Factory {
         return $this->getContainer()->make(DocumentFactory::class);
     }
 

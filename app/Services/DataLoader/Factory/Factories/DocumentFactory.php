@@ -36,7 +36,7 @@ use App\Services\DataLoader\Factory\Concerns\WithServiceGroup;
 use App\Services\DataLoader\Factory\Concerns\WithServiceLevel;
 use App\Services\DataLoader\Factory\Concerns\WithStatus;
 use App\Services\DataLoader\Factory\Concerns\WithType;
-use App\Services\DataLoader\Factory\ModelFactory;
+use App\Services\DataLoader\Factory\Factory;
 use App\Services\DataLoader\Finders\AssetFinder;
 use App\Services\DataLoader\Finders\CustomerFinder;
 use App\Services\DataLoader\Finders\DistributorFinder;
@@ -75,9 +75,9 @@ use function implode;
 use function sprintf;
 
 /**
- * @extends ModelFactory<DocumentModel>
+ * @extends Factory<DocumentModel>
  */
-class DocumentFactory extends ModelFactory {
+class DocumentFactory extends Factory {
     use Children;
     use WithOem;
     use WithOemGroup;

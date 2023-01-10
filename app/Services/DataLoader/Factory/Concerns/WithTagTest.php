@@ -3,7 +3,7 @@
 namespace App\Services\DataLoader\Factory\Concerns;
 
 use App\Models\Data\Tag;
-use App\Services\DataLoader\Factory\ModelFactory;
+use App\Services\DataLoader\Factory\Factory;
 use App\Services\DataLoader\Resolver\Resolvers\TagResolver;
 use App\Services\DataLoader\Schema\Type;
 use App\Utils\Eloquent\Model;
@@ -25,7 +25,7 @@ class WithTagTest extends TestCase {
         $resolver = $this->app->make(TagResolver::class);
         $tag      = Tag::factory()->create();
 
-        $factory = new class($resolver) extends ModelFactory {
+        $factory = new class($resolver) extends Factory {
             use WithTag {
                 tag as public;
             }

@@ -6,6 +6,8 @@ use App\Models\Data\Oem;
 use App\Models\Data\ServiceGroup;
 use App\Services\DataLoader\Factory\Factory;
 use App\Services\DataLoader\Resolver\Resolvers\ServiceGroupResolver;
+use App\Services\DataLoader\Schema\Type;
+use App\Utils\Eloquent\Model;
 use LastDragon_ru\LaraASP\Testing\Database\QueryLog\WithQueryLog;
 use Tests\TestCase;
 
@@ -40,6 +42,14 @@ class WithServiceGroupTest extends TestCase {
 
             protected function getServiceGroupResolver(): ServiceGroupResolver {
                 return $this->serviceGroupResolver;
+            }
+
+            public function create(Type $type): ?Model {
+                return null;
+            }
+
+            public function getModel(): string {
+                return Model::class;
             }
         };
 

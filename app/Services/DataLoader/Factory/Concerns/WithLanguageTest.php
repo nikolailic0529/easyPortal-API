@@ -3,7 +3,7 @@
 namespace App\Services\DataLoader\Factory\Concerns;
 
 use App\Models\Data\Language;
-use App\Services\DataLoader\Factory\ModelFactory;
+use App\Services\DataLoader\Factory\Factory;
 use App\Services\DataLoader\Resolver\Resolvers\LanguageResolver;
 use App\Services\DataLoader\Schema\Type;
 use App\Utils\Eloquent\Model;
@@ -24,7 +24,7 @@ class WithLanguageTest extends TestCase {
         // Prepare
         $resolver = $this->app->make(LanguageResolver::class);
         $language = Language::factory()->create();
-        $factory  = new class($resolver) extends ModelFactory {
+        $factory  = new class($resolver) extends Factory {
             use WithLanguage {
                 language as public;
             }

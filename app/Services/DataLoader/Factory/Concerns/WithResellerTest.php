@@ -9,11 +9,13 @@ use App\Services\DataLoader\Exceptions\ResellerNotFound;
 use App\Services\DataLoader\Factory\Factory;
 use App\Services\DataLoader\Finders\ResellerFinder;
 use App\Services\DataLoader\Resolver\Resolvers\ResellerResolver;
+use App\Services\DataLoader\Schema\Type;
 use App\Services\DataLoader\Schema\Types\CompanyKpis;
 use App\Services\DataLoader\Schema\Types\Document;
 use App\Services\DataLoader\Schema\Types\ViewAsset;
 use App\Services\DataLoader\Schema\Types\ViewAssetDocument;
 use App\Services\DataLoader\Schema\Types\ViewDocument;
+use App\Utils\Eloquent\Model;
 use Closure;
 use Mockery;
 use Tests\TestCase;
@@ -177,6 +179,8 @@ class WithResellerTest extends TestCase {
 /**
  * @internal
  * @noinspection PhpMultipleClassesDeclarationsInOneFile
+ *
+ * @extends Factory<Model>
  */
 class WithResellerTestObject extends Factory {
     use WithReseller {
@@ -197,5 +201,13 @@ class WithResellerTestObject extends Factory {
 
     protected function getResellerFinder(): ?ResellerFinder {
         return $this->resellerFinder;
+    }
+
+    public function create(Type $type): ?Model {
+        return null;
+    }
+
+    public function getModel(): string {
+        return Model::class;
     }
 }

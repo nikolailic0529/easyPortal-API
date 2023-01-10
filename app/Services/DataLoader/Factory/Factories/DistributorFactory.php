@@ -3,7 +3,7 @@
 namespace App\Services\DataLoader\Factory\Factories;
 
 use App\Models\Distributor;
-use App\Services\DataLoader\Factory\ModelFactory;
+use App\Services\DataLoader\Factory\Factory;
 use App\Services\DataLoader\Resolver\Resolvers\DistributorResolver;
 use App\Services\DataLoader\Resolver\Resolvers\TypeResolver;
 use App\Services\DataLoader\Schema\Type;
@@ -15,9 +15,9 @@ use function implode;
 use function sprintf;
 
 /**
- * @extends ModelFactory<Distributor>
+ * @extends Factory<Distributor>
  */
-class DistributorFactory extends ModelFactory {
+class DistributorFactory extends Factory {
     public function __construct(
         ExceptionHandler $exceptionHandler,
         protected TypeResolver $typeResolver,

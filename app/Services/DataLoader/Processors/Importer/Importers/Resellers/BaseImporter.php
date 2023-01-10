@@ -4,7 +4,7 @@ namespace App\Services\DataLoader\Processors\Importer\Importers\Resellers;
 
 use App\Models\Reseller;
 use App\Services\DataLoader\Factory\Factories\ResellerFactory;
-use App\Services\DataLoader\Factory\ModelFactory;
+use App\Services\DataLoader\Factory\Factory;
 use App\Services\DataLoader\Processors\Importer\Importer;
 use App\Services\DataLoader\Resolver\Resolver;
 use App\Services\DataLoader\Resolver\Resolvers\ContactResolver;
@@ -57,7 +57,7 @@ abstract class BaseImporter extends Importer {
         return new BaseImporterChunkData($items);
     }
 
-    protected function makeFactory(State $state): ModelFactory {
+    protected function makeFactory(State $state): Factory {
         return $this->getContainer()->make(ResellerFactory::class);
     }
 

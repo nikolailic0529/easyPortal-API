@@ -32,9 +32,9 @@ use function array_values;
  * @template TCompany of Reseller|Customer
  * @template TLocation of ResellerLocation|CustomerLocation
  *
- * @extends ModelFactory<TCompany>
+ * @extends Factory<TCompany>
  */
-abstract class CompanyFactory extends ModelFactory {
+abstract class CompanyFactory extends Factory {
     use Polymorphic;
     use WithType;
     use WithStatus;

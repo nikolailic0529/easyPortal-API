@@ -4,7 +4,7 @@ namespace App\Services\DataLoader\Factory\Concerns;
 
 use App\Models\Contact;
 use App\Models\Customer;
-use App\Services\DataLoader\Factory\ModelFactory;
+use App\Services\DataLoader\Factory\Factory;
 use App\Services\DataLoader\Resolver\Resolvers\ContactResolver;
 use App\Services\DataLoader\Resolver\Resolvers\TypeResolver;
 use App\Services\DataLoader\Schema\Type;
@@ -43,7 +43,7 @@ class WithContactsTest extends TestCase {
             $this->app->make(ExceptionHandler::class),
             $this->app->make(TypeResolver::class),
             $this->app->make(ContactResolver::class),
-        ) extends ModelFactory {
+        ) extends Factory {
             use WithContacts {
                 contacts as public;
             }
@@ -127,7 +127,7 @@ class WithContactsTest extends TestCase {
             'phoneNumber' => $contact->phone_number,
         ]);
 
-        $factory = new class($contactResolver, $typeResolver) extends ModelFactory {
+        $factory = new class($contactResolver, $typeResolver) extends Factory {
             use WithContacts {
                 contact as public;
             }

@@ -5,6 +5,8 @@ namespace App\Services\DataLoader\Factory\Concerns;
 use App\Models\Data\Oem;
 use App\Services\DataLoader\Factory\Factory;
 use App\Services\DataLoader\Resolver\Resolvers\OemResolver;
+use App\Services\DataLoader\Schema\Type;
+use App\Utils\Eloquent\Model;
 use LastDragon_ru\LaraASP\Testing\Database\QueryLog\WithQueryLog;
 use Tests\TestCase;
 
@@ -35,6 +37,14 @@ class WithOemTest extends TestCase {
 
             protected function getOemResolver(): OemResolver {
                 return $this->oemResolver;
+            }
+
+            public function create(Type $type): ?Model {
+                return null;
+            }
+
+            public function getModel(): string {
+                return Model::class;
             }
         };
 

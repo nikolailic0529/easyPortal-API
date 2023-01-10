@@ -10,7 +10,7 @@ use App\Services\DataLoader\Container\Isolated;
 use App\Services\DataLoader\Events\DataImported;
 use App\Services\DataLoader\Exceptions\FailedToImportObject;
 use App\Services\DataLoader\Exceptions\ImportError;
-use App\Services\DataLoader\Factory\ModelFactory;
+use App\Services\DataLoader\Factory\Factory;
 use App\Services\DataLoader\Resolver\Resolver;
 use App\Services\DataLoader\Schema\Type;
 use App\Services\DataLoader\Schema\TypeWithKey;
@@ -41,9 +41,9 @@ abstract class Importer extends IteratorProcessor implements Isolated {
     private Collector              $collector;
 
     /**
-     * @var ModelFactory<TModel>
+     * @var Factory<TModel>
      */
-    private ModelFactory $factory;
+    private Factory $factory;
 
     /**
      * @var Resolver<TModel>
@@ -84,9 +84,9 @@ abstract class Importer extends IteratorProcessor implements Isolated {
     }
 
     /**
-     * @return ModelFactory<TModel>
+     * @return Factory<TModel>
      */
-    protected function getFactory(): ModelFactory {
+    protected function getFactory(): Factory {
         return $this->factory;
     }
     // </editor-fold>
@@ -256,9 +256,9 @@ abstract class Importer extends IteratorProcessor implements Isolated {
     /**
      * @param TState $state
      *
-     * @return ModelFactory<TModel>
+     * @return Factory<TModel>
      */
-    abstract protected function makeFactory(State $state): ModelFactory;
+    abstract protected function makeFactory(State $state): Factory;
 
     /**
      * @param TState $state

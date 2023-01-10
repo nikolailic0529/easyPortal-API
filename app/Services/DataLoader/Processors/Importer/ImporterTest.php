@@ -3,7 +3,7 @@
 namespace App\Services\DataLoader\Processors\Importer;
 
 use App\Services\DataLoader\Collector\Data;
-use App\Services\DataLoader\Factory\ModelFactory;
+use App\Services\DataLoader\Factory\Factory;
 use App\Services\DataLoader\Resolver\Resolver;
 use App\Services\DataLoader\Schema\Type;
 use App\Services\DataLoader\Schema\TypeWithKey;
@@ -68,7 +68,7 @@ class ImporterTest extends TestCase {
                 return $this->id;
             }
         };
-        $factory  = Mockery::mock(ModelFactory::class);
+        $factory  = Mockery::mock(Factory::class);
         $resolver = Mockery::mock(Resolver::class);
         $importer = Mockery::mock(Importer::class);
         $importer->shouldAllowMockingProtectedMethods();

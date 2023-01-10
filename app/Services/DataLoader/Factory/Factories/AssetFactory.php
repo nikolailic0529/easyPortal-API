@@ -31,7 +31,7 @@ use App\Services\DataLoader\Factory\Concerns\WithServiceLevel;
 use App\Services\DataLoader\Factory\Concerns\WithStatus;
 use App\Services\DataLoader\Factory\Concerns\WithTag;
 use App\Services\DataLoader\Factory\Concerns\WithType;
-use App\Services\DataLoader\Factory\ModelFactory;
+use App\Services\DataLoader\Factory\Factory;
 use App\Services\DataLoader\Finders\CustomerFinder;
 use App\Services\DataLoader\Finders\ResellerFinder;
 use App\Services\DataLoader\Resolver\Resolvers\AssetResolver;
@@ -67,9 +67,9 @@ use function sprintf;
 use function usort;
 
 /**
- * @extends ModelFactory<Asset>
+ * @extends Factory<Asset>
  */
-class AssetFactory extends ModelFactory {
+class AssetFactory extends Factory {
     use Children;
     use WithReseller;
     use WithCustomer;
