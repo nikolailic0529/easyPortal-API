@@ -168,6 +168,9 @@
       "@phpstan",
       "@test",
       "@phpcs"
+    ],
+    "coverage": [
+      "@php artisan test -p --drop-databases --coverage --coverage-html=.phpunit/coverage"
     ]
   }
 }
