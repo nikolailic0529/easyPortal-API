@@ -31,6 +31,7 @@ class DistributorLoader extends Loader {
                     return $this
                         ->getContainer()
                         ->make(IteratorImporter::class)
+                        ->setForce($state->force)
                         ->setIterator(new ObjectsIterator([
                             Distributor::query()->whereKey($state->objectId)->first() ?? $state->objectId,
                         ]));

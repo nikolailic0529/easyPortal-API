@@ -49,6 +49,7 @@ trait WithAssets {
                     return $this
                         ->getAssetsImporter($state)
                         ->setObjectId($state->objectId)
+                        ->setForce($state->force)
                         ->setFrom($state->from);
                 },
             ),
@@ -64,6 +65,7 @@ trait WithAssets {
                     $processor = $this
                         ->getContainer()
                         ->make(IteratorImporter::class)
+                        ->setForce($state->force)
                         ->setIterator($iterator);
 
                     return $processor;

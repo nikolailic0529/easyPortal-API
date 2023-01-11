@@ -39,6 +39,7 @@ trait DocumentsOperations {
                     return $this
                         ->getDocumentsImporter($state)
                         ->setObjectId($state->objectId)
+                        ->setForce($state->force)
                         ->setFrom($state->from);
                 },
             ),
@@ -54,6 +55,7 @@ trait DocumentsOperations {
                     $processor = $this
                         ->getContainer()
                         ->make(IteratorImporter::class)
+                        ->setForce($state->force)
                         ->setIterator($iterator);
 
                     return $processor;

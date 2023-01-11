@@ -8,5 +8,6 @@ use DateTimeInterface;
 class LoaderState extends CompositeState {
     public string             $objectId;
     public DateTimeInterface  $started;
-    public ?DateTimeInterface $from = null;
+    public ?DateTimeInterface $from  = null;
+    public bool               $force = false;
 }

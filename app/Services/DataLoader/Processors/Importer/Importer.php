@@ -11,6 +11,7 @@ use App\Services\DataLoader\Events\DataImported;
 use App\Services\DataLoader\Exceptions\FailedToImportObject;
 use App\Services\DataLoader\Exceptions\ImportError;
 use App\Services\DataLoader\Factory\Factory;
+use App\Services\DataLoader\Processors\Concerns\WithForce;
 use App\Services\DataLoader\Resolver\Resolver;
 use App\Services\DataLoader\Schema\Type;
 use App\Services\DataLoader\Schema\TypeWithKey;
@@ -37,6 +38,8 @@ use function array_merge;
  * @extends IteratorProcessor<TItem, TChunkData, TState>
  */
 abstract class Importer extends IteratorProcessor implements Isolated {
+    use WithForce;
+
     private ?ImporterCollectedData $collectedData = null;
     private Collector              $collector;
 
@@ -72,7 +75,7 @@ abstract class Importer extends IteratorProcessor implements Isolated {
         return $this->container;
     }
 
-    protected function getFrom(): ?DateTimeInterface {
+    public function getFrom(): ?DateTimeInterface {
         return null;
     }
 
@@ -128,10 +131,10 @@ abstract class Importer extends IteratorProcessor implements Isolated {
         // Import
         /** @phpstan-ignore-next-line todo(DataLoader): would be good to use interface */
         if ($this->getResolver()->get($item->id)) {
-            $this->getFactory()->create($item);
+            $this->getFactory()->create($item, $state->force);
             $state->updated++;
         } else {
-            $this->getFactory()->create($item);
+            $this->getFactory()->create($item, $state->force);
             $state->created++;
         }
     }
@@ -237,7 +240,8 @@ abstract class Importer extends IteratorProcessor implements Isolated {
      */
     protected function defaultState(array $state): array {
         return array_merge(parent::defaultState($state), [
-            'from' => $this->getFrom(),
+            'from'  => $this->getFrom(),
+            'force' => $this->isForce(),
         ]);
     }
     // </editor-fold>

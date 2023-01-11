@@ -31,6 +31,7 @@ class DocumentLoader extends Loader {
                     return $this
                         ->getContainer()
                         ->make(IteratorImporter::class)
+                        ->setForce($state->force)
                         ->setIterator(new ObjectsIterator([
                             Document::query()->whereKey($state->objectId)->first() ?? $state->objectId,
                         ]));

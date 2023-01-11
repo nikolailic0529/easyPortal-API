@@ -60,6 +60,7 @@ class CustomerLoader extends CompanyLoader {
                     return $this
                         ->getContainer()
                         ->make(IteratorImporter::class)
+                        ->setForce($state->force)
                         ->setIterator(new ObjectsIterator([
                             Customer::query()->whereKey($state->objectId)->first() ?? $state->objectId,
                         ]));

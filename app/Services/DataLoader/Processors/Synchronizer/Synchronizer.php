@@ -4,6 +4,7 @@ namespace App\Services\DataLoader\Processors\Synchronizer;
 
 use App\Services\DataLoader\Container\Container;
 use App\Services\DataLoader\Container\Isolated;
+use App\Services\DataLoader\Processors\Concerns\WithForce;
 use App\Services\DataLoader\Processors\Concerns\WithFrom;
 use App\Utils\Iterators\Contracts\MixedIterator;
 use App\Utils\Iterators\Eloquent\EloquentIterator;
@@ -35,6 +36,7 @@ use function array_merge;
  */
 abstract class Synchronizer extends CompositeProcessor implements Isolated {
     use WithFrom;
+    use WithForce;
 
     private bool               $withOutdated   = true;
     private ?DateTimeInterface $outdatedExpire = null;
@@ -148,6 +150,7 @@ abstract class Synchronizer extends CompositeProcessor implements Isolated {
         return array_merge(parent::defaultState($state), [
             'started'        => Date::now(),
             'from'           => $this->getFrom(),
+            'force'          => $this->isForce(),
             'withOutdated'   => $this->isWithOutdated(),
             'outdatedLimit'  => $this->getOutdatedLimit(),
             'outdatedExpire' => $this->getOutdatedExpire(),

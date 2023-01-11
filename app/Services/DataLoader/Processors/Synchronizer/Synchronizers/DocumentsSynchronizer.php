@@ -19,10 +19,14 @@ class DocumentsSynchronizer extends Synchronizer {
     }
 
     protected function getProcessor(SynchronizerState $state): MixedProcessor {
-        return $this->getContainer()->make(Importer::class)->setFrom($state->from);
+        return $this->getContainer()->make(Importer::class)
+            ->setForce($state->force)
+            ->setFrom($state->from);
     }
 
     protected function getOutdatedProcessor(SynchronizerState $state, MixedIterator $iterator): MixedProcessor {
-        return $this->getContainer()->make(IteratorImporter::class)->setIterator($iterator);
+        return $this->getContainer()->make(IteratorImporter::class)
+            ->setIterator($iterator)
+            ->setForce($state->force);
     }
 }
