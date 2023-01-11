@@ -10,12 +10,9 @@ use Tests\TestCase;
 
 /**
  * @internal
- * @coversDefaultClass \App\Services\I18n\CurrentLocale
+ * @covers \App\Services\I18n\CurrentLocale
  */
 class CurrentLocaleTest extends TestCase {
-    /**
-     * @covers ::set
-     */
     public function testSet(): void {
         $translator = $this->app->make(Translator::class);
         // Init translations
@@ -42,8 +39,6 @@ class CurrentLocaleTest extends TestCase {
     }
 
     /**
-     * @covers ::get
-     *
      * @dataProvider dataProviderGet
      */
     public function testGet(

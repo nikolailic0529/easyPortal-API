@@ -9,15 +9,12 @@ use Tests\TestCase;
 
 /**
  * @internal
- * @coversDefaultClass \App\Services\Maintenance\Utils\SemanticVersion
+ * @covers \App\Services\Maintenance\Utils\SemanticVersion
  */
 class SemanticVersionTest extends TestCase {
     // <editor-fold desc="Tests">
     // =========================================================================
     /**
-     * @covers ::__construct
-     * @covers ::__toString
-     *
      * @dataProvider dataProviderConstruct
      *
      * @param Closure(static, SemanticVersion):SemanticVersion|null $factory

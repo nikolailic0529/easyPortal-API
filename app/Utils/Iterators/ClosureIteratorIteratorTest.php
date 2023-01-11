@@ -17,15 +17,9 @@ use function iterator_to_array;
 
 /**
  * @internal
- * @coversDefaultClass \App\Utils\Iterators\ClosureIteratorIterator
+ * @covers \App\Utils\Iterators\ClosureIteratorIterator
  */
 class ClosureIteratorIteratorTest extends TestCase {
-    /**
-     * @covers ::getIterator
-     * @covers ::setOffset
-     * @covers ::setLimit
-     * @covers ::chunkConvert
-     */
     public function testGetIterator(): void {
         $iterator = new ClosureIteratorIterator(
             new ObjectsIterator([1, 2, 3, 4, 5, 6, 7, 8, 9, 0]),
@@ -73,14 +67,6 @@ class ClosureIteratorIteratorTest extends TestCase {
         ));
     }
 
-    /**
-     * @covers ::onInit
-     * @covers ::onError
-     * @covers ::onFinish
-     * @covers ::onBeforeChunk
-     * @covers ::onAfterChunk
-     * @covers ::chunkConvert
-     */
     public function testEvents(): void {
         $init   = Mockery::spy(static function (): void {
             // empty
@@ -159,9 +145,6 @@ class ClosureIteratorIteratorTest extends TestCase {
             ->once();
     }
 
-    /**
-     * @covers ::chunkConvert
-     */
     public function testChunkConvertError(): void {
         $items    = [1, 2, 3, 4, 5];
         $error    = new Exception();
@@ -187,9 +170,6 @@ class ClosureIteratorIteratorTest extends TestCase {
         );
     }
 
-    /**
-     * @covers ::chunkConvert
-     */
     public function testChunkConvertFatalError(): void {
         $items    = [1, 2, 3, 4, 5];
         $error    = new class() extends Exception implements IteratorFatalError {
@@ -216,9 +196,6 @@ class ClosureIteratorIteratorTest extends TestCase {
         $iterator->chunkConvert($items);
     }
 
-    /**
-     * @covers ::chunkConvert
-     */
     public function testChunkConvertBrokenIteratorDetectionChunkFull(): void {
         $items    = [1, 2, 3, 4, 5];
         $error    = new Error();
@@ -239,9 +216,6 @@ class ClosureIteratorIteratorTest extends TestCase {
         $iterator->setChunkSize(count($items))->chunkConvert($items);
     }
 
-    /**
-     * @covers ::chunkConvert
-     */
     public function testChunkConvertBrokenIteratorDetectionChunkPart(): void {
         $items    = [1, 2, 3, 4, 5];
         $error    = new Error();

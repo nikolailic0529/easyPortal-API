@@ -27,7 +27,7 @@ use const JSON_THROW_ON_ERROR;
 
 /**
  * @internal
- * @coversDefaultClass \App\Services\DataLoader\Processors\Loader\Loader
+ * @covers \App\Services\DataLoader\Processors\Loader\Loader
  */
 class LoaderTest extends TestCase {
     public function testOperationsRespectForce(): void {

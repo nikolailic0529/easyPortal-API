@@ -14,7 +14,7 @@ use Tests\WithoutGlobalScopes;
 
 /**
  * @internal
- * @coversDefaultClass \App\GraphQL\Directives\Directives\Paginated\PaginatedLimit
+ * @covers \App\GraphQL\Directives\Directives\Paginated\PaginatedLimit
  */
 class PaginatedLimitTest extends TestCase {
     use WithoutGlobalScopes;
@@ -22,8 +22,6 @@ class PaginatedLimitTest extends TestCase {
     // <editor-fold desc="Tests">
     // =========================================================================
     /**
-     * @covers ::handleBuilder
-     *
      * @dataProvider dataProviderHandleBuilder
      *
      * @param array{query: string, bindings: array<mixed>} $expected
@@ -37,8 +35,6 @@ class PaginatedLimitTest extends TestCase {
     }
 
     /**
-     * @covers ::handleScoutBuilder
-     *
      * @dataProvider dataProviderHandleScoutBuilder
      *
      * @param array{limit: ?int, offset: int} $expected

@@ -8,16 +8,12 @@ use Tests\TestCase;
 
 /**
  * @internal
- * @coversDefaultClass \App\Utils\JsonObject\RecursiveJsonObjectIterator
+ * @covers \App\Utils\JsonObject\RecursiveJsonObjectIterator
  */
 class RecursiveJsonObjectIteratorTest extends TestCase {
     // <editor-fold desc="Tests">
     // =========================================================================
     /**
-     * @covers ::__construct
-     * @covers ::hasChildren
-     * @covers ::getChildren
-     *
      * @dataProvider dataProviderIterate
      *
      * @param array<mixed>                                         $expected

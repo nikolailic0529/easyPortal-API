@@ -22,12 +22,9 @@ use function range;
 
 /**
  * @internal
- * @coversDefaultClass \App\Utils\Processor\CompositeProcessor
+ * @covers \App\Utils\Processor\CompositeProcessor
  */
 class CompositeProcessorTest extends TestCase {
-    /**
-     * @covers ::invoke
-     */
     public function testInvoke(): void {
         $exceptionHandler = Mockery::mock(ExceptionHandler::class);
         $dispatcher       = Mockery::mock(Dispatcher::class);
@@ -194,10 +191,6 @@ class CompositeProcessorTest extends TestCase {
             ->once();
     }
 
-    /**
-     * @covers ::invoke
-     * @covers ::stop
-     */
     public function testInvokeStop(): void {
         $exceptionHandler = Mockery::mock(ExceptionHandler::class);
         $dispatcher       = Mockery::mock(Dispatcher::class);
@@ -272,9 +265,6 @@ class CompositeProcessorTest extends TestCase {
             ->shouldNotHaveBeenCalled();
     }
 
-    /**
-     * @covers ::getTotal
-     */
     public function testGetTotal(): void {
         $count     = $this->faker->numberBetween(1, 5);
         $state     = Mockery::mock(CompositeState::class);

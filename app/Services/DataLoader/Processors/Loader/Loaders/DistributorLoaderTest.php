@@ -18,15 +18,12 @@ use Tests\WithQueryLogs;
 
 /**
  * @internal
- * @coversDefaultClass \App\Services\DataLoader\Processors\Loader\Loaders\DistributorLoader
+ * @covers \App\Services\DataLoader\Processors\Loader\Loaders\DistributorLoader
  */
 class DistributorLoaderTest extends TestCase {
     use WithQueryLogs;
     use Helper;
 
-    /**
-     * @covers ::process
-     */
     public function testProcess(): void {
         // Generate
         $this->generateData(DistributorLoaderData::class);
@@ -92,9 +89,6 @@ class DistributorLoaderTest extends TestCase {
         unset($events);
     }
 
-    /**
-     * @covers ::process
-     */
     public function testProcessTrashed(): void {
         // Generate
         $this->generateData(DistributorLoaderData::class);

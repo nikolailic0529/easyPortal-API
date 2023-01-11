@@ -24,7 +24,7 @@ use function array_merge;
 
 /**
  * @internal
- * @coversDefaultClass \App\GraphQL\Queries\Map\Assets
+ * @covers \App\GraphQL\Queries\Map\Assets
  *
  * @phpstan-import-type OrganizationFactory from WithOrganization
  * @phpstan-import-type UserFactory from WithUser
@@ -35,8 +35,6 @@ class AssetsTest extends TestCase {
     // <editor-fold desc="Tests">
     // =========================================================================
     /**
-     * @covers ::__invoke
-     *
      * @dataProvider dataProviderQuery
      *
      * @param OrganizationFactory                               $orgFactory

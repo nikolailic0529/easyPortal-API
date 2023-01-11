@@ -14,16 +14,13 @@ use Tests\WithSettings;
 
 /**
  * @internal
- * @coversDefaultClass \App\Rules\DocumentId
+ * @covers \App\Rules\DocumentId
  *
  * @phpstan-import-type SettingsFactory from WithSettings
  */
 class DocumentIdTest extends TestCase {
     // <editor-fold desc="Tests">
     // =========================================================================
-    /**
-     * @covers ::message
-     */
     public function testMessage(): void {
         $this->app->setLocale('de');
         $this->setTranslations(static function (TestCase $test, string $locale): array {
@@ -37,8 +34,6 @@ class DocumentIdTest extends TestCase {
     }
 
     /**
-     * @covers ::passes
-     *
      * @dataProvider dataProviderPasses
      *
      * @param Closure(static, ?Organization): ?string $valueFactory

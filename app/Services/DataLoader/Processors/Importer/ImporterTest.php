@@ -13,12 +13,9 @@ use Tests\TestCase;
 
 /**
  * @internal
- * @coversDefaultClass \App\Services\DataLoader\Processors\Importer\Importer
+ * @covers \App\Services\DataLoader\Processors\Importer\Importer
  */
 class ImporterTest extends TestCase {
-    /**
-     * @covers ::process
-     */
     public function testProcessModelObject(): void {
         $data  = new Data();
         $state = new ImporterState();
@@ -55,9 +52,6 @@ class ImporterTest extends TestCase {
         );
     }
 
-    /**
-     * @covers ::process
-     */
     public function testProcessType(): void {
         // Prepare
         $id       = $this->faker->uuid();

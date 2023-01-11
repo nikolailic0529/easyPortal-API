@@ -6,7 +6,7 @@ use Tests\TestCase;
 
 /**
  * @internal
- * @coversDefaultClass \App\Services\DataLoader\Commands\CustomerSync
+ * @covers \App\Services\DataLoader\Commands\CustomerSync
  */
 class CustomerSyncTest extends TestCase {
     /**

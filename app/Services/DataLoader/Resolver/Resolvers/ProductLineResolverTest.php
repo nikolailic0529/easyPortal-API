@@ -10,14 +10,11 @@ use Tests\TestCase;
 
 /**
  * @internal
- * @coversDefaultClass \App\Services\DataLoader\Resolver\Resolvers\ProductLineResolver
+ * @covers \App\Services\DataLoader\Resolver\Resolvers\ProductLineResolver
  */
 class ProductLineResolverTest extends TestCase {
     use WithQueryLog;
 
-    /**
-     * @covers ::get
-     */
     public function testGet(): void {
         // Prepare
         $factory = static function (?ProductLine $line): ProductLine {

@@ -21,7 +21,7 @@ use Tests\WithUser;
 
 /**
  * @internal
- * @coversDefaultClass \App\GraphQL\Queries\Assets\AssetsAggregated
+ * @covers \App\GraphQL\Queries\Assets\AssetsAggregated
  *
  * @phpstan-import-type OrganizationFactory from WithOrganization
  * @phpstan-import-type UserFactory from WithUser
@@ -32,8 +32,6 @@ class AssetsAggregatedTest extends TestCase {
     // <editor-fold desc="Tests">
     // =========================================================================
     /**
-     * @covers ::types
-     *
      * @dataProvider dataProviderQuery
      *
      * @param OrganizationFactory $orgFactory

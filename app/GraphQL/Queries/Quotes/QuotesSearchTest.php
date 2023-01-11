@@ -25,7 +25,7 @@ use function count;
 
 /**
  * @internal
- * @coversDefaultClass \App\GraphQL\Queries\Quotes\QuotesSearch
+ * @covers \App\GraphQL\Queries\Quotes\QuotesSearch
  *
  * @phpstan-import-type OrganizationFactory from WithOrganization
  * @phpstan-import-type UserFactory from WithUser
@@ -37,8 +37,6 @@ class QuotesSearchTest extends TestCase {
     // <editor-fold desc="Tests">
     // =========================================================================
     /**
-     * @covers ::__invoke
-     *
      * @dataProvider dataProviderQuery
      *
      * @param OrganizationFactory $orgFactory

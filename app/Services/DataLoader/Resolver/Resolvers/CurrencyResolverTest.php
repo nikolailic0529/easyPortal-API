@@ -10,14 +10,11 @@ use Tests\TestCase;
 
 /**
  * @internal
- * @coversDefaultClass \App\Services\DataLoader\Resolver\Resolvers\CurrencyResolver
+ * @covers \App\Services\DataLoader\Resolver\Resolvers\CurrencyResolver
  */
 class CurrencyResolverTest extends TestCase {
     use WithQueryLog;
 
-    /**
-     * @covers ::get
-     */
     public function testGet(): void {
         // Prepare
         $factory = static function (?Currency $currency): Currency {

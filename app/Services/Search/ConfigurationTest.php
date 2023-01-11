@@ -23,14 +23,11 @@ use function sprintf;
 
 /**
  * @internal
- * @coversDefaultClass \App\Services\Search\Configuration
+ * @covers \App\Services\Search\Configuration
  */
 class ConfigurationTest extends TestCase {
     // <editor-fold desc="Tests">
     // =========================================================================
-    /**
-     * @covers ::getRelations
-     */
     public function testGetRelations(): void {
         // Prepare
         $model = $this->getModel(
@@ -86,11 +83,6 @@ class ConfigurationTest extends TestCase {
         );
     }
 
-    /**
-     * @covers ::__construct
-     * @covers ::getProperties
-     * @covers ::buildProperties
-     */
     public function testGetProperties(): void {
         // Prepare
         $model = $this->getModel(
@@ -148,11 +140,6 @@ class ConfigurationTest extends TestCase {
         ], $model->getSearchConfiguration()->getProperties());
     }
 
-    /**
-     * @covers ::__construct
-     * @covers ::getProperties
-     * @covers ::buildProperties
-     */
     public function testGetPropertiesMetadataConflict(): void {
         // Prepare
         $model = $this->getModel([
@@ -179,8 +166,6 @@ class ConfigurationTest extends TestCase {
     /**
      * @dataProvider dataProviderGetSearchable
      *
-     * @covers ::getSearchable
-     *
      * @param array<mixed>            $expected
      * @param array<string, Property> $metadata
      * @param array<string, Property> $properties
@@ -192,9 +177,6 @@ class ConfigurationTest extends TestCase {
         self::assertEquals($expected, $actual);
     }
 
-    /**
-     * @covers ::getProperty
-     */
     public function testGetProperty(): void {
         $model         = $this->getModel(
             [
@@ -232,9 +214,6 @@ class ConfigurationTest extends TestCase {
         self::assertNull($configuration->getProperty('b.d'));
     }
 
-    /**
-     * @covers ::getIndexName
-     */
     public function testGetIndexName(): void {
         $a = new Configuration(
             $this->getModel()->setSearchableAs('should be ignored'),
@@ -269,9 +248,6 @@ class ConfigurationTest extends TestCase {
         self::assertNotEquals($a->getIndexName(), $c->getIndexName());
     }
 
-    /**
-     * @covers ::getIndexAlias
-     */
     public function testGetIndexAlias(): void {
         $a = new Configuration($this->getModel()->setSearchableAs('should be ignored'), [], []);
         $b = new Configuration($this->getModel(), [], []);
@@ -280,9 +256,6 @@ class ConfigurationTest extends TestCase {
         self::assertEquals('test', $b->getIndexAlias());
     }
 
-    /**
-     * @covers ::getMappings
-     */
     public function testGetMappings(): void {
         $actual   = $this
             ->getModel(
@@ -411,9 +384,6 @@ class ConfigurationTest extends TestCase {
         self::assertEquals($expected, $actual);
     }
 
-    /**
-     * @covers ::isIndex
-     */
     public function testIsIndex(): void {
         $config = Mockery::mock(Configuration::class);
         $config->makePartial();

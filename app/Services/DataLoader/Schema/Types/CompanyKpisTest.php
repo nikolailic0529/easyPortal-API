@@ -8,12 +8,9 @@ use function array_keys;
 
 /**
  * @internal
- * @coversDefaultClass \App\Services\DataLoader\Schema\Types\CompanyKpis
+ * @covers \App\Services\DataLoader\Schema\Types\CompanyKpis
  */
 class CompanyKpisTest extends TestCase {
-    /**
-     * @covers ::create
-     */
     public function testCreate(): void {
         $json = $this->getTestData()->json();
 

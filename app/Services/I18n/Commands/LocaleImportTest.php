@@ -10,7 +10,7 @@ use Tests\TestCase;
 
 /**
  * @internal
- * @coversDefaultClass \App\Services\I18n\Commands\LocaleImport
+ * @covers \App\Services\I18n\Commands\LocaleImport
  */
 class LocaleImportTest extends TestCase {
     /**
@@ -27,9 +27,6 @@ class LocaleImportTest extends TestCase {
         self::assertArrayHasKey('ep:i18n-locale-import', $this->app->make(Kernel::class)->all());
     }
 
-    /**
-     * @covers ::__invoke
-     */
     public function testInvoke(): void {
         $locale = 'de_DE';
         $file   = $this->getTestData()->file('.xlsx');

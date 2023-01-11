@@ -7,14 +7,12 @@ use Tests\TestCase;
 
 /**
  * @internal
- * @coversDefaultClass \App\Rules\HashMap
+ * @covers \App\Rules\HashMap
  */
 class HashMapTest extends TestCase {
     // <editor-fold desc="Tests">
     // =========================================================================
     /**
-     * @covers ::passes
-     *
      * @dataProvider dataProviderPasses
      */
     public function testPasses(bool $expected, mixed $value): void {
@@ -28,9 +26,6 @@ class HashMapTest extends TestCase {
         self::assertEquals($expected, $passes);
     }
 
-    /**
-     * @covers ::message
-     */
     public function testMessage(): void {
         $this->setTranslations(static function (TestCase $case, string $locale): array {
             return [

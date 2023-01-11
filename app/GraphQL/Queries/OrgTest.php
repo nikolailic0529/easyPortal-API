@@ -31,7 +31,7 @@ use function array_merge;
 
 /**
  * @internal
- * @coversDefaultClass \App\GraphQL\Queries\Org
+ * @covers \App\GraphQL\Queries\Org
  *
  * @phpstan-import-type OrganizationFactory from WithOrganization
  * @phpstan-import-type UserFactory from WithUser
@@ -41,9 +41,6 @@ class OrgTest extends TestCase {
     // <editor-fold desc="Tests">
     // =========================================================================
     /**
-     * @covers ::__invoke
-     * @covers ::branding
-     *
      * @dataProvider dataProviderInvoke
      *
      * @param OrganizationFactory                         $orgFactory
@@ -105,9 +102,6 @@ class OrgTest extends TestCase {
             ->assertThat($expected);
     }
 
-    /**
-     * @covers ::headquarter
-     */
     public function testHeadquarter(): void {
         // Prepare
         $org         = $this->setOrganization(Organization::factory()->make());
@@ -134,9 +128,6 @@ class OrgTest extends TestCase {
         self::assertEquals($headquarter, $actual);
     }
 
-    /**
-     * @covers ::headquarter
-     */
     public function testHeadquarterNoType(): void {
         // Prepare
         $org      = $this->setOrganization(Organization::factory()->make());
@@ -164,8 +155,6 @@ class OrgTest extends TestCase {
     }
 
     /**
-     * @covers ::organization
-     *
      * @dataProvider dataProviderOrganization
      *
      * @param OrganizationFactory                         $orgFactory

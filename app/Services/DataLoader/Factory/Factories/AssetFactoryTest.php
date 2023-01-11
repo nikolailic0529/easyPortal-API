@@ -52,7 +52,7 @@ use function implode;
 
 /**
  * @internal
- * @coversDefaultClass \App\Services\DataLoader\Factory\Factories\AssetFactory
+ * @covers \App\Services\DataLoader\Factory\Factories\AssetFactory
  */
 class AssetFactoryTest extends TestCase {
     use WithoutGlobalScopes;
@@ -62,8 +62,6 @@ class AssetFactoryTest extends TestCase {
     // <editor-fold desc="Tests">
     // =========================================================================
     /**
-     * @covers ::create
-     *
      * @dataProvider dataProviderCreate
      */
     public function testCreate(?string $expected, Type $type): void {
@@ -85,9 +83,6 @@ class AssetFactoryTest extends TestCase {
         $factory->create($type, $force);
     }
 
-    /**
-     * @covers ::createFromAsset
-     */
     public function testCreateFromAsset(): void {
         // Mock
         $this->overrideUuidFactory('00000000-0000-0000-0000-000000000000');
@@ -315,9 +310,6 @@ class AssetFactoryTest extends TestCase {
         self::assertCount(0, $queries);
     }
 
-    /**
-     * @covers ::createFromAsset
-     */
     public function testCreateFromAssetTrashed(): void {
         // Mock
         $this->overrideResellerFinder();
@@ -341,9 +333,6 @@ class AssetFactoryTest extends TestCase {
         self::assertFalse($created->trashed());
     }
 
-    /**
-     * @covers ::createFromAsset
-     */
     public function testCreateFromAssetAssetOnly(): void {
         // Prepare
         $container = $this->app->make(Container::class);
@@ -380,9 +369,6 @@ class AssetFactoryTest extends TestCase {
         );
     }
 
-    /**
-     * @covers ::createFromAsset
-     */
     public function testCreateFromAssetAssetNoCustomer(): void {
         // Mock
         $this->overrideResellerFinder();
@@ -398,9 +384,6 @@ class AssetFactoryTest extends TestCase {
         $factory->create($asset);
     }
 
-    /**
-     * @covers ::createFromAsset
-     */
     public function testCreateFromAssetWithoutZip(): void {
         // Mock
         $this->overrideCustomerFinder();
@@ -418,9 +401,6 @@ class AssetFactoryTest extends TestCase {
         self::assertNull($created->location);
     }
 
-    /**
-     * @covers ::createFromAsset
-     */
     public function testCreateFromAssetAssetTypeNull(): void {
         // Prepare
         $container = $this->app->make(Container::class);
@@ -436,9 +416,6 @@ class AssetFactoryTest extends TestCase {
         self::assertNull($created->type);
     }
 
-    /**
-     * @covers ::createFromAsset
-     */
     public function testCreateFromAssetWithoutSku(): void {
         // Mock
         $this->overrideResellerFinder();
@@ -457,9 +434,6 @@ class AssetFactoryTest extends TestCase {
         self::assertNull($created->product_id);
     }
 
-    /**
-     * @covers ::createFromAsset
-     */
     public function testCreateFromAssetOemNull(): void {
         // Mock
         $this->overrideResellerFinder();
@@ -479,9 +453,6 @@ class AssetFactoryTest extends TestCase {
         self::assertNull($created->oem);
     }
 
-    /**
-     * @covers ::createFromAsset
-     */
     public function testCreateFromAssetOemEmpty(): void {
         // Mock
         $this->overrideResellerFinder();
@@ -501,9 +472,6 @@ class AssetFactoryTest extends TestCase {
         self::assertNull($created->oem);
     }
 
-    /**
-     * @covers ::assetDocuments
-     */
     public function testAssetDocuments(): void {
         // Fake
         Event::fake(ErrorReport::class);
@@ -562,9 +530,6 @@ class AssetFactoryTest extends TestCase {
         Event::assertNotDispatched(ErrorReport::class);
     }
 
-    /**
-     * @covers ::assetDocumentDocument
-     */
     public function testAssetDocumentDocumentNoDocumentId(): void {
         // Prepare
         $model   = Asset::factory()->make();
@@ -595,9 +560,6 @@ class AssetFactoryTest extends TestCase {
         self::assertNull($factory->assetDocumentDocument($model, $asset));
     }
 
-    /**
-     * @covers ::assetDocumentDocument
-     */
     public function testAssetDocumentDocumentFailedCreateDocument(): void {
         // Fake
         Event::fake(ErrorReport::class);
@@ -648,9 +610,6 @@ class AssetFactoryTest extends TestCase {
         });
     }
 
-    /**
-     * @covers ::assetWarranties
-     */
     public function testAssetWarranties(): void {
         $force               = $this->faker->boolean();
         $model               = Asset::factory()->create();
@@ -711,9 +670,6 @@ class AssetFactoryTest extends TestCase {
         );
     }
 
-    /**
-     * @covers ::assetWarranties
-     */
     public function testAssetWarrantiesCoverageStatusCheckIsExpired(): void {
         $date              = Date::now()->startOfDay();
         $model             = Asset::factory()->create([
@@ -749,9 +705,6 @@ class AssetFactoryTest extends TestCase {
         );
     }
 
-    /**
-     * @covers ::assetWarrantiesDocuments
-     */
     public function testAssetWarrantiesDocuments(): void {
         // Prepare
         $container       = $this->app->make(Container::class);
@@ -1057,9 +1010,6 @@ class AssetFactoryTest extends TestCase {
         self::assertNotNull($d);
     }
 
-    /**
-     * @covers ::assetDocumentDocument
-     */
     public function testAssetDocumentDocumentWithDocument(): void {
         $asset         = Asset::factory()->make();
         $document      = Document::factory()->make();
@@ -1097,9 +1047,6 @@ class AssetFactoryTest extends TestCase {
         self::assertSame($document, $factory->assetDocumentDocument($asset, $assetDocument));
     }
 
-    /**
-     * @covers ::assetDocumentDocument
-     */
     public function testAssetDocumentDocumentWithoutDocument(): void {
         $asset    = Asset::factory()->make();
         $document = new ViewAssetDocument();
@@ -1116,9 +1063,6 @@ class AssetFactoryTest extends TestCase {
         self::assertNull($factory->assetDocumentDocument($asset, $document));
     }
 
-    /**
-     * @covers ::assetOem
-     */
     public function testAssetOem(): void {
         $asset   = new ViewAsset(['vendor' => $this->faker->word()]);
         $factory = Mockery::mock(AssetFactoryTest_Factory::class);
@@ -1134,9 +1078,6 @@ class AssetFactoryTest extends TestCase {
         $factory->assetOem($asset);
     }
 
-    /**
-     * @covers ::assetType
-     */
     public function testAssetType(): void {
         $asset   = new ViewAsset(['assetType' => $this->faker->word()]);
         $factory = Mockery::mock(AssetFactoryTest_Factory::class);
@@ -1152,9 +1093,6 @@ class AssetFactoryTest extends TestCase {
         $factory->assetType($asset);
     }
 
-    /**
-     * @covers ::assetType
-     */
     public function testAssetTypeNull(): void {
         $asset   = new ViewAsset();
         $factory = Mockery::mock(AssetFactoryTest_Factory::class);
@@ -1168,9 +1106,6 @@ class AssetFactoryTest extends TestCase {
         self::assertNull($factory->assetType($asset));
     }
 
-    /**
-     * @covers ::assetProduct
-     */
     public function testAssetProduct(): void {
         $oem   = Oem::factory()->make();
         $asset = new ViewAsset([
@@ -1198,9 +1133,6 @@ class AssetFactoryTest extends TestCase {
         $factory->assetProduct($asset);
     }
 
-    /**
-     * @covers ::assetLocation
-     */
     public function testAssetLocation(): void {
         $customer = Customer::factory()->make();
         $location = Location::factory()->create();
@@ -1227,9 +1159,6 @@ class AssetFactoryTest extends TestCase {
         self::assertEquals($location, $factory->assetLocation($asset));
     }
 
-    /**
-     * @covers ::assetLocation
-     */
     public function testAssetLocationEmpty(): void {
         $customer = Customer::factory()->make();
         $asset    = new ViewAsset([
@@ -1250,9 +1179,6 @@ class AssetFactoryTest extends TestCase {
         self::assertNull($factory->assetLocation($asset));
     }
 
-    /**
-     * @covers ::assetStatus
-     */
     public function testAssetStatus(): void {
         $asset   = new ViewAsset(['status' => $this->faker->word()]);
         $factory = Mockery::mock(AssetFactoryTest_Factory::class);
@@ -1268,9 +1194,6 @@ class AssetFactoryTest extends TestCase {
         $factory->assetStatus($asset);
     }
 
-    /**
-     * @covers ::assetTags
-     */
     public function testAssetTags(): void {
         $factory = new class(
             $this->app->make(TagResolver::class),
@@ -1306,9 +1229,6 @@ class AssetFactoryTest extends TestCase {
         self::assertEquals($expected, $this->getAssetTags($asset));
     }
 
-    /**
-     * @covers ::assetCoverages
-     */
     public function testAssetCoverages(): void {
         $factory = new class(
             $this->app->make(CoverageResolver::class),
@@ -1351,9 +1271,6 @@ class AssetFactoryTest extends TestCase {
         self::assertEquals($expected, $this->getCoverages($coverages));
     }
 
-    /**
-     * @covers ::assetWarranty
-     */
     public function testAssetWarranty(): void {
         $asset          = Asset::factory()->make();
         $type           = TypeModel::factory()->create([
@@ -1442,9 +1359,6 @@ class AssetFactoryTest extends TestCase {
         self::assertEquals($expected, $actual->getAttributes());
     }
 
-    /**
-     * @covers ::assetWarranty
-     */
     public function testAssetWarrantyEmpty(): void {
         $asset   = Asset::factory()->make();
         $type    = TypeModel::factory()->create([
@@ -1479,9 +1393,6 @@ class AssetFactoryTest extends TestCase {
         self::assertNull($factory->assetWarranty($asset, $entry, null, false));
     }
 
-    /**
-     * @covers ::assetWarrantiesCoverages
-     */
     public function testAssetWarrantiesCoverages(): void {
         $start                   = Date::make($this->faker->dateTime());
         $end                     = Date::make($this->faker->dateTime());
@@ -1628,8 +1539,6 @@ class AssetFactoryTest extends TestCase {
     }
 
     /**
-     * @covers ::getWarrantyKey
-     *
      * @dataProvider dataProviderGetWarrantyKey
      *
      * @param Closure(static): (ViewAssetDocument|AssetWarranty|CoverageEntry) $warrantyFactory

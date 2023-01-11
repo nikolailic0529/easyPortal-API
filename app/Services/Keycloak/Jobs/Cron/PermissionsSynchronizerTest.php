@@ -9,7 +9,7 @@ use Tests\TestCase;
 
 /**
  * @internal
- * @coversDefaultClass \App\Services\Keycloak\Jobs\Cron\PermissionsSynchronizer
+ * @covers \App\Services\Keycloak\Jobs\Cron\PermissionsSynchronizer
  */
 class PermissionsSynchronizerTest extends TestCase {
     /**
@@ -19,9 +19,6 @@ class PermissionsSynchronizerTest extends TestCase {
         self::assertCronableRegistered(PermissionsSynchronizer::class);
     }
 
-    /**
-     * @covers ::handle
-     */
     public function testHandle(): void {
         $job    = $this->app->make(PermissionsSynchronizer::class);
         $kernel = Mockery::mock(Kernel::class);

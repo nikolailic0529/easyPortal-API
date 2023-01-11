@@ -9,7 +9,7 @@ use Tests\TestCase;
 
 /**
  * @internal
- * @coversDefaultClass \App\Services\DataLoader\Commands\OemsImport
+ * @covers \App\Services\DataLoader\Commands\OemsImport
  */
 class OemsImportTest extends TestCase {
     /**
@@ -26,9 +26,6 @@ class OemsImportTest extends TestCase {
         self::assertArrayHasKey('ep:data-loader-oems-import', $this->app->make(Kernel::class)->all());
     }
 
-    /**
-     * @covers ::__invoke
-     */
     public function testInvoke(): void {
         $file = $this->faker->word();
 

@@ -6,7 +6,7 @@ use Tests\TestCase;
 
 /**
  * @internal
- * @coversDefaultClass \App\Services\Keycloak\Jobs\Cron\UsersSynchronizer
+ * @covers \App\Services\Keycloak\Jobs\Cron\UsersSynchronizer
  */
 class UsersSynchronizerTest extends TestCase {
     /**

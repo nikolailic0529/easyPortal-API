@@ -11,12 +11,9 @@ use Tests\TestCase;
 
 /**
  * @internal
- * @coversDefaultClass \App\Services\Queue\Utils\ServiceResolver
+ * @covers \App\Services\Queue\Utils\ServiceResolver
  */
 class ServiceResolverTest extends TestCase {
-    /**
-     * @covers ::get
-     */
     public function testGet(): void {
         $settings = Mockery::mock(Settings::class);
         $settings
@@ -30,9 +27,6 @@ class ServiceResolverTest extends TestCase {
         self::assertInstanceOf(ServiceResolverTest_ServiceA::class, $resolver->get('service-a'));
     }
 
-    /**
-     * @covers ::get
-     */
     public function testGetUnknown(): void {
         $settings = Mockery::mock(Settings::class);
         $settings

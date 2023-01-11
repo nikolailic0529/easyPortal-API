@@ -6,7 +6,7 @@ use Tests\TestCase;
 
 /**
  * @internal
- * @coversDefaultClass \App\Services\DataLoader\Commands\DocumentsSync
+ * @covers \App\Services\DataLoader\Commands\DocumentsSync
  */
 class DocumentsSyncTest extends TestCase {
     /**

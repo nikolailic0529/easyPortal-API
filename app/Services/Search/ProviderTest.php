@@ -25,12 +25,9 @@ use const PHP_EOL;
 
 /**
  * @internal
- * @coversDefaultClass \App\Services\Search\Provider
+ * @covers \App\Services\Search\Provider
  */
 class ProviderTest extends TestCase {
-    /**
-     * @covers ::registerBindings
-     */
     public function testRegisterBindings(): void {
         self::assertInstanceOf(SearchBuilder::class, $this->app->make(ScoutBuilder::class, [
             'query' => '',

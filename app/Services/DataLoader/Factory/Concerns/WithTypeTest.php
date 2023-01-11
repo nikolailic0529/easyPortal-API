@@ -13,14 +13,11 @@ use Tests\TestCase;
 
 /**
  * @internal
- * @coversDefaultClass \App\Services\DataLoader\Factory\Concerns\WithType
+ * @covers \App\Services\DataLoader\Factory\Concerns\WithType
  */
 class WithTypeTest extends TestCase {
     use WithQueryLog;
 
-    /**
-     * @covers ::type
-     */
     public function testType(): void {
         // Prepare
         $resolver = $this->app->make(TypeResolver::class);

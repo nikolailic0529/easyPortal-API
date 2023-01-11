@@ -25,7 +25,7 @@ use Tests\WithUser;
 
 /**
  * @internal
- * @coversDefaultClass \App\GraphQL\Mutations\Application\ResetApplicationService
+ * @covers \App\GraphQL\Mutations\Application\ResetApplicationService
  *
  * @phpstan-import-type OrganizationFactory from WithOrganization
  * @phpstan-import-type UserFactory from WithUser
@@ -34,8 +34,6 @@ class ResetApplicationServiceTest extends TestCase {
     // <editor-fold desc="Tests">
     // =========================================================================
     /**
-     * @covers ::__invoke
-     *
      * @dataProvider dataProviderInvoke
      *
      * @param array<mixed>        $input

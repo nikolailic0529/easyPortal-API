@@ -6,12 +6,9 @@ use Tests\TestCase;
 
 /**
  * @internal
- * @coversDefaultClass \App\Services\DataLoader\Normalizers\UuidNormalizer
+ * @covers \App\Services\DataLoader\Normalizers\UuidNormalizer
  */
 class UuidNormalizerTest extends TestCase {
-    /**
-     * @covers ::normalize
-     */
     public function testNormalize(): void {
         self::assertEquals(
             '1151886d-c5fb-40d3-a5f4-33b5ca38ff85',

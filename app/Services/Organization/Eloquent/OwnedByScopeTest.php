@@ -17,7 +17,7 @@ use Tests\WithoutGlobalScopes;
 
 /**
  * @internal
- * @coversDefaultClass \App\Services\Organization\Eloquent\OwnedByScope
+ * @covers \App\Services\Organization\Eloquent\OwnedByScope
  *
  * @phpstan-import-type OrganizationFactory from WithOrganization
  */
@@ -27,8 +27,6 @@ class OwnedByScopeTest extends TestCase {
     // <editor-fold desc="Tests">
     // =========================================================================
     /**
-     * @covers ::handle
-     *
      * @dataProvider dataProviderHandle
      *
      * @param array{query: string, bindings: array<mixed>} $expected
@@ -52,8 +50,6 @@ class OwnedByScopeTest extends TestCase {
     }
 
     /**
-     * @covers ::handleForSearch
-     *
      * @dataProvider dataProviderHandleForSearch
      *
      * @param array{query: string, bindings: array<mixed>} $expected

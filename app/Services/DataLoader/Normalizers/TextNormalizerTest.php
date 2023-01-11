@@ -6,12 +6,9 @@ use Tests\TestCase;
 
 /**
  * @internal
- * @coversDefaultClass \App\Services\DataLoader\Normalizers\TextNormalizer
+ * @covers \App\Services\DataLoader\Normalizers\TextNormalizer
  */
 class TextNormalizerTest extends TestCase {
-    /**
-     * @covers ::normalize
-     */
     public function testNormalize(): void {
         self::assertEquals(
             "Fsfsd  dsfd      dS \n sdfsdf \n ssdfsf \n fd",

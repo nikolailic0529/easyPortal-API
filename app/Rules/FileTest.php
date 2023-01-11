@@ -9,7 +9,7 @@ use Tests\WithSettings;
 
 /**
  * @internal
- * @coversDefaultClass \App\Rules\File
+ * @covers \App\Rules\File
  *
  * @phpstan-import-type SettingsFactory from WithSettings
  */
@@ -17,8 +17,6 @@ class FileTest extends TestCase {
     // <editor-fold desc="Tests">
     // =========================================================================
     /**
-     * @covers ::passes
-     *
      * @dataProvider dataProviderPasses
      *
      * @param SettingsFactory $settingsFactory

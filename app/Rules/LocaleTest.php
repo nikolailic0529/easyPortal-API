@@ -8,14 +8,11 @@ use Tests\TestCase;
 
 /**
  * @internal
- * @coversDefaultClass \App\Rules\Locale
+ * @covers \App\Rules\Locale
  */
 class LocaleTest extends TestCase {
     // <editor-fold desc="Tests">
     // =========================================================================
-    /**
-     * @covers ::message
-     */
     public function testMessage(): void {
         $translator = $this->app->make(Translator::class);
         $translator->addLines(['validation.locale' => 'No translation'], 'en');
@@ -28,8 +25,6 @@ class LocaleTest extends TestCase {
     }
 
     /**
-     * @covers ::passes
-     *
      * @dataProvider dataProviderPasses
      */
     public function testPasses(bool $expected, string $value): void {

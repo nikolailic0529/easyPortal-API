@@ -20,7 +20,7 @@ use Tests\WithSettings;
 
 /**
  * @internal
- * @coversDefaultClass \App\GraphQL\Cache
+ * @covers \App\GraphQL\Cache
  *
  * @phpstan-import-type SettingsFactory from WithSettings
  */
@@ -28,8 +28,6 @@ class CacheTest extends TestCase {
     // <editor-fold desc="Tests">
     // =========================================================================
     /**
-     * @covers ::isQuerySlow
-     *
      * @dataProvider dataProviderIsQuerySlow
      */
     public function testIsQuerySlow(bool $expected, ?float $threshold, ?float $time): void {
@@ -41,8 +39,6 @@ class CacheTest extends TestCase {
     }
 
     /**
-     * @covers ::isQueryLockable
-     *
      * @dataProvider dataProviderIsQueryLockable
      */
     public function testIsQueryLockable(bool $expected, ?float $threshold, ?float $time): void {
@@ -53,10 +49,6 @@ class CacheTest extends TestCase {
         self::assertEquals($expected, $this->app->make(Cache::class)->isQueryLockable($time));
     }
 
-    /**
-     * @covers ::getExpired
-     * @covers ::markExpired
-     */
     public function testGetExpired(): void {
         $this->setSettings([
             'ep.cache.graphql.enabled' => true,
@@ -80,10 +72,6 @@ class CacheTest extends TestCase {
         self::assertInstanceOf(DateTimeInterface::class, $cache->getExpired());
     }
 
-    /**
-     * @covers ::getExpired
-     * @covers ::markExpired
-     */
     public function testGetExpiredDisabled(): void {
         $this->setSettings([
             'ep.cache.graphql.enabled' => false,
@@ -108,8 +96,6 @@ class CacheTest extends TestCase {
     }
 
     /**
-     * @covers ::isExpired
-     *
      * @dataProvider dataProviderIsCacheExpired
      *
      * @param SettingsFactory $settingsFactory
@@ -149,9 +135,6 @@ class CacheTest extends TestCase {
         self::assertEquals($expected, $cache->isExpired($created, $expired));
     }
 
-    /**
-     * @covers ::lock
-     */
     public function testLockDisabled(): void {
         $this->setSettings([
             'ep.cache.graphql.lock_enabled' => false,
@@ -169,9 +152,6 @@ class CacheTest extends TestCase {
             ->once();
     }
 
-    /**
-     * @covers ::lock
-     */
     public function testLockNotSupported(): void {
         $this->setSettings([
             'ep.cache.graphql.enabled'      => true,
@@ -205,9 +185,6 @@ class CacheTest extends TestCase {
         $cache->lock('test', Closure::fromCallable($callback));
     }
 
-    /**
-     * @covers ::lock
-     */
     public function testLock(): void {
         $graphqlStore = $this->faker->word();
         $lockTimeout  = $this->faker->randomNumber();
@@ -270,9 +247,6 @@ class CacheTest extends TestCase {
             ->once();
     }
 
-    /**
-     * @covers ::isLocked
-     */
     public function testIsLockedDisabled(): void {
         $this->setSettings([
             'ep.cache.graphql.lock_enabled' => false,
@@ -283,9 +257,6 @@ class CacheTest extends TestCase {
         self::assertFalse($cache->isLocked('test'));
     }
 
-    /**
-     * @covers ::isLocked
-     */
     public function testIsLockedNotSupported(): void {
         $this->setSettings([
             'ep.cache.graphql.enabled'      => true,
@@ -316,9 +287,6 @@ class CacheTest extends TestCase {
         self::assertFalse($cache->isLocked('test'));
     }
 
-    /**
-     * @covers ::isLocked
-     */
     public function testIsLocked(): void {
         $this->setSettings([
             'ep.cache.graphql.enabled'      => true,

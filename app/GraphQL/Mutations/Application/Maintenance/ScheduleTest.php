@@ -17,7 +17,7 @@ use Tests\WithUser;
 
 /**
  * @internal
- * @coversDefaultClass \App\GraphQL\Mutations\Application\Maintenance\Schedule
+ * @covers \App\GraphQL\Mutations\Application\Maintenance\Schedule
  *
  * @phpstan-import-type OrganizationFactory from WithOrganization
  * @phpstan-import-type UserFactory from WithUser
@@ -26,8 +26,6 @@ class ScheduleTest extends TestCase {
     // <editor-fold desc="Tests">
     // =========================================================================
     /**
-     * @covers ::__invoke
-     *
      * @dataProvider dataProviderInvoke
      *
      * @param array<mixed>        $input

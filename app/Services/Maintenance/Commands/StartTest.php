@@ -11,7 +11,7 @@ use Tests\TestCase;
 
 /**
  * @internal
- * @coversDefaultClass \App\Services\Maintenance\Commands\Start
+ * @covers \App\Services\Maintenance\Commands\Start
  */
 class StartTest extends TestCase {
     /**
@@ -28,9 +28,6 @@ class StartTest extends TestCase {
         self::assertArrayHasKey('ep:maintenance-start', $this->app->make(Kernel::class)->all());
     }
 
-    /**
-     * @covers ::handle
-     */
     public function testHandleSuccessNoWait(): void {
         $this->override(Maintenance::class, static function (MockInterface $mock): void {
             $mock
@@ -54,9 +51,6 @@ class StartTest extends TestCase {
             ->expectsOutput('Done.');
     }
 
-    /**
-     * @covers ::handle
-     */
     public function testHandleSuccessWait(): void {
         $this->override(Maintenance::class, static function (MockInterface $mock): void {
             $mock
@@ -82,9 +76,6 @@ class StartTest extends TestCase {
             ->expectsOutput('Done.');
     }
 
-    /**
-     * @covers ::handle
-     */
     public function testHandleSuccessForce(): void {
         $this->override(Maintenance::class, static function (MockInterface $mock): void {
             $mock
@@ -108,9 +99,6 @@ class StartTest extends TestCase {
             ->expectsOutput('Done.');
     }
 
-    /**
-     * @covers ::handle
-     */
     public function testHandleFailed(): void {
         $this->override(Maintenance::class, static function (MockInterface $mock): void {
             $mock

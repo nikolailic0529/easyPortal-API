@@ -32,21 +32,15 @@ use function array_map;
 
 /**
  * @internal
- * @coversDefaultClass \App\Services\Settings\Settings
+ * @covers \App\Services\Settings\Settings
  */
 class SettingsTest extends TestCase {
     // <editor-fold desc="Tests">
     // =========================================================================
-    /**
-     * @covers \Config\Constants
-     */
     public function testConstants(): void {
         self::assertIsArray($this->app->make(Settings::class)->getEditableSettings());
     }
 
-    /**
-     * @covers ::getEditableSettings
-     */
     public function testGetEditableSettings(): void {
         $service = new class(
             $this->app,
@@ -78,9 +72,6 @@ class SettingsTest extends TestCase {
         self::assertEquals($expected, $actual);
     }
 
-    /**
-     * @covers ::getSettings
-     */
     public function testGetSettings(): void {
         $service = new class(
             $this->app,
@@ -112,9 +103,6 @@ class SettingsTest extends TestCase {
         self::assertEquals($expected, $actual);
     }
 
-    /**
-     * @covers ::setEditableSettings
-     */
     public function testSetEditableSettings(): void {
         Queue::fake();
         Event::fake();
@@ -186,9 +174,6 @@ class SettingsTest extends TestCase {
         Event::assertDispatched(SettingsUpdated::class);
     }
 
-    /**
-     * @covers ::saveSettings
-     */
     public function testSaveSettings(): void {
         $path    = $this->getTempFile();
         $storage = Mockery::mock(Storage::class);
@@ -241,8 +226,6 @@ class SettingsTest extends TestCase {
     }
 
     /**
-     * @covers ::parseValue
-     *
      * @dataProvider dataProviderParseValue
      */
     public function testParseValue(mixed $expected, string $type, bool $isArray, mixed $value): void {
@@ -269,9 +252,6 @@ class SettingsTest extends TestCase {
         self::assertEquals($expected, $service->parseValue($setting, $value));
     }
 
-    /**
-     * @covers ::getServices
-     */
     public function testGetServices(): void {
         $service = new class(
             $this->app,
@@ -320,9 +300,6 @@ class SettingsTest extends TestCase {
         self::assertEqualsCanonicalizing($expected, $actual);
     }
 
-    /**
-     * @covers ::getJobs
-     */
     public function testGetJobs(): void {
         $service = new class(
             $this->app,
@@ -351,9 +328,6 @@ class SettingsTest extends TestCase {
         self::assertEquals([SettingsTest_Job::class], $service->getJobs());
     }
 
-    /**
-     * @covers ::getPublicSettings
-     */
     public function testGetPublicSettings(): void {
         $service = new class(
             $this->app,
@@ -378,8 +352,6 @@ class SettingsTest extends TestCase {
     }
 
     /**
-     * @covers ::serializeValue
-     *
      * @dataProvider dataProviderSerializeValue
      */
     public function testSerializeValue(
@@ -416,8 +388,6 @@ class SettingsTest extends TestCase {
     }
 
     /**
-     * @covers ::serializePublicValue
-     *
      * @dataProvider dataProviderSerializePublicValue
      */
     public function testSerializePublicValue(
@@ -453,9 +423,6 @@ class SettingsTest extends TestCase {
         self::assertEquals($expected, $service->serializePublicValue($setting, $value));
     }
 
-    /**
-     * @covers ::isReadonly
-     */
     public function testIsReadonly(): void {
         $env = Mockery::mock(Environment::class);
         $env->shouldAllowMockingProtectedMethods();
@@ -487,9 +454,6 @@ class SettingsTest extends TestCase {
         self::assertFalse($service->isReadonly($settingB));
     }
 
-    /**
-     * @covers ::getPublicValue
-     */
     public function testGetPublicValue(): void {
         $a        = new Setting(new ReflectionClassConstant(
             new class() {
@@ -519,9 +483,6 @@ class SettingsTest extends TestCase {
         self::assertEquals('abc', $settings->getPublicValue($c));
     }
 
-    /**
-     * @covers ::getPublicDefaultValue
-     */
     public function testGetPublicDefaultValue(): void {
         $setting  = new Setting(new ReflectionClassConstant(
             new class() {
@@ -536,9 +497,6 @@ class SettingsTest extends TestCase {
         self::assertEquals('123', $settings->getPublicDefaultValue($setting));
     }
 
-    /**
-     * @covers ::getValue
-     */
     public function testGetValue(): void {
         $app        = Mockery::mock(Application::class);
         $config     = Mockery::mock(Repository::class);

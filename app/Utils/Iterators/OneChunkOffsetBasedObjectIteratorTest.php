@@ -12,12 +12,9 @@ use function range;
 
 /**
  * @internal
- * @coversDefaultClass \App\Utils\Iterators\OneChunkOffsetBasedObjectIterator
+ * @covers \App\Utils\Iterators\OneChunkOffsetBasedObjectIterator
  */
 class OneChunkOffsetBasedObjectIteratorTest extends TestCase {
-    /**
-     * @covers ::getIterator
-     */
     public function testGetIterator(): void {
         $data     = range(1, 10);
         $onInit   = Mockery::spy(static function (): void {
@@ -48,9 +45,6 @@ class OneChunkOffsetBasedObjectIteratorTest extends TestCase {
         $executor->shouldHaveBeenCalled()->times(1);
     }
 
-    /**
-     * @covers ::getIterator
-     */
     public function testGetIteratorWithLimitOffset(): void {
         $data     = range(1, 10);
         $executor = Mockery::spy(static function () use ($data): array {
@@ -82,9 +76,6 @@ class OneChunkOffsetBasedObjectIteratorTest extends TestCase {
         $executor->shouldHaveBeenCalled()->times(1);
     }
 
-    /**
-     * @covers ::getIterator
-     */
     public function testGetIteratorChunkLessThanLimit(): void {
         $data     = range(1, 10);
         $executor = Mockery::spy(static function () use ($data): array {
@@ -104,9 +95,6 @@ class OneChunkOffsetBasedObjectIteratorTest extends TestCase {
         $executor->shouldHaveBeenCalled()->times(1);
     }
 
-    /**
-     * @covers ::getIterator
-     */
     public function testGetIteratorChunkGreaterThanLimit(): void {
         $data     = range(1, 10);
         $executor = Mockery::spy(static function () use ($data): array {
@@ -126,9 +114,6 @@ class OneChunkOffsetBasedObjectIteratorTest extends TestCase {
         $executor->shouldHaveBeenCalled()->times(1);
     }
 
-    /**
-     * @covers ::getIterator
-     */
     public function testGetIteratorLimitZero(): void {
         $executor = Mockery::spy(static function (): array {
             return [];
@@ -145,9 +130,6 @@ class OneChunkOffsetBasedObjectIteratorTest extends TestCase {
         $executor->shouldNotHaveBeenCalled();
     }
 
-    /**
-     * @covers ::setOffset
-     */
     public function testSetOffset(): void {
         $iterator = new OneChunkOffsetBasedObjectIterator(static function (): array {
             return [];
@@ -157,9 +139,6 @@ class OneChunkOffsetBasedObjectIteratorTest extends TestCase {
         self::assertEquals(321, $iterator->setOffset(321)->getOffset());
     }
 
-    /**
-     * @covers ::setOffset
-     */
     public function testSetOffsetInvalidType(): void {
         self::expectException(InvalidArgumentException::class);
 

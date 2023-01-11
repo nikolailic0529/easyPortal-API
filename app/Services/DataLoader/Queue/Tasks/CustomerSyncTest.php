@@ -12,14 +12,11 @@ use Tests\TestCase;
 
 /**
  * @internal
- * @coversDefaultClass \App\Services\DataLoader\Queue\Tasks\CustomerSync
+ * @covers \App\Services\DataLoader\Queue\Tasks\CustomerSync
  */
 class CustomerSyncTest extends TestCase {
     // <editor-fold desc="Tests">
     // =========================================================================
-    /**
-     * @covers ::__invoke
-     */
     public function testInvoke(): void {
         $customer = Customer::factory()->make();
 
@@ -70,9 +67,6 @@ class CustomerSyncTest extends TestCase {
         self::assertEquals($expected, $actual);
     }
 
-    /**
-     * @covers ::__invoke
-     */
     public function testInvokeFailed(): void {
         $customer  = Customer::factory()->make();
         $exception = new Exception();
@@ -110,9 +104,6 @@ class CustomerSyncTest extends TestCase {
         self::assertEquals($expected, $actual);
     }
 
-    /**
-     * @covers ::__invoke
-     */
     public function testInvokeWarrantyFailed(): void {
         $customer = Customer::factory()->make();
 

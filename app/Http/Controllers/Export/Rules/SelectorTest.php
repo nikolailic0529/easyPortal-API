@@ -16,7 +16,7 @@ use const JSON_THROW_ON_ERROR;
 
 /**
  * @internal
- * @coversDefaultClass \App\Http\Controllers\Export\Rules\Selector
+ * @covers \App\Http\Controllers\Export\Rules\Selector
  *
  * @phpstan-type Expected array{passed: bool, messages: array<mixed>}
  */
@@ -24,8 +24,6 @@ class SelectorTest extends TestCase {
     // <editor-fold desc="Tests">
     // =========================================================================
     /**
-     * @covers ::__invoke
-     *
      * @dataProvider dataProviderInvoke
      *
      * @param Expected $expected
@@ -65,8 +63,6 @@ class SelectorTest extends TestCase {
     }
 
     /**
-     * @covers ::__invoke
-     *
      * @dataProvider dataProviderQuery
      *
      * @param Expected $expected

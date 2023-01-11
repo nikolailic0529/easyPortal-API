@@ -29,7 +29,7 @@ use function is_array;
 
 /**
  * @internal
- * @coversDefaultClass \App\GraphQL\Extensions\LaraAsp\SearchBy\Operators\Complex\Relation
+ * @covers \App\GraphQL\Extensions\LaraAsp\SearchBy\Operators\Complex\Relation
  *
  * @phpstan-import-type BuilderFactory from BuilderDataProvider
  */
@@ -40,9 +40,6 @@ class RelationTest extends TestCase {
     // <editor-fold desc="Tests">
     // =========================================================================
     /**
-     * @covers ::call
-     * @covers ::build
-     *
      * @dataProvider dataProviderCall
      *
      * @param array{query: string, bindings: array<mixed>}|Exception $expected

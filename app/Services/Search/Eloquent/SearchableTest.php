@@ -13,7 +13,7 @@ use function sprintf;
 
 /**
  * @internal
- * @coversDefaultClass \App\Services\Search\Eloquent\Searchable
+ * @covers \App\Services\Search\Eloquent\Searchable
  */
 class SearchableTest extends TestCase {
     /**

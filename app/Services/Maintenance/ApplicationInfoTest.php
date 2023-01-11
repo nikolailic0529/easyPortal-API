@@ -8,14 +8,12 @@ use Tests\TestCase;
 
 /**
  * @internal
- * @coversDefaultClass \App\Services\Maintenance\ApplicationInfo
+ * @covers \App\Services\Maintenance\ApplicationInfo
  */
 class ApplicationInfoTest extends TestCase {
     // <editor-fold desc="Tests">
     // =========================================================================
     /**
-     * @covers ::getVersion
-     *
      * @dataProvider dataProviderGetVersion
      *
      * @param array<mixed> $package

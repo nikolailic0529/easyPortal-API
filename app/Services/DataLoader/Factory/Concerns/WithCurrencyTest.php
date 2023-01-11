@@ -12,14 +12,11 @@ use Tests\TestCase;
 
 /**
  * @internal
- * @coversDefaultClass \App\Services\DataLoader\Factory\Concerns\WithCurrency
+ * @covers \App\Services\DataLoader\Factory\Concerns\WithCurrency
  */
 class WithCurrencyTest extends TestCase {
     use WithQueryLog;
 
-    /**
-     * @covers ::currency
-     */
     public function testCurrency(): void {
         // Prepare
         $resolver = $this->app->make(CurrencyResolver::class);

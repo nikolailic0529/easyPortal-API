@@ -7,14 +7,12 @@ use Tests\TestCase;
 
 /**
  * @internal
- * @coversDefaultClass \App\Utils\JsonObject\JsonObjectIterator
+ * @covers \App\Utils\JsonObject\JsonObjectIterator
  */
 class JsonObjectIteratorTest extends TestCase {
     // <editor-fold desc="Tests">
     // =========================================================================
     /**
-     * @covers ::getIterator
-     *
      * @dataProvider dataProviderGetIterator
      *
      * @param array<mixed>                              $expected

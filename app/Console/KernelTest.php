@@ -16,7 +16,7 @@ use function array_values;
 
 /**
  * @internal
- * @coversDefaultClass \App\Console\Kernel
+ * @covers \App\Console\Kernel
  */
 class KernelTest extends TestCase {
     /**

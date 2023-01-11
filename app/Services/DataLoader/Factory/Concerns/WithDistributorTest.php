@@ -19,14 +19,12 @@ use Tests\TestCase;
 
 /**
  * @internal
- * @coversDefaultClass \App\Services\DataLoader\Factory\Concerns\WithDistributor
+ * @covers \App\Services\DataLoader\Factory\Concerns\WithDistributor
  */
 class WithDistributorTest extends TestCase {
     // <editor-fold desc="Tests">
     // =========================================================================
     /**
-     * @covers ::distributor
-     *
      * @dataProvider dataProviderDistributor
      */
     public function testDistributorExistsThroughProvider(Closure $objectFactory): void {
@@ -45,8 +43,6 @@ class WithDistributorTest extends TestCase {
     }
 
     /**
-     * @covers ::distributor
-     *
      * @dataProvider dataProviderDistributor
      */
     public function testDistributorExistsThroughFinder(Closure $objectFactory): void {
@@ -76,8 +72,6 @@ class WithDistributorTest extends TestCase {
     }
 
     /**
-     * @covers ::distributor
-     *
      * @dataProvider dataProviderDistributor
      */
     public function testDistributorDistributorNotFound(Closure $objectFactory): void {

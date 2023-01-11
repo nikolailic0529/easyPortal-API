@@ -28,16 +28,13 @@ use function tap;
 
 /**
  * @internal
- * @coversDefaultClass \App\Services\DataLoader\Factory\CompanyFactory
+ * @covers \App\Services\DataLoader\Factory\CompanyFactory
  */
 class CompanyFactoryTest extends TestCase {
     use Helper;
 
     // <editor-fold desc="Tests">
     // =========================================================================
-    /**
-     * @covers ::companyStatuses
-     */
     public function testCompanyStatuses(): void {
         // Prepare
         $owner   = new class() extends Model {
@@ -95,8 +92,6 @@ class CompanyFactoryTest extends TestCase {
     }
 
     /**
-     * @covers ::companyLocations
-     *
      * @dataProvider dataProviderCompanyLocations
      *
      * @param Closure(static): (Reseller|Customer) $companyFactory
@@ -186,9 +181,6 @@ class CompanyFactoryTest extends TestCase {
         self::assertCount(0, $first->types);
     }
 
-    /**
-     * @covers ::companyLocations
-     */
     public function testCompanyLocationsInvalidLocation(): void {
         // Fake
         Event::fake(ErrorReport::class);

@@ -8,7 +8,7 @@ use Tests\TestCase;
 
 /**
  * @internal
- * @coversDefaultClass \App\Models\Customer
+ * @covers \App\Models\Customer
  */
 class CustomerTest extends TestCase {
     use HasContactsTests;

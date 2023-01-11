@@ -13,14 +13,12 @@ use Tests\TestCase;
 
 /**
  * @internal
- * @coversDefaultClass \App\Services\Filesystem\Disk
+ * @covers \App\Services\Filesystem\Disk
  */
 class DiskTest extends TestCase {
     // <editor-fold desc="Tests">
     // =========================================================================
     /**
-     * @covers ::url
-     *
      * @dataProvider dataProviderUrl
      *
      * @param array<mixed> $config
@@ -58,7 +56,6 @@ class DiskTest extends TestCase {
     }
 
     /**
-     * @covers ::isPublic
      * @dataProvider dataProviderIsPublic
      *
      * @param array<mixed> $config
@@ -90,9 +87,6 @@ class DiskTest extends TestCase {
         self::assertEquals($expected, $disk->isPublic());
     }
 
-    /**
-     * @covers ::download
-     */
     public function testDownload(): void {
         $response = Mockery::mock(StreamedResponse::class);
         $path     = 'path/to/file';

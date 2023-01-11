@@ -12,14 +12,11 @@ use Tests\TestCase;
 
 /**
  * @internal
- * @coversDefaultClass \App\Services\DataLoader\Factory\Concerns\WithPsp
+ * @covers \App\Services\DataLoader\Factory\Concerns\WithPsp
  */
 class WithPspTest extends TestCase {
     use WithQueryLog;
 
-    /**
-     * @covers ::psp
-     */
     public function testPsp(): void {
         // Prepare
         $psp      = Psp::factory()->create();

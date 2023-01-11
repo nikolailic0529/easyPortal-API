@@ -21,16 +21,13 @@ use Tests\WithOrganization;
 
 /**
  * @internal
- * @coversDefaultClass \App\Services\Audit\Listeners\AuditableListener
+ * @covers \App\Services\Audit\Listeners\AuditableListener
  *
  * @phpstan-import-type OrganizationFactory from WithOrganization
  */
 class AuditableListenerTest extends TestCase {
     // <editor-fold desc="Tests">
     // =========================================================================
-    /**
-     * @covers ::getEvents
-     */
     public function testSubscribe(): void {
         $this->override(
             AuditableListener::class,
@@ -70,8 +67,6 @@ class AuditableListenerTest extends TestCase {
     }
 
     /**
-     * @covers ::getModelAction
-     *
      * @dataProvider dataProviderGetModelAction
      */
     public function testGetModelAction(Action|Exception $expected, string $event): void {
@@ -87,8 +82,6 @@ class AuditableListenerTest extends TestCase {
     }
 
     /**
-     * @covers ::isModelChanged
-     *
      * @dataProvider dataProviderIsModelChanged
      *
      * @param Closure(static): Model $modelFactory
@@ -103,8 +96,6 @@ class AuditableListenerTest extends TestCase {
     }
 
     /**
-     * @covers ::getModelContext
-     *
      * @dataProvider dataProviderGetModelContext
      *
      * @param array<mixed>                    $expected
@@ -121,9 +112,6 @@ class AuditableListenerTest extends TestCase {
         self::assertEquals($expected, $actual);
     }
 
-    /**
-     * @covers ::__invoke
-     */
     public function testInvoke(): void {
         $org     = Mockery::mock(CurrentOrganization::class);
         $model   = new class() extends Model implements Auditable {
@@ -165,9 +153,6 @@ class AuditableListenerTest extends TestCase {
         $listener('eloquent.created', [$model]);
     }
 
-    /**
-     * @covers ::__invoke
-     */
     public function testInvokeNoModel(): void {
         $org     = Mockery::mock(CurrentOrganization::class);
         $auditor = Mockery::mock(Auditor::class);
@@ -180,9 +165,6 @@ class AuditableListenerTest extends TestCase {
         $listener('test', [new stdClass()]);
     }
 
-    /**
-     * @covers ::__invoke
-     */
     public function testInvokeUpdateNoChanges(): void {
         $org     = Mockery::mock(CurrentOrganization::class);
         $model   = new class() extends Model implements Auditable {

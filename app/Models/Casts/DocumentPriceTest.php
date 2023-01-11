@@ -12,7 +12,7 @@ use Tests\WithSettings;
 
 /**
  * @internal
- * @coversDefaultClass \App\Models\Casts\DocumentPrice
+ * @covers \App\Models\Casts\DocumentPrice
  *
  * @phpstan-import-type SettingsFactory from WithSettings
  */

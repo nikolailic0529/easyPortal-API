@@ -12,15 +12,12 @@ use Tests\WithQueryLogs;
 
 /**
  * @internal
- * @coversDefaultClass \App\Services\DataLoader\Processors\Synchronizer\Synchronizers\DistributorsSynchronizer
+ * @covers \App\Services\DataLoader\Processors\Synchronizer\Synchronizers\DistributorsSynchronizer
  */
 class DistributorsSynchronizerTest extends TestCase {
     use WithQueryLogs;
     use Helper;
 
-    /**
-     * @covers ::process
-     */
     public function testProcess(): void {
         // Generate
         $this->generateData(DistributorsSynchronizerData::class);

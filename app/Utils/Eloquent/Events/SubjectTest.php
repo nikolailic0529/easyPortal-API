@@ -13,13 +13,9 @@ use function round;
 
 /**
  * @internal
- * @coversDefaultClass \App\Utils\Eloquent\Events\Subject
+ * @covers \App\Utils\Eloquent\Events\Subject
  */
 class SubjectTest extends TestCase {
-    /**
-     * @covers ::onModelEvent
-     * @covers ::getEvents
-     */
     public function testOnModelEvent(): void {
         $model    = Mockery::mock(Model::class);
         $subject  = new Subject();
@@ -59,10 +55,6 @@ class SubjectTest extends TestCase {
         $dispatcher->dispatch('eloquent.deleted: not model', [new stdClass()]);
     }
 
-    /**
-     * @covers ::onModelSaved
-     * @covers ::getEvents
-     */
     public function testOnModelSaved(): void {
         $model    = Mockery::mock(Model::class);
         $subject  = new Subject();
@@ -87,10 +79,6 @@ class SubjectTest extends TestCase {
         $dispatcher->dispatch('eloquent.updated: not model', [new stdClass()]);
     }
 
-    /**
-     * @covers ::onModelDeleted
-     * @covers ::getEvents
-     */
     public function testOnModelDeleted(): void {
         $model    = Mockery::mock(Model::class);
         $subject  = new Subject();

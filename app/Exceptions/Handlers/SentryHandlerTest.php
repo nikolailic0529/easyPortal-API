@@ -15,12 +15,9 @@ use Throwable;
 use function reset;
 
 /**
- * @coversDefaultClass \App\Exceptions\Handlers\SentryHandler
+ * @covers \App\Exceptions\Handlers\SentryHandler
  */
 class SentryHandlerTest extends TestCase {
-    /**
-     * @covers ::getContextBreadcrumbs
-     */
     public function testGetContextBreadcrumbs(): void {
         $handler   = new class() extends SentryHandler {
             /**
@@ -46,9 +43,6 @@ class SentryHandlerTest extends TestCase {
         self::assertInstanceOf(ExceptionDataBag::class, reset($actual));
     }
 
-    /**
-     * @covers ::getContextExceptions
-     */
     public function testGetContextExceptions(): void {
         $handler = new class() extends SentryHandler {
             /**
@@ -73,9 +67,6 @@ class SentryHandlerTest extends TestCase {
         self::assertInstanceOf(Breadcrumb::class, reset($actual));
     }
 
-    /**
-     * @covers ::getRelease
-     */
     public function testGetRelease(): void {
         $this->override(ApplicationInfo::class, static function (MockInterface $mock): void {
             $mock
@@ -98,9 +89,6 @@ class SentryHandlerTest extends TestCase {
         self::assertEquals('package@1.2.3', $handler::getRelease()); // should be cached
     }
 
-    /**
-     * @covers ::beforeSend
-     */
     public function testBeforeSendIgnoredException(): void {
         $this->setSettings([
             'ep.log.sentry.ignored_exceptions' => Exception::class,
@@ -114,9 +102,6 @@ class SentryHandlerTest extends TestCase {
         self::assertNull(SentryHandler::beforeSend($event, $hit));
     }
 
-    /**
-     * @covers ::isIgnoredException
-     */
     public function testIsIgnoredException(): void {
         $a = new Exception();
         $b = new class() extends Exception {

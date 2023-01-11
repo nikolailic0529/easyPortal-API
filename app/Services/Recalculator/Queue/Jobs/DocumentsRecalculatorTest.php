@@ -6,7 +6,7 @@ use Tests\TestCase;
 
 /**
  * @internal
- * @coversDefaultClass \App\Services\Recalculator\Queue\Jobs\DocumentsRecalculator
+ * @covers \App\Services\Recalculator\Queue\Jobs\DocumentsRecalculator
  */
 class DocumentsRecalculatorTest extends TestCase {
     /**

@@ -7,7 +7,7 @@ use Tests\TestCase;
 
 /**
  * @internal
- * @coversDefaultClass \App\Models\ResellerLocation
+ * @covers \App\Models\ResellerLocation
  */
 class ResellerLocationTest extends TestCase {
     public function testDelete(): void {

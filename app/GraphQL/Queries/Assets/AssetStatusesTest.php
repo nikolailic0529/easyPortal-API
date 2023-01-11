@@ -18,7 +18,7 @@ use Tests\WithUser;
 
 /**
  * @internal
- * @coversDefaultClass \App\GraphQL\Queries\Assets\AssetStatuses
+ * @covers \App\GraphQL\Queries\Assets\AssetStatuses
  *
  * @phpstan-import-type OrganizationFactory from WithOrganization
  * @phpstan-import-type UserFactory from WithUser
@@ -27,7 +27,6 @@ class AssetStatusesTest extends TestCase {
     // <editor-fold desc="Tests">
     // =========================================================================
     /**
-     * @covers ::__invoke
      * @dataProvider dataProviderInvoke
 
      * @param OrganizationFactory $orgFactory

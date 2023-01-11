@@ -30,16 +30,13 @@ use Tests\WithOrganization;
 
 /**
  * @internal
- * @coversDefaultClass \App\Services\Audit\Listeners\AuthListener
+ * @covers \App\Services\Audit\Listeners\AuthListener
  *
  * @phpstan-import-type OrganizationFactory from WithOrganization
  */
 class AuthListenerTest extends TestCase {
     // <editor-fold desc="Tests">
     // =========================================================================
-    /**
-     * @covers ::getEvents
-     */
     public function testSubscribe(): void {
         $user          = Mockery::mock(Authenticatable::class);
         $signIn        = new Login(__METHOD__, $user, false);
@@ -84,9 +81,6 @@ class AuthListenerTest extends TestCase {
         $dispatcher->dispatch($passwordReset);
     }
 
-    /**
-     * @covers ::__invoke
-     */
     public function testInvokeUnsupported(): void {
         self::expectException(LogicException::class);
 
@@ -95,9 +89,6 @@ class AuthListenerTest extends TestCase {
         $listener(new stdClass());
     }
 
-    /**
-     * @covers ::__invoke
-     */
     public function testInvokeLoginEvent(): void {
         $user  = User::factory()->make(['type' => UserType::keycloak()]);
         $event = new Login(__FUNCTION__, $user, $this->faker->boolean());
@@ -127,9 +118,6 @@ class AuthListenerTest extends TestCase {
         $listener($event);
     }
 
-    /**
-     * @covers ::__invoke
-     */
     public function testInvokeLogoutEventUser(): void {
         $user  = User::factory()->make(['type' => UserType::local()]);
         $event = new Logout(__FUNCTION__, $user);
@@ -158,9 +146,6 @@ class AuthListenerTest extends TestCase {
         $listener($event);
     }
 
-    /**
-     * @covers ::__invoke
-     */
     public function testInvokeLogoutEventGuest(): void {
         /** @phpstan-ignore-next-line `$user` can be `null` */
         $event = new Logout(__FUNCTION__, null);
@@ -176,9 +161,6 @@ class AuthListenerTest extends TestCase {
         $listener($event);
     }
 
-    /**
-     * @covers ::__invoke
-     */
     public function testInvokeFailedEvent(): void {
         $org   = Organization::factory()->make();
         $user  = User::factory()->make(['type' => UserType::local()]);
@@ -212,9 +194,6 @@ class AuthListenerTest extends TestCase {
         $listener($event);
     }
 
-    /**
-     * @covers ::__invoke
-     */
     public function testInvokePasswordResetEvent(): void {
         $user  = User::factory()->make(['type' => UserType::local()]);
         $event = new PasswordReset($user);
@@ -239,8 +218,6 @@ class AuthListenerTest extends TestCase {
     }
 
     /**
-     * @covers ::getUserOrganization
-     *
      * @dataProvider dataProviderGetUserOrganization
      *
      * @param Closure(static, ?Organization, ?Authenticatable): mixed $expected

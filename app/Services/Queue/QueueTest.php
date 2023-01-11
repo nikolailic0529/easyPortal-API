@@ -26,12 +26,9 @@ use function json_encode;
 
 /**
  * @internal
- * @coversDefaultClass \App\Services\Queue\Queue
+ * @covers \App\Services\Queue\Queue
  */
 class QueueTest extends TestCase {
-    /**
-     * @covers ::getStates
-     */
     public function testGetStates(): void {
         // Prepare
         $aa = new JobState('a', '1', false, false, Date::now()->subDay(), Date::now());
@@ -105,9 +102,6 @@ class QueueTest extends TestCase {
         self::assertEquals($expected, $actual);
     }
 
-    /**
-     * @covers ::getStates
-     */
     public function testGetStatesEmptyJobs(): void {
         // Prepare
         $repository = Mockery::mock(JobRepository::class);
@@ -123,9 +117,6 @@ class QueueTest extends TestCase {
         self::assertEquals($expected, $actual);
     }
 
-    /**
-     * @covers ::getStatesFromHorizon
-     */
     public function testGetStatesFromHorizon(): void {
         // Prepare
         $format   = 'U.u';
@@ -263,9 +254,6 @@ class QueueTest extends TestCase {
         self::assertEquals($expected, $actual);
     }
 
-    /**
-     * @covers ::getStatesFromLogs
-     */
     public function testGetStatesFromLogs(): void {
         // Prepare
         $a = Mockery::mock(BaseJob::class, Stoppable::class);
@@ -369,9 +357,6 @@ class QueueTest extends TestCase {
         self::assertEquals($expected, $actual);
     }
 
-    /**
-     * @covers ::getStatesFromLogs
-     */
     public function testGetStatesFromLogsNoExpired(): void {
         // Prepare
         $expire = 3600;
@@ -442,9 +427,6 @@ class QueueTest extends TestCase {
         self::assertEquals($expected, $actual);
     }
 
-    /**
-     * @covers ::getState
-     */
     public function testGetState(): void {
         $job   = Mockery::mock(BaseJob::class);
         $state = Mockery::mock(JobState::class);
@@ -459,9 +441,6 @@ class QueueTest extends TestCase {
         self::assertEquals([$state], $queue->getState($job));
     }
 
-    /**
-     * @covers ::getName
-     */
     public function testGetName(): void {
         $job = Mockery::mock(BaseJob::class);
         $job
@@ -481,9 +460,6 @@ class QueueTest extends TestCase {
         self::assertEquals($name, $queue->getName($named));
     }
 
-    /**
-     * @covers ::getProgress
-     */
     public function testGetProgress(): void {
         $job          = Mockery::mock(BaseJob::class);
         $progress     = new Progress(new State(['total' => 2, 'processed' => 1]), null, null);
@@ -501,9 +477,6 @@ class QueueTest extends TestCase {
         self::assertEquals($progress, $queue->getProgress($progressable));
     }
 
-    /**
-     * @covers ::stop
-     */
     public function testStop(): void {
         $id        = $this->faker->uuid();
         $job       = Mockery::mock(BaseJob::class);
@@ -530,9 +503,6 @@ class QueueTest extends TestCase {
         self::assertTrue($queue->stop($stoppable, $id));
     }
 
-    /**
-     * @covers ::isStopped
-     */
     public function testIsStopped(): void {
         $jobA    = Mockery::mock(BaseJob::class, Stoppable::class);
         $jobB    = Mockery::mock(BaseJob::class);

@@ -19,14 +19,11 @@ use function count;
 
 /**
  * @internal
- * @coversDefaultClass \App\Utils\Eloquent\CascadeDeletes\CascadeProcessor
+ * @covers \App\Utils\Eloquent\CascadeDeletes\CascadeProcessor
  */
 class CascadeProcessorTest extends TestCase {
     // <editor-fold desc="Tests">
     // =========================================================================
-    /**
-     * @covers ::delete
-     */
     public function testDelete(): void {
         $model     = new class() extends Model {
             // empty
@@ -53,9 +50,6 @@ class CascadeProcessorTest extends TestCase {
         self::assertTrue(true);
     }
 
-    /**
-     * @covers ::delete
-     */
     public function testDeleteDataModel(): void {
         self::expectException(LogicException::class);
 
@@ -65,9 +59,6 @@ class CascadeProcessorTest extends TestCase {
         $processor->delete($model);
     }
 
-    /**
-     * @covers ::getRelations
-     */
     public function testGetRelations(): void {
         $processor = new class() extends CascadeProcessor {
             /**
@@ -127,9 +118,6 @@ class CascadeProcessorTest extends TestCase {
         );
     }
 
-    /**
-     * @covers ::run
-     */
     public function testRun(): void {
         $relation = Mockery::mock(Relation::class);
 
@@ -156,9 +144,6 @@ class CascadeProcessorTest extends TestCase {
         $processor->run($model, 'relation', $relation);
     }
 
-    /**
-     * @covers ::getRelatedObjects
-     */
     public function testGetRelatedObjects(): void {
         $processor = new class() extends CascadeProcessor {
             /**
@@ -195,9 +180,6 @@ class CascadeProcessorTest extends TestCase {
         self::assertEquals([], $processor->getRelatedObjects($model, 'null', $relation));
     }
 
-    /**
-     * @covers ::getRelatedObjects
-     */
     public function testGetRelatedObjectsBelongsToMany(): void {
         $processor = new class() extends CascadeProcessor {
             /**

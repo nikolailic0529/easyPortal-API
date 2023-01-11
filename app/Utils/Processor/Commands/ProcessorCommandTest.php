@@ -29,17 +29,12 @@ use Throwable;
 
 /**
  * @internal
- * @coversDefaultClass \App\Utils\Processor\Commands\ProcessorCommand
+ * @covers \App\Utils\Processor\Commands\ProcessorCommand
  */
 class ProcessorCommandTest extends TestCase {
     // <editor-fold desc="Tests">
     // =========================================================================
     /**
-     * @covers ::__construct
-     * @covers ::getReplacements
-     * @covers ::getDefaultCommandSignature
-     * @covers ::getDefaultCommandDescription
-     *
      * @dataProvider dataProviderConstruct
      *
      * @param class-string<Command> $command
@@ -53,9 +48,6 @@ class ProcessorCommandTest extends TestCase {
         self::assertEquals($expected, $buffer->fetch());
     }
 
-    /**
-     * @covers ::__construct
-     */
     public function testProcessGenericProcessor(): void {
         $chunk     = $this->faker->randomElement([null, $this->faker->randomNumber()]);
         $limit     = $this->faker->randomElement([null, $this->faker->randomNumber()]);
@@ -187,9 +179,6 @@ class ProcessorCommandTest extends TestCase {
         self::assertEquals($expected, $actual);
     }
 
-    /**
-     * @covers ::__construct
-     */
     public function testProcessEloquentProcessor(): void {
         $keys      = $this->faker->randomElement([null, [$this->faker->randomNumber()]]);
         $chunk     = $this->faker->randomElement([null, $this->faker->randomNumber()]);

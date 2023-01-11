@@ -7,14 +7,12 @@ use Tests\TestCase;
 
 /**
  * @internal
- * @coversDefaultClass \App\Rules\FloatNumber
+ * @covers \App\Rules\FloatNumber
  */
 class FloatNumberTest extends TestCase {
     // <editor-fold desc="Tests">
     // =========================================================================
     /**
-     * @covers ::passes
-     *
      * @dataProvider dataProviderPasses
      */
     public function testPasses(bool $expected, mixed $value): void {
@@ -28,9 +26,6 @@ class FloatNumberTest extends TestCase {
         self::assertEquals($expected, $passes);
     }
 
-    /**
-     * @covers ::message
-     */
     public function testMessage(): void {
         $this->setTranslations(static function (TestCase $case, string $locale): array {
             return [

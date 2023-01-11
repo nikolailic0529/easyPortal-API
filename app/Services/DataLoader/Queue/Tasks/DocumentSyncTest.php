@@ -13,14 +13,11 @@ use Tests\TestCase;
 
 /**
  * @internal
- * @coversDefaultClass \App\Services\DataLoader\Queue\Tasks\DocumentSync
+ * @covers \App\Services\DataLoader\Queue\Tasks\DocumentSync
  */
 class DocumentSyncTest extends TestCase {
     // <editor-fold desc="Tests">
     // =========================================================================
-    /**
-     * @covers ::__invoke
-     */
     public function testInvoke(): void {
         $document = Document::factory()->hasEntries(2)->create();
 
@@ -60,9 +57,6 @@ class DocumentSyncTest extends TestCase {
         self::assertEquals($expected, $actual);
     }
 
-    /**
-     * @covers ::__invoke
-     */
     public function testInvokeSyncAssetsFailed(): void {
         $document  = Document::factory()->hasEntries(1)->create();
         $exception = new Exception();
@@ -109,9 +103,6 @@ class DocumentSyncTest extends TestCase {
         self::assertEquals($expected, $actual);
     }
 
-    /**
-     * @covers ::__invoke
-     */
     public function testInvokeSyncPropertiesFailed(): void {
         $document = Document::factory()->make();
         $job      = Mockery::mock(DocumentSync::class);

@@ -14,14 +14,11 @@ use Tests\TestCase;
 
 /**
  * @internal
- * @coversDefaultClass \App\Services\DataLoader\Factory\Concerns\WithServiceLevel
+ * @covers \App\Services\DataLoader\Factory\Concerns\WithServiceLevel
  */
 class WithServiceLevelTest extends TestCase {
     use WithQueryLog;
 
-    /**
-     * @covers ::serviceLevel
-     */
     public function testServiceLevel(): void {
         // Prepare
         $oem      = Oem::factory()->create();

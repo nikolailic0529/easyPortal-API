@@ -8,12 +8,9 @@ use function array_keys;
 
 /**
  * @internal
- * @coversDefaultClass \App\Services\DataLoader\Schema\Types\CentralAssetDbStatistics
+ * @covers \App\Services\DataLoader\Schema\Types\CentralAssetDbStatistics
  */
 class CentralAssetDbStatisticsTest extends TestCase {
-    /**
-     * @covers ::create
-     */
     public function testCreate(): void {
         $json = $this->getTestData()->json();
 

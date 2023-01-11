@@ -12,14 +12,11 @@ use Tests\TestCase;
 
 /**
  * @internal
- * @coversDefaultClass \App\Services\DataLoader\Factory\Concerns\WithLanguage
+ * @covers \App\Services\DataLoader\Factory\Concerns\WithLanguage
  */
 class WithLanguageTest extends TestCase {
     use WithQueryLog;
 
-    /**
-     * @covers ::language
-     */
     public function testLanguage(): void {
         // Prepare
         $resolver = $this->app->make(LanguageResolver::class);

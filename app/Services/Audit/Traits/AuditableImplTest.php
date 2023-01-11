@@ -12,12 +12,9 @@ use Tests\TestCase;
 
 /**
  * @internal
- * @coversDefaultClass \App\Services\Audit\Traits\AuditableImpl
+ * @covers \App\Services\Audit\Traits\AuditableImpl
  */
 class AuditableImplTest extends TestCase {
-    /**
-     * @covers ::isDirty
-     */
     public function testIsDirty(): void {
         $model = new class() extends Model implements Auditable {
             use AuditableImpl;
@@ -49,9 +46,6 @@ class AuditableImplTest extends TestCase {
         self::assertFalse($model->isDirty(['property']));
     }
 
-    /**
-     * @covers ::setRelation
-     */
     public function testSetRelation(): void {
         // Prepare
         $model = new class() extends Model {
@@ -113,9 +107,6 @@ class AuditableImplTest extends TestCase {
         );
     }
 
-    /**
-     * @covers ::setRelation
-     */
     public function testSetRelationEagerLoading(): void {
         $user = User::factory()->create();
 
@@ -130,9 +121,6 @@ class AuditableImplTest extends TestCase {
         self::assertEmpty($user->getDirtyRelations());
     }
 
-    /**
-     * @covers ::syncOriginal
-     */
     public function testSyncOriginal(): void {
         $model = new class() extends Model implements Auditable {
             use AuditableImpl;

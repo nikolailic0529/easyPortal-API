@@ -22,7 +22,7 @@ use Throwable;
 
 /**
  * @internal
- * @coversDefaultClass \App\GraphQL\Mutations\Auth\Organization\SignIn
+ * @covers \App\GraphQL\Mutations\Auth\Organization\SignIn
  *
  * @phpstan-import-type OrganizationFactory from WithOrganization
  * @phpstan-import-type UserFactory from WithUser
@@ -31,7 +31,6 @@ class SignInTest extends TestCase {
     // <editor-fold desc="Tests">
     // =========================================================================
     /**
-     * @covers ::__invoke
      * @dataProvider dataProviderInvoke
      *
      * @param OrganizationFactory $orgFactory

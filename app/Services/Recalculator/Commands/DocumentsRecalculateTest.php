@@ -13,12 +13,9 @@ use Tests\TestCase;
 
 /**
  * @internal
- * @coversDefaultClass \App\Services\Recalculator\Commands\DocumentsRecalculate
+ * @covers \App\Services\Recalculator\Commands\DocumentsRecalculate
  */
 class DocumentsRecalculateTest extends TestCase {
-    /**
-     * @covers ::__invoke
-     */
     public function testInvoke(): void {
         $this->override(DocumentsProcessor::class, function (): MockInterface {
             $mock = Mockery::mock(DocumentsProcessor::class, [

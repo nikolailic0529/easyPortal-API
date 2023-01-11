@@ -6,7 +6,7 @@ use Tests\TestCase;
 
 /**
  * @internal
- * @coversDefaultClass \App\Services\DataLoader\Commands\AssetsSync
+ * @covers \App\Services\DataLoader\Commands\AssetsSync
  */
 class AssetsSyncTest extends TestCase {
     /**

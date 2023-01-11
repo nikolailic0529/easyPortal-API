@@ -9,12 +9,9 @@ use function reset;
 
 /**
  * @internal
- * @coversDefaultClass \App\Services\DataLoader\Schema\Types\BrandingData
+ * @covers \App\Services\DataLoader\Schema\Types\BrandingData
  */
 class BrandingDataTest extends TestCase {
-    /**
-     * @covers ::create
-     */
     public function testCreate(): void {
         $json = $this->getTestData()->json();
 

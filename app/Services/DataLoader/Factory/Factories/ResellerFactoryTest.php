@@ -18,7 +18,7 @@ use function array_column;
 
 /**
  * @internal
- * @coversDefaultClass \App\Services\DataLoader\Factory\Factories\ResellerFactory
+ * @covers \App\Services\DataLoader\Factory\Factories\ResellerFactory
  */
 class ResellerFactoryTest extends TestCase {
     use WithoutGlobalScopes;
@@ -28,8 +28,6 @@ class ResellerFactoryTest extends TestCase {
     // <editor-fold desc="Tests">
     // =========================================================================
     /**
-     * @covers ::create
-     *
      * @dataProvider dataProviderCreate
      */
     public function testCreate(?string $expected, Type $type): void {
@@ -51,10 +49,6 @@ class ResellerFactoryTest extends TestCase {
         $factory->create($type, $force);
     }
 
-    /**
-     * @covers ::create
-     * @covers ::createFromCompany
-     */
     public function testCreateFromCompany(): void {
         // Fake
         Event::fake();
@@ -246,10 +240,6 @@ class ResellerFactoryTest extends TestCase {
         self::assertCount(0, $queries);
     }
 
-    /**
-     * @covers ::create
-     * @covers ::createFromCompany
-     */
     public function testCreateFromCompanyResellerOnly(): void {
         // Fake
         Event::fake();
@@ -271,10 +261,6 @@ class ResellerFactoryTest extends TestCase {
         Event::assertDispatchedTimes(ResellerUpdated::class, 1);
     }
 
-    /**
-     * @covers ::create
-     * @covers ::createFromCompany
-     */
     public function testCreateFromCompanyTypeIsCustomer(): void {
         // Fake
         Event::fake();
@@ -291,10 +277,6 @@ class ResellerFactoryTest extends TestCase {
         Event::assertDispatchedTimes(ResellerUpdated::class, 1);
     }
 
-    /**
-     * @covers ::create
-     * @covers ::createFromCompany
-     */
     public function testCreateFromCompanyTrashed(): void {
         // Prepare
         $factory = $this->app->make(ResellerFactory::class);

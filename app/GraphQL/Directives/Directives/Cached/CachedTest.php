@@ -26,7 +26,7 @@ use const JSON_THROW_ON_ERROR;
 
 /**
  * @internal
- * @coversDefaultClass \App\GraphQL\Directives\Directives\Cached\Cached
+ * @covers \App\GraphQL\Directives\Directives\Cached\Cached
  *
  * @phpstan-import-type OrganizationFactory from WithOrganization
  */
@@ -36,8 +36,6 @@ class CachedTest extends TestCase {
     // <editor-fold desc="Tests">
     // =========================================================================
     /**
-     * @covers ::handleField
-     *
      * @dataProvider dataProviderHandleField
      *
      * @param OrganizationFactory $orgFactory
@@ -72,9 +70,6 @@ class CachedTest extends TestCase {
         $resolver->shouldHaveBeenCalled()->once();
     }
 
-    /**
-     * @covers ::handleField
-     */
     public function testResolveFieldDisabled(): void {
         $this->setOrganization(static function (): Organization {
             return Organization::factory()->create();
@@ -116,8 +111,6 @@ class CachedTest extends TestCase {
     }
 
     /**
-     * @covers ::getCacheKey
-     *
      * @dataProvider dataProviderGetCacheKey
      */
     public function testGetCacheKey(
@@ -166,8 +159,6 @@ class CachedTest extends TestCase {
     }
 
     /**
-     * @covers ::getResolveMode
-     *
      * @dataProvider dataProviderGetResolveMode
      *
      * @param OrganizationFactory $orgFactory
@@ -206,9 +197,6 @@ class CachedTest extends TestCase {
             ->assertThat($expected);
     }
 
-    /**
-     * @covers ::resolve
-     */
     public function testResolveCachedActual(): void {
         $key      = new CacheKey([$this->faker->word()]);
         $value    = $this->faker->sentence();
@@ -246,9 +234,6 @@ class CachedTest extends TestCase {
             ->shouldNotHaveBeenCalled();
     }
 
-    /**
-     * @covers ::resolve
-     */
     public function testResolveCachedExpiredLockable(): void {
         $key      = new CacheKey([$this->faker->word()]);
         $value    = $this->faker->sentence();
@@ -298,9 +283,6 @@ class CachedTest extends TestCase {
             ->shouldNotHaveBeenCalled();
     }
 
-    /**
-     * @covers ::resolve
-     */
     public function testResolveNotCachedNotLockable(): void {
         $key      = new CacheKey([$this->faker->word()]);
         $value    = $this->faker->sentence();
@@ -346,9 +328,6 @@ class CachedTest extends TestCase {
             ->once();
     }
 
-    /**
-     * @covers ::resolve
-     */
     public function testResolveNotCachedLockable(): void {
         $key      = new CacheKey([$this->faker->word()]);
         $value    = $this->faker->sentence();
@@ -400,9 +379,6 @@ class CachedTest extends TestCase {
             ->once();
     }
 
-    /**
-     * @covers ::resolve
-     */
     public function testResolveNotCachedLockableWasLockedButNotUpdatedInAnotherThread(): void {
         $key      = new CacheKey([$this->faker->word()]);
         $value    = $this->faker->sentence();
@@ -465,9 +441,6 @@ class CachedTest extends TestCase {
             ->once();
     }
 
-    /**
-     * @covers ::resolve
-     */
     public function testResolveNotCachedLockableWasLockedAndUpdatedInAnotherThread(): void {
         $key      = new CacheKey([$this->faker->word()]);
         $value    = $this->faker->sentence();
@@ -525,9 +498,6 @@ class CachedTest extends TestCase {
             ->shouldNotHaveBeenCalled();
     }
 
-    /**
-     * @covers ::resolve
-     */
     public function testResolveCachedExpiredThreshold(): void {
         $key      = new CacheKey([$this->faker->word()]);
         $value    = $this->faker->sentence();

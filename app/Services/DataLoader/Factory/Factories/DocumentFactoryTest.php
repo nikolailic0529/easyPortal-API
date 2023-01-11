@@ -55,7 +55,7 @@ use function reset;
 
 /**
  * @internal
- * @coversDefaultClass \App\Services\DataLoader\Factory\Factories\DocumentFactory
+ * @covers \App\Services\DataLoader\Factory\Factories\DocumentFactory
  */
 class DocumentFactoryTest extends TestCase {
     use WithoutGlobalScopes;
@@ -65,8 +65,6 @@ class DocumentFactoryTest extends TestCase {
     // <editor-fold desc="Tests">
     // =========================================================================
     /**
-     * @covers ::create
-     *
      * @dataProvider dataProviderCreate
      */
     public function testCreate(?string $expected, Type $type): void {
@@ -88,9 +86,6 @@ class DocumentFactoryTest extends TestCase {
         $factory->create($type, $force);
     }
 
-    /**
-     * @covers ::createFromViewAssetDocument
-     */
     public function testCreateFromViewAssetDocument(): void {
         // Mock
         $this->overrideDateFactory('2021-08-30T00:00:00.000+00:00');
@@ -153,9 +148,6 @@ class DocumentFactoryTest extends TestCase {
         self::assertCount(0, $queries);
     }
 
-    /**
-     * @covers ::createFromViewAssetDocument
-     */
     public function testCreateFromViewAssetDocumentDocumentNull(): void {
         // Factory
         $factory = $this->app->make(DocumentFactoryTest_Factory::class);
@@ -170,9 +162,6 @@ class DocumentFactoryTest extends TestCase {
         self::assertNull($factory->createFromViewAssetDocument($object, false));
     }
 
-    /**
-     * @covers ::createFromViewAssetDocument
-     */
     public function testCreateFromViewAssetDocumentCustomerNull(): void {
         // Mock
         $this->overrideFinders();
@@ -195,9 +184,6 @@ class DocumentFactoryTest extends TestCase {
         self::assertNull($created->customer_id);
     }
 
-    /**
-     * @covers ::createFromViewAssetDocument
-     */
     public function testCreateFromViewAssetDocumentTypeNull(): void {
         // Mock
         $this->overrideFinders();
@@ -219,9 +205,6 @@ class DocumentFactoryTest extends TestCase {
         self::assertNull($created->type_id);
     }
 
-    /**
-     * @covers ::createFromViewAssetDocument
-     */
     public function testCreateFromViewAssetDocumentTrashed(): void {
         // Mock
         $this->overrideFinders();
@@ -246,9 +229,6 @@ class DocumentFactoryTest extends TestCase {
         self::assertTrue($created->trashed());
     }
 
-    /**
-     * @covers ::createFromViewAssetDocument
-     */
     public function testCreateFromViewAssetDocumentContactPersonsIsNull(): void {
         // Mock
         $this->overrideFinders();
@@ -273,8 +253,6 @@ class DocumentFactoryTest extends TestCase {
     }
 
     /**
-     * @covers ::documentOemGroup
-     *
      * @dataProvider dataProviderDocument
      *
      * @template     T of Document|ViewDocument
@@ -307,8 +285,6 @@ class DocumentFactoryTest extends TestCase {
     }
 
     /**
-     * @covers ::documentType
-     *
      * @dataProvider dataProviderDocument
      *
      * @template     T of Document|ViewDocument
@@ -336,9 +312,6 @@ class DocumentFactoryTest extends TestCase {
         $factory->documentType($document);
     }
 
-    /**
-     * @covers ::documentStatuses
-     */
     public function testDocumentStatuses(): void {
         // Prepare
         $owner   = new DocumentModel();
@@ -387,9 +360,6 @@ class DocumentFactoryTest extends TestCase {
         self::assertEquals($expected, $this->statuses($statuses));
     }
 
-    /**
-     * @covers ::documentEntry
-     */
     public function testDocumentEntry(): void {
         $document           = DocumentModel::factory()->make();
         $uid                = $this->faker->uuid();
@@ -556,9 +526,6 @@ class DocumentFactoryTest extends TestCase {
         self::assertNull($entry->deleted_at);
     }
 
-    /**
-     * @covers ::documentEntryAsset
-     */
     public function testDocumentEntryAsset(): void {
         $asset = Asset::factory()->make();
         $model = DocumentModel::factory()->create();
@@ -578,9 +545,6 @@ class DocumentFactoryTest extends TestCase {
         self::assertSame($asset, $factory->documentEntryAsset($model, $entry));
     }
 
-    /**
-     * @covers ::documentEntryAsset
-     */
     public function testDocumentEntryAssetNoAsset(): void {
         $model = DocumentModel::factory()->create();
         $entry = new DocumentEntry([
@@ -614,9 +578,6 @@ class DocumentFactoryTest extends TestCase {
         $factory->documentEntryAsset($model, $entry);
     }
 
-    /**
-     * @covers ::documentEntryAsset
-     */
     public function testDocumentEntryAssetIsNull(): void {
         $model = DocumentModel::factory()->create();
         $entry = new DocumentEntry([
@@ -635,9 +596,6 @@ class DocumentFactoryTest extends TestCase {
         self::assertNull($factory->documentEntryAsset($model, $entry));
     }
 
-    /**
-     * @covers ::documentEntryAssetType
-     */
     public function testDocumentEntryAssetType(): void {
         $type    = TypeModel::factory()->make();
         $model   = DocumentModel::factory()->create();
@@ -658,9 +616,6 @@ class DocumentFactoryTest extends TestCase {
         );
     }
 
-    /**
-     * @covers ::documentEntryProductLine
-     */
     public function testDocumentEntryProductLine(): void {
         $line    = ProductLine::factory()->make();
         $model   = DocumentModel::factory()->create();
@@ -681,9 +636,6 @@ class DocumentFactoryTest extends TestCase {
         );
     }
 
-    /**
-     * @covers ::documentEntryPsp
-     */
     public function testDocumentEntryPsp(): void {
         $psp     = Psp::factory()->make();
         $model   = DocumentModel::factory()->create();
@@ -705,9 +657,6 @@ class DocumentFactoryTest extends TestCase {
         );
     }
 
-    /**
-     * @covers ::documentEntryProductGroup
-     */
     public function testDocumentEntryProductGroup(): void {
         $line    = ProductGroup::factory()->make();
         $model   = DocumentModel::factory()->create();
@@ -728,9 +677,6 @@ class DocumentFactoryTest extends TestCase {
         );
     }
 
-    /**
-     * @covers ::documentEntryServiceGroup
-     */
     public function testDocumentEntryServiceGroup(): void {
         $oem   = Oem::factory()->make();
         $group = ServiceGroup::factory()->make();
@@ -756,9 +702,6 @@ class DocumentFactoryTest extends TestCase {
         self::assertSame($group, $factory->documentEntryServiceGroup($model, $entry));
     }
 
-    /**
-     * @covers ::documentEntryServiceLevel
-     */
     public function testDocumentEntryServiceLevel(): void {
         $oem   = Oem::factory()->make();
         $group = ServiceGroup::factory()->make();
@@ -793,9 +736,6 @@ class DocumentFactoryTest extends TestCase {
         self::assertSame($level, $factory->documentEntryServiceLevel($model, $entry));
     }
 
-    /**
-     * @covers ::documentEntries
-     */
     public function testDocumentEntries(): void {
         // Prepare
         $assetA       = Asset::factory()->create();
@@ -984,9 +924,6 @@ class DocumentFactoryTest extends TestCase {
         self::assertFalse($d->trashed());
     }
 
-    /**
-     * @covers ::createFromDocument
-     */
     public function testCreateFromDocument(): void {
         // Mock
         $this->overrideDateFactory('2021-08-30T00:00:00.000+00:00');
@@ -1126,9 +1063,6 @@ class DocumentFactoryTest extends TestCase {
         self::assertEmpty($queries->get());
     }
 
-    /**
-     * @covers ::createFromDocument
-     */
     public function testCreateFromDocumentTypeNull(): void {
         // Mock
         $this->overrideDateFactory('2021-08-30T00:00:00.000+00:00');
@@ -1150,9 +1084,6 @@ class DocumentFactoryTest extends TestCase {
         self::assertNull($created->type_id);
     }
 
-    /**
-     * @covers ::createFromDocument
-     */
     public function testCreateFromDocumentTrashed(): void {
         // Mock
         $this->overrideFinders();
@@ -1177,8 +1108,6 @@ class DocumentFactoryTest extends TestCase {
     }
 
     /**
-     * @covers ::getEntryKey
-     *
      * @dataProvider dataProviderGetEntryKey
      *
      * @param Closure(static): (DocumentEntryModel|DocumentEntry) $entryFactory

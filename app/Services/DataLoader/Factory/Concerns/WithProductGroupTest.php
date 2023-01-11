@@ -12,14 +12,11 @@ use Tests\TestCase;
 
 /**
  * @internal
- * @coversDefaultClass \App\Services\DataLoader\Factory\Concerns\WithProductGroup
+ * @covers \App\Services\DataLoader\Factory\Concerns\WithProductGroup
  */
 class WithProductGroupTest extends TestCase {
     use WithQueryLog;
 
-    /**
-     * @covers ::productGroup
-     */
     public function testProductGroup(): void {
         $group    = ProductGroup::factory()->create();
         $resolver = $this->app->make(ProductGroupResolver::class);

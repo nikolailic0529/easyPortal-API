@@ -15,7 +15,7 @@ use Tests\WithOrganization;
 
 /**
  * @internal
- * @coversDefaultClass \App\Http\Controllers\IndexController
+ * @covers \App\Http\Controllers\IndexController
  *
  * @phpstan-import-type OrganizationFactory from WithOrganization
  */
@@ -23,8 +23,6 @@ class IndexControllerTest extends TestCase {
     // <editor-fold desc="Tests">
     // =========================================================================
     /**
-     * @covers ::index
-     *
      * @dataProvider dataProviderIndex
      *
      * @param OrganizationFactory $orgFactory
@@ -47,8 +45,6 @@ class IndexControllerTest extends TestCase {
     }
 
     /**
-     * @covers ::index
-     *
      * @dataProvider dataProviderIndexApplication
      *
      * @param OrganizationFactory $orgFactory

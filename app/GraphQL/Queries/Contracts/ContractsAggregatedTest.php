@@ -24,7 +24,7 @@ use Tests\WithUser;
 
 /**
  * @internal
- * @coversDefaultClass \App\GraphQL\Queries\Contracts\ContractsAggregated
+ * @covers \App\GraphQL\Queries\Contracts\ContractsAggregated
  *
  * @phpstan-import-type OrganizationFactory from WithOrganization
  * @phpstan-import-type UserFactory from WithUser
@@ -34,8 +34,6 @@ class ContractsAggregatedTest extends TestCase {
     // <editor-fold desc="Tests">
     // =========================================================================
     /**
-     * @covers ::prices
-     *
      * @dataProvider dataProviderQuery
      *
      * @param OrganizationFactory         $orgFactory

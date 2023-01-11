@@ -21,12 +21,9 @@ use function array_values;
 
 /**
  * @internal
- * @coversDefaultClass \App\Services\I18n\I18n
+ * @covers \App\Services\I18n\I18n
  */
 class I18nTest extends TestCase {
-    /**
-     * @covers ::getTranslations
-     */
     public function testGetTranslations(): void {
         $locale = $this->faker->locale();
 
@@ -75,9 +72,6 @@ class I18nTest extends TestCase {
         self::assertEquals(array_values($expected), array_values($translations));
     }
 
-    /**
-     * @covers ::getDefaultTranslations
-     */
     public function testGetDefaultTranslations(): void {
         $locale = $this->faker->locale();
 
@@ -104,9 +98,6 @@ class I18nTest extends TestCase {
         self::assertEquals(array_values($expected), array_values($translations));
     }
 
-    /**
-     * @covers ::getClientTranslations
-     */
     public function testGetClientTranslations(): void {
         $locale  = $this->faker->locale();
         $disk    = $this->app->make(ClientDisk::class);
@@ -145,9 +136,6 @@ class I18nTest extends TestCase {
         self::assertEquals(array_values($expected), array_values($translations));
     }
 
-    /**
-     * @covers ::saveTranslations
-     */
     public function testSaveTranslations(): void {
         $i18n = new class() extends I18n {
             /** @noinspection PhpMissingParentConstructorInspection */
@@ -187,9 +175,6 @@ class I18nTest extends TestCase {
         ]));
     }
 
-    /**
-     * @covers ::setTranslations
-     */
     public function testSetTranslations(): void {
         Event::fake(TranslationsUpdated::class);
 
@@ -236,9 +221,6 @@ class I18nTest extends TestCase {
         Event::assertDispatched(TranslationsUpdated::class);
     }
 
-    /**
-     * @covers ::setTranslations
-     */
     public function testSetTranslationsEmpty(): void {
         $locale = $this->faker->locale();
         $i18n   = Mockery::mock(I18n::class);
@@ -256,9 +238,6 @@ class I18nTest extends TestCase {
         ]));
     }
 
-    /**
-     * @covers ::setTranslations
-     */
     public function testSetTranslationsAppOnly(): void {
         Event::fake(TranslationsUpdated::class);
 
@@ -295,9 +274,6 @@ class I18nTest extends TestCase {
         Event::assertDispatched(TranslationsUpdated::class);
     }
 
-    /**
-     * @covers ::setTranslations
-     */
     public function testSetTranslationsClientOnly(): void {
         Event::fake(TranslationsUpdated::class);
 
@@ -334,9 +310,6 @@ class I18nTest extends TestCase {
         Event::assertDispatched(TranslationsUpdated::class);
     }
 
-    /**
-     * @covers ::resetTranslations
-     */
     public function testResetTranslations(): void {
         Event::fake(TranslationsUpdated::class);
 

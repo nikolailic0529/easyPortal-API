@@ -32,14 +32,12 @@ use const JSON_THROW_ON_ERROR;
 
 /**
  * @internal
- * @coversDefaultClass \App\Utils\Cache\CacheKey
+ * @covers \App\Utils\Cache\CacheKey
  */
 class CacheKeyTest extends TestCase {
     // <editor-fold desc="Tests">
     // =========================================================================
     /**
-     * @covers ::__toString
-     *
      * @dataProvider dataProviderToString
      *
      * @param array<mixed> $key

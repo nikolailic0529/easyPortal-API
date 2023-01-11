@@ -22,7 +22,7 @@ use Tests\WithUser;
 
 /**
  * @internal
- * @coversDefaultClass \App\GraphQL\Queries\Customers\CustomersAggregated
+ * @covers \App\GraphQL\Queries\Customers\CustomersAggregated
  *
  * @phpstan-import-type OrganizationFactory from WithOrganization
  * @phpstan-import-type UserFactory from WithUser
@@ -31,8 +31,6 @@ class CustomersAggregatedTest extends TestCase {
     // <editor-fold desc="Tests">
     // =========================================================================
     /**
-     * @covers ::assets
-     *
      * @dataProvider dataProviderQuery
      *
      * @param OrganizationFactory                              $orgFactory

@@ -24,7 +24,7 @@ use Tests\WithUser;
 
 /**
  * @internal
- * @coversDefaultClass \App\GraphQL\Queries\Me
+ * @covers \App\GraphQL\Queries\Me
  *
  * @phpstan-import-type OrganizationFactory from WithOrganization
  * @phpstan-import-type UserFactory from WithUser
@@ -34,9 +34,6 @@ class MeTest extends TestCase {
     // <editor-fold desc="Tests">
     // =========================================================================
     /**
-     * @covers ::__invoke
-     * @covers ::root
-     *
      * @dataProvider dataProviderInvoke
      *
      * @param OrganizationFactory $orgFactory
@@ -122,8 +119,6 @@ class MeTest extends TestCase {
     }
 
     /**
-     * @covers ::team
-     *
      * @dataProvider dataProviderTeam
      *
      * @param OrganizationFactory $orgFactory
@@ -153,8 +148,6 @@ class MeTest extends TestCase {
     }
 
     /**
-     * @covers ::orgs
-     *
      * @dataProvider dataProviderOrgs
      *
      * @param OrganizationFactory $orgFactory

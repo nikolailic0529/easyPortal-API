@@ -11,12 +11,9 @@ use function str_contains;
 
 /**
  * @internal
- * @coversDefaultClass \App\Services\Queue\Provider
+ * @covers \App\Services\Queue\Provider
  */
 class ProviderTest extends TestCase {
-    /**
-     * @covers ::bootSnapshots
-     */
     public function testBootSnapshots(): void {
         $expected = 'horizon:snapshot';
         $schedule = $this->app->make(Schedule::class);

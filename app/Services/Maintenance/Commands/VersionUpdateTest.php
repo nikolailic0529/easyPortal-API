@@ -17,7 +17,7 @@ use function sprintf;
 
 /**
  * @internal
- * @coversDefaultClass \App\Services\Maintenance\Commands\VersionUpdate
+ * @covers \App\Services\Maintenance\Commands\VersionUpdate
  */
 class VersionUpdateTest extends TestCase {
     use CommandOptions;
@@ -39,8 +39,6 @@ class VersionUpdateTest extends TestCase {
     }
 
     /**
-     * @covers ::__invoke
-     *
      * @dataProvider dataProviderInvoke
      *
      * @param array<string,string> $arguments

@@ -21,27 +21,27 @@ parameters:
 			path: app/Exceptions/Handler.php
 
 		-
-			message: "#^Method class@anonymous/app/Exceptions/HandlerTest\\.php\\:277\\:\\:context\\(\\) return type has no value type specified in iterable type array\\.$#"
+			message: "#^Method class@anonymous/app/Exceptions/HandlerTest\\.php\\:264\\:\\:context\\(\\) return type has no value type specified in iterable type array\\.$#"
 			count: 1
 			path: app/Exceptions/HandlerTest.php
 
 		-
-			message: "#^Method class@anonymous/app/Exceptions/HandlerTest\\.php\\:285\\:\\:getContext\\(\\) should return array\\<string, mixed\\> but returns array\\<int, int\\>\\.$#"
+			message: "#^Method class@anonymous/app/Exceptions/HandlerTest\\.php\\:272\\:\\:getContext\\(\\) should return array\\<string, mixed\\> but returns array\\<int, int\\>\\.$#"
 			count: 1
 			path: app/Exceptions/HandlerTest.php
 
 		-
-			message: "#^Method class@anonymous/app/Exceptions/HandlerTest\\.php\\:32\\:\\:context\\(\\) return type has no value type specified in iterable type array\\.$#"
+			message: "#^Method class@anonymous/app/Exceptions/HandlerTest\\.php\\:29\\:\\:context\\(\\) return type has no value type specified in iterable type array\\.$#"
 			count: 1
 			path: app/Exceptions/HandlerTest.php
 
 		-
-			message: "#^Method class@anonymous/app/Exceptions/HandlerTest\\.php\\:32\\:\\:extensionsContent\\(\\) should return array\\<string, mixed\\> but returns array\\<int, string\\>\\.$#"
+			message: "#^Method class@anonymous/app/Exceptions/HandlerTest\\.php\\:29\\:\\:extensionsContent\\(\\) should return array\\<string, mixed\\> but returns array\\<int, string\\>\\.$#"
 			count: 1
 			path: app/Exceptions/HandlerTest.php
 
 		-
-			message: "#^Method class@anonymous/app/Exceptions/HandlerTest\\.php\\:32\\:\\:getContext\\(\\) should return array\\<string, mixed\\> but returns array\\<int, int\\>\\.$#"
+			message: "#^Method class@anonymous/app/Exceptions/HandlerTest\\.php\\:29\\:\\:getContext\\(\\) should return array\\<string, mixed\\> but returns array\\<int, int\\>\\.$#"
 			count: 1
 			path: app/Exceptions/HandlerTest.php
 
@@ -261,12 +261,12 @@ parameters:
 			path: app/GraphQL/Directives/Directives/Auth/MeTest.php
 
 		-
-			message: "#^Parameter \\#3 \\$builder of class class@anonymous/app/GraphQL/Directives/Directives/Auth/MeTest\\.php\\:374 constructor expects Illuminate\\\\Database\\\\Eloquent\\\\Builder\\<Illuminate\\\\Database\\\\Eloquent\\\\Model\\>, Illuminate\\\\Database\\\\Eloquent\\\\Builder\\<class@anonymous/app/GraphQL/Directives/Directives/Auth/MeTest\\.php\\:342\\> given\\.$#"
+			message: "#^Parameter \\#3 \\$builder of class class@anonymous/app/GraphQL/Directives/Directives/Auth/MeTest\\.php\\:357 constructor expects Illuminate\\\\Database\\\\Eloquent\\\\Builder\\<Illuminate\\\\Database\\\\Eloquent\\\\Model\\>, Illuminate\\\\Database\\\\Eloquent\\\\Builder\\<class@anonymous/app/GraphQL/Directives/Directives/Auth/MeTest\\.php\\:325\\> given\\.$#"
 			count: 1
 			path: app/GraphQL/Directives/Directives/Auth/MeTest.php
 
 		-
-			message: "#^Parameter \\#3 \\$builder of class class@anonymous/app/GraphQL/Directives/Directives/Auth/MeTest\\.php\\:382 constructor expects Illuminate\\\\Database\\\\Eloquent\\\\Builder\\<Illuminate\\\\Database\\\\Eloquent\\\\Model\\>, Illuminate\\\\Database\\\\Eloquent\\\\Builder\\<class@anonymous/app/GraphQL/Directives/Directives/Auth/MeTest\\.php\\:342\\> given\\.$#"
+			message: "#^Parameter \\#3 \\$builder of class class@anonymous/app/GraphQL/Directives/Directives/Auth/MeTest\\.php\\:365 constructor expects Illuminate\\\\Database\\\\Eloquent\\\\Builder\\<Illuminate\\\\Database\\\\Eloquent\\\\Model\\>, Illuminate\\\\Database\\\\Eloquent\\\\Builder\\<class@anonymous/app/GraphQL/Directives/Directives/Auth/MeTest\\.php\\:325\\> given\\.$#"
 			count: 1
 			path: app/GraphQL/Directives/Directives/Auth/MeTest.php
 
@@ -1426,7 +1426,7 @@ parameters:
 			path: app/GraphQL/Queries/Application/ServicesTest.php
 
 		-
-			message: "#^Method class@anonymous/app/GraphQL/Queries/Application/ServicesTest\\.php\\:69\\:\\:getStore\\(\\) should return class\\-string but returns string\\.$#"
+			message: "#^Method class@anonymous/app/GraphQL/Queries/Application/ServicesTest\\.php\\:67\\:\\:getStore\\(\\) should return class\\-string but returns string\\.$#"
 			count: 1
 			path: app/GraphQL/Queries/Application/ServicesTest.php
 
@@ -3721,22 +3721,22 @@ parameters:
 			path: app/Services/Queue/Concerns/ProcessorJobTest.php
 
 		-
-			message: "#^Method class@anonymous/app/Services/Queue/Concerns/ProcessorJobTest\\.php\\:140\\:\\:getProgressCallback\\(\\) return type has no signature specified for callable\\.$#"
+			message: "#^Method class@anonymous/app/Services/Queue/Concerns/ProcessorJobTest\\.php\\:134\\:\\:getProgressCallback\\(\\) return type has no signature specified for callable\\.$#"
 			count: 1
 			path: app/Services/Queue/Concerns/ProcessorJobTest.php
 
 		-
-			message: "#^Method class@anonymous/app/Services/Queue/Concerns/ProcessorJobTest\\.php\\:140\\:\\:getResetProgressCallback\\(\\) return type has no signature specified for callable\\.$#"
+			message: "#^Method class@anonymous/app/Services/Queue/Concerns/ProcessorJobTest\\.php\\:134\\:\\:getResetProgressCallback\\(\\) return type has no signature specified for callable\\.$#"
 			count: 1
 			path: app/Services/Queue/Concerns/ProcessorJobTest.php
 
 		-
-			message: "#^Method class@anonymous/app/Services/Queue/Concerns/ProcessorJobTest\\.php\\:75\\:\\:getProgressCallback\\(\\) should return callable\\(\\.\\.\\.mixed\\)\\: App\\\\Services\\\\Queue\\\\Progress\\|null but returns Closure\\(Illuminate\\\\Contracts\\\\Container\\\\Container, LastDragon_ru\\\\LaraASP\\\\Queue\\\\QueueableConfigurator\\)\\: App\\\\Services\\\\Queue\\\\Progress\\|null\\.$#"
+			message: "#^Method class@anonymous/app/Services/Queue/Concerns/ProcessorJobTest\\.php\\:72\\:\\:getProgressCallback\\(\\) should return callable\\(\\.\\.\\.mixed\\)\\: App\\\\Services\\\\Queue\\\\Progress\\|null but returns Closure\\(Illuminate\\\\Contracts\\\\Container\\\\Container, LastDragon_ru\\\\LaraASP\\\\Queue\\\\QueueableConfigurator\\)\\: App\\\\Services\\\\Queue\\\\Progress\\|null\\.$#"
 			count: 1
 			path: app/Services/Queue/Concerns/ProcessorJobTest.php
 
 		-
-			message: "#^Method class@anonymous/app/Services/Queue/Concerns/ProcessorJobTest\\.php\\:75\\:\\:getResetProgressCallback\\(\\) should return callable\\(\\.\\.\\.mixed\\)\\: bool but returns Closure\\(Illuminate\\\\Contracts\\\\Container\\\\Container, LastDragon_ru\\\\LaraASP\\\\Queue\\\\QueueableConfigurator\\)\\: true\\.$#"
+			message: "#^Method class@anonymous/app/Services/Queue/Concerns/ProcessorJobTest\\.php\\:72\\:\\:getResetProgressCallback\\(\\) should return callable\\(\\.\\.\\.mixed\\)\\: bool but returns Closure\\(Illuminate\\\\Contracts\\\\Container\\\\Container, LastDragon_ru\\\\LaraASP\\\\Queue\\\\QueueableConfigurator\\)\\: true\\.$#"
 			count: 1
 			path: app/Services/Queue/Concerns/ProcessorJobTest.php
 
@@ -3786,17 +3786,17 @@ parameters:
 			path: app/Services/Queue/Queue.php
 
 		-
-			message: "#^Parameter \\#1 \\$jobs of method class@anonymous/app/Services/Queue/QueueTest\\.php\\:216\\:\\:getStatesFromHorizon\\(\\) expects Illuminate\\\\Support\\\\Collection\\<string, LastDragon_ru\\\\LaraASP\\\\Queue\\\\Queueables\\\\Job\\>, Illuminate\\\\Support\\\\Collection\\<\\(int\\|string\\), App\\\\Services\\\\Queue\\\\Contracts\\\\Stoppable&LastDragon_ru\\\\LaraASP\\\\Queue\\\\Queueables\\\\Job&Mockery\\\\MockInterface\\> given\\.$#"
+			message: "#^Parameter \\#1 \\$jobs of method class@anonymous/app/Services/Queue/QueueTest\\.php\\:207\\:\\:getStatesFromHorizon\\(\\) expects Illuminate\\\\Support\\\\Collection\\<string, LastDragon_ru\\\\LaraASP\\\\Queue\\\\Queueables\\\\Job\\>, Illuminate\\\\Support\\\\Collection\\<\\(int\\|string\\), App\\\\Services\\\\Queue\\\\Contracts\\\\Stoppable&LastDragon_ru\\\\LaraASP\\\\Queue\\\\Queueables\\\\Job&Mockery\\\\MockInterface\\> given\\.$#"
 			count: 1
 			path: app/Services/Queue/QueueTest.php
 
 		-
-			message: "#^Parameter \\#1 \\$jobs of method class@anonymous/app/Services/Queue/QueueTest\\.php\\:327\\:\\:getStatesFromLogs\\(\\) expects Illuminate\\\\Support\\\\Collection\\<string, LastDragon_ru\\\\LaraASP\\\\Queue\\\\Queueables\\\\Job\\>, Illuminate\\\\Support\\\\Collection\\<\\(int\\|string\\), App\\\\Services\\\\Queue\\\\Contracts\\\\Stoppable&LastDragon_ru\\\\LaraASP\\\\Queue\\\\Queueables\\\\Job&Mockery\\\\MockInterface\\> given\\.$#"
+			message: "#^Parameter \\#1 \\$jobs of method class@anonymous/app/Services/Queue/QueueTest\\.php\\:315\\:\\:getStatesFromLogs\\(\\) expects Illuminate\\\\Support\\\\Collection\\<string, LastDragon_ru\\\\LaraASP\\\\Queue\\\\Queueables\\\\Job\\>, Illuminate\\\\Support\\\\Collection\\<\\(int\\|string\\), App\\\\Services\\\\Queue\\\\Contracts\\\\Stoppable&LastDragon_ru\\\\LaraASP\\\\Queue\\\\Queueables\\\\Job&Mockery\\\\MockInterface\\> given\\.$#"
 			count: 1
 			path: app/Services/Queue/QueueTest.php
 
 		-
-			message: "#^Parameter \\#1 \\$jobs of method class@anonymous/app/Services/Queue/QueueTest\\.php\\:413\\:\\:getStatesFromLogs\\(\\) expects Illuminate\\\\Support\\\\Collection\\<string, LastDragon_ru\\\\LaraASP\\\\Queue\\\\Queueables\\\\Job\\>, Illuminate\\\\Support\\\\Collection\\<\\(int\\|string\\), App\\\\Services\\\\Queue\\\\Contracts\\\\Stoppable&LastDragon_ru\\\\LaraASP\\\\Queue\\\\Queueables\\\\Job&Mockery\\\\MockInterface\\> given\\.$#"
+			message: "#^Parameter \\#1 \\$jobs of method class@anonymous/app/Services/Queue/QueueTest\\.php\\:398\\:\\:getStatesFromLogs\\(\\) expects Illuminate\\\\Support\\\\Collection\\<string, LastDragon_ru\\\\LaraASP\\\\Queue\\\\Queueables\\\\Job\\>, Illuminate\\\\Support\\\\Collection\\<\\(int\\|string\\), App\\\\Services\\\\Queue\\\\Contracts\\\\Stoppable&LastDragon_ru\\\\LaraASP\\\\Queue\\\\Queueables\\\\Job&Mockery\\\\MockInterface\\> given\\.$#"
 			count: 1
 			path: app/Services/Queue/QueueTest.php
 
@@ -3981,7 +3981,7 @@ parameters:
 			path: app/Services/Search/Builders/Builder.php
 
 		-
-			message: "#^Method class@anonymous/app/Services/Search/Builders/BuilderTest\\.php\\:33\\:\\:apply\\(\\) has parameter \\$builder with generic class Illuminate\\\\Database\\\\Eloquent\\\\Builder but does not specify its types\\: TModelClass$#"
+			message: "#^Method class@anonymous/app/Services/Search/Builders/BuilderTest\\.php\\:30\\:\\:apply\\(\\) has parameter \\$builder with generic class Illuminate\\\\Database\\\\Eloquent\\\\Builder but does not specify its types\\: TModelClass$#"
 			count: 1
 			path: app/Services/Search/Builders/BuilderTest.php
 
@@ -4001,7 +4001,7 @@ parameters:
 			path: app/Services/Search/Builders/UnionBuilder.php
 
 		-
-			message: "#^Method class@anonymous/app/Services/Search/ConfigurationTest\\.php\\:486\\:\\:apply\\(\\) has parameter \\$builder with generic class Illuminate\\\\Database\\\\Eloquent\\\\Builder but does not specify its types\\: TModelClass$#"
+			message: "#^Method class@anonymous/app/Services/Search/ConfigurationTest\\.php\\:456\\:\\:apply\\(\\) has parameter \\$builder with generic class Illuminate\\\\Database\\\\Eloquent\\\\Builder but does not specify its types\\: TModelClass$#"
 			count: 1
 			path: app/Services/Search/ConfigurationTest.php
 
@@ -4036,12 +4036,12 @@ parameters:
 			path: app/Services/Search/Elastic/SearchRequestFactory.php
 
 		-
-			message: "#^Method class@anonymous/app/Services/Search/Elastic/SearchRequestFactoryTest\\.php\\:329\\:\\:makeQuery\\(\\) return type has no value type specified in iterable type array\\.$#"
+			message: "#^Method class@anonymous/app/Services/Search/Elastic/SearchRequestFactoryTest\\.php\\:318\\:\\:makeQuery\\(\\) return type has no value type specified in iterable type array\\.$#"
 			count: 1
 			path: app/Services/Search/Elastic/SearchRequestFactoryTest.php
 
 		-
-			message: "#^Parameter \\#2 \\$scopes of method App\\\\Services\\\\Search\\\\Builders\\\\UnionBuilder\\:\\:addModel\\(\\) expects array\\<App\\\\Services\\\\Search\\\\Contracts\\\\Scope\\<App\\\\Services\\\\Search\\\\Eloquent\\\\Searchable&Illuminate\\\\Database\\\\Eloquent\\\\Model\\>\\>, array\\{class@anonymous/app/Services/Search/Elastic/SearchRequestFactoryTest\\.php\\:110\\} given\\.$#"
+			message: "#^Parameter \\#2 \\$scopes of method App\\\\Services\\\\Search\\\\Builders\\\\UnionBuilder\\:\\:addModel\\(\\) expects array\\<App\\\\Services\\\\Search\\\\Contracts\\\\Scope\\<App\\\\Services\\\\Search\\\\Eloquent\\\\Searchable&Illuminate\\\\Database\\\\Eloquent\\\\Model\\>\\>, array\\{class@anonymous/app/Services/Search/Elastic/SearchRequestFactoryTest\\.php\\:104\\} given\\.$#"
 			count: 1
 			path: app/Services/Search/Elastic/SearchRequestFactoryTest.php
 
@@ -4071,17 +4071,17 @@ parameters:
 			path: app/Services/Search/Eloquent/SearchableImplTest.php
 
 		-
-			message: "#^Method class@anonymous/app/Services/Search/Eloquent/SearchableImplTest\\.php\\:137\\:\\:apply\\(\\) has parameter \\$builder with generic class Illuminate\\\\Database\\\\Eloquent\\\\Builder but does not specify its types\\: TModelClass$#"
+			message: "#^Method class@anonymous/app/Services/Search/Eloquent/SearchableImplTest\\.php\\:129\\:\\:apply\\(\\) has parameter \\$builder with generic class Illuminate\\\\Database\\\\Eloquent\\\\Builder but does not specify its types\\: TModelClass$#"
 			count: 1
 			path: app/Services/Search/Eloquent/SearchableImplTest.php
 
 		-
-			message: "#^Method class@anonymous/app/Services/Search/Eloquent/SearchableImplTest\\.php\\:44\\:\\:getDirty\\(\\) return type has no value type specified in iterable type array\\.$#"
+			message: "#^Method class@anonymous/app/Services/Search/Eloquent/SearchableImplTest\\.php\\:41\\:\\:getDirty\\(\\) return type has no value type specified in iterable type array\\.$#"
 			count: 1
 			path: app/Services/Search/Eloquent/SearchableImplTest.php
 
 		-
-			message: "#^Method class@anonymous/app/Services/Search/Eloquent/SearchableImplTest\\.php\\:62\\:\\:getDirty\\(\\) return type has no value type specified in iterable type array\\.$#"
+			message: "#^Method class@anonymous/app/Services/Search/Eloquent/SearchableImplTest\\.php\\:59\\:\\:getDirty\\(\\) return type has no value type specified in iterable type array\\.$#"
 			count: 1
 			path: app/Services/Search/Eloquent/SearchableImplTest.php
 
@@ -4181,17 +4181,17 @@ parameters:
 			path: app/Services/Search/Processors/ModelProcessorTest.php
 
 		-
-			message: "#^Method class@anonymous/app/Services/Search/Processors/ModelProcessorTest\\.php\\:167\\:\\:query\\(\\) return type with generic class Illuminate\\\\Database\\\\Eloquent\\\\Builder does not specify its types\\: TModelClass$#"
+			message: "#^Method class@anonymous/app/Services/Search/Processors/ModelProcessorTest\\.php\\:161\\:\\:query\\(\\) return type with generic class Illuminate\\\\Database\\\\Eloquent\\\\Builder does not specify its types\\: TModelClass$#"
 			count: 1
 			path: app/Services/Search/Processors/ModelProcessorTest.php
 
 		-
-			message: "#^Method class@anonymous/app/Services/Search/Processors/ModelProcessorTest\\.php\\:472\\:\\:__construct\\(\\) has parameter \\$attributes with no value type specified in iterable type array\\.$#"
+			message: "#^Method class@anonymous/app/Services/Search/Processors/ModelProcessorTest\\.php\\:450\\:\\:__construct\\(\\) has parameter \\$attributes with no value type specified in iterable type array\\.$#"
 			count: 1
 			path: app/Services/Search/Processors/ModelProcessorTest.php
 
 		-
-			message: "#^Method class@anonymous/app/Services/Search/Processors/ModelProcessorTest\\.php\\:683\\:\\:__construct\\(\\) has parameter \\$attributes with no value type specified in iterable type array\\.$#"
+			message: "#^Method class@anonymous/app/Services/Search/Processors/ModelProcessorTest\\.php\\:661\\:\\:__construct\\(\\) has parameter \\$attributes with no value type specified in iterable type array\\.$#"
 			count: 1
 			path: app/Services/Search/Processors/ModelProcessorTest.php
 
@@ -4241,17 +4241,17 @@ parameters:
 			path: app/Services/Search/Processors/ModelProcessorTest.php
 
 		-
-			message: "#^Parameter \\#1 \\$state of method class@anonymous/app/Services/Search/Processors/ModelProcessorTest\\.php\\:397\\:\\:process\\(\\) expects App\\\\Services\\\\Search\\\\Processors\\\\ModelProcessorState\\<App\\\\Services\\\\Search\\\\Eloquent\\\\Searchable&Illuminate\\\\Database\\\\Eloquent\\\\Model\\>, App\\\\Services\\\\Search\\\\Processors\\\\ModelProcessorState\\<Illuminate\\\\Database\\\\Eloquent\\\\Model\\> given\\.$#"
+			message: "#^Parameter \\#1 \\$state of method class@anonymous/app/Services/Search/Processors/ModelProcessorTest\\.php\\:378\\:\\:process\\(\\) expects App\\\\Services\\\\Search\\\\Processors\\\\ModelProcessorState\\<App\\\\Services\\\\Search\\\\Eloquent\\\\Searchable&Illuminate\\\\Database\\\\Eloquent\\\\Model\\>, App\\\\Services\\\\Search\\\\Processors\\\\ModelProcessorState\\<Illuminate\\\\Database\\\\Eloquent\\\\Model\\> given\\.$#"
 			count: 1
 			path: app/Services/Search/Processors/ModelProcessorTest.php
 
 		-
-			message: "#^Parameter \\#3 \\$item of method class@anonymous/app/Services/Search/Processors/ModelProcessorTest\\.php\\:397\\:\\:process\\(\\) expects App\\\\Services\\\\Search\\\\Eloquent\\\\Searchable&Illuminate\\\\Database\\\\Eloquent\\\\Model, Illuminate\\\\Database\\\\Eloquent\\\\Model&Mockery\\\\MockInterface given\\.$#"
+			message: "#^Parameter \\#3 \\$item of method class@anonymous/app/Services/Search/Processors/ModelProcessorTest\\.php\\:378\\:\\:process\\(\\) expects App\\\\Services\\\\Search\\\\Eloquent\\\\Searchable&Illuminate\\\\Database\\\\Eloquent\\\\Model, Illuminate\\\\Database\\\\Eloquent\\\\Model&Mockery\\\\MockInterface given\\.$#"
 			count: 1
 			path: app/Services/Search/Processors/ModelProcessorTest.php
 
 		-
-			message: "#^Property class@anonymous/app/Services/Search/Processors/ModelProcessorTest\\.php\\:167\\:\\:\\$builder with generic class Illuminate\\\\Database\\\\Eloquent\\\\Builder does not specify its types\\: TModelClass$#"
+			message: "#^Property class@anonymous/app/Services/Search/Processors/ModelProcessorTest\\.php\\:161\\:\\:\\$builder with generic class Illuminate\\\\Database\\\\Eloquent\\\\Builder does not specify its types\\: TModelClass$#"
 			count: 1
 			path: app/Services/Search/Processors/ModelProcessorTest.php
 
@@ -4416,7 +4416,7 @@ parameters:
 			path: app/Services/Settings/Settings.php
 
 		-
-			message: "#^Parameter \\#2 \\$value of method class@anonymous/app/Services/Settings/SettingsTest\\.php\\:249\\:\\:parseValue\\(\\) expects string\\|null, mixed given\\.$#"
+			message: "#^Parameter \\#2 \\$value of method class@anonymous/app/Services/Settings/SettingsTest\\.php\\:232\\:\\:parseValue\\(\\) expects string\\|null, mixed given\\.$#"
 			count: 1
 			path: app/Services/Settings/SettingsTest.php
 

@@ -13,7 +13,7 @@ use function sprintf;
 
 /**
  * @internal
- * @coversDefaultClass \App\Services\Organization\Eloquent\OwnedByReseller
+ * @covers \App\Services\Organization\Eloquent\OwnedByReseller
  */
 class OwnedByResellerTest extends TestCase {
     /**

@@ -14,7 +14,7 @@ use Tests\WithSettings;
 
 /**
  * @internal
- * @coversDefaultClass \App\GraphQL\Directives\Directives\Paginated\PaginatedRelation
+ * @covers \App\GraphQL\Directives\Directives\Paginated\PaginatedRelation
  *
  * @phpstan-import-type SettingsFactory from WithSettings
  */
@@ -25,8 +25,6 @@ class PaginatedRelationTest extends TestCase {
     // <editor-fold desc="Tests">
     // =========================================================================
     /**
-     * @covers ::manipulateFieldDefinition
-     *
      * @dataProvider dataProviderManipulateArgDefinition
      *
      * @param SettingsFactory $settingsFactory
@@ -40,9 +38,6 @@ class PaginatedRelationTest extends TestCase {
         );
     }
 
-    /**
-     * @covers ::manipulateFieldDefinition
-     */
     public function testManipulateArgDefinitionNoModel(): void {
         self::expectExceptionObject(new LogicException(
             '@paginatedRelation directive should be used with one of `@relation`.',

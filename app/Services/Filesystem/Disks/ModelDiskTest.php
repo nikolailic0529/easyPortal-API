@@ -17,12 +17,9 @@ use function str_replace;
 
 /**
  * @internal
- * @coversDefaultClass \App\Services\Filesystem\Disks\ModelDisk
+ * @covers \App\Services\Filesystem\Disks\ModelDisk
  */
 class ModelDiskTest extends TestCase {
-    /**
-     * @covers ::store
-     */
     public function testStore(): void {
         $id    = $this->faker->uuid();
         $model = Mockery::mock(Model::class);
@@ -62,9 +59,6 @@ class ModelDiskTest extends TestCase {
         $disk->store($upload);
     }
 
-    /**
-     * @covers ::storeToFile
-     */
     public function testStoreToFile(): void {
         $id     = $this->faker->uuid();
         $upload = UploadedFile::fake()->create('test.txt');
@@ -107,9 +101,6 @@ class ModelDiskTest extends TestCase {
         self::assertEquals(hash_file('sha256', $upload->getPathname()), $actual->hash);
     }
 
-    /**
-     * @covers ::storeToFiles
-     */
     public function testStoreToFiles(): void {
         $a    = Mockery::mock(UploadedFile::class);
         $b    = Mockery::mock(UploadedFile::class);
@@ -129,9 +120,6 @@ class ModelDiskTest extends TestCase {
         self::assertCount(2, $disk->storeToFiles([$a, $b]));
     }
 
-    /**
-     * @covers ::download
-     */
     public function testDownloadPath(): void {
         $response = Mockery::mock(StreamedResponse::class);
         $path     = 'path/to/file';
@@ -152,9 +140,6 @@ class ModelDiskTest extends TestCase {
         self::assertSame($response, $disk->download($path));
     }
 
-    /**
-     * @covers ::download
-     */
     public function testDownloadFile(): void {
         $response = Mockery::mock(StreamedResponse::class);
         $file     = File::factory()->create();
@@ -179,9 +164,6 @@ class ModelDiskTest extends TestCase {
         self::assertSame($response, $disk->download($file));
     }
 
-    /**
-     * @covers ::download
-     */
     public function testDownloadFileFromAnotherDisc(): void {
         $file = File::factory()->create();
         $fs   = Mockery::mock(FilesystemAdapter::class);

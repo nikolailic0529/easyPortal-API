@@ -13,14 +13,11 @@ use Tests\TestCase;
 
 /**
  * @internal
- * @coversDefaultClass \App\Services\DataLoader\Factory\Concerns\WithProduct
+ * @covers \App\Services\DataLoader\Factory\Concerns\WithProduct
  */
 class WithProductTest extends TestCase {
     use WithQueryLog;
 
-    /**
-     * @covers ::product
-     */
     public function testProduct(): void {
         // Prepare
         $resolver = $this->app->make(ProductResolver::class);

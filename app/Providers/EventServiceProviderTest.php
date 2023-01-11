@@ -8,7 +8,7 @@ use Tests\TestCase;
 
 /**
  * @internal
- * @coversDefaultClass \App\Providers\EventServiceProvider
+ * @covers \App\Providers\EventServiceProvider
  */
 class EventServiceProviderTest extends TestCase {
     /**
@@ -21,9 +21,6 @@ class EventServiceProviderTest extends TestCase {
         );
     }
 
-    /**
-     * @covers ::register
-     */
     public function testRegisterEloquentSubject(): void {
         self::assertSame(
             $this->app->make(Subject::class),

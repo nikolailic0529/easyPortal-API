@@ -11,14 +11,11 @@ use Tests\TestCase;
 
 /**
  * @internal
- * @coversDefaultClass \App\Rules\NoteId
+ * @covers \App\Rules\NoteId
  */
 class NoteIdTest extends TestCase {
     // <editor-fold desc="Tests">
     // =========================================================================
-    /**
-     * @covers ::message
-     */
     public function testMessage(): void {
         $this->app->setLocale('de');
         $this->setTranslations(static function (TestCase $test, string $locale): array {
@@ -32,8 +29,6 @@ class NoteIdTest extends TestCase {
     }
 
     /**
-     * @covers ::passes
-     *
      * @dataProvider dataProviderPasses
      *
      * @param Closure(static, ?Organization): ?string $valueFactory

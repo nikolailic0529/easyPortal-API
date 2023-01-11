@@ -14,13 +14,12 @@ use function sprintf;
 
 /**
  * @internal
- * @coversDefaultClass \App\GraphQL\Scalars\Geohash
+ * @covers \App\GraphQL\Scalars\Geohash
  */
 class GeohashTest extends TestCase {
     // <editor-fold desc="Tests">
     // =========================================================================
     /**
-     * @covers ::serialize
      * @dataProvider dataProviderSerialize
      */
     public function testSerialize(Exception|string $expected, mixed $value): void {
@@ -35,7 +34,6 @@ class GeohashTest extends TestCase {
     }
 
     /**
-     * @covers ::parseValue
      * @dataProvider dataProviderParseValue
      */
     public function testParseValue(Exception|GeotoolsGeohash $expected, mixed $value): void {
@@ -50,7 +48,6 @@ class GeohashTest extends TestCase {
     }
 
     /**
-     * @covers ::parseLiteral
      * @dataProvider dataProvideParseLiteral
      */
     public function testParseLiteral(Exception|GeotoolsGeohash $expected, Node $node): void {

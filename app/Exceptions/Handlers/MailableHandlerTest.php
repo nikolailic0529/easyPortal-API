@@ -9,14 +9,12 @@ use function array_map;
 
 /**
  * @internal
- * @coversDefaultClass \App\Exceptions\Handlers\MailableHandler
+ * @covers \App\Exceptions\Handlers\MailableHandler
  */
 class MailableHandlerTest extends TestCase {
     // <editor-fold desc="Tests">
     // =========================================================================
     /**
-     * @covers ::getRecipientLevel
-     *
      * @dataProvider dataProviderGetRecipientLevel
      */
     public function testGetRecipientLevel(int $expected, int $level, string $recipient): void {
@@ -35,8 +33,6 @@ class MailableHandlerTest extends TestCase {
     }
 
     /**
-     * @covers ::getRecordsRecipients
-     *
      * @dataProvider dataProviderRecordsRecipients
      *
      * @param array<string> $expected

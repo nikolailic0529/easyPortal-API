@@ -13,12 +13,9 @@ use Tests\TestCase;
 
 /**
  * @internal
- * @coversDefaultClass \App\Services\Recalculator\Commands\LocationsRecalculate
+ * @covers \App\Services\Recalculator\Commands\LocationsRecalculate
  */
 class LocationsRecalculateTest extends TestCase {
-    /**
-     * @covers ::__invoke
-     */
     public function testInvoke(): void {
         $this->override(LocationsProcessor::class, function (): MockInterface {
             $mock = Mockery::mock(LocationsProcessor::class, [

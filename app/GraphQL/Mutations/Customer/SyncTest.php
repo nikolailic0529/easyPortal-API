@@ -24,7 +24,7 @@ use Throwable;
 
 /**
  * @internal
- * @coversDefaultClass \App\GraphQL\Mutations\Customer\Sync
+ * @covers \App\GraphQL\Mutations\Customer\Sync
  *
  * @phpstan-import-type OrganizationFactory from WithOrganization
  * @phpstan-import-type UserFactory from WithUser
@@ -33,8 +33,6 @@ class SyncTest extends TestCase {
     // <editor-fold desc="Tests">
     // =========================================================================
     /**
-     * @covers ::__invoke
-     *
      * @dataProvider dataProviderInvoke
      *
      * @param OrganizationFactory                           $orgFactory

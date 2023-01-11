@@ -6,23 +6,18 @@ use Tests\TestCase;
 
 /**
  * @internal
- * @coversDefaultClass \App\Rules\CronExpression
+ * @covers \App\Rules\CronExpression
  */
 class CronExpressionTest extends TestCase {
     // <editor-fold desc="Tests">
     // =========================================================================
     /**
-     * @covers ::passes
-     *
      * @dataProvider dataProviderPasses
      */
     public function testPasses(bool $expected, mixed $value): void {
         self::assertEquals($expected, (new CronExpression())->passes('test', $value));
     }
 
-    /**
-     * @covers ::message
-     */
     public function testMessage(): void {
         $this->setTranslations(static function (TestCase $case, string $locale): array {
             return [

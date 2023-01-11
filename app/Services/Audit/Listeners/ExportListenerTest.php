@@ -13,12 +13,9 @@ use Tests\TestCase;
 
 /**
  * @internal
- * @coversDefaultClass \App\Services\Audit\Listeners\ExportListener
+ * @covers \App\Services\Audit\Listeners\ExportListener
  */
 class ExportListenerTest extends TestCase {
-    /**
-     * @covers ::getEvents
-     */
     public function testSubscribe(): void {
         $exported = new QueryExported('test', [
             'root'    => 'data.assets',
@@ -50,9 +47,6 @@ class ExportListenerTest extends TestCase {
         $dispatcher->dispatch($exported);
     }
 
-    /**
-     * @covers ::__invoke
-     */
     public function testInvoke(): void {
         $event = new QueryExported('test', [
             'root'    => 'data.assets',

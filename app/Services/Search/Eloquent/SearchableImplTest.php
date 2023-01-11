@@ -31,14 +31,11 @@ use Tests\TestCase;
 
 /**
  * @internal
- * @coversDefaultClass \App\Services\Search\Eloquent\SearchableImpl
+ * @covers \App\Services\Search\Eloquent\SearchableImpl
  */
 class SearchableImplTest extends TestCase {
     // <editor-fold desc="Tests">
     // =========================================================================
-    /**
-     * @covers ::searchIndexShouldBeUpdated
-     */
     public function testSearchIndexShouldBeUpdated(): void {
         // Model should be updated if property was changed
         $model = new class() extends Model implements Searchable {
@@ -77,11 +74,6 @@ class SearchableImplTest extends TestCase {
         self::assertFalse($model->searchIndexShouldBeUpdated());
     }
 
-    /**
-     * @covers ::toSearchableArray
-     * @covers ::toSearchableArrayProcess
-     * @covers ::toSearchableArrayCleanup
-     */
     public function testToSearchableArray(): void {
         // Prepare
         $sku    = $this->faker->uuid();
@@ -192,9 +184,6 @@ class SearchableImplTest extends TestCase {
         self::assertEquals($expected, $actual);
     }
 
-    /**
-     * @covers ::toSearchableArray
-     */
     public function testToSearchableArrayEagerLoading(): void {
         $model = Mockery::mock(Model::class, SearchableImpl::class);
         $model->shouldAllowMockingProtectedMethods();
@@ -229,9 +218,6 @@ class SearchableImplTest extends TestCase {
         $model->toSearchableArray();
     }
 
-    /**
-     * @covers ::makeAllSearchable
-     */
     public function testMakeAllSearchable(): void {
         $chunk = $this->faker->randomDigitNotNull();
         $model = new SearchableImplTest_Model();
@@ -261,9 +247,6 @@ class SearchableImplTest extends TestCase {
         $model->makeAllSearchable($chunk);
     }
 
-    /**
-     * @covers ::makeAllSearchableUsing
-     */
     public function testMakeAllSearchableUsing(): void {
         // Model
         $model = new class() extends Model implements Searchable {
@@ -293,8 +276,6 @@ class SearchableImplTest extends TestCase {
     }
 
     /**
-     * @covers ::toSearchableValue
-     *
      * @dataProvider dataProviderToSearchableValue
      */
     public function testToSearchableValue(mixed $expected, mixed $value): void {
@@ -318,9 +299,6 @@ class SearchableImplTest extends TestCase {
         self::assertEquals($expected, $model->toSearchableValue($value));
     }
 
-    /**
-     * @covers ::queueMakeSearchable
-     */
     public function testQueueMakeSearchableQueueEnabled(): void {
         // Prepare
         $this->setSettings([
@@ -346,9 +324,6 @@ class SearchableImplTest extends TestCase {
         $model->queueMakeSearchable($models);
     }
 
-    /**
-     * @covers ::queueMakeSearchable
-     */
     public function testQueueMakeSearchableQueueDisabled(): void {
         // Prepare
         $this->setSettings([
@@ -375,9 +350,6 @@ class SearchableImplTest extends TestCase {
         $model->queueMakeSearchable(new Collection([$model]));
     }
 
-    /**
-     * @covers ::queueRemoveFromSearch
-     */
     public function testQueueRemoveFromSearchQueueEnabled(): void {
         // Prepare
         $this->setSettings([
@@ -405,9 +377,6 @@ class SearchableImplTest extends TestCase {
         $model->queueRemoveFromSearch($models);
     }
 
-    /**
-     * @covers ::queueRemoveFromSearch
-     */
     public function testQueueRemoveFromSearchQueueDisable(): void {
         // Prepare
         $this->setSettings([
@@ -431,9 +400,6 @@ class SearchableImplTest extends TestCase {
         $model->queueRemoveFromSearch(new Collection([$model]));
     }
 
-    /**
-     * @covers ::shouldBeSearchable
-     */
     public function testShouldBeSearchable(): void {
         $model = new class() extends Model implements Searchable {
             use SearchableImpl;
@@ -462,9 +428,6 @@ class SearchableImplTest extends TestCase {
         self::assertTrue($model->shouldBeSearchable());
     }
 
-    /**
-     * @covers ::getSearchConfiguration
-     */
     public function testGetSearchConfiguration(): void {
         $model  = new class() extends Model implements Searchable {
             use SearchableImpl;
@@ -499,11 +462,6 @@ class SearchableImplTest extends TestCase {
         );
     }
 
-    /**
-     * @covers ::searchableAs
-     * @covers ::setSearchableAs
-     * @covers ::scoutSearchableAs
-     */
     public function testSearchableAs(): void {
         $model = new class() extends Model implements Searchable {
             use SearchableImpl {
@@ -525,9 +483,6 @@ class SearchableImplTest extends TestCase {
         );
     }
 
-    /**
-     * @covers ::isSearchSyncingEnabled
-     */
     public function testIsSearchSyncingEnabled(): void {
         $model = Mockery::mock(Model::class, SearchableImpl::class)::class;
 

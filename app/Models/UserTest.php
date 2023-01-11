@@ -12,12 +12,9 @@ use Tests\TestCase;
 
 /**
  * @internal
- * @coversDefaultClass \App\Models\User
+ * @covers \App\Models\User
  */
 class UserTest extends TestCase {
-    /**
-     * @covers ::isRoot
-     */
     public function testIsRoot(): void {
         foreach (UserType::getValues() as $type) {
             self::assertEquals(
@@ -29,9 +26,6 @@ class UserTest extends TestCase {
         }
     }
 
-    /**
-     * @covers ::delete
-     */
     public function testDelete(): void {
         $models = (new ModelsProvider())($this);
         $model  = $models['user'] ?? null;
@@ -133,9 +127,6 @@ class UserTest extends TestCase {
         );
     }
 
-    /**
-     * @covers ::getOrganizations
-     */
     public function testGetOrganizations(): void {
         // Disable unwanted scopes
         GlobalScopes::setDisabled(
@@ -166,9 +157,6 @@ class UserTest extends TestCase {
         );
     }
 
-    /**
-     * @covers ::getOrganizationPermissions
-     */
     public function testGetOrganizationPermissions(): void {
         // Disable unwanted scopes
         GlobalScopes::setDisabled(
@@ -200,9 +188,6 @@ class UserTest extends TestCase {
         );
     }
 
-    /**
-     * @covers ::getOrganizationPermissions
-     */
     public function testGetOrganizationPermissionsDisabled(): void {
         // Disable unwanted scopes
         GlobalScopes::setDisabled(
@@ -234,9 +219,6 @@ class UserTest extends TestCase {
         );
     }
 
-    /**
-     * @covers ::getOrganizationPermissions
-     */
     public function testGetOrganizationPermissionsNoRole(): void {
         // Disable unwanted scopes
         GlobalScopes::setDisabled(

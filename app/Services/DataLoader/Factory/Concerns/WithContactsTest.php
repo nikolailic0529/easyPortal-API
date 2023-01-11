@@ -19,16 +19,13 @@ use function tap;
 
 /**
  * @internal
- * @coversDefaultClass \App\Services\DataLoader\Factory\Concerns\WithContacts
+ * @covers \App\Services\DataLoader\Factory\Concerns\WithContacts
  */
 class WithContactsTest extends TestCase {
     use WithQueryLogs;
 
     // <editor-fold desc="Tests">
     // =========================================================================
-    /**
-     * @covers ::contacts
-     */
     public function testContacts(): void {
         // Prepare
         $owner    = Customer::factory()->make();
@@ -106,8 +103,6 @@ class WithContactsTest extends TestCase {
     }
 
     /**
-     * @covers ::contact
-     *
      * @dataProvider dataProviderContact
      *
      * @param Closure(static): Model $factory

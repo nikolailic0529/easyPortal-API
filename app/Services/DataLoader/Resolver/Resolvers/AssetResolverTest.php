@@ -11,15 +11,12 @@ use Tests\WithoutGlobalScopes;
 
 /**
  * @internal
- * @coversDefaultClass \App\Services\DataLoader\Resolver\Resolvers\AssetResolver
+ * @covers \App\Services\DataLoader\Resolver\Resolvers\AssetResolver
  */
 class AssetResolverTest extends TestCase {
     use WithoutGlobalScopes;
     use WithQueryLog;
 
-    /**
-     * @covers ::get
-     */
     public function testGet(): void {
         // Prepare
         $factory = static function (?Asset $asset): Asset {

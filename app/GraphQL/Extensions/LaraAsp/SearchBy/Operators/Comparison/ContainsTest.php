@@ -19,7 +19,7 @@ use Tests\WithSettings;
 
 /**
  * @internal
- * @coversDefaultClass \App\GraphQL\Extensions\LaraAsp\SearchBy\Operators\Comparison\Contains
+ * @covers \App\GraphQL\Extensions\LaraAsp\SearchBy\Operators\Comparison\Contains
  *
  * @phpstan-import-type SettingsFactory from WithSettings
  * @phpstan-import-type BuilderFactory from BuilderDataProvider
@@ -30,8 +30,6 @@ class ContainsTest extends TestCase {
     // <editor-fold desc="Tests">
     // =========================================================================
     /**
-     * @covers ::call
-     *
      * @dataProvider dataProviderCall
      *
      * @param array{query: string, bindings: array<mixed>} $expected

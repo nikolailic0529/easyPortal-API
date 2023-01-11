@@ -11,7 +11,7 @@ use Tests\TestCase;
 
 /**
  * @internal
- * @coversDefaultClass \App\Services\I18n\Commands\LocaleExport
+ * @covers \App\Services\I18n\Commands\LocaleExport
  */
 class LocaleExportTest extends TestCase {
     /**
@@ -28,9 +28,6 @@ class LocaleExportTest extends TestCase {
         self::assertArrayHasKey('ep:i18n-locale-export', $this->app->make(Kernel::class)->all());
     }
 
-    /**
-     * @covers ::__invoke
-     */
     public function testInvoke(): void {
         $locale = 'de_DE';
 

@@ -36,7 +36,7 @@ use function trans;
 
 /**
  * @internal
- * @coversDefaultClass \App\GraphQL\Mutations\QuoteRequest\Create
+ * @covers \App\GraphQL\Mutations\QuoteRequest\Create
  *
  * @phpstan-import-type OrganizationFactory from WithOrganization
  * @phpstan-import-type UserFactory from WithUser
@@ -46,9 +46,6 @@ class CreateTest extends TestCase {
     // <editor-fold desc="Tests">
     // =========================================================================
     /**
-     * @covers ::__invoke
-     * @covers ::createRequest
-     *
      * @dataProvider dataProviderInvoke
      *
      * @param OrganizationFactory                              $orgFactory
@@ -204,9 +201,6 @@ class CreateTest extends TestCase {
         }
     }
 
-    /**
-     * @covers ::createRequest
-     */
     public function testCreateRequestWithDocuments(): void {
         // Prepare
         $org       = $this->setOrganization(Organization::factory()->create());

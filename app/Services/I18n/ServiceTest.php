@@ -9,12 +9,9 @@ use Tests\TestCase;
 
 /**
  * @internal
- * @coversDefaultClass \App\Services\I18n\Service
+ * @covers \App\Services\I18n\Service
  */
 class ServiceTest extends TestCase {
-    /**
-     * @covers ::getTranslatableModels
-     */
     public function testGetTranslatableModels(): void {
         $actual   = $this->app->make(Service::class)->getTranslatableModels();
         $expected = Models::get()

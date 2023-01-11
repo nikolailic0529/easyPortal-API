@@ -13,12 +13,9 @@ use Tests\TestCase;
 
 /**
  * @internal
- * @coversDefaultClass \App\Services\Search\Migrations\IndexesRebuild
+ * @covers \App\Services\Search\Migrations\IndexesRebuild
  */
 class IndexesRebuildTest extends TestCase {
-    /**
-     * @covers ::runRawUp
-     */
     public function testRunRawUp(): void {
         $job       = (new class() extends CronJob {
             public function displayName(): string {

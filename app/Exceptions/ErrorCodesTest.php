@@ -20,12 +20,9 @@ use const PHP_EOL;
 
 /**
  * @internal
- * @coversDefaultClass \App\Exceptions\ErrorCodes
+ * @covers \App\Exceptions\ErrorCodes
  */
 class ErrorCodesTest extends TestCase {
-    /**
-     * @covers ::getMap
-     */
     public function testMapActual(): void {
         $actual   = (new Collection(ErrorCodes::getMap()))->keys()->sort()->values()->implode(PHP_EOL);
         $expected = ClassMap::get()
@@ -43,9 +40,6 @@ class ErrorCodesTest extends TestCase {
         self::assertEquals($expected, $actual, 'Map is not actual.');
     }
 
-    /**
-     * @covers ::getMap
-     */
     public function testMapAllCodesUnique(): void {
         $codes   = array_values(ErrorCodes::getMap());
         $unique  = array_unique($codes);

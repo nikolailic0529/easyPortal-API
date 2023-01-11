@@ -12,14 +12,11 @@ use Tests\TestCase;
 
 /**
  * @internal
- * @coversDefaultClass \App\Services\DataLoader\Factory\Concerns\WithTag
+ * @covers \App\Services\DataLoader\Factory\Concerns\WithTag
  */
 class WithTagTest extends TestCase {
     use WithQueryLog;
 
-    /**
-     * @covers ::tag
-     */
     public function testTag(): void {
         // Prepare
         $resolver = $this->app->make(TagResolver::class);

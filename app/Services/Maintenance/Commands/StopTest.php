@@ -10,7 +10,7 @@ use Tests\TestCase;
 
 /**
  * @internal
- * @coversDefaultClass \App\Services\Maintenance\Commands\Stop
+ * @covers \App\Services\Maintenance\Commands\Stop
  */
 class StopTest extends TestCase {
     /**
@@ -27,9 +27,6 @@ class StopTest extends TestCase {
         self::assertArrayHasKey('ep:maintenance-stop', $this->app->make(Kernel::class)->all());
     }
 
-    /**
-     * @covers ::handle
-     */
     public function testHandleSuccessNoWait(): void {
         $this->override(Maintenance::class, static function (MockInterface $mock): void {
             $mock
@@ -45,9 +42,6 @@ class StopTest extends TestCase {
             ->expectsOutput('Done.');
     }
 
-    /**
-     * @covers ::handle
-     */
     public function testHandleSuccessWait(): void {
         $this->override(Maintenance::class, static function (MockInterface $mock): void {
             $mock
@@ -69,9 +63,6 @@ class StopTest extends TestCase {
             ->expectsOutput('Done.');
     }
 
-    /**
-     * @covers ::handle
-     */
     public function testHandleSuccessForce(): void {
         $this->override(Maintenance::class, static function (MockInterface $mock): void {
             $mock
@@ -92,9 +83,6 @@ class StopTest extends TestCase {
             ->expectsOutput('Done.');
     }
 
-    /**
-     * @covers ::handle
-     */
     public function testHandleFailedForce(): void {
         $this->override(Maintenance::class, static function (MockInterface $mock): void {
             $mock
@@ -116,9 +104,6 @@ class StopTest extends TestCase {
             ->expectsOutput('Failed.');
     }
 
-    /**
-     * @covers ::handle
-     */
     public function testHandleFailed(): void {
         $this->override(Maintenance::class, static function (MockInterface $mock): void {
             $mock

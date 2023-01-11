@@ -22,14 +22,12 @@ use const JSON_THROW_ON_ERROR;
 
 /**
  * @internal
- * @coversDefaultClass \App\GraphQL\Queries\Administration\AuditContext
+ * @covers \App\GraphQL\Queries\Administration\AuditContext
  */
 class AuditContextTest extends TestCase {
     // <editor-fold desc="Tests">
     // =========================================================================
     /**
-     * @covers ::__invoke
-     *
      * @dataProvider dataProviderInvoke
      *
      * @param array<mixed>           $expected
@@ -61,9 +59,6 @@ class AuditContextTest extends TestCase {
         self::assertEquals($expected, $actual);
     }
 
-    /**
-     * @covers ::getModelHiddenProperties
-     */
     public function testGetModelHiddenProperties(): void {
         $gate    = Mockery::mock(Gate::class);
         $model   = new class() extends Model {
@@ -98,9 +93,6 @@ class AuditContextTest extends TestCase {
         );
     }
 
-    /**
-     * @covers ::getModelHiddenProperties
-     */
     public function testGetModelHiddenPropertiesNoModel(): void {
         $gate    = Mockery::mock(Gate::class);
         $context = new class($gate) extends AuditContext {
@@ -130,9 +122,6 @@ class AuditContextTest extends TestCase {
         );
     }
 
-    /**
-     * @covers ::getModelInternalProperties
-     */
     public function testGetModelInternalProperties(): void {
         $gate = Mockery::mock(Gate::class);
         $gate
@@ -180,9 +169,6 @@ class AuditContextTest extends TestCase {
         );
     }
 
-    /**
-     * @covers ::getModelInternalProperties
-     */
     public function testGetModelInternalPropertiesAdminister(): void {
         $gate = Mockery::mock(Gate::class);
         $gate
@@ -216,9 +202,6 @@ class AuditContextTest extends TestCase {
         );
     }
 
-    /**
-     * @covers ::getModelInternalProperties
-     */
     public function testGetModelInternalPropertiesNotModel(): void {
         $gate = Mockery::mock(Gate::class);
         $gate
@@ -253,9 +236,6 @@ class AuditContextTest extends TestCase {
         );
     }
 
-    /**
-     * @covers ::getModelInternalProperties
-     */
     public function testGetModelInternalPropertiesNotAuditable(): void {
         $gate = Mockery::mock(Gate::class);
         $gate

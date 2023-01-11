@@ -19,14 +19,12 @@ use function is_null;
 
 /**
  * @internal
- * @coversDefaultClass \App\Services\Auth\Gate
+ * @covers \App\Services\Auth\Gate
  */
 class GateTest extends TestCase {
     // <editor-fold desc="Tests">
     // =========================================================================
     /**
-     * @covers ::hasPermission
-     *
      * @dataProvider dataProviderHasPermission
      *
      * @param array<Permission>|null $permissions
@@ -77,9 +75,6 @@ class GateTest extends TestCase {
     }
 
     /**
-     * @covers ::before
-     * @covers ::after
-     *
      * @dataProvider dataProviderGate
      *
      * @param array<string> $permissions

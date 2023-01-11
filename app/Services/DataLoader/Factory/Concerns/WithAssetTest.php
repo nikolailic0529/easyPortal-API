@@ -18,14 +18,12 @@ use Tests\TestCase;
 
 /**
  * @internal
- * @coversDefaultClass \App\Services\DataLoader\Factory\Concerns\WithAsset
+ * @covers \App\Services\DataLoader\Factory\Concerns\WithAsset
  */
 class WithAssetTest extends TestCase {
     // <editor-fold desc="Tests">
     // =========================================================================
     /**
-     * @covers ::asset
-     *
      * @dataProvider dataProviderAsset
      */
     public function testAssetExistsThroughProvider(Closure $objectFactory): void {
@@ -44,8 +42,6 @@ class WithAssetTest extends TestCase {
     }
 
     /**
-     * @covers ::asset
-     *
      * @dataProvider dataProviderAsset
      */
     public function testAssetExistsThroughFinder(Closure $objectFactory): void {
@@ -75,8 +71,6 @@ class WithAssetTest extends TestCase {
     }
 
     /**
-     * @covers ::asset
-     *
      * @dataProvider dataProviderAsset
      */
     public function testAssetAssetNotFound(Closure $objectFactory): void {
@@ -105,9 +99,6 @@ class WithAssetTest extends TestCase {
         self::assertEquals($asset, $factory->asset($object));
     }
 
-    /**
-     * @covers ::asset
-     */
     public function testAssetAssetWithoutAsset(): void {
         $object   = new DocumentEntry();
         $resolver = Mockery::mock(AssetResolver::class);

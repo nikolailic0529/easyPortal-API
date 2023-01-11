@@ -10,7 +10,7 @@ use function array_values;
 
 /**
  * @internal
- * @coversDefaultClass \App\Models\Enums\OrganizationType
+ * @covers \App\Models\Enums\OrganizationType
  */
 class OrganizationTypeTest extends TestCase {
     /**

@@ -7,7 +7,7 @@ use Tests\TestCase;
 
 /**
  * @internal
- * @coversDefaultClass \App\Models\AssetWarranty
+ * @covers \App\Models\AssetWarranty
  */
 class AssetWarrantyTest extends TestCase {
     // <editor-fold desc="Tests">
@@ -114,8 +114,6 @@ class AssetWarrantyTest extends TestCase {
     }
 
     /**
-     * @covers ::isExtended
-     *
      * @dataProvider dataProviderIsExtended
      *
      * @param array<string,mixed> $properties

@@ -6,7 +6,7 @@ use Tests\TestCase;
 
 /**
  * @internal
- * @coversDefaultClass \App\Services\DataLoader\Commands\DistributorSync
+ * @covers \App\Services\DataLoader\Commands\DistributorSync
  */
 class DistributorSyncTest extends TestCase {
     /**

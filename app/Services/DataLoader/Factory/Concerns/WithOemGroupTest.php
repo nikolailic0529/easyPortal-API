@@ -12,14 +12,11 @@ use Tests\TestCase;
 
 /**
  * @internal
- * @coversDefaultClass \App\Services\DataLoader\Factory\Concerns\WithOemGroup
+ * @covers \App\Services\DataLoader\Factory\Concerns\WithOemGroup
  */
 class WithOemGroupTest extends TestCase {
     use WithQueryLog;
 
-    /**
-     * @covers ::oemGroup
-     */
     public function testOemGroup(): void {
         // Prepare
         $resolver = $this->app->make(OemGroupResolver::class);

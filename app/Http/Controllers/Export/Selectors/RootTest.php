@@ -7,15 +7,12 @@ use Tests\TestCase;
 
 /**
  * @internal
- * @coversDefaultClass \App\Http\Controllers\Export\Selectors\Root
+ * @covers \App\Http\Controllers\Export\Selectors\Root
  */
 class RootTest extends TestCase {
     // <editor-fold desc="Tests">
     // =========================================================================
     /**
-     * @covers ::fill
-     * @covers ::get
-     *
      * @dataProvider dataProviderFill
      *
      * @param array<mixed>                          $expected
@@ -32,9 +29,6 @@ class RootTest extends TestCase {
         self::assertEquals($expected, $selector->get($item));
     }
 
-    /**
-     * @covers ::getSelectors
-     */
     public function testGetSelectors(): void {
         $asterisk = new Asterisk(
             new Group('a', [

@@ -14,7 +14,7 @@ use Tests\TestCase;
 
 /**
  * @internal
- * @coversDefaultClass \App\Services\Search\Commands\FulltextIndexesRebuild
+ * @covers \App\Services\Search\Commands\FulltextIndexesRebuild
  */
 class FulltextIndexesRebuildTest extends TestCase {
     /**
@@ -24,9 +24,6 @@ class FulltextIndexesRebuildTest extends TestCase {
         self::assertCommandDescription('ep:search-fulltext-indexes-rebuild');
     }
 
-    /**
-     * @covers ::__invoke
-     */
     public function testInvoke(): void {
         $this->override(FulltextsProcessor::class, static function (): MockInterface {
             $config     = Mockery::mock(Repository::class);

@@ -8,7 +8,7 @@ use Tests\TestCase;
 
 /**
  * @internal
- * @coversDefaultClass \App\Utils\Validation\Validator
+ * @covers \App\Utils\Validation\Validator
  */
 class ValidatorTest extends TestCase {
     // <editor-fold desc="Tests">

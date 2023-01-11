@@ -14,21 +14,11 @@ use Tests\WithoutGlobalScopes;
 
 /**
  * @internal
- * @coversDefaultClass \App\Utils\Eloquent\ModelProperty
+ * @covers \App\Utils\Eloquent\ModelProperty
  */
 class ModelPropertyTest extends TestCase {
     use WithoutGlobalScopes;
 
-    /**
-     * @covers ::__construct
-     * @covers ::getName
-     * @covers ::getPath
-     * @covers ::isRelation
-     * @covers ::isAttribute
-     * @covers ::getFullName
-     * @covers ::getRelationName
-     * @covers ::getRelationPath
-     */
     public function testGetters(): void {
         // Without relation
         $a = new ModelProperty('a');
@@ -53,9 +43,6 @@ class ModelPropertyTest extends TestCase {
         self::assertEquals('a.b', $b->getRelationName());
     }
 
-    /**
-     * @covers ::getValue
-     */
     public function testGetValue(): void {
         // Prepare
         $oem    = Oem::factory()->create();
@@ -96,9 +83,6 @@ class ModelPropertyTest extends TestCase {
         );
     }
 
-    /**
-     * @covers ::getRelation
-     */
     public function testGetRelationForModel(): void {
         $model    = new Customer();
         $property = new ModelProperty('headquarter.id');
@@ -106,9 +90,6 @@ class ModelPropertyTest extends TestCase {
         self::assertInstanceOf(HasOne::class, $property->getRelation($model));
     }
 
-    /**
-     * @covers ::getRelation
-     */
     public function testGetRelationForModelNotRelation(): void {
         $model    = new Customer();
         $property = new ModelProperty('id');
@@ -118,9 +99,6 @@ class ModelPropertyTest extends TestCase {
         $property->getRelation($model);
     }
 
-    /**
-     * @covers ::getRelation
-     */
     public function testGetRelationForBuilder(): void {
         $builder  = Customer::query();
         $property = new ModelProperty('headquarter.id');
@@ -128,9 +106,6 @@ class ModelPropertyTest extends TestCase {
         self::assertInstanceOf(HasOne::class, $property->getRelation($builder));
     }
 
-    /**
-     * @covers ::getRelation
-     */
     public function testGetRelationForBuilderNotRelation(): void {
         $model    = new Customer();
         $builder  = $model::query();

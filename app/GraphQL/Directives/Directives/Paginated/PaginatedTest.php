@@ -16,7 +16,8 @@ use function json_encode;
 
 /**
  * @internal
- * @coversDefaultClass \App\GraphQL\Directives\Directives\Paginated\Paginated
+ * @covers \App\GraphQL\Directives\Directives\Paginated\Paginated
+ * @covers \App\GraphQL\Directives\Directives\Paginated\Manipulator
  *
  * @phpstan-import-type SettingsFactory from WithSettings
  */
@@ -27,11 +28,6 @@ class PaginatedTest extends TestCase {
     // <editor-fold desc="Tests">
     // =========================================================================
     /**
-     * @covers ::manipulateFieldDefinition
-     * @covers \App\GraphQL\Directives\Directives\Paginated\Manipulator::update
-     * @covers \App\GraphQL\Directives\Directives\Paginated\Manipulator::getLimitField
-     * @covers \App\GraphQL\Directives\Directives\Paginated\Manipulator::getOffsetField
-     *
      * @dataProvider dataProviderManipulateArgDefinition
      *
      * @param SettingsFactory $settingsFactory
@@ -45,9 +41,6 @@ class PaginatedTest extends TestCase {
         );
     }
 
-    /**
-     * @covers ::resolveField
-     */
     public function testResolveFieldNoArguments(): void {
         $asset = Asset::factory()->create();
 
@@ -96,9 +89,6 @@ class PaginatedTest extends TestCase {
             ]));
     }
 
-    /**
-     * @covers ::resolveField
-     */
     public function testResolveFieldBuilder(): void {
         $asset   = Asset::factory()->create();
         $model   = json_encode(Customer::class);
@@ -152,9 +142,6 @@ class PaginatedTest extends TestCase {
             ]));
     }
 
-    /**
-     * @covers ::resolveField
-     */
     public function testResolveFieldModel(): void {
         $asset = Asset::factory()->create();
         $model = json_encode($asset::class);

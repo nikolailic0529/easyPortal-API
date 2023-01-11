@@ -12,12 +12,9 @@ use Tests\TestCase;
 
 /**
  * @internal
- * @coversDefaultClass \App\Services\Tokens\OAuth2Token
+ * @covers \App\Services\Tokens\OAuth2Token
  */
 class OAuth2TokenTest extends TestCase {
-    /**
-     * @covers ::getAccessToken
-     */
     public function testGetAccessToken(): void {
         $params = [1, 2, 3];
         $token  = Mockery::mock(AccessTokenInterface::class);
@@ -81,9 +78,6 @@ class OAuth2TokenTest extends TestCase {
         self::assertEquals($token->getToken(), $service->getAccessToken());
     }
 
-    /**
-     * @covers ::reset
-     */
     public function testReset(): void {
         $cache = Mockery::mock(Repository::class);
         $cache

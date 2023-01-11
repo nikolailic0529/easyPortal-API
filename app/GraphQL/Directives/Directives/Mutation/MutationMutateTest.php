@@ -17,15 +17,12 @@ use function json_encode;
 
 /**
  * @internal
- * @coversDefaultClass \App\GraphQL\Directives\Directives\Mutation\MutationMutate
+ * @covers \App\GraphQL\Directives\Directives\Mutation\MutationMutate
  */
 class MutationMutateTest extends TestCase {
     use WithoutGlobalScopes;
     use WithGraphQLSchema;
 
-    /**
-     * @covers ::resolveField
-     */
     public function testResolveFieldModelNotDefined(): void {
         $mutation = json_encode(MutationMutateTest_Mutation::class);
         $builder  = json_encode(MutationMutateTest_Builder::class);
@@ -67,9 +64,6 @@ class MutationMutateTest extends TestCase {
             )));
     }
 
-    /**
-     * @covers ::resolveField
-     */
     public function testResolveFieldModelDefined(): void {
         $customer = Customer::factory()->create();
         $mutation = json_encode(MutationMutateTest_Mutation::class);

@@ -8,14 +8,12 @@ use Tests\TestCase;
 
 /**
  * @internal
- * @coversDefaultClass \App\Http\Controllers\Export\Selectors\DateTime
+ * @covers \App\Http\Controllers\Export\Selectors\DateTime
  */
 class DateTimeTest extends TestCase {
     // <editor-fold desc="Tests">
     // =========================================================================
     /**
-     * @covers ::fill
-     *
      * @dataProvider dataProviderFill
      *
      * @param array<mixed>                          $expected
@@ -33,9 +31,6 @@ class DateTimeTest extends TestCase {
         self::assertEquals($expected, $row);
     }
 
-    /**
-     * @covers ::getSelectors
-     */
     public function testGetSelectors(): void {
         $formatter = $this->app->make(Formatter::class);
         $selector  = new DateTime(

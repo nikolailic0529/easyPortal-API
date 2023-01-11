@@ -11,12 +11,9 @@ use Tests\TestCase;
 
 /**
  * @internal
- * @coversDefaultClass \App\Services\Organization\CurrentOrganization
+ * @covers \App\Services\Organization\CurrentOrganization
  */
 class CurrentOrganizationTest extends TestCase {
-    /**
-     * @covers ::set
-     */
     public function testSet(): void {
         Event::fake(OrganizationChanged::class);
 
@@ -44,9 +41,6 @@ class CurrentOrganizationTest extends TestCase {
         );
     }
 
-    /**
-     * @covers ::set
-     */
     public function testSetSame(): void {
         Event::fake(OrganizationChanged::class);
 
@@ -68,9 +62,6 @@ class CurrentOrganizationTest extends TestCase {
         Event::assertNothingDispatched();
     }
 
-    /**
-     * @covers ::set
-     */
     public function testSetNoUser(): void {
         Event::fake(OrganizationChanged::class);
 

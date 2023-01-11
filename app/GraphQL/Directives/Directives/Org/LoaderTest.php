@@ -29,17 +29,13 @@ use function sprintf;
 
 /**
  * @internal
- * @coversDefaultClass \App\GraphQL\Directives\Directives\Org\Loader
+ * @covers \App\GraphQL\Directives\Directives\Org\Loader
  *
  * @phpstan-import-type OrganizationFactory from WithOrganization
  */
 class LoaderTest extends TestCase {
     // <editor-fold desc="Tests">
     // =========================================================================
-    /**
-     * @covers ::load
-     * @covers ::extract
-     */
     public function testLoad(): void {
         $organization = $this->setOrganization(Organization::factory()->create());
         $reseller     = Reseller::factory()->create(['id' => $organization->getKey()]);
@@ -69,9 +65,6 @@ class LoaderTest extends TestCase {
         self::assertEquals($countB, $customerB->assets_count);
     }
 
-    /**
-     * @covers ::extract
-     */
     public function testExtractFromModel(): void {
         $current                       = $this->app->make(CurrentOrganization::class);
         $loader                        = new class($current, 'property') extends Loader {
@@ -92,8 +85,6 @@ class LoaderTest extends TestCase {
     }
 
     /**
-     * @covers ::getQuery
-     *
      * @dataProvider dataProviderHandleBuilder
      *
      * @param Exception|class-string<Exception>|array{query: string, bindings: array<mixed>}|null $expectedQuery

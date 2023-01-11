@@ -10,12 +10,9 @@ use Tests\TestCase;
 
 /**
  * @internal
- * @coversDefaultClass \App\Services\Search\Indexer
+ * @covers \App\Services\Search\Indexer
  */
 class IndexerTest extends TestCase {
-    /**
-     * @covers ::dispatchModel
-     */
     public function testDispatchModel(): void {
         $model   = Customer::factory()->make();
         $indexer = new class() extends Indexer {
@@ -35,9 +32,6 @@ class IndexerTest extends TestCase {
         });
     }
 
-    /**
-     * @covers ::dispatchModels
-     */
     public function testDispatchModels(): void {
         $modelA  = Customer::factory()->make();
         $modelB  = Customer::factory()->make();

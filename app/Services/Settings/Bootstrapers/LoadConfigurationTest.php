@@ -18,12 +18,9 @@ use const PATHINFO_FILENAME;
 
 /**
  * @internal
- * @coversDefaultClass \App\Services\Settings\Bootstrapers\LoadConfiguration
+ * @covers \App\Services\Settings\Bootstrapers\LoadConfiguration
  */
 class LoadConfigurationTest extends TestCase {
-    /**
-     * @covers ::loadConfigurationFiles
-     */
     public function testLoadConfigurationFiles(): void {
         $configuration = [
             'envs'   => ['ENV' => 'value'],
@@ -77,9 +74,6 @@ class LoadConfigurationTest extends TestCase {
         $bootstrapper->loadConfigurationFiles($application, $repository);
     }
 
-    /**
-     * @covers ::overwriteConfig
-     */
     public function testOverwriteConfig(): void {
         $spy        = Mockery::spy(static function (): void {
             // empty
@@ -102,9 +96,6 @@ class LoadConfigurationTest extends TestCase {
         $spy->shouldHaveBeenCalled();
     }
 
-    /**
-     * @covers ::overwriteEnvVars
-     */
     public function testOverwriteEnvVars(): void {
         $app         = Mockery::mock(Application::class);
         $repository  = Mockery::mock(Repository::class);
@@ -130,9 +121,6 @@ class LoadConfigurationTest extends TestCase {
         ], $environment->getVars());
     }
 
-    /**
-     * @covers ::cleanupEnvVars
-     */
     public function testCleanupEnvVars(): void {
         $app         = Mockery::mock(Application::class);
         $repository  = Mockery::mock(Repository::class);
@@ -156,9 +144,6 @@ class LoadConfigurationTest extends TestCase {
         ], $environment->getVars());
     }
 
-    /**
-     * @covers ::getConfigurationFiles
-     */
     public function testGetConfigurationFiles(): void {
         $unexpected = pathinfo((string) (new ReflectionClass(Constants::class))->getFileName(), PATHINFO_FILENAME);
         $files      = (new class() extends LoadConfiguration {

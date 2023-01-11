@@ -6,7 +6,7 @@ use Tests\TestCase;
 
 /**
  * @internal
- * @coversDefaultClass \App\Services\Search\Queue\Jobs\DocumentsIndexer
+ * @covers \App\Services\Search\Queue\Jobs\DocumentsIndexer
  */
 class DocumentsIndexerTest extends TestCase {
     /**

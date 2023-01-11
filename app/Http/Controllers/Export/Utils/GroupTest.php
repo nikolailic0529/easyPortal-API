@@ -6,12 +6,9 @@ use Tests\TestCase;
 
 /**
  * @internal
- * @coversDefaultClass \App\Http\Controllers\Export\Utils\Group
+ * @covers \App\Http\Controllers\Export\Utils\Group
  */
 class GroupTest extends TestCase {
-    /**
-     * @covers ::update
-     */
     public function testUpdate(): void {
         $row   = 0;
         $group = new Group();
@@ -45,9 +42,6 @@ class GroupTest extends TestCase {
         self::assertEquals($groupBEnd, $groupB->getEndRow());
     }
 
-    /**
-     * @covers ::move
-     */
     public function testMove(): void {
         $group = new Group();
 
@@ -60,9 +54,6 @@ class GroupTest extends TestCase {
         self::assertEquals(5, $group->getEndRow());
     }
 
-    /**
-     * @covers ::expand
-     */
     public function testExpand(): void {
         $group = new Group();
 
@@ -75,9 +66,6 @@ class GroupTest extends TestCase {
         self::assertEquals(5, $group->getEndRow());
     }
 
-    /**
-     * @covers ::end
-     */
     public function testEnd(): void {
         $group = new Group(null);
 

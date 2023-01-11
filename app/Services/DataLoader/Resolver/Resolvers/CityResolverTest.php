@@ -11,14 +11,11 @@ use Tests\TestCase;
 
 /**
  * @internal
- * @coversDefaultClass \App\Services\DataLoader\Resolver\Resolvers\ProductResolver
+ * @covers \App\Services\DataLoader\Resolver\Resolvers\ProductResolver
  */
 class CityResolverTest extends TestCase {
     use WithQueryLog;
 
-    /**
-     * @covers ::get
-     */
     public function testGet(): void {
         // Prepare
         $countryA = Country::factory()->create();

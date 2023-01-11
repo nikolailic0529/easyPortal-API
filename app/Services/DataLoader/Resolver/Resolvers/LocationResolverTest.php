@@ -13,15 +13,12 @@ use Tests\WithoutGlobalScopes;
 
 /**
  * @internal
- * @coversDefaultClass \App\Services\DataLoader\Resolver\Resolvers\LocationResolver
+ * @covers \App\Services\DataLoader\Resolver\Resolvers\LocationResolver
  */
 class LocationResolverTest extends TestCase {
     use WithoutGlobalScopes;
     use WithQueryLog;
 
-    /**
-     * @covers ::get
-     */
     public function testGet(): void {
         // Prepare
         $countryA = Country::factory()->create();

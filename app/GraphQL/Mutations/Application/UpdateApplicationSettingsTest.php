@@ -27,7 +27,7 @@ use Tests\WithUser;
 
 /**
  * @internal
- * @coversDefaultClass \App\GraphQL\Mutations\Application\UpdateApplicationSettings
+ * @covers \App\GraphQL\Mutations\Application\UpdateApplicationSettings
  *
  * @phpstan-import-type OrganizationFactory from WithOrganization
  * @phpstan-import-type UserFactory from WithUser
@@ -36,8 +36,6 @@ class UpdateApplicationSettingsTest extends TestCase {
     // <editor-fold desc="Tests">
     // =========================================================================
     /**
-     * @covers ::__invoke
-     *
      * @dataProvider dataProviderInvoke
      *
      * @param array<array{name: string, value: string}> $input

@@ -16,15 +16,12 @@ use function json_encode;
 
 /**
  * @internal
- * @coversDefaultClass \App\GraphQL\Directives\Directives\Mutation\Mutation
+ * @covers \App\GraphQL\Directives\Directives\Mutation\Mutation
  */
 class MutationTest extends TestCase {
     use WithoutGlobalScopes;
     use WithGraphQLSchema;
 
-    /**
-     * @covers ::manipulateFieldDefinition
-     */
     public function testManipulateFieldDefinition(): void {
         self::assertNotNull($this->getGraphQLSchema(
         /** @lang GraphQL */
@@ -54,9 +51,6 @@ class MutationTest extends TestCase {
         ));
     }
 
-    /**
-     * @covers ::manipulateFieldDefinition
-     */
     public function testManipulateFieldDefinitionNoArguments(): void {
         self::expectExceptionObject(new DefinitionException(
             'Directive `@mutation` required at least one of `model`, `builder`, `relation`, `resolver` argument.',
@@ -80,9 +74,6 @@ class MutationTest extends TestCase {
         );
     }
 
-    /**
-     * @covers ::manipulateFieldDefinition
-     */
     public function testManipulateFieldDefinitionFieldIsNotType(): void {
         self::expectExceptionObject(new DefinitionException(
             'Field `Mutation.model` must be a Type.',
@@ -104,9 +95,6 @@ class MutationTest extends TestCase {
         );
     }
 
-    /**
-     * @covers ::manipulateFieldDefinition
-     */
     public function testManipulateFieldDefinitionFieldIsNotMutation(): void {
         self::expectExceptionObject(new DefinitionException(
             'Field `ModelMutations.mutation` must use one of '.
@@ -139,9 +127,6 @@ class MutationTest extends TestCase {
         );
     }
 
-    /**
-     * @covers ::resolveField
-     */
     public function testResolveField(): void {
         $customer = Customer::factory()->create();
         $resolver = json_encode(MutationTest_Mutation::class);

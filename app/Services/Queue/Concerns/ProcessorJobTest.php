@@ -28,12 +28,9 @@ use Tests\TestCase;
 
 /**
  * @internal
- * @coversDefaultClass \App\Services\Queue\Concerns\ProcessorJob
+ * @covers \App\Services\Queue\Concerns\ProcessorJob
  */
 class ProcessorJobTest extends TestCase {
-    /**
-     * @covers ::__invoke
-     */
     public function testInvoke(): void {
         $processor = Mockery::mock(ProcessorJobTest__Processor::class, [
             $this->app->make(ExceptionHandler::class),
@@ -107,9 +104,6 @@ class ProcessorJobTest extends TestCase {
         $job->handle($this->app, $pinger);
     }
 
-    /**
-     * @covers ::__invoke
-     */
     public function testInvokeStopped(): void {
         $processor = Mockery::mock(ProcessorJobTest__Processor::class, [
             $this->app->make(ExceptionHandler::class),
@@ -178,9 +172,6 @@ class ProcessorJobTest extends TestCase {
         $job->handle($this->app, $pinger);
     }
 
-    /**
-     * @covers ::getProgressCallback
-     */
     public function testGetProgressCallback(): void {
         $total     = $this->faker->randomNumber();
         $processed = $this->faker->randomNumber();
@@ -212,9 +203,6 @@ class ProcessorJobTest extends TestCase {
         );
     }
 
-    /**
-     * @covers ::getProgressCallback
-     */
     public function testGetProgressCallbackCompositeProcessor(): void {
         $total     = $this->faker->randomNumber();
         $processed = $this->faker->randomNumber();
@@ -268,9 +256,6 @@ class ProcessorJobTest extends TestCase {
         );
     }
 
-    /**
-     * @covers ::getResetProgressCallback
-     */
     public function testGetResetProgressCallback(): void {
         $processor = Mockery::mock(IteratorProcessor::class);
         $processor

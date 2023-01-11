@@ -11,19 +11,13 @@ use Tests\TestCase;
 
 /**
  * @internal
- * @coversDefaultClass \App\Services\DataLoader\Container\Container
+ * @covers \App\Services\DataLoader\Container\Container
  */
 class ContainerTest extends TestCase {
-    /**
-     * @covers ::resolve
-     */
     public function testResolveExternal(): void {
         self::assertNotNull($this->app->make(Container::class)->resolve('config'));
     }
 
-    /**
-     * @covers ::resolve
-     */
     public function testResolveProvider(): void {
         $c = $this->app->make(Container::class);
         $a = $c->resolve(ContainerTest_Resolver::class);
@@ -35,9 +29,6 @@ class ContainerTest extends TestCase {
         self::assertNotSame($a, $s);
     }
 
-    /**
-     * @covers ::resolve
-     */
     public function testResolveFactory(): void {
         $c = $this->app->make(Container::class);
         $a = $c->resolve(ContainerTest_Singleton::class);
@@ -50,9 +41,6 @@ class ContainerTest extends TestCase {
         self::assertNotSame($s, $f->singleton);
     }
 
-    /**
-     * @covers ::resolve
-     */
     public function testResolveSingleton(): void {
         $c = $this->app->make(Container::class);
         $a = $c->resolve(ContainerTest_Singleton::class);
@@ -65,9 +53,6 @@ class ContainerTest extends TestCase {
         self::assertNotSame($a, $s);
     }
 
-    /**
-     * @covers ::resolve
-     */
     public function testResolveSelf(): void {
         // Container should be a singleton too
         $c = $this->app->make(Container::class);
@@ -88,9 +73,6 @@ class ContainerTest extends TestCase {
         self::assertNotSame($e, $a);
     }
 
-    /**
-     * @covers ::forgetInstances
-     */
     public function testForgetInstances(): void {
         $c = $this->app->make(Container::class);
         $a = $c->resolve(ContainerTest_Singleton::class);

@@ -20,12 +20,9 @@ use const JSON_THROW_ON_ERROR;
 
 /**
  * @internal
- * @coversDefaultClass \App\Utils\JsonObject\JsonObject
+ * @covers \App\Utils\JsonObject\JsonObject
  */
 class JsonObjectTest extends TestCase {
-    /**
-     * @covers ::__construct
-     */
     public function testConstruct(): void {
         $expected = tap(new JsonObjectTest_Parent(), static function (JsonObjectTest_Parent $parent): void {
             $parent->i          = 123;
@@ -113,9 +110,6 @@ class JsonObjectTest extends TestCase {
         self::assertEquals($expected, $actual);
     }
 
-    /**
-     * @covers ::getProperties
-     */
     public function testGetProperties(): void {
         $child  = new JsonObjectTest_Child([
             'i' => 123,
@@ -136,9 +130,6 @@ class JsonObjectTest extends TestCase {
         );
     }
 
-    /**
-     * @covers ::jsonSerialize
-     */
     public function testJsonSerialize(): void {
         $child  = new JsonObjectTest_Child([
             'i' => 123,
@@ -159,9 +150,6 @@ class JsonObjectTest extends TestCase {
         );
     }
 
-    /**
-     * @covers ::toArray
-     */
     public function testToArray(): void {
         $child  = new JsonObjectTest_Child([
             'i' => 123,
@@ -186,9 +174,6 @@ class JsonObjectTest extends TestCase {
         );
     }
 
-    /**
-     * @covers ::__get
-     */
     public function testGetDynamicProperties(): void {
         $object = new class() extends JsonObject {
             // empty
@@ -233,9 +218,6 @@ class JsonObjectTest extends TestCase {
         self::assertFalse(isset($object->unknown)); // @phpstan-ignore-line needed for test
     }
 
-    /**
-     * @covers ::isEmpty
-     */
     public function testIsEmpty(): void {
         $empty  = new class() extends JsonObject {
             public string $property;
@@ -248,9 +230,6 @@ class JsonObjectTest extends TestCase {
         self::assertFalse($object->isEmpty());
     }
 
-    /**
-     * @covers ::count
-     */
     public function testCount(): void {
         $empty  = new class() extends JsonObject {
             public string $property;
@@ -263,9 +242,6 @@ class JsonObjectTest extends TestCase {
         self::assertEquals(1, count($object));
     }
 
-    /**
-     * @covers ::make
-     */
     public function testMake(): void {
         self::assertNull(
             JsonObjectTest_Parent::make(null),
@@ -282,9 +258,6 @@ class JsonObjectTest extends TestCase {
         );
     }
 
-    /**
-     * @covers ::getHash
-     */
     public function testGetHash(): void {
         $child  = new JsonObjectTest_Child([
             'i' => 123,

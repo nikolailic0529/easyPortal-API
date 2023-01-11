@@ -20,16 +20,12 @@ use Tests\WithQueryLogs;
 
 /**
  * @internal
- * @coversDefaultClass \App\Services\DataLoader\Processors\Loader\Loaders\CustomerLoader
+ * @covers \App\Services\DataLoader\Processors\Loader\Loaders\CustomerLoader
  */
 class CustomerLoaderTest extends TestCase {
     use WithQueryLogs;
     use Helper;
 
-    /**
-     * @covers ::process
-     * @covers ::getOperations
-     */
     public function testProcess(): void {
         // Generate
         $this->generateData(CustomerLoaderData::class);
@@ -97,10 +93,6 @@ class CustomerLoaderTest extends TestCase {
         unset($events);
     }
 
-    /**
-     * @covers ::process
-     * @covers ::getOperations
-     */
     public function testProcessWithAssets(): void {
         // Generate
         $this->generateData(CustomerLoaderDataWithAssets::class);
@@ -168,10 +160,6 @@ class CustomerLoaderTest extends TestCase {
         unset($events);
     }
 
-    /**
-     * @covers ::process
-     * @covers ::getOperations
-     */
     public function testProcessWithDocuments(): void {
         // Generate
         $this->generateData(CustomerLoaderDataWithDocuments::class);
@@ -239,9 +227,6 @@ class CustomerLoaderTest extends TestCase {
         unset($events);
     }
 
-    /**
-     * @covers ::process
-     */
     public function testProcessTrashed(): void {
         // Generate
         $this->generateData(CustomerLoaderData::class);

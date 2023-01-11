@@ -12,12 +12,9 @@ use Tests\TestCase;
 
 /**
  * @internal
- * @coversDefaultClass \App\Services\Audit\Listeners\OrganizationListener
+ * @covers \App\Services\Audit\Listeners\OrganizationListener
  */
 class OrganizationListenerTest extends TestCase {
-    /**
-     * @covers ::getEvents
-     */
     public function testSubscribe(): void {
         $event = new OrganizationChanged(null, null);
 
@@ -40,9 +37,6 @@ class OrganizationListenerTest extends TestCase {
         $dispatcher->dispatch($event);
     }
 
-    /**
-     * @covers ::__invoke
-     */
     public function testInvoke(): void {
         $previous = Organization::factory()->make();
         $current  = Organization::factory()->make();
@@ -73,9 +67,6 @@ class OrganizationListenerTest extends TestCase {
         $listener($event);
     }
 
-    /**
-     * @covers ::__invoke
-     */
     public function testInvokeNoPrevious(): void {
         $current = Organization::factory()->make();
         $event   = new OrganizationChanged(null, $current);
@@ -97,9 +88,6 @@ class OrganizationListenerTest extends TestCase {
         $listener($event);
     }
 
-    /**
-     * @covers ::__invoke
-     */
     public function testInvokeNoCurrent(): void {
         $previous = Organization::factory()->make();
         $event    = new OrganizationChanged($previous, null);

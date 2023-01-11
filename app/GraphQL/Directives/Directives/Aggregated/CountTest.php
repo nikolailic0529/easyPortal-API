@@ -25,7 +25,7 @@ use function json_encode;
 
 /**
  * @internal
- * @coversDefaultClass \App\GraphQL\Directives\Directives\Aggregated\Count
+ * @covers \App\GraphQL\Directives\Directives\Aggregated\Count
  */
 class CountTest extends TestCase {
     use WithoutGlobalScopes;
@@ -36,8 +36,6 @@ class CountTest extends TestCase {
     // <editor-fold desc="Tests">
     // =========================================================================
     /**
-     * @covers ::resolveField
-     *
      * @dataProvider dataProviderResolveField
      *
      * @param Closure(static):EloquentBuilder<Model>|Closure(static):QueryBuilder $builder
@@ -78,9 +76,6 @@ class CountTest extends TestCase {
             ]));
     }
 
-    /**
-     * @covers ::resolveField
-     */
     public function testResolveFieldScout(): void {
         $model = Customer::factory()->create();
         $class = json_encode($model::class);

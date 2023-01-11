@@ -293,13 +293,12 @@ use Tests\TestCase;
 
 /**
  * @internal
- * @coversDefaultClass \App\Http\Controllers\AuthController
+ * @covers \App\Http\Controllers\AuthController
  */
 class AuthControllerTest extends TestCase {
     // <editor-fold desc="Tests">
     // =========================================================================
     /**
-     * @covers ::info
      * @dataProvider dataProviderInfo
      */
     public function testInfo(): void {
@@ -660,12 +659,9 @@ use Tests\TestCase;
 
 /**
  * @internal
- * @coversDefaultClass \App\Http\Controllers\AuthController
+ * @covers \App\Http\Controllers\AuthController
  */
 class AuthControllerTest extends TestCase {
-    /**
-     * @covers ::info
-     */
     public function testInfo(): void {
         // ...
     }
@@ -690,13 +686,12 @@ use Tests\TestCase;
 
 /**
  * @internal
- * @coversDefaultClass \App\Http\Controllers\AuthController
+ * @covers \App\Http\Controllers\AuthController
  */
 class AuthControllerTest extends TestCase {
     // <editor-fold desc="Tests">
     // =========================================================================
     /**
-     * @covers ::info
      * @dataProvider dataProviderInfo
      */
     public function testInfo(): void {

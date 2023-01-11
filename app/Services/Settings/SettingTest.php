@@ -25,12 +25,9 @@ use function sprintf;
 
 /**
  * @internal
- * @coversDefaultClass \App\Services\Settings\Setting
+ * @covers \App\Services\Settings\Setting
  */
 class SettingTest extends TestCase {
-    /**
-     * @covers ::__construct
-     */
     public function testConstruct(): void {
         $const = new ReflectionClassConstant(
             new class() {
@@ -51,9 +48,6 @@ class SettingTest extends TestCase {
         new Setting($const);
     }
 
-    /**
-     * @covers ::getPath
-     */
     public function testGetPath(): void {
         $const   = new ReflectionClassConstant(
             new class() {
@@ -67,9 +61,6 @@ class SettingTest extends TestCase {
         self::assertEquals('config.path', $setting->getPath());
     }
 
-    /**
-     * @covers ::getPath
-     */
     public function testGetPathNull(): void {
         $const   = new ReflectionClassConstant(
             new class() {
@@ -83,9 +74,6 @@ class SettingTest extends TestCase {
         self::assertNull($setting->getPath());
     }
 
-    /**
-     * @covers ::getName
-     */
     public function testGetName(): void {
         $const   = new ReflectionClassConstant(
             new class() {
@@ -99,9 +87,6 @@ class SettingTest extends TestCase {
         self::assertEquals('TEST', $setting->getName());
     }
 
-    /**
-     * @covers ::isSecret
-     */
     public function testIsSecret(): void {
         $class = new class() {
             #[SettingAttribute('config.path')]
@@ -118,9 +103,6 @@ class SettingTest extends TestCase {
         self::assertTrue($b->isSecret());
     }
 
-    /**
-     * @covers ::isArray
-     */
     public function testIsArray(): void {
         $class = new class() {
             #[SettingAttribute('config.path')]
@@ -136,9 +118,6 @@ class SettingTest extends TestCase {
         self::assertTrue($b->isArray());
     }
 
-    /**
-     * @covers ::isInternal
-     */
     public function testIsInternal(): void {
         $class = new class() {
             #[SettingAttribute('config.path')]
@@ -155,9 +134,6 @@ class SettingTest extends TestCase {
         self::assertTrue($b->isInternal());
     }
 
-    /**
-     * @covers ::getType
-     */
     public function testGetType(): void {
         $class   = new class() {
             #[SettingAttribute('config.path')]
@@ -195,9 +171,6 @@ class SettingTest extends TestCase {
         self::assertInstanceOf(StringType::class, $array->getType());
     }
 
-    /**
-     * @covers ::getTypeName
-     */
     public function testGetTypeName(): void {
         $class   = new class() {
             #[SettingAttribute('config.path')]
@@ -235,9 +208,6 @@ class SettingTest extends TestCase {
         self::assertEquals('String', $array->getTypeName());
     }
 
-    /**
-     * @covers ::getDefaultValue
-     */
     public function testGetDefaultValue(): void {
         $class = new class() {
             #[SettingAttribute('a')]
@@ -272,9 +242,6 @@ class SettingTest extends TestCase {
         self::assertEquals([1, 2, 3], $e->getDefaultValue());
     }
 
-    /**
-     * @covers ::getDescription
-     */
     public function testGetDescription(): void {
         $class = new class() {
             /**
@@ -323,9 +290,6 @@ class SettingTest extends TestCase {
         self::assertNull($c->getDescription());
     }
 
-    /**
-     * @covers ::getGroup
-     */
     public function testGetGroup(): void {
         $class = new class() {
             #[GroupAttribute('test')]
@@ -356,9 +320,6 @@ class SettingTest extends TestCase {
         self::assertNull($c->getGroup());
     }
 
-    /**
-     * @covers ::isService
-     */
     public function testIsService(): void {
         $class = new class() {
             #[SettingAttribute('a')]
@@ -374,9 +335,6 @@ class SettingTest extends TestCase {
         self::assertTrue($b->isService());
     }
 
-    /**
-     * @covers ::getService
-     */
     public function testGetService(): void {
         $class = new class() {
             #[SettingAttribute('a')]
@@ -392,9 +350,6 @@ class SettingTest extends TestCase {
         self::assertEquals(stdClass::class, $b->getService());
     }
 
-    /**
-     * @covers ::isJob
-     */
     public function testIsJob(): void {
         $class = new class() {
             #[SettingAttribute('a')]
@@ -413,9 +368,6 @@ class SettingTest extends TestCase {
         self::assertTrue($b->isJob());
     }
 
-    /**
-     * @covers ::getJob
-     */
     public function testGetJob(): void {
         $class = new class() {
             #[SettingAttribute('a')]
@@ -434,9 +386,6 @@ class SettingTest extends TestCase {
         self::assertEquals(stdClass::class, $b->getJob());
     }
 
-    /**
-     * @covers ::isPublic
-     */
     public function testIsPublic(): void {
         $class = new class() {
             #[SettingAttribute('a')]
@@ -453,9 +402,6 @@ class SettingTest extends TestCase {
         self::assertTrue($b->isPublic());
     }
 
-    /**
-     * @covers ::getPublicName
-     */
     public function testGetPublicName(): void {
         $class = new class() {
             #[SettingAttribute('a')]

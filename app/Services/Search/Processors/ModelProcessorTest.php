@@ -42,7 +42,7 @@ use function count;
 
 /**
  * @internal
- * @coversDefaultClass \App\Services\Search\Processors\ModelProcessor
+ * @covers \App\Services\Search\Processors\ModelProcessor
  *
  * @phpstan-import-type SettingsFactory from WithSettings
  * @phpstan-import-type SearchIndexes from WithSearch
@@ -53,9 +53,6 @@ class ModelProcessorTest extends TestCase {
     // <editor-fold desc="Tests">
     // =========================================================================
     /**
-     * @covers ::process
-     * @covers ::getOnChangeEvent
-     *
      * @dataProvider dataProviderModels
      *
      * @param Closure(static): Collection<Model&Searchable> $expected
@@ -159,9 +156,6 @@ class ModelProcessorTest extends TestCase {
         Event::assertDispatchedTimes(ModelsImported::class, $changes);
     }
 
-    /**
-     * @covers ::getBuilder
-     */
     public function testGetBuilderEagerLoading(): void {
         // Mock
         $model    = new class() extends Model {
@@ -207,8 +201,6 @@ class ModelProcessorTest extends TestCase {
     }
 
     /**
-     * @covers ::createIndex
-     *
      * @dataProvider dataProviderCreateIndex
      *
      * @param SearchIndexes                  $expected
@@ -239,9 +231,6 @@ class ModelProcessorTest extends TestCase {
         self::assertSearchIndexes($expected);
     }
 
-    /**
-     * @covers ::switchIndex
-     */
     public function testSwitchIndex(): void {
         // Mock
         $processor = Mockery::mock(ModelProcessor::class);
@@ -277,9 +266,6 @@ class ModelProcessorTest extends TestCase {
         ]);
     }
 
-    /**
-     * @covers ::init
-     */
     public function testInit(): void {
         $name      = $this->faker->word();
         $iterator  = Mockery::mock(ObjectIterator::class);
@@ -310,9 +296,6 @@ class ModelProcessorTest extends TestCase {
         self::assertEquals($name, $state->name);
     }
 
-    /**
-     * @covers ::finish
-     */
     public function testFinish(): void {
         $processor = Mockery::mock(ModelProcessor::class);
         $processor->shouldAllowMockingProtectedMethods();
@@ -331,8 +314,6 @@ class ModelProcessorTest extends TestCase {
     }
 
     /**
-     * @covers ::process
-     *
      * @dataProvider dataProviderProcess
      *
      * @param SettingsFactory $settingsFactory
@@ -414,9 +395,6 @@ class ModelProcessorTest extends TestCase {
         $processor->process($state, null, $model);
     }
 
-    /**
-     * @covers ::defaultState
-     */
     public function testDefaultState(): void {
         $keys      = [$this->faker->uuid(), $this->faker->uuid()];
         $model     = Model::class;

@@ -7,7 +7,7 @@ use Tests\TestCase;
 
 /**
  * @internal
- * @coversDefaultClass \App\Services\Keycloak\Commands\UsersSync
+ * @covers \App\Services\Keycloak\Commands\UsersSync
  */
 class UsersSyncTest extends TestCase {
     /**

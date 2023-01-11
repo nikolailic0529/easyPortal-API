@@ -25,14 +25,12 @@ use function str_contains;
 
 /**
  * @internal
- * @coversDefaultClass \App\Services\Keycloak\Client\Client
+ * @covers \App\Services\Keycloak\Client\Client
  */
 class ClientTest extends TestCase {
     // <editor-fold desc="Tests">
     // =========================================================================
     /**
-     *
-     * @covers ::getUserByEmail
      *
      * @dataProvider dataProviderGetUserByEmail
      */
@@ -59,8 +57,6 @@ class ClientTest extends TestCase {
     }
 
     /**
-     *
-     * @covers ::createUser
      *
      * @dataProvider dataProviderCreateUser
      */
@@ -110,9 +106,6 @@ class ClientTest extends TestCase {
         }
     }
 
-    /*
-     * @covers ::requestResetPassword
-     */
     public function testRequestResetPassword(): void {
         $this->prepareClient();
         $this->override(Client::class, static function (MockInterface $mock): void {
@@ -133,8 +126,6 @@ class ClientTest extends TestCase {
     }
 
     /**
-     * @covers ::getUserGroups
-     *
      * @dataProvider dataProviderGetUserGroups
      */
     public function testGetUserGroups(array|Exception $expected): void {
@@ -173,9 +164,6 @@ class ClientTest extends TestCase {
         }
     }
 
-    /*
-     * @covers ::resetPassword
-     */
     public function testResetPassword(): void {
         $this->prepareClient();
         $this->override(Client::class, static function (MockInterface $mock): void {
@@ -203,8 +191,6 @@ class ClientTest extends TestCase {
 
     /**
      *
-     * @covers ::updateUserEmail
-     *
      * @dataProvider dataProviderUpdateUserEmail
      */
     public function testUpdateUserEmail(string $email, bool|Exception $expected): void {
@@ -230,8 +216,6 @@ class ClientTest extends TestCase {
     }
 
     /**
-     *
-     * @covers ::getUserById
      *
      * @dataProvider dataProviderGetUserById
      */
@@ -263,9 +247,6 @@ class ClientTest extends TestCase {
         }
     }
 
-    /**
-     * @covers ::deleteRole
-     */
     public function testDeleteRoleByName(): void {
         $config = Mockery::mock(Repository::class);
         $config
@@ -294,9 +275,6 @@ class ClientTest extends TestCase {
         $client->deleteRole('name');
     }
 
-    /**
-     * @covers ::updateGroupRoles
-     */
     public function testSetGroupRoles(): void {
         $group = $this->faker->randomElement([
             new Group(['id' => $this->faker->uuid()]),

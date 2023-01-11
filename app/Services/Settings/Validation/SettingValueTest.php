@@ -14,14 +14,12 @@ use Tests\TestCase;
 
 /**
  * @internal
- * @coversDefaultClass \App\Services\Settings\Validation\SettingValue
+ * @covers \App\Services\Settings\Validation\SettingValue
  */
 class SettingValueTest extends TestCase {
     // <editor-fold desc="Tests">
     // =========================================================================
     /**
-     * @covers ::passes
-     *
      * @dataProvider dataProviderPasses
      */
     public function testPasses(bool $expected, string $class, string $name, string $value): void {
@@ -33,9 +31,6 @@ class SettingValueTest extends TestCase {
         self::assertEquals($expected, $rule->passes('test', $value));
     }
 
-    /**
-     * @covers ::message
-     */
     public function testMessage(): void {
         $this->setTranslations(static function (TestCase $case, string $locale): array {
             return [

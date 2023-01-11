@@ -25,15 +25,11 @@ use Throwable;
 
 /**
  * @internal
- * @coversDefaultClass \App\Utils\Processor\Processor
+ * @covers \App\Utils\Processor\Processor
  */
 class ProcessorTest extends TestCase {
     // <editor-fold desc="Tests">
     // =========================================================================
-    /**
-     * @covers ::start
-     * @covers ::invoke
-     */
     public function testStart(): void {
         $state     = new State(['offset' => $this->faker->uuid()]);
         $config    = $this->app->make(Repository::class);
@@ -63,9 +59,6 @@ class ProcessorTest extends TestCase {
         self::assertTrue($processor->start());
     }
 
-    /**
-     * @covers ::stop
-     */
     public function testStop(): void {
         $config    = $this->app->make(Repository::class);
         $processor = Mockery::mock(Processor::class);
@@ -107,9 +100,6 @@ class ProcessorTest extends TestCase {
         self::assertTrue($processor->isStopped());
     }
 
-    /**
-     * @covers ::reset
-     */
     public function testReset(): void {
         $processor = Mockery::mock(Processor::class);
         $processor->shouldAllowMockingProtectedMethods();
@@ -122,9 +112,6 @@ class ProcessorTest extends TestCase {
         $processor->reset();
     }
 
-    /**
-     * @covers ::reset
-     */
     public function testResetRunning(): void {
         self::expectExceptionObject(new LogicException('Reset is not possible while running.'));
 
@@ -153,13 +140,6 @@ class ProcessorTest extends TestCase {
         $processor->start();
     }
 
-    /**
-     * @covers ::invoke
-     * @covers ::process
-     * @covers ::report
-     * @covers ::chunkLoaded
-     * @covers ::chunkProcessed
-     */
     public function testInvoke(): void {
         $a         = new class() extends stdClass {
             // empty
@@ -306,9 +286,6 @@ class ProcessorTest extends TestCase {
             ->once();
     }
 
-    /**
-     * @covers ::invoke
-     */
     public function testInvokeFatalError(): void {
         $item       = new class() extends stdClass {
             // empty
@@ -339,9 +316,6 @@ class ProcessorTest extends TestCase {
         $processor->invoke(new State());
     }
 
-    /**
-     * @covers ::getDefaultState
-     */
     public function testGetDefaultState(): void {
         $processor = new class() extends Processor implements Limitable, Offsetable {
             use Limit;
@@ -457,9 +431,6 @@ class ProcessorTest extends TestCase {
         );
     }
 
-    /**
-     * @covers ::chunkProcessed
-     */
     public function testChunkProcessed(): void {
         $data      = null;
         $state     = new State();
@@ -486,9 +457,6 @@ class ProcessorTest extends TestCase {
         $processor->chunkProcessed($state, $items, $data);
     }
 
-    /**
-     * @covers ::chunkProcessed
-     */
     public function testChunkProcessedStopped(): void {
         self::expectException(Interrupt::class);
 
@@ -518,9 +486,6 @@ class ProcessorTest extends TestCase {
         $processor->chunkProcessed($state, $items, $data);
     }
 
-    /**
-     * @covers ::getState
-     */
     public function testGetState(): void {
         $state = [];
         $store = Mockery::mock(StateStore::class);
@@ -537,9 +502,6 @@ class ProcessorTest extends TestCase {
         self::assertEquals($expected, $actual);
     }
 
-    /**
-     * @covers ::getState
-     */
     public function testGetStateRestorationFailed(): void {
         $store = Mockery::mock(StateStore::class);
         $store
@@ -560,9 +522,6 @@ class ProcessorTest extends TestCase {
         self::assertNull($actual);
     }
 
-    /**
-     * @covers ::saveState
-     */
     public function testSaveState(): void {
         $state = new State();
         $store = Mockery::mock(StateStore::class);
@@ -577,9 +536,6 @@ class ProcessorTest extends TestCase {
             ->saveState($state);
     }
 
-    /**
-     * @covers ::resetState
-     */
     public function testResetState(): void {
         $store = Mockery::mock(StateStore::class);
         $store

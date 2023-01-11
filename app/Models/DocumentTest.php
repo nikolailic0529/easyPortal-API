@@ -8,14 +8,11 @@ use Tests\WithoutGlobalScopes;
 
 /**
  * @internal
- * @coversDefaultClass \App\Models\Document
+ * @covers \App\Models\Document
  */
 class DocumentTest extends TestCase {
     use WithoutGlobalScopes;
 
-    /**
-     * @covers ::delete
-     */
     public function testDelete(): void {
         $models = (new ModelsProvider())($this);
         $model  = $models['contract'] ?? null;

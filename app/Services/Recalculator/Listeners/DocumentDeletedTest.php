@@ -19,14 +19,11 @@ use Tests\WithoutGlobalScopes;
 
 /**
  * @internal
- * @coversDefaultClass \App\Services\Recalculator\Listeners\DocumentDeleted
+ * @covers \App\Services\Recalculator\Listeners\DocumentDeleted
  */
 class DocumentDeletedTest extends TestCase {
     use WithoutGlobalScopes;
 
-    /**
-     * @covers ::getEvents
-     */
     public function testSubscribe(): void {
         $this->override(DocumentDeleted::class, static function (MockInterface $mock): void {
             $mock
@@ -41,9 +38,6 @@ class DocumentDeletedTest extends TestCase {
             ->dispatch('eloquent.deleted: '.stdClass::class, new stdClass());
     }
 
-    /**
-     * @covers ::__invoke
-     */
     public function testInvoke(): void {
         $type              = Type::factory()->create();
         $status            = Status::factory()->create();

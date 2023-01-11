@@ -12,7 +12,7 @@ use Tests\WithSettings;
 
 /**
  * @internal
- * @coversDefaultClass \App\Models\Asset
+ * @covers \App\Models\Asset
  *
  * @phpstan-import-type SettingsFactory from WithSettings
  */
@@ -121,8 +121,6 @@ class AssetTest extends TestCase {
     }
 
     /**
-     * @covers ::getLastWarranty
-     *
      * @dataProvider dataProviderGetLastWarranty
      *
      * @param Closure(static): Collection<array-key, AssetWarranty> $warrantiesFactory

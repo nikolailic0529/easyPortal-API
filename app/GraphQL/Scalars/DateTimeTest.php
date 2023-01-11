@@ -12,13 +12,12 @@ use Tests\TestCase;
 
 /**
  * @internal
- * @coversDefaultClass \App\GraphQL\Scalars\DateTime
+ * @covers \App\GraphQL\Scalars\DateTime
  */
 class DateTimeTest extends TestCase {
     // <editor-fold desc="Tests">
     // =========================================================================
     /**
-     * @covers ::serialize
      * @dataProvider dataProviderSerialize
      */
     public function testSerialize(?string $expected, string $value): void {
@@ -30,7 +29,6 @@ class DateTimeTest extends TestCase {
     }
 
     /**
-     * @covers ::parseValue
      * @dataProvider dataProviderParse
      */
     public function testParseValue(string|Exception $expected, ?string $tz, string $value): void {
@@ -47,7 +45,6 @@ class DateTimeTest extends TestCase {
     }
 
     /**
-     * @covers ::parseLiteral
      * @dataProvider dataProviderParse
      */
     public function testParseLiteral(string|Exception $expected, ?string $tz, string $value): void {

@@ -22,14 +22,12 @@ use Tests\TestCase;
 
 /**
  * @internal
- * @coversDefaultClass \App\Services\DataLoader\Factory\Concerns\WithReseller
+ * @covers \App\Services\DataLoader\Factory\Concerns\WithReseller
  */
 class WithResellerTest extends TestCase {
     // <editor-fold desc="Tests">
     // =========================================================================
     /**
-     * @covers ::reseller
-     *
      * @dataProvider dataProviderReseller
      */
     public function testResellerExistsThroughProvider(Closure $objectFactory): void {
@@ -48,8 +46,6 @@ class WithResellerTest extends TestCase {
     }
 
     /**
-     * @covers ::reseller
-     *
      * @dataProvider dataProviderReseller
      */
     public function testResellerExistsThroughFinder(Closure $objectFactory): void {
@@ -79,8 +75,6 @@ class WithResellerTest extends TestCase {
     }
 
     /**
-     * @covers ::reseller
-     *
      * @dataProvider dataProviderReseller
      */
     public function testResellerResellerNotFound(Closure $objectFactory): void {
@@ -108,9 +102,6 @@ class WithResellerTest extends TestCase {
         self::assertEquals($reseller, $factory->reseller($object));
     }
 
-    /**
-     * @covers ::reseller
-     */
     public function testResellerAssetWithoutReseller(): void {
         $object   = new ViewAsset();
         $resolver = Mockery::mock(ResellerResolver::class);

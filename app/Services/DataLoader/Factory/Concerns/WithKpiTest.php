@@ -12,12 +12,9 @@ use Tests\TestCase;
 
 /**
  * @internal
- * @coversDefaultClass \App\Services\DataLoader\Factory\Concerns\WithKpi
+ * @covers \App\Services\DataLoader\Factory\Concerns\WithKpi
  */
 class WithKpiTest extends TestCase {
-    /**
-     * @covers ::kpi
-     */
     public function testKpiNull(): void {
         $factory  = new WithKpiTest_Factory();
         $owner    = Customer::factory()->make();
@@ -28,9 +25,6 @@ class WithKpiTest extends TestCase {
         self::assertEquals($expected, $actual);
     }
 
-    /**
-     * @covers ::kpi
-     */
     public function testKpi(): void {
         $factory  = new WithKpiTest_Factory();
         $owner    = Customer::factory()->make();
@@ -48,9 +42,6 @@ class WithKpiTest extends TestCase {
         self::assertTrue($actual->wasRecentlyCreated);
     }
 
-    /**
-     * @covers ::kpi
-     */
     public function testKpiUpdated(): void {
         $factory  = new WithKpiTest_Factory();
         $kpi      = Kpi::factory()->create([
@@ -71,9 +62,6 @@ class WithKpiTest extends TestCase {
         ]);
     }
 
-    /**
-     * @covers ::kpi
-     */
     public function testKpiNegative(): void {
         $factory  = new WithKpiTest_Factory();
         $kpi      = Kpi::factory()->create([

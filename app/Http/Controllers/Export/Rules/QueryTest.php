@@ -11,14 +11,12 @@ use function array_merge;
 
 /**
  * @internal
- * @coversDefaultClass \App\Http\Controllers\Export\Rules\Query
+ * @covers \App\Http\Controllers\Export\Rules\Query
  */
 class QueryTest extends TestCase {
     // <editor-fold desc="Tests">
     // =========================================================================
     /**
-     * @covers ::__invoke
-     *
      * @dataProvider dataProviderPasses
      *
      * @param array<mixed> $data
@@ -44,9 +42,6 @@ class QueryTest extends TestCase {
         self::assertEquals($expected, $passes);
     }
 
-    /**
-     * @covers ::__invoke
-     */
     public function testMessage(): void {
         $this->setTranslations(static function (TestCase $case, string $locale): array {
             return [
