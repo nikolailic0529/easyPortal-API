@@ -18,6 +18,7 @@ use Tests\WithQueryLogs;
 
 /**
  * @internal
+ * @covers \App\Services\DataLoader\Processors\Loader\Loader
  * @covers \App\Services\DataLoader\Processors\Loader\Loaders\DistributorLoader
  */
 class DistributorLoaderTest extends TestCase {

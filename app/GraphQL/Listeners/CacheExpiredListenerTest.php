@@ -17,7 +17,7 @@ use Tests\TestCase;
 
 /**
  * @internal
- * @covers \App\Services\Search\Listeners\IndexExpiredListener
+ * @covers \App\GraphQL\Listeners\CacheExpiredListener
  */
 class CacheExpiredListenerTest extends TestCase {
     // <editor-fold desc="Tests">

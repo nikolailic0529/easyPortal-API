@@ -16,6 +16,8 @@ use Tests\WithQueryLogs;
 
 /**
  * @internal
+ * @covers \App\Services\Recalculator\Processor\ChunkData
+ * @covers \App\Services\Recalculator\Processor\Processors\DocumentsChunkData
  * @covers \App\Services\Recalculator\Processor\Processors\DocumentsProcessor
  */
 class DocumentsProcessorTest extends TestCase {

@@ -11,7 +11,7 @@ use Tests\TestCase;
 
 /**
  * @internal
- * @covers \App\Services\DataLoader\Resolver\Resolvers\ProductResolver
+ * @covers \App\Services\DataLoader\Resolver\Resolvers\CityResolver
  */
 class CityResolverTest extends TestCase {
     use WithQueryLog;

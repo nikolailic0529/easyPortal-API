@@ -37,7 +37,7 @@ use function trans;
 
 /**
  * @internal
- * @covers \App\GraphQL\Mutations\Organization\User\Invite
+ * @covers \App\GraphQL\Mutations\Org\User\Invite
  *
  * @phpstan-import-type OrganizationFactory from WithOrganization
  * @phpstan-import-type UserFactory from WithUser

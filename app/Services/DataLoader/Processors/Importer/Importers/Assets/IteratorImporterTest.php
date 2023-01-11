@@ -18,6 +18,7 @@ use Tests\WithQueryLogs;
 
 /**
  * @internal
+ * @covers \App\Services\DataLoader\Processors\Importer\Importers\Assets\BaseImporter
  * @covers \App\Services\DataLoader\Processors\Importer\Importers\Assets\IteratorImporter
  */
 class IteratorImporterTest extends TestCase {

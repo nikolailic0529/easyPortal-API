@@ -21,6 +21,8 @@ use Tests\WithQueryLogs;
 
 /**
  * @internal
+ * @covers \App\Services\Recalculator\Processor\ChunkData
+ * @covers \App\Services\Recalculator\Processor\Processors\AssetsChunkData
  * @covers \App\Services\Recalculator\Processor\Processors\AssetsProcessor
  */
 class AssetsProcessorTest extends TestCase {

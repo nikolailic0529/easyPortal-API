@@ -12,6 +12,7 @@ use Tests\WithQueryLogs;
 
 /**
  * @internal
+ * @covers \App\Services\DataLoader\Processors\Synchronizer\Synchronizer
  * @covers \App\Services\DataLoader\Processors\Synchronizer\Synchronizers\CustomersSynchronizer
  */
 class CustomersSynchronizerTest extends TestCase {

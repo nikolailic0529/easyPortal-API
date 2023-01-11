@@ -29,7 +29,7 @@ use function trans;
 
 /**
  * @internal
- * @covers \App\GraphQL\Mutations\UpdateContractNote
+ * @covers \App\GraphQL\Mutations\UpdateQuoteNote
  *
  * @phpstan-import-type OrganizationFactory from WithOrganization
  * @phpstan-import-type UserFactory from WithUser

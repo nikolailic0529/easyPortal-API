@@ -20,6 +20,7 @@ use Tests\WithQueryLogs;
 
 /**
  * @internal
+ * @covers \App\Services\DataLoader\Processors\Loader\Loader
  * @covers \App\Services\DataLoader\Processors\Loader\Loaders\CustomerLoader
  */
 class CustomerLoaderTest extends TestCase {

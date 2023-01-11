@@ -23,6 +23,8 @@ use Tests\WithQueryLogs;
 
 /**
  * @internal
+ * @covers \App\Services\Recalculator\Processor\ChunkData
+ * @covers \App\Services\Recalculator\Processor\Processors\ResellersChunkData
  * @covers \App\Services\Recalculator\Processor\Processors\ResellersProcessor
  */
 class ResellersProcessorTest extends TestCase {

@@ -21,6 +21,7 @@ class CompanyTest extends TestCase {
         $actual     = new Company($json);
         $properties = Company::getPropertiesNames();
 
+        self::assertEquals($actual->id, $actual->getKey());
         self::assertEqualsCanonicalizing($keys, $properties);
         self::assertEqualsCanonicalizing($keys, array_keys($actual->getProperties()));
         self::assertCount(2, $actual->companyContactPersons);

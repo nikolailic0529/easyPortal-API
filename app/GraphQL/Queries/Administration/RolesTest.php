@@ -17,7 +17,7 @@ use Tests\WithUser;
 
 /**
  * @internal
- * @covers \App\GraphQL\Queries\Administration\Users
+ * @covers \App\GraphQL\Queries\Administration\Roles
  *
  * @phpstan-import-type OrganizationFactory from WithOrganization
  * @phpstan-import-type UserFactory from WithUser

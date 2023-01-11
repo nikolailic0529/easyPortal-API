@@ -20,6 +20,7 @@ class ViewDocumentTest extends TestCase {
         $actual     = new ViewDocument($json);
         $properties = ViewDocument::getPropertiesNames();
 
+        self::assertEquals($actual->id, $actual->getKey());
         self::assertEqualsCanonicalizing($keys, $properties);
         self::assertEqualsCanonicalizing($keys, array_keys($actual->getProperties()));
     }

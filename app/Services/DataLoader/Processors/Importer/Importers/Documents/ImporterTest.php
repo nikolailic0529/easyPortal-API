@@ -17,6 +17,7 @@ use Tests\WithQueryLogs;
 
 /**
  * @internal
+ * @covers \App\Services\DataLoader\Processors\Importer\Importers\Documents\BaseImporter
  * @covers \App\Services\DataLoader\Processors\Importer\Importers\Documents\Importer
  */
 class ImporterTest extends TestCase {

@@ -20,6 +20,7 @@ class ViewAssetTest extends TestCase {
         $actual     = new ViewAsset($json);
         $properties = ViewAsset::getPropertiesNames();
 
+        self::assertEquals($actual->id, $actual->getKey());
         self::assertEqualsCanonicalizing($keys, $properties);
         self::assertEqualsCanonicalizing($keys, array_keys($actual->getProperties()));
         self::assertInstanceOf(ViewAssetDocument::class, $actual->assetDocument[0] ?? null);

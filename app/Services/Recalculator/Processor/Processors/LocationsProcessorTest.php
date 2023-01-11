@@ -20,6 +20,8 @@ use Tests\WithQueryLogs;
 
 /**
  * @internal
+ * @covers \App\Services\Recalculator\Processor\ChunkData
+ * @covers \App\Services\Recalculator\Processor\Processors\LocationsChunkData
  * @covers \App\Services\Recalculator\Processor\Processors\LocationsProcessor
  */
 class LocationsProcessorTest extends TestCase {
