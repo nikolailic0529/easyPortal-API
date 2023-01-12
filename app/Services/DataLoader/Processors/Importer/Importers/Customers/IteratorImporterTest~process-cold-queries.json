@@ -2248,35 +2248,6 @@
         ]
     },
     {
-        "query": "select `customers`.* from `customers` where ((`customers`.`id` = ?))",
-        "bindings": [
-            "00000000-0000-0000-0000-000000000000"
-        ]
-    },
-    {
-        "query": "select `customer_locations`.* from `customer_locations` where `customer_locations`.`customer_id` in (?) and `customer_locations`.`deleted_at` is null",
-        "bindings": [
-            "00000000-0000-0000-0000-000000000000"
-        ]
-    },
-    {
-        "query": "select `contacts`.* from `contacts` where `contacts`.`object_id` in (?) and `contacts`.`object_type` = ? and `contacts`.`deleted_at` is null",
-        "bindings": [
-            "00000000-0000-0000-0000-000000000000",
-            "Customer"
-        ]
-    },
-    {
-        "query": "select `kpis`.* from `kpis` where 0 = 1 and `kpis`.`deleted_at` is null",
-        "bindings": []
-    },
-    {
-        "query": "select `reseller_customers`.* from `reseller_customers` where `reseller_customers`.`customer_id` in (?) and `reseller_customers`.`deleted_at` is null",
-        "bindings": [
-            "00000000-0000-0000-0000-000000000000"
-        ]
-    },
-    {
         "query": "update `customers` set `deleted_at` = ?, `customers`.`updated_at` = ? where `id` = ?",
         "bindings": [
             "2022-02-02 00:02:22",

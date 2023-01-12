@@ -1782,29 +1782,6 @@
         ]
     },
     {
-        "query": "select `resellers`.* from `resellers` where ((`resellers`.`id` = ?))",
-        "bindings": [
-            "00000000-0000-0000-0000-000000000000"
-        ]
-    },
-    {
-        "query": "select `reseller_locations`.* from `reseller_locations` where `reseller_locations`.`reseller_id` in (?) and `reseller_locations`.`deleted_at` is null",
-        "bindings": [
-            "00000000-0000-0000-0000-000000000000"
-        ]
-    },
-    {
-        "query": "select `contacts`.* from `contacts` where `contacts`.`object_id` in (?) and `contacts`.`object_type` = ? and `contacts`.`deleted_at` is null",
-        "bindings": [
-            "00000000-0000-0000-0000-000000000000",
-            "Reseller"
-        ]
-    },
-    {
-        "query": "select `kpis`.* from `kpis` where 0 = 1 and `kpis`.`deleted_at` is null",
-        "bindings": []
-    },
-    {
         "query": "select `organizations`.* from `organizations` where `organizations`.`id` = ? and `organizations`.`deleted_at` is null limit 1",
         "bindings": [
             "00000000-0000-0000-0000-000000000000"

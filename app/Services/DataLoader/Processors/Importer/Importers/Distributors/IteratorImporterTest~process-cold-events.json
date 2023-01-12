@@ -3,11 +3,11 @@
         "event": "App\\Services\\DataLoader\\Events\\DataImported",
         "data": {
             "App\\Models\\Distributor": {
-                "00000000-0000-0000-0000-000000000000": "00000000-0000-0000-0000-000000000000",
                 "0920a7cb-3cf1-4a7d-bd84-f255cb753dec": "0920a7cb-3cf1-4a7d-bd84-f255cb753dec",
                 "1af1c44e-8112-4e72-9654-b11c705e9372": "1af1c44e-8112-4e72-9654-b11c705e9372",
                 "a985a692-c063-499a-ab2f-0a2adef86a3f": "a985a692-c063-499a-ab2f-0a2adef86a3f",
-                "efc39adf-0497-40a3-a6e6-bbd692f87516": "efc39adf-0497-40a3-a6e6-bbd692f87516"
+                "efc39adf-0497-40a3-a6e6-bbd692f87516": "efc39adf-0497-40a3-a6e6-bbd692f87516",
+                "00000000-0000-0000-0000-000000000000": "00000000-0000-0000-0000-000000000000"
             },
             "App\\Models\\Reseller": [],
             "App\\Models\\Customer": [],

@@ -27,6 +27,7 @@ use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\Date;
 use Throwable;
 
+use function array_keys;
 use function array_map;
 use function array_merge;
 
@@ -121,15 +122,58 @@ abstract class Importer extends IteratorProcessor implements Isolated {
      * @inheritDoc
      */
     protected function prefetch(State $state, array $items): mixed {
-        $data   = $this->makeData($items);
-        $model  = $this->getFactory()->getModel();
-        $models = $this->getResolver()
-            ->prefetch($data->get($model))
-            ->getResolved();
+        /** @var Collection<int, TModel> $models */
+        $models = new Collection();
+        $class  = $this->getFactory()->getModel();
+        $data   = $this->makeData([]);
 
+        if ($state->force) {
+            $data   = $this->makeData($items);
+            $models = $this->getResolver()
+                ->prefetch($data->get($class))
+                ->getResolved();
+        } else {
+            // Exclude unchanged models/items.
+            /** @var array<string, array{index: int, hash: string}> $keys */
+            $keys = [];
+
+            foreach ($items as $index => $item) {
+                if ($item instanceof ModelObject) {
+                    // Model does not exist -> skip
+                    continue;
+                }
+
+                $keys[$item->getKey()] = [
+                    'index' => $index,
+                    'hash'  => $item->getHash(),
+                ];
+            }
+
+            if ($keys) {
+                $models = $this->getResolver()
+                    ->prefetch(array_keys($keys))
+                    ->getResolved();
+
+                foreach ($models as $index => $model) {
+                    $key  = $model->getKey();
+                    $hash = $model->getAttribute('hash');
+
+                    if (isset($keys[$key]) && $keys[$key]['hash'] === $hash) {
+                        unset($items[$keys[$key]['index']]);
+                        unset($models[$index]);
+                    }
+                }
+
+                $data = $this->makeData($items);
+            }
+        }
+
+        $external = $this->makeData([])->addAll($class, $data->get($class));
+
+        $this->collector->subscribe($external);
         $this->preload($state, $data, $models);
 
-        return $data;
+        return $external;
     }
 
     /**
@@ -164,16 +208,8 @@ abstract class Importer extends IteratorProcessor implements Isolated {
         $this->resolver  = $this->makeResolver($state);
         $this->factory   = $this->makeFactory($state);
 
-        // Configure
-        $data = $this->makeData([]);
-
-        $this->collector->subscribe($data);
-
         // Parent
-        parent::chunkLoaded($state, $items);
-
-        // Return
-        return $data;
+        return parent::chunkLoaded($state, $items);
     }
 
     /**
