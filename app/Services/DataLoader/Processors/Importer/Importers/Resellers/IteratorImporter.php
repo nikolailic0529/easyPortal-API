@@ -19,7 +19,7 @@ class IteratorImporter extends BaseImporter {
     /**
      * @param BaseImporterState $state
      *
-     * @return \App\Services\DataLoader\Schema\Types\Company|null
+     * @return Company|null
      */
     protected function getItem(State $state, string $item): mixed {
         return $this->getClient()->getResellerById($item);
