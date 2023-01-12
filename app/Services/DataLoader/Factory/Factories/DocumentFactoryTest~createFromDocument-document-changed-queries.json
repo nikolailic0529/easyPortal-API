@@ -1,10 +1,9 @@
 [
-    "update `documents` set `hash` = ?, `oem_group_id` = ?, `oem_said` = ?, `oem_amp_id` = ?, `oem_sar_number` = ?, `statuses_count` = ?, `currency_id` = ?, `language_id` = ?, `distributor_id` = ?, `start` = ?, `price_origin` = ?, `price` = ?, `changed_at` = ?, `contacts_count` = ?, `documents`.`updated_at` = ? where `id` = ?",
-    "update `document_statuses` set `deleted_at` = ?, `document_statuses`.`updated_at` = ? where `id` = ?",
-    "update `contacts` set `deleted_at` = ?, `contacts`.`updated_at` = ? where `id` = ?",
     "select `assets`.* from `assets` where ((`assets`.`id` = ?))",
     "select `document_entries`.* from `document_entries` where `document_entries`.`document_id` = ? and `document_entries`.`document_id` is not null",
-    "update `documents` set `entries_count` = ?, `assets_count` = ?, `documents`.`updated_at` = ? where `id` = ?",
+    "update `documents` set `hash` = ?, `oem_group_id` = ?, `oem_said` = ?, `oem_amp_id` = ?, `oem_sar_number` = ?, `statuses_count` = ?, `currency_id` = ?, `language_id` = ?, `distributor_id` = ?, `start` = ?, `price_origin` = ?, `price` = ?, `changed_at` = ?, `contacts_count` = ?, `entries_count` = ?, `assets_count` = ?, `documents`.`updated_at` = ? where `id` = ?",
+    "update `document_statuses` set `deleted_at` = ?, `document_statuses`.`updated_at` = ? where `id` = ?",
+    "update `contacts` set `deleted_at` = ?, `contacts`.`updated_at` = ? where `id` = ?",
     "update `document_entries` set `asset_type_id` = ?, `product_line_id` = ?, `product_group_id` = ?, `start` = ?, `end` = ?, `list_price` = ?, `list_price_origin` = ?, `monthly_list_price` = ?, `monthly_list_price_origin` = ?, `monthly_retail_price` = ?, `monthly_retail_price_origin` = ?, `oem_sar_number` = ?, `psp_id` = ?, `language_id` = ?, `hash` = ?, `document_entries`.`updated_at` = ? where `id` = ?",
     "update `document_entries` set `asset_type_id` = ?, `service_level_id` = ?, `product_line_id` = ?, `product_group_id` = ?, `start` = ?, `end` = ?, `list_price` = ?, `list_price_origin` = ?, `monthly_list_price` = ?, `monthly_list_price_origin` = ?, `monthly_retail_price` = ?, `monthly_retail_price_origin` = ?, `renewal` = ?, `renewal_origin` = ?, `psp_id` = ?, `language_id` = ?, `hash` = ?, `document_entries`.`updated_at` = ? where `id` = ?",
     "update `document_entries` set `deleted_at` = ?, `document_entries`.`updated_at` = ? where `id` = ?",

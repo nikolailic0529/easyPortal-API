@@ -46,24 +46,9 @@
         ]
     },
     {
-        "query": "select `assets`.* from `assets` where ((`assets`.`id` = ?) or (`assets`.`id` = ?) or (`assets`.`id` = ?) or (`assets`.`id` = ?))",
-        "bindings": [
-            "773b201c-3f74-46f1-a84f-9d478731f202",
-            "43d802ba-087e-48a5-99f5-fd0f6a9c444d",
-            "65f75240-d24a-4e73-aeb0-d8afb3d792fc",
-            "1cc12c44-7e2e-4f7b-b281-4c237976a254"
-        ]
-    },
-    {
-        "query": "select `document_entries`.* from `document_entries` where `document_entries`.`document_id` = ? and `document_entries`.`document_id` is not null",
-        "bindings": [
-            "00122a07-53e5-4c70-ba6b-bf51fcdd6695"
-        ]
-    },
-    {
         "query": "update `documents` set `synced_at` = ? where `id` in (?) and `documents`.`deleted_at` is null",
         "bindings": [
-            "2022-02-02T00:01:56+00:00",
+            "2022-02-02T00:01:48+00:00",
             "00122a07-53e5-4c70-ba6b-bf51fcdd6695"
         ]
     }

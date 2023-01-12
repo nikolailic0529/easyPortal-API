@@ -346,6 +346,23 @@ class DocumentFactory extends Factory {
             $model->changed_at     = $document->updatedAt;
             $model->contacts       = $this->contacts($model, (array) $document->contactPersons);
 
+            // Entries & Warranties
+            if (isset($document->documentEntries)) {
+                try {
+                    // Prefetch
+                    $this->getAssetResolver()->prefetch(
+                        array_map(static fn($entry) => $entry->assetId, $document->documentEntries),
+                    );
+
+                    // Entries
+                    $model->entries = $this->documentEntries($model, $document, $force);
+                } finally {
+                    $this->getAssetResolver()->reset();
+
+                    unset($model->entries);
+                }
+            }
+
             // Save
             if ($model->trashed()) {
                 $model->restore();
@@ -368,24 +385,7 @@ class DocumentFactory extends Factory {
             $factory($model);
         }
 
-        // Entries & Warranties
-        if (isset($document->documentEntries)) {
-            try {
-                // Prefetch
-                $this->getAssetResolver()->prefetch(
-                    array_map(static fn($entry) => $entry->assetId, $document->documentEntries),
-                );
 
-                // Entries
-                $model->entries = $this->documentEntries($model, $document, $force);
-            } finally {
-                $this->getAssetResolver()->reset();
-
-                unset($model->entries);
-
-                $model->save();
-            }
-        }
 
         // Return
         return $model;

@@ -1123,10 +1123,7 @@ class DocumentFactoryTest extends TestCase {
 
         $factory->createFromDocument($object, false);
 
-        $actual   = array_column($queries->get(), 'query');
-        $expected = $this->getTestData()->json('~createFromDocument-document-unchanged-queries.json');
-
-        self::assertEquals($expected, $actual);
+        self::assertEmpty($queries->get());
     }
 
     /**

@@ -66,80 +66,9 @@
         ]
     },
     {
-        "query": "select `assets`.* from `assets` where ((`assets`.`id` = ?) or (`assets`.`id` = ?))",
-        "bindings": [
-            "c4298e19-93b0-40b5-aa55-8a4a57d01fe0",
-            "4667ba82-0264-4315-958b-68f070fcc190"
-        ]
-    },
-    {
-        "query": "select `document_entries`.* from `document_entries` where `document_entries`.`document_id` = ? and `document_entries`.`document_id` is not null",
-        "bindings": [
-            "0aa9d168-1ccd-4ffd-a680-02a04d3e4b9a"
-        ]
-    },
-    {
-        "query": "select `assets`.* from `assets` where ((`assets`.`id` = ?) or (`assets`.`id` = ?) or (`assets`.`id` = ?))",
-        "bindings": [
-            "dca06ee1-cdaf-4fee-a4d8-565b0b6c4c57",
-            "1c274b92-6401-414b-a23b-50bee046e62b",
-            "546f92c8-e298-4ee3-a13b-07e88d240e73"
-        ]
-    },
-    {
-        "query": "select `document_entries`.* from `document_entries` where `document_entries`.`document_id` = ? and `document_entries`.`document_id` is not null",
-        "bindings": [
-            "0c8324bb-600d-488b-9b53-35ee6849ff59"
-        ]
-    },
-    {
-        "query": "select `assets`.* from `assets` where ((`assets`.`id` = ?) or (`assets`.`id` = ?) or (`assets`.`id` = ?))",
-        "bindings": [
-            "3914f1e4-31fe-4e1b-b100-8606984d8373",
-            "45cc378c-b7a2-4f0e-b6a4-95304ec3c588",
-            "17cd66f7-51e7-4fd1-b524-3060c5a8ecf0"
-        ]
-    },
-    {
-        "query": "select `document_entries`.* from `document_entries` where `document_entries`.`document_id` = ? and `document_entries`.`document_id` is not null",
-        "bindings": [
-            "05a153c5-251c-413b-92dd-0cd27d6ed8fd"
-        ]
-    },
-    {
-        "query": "select `assets`.* from `assets` where ((`assets`.`id` = ?) or (`assets`.`id` = ?) or (`assets`.`id` = ?) or (`assets`.`id` = ?))",
-        "bindings": [
-            "0832e51b-15d0-426b-afc5-e110851752b3",
-            "b4f9b9d1-4886-428c-a849-e082f20cbc80",
-            "cebb93e7-2205-4be4-bdc8-90004b6f4107",
-            "88df7a89-8e74-4c7f-9917-26b951430f90"
-        ]
-    },
-    {
-        "query": "select `document_entries`.* from `document_entries` where `document_entries`.`document_id` = ? and `document_entries`.`document_id` is not null",
-        "bindings": [
-            "083145d4-b350-49cd-9844-d3998c411ce5"
-        ]
-    },
-    {
-        "query": "select `assets`.* from `assets` where ((`assets`.`id` = ?) or (`assets`.`id` = ?) or (`assets`.`id` = ?) or (`assets`.`id` = ?))",
-        "bindings": [
-            "0e8063a8-0218-41c3-ab68-32580614a838",
-            "8189abfd-c6f9-4134-9eef-c6c006110cb2",
-            "45fc7e2a-7254-4b72-bf7e-7c5740e9b233",
-            "423711e2-ad0a-43f3-820d-5ff3f60fa02e"
-        ]
-    },
-    {
-        "query": "select `document_entries`.* from `document_entries` where `document_entries`.`document_id` = ? and `document_entries`.`document_id` is not null",
-        "bindings": [
-            "07a09563-d1fe-4f0f-a286-115dc2742178"
-        ]
-    },
-    {
         "query": "update `documents` set `synced_at` = ? where `id` in (?, ?, ?, ?, ?) and `documents`.`deleted_at` is null",
         "bindings": [
-            "2022-02-02T00:04:30+00:00",
+            "2022-02-02T00:03:10+00:00",
             "0aa9d168-1ccd-4ffd-a680-02a04d3e4b9a",
             "0c8324bb-600d-488b-9b53-35ee6849ff59",
             "05a153c5-251c-413b-92dd-0cd27d6ed8fd",
@@ -217,72 +146,9 @@
         ]
     },
     {
-        "query": "select `assets`.* from `assets` where ((`assets`.`id` = ?))",
-        "bindings": [
-            "b5734ef9-630e-4994-94bc-525ac0744c3c"
-        ]
-    },
-    {
-        "query": "select `document_entries`.* from `document_entries` where `document_entries`.`document_id` = ? and `document_entries`.`document_id` is not null",
-        "bindings": [
-            "0d2169e6-94b7-49ee-8560-80673d7009bf"
-        ]
-    },
-    {
-        "query": "select `assets`.* from `assets` where ((`assets`.`id` = ?))",
-        "bindings": [
-            "c745f9a0-6a2a-4a55-abad-66aceaed9dc6"
-        ]
-    },
-    {
-        "query": "select `document_entries`.* from `document_entries` where `document_entries`.`document_id` = ? and `document_entries`.`document_id` is not null",
-        "bindings": [
-            "0c890540-172e-41ea-b1f3-f91a899437b5"
-        ]
-    },
-    {
-        "query": "select `assets`.* from `assets` where ((`assets`.`id` = ?))",
-        "bindings": [
-            "e6ba9ff2-f9bc-4740-a659-eff7802ad602"
-        ]
-    },
-    {
-        "query": "select `document_entries`.* from `document_entries` where `document_entries`.`document_id` = ? and `document_entries`.`document_id` is not null",
-        "bindings": [
-            "0821f5a6-95f1-493f-a527-c62a45ca1e13"
-        ]
-    },
-    {
-        "query": "select `assets`.* from `assets` where ((`assets`.`id` = ?) or (`assets`.`id` = ?) or (`assets`.`id` = ?))",
-        "bindings": [
-            "745fbb57-156f-43f4-8865-f1e09db3a12e",
-            "79934a7c-ec40-441a-b6d7-618745a222f9",
-            "cb5a9c17-a591-46ee-b12e-d2b6b42f1236"
-        ]
-    },
-    {
-        "query": "select `document_entries`.* from `document_entries` where `document_entries`.`document_id` = ? and `document_entries`.`document_id` is not null",
-        "bindings": [
-            "0a38d611-f78f-48e4-a861-8d56afaa8154"
-        ]
-    },
-    {
-        "query": "select `assets`.* from `assets` where ((`assets`.`id` = ?) or (`assets`.`id` = ?))",
-        "bindings": [
-            "e551bbce-7cf9-404a-9a00-daa4372b6372",
-            "87f9bd7d-33e0-4be1-a1a9-d450ebd95223"
-        ]
-    },
-    {
-        "query": "select `document_entries`.* from `document_entries` where `document_entries`.`document_id` = ? and `document_entries`.`document_id` is not null",
-        "bindings": [
-            "013db1c0-c4b2-4f3a-830b-58de8b40ccc8"
-        ]
-    },
-    {
         "query": "update `documents` set `synced_at` = ? where `id` in (?, ?, ?, ?, ?) and `documents`.`deleted_at` is null",
         "bindings": [
-            "2022-02-02T00:04:46+00:00",
+            "2022-02-02T00:03:26+00:00",
             "0d2169e6-94b7-49ee-8560-80673d7009bf",
             "0c890540-172e-41ea-b1f3-f91a899437b5",
             "0821f5a6-95f1-493f-a527-c62a45ca1e13",

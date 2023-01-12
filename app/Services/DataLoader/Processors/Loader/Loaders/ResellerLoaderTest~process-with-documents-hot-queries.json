@@ -51,7 +51,7 @@
     {
         "query": "update `resellers` set `synced_at` = ? where `id` in (?) and `resellers`.`deleted_at` is null",
         "bindings": [
-            "2022-02-02T00:01:30+00:00",
+            "2022-02-02T00:01:14+00:00",
             "22d7dbf2-977a-49d8-8e4c-cacdaae616b2"
         ]
     },
@@ -87,25 +87,9 @@
         ]
     },
     {
-        "query": "select `assets`.* from `assets` where ((`assets`.`id` = ?) or (`assets`.`id` = ?) or (`assets`.`id` = ?) or (`assets`.`id` = ?) or (`assets`.`id` = ?))",
-        "bindings": [
-            "c30973dd-e7cd-40ae-8bda-021880774e11",
-            "d24fbc79-3d01-48fb-b2f8-8e0272620b4a",
-            "e1410592-d765-43ee-8564-fffa0f8e1f6d",
-            "50c0418d-2c76-45cc-82a2-423f77894b9e",
-            "7ffdf6ab-b688-4ceb-97c9-5407099ed80b"
-        ]
-    },
-    {
-        "query": "select `document_entries`.* from `document_entries` where `document_entries`.`document_id` = ? and `document_entries`.`document_id` is not null",
-        "bindings": [
-            "f7873540-59c2-4019-9522-5e7b299257b1"
-        ]
-    },
-    {
         "query": "update `documents` set `synced_at` = ? where `id` in (?) and `documents`.`deleted_at` is null",
         "bindings": [
-            "2022-02-02T00:01:44+00:00",
+            "2022-02-02T00:01:28+00:00",
             "f7873540-59c2-4019-9522-5e7b299257b1"
         ]
     },
@@ -113,14 +97,14 @@
         "query": "select count(*) as aggregate from `documents` where `reseller_id` = ? and `synced_at` < ? and `documents`.`deleted_at` is null",
         "bindings": [
             "22d7dbf2-977a-49d8-8e4c-cacdaae616b2",
-            "2022-02-02T00:01:28+00:00"
+            "2022-02-02T00:01:12+00:00"
         ]
     },
     {
         "query": "select `documents`.* from `documents` where `reseller_id` = ? and `synced_at` < ? and `documents`.`deleted_at` is null order by `documents`.`id` asc limit 250 offset 0",
         "bindings": [
             "22d7dbf2-977a-49d8-8e4c-cacdaae616b2",
-            "2022-02-02T00:01:28+00:00"
+            "2022-02-02T00:01:12+00:00"
         ]
     }
 ]

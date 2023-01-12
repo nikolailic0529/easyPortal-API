@@ -66,80 +66,9 @@
         ]
     },
     {
-        "query": "select `assets`.* from `assets` where ((`assets`.`id` = ?) or (`assets`.`id` = ?) or (`assets`.`id` = ?) or (`assets`.`id` = ?) or (`assets`.`id` = ?))",
-        "bindings": [
-            "2affbdde-3482-413f-b5be-9d53750b1bf6",
-            "67f15e28-9a40-4b17-bee7-21016133371f",
-            "84f9b8d5-56a6-4508-b060-4354f9bf1b18",
-            "c1a3d8ee-096b-44a5-9f8e-7c6373c6e055",
-            "78d115d4-3a55-4f50-83d9-2e48c90ebede"
-        ]
-    },
-    {
-        "query": "select `document_entries`.* from `document_entries` where `document_entries`.`document_id` = ? and `document_entries`.`document_id` is not null",
-        "bindings": [
-            "0455f5c4-aa11-494e-a793-f64acf6b01a9"
-        ]
-    },
-    {
-        "query": "select `assets`.* from `assets` where ((`assets`.`id` = ?) or (`assets`.`id` = ?) or (`assets`.`id` = ?))",
-        "bindings": [
-            "40903c2a-3261-4370-bce2-3cefbfb302fd",
-            "4588d734-3f35-41de-aa43-56e977dce94a",
-            "b2341b08-d563-42d1-9311-db3833c8f38b"
-        ]
-    },
-    {
-        "query": "select `document_entries`.* from `document_entries` where `document_entries`.`document_id` = ? and `document_entries`.`document_id` is not null",
-        "bindings": [
-            "058bd2fb-1c48-47f3-99fe-720dcf8b8b4b"
-        ]
-    },
-    {
-        "query": "select `assets`.* from `assets` where ((`assets`.`id` = ?) or (`assets`.`id` = ?))",
-        "bindings": [
-            "1455dd8d-4f0c-4482-9f5a-d709bcefe8ac",
-            "a9761e72-c6f7-4bd6-b3f6-8b6198bcae6e"
-        ]
-    },
-    {
-        "query": "select `document_entries`.* from `document_entries` where `document_entries`.`document_id` = ? and `document_entries`.`document_id` is not null",
-        "bindings": [
-            "0667d1c6-110f-436f-9f6e-f130fdfb47ce"
-        ]
-    },
-    {
-        "query": "select `assets`.* from `assets` where ((`assets`.`id` = ?) or (`assets`.`id` = ?) or (`assets`.`id` = ?) or (`assets`.`id` = ?) or (`assets`.`id` = ?))",
-        "bindings": [
-            "3613bc73-d248-4152-963e-256f709d4bfa",
-            "d05149aa-2643-4261-b96b-b35117513b18",
-            "c599066d-5de8-4ba2-a81a-7b18a24f50a3",
-            "332f3913-7d0a-46b2-8a1b-e05fc124cd33",
-            "76565e80-711c-4d6a-a162-8fc826b59206"
-        ]
-    },
-    {
-        "query": "select `document_entries`.* from `document_entries` where `document_entries`.`document_id` = ? and `document_entries`.`document_id` is not null",
-        "bindings": [
-            "096d168b-3a57-4d02-a3f0-626ef3ecdd48"
-        ]
-    },
-    {
-        "query": "select `assets`.* from `assets` where ((`assets`.`id` = ?))",
-        "bindings": [
-            "655c92a0-5e10-4352-9c0b-c76c617c476d"
-        ]
-    },
-    {
-        "query": "select `document_entries`.* from `document_entries` where `document_entries`.`document_id` = ? and `document_entries`.`document_id` is not null",
-        "bindings": [
-            "1291003c-9031-4c43-a6e0-79aa3bf6f722"
-        ]
-    },
-    {
         "query": "update `documents` set `synced_at` = ? where `id` in (?, ?, ?, ?, ?) and `documents`.`deleted_at` is null",
         "bindings": [
-            "2022-02-02T00:10:29+00:00",
+            "2022-02-02T00:07:09+00:00",
             "0455f5c4-aa11-494e-a793-f64acf6b01a9",
             "058bd2fb-1c48-47f3-99fe-720dcf8b8b4b",
             "0667d1c6-110f-436f-9f6e-f130fdfb47ce",
@@ -209,97 +138,9 @@
         ]
     },
     {
-        "query": "select `assets`.* from `assets` where ((`assets`.`id` = ?) or (`assets`.`id` = ?))",
-        "bindings": [
-            "722c2289-8a51-4945-9253-09068bd2960d",
-            "08561eab-cde5-4f75-8f29-fb2fcef147fe"
-        ]
-    },
-    {
-        "query": "select `document_entries`.* from `document_entries` where `document_entries`.`document_id` = ? and `document_entries`.`document_id` is not null",
-        "bindings": [
-            "1871b492-1a38-4a16-a731-f3c307cea9d0"
-        ]
-    },
-    {
-        "query": "select `assets`.* from `assets` where ((`assets`.`id` = ?) or (`assets`.`id` = ?) or (`assets`.`id` = ?) or (`assets`.`id` = ?) or (`assets`.`id` = ?))",
-        "bindings": [
-            "badaad57-bac0-45fe-aa6e-c39adfa2cd50",
-            "485f0b56-5163-425d-a793-55ec5bd6a24f",
-            "620c499b-0d36-4784-8d3f-58527bb40921",
-            "7618590c-7727-40b9-a21b-eb38b187d51e",
-            "66d66425-88eb-4e21-8626-442673272cc9"
-        ]
-    },
-    {
-        "query": "select `document_entries`.* from `document_entries` where `document_entries`.`document_id` = ? and `document_entries`.`document_id` is not null",
-        "bindings": [
-            "19712245-8bd4-4690-b85d-460e641eaa0c"
-        ]
-    },
-    {
-        "query": "select `currencies`.* from `currencies` where `currencies`.`deleted_at` is null",
-        "bindings": []
-    },
-    {
-        "query": "update `document_entries` set `asset_id` = ?, `hash` = ?, `document_entries`.`updated_at` = ? where `id` = ?",
-        "bindings": [
-            "badaad57-bac0-45fe-aa6e-c39adfa2cd50",
-            "dae03fe171881c47c1a64209380184b3405c9eb5",
-            "2022-02-02 00:10:45",
-            "79b19627-d3f6-5cd1-970f-3a0477843729"
-        ]
-    },
-    {
-        "query": "update `document_entries` set `asset_id` = ?, `hash` = ?, `document_entries`.`updated_at` = ? where `id` = ?",
-        "bindings": [
-            "66d66425-88eb-4e21-8626-442673272cc9",
-            "721ea733a33fa3b1964826be8d77ab6dc26c2c87",
-            "2022-02-02 00:10:53",
-            "c033225d-8d06-53e4-bd90-3496c4c25907"
-        ]
-    },
-    {
-        "query": "select `assets`.* from `assets` where ((`assets`.`id` = ?))",
-        "bindings": [
-            "d890d218-4629-4f8f-9a19-b41354c914d9"
-        ]
-    },
-    {
-        "query": "select `document_entries`.* from `document_entries` where `document_entries`.`document_id` = ? and `document_entries`.`document_id` is not null",
-        "bindings": [
-            "1fd3c018-b4a5-47eb-aeab-21c0a9efe47f"
-        ]
-    },
-    {
-        "query": "select `assets`.* from `assets` where ((`assets`.`id` = ?))",
-        "bindings": [
-            "68737368-967b-4edc-b7f4-25f280d710da"
-        ]
-    },
-    {
-        "query": "select `document_entries`.* from `document_entries` where `document_entries`.`document_id` = ? and `document_entries`.`document_id` is not null",
-        "bindings": [
-            "2121ca48-8549-4e63-9ca7-2610cefcd556"
-        ]
-    },
-    {
-        "query": "select `assets`.* from `assets` where ((`assets`.`id` = ?) or (`assets`.`id` = ?))",
-        "bindings": [
-            "3a320000-4f4d-49f0-97f7-41e0865b36a4",
-            "c65d7e34-c4e6-4591-b951-512652c2581b"
-        ]
-    },
-    {
-        "query": "select `document_entries`.* from `document_entries` where `document_entries`.`document_id` = ? and `document_entries`.`document_id` is not null",
-        "bindings": [
-            "34675b7b-91af-48ba-a7ff-3d07f86f2bf3"
-        ]
-    },
-    {
         "query": "update `documents` set `synced_at` = ? where `id` in (?, ?, ?, ?, ?) and `documents`.`deleted_at` is null",
         "bindings": [
-            "2022-02-02T00:11:01+00:00",
+            "2022-02-02T00:07:25+00:00",
             "1871b492-1a38-4a16-a731-f3c307cea9d0",
             "19712245-8bd4-4690-b85d-460e641eaa0c",
             "1fd3c018-b4a5-47eb-aeab-21c0a9efe47f",
@@ -372,102 +213,9 @@
         ]
     },
     {
-        "query": "select `assets`.* from `assets` where ((`assets`.`id` = ?))",
-        "bindings": [
-            "af4cbeb2-34b5-4a7a-94a5-f01d6e4a8150"
-        ]
-    },
-    {
-        "query": "select `document_entries`.* from `document_entries` where `document_entries`.`document_id` = ? and `document_entries`.`document_id` is not null",
-        "bindings": [
-            "3488dc5a-da86-4aa5-bfca-57611bc31c19"
-        ]
-    },
-    {
-        "query": "select `assets`.* from `assets` where ((`assets`.`id` = ?) or (`assets`.`id` = ?) or (`assets`.`id` = ?) or (`assets`.`id` = ?))",
-        "bindings": [
-            "ea056c9e-21b7-48e6-8a13-3d4eb7b23d0d",
-            "3ebbbadf-979a-4fc7-8446-a66b3761a308",
-            "801f2782-b3ca-40f0-9c34-d55e59ebcff6",
-            "8d3f68ea-4988-43d6-8064-ad64a8b299b1"
-        ]
-    },
-    {
-        "query": "select `document_entries`.* from `document_entries` where `document_entries`.`document_id` = ? and `document_entries`.`document_id` is not null",
-        "bindings": [
-            "37d8ae0e-df60-4124-a9be-79b70766769f"
-        ]
-    },
-    {
-        "query": "select `assets`.* from `assets` where ((`assets`.`id` = ?) or (`assets`.`id` = ?) or (`assets`.`id` = ?) or (`assets`.`id` = ?) or (`assets`.`id` = ?))",
-        "bindings": [
-            "7131f694-23b8-42bb-a1c8-c51f51e093e1",
-            "1e2e8f5b-2bdc-4b6f-a963-122335417513",
-            "410a8c54-8b35-4500-96e4-7c5cb509eeea",
-            "82de7c02-fc28-4d3a-a683-77a0886f1055",
-            "fd82a903-03ff-4e41-85e2-1a167d2bb7bb"
-        ]
-    },
-    {
-        "query": "select `document_entries`.* from `document_entries` where `document_entries`.`document_id` = ? and `document_entries`.`document_id` is not null",
-        "bindings": [
-            "38240a1d-a656-437e-8e1f-42228f89ec09"
-        ]
-    },
-    {
-        "query": "select `assets`.* from `assets` where ((`assets`.`id` = ?) or (`assets`.`id` = ?) or (`assets`.`id` = ?) or (`assets`.`id` = ?) or (`assets`.`id` = ?))",
-        "bindings": [
-            "832a235b-20c3-43f0-aeff-8ea054ad6eb4",
-            "24f2b15f-1467-41f5-8625-2853c331fe39",
-            "9fe9a69d-92df-45e0-9dfd-5863e991b9dd",
-            "dca0c9a8-8a7b-4f67-8020-09f7f5b0fac5",
-            "58fb4c1c-2877-4c4e-a153-e7f15cabd361"
-        ]
-    },
-    {
-        "query": "select `document_entries`.* from `document_entries` where `document_entries`.`document_id` = ? and `document_entries`.`document_id` is not null",
-        "bindings": [
-            "43746056-9afd-4dee-b930-050ee886a3b3"
-        ]
-    },
-    {
-        "query": "select `assets`.* from `assets` where ((`assets`.`id` = ?) or (`assets`.`id` = ?) or (`assets`.`id` = ?) or (`assets`.`id` = ?) or (`assets`.`id` = ?))",
-        "bindings": [
-            "0fc2bd88-7afb-4256-bb2e-267d6de4d8c8",
-            "a9214296-e8ad-47cc-9caf-9a14858b3f72",
-            "8d16b805-e20b-4c9f-ba7e-daebb27c4840",
-            "66f23be5-1769-4ab5-a616-330f5fe72e2e",
-            "2e55cdb8-a619-42ea-a2a6-78883f3f0dd3"
-        ]
-    },
-    {
-        "query": "select `document_entries`.* from `document_entries` where `document_entries`.`document_id` = ? and `document_entries`.`document_id` is not null",
-        "bindings": [
-            "440d2c19-5b83-4afa-a758-b7809fb22cd3"
-        ]
-    },
-    {
-        "query": "update `document_entries` set `asset_id` = ?, `hash` = ?, `document_entries`.`updated_at` = ? where `id` = ?",
-        "bindings": [
-            "0fc2bd88-7afb-4256-bb2e-267d6de4d8c8",
-            "a1a175ddb127766000317ec2957a3319ab2c0536",
-            "2022-02-02 00:11:17",
-            "6038d04a-9bec-59ca-8b26-d8f5b4414378"
-        ]
-    },
-    {
-        "query": "update `document_entries` set `asset_id` = ?, `hash` = ?, `document_entries`.`updated_at` = ? where `id` = ?",
-        "bindings": [
-            "2e55cdb8-a619-42ea-a2a6-78883f3f0dd3",
-            "e98447686a14bbe09a5cf802fcf6f11853dcf73c",
-            "2022-02-02 00:11:25",
-            "656e05c0-51ad-51e2-b827-bb3abbb4dd71"
-        ]
-    },
-    {
         "query": "update `documents` set `synced_at` = ? where `id` in (?, ?, ?, ?, ?) and `documents`.`deleted_at` is null",
         "bindings": [
-            "2022-02-02T00:11:33+00:00",
+            "2022-02-02T00:07:41+00:00",
             "3488dc5a-da86-4aa5-bfca-57611bc31c19",
             "37d8ae0e-df60-4124-a9be-79b70766769f",
             "38240a1d-a656-437e-8e1f-42228f89ec09",
@@ -536,80 +284,9 @@
         ]
     },
     {
-        "query": "select `assets`.* from `assets` where ((`assets`.`id` = ?) or (`assets`.`id` = ?) or (`assets`.`id` = ?) or (`assets`.`id` = ?))",
-        "bindings": [
-            "f8f0df6f-282b-4858-b68f-40ce43c9e08e",
-            "f30f487a-5223-4b31-9873-714ec3a8c5e6",
-            "a2854ccc-c64b-4839-8cc4-e8bf4ca3abca",
-            "f766a1b6-dfdd-41d1-98c7-09803783b343"
-        ]
-    },
-    {
-        "query": "select `document_entries`.* from `document_entries` where `document_entries`.`document_id` = ? and `document_entries`.`document_id` is not null",
-        "bindings": [
-            "540c7681-a424-492b-a9ab-fe898caab9a2"
-        ]
-    },
-    {
-        "query": "select `assets`.* from `assets` where ((`assets`.`id` = ?) or (`assets`.`id` = ?) or (`assets`.`id` = ?) or (`assets`.`id` = ?))",
-        "bindings": [
-            "f8f0df6f-282b-4858-b68f-40ce43c9e08e",
-            "e7ec0b4b-3696-4b4d-b296-7cb145a5add4",
-            "f30f487a-5223-4b31-9873-714ec3a8c5e6",
-            "f766a1b6-dfdd-41d1-98c7-09803783b343"
-        ]
-    },
-    {
-        "query": "select `document_entries`.* from `document_entries` where `document_entries`.`document_id` = ? and `document_entries`.`document_id` is not null",
-        "bindings": [
-            "5993d59a-ed73-4a4a-8905-d006af311990"
-        ]
-    },
-    {
-        "query": "select `assets`.* from `assets` where ((`assets`.`id` = ?) or (`assets`.`id` = ?) or (`assets`.`id` = ?) or (`assets`.`id` = ?) or (`assets`.`id` = ?))",
-        "bindings": [
-            "f1af7d31-890a-4494-92ef-70e180b0fc05",
-            "160f2c8e-f605-4f43-afda-277c4c5c740d",
-            "9a8fc3bc-debf-424b-8c59-935f01386cf0",
-            "ffa2fb5f-ba80-4728-ae82-d419ee0991b9",
-            "491c1775-4d25-4281-abf8-1d82ca585f36"
-        ]
-    },
-    {
-        "query": "select `document_entries`.* from `document_entries` where `document_entries`.`document_id` = ? and `document_entries`.`document_id` is not null",
-        "bindings": [
-            "63f705c4-5b04-4d1c-aa23-ddc17672bdf3"
-        ]
-    },
-    {
-        "query": "select `assets`.* from `assets` where ((`assets`.`id` = ?))",
-        "bindings": [
-            "2559c259-161f-4469-966e-c0c8301f554e"
-        ]
-    },
-    {
-        "query": "select `document_entries`.* from `document_entries` where `document_entries`.`document_id` = ? and `document_entries`.`document_id` is not null",
-        "bindings": [
-            "65b18dba-5637-48ce-bdab-6d7e02c70fd6"
-        ]
-    },
-    {
-        "query": "select `assets`.* from `assets` where ((`assets`.`id` = ?) or (`assets`.`id` = ?))",
-        "bindings": [
-            "ecbe04c5-b74d-41e5-b54b-b1717cdbdcda",
-            "20b15a78-27c9-4885-866e-5fa123c29ad5"
-        ]
-    },
-    {
-        "query": "select `document_entries`.* from `document_entries` where `document_entries`.`document_id` = ? and `document_entries`.`document_id` is not null",
-        "bindings": [
-            "7190e81f-30a3-4cbc-82a6-2f4f90fcec9d"
-        ]
-    },
-    {
         "query": "update `documents` set `synced_at` = ? where `id` in (?, ?, ?, ?, ?) and `documents`.`deleted_at` is null",
         "bindings": [
-            "2022-02-02T00:11:49+00:00",
+            "2022-02-02T00:07:57+00:00",
             "540c7681-a424-492b-a9ab-fe898caab9a2",
             "5993d59a-ed73-4a4a-8905-d006af311990",
             "63f705c4-5b04-4d1c-aa23-ddc17672bdf3",
@@ -683,97 +360,9 @@
         ]
     },
     {
-        "query": "select `assets`.* from `assets` where ((`assets`.`id` = ?) or (`assets`.`id` = ?) or (`assets`.`id` = ?))",
-        "bindings": [
-            "3797cbbf-5736-4ecd-9b66-82683143f843",
-            "3fb43025-c1b4-402e-9efa-502501f56772",
-            "adc8ba9f-97cb-4729-9752-778f7b15f7ae"
-        ]
-    },
-    {
-        "query": "select `document_entries`.* from `document_entries` where `document_entries`.`document_id` = ? and `document_entries`.`document_id` is not null",
-        "bindings": [
-            "71c2e384-9ca1-45a4-adbf-92874fd77b5e"
-        ]
-    },
-    {
-        "query": "select `assets`.* from `assets` where ((`assets`.`id` = ?) or (`assets`.`id` = ?) or (`assets`.`id` = ?) or (`assets`.`id` = ?) or (`assets`.`id` = ?))",
-        "bindings": [
-            "15f529ce-e7ec-4c67-b4a6-efa19d31301e",
-            "3214e980-4568-4a93-89b4-606adb49f0d5",
-            "129e5c60-b444-48a0-b13f-a11c7824f5fe",
-            "11da3841-4aab-46fc-91c5-d93274ea2d78",
-            "feb70d9b-7112-4869-a94b-9e51f8fd406d"
-        ]
-    },
-    {
-        "query": "select `document_entries`.* from `document_entries` where `document_entries`.`document_id` = ? and `document_entries`.`document_id` is not null",
-        "bindings": [
-            "78e6c289-8759-4180-8ae5-732f3221e187"
-        ]
-    },
-    {
-        "query": "update `document_entries` set `asset_id` = ?, `hash` = ?, `document_entries`.`updated_at` = ? where `id` = ?",
-        "bindings": [
-            "3214e980-4568-4a93-89b4-606adb49f0d5",
-            "b48859161b713927fa20f26d884c626d52389db4",
-            "2022-02-02 00:12:05",
-            "5c2354ec-f597-51e5-95e7-d5db51674421"
-        ]
-    },
-    {
-        "query": "update `document_entries` set `asset_id` = ?, `hash` = ?, `document_entries`.`updated_at` = ? where `id` = ?",
-        "bindings": [
-            "11da3841-4aab-46fc-91c5-d93274ea2d78",
-            "56ef77b3ec3247bfb422ecceeb27b0178108ab3d",
-            "2022-02-02 00:12:13",
-            "f3d4e786-03ea-5036-9ff5-041546fcad82"
-        ]
-    },
-    {
-        "query": "select `assets`.* from `assets` where ((`assets`.`id` = ?) or (`assets`.`id` = ?))",
-        "bindings": [
-            "446dbb0c-cae6-449d-930b-fae2c0811746",
-            "63ce16e8-a506-4501-8de5-cbf43ce64880"
-        ]
-    },
-    {
-        "query": "select `document_entries`.* from `document_entries` where `document_entries`.`document_id` = ? and `document_entries`.`document_id` is not null",
-        "bindings": [
-            "80257351-4a7e-4292-94c6-ce7a26d9f3dd"
-        ]
-    },
-    {
-        "query": "select `assets`.* from `assets` where ((`assets`.`id` = ?))",
-        "bindings": [
-            "655c92a0-5e10-4352-9c0b-c76c617c476d"
-        ]
-    },
-    {
-        "query": "select `document_entries`.* from `document_entries` where `document_entries`.`document_id` = ? and `document_entries`.`document_id` is not null",
-        "bindings": [
-            "80d51e15-0871-4961-b3ce-141af715c6f8"
-        ]
-    },
-    {
-        "query": "select `assets`.* from `assets` where ((`assets`.`id` = ?) or (`assets`.`id` = ?) or (`assets`.`id` = ?) or (`assets`.`id` = ?))",
-        "bindings": [
-            "3610f421-5f0d-4a24-86fb-c968883feb51",
-            "d42ca42c-fa37-4f0d-8ad8-69e6303a4efe",
-            "33c9940a-376a-4c9a-b336-ab49857c9555",
-            "24cf54f0-dcb3-4a7b-b281-635970491d92"
-        ]
-    },
-    {
-        "query": "select `document_entries`.* from `document_entries` where `document_entries`.`document_id` = ? and `document_entries`.`document_id` is not null",
-        "bindings": [
-            "823ff47e-ae7c-49b0-939d-2eb49d589465"
-        ]
-    },
-    {
         "query": "update `documents` set `synced_at` = ? where `id` in (?, ?, ?, ?, ?) and `documents`.`deleted_at` is null",
         "bindings": [
-            "2022-02-02T00:12:21+00:00",
+            "2022-02-02T00:08:13+00:00",
             "71c2e384-9ca1-45a4-adbf-92874fd77b5e",
             "78e6c289-8759-4180-8ae5-732f3221e187",
             "80257351-4a7e-4292-94c6-ce7a26d9f3dd",
