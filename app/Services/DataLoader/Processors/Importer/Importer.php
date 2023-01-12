@@ -23,6 +23,7 @@ use DateTimeInterface;
 use Illuminate\Contracts\Config\Repository;
 use Illuminate\Contracts\Debug\ExceptionHandler;
 use Illuminate\Contracts\Events\Dispatcher;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\Date;
 use Throwable;
 
@@ -117,6 +118,21 @@ abstract class Importer extends IteratorProcessor implements Isolated {
     }
 
     /**
+     * @inheritDoc
+     */
+    protected function prefetch(State $state, array $items): mixed {
+        $data   = $this->makeData($items);
+        $model  = $this->getFactory()->getModel();
+        $models = $this->getResolver()
+            ->prefetch($data->get($model))
+            ->getResolved();
+
+        $this->preload($state, $data, $models);
+
+        return $data;
+    }
+
+    /**
      * @param TState $state
      */
     protected function process(State $state, mixed $data, mixed $item): void {
@@ -170,7 +186,7 @@ abstract class Importer extends IteratorProcessor implements Isolated {
         // properties changes, thus setting the `updated_at` doesn't look good).
         $class = $this->getFactory()->getModel();
         $model = new $class();
-        $keys  = array_map(static fn ($item) => $item->getKey(), $items);
+        $keys  = array_map(static fn($item) => $item->getKey(), $items);
 
         if ($keys) {
             $class::withoutTimestamps(static function () use ($model, $keys): void {
@@ -249,6 +265,13 @@ abstract class Importer extends IteratorProcessor implements Isolated {
     // <editor-fold desc="Abstract">
     // =========================================================================
     abstract protected function register(): void;
+
+    /**
+     * @param TState                  $state
+     * @param TChunkData              $data
+     * @param Collection<int, TModel> $models
+     */
+    abstract protected function preload(State $state, Data $data, Collection $models): void;
 
     /**
      * @param array<TItem> $items
