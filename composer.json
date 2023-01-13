@@ -156,20 +156,25 @@
       "@php -r 'rename(\"schema-directives.graphql\", \".phpstorm.meta.php/lighthouse-directives.graphql\");'"
     ],
     "phpstan": [
+      "Composer\\Config::disableProcessTimeout",
       "@php ./vendor/bin/phpstan"
     ],
     "phpcs": [
+      "Composer\\Config::disableProcessTimeout",
       "@php ./vendor/bin/phpcs"
     ],
     "test": [
+      "Composer\\Config::disableProcessTimeout",
       "@php artisan test -p --drop-databases"
     ],
     "ci": [
+      "Composer\\Config::disableProcessTimeout",
       "@phpstan",
       "@test",
       "@phpcs"
     ],
     "coverage": [
+      "Composer\\Config::disableProcessTimeout",
       "@php artisan test -p --drop-databases --coverage --coverage-html=.phpunit/coverage"
     ]
   }
