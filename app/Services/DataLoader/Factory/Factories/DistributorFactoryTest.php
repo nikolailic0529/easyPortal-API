@@ -29,6 +29,7 @@ class DistributorFactoryTest extends TestCase {
      * @dataProvider dataProviderCreate
      */
     public function testCreate(?string $expected, Type $type): void {
+        $force   = $this->faker->boolean();
         $factory = Mockery::mock(DistributorFactory::class);
         $factory->makePartial();
         $factory->shouldAllowMockingProtectedMethods();
@@ -36,14 +37,14 @@ class DistributorFactoryTest extends TestCase {
         if ($expected) {
             $factory->shouldReceive($expected)
                 ->once()
-                ->with($type)
+                ->with($type, $force)
                 ->andReturns();
         } else {
             self::expectException(InvalidArgumentException::class);
             self::expectErrorMessageMatches('/^The `\$type` must be instance of/');
         }
 
-        $factory->create($type);
+        $factory->create($type, $force);
     }
 
     /**

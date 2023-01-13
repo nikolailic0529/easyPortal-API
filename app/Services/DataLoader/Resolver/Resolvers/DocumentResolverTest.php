@@ -22,8 +22,8 @@ class DocumentResolverTest extends TestCase {
      */
     public function testGet(): void {
         // Prepare
-        $factory = static function (): Document {
-            return Document::factory()->make();
+        $factory = static function (?Document $document): Document {
+            return $document ?? Document::factory()->make();
         };
 
         $a = Document::factory()->create();

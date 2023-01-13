@@ -23,7 +23,7 @@ parameters:
 
     # Editor
     editorUrl: 'phpstorm://open?file=%%relFile%%&line=%%line%%'
-    editorUrlTitle: '%%file%%:%%line%%'
+    editorUrlTitle: '%%relFile%%:%%line%%'
 
 includes:
     # Extensions

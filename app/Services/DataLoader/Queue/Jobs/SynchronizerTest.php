@@ -25,6 +25,7 @@ class SynchronizerTest extends TestCase {
 
         $settings  = [
             'chunk'           => $this->faker->randomNumber(),
+            'force'           => $this->faker->boolean(),
             'expire'          => "PT{$this->faker->randomDigit()}H",
             'outdated'        => $this->faker->boolean(),
             'outdated_limit'  => $this->faker->randomNumber(),
@@ -57,6 +58,7 @@ class SynchronizerTest extends TestCase {
 
         self::assertEquals($settings['chunk'], $actual->getChunkSize());
         self::assertEquals($date->sub($settings['expire']), $actual->getFrom());
+        self::assertEquals($settings['force'], $actual->isForce());
         self::assertEquals($settings['outdated'], $actual->isWithOutdated());
         self::assertEquals($settings['outdated_limit'], $actual->getOutdatedLimit());
         self::assertEquals($date->sub($settings['outdated_expire']), $actual->getOutdatedExpire());

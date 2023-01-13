@@ -3,6 +3,8 @@
 namespace App\Services\DataLoader\Factory;
 
 use App\Services\DataLoader\Container\Isolated;
+use App\Services\DataLoader\Schema\Type;
+use App\Utils\Eloquent\Model;
 use Illuminate\Contracts\Debug\ExceptionHandler;
 
 /**
@@ -11,6 +13,8 @@ use Illuminate\Contracts\Debug\ExceptionHandler;
  *
  * Important notes:
  * - factories must not cache anything
+ *
+ * @template TModel of Model
  *
  * @internal
  */
@@ -24,4 +28,14 @@ abstract class Factory implements Isolated {
     protected function getExceptionHandler(): ExceptionHandler {
         return $this->exceptionHandler;
     }
+
+    /**
+     * @return TModel|null
+     */
+    abstract public function create(Type $type, bool $force = false): ?Model;
+
+    /**
+     * @return class-string<TModel>
+     */
+    abstract public function getModel(): string;
 }

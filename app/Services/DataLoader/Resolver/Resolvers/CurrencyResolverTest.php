@@ -20,8 +20,8 @@ class CurrencyResolverTest extends TestCase {
      */
     public function testGet(): void {
         // Prepare
-        $factory = static function (): Currency {
-            return Currency::factory()->make();
+        $factory = static function (?Currency $currency): Currency {
+            return $currency ?? Currency::factory()->make();
         };
 
         Currency::factory()->create(['code' => 'a']);

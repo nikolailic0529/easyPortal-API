@@ -16,7 +16,7 @@ use Illuminate\Support\Collection;
  */
 class CurrencyResolver extends Resolver implements SingletonPersistent {
     /**
-     * @param Closure(): Currency|null $factory
+     * @param Closure(?Currency): Currency|null $factory
      *
      * @return ($factory is null ? Currency|null : Currency)
      */

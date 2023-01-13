@@ -9,7 +9,9 @@ use App\Services\DataLoader\Exceptions\AssetNotFound;
 use App\Services\DataLoader\Factory\Factory;
 use App\Services\DataLoader\Finders\AssetFinder;
 use App\Services\DataLoader\Resolver\Resolvers\AssetResolver;
+use App\Services\DataLoader\Schema\Type;
 use App\Services\DataLoader\Schema\Types\DocumentEntry;
+use App\Utils\Eloquent\Model;
 use Closure;
 use Mockery;
 use Tests\TestCase;
@@ -144,6 +146,8 @@ class WithAssetTest extends TestCase {
 /**
  * @internal
  * @noinspection PhpMultipleClassesDeclarationsInOneFile
+ *
+ * @extends Factory<Model>
  */
 class WithAssetTestObject extends Factory {
     use WithAsset {
@@ -164,5 +168,13 @@ class WithAssetTestObject extends Factory {
 
     protected function getAssetFinder(): ?AssetFinder {
         return $this->assetFinder;
+    }
+
+    public function create(Type $type, bool $force = false): ?Model {
+        return null;
+    }
+
+    public function getModel(): string {
+        return Model::class;
     }
 }

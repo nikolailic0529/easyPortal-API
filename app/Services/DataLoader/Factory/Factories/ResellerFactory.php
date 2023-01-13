@@ -7,6 +7,10 @@ use App\Models\ResellerLocation;
 use App\Services\DataLoader\Events\ResellerUpdated;
 use App\Services\DataLoader\Factory\CompanyFactory;
 use App\Services\DataLoader\Factory\Concerns\WithKpi;
+use App\Services\DataLoader\Resolver\Resolvers\CityResolver;
+use App\Services\DataLoader\Resolver\Resolvers\ContactResolver;
+use App\Services\DataLoader\Resolver\Resolvers\CountryResolver;
+use App\Services\DataLoader\Resolver\Resolvers\LocationResolver;
 use App\Services\DataLoader\Resolver\Resolvers\ResellerResolver;
 use App\Services\DataLoader\Resolver\Resolvers\StatusResolver;
 use App\Services\DataLoader\Resolver\Resolvers\TypeResolver;
@@ -29,8 +33,10 @@ class ResellerFactory extends CompanyFactory {
         ExceptionHandler $exceptionHandler,
         TypeResolver $typeResolver,
         StatusResolver $statusResolver,
-        ContactFactory $contactFactory,
-        LocationFactory $locationFactory,
+        ContactResolver $contactReseller,
+        LocationResolver $locationResolver,
+        CountryResolver $countryResolver,
+        CityResolver $cityResolver,
         protected Dispatcher $dispatcher,
         protected ResellerResolver $resellerResolver,
     ) {
@@ -38,8 +44,10 @@ class ResellerFactory extends CompanyFactory {
             $exceptionHandler,
             $typeResolver,
             $statusResolver,
-            $contactFactory,
-            $locationFactory,
+            $contactReseller,
+            $locationResolver,
+            $countryResolver,
+            $cityResolver,
         );
     }
 
@@ -49,11 +57,11 @@ class ResellerFactory extends CompanyFactory {
         return Reseller::class;
     }
 
-    public function create(Type $type): ?Reseller {
+    public function create(Type $type, bool $force = false): ?Reseller {
         $model = null;
 
         if ($type instanceof Company) {
-            $model = $this->createFromCompany($type);
+            $model = $this->createFromCompany($type, $force);
         } else {
             throw new InvalidArgumentException(sprintf(
                 'The `$type` must be instance of `%s`.',
@@ -69,48 +77,44 @@ class ResellerFactory extends CompanyFactory {
 
     // <editor-fold desc="Functions">
     // =========================================================================
-    protected function createFromCompany(Company $company): ?Reseller {
-        // Get/Create
-        $created  = false;
-        $factory  = function (Reseller $reseller) use (&$created, $company): Reseller {
-            $created              = !$reseller->exists;
-            $reseller->id         = $company->id;
-            $reseller->name       = $company->name;
-            $reseller->changed_at = $company->updatedAt;
-            $reseller->statuses   = $this->companyStatuses($reseller, $company);
-            $reseller->contacts   = $this->objectContacts($reseller, $company->companyContactPersons);
-            $reseller->locations  = $this->companyLocations($reseller, $company->locations);
-            $reseller->kpi        = $this->kpi($reseller, $company->companyKpis);
-
-            if ($created) {
-                $reseller->assets_count    = 0;
-                $reseller->customers_count = 0;
-            }
-
-            if ($reseller->trashed()) {
-                $reseller->restore();
-            } else {
-                $reseller->save();
-            }
-
-            $this->dispatcher->dispatch(new ResellerUpdated($reseller, $company));
-
-            return $reseller;
-        };
-        $reseller = $this->resellerResolver->get(
+    protected function createFromCompany(Company $company, bool $force): ?Reseller {
+        return $this->resellerResolver->get(
             $company->id,
-            static function () use ($factory): Reseller {
-                return $factory(new Reseller());
+            function (?Reseller $reseller) use ($force, $company): Reseller {
+                // Unchanged?
+                $hash = $company->getHash();
+
+                if ($force === false && $reseller !== null && $hash === $reseller->hash) {
+                    return $reseller;
+                }
+
+                // Update
+                $reseller           ??= new Reseller();
+                $reseller->id         = $company->id;
+                $reseller->hash       = $hash;
+                $reseller->name       = $company->name;
+                $reseller->changed_at = $company->updatedAt;
+                $reseller->statuses   = $this->companyStatuses($reseller, $company);
+                $reseller->contacts   = $this->contacts($reseller, $company->companyContactPersons);
+                $reseller->locations  = $this->companyLocations($reseller, $company->locations);
+                $reseller->kpi        = $this->kpi($reseller, $company->companyKpis);
+
+                if (!$reseller->exists) {
+                    $reseller->assets_count    = 0;
+                    $reseller->customers_count = 0;
+                }
+
+                if ($reseller->trashed()) {
+                    $reseller->restore();
+                } else {
+                    $reseller->save();
+                }
+
+                $this->dispatcher->dispatch(new ResellerUpdated($reseller, $company));
+
+                return $reseller;
             },
         );
-
-        // Update
-        if (!$created) {
-            $factory($reseller);
-        }
-
-        // Return
-        return $reseller;
     }
     // </editor-fold>
 }

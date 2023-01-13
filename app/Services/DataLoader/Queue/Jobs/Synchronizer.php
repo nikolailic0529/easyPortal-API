@@ -28,6 +28,7 @@ abstract class Synchronizer extends CronJob implements Progressable {
         return [
                 'settings' => [
                     'chunk'           => null,
+                    'force'           => null,
                     'expire'          => null,
                     'outdated'        => false,
                     'outdated_limit'  => null,
@@ -43,6 +44,7 @@ abstract class Synchronizer extends CronJob implements Progressable {
         $from           = $config->setting('expire') !== null
             ? Date::now()->sub($config->setting('expire'))
             : null;
+        $force          = (bool) $config->setting('force');
         $outdated       = (bool) $config->setting('outdated');
         $outdatedLimit  = $config->setting('outdated_limit') !== null
             ? (int) $config->setting('outdated_limit')
@@ -53,6 +55,7 @@ abstract class Synchronizer extends CronJob implements Progressable {
         $processor      = $this
             ->createProcessor($container, $config)
             ->setFrom($from)
+            ->setForce($force)
             ->setWithOutdated($outdated)
             ->setOutdatedLimit($outdatedLimit)
             ->setOutdatedExpire($outdatedExpire);

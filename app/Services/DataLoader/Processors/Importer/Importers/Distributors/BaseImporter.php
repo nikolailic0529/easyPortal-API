@@ -3,13 +3,15 @@
 namespace App\Services\DataLoader\Processors\Importer\Importers\Distributors;
 
 use App\Models\Distributor;
+use App\Services\DataLoader\Collector\Data;
 use App\Services\DataLoader\Factory\Factories\DistributorFactory;
-use App\Services\DataLoader\Factory\ModelFactory;
+use App\Services\DataLoader\Factory\Factory;
 use App\Services\DataLoader\Processors\Importer\Importer;
 use App\Services\DataLoader\Resolver\Resolver;
 use App\Services\DataLoader\Resolver\Resolvers\DistributorResolver;
 use App\Services\DataLoader\Schema\Types\Company;
 use App\Utils\Processor\State;
+use Illuminate\Database\Eloquent\Collection;
 
 /**
  * @template TState of BaseImporterState
@@ -21,17 +23,8 @@ abstract class BaseImporter extends Importer {
         // empty
     }
 
-    /**
-     * @inheritDoc
-     */
-    protected function prefetch(State $state, array $items): mixed {
-        $data = $this->makeData($items);
-
-        $this->getContainer()
-            ->make(DistributorResolver::class)
-            ->prefetch($data->get(Distributor::class));
-
-        return $data;
+    protected function preload(State $state, Data $data, Collection $models): void {
+        // empty
     }
 
     /**
@@ -41,7 +34,7 @@ abstract class BaseImporter extends Importer {
         return new BaseImporterChunkData($items);
     }
 
-    protected function makeFactory(State $state): ModelFactory {
+    protected function makeFactory(State $state): Factory {
         return $this->getContainer()->make(DistributorFactory::class);
     }
 

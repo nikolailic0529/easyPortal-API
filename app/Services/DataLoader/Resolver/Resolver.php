@@ -59,7 +59,7 @@ abstract class Resolver implements Singleton, KeyRetriever {
     }
 
     /**
-     * @param Closure(): TModel|null $factory
+     * @param Closure(?TModel): TModel|null $factory
      *
      * @return ($factory is null ? TModel|null : TModel)
      */
@@ -77,12 +77,14 @@ abstract class Resolver implements Singleton, KeyRetriever {
             // empty
         }
 
-        // Not found? Well, maybe we can create?
-        if (!$model && $factory) {
+        // Factory?
+        if ($factory) {
             try {
-                $model = $factory();
+                $model = $factory($model);
             } catch (Exception $exception) {
-                $this->putNull($key);
+                if ($model === null) {
+                    $this->putNull($key);
+                }
 
                 throw $exception;
             }

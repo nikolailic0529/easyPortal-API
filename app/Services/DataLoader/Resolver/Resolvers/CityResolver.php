@@ -17,7 +17,7 @@ use Illuminate\Support\Collection;
  */
 class CityResolver extends Resolver implements SingletonPersistent {
     /**
-     * @param Closure(): City|null $factory
+     * @param Closure(?City): City|null $factory
      *
      * @return ($factory is null ? City|null : City)
      */

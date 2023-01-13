@@ -22,8 +22,8 @@ class AssetResolverTest extends TestCase {
      */
     public function testGet(): void {
         // Prepare
-        $factory = static function (): Asset {
-            return Asset::factory()->make();
+        $factory = static function (?Asset $asset): Asset {
+            return $asset ?? Asset::factory()->make();
         };
 
         $a = Asset::factory()->create();

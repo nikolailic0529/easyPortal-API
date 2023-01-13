@@ -16,9 +16,10 @@
         ]
     },
     {
-        "query": "insert into `distributors` (`id`, `name`, `changed_at`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
+        "query": "insert into `distributors` (`id`, `hash`, `name`, `changed_at`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?)",
         "bindings": [
             "1af1c44e-8112-4e72-9654-b11c705e9372",
+            "c206f9c6d4b4d64d5cf582a07874abf3ecb44f77",
             "Aufderhar-Hauck",
             "2022-06-27 12:44:03",
             "2022-02-02 00:00:03",

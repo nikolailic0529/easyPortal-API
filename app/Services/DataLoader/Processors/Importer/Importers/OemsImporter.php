@@ -276,94 +276,55 @@ class OemsImporter implements OnEachRow, WithStartRow, WithEvents, SkipsEmptyRow
     }
 
     protected function getOem(ParsedRow $parsed): Oem {
-        // Create
-        $created = false;
-        $factory = static function (Oem $oem) use (&$created, $parsed): Oem {
-            $created   = !$oem->exists;
+        return $this->oemResolver->get($parsed->oem->key, static function (?Oem $oem) use ($parsed): Oem {
+            $oem     ??= new Oem();
             $oem->key  = $parsed->oem->key;
             $oem->name = $parsed->oem->key;
 
             $oem->save();
 
             return $oem;
-        };
-        $oem     = $this->oemResolver->get($parsed->oem->key, static function () use ($factory): Oem {
-            return $factory(new Oem());
         });
-
-        // Update
-        if (!$created) {
-            $factory($oem);
-        }
-
-        // Return
-        return $oem;
     }
 
     protected function getServiceGroup(Oem $oem, ParsedRow $parsed): ServiceGroup {
-        // Create
-        $created = false;
-        $factory = static function (ServiceGroup $group) use (&$created, $oem, $parsed): ServiceGroup {
-            $sku          = $parsed->serviceGroup->sku;
-            $created      = !$group->exists;
-            $group->key ??= "{$oem->getTranslatableKey()}/{$sku}";
-            $group->oem   = $oem;
-            $group->sku   = $sku;
-            $group->name  = $parsed->serviceGroup->name;
-
-            $group->save();
-
-            return $group;
-        };
-        $group   = $this->serviceGroupResolver->get(
+        return $this->serviceGroupResolver->get(
             $oem,
             $parsed->serviceGroup->sku,
-            static function () use ($factory): ServiceGroup {
-                return $factory(new ServiceGroup());
+            static function (?ServiceGroup $group) use ($oem, $parsed): ServiceGroup {
+                $sku          = $parsed->serviceGroup->sku;
+                $group      ??= new ServiceGroup();
+                $group->key ??= "{$oem->getTranslatableKey()}/{$sku}";
+                $group->oem   = $oem;
+                $group->sku   = $sku;
+                $group->name  = $parsed->serviceGroup->name;
+
+                $group->save();
+
+                return $group;
             },
         );
-
-        // Update
-        if (!$created) {
-            $factory($group);
-        }
-
-        // Return
-        return $group;
     }
 
     protected function getServiceLevel(Oem $oem, ServiceGroup $group, ParsedRow $parsed): ServiceLevel {
-        // Create
-        $created = false;
-        $factory = static function (ServiceLevel $level) use (&$created, $oem, $group, $parsed): ServiceLevel {
-            $sku                 = $parsed->serviceLevel->sku;
-            $created             = !$level->exists;
-            $level->key        ??= "{$group->getTranslatableKey()}/{$sku}";
-            $level->oem          = $oem;
-            $level->sku          = $sku;
-            $level->name         = $parsed->serviceLevel->name ?? $sku;
-            $level->description  = $parsed->serviceLevel->description ?? '';
-            $level->serviceGroup = $group;
-
-            $level->save();
-
-            return $level;
-        };
-        $level   = $this->serviceLevelResolver->get(
+        return $this->serviceLevelResolver->get(
             $oem,
             $group,
             $parsed->serviceLevel->sku,
-            static function () use ($factory): ServiceLevel {
-                return $factory(new ServiceLevel());
+            static function (?ServiceLevel $level) use ($oem, $group, $parsed): ServiceLevel {
+                $sku                 = $parsed->serviceLevel->sku;
+                $level             ??= new ServiceLevel();
+                $level->key        ??= "{$group->getTranslatableKey()}/{$sku}";
+                $level->oem          = $oem;
+                $level->sku          = $sku;
+                $level->name         = $parsed->serviceLevel->name ?? $sku;
+                $level->description  = $parsed->serviceLevel->description ?? '';
+                $level->serviceGroup = $group;
+
+                $level->save();
+
+                return $level;
             },
         );
-
-        // Update
-        if (!$created) {
-            $factory($level);
-        }
-
-        // Return
-        return $level;
     }
 }

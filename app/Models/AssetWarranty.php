@@ -44,6 +44,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  * @property CarbonImmutable      $updated_at
  * @property CarbonImmutable|null $deleted_at
  * @property string|null          $description
+ * @property string|null          $hash
  * @property Asset                $asset
  * @property Customer|null        $customer
  * @property Document|null        $document

@@ -13,9 +13,10 @@
         ]
     },
     {
-        "query": "insert into `distributors` (`id`, `name`, `changed_at`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
+        "query": "insert into `distributors` (`id`, `hash`, `name`, `changed_at`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?)",
         "bindings": [
             "0920a7cb-3cf1-4a7d-bd84-f255cb753dec",
+            "dd67c245d75be5f3ef1ae8d2a19950e40ff2d076",
             "Schowalter-Grady",
             "2022-06-27 12:43:36",
             "2022-09-16 00:00:06",
@@ -23,9 +24,10 @@
         ]
     },
     {
-        "query": "insert into `distributors` (`id`, `name`, `changed_at`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
+        "query": "insert into `distributors` (`id`, `hash`, `name`, `changed_at`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?)",
         "bindings": [
             "1af1c44e-8112-4e72-9654-b11c705e9372",
+            "4f1019883c761b105c8e608af4dca0cb021d83bb",
             "Lang, Lockman and Murray",
             "2022-06-27 12:44:03",
             "2022-09-16 00:00:07",
@@ -33,9 +35,10 @@
         ]
     },
     {
-        "query": "insert into `distributors` (`id`, `name`, `changed_at`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
+        "query": "insert into `distributors` (`id`, `hash`, `name`, `changed_at`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?)",
         "bindings": [
             "a985a692-c063-499a-ab2f-0a2adef86a3f",
+            "8f9314093fdd7b9ad6f1179a4642be77fa21b4c3",
             "Herman, Altenwerth and Schuster",
             "2022-06-27 12:48:23",
             "2022-09-16 00:00:08",
@@ -43,9 +46,10 @@
         ]
     },
     {
-        "query": "insert into `distributors` (`id`, `name`, `changed_at`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
+        "query": "insert into `distributors` (`id`, `hash`, `name`, `changed_at`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?)",
         "bindings": [
             "efc39adf-0497-40a3-a6e6-bbd692f87516",
+            "94cf7d910cf0932c992a7c41c8258921e2168f77",
             "Howell and Sons",
             "2022-06-27 12:50:38",
             "2022-09-16 00:00:09",

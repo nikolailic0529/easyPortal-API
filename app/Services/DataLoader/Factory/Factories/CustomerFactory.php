@@ -9,7 +9,11 @@ use App\Services\DataLoader\Factory\CompanyFactory;
 use App\Services\DataLoader\Factory\Concerns\WithKpi;
 use App\Services\DataLoader\Factory\Concerns\WithReseller;
 use App\Services\DataLoader\Finders\ResellerFinder;
+use App\Services\DataLoader\Resolver\Resolvers\CityResolver;
+use App\Services\DataLoader\Resolver\Resolvers\ContactResolver;
+use App\Services\DataLoader\Resolver\Resolvers\CountryResolver;
 use App\Services\DataLoader\Resolver\Resolvers\CustomerResolver;
+use App\Services\DataLoader\Resolver\Resolvers\LocationResolver;
 use App\Services\DataLoader\Resolver\Resolvers\ResellerResolver;
 use App\Services\DataLoader\Resolver\Resolvers\StatusResolver;
 use App\Services\DataLoader\Resolver\Resolvers\TypeResolver;
@@ -34,8 +38,10 @@ class CustomerFactory extends CompanyFactory {
         ExceptionHandler $exceptionHandler,
         TypeResolver $typeResolver,
         StatusResolver $statusResolver,
-        ContactFactory $contactFactory,
-        LocationFactory $locationFactory,
+        ContactResolver $contactReseller,
+        LocationResolver $locationResolver,
+        CountryResolver $countryResolver,
+        CityResolver $cityResolver,
         protected CustomerResolver $customerResolver,
         protected ResellerResolver $resellerResolver,
         protected ?ResellerFinder $resellerFinder = null,
@@ -44,13 +50,19 @@ class CustomerFactory extends CompanyFactory {
             $exceptionHandler,
             $typeResolver,
             $statusResolver,
-            $contactFactory,
-            $locationFactory,
+            $contactReseller,
+            $locationResolver,
+            $countryResolver,
+            $cityResolver,
         );
     }
 
     // <editor-fold desc="Getters / Setters">
     // =========================================================================
+    protected function getCustomerResolver(): CustomerResolver {
+        return $this->customerResolver;
+    }
+
     protected function getResellerFinder(): ?ResellerFinder {
         return $this->resellerFinder;
     }
@@ -66,11 +78,11 @@ class CustomerFactory extends CompanyFactory {
         return Customer::class;
     }
 
-    public function create(Type $type): ?Customer {
+    public function create(Type $type, bool $force = false): ?Customer {
         $model = null;
 
         if ($type instanceof Company) {
-            $model = $this->createFromCompany($type);
+            $model = $this->createFromCompany($type, $force);
         } else {
             throw new InvalidArgumentException(sprintf(
                 'The `$type` must be instance of `%s`.',
@@ -86,39 +98,38 @@ class CustomerFactory extends CompanyFactory {
 
     // <editor-fold desc="Functions">
     // =========================================================================
-    protected function createFromCompany(Company $company): ?Customer {
-        // Get/Create customer
-        $created  = false;
-        $factory  = function (Customer $customer) use (&$created, $company): Customer {
-            $created                   = !$customer->exists;
-            $customer->id              = $company->id;
-            $customer->name            = $company->name;
-            $customer->changed_at      = $company->updatedAt;
-            $customer->statuses        = $this->companyStatuses($customer, $company);
-            $customer->contacts        = $this->objectContacts($customer, $company->companyContactPersons);
-            $customer->locations       = $this->companyLocations($customer, $company->locations);
-            $customer->kpi             = $this->kpi($customer, $company->companyKpis);
-            $customer->resellersPivots = $this->resellers($customer, $company->companyResellerKpis);
+    protected function createFromCompany(Company $company, bool $force): ?Customer {
+        return $this->getCustomerResolver()->get(
+            $company->id,
+            function (?Customer $customer) use ($force, $company): Customer {
+                // Unchanged?
+                $hash = $company->getHash();
 
-            if ($customer->trashed()) {
-                $customer->restore();
-            } else {
-                $customer->save();
-            }
+                if ($force === false && $customer !== null && $hash === $customer->hash) {
+                    return $customer;
+                }
 
-            return $customer;
-        };
-        $customer = $this->customerResolver->get($company->id, static function () use ($factory): Customer {
-            return $factory(new Customer());
-        });
+                // Update
+                $customer                ??= new Customer();
+                $customer->id              = $company->id;
+                $customer->hash            = $hash;
+                $customer->name            = $company->name;
+                $customer->changed_at      = $company->updatedAt;
+                $customer->statuses        = $this->companyStatuses($customer, $company);
+                $customer->contacts        = $this->contacts($customer, $company->companyContactPersons);
+                $customer->locations       = $this->companyLocations($customer, $company->locations);
+                $customer->kpi             = $this->kpi($customer, $company->companyKpis);
+                $customer->resellersPivots = $this->resellers($customer, $company->companyResellerKpis);
 
-        // Update
-        if (!$created) {
-            $factory($customer);
-        }
+                if ($customer->trashed()) {
+                    $customer->restore();
+                } else {
+                    $customer->save();
+                }
 
-        // Return
-        return $customer;
+                return $customer;
+            },
+        );
     }
 
     /**

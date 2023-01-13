@@ -168,9 +168,10 @@
         ]
     },
     {
-        "query": "insert into `customers` (`id`, `name`, `changed_at`, `statuses_count`, `contacts_count`, `locations_count`, `kpi_id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `customers` (`id`, `hash`, `name`, `changed_at`, `statuses_count`, `contacts_count`, `locations_count`, `kpi_id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "00002e93-1d51-4a96-bd73-08ca080ac4c0",
+            "41e4ab0fcc2a0452f23d3a532354c3cbe076512f",
             "Hermann-Conn",
             "2022-09-02 22:09:18",
             1,
@@ -364,9 +365,10 @@
         ]
     },
     {
-        "query": "insert into `customers` (`id`, `name`, `changed_at`, `statuses_count`, `contacts_count`, `locations_count`, `kpi_id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `customers` (`id`, `hash`, `name`, `changed_at`, `statuses_count`, `contacts_count`, `locations_count`, `kpi_id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "0006e2e1-8c6d-4ec6-b8b6-bbd2cae09dfa",
+            "2e1a8646b6393834a65a2f6bef41e1e4b6d6af72",
             "Rau-Bartoletti",
             "2022-09-02 22:09:18",
             1,
@@ -536,9 +538,10 @@
         ]
     },
     {
-        "query": "insert into `customers` (`id`, `name`, `changed_at`, `statuses_count`, `contacts_count`, `locations_count`, `kpi_id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `customers` (`id`, `hash`, `name`, `changed_at`, `statuses_count`, `contacts_count`, `locations_count`, `kpi_id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "000777a8-c78b-466e-8e8b-b4b791aa8453",
+            "b7778afe0b41e61762d11c5c67e99a7a26fd4e7d",
             "Kshlerin Inc",
             "2022-09-02 22:09:18",
             1,
@@ -700,9 +703,10 @@
         ]
     },
     {
-        "query": "insert into `customers` (`id`, `name`, `changed_at`, `statuses_count`, `contacts_count`, `locations_count`, `kpi_id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `customers` (`id`, `hash`, `name`, `changed_at`, `statuses_count`, `contacts_count`, `locations_count`, `kpi_id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "0007b259-060f-4e74-addf-5c41c35fddcd",
+            "69cb41758f7825fa1478797b0b5baed251fdd2dd",
             "Metz PLC",
             "2022-09-02 22:09:18",
             1,
@@ -888,9 +892,10 @@
         ]
     },
     {
-        "query": "insert into `customers` (`id`, `name`, `changed_at`, `statuses_count`, `contacts_count`, `locations_count`, `kpi_id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `customers` (`id`, `hash`, `name`, `changed_at`, `statuses_count`, `contacts_count`, `locations_count`, `kpi_id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "0008c6ba-9fe5-45fc-9804-7e47aeb222e0",
+            "991919cdb23078de615d82f58a51046bf23af29f",
             "McDermott Ltd",
             "2022-09-02 22:09:18",
             1,
@@ -1063,9 +1068,10 @@
         ]
     },
     {
-        "query": "insert into `customers` (`id`, `name`, `changed_at`, `statuses_count`, `contacts_count`, `locations_count`, `kpi_id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `customers` (`id`, `hash`, `name`, `changed_at`, `statuses_count`, `contacts_count`, `locations_count`, `kpi_id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "0009dcab-3bf6-44d4-9dc0-6c4ba6041aed",
+            "b6df34d181396cdd8dabb94259909faebd14cc4d",
             "Padberg-Witting",
             "2022-09-02 22:09:18",
             1,
@@ -1235,9 +1241,10 @@
         ]
     },
     {
-        "query": "insert into `customers` (`id`, `name`, `changed_at`, `statuses_count`, `contacts_count`, `locations_count`, `kpi_id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `customers` (`id`, `hash`, `name`, `changed_at`, `statuses_count`, `contacts_count`, `locations_count`, `kpi_id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "000a64d2-4eb9-496d-b148-587a536b3cc6",
+            "eb2a62266d34dfa99ad18d7b8781a004e346587f",
             "Miller, Koelpin and Lockman",
             "2022-09-02 22:09:18",
             1,
@@ -1431,9 +1438,10 @@
         ]
     },
     {
-        "query": "insert into `customers` (`id`, `name`, `changed_at`, `statuses_count`, `contacts_count`, `locations_count`, `kpi_id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `customers` (`id`, `hash`, `name`, `changed_at`, `statuses_count`, `contacts_count`, `locations_count`, `kpi_id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "000a7db5-fa32-44a6-a10f-a6b4a24af90d",
+            "93152cd1df200dca8cde0ad5d40670aa57821ee3",
             "Lang-Little",
             "2022-09-02 22:09:18",
             1,
@@ -1603,9 +1611,10 @@
         ]
     },
     {
-        "query": "insert into `customers` (`id`, `name`, `changed_at`, `statuses_count`, `contacts_count`, `locations_count`, `kpi_id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `customers` (`id`, `hash`, `name`, `changed_at`, `statuses_count`, `contacts_count`, `locations_count`, `kpi_id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "000f95d9-6a43-4246-8265-3246f912f1d3",
+            "22d45b2e87c39f786584d8f8adb94a5bbeb18f67",
             "Jacobi-Will",
             "2022-09-02 22:09:18",
             1,
@@ -1865,9 +1874,10 @@
         ]
     },
     {
-        "query": "insert into `resellers` (`id`, `name`, `changed_at`, `statuses_count`, `contacts_count`, `locations_count`, `kpi_id`, `assets_count`, `customers_count`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `resellers` (`id`, `hash`, `name`, `changed_at`, `statuses_count`, `contacts_count`, `locations_count`, `kpi_id`, `assets_count`, `customers_count`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "9d9e320d-4e44-4518-a4e6-6bfe7f1c7dd8",
+            "59eefb60e0b15b8f3e6e4fcee6f081cb87ca39f5",
             "Dare-Heidenreich",
             "2022-09-02 19:56:13",
             0,
@@ -2362,9 +2372,10 @@
         ]
     },
     {
-        "query": "insert into `customers` (`id`, `name`, `changed_at`, `statuses_count`, `contacts_count`, `locations_count`, `kpi_id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `customers` (`id`, `hash`, `name`, `changed_at`, `statuses_count`, `contacts_count`, `locations_count`, `kpi_id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "0010b7b1-c283-4dab-92d4-45036299f35e",
+            "47fec9a3fade8bb1e6029896b4abf61d2d3db77e",
             "Shanahan, Jenkins and Bernier",
             "2022-09-02 22:09:18",
             1,
@@ -2542,9 +2553,10 @@
         ]
     },
     {
-        "query": "insert into `customers` (`id`, `name`, `changed_at`, `statuses_count`, `contacts_count`, `locations_count`, `kpi_id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `customers` (`id`, `hash`, `name`, `changed_at`, `statuses_count`, `contacts_count`, `locations_count`, `kpi_id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "0012fff3-042f-4778-a41c-3c8c37d6f04f",
+            "91f7fd2a66b13ff81f3d00c0af2f473fece5e301",
             "Harris-Schamberger",
             "2022-09-02 22:09:18",
             1,
@@ -2762,9 +2774,10 @@
         ]
     },
     {
-        "query": "insert into `customers` (`id`, `name`, `changed_at`, `statuses_count`, `contacts_count`, `locations_count`, `kpi_id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `customers` (`id`, `hash`, `name`, `changed_at`, `statuses_count`, `contacts_count`, `locations_count`, `kpi_id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "00167526-0153-4f94-9ae3-19c5638d48c5",
+            "427ddd8231ef71f6d01132aec4026f4b137f2ba5",
             "Thompson and Sons",
             "2022-09-02 22:09:18",
             1,
@@ -3006,9 +3019,10 @@
         ]
     },
     {
-        "query": "insert into `customers` (`id`, `name`, `changed_at`, `statuses_count`, `contacts_count`, `locations_count`, `kpi_id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `customers` (`id`, `hash`, `name`, `changed_at`, `statuses_count`, `contacts_count`, `locations_count`, `kpi_id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "001e09a7-089c-4af0-8e90-0982a721f611",
+            "985ce856401f129739e673d225148598d8f3df72",
             "Kub LLC",
             "2022-09-02 22:09:18",
             1,
@@ -3226,9 +3240,10 @@
         ]
     },
     {
-        "query": "insert into `customers` (`id`, `name`, `changed_at`, `statuses_count`, `contacts_count`, `locations_count`, `kpi_id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `customers` (`id`, `hash`, `name`, `changed_at`, `statuses_count`, `contacts_count`, `locations_count`, `kpi_id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "0021e047-9177-4603-ab91-747a705c2621",
+            "74142237c8027380296dd10dbf45d7316b5e2249",
             "D'Amore PLC",
             "2022-09-02 22:09:18",
             1,
@@ -3374,9 +3389,10 @@
         ]
     },
     {
-        "query": "insert into `customers` (`id`, `name`, `changed_at`, `statuses_count`, `contacts_count`, `locations_count`, `kpi_id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `customers` (`id`, `hash`, `name`, `changed_at`, `statuses_count`, `contacts_count`, `locations_count`, `kpi_id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "0024ae29-3230-472e-8d8d-639a91b83898",
+            "2e89117c37c7ebe4ba8aa7ea54d276aa4494f6a1",
             "Bashirian, Friesen and O'Connell",
             "2022-09-02 22:09:18",
             1,
@@ -3573,9 +3589,10 @@
         ]
     },
     {
-        "query": "insert into `customers` (`id`, `name`, `changed_at`, `statuses_count`, `contacts_count`, `locations_count`, `kpi_id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `customers` (`id`, `hash`, `name`, `changed_at`, `statuses_count`, `contacts_count`, `locations_count`, `kpi_id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "0035d237-126d-4261-8a6d-43b959ae97a4",
+            "6928d9c95b17111baf2cdcd0e28222ad150746a1",
             "Tromp PLC",
             "2022-09-02 22:09:18",
             1,
@@ -3703,9 +3720,10 @@
         ]
     },
     {
-        "query": "insert into `customers` (`id`, `name`, `changed_at`, `statuses_count`, `contacts_count`, `locations_count`, `kpi_id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `customers` (`id`, `hash`, `name`, `changed_at`, `statuses_count`, `contacts_count`, `locations_count`, `kpi_id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "0036993f-f08b-4bf2-8f4d-9214280374c3",
+            "64d768d577b47abee1552553457af62d26ddc772",
             "Paucek, Cummings and Koelpin",
             "2022-09-02 22:09:18",
             1,
@@ -3851,9 +3869,10 @@
         ]
     },
     {
-        "query": "insert into `customers` (`id`, `name`, `changed_at`, `statuses_count`, `contacts_count`, `locations_count`, `kpi_id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `customers` (`id`, `hash`, `name`, `changed_at`, `statuses_count`, `contacts_count`, `locations_count`, `kpi_id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "003bc70b-f740-4c1f-85f0-8003b3fd42e0",
+            "e0e111d97658691e87576eba1aecc54e780a2d7d",
             "Haag Ltd",
             "2022-09-02 22:09:18",
             1,
@@ -3999,9 +4018,10 @@
         ]
     },
     {
-        "query": "insert into `customers` (`id`, `name`, `changed_at`, `statuses_count`, `contacts_count`, `locations_count`, `kpi_id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `customers` (`id`, `hash`, `name`, `changed_at`, `statuses_count`, `contacts_count`, `locations_count`, `kpi_id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "003c88f4-8523-4d02-8025-4101caddafa8",
+            "125e14a0480b2a7abbe0aa39b323a3c953fdd574",
             "Ward, Schoen and Ruecker",
             "2022-09-02 22:09:18",
             1,
@@ -4303,9 +4323,10 @@
         ]
     },
     {
-        "query": "insert into `resellers` (`id`, `name`, `changed_at`, `statuses_count`, `contacts_count`, `locations_count`, `kpi_id`, `assets_count`, `customers_count`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `resellers` (`id`, `hash`, `name`, `changed_at`, `statuses_count`, `contacts_count`, `locations_count`, `kpi_id`, `assets_count`, `customers_count`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "0fd07b17-3314-40b5-ac32-7189051f773b",
+            "c0f86e518d0bfcbb5d3e4e80851bf76a9dfac875",
             "Ratke, McLaughlin and Yost",
             "2022-09-02 22:16:51",
             1,
@@ -4487,9 +4508,10 @@
         ]
     },
     {
-        "query": "insert into `customers` (`id`, `name`, `changed_at`, `statuses_count`, `contacts_count`, `locations_count`, `kpi_id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `customers` (`id`, `hash`, `name`, `changed_at`, `statuses_count`, `contacts_count`, `locations_count`, `kpi_id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "0046f7ea-120c-4ae5-bfa6-ac8bdd611aeb",
+            "10b52fc6991104cbf99bcb3ba9711571999fe85f",
             "Ondricka-Crona",
             "2022-09-02 22:09:18",
             1,
@@ -4673,9 +4695,10 @@
         ]
     },
     {
-        "query": "insert into `customers` (`id`, `name`, `changed_at`, `statuses_count`, `contacts_count`, `locations_count`, `kpi_id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `customers` (`id`, `hash`, `name`, `changed_at`, `statuses_count`, `contacts_count`, `locations_count`, `kpi_id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "004ab855-1d4f-4e0e-949d-e2de2d543349",
+            "536eb2c2f2dfc98fbe21f621891bbb4b5c536a9c",
             "Wilkinson-Littel",
             "2022-09-02 22:09:18",
             1,
@@ -4855,9 +4878,10 @@
         ]
     },
     {
-        "query": "insert into `customers` (`id`, `name`, `changed_at`, `statuses_count`, `contacts_count`, `locations_count`, `kpi_id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `customers` (`id`, `hash`, `name`, `changed_at`, `statuses_count`, `contacts_count`, `locations_count`, `kpi_id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "004d6d19-4a7d-4216-8bd5-55dbfb038e09",
+            "6796a6e3d8abd82868df7a6283ffb8e82cfa32fd",
             "Paucek-Stiedemann",
             "2022-09-02 22:09:18",
             1,
@@ -5038,9 +5062,10 @@
         ]
     },
     {
-        "query": "insert into `customers` (`id`, `name`, `changed_at`, `statuses_count`, `contacts_count`, `locations_count`, `kpi_id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `customers` (`id`, `hash`, `name`, `changed_at`, `statuses_count`, `contacts_count`, `locations_count`, `kpi_id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "00511111-85e8-4b59-bd10-f35db86dbd6e",
+            "4521412c44cb799930e3a45fc7e1ebd46d29f21f",
             "Reilly LLC",
             "2022-09-02 22:09:18",
             1,
@@ -5186,9 +5211,10 @@
         ]
     },
     {
-        "query": "insert into `customers` (`id`, `name`, `changed_at`, `statuses_count`, `contacts_count`, `locations_count`, `kpi_id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `customers` (`id`, `hash`, `name`, `changed_at`, `statuses_count`, `contacts_count`, `locations_count`, `kpi_id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "00595276-fd9a-4e7e-b4de-e2d19475170e",
+            "e2fc31937283572238e051b3ef0bf1867ed627dd",
             "Langworth and Sons",
             "2022-09-02 22:09:18",
             1,
@@ -5358,9 +5384,10 @@
         ]
     },
     {
-        "query": "insert into `customers` (`id`, `name`, `changed_at`, `statuses_count`, `contacts_count`, `locations_count`, `kpi_id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `customers` (`id`, `hash`, `name`, `changed_at`, `statuses_count`, `contacts_count`, `locations_count`, `kpi_id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "005c3314-ddec-4397-bbdc-940b6210805c",
+            "000fb5b1bb3fcb45dfc152465e2949830da2a136",
             "Macejkovic-Mitchell",
             "2022-09-02 22:09:18",
             1,
@@ -5436,35 +5463,6 @@
         "query": "select `customers`.* from `customers` where `synced_at` < ? and `customers`.`deleted_at` is null order by `customers`.`id` asc limit 5 offset 0",
         "bindings": [
             "2022-09-27T00:00:01+00:00"
-        ]
-    },
-    {
-        "query": "select `customers`.* from `customers` where ((`customers`.`id` = ?))",
-        "bindings": [
-            "00000000-0000-0000-0000-000000000000"
-        ]
-    },
-    {
-        "query": "select `customer_locations`.* from `customer_locations` where `customer_locations`.`customer_id` in (?) and `customer_locations`.`deleted_at` is null",
-        "bindings": [
-            "00000000-0000-0000-0000-000000000000"
-        ]
-    },
-    {
-        "query": "select `contacts`.* from `contacts` where `contacts`.`object_id` in (?) and `contacts`.`object_type` = ? and `contacts`.`deleted_at` is null",
-        "bindings": [
-            "00000000-0000-0000-0000-000000000000",
-            "Customer"
-        ]
-    },
-    {
-        "query": "select `kpis`.* from `kpis` where 0 = 1 and `kpis`.`deleted_at` is null",
-        "bindings": []
-    },
-    {
-        "query": "select `reseller_customers`.* from `reseller_customers` where `reseller_customers`.`customer_id` in (?) and `reseller_customers`.`deleted_at` is null",
-        "bindings": [
-            "00000000-0000-0000-0000-000000000000"
         ]
     },
     {

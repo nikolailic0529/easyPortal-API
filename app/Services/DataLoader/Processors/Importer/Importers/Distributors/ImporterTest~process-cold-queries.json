@@ -13,9 +13,10 @@
         ]
     },
     {
-        "query": "insert into `distributors` (`id`, `name`, `changed_at`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
+        "query": "insert into `distributors` (`id`, `hash`, `name`, `changed_at`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?)",
         "bindings": [
             "0920a7cb-3cf1-4a7d-bd84-f255cb753dec",
+            "d559abc827bbcedcf2e12f4c9f46fdbde08aa0db",
             "Nienow-White",
             "2022-06-27 12:43:36",
             "2022-02-02 00:00:05",
@@ -23,9 +24,10 @@
         ]
     },
     {
-        "query": "insert into `distributors` (`id`, `name`, `changed_at`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
+        "query": "insert into `distributors` (`id`, `hash`, `name`, `changed_at`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?)",
         "bindings": [
             "1af1c44e-8112-4e72-9654-b11c705e9372",
+            "7983908d9489693dfcf629630890219751ce23d0",
             "Sauer-Kautzer",
             "2022-06-27 12:44:03",
             "2022-02-02 00:00:06",
@@ -33,9 +35,10 @@
         ]
     },
     {
-        "query": "insert into `distributors` (`id`, `name`, `changed_at`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
+        "query": "insert into `distributors` (`id`, `hash`, `name`, `changed_at`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?)",
         "bindings": [
             "a985a692-c063-499a-ab2f-0a2adef86a3f",
+            "04d9dfe7b68e6e198daf7cde6085360bc63e880f",
             "Corwin-Lind",
             "2022-06-27 12:48:23",
             "2022-02-02 00:00:07",
@@ -43,9 +46,10 @@
         ]
     },
     {
-        "query": "insert into `distributors` (`id`, `name`, `changed_at`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
+        "query": "insert into `distributors` (`id`, `hash`, `name`, `changed_at`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?)",
         "bindings": [
             "efc39adf-0497-40a3-a6e6-bbd692f87516",
+            "32d80a7a5d1533bd857ecc72355043922f25e1fc",
             "Bartoletti-Schultz",
             "2022-06-27 12:50:38",
             "2022-02-02 00:00:08",

@@ -9,8 +9,10 @@ use App\Services\DataLoader\Exceptions\DistributorNotFound;
 use App\Services\DataLoader\Factory\Factory;
 use App\Services\DataLoader\Finders\DistributorFinder;
 use App\Services\DataLoader\Resolver\Resolvers\DistributorResolver;
+use App\Services\DataLoader\Schema\Type;
 use App\Services\DataLoader\Schema\Types\Document;
 use App\Services\DataLoader\Schema\Types\ViewDocument;
+use App\Utils\Eloquent\Model;
 use Closure;
 use Mockery;
 use Tests\TestCase;
@@ -136,6 +138,8 @@ class WithDistributorTest extends TestCase {
 /**
  * @internal
  * @noinspection PhpMultipleClassesDeclarationsInOneFile
+ *
+ * @extends Factory<Model>
  */
 class WithDistributorTestObject extends Factory {
     use WithDistributor {
@@ -156,5 +160,13 @@ class WithDistributorTestObject extends Factory {
 
     protected function getDistributorFinder(): ?DistributorFinder {
         return $this->distributorFinder;
+    }
+
+    public function create(Type $type, bool $force = false): ?Model {
+        return null;
+    }
+
+    public function getModel(): string {
+        return Model::class;
     }
 }

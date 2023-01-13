@@ -61,6 +61,7 @@ use function sprintf;
  * @property string|null          $environment_id
  * @property string|null          $equipment_number
  * @property string|null          $language_id
+ * @property string|null          $hash
  * @property CarbonImmutable|null $removed_at
  * @property CarbonImmutable      $created_at
  * @property CarbonImmutable      $updated_at

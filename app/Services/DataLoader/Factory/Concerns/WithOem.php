@@ -19,7 +19,11 @@ trait WithOem {
         }
 
         // Find
-        return $this->getOemResolver()->get($key, static function () use ($key): Oem {
+        return $this->getOemResolver()->get($key, static function (?Oem $oem) use ($key): Oem {
+            if ($oem) {
+                return $oem;
+            }
+
             $oem       = new Oem();
             $oem->key  = $key;
             $oem->name = $key;

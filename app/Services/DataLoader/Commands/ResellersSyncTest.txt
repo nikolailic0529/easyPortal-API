@@ -8,6 +8,7 @@ Options:
       --state[=STATE]                      Initial state, allows to continue processing (overwrites other options except `--chunk`)
       --chunk[=CHUNK]                      Chunk size
       --from[=FROM]                        Start processing from given DateTime/DateInterval
+  -f, --force                              Force update
       --outdated                           Process outdated Resellers
       --no-outdated                        Do not process outdated Resellers (default)
       --outdated-limit[=OUTDATED-LIMIT]    Maximum number of outdated Resellers to process (default "all")

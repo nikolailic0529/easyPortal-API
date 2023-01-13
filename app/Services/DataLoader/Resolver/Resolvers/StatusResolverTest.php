@@ -26,8 +26,8 @@ class StatusResolverTest extends TestCase {
                 return 'test';
             }
         };
-        $factory = static function (): Status {
-            return Status::factory()->make();
+        $factory = static function (?Status $status): Status {
+            return $status ?? Status::factory()->make();
         };
 
         Status::factory()->create([

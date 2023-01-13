@@ -20,7 +20,7 @@ class OemResolver extends Resolver implements SingletonPersistent {
     protected array $models = [];
 
     /**
-     * @param Closure(): Oem|null $factory
+     * @param Closure(?Oem): Oem|null $factory
      *
      * @return ($factory is null ? Oem|null : Oem)
      */

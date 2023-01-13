@@ -39,6 +39,7 @@ abstract class Importer extends CronJob implements Progressable {
         return $this
             ->createProcessor($container, $config)
             ->setFrom(null)
+            ->setForce(false)
             ->setWithOutdated(true)
             ->setOutdatedLimit(null)
             ->setOutdatedExpire(null);

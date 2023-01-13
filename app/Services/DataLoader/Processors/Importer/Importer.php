@@ -10,7 +10,8 @@ use App\Services\DataLoader\Container\Isolated;
 use App\Services\DataLoader\Events\DataImported;
 use App\Services\DataLoader\Exceptions\FailedToImportObject;
 use App\Services\DataLoader\Exceptions\ImportError;
-use App\Services\DataLoader\Factory\ModelFactory;
+use App\Services\DataLoader\Factory\Factory;
+use App\Services\DataLoader\Processors\Concerns\WithForce;
 use App\Services\DataLoader\Resolver\Resolver;
 use App\Services\DataLoader\Schema\Type;
 use App\Services\DataLoader\Schema\TypeWithKey;
@@ -22,9 +23,11 @@ use DateTimeInterface;
 use Illuminate\Contracts\Config\Repository;
 use Illuminate\Contracts\Debug\ExceptionHandler;
 use Illuminate\Contracts\Events\Dispatcher;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\Date;
 use Throwable;
 
+use function array_keys;
 use function array_map;
 use function array_merge;
 
@@ -37,13 +40,15 @@ use function array_merge;
  * @extends IteratorProcessor<TItem, TChunkData, TState>
  */
 abstract class Importer extends IteratorProcessor implements Isolated {
+    use WithForce;
+
     private ?ImporterCollectedData $collectedData = null;
     private Collector              $collector;
 
     /**
-     * @var ModelFactory<TModel>
+     * @var Factory<TModel>
      */
-    private ModelFactory $factory;
+    private Factory $factory;
 
     /**
      * @var Resolver<TModel>
@@ -72,7 +77,7 @@ abstract class Importer extends IteratorProcessor implements Isolated {
         return $this->container;
     }
 
-    protected function getFrom(): ?DateTimeInterface {
+    public function getFrom(): ?DateTimeInterface {
         return null;
     }
 
@@ -84,9 +89,9 @@ abstract class Importer extends IteratorProcessor implements Isolated {
     }
 
     /**
-     * @return ModelFactory<TModel>
+     * @return Factory<TModel>
      */
-    protected function getFactory(): ModelFactory {
+    protected function getFactory(): Factory {
         return $this->factory;
     }
     // </editor-fold>
@@ -114,6 +119,64 @@ abstract class Importer extends IteratorProcessor implements Isolated {
     }
 
     /**
+     * @inheritDoc
+     */
+    protected function prefetch(State $state, array $items): mixed {
+        /** @var Collection<int, TModel> $models */
+        $models = new Collection();
+        $class  = $this->getFactory()->getModel();
+        $data   = $this->makeData([]);
+
+        if ($state->force) {
+            $data   = $this->makeData($items);
+            $models = $this->getResolver()
+                ->prefetch($data->get($class))
+                ->getResolved();
+        } else {
+            // Exclude unchanged models/items.
+            /** @var array<string, array{index: int, hash: string}> $keys */
+            $keys = [];
+
+            foreach ($items as $index => $item) {
+                if ($item instanceof ModelObject) {
+                    // Model does not exist -> skip
+                    continue;
+                }
+
+                $keys[$item->getKey()] = [
+                    'index' => $index,
+                    'hash'  => $item->getHash(),
+                ];
+            }
+
+            if ($keys) {
+                $models = $this->getResolver()
+                    ->prefetch(array_keys($keys))
+                    ->getResolved();
+
+                foreach ($models as $index => $model) {
+                    $key  = $model->getKey();
+                    $hash = $model->getAttribute('hash');
+
+                    if (isset($keys[$key]) && $keys[$key]['hash'] === $hash) {
+                        unset($items[$keys[$key]['index']]);
+                        unset($models[$index]);
+                    }
+                }
+
+                $data = $this->makeData($items);
+            }
+        }
+
+        $external = $this->makeData([])->addAll($class, $data->get($class));
+
+        $this->collector->subscribe($external);
+        $this->preload($state, $data, $models);
+
+        return $external;
+    }
+
+    /**
      * @param TState $state
      */
     protected function process(State $state, mixed $data, mixed $item): void {
@@ -128,10 +191,10 @@ abstract class Importer extends IteratorProcessor implements Isolated {
         // Import
         /** @phpstan-ignore-next-line todo(DataLoader): would be good to use interface */
         if ($this->getResolver()->get($item->id)) {
-            $this->getFactory()->create($item);
+            $this->getFactory()->create($item, $state->force);
             $state->updated++;
         } else {
-            $this->getFactory()->create($item);
+            $this->getFactory()->create($item, $state->force);
             $state->created++;
         }
     }
@@ -145,16 +208,8 @@ abstract class Importer extends IteratorProcessor implements Isolated {
         $this->resolver  = $this->makeResolver($state);
         $this->factory   = $this->makeFactory($state);
 
-        // Configure
-        $data = $this->makeData([]);
-
-        $this->collector->subscribe($data);
-
         // Parent
-        parent::chunkLoaded($state, $items);
-
-        // Return
-        return $data;
+        return parent::chunkLoaded($state, $items);
     }
 
     /**
@@ -167,7 +222,7 @@ abstract class Importer extends IteratorProcessor implements Isolated {
         // properties changes, thus setting the `updated_at` doesn't look good).
         $class = $this->getFactory()->getModel();
         $model = new $class();
-        $keys  = array_map(static fn ($item) => $item->getKey(), $items);
+        $keys  = array_map(static fn($item) => $item->getKey(), $items);
 
         if ($keys) {
             $class::withoutTimestamps(static function () use ($model, $keys): void {
@@ -237,7 +292,8 @@ abstract class Importer extends IteratorProcessor implements Isolated {
      */
     protected function defaultState(array $state): array {
         return array_merge(parent::defaultState($state), [
-            'from' => $this->getFrom(),
+            'from'  => $this->getFrom(),
+            'force' => $this->isForce(),
         ]);
     }
     // </editor-fold>
@@ -245,6 +301,13 @@ abstract class Importer extends IteratorProcessor implements Isolated {
     // <editor-fold desc="Abstract">
     // =========================================================================
     abstract protected function register(): void;
+
+    /**
+     * @param TState                  $state
+     * @param TChunkData              $data
+     * @param Collection<int, TModel> $models
+     */
+    abstract protected function preload(State $state, Data $data, Collection $models): void;
 
     /**
      * @param array<TItem> $items
@@ -256,9 +319,9 @@ abstract class Importer extends IteratorProcessor implements Isolated {
     /**
      * @param TState $state
      *
-     * @return ModelFactory<TModel>
+     * @return Factory<TModel>
      */
-    abstract protected function makeFactory(State $state): ModelFactory;
+    abstract protected function makeFactory(State $state): Factory;
 
     /**
      * @param TState $state

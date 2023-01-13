@@ -10,6 +10,7 @@ Arguments:
 Options:
       --state[=STATE]   Initial state, allows to continue processing (overwrites other options except `--chunk`)
       --chunk[=CHUNK]   Chunk size
+  -f, --force           Force update
       --from[=FROM]     Start processing from given DateTime/DateInterval
   -a, --assets          Load assets
   -A, --no-assets       Skip assets (default)

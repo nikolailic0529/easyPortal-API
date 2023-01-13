@@ -5,6 +5,8 @@ namespace App\Services\DataLoader\Factory\Concerns;
 use App\Models\Data\ProductLine;
 use App\Services\DataLoader\Factory\Factory;
 use App\Services\DataLoader\Resolver\Resolvers\ProductLineResolver;
+use App\Services\DataLoader\Schema\Type;
+use App\Utils\Eloquent\Model;
 use LastDragon_ru\LaraASP\Testing\Database\QueryLog\WithQueryLog;
 use Tests\TestCase;
 
@@ -35,6 +37,14 @@ class WithProductLineTest extends TestCase {
 
             protected function getProductLineResolver(): ProductLineResolver {
                 return $this->productLineResolver;
+            }
+
+            public function create(Type $type, bool $force = false): ?Model {
+                return null;
+            }
+
+            public function getModel(): string {
+                return Model::class;
             }
         };
 

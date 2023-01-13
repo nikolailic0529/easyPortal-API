@@ -3,7 +3,7 @@
 namespace App\Services\DataLoader\Factory\Concerns;
 
 use App\Models\Data\Currency;
-use App\Services\DataLoader\Factory\ModelFactory;
+use App\Services\DataLoader\Factory\Factory;
 use App\Services\DataLoader\Resolver\Resolvers\CurrencyResolver;
 use App\Services\DataLoader\Schema\Type;
 use App\Utils\Eloquent\Model;
@@ -24,7 +24,7 @@ class WithCurrencyTest extends TestCase {
         // Prepare
         $resolver = $this->app->make(CurrencyResolver::class);
         $currency = Currency::factory()->create();
-        $factory  = new class($resolver) extends ModelFactory {
+        $factory  = new class($resolver) extends Factory {
             use WithCurrency {
                 currency as public;
             }
@@ -44,7 +44,7 @@ class WithCurrencyTest extends TestCase {
                 return Model::class;
             }
 
-            public function create(Type $type): ?Model {
+            public function create(Type $type, bool $force = false): ?Model {
                 return null;
             }
         };

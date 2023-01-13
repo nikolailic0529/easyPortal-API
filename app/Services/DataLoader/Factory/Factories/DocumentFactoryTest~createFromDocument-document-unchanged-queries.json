@@ -1,4 +1,0 @@
-[
-    "select `assets`.* from `assets` where ((`assets`.`id` = ?))",
-    "select `document_entries`.* from `document_entries` where `document_entries`.`document_id` = ? and `document_entries`.`document_id` is not null"
-]

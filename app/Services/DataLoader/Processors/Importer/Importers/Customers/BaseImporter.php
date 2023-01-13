@@ -4,8 +4,9 @@ namespace App\Services\DataLoader\Processors\Importer\Importers\Customers;
 
 use App\Models\Customer;
 use App\Models\Reseller;
+use App\Services\DataLoader\Collector\Data;
 use App\Services\DataLoader\Factory\Factories\CustomerFactory;
-use App\Services\DataLoader\Factory\ModelFactory;
+use App\Services\DataLoader\Factory\Factory;
 use App\Services\DataLoader\Finders\ResellerFinder;
 use App\Services\DataLoader\Processors\Finders\ResellerLoaderFinder;
 use App\Services\DataLoader\Processors\Importer\Importer;
@@ -16,6 +17,7 @@ use App\Services\DataLoader\Resolver\Resolvers\LocationResolver;
 use App\Services\DataLoader\Resolver\Resolvers\ResellerResolver;
 use App\Services\DataLoader\Schema\Types\Company;
 use App\Utils\Processor\State;
+use Illuminate\Database\Eloquent\Collection;
 
 /**
  * @template TState of BaseImporterState
@@ -27,39 +29,25 @@ abstract class BaseImporter extends Importer {
         $this->getContainer()->bind(ResellerFinder::class, ResellerLoaderFinder::class);
     }
 
-    /**
-     * @inheritDoc
-     */
-    protected function prefetch(State $state, array $items): mixed {
+    protected function preload(State $state, Data $data, Collection $models): void {
         // Prepare
-        $data              = $this->makeData($items);
         $contactsResolver  = $this->getContainer()->make(ContactResolver::class);
         $locationsResolver = $this->getContainer()->make(LocationResolver::class);
 
         // Customers
-        $customers = $this->getContainer()
-            ->make(CustomerResolver::class)
-            ->prefetch(
-                $data->get(Customer::class),
-            )
-            ->getResolved();
+        $models->loadMissing('locations.location');
+        $models->loadMissing('locations.types');
+        $models->loadMissing('contacts.types');
+        $models->loadMissing('kpi');
+        $models->loadMissing('resellersPivots.kpi');
 
-        $customers->loadMissing('locations.location');
-        $customers->loadMissing('locations.types');
-        $customers->loadMissing('contacts.types');
-        $customers->loadMissing('kpi');
-        $customers->loadMissing('resellersPivots.kpi');
-
-        $locationsResolver->add($customers->pluck('locations')->flatten()->pluck('location')->flatten());
-        $contactsResolver->add($customers->pluck('contacts')->flatten());
+        $locationsResolver->add($models->pluck('locations')->flatten()->pluck('location')->flatten());
+        $contactsResolver->add($models->pluck('contacts')->flatten());
 
         // Resellers
         $this->getContainer()
             ->make(ResellerResolver::class)
             ->prefetch($data->get(Reseller::class));
-
-        // Return
-        return $data;
     }
 
     /**
@@ -69,7 +57,7 @@ abstract class BaseImporter extends Importer {
         return new BaseImporterChunkData($items);
     }
 
-    protected function makeFactory(State $state): ModelFactory {
+    protected function makeFactory(State $state): Factory {
         return $this->getContainer()->make(CustomerFactory::class);
     }
 

@@ -24,8 +24,8 @@ class AnalyzeAssetResolverTest extends TestCase {
     public function testGet(): void {
         // Prepare
         $connection = Model::CONNECTION;
-        $factory    = static function (): AnalyzeAsset {
-            return AnalyzeAsset::factory()->make();
+        $factory    = static function (?AnalyzeAsset $asset): AnalyzeAsset {
+            return $asset ?? AnalyzeAsset::factory()->make();
         };
 
         $a = AnalyzeAsset::factory()->create();

@@ -2681,11 +2681,6 @@ parameters:
 			path: app/Services/DataLoader/Factory/Concerns/WithKpiTest.php
 
 		-
-			message: "#^Access to an undefined property M of App\\\\Models\\\\Contact\\|App\\\\Models\\\\CustomerLocation\\|App\\\\Models\\\\Data\\\\Location\\|App\\\\Models\\\\ResellerLocation\\:\\:\\$types\\.$#"
-			count: 3
-			path: app/Services/DataLoader/Factory/Concerns/WithLocationsTest.php
-
-		-
 			message: "#^Method App\\\\Services\\\\DataLoader\\\\Factory\\\\Concerns\\\\WithResellerTest\\:\\:testResellerExistsThroughFinder\\(\\) has parameter \\$objectFactory with no signature specified for Closure\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Factory/Concerns/WithResellerTest.php
@@ -2736,16 +2731,6 @@ parameters:
 			path: app/Services/DataLoader/Factory/Factories/AssetFactoryTest.php
 
 		-
-			message: "#^Call to static method PHPUnit\\\\Framework\\\\Assert\\:\\:assertNotNull\\(\\) with App\\\\Models\\\\Contact will always evaluate to true\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Factories/ContactFactoryTest.php
-
-		-
-			message: "#^Method App\\\\Services\\\\DataLoader\\\\Factory\\\\Factories\\\\ContactFactoryTest\\:\\:testContact\\(\\) has parameter \\$factory with no signature specified for Closure\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Factories/ContactFactoryTest.php
-
-		-
 			message: "#^Illuminate\\\\Support\\\\Collection\\<\\*NEVER\\*, \\*NEVER\\*\\> does not accept App\\\\Models\\\\ResellerCustomer\\.$#"
 			count: 2
 			path: app/Services/DataLoader/Factory/Factories/CustomerFactory.php
@@ -2791,11 +2776,6 @@ parameters:
 			path: app/Services/DataLoader/Factory/Factories/DocumentFactoryTest.php
 
 		-
-			message: "#^Method App\\\\Services\\\\DataLoader\\\\Factory\\\\Factories\\\\DocumentFactoryTest\\:\\:testCreate\\(\\) has parameter \\$typeFactory with no signature specified for Closure\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Factories/DocumentFactoryTest.php
-
-		-
 			message: "#^Parameter \\#1 \\$json of class App\\\\Services\\\\DataLoader\\\\Schema\\\\Types\\\\Document constructor expects array\\<string, mixed\\>, array\\|bool\\|float\\|int\\|string\\|null given\\.$#"
 			count: 5
 			path: app/Services/DataLoader/Factory/Factories/DocumentFactoryTest.php
@@ -2804,16 +2784,6 @@ parameters:
 			message: "#^Parameter \\#1 \\$json of class App\\\\Services\\\\DataLoader\\\\Schema\\\\Types\\\\ViewAsset constructor expects array\\<string, mixed\\>, array\\|bool\\|float\\|int\\|string\\|null given\\.$#"
 			count: 7
 			path: app/Services/DataLoader/Factory/Factories/DocumentFactoryTest.php
-
-		-
-			message: "#^Parameter \\#1 \\$state of method Database\\\\Factories\\\\Data\\\\LocationFactory\\:\\:hasCity\\(\\) expects array\\<string, mixed\\>\\|\\(callable\\(array\\<string, mixed\\>, Illuminate\\\\Database\\\\Eloquent\\\\Model\\|null\\)\\: array\\<string, mixed\\>\\), Database\\\\Factories\\\\Data\\\\CityFactory given\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Factories/LocationFactoryTest.php
-
-		-
-			message: "#^Parameter \\#1 \\$state of method Database\\\\Factories\\\\Data\\\\LocationFactory\\:\\:hasCountry\\(\\) expects array\\<string, mixed\\>\\|\\(callable\\(array\\<string, mixed\\>, Illuminate\\\\Database\\\\Eloquent\\\\Model\\|null\\)\\: array\\<string, mixed\\>\\), Database\\\\Factories\\\\Data\\\\CountryFactory given\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Factories/LocationFactoryTest.php
 
 		-
 			message: "#^Parameter \\#1 \\$json of class App\\\\Services\\\\DataLoader\\\\Schema\\\\Types\\\\Company constructor expects array\\<string, mixed\\>, array\\|bool\\|float\\|int\\|string\\|null given\\.$#"

@@ -12,7 +12,7 @@ use Illuminate\Database\Eloquent\Builder;
  */
 class CustomerResolver extends Resolver {
     /**
-     * @param Closure(): Customer|null $factory
+     * @param Closure(?Customer): Customer|null $factory
      *
      * @return ($factory is null ? Customer|null : Customer)
      */

@@ -17,7 +17,7 @@ use Illuminate\Support\Collection;
  */
 class ProductResolver extends Resolver implements SingletonPersistent {
     /**
-     * @param Closure(): Product|null $factory
+     * @param Closure(?Product): Product|null $factory
      *
      * @return ($factory is null ? Product|null : Product)
      */

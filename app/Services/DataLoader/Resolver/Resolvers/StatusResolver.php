@@ -16,7 +16,7 @@ use Illuminate\Support\Collection;
  */
 class StatusResolver extends Resolver implements SingletonPersistent {
     /**
-     * @param Closure(): Status|null $factory
+     * @param Closure(?Status): Status|null $factory
      *
      * @return ($factory is null ? Status|null : Status)
      */

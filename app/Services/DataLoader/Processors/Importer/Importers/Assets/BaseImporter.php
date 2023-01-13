@@ -6,8 +6,9 @@ use App\Models\Asset;
 use App\Models\Customer;
 use App\Models\Document;
 use App\Models\Reseller;
+use App\Services\DataLoader\Collector\Data;
 use App\Services\DataLoader\Factory\Factories\AssetFactory;
-use App\Services\DataLoader\Factory\ModelFactory;
+use App\Services\DataLoader\Factory\Factory;
 use App\Services\DataLoader\Finders\CustomerFinder;
 use App\Services\DataLoader\Finders\DistributorFinder;
 use App\Services\DataLoader\Finders\ResellerFinder;
@@ -25,6 +26,7 @@ use App\Services\DataLoader\Resolver\Resolvers\LocationResolver;
 use App\Services\DataLoader\Resolver\Resolvers\ResellerResolver;
 use App\Services\DataLoader\Schema\Types\ViewAsset;
 use App\Utils\Processor\State;
+use Illuminate\Database\Eloquent\Collection;
 
 /**
  * @template TState of BaseImporterState
@@ -40,24 +42,15 @@ abstract class BaseImporter extends Importer {
         $this->getContainer()->bind(CustomerFinder::class, CustomerLoaderFinder::class);
     }
 
-    /**
-     * @inheritDoc
-     */
-    protected function prefetch(State $state, array $items): mixed {
+    protected function preload(State $state, Data $data, Collection $models): void {
         // Prepare
-        $data              = $this->makeData($items);
         $container         = $this->getContainer();
         $documentsResolver = $container->make(DocumentResolver::class);
         $locationsResolver = $container->make(LocationResolver::class);
         $contactsResolver  = $container->make(ContactResolver::class);
 
         // Assets
-        $assets = $container
-            ->make(AssetResolver::class)
-            ->prefetch($data->get(Asset::class))
-            ->getResolved();
-
-        $assets->loadMissing([
+        $models->loadMissing([
             'warranties.document',
             'contacts.types',
             'location',
@@ -65,9 +58,9 @@ abstract class BaseImporter extends Importer {
             'coverages',
         ]);
 
-        $documentsResolver->add($assets->pluck('warranties')->flatten()->pluck('document')->flatten());
-        $locationsResolver->add($assets->pluck('location')->flatten());
-        $contactsResolver->add($assets->pluck('contacts')->flatten());
+        $documentsResolver->add($models->pluck('warranties')->flatten()->pluck('document')->flatten());
+        $locationsResolver->add($models->pluck('location')->flatten());
+        $contactsResolver->add($models->pluck('contacts')->flatten());
 
         // Resellers
         $container
@@ -85,9 +78,6 @@ abstract class BaseImporter extends Importer {
             ->getResolved();
 
         $documents->loadMissing('statuses');
-
-        // Return
-        return $data;
     }
 
     /**
@@ -97,7 +87,7 @@ abstract class BaseImporter extends Importer {
         return new ImporterChunkData($items);
     }
 
-    protected function makeFactory(State $state): ModelFactory {
+    protected function makeFactory(State $state): Factory {
         return $this->getContainer()->make(AssetFactory::class);
     }
 

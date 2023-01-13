@@ -20,8 +20,8 @@ class LanguageResolverTest extends TestCase {
      */
     public function testGet(): void {
         // Prepare
-        $factory = static function (): Language {
-            return Language::factory()->make();
+        $factory = static function (?Language $language): Language {
+            return  $language ?? Language::factory()->make();
         };
 
         Language::factory()->create(['code' => 'a']);

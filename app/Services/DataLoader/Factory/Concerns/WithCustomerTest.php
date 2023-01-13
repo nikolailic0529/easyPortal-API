@@ -9,10 +9,12 @@ use App\Services\DataLoader\Exceptions\CustomerNotFound;
 use App\Services\DataLoader\Factory\Factory;
 use App\Services\DataLoader\Finders\CustomerFinder;
 use App\Services\DataLoader\Resolver\Resolvers\CustomerResolver;
+use App\Services\DataLoader\Schema\Type;
 use App\Services\DataLoader\Schema\Types\Document;
 use App\Services\DataLoader\Schema\Types\ViewAsset;
 use App\Services\DataLoader\Schema\Types\ViewAssetDocument;
 use App\Services\DataLoader\Schema\Types\ViewDocument;
+use App\Utils\Eloquent\Model;
 use Closure;
 use Mockery;
 use Tests\TestCase;
@@ -169,6 +171,8 @@ class WithCustomerTest extends TestCase {
 /**
  * @internal
  * @noinspection PhpMultipleClassesDeclarationsInOneFile
+ *
+ * @extends Factory<Model>
  */
 class WithCustomerTestObject extends Factory {
     use WithCustomer {
@@ -189,5 +193,13 @@ class WithCustomerTestObject extends Factory {
 
     protected function getCustomerFinder(): ?CustomerFinder {
         return $this->customerFinder;
+    }
+
+    public function create(Type $type, bool $force = false): ?Model {
+        return null;
+    }
+
+    public function getModel(): string {
+        return Model::class;
     }
 }

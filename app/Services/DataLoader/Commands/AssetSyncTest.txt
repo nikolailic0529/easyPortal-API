@@ -10,6 +10,7 @@ Arguments:
 Options:
       --state[=STATE]      Initial state, allows to continue processing (overwrites other options except `--chunk`)
       --chunk[=CHUNK]      Chunk size
+  -f, --force              Force update
       --warranty-check     run warranty check before update
       --no-warranty-check  do not run warranty check before update (default)
   -h, --help               Display help for the given command. When no command is given display help for the list command

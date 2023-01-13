@@ -7,6 +7,8 @@ use App\Models\Data\ServiceGroup;
 use App\Models\Data\ServiceLevel;
 use App\Services\DataLoader\Factory\Factory;
 use App\Services\DataLoader\Resolver\Resolvers\ServiceLevelResolver;
+use App\Services\DataLoader\Schema\Type;
+use App\Utils\Eloquent\Model;
 use LastDragon_ru\LaraASP\Testing\Database\QueryLog\WithQueryLog;
 use Tests\TestCase;
 
@@ -45,6 +47,14 @@ class WithServiceLevelTest extends TestCase {
 
             protected function getServiceLevelResolver(): ServiceLevelResolver {
                 return $this->serviceLevelResolver;
+            }
+
+            public function create(Type $type, bool $force = false): ?Model {
+                return null;
+            }
+
+            public function getModel(): string {
+                return Model::class;
             }
         };
 

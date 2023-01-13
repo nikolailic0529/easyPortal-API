@@ -170,9 +170,10 @@
         ]
     },
     {
-        "query": "insert into `customers` (`id`, `name`, `changed_at`, `statuses_count`, `contacts_count`, `locations_count`, `kpi_id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `customers` (`id`, `hash`, `name`, `changed_at`, `statuses_count`, `contacts_count`, `locations_count`, `kpi_id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "04e2ec4e-9bb1-47c7-98f0-6096cd178974",
+            "2fbe108ef820f61dbc0296b9eb5b364c6bbdf60f",
             "Wuckert LLC",
             "2022-07-07 02:59:03",
             1,

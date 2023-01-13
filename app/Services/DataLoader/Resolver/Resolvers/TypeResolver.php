@@ -16,7 +16,7 @@ use Illuminate\Support\Collection;
  */
 class TypeResolver extends Resolver implements SingletonPersistent {
     /**
-     * @param Closure(): \App\Models\Data\Type|null $factory
+     * @param Closure(?Type): Type|null $factory
      *
      * @return ($factory is null ? Type|null : Type)
      */

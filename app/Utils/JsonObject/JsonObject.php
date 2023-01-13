@@ -22,9 +22,13 @@ use function in_array;
 use function is_a;
 use function is_array;
 use function is_object;
+use function json_encode;
 use function preg_match;
 use function reset;
+use function sha1;
 use function sprintf;
+
+use const JSON_THROW_ON_ERROR;
 
 /**
  * Convert JSON into an object, but be careful - this class doesn't worry about
@@ -101,6 +105,10 @@ abstract class JsonObject implements JsonSerializable, Arrayable, Countable {
 
         return $json;
     }
+
+    public function getHash(): string {
+        return sha1(json_encode($this, JSON_THROW_ON_ERROR));
+    }
     // </editor-fold>
 
     // <editor-fold desc="Countable">
@@ -153,6 +161,9 @@ abstract class JsonObject implements JsonSerializable, Arrayable, Countable {
 
     // <editor-fold desc="Magic">
     // =========================================================================
+    /**
+     * todo(PHP 8.2): not needed
+     */
     public function __get(string $name): mixed {
         throw new InvalidArgumentException(sprintf(
             'Property `%s::$%s` doesn\'t exist.',
@@ -161,10 +172,16 @@ abstract class JsonObject implements JsonSerializable, Arrayable, Countable {
         ));
     }
 
+    /**
+     * todo(PHP 8.2): not needed
+     */
     public function __set(string $name, mixed $value): void {
         $this->__get($name);
     }
 
+    /**
+     * todo(PHP 8.2): not needed
+     */
     public function __isset(string $name): bool {
         return isset($this->{$name});
     }

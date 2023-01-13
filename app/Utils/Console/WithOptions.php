@@ -78,6 +78,10 @@ trait WithOptions {
         return $value;
     }
 
+    protected function getFlagOption(string $name): bool {
+        return $this->hasOption($name) && $this->option($name) === true;
+    }
+
     /**
      * @return ($default is bool ? bool : bool|null)
      */

@@ -3,7 +3,7 @@
 namespace App\Services\DataLoader\Factory\Factories;
 
 use App\Models\Distributor;
-use App\Services\DataLoader\Factory\ModelFactory;
+use App\Services\DataLoader\Factory\Factory;
 use App\Services\DataLoader\Resolver\Resolvers\DistributorResolver;
 use App\Services\DataLoader\Resolver\Resolvers\TypeResolver;
 use App\Services\DataLoader\Schema\Type;
@@ -15,9 +15,9 @@ use function implode;
 use function sprintf;
 
 /**
- * @extends ModelFactory<Distributor>
+ * @extends Factory<Distributor>
  */
-class DistributorFactory extends ModelFactory {
+class DistributorFactory extends Factory {
     public function __construct(
         ExceptionHandler $exceptionHandler,
         protected TypeResolver $typeResolver,
@@ -26,15 +26,19 @@ class DistributorFactory extends ModelFactory {
         parent::__construct($exceptionHandler);
     }
 
+    protected function getDistributorResolver(): DistributorResolver {
+        return $this->distributorResolver;
+    }
+
     public function getModel(): string {
         return Distributor::class;
     }
 
-    public function create(Type $type): ?Distributor {
+    public function create(Type $type, bool $force = false): ?Distributor {
         $model = null;
 
         if ($type instanceof Company) {
-            $model = $this->createFromCompany($type);
+            $model = $this->createFromCompany($type, $force);
         } else {
             throw new InvalidArgumentException(sprintf(
                 'The `$type` must be instance of `%s`.',
@@ -49,37 +53,33 @@ class DistributorFactory extends ModelFactory {
 
     // <editor-fold desc="Functions">
     // =========================================================================
-    protected function createFromCompany(Company $company): ?Distributor {
-        // Get/Create
-        $created     = false;
-        $factory     = static function (Distributor $distributor) use (&$created, $company): Distributor {
-            $created                 = !$distributor->exists;
-            $distributor->id         = $company->id;
-            $distributor->name       = $company->name;
-            $distributor->changed_at = $company->updatedAt;
-
-            if ($distributor->trashed()) {
-                $distributor->restore();
-            } else {
-                $distributor->save();
-            }
-
-            return $distributor;
-        };
-        $distributor = $this->distributorResolver->get(
+    protected function createFromCompany(Company $company, bool $force): ?Distributor {
+        return $this->getDistributorResolver()->get(
             $company->id,
-            static function () use ($factory): Distributor {
-                return $factory(new Distributor());
+            static function (?Distributor $distributor) use ($force, $company): Distributor {
+                // Unchanged?
+                $hash = $company->getHash();
+
+                if ($force === false && $distributor !== null && $hash === $distributor->hash) {
+                    return $distributor;
+                }
+
+                // Update
+                $distributor           ??= new Distributor();
+                $distributor->id         = $company->id;
+                $distributor->hash       = $hash;
+                $distributor->name       = $company->name;
+                $distributor->changed_at = $company->updatedAt;
+
+                if ($distributor->trashed()) {
+                    $distributor->restore();
+                } else {
+                    $distributor->save();
+                }
+
+                return $distributor;
             },
         );
-
-        // Update
-        if (!$created) {
-            $factory($distributor);
-        }
-
-        // Return
-        return $distributor;
     }
     //</editor-fold>
 }

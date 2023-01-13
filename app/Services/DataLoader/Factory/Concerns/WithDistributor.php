@@ -26,15 +26,18 @@ trait WithDistributor {
         $distributor = null;
 
         if ($id) {
-            $distributor = $this->getDistributorResolver()->get($id, function () use ($id, $object): Distributor {
-                $distributor = $this->getDistributorFinder()?->find($id);
+            $distributor = $this->getDistributorResolver()->get(
+                $id,
+                function (?Distributor $distributor) use ($id, $object): Distributor {
+                    $distributor ??= $this->getDistributorFinder()?->find($id);
 
-                if (!$distributor) {
-                    throw new DistributorNotFound($id, $object);
-                }
+                    if (!$distributor) {
+                        throw new DistributorNotFound($id, $object);
+                    }
 
-                return $distributor;
-            });
+                    return $distributor;
+                },
+            );
         }
 
         // Return

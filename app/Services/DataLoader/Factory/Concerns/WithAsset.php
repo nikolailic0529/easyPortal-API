@@ -25,8 +25,8 @@ trait WithAsset {
         $asset = null;
 
         if ($id) {
-            $asset = $this->getAssetResolver()->get($id, function () use ($id, $object): Asset {
-                $asset = $this->getAssetFinder()?->find($id);
+            $asset = $this->getAssetResolver()->get($id, function (?Asset $asset) use ($id, $object): Asset {
+                $asset ??= $this->getAssetFinder()?->find($id);
 
                 if (!$asset) {
                     throw new AssetNotFound($id, $object);

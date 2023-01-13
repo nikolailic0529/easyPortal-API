@@ -5,7 +5,7 @@ namespace App\Services\DataLoader\Factory\Factories;
 use App\Models\Asset;
 use App\Models\AssetWarranty;
 use App\Models\Data\Coverage;
-use App\Models\Data\Location;
+use App\Models\Data\Location as LocationModel;
 use App\Models\Data\Oem;
 use App\Models\Data\Product;
 use App\Models\Data\Status;
@@ -22,6 +22,7 @@ use App\Services\DataLoader\Factory\Concerns\WithAssetDocument;
 use App\Services\DataLoader\Factory\Concerns\WithContacts;
 use App\Services\DataLoader\Factory\Concerns\WithCoverage;
 use App\Services\DataLoader\Factory\Concerns\WithCustomer;
+use App\Services\DataLoader\Factory\Concerns\WithLocations;
 use App\Services\DataLoader\Factory\Concerns\WithOem;
 use App\Services\DataLoader\Factory\Concerns\WithProduct;
 use App\Services\DataLoader\Factory\Concerns\WithReseller;
@@ -30,13 +31,17 @@ use App\Services\DataLoader\Factory\Concerns\WithServiceLevel;
 use App\Services\DataLoader\Factory\Concerns\WithStatus;
 use App\Services\DataLoader\Factory\Concerns\WithTag;
 use App\Services\DataLoader\Factory\Concerns\WithType;
-use App\Services\DataLoader\Factory\ModelFactory;
+use App\Services\DataLoader\Factory\Factory;
 use App\Services\DataLoader\Finders\CustomerFinder;
 use App\Services\DataLoader\Finders\ResellerFinder;
 use App\Services\DataLoader\Resolver\Resolvers\AssetResolver;
+use App\Services\DataLoader\Resolver\Resolvers\CityResolver;
+use App\Services\DataLoader\Resolver\Resolvers\ContactResolver;
+use App\Services\DataLoader\Resolver\Resolvers\CountryResolver;
 use App\Services\DataLoader\Resolver\Resolvers\CoverageResolver;
 use App\Services\DataLoader\Resolver\Resolvers\CustomerResolver;
 use App\Services\DataLoader\Resolver\Resolvers\DocumentResolver;
+use App\Services\DataLoader\Resolver\Resolvers\LocationResolver;
 use App\Services\DataLoader\Resolver\Resolvers\OemResolver;
 use App\Services\DataLoader\Resolver\Resolvers\ProductResolver;
 use App\Services\DataLoader\Resolver\Resolvers\ResellerResolver;
@@ -47,6 +52,7 @@ use App\Services\DataLoader\Resolver\Resolvers\TagResolver;
 use App\Services\DataLoader\Resolver\Resolvers\TypeResolver;
 use App\Services\DataLoader\Schema\Type;
 use App\Services\DataLoader\Schema\Types\CoverageEntry;
+use App\Services\DataLoader\Schema\Types\Location;
 use App\Services\DataLoader\Schema\Types\ViewAsset;
 use App\Services\DataLoader\Schema\Types\ViewAssetDocument;
 use Illuminate\Contracts\Debug\ExceptionHandler;
@@ -55,14 +61,15 @@ use InvalidArgumentException;
 use Throwable;
 
 use function array_filter;
+use function implode;
 use function max;
 use function sprintf;
 use function usort;
 
 /**
- * @extends ModelFactory<Asset>
+ * @extends Factory<Asset>
  */
-class AssetFactory extends ModelFactory {
+class AssetFactory extends Factory {
     use Children;
     use WithReseller;
     use WithCustomer;
@@ -71,6 +78,7 @@ class AssetFactory extends ModelFactory {
     use WithProduct;
     use WithStatus;
     use WithContacts;
+    use WithLocations;
     use WithTag;
     use WithCoverage;
     use WithServiceGroup;
@@ -87,13 +95,15 @@ class AssetFactory extends ModelFactory {
         protected ResellerResolver $resellerResolver,
         protected DocumentResolver $documentResolver,
         protected DocumentFactory $documentFactory,
-        protected LocationFactory $locationFactory,
-        protected ContactFactory $contactFactory,
+        protected ContactResolver $contactResolver,
         protected StatusResolver $statusResolver,
         protected CoverageResolver $coverageResolver,
         protected TagResolver $tagResolver,
         protected ServiceGroupResolver $serviceGroupResolver,
         protected ServiceLevelResolver $serviceLevelResolver,
+        protected LocationResolver $locationResolver,
+        protected CountryResolver $countryResolver,
+        protected CityResolver $cityResolver,
         protected ?ResellerFinder $resellerFinder = null,
         protected ?CustomerFinder $customerFinder = null,
     ) {
@@ -102,6 +112,10 @@ class AssetFactory extends ModelFactory {
 
     // <editor-fold desc="Getters / Setters">
     // =========================================================================
+    protected function getAssetResolver(): AssetResolver {
+        return $this->assetResolver;
+    }
+
     protected function getResellerResolver(): ResellerResolver {
         return $this->resellerResolver;
     }
@@ -118,8 +132,8 @@ class AssetFactory extends ModelFactory {
         return $this->customerFinder;
     }
 
-    protected function getContactsFactory(): ContactFactory {
-        return $this->contactFactory;
+    protected function getContactsResolver(): ContactResolver {
+        return $this->contactResolver;
     }
 
     protected function getDocumentFactory(): DocumentFactory {
@@ -161,6 +175,18 @@ class AssetFactory extends ModelFactory {
     protected function getServiceLevelResolver(): ServiceLevelResolver {
         return $this->serviceLevelResolver;
     }
+
+    protected function getLocationResolver(): LocationResolver {
+        return $this->locationResolver;
+    }
+
+    protected function getCountryResolver(): CountryResolver {
+        return $this->countryResolver;
+    }
+
+    protected function getCityResolver(): CityResolver {
+        return $this->cityResolver;
+    }
     // </editor-fold>
 
     // <editor-fold desc="Factory">
@@ -169,11 +195,11 @@ class AssetFactory extends ModelFactory {
         return Asset::class;
     }
 
-    public function create(Type $type): ?Asset {
+    public function create(Type $type, bool $force = false): ?Asset {
         $model = null;
 
         if ($type instanceof ViewAsset) {
-            $model = $this->createFromAsset($type);
+            $model = $this->createFromAsset($type, $force);
         } else {
             throw new InvalidArgumentException(sprintf(
                 'The `$type` must be instance of `%s`.',
@@ -187,17 +213,24 @@ class AssetFactory extends ModelFactory {
 
     // <editor-fold desc="Functions">
     // =========================================================================
-    protected function createFromAsset(ViewAsset $asset): ?Asset {
-        return $this->assetAsset($asset);
+    protected function createFromAsset(ViewAsset $asset, bool $force): ?Asset {
+        return $this->assetAsset($asset, $force);
     }
 
-    protected function assetAsset(ViewAsset $asset): Asset {
-        // Get/Create
-        $created = false;
-        $factory = function (Asset $model) use (&$created, $asset): Asset {
+    protected function assetAsset(ViewAsset $asset, bool $force): Asset {
+        return $this->getAssetResolver()->get($asset->id, function (?Asset $model) use ($force, $asset): Asset {
+            // Unchanged?
+            $hash = $asset->getHash();
+
+            if ($force === false && $model !== null && $hash === $model->hash) {
+                return $model;
+            }
+
             // Asset
-            $created                          = !$model->exists;
+            $created                          = $model === null;
+            $model                          ??= new Asset();
             $model->id                        = $asset->id;
+            $model->hash                      = $hash;
             $model->oem                       = $this->assetOem($asset);
             $model->type                      = $this->assetType($asset);
             $model->status                    = $this->assetStatus($asset);
@@ -210,7 +243,7 @@ class AssetFactory extends ModelFactory {
             $model->serial_number             = $asset->serialNumber;
             $model->data_quality              = $asset->dataQualityScore;
             $model->contracts_active_quantity = $asset->activeContractQuantitySum;
-            $model->contacts                  = $this->objectContacts($model, (array) $asset->latestContactPersons);
+            $model->contacts                  = $this->contacts($model, (array) $asset->latestContactPersons);
             $model->tags                      = $this->assetTags($asset);
             $model->coverages                 = $this->assetCoverages($asset);
 
@@ -220,7 +253,7 @@ class AssetFactory extends ModelFactory {
             }
 
             $warrantyChangedAt          = $asset->coverageStatusCheck->coverageStatusUpdatedAt ?? null;
-            $model->warranties          = $this->assetWarranties($model, $asset);
+            $model->warranties          = $this->assetWarranties($model, $asset, $force);
             $model->warranty_changed_at = max($warrantyChangedAt, $model->warranty_changed_at);
 
             // Save
@@ -235,27 +268,13 @@ class AssetFactory extends ModelFactory {
 
             // Return
             return $model;
-        };
-        $model   = $this->assetResolver->get(
-            $asset->id,
-            static function () use ($factory): Asset {
-                return $factory(new Asset());
-            },
-        );
-
-        // Update
-        if (!$created) {
-            $factory($model);
-        }
-
-        // Return
-        return $model;
+        });
     }
 
     /**
      * @return EloquentCollection<int, AssetWarranty>
      */
-    protected function assetWarranties(Asset $model, ViewAsset $asset): EloquentCollection {
+    protected function assetWarranties(Asset $model, ViewAsset $asset, bool $force): EloquentCollection {
         // Split by source (ViewAssetDocument or CoverageEntry)
         /** @var EloquentCollection<int, AssetWarranty> $warranties */
         $warranties = new EloquentCollection();
@@ -275,13 +294,13 @@ class AssetFactory extends ModelFactory {
             $warrantyChangedAt = $asset->coverageStatusCheck->coverageStatusUpdatedAt;
 
             if ($model->warranty_changed_at <= $warrantyChangedAt) {
-                $coverages = $this->assetWarrantiesCoverages($model, $asset, $coverages);
+                $coverages = $this->assetWarrantiesCoverages($model, $asset, $coverages, $force);
             }
         }
 
         // Documents
         if (isset($asset->assetDocument)) {
-            $documents = $this->assetWarrantiesDocuments($model, $asset, $documents);
+            $documents = $this->assetWarrantiesDocuments($model, $asset, $documents, $force);
         }
 
         // Return
@@ -299,6 +318,7 @@ class AssetFactory extends ModelFactory {
         Asset $model,
         ViewAsset $asset,
         EloquentCollection $existing,
+        bool $force,
     ): EloquentCollection {
         return $this->children(
             $existing,
@@ -307,9 +327,9 @@ class AssetFactory extends ModelFactory {
             function (AssetWarranty|CoverageEntry $warranty): string {
                 return $this->getWarrantyKey($warranty);
             },
-            function (CoverageEntry $entry, ?AssetWarranty $warranty) use ($model): ?AssetWarranty {
+            function (CoverageEntry $entry, ?AssetWarranty $warranty) use ($force, $model): ?AssetWarranty {
                 try {
-                    return $this->assetWarranty($model, $entry, $warranty);
+                    return $this->assetWarranty($model, $entry, $warranty, $force);
                 } catch (Throwable $exception) {
                     $this->getExceptionHandler()->report(
                         new FailedToProcessViewAssetCoverageEntry($model, $entry, $exception),
@@ -321,14 +341,27 @@ class AssetFactory extends ModelFactory {
         );
     }
 
-    protected function assetWarranty(Asset $model, CoverageEntry $entry, ?AssetWarranty $warranty): ?AssetWarranty {
+    protected function assetWarranty(
+        Asset $model,
+        CoverageEntry $entry,
+        ?AssetWarranty $warranty,
+        bool $force,
+    ): ?AssetWarranty {
         // Empty?
         if ($entry->description === null && $entry->coverageStartDate === null && $entry->coverageEndDate === null) {
             return null;
         }
 
+        // Unchanged?
+        $hash = $entry->getHash();
+
+        if ($warranty && $force === false && $hash === $warranty->hash) {
+            return $warranty;
+        }
+
         // Create
         $warranty                ??= new AssetWarranty();
+        $warranty->hash            = $hash;
         $warranty->key             = $this->getWarrantyKey($entry);
         $warranty->start           = $entry->coverageStartDate;
         $warranty->end             = $entry->coverageEndDate;
@@ -391,6 +424,7 @@ class AssetFactory extends ModelFactory {
         Asset $model,
         ViewAsset $asset,
         EloquentCollection $existing,
+        bool $force,
     ): EloquentCollection {
         $created    = [];
         $documents  = $this->assetDocuments($model, $asset);
@@ -405,6 +439,7 @@ class AssetFactory extends ModelFactory {
                 ViewAssetDocument $assetDocument,
                 ?AssetWarranty $warranty,
             ) use (
+                $force,
                 $model,
                 &$created,
             ): ?AssetWarranty {
@@ -430,8 +465,16 @@ class AssetFactory extends ModelFactory {
                         return null;
                     }
 
+                    // Unchanged?
+                    $hash = $assetDocument->getHash();
+
+                    if ($warranty && $force === false && $hash === $warranty->hash) {
+                        return $warranty;
+                    }
+
                     // Create/Update
                     $warranty                ??= new AssetWarranty();
+                    $warranty->hash            = $hash;
                     $warranty->key             = $key;
                     $warranty->start           = $start;
                     $warranty->end             = $end;
@@ -504,20 +547,33 @@ class AssetFactory extends ModelFactory {
         return $product;
     }
 
-    protected function assetLocation(ViewAsset $asset): ?Location {
-        // fixme(DataLoader): Coordinates are not the same across all
-        //      locations :( So to avoid race conditions, we are disallow
-        //      to update them from here.
-        $location = $this->locationFactory->create($asset, false);
+    protected function assetLocation(ViewAsset $asset): ?LocationModel {
+        $model    = null;
+        $location = new Location([
+            'zip'         => $asset->zip ?? null,
+            'city'        => $asset->city ?? null,
+            'address'     => implode(' ', array_filter([$asset->address ?? null, $asset->address2 ?? null])),
+            'country'     => $asset->country ?? null,
+            'countryCode' => $asset->countryCode ?? null,
+            'latitude'    => $asset->latitude ?? null,
+            'longitude'   => $asset->longitude ?? null,
+        ]);
 
-        if (!$location) {
-            $this->getExceptionHandler()->report(
-                new AssetLocationNotFound($asset->id, $asset),
-            );
+        if (!$this->isLocationEmpty($location)) {
+            // fixme(DataLoader): Coordinates are not the same across all
+            //      locations :( So to avoid race conditions, we are disallow
+            //      to update them from here.
+            $model = $this->location($location, false);
+
+            if (!$model) {
+                $this->getExceptionHandler()->report(
+                    new AssetLocationNotFound($asset->id, $asset),
+                );
+            }
         }
 
         // Return
-        return $location;
+        return $model;
     }
 
     protected function assetStatus(ViewAsset $asset): Status {

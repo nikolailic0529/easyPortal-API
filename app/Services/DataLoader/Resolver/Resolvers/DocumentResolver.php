@@ -12,7 +12,7 @@ use Illuminate\Database\Eloquent\Builder;
  */
 class DocumentResolver extends Resolver {
     /**
-     * @param Closure(): Document|null $factory
+     * @param Closure(?Document): Document|null $factory
      *
      * @return ($factory is null ? Document|null : Document)
      */

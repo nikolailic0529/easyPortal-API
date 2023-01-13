@@ -69,8 +69,8 @@ class DocumentFactoryTest extends TestCase {
      *
      * @dataProvider dataProviderCreate
      */
-    public function testCreate(?string $expected, Closure $typeFactory): void {
-        $type    = $typeFactory($this);
+    public function testCreate(?string $expected, Type $type): void {
+        $force   = $this->faker->boolean();
         $factory = Mockery::mock(DocumentFactory::class);
         $factory->makePartial();
         $factory->shouldAllowMockingProtectedMethods();
@@ -78,14 +78,14 @@ class DocumentFactoryTest extends TestCase {
         if ($expected) {
             $factory->shouldReceive($expected)
                 ->once()
-                ->with($type)
+                ->with($type, $force)
                 ->andReturns();
         } else {
             self::expectException(InvalidArgumentException::class);
             self::expectErrorMessageMatches('/^The `\$type` must be instance of/');
         }
 
-        $factory->create($type);
+        $factory->create($type, $force);
     }
 
     /**
@@ -109,7 +109,7 @@ class DocumentFactoryTest extends TestCase {
 
         // Test
         $queries  = $this->getQueryLog()->flush();
-        $created  = $factory->createFromViewAssetDocument($object);
+        $created  = $factory->createFromViewAssetDocument($object, false);
         $actual   = array_column($queries->get(), 'query');
         $expected = $this->getTestData()->json('~createFromViewAssetDocument-create-expected.json');
 
@@ -148,7 +148,7 @@ class DocumentFactoryTest extends TestCase {
 
         self::assertInstanceOf(ViewAssetDocument::class, $object);
 
-        $factory->createFromViewAssetDocument($object);
+        $factory->createFromViewAssetDocument($object, false);
 
         self::assertCount(0, $queries);
     }
@@ -167,7 +167,7 @@ class DocumentFactoryTest extends TestCase {
         $object = reset($asset->assetDocument);
 
         self::assertInstanceOf(ViewAssetDocument::class, $object);
-        self::assertNull($factory->createFromViewAssetDocument($object));
+        self::assertNull($factory->createFromViewAssetDocument($object, false));
     }
 
     /**
@@ -188,7 +188,7 @@ class DocumentFactoryTest extends TestCase {
 
         self::assertInstanceOf(ViewAssetDocument::class, $object);
 
-        $created = $factory->createFromViewAssetDocument($object);
+        $created = $factory->createFromViewAssetDocument($object, false);
 
         self::assertNotNull($created);
         self::assertNull($created->reseller_id);
@@ -213,7 +213,7 @@ class DocumentFactoryTest extends TestCase {
 
         self::assertInstanceOf(ViewAssetDocument::class, $object);
 
-        $created = $factory->createFromViewAssetDocument($object);
+        $created = $factory->createFromViewAssetDocument($object, false);
 
         self::assertNotNull($created);
         self::assertNull($created->type_id);
@@ -240,7 +240,7 @@ class DocumentFactoryTest extends TestCase {
         self::assertTrue($document->trashed());
 
         // Test
-        $created = $factory->createFromViewAssetDocument($object);
+        $created = $factory->createFromViewAssetDocument($object, false);
 
         self::assertNotNull($created);
         self::assertTrue($created->trashed());
@@ -266,7 +266,7 @@ class DocumentFactoryTest extends TestCase {
         $object->document->contactPersons = null;
 
         // Test
-        $created = $factory->createFromViewAssetDocument($object);
+        $created = $factory->createFromViewAssetDocument($object, false);
 
         self::assertNotNull($created);
         self::assertCount(0, $created->contacts);
@@ -352,7 +352,7 @@ class DocumentFactoryTest extends TestCase {
                 // empty
             }
 
-            public function create(Type $type): ?DocumentModel {
+            public function create(Type $type, bool $force = false): ?DocumentModel {
                 return null;
             }
 
@@ -482,13 +482,14 @@ class DocumentFactoryTest extends TestCase {
                 DocumentModel $model,
                 DocumentEntry $documentEntry,
                 ?DocumentEntryModel $entry,
+                bool $force,
             ): DocumentEntryModel {
-                return parent::documentEntry($model, $documentEntry, $entry);
+                return parent::documentEntry($model, $documentEntry, $entry, $force);
             }
         };
 
         // Base
-        $entry = $factory->documentEntry($document, $documentEntry, null);
+        $entry = $factory->documentEntry($document, $documentEntry, null, false);
 
         self::assertEquals($uid, $entry->key);
         self::assertEquals($asset->getKey(), $entry->asset_id);
@@ -527,7 +528,7 @@ class DocumentFactoryTest extends TestCase {
 
         // Removing
         $documentEntry->deletedAt = Date::now();
-        $entry                    = $factory->documentEntry($document, $documentEntry, null);
+        $entry                    = $factory->documentEntry($document, $documentEntry, null, false);
 
         self::assertNotNull($entry->removed_at);
         self::assertNotNull($entry->deleted_at);
@@ -538,7 +539,7 @@ class DocumentFactoryTest extends TestCase {
         $model                    = DocumentEntryModel::factory()->create([
             'deleted_at' => $date,
         ]);
-        $entry                    = $factory->documentEntry($document, $documentEntry, $model);
+        $entry                    = $factory->documentEntry($document, $documentEntry, $model, false);
 
         self::assertNotNull($entry->removed_at);
         self::assertNotNull($entry->deleted_at);
@@ -549,7 +550,7 @@ class DocumentFactoryTest extends TestCase {
         $model                    = DocumentEntryModel::factory()->create([
             'deleted_at' => Date::now(),
         ]);
-        $entry                    = $factory->documentEntry($document, $documentEntry, $model);
+        $entry                    = $factory->documentEntry($document, $documentEntry, $model, false);
 
         self::assertNull($entry->removed_at);
         self::assertNull($entry->deleted_at);
@@ -942,13 +943,13 @@ class DocumentFactoryTest extends TestCase {
                 // empty
             }
 
-            public function documentEntries(DocumentModel $model, Document $document): EloquentCollection {
-                return parent::documentEntries($model, $document);
+            public function documentEntries(DocumentModel $model, Document $document, bool $force): EloquentCollection {
+                return parent::documentEntries($model, $document, $force);
             }
         };
 
         // Test
-        $actual  = $factory->documentEntries($document, $object);
+        $actual  = $factory->documentEntries($document, $object, false);
         $entries = $actual->keyBy(new GetKey());
 
         self::assertCount(3, $actual);
@@ -1010,7 +1011,7 @@ class DocumentFactoryTest extends TestCase {
 
         // Test
         $queries  = $this->getQueryLog()->flush();
-        $created  = $factory->createFromDocument($object);
+        $created  = $factory->createFromDocument($object, false);
         $actual   = array_column($queries->get(), 'query');
         $expected = $this->getTestData()->json('~createFromDocument-document-full-queries.json');
 
@@ -1081,7 +1082,7 @@ class DocumentFactoryTest extends TestCase {
         $json     = $this->getTestData()->json('~createFromDocument-document-changed.json');
         $object   = new Document($json);
         $queries  = $this->getQueryLog()->flush();
-        $changed  = $factory->createFromDocument($object);
+        $changed  = $factory->createFromDocument($object, false);
         $actual   = array_column($queries->get(), 'query');
         $expected = $this->getTestData()->json('~createFromDocument-document-changed-queries.json');
 
@@ -1120,12 +1121,9 @@ class DocumentFactoryTest extends TestCase {
         $object  = new Document($json);
         $queries = $this->getQueryLog()->flush();
 
-        $factory->createFromDocument($object);
+        $factory->createFromDocument($object, false);
 
-        $actual   = array_column($queries->get(), 'query');
-        $expected = $this->getTestData()->json('~createFromDocument-document-unchanged-queries.json');
-
-        self::assertEquals($expected, $actual);
+        self::assertEmpty($queries->get());
     }
 
     /**
@@ -1146,7 +1144,7 @@ class DocumentFactoryTest extends TestCase {
         $object = new Document($json);
 
         // Test
-        $created = $factory->createFromDocument($object);
+        $created = $factory->createFromDocument($object, false);
 
         self::assertNotNull($created);
         self::assertNull($created->type_id);
@@ -1172,7 +1170,7 @@ class DocumentFactoryTest extends TestCase {
         self::assertTrue($document->trashed());
 
         // Test
-        $created = $factory->createFromDocument($object);
+        $created = $factory->createFromDocument($object, false);
 
         self::assertNotNull($created);
         self::assertFalse($created->trashed());
@@ -1205,28 +1203,16 @@ class DocumentFactoryTest extends TestCase {
         return [
             ViewAssetDocument::class => [
                 'createFromViewAssetDocument',
-                static function (TestCase $test): Type {
-                    return new ViewAssetDocument([
-                        'document' => [
-                            'id' => $test->faker->uuid(),
-                        ],
-                    ]);
-                },
+                new ViewAssetDocument(),
             ],
             Document::class          => [
                 'createFromDocument',
-                static function (TestCase $test): Type {
-                    return new Document([
-                        'id' => $test->faker->uuid(),
-                    ]);
-                },
+                new Document(),
             ],
             'Unknown'                => [
                 null,
-                static function (TestCase $test): Type {
-                    return new class() extends Type {
-                        // empty
-                    };
+                new class() extends Type {
+                    // empty
                 },
             ],
         ];
@@ -1344,12 +1330,12 @@ class DocumentFactoryTest_Factory extends DocumentFactory {
         return parent::documentType($document);
     }
 
-    public function createFromViewAssetDocument(ViewAssetDocument $object): ?DocumentModel {
-        return parent::createFromViewAssetDocument($object);
+    public function createFromViewAssetDocument(ViewAssetDocument $object, bool $force): ?DocumentModel {
+        return parent::createFromViewAssetDocument($object, $force);
     }
 
-    public function createFromDocument(Document $document): ?DocumentModel {
-        return parent::createFromDocument($document);
+    public function createFromDocument(Document $document, bool $force): ?DocumentModel {
+        return parent::createFromDocument($document, $force);
     }
 
     public function documentEntryAsset(DocumentModel $model, DocumentEntry $documentEntry): ?Asset {

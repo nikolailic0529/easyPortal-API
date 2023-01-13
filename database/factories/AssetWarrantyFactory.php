@@ -40,6 +40,7 @@ class AssetWarrantyFactory extends Factory {
             'start'            => $this->faker->randomElement([null, $this->faker->dateTime()]),
             'end'              => $this->faker->randomElement([null, $this->faker->dateTime()]),
             'description'      => null,
+            'hash'             => null,
             'document_number'  => null,
             'created_at'       => Date::now(),
             'updated_at'       => Date::now(),

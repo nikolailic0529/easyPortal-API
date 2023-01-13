@@ -20,8 +20,8 @@ class ProductGroupResolverTest extends TestCase {
      */
     public function testGet(): void {
         // Prepare
-        $factory = static function (): ProductGroup {
-            return ProductGroup::factory()->make();
+        $factory = static function (?ProductGroup $group): ProductGroup {
+            return $group ?? ProductGroup::factory()->make();
         };
 
         $a = ProductGroup::factory()->create([

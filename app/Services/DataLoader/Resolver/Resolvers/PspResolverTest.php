@@ -20,8 +20,8 @@ class PspResolverTest extends TestCase {
      */
     public function testGet(): void {
         // Prepare
-        $factory = static function (): Psp {
-            return Psp::factory()->make();
+        $factory = static function (?Psp $psp): Psp {
+            return $psp ?? Psp::factory()->make();
         };
 
         $a = Psp::factory()->create([

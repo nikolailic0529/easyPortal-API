@@ -26,8 +26,8 @@ class ServiceLevelResolverTest extends TestCase {
         $oemB    = Oem::factory()->create();
         $groupA  = ServiceGroup::factory()->create();
         $groupB  = ServiceGroup::factory()->create();
-        $factory = static function (): ServiceLevel {
-            return ServiceLevel::factory()->make();
+        $factory = static function (?ServiceLevel $level): ServiceLevel {
+            return $level ?? ServiceLevel::factory()->make();
         };
 
         $a = ServiceLevel::factory()->create([

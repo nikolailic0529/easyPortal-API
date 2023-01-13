@@ -4,8 +4,9 @@ namespace App\Services\DataLoader\Container;
 
 use App\Services\DataLoader\Factory\Factory;
 use App\Services\DataLoader\Resolver\Resolver;
+use App\Services\DataLoader\Schema\Type;
+use App\Utils\Eloquent\Model;
 use Illuminate\Contracts\Debug\ExceptionHandler;
-use Illuminate\Database\Eloquent\Model;
 use Tests\TestCase;
 
 /**
@@ -123,6 +124,8 @@ class ContainerTest_Resolver extends Resolver {
 /**
  * @internal
  * @noinspection PhpMultipleClassesDeclarationsInOneFile
+ *
+ * @extends Factory<Model>
  */
 class ContainerTest_Factory extends Factory {
     public function __construct(
@@ -130,6 +133,14 @@ class ContainerTest_Factory extends Factory {
         public ContainerTest_Singleton $singleton,
     ) {
         parent::__construct($exceptionHandler);
+    }
+
+    public function create(Type $type, bool $force = false): ?Model {
+        return null;
+    }
+
+    public function getModel(): string {
+        return Model::class;
     }
 }
 

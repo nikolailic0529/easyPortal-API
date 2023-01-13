@@ -20,8 +20,8 @@ class CoverageResolverTest extends TestCase {
      */
     public function testGet(): void {
         // Prepare
-        $factory = static function (): Coverage {
-            return Coverage::factory()->make();
+        $factory = static function (?Coverage $coverage): Coverage {
+            return $coverage ?? Coverage::factory()->make();
         };
 
         Coverage::factory()->create(['key' => 'a']);

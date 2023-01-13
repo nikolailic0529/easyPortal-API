@@ -22,8 +22,8 @@ class ResellerResolverTest extends TestCase {
      */
     public function testGet(): void {
         // Prepare
-        $factory = static function (): Reseller {
-            return Reseller::factory()->make();
+        $factory = static function (?Reseller $reseller): Reseller {
+            return $reseller ?? Reseller::factory()->make();
         };
 
         $a = Reseller::factory()->create();

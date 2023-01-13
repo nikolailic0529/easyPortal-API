@@ -15,7 +15,7 @@ use Illuminate\Database\Eloquent\Model;
  */
 class OemGroupResolver extends Resolver {
     /**
-     * @param Closure(): OemGroup|null $factory
+     * @param Closure(?OemGroup): OemGroup|null $factory
      *
      * @return ($factory is null ? OemGroup|null : OemGroup)
      */

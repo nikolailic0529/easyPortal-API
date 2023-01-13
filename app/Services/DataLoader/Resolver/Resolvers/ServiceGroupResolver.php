@@ -16,7 +16,7 @@ use Illuminate\Support\Collection;
  */
 class ServiceGroupResolver extends Resolver implements SingletonPersistent {
     /**
-     * @param Closure(): ServiceGroup|null $factory
+     * @param Closure(?ServiceGroup): ServiceGroup|null $factory
      *
      * @return ($factory is null ? ServiceGroup|null : ServiceGroup)
      */

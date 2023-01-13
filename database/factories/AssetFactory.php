@@ -45,6 +45,7 @@ class AssetFactory extends Factory {
             'data_quality'              => null,
             'eosl'                      => null,
             'contracts_active_quantity' => null,
+            'hash'                      => null,
             'changed_at'                => null,
             'synced_at'                 => null,
             'created_at'                => Date::now(),

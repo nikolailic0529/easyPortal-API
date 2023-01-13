@@ -23,8 +23,8 @@ class ServiceGroupResolverTest extends TestCase {
         // Prepare
         $oemA    = Oem::factory()->create();
         $oemB    = Oem::factory()->create();
-        $factory = static function (): ServiceGroup {
-            return ServiceGroup::factory()->make();
+        $factory = static function (?ServiceGroup $group): ServiceGroup {
+            return $group ?? ServiceGroup::factory()->make();
         };
 
         $a = ServiceGroup::factory()->create([

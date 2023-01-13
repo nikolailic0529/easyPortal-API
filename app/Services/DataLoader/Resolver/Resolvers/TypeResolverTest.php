@@ -26,8 +26,8 @@ class TypeResolverTest extends TestCase {
                 return 'test';
             }
         };
-        $factory = static function (): Type {
-            return Type::factory()->make();
+        $factory = static function (?Type $type): Type {
+            return $type ?? Type::factory()->make();
         };
 
         Type::factory()->create([

@@ -8,6 +8,7 @@ Options:
       --state[=STATE]                      Initial state, allows to continue processing (overwrites other options except `--chunk`)
       --chunk[=CHUNK]                      Chunk size
       --from[=FROM]                        Start processing from given DateTime/DateInterval
+  -f, --force                              Force update
       --outdated                           Process outdated Distributors
       --no-outdated                        Do not process outdated Distributors (default)
       --outdated-limit[=OUTDATED-LIMIT]    Maximum number of outdated Distributors to process (default "all")

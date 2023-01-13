@@ -39,6 +39,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  * @property int                              $locations_count
  * @property int                              $contacts_count
  * @property int                              $statuses_count
+ * @property string|null                      $hash
  * @property CarbonImmutable|null             $changed_at
  * @property CarbonImmutable|null             $synced_at
  * @property CarbonImmutable                  $created_at

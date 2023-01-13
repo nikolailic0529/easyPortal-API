@@ -3,7 +3,7 @@
 namespace App\Services\DataLoader\Processors\Importer;
 
 use App\Services\DataLoader\Collector\Data;
-use App\Services\DataLoader\Factory\ModelFactory;
+use App\Services\DataLoader\Factory\Factory;
 use App\Services\DataLoader\Resolver\Resolver;
 use App\Services\DataLoader\Schema\Type;
 use App\Services\DataLoader\Schema\TypeWithKey;
@@ -39,6 +39,7 @@ class ImporterTest extends TestCase {
         self::assertEquals(
             [
                 'from'      => null,
+                'force'     => false,
                 'updated'   => 0,
                 'created'   => 0,
                 'deleted'   => 1,
@@ -68,7 +69,8 @@ class ImporterTest extends TestCase {
                 return $this->id;
             }
         };
-        $factory  = Mockery::mock(ModelFactory::class);
+        $force    = $this->faker->boolean();
+        $factory  = Mockery::mock(Factory::class);
         $resolver = Mockery::mock(Resolver::class);
         $importer = Mockery::mock(Importer::class);
         $importer->shouldAllowMockingProtectedMethods();
@@ -83,7 +85,7 @@ class ImporterTest extends TestCase {
             ->andReturn($factory);
         $factory
             ->shouldReceive('create')
-            ->with($type)
+            ->with($type, $force)
             ->twice()
             ->andReturn(null);
 
@@ -94,13 +96,16 @@ class ImporterTest extends TestCase {
             ->once()
             ->andReturn(false);
 
-        $state = new ImporterState();
+        $state = new ImporterState([
+            'force' => $force,
+        ]);
 
         $importer->process($state, $data, $type);
 
         self::assertEquals(
             [
                 'from'      => null,
+                'force'     => $force,
                 'updated'   => 0,
                 'created'   => 1,
                 'deleted'   => 0,
@@ -122,13 +127,16 @@ class ImporterTest extends TestCase {
             ->once()
             ->andReturn(true);
 
-        $state = new ImporterState();
+        $state = new ImporterState([
+            'force' => $force,
+        ]);
 
         $importer->process($state, $data, $type);
 
         self::assertEquals(
             [
                 'from'      => null,
+                'force'     => $force,
                 'updated'   => 1,
                 'created'   => 0,
                 'deleted'   => 0,
