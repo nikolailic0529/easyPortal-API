@@ -17,16 +17,11 @@ use function iterator_to_array;
 
 /**
  * @internal
- * @coversDefaultClass \App\Utils\Iterators\Eloquent\EloquentIterator
+ * @covers \App\Utils\Iterators\Eloquent\EloquentIterator
  */
 class EloquentIteratorTest extends TestCase {
     use WithQueryLogs;
 
-    /**
-     * @covers ::getIterator
-     * @covers ::setOffset
-     * @covers ::setLimit
-     */
     public function testGetIterator(): void {
         // Prepare
         $models   = (new Collection(array_fill(0, 10, null)))
@@ -76,12 +71,6 @@ class EloquentIteratorTest extends TestCase {
         $queries->flush();
     }
 
-    /**
-     * @covers ::onInit
-     * @covers ::onFinish
-     * @covers ::onBeforeChunk
-     * @covers ::onAfterChunk
-     */
     public function testEvents(): void {
         $init   = Mockery::spy(static function (): void {
             // empty
@@ -152,9 +141,6 @@ class EloquentIteratorTest extends TestCase {
             ->once();
     }
 
-    /**
-     * @covers ::__clone
-     */
     public function testClone(): void {
         $builder  = Type::query();
         $iterator = new class($builder->getChunkedIterator()) extends EloquentIterator {
@@ -170,9 +156,6 @@ class EloquentIteratorTest extends TestCase {
         self::assertNotSame($iterator->getInternalIterator(), $clone->getInternalIterator());
     }
 
-    /**
-     * @covers ::getCount
-     */
     public function testGetCount(): void {
         $builder  = Type::query();
         $iterator = new EloquentIterator($builder->getChunkedIterator());

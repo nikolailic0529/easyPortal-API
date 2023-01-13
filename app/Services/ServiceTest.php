@@ -23,14 +23,11 @@ use function str_replace;
 
 /**
  * @internal
- * @coversDefaultClass \App\Services\Service
+ * @covers \App\Services\Service
  */
 class ServiceTest extends TestCase {
     // <editor-fold desc="Tests">
     // =========================================================================
-    /**
-     * @covers ::get
-     */
     public function testGet(): void {
         $cache   = Mockery::mock(Cache::class);
         $service = new class($cache) extends Service {
@@ -67,9 +64,6 @@ class ServiceTest extends TestCase {
             ->with(123);
     }
 
-    /**
-     * @covers ::set
-     */
     public function testSet(): void {
         $store   = $this->faker->word();
         $cache   = Mockery::mock(Cache::class);
@@ -117,9 +111,6 @@ class ServiceTest extends TestCase {
         self::assertSame($service, $service->set('b', $service));
     }
 
-    /**
-     * @covers ::has
-     */
     public function testHas(): void {
         $cache   = Mockery::mock(Cache::class);
         $service = new class($cache) extends Service {
@@ -141,9 +132,6 @@ class ServiceTest extends TestCase {
         self::assertTrue($service->has('a'));
     }
 
-    /**
-     * @covers ::delete
-     */
     public function testDelete(): void {
         $cache   = Mockery::mock(Cache::class);
         $service = new class($cache) extends Service {
@@ -165,9 +153,6 @@ class ServiceTest extends TestCase {
         self::assertTrue($service->delete(['a', 'b']));
     }
 
-    /**
-     * @covers ::getService
-     */
     public function testGetService(): void {
         self::assertEquals(null, Service::getService(Service::class));
         self::assertEquals(GraphQLService::class, Service::getService(GraphQLService::class));
@@ -176,9 +161,6 @@ class ServiceTest extends TestCase {
         self::assertEquals(DataLoaderService::class, Service::getService(DataLoaderImporter::class));
     }
 
-    /**
-     * @covers ::getServiceName
-     */
     public function testGetServiceName(): void {
         self::assertEquals(null, Service::getServiceName(Service::class));
         self::assertEquals('GraphQL', Service::getServiceName(GraphQLService::class));
@@ -194,8 +176,6 @@ class ServiceTest extends TestCase {
     }
 
     /**
-     * @covers ::getCacheKey
-     *
      * @dataProvider dataProviderGetKey
      *
      * @param array<object|string>|object|string $key

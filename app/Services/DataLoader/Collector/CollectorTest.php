@@ -9,13 +9,9 @@ use Tests\TestCase;
 
 /**
  * @internal
- * @coversDefaultClass \App\Services\DataLoader\Collector\Collector
+ * @covers \App\Services\DataLoader\Collector\Collector
  */
 class CollectorTest extends TestCase {
-    /**
-     * @covers ::collect
-     * @covers ::subscribe
-     */
     public function testCollect(): void {
         // Mock
         $collector = $this->app->make(Collector::class);
@@ -43,11 +39,6 @@ class CollectorTest extends TestCase {
         $collector->collect($object);
     }
 
-    /**
-     * @covers ::modelSaved
-     * @covers ::modelDeleted
-     * @covers ::subscribe
-     */
     public function testModelEvents(): void {
         // Mock
         $collector = $this->app->make(Collector::class);

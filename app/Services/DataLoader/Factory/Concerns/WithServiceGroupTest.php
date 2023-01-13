@@ -13,14 +13,11 @@ use Tests\TestCase;
 
 /**
  * @internal
- * @coversDefaultClass \App\Services\DataLoader\Factory\Concerns\WithServiceGroup
+ * @covers \App\Services\DataLoader\Factory\Concerns\WithServiceGroup
  */
 class WithServiceGroupTest extends TestCase {
     use WithQueryLog;
 
-    /**
-     * @covers ::serviceGroup
-     */
     public function testServiceGroup(): void {
         // Prepare
         $oem      = Oem::factory()->create();

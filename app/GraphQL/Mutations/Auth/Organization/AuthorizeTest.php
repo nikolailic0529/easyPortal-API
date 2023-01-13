@@ -25,7 +25,7 @@ use Throwable;
 
 /**
  * @internal
- * @coversDefaultClass \App\GraphQL\Mutations\Auth\Organization\Authorize
+ * @covers \App\GraphQL\Mutations\Auth\Organization\Authorize
  *
  * @phpstan-import-type OrganizationFactory from WithOrganization
  * @phpstan-import-type UserFactory from WithUser
@@ -34,7 +34,6 @@ class AuthorizeTest extends TestCase {
     // <editor-fold desc="Tests">
     // =========================================================================
     /**
-     * @covers ::__invoke
      * @dataProvider dataProviderInvoke
      *
      * @param OrganizationFactory $orgFactory

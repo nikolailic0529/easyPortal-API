@@ -20,12 +20,9 @@ use const PHP_EOL;
 
 /**
  * @internal
- * @coversDefaultClass \App\Providers\AppServiceProvider
+ * @covers \App\Providers\AppServiceProvider
  */
 class AppServiceProviderTest extends TestCase {
-    /**
-     * @covers ::register
-     */
     public function testRegister(): void {
         // All dates must be immutable
         self::assertInstanceOf(CarbonImmutable::class, Date::now());
@@ -45,9 +42,6 @@ class AppServiceProviderTest extends TestCase {
         ], $model->toArray());
     }
 
-    /**
-     * @covers ::bootMorphMap
-     */
     public function testBootMorphMap(): void {
         $expected = [];
         $actual   = Relation::$morphMap;

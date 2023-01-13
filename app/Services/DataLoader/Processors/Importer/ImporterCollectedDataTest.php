@@ -13,13 +13,9 @@ use Tests\TestCase;
 
 /**
  * @internal
- * @coversDefaultClass \App\Services\DataLoader\Processors\Importer\ImporterCollectedData
+ * @covers \App\Services\DataLoader\Processors\Importer\ImporterCollectedData
  */
 class ImporterCollectedDataTest extends TestCase {
-    /**
-     * @covers ::collect
-     * @covers ::getData
-     */
     public function testCollect(): void {
         // Prepare
         $threshold = 2;

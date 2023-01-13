@@ -42,7 +42,7 @@ use function count;
 
 /**
  * @internal
- * @coversDefaultClass \App\GraphQL\Queries\Quotes\Quotes
+ * @covers \App\GraphQL\Queries\Quotes\Quotes
  *
  * @phpstan-import-type OrganizationFactory from WithOrganization
  * @phpstan-import-type UserFactory from WithUser
@@ -52,8 +52,6 @@ class QuotesTest extends TestCase {
     // <editor-fold desc="Tests">
     // =========================================================================
     /**
-     * @covers ::__invoke
-     *
      * @dataProvider dataProviderQuery
      *
      * @param OrganizationFactory                              $orgFactory

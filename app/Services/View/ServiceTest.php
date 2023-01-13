@@ -9,7 +9,7 @@ use function preg_quote;
 
 /**
  * @internal
- * @coversDefaultClass \App\Services\View\Service
+ * @covers \App\Services\View\Service
  */
 class ServiceTest extends TestCase {
     // <editor-fold desc="Tests">

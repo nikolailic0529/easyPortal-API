@@ -11,12 +11,9 @@ use Tests\TestCase;
 
 /**
  * @internal
- * @coversDefaultClass \App\Services\Queue\Concerns\PingableJob
+ * @covers \App\Services\Queue\Concerns\PingableJob
  */
 class PingableJobTest extends TestCase {
-    /**
-     * @covers ::handle
-     */
     public function testHandle(): void {
         $job = Mockery::mock(StoppableJob_Job::class);
         $job->makePartial();
@@ -35,9 +32,6 @@ class PingableJobTest extends TestCase {
         $this->app->make(Dispatcher::class)->dispatchNow($job);
     }
 
-    /**
-     * @covers ::handle
-     */
     public function testHandleStopped(): void {
         $job = Mockery::mock(StoppableJob_Job::class);
         $job->makePartial();

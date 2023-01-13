@@ -19,7 +19,7 @@ use function trans;
 
 /**
  * @internal
- * @coversDefaultClass \App\GraphQL\Mutations\Oem\Hpe\Import
+ * @covers \App\GraphQL\Mutations\Oem\Hpe\Import
  *
  * @phpstan-import-type OrganizationFactory from WithOrganization
  * @phpstan-import-type UserFactory from WithUser
@@ -28,8 +28,6 @@ class ImportTest extends TestCase {
     // <editor-fold desc="Tests">
     // =========================================================================
     /**
-     * @covers ::__invoke
-     *
      * @dataProvider dataProviderInvoke
      *
      * @param OrganizationFactory            $orgFactory

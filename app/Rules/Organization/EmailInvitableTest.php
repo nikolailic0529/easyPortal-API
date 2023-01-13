@@ -17,7 +17,7 @@ use function value;
 
 /**
  * @internal
- * @coversDefaultClass \App\Rules\Organization\EmailInvitable
+ * @covers \App\Rules\Organization\EmailInvitable
  *
  * @phpstan-type Expected array{passed: bool, messages: array<mixed>}
  */
@@ -25,8 +25,6 @@ class EmailInvitableTest extends TestCase {
     // <editor-fold desc="Tests">
     // =========================================================================
     /**
-     * @covers ::__invoke
-     *
      * @dataProvider dataProviderInvoke
      *
      * @param Expected                              $expected

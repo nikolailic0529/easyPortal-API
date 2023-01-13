@@ -14,7 +14,7 @@ use Tests\TestCase;
 
 /**
  * @internal
- * @coversDefaultClass \App\Services\Search\Commands\IndexesRebuild
+ * @covers \App\Services\Search\Commands\IndexesRebuild
  */
 class IndexesRebuildTest extends TestCase {
     /**
@@ -24,9 +24,6 @@ class IndexesRebuildTest extends TestCase {
         self::assertCommandDescription('ep:search-indexes-rebuild');
     }
 
-    /**
-     * @covers ::__invoke
-     */
     public function testInvoke(): void {
         $this->override(ModelsProcessor::class, static function (): MockInterface {
             $config     = Mockery::mock(Repository::class);

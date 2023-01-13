@@ -11,12 +11,9 @@ use Tests\TestCase;
 
 /**
  * @internal
- * @coversDefaultClass \App\Services\I18n\Translation\TranslationDefaults
+ * @covers \App\Services\I18n\Translation\TranslationDefaults
  */
 class TranslationDefaultsTest extends TestCase {
-    /**
-     * @covers ::loadModels
-     */
     public function testLoadModels(): void {
         // Prepare
         $modelA  = new class() extends Model implements Translatable {

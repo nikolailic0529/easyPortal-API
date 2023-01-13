@@ -12,14 +12,11 @@ use Tests\TestCase;
 
 /**
  * @internal
- * @coversDefaultClass \App\Rules\CustomerId
+ * @covers \App\Rules\CustomerId
  */
 class CustomerIdTest extends TestCase {
     // <editor-fold desc="Tests">
     // =========================================================================
-    /**
-     * @covers ::message
-     */
     public function testMessage(): void {
         $this->app->setLocale('de');
         $this->setTranslations(static function (TestCase $test, string $locale): array {
@@ -33,8 +30,6 @@ class CustomerIdTest extends TestCase {
     }
 
     /**
-     * @covers ::passes
-     *
      * @dataProvider dataProviderPasses
      *
      * @param Closure(static, ?Organization): ?string $valueFactory

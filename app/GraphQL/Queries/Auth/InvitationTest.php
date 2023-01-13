@@ -21,7 +21,7 @@ use Tests\WithUser;
 
 /**
  * @internal
- * @coversDefaultClass \App\GraphQL\Queries\Auth\Invitation
+ * @covers \App\GraphQL\Queries\Auth\Invitation
  *
  * @phpstan-import-type OrganizationFactory from WithOrganization
  * @phpstan-import-type UserFactory from WithUser
@@ -30,11 +30,6 @@ class InvitationTest extends TestCase {
     // <editor-fold desc="Tests">
     // =========================================================================
     /**
-     * @covers ::__invoke
-     * @covers ::isOutdated
-     * @covers ::isExpired
-     * @covers ::isUsed
-     *
      * @dataProvider dataProviderInvoke
      *
      * @param OrganizationFactory                           $orgFactory
@@ -77,9 +72,6 @@ class InvitationTest extends TestCase {
             ->assertThat($expected);
     }
 
-    /**
-     * @covers ::getInvitation
-     */
     public function testGetInvitation(): void {
         $query      = $this->app->make(Invitation::class);
         $encrypter  = $this->app->make(Encrypter::class);
@@ -94,9 +86,6 @@ class InvitationTest extends TestCase {
         ])));
     }
 
-    /**
-     * @covers ::isOutdated
-     */
     public function testOutdated(): void {
         $query = $this->app->make(Invitation::class);
         $org   = Organization::factory()->create();

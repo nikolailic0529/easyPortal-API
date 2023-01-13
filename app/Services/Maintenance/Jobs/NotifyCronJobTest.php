@@ -10,7 +10,7 @@ use Tests\TestCase;
 
 /**
  * @internal
- * @coversDefaultClass \App\Services\Maintenance\Jobs\NotifyCronJob
+ * @covers \App\Services\Maintenance\Jobs\NotifyCronJob
  */
 class NotifyCronJobTest extends TestCase {
     /**
@@ -20,9 +20,6 @@ class NotifyCronJobTest extends TestCase {
         self::assertCronableRegistered(NotifyCronJob::class);
     }
 
-    /**
-     * @covers ::__invoke
-     */
     public function testInvoke(): void {
         $config = $this->app->make(Repository::class);
         $job    = Mockery::mock(NotifyCronJob::class);
@@ -45,9 +42,6 @@ class NotifyCronJobTest extends TestCase {
         $job($config, $maintenance);
     }
 
-    /**
-     * @covers ::__invoke
-     */
     public function testInvokeNoSettings(): void {
         $config = $this->app->make(Repository::class);
         $job    = Mockery::mock(NotifyCronJob::class);

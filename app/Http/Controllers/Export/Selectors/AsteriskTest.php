@@ -7,14 +7,12 @@ use Tests\TestCase;
 
 /**
  * @internal
- * @coversDefaultClass \App\Http\Controllers\Export\Selectors\Asterisk
+ * @covers \App\Http\Controllers\Export\Selectors\Asterisk
  */
 class AsteriskTest extends TestCase {
     // <editor-fold desc="Tests">
     // =========================================================================
     /**
-     * @covers ::fill
-     *
      * @dataProvider dataProviderFill
      *
      * @param array<mixed>                          $expected
@@ -30,9 +28,6 @@ class AsteriskTest extends TestCase {
         self::assertEquals($expected, $row);
     }
 
-    /**
-     * @covers ::getSelectors
-     */
     public function testGetSelectors(): void {
         $selector = new Asterisk(
             new Group('a', [

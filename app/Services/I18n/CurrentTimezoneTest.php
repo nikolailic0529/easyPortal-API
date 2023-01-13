@@ -11,12 +11,9 @@ use function config;
 
 /**
  * @internal
- * @coversDefaultClass \App\Services\I18n\CurrentTimezone
+ * @covers \App\Services\I18n\CurrentTimezone
  */
 class CurrentTimezoneTest extends TestCase {
-    /**
-     * @covers ::set
-     */
     public function testSet(): void {
         $timezone = $this->app->make(CurrentTimezone::class);
         $expected = 'Test/A';
@@ -33,8 +30,6 @@ class CurrentTimezoneTest extends TestCase {
     }
 
     /**
-     * @covers ::get
-     *
      * @dataProvider dataProviderGet
      */
     public function testGet(

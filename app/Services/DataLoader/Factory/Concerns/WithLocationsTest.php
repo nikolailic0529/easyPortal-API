@@ -21,7 +21,7 @@ use Tests\WithQueryLogs;
 
 /**
  * @internal
- * @coversDefaultClass \App\Services\DataLoader\Factory\Concerns\WithLocations
+ * @covers \App\Services\DataLoader\Factory\Concerns\WithLocations
  */
 class WithLocationsTest extends TestCase {
     use WithoutGlobalScopes;
@@ -30,9 +30,6 @@ class WithLocationsTest extends TestCase {
 
     // <editor-fold desc="Tests">
     // =========================================================================
-    /**
-     * @covers ::location
-     */
     public function testLocation(): void {
         // Prepare
         $country = Country::factory()->create();
@@ -175,9 +172,6 @@ class WithLocationsTest extends TestCase {
         self::assertCount(0, $queries);
     }
 
-    /**
-     * @covers ::country
-     */
     public function testCountry(): void {
         // Prepare
         $resolver = $this->app->make(CountryResolver::class);
@@ -259,9 +253,6 @@ class WithLocationsTest extends TestCase {
         self::assertCount(2, $queries);
     }
 
-    /**
-     * @covers ::city
-     */
     public function testCity(): void {
         // Prepare
         $country  = Country::factory()->create();
@@ -320,8 +311,6 @@ class WithLocationsTest extends TestCase {
     }
 
     /**
-     * @covers ::geohash
-     *
      * @dataProvider dataProviderGeohash
      */
     public function testGeohash(?string $expected, ?string $latitude, ?string $longitude): void {
@@ -360,8 +349,6 @@ class WithLocationsTest extends TestCase {
     }
 
     /**
-     * @covers ::isLocationEmpty
-     *
      * @dataProvider dataProviderIsLocationEmpty
      *
      * @param Closure(static): Location $locationFactory

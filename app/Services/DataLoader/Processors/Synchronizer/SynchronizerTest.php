@@ -24,7 +24,7 @@ use const JSON_THROW_ON_ERROR;
 
 /**
  * @internal
- * @coversDefaultClass \App\Services\DataLoader\Processors\Synchronizer\Synchronizer
+ * @covers \App\Services\DataLoader\Processors\Synchronizer\Synchronizer
  */
 class SynchronizerTest extends TestCase {
     public function testOperationsRespectSettings(): void {

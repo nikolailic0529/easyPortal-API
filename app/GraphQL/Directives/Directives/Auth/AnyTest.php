@@ -14,7 +14,7 @@ use function addslashes;
 
 /**
  * @internal
- * @coversDefaultClass \App\GraphQL\Directives\Directives\Auth\Any
+ * @covers \App\GraphQL\Directives\Directives\Auth\Any
  *
  * @phpstan-import-type UserFactory from WithUser
  */
@@ -23,12 +23,6 @@ class AnyTest extends TestCase {
 
     // <editor-fold desc="Tests">
     // =========================================================================
-    /**
-     * @covers ::manipulateTypeExtension
-     * @covers ::manipulateTypeDefinition
-     * @covers ::manipulateFieldDefinition
-     * @covers ::addRequirements
-     */
     public function testDirective(): void {
         self::assertGraphQLSchemaEquals(
             $this->getGraphQLSchemaExpected('~expected.graphql', '~schema.graphql'),
@@ -37,8 +31,6 @@ class AnyTest extends TestCase {
     }
 
     /**
-     * @covers ::handleField
-     *
      * @dataProvider dataProviderResolveField
      *
      * @param UserFactory $userFactory
@@ -69,8 +61,6 @@ class AnyTest extends TestCase {
     }
 
     /**
-     * @covers ::handleField
-     *
      * @dataProvider dataProviderResolveField
      *
      * @param UserFactory $userFactory

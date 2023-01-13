@@ -22,7 +22,7 @@ use Tests\WithSearch;
 
 /**
  * @internal
- * @coversDefaultClass \App\Services\Search\Elastic\SearchRequestFactory
+ * @covers \App\Services\Search\Elastic\SearchRequestFactory
  */
 class SearchRequestFactoryTest extends TestCase {
     use WithSearch;
@@ -30,9 +30,6 @@ class SearchRequestFactoryTest extends TestCase {
     // <editor-fold desc="Tests">
     // =========================================================================
     /**
-     * @covers ::makeFilter
-     * @covers ::makeSort
-     *
      * @dataProvider dataProviderMakeFromBuilder
      *
      * @param array<mixed>                             $expected
@@ -69,9 +66,6 @@ class SearchRequestFactoryTest extends TestCase {
         self::assertEquals($expected, $factory->makeFromBuilder($builder)->toArray());
     }
 
-    /**
-     * @covers ::makeFromUnionBuilder
-     */
     public function testMakeFromUnionBuilder(): void {
         // Prepare
         $model   = new UnionModel();
@@ -216,9 +210,6 @@ class SearchRequestFactoryTest extends TestCase {
         self::assertEquals($expected, $actual);
     }
 
-    /**
-     * @covers ::makeFromUnionBuilder
-     */
     public function testMakeFromUnionBuilderLimitOffset(): void {
         // Prepare
         $model   = new UnionModel();
@@ -302,8 +293,6 @@ class SearchRequestFactoryTest extends TestCase {
     }
 
     /**
-     * @covers ::makeQuery
-     *
      * @dataProvider dataProviderEscapeQueryString
      *
      * @param array<mixed>    $expected
@@ -345,9 +334,6 @@ class SearchRequestFactoryTest extends TestCase {
         self::assertEquals($expected, $actual);
     }
 
-    /**
-     * @covers ::escapeQueryString
-     */
     public function testEscapeQueryString(): void {
         self::assertEquals(
             '\\"te\\-xt \\(with\\)\\! \\{special\\} \\* \\&& \\/characters\\?\\\\\\"',
@@ -363,9 +349,6 @@ class SearchRequestFactoryTest extends TestCase {
         );
     }
 
-    /**
-     * @covers ::escapeWildcardString
-     */
     public function testEscapeWildcardString(): void {
         self::assertEquals(
             'text with \\* and \\? and \\ characters.',

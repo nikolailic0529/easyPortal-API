@@ -8,12 +8,9 @@ use function array_keys;
 
 /**
  * @internal
- * @coversDefaultClass \App\Services\DataLoader\Schema\Types\ViewDocument
+ * @covers \App\Services\DataLoader\Schema\Types\ViewDocument
  */
 class ViewDocumentTest extends TestCase {
-    /**
-     * @covers ::create
-     */
     public function testCreate(): void {
         $json = $this->getTestData()->json();
 
@@ -23,6 +20,7 @@ class ViewDocumentTest extends TestCase {
         $actual     = new ViewDocument($json);
         $properties = ViewDocument::getPropertiesNames();
 
+        self::assertEquals($actual->id, $actual->getKey());
         self::assertEqualsCanonicalizing($keys, $properties);
         self::assertEqualsCanonicalizing($keys, array_keys($actual->getProperties()));
     }

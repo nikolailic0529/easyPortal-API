@@ -6,14 +6,12 @@ use Tests\TestCase;
 
 /**
  * @internal
- * @coversDefaultClass \App\Http\Controllers\Export\Selectors\Property
+ * @covers \App\Http\Controllers\Export\Selectors\Property
  */
 class PropertyTest extends TestCase {
     // <editor-fold desc="Tests">
     // =========================================================================
     /**
-     * @covers ::fill
-     *
      * @dataProvider dataProviderFill
      *
      * @param array<mixed>                          $expected
@@ -29,9 +27,6 @@ class PropertyTest extends TestCase {
         self::assertEquals($expected, $row);
     }
 
-    /**
-     * @covers ::getSelectors
-     */
     public function testGetSelectors(): void {
         $selector = new Property('b', 1);
         $expected = [

@@ -11,12 +11,9 @@ use Tests\TestCase;
 
 /**
  * @internal
- * @coversDefaultClass \App\Services\Recalculator\Recalculator
+ * @covers \App\Services\Recalculator\Recalculator
  */
 class RecalculatorTest extends TestCase {
-    /**
-     * @covers ::dispatchModel
-     */
     public function testDispatchModel(): void {
         $model   = Customer::factory()->make();
         $service = Mockery::mock(Service::class);
@@ -37,9 +34,6 @@ class RecalculatorTest extends TestCase {
         });
     }
 
-    /**
-     * @covers ::dispatchModels
-     */
     public function testDispatchModels(): void {
         $modelA  = Customer::factory()->make();
         $modelB  = Customer::factory()->make();

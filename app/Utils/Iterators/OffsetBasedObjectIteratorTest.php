@@ -14,12 +14,9 @@ use function range;
 
 /**
  * @internal
- * @coversDefaultClass \App\Utils\Iterators\OffsetBasedObjectIterator
+ * @covers \App\Utils\Iterators\OffsetBasedObjectIterator
  */
 class OffsetBasedObjectIteratorTest extends TestCase {
-    /**
-     * @covers ::getIterator
-     */
     public function testGetIterator(): void {
         $data     = range(1, 10);
         $onInit   = Mockery::spy(static function (): void {
@@ -48,9 +45,6 @@ class OffsetBasedObjectIteratorTest extends TestCase {
         $executor->shouldHaveBeenCalled()->times(3);
     }
 
-    /**
-     * @covers ::getIterator
-     */
     public function testGetIteratorWithLimitOffset(): void {
         $data     = range(1, 10);
         $executor = Mockery::spy(static function (array $variables = []) use ($data): array {
@@ -82,9 +76,6 @@ class OffsetBasedObjectIteratorTest extends TestCase {
         $executor->shouldHaveBeenCalled()->times(1);
     }
 
-    /**
-     * @covers ::getIterator
-     */
     public function testGetIteratorChunkLessThanLimit(): void {
         $data     = range(1, 10);
         $executor = Mockery::spy(static function (array $variables = []) use ($data): array {
@@ -106,9 +97,6 @@ class OffsetBasedObjectIteratorTest extends TestCase {
         $executor->shouldHaveBeenCalled()->times(5);
     }
 
-    /**
-     * @covers ::getIterator
-     */
     public function testGetIteratorChunkGreaterThanLimit(): void {
         $data     = range(1, 10);
         $executor = Mockery::spy(static function (array $variables = []) use ($data): array {
@@ -130,9 +118,6 @@ class OffsetBasedObjectIteratorTest extends TestCase {
         $executor->shouldHaveBeenCalled()->times(1);
     }
 
-    /**
-     * @covers ::getIterator
-     */
     public function testGetIteratorLimitZero(): void {
         $executor = Mockery::spy(static function (): array {
             return [];
@@ -150,9 +135,6 @@ class OffsetBasedObjectIteratorTest extends TestCase {
         $executor->shouldNotHaveBeenCalled();
     }
 
-    /**
-     * @covers ::getIterator
-     */
     public function testGetIteratorInfiniteLoop(): void {
         $data     = range(1, 10);
         $executor = Mockery::spy(static function () use ($data): array {
@@ -169,9 +151,6 @@ class OffsetBasedObjectIteratorTest extends TestCase {
         iterator_to_array($iterator);
     }
 
-    /**
-     * @covers ::setOffset
-     */
     public function testSetOffset(): void {
         $iterator = new OffsetBasedObjectIterator(static function (): array {
             return [];
@@ -181,9 +160,6 @@ class OffsetBasedObjectIteratorTest extends TestCase {
         self::assertEquals(321, $iterator->setOffset(321)->getOffset());
     }
 
-    /**
-     * @covers ::setOffset
-     */
     public function testSetOffsetInvalidType(): void {
         self::expectException(InvalidArgumentException::class);
 

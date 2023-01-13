@@ -10,14 +10,11 @@ use Tests\TestCase;
 
 /**
  * @internal
- * @coversDefaultClass \App\Services\DataLoader\Resolver\Resolvers\CoverageResolver
+ * @covers \App\Services\DataLoader\Resolver\Resolvers\CoverageResolver
  */
 class CoverageResolverTest extends TestCase {
     use WithQueryLog;
 
-    /**
-     * @covers ::get
-     */
     public function testGet(): void {
         // Prepare
         $factory = static function (?Coverage $coverage): Coverage {

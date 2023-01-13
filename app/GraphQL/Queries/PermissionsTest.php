@@ -22,14 +22,13 @@ use Tests\WithUser;
 
 /**
  * @internal
- * @coversDefaultClass \App\GraphQL\Queries\Permissions
+ * @covers \App\GraphQL\Queries\Permissions
  *
  * @phpstan-import-type OrganizationFactory from WithOrganization
  * @phpstan-import-type UserFactory from WithUser
  */
 class PermissionsTest extends TestCase {
     /**
-     * @covers ::__invoke
      * @dataProvider dataProviderInvoke
      *
      * @param OrganizationFactory $orgFactory

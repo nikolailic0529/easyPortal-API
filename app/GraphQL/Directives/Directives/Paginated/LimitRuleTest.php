@@ -6,14 +6,12 @@ use Tests\TestCase;
 
 /**
  * @internal
- * @coversDefaultClass \App\GraphQL\Directives\Directives\Paginated\LimitRule
+ * @covers \App\GraphQL\Directives\Directives\Paginated\LimitRule
  */
 class LimitRuleTest extends TestCase {
     // <editor-fold desc="Tests">
     // =========================================================================
     /**
-     * @covers ::passes
-     *
      * @dataProvider dataProviderPasses
      */
     public function testPasses(bool $expected, ?int $limit, mixed $value): void {
@@ -24,9 +22,6 @@ class LimitRuleTest extends TestCase {
         self::assertEquals($expected, $this->app->make(LimitRule::class)->passes('test', $value));
     }
 
-    /**
-     * @covers ::message
-     */
     public function testMessage(): void {
         $this->setSettings([
             'ep.pagination.limit.max' => 123,

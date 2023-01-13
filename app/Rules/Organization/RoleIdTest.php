@@ -15,16 +15,13 @@ use Tests\WithoutGlobalScopes;
 
 /**
  * @internal
- * @coversDefaultClass \App\Rules\Organization\RoleId
+ * @covers \App\Rules\Organization\RoleId
  */
 class RoleIdTest extends TestCase {
     use WithoutGlobalScopes;
 
     // <editor-fold desc="Tests">
     // =========================================================================
-    /**
-     * @covers ::message
-     */
     public function testMessage(): void {
         $this->app->setLocale('de');
         $this->setTranslations(static function (TestCase $test, string $locale): array {
@@ -38,8 +35,6 @@ class RoleIdTest extends TestCase {
     }
 
     /**
-     * @covers ::passes
-     *
      * @dataProvider dataProviderPasses
      *
      * @param Closure(static): ?Context             $contextFactory

@@ -19,7 +19,7 @@ use Tests\WithoutGlobalScopes;
 
 /**
  * @internal
- * @coversDefaultClass \App\GraphQL\Directives\Directives\Paginated\PaginatedTrashed
+ * @covers \App\GraphQL\Directives\Directives\Paginated\PaginatedTrashed
  */
 class PaginatedTrashedTest extends TestCase {
     use WithoutGlobalScopes;
@@ -27,8 +27,6 @@ class PaginatedTrashedTest extends TestCase {
     // <editor-fold desc="Tests">
     // =========================================================================
     /**
-     * @covers ::handleBuilder
-     *
      * @dataProvider dataProviderHandleBuilder
      *
      * @param array{query: string, bindings: array<mixed>}                          $expected

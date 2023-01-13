@@ -14,16 +14,13 @@ use Tests\WithOrganization;
 
 /**
  * @internal
- * @coversDefaultClass \App\Rules\Org\PermissionId
+ * @covers \App\Rules\Org\PermissionId
  *
  * @phpstan-import-type OrganizationFactory from WithOrganization
  */
 class PermissionIdTest extends TestCase {
     // <editor-fold desc="Tests">
     // =========================================================================
-    /**
-     * @covers ::message
-     */
     public function testMessage(): void {
         $this->app->setLocale('de');
         $translationsFactory = static function (TestCase $test, string $locale): array {
@@ -38,8 +35,6 @@ class PermissionIdTest extends TestCase {
     }
 
     /**
-     * @covers ::passes
-     *
      * @dataProvider dataProviderPasses
      *
      * @param OrganizationFactory                     $orgFactory

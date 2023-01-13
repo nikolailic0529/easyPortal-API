@@ -7,14 +7,12 @@ use Tests\TestCase;
 
 /**
  * @internal
- * @coversDefaultClass \App\Http\Controllers\Export\Selectors\LogicalOr
+ * @covers \App\Http\Controllers\Export\Selectors\LogicalOr
  */
 class LogicalOrTest extends TestCase {
     // <editor-fold desc="Tests">
     // =========================================================================
     /**
-     * @covers ::fill
-     *
      * @dataProvider dataProviderFill
      *
      * @param array<mixed>                          $expected
@@ -31,9 +29,6 @@ class LogicalOrTest extends TestCase {
         self::assertEquals($expected, $row);
     }
 
-    /**
-     * @covers ::getSelectors
-     */
     public function testGetSelectors(): void {
         $selector = new LogicalOr(
             [

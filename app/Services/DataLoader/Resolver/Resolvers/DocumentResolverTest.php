@@ -11,15 +11,12 @@ use Tests\WithoutGlobalScopes;
 
 /**
  * @internal
- * @coversDefaultClass \App\Services\DataLoader\Resolver\Resolvers\DocumentResolver
+ * @covers \App\Services\DataLoader\Resolver\Resolvers\DocumentResolver
  */
 class DocumentResolverTest extends TestCase {
     use WithoutGlobalScopes;
     use WithQueryLog;
 
-    /**
-     * @covers ::get
-     */
     public function testGet(): void {
         // Prepare
         $factory = static function (?Document $document): Document {

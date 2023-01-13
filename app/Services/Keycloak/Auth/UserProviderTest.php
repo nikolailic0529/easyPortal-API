@@ -31,16 +31,13 @@ use function sprintf;
 
 /**
  * @internal
- * @coversDefaultClass \App\Services\Keycloak\Auth\UserProvider
+ * @covers \App\Services\Keycloak\Auth\UserProvider
  *
  * @phpstan-import-type OrganizationFactory from WithOrganization
  */
 class UserProviderTest extends TestCase {
     // <editor-fold desc="Tests">
     // =========================================================================
-    /**
-     * @covers ::retrieveById
-     */
     public function testRetrieveById(): void {
         $provider = $this->app->make(UserProvider::class);
         $user     = User::factory()->create();
@@ -50,8 +47,6 @@ class UserProviderTest extends TestCase {
     }
 
     /**
-     * @covers ::retrieveByCredentials
-     *
      * @dataProvider dataProviderRetrieveByCredentialsEmail
      */
     public function testRetrieveByCredentialsEmail(
@@ -80,8 +75,6 @@ class UserProviderTest extends TestCase {
     }
 
     /**
-     * @covers ::retrieveByCredentials
-     *
      * @dataProvider dataProviderRetrieveByCredentialsToken
      */
     public function testRetrieveByCredentialsToken(
@@ -136,8 +129,6 @@ class UserProviderTest extends TestCase {
     }
 
     /**
-     * @covers ::validateCredentials
-     *
      * @dataProvider dataProviderValidateCredentials
      */
     public function testValidateCredentials(
@@ -168,8 +159,6 @@ class UserProviderTest extends TestCase {
     }
 
     /**
-     * @covers ::getProperties
-     *
      * @dataProvider dataProviderGetProperties
      */
     public function testGetProperties(Closure $expected, Closure $claims): void {
@@ -213,9 +202,6 @@ class UserProviderTest extends TestCase {
         self::assertEquals($expected, $actual);
     }
 
-    /**
-     * @covers ::updateTokenUser
-     */
     public function testUpdateTokenUser(): void {
         $token        = Mockery::mock(UnencryptedToken::class);
         $organization = Organization::factory()->create([
@@ -266,8 +252,6 @@ class UserProviderTest extends TestCase {
     }
 
     /**
-     * @covers ::getOrganization
-     *
      * @dataProvider dataProviderGetOrganization
      *
      * @param Closure(static, string, Organization, User): array<mixed> $claimsFactory
@@ -307,9 +291,6 @@ class UserProviderTest extends TestCase {
         }
     }
 
-    /**
-     * @covers ::getPermissions
-     */
     public function testGetPermissionsNoOrganization(): void {
         $user     = User::factory()->create();
         $token    = $this->getToken();
@@ -330,9 +311,6 @@ class UserProviderTest extends TestCase {
         self::assertEquals([], $provider->getPermissions($user, $token, null));
     }
 
-    /**
-     * @covers ::getPermissions
-     */
     public function testGetPermissionsNotMember(): void {
         $org      = Organization::factory()->make();
         $user     = User::factory()->create();
@@ -356,9 +334,6 @@ class UserProviderTest extends TestCase {
         self::assertEquals([], $provider->getPermissions($user, $token, $org));
     }
 
-    /**
-     * @covers ::getPermissions
-     */
     public function testGetPermissions(): void {
         $org         = Organization::factory()->create();
         $user        = User::factory()->create();

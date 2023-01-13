@@ -20,14 +20,11 @@ use Tests\WithOrganization;
 
 /**
  * @internal
- * @coversDefaultClass \App\Services\Audit\Listeners\InvitationListener
+ * @covers \App\Services\Audit\Listeners\InvitationListener
  *
  * @phpstan-import-type OrganizationFactory from WithOrganization
  */
 class InvitationListenerTest extends TestCase {
-    /**
-     * @covers ::getEvents
-     */
     public function testSubscribe(): void {
         $invitation = Invitation::factory()->make();
         $created    = new InvitationCreated($invitation);
@@ -81,9 +78,6 @@ class InvitationListenerTest extends TestCase {
         $dispatcher->dispatch($used);
     }
 
-    /**
-     * @covers ::__invoke
-     */
     public function testInvokeUnsupported(): void {
         self::expectException(LogicException::class);
 
@@ -92,9 +86,6 @@ class InvitationListenerTest extends TestCase {
         $listener(new stdClass());
     }
 
-    /**
-     * @covers ::__invoke
-     */
     public function testInvokeInvitationCreatedEvent(): void {
         $invitation = Invitation::factory()->make();
         $event      = new InvitationCreated($invitation);
@@ -116,9 +107,6 @@ class InvitationListenerTest extends TestCase {
         $listener($event);
     }
 
-    /**
-     * @covers ::__invoke
-     */
     public function testInvokeInvitationAcceptedEvent(): void {
         $invitation = Invitation::factory()->make();
         $event      = new InvitationAccepted($invitation);
@@ -140,9 +128,6 @@ class InvitationListenerTest extends TestCase {
         $listener($event);
     }
 
-    /**
-     * @covers ::__invoke
-     */
     public function testInvokeInvitationOutdatedEvent(): void {
         $invitation = Invitation::factory()->make();
         $event      = new InvitationOutdated($invitation);
@@ -164,9 +149,6 @@ class InvitationListenerTest extends TestCase {
         $listener($event);
     }
 
-    /**
-     * @covers ::__invoke
-     */
     public function testInvokeInvitationExpiredEvent(): void {
         $invitation = Invitation::factory()->make();
         $event      = new InvitationExpired($invitation);
@@ -188,9 +170,6 @@ class InvitationListenerTest extends TestCase {
         $listener($event);
     }
 
-    /**
-     * @covers ::__invoke
-     */
     public function testInvokeInvitationUsedEvent(): void {
         $invitation = Invitation::factory()->make();
         $event      = new InvitationUsed($invitation);

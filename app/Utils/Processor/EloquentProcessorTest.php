@@ -18,14 +18,11 @@ use function count;
 
 /**
  * @internal
- * @coversDefaultClass \App\Utils\Processor\EloquentProcessor
+ * @covers \App\Utils\Processor\EloquentProcessor
  */
 class EloquentProcessorTest extends TestCase {
     // <editor-fold desc="Tests">
     // =========================================================================
-    /**
-     * @covers ::getBuilder
-     */
     public function testGetBuilderDefault(): void {
         $builder   = $this->getBuilderMock();
         $processor = Mockery::mock(EloquentProcessor::class);
@@ -37,9 +34,6 @@ class EloquentProcessorTest extends TestCase {
         ])));
     }
 
-    /**
-     * @covers ::getBuilder
-     */
     public function testGetBuilderWithKeys(): void {
         $keys    = [$this->faker->uuid(), $this->faker->uuid()];
         $builder = $this->getBuilderMock();
@@ -54,9 +48,6 @@ class EloquentProcessorTest extends TestCase {
         ])));
     }
 
-    /**
-     * @covers ::getBuilder
-     */
     public function testGetBuilderWithTrashedNonSoftDeletes(): void {
         $builder   = $this->getBuilderMock();
         $processor = Mockery::mock(EloquentProcessor::class);
@@ -69,9 +60,6 @@ class EloquentProcessorTest extends TestCase {
         ])));
     }
 
-    /**
-     * @covers ::getBuilder
-     */
     public function testGetBuilderWithTrashedTrue(): void {
         $builder = $this->getBuilderMockSoftDeletes();
         $builder
@@ -89,9 +77,6 @@ class EloquentProcessorTest extends TestCase {
         ])));
     }
 
-    /**
-     * @covers ::getBuilder
-     */
     public function testGetBuilderWithTrashedFalse(): void {
         $builder = $this->getBuilderMockSoftDeletes();
         $builder
@@ -109,9 +94,6 @@ class EloquentProcessorTest extends TestCase {
         ])));
     }
 
-    /**
-     * @covers ::getBuilder
-     */
     public function testGetBuilderWithTrashedDefault(): void {
         $builder = $this->getBuilderMockSoftDeletes();
         $builder
@@ -128,9 +110,6 @@ class EloquentProcessorTest extends TestCase {
         ])));
     }
 
-    /**
-     * @covers ::getTotal
-     */
     public function testGetTotal(): void {
         $count   = $this->faker->randomDigit();
         $state   = new EloquentState();
@@ -157,9 +136,6 @@ class EloquentProcessorTest extends TestCase {
         self::assertEquals($count, $processor->getTotal($state));
     }
 
-    /**
-     * @covers ::getTotal
-     */
     public function testGetTotalWithKeys(): void {
         $keys      = array_fill(0, $this->faker->randomDigit(), $this->faker->uuid());
         $state     = new EloquentState(['keys' => $keys]);
@@ -175,9 +151,6 @@ class EloquentProcessorTest extends TestCase {
         self::assertEquals(count($keys), $processor->getTotal($state));
     }
 
-    /**
-     * @covers ::getIterator
-     */
     public function testGetIterator(): void {
         $state   = new EloquentState();
         $builder = Mockery::mock(Builder::class);
@@ -200,9 +173,6 @@ class EloquentProcessorTest extends TestCase {
         self::assertInstanceOf(EloquentIterator::class, $processor->getIterator($state));
     }
 
-    /**
-     * @covers ::getIterator
-     */
     public function testGetIteratorWithKeys(): void {
         $state     = new EloquentState(['keys' => [$this->faker->uuid()]]);
         $builder   = Mockery::mock(Builder::class);

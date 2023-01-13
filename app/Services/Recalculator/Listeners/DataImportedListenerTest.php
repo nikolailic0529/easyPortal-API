@@ -13,12 +13,9 @@ use Tests\TestCase;
 
 /**
  * @internal
- * @coversDefaultClass \App\Services\Recalculator\Listeners\DataImportedListener
+ * @covers \App\Services\Recalculator\Listeners\DataImportedListener
  */
 class DataImportedListenerTest extends TestCase {
-    /**
-     * @covers ::getEvents
-     */
     public function testSubscribe(): void {
         $this->override(DataImportedListener::class, static function (MockInterface $mock): void {
             $mock
@@ -31,9 +28,6 @@ class DataImportedListenerTest extends TestCase {
             ->dispatch(new DataImported(new Data()));
     }
 
-    /**
-     * @covers ::__invoke
-     */
     public function testInvoke(): void {
         $data  = (new Data())
             ->collect(Asset::factory()->make())

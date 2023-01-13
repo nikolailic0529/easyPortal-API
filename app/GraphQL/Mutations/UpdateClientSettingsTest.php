@@ -24,7 +24,7 @@ use function is_array;
 
 /**
  * @internal
- * @coversDefaultClass \App\GraphQL\Mutations\UpdateClientSettings
+ * @covers \App\GraphQL\Mutations\UpdateClientSettings
  *
  * @phpstan-import-type OrganizationFactory from WithOrganization
  * @phpstan-import-type UserFactory from WithUser
@@ -33,8 +33,6 @@ class UpdateClientSettingsTest extends TestCase {
     // <editor-fold desc="Tests">
     // =========================================================================
     /**
-     * @covers ::__invoke
-     *
      * @dataProvider dataProviderInvoke
      *
      * @param Response|array{response:Response,content:array<mixed>} $expected

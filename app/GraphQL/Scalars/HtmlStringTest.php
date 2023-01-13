@@ -8,13 +8,12 @@ use Tests\TestCase;
 
 /**
  * @internal
- * @coversDefaultClass \App\GraphQL\Scalars\HtmlString
+ * @covers \App\GraphQL\Scalars\HtmlString
  */
 class HtmlStringTest extends TestCase {
     // <editor-fold desc="Tests">
     // =========================================================================
     /**
-     * @covers ::serialize
      * @dataProvider dataProviderHtml
      */
     public function testSerialize(?string $expected, string $value): void {
@@ -25,7 +24,6 @@ class HtmlStringTest extends TestCase {
     }
 
     /**
-     * @covers ::parseValue
      * @dataProvider dataProviderHtml
      */
     public function testParseValue(string|Exception $expected, string $value): void {
@@ -40,7 +38,6 @@ class HtmlStringTest extends TestCase {
     }
 
     /**
-     * @covers ::parseLiteral
      * @dataProvider dataProviderHtml
      */
     public function testParseLiteral(string|Exception $expected, string $value): void {

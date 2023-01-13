@@ -6,7 +6,7 @@ use Tests\TestCase;
 
 /**
  * @internal
- * @coversDefaultClass \App\Services\DataLoader\Commands\ResellerSync
+ * @covers \App\Services\DataLoader\Commands\ResellerSync
  */
 class ResellerSyncTest extends TestCase {
     /**

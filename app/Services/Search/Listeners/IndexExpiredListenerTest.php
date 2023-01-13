@@ -16,14 +16,12 @@ use Tests\TestCase;
 
 /**
  * @internal
- * @coversDefaultClass \App\Services\Search\Listeners\IndexExpiredListener
+ * @covers \App\Services\Search\Listeners\IndexExpiredListener
  */
 class IndexExpiredListenerTest extends TestCase {
     // <editor-fold desc="Tests">
     // =========================================================================
     /**
-     * @covers ::getEvents
-     *
      * @dataProvider dataProviderSubscribe
      *
      * @param Closure(self): object $eventFactory
@@ -40,9 +38,6 @@ class IndexExpiredListenerTest extends TestCase {
             ->dispatch($eventFactory($this));
     }
 
-    /**
-     * @covers ::__invoke
-     */
     public function testInvokeDataImported(): void {
         $data  = (new Data())
             ->collect(Asset::factory()->make())
@@ -75,9 +70,6 @@ class IndexExpiredListenerTest extends TestCase {
         $listener($event);
     }
 
-    /**
-     * @covers ::__invoke
-     */
     public function testInvokeModelsRecalculated(): void {
         $model = Customer::class;
         $keys  = [

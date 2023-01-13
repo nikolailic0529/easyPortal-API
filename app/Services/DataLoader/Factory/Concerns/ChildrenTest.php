@@ -11,13 +11,10 @@ use Tests\TestCase;
 use function tap;
 
 /**
- * @coversDefaultClass \App\Services\DataLoader\Factory\Concerns\Children
+ * @covers \App\Services\DataLoader\Factory\Concerns\Children
  * @internal
  */
 class ChildrenTest extends TestCase {
-    /**
-     * @covers ::children
-     */
     public function testChildren(): void {
         $id                   = 1;
         $model                = new class() extends Model {

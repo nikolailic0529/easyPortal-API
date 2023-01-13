@@ -15,7 +15,7 @@ use Tests\WithOrganization;
 
 /**
  * @internal
- * @coversDefaultClass \App\GraphQL\Directives\Directives\Org\Relation
+ * @covers \App\GraphQL\Directives\Directives\Org\Relation
  *
  * @phpstan-import-type OrganizationFactory from WithOrganization
  */
@@ -25,8 +25,6 @@ class RelationTest extends TestCase {
     // <editor-fold desc="Tests">
     // =========================================================================
     /**
-     * @covers ::resolveField
-     *
      * @dataProvider dataProviderResolveField
      *
      * @param OrganizationFactory $orgFactory

@@ -10,12 +10,9 @@ use Tests\TestCase;
 
 /**
  * @internal
- * @coversDefaultClass \App\GraphQL\Extensions\LaraAsp\SearchBy\Metadata
+ * @covers \App\GraphQL\Extensions\LaraAsp\SearchBy\Metadata
  */
 class MetadataTest extends TestCase {
-    /**
-     * @covers ::isFulltextIndexExists
-     */
     public function testIsFulltextIndexExists(): void {
         $metadata = new Metadata();
 

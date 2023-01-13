@@ -15,7 +15,7 @@ use function array_column;
 
 /**
  * @internal
- * @coversDefaultClass \App\Services\DataLoader\Factory\Factories\DistributorFactory
+ * @covers \App\Services\DataLoader\Factory\Factories\DistributorFactory
  */
 class DistributorFactoryTest extends TestCase {
     use WithQueryLog;
@@ -24,8 +24,6 @@ class DistributorFactoryTest extends TestCase {
     // <editor-fold desc="Tests">
     // =========================================================================
     /**
-     * @covers ::create
-     *
      * @dataProvider dataProviderCreate
      */
     public function testCreate(?string $expected, Type $type): void {
@@ -47,10 +45,6 @@ class DistributorFactoryTest extends TestCase {
         $factory->create($type, $force);
     }
 
-    /**
-     * @covers ::create
-     * @covers ::createFromCompany
-     */
     public function testCreateFromCompany(): void {
         // Mock
         $this->overrideDateFactory('2021-08-30T00:00:00.000+00:00');
@@ -100,10 +94,6 @@ class DistributorFactoryTest extends TestCase {
         self::assertCount(0, $queries);
     }
 
-    /**
-     * @covers ::create
-     * @covers ::createFromCompany
-     */
     public function testCreateFromCompanyTrashed(): void {
         // Prepare
         $factory = $this->app->make(DistributorFactory::class);

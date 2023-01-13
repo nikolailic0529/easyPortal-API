@@ -19,7 +19,7 @@ use function trans;
 
 /**
  * @internal
- * @coversDefaultClass \App\GraphQL\Queries\Administration\Locale
+ * @covers \App\GraphQL\Queries\Administration\Locale
  *
  * @phpstan-import-type OrganizationFactory from WithOrganization
  * @phpstan-import-type UserFactory from WithUser
@@ -28,9 +28,6 @@ class LocaleTest extends TestCase {
     // <editor-fold desc="Tests">
     // =========================================================================
     /**
-     * @covers ::__invoke
-     * @covers ::translations
-     *
      * @dataProvider dataProviderInvoke
      *
      * @param OrganizationFactory   $orgFactory

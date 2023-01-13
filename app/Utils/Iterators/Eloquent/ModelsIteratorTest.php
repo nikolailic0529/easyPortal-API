@@ -16,16 +16,11 @@ use function iterator_to_array;
 
 /**
  * @internal
- * @coversDefaultClass \App\Utils\Iterators\Eloquent\ModelsIterator
+ * @covers \App\Utils\Iterators\Eloquent\ModelsIterator
  */
 class ModelsIteratorTest extends TestCase {
     use WithQueryLogs;
 
-    /**
-     * @covers ::getIterator
-     * @covers ::setOffset
-     * @covers ::setLimit
-     */
     public function testGetIterator(): void {
         // Prepare
         $models   = (new Collection(array_fill(0, 10, null)))
@@ -72,12 +67,6 @@ class ModelsIteratorTest extends TestCase {
         $queries->flush();
     }
 
-    /**
-     * @covers ::onInit
-     * @covers ::onFinish
-     * @covers ::onBeforeChunk
-     * @covers ::onAfterChunk
-     */
     public function testEvents(): void {
         $init   = Mockery::spy(static function (): void {
             // empty
@@ -148,9 +137,6 @@ class ModelsIteratorTest extends TestCase {
             ->once();
     }
 
-    /**
-     * @covers ::getCount
-     */
     public function testGetCount(): void {
         // Prepare
         $models   = array_fill(0, $this->faker->randomDigit(), 'abc');

@@ -20,7 +20,7 @@ use function trans;
 
 /**
  * @internal
- * @coversDefaultClass \App\GraphQL\Mutations\Locale\Reset
+ * @covers \App\GraphQL\Mutations\Locale\Reset
  *
  * @phpstan-import-type OrganizationFactory from WithOrganization
  * @phpstan-import-type UserFactory from WithUser
@@ -29,8 +29,6 @@ class ResetTest extends TestCase {
     // <editor-fold desc="Tests">
     // =========================================================================
     /**
-     * @covers ::__invoke
-     *
      * @dataProvider dataProviderInvoke
      *
      * @param OrganizationFactory $orgFactory

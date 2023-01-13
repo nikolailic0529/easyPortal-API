@@ -12,14 +12,11 @@ use Tests\TestCase;
 
 /**
  * @internal
- * @coversDefaultClass \App\Services\DataLoader\Resolver\Resolvers\ContactResolver
+ * @covers \App\Services\DataLoader\Resolver\Resolvers\ContactResolver
  */
 class ContactResolverTest extends TestCase {
     use WithQueryLog;
 
-    /**
-     * @covers ::get
-     */
     public function testGet(): void {
         // Prepare
         $ca      = Customer::factory()->create();
@@ -98,9 +95,6 @@ class ContactResolverTest extends TestCase {
         self::assertCount(0, $queries);
     }
 
-    /**
-     * @covers ::get
-     */
     public function testGetModelNotExistsWithoutId(): void {
         $model     = new Customer();
         $collector = $this->app->make(Collector::class);
@@ -116,9 +110,6 @@ class ContactResolverTest extends TestCase {
         $resolver->get($model, '', '', '');
     }
 
-    /**
-     * @covers ::get
-     */
     public function testGetModelNotExistsWithId(): void {
         $model     = Customer::factory()->make();
         $collector = $this->app->make(Collector::class);

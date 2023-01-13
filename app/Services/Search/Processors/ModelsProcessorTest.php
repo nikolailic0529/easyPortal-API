@@ -10,14 +10,11 @@ use Tests\WithQueryLogs;
 
 /**
  * @internal
- * @coversDefaultClass \App\Services\Search\Processors\ModelsProcessor
+ * @covers \App\Services\Search\Processors\ModelsProcessor
  */
 class ModelsProcessorTest extends TestCase {
     use WithQueryLogs;
 
-    /**
-     * @covers ::process
-     */
     public function testProcess(): void {
         // Setup
         $this->overrideDateFactory('2022-02-02T00:00:00.000+00:00');

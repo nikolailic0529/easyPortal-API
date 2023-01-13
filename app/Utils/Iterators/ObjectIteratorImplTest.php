@@ -9,13 +9,9 @@ use Tests\TestCase;
 
 /**
  * @internal
- * @coversDefaultClass \App\Utils\Iterators\ObjectIteratorImpl
+ * @covers \App\Utils\Iterators\ObjectIteratorImpl
  */
 class ObjectIteratorImplTest extends TestCase {
-    /**
-     * @covers ::chunkLoaded
-     * @covers ::onBeforeChunk
-     */
     public function testChunkLoaded(): void {
         $iterator = new class() extends ObjectIteratorImpl {
             /** @noinspection PhpMissingParentConstructorInspection */
@@ -53,10 +49,6 @@ class ObjectIteratorImplTest extends TestCase {
         $iterator->chunkLoaded([new stdClass()]);
     }
 
-    /**
-     * @covers ::chunkProcessed
-     * @covers ::onAfterChunk
-     */
     public function testChunkProcessed(): void {
         $iterator = new class() extends ObjectIteratorImpl {
             /** @noinspection PhpMissingParentConstructorInspection */
@@ -93,9 +85,6 @@ class ObjectIteratorImplTest extends TestCase {
         $iterator->chunkProcessed([new stdClass()]);
     }
 
-    /**
-     * @covers ::chunkPrepare
-     */
     public function testChunkPrepareInfiniteLoopDetection(): void {
         $iterator = new class() extends ObjectIteratorImpl {
             /** @noinspection PhpMissingParentConstructorInspection */

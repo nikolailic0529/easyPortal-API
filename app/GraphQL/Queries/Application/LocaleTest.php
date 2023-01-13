@@ -15,14 +15,13 @@ use Tests\WithUser;
 
 /**
  * @internal
- * @coversDefaultClass \App\GraphQL\Queries\Application\Locale
+ * @covers \App\GraphQL\Queries\Application\Locale
  *
  * @phpstan-import-type OrganizationFactory from WithOrganization
  * @phpstan-import-type UserFactory from WithUser
  */
 class LocaleTest extends TestCase {
     /**
-     * @covers ::__invoke
      * @dataProvider dataProviderQuery
      *
      * @param OrganizationFactory $orgFactory

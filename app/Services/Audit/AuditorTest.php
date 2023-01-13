@@ -29,13 +29,9 @@ use Tests\TestCase;
 
 /**
  * @internal
- * @coversDefaultClass \App\Services\Audit\Auditor
+ * @covers \App\Services\Audit\Auditor
  */
 class AuditorTest extends TestCase {
-    /**
-     * @covers ::create
-     *
-     */
     public function testCreated(): void {
         $this->setUser(User::factory()->make(), $this->setOrganization(Organization::factory()->make()));
         $changeRequest = ChangeRequest::factory()->make();
@@ -64,10 +60,6 @@ class AuditorTest extends TestCase {
         $changeRequest->save();
     }
 
-    /**
-     * @covers ::create
-     *
-     */
     public function testUpdated(): void {
         $this->setUser(User::factory()->make(), $this->setOrganization(Organization::factory()->make()));
 
@@ -110,9 +102,6 @@ class AuditorTest extends TestCase {
         $model->save();
     }
 
-    /**
-     * @covers ::create
-     */
     public function testUpdatedEmpty(): void {
         $this->setUser(User::factory()->make(), $this->setOrganization(Organization::factory()->make()));
 
@@ -128,10 +117,6 @@ class AuditorTest extends TestCase {
         $model->save();
     }
 
-    /**
-     * @covers ::create
-     *
-     */
     public function testDeleted(): void {
         $this->setUser(User::factory()->make(), $this->setOrganization(Organization::factory()->make()));
         $changeRequest = ChangeRequest::factory()->create();
@@ -153,10 +138,6 @@ class AuditorTest extends TestCase {
         $changeRequest->delete();
     }
 
-    /**
-     * @covers ::create
-     *
-     */
     public function testLogin(): void {
         $user = User::factory()->create();
 
@@ -186,10 +167,6 @@ class AuditorTest extends TestCase {
         );
     }
 
-    /**
-     * @covers ::create
-     *
-     */
     public function testLogout(): void {
         $user = User::factory()->make();
 
@@ -215,10 +192,6 @@ class AuditorTest extends TestCase {
         );
     }
 
-    /**
-     * @covers ::create
-     *
-     */
     public function testLoginFailed(): void {
         $this->override(Auditor::class, static function (MockInterface $mock): void {
             $mock
@@ -245,10 +218,6 @@ class AuditorTest extends TestCase {
         ]);
     }
 
-    /**
-     * @covers ::create
-     *
-     */
     public function testResetPassword(): void {
         $user = User::factory()->create([
             'email' => 'test@example.com',
@@ -270,7 +239,6 @@ class AuditorTest extends TestCase {
     }
 
     /**
-     * @covers ::create
      * @dataProvider dataProviderCreate
      */
     public function testCreate(Closure $expectedFactory, Closure $prepare = null): void {

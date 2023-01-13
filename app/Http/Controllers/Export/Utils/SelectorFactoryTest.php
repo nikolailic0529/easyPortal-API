@@ -17,14 +17,12 @@ use Tests\TestCase;
 
 /**
  * @internal
- * @coversDefaultClass \App\Http\Controllers\Export\Utils\SelectorFactory
+ * @covers \App\Http\Controllers\Export\Utils\SelectorFactory
  */
 class SelectorFactoryTest extends TestCase {
     // <editor-fold desc="Tests">
     // =========================================================================
     /**
-     * @covers ::make
-     *
      * @dataProvider dataProviderMake
      *
      * @param array<int<0, max>, string> $selectors

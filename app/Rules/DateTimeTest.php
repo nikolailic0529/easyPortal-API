@@ -10,14 +10,12 @@ use Tests\TestCase;
 
 /**
  * @internal
- * @coversDefaultClass \App\Rules\DateTime
+ * @covers \App\Rules\DateTime
  */
 class DateTimeTest extends TestCase {
     // <editor-fold desc="Tests">
     // =========================================================================
     /**
-     * @covers ::passes
-     *
      * @dataProvider dataProviderPasses
      */
     public function testPasses(bool $expected, mixed $value): void {
@@ -31,9 +29,6 @@ class DateTimeTest extends TestCase {
         self::assertEquals($expected, $passes);
     }
 
-    /**
-     * @covers ::message
-     */
     public function testMessage(): void {
         $this->setTranslations(static function (TestCase $case, string $locale): array {
             return [
@@ -50,8 +45,6 @@ class DateTimeTest extends TestCase {
     }
 
     /**
-     * @covers ::parse
-     *
      * @dataProvider dataProviderParse
      */
     public function testParse(Exception|string|null $expected, ?string $tz, ?string $value): void {

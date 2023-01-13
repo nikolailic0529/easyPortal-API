@@ -17,15 +17,13 @@ use Tests\WithQueryLogs;
 
 /**
  * @internal
- * @coversDefaultClass \App\Services\DataLoader\Processors\Importer\Importers\Documents\Importer
+ * @covers \App\Services\DataLoader\Processors\Importer\Importers\Documents\BaseImporter
+ * @covers \App\Services\DataLoader\Processors\Importer\Importers\Documents\Importer
  */
 class ImporterTest extends TestCase {
     use WithQueryLogs;
     use Helper;
 
-    /**
-     * @covers ::process
-     */
     public function testProcess(): void {
         // Generate
         $this->generateData(DocumentsImporterData::class);

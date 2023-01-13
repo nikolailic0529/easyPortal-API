@@ -7,12 +7,9 @@ use Tests\TestCase;
 
 /**
  * @internal
- * @coversDefaultClass \App\Rules\CompositeRule
+ * @covers \App\Rules\CompositeRule
  */
 class CompositeRuleTest extends TestCase {
-    /**
-     * @covers ::passes
-     */
     public function testPasses(): void {
         $rule = new class($this->app->make(Factory::class)) extends CompositeRule {
             /**
@@ -27,9 +24,6 @@ class CompositeRuleTest extends TestCase {
         self::assertFalse($rule->passes('test', 123));
     }
 
-    /**
-     * @covers ::message
-     */
     public function testMessage(): void {
         $this->setTranslations(static function (TestCase $case, string $locale): array {
             return [

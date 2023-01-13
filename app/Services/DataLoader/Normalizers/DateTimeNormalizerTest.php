@@ -9,14 +9,12 @@ use function config;
 
 /**
  * @internal
- * @coversDefaultClass \App\Services\DataLoader\Normalizers\DateTimeNormalizer
+ * @covers \App\Services\DataLoader\Normalizers\DateTimeNormalizer
  */
 class DateTimeNormalizerTest extends TestCase {
     // <editor-fold desc="Tests">
     // =========================================================================
     /**
-     * @covers ::normalize
-     *
      * @dataProvider dataProviderNormalize
      */
     public function testNormalize(mixed $expected, ?string $tz, mixed $value): void {

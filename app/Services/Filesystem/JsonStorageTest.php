@@ -12,12 +12,9 @@ use const JSON_PRETTY_PRINT;
 
 /**
  * @internal
- * @coversDefaultClass \App\Services\Filesystem\JsonStorage
+ * @covers \App\Services\Filesystem\JsonStorage
  */
 class JsonStorageTest extends TestCase {
-    /**
-     * @covers ::delete
-     */
     public function testDelete(): void {
         $disc    = $this->app->make(AppDisk::class);
         $storage = new JsonStorageTest_Storage($disc);
@@ -31,9 +28,6 @@ class JsonStorageTest extends TestCase {
         self::assertFalse($fs->exists($file));
     }
 
-    /**
-     * @covers ::delete
-     */
     public function testDeleteCorrupted(): void {
         $disc    = $this->app->make(AppDisk::class);
         $storage = new JsonStorageTest_Storage($disc);
@@ -46,9 +40,6 @@ class JsonStorageTest extends TestCase {
         self::assertTrue($storage->delete());
     }
 
-    /**
-     * @covers ::delete
-     */
     public function testDeleteCorruptedForce(): void {
         $disc    = $this->app->make(AppDisk::class);
         $storage = new JsonStorageTest_Storage($disc);
@@ -59,9 +50,6 @@ class JsonStorageTest extends TestCase {
         self::assertTrue($storage->delete(true));
     }
 
-    /**
-     * @covers ::load
-     */
     public function testLoad(): void {
         $disc    = $this->app->make(AppDisk::class);
         $storage = new JsonStorageTest_Storage($disc);
@@ -72,9 +60,6 @@ class JsonStorageTest extends TestCase {
         self::assertEquals(['key' => 'value'], $storage->load());
     }
 
-    /**
-     * @covers ::load
-     */
     public function testLoadCorrupted(): void {
         $disc    = $this->app->make(AppDisk::class);
         $storage = new JsonStorageTest_Storage($disc);
@@ -87,9 +72,6 @@ class JsonStorageTest extends TestCase {
         self::assertEquals(['key' => 'value'], $storage->load());
     }
 
-    /**
-     * @covers ::save
-     */
     public function testSave(): void {
         $disc    = $this->app->make(AppDisk::class);
         $storage = new JsonStorageTest_Storage($disc);

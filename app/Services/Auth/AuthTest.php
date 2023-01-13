@@ -19,23 +19,18 @@ use Tests\TestCase;
 
 /**
  * @internal
- * @coversDefaultClass \App\Services\Auth\Auth
+ * @covers \App\Services\Auth\Auth
  */
 class AuthTest extends TestCase {
     // <editor-fold desc="Tests">
     // =========================================================================
     /**
-     * @covers ::isRoot
-     *
      * @dataProvider dataProviderIsRoot
      */
     public function testIsRoot(bool $expected, Closure $userFactory): void {
         self::assertEquals($expected, $this->app->make(Auth::class)->isRoot($userFactory($this)));
     }
 
-    /**
-     * @covers ::getUser
-     */
     public function testGetUser(): void {
         $user  = new User();
         $guard = Mockery::mock(Guard::class);
@@ -59,9 +54,6 @@ class AuthTest extends TestCase {
         self::assertSame($user, $actual);
     }
 
-    /**
-     * @covers ::getUser
-     */
     public function testGetUserAuthenticatable(): void {
         $user  = Mockery::mock(Authenticatable::class);
         $guard = Mockery::mock(Guard::class);
@@ -86,8 +78,6 @@ class AuthTest extends TestCase {
     }
 
     /**
-     * @covers ::getAvailablePermissions
-     *
      * @dataProvider dataProviderGetAvailablePermissions
      *
      * @param array<Permission> $expected
@@ -117,9 +107,6 @@ class AuthTest extends TestCase {
         self::assertEquals($expected, $actual);
     }
 
-    /**
-     * @covers ::getOrganizationUserPermissions
-     */
     public function testGetOrganizationUserPermissions(): void {
         $permissions = ['a', 'b'];
         $org         = Mockery::mock(Organization::class);
@@ -140,9 +127,6 @@ class AuthTest extends TestCase {
         $auth->getOrganizationUserPermissions($org, $user);
     }
 
-    /**
-     * @covers ::getActualPermissions
-     */
     public function testGetActualPermissions(): void {
         $a    = new class('a') extends Permission {
             // empty

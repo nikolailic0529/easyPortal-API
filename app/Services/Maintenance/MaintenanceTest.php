@@ -22,14 +22,11 @@ use function ltrim;
 
 /**
  * @internal
- * @coversDefaultClass \App\Services\Maintenance\Maintenance
+ * @covers \App\Services\Maintenance\Maintenance
  */
 class MaintenanceTest extends TestCase {
     // <editor-fold desc="Tests">
     // =========================================================================
-    /**
-     * @covers ::getSettings
-     */
     public function testGetSettings(): void {
         $maintenance = $this->app->make(Maintenance::class);
         $settings    = new Settings([
@@ -42,9 +39,6 @@ class MaintenanceTest extends TestCase {
         self::assertEquals($settings, $maintenance->getSettings());
     }
 
-    /**
-     * @covers ::getSettings
-     */
     public function testGetSettingsDownForMaintenance(): void {
         $this->override(Application::class, static function (MockInterface $mock): void {
             $mock
@@ -61,9 +55,6 @@ class MaintenanceTest extends TestCase {
         self::assertEquals($expected, $maintenance->getSettings());
     }
 
-    /**
-     * @covers ::isEnabled
-     */
     public function testIsEnabled(): void {
         $maintenance = $this->app->make(Maintenance::class);
         $settings    = new Settings([
@@ -75,9 +66,6 @@ class MaintenanceTest extends TestCase {
         self::assertEquals($settings->enabled, $maintenance->isEnabled());
     }
 
-    /**
-     * @covers ::isEnabled
-     */
     public function testIsEnabledDownForMaintenance(): void {
         $this->override(Application::class, static function (MockInterface $mock): void {
             $mock
@@ -91,9 +79,6 @@ class MaintenanceTest extends TestCase {
         self::assertTrue($maintenance->isEnabled());
     }
 
-    /**
-     * @covers ::enable
-     */
     public function testEnable(): void {
         $maintenance = $this->app->make(Maintenance::class);
         $settings    = new Settings([
@@ -107,9 +92,6 @@ class MaintenanceTest extends TestCase {
         self::assertTrue($maintenance->isEnabled());
     }
 
-    /**
-     * @covers ::disable
-     */
     public function testDisable(): void {
         $maintenance = $this->app->make(Maintenance::class);
         $storage     = $this->app->make(Storage::class);
@@ -121,9 +103,6 @@ class MaintenanceTest extends TestCase {
         self::assertEquals([], $storage->load());
     }
 
-    /**
-     * @covers ::schedule
-     */
     public function testSchedule(): void {
         $message = $this->faker->sentence();
         $start   = Date::make('2021-11-30T10:15:00+00:00');
@@ -158,9 +137,6 @@ class MaintenanceTest extends TestCase {
         ], $storage->load());
     }
 
-    /**
-     * @covers ::stop
-     */
     public function testStopScheduled(): void {
         $maintenance = Mockery::mock(Maintenance::class);
         $maintenance->shouldAllowMockingProtectedMethods();
@@ -181,9 +157,6 @@ class MaintenanceTest extends TestCase {
         Queue::assertNothingPushed();
     }
 
-    /**
-     * @covers ::stop
-     */
     public function testStopNotScheduled(): void {
         $maintenance = Mockery::mock(Maintenance::class, [
             $this->app,
@@ -210,9 +183,6 @@ class MaintenanceTest extends TestCase {
         Queue::assertPushed(CompleteCronJob::class);
     }
 
-    /**
-     * @covers ::stop
-     */
     public function testStopForce(): void {
         $maintenance = Mockery::mock(Maintenance::class, [
             $this->app,
@@ -238,9 +208,6 @@ class MaintenanceTest extends TestCase {
         Queue::assertNothingPushed();
     }
 
-    /**
-     * @covers ::start
-     */
     public function testStart(): void {
         $maintenance = Mockery::mock(Maintenance::class, [
             $this->app,
@@ -266,9 +233,6 @@ class MaintenanceTest extends TestCase {
         Queue::assertPushed(StartCronJob::class);
     }
 
-    /**
-     * @covers ::start
-     */
     public function testStartForce(): void {
         $maintenance = Mockery::mock(Maintenance::class, [
             $this->app,
@@ -298,9 +262,6 @@ class MaintenanceTest extends TestCase {
         Queue::assertNothingPushed();
     }
 
-    /**
-     * @covers ::start
-     */
     public function testStartIfEnabled(): void {
         $maintenance = Mockery::mock(Maintenance::class);
         $maintenance->makePartial();
@@ -316,7 +277,6 @@ class MaintenanceTest extends TestCase {
     }
 
     /**
-     * @covers ::isJobScheduled
      * @dataProvider dataProviderIsJobScheduled
      *
      * @param array<string, mixed> $settings
@@ -349,9 +309,6 @@ class MaintenanceTest extends TestCase {
         self::assertEquals($expected, $maintenance->isJobScheduled($job::class));
     }
 
-    /**
-     * @covers ::markAsNotified
-     */
     public function testMarkAsNotified(): void {
         $maintenance = $this->app->make(Maintenance::class);
         $settings    = new Settings();
@@ -362,9 +319,6 @@ class MaintenanceTest extends TestCase {
         self::assertTrue($maintenance->getSettings()->notified ?? null);
     }
 
-    /**
-     * @covers ::markAsNotified
-     */
     public function testMarkAsNotifiedNoSettings(): void {
         $maintenance = $this->app->make(Maintenance::class);
 

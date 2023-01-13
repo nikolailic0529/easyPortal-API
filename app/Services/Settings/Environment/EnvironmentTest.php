@@ -13,12 +13,9 @@ use Tests\TestCase;
 
 /**
  * @internal
- * @coversDefaultClass \App\Services\Settings\Environment\Environment
+ * @covers \App\Services\Settings\Environment\Environment
  */
 class EnvironmentTest extends TestCase {
-    /**
-     * @covers ::has
-     */
     public function testGet(): void {
         $repository = new EnvironmentRepository(['TEST' => null, 'TEST2' => 123]);
         $env        = Mockery::mock(Environment::class);
@@ -34,9 +31,6 @@ class EnvironmentTest extends TestCase {
         self::assertEquals(123, $env->get('TEST2'));
     }
 
-    /**
-     * @covers ::has
-     */
     public function testHas(): void {
         $repository = new EnvironmentRepository(['TEST' => null]);
         $env        = Mockery::mock(Environment::class);
@@ -51,9 +45,6 @@ class EnvironmentTest extends TestCase {
         self::assertFalse($env->has('UNKNOWN'));
     }
 
-    /**
-     * @covers ::getRepository
-     */
     public function testGetRepositoryNotCachesConfiguration(): void {
         $app         = Mockery::mock(Application::class);
         $config      = Mockery::mock(Repository::class);
@@ -66,9 +57,6 @@ class EnvironmentTest extends TestCase {
         self::assertSame(Env::getRepository(), $environment->getRepository());
     }
 
-    /**
-     * @covers ::getRepository
-     */
     public function testGetRepositoryCachesConfigurationNoCache(): void {
         $app = Mockery::mock(Application::class, CachesConfiguration::class);
         $app
@@ -86,9 +74,6 @@ class EnvironmentTest extends TestCase {
         self::assertSame(Env::getRepository(), $environment->getRepository());
     }
 
-    /**
-     * @covers ::getRepository
-     */
     public function testGetRepositoryCachesConfigurationCache(): void {
         $config = new RepositoryImpl([
             Environment::SETTING => [

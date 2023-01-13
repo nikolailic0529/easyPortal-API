@@ -23,7 +23,8 @@ use function is_array;
 
 /**
  * @internal
- * @coversDefaultClass \App\GraphQL\Directives\Directives\Aggregated\GroupBy\Directive
+ * @covers \App\GraphQL\Directives\Directives\Aggregated\GroupBy\Directive
+ * @covers \App\GraphQL\Directives\Directives\Aggregated\GroupBy\Manipulator
  */
 class DirectiveTest extends TestCase {
     use WithGraphQLSchema;
@@ -31,9 +32,6 @@ class DirectiveTest extends TestCase {
     // <editor-fold desc="Tests">
     // =========================================================================
     /**
-     * @covers ::manipulateArgDefinition
-     * @covers       \App\GraphQL\Directives\Directives\Aggregated\GroupBy\Manipulator::update
-     *
      * @dataProvider dataProviderManipulateArgDefinition
      *
      * @param Closure(static): GraphQLExpectedSchema $expected
@@ -50,9 +48,6 @@ class DirectiveTest extends TestCase {
         );
     }
 
-    /**
-     * @covers ::manipulateArgDefinition
-     */
     public function testManipulateArgDefinitionTypeRegistry(): void {
         $a = new InputObjectType([
             'name'   => 'A',
@@ -123,9 +118,6 @@ class DirectiveTest extends TestCase {
         );
     }
 
-    /**
-     * @covers ::manipulateArgDefinition
-     */
     public function testManipulateArgDefinitionTypeRegistryEmpty(): void {
         $type = new ObjectType([
             'name'   => 'TestType',
@@ -153,8 +145,6 @@ class DirectiveTest extends TestCase {
     }
 
     /**
-     * @covers ::handleBuilder
-     *
      * @dataProvider dataProviderHandleBuilder
      *
      * @param array{query: string, bindings: array<mixed>}|Exception $expected

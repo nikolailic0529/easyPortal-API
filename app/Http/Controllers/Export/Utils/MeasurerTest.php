@@ -6,12 +6,9 @@ use Tests\TestCase;
 
 /**
  * @internal
- * @coversDefaultClass \App\Http\Controllers\Export\Utils\Measurer
+ * @covers \App\Http\Controllers\Export\Utils\Measurer
  */
 class MeasurerTest extends TestCase {
-    /**
-     * @covers ::measure
-     */
     public function testMeasure(): void {
         $measurer = new Measurer();
 

@@ -14,12 +14,9 @@ use Tests\TestCase;
 
 /**
  * @internal
- * @coversDefaultClass \App\Services\Settings\Environment\Configuration
+ * @covers \App\Services\Settings\Environment\Configuration
  */
 class ConfigurationTest extends TestCase {
-    /**
-     * @covers ::getConfiguration
-     */
     public function testGetConfiguration(): void {
         $app        = Mockery::mock(Application::class);
         $config     = Mockery::mock(Repository::class);

@@ -15,14 +15,11 @@ use function array_merge;
 
 /**
  * @internal
- * @coversDefaultClass \App\Services\Search\Processors\FulltextProcessor
+ * @covers \App\Services\Search\Processors\FulltextProcessor
  */
 class FulltextProcessorTest extends TestCase {
     use WithQueryLogs;
 
-    /**
-     * @covers ::process
-     */
     public function testProcess(): void {
         $log        = [];
         $config     = $this->app->make(Repository::class);

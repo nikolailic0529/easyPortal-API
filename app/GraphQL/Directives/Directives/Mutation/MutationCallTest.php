@@ -28,15 +28,12 @@ use function json_encode;
 
 /**
  * @internal
- * @coversDefaultClass \App\GraphQL\Directives\Directives\Mutation\MutationCall
+ * @covers \App\GraphQL\Directives\Directives\Mutation\MutationCall
  */
 class MutationCallTest extends TestCase {
     use WithoutGlobalScopes;
     use WithGraphQLSchema;
 
-    /**
-     * @covers ::resolveField
-     */
     public function testResolveField(): void {
         $customer = Customer::factory()->create();
         $mutation = json_encode(MutationCallTest_Mutation::class);
@@ -96,9 +93,6 @@ class MutationCallTest extends TestCase {
             ]));
     }
 
-    /**
-     * @covers ::resolveField
-     */
     public function testResolveFieldNested(): void {
         $customer = Customer::factory()->create();
         $resolver = json_encode(MutationCallTest_NullResolver::class);
@@ -170,9 +164,6 @@ class MutationCallTest extends TestCase {
             ]));
     }
 
-    /**
-     * @covers ::resolveField
-     */
     public function testResolveFieldValidate(): void {
         $customer   = Customer::factory()->create();
         $mutation   = json_encode(MutationCallTest_Mutation::class);
@@ -225,9 +216,6 @@ class MutationCallTest extends TestCase {
             ]));
     }
 
-    /**
-     * @covers ::resolveField
-     */
     public function testResolveFieldValidateField(): void {
         $customer   = Customer::factory()->create();
         $mutation   = json_encode(MutationCallTest_Mutation::class);
@@ -281,9 +269,6 @@ class MutationCallTest extends TestCase {
             ]));
     }
 
-    /**
-     * @covers ::getRules
-     */
     public function testGetRules(): void {
         // Mocks
         $locator  = $this->app->make(DirectiveLocator::class);

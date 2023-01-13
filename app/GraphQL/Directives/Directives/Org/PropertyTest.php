@@ -43,7 +43,7 @@ use function sprintf;
 
 /**
  * @internal
- * @coversDefaultClass \App\GraphQL\Directives\Directives\Org\Property
+ * @covers \App\GraphQL\Directives\Directives\Org\Property
  *
  * @phpstan-import-type OrganizationFactory from WithOrganization
  */
@@ -53,8 +53,6 @@ class PropertyTest extends TestCase {
     // <editor-fold desc="Tests">
     // =========================================================================
     /**
-     * @covers ::extend
-     *
      * @dataProvider dataProviderExtend
      *
      * @param Exception|class-string<Exception>|array{query: string, bindings: array<mixed>} $expected
@@ -109,8 +107,6 @@ class PropertyTest extends TestCase {
     }
 
     /**
-     * @covers ::resolveField
-     *
      * @dataProvider dataProviderResolveField
      *
      * @param OrganizationFactory $orgFactory

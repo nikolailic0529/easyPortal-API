@@ -6,7 +6,7 @@ use Tests\TestCase;
 
 /**
  * @internal
- * @coversDefaultClass \App\Services\DataLoader\Queue\Jobs\CustomersSynchronizer
+ * @covers \App\Services\DataLoader\Queue\Jobs\CustomersSynchronizer
  */
 class CustomersSynchronizerTest extends TestCase {
     /**

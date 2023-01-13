@@ -12,14 +12,11 @@ use Tests\TestCase;
 
 /**
  * @internal
- * @coversDefaultClass \App\Services\DataLoader\Factory\Concerns\WithCoverage
+ * @covers \App\Services\DataLoader\Factory\Concerns\WithCoverage
  */
 class WithCoverageTest extends TestCase {
     use WithQueryLog;
 
-    /**
-     * @covers ::coverage
-     */
     public function testOem(): void {
         // Prepare
         $resolver = $this->app->make(CoverageResolver::class);

@@ -31,7 +31,7 @@ use function json_encode;
 
 /**
  * @internal
- * @coversDefaultClass \App\GraphQL\Queries\Organization
+ * @covers \App\GraphQL\Queries\Organization
  *
  * @phpstan-import-type OrganizationFactory from WithOrganization
  * @phpstan-import-type UserFactory from WithUser
@@ -264,8 +264,6 @@ class OrganizationTest extends TestCase {
     }
 
     /**
-     * @covers       \App\GraphQL\Queries\Administration\AuditContext::__invoke
-     *
      * @dataProvider dataProviderAudits
      *
      * @param OrganizationFactory                                      $orgFactory

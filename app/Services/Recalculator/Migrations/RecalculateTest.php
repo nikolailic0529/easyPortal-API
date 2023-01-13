@@ -12,12 +12,9 @@ use Tests\TestCase;
 
 /**
  * @internal
- * @coversDefaultClass \App\Services\Recalculator\Migrations\Recalculate
+ * @covers \App\Services\Recalculator\Migrations\Recalculate
  */
 class RecalculateTest extends TestCase {
-    /**
-     * @covers ::runRawUp
-     */
     public function testRunRawUp(): void {
         $job       = (new class() extends CronJob {
             public function displayName(): string {

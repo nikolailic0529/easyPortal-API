@@ -19,12 +19,9 @@ use function is_array;
 
 /**
  * @internal
- * @coversDefaultClass \App\Services\DataLoader\Resolver\Resolver
+ * @covers \App\Services\DataLoader\Resolver\Resolver
  */
 class ResolverTest extends TestCase {
-    /**
-     * @covers ::resolve
-     */
     public function testResolve(): void {
         // Prepare
         $key       = '123';
@@ -74,9 +71,6 @@ class ResolverTest extends TestCase {
         }));
     }
 
-    /**
-     * @covers ::resolve
-     */
     public function testResolveWithoutFind(): void {
         // Prepare
         $comparator = static function (Key $key): bool {
@@ -111,9 +105,6 @@ class ResolverTest extends TestCase {
         self::assertNull($resolver->resolve('abc', null, true));
     }
 
-    /**
-     * @covers ::resolve
-     */
     public function testResolveFactoryObjectNotFoundException(): void {
         $key       = '123';
         $exception = null;
@@ -142,9 +133,6 @@ class ResolverTest extends TestCase {
         ));
     }
 
-    /**
-     * @covers ::prefetch
-     */
     public function testPrefetch(): void {
         $keys    = [
             'a' => $this->faker->uuid(),
@@ -216,9 +204,6 @@ class ResolverTest extends TestCase {
         self::assertTrue($cache->hasNull($keyB));
     }
 
-    /**
-     * @covers ::prefetch
-     */
     public function testPrefetchNoFindQuery(): void {
         $resolver = Mockery::mock(Resolver::class);
         $resolver->shouldAllowMockingProtectedMethods();
@@ -235,9 +220,6 @@ class ResolverTest extends TestCase {
         $resolver->prefetch([1, 2, 3]);
     }
 
-    /**
-     * @covers ::getResolved
-     */
     public function testGetResolved(): void {
         $items = new EloquentCollection();
         $cache = Mockery::mock(Cache::class);
@@ -258,9 +240,6 @@ class ResolverTest extends TestCase {
         self::assertSame($items, $resolver->getResolved());
     }
 
-    /**
-     * @covers ::reset
-     */
     public function testReset(): void {
         $cache = Mockery::mock(Cache::class);
         $cache

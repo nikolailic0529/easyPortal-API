@@ -17,15 +17,12 @@ use function count;
 
 /**
  * @internal
- * @coversDefaultClass \App\Services\Search\Builders\Builder
+ * @covers \App\Services\Search\Builders\Builder
  */
 class BuilderTest extends TestCase {
     use WithoutGlobalScopes;
     use WithSearch;
 
-    /**
-     * @covers ::__construct
-     */
     public function testConstruct(): void {
         $model = new class() extends Model {
             // empty
@@ -51,9 +48,6 @@ class BuilderTest extends TestCase {
         self::assertEquals(['test' => 'value'], $builder->wheres);
     }
 
-    /**
-     * @covers ::whereMetadata
-     */
     public function testWhereMetadata(): void {
         $builder = $this->app->make(Builder::class, [
             'query' => '123',
@@ -68,9 +62,6 @@ class BuilderTest extends TestCase {
         ], $builder->wheres);
     }
 
-    /**
-     * @covers ::whereMetadataIn
-     */
     public function testWhereMetadataIn(): void {
         $builder = $this->app->make(Builder::class, [
             'query' => '123',
@@ -85,9 +76,6 @@ class BuilderTest extends TestCase {
         ], $builder->whereIns);
     }
 
-    /**
-     * @covers ::whereMetadataNotIn
-     */
     public function testWhereMetadataNotIn(): void {
         $builder = $this->app->make(Builder::class, [
             'query' => '123',
@@ -102,9 +90,6 @@ class BuilderTest extends TestCase {
         ], $builder->whereNotIns);
     }
 
-    /**
-     * @covers ::whereNotIn
-     */
     public function testWhereNotIn(): void {
         $builder = $this->app->make(Builder::class, [
             'query' => '123',
@@ -119,9 +104,6 @@ class BuilderTest extends TestCase {
         ], $builder->whereNotIns);
     }
 
-    /**
-     * @covers ::whereNot
-     */
     public function testWhereNot(): void {
         $builder = $this->app->make(Builder::class, [
             'query' => '123',
@@ -136,9 +118,6 @@ class BuilderTest extends TestCase {
         ], $builder->whereNots);
     }
 
-    /**
-     * @covers ::offset
-     */
     public function testOffset(): void {
         $builder = $this->app->make(Builder::class, [
             'query' => '123',
@@ -151,9 +130,6 @@ class BuilderTest extends TestCase {
         self::assertEquals(123, $builder->offset);
     }
 
-    /**
-     * @covers ::applyScope
-     */
     public function testApplyScope(): void {
         $builder = $this->app->make(Builder::class, [
             'query' => '123',
@@ -171,9 +147,6 @@ class BuilderTest extends TestCase {
         $builder->applyScope($scope);
     }
 
-    /**
-     * @covers ::count
-     */
     public function testCount(): void {
         $models = $this->makeSearchable(Customer::factory()->count(3)->create());
 

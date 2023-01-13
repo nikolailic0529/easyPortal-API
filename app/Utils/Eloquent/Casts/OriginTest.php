@@ -9,12 +9,9 @@ use Tests\TestCase;
 
 /**
  * @internal
- * @coversDefaultClass \App\Utils\Eloquent\Casts\Origin
+ * @covers \App\Utils\Eloquent\Casts\Origin
  */
 class OriginTest extends TestCase {
-    /**
-     * @covers ::set
-     */
     public function testSet(): void {
         $value = $this->faker->randomNumber();
         $model = new class() extends Model {
@@ -32,9 +29,6 @@ class OriginTest extends TestCase {
         self::assertEquals($value, $model->getAttribute('attr'));
     }
 
-    /**
-     * @covers ::set
-     */
     public function testSetWithoutSuffix(): void {
         self::expectException(LogicException::class);
 

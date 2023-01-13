@@ -6,14 +6,12 @@ use Tests\TestCase;
 
 /**
  * @internal
- * @coversDefaultClass \App\Services\DataLoader\Normalizers\NameNormalizer
+ * @covers \App\Services\DataLoader\Normalizers\NameNormalizer
  */
 class NameNormalizerTest extends TestCase {
     // <editor-fold desc="Tests">
     // =========================================================================
     /**
-     * @covers ::normalize
-     *
      * @dataProvider dataProviderNormalize
      */
     public function testNormalize(mixed $expected, mixed $value): void {

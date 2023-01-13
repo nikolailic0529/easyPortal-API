@@ -22,7 +22,7 @@ use function trans;
 
 /**
  * @internal
- * @coversDefaultClass \App\GraphQL\Mutations\Locale\Update
+ * @covers \App\GraphQL\Mutations\Locale\Import
  *
  * @phpstan-import-type OrganizationFactory from WithOrganization
  * @phpstan-import-type UserFactory from WithUser
@@ -31,8 +31,6 @@ class ImportTest extends TestCase {
     // <editor-fold desc="Tests">
     // =========================================================================
     /**
-     * @covers ::__invoke
-     *
      * @dataProvider dataProviderInvoke
      *
      * @param OrganizationFactory                    $orgFactory

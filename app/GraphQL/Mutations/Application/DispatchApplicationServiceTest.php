@@ -24,7 +24,7 @@ use Tests\WithUser;
 
 /**
  * @internal
- * @coversDefaultClass \App\GraphQL\Mutations\Application\DispatchApplicationService
+ * @covers \App\GraphQL\Mutations\Application\DispatchApplicationService
  *
  * @phpstan-import-type OrganizationFactory from WithOrganization
  * @phpstan-import-type UserFactory from WithUser
@@ -33,8 +33,6 @@ class DispatchApplicationServiceTest extends TestCase {
     // <editor-fold desc="Tests">
     // =========================================================================
     /**
-     * @covers ::__invoke
-     *
      * @dataProvider dataProviderInvoke
      *
      * @param array<mixed>        $input

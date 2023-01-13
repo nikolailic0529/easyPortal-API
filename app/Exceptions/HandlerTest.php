@@ -18,16 +18,13 @@ use Throwable;
 
 /**
  * @internal
- * @coversDefaultClass \App\Exceptions\Handler
+ * @covers \App\Exceptions\Handler
  *
  * @phpstan-import-type SettingsFactory from WithSettings
  */
 class HandlerTest extends TestCase {
     // <editor-fold desc="Tests">
     // =========================================================================
-    /**
-     * @covers ::exceptionContext
-     */
     public function testExceptionContext(): void {
         $exception = new class('test') extends ApplicationException implements RendersErrorsExtensions {
             public function __construct(string $message) {
@@ -76,8 +73,6 @@ class HandlerTest extends TestCase {
     }
 
     /**
-     * @covers ::report
-     *
      * @dataProvider dataProviderReport
      *
      * @param array{level: string, channel: string, message: string, context: array<mixed>} $expected
@@ -129,9 +124,6 @@ class HandlerTest extends TestCase {
         Event::assertDispatched(ErrorReport::class);
     }
 
-    /**
-     * @covers ::getExceptionStacktrace
-     */
     public function testGetExceptionStacktrace(): void {
         $a       = (static function (): Exception {
             return new Exception('a');
@@ -181,9 +173,6 @@ class HandlerTest extends TestCase {
         ], $trace);
     }
 
-    /**
-     * @covers ::getExceptionContext
-     */
     public function testGetExceptionContext(): void {
         $a       = (static function (): Exception {
             return new class('a') extends Exception {
@@ -243,8 +232,6 @@ class HandlerTest extends TestCase {
     }
 
     /**
-     * @covers ::getExceptionFingerprint
-     *
      * @dataProvider dataProviderGetExceptionFingerprint
      *
      * @param array<string> $expected

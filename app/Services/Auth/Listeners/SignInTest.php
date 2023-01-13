@@ -10,13 +10,9 @@ use Tests\TestCase;
 
 /**
  * @internal
- * @coversDefaultClass \App\Services\Auth\Listeners\SignIn
+ * @covers \App\Services\Auth\Listeners\SignIn
  */
 class SignInTest extends TestCase {
-    /**
-     * @covers ::__invoke
-     * @covers ::getEvents
-     */
     public function testInvoke(): void {
         $now        = Date::now()->setMicroseconds(0);
         $user       = User::factory()->make();

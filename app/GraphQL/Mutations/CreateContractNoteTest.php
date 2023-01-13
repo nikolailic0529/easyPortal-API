@@ -25,7 +25,7 @@ use function trans;
 
 /**
  * @internal
- * @coversDefaultClass \App\GraphQL\Mutations\CreateContractNote
+ * @covers \App\GraphQL\Mutations\CreateContractNote
  *
  * @phpstan-import-type OrganizationFactory from WithOrganization
  * @phpstan-import-type UserFactory from WithUser
@@ -35,7 +35,6 @@ class CreateContractNoteTest extends TestCase {
     // <editor-fold desc="Tests">
     // =========================================================================
     /**
-     * @covers ::__invoke
      * @dataProvider dataProviderInvoke
      *
      * @param OrganizationFactory $orgFactory

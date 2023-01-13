@@ -32,7 +32,7 @@ use function sprintf;
 
 /**
  * @internal
- * @coversDefaultClass \App\GraphQL\Directives\Directives\Auth\Me
+ * @covers \App\GraphQL\Directives\Directives\Auth\Me
  *
  * @phpstan-import-type OrganizationFactory from WithOrganization
  * @phpstan-import-type UserFactory from WithUser
@@ -42,12 +42,6 @@ class MeTest extends TestCase {
 
     // <editor-fold desc="Tests">
     // =========================================================================
-    /**
-     * @covers ::manipulateTypeExtension
-     * @covers ::manipulateTypeDefinition
-     * @covers ::manipulateFieldDefinition
-     * @covers ::addRequirements
-     */
     public function testDirective(): void {
         $this->app->make(Permissions::class)->set([
             new class('a') extends Permission {
@@ -68,8 +62,6 @@ class MeTest extends TestCase {
     }
 
     /**
-     * @covers ::handleField
-     *
      * @dataProvider dataProviderResolveField
      *
      * @param UserFactory $userFactory
@@ -100,8 +92,6 @@ class MeTest extends TestCase {
     }
 
     /**
-     * @covers ::handleField
-     *
      * @dataProvider dataProviderResolveFieldPermissions
      *
      * @param array<string>       $permissions
@@ -152,8 +142,6 @@ class MeTest extends TestCase {
     }
 
     /**
-     * @covers ::handleField
-     *
      * @dataProvider dataProviderResolveField
      *
      * @param UserFactory $userFactory
@@ -183,9 +171,6 @@ class MeTest extends TestCase {
             ->assertThat($expected);
     }
 
-    /**
-     * @covers ::getRequirements
-     */
     public function testGetRequirements(): void {
         $resolver    = addslashes(EmptyResolver::class);
         $permissions = json_encode(['a', 'unknown']);
@@ -212,8 +197,6 @@ class MeTest extends TestCase {
     }
 
     /**
-     * @covers ::getGateArguments
-     *
      * @dataProvider dataProviderGetGateArguments
      *
      * @param array<mixed> $expected

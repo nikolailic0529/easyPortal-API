@@ -9,7 +9,7 @@ use Tests\WithSettings;
 
 /**
  * @internal
- * @coversDefaultClass \App\Rules\Spreadsheet
+ * @covers \App\Rules\Spreadsheet
  *
  * @phpstan-import-type SettingsFactory from WithSettings
  */
@@ -17,8 +17,6 @@ class SpreadsheetTest extends TestCase {
     // <editor-fold desc="Tests">
     // =========================================================================
     /**
-     * @covers ::passes
-     *
      * @dataProvider dataProviderPasses
      *
      * @param SettingsFactory $settingsFactory

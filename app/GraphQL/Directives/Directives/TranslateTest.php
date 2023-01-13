@@ -11,7 +11,7 @@ use Tests\WithGraphQLSchema;
 
 /**
  * @internal
- * @coversDefaultClass \App\GraphQL\Directives\Directives\Translate
+ * @covers \App\GraphQL\Directives\Directives\Translate
  */
 class TranslateTest extends TestCase {
     use WithGraphQLSchema;
@@ -19,8 +19,6 @@ class TranslateTest extends TestCase {
     // <editor-fold desc="Tests">
     // =========================================================================
     /**
-     * @covers ::resolveField
-     *
      * @dataProvider dataProviderResolveField
      */
     public function testResolveField(Response $expected, object $object): void {

@@ -17,14 +17,12 @@ use Tests\TestCase;
 
 /**
  * @internal
- * @coversDefaultClass \App\Services\Search\Listeners\IndexExpiredListener
+ * @covers \App\GraphQL\Listeners\CacheExpiredListener
  */
 class CacheExpiredListenerTest extends TestCase {
     // <editor-fold desc="Tests">
     // =========================================================================
     /**
-     * @covers ::getEvents
-     *
      * @dataProvider dataProviderSubscribe
      *
      * @param Closure(self): object $eventFactory
@@ -41,9 +39,6 @@ class CacheExpiredListenerTest extends TestCase {
             ->dispatch($eventFactory($this));
     }
 
-    /**
-     * @covers ::__invoke
-     */
     public function testInvoke(): void {
         $this->override(Cache::class, static function (MockInterface $mock): void {
             $mock

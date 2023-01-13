@@ -9,12 +9,9 @@ use function reset;
 
 /**
  * @internal
- * @coversDefaultClass \App\Services\DataLoader\Schema\Types\Company
+ * @covers \App\Services\DataLoader\Schema\Types\Company
  */
 class CompanyTest extends TestCase {
-    /**
-     * @covers ::create
-     */
     public function testCreate(): void {
         $json = $this->getTestData()->json();
 
@@ -24,6 +21,7 @@ class CompanyTest extends TestCase {
         $actual     = new Company($json);
         $properties = Company::getPropertiesNames();
 
+        self::assertEquals($actual->id, $actual->getKey());
         self::assertEqualsCanonicalizing($keys, $properties);
         self::assertEqualsCanonicalizing($keys, array_keys($actual->getProperties()));
         self::assertCount(2, $actual->companyContactPersons);

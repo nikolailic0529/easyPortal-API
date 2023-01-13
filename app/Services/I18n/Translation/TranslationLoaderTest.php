@@ -12,12 +12,9 @@ use function explode;
 
 /**
  * @internal
- * @coversDefaultClass \App\Services\I18n\Translation\TranslationLoader
+ * @covers \App\Services\I18n\Translation\TranslationLoader
  */
 class TranslationLoaderTest extends TestCase {
-    /**
-     * @covers ::load
-     */
     public function testLoadFallbackSame(): void {
         $locale   = 'en';
         $fallback = 'en';
@@ -62,9 +59,6 @@ class TranslationLoaderTest extends TestCase {
         );
     }
 
-    /**
-     * @covers ::load
-     */
     public function testLoadBaseAndFallback(): void {
         $locale       = 'de_DE';
         $localeBase   = explode('_', $locale)[0];
@@ -167,9 +161,6 @@ class TranslationLoaderTest extends TestCase {
         );
     }
 
-    /**
-     * @covers ::load
-     */
     public function testLoadFallbackNotCalled(): void {
         $locale   = 'ru';
         $fallback = 'en';
@@ -201,9 +192,6 @@ class TranslationLoaderTest extends TestCase {
         $loader->load($locale, '*', 'namespace');
     }
 
-    /**
-     * @covers ::getTranslations
-     */
     public function testGetTranslations(): void {
         $locale = $this->faker->locale();
         $loader = Mockery::mock(TranslationLoader::class);

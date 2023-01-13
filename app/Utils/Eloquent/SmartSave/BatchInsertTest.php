@@ -9,12 +9,9 @@ use Tests\TestCase;
 
 /**
  * @internal
- * @coversDefaultClass \App\Utils\Eloquent\SmartSave\BatchInsert
+ * @covers \App\Utils\Eloquent\SmartSave\BatchInsert
  */
 class BatchInsertTest extends TestCase {
-    /**
-     * @covers ::save
-     */
     public function testSave(): void {
         $inserts = [['a' => 'a']];
         $model   = Mockery::mock(Model::class);
@@ -35,9 +32,6 @@ class BatchInsertTest extends TestCase {
         self::assertEmpty($insert->getInserts());
     }
 
-    /**
-     * @covers ::save
-     */
     public function testSaveEmptyNoModel(): void {
         $inserts = [['a' => 'a']];
         $model   = null;
@@ -57,9 +51,6 @@ class BatchInsertTest extends TestCase {
         self::assertEmpty($insert->getInserts());
     }
 
-    /**
-     * @covers ::save
-     */
     public function testSaveEmptyNoInserts(): void {
         $inserts = [];
         $model   = Mockery::mock(Model::class, Upsertable::class);
@@ -79,9 +70,6 @@ class BatchInsertTest extends TestCase {
         self::assertEmpty($insert->getInserts());
     }
 
-    /**
-     * @covers ::save
-     */
     public function testSaveUpsertable(): void {
         $inserts = [['a' => 'a']];
         $model   = Mockery::mock(Model::class, Upsertable::class);
@@ -102,9 +90,6 @@ class BatchInsertTest extends TestCase {
         self::assertEmpty($insert->getInserts());
     }
 
-    /**
-     * @covers ::insert
-     */
     public function testInsertSingle(): void {
         $row     = ['a' => 'a'];
         $inserts = [$row];
@@ -126,9 +111,6 @@ class BatchInsertTest extends TestCase {
         $insert->insert();
     }
 
-    /**
-     * @covers ::insert
-     */
     public function testInsertMultiple(): void {
         $row     = ['a' => 'a'];
         $inserts = [$row, $row];
@@ -150,9 +132,6 @@ class BatchInsertTest extends TestCase {
         $insert->insert();
     }
 
-    /**
-     * @covers ::upsert
-     */
     public function testUpsert(): void {
         $inserts = [
             [
@@ -200,9 +179,6 @@ class BatchInsertTest extends TestCase {
         $insert->reset();
     }
 
-    /**
-     * @covers ::upsert
-     */
     public function testUpsertNonUpsertable(): void {
         $insert = Mockery::mock(BatchInsert::class, [Mockery::mock(Model::class)]);
         $insert->shouldAllowMockingProtectedMethods();

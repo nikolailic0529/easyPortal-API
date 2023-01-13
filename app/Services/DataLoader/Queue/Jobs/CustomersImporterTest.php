@@ -6,7 +6,7 @@ use Tests\TestCase;
 
 /**
  * @internal
- * @coversDefaultClass \App\Services\DataLoader\Queue\Jobs\CustomersImporter
+ * @covers \App\Services\DataLoader\Queue\Jobs\CustomersImporter
  */
 class CustomersImporterTest extends TestCase {
     /**

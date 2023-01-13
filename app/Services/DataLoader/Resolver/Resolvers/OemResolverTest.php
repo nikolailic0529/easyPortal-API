@@ -10,14 +10,11 @@ use Tests\TestCase;
 
 /**
  * @internal
- * @coversDefaultClass \App\Services\DataLoader\Resolver\Resolvers\OemResolver
+ * @covers \App\Services\DataLoader\Resolver\Resolvers\OemResolver
  */
 class OemResolverTest extends TestCase {
     use WithQueryLog;
 
-    /**
-     * @covers ::get
-     */
     public function testGet(): void {
         // Prepare
         $factory = static function (?Oem $oem): Oem {
@@ -82,11 +79,6 @@ class OemResolverTest extends TestCase {
         $queries->flush();
     }
 
-    /**
-     * @covers ::put
-     * @covers ::reset
-     * @covers ::getByKey
-     */
     public function testModels(): void {
         $resolver = $this->app->make(OemResolver::class);
         $oem      = Oem::factory()->create();

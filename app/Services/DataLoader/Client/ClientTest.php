@@ -30,7 +30,7 @@ use function str_replace;
 
 /**
  * @internal
- * @coversDefaultClass \App\Services\DataLoader\Client\Client
+ * @covers \App\Services\DataLoader\Client\Client
  */
 class ClientTest extends TestCase {
     use WithGraphQLSchema;
@@ -99,9 +99,6 @@ class ClientTest extends TestCase {
         );
     }
 
-    /**
-     * @covers ::call
-     */
     public function testCallQuerySuccessful(): void {
         $selector  = 'data';
         $graphql   = 'query { item { id } }';
@@ -139,9 +136,6 @@ class ClientTest extends TestCase {
         self::assertEquals($result, $client->call($selector, $graphql, $variables, $files));
     }
 
-    /**
-     * @covers ::call
-     */
     public function testCallQueryError(): void {
         $selector  = 'data';
         $graphql   = 'query { item { id } }';
@@ -180,9 +174,6 @@ class ClientTest extends TestCase {
         $client->call($selector, $graphql, $variables, $files);
     }
 
-    /**
-     * @covers ::call
-     */
     public function testCallRequestRateTooLarge(): void {
         $selector  = 'data';
         $graphql   = 'query { item { id } }';

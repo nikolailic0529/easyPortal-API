@@ -21,7 +21,7 @@ use const PHP_EOL;
 
 /**
  * @internal
- * @coversDefaultClass \App\Services\Search\Service
+ * @covers \App\Services\Search\Service
  */
 class ServiceTest extends TestCase {
     /**
@@ -52,9 +52,6 @@ class ServiceTest extends TestCase {
         );
     }
 
-    /**
-     * @covers ::callWithoutIndexing
-     */
     public function testCallWithoutIndexing(): void {
         $service = $this->app->make(Service::class);
         $model   = $this->faker->randomElement($service->getSearchableModels());

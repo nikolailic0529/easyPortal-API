@@ -28,7 +28,8 @@ use function preg_quote;
 
 /**
  * @internal
- * @coversDefaultClass \App\GraphQL\Service
+ * @covers \App\GraphQL\Service
+ * @covers \App\GraphQL\Provider
  *
  * @phpstan-import-type OrganizationFactory from WithOrganization
  * @phpstan-import-type UserFactory from WithUser

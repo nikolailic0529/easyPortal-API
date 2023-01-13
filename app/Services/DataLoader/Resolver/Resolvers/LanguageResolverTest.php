@@ -10,14 +10,11 @@ use Tests\TestCase;
 
 /**
  * @internal
- * @coversDefaultClass \App\Services\DataLoader\Resolver\Resolvers\LanguageResolver
+ * @covers \App\Services\DataLoader\Resolver\Resolvers\LanguageResolver
  */
 class LanguageResolverTest extends TestCase {
     use WithQueryLog;
 
-    /**
-     * @covers ::get
-     */
     public function testGet(): void {
         // Prepare
         $factory = static function (?Language $language): Language {

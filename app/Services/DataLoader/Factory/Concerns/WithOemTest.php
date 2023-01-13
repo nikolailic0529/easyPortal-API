@@ -12,14 +12,11 @@ use Tests\TestCase;
 
 /**
  * @internal
- * @coversDefaultClass \App\Services\DataLoader\Factory\Concerns\WithOem
+ * @covers \App\Services\DataLoader\Factory\Concerns\WithOem
  */
 class WithOemTest extends TestCase {
     use WithQueryLog;
 
-    /**
-     * @covers ::oem
-     */
     public function testOemExistsThroughProvider(): void {
         $oem      = Oem::factory()->create();
         $resolver = $this->app->make(OemResolver::class);

@@ -14,13 +14,9 @@ use Tests\TestCase;
 
 /**
  * @internal
- * @coversDefaultClass \App\Services\Recalculator\Processor\Processor
+ * @covers \App\Services\Recalculator\Processor\Processor
  */
 class ProcessorTest extends TestCase {
-    /**
-     * @covers ::chunkLoaded
-     * @covers ::getOnChangeEvent
-     */
     public function testWillNotDispatchEventIfNoChanges(): void {
         $subject    = $this->app->make(Subject::class);
         $handler    = $this->app->make(ExceptionHandler::class);
@@ -57,10 +53,6 @@ class ProcessorTest extends TestCase {
         $dispatcher->assertNothingDispatched();
     }
 
-    /**
-     * @covers ::chunkLoaded
-     * @covers ::getOnChangeEvent
-     */
     public function testWillDispatchEventIfChanges(): void {
         $subject    = $this->app->make(Subject::class);
         $handler    = $this->app->make(ExceptionHandler::class);

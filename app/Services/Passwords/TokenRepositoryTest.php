@@ -12,12 +12,9 @@ use Tests\TestCase;
 
 /**
  * @internal
- * @coversDefaultClass \App\Services\Passwords\TokenRepository
+ * @covers \App\Services\Passwords\TokenRepository
  */
 class TokenRepositoryTest extends TestCase {
-    /**
-     * @covers ::create
-     */
     public function testCreate(): void {
         $hasher     = $this->app->make(Hasher::class);
         $repository = new TokenRepository(
@@ -46,9 +43,6 @@ class TokenRepositoryTest extends TestCase {
         self::assertEquals(1, PasswordReset::query()->count());
     }
 
-    /**
-     * @covers ::recentlyCreatedToken
-     */
     public function testRecentlyCreatedToken(): void {
         // Prepare
         $throttle   = 60;
@@ -92,9 +86,6 @@ class TokenRepositoryTest extends TestCase {
         $token->delete();
     }
 
-    /**
-     * @covers ::deleteExpired
-     */
     public function testDeleteExpired(): void {
         // Prepare
         $expires    = 60;
@@ -122,9 +113,6 @@ class TokenRepositoryTest extends TestCase {
         self::assertEquals(1, PasswordReset::query()->count());
     }
 
-    /**
-     * @covers ::exists
-     */
     public function testExists(): void {
         $repository = new TokenRepository(
             Mockery::mock(ConnectionInterface::class),
@@ -160,9 +148,6 @@ class TokenRepositoryTest extends TestCase {
         self::assertTrue($repository->exists($userA, $token));
     }
 
-    /**
-     * @covers ::delete
-     */
     public function testDelete(): void {
         $repository = new TokenRepository(
             Mockery::mock(ConnectionInterface::class),

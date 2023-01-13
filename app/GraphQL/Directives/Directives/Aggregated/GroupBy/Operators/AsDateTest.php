@@ -15,7 +15,7 @@ use Tests\WithGraphQLSchema;
 
 /**
  * @internal
- * @coversDefaultClass \App\GraphQL\Directives\Directives\Aggregated\GroupBy\Operators\AsDate
+ * @covers \App\GraphQL\Directives\Directives\Aggregated\GroupBy\Operators\AsDate
  *
  * @phpstan-import-type BuilderFactory from BuilderDataProvider
  */
@@ -25,8 +25,6 @@ class AsDateTest extends TestCase {
     // <editor-fold desc="Tests">
     // =========================================================================
     /**
-     * @covers ::call
-     *
      * @dataProvider dataProviderCall
      *
      * @param array{query: string, bindings: array<mixed>} $expected

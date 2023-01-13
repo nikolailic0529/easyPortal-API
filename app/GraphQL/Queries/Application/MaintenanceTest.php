@@ -15,14 +15,13 @@ use Tests\WithUser;
 
 /**
  * @internal
- * @coversDefaultClass \App\GraphQL\Queries\Application\Maintenance
+ * @covers \App\GraphQL\Queries\Application\Maintenance
  *
  * @phpstan-import-type OrganizationFactory from WithOrganization
  * @phpstan-import-type UserFactory from WithUser
  */
 class MaintenanceTest extends TestCase {
     /**
-     * @covers ::__invoke
      * @dataProvider dataProviderQuery
      *
      * @param OrganizationFactory $orgFactory

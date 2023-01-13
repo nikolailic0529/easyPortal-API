@@ -13,19 +13,13 @@ use Tests\TestCase;
 
 /**
  * @internal
- * @coversDefaultClass \App\Services\Organization\Listeners\OrganizationUpdater
+ * @covers \App\Services\Organization\Listeners\OrganizationUpdater
  */
 class OrganizationUpdaterTest extends TestCase {
-    /**
-     * @covers ::getEvents
-     */
     public function testSubscribe(): void {
         Event::fake()->assertListening(ResellerUpdated::class, OrganizationUpdater::class);
     }
 
-    /**
-     * @covers ::handle
-     */
     public function testHandle(): void {
         $reseller = Reseller::factory()->make();
         $updater  = $this->app->make(OrganizationUpdater::class);
@@ -50,9 +44,6 @@ class OrganizationUpdaterTest extends TestCase {
         self::assertEquals($company->keycloakClientScopeName, $organization->keycloak_scope);
     }
 
-    /**
-     * @covers ::handle
-     */
     public function testHandleKeycloakGroupIdIsNull(): void {
         $reseller = Reseller::factory()->make();
         $updater  = $this->app->make(OrganizationUpdater::class);
@@ -73,9 +64,6 @@ class OrganizationUpdaterTest extends TestCase {
         self::assertNull($organization->keycloak_group_id);
     }
 
-    /**
-     * @covers ::handle
-     */
     public function testHandleOrganizationExists(): void {
         $reseller = Reseller::factory()->make();
         $updater  = $this->app->make(OrganizationUpdater::class);
@@ -105,9 +93,6 @@ class OrganizationUpdaterTest extends TestCase {
         self::assertEquals($company->keycloakClientScopeName, $organization->keycloak_scope);
     }
 
-    /**
-     * @covers ::handle
-     */
     public function testHandleKeycloakPropertiesCannotBeReset(): void {
         $reseller = Reseller::factory()->make();
         $updater  = $this->app->make(OrganizationUpdater::class);
@@ -136,9 +121,6 @@ class OrganizationUpdaterTest extends TestCase {
         self::assertEquals('anothertestgroup', $organization->keycloak_group_id);
     }
 
-    /**
-     * @covers ::handle
-     */
     public function testHandleSoftDeleteOrganizationExists(): void {
         $reseller = Reseller::factory()->create(['name' => 'Test Reseller']);
         $updater  = $this->app->make(OrganizationUpdater::class);
@@ -174,9 +156,6 @@ class OrganizationUpdaterTest extends TestCase {
         self::assertEquals($company->keycloakClientScopeName, $organization->keycloak_scope);
     }
 
-    /**
-     * @covers ::handle
-     */
     public function testHandleKeycloakNameIsUsedByAnotherOrganization(): void {
         $reseller          = Reseller::factory()->make();
         $updater           = $this->app->make(OrganizationUpdater::class);
@@ -212,9 +191,6 @@ class OrganizationUpdaterTest extends TestCase {
         self::assertNull($fresh->keycloak_group_id);
     }
 
-    /**
-     * @covers ::handle
-     */
     public function testHandleKeycloakScopeNameIsUsedByAnotherOrganization(): void {
         $reseller          = Reseller::factory()->make();
         $updater           = $this->app->make(OrganizationUpdater::class);
@@ -250,9 +226,6 @@ class OrganizationUpdaterTest extends TestCase {
         self::assertNull($fresh->keycloak_group_id);
     }
 
-    /**
-     * @covers ::handle
-     */
     public function testHandleKeycloakGroutIsUsedByAnotherOrganization(): void {
         $reseller          = Reseller::factory()->make();
         $updater           = $this->app->make(OrganizationUpdater::class);
@@ -288,9 +261,6 @@ class OrganizationUpdaterTest extends TestCase {
         self::assertNull($fresh->keycloak_group_id);
     }
 
-    /**
-     * @covers ::handle
-     */
     public function testHandleUpdateBranding(): void {
         // With Branding
         $reseller = Reseller::factory()->make();

@@ -11,15 +11,12 @@ use Tests\WithoutGlobalScopes;
 
 /**
  * @internal
- * @coversDefaultClass \App\Services\DataLoader\Resolver\Resolvers\CustomerResolver
+ * @covers \App\Services\DataLoader\Resolver\Resolvers\CustomerResolver
  */
 class CustomerResolverTest extends TestCase {
     use WithoutGlobalScopes;
     use WithQueryLog;
 
-    /**
-     * @covers ::get
-     */
     public function testGet(): void {
         // Prepare
         $factory = static function (?Customer $customer): Customer {

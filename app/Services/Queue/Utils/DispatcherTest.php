@@ -16,14 +16,12 @@ use function is_array;
 
 /**
  * @internal
- * @coversDefaultClass \App\Services\Queue\Utils\Dispatcher
+ * @covers \App\Services\Queue\Utils\Dispatcher
  */
 class DispatcherTest extends TestCase {
     // <editor-fold desc="Tests">
     // =========================================================================
     /**
-     * @covers ::dispatch
-     *
      * @dataProvider dataProviderDispatch
      *
      * @param Exception|array{task: class-string<Job>, keys: array<mixed>}|null $expected

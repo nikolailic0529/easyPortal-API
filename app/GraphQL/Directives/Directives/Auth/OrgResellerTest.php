@@ -19,7 +19,7 @@ use function addslashes;
 
 /**
  * @internal
- * @coversDefaultClass \App\GraphQL\Directives\Directives\Auth\OrgReseller
+ * @covers \App\GraphQL\Directives\Directives\Auth\OrgReseller
  *
  * @phpstan-import-type OrganizationFactory from WithOrganization
  * @phpstan-import-type UserFactory from WithUser
@@ -29,12 +29,6 @@ class OrgResellerTest extends TestCase {
 
     // <editor-fold desc="Tests">
     // =========================================================================
-    /**
-     * @covers ::manipulateTypeExtension
-     * @covers ::manipulateTypeDefinition
-     * @covers ::manipulateFieldDefinition
-     * @covers ::addRequirements
-     */
     public function testDirective(): void {
         self::assertGraphQLSchemaEquals(
             $this->getGraphQLSchemaExpected('~expected.graphql', '~schema.graphql'),
@@ -43,8 +37,6 @@ class OrgResellerTest extends TestCase {
     }
 
     /**
-     * @covers ::handleField
-     *
      * @dataProvider dataProviderResolveField
      *
      * @param OrganizationFactory $organizationFactory
@@ -87,8 +79,6 @@ class OrgResellerTest extends TestCase {
     }
 
     /**
-     * @covers ::handleField
-     *
      * @dataProvider dataProviderResolveField
      *
      * @param OrganizationFactory $organizationFactory

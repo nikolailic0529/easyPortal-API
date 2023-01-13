@@ -20,7 +20,7 @@ use Tests\WithUser;
 
 /**
  * @internal
- * @coversDefaultClass \App\GraphQL\Queries\Contracts\ContractTypes
+ * @covers \App\GraphQL\Queries\Contracts\ContractTypes
  *
  * @phpstan-import-type OrganizationFactory from WithOrganization
  * @phpstan-import-type UserFactory from WithUser
@@ -30,8 +30,6 @@ class ContractTypesTest extends TestCase {
     // <editor-fold desc="Tests">
     // =========================================================================
     /**
-     * @covers ::__invoke
-     *
      * @dataProvider dataProviderInvoke
      *
      * @param OrganizationFactory $orgFactory

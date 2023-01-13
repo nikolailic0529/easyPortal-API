@@ -18,14 +18,11 @@ use function implode;
 
 /**
  * @internal
- * @coversDefaultClass \App\Services\Search\GraphQL\ModelConverter
+ * @covers \App\Services\Search\GraphQL\ModelConverter
  */
 class ModelConverterTest extends TestCase {
     // <editor-fold desc="Tests">
     // =========================================================================
-    /**
-     * @covers ::toInputObjectTypes
-     */
     public function testToInputObjectTypes(): void {
         $converter = $this->app->make(ModelConverter::class);
         $actual    = $this->getGraphQL($converter->toInputObjectTypes(ModelConverterTest_Model::class));

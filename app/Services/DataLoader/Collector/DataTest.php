@@ -15,14 +15,9 @@ use Tests\TestCase;
 
 /**
  * @internal
- * @coversDefaultClass \App\Services\DataLoader\Collector\Data
+ * @covers \App\Services\DataLoader\Collector\Data
  */
 class DataTest extends TestCase {
-    /**
-     * @covers ::collect
-     * @covers ::getData
-     * @covers ::get
-     */
     public function testCollect(): void {
         $data   = new Data();
         $uuidA  = $this->faker->uuid();
@@ -86,25 +81,16 @@ class DataTest extends TestCase {
         );
     }
 
-    /**
-     * @covers ::isEmpty
-     */
     public function testIsEmpty(): void {
         self::assertTrue((new Data())->isEmpty());
         self::assertFalse((new Data())->collect(Asset::factory()->make())->isEmpty());
     }
 
-    /**
-     * @covers ::isDirty
-     */
     public function testIsDirty(): void {
         self::assertFalse((new Data())->isDirty());
         self::assertTrue((new Data())->collectObjectChange(Asset::factory()->make())->isDirty());
     }
 
-    /**
-     * @covers ::collectObjectChange
-     */
     public function testCollectObjectChangeModel(): void {
         $model = Mockery::mock(Model::class);
         $data  = Mockery::mock(Data::class);
@@ -123,9 +109,6 @@ class DataTest extends TestCase {
         self::assertTrue($data->isDirty());
     }
 
-    /**
-     * @covers ::collectObjectChange
-     */
     public function testCollectObjectChangeObject(): void {
         $object = new stdClass();
         $data   = Mockery::mock(Data::class);
@@ -140,9 +123,6 @@ class DataTest extends TestCase {
         self::assertFalse($data->isDirty());
     }
 
-    /**
-     * @covers ::collectObjectDeletion
-     */
     public function testCollectObjectDeletionModel(): void {
         $model = Mockery::mock(Model::class);
         $data  = Mockery::mock(Data::class);
@@ -161,9 +141,6 @@ class DataTest extends TestCase {
         self::assertTrue($data->isDirty());
     }
 
-    /**
-     * @covers ::collectObjectDeletion
-     */
     public function testCollectObjectDeletionObject(): void {
         $object = new stdClass();
         $data   = Mockery::mock(Data::class);
@@ -178,9 +155,6 @@ class DataTest extends TestCase {
         self::assertFalse($data->isDirty());
     }
 
-    /**
-     * @covers ::addAll
-     */
     public function testAddAll(): void {
         $data = new Data();
 
@@ -219,9 +193,6 @@ class DataTest extends TestCase {
         );
     }
 
-    /**
-     * @covers ::addData
-     */
     public function testAddData(): void {
         $a = new Data();
         $b = new Data();
@@ -278,9 +249,6 @@ class DataTest extends TestCase {
         );
     }
 
-    /**
-     * @covers ::deleteAll
-     */
     public function testDeleteAll(): void {
         $a = new Data();
 

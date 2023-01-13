@@ -21,14 +21,12 @@ use Tests\TestCase;
 
 /**
  * @internal
- * @coversDefaultClass \App\Services\DataLoader\Factory\Concerns\WithCustomer
+ * @covers \App\Services\DataLoader\Factory\Concerns\WithCustomer
  */
 class WithCustomerTest extends TestCase {
     // <editor-fold desc="Tests">
     // =========================================================================
     /**
-     * @covers ::customer
-     *
      * @dataProvider dataProviderCustomer
      */
     public function testCustomerExistsThroughProvider(Closure $objectFactory): void {
@@ -47,8 +45,6 @@ class WithCustomerTest extends TestCase {
     }
 
     /**
-     * @covers ::customer
-     *
      * @dataProvider dataProviderCustomer
      */
     public function testCustomerExistsThroughFinder(Closure $objectFactory): void {
@@ -78,8 +74,6 @@ class WithCustomerTest extends TestCase {
     }
 
     /**
-     * @covers ::customer
-     *
      * @dataProvider dataProviderCustomer
      */
     public function testCustomerCustomerNotFound(Closure $objectFactory): void {
@@ -107,9 +101,6 @@ class WithCustomerTest extends TestCase {
         self::assertEquals($customer, $factory->customer($object));
     }
 
-    /**
-     * @covers ::customer
-     */
     public function testCustomerAssetWithoutCustomer(): void {
         $object   = new ViewAsset();
         $resolver = Mockery::mock(CustomerResolver::class);

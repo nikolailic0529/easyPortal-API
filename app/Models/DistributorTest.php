@@ -8,7 +8,7 @@ use function get_defined_vars;
 
 /**
  * @internal
- * @coversDefaultClass \App\Models\Distributor
+ * @covers \App\Models\Distributor
  */
 class DistributorTest extends TestCase {
     public function testDelete(): void {

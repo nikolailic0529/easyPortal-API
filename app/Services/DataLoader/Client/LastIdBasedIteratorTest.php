@@ -15,14 +15,11 @@ use function range;
 
 /**
  * @internal
- * @coversDefaultClass \App\Services\DataLoader\Client\LastIdBasedIterator
+ * @covers \App\Services\DataLoader\Client\LastIdBasedIterator
  */
 class LastIdBasedIteratorTest extends TestCase {
     // <editor-fold desc="Tests">
     // =========================================================================
-    /**
-     * @covers ::getIterator
-     */
     public function testGetIterator(): void {
         $data     = $this->getData();
         $executor = Mockery::spy($this->getRetriever($data));
@@ -38,9 +35,6 @@ class LastIdBasedIteratorTest extends TestCase {
             ->times(3);
     }
 
-    /**
-     * @covers ::getIterator
-     */
     public function testGetIteratorWithLimitLastId(): void {
         $data          = $this->getData();
         $executor      = Mockery::spy($this->getRetriever($data));
@@ -74,9 +68,6 @@ class LastIdBasedIteratorTest extends TestCase {
         $onAfterChunk->shouldHaveBeenCalled();
     }
 
-    /**
-     * @covers ::getIterator
-     */
     public function testGetIteratorChunkLessThanLimit(): void {
         $data     = $this->getData();
         $executor = Mockery::spy(function (array $params = []) use ($data) {
@@ -98,9 +89,6 @@ class LastIdBasedIteratorTest extends TestCase {
             ->times(5);
     }
 
-    /**
-     * @covers ::getIterator
-     */
     public function testGetIteratorChunkGreaterThanLimit(): void {
         $data     = $this->getData();
         $executor = Mockery::spy(function (array $params = []) use ($data) {
@@ -127,9 +115,6 @@ class LastIdBasedIteratorTest extends TestCase {
             ->times(1);
     }
 
-    /**
-     * @covers ::getIterator
-     */
     public function testGetIteratorLimitZero(): void {
         $executor = Mockery::spy(static function (array $params = []): mixed {
             return null;

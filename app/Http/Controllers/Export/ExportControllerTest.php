@@ -46,7 +46,7 @@ use function tap;
 
 /**
  * @internal
- * @coversDefaultClass \App\Http\Controllers\Export\ExportController
+ * @covers \App\Http\Controllers\Export\ExportController
  *
  * @phpstan-import-type OrganizationFactory from WithOrganization
  * @phpstan-import-type UserFactory from WithUser
@@ -57,8 +57,6 @@ class ExportControllerTest extends TestCase {
     // <editor-fold desc="Tests">
     // =========================================================================
     /**
-     * @covers ::csv
-     *
      * @dataProvider dataProviderExportCsv
      *
      * @param OrganizationFactory                         $orgFactory
@@ -125,8 +123,6 @@ class ExportControllerTest extends TestCase {
     }
 
     /**
-     * @covers ::xlsx
-     *
      * @dataProvider dataProviderExportXlsx
      *
      * @param OrganizationFactory                         $orgFactory
@@ -193,8 +189,6 @@ class ExportControllerTest extends TestCase {
     }
 
     /**
-     * @covers ::pdf
-     *
      * @dataProvider dataProviderExportPdf
      *
      * @param OrganizationFactory                         $orgFactory

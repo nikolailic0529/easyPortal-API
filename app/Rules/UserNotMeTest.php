@@ -13,16 +13,13 @@ use Tests\WithUser;
 
 /**
  * @internal
- * @coversDefaultClass \App\Rules\UserNotMe
+ * @covers \App\Rules\UserNotMe
  *
  * @phpstan-import-type UserFactory from WithUser
  */
 class UserNotMeTest extends TestCase {
     // <editor-fold desc="Tests">
     // =========================================================================
-    /**
-     * @covers ::message
-     */
     public function testMessage(): void {
         $this->app->setLocale('de');
         $translationsFactory = static function (TestCase $test, string $locale): array {
@@ -37,8 +34,6 @@ class UserNotMeTest extends TestCase {
     }
 
     /**
-     * @covers ::passes
-     *
      * @dataProvider dataProviderPasses
      *
      * @param UserFactory $userFactory
@@ -57,8 +52,6 @@ class UserNotMeTest extends TestCase {
     }
 
     /**
-     * @covers ::passes
-     *
      * @dataProvider dataProviderPassesMutation
      *
      * @param UserFactory                      $userFactory

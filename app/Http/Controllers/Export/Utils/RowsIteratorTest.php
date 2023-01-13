@@ -12,12 +12,9 @@ use function max;
 
 /**
  * @internal
- * @coversDefaultClass \App\Http\Controllers\Export\Utils\RowsIterator
+ * @covers \App\Http\Controllers\Export\Utils\RowsIterator
  */
 class RowsIteratorTest extends TestCase {
-    /**
-     * @covers ::getIterator
-     */
     public function testGetIterator(): void {
         $formatter = $this->app->make(Formatter::class);
         $offset    = $this->faker->randomDigit();

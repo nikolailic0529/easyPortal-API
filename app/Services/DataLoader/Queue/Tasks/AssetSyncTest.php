@@ -15,14 +15,11 @@ use function iterator_to_array;
 
 /**
  * @internal
- * @coversDefaultClass \App\Services\DataLoader\Queue\Tasks\AssetSync
+ * @covers \App\Services\DataLoader\Queue\Tasks\AssetSync
  */
 class AssetSyncTest extends TestCase {
     // <editor-fold desc="Tests">
     // =========================================================================
-    /**
-     * @covers ::__invoke
-     */
     public function testInvoke(): void {
         $asset = Asset::factory()->make();
 
@@ -60,9 +57,6 @@ class AssetSyncTest extends TestCase {
         self::assertEquals($expected, $actual);
     }
 
-    /**
-     * @covers ::__invoke
-     */
     public function testInvokeFailed(): void {
         $asset     = Asset::factory()->make();
         $exception = new Exception();
@@ -104,9 +98,6 @@ class AssetSyncTest extends TestCase {
         self::assertEquals($expected, $actual);
     }
 
-    /**
-     * @covers ::__invoke
-     */
     public function testInvokeWarrantyFailed(): void {
         $asset     = Asset::factory()->make();
         $exception = new Exception();
@@ -143,9 +134,6 @@ class AssetSyncTest extends TestCase {
         self::assertEquals($expected, $actual);
     }
 
-    /**
-     * @covers ::__invoke
-     */
     public function testInvokeWarrantyNoSkuOrSerialNumber(): void {
         $this->override(ExceptionHandler::class, static function (MockInterface $mock): void {
             $mock

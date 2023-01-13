@@ -11,14 +11,9 @@ use function iterator_to_array;
 
 /**
  * @internal
- * @coversDefaultClass \App\Utils\Iterators\ObjectIteratorIterator
+ * @covers \App\Utils\Iterators\ObjectIteratorIterator
  */
 class ObjectIteratorIteratorTest extends TestCase {
-    /**
-     * @covers ::getIterator
-     * @covers ::setOffset
-     * @covers ::setLimit
-     */
     public function testGetIterator(): void {
         $iterator = new class(new ObjectsIterator([1, 2, 3, 4, 5, 6, 7, 8, 9, 0])) extends ObjectIteratorIterator {
             /**
@@ -67,12 +62,6 @@ class ObjectIteratorIteratorTest extends TestCase {
         ));
     }
 
-    /**
-     * @covers ::onInit
-     * @covers ::onFinish
-     * @covers ::onBeforeChunk
-     * @covers ::onAfterChunk
-     */
     public function testEvents(): void {
         $init    = Mockery::spy(static function (): void {
             // empty

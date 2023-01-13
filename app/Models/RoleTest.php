@@ -7,7 +7,7 @@ use Tests\TestCase;
 
 /**
  * @internal
- * @coversDefaultClass \App\Models\Role
+ * @covers \App\Models\Role
  */
 class RoleTest extends TestCase {
     public function testDelete(): void {

@@ -11,7 +11,7 @@ use Tests\TestCase;
 
 /**
  * @internal
- * @coversDefaultClass \App\Services\Maintenance\Jobs\TelescopeCleaner
+ * @covers \App\Services\Maintenance\Jobs\TelescopeCleaner
  */
 class TelescopeCleanerTest extends TestCase {
     /**
@@ -21,9 +21,6 @@ class TelescopeCleanerTest extends TestCase {
         self::assertCronableRegistered(TelescopeCleaner::class);
     }
 
-    /**
-     * @covers ::__invoke
-     */
     public function testInvoke(): void {
         $job = $this->app->make(TelescopeCleaner::class);
 

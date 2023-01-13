@@ -21,15 +21,14 @@ use Tests\WithQueryLogs;
 
 /**
  * @internal
- * @coversDefaultClass \App\Services\Recalculator\Processor\Processors\CustomersProcessor
+ * @covers \App\Services\Recalculator\Processor\ChunkData
+ * @covers \App\Services\Recalculator\Processor\Processors\CustomersChunkData
+ * @covers \App\Services\Recalculator\Processor\Processors\CustomersProcessor
  */
 class CustomersProcessorTest extends TestCase {
     use WithQueryLogs;
     use Helper;
 
-    /**
-     * @covers ::process
-     */
     public function testProcess(): void {
         // Setup
         $this->overrideDateFactory('2021-08-30T00:00:00.000+00:00');

@@ -17,9 +17,6 @@ trait HasContactsTests {
      */
     abstract protected function getModel(): Model;
 
-    /**
-     * @covers ::setContactsAttribute
-     */
     public function testSetContactsAttribute(): void {
         /** @var Model&HasContacts $model */
         $model   = $this->getModel()->factory()->create([

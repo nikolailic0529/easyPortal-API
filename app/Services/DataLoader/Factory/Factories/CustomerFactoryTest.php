@@ -23,7 +23,7 @@ use function array_column;
 
 /**
  * @internal
- * @coversDefaultClass \App\Services\DataLoader\Factory\Factories\CustomerFactory
+ * @covers \App\Services\DataLoader\Factory\Factories\CustomerFactory
  */
 class CustomerFactoryTest extends TestCase {
     use WithoutGlobalScopes;
@@ -33,8 +33,6 @@ class CustomerFactoryTest extends TestCase {
     // <editor-fold desc="Tests">
     // =========================================================================
     /**
-     * @covers ::create
-     *
      * @dataProvider dataProviderCreate
      */
     public function testCreate(?string $expected, Type $type): void {
@@ -56,10 +54,6 @@ class CustomerFactoryTest extends TestCase {
         $factory->create($type, $force);
     }
 
-    /**
-     * @covers ::create
-     * @covers ::createFromCompany
-     */
     public function testCreateFromCompany(): void {
         // Mock
         $this->overrideDateFactory('2021-08-30T00:00:00.000+00:00');
@@ -255,10 +249,6 @@ class CustomerFactoryTest extends TestCase {
         self::assertCount(0, $queries->get());
     }
 
-    /**
-     * @covers ::create
-     * @covers ::createFromCompany
-     */
     public function testCreateFromCompanyCustomerOnly(): void {
         // Prepare
         $factory = $this->app->make(CustomerFactory::class);
@@ -274,10 +264,6 @@ class CustomerFactoryTest extends TestCase {
         self::assertEquals($company->name, $customer->name);
     }
 
-    /**
-     * @covers ::create
-     * @covers ::createFromCompany
-     */
     public function testCreateFromCompanyTrashed(): void {
         // Mock
         $this->overrideResellerFinder();
@@ -300,9 +286,6 @@ class CustomerFactoryTest extends TestCase {
         self::assertFalse($created->trashed());
     }
 
-    /**
-     * @covers ::resellers
-     */
     public function testResellers(): void {
         $kpiA      = Kpi::factory()->create();
         $kpiB      = Kpi::factory()->create();

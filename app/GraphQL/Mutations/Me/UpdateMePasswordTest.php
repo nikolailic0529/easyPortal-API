@@ -24,7 +24,7 @@ use Tests\WithUser;
 
 /**
  * @internal
- * @coversDefaultClass \App\GraphQL\Mutations\Me\UpdateMePassword
+ * @covers \App\GraphQL\Mutations\Me\UpdateMePassword
  *
  * @phpstan-import-type OrganizationFactory from WithOrganization
  * @phpstan-import-type UserFactory from WithUser
@@ -33,7 +33,6 @@ class UpdateMePasswordTest extends TestCase {
     // <editor-fold desc="Tests">
     // =========================================================================
     /**
-     * @covers ::__invoke
      * @dataProvider dataProviderInvoke
      *
      * @param OrganizationFactory $orgFactory

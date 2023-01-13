@@ -22,7 +22,7 @@ use function json_encode;
 
 /**
  * @internal
- * @coversDefaultClass \App\GraphQL\Directives\Directives\Aggregated\Aggregated
+ * @covers \App\GraphQL\Directives\Directives\Aggregated\Aggregated
  */
 class AggregatedTest extends TestCase {
     use WithoutGlobalScopes;
@@ -32,8 +32,6 @@ class AggregatedTest extends TestCase {
     // <editor-fold desc="Tests">
     // =========================================================================
     /**
-     * @covers ::resolveField
-     *
      * @dataProvider dataProviderResolveField
      *
      * @param Closure(static): mixed          $root
@@ -104,9 +102,6 @@ class AggregatedTest extends TestCase {
             ->assertThat($expected);
     }
 
-    /**
-     * @covers ::resolveField
-     */
     public function testResolveFieldScout(): void {
         $model = Customer::factory()->create();
         $class = json_encode($model::class);

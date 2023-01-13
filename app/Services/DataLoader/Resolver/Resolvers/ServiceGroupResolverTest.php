@@ -11,14 +11,11 @@ use Tests\TestCase;
 
 /**
  * @internal
- * @coversDefaultClass \App\Services\DataLoader\Resolver\Resolvers\ServiceGroupResolver
+ * @covers \App\Services\DataLoader\Resolver\Resolvers\ServiceGroupResolver
  */
 class ServiceGroupResolverTest extends TestCase {
     use WithQueryLog;
 
-    /**
-     * @covers ::get
-     */
     public function testGet(): void {
         // Prepare
         $oemA    = Oem::factory()->create();

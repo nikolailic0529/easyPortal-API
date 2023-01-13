@@ -18,15 +18,13 @@ use Tests\WithQueryLogs;
 
 /**
  * @internal
- * @coversDefaultClass \App\Services\DataLoader\Processors\Importer\Importers\Distributors\IteratorImporter
+ * @covers \App\Services\DataLoader\Processors\Importer\Importers\Distributors\BaseImporter
+ * @covers \App\Services\DataLoader\Processors\Importer\Importers\Distributors\IteratorImporter
  */
 class IteratorImporterTest extends TestCase {
     use WithQueryLogs;
     use Helper;
 
-    /**
-     * @covers ::process
-     */
     public function testProcess(): void {
         // Generate
         $this->generateData(DistributorsIteratorImporterData::class);

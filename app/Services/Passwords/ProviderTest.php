@@ -6,13 +6,9 @@ use Tests\TestCase;
 
 /**
  * @internal
- * @coversDefaultClass \App\Services\Passwords\Provider
+ * @covers \App\Services\Passwords\Provider
  */
 class ProviderTest extends TestCase {
-    /**
-     * @covers ::register
-     * @covers ::registerPasswordBroker
-     */
     public function testRegisterPasswordBroker(): void {
         self::assertInstanceOf(PasswordBrokerManager::class, $this->app->make('auth.password'));
     }

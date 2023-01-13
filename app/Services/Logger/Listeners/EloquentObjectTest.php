@@ -11,12 +11,9 @@ use Tests\TestCase;
 
 /**
  * @internal
- * @coversDefaultClass \App\Services\Logger\Listeners\EloquentObject
+ * @covers \App\Services\Logger\Listeners\EloquentObject
  */
 class EloquentObjectTest extends TestCase {
-    /**
-     * @covers ::getChanges
-     */
     public function testGetChanges(): void {
         $model  = Status::factory()->create();
         $object = new EloquentObject($model);
@@ -46,9 +43,6 @@ class EloquentObjectTest extends TestCase {
         ], $actual);
     }
 
-    /**
-     * @covers ::getProperties
-     */
     public function testGetProperties(): void {
         $model  = Status::factory()->make();
         $object = new EloquentObject($model);
@@ -85,9 +79,6 @@ class EloquentObjectTest extends TestCase {
         ], $object->getProperties());
     }
 
-    /**
-     * @covers ::isSoftDeletable
-     */
     public function testIsSoftDeletable(): void {
         self::assertTrue((new EloquentObject(Mockery::mock(Model::class, SoftDeletes::class)))->isSoftDeletable());
         self::assertFalse((new EloquentObject(Mockery::mock(Model::class)))->isSoftDeletable());

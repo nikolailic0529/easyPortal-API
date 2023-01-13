@@ -28,7 +28,7 @@ use function trans;
 
 /**
  * @internal
- * @coversDefaultClass \App\GraphQL\Mutations\Org\Role\Create
+ * @covers \App\GraphQL\Mutations\Org\Role\Create
  *
  * @phpstan-import-type OrganizationFactory from WithOrganization
  * @phpstan-import-type UserFactory from WithUser
@@ -37,7 +37,6 @@ class CreateTest extends TestCase {
     // <editor-fold desc="Tests">
     // =========================================================================
     /**
-     * @covers ::__invoke
      * @dataProvider dataProviderInvoke
      *
      * @param OrganizationFactory                               $orgFactory

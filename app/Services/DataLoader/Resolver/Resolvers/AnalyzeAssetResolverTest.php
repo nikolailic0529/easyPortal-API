@@ -12,15 +12,12 @@ use Tests\WithoutGlobalScopes;
 
 /**
  * @internal
- * @coversDefaultClass \App\Services\DataLoader\Resolver\Resolvers\AnalyzeAssetResolver
+ * @covers \App\Services\DataLoader\Resolver\Resolvers\AnalyzeAssetResolver
  */
 class AnalyzeAssetResolverTest extends TestCase {
     use WithoutGlobalScopes;
     use WithQueryLog;
 
-    /**
-     * @covers ::get
-     */
     public function testGet(): void {
         // Prepare
         $connection = Model::CONNECTION;

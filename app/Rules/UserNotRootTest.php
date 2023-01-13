@@ -13,14 +13,11 @@ use Tests\TestCase;
 
 /**
  * @internal
- * @coversDefaultClass \App\Rules\UserNotRoot
+ * @covers \App\Rules\UserNotRoot
  */
 class UserNotRootTest extends TestCase {
     // <editor-fold desc="Tests">
     // =========================================================================
-    /**
-     * @covers ::message
-     */
     public function testMessage(): void {
         $this->app->setLocale('de');
         $translationsFactory = static function (TestCase $test, string $locale): array {
@@ -35,8 +32,6 @@ class UserNotRootTest extends TestCase {
     }
 
     /**
-     * @covers ::passes
-     *
      * @dataProvider dataProviderPasses
      *
      * @param Closure(static): User $userFactory
@@ -54,8 +49,6 @@ class UserNotRootTest extends TestCase {
     }
 
     /**
-     * @covers ::passes
-     *
      * @dataProvider dataProviderPassesMutation
      *
      * @param Closure(static): ?Context $contextFactory

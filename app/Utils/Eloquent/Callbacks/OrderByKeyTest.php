@@ -9,14 +9,12 @@ use Tests\TestCase;
 
 /**
  * @internal
- * @coversDefaultClass \App\Utils\Eloquent\Callbacks\OrderByKey
+ * @covers \App\Utils\Eloquent\Callbacks\OrderByKey
  */
 class OrderByKeyTest extends TestCase {
     // <editor-fold desc="Tests">
     // =========================================================================
     /**
-     * @covers ::__invoke
-     *
      * @dataProvider dataProviderInvoke
      *
      * @param array{query: string, bindings: array<mixed>} $expected

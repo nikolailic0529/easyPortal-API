@@ -11,14 +11,11 @@ use Tests\TestCase;
 
 /**
  * @internal
- * @coversDefaultClass \App\Services\DataLoader\Resolver\Resolvers\TypeResolver
+ * @covers \App\Services\DataLoader\Resolver\Resolvers\TypeResolver
  */
 class TypeResolverTest extends TestCase {
     use WithQueryLog;
 
-    /**
-     * @covers ::get
-     */
     public function testGet(): void {
         // Prepare
         $model   = new class() extends Model {

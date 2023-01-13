@@ -21,12 +21,9 @@ use Tests\TestCase;
 
 /**
  * @internal
- * @coversDefaultClass \App\Services\DataLoader\Factory\Concerns\WithAssetDocument
+ * @covers \App\Services\DataLoader\Factory\Concerns\WithAssetDocument
  */
 class WithAssetDocumentTest extends TestCase {
-    /**
-     * @covers ::documentOem
-     */
     public function testDocumentOem(): void {
         $oem     = $this->faker->word();
         $factory = Mockery::mock(WithAssetDocumentTest_Factory::class);
@@ -51,9 +48,6 @@ class WithAssetDocumentTest extends TestCase {
         ]));
     }
 
-    /**
-     * @covers ::assetDocumentOem
-     */
     public function testAssetDocumentOem(): void {
         $oem      = Oem::factory()->make();
         $asset    = AssetModel::factory()->make();
@@ -77,9 +71,6 @@ class WithAssetDocumentTest extends TestCase {
         self::assertSame($oem, $factory->assetDocumentOem($asset, $document));
     }
 
-    /**
-     * @covers ::assetDocumentOem
-     */
     public function testAssetDocumentOemNoDocument(): void {
         $oem         = Oem::factory()->make();
         $asset       = AssetModel::factory()->make();
@@ -108,9 +99,6 @@ class WithAssetDocumentTest extends TestCase {
         self::assertSame($oem, $factory->assetDocumentOem($asset, $document));
     }
 
-    /**
-     * @covers ::assetDocumentServiceGroup
-     */
     public function testAssetDocumentServiceGroup(): void {
         $oem      = Oem::factory()->make();
         $asset    = AssetModel::factory()->make();
@@ -146,9 +134,6 @@ class WithAssetDocumentTest extends TestCase {
         self::assertSame($group, $factory->assetDocumentServiceGroup($asset, $document));
     }
 
-    /**
-     * @covers ::assetDocumentServiceLevel
-     */
     public function testAssetDocumentServiceLevel(): void {
         $oem      = Oem::factory()->make();
         $asset    = AssetModel::factory()->make();

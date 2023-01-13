@@ -12,12 +12,9 @@ use const JSON_PRETTY_PRINT;
 
 /**
  * @internal
- * @coversDefaultClass \App\Services\Settings\Storage
+ * @covers \App\Services\Settings\Storage
  */
 class StorageTest extends TestCase {
-    /**
-     * @covers ::has
-     */
     public function testGet(): void {
         $env = Mockery::mock(Storage::class);
         $env->makePartial();
@@ -31,9 +28,6 @@ class StorageTest extends TestCase {
         self::assertEquals(123, $env->get('TEST2'));
     }
 
-    /**
-     * @covers ::has
-     */
     public function testHas(): void {
         $env = Mockery::mock(Storage::class);
         $env->makePartial();
@@ -46,9 +40,6 @@ class StorageTest extends TestCase {
         self::assertFalse($env->has('UNKNOWN'));
     }
 
-    /**
-     * @covers ::load
-     */
     public function testLoad(): void {
         $json    = $this->getTempFile(json_encode(['TEST' => 'value']))->getPathname();
         $storage = Mockery::mock(Storage::class);
@@ -63,9 +54,6 @@ class StorageTest extends TestCase {
         self::assertEquals(['TEST' => 'value'], $storage->load());
     }
 
-    /**
-     * @covers ::save
-     */
     public function testSave(): void {
         $json    = $this->getTempFile(json_encode(['TEST' => 'value']))->getPathname();
         $storage = Mockery::mock(Storage::class);
@@ -84,9 +72,6 @@ class StorageTest extends TestCase {
         );
     }
 
-    /**
-     * @covers ::delete
-     */
     public function testDelete(): void {
         $storage = Mockery::mock(Storage::class);
         $storage->shouldAllowMockingProtectedMethods();

@@ -12,14 +12,11 @@ use function mb_strtoupper;
 
 /**
  * @internal
- * @coversDefaultClass \App\Services\DataLoader\Cache\Cache
+ * @covers \App\Services\DataLoader\Cache\Cache
  */
 class CacheTest extends TestCase {
     // <editor-fold desc="Tests">
     // =========================================================================
-    /**
-     * @covers ::getByRetriever
-     */
     public function testGetByRetriever(): void {
         $items = $this->items();
         $cache = $this->cache($items);
@@ -36,9 +33,6 @@ class CacheTest extends TestCase {
         ])));
     }
 
-    /**
-     * @covers ::hasByRetriever
-     */
     public function testHasByRetriever(): void {
         $items = $this->items();
         $cache = $this->cache($items);
@@ -53,9 +47,6 @@ class CacheTest extends TestCase {
         ])));
     }
 
-    /**
-     * @covers ::has
-     */
     public function testHas(): void {
         $items = $this->items();
         $cache = $this->cache($items);
@@ -70,9 +61,6 @@ class CacheTest extends TestCase {
         ])));
     }
 
-    /**
-     * @covers ::get
-     */
     public function testGet(): void {
         $items = $this->items();
         $cache = $this->cache($items);
@@ -87,9 +75,6 @@ class CacheTest extends TestCase {
         ])));
     }
 
-    /**
-     * @covers ::putNull
-     */
     public function testPutNull(): void {
         $items       = $this->items();
         $cache       = $this->cache($items);
@@ -110,10 +95,6 @@ class CacheTest extends TestCase {
         self::assertTrue($cache->has($propertyKey));
     }
 
-    /**
-     * @covers ::putNull
-     * @covers ::hasNull
-     */
     public function testPutNulls(): void {
         $items = $this->items();
         $cache = $this->cache($items);
@@ -131,9 +112,6 @@ class CacheTest extends TestCase {
         self::assertTrue($cache->hasNull($keyB));
     }
 
-    /**
-     * @covers ::put
-     */
     public function testPut(): void {
         $items       = $this->items();
         $cache       = $this->cache($items);
@@ -150,9 +128,6 @@ class CacheTest extends TestCase {
         self::assertTrue($cache->has($propertyKey));
     }
 
-    /**
-     * @covers ::put
-     */
     public function testPutAfterNull(): void {
         $items       = $this->items();
         $cache       = $this->cache($items);
@@ -174,9 +149,6 @@ class CacheTest extends TestCase {
         self::assertSame($item, $cache->get($propertyKey));
     }
 
-    /**
-     * @covers ::putAll
-     */
     public function testPutAll(): void {
         $items = $this->items();
         $cache = $this->cache($items);
@@ -195,9 +167,6 @@ class CacheTest extends TestCase {
         self::assertTrue($cache->has($keyB));
     }
 
-    /**
-     * @covers ::reset
-     */
     public function testReset(): void {
         $items = $this->items();
         $cache = $this->cache($items);
@@ -217,9 +186,6 @@ class CacheTest extends TestCase {
         self::assertFalse($cache->has($keyB));
     }
 
-    /**
-     * @covers ::getAll
-     */
     public function testGetAll(): void {
         $items = $this->items();
         $cache = $this->cache($items);

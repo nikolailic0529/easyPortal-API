@@ -13,14 +13,11 @@ use Tests\TestCase;
 
 /**
  * @internal
- * @coversDefaultClass \App\Services\DataLoader\Factory\Concerns\WithStatus
+ * @covers \App\Services\DataLoader\Factory\Concerns\WithStatus
  */
 class WithStatusTest extends TestCase {
     use WithQueryLog;
 
-    /**
-     * @covers ::status
-     */
     public function testStatus(): void {
         // Prepare
         $resolver = $this->app->make(StatusResolver::class);

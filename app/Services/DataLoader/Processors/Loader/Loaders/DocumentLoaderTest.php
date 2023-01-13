@@ -18,15 +18,13 @@ use Tests\WithQueryLogs;
 
 /**
  * @internal
- * @coversDefaultClass \App\Services\DataLoader\Processors\Loader\Loaders\DocumentLoader
+ * @covers \App\Services\DataLoader\Processors\Loader\Loader
+ * @covers \App\Services\DataLoader\Processors\Loader\Loaders\DocumentLoader
  */
 class DocumentLoaderTest extends TestCase {
     use WithQueryLogs;
     use Helper;
 
-    /**
-     * @covers ::process
-     */
     public function testProcess(): void {
         // Generate
         $this->generateData(DocumentLoaderData::class);
@@ -92,9 +90,6 @@ class DocumentLoaderTest extends TestCase {
         unset($events);
     }
 
-    /**
-     * @covers ::process
-     */
     public function testProcessTrashed(): void {
         // Generate
         $this->generateData(DocumentLoaderData::class);

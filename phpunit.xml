@@ -26,6 +26,7 @@
         <exclude>
             <directory suffix="Test.php">./app</directory>
             <directory suffix="Test.php">./tests</directory>
+            <directory suffix=".php">./tests/Data</directory>
             <directory suffix="Test.php">./database/seeders</directory>
         </exclude>
     </coverage>

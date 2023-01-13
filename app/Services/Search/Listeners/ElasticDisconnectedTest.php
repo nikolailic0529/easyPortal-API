@@ -15,14 +15,12 @@ use Tests\TestCase;
 
 /**
  * @internal
- * @coversDefaultClass \App\Services\Search\Listeners\ElasticDisconnected
+ * @covers \App\Services\Search\Listeners\ElasticDisconnected
  */
 class ElasticDisconnectedTest extends TestCase {
     // <editor-fold desc="Tests">
     // =========================================================================
     /**
-     * @covers ::getEvents
-     *
      * @dataProvider dataProviderSubscribe
      *
      * @param Closure(self): object $eventFactory
@@ -39,9 +37,6 @@ class ElasticDisconnectedTest extends TestCase {
             ->dispatch($eventFactory($this));
     }
 
-    /**
-     * @covers ::__invoke
-     */
     public function testInvokeNoNodesAvailableException(): void {
         $this->override(ClientBuilderInterface::class, static function (): MockInterface {
             $mock = Mockery::mock(ClientBuilder::class);

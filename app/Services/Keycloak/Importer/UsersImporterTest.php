@@ -23,12 +23,9 @@ use function reset;
 
 /**
  * @internal
- * @coversDefaultClass \App\Services\Keycloak\Importer\UsersImporter
+ * @covers \App\Services\Keycloak\Importer\UsersImporter
  */
 class UsersImporterTest extends TestCase {
-    /**
-     * @covers ::process
-     */
     public function testImport(): void {
         // Prepare
         $organization = $this->setOrganization(Organization::factory()->create([
@@ -162,9 +159,6 @@ class UsersImporterTest extends TestCase {
         self::assertEquals($expected, $actual);
     }
 
-    /**
-     * @covers ::process
-     */
     public function testImportExistingUserWithRoles(): void {
         // Prepare
         $orgA  = Organization::factory()->create([
@@ -285,8 +279,6 @@ class UsersImporterTest extends TestCase {
     }
 
     /**
-     * @covers ::process
-     *
      * @see https://github.com/fakharanwar/easyPortal-API/issues/1008
      */
     public function testImportExistingUserWithPermissions(): void {
@@ -353,9 +345,6 @@ class UsersImporterTest extends TestCase {
         self::assertEquals(['permission-a', 'permission-b'], $user->permissions);
     }
 
-    /**
-     * @covers ::getUser
-     */
     public function testGetUserNormal(): void {
         $user = User::factory()->make();
         $item = new KeycloakUser(['id' => $user->getKey()]);
@@ -382,9 +371,6 @@ class UsersImporterTest extends TestCase {
         self::assertEquals($user, $actual);
     }
 
-    /**
-     * @covers ::getUser
-     */
     public function testGetUserNoUser(): void {
         $item = new KeycloakUser(['id' => $this->faker->uuid()]);
         $data = Mockery::mock(UsersImporterChunkData::class);
@@ -412,9 +398,6 @@ class UsersImporterTest extends TestCase {
         self::assertEquals(UserType::keycloak(), $actual->type);
     }
 
-    /**
-     * @covers ::getUser
-     */
     public function testGetUserTrashed(): void {
         $user = User::factory()->make(['deleted_at' => Date::now()]);
         $item = new KeycloakUser(['id' => $user->getKey()]);
@@ -442,9 +425,6 @@ class UsersImporterTest extends TestCase {
         self::assertFalse($actual->trashed());
     }
 
-    /**
-     * @covers ::getUser
-     */
     public function testGetUserInvalidType(): void {
         $user = User::factory()->make(['type' => UserType::local()]);
         $item = new KeycloakUser(['id' => $user->getKey()]);
@@ -473,9 +453,6 @@ class UsersImporterTest extends TestCase {
         $importer->getUser($data, $item);
     }
 
-    /**
-     * @covers ::process
-     */
     public function testProcess(): void {
         $state = new UsersImporterState();
         $user  = User::factory()->make();
@@ -546,9 +523,6 @@ class UsersImporterTest extends TestCase {
         self::assertEquals([], $actual->permissions);
     }
 
-    /**
-     * @covers ::process
-     */
     public function testProcessEmailConflict(): void {
         $state   = new UsersImporterState();
         $another = User::factory()->make();
@@ -594,9 +568,6 @@ class UsersImporterTest extends TestCase {
         self::assertEquals($item->email, $actual->email);
     }
 
-    /**
-     * @covers ::finish
-     */
     public function testFinish(): void {
         // Users
         $a = User::factory()->create([
@@ -651,9 +622,6 @@ class UsersImporterTest extends TestCase {
         self::assertTrue(User::query()->whereKey($d->getKey())->exists());
     }
 
-    /**
-     * @covers ::finish
-     */
     public function testFinishDeleteNotPossible(): void {
         // Mock
         $importer = Mockery::mock(UsersImporter::class);

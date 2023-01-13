@@ -12,7 +12,7 @@ use Tests\TestCase;
 
 /**
  * @internal
- * @coversDefaultClass \App\Services\Maintenance\Commands\VersionReset
+ * @covers \App\Services\Maintenance\Commands\VersionReset
  */
 class VersionResetTest extends TestCase {
     /**
@@ -29,9 +29,6 @@ class VersionResetTest extends TestCase {
         self::assertArrayHasKey('ep:maintenance-version-reset', $this->app->make(Kernel::class)->all());
     }
 
-    /**
-     * @covers ::__invoke
-     */
     public function testInvokeSuccess(): void {
         $path    = 'path/to/version.php';
         $current = $this->faker->semver();
@@ -81,9 +78,6 @@ class VersionResetTest extends TestCase {
         );
     }
 
-    /**
-     * @covers ::__invoke
-     */
     public function testInvokeFailed(): void {
         $path = 'path/to/version.php';
 

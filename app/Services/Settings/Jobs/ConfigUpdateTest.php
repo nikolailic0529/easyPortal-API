@@ -11,12 +11,9 @@ use Tests\TestCase;
 
 /**
  * @internal
- * @coversDefaultClass \App\Services\Settings\Jobs\ConfigUpdate
+ * @covers \App\Services\Settings\Jobs\ConfigUpdate
  */
 class ConfigUpdateTest extends TestCase {
-    /**
-     * @covers ::__invoke
-     */
     public function testHandleWhenConfigCached(): void {
         $app = Mockery::mock(Application::class, CachesConfiguration::class);
         $app
@@ -36,9 +33,6 @@ class ConfigUpdateTest extends TestCase {
 
         ($this->app->make(ConfigUpdate::class))($app, $kernel);
     }
-    /**
-     * @covers ::__invoke
-     */
     public function testHandleWhenRoutesCached(): void {
         $app = Mockery::mock(Application::class, CachesRoutes::class);
         $app
@@ -59,9 +53,6 @@ class ConfigUpdateTest extends TestCase {
         ($this->app->make(ConfigUpdate::class))($app, $kernel);
     }
 
-    /**
-     * @covers ::__invoke
-     */
     public function testHandleWhenNotCached(): void {
         $app    = Mockery::mock(Application::class);
         $kernel = Mockery::mock(Kernel::class);

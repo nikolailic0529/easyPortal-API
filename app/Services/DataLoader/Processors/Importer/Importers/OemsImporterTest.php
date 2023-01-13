@@ -17,19 +17,9 @@ use function array_merge;
 
 /**
  * @internal
- * @coversDefaultClass \App\Services\DataLoader\Processors\Importer\Importers\OemsImporter
+ * @covers \App\Services\DataLoader\Processors\Importer\Importers\OemsImporter
  */
 class OemsImporterTest extends TestCase {
-    /**
-     * @covers ::import
-     * @covers ::onRow
-     * @covers ::startRow
-     * @covers ::onBeforeSheet
-     * @covers ::onAfterSheet
-     * @covers ::getCellValue
-     * @covers ::parse
-     * @covers ::registerEvents
-     */
     public function testProcess(): void {
         // Helpers
         $defaultLocaleStorage = new AppTranslations($this->app->make(AppDisk::class), $this->app->getLocale());
@@ -241,16 +231,6 @@ class OemsImporterTest extends TestCase {
         );
     }
 
-    /**
-     * @covers ::import
-     * @covers ::onRow
-     * @covers ::startRow
-     * @covers ::onBeforeSheet
-     * @covers ::onAfterSheet
-     * @covers ::getCellValue
-     * @covers ::parse
-     * @covers ::registerEvents
-     */
     public function testProcessNoEnglish(): void {
         // Pretest
         self::assertModelsCount([

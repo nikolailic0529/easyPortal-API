@@ -6,12 +6,9 @@ use Tests\TestCase;
 
 /**
  * @internal
- * @coversDefaultClass \App\Services\I18n\Storages\Spreadsheet
+ * @covers \App\Services\I18n\Storages\Spreadsheet
  */
 class SpreadsheetTest extends TestCase {
-    /**
-     * @covers ::load
-     */
     public function testLoad(): void {
         $file = $this->getTestData()->file('.xlsx');
         $data = (new Spreadsheet($file))->load();

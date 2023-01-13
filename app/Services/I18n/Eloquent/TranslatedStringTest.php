@@ -10,16 +10,9 @@ use function json_encode;
 
 /**
  * @internal
- * @coversDefaultClass \App\Services\I18n\Eloquent\TranslatedString
+ * @covers \App\Services\I18n\Eloquent\TranslatedString
  */
 class TranslatedStringTest extends TestCase {
-    /**
-     * @covers ::toArray
-     * @covers ::offsetGet
-     * @covers ::offsetSet
-     * @covers ::offsetUnset
-     * @covers ::offsetExists
-     */
     public function testToArray(): void {
         $translations = new TranslatedString([
             'locale_a' => 'a',
@@ -41,9 +34,6 @@ class TranslatedStringTest extends TestCase {
         );
     }
 
-    /**
-     * @covers ::getIterator
-     */
     public function testGetIterator(): void {
         self::assertEquals(
             [
@@ -63,9 +53,6 @@ class TranslatedStringTest extends TestCase {
         );
     }
 
-    /**
-     * @covers ::castUsing
-     */
     public function testCastUsing(): void {
         $caster = TranslatedString::castUsing([]);
         $model  = new class() extends Model {

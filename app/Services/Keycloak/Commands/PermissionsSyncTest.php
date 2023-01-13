@@ -21,7 +21,7 @@ use function array_keys;
 
 /**
  * @internal
- * @coversDefaultClass \App\Services\Keycloak\Commands\PermissionsSync
+ * @covers \App\Services\Keycloak\Commands\PermissionsSync
  */
 class PermissionsSyncTest extends TestCase {
     // <editor-fold desc="Tests">
@@ -40,9 +40,6 @@ class PermissionsSyncTest extends TestCase {
         self::assertArrayHasKey('ep:keycloak-permissions-sync', $this->app->make(Kernel::class)->all());
     }
 
-    /**
-     * @covers ::handle
-     */
     public function testHandleOrgAdminGroupNotSet(): void {
         $this->setSettings([
             'ep.keycloak.org_admin_group' => null,
@@ -119,9 +116,6 @@ class PermissionsSyncTest extends TestCase {
         self::assertEquals(0, RoleModel::query()->withoutGlobalScope(OwnedByScope::class)->count());
     }
 
-    /**
-     * @covers ::handle
-     */
     public function testHandleOrgAdminGroupSetGroupNotExists(): void {
         $groupId = $this->faker->uuid();
 
@@ -176,9 +170,6 @@ class PermissionsSyncTest extends TestCase {
         );
     }
 
-    /**
-     * @covers ::handle
-     */
     public function testHandleOrgAdminGroupSetGroupExists(): void {
         $groupId   = $this->faker->uuid();
         $groupName = $this->faker->word();

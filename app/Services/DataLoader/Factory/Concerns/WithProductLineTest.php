@@ -12,14 +12,11 @@ use Tests\TestCase;
 
 /**
  * @internal
- * @coversDefaultClass \App\Services\DataLoader\Factory\Concerns\WithProductLine
+ * @covers \App\Services\DataLoader\Factory\Concerns\WithProductLine
  */
 class WithProductLineTest extends TestCase {
     use WithQueryLog;
 
-    /**
-     * @covers ::productLine
-     */
     public function testProductLine(): void {
         $line     = ProductLine::factory()->create();
         $resolver = $this->app->make(ProductLineResolver::class);

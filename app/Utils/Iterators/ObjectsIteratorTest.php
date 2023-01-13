@@ -10,15 +10,9 @@ use function iterator_to_array;
 
 /**
  * @internal
- * @coversDefaultClass \App\Utils\Iterators\ObjectsIterator
+ * @covers \App\Utils\Iterators\ObjectsIterator
  */
 class ObjectsIteratorTest extends TestCase {
-    /**
-     * @covers ::getIterator
-     * @covers ::setOffset
-     * @covers ::setLimit
-     * @covers ::getCount
-     */
     public function testGetIterator(): void {
         $iterator = new ObjectsIterator(
             [10, 20, 30, 40, 50, 60, 70, 80, 90, 0],
@@ -34,12 +28,6 @@ class ObjectsIteratorTest extends TestCase {
         ));
     }
 
-    /**
-     * @covers ::onInit
-     * @covers ::onFinish
-     * @covers ::onBeforeChunk
-     * @covers ::onAfterChunk
-     */
     public function testEvents(): void {
         $init   = Mockery::spy(static function (): void {
             // empty

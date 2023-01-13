@@ -8,12 +8,9 @@ use Tests\TestCase;
 
 /**
  * @internal
- * @coversDefaultClass \App\Services\I18n\Eloquent\TranslateProperties
+ * @covers \App\Services\I18n\Eloquent\TranslateProperties
  */
 class TranslatePropertiesTest extends TestCase {
-    /**
-     * @covers ::getDefaultTranslations
-     */
     public function testGetDefaultTranslations(): void {
         $model = Mockery::mock(TranslatePropertiesTest__Model::class);
         $model->shouldAllowMockingProtectedMethods();
@@ -46,9 +43,6 @@ class TranslatePropertiesTest extends TestCase {
         );
     }
 
-    /**
-     * @covers ::getTranslatedProperty
-     */
     public function testGetTranslatedProperty(): void {
         $model = Mockery::mock(TranslatePropertiesTest__Model::class);
         $model->shouldAllowMockingProtectedMethods();

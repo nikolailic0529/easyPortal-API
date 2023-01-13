@@ -10,14 +10,11 @@ use Tests\TestCase;
 
 /**
  * @internal
- * @coversDefaultClass \App\Services\DataLoader\Resolver\Resolvers\DistributorResolver
+ * @covers \App\Services\DataLoader\Resolver\Resolvers\DistributorResolver
  */
 class DistributorResolverTest extends TestCase {
     use WithQueryLog;
 
-    /**
-     * @covers ::get
-     */
     public function testGet(): void {
         // Prepare
         $factory = static function (?Distributor $distributor): Distributor {

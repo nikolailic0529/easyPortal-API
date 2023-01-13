@@ -41,7 +41,7 @@ use Tests\WithUser;
 
 /**
  * @internal
- * @coversNothing
+ * @covers \App\GraphQL\Queries\Assets\AssetsAggregated
  *
  * @phpstan-import-type OrganizationFactory from WithOrganization
  * @phpstan-import-type UserFactory from WithUser
@@ -875,9 +875,6 @@ class CustomerTest extends TestCase {
     }
 
     /**
-     * @covers       \App\GraphQL\Queries\Assets\AssetsAggregated::types
-     * @covers       \App\GraphQL\Queries\Assets\AssetsAggregated::coverages
-     *
      * @dataProvider dataProviderQueryAssetAggregate
      *
      * @param OrganizationFactory                                  $orgFactory

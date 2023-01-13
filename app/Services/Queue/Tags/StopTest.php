@@ -17,12 +17,9 @@ use function microtime;
 
 /**
  * @internal
- * @coversDefaultClass \App\Services\Queue\Tags\Stop
+ * @covers \App\Services\Queue\Tags\Stop
  */
 class StopTest extends TestCase {
-    /**
-     * @covers ::isMarked
-     */
     public function testIsMarked(): void {
         $time = microtime(true);
         $job  = Mockery::mock(Job::class, JobContract::class, Stoppable::class);
@@ -67,9 +64,6 @@ class StopTest extends TestCase {
         self::assertTrue($stop->isMarked($stoppable));
     }
 
-    /**
-     * @covers ::isMarked
-     */
     public function testIsMarkedUnknownDispatched(): void {
         $job = Mockery::mock(Job::class, JobContract::class, Stoppable::class);
         $job
@@ -111,9 +105,6 @@ class StopTest extends TestCase {
         self::assertFalse($stop->isMarked($stoppable));
     }
 
-    /**
-     * @covers ::isMarkedById
-     */
     public function testIsMarkedById(): void {
         $id  = $this->faker->uuid();
         $job = Mockery::mock(JobContract::class);
@@ -147,9 +138,6 @@ class StopTest extends TestCase {
         self::assertTrue($stop->isMarkedById($stoppable));
     }
 
-    /**
-     * @covers ::isMarkedById
-     */
     public function testIsMarkedByIdUnknownJob(): void {
         $stoppable = Mockery::mock(Stoppable::class);
         $stoppable
@@ -174,9 +162,6 @@ class StopTest extends TestCase {
         self::assertFalse($stop->isMarkedById($stoppable));
     }
 
-    /**
-     * @covers ::isMarkedByMarker
-     */
     public function testIsMarkedByMarker(): void {
         $time        = microtime(true);
         $application = Mockery::mock(Application::class);
@@ -199,9 +184,6 @@ class StopTest extends TestCase {
         self::assertTrue($stop->isMarkedByMarker($stoppable, $time - 100));
     }
 
-    /**
-     * @covers ::isMarked
-     */
     public function testIsMarkedByMarkerOutdated(): void {
         $time        = microtime(true);
         $application = Mockery::mock(Application::class);
@@ -224,9 +206,6 @@ class StopTest extends TestCase {
         self::assertFalse($stop->isMarkedByMarker($stoppable, $time + 100));
     }
 
-    /**
-     * @covers ::isMarkedByQueueRestart
-     */
     public function testIsMarkedQueueRestart(): void {
         $time        = microtime(true);
         $application = Mockery::mock(Application::class);
@@ -248,9 +227,6 @@ class StopTest extends TestCase {
         self::assertTrue($stop->isMarkedByQueueRestart($time - 100));
     }
 
-    /**
-     * @covers ::isMarkedByQueueRestart
-     */
     public function testIsMarkedByQueueRestartOutdated(): void {
         $time        = microtime(true);
         $application = Mockery::mock(Application::class);
@@ -272,9 +248,6 @@ class StopTest extends TestCase {
         self::assertFalse($stop->isMarkedByQueueRestart($time + 100));
     }
 
-    /**
-     * @covers ::isMarkedBySupervisor
-     */
     public function testIsMarkedBySignal(): void {
         $application = Mockery::mock(Application::class);
         $repository  = Mockery::mock(MasterSupervisorRepository::class);
@@ -301,9 +274,6 @@ class StopTest extends TestCase {
         self::assertTrue($stop->isMarkedBySupervisor());
     }
 
-    /**
-     * @covers ::isMarkedBySupervisor
-     */
     public function testIsMarkedBySignalUnitTests(): void {
         $application = Mockery::mock(Application::class);
         $repository  = Mockery::mock(MasterSupervisorRepository::class);
@@ -327,9 +297,6 @@ class StopTest extends TestCase {
         self::assertFalse($stop->isMarkedBySupervisor());
     }
 
-    /**
-     * @covers ::mark
-     */
     public function testMark(): void {
         $id          = $this->faker->uuid();
         $application = Mockery::mock(Application::class);

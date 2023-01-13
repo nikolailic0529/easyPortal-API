@@ -19,14 +19,12 @@ use Tests\TestCase;
 
 /**
  * @internal
- * @coversDefaultClass \App\Services\Queue\Utils\Pinger
+ * @covers \App\Services\Queue\Utils\Pinger
  */
 class PingerTest extends TestCase {
     // <editor-fold desc="Tests">
     // =========================================================================
     /**
-     * @covers ::ping
-     *
      * @dataProvider dataProviderJobClass
      *
      * @param class-string<CronJob|Job> $class
@@ -49,8 +47,6 @@ class PingerTest extends TestCase {
     }
 
     /**
-     * @covers ::stop
-     *
      * @dataProvider dataProviderJobClass
      *
      * @param class-string<CronJob|Job> $class
@@ -96,8 +92,6 @@ class PingerTest extends TestCase {
     }
 
     /**
-     * @covers ::prolong
-     *
      * @dataProvider dataProviderJobClass
      *
      * @param class-string<CronJob|Job> $class
@@ -158,8 +152,6 @@ class PingerTest extends TestCase {
     }
 
     /**
-     * @covers ::prolong
-     *
      * @dataProvider dataProviderJobClass
      *
      * @param class-string<CronJob|Job> $class

@@ -12,12 +12,9 @@ use function array_keys;
 
 /**
  * @internal
- * @coversDefaultClass \App\Services\DataLoader\Queue\Jobs\Synchronizer
+ * @covers \App\Services\DataLoader\Queue\Jobs\Synchronizer
  */
 class SynchronizerTest extends TestCase {
-    /**
-     * @covers ::getProcessor
-     */
     public function testGetProcessor(): void {
         $date = Date::now();
 
