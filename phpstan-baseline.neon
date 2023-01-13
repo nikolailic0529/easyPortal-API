@@ -2596,11 +2596,6 @@ parameters:
 			path: app/Services/DataLoader/Container/Container.php
 
 		-
-			message: "#^Cannot access property \\$singleton on mixed\\.$#"
-			count: 2
-			path: app/Services/DataLoader/Container/ContainerTest.php
-
-		-
 			message: "#^Method App\\\\Services\\\\DataLoader\\\\Exceptions\\\\FailedToImportObject\\:\\:__construct\\(\\) has parameter \\$importer with generic class App\\\\Services\\\\DataLoader\\\\Processors\\\\Importer\\\\Importer but does not specify its types\\: TItem, TChunkData, TState, TModel$#"
 			count: 1
 			path: app/Services/DataLoader/Exceptions/FailedToImportObject.php
@@ -3836,7 +3831,7 @@ parameters:
 			path: app/Services/Recalculator/Exceptions/RecalculateError.php
 
 		-
-			message: "#^Parameter \\#1 \\$models of method App\\\\Services\\\\Queue\\\\Utils\\\\Dispatcher\\<Illuminate\\\\Database\\\\Eloquent\\\\Model\\>\\:\\:dispatch\\(\\) expects array\\{model\\: class\\-string\\<Illuminate\\\\Database\\\\Eloquent\\\\Model\\>, keys\\: array\\<int\\|string\\>\\}\\|Illuminate\\\\Database\\\\Eloquent\\\\Model\\|Illuminate\\\\Support\\\\Collection\\<\\(int\\|string\\), Illuminate\\\\Database\\\\Eloquent\\\\Model\\>, array\\{model\\: class\\-string\\<App\\\\Models\\\\Asset\\>&literal\\-string, keys\\: array\\<int, mixed\\>\\} given\\.$#"
+			message: "#^Parameter \\#1 \\$models of method App\\\\Services\\\\Queue\\\\Utils\\\\Dispatcher\\<Illuminate\\\\Database\\\\Eloquent\\\\Model\\>\\:\\:dispatch\\(\\) expects array\\{model\\: class\\-string\\<Illuminate\\\\Database\\\\Eloquent\\\\Model\\>, keys\\: array\\<int\\|string\\>\\}\\|Illuminate\\\\Database\\\\Eloquent\\\\Model\\|Illuminate\\\\Support\\\\Collection\\<\\(int\\|string\\), Illuminate\\\\Database\\\\Eloquent\\\\Model\\>, array\\{model\\: class\\-string\\<App\\\\Models\\\\Asset\\>&literal\\-string, keys\\: array\\} given\\.$#"
 			count: 1
 			path: app/Services/Recalculator/Listeners/DocumentDeleted.php
 

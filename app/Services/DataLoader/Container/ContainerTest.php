@@ -15,7 +15,7 @@ use Tests\TestCase;
  */
 class ContainerTest extends TestCase {
     public function testResolveExternal(): void {
-        self::assertNotNull($this->app->make(Container::class)->resolve('config'));
+        self::assertNotEmpty($this->app->make(Container::class)->resolve('config'));
     }
 
     public function testResolveProvider(): void {
@@ -24,7 +24,7 @@ class ContainerTest extends TestCase {
         $b = $c->resolve(ContainerTest_Resolver::class);
         $s = $this->app->make(ContainerTest_Resolver::class);
 
-        self::assertNotNull($a);
+        self::assertNotEmpty($a);
         self::assertSame($a, $b);
         self::assertNotSame($a, $s);
     }
@@ -35,8 +35,8 @@ class ContainerTest extends TestCase {
         $f = $c->resolve(ContainerTest_Factory::class);
         $s = $this->app->make(ContainerTest_Resolver::class);
 
-        self::assertNotNull($a);
-        self::assertNotNull($f);
+        self::assertNotEmpty($a);
+        self::assertNotEmpty($f);
         self::assertSame($a, $f->singleton);
         self::assertNotSame($s, $f->singleton);
     }
@@ -47,8 +47,8 @@ class ContainerTest extends TestCase {
         $b = $c->resolve(ContainerTest_Singleton::class);
         $s = $this->app->make(ContainerTest_Singleton::class);
 
-        self::assertNotNull($a);
-        self::assertNotNull($b);
+        self::assertNotEmpty($a);
+        self::assertNotEmpty($b);
         self::assertSame($a, $b);
         self::assertNotSame($a, $s);
     }
@@ -59,8 +59,8 @@ class ContainerTest extends TestCase {
         $a = $c->resolve(Container::class);
         $b = $c->resolve(Container::class);
 
-        self::assertNotNull($a);
-        self::assertNotNull($b);
+        self::assertNotEmpty($a);
+        self::assertNotEmpty($b);
         self::assertSame($a, $b);
         self::assertSame($a, $c);
 
@@ -78,8 +78,8 @@ class ContainerTest extends TestCase {
         $a = $c->resolve(ContainerTest_Singleton::class);
         $b = $c->resolve(ContainerTest_SingletonPersistent::class);
 
-        self::assertNotNull($a);
-        self::assertNotNull($b);
+        self::assertNotEmpty($a);
+        self::assertNotEmpty($b);
         self::assertSame($a, $c->resolve(ContainerTest_Singleton::class));
         self::assertSame($b, $c->resolve(ContainerTest_SingletonPersistent::class));
 
