@@ -26,12 +26,10 @@ use Illuminate\Contracts\Debug\ExceptionHandler;
 use Illuminate\Http\Client\ConnectionException;
 use Illuminate\Http\Client\Factory;
 use Illuminate\Http\Client\RequestException;
-use Illuminate\Http\Client\Response as IlluminateResponse;
 use Illuminate\Support\Collection;
 use Symfony\Component\HttpFoundation\Response;
 
 use function array_map;
-use function assert;
 use function http_build_query;
 use function is_array;
 use function is_string;
@@ -511,10 +509,7 @@ class Client {
 
         try {
             $response = $request->send($method, $endpoint, $data);
-
-            assert($response instanceof IlluminateResponse);
-
-            $json = $response->throw()->json();
+            $json     = $response->throw()->json();
         } catch (ConnectionException $exception) {
             throw new KeycloakUnavailable($exception);
         } catch (Exception $exception) {

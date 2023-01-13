@@ -66,7 +66,6 @@ use Illuminate\Contracts\Events\Dispatcher;
 use Illuminate\Http\Client\ConnectionException;
 use Illuminate\Http\Client\Factory;
 use Illuminate\Http\Client\PendingRequest;
-use Illuminate\Http\Client\Response as IlluminateResponse;
 use Illuminate\Support\Arr;
 use SplFileInfo;
 
@@ -655,10 +654,7 @@ class Client {
             $this->dispatcher->dispatch(new RequestStarted($selector, $graphql, $variables));
 
             $response = $request->post($url, $data);
-
-            assert($response instanceof IlluminateResponse);
-
-            $json = $response->throw()->json();
+            $json     = $response->throw()->json();
         } catch (ConnectionException $exception) {
             $this->dispatcher->dispatch(new RequestFailed($selector, $graphql, $variables, null, $exception));
 
