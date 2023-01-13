@@ -1406,11 +1406,6 @@ parameters:
 			path: app/GraphQL/Queries/Application/Logs.php
 
 		-
-			message: "#^Instanceof between App\\\\Services\\\\Queue\\\\CronJob and App\\\\Services\\\\Queue\\\\Contracts\\\\Stoppable will always evaluate to true\\.$#"
-			count: 1
-			path: app/GraphQL/Queries/Application/Services.php
-
-		-
 			message: "#^Method App\\\\GraphQL\\\\Queries\\\\Application\\\\ServicesTest\\:\\:testInvoke\\(\\) has parameter \\$queueStateFactory with no signature specified for Closure\\.$#"
 			count: 1
 			path: app/GraphQL/Queries/Application/ServicesTest.php
@@ -3971,11 +3966,6 @@ parameters:
 			path: app/Services/Search/Builders/Builder.php
 
 		-
-			message: "#^Parameter \\#2 \\$model of method App\\\\Services\\\\Search\\\\Contracts\\\\Scope\\<TModel of Illuminate\\\\Database\\\\Eloquent\\\\Model\\>\\:\\:applyForSearch\\(\\) expects TModel of Illuminate\\\\Database\\\\Eloquent\\\\Model, Illuminate\\\\Database\\\\Eloquent\\\\Model given\\.$#"
-			count: 1
-			path: app/Services/Search/Builders/Builder.php
-
-		-
 			message: "#^Method class@anonymous/app/Services/Search/Builders/BuilderTest\\.php\\:30\\:\\:apply\\(\\) has parameter \\$builder with generic class Illuminate\\\\Database\\\\Eloquent\\\\Builder but does not specify its types\\: TModelClass$#"
 			count: 1
 			path: app/Services/Search/Builders/BuilderTest.php
@@ -4036,11 +4026,6 @@ parameters:
 			path: app/Services/Search/Elastic/SearchRequestFactoryTest.php
 
 		-
-			message: "#^Parameter \\#2 \\$scopes of method App\\\\Services\\\\Search\\\\Builders\\\\UnionBuilder\\:\\:addModel\\(\\) expects array\\<App\\\\Services\\\\Search\\\\Contracts\\\\Scope\\<App\\\\Services\\\\Search\\\\Eloquent\\\\Searchable&Illuminate\\\\Database\\\\Eloquent\\\\Model\\>\\>, array\\{class@anonymous/app/Services/Search/Elastic/SearchRequestFactoryTest\\.php\\:104\\} given\\.$#"
-			count: 1
-			path: app/Services/Search/Elastic/SearchRequestFactoryTest.php
-
-		-
 			message: "#^Method App\\\\Services\\\\Search\\\\Elastic\\\\UnionEngine\\:\\:createIndex\\(\\) has parameter \\$options with no value type specified in iterable type array\\.$#"
 			count: 1
 			path: app/Services/Search/Elastic/UnionEngine.php
@@ -4089,11 +4074,6 @@ parameters:
 			message: "#^Parameter \\#1 \\$models of method App\\\\Services\\\\Search\\\\Eloquent\\\\SearchableImplTest_Model\\:\\:queueRemoveFromSearch\\(\\) expects Illuminate\\\\Database\\\\Eloquent\\\\Collection\\<\\(int\\|string\\), App\\\\Services\\\\Search\\\\Eloquent\\\\Searchable&Illuminate\\\\Database\\\\Eloquent\\\\Model\\>, Illuminate\\\\Database\\\\Eloquent\\\\Collection\\<\\(int\\|string\\), Illuminate\\\\Database\\\\Eloquent\\\\Model\\> given\\.$#"
 			count: 2
 			path: app/Services/Search/Eloquent/SearchableImplTest.php
-
-		-
-			message: "#^Method App\\\\Services\\\\Search\\\\Eloquent\\\\UnionModel\\:\\:search\\(\\) should return App\\\\Services\\\\Search\\\\Builders\\\\Builder\\<static\\(App\\\\Services\\\\Search\\\\Eloquent\\\\UnionModel\\)\\> but returns App\\\\Services\\\\Search\\\\Builders\\\\UnionBuilder\\.$#"
-			count: 1
-			path: app/Services/Search/Eloquent/UnionModel.php
 
 		-
 			message: "#^Method App\\\\Services\\\\Search\\\\Exceptions\\\\FailedToIndex\\:\\:__construct\\(\\) has parameter \\$processor with generic class App\\\\Services\\\\Search\\\\Processors\\\\ModelProcessor but does not specify its types\\: TItem, TState$#"

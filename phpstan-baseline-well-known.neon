@@ -16,6 +16,8 @@ parameters:
             path: **/*Test.php
 
         # Larastan doesn't support phpstan/phpstan-strict-rules
+        # https://github.com/phpstan/phpstan-strict-rules/issues/140
+        - "#^Dynamic call to static method Illuminate\\\\Foundation\\\\Application\\:\\:(configurationIsCached|routesAreCached)\\(\\)\\.$#"
         - "#^Dynamic call to static method Illuminate\\\\Testing\\\\TestResponse\\:\\:assert[^(]+\\(\\)\\.$#"
         - "#^Dynamic call to static method Illuminate\\\\Database\\\\Eloquent\\\\Model(\\<[^>]+\\>)?\\:\\:[^(]+\\(\\)\\.$#"
         - "#^Dynamic call to static method Illuminate\\\\Database\\\\Eloquent\\\\Builder(\\<[^>]+\\>)?\\:\\:[^(]+\\(\\)\\.$#"
@@ -23,6 +25,8 @@ parameters:
         - "#^Dynamic call to static method Symfony\\\\Component\\\\HttpFoundation\\\\Response\\:\\:isSuccessful\\(\\)\\.$#"
         - "#^Dynamic call to static method Illuminate\\\\Database\\\\Connection\\:\\:[^(]+\\(\\)\\.$#"
         - "#^Dynamic call to static method Illuminate\\\\Http\\\\Client\\\\PendingRequest\\:\\:[^(]+\\(\\)\\.$#"
+        - "#^Dynamic call to static method Illuminate\\\\Auth\\\\SessionGuard\\:\\:(attempt|login|logout)\\(\\)\\.$#"
+        - "#^Dynamic call to static method Illuminate\\\\Auth\\\\Passwords\\\\PasswordBroker\\:\\:getRepository\\(\\)\\.$#"
 
         # Sometimes it is needed...
         # https://github.com/phpstan/phpstan/issues/3296
