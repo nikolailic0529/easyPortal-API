@@ -16,7 +16,7 @@ use Illuminate\Support\Collection;
  */
 class LanguageResolver extends Resolver implements SingletonPersistent {
     /**
-     * @param Closure(): Language|null $factory
+     * @param Closure(?Language): Language|null $factory
      *
      * @return ($factory is null ? Language|null : Language)
      */

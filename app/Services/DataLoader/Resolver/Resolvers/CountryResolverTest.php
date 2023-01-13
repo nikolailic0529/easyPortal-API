@@ -20,8 +20,8 @@ class CountryResolverTest extends TestCase {
      */
     public function testGet(): void {
         // Prepare
-        $factory = static function (): Country {
-            return Country::factory()->make();
+        $factory = static function (?Country $country): Country {
+            return $country ?? Country::factory()->make();
         };
 
         Country::factory()->create(['code' => 'a']);

@@ -23,8 +23,8 @@ class CityResolverTest extends TestCase {
         // Prepare
         $countryA = Country::factory()->create();
         $countryB = Country::factory()->create();
-        $factory  = static function (): City {
-            return City::factory()->make();
+        $factory  = static function (?City $city): City {
+            return $city ?? City::factory()->make();
         };
 
         City::factory()->create([

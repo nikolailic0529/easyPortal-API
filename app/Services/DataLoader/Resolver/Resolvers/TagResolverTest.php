@@ -20,8 +20,8 @@ class TagResolverTest extends TestCase {
      */
     public function testGet(): void {
         // Prepare
-        $factory = static function (): Tag {
-            return Tag::factory()->make();
+        $factory = static function (?Tag $tag): Tag {
+            return $tag ?? Tag::factory()->make();
         };
 
         Tag::factory()->create([

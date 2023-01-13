@@ -17,7 +17,7 @@ use Illuminate\Support\Collection;
  */
 class ServiceLevelResolver extends Resolver implements SingletonPersistent {
     /**
-     * @param Closure(): ServiceLevel|null $factory
+     * @param Closure(?ServiceLevel): ServiceLevel|null $factory
      *
      * @return ($factory is null ? ServiceLevel|null : ServiceLevel)
      */

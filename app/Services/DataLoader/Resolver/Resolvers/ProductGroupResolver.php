@@ -16,7 +16,7 @@ use Illuminate\Support\Collection;
  */
 class ProductGroupResolver extends Resolver implements SingletonPersistent {
     /**
-     * @param Closure(): ProductGroup|null $factory
+     * @param Closure(?ProductGroup): ProductGroup|null $factory
      *
      * @return ($factory is null ? ProductGroup|null : ProductGroup)
      */

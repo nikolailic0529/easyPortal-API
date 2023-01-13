@@ -14,7 +14,7 @@ use Illuminate\Database\Eloquent\Model;
  */
 class ContactResolver extends Resolver {
     /**
-     * @param Closure(): Contact|null $factory
+     * @param Closure(?Contact): Contact|null $factory
      *
      * @return ($factory is null ? Contact|null : Contact)
      */

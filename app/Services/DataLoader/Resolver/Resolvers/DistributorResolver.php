@@ -13,7 +13,7 @@ use Illuminate\Support\Collection;
  */
 class DistributorResolver extends Resolver {
     /**
-     * @param Closure(): Distributor|null $factory
+     * @param Closure(?Distributor): Distributor|null $factory
      *
      * @return ($factory is null ? Distributor|null : Distributor)
      */

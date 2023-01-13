@@ -35,15 +35,18 @@ trait WithReseller {
         $reseller = null;
 
         if ($id) {
-            $reseller = $this->getResellerResolver()->get($id, function () use ($id, $object): Reseller {
-                $reseller = $this->getResellerFinder()?->find($id);
+            $reseller = $this->getResellerResolver()->get(
+                $id,
+                function (?Reseller $reseller) use ($id, $object): Reseller {
+                    $reseller ??= $this->getResellerFinder()?->find($id);
 
-                if (!$reseller) {
-                    throw new ResellerNotFound($id, $object);
-                }
+                    if (!$reseller) {
+                        throw new ResellerNotFound($id, $object);
+                    }
 
-                return $reseller;
-            });
+                    return $reseller;
+                },
+            );
         }
 
         // Return

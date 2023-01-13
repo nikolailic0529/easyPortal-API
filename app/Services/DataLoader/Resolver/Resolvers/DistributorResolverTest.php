@@ -20,8 +20,8 @@ class DistributorResolverTest extends TestCase {
      */
     public function testGet(): void {
         // Prepare
-        $factory = static function (): Distributor {
-            return Distributor::factory()->make();
+        $factory = static function (?Distributor $distributor): Distributor {
+            return $distributor ?? Distributor::factory()->make();
         };
 
         $a = Distributor::factory()->create();

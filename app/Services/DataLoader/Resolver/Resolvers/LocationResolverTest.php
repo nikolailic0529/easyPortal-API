@@ -28,8 +28,8 @@ class LocationResolverTest extends TestCase {
         $countryB = Country::factory()->create();
         $cityA    = City::factory()->create();
         $cityB    = City::factory()->create();
-        $factory  = static function (): Location {
-            return Location::factory()->make();
+        $factory  = static function (?Location $location): Location {
+            return $location ?? Location::factory()->make();
         };
 
         Location::factory()->create([

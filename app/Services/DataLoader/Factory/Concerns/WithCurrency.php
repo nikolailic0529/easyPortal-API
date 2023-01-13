@@ -21,7 +21,11 @@ trait WithCurrency {
         }
 
         // Find/Create
-        return $this->getCurrencyResolver()->get($code, static function () use ($code): Currency {
+        return $this->getCurrencyResolver()->get($code, static function (?Currency $model) use ($code): Currency {
+            if ($model) {
+                return $model;
+            }
+
             $model       = new Currency();
             $model->code = mb_strtoupper($code);
             $model->name = $code;

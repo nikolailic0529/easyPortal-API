@@ -17,7 +17,7 @@ use Illuminate\Support\Facades\DB;
  */
 class LocationResolver extends Resolver {
     /**
-     * @param Closure(): Location|null $factory
+     * @param Closure(?Location): Location|null $factory
      *
      * @return ($factory is null ? Location|null : Location)
      */

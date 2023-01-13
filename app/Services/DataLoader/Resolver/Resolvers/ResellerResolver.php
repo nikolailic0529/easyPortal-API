@@ -12,7 +12,7 @@ use Illuminate\Database\Eloquent\Builder;
  */
 class ResellerResolver extends Resolver {
     /**
-     * @param Closure(): Reseller|null $factory
+     * @param Closure(?Reseller): Reseller|null $factory
      *
      * @return ($factory is null ? Reseller|null : Reseller)
      */

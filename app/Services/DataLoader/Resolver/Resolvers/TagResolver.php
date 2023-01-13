@@ -16,7 +16,7 @@ use Illuminate\Support\Collection;
  */
 class TagResolver extends Resolver implements SingletonPersistent {
     /**
-     * @param Closure(): Tag|null $factory
+     * @param Closure(?Tag): Tag|null $factory
      *
      * @return ($factory is null ? Tag|null : Tag)
      */

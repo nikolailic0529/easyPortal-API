@@ -55,79 +55,66 @@ trait WithLocations {
 
         // Location
         $city     = $this->city($country, $city);
-        $created  = false;
-        $factory  = function (LocationModel $model) use (&$created, $country, $city, $location, $state): LocationModel {
-            $created          = !$model->exists;
-            $model->country   = $country;
-            $model->city      = $city;
-            $model->postcode  = (string) $location->zip;
-            $model->state     = $state;
-            $model->line_one  = (string) $location->address;
-            $model->line_two  = '';
-            $model->latitude  = $location->latitude;
-            $model->longitude = $location->longitude;
-            $model->geohash   = $this->geohash($location->latitude, $location->longitude);
-
-            $model->save();
-
-            return $model;
-        };
         $location = $this->getLocationResolver()->get(
             $country,
             $city,
             (string) $location->zip,
             (string) $location->address,
             '',
-            static function () use ($factory): LocationModel {
-                return $factory(new LocationModel());
+            function (?LocationModel $model) use ($update, $country, $city, $location, $state): LocationModel {
+                if ($model && !$update) {
+                    return $model;
+                }
+
+                $model          ??= new LocationModel();
+                $model->country   = $country;
+                $model->city      = $city;
+                $model->postcode  = (string) $location->zip;
+                $model->state     = $state;
+                $model->line_one  = (string) $location->address;
+                $model->line_two  = '';
+                $model->latitude  = $location->latitude;
+                $model->longitude = $location->longitude;
+                $model->geohash   = $this->geohash($location->latitude, $location->longitude);
+
+                $model->save();
+
+                return $model;
             },
         );
-
-        if (!$created && $update) {
-            $factory($location);
-        }
 
         // Return
         return $location;
     }
 
     protected function country(string $code, ?string $name): Country {
-        // Get/Create
-        $created = false;
-        $factory = static function (Country $country) use (&$created, $code, $name): Country {
-            $created = !$country->exists;
-            $code    = mb_strtoupper($code);
-
-            if ($created || $country->name === self::getUnknownCountryName() || $country->name === $code) {
-                $country->code = $code;
-                $country->name = $name ?: $code;
-
-                $country->save();
-            }
-
-            return $country;
-        };
-        $country = $this->getCountryResolver()->get(
+        return $this->getCountryResolver()->get(
             $code,
-            static function () use ($factory): Country {
-                return $factory(new Country());
+            static function (?Country $country) use ($code, $name): Country {
+                $code      = mb_strtoupper($code);
+                $country ??= new Country();
+
+                if (!$country->exists || $country->name === self::getUnknownCountryName() || $country->name === $code) {
+                    $country->code = $code;
+                    $country->name = $name ?: $code;
+
+                    $country->save();
+                }
+
+                return $country;
             },
         );
-
-        // Update
-        if (!$created) {
-            $factory($country);
-        }
-
-        // Return
-        return $country;
     }
 
     protected function city(Country $country, string $name): City {
-        $city = $this->getCityResolver()->get(
+        return $this->getCityResolver()->get(
             $country,
             $name,
-            static function () use ($country, $name): City {
+            static function (?City $city) use ($country, $name): City {
+                if ($city) {
+                    return $city;
+                }
+
                 $city          = new City();
                 $city->key     = $name;
                 $city->name    = $name;
@@ -138,8 +125,6 @@ trait WithLocations {
                 return $city;
             },
         );
-
-        return $city;
     }
 
     protected function geohash(?string $latitude, ?string $longitude): ?string {

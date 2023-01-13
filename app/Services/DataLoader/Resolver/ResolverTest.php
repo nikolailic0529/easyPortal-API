@@ -46,7 +46,7 @@ class ResolverTest extends TestCase {
         // The second call with factory must call factory
         self::assertNotNull($provider->resolve(
             $key,
-            static function () use ($key): Model {
+            static function () use ($key): EloquentModel {
                 return (new class() extends Model {
                     // empty
                 })->setKey($key);
@@ -62,13 +62,15 @@ class ResolverTest extends TestCase {
 
         self::assertSame($value, $provider->resolve(
             $uuid,
-            static function () use ($value) {
+            static function () use ($value): EloquentModel {
                 return $value;
             },
         ));
 
-        self::assertSame($value, $provider->resolve($uuid, static function (): void {
-            throw new Exception();
+        self::assertSame($value, $provider->resolve($uuid, static function (?EloquentModel $value): EloquentModel {
+            self::assertNotNull($value);
+
+            return $value;
         }));
     }
 

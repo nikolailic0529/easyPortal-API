@@ -20,7 +20,11 @@ trait WithProductGroup {
 
         // Find
         return $this->getProductGroupResolver()
-            ->get($key, static function () use ($key): ProductGroup {
+            ->get($key, static function (?ProductGroup $model) use ($key): ProductGroup {
+                if ($model) {
+                    return $model;
+                }
+
                 $model       = new ProductGroup();
                 $model->key  = $key;
                 $model->name = $key;

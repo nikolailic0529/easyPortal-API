@@ -12,7 +12,7 @@ use Illuminate\Database\Eloquent\Builder;
  */
 class AnalyzeAssetResolver extends Resolver {
     /**
-     * @param Closure(): AnalyzeAsset|null $factory
+     * @param Closure(?AnalyzeAsset): AnalyzeAsset|null $factory
      *
      * @return ($factory is null ? AnalyzeAsset|null : AnalyzeAsset)
      */

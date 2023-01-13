@@ -21,42 +21,29 @@ trait WithProduct {
         ?CarbonImmutable $eol,
         ?CarbonImmutable $eos,
     ): Product {
-        // Get/Create
-        $created = false;
-        $factory = static function (Product $product) use (&$created, $oem, $sku, $name, $eol, $eos): Product {
-            $created      = !$product->exists;
-            $product->oem = $oem;
-            $product->sku = $sku;
-            $product->eol = $eol;
-            $product->eos = $eos;
-
-            if ($created || !$product->name) {
-                // Product name may be inconsistent, eg
-                // - 'HPE Hardware Maintenance Onsite Support'
-                // - '(Gewährleistung) HPE Hardware Maintenance Onsite Support'
-                //
-                // To avoid infinite updates we will not update it at all.
-                $product->name = (string) $name;
-            }
-
-            $product->save();
-
-            return $product;
-        };
-        $product = $this->getProductResolver()->get(
+        return $this->getProductResolver()->get(
             $oem,
             $sku,
-            static function () use ($factory): Product {
-                return $factory(new Product());
+            static function (?Product $product) use ($oem, $sku, $name, $eol, $eos): Product {
+                $product    ??= new Product();
+                $product->oem = $oem;
+                $product->sku = $sku;
+                $product->eol = $eol;
+                $product->eos = $eos;
+
+                if (!$product->exists || !$product->name) {
+                    // Product name may be inconsistent, eg
+                    // - 'HPE Hardware Maintenance Onsite Support'
+                    // - '(Gewährleistung) HPE Hardware Maintenance Onsite Support'
+                    //
+                    // To avoid infinite updates we will not update it at all.
+                    $product->name = (string) $name;
+                }
+
+                $product->save();
+
+                return $product;
             },
         );
-
-        // Update
-        if (!$created) {
-            $factory($product);
-        }
-
-        // Return
-        return $product;
     }
 }

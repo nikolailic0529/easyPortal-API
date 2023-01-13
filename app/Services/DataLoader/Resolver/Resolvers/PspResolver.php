@@ -16,7 +16,7 @@ use Illuminate\Support\Collection;
  */
 class PspResolver extends Resolver implements SingletonPersistent {
     /**
-     * @param Closure(): Psp|null $factory
+     * @param Closure(?Psp): Psp|null $factory
      *
      * @return ($factory is null ? Psp|null : Psp)
      */

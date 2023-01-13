@@ -59,6 +59,10 @@ class CustomerFactory extends CompanyFactory {
 
     // <editor-fold desc="Getters / Setters">
     // =========================================================================
+    protected function getCustomerResolver(): CustomerResolver {
+        return $this->customerResolver;
+    }
+
     protected function getResellerFinder(): ?ResellerFinder {
         return $this->resellerFinder;
     }
@@ -95,47 +99,37 @@ class CustomerFactory extends CompanyFactory {
     // <editor-fold desc="Functions">
     // =========================================================================
     protected function createFromCompany(Company $company, bool $force): ?Customer {
-        // Get/Create customer
-        $created  = false;
-        $factory  = function (Customer $customer) use ($force, &$created, $company): Customer {
-            // Unchanged?
-            $created = !$customer->exists;
-            $hash    = $company->getHash();
+        return $this->getCustomerResolver()->get(
+            $company->id,
+            function (?Customer $customer) use ($force, $company): Customer {
+                // Unchanged?
+                $hash = $company->getHash();
 
-            if ($force === false && $hash === $customer->hash) {
+                if ($force === false && $customer !== null && $hash === $customer->hash) {
+                    return $customer;
+                }
+
+                // Update
+                $customer                ??= new Customer();
+                $customer->id              = $company->id;
+                $customer->hash            = $hash;
+                $customer->name            = $company->name;
+                $customer->changed_at      = $company->updatedAt;
+                $customer->statuses        = $this->companyStatuses($customer, $company);
+                $customer->contacts        = $this->contacts($customer, $company->companyContactPersons);
+                $customer->locations       = $this->companyLocations($customer, $company->locations);
+                $customer->kpi             = $this->kpi($customer, $company->companyKpis);
+                $customer->resellersPivots = $this->resellers($customer, $company->companyResellerKpis);
+
+                if ($customer->trashed()) {
+                    $customer->restore();
+                } else {
+                    $customer->save();
+                }
+
                 return $customer;
-            }
-
-            // Update
-            $customer->id              = $company->id;
-            $customer->hash            = $hash;
-            $customer->name            = $company->name;
-            $customer->changed_at      = $company->updatedAt;
-            $customer->statuses        = $this->companyStatuses($customer, $company);
-            $customer->contacts        = $this->contacts($customer, $company->companyContactPersons);
-            $customer->locations       = $this->companyLocations($customer, $company->locations);
-            $customer->kpi             = $this->kpi($customer, $company->companyKpis);
-            $customer->resellersPivots = $this->resellers($customer, $company->companyResellerKpis);
-
-            if ($customer->trashed()) {
-                $customer->restore();
-            } else {
-                $customer->save();
-            }
-
-            return $customer;
-        };
-        $customer = $this->customerResolver->get($company->id, static function () use ($factory): Customer {
-            return $factory(new Customer());
-        });
-
-        // Update
-        if (!$created) {
-            $factory($customer);
-        }
-
-        // Return
-        return $customer;
+            },
+        );
     }
 
     /**

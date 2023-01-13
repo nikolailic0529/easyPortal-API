@@ -16,7 +16,7 @@ use Illuminate\Support\Collection;
  */
 class CoverageResolver extends Resolver implements SingletonPersistent {
     /**
-     * @param Closure(): Coverage|null $factory
+     * @param Closure(?Coverage): Coverage|null $factory
      *
      * @return ($factory is null ? Coverage|null : Coverage)
      */

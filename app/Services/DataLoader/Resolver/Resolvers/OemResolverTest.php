@@ -20,8 +20,8 @@ class OemResolverTest extends TestCase {
      */
     public function testGet(): void {
         // Prepare
-        $factory = static function (): Oem {
-            return Oem::factory()->make();
+        $factory = static function (?Oem $oem): Oem {
+            return $oem ?? Oem::factory()->make();
         };
 
         Oem::factory()->create(['key' => 'a']);

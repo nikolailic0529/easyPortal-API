@@ -112,6 +112,10 @@ class AssetFactory extends Factory {
 
     // <editor-fold desc="Getters / Setters">
     // =========================================================================
+    protected function getAssetResolver(): AssetResolver {
+        return $this->assetResolver;
+    }
+
     protected function getResellerResolver(): ResellerResolver {
         return $this->resellerResolver;
     }
@@ -214,18 +218,17 @@ class AssetFactory extends Factory {
     }
 
     protected function assetAsset(ViewAsset $asset, bool $force): Asset {
-        // Get/Create
-        $created = false;
-        $factory = function (Asset $model) use ($force, &$created, $asset): Asset {
+        return $this->getAssetResolver()->get($asset->id, function (?Asset $model) use ($force, $asset): Asset {
             // Unchanged?
-            $created = !$model->exists;
-            $hash    = $asset->getHash();
+            $hash = $asset->getHash();
 
-            if ($force === false && $hash === $model->hash) {
+            if ($force === false && $model !== null && $hash === $model->hash) {
                 return $model;
             }
 
             // Asset
+            $created                          = $model === null;
+            $model                          ??= new Asset();
             $model->id                        = $asset->id;
             $model->hash                      = $hash;
             $model->oem                       = $this->assetOem($asset);
@@ -265,21 +268,7 @@ class AssetFactory extends Factory {
 
             // Return
             return $model;
-        };
-        $model   = $this->assetResolver->get(
-            $asset->id,
-            static function () use ($factory): Asset {
-                return $factory(new Asset());
-            },
-        );
-
-        // Update
-        if (!$created) {
-            $factory($model);
-        }
-
-        // Return
-        return $model;
+        });
     }
 
     /**

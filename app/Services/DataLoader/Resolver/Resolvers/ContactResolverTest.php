@@ -24,8 +24,8 @@ class ContactResolverTest extends TestCase {
         // Prepare
         $ca      = Customer::factory()->create();
         $cb      = Customer::factory()->create();
-        $factory = static function (): Contact {
-            return Contact::factory()->make();
+        $factory = static function (?Contact $contact): Contact {
+            return $contact ?? Contact::factory()->make();
         };
 
         Contact::factory()->create([

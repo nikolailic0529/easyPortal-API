@@ -22,8 +22,8 @@ class CustomerResolverTest extends TestCase {
      */
     public function testGet(): void {
         // Prepare
-        $factory = static function (): Customer {
-            return Customer::factory()->make();
+        $factory = static function (?Customer $customer): Customer {
+            return $customer ?? Customer::factory()->make();
         };
 
         $a = Customer::factory()->create();

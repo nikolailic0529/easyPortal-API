@@ -20,38 +20,26 @@ trait WithServiceGroup {
         }
 
         // Find/Create
-        $created = false;
-        $factory = static function (ServiceGroup $group) use (&$created, $oem, $sku, $name): ServiceGroup {
-            $created = !$group->exists;
-
-            if ($created) {
-                $group->key = "{$oem->getTranslatableKey()}/{$sku}";
-                $group->oem = $oem;
-                $group->sku = $sku;
-            }
-
-            if (!$group->name || $group->name === $sku) {
-                $group->name = $name ?: $sku;
-            }
-
-            $group->save();
-
-            return $group;
-        };
-        $group   = $this->getServiceGroupResolver()->get(
+        return $this->getServiceGroupResolver()->get(
             $oem,
             $sku,
-            static function () use ($factory): ServiceGroup {
-                return $factory(new ServiceGroup());
+            static function (?ServiceGroup $group) use ($oem, $sku, $name): ServiceGroup {
+                $group ??= new ServiceGroup();
+
+                if (!$group->exists) {
+                    $group->key = "{$oem->getTranslatableKey()}/{$sku}";
+                    $group->oem = $oem;
+                    $group->sku = $sku;
+                }
+
+                if (!$group->name || $group->name === $sku) {
+                    $group->name = $name ?: $sku;
+                }
+
+                $group->save();
+
+                return $group;
             },
         );
-
-        // Update
-        if (!$created) {
-            $factory($group);
-        }
-
-        // Return
-        return $group;
     }
 }

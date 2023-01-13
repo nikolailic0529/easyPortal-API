@@ -23,8 +23,8 @@ class ProductResolverTest extends TestCase {
         // Prepare
         $oemA    = Oem::factory()->create();
         $oemB    = Oem::factory()->create();
-        $factory = static function (): Product {
-            return Product::factory()->make();
+        $factory = static function (?Product $product): Product {
+            return $product ?? Product::factory()->make();
         };
 
         $a = Product::factory()->create([

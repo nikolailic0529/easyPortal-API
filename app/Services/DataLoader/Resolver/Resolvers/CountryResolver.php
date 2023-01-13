@@ -16,7 +16,7 @@ use Illuminate\Support\Collection;
  */
 class CountryResolver extends Resolver implements SingletonPersistent {
     /**
-     * @param Closure(): Country|null $factory
+     * @param Closure(?Country): Country|null $factory
      *
      * @return ($factory is null ? Country|null : Country)
      */

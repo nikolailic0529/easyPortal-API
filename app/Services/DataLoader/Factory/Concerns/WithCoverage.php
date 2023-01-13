@@ -14,16 +14,21 @@ trait WithCoverage {
     abstract protected function getCoverageResolver(): CoverageResolver;
 
     protected function coverage(string $coverage): Coverage {
-        $coverage = $this->getCoverageResolver()->get($coverage, static function () use ($coverage): Coverage {
-            $model       = new Coverage();
-            $model->key  = $coverage;
-            $model->name = NameNormalizer::normalize($coverage);
+        return $this->getCoverageResolver()->get(
+            $coverage,
+            static function (?Coverage $model) use ($coverage): Coverage {
+                if ($model) {
+                    return $model;
+                }
 
-            $model->save();
+                $model       = new Coverage();
+                $model->key  = $coverage;
+                $model->name = NameNormalizer::normalize($coverage);
 
-            return $model;
-        });
+                $model->save();
 
-        return $coverage;
+                return $model;
+            },
+        );
     }
 }

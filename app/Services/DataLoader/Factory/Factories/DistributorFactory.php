@@ -26,6 +26,10 @@ class DistributorFactory extends Factory {
         parent::__construct($exceptionHandler);
     }
 
+    protected function getDistributorResolver(): DistributorResolver {
+        return $this->distributorResolver;
+    }
+
     public function getModel(): string {
         return Distributor::class;
     }
@@ -50,45 +54,32 @@ class DistributorFactory extends Factory {
     // <editor-fold desc="Functions">
     // =========================================================================
     protected function createFromCompany(Company $company, bool $force): ?Distributor {
-        // Get/Create
-        $created     = false;
-        $factory     = static function (Distributor $distributor) use ($force, &$created, $company): Distributor {
-            // Unchanged?
-            $created = !$distributor->exists;
-            $hash    = $company->getHash();
-
-            if ($force === false && $hash === $distributor->hash) {
-                return $distributor;
-            }
-
-            // Update
-            $distributor->id         = $company->id;
-            $distributor->hash       = $hash;
-            $distributor->name       = $company->name;
-            $distributor->changed_at = $company->updatedAt;
-
-            if ($distributor->trashed()) {
-                $distributor->restore();
-            } else {
-                $distributor->save();
-            }
-
-            return $distributor;
-        };
-        $distributor = $this->distributorResolver->get(
+        return $this->getDistributorResolver()->get(
             $company->id,
-            static function () use ($factory): Distributor {
-                return $factory(new Distributor());
+            static function (?Distributor $distributor) use ($force, $company): Distributor {
+                // Unchanged?
+                $hash = $company->getHash();
+
+                if ($force === false && $distributor !== null && $hash === $distributor->hash) {
+                    return $distributor;
+                }
+
+                // Update
+                $distributor           ??= new Distributor();
+                $distributor->id         = $company->id;
+                $distributor->hash       = $hash;
+                $distributor->name       = $company->name;
+                $distributor->changed_at = $company->updatedAt;
+
+                if ($distributor->trashed()) {
+                    $distributor->restore();
+                } else {
+                    $distributor->save();
+                }
+
+                return $distributor;
             },
         );
-
-        // Update
-        if (!$created) {
-            $factory($distributor);
-        }
-
-        // Return
-        return $distributor;
     }
     //</editor-fold>
 }

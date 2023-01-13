@@ -20,8 +20,8 @@ class ProductLineResolverTest extends TestCase {
      */
     public function testGet(): void {
         // Prepare
-        $factory = static function (): ProductLine {
-            return ProductLine::factory()->make();
+        $factory = static function (?ProductLine $line): ProductLine {
+            return $line ?? ProductLine::factory()->make();
         };
 
         $a = ProductLine::factory()->create([

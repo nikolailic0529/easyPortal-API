@@ -15,7 +15,11 @@ trait WithType {
     abstract protected function getTypeResolver(): TypeResolver;
 
     protected function type(Model $owner, string $type): Type {
-        $type = $this->getTypeResolver()->get($owner, $type, static function () use ($owner, $type): Type {
+        return $this->getTypeResolver()->get($owner, $type, static function (?Type $model) use ($owner, $type): Type {
+            if ($model) {
+                return $model;
+            }
+
             $model              = new Type();
             $model->object_type = $owner->getMorphClass();
             $model->key         = $type;
@@ -25,7 +29,5 @@ trait WithType {
 
             return $model;
         });
-
-        return $type;
     }
 }

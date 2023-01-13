@@ -264,44 +264,47 @@ class DocumentFactory extends Factory {
         }
 
         // Get/Create
-        $factory = function (DocumentModel $model) use ($object): DocumentModel {
-            // Update
-            /** @var Collection<int, Status> $statuses */
-            $statuses              = new Collection();
-            $document              = $object->document;
-            $model->id             = $document->id;
-            $model->hash           = null;
-            $model->oem            = $this->documentOem($document);
-            $model->oemGroup       = $this->documentOemGroup($document);
-            $model->oem_said       = $document->vendorSpecificFields->said ?? null;
-            $model->oem_amp_id     = $document->vendorSpecificFields->ampId ?? null;
-            $model->oem_sar_number = $document->vendorSpecificFields->sar ?? null;
-            $model->type           = $this->documentType($document);
-            $model->statuses       = $statuses;
-            $model->reseller       = $this->reseller($document);
-            $model->customer       = $this->customer($document);
-            $model->currency       = $this->currency($document->currencyCode);
-            $model->language       = $this->language($document->languageCode);
-            $model->distributor    = $this->distributor($document);
-            $model->start          = $document->startDate;
-            $model->end            = $document->endDate;
-            $model->price_origin   = null;
-            $model->number         = $document->documentNumber ?: null;
-            $model->changed_at     = $document->updatedAt;
-            $model->contacts       = $this->contacts($model, (array) $document->contactPersons);
-            $model->deleted_at     = Date::now();
-            $model->assets_count   = 0;
-            $model->entries_count  = 0;
-
-            $model->save();
-
-            // Return
-            return $model;
-        };
-        $model   = $this->documentResolver->get(
+        $model = $this->documentResolver->get(
             $object->document->id,
-            static function () use ($factory): DocumentModel {
-                return $factory(new DocumentModel());
+            function (?DocumentModel $model) use ($object): DocumentModel {
+                // Exists?
+                if ($model) {
+                    return $model;
+                }
+
+                // Update
+                /** @var Collection<int, Status> $statuses */
+                $statuses              = new Collection();
+                $document              = $object->document;
+                $model                 = new DocumentModel();
+                $model->id             = $document->id;
+                $model->hash           = null;
+                $model->oem            = $this->documentOem($document);
+                $model->oemGroup       = $this->documentOemGroup($document);
+                $model->oem_said       = $document->vendorSpecificFields->said ?? null;
+                $model->oem_amp_id     = $document->vendorSpecificFields->ampId ?? null;
+                $model->oem_sar_number = $document->vendorSpecificFields->sar ?? null;
+                $model->type           = $this->documentType($document);
+                $model->statuses       = $statuses;
+                $model->reseller       = $this->reseller($document);
+                $model->customer       = $this->customer($document);
+                $model->currency       = $this->currency($document->currencyCode);
+                $model->language       = $this->language($document->languageCode);
+                $model->distributor    = $this->distributor($document);
+                $model->start          = $document->startDate;
+                $model->end            = $document->endDate;
+                $model->price_origin   = null;
+                $model->number         = $document->documentNumber ?: null;
+                $model->changed_at     = $document->updatedAt;
+                $model->contacts       = $this->contacts($model, (array) $document->contactPersons);
+                $model->deleted_at     = Date::now();
+                $model->assets_count   = 0;
+                $model->entries_count  = 0;
+
+                $model->save();
+
+                // Return
+                return $model;
             },
         );
 
@@ -313,82 +316,67 @@ class DocumentFactory extends Factory {
     // <editor-fold desc="Document">
     // =========================================================================
     protected function createFromDocument(Document $document, bool $force): ?DocumentModel {
-        // Get/Create/Update
-        $created = false;
-        $factory = function (DocumentModel $model) use ($force, &$created, $document): DocumentModel {
-            // Unchanged?
-            $created = !$model->exists;
-            $hash    = $document->getHash();
-
-            if ($force === false && $hash === $model->hash) {
-                return $model;
-            }
-
-            // Update
-            $model->id             = $document->id;
-            $model->hash           = $hash;
-            $model->oem            = $this->documentOem($document);
-            $model->oemGroup       = $this->documentOemGroup($document);
-            $model->oem_said       = $document->vendorSpecificFields->said ?? null;
-            $model->oem_amp_id     = $document->vendorSpecificFields->ampId ?? null;
-            $model->oem_sar_number = $document->vendorSpecificFields->sar ?? null;
-            $model->type           = $this->documentType($document);
-            $model->statuses       = $this->documentStatuses($model, $document);
-            $model->reseller       = $this->reseller($document);
-            $model->customer       = $this->customer($document);
-            $model->currency       = $this->currency($document->currencyCode);
-            $model->language       = $this->language($document->languageCode);
-            $model->distributor    = $this->distributor($document);
-            $model->start          = $document->startDate;
-            $model->end            = $document->endDate;
-            $model->price_origin   = $document->totalNetPrice;
-            $model->number         = $document->documentNumber ?: null;
-            $model->changed_at     = $document->updatedAt;
-            $model->contacts       = $this->contacts($model, (array) $document->contactPersons);
-
-            // Entries & Warranties
-            if (isset($document->documentEntries)) {
-                try {
-                    // Prefetch
-                    $this->getAssetResolver()->prefetch(
-                        array_map(static fn($entry) => $entry->assetId, $document->documentEntries),
-                    );
-
-                    // Entries
-                    $model->entries = $this->documentEntries($model, $document, $force);
-                } finally {
-                    $this->getAssetResolver()->reset();
-
-                    unset($model->entries);
-                }
-            }
-
-            // Save
-            if ($model->trashed()) {
-                $model->restore();
-            } else {
-                $model->save();
-            }
-
-            // Return
-            return $model;
-        };
-        $model   = $this->documentResolver->get(
+        return $this->documentResolver->get(
             $document->id,
-            static function () use ($factory): DocumentModel {
-                return $factory(new DocumentModel());
+            function (?DocumentModel $model) use ($force, $document): DocumentModel {
+                // Unchanged?
+                $hash = $document->getHash();
+
+                if ($force === false && $model !== null && $hash === $model->hash) {
+                    return $model;
+                }
+
+                // Update
+                $model               ??= new DocumentModel();
+                $model->id             = $document->id;
+                $model->hash           = $hash;
+                $model->oem            = $this->documentOem($document);
+                $model->oemGroup       = $this->documentOemGroup($document);
+                $model->oem_said       = $document->vendorSpecificFields->said ?? null;
+                $model->oem_amp_id     = $document->vendorSpecificFields->ampId ?? null;
+                $model->oem_sar_number = $document->vendorSpecificFields->sar ?? null;
+                $model->type           = $this->documentType($document);
+                $model->statuses       = $this->documentStatuses($model, $document);
+                $model->reseller       = $this->reseller($document);
+                $model->customer       = $this->customer($document);
+                $model->currency       = $this->currency($document->currencyCode);
+                $model->language       = $this->language($document->languageCode);
+                $model->distributor    = $this->distributor($document);
+                $model->start          = $document->startDate;
+                $model->end            = $document->endDate;
+                $model->price_origin   = $document->totalNetPrice;
+                $model->number         = $document->documentNumber ?: null;
+                $model->changed_at     = $document->updatedAt;
+                $model->contacts       = $this->contacts($model, (array) $document->contactPersons);
+
+                // Entries & Warranties
+                if (isset($document->documentEntries)) {
+                    try {
+                        // Prefetch
+                        $this->getAssetResolver()->prefetch(
+                            array_map(static fn($entry) => $entry->assetId, $document->documentEntries),
+                        );
+
+                        // Entries
+                        $model->entries = $this->documentEntries($model, $document, $force);
+                    } finally {
+                        $this->getAssetResolver()->reset();
+
+                        unset($model->entries);
+                    }
+                }
+
+                // Save
+                if ($model->trashed()) {
+                    $model->restore();
+                } else {
+                    $model->save();
+                }
+
+                // Return
+                return $model;
             },
         );
-
-        // Update
-        if (!$created) {
-            $factory($model);
-        }
-
-
-
-        // Return
-        return $model;
     }
 
     protected function documentOemGroup(Document|ViewDocument $document): ?OemGroup {
@@ -486,7 +474,7 @@ class DocumentFactory extends Factory {
 
         // Create/Update
         $asset                              = $this->documentEntryAsset($model, $documentEntry);
-        $entry                            ??= new DocumentEntryModel();
+        $entry                              ??= new DocumentEntryModel();
         $entry->hash                        = $hash;
         $entry->key                         = $this->getEntryKey($documentEntry);
         $entry->document                    = $model;

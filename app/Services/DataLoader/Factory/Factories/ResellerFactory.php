@@ -78,56 +78,43 @@ class ResellerFactory extends CompanyFactory {
     // <editor-fold desc="Functions">
     // =========================================================================
     protected function createFromCompany(Company $company, bool $force): ?Reseller {
-        // Get/Create
-        $created  = false;
-        $factory  = function (Reseller $reseller) use ($force, &$created, $company): Reseller {
-            // Unchanged?
-            $created = !$reseller->exists;
-            $hash    = $company->getHash();
-
-            if ($force === false && $hash === $reseller->hash) {
-                return $reseller;
-            }
-
-            // Update
-            $reseller->id         = $company->id;
-            $reseller->hash       = $hash;
-            $reseller->name       = $company->name;
-            $reseller->changed_at = $company->updatedAt;
-            $reseller->statuses   = $this->companyStatuses($reseller, $company);
-            $reseller->contacts   = $this->contacts($reseller, $company->companyContactPersons);
-            $reseller->locations  = $this->companyLocations($reseller, $company->locations);
-            $reseller->kpi        = $this->kpi($reseller, $company->companyKpis);
-
-            if ($created) {
-                $reseller->assets_count    = 0;
-                $reseller->customers_count = 0;
-            }
-
-            if ($reseller->trashed()) {
-                $reseller->restore();
-            } else {
-                $reseller->save();
-            }
-
-            $this->dispatcher->dispatch(new ResellerUpdated($reseller, $company));
-
-            return $reseller;
-        };
-        $reseller = $this->resellerResolver->get(
+        return $this->resellerResolver->get(
             $company->id,
-            static function () use ($factory): Reseller {
-                return $factory(new Reseller());
+            function (?Reseller $reseller) use ($force, $company): Reseller {
+                // Unchanged?
+                $hash    = $company->getHash();
+
+                if ($force === false && $reseller !== null && $hash === $reseller->hash) {
+                    return $reseller;
+                }
+
+                // Update
+                $reseller           ??= new Reseller();
+                $reseller->id         = $company->id;
+                $reseller->hash       = $hash;
+                $reseller->name       = $company->name;
+                $reseller->changed_at = $company->updatedAt;
+                $reseller->statuses   = $this->companyStatuses($reseller, $company);
+                $reseller->contacts   = $this->contacts($reseller, $company->companyContactPersons);
+                $reseller->locations  = $this->companyLocations($reseller, $company->locations);
+                $reseller->kpi        = $this->kpi($reseller, $company->companyKpis);
+
+                if (!$reseller->exists) {
+                    $reseller->assets_count    = 0;
+                    $reseller->customers_count = 0;
+                }
+
+                if ($reseller->trashed()) {
+                    $reseller->restore();
+                } else {
+                    $reseller->save();
+                }
+
+                $this->dispatcher->dispatch(new ResellerUpdated($reseller, $company));
+
+                return $reseller;
             },
         );
-
-        // Update
-        if (!$created) {
-            $factory($reseller);
-        }
-
-        // Return
-        return $reseller;
     }
     // </editor-fold>
 }

@@ -22,8 +22,8 @@ class OemGroupResolverTest extends TestCase {
     public function testGet(): void {
         // Prepare
         $model   = Oem::factory()->create();
-        $factory = static function (): OemGroup {
-            return OemGroup::factory()->make();
+        $factory = static function (?OemGroup $group): OemGroup {
+            return $group ?? OemGroup::factory()->make();
         };
 
         OemGroup::factory()->create([

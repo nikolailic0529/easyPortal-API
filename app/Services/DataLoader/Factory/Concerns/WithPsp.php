@@ -19,32 +19,20 @@ trait WithPsp {
         }
 
         // Find/Create
-        $created = false;
-        $factory = static function (Psp $group) use (&$created, $key, $name): Psp {
-            $created    = !$group->exists;
-            $group->key = $key;
-
-            if (!$group->name || $group->name === $key) {
-                $group->name = $name ?: $key;
-            }
-
-            $group->save();
-
-            return $group;
-        };
-        $psp     = $this->getPspResolver()->get(
+        return $this->getPspResolver()->get(
             $key,
-            static function () use ($factory): Psp {
-                return $factory(new Psp());
+            static function (?Psp $group) use ($key, $name): Psp {
+                $group    ??= new Psp();
+                $group->key = $key;
+
+                if (!$group->name || $group->name === $key) {
+                    $group->name = $name ?: $key;
+                }
+
+                $group->save();
+
+                return $group;
             },
         );
-
-        // Update
-        if (!$created) {
-            $factory($psp);
-        }
-
-        // Return
-        return $psp;
     }
 }

@@ -27,54 +27,33 @@ trait WithServiceLevel {
         }
 
         // Find/Create
-        $created = false;
-        $factory = static function (
-            ServiceLevel $level,
-        ) use (
-            &$created,
+        return $this->getServiceLevelResolver()->get(
             $oem,
             $group,
             $sku,
-            $name,
-            $description,
-        ): ServiceLevel {
-            $created = !$level->exists;
+            static function (?ServiceLevel $level) use ($oem, $group, $sku, $name, $description): ServiceLevel {
+                $level ??= new ServiceLevel();
 
-            if ($created) {
-                $level->key          = "{$group->getTranslatableKey()}/{$sku}";
-                $level->oem          = $oem;
-                $level->sku          = $sku;
-                $level->description  = '';
-                $level->serviceGroup = $group;
-            }
+                if (!$level->exists) {
+                    $level->key          = "{$group->getTranslatableKey()}/{$sku}";
+                    $level->oem          = $oem;
+                    $level->sku          = $sku;
+                    $level->description  = '';
+                    $level->serviceGroup = $group;
+                }
 
-            if (!$level->name || $level->name === $sku) {
-                $level->name = $name ?: $sku;
-            }
+                if (!$level->name || $level->name === $sku) {
+                    $level->name = $name ?: $sku;
+                }
 
-            if (!$level->description) {
-                $level->description = (string) $description;
-            }
+                if (!$level->description) {
+                    $level->description = (string) $description;
+                }
 
-            $level->save();
+                $level->save();
 
-            return $level;
-        };
-        $level   = $this->getServiceLevelResolver()->get(
-            $oem,
-            $group,
-            $sku,
-            static function () use ($factory): ServiceLevel {
-                return $factory(new ServiceLevel());
+                return $level;
             },
         );
-
-        // Update
-        if (!$created) {
-            $factory($level);
-        }
-
-        // Return
-        return $level;
     }
 }

@@ -16,7 +16,11 @@ trait WithOemGroup {
 
     protected function oemGroup(Oem $oem, string $key, string $name): OemGroup {
         $group = $this->getOemGroupResolver()
-            ->get($oem, $key, $name, static function () use ($oem, $key, $name): OemGroup {
+            ->get($oem, $key, $name, static function (?OemGroup $model) use ($oem, $key, $name): OemGroup {
+                if ($model) {
+                    return $model;
+                }
+
                 $model       = new OemGroup();
                 $model->oem  = $oem;
                 $model->key  = $key;

@@ -66,7 +66,11 @@ trait WithContacts {
             $name,
             $phone,
             $mail,
-            static function () use ($owner, $name, $phone, $valid, $mail): Contact {
+            static function (?Contact $model) use ($owner, $name, $phone, $valid, $mail): Contact {
+                if ($model) {
+                    return $model;
+                }
+
                 $model               = new Contact();
                 $model->object_type  = $owner->getMorphClass();
                 $model->object_id    = $owner->getKey();

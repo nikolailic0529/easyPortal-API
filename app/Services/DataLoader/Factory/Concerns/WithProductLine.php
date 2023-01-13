@@ -20,7 +20,11 @@ trait WithProductLine {
 
         // Find
         return $this->getProductLineResolver()
-            ->get($key, static function () use ($key): ProductLine {
+            ->get($key, static function (?ProductLine $model) use ($key): ProductLine {
+                if ($model) {
+                    return $model;
+                }
+
                 $model       = new ProductLine();
                 $model->key  = $key;
                 $model->name = $key;
