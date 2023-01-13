@@ -82,7 +82,7 @@ class ResellerFactory extends CompanyFactory {
             $company->id,
             function (?Reseller $reseller) use ($force, $company): Reseller {
                 // Unchanged?
-                $hash    = $company->getHash();
+                $hash = $company->getHash();
 
                 if ($force === false && $reseller !== null && $hash === $reseller->hash) {
                     return $reseller;

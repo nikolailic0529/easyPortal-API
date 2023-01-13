@@ -474,7 +474,7 @@ class DocumentFactory extends Factory {
 
         // Create/Update
         $asset                              = $this->documentEntryAsset($model, $documentEntry);
-        $entry                              ??= new DocumentEntryModel();
+        $entry                            ??= new DocumentEntryModel();
         $entry->hash                        = $hash;
         $entry->key                         = $this->getEntryKey($documentEntry);
         $entry->document                    = $model;
