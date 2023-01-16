@@ -70,6 +70,10 @@ Application use [Custom User Provider](https://laravel.com/docs/authentication#a
 
 Contain shared code that can be used in any part of Application.
 
+#### JsonObject
+
+There are a lot of places where JSON from external services needs to be converted into application data. Very often we need to covert JSON types into application types, eg ISO 8601 string into `DateTimeInterface` to simplify this and satisfy PHP Stan the [`JsonObject`](../../app/Utils/JsonObject) should be used. It transparently converts JSON into PHP object(s) and vice versa.
+
 #### Models
 
 As mentioned in the [Coding Standards](Coding-Standards.md) all models are subclasses of [`Model`](../../app/Utils/Eloquent/Model.php) (or [`Pivot`](../../app/Utils/Eloquent/Pivot.php) for pivots). The class provides some basic features (like PKs, `SoftDeletes`, etc), and, in additional to them, it is also implements few concepts which are required (mostly) for DataLoader part. The main/most important concepts are described below. Please look at the code to check the others.
