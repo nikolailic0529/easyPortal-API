@@ -144,3 +144,7 @@ Defines various helpers for maintenance, and jobs to enable/disable maintenance 
 ## Notificator
 
 Wrapper around standard [Notifications](https://laravel.com/docs/notifications) to simplify their translations.
+
+## Organization
+
+Implements all logic related to Multi-tenancy the most used classes are [`CurrentOrganization`](../../app/Services/Organization/CurrentOrganization.php) and [`RootOrganization`](../../app/Services/Organization/RootOrganization.php). Behind the scenes, service use [eloquent scopes](https://laravel.com/docs/eloquent#query-scopes) to hide models from other organizations.
