@@ -96,15 +96,15 @@ The [Processor](../../app/Utils/Processor) that extends the concept of Iterators
 
 Processors/Iterators are the main parts of how application import/process the data and used for all jobs/commands, so it is very important to understand these concepts.
 
-## Audit
+### [Audit](../../app/Services/Audit)
 
 Transparently records required events and changes of Models which are marked by [`Auditable`](../../app/Services/Audit/Contracts/Auditable.php) to provide an Audit Log for Administer Users.
 
-## Auth
+### [Auth](../../app/Services/Auth)
 
 Defines the list of available permissions, its properties (eg which type of organization can use them) and implementation to check them when [Gates](https://laravel.com/docs/authorization#gates) call.
 
-## DataLoader
+### [DataLoader](../../app/Services/DataLoader)
 
 Probably the most important part of Application, that import data from external source and store it in the database. Because of huge amount of items which should be imported (few millions), the DataLoader is optimized to reduce resources usage and queries count - it is process items chunk by chunk with to free memory between each chunk. Implementation is fully based on Processors concept and split into several entities to simplify the logic:
 
@@ -117,11 +117,11 @@ Probably the most important part of Application, that import data from external 
 
 The last important thing - the Service is also overrides and extends the `Container` contract to simplify memory management. The [Custom Container](../../app/Services/DataLoader/Container/Container.php) is needed to create singletons (`Factory`/`Resolver`) while processing and reset them between chunks and after the end (unfortunately standard container is not designed for this and will require too much the boilerplate code).
 
-## Filesystem
+### [Filesystem](../../app/Services/Filesystem)
 
 The service provides helpers to simplify work with [standard disks](https://laravel.com/docs/filesystem) - you don't need to worry about name, setting, etc, just inject required [`Disk`](../../app/Services/Filesystem/Disk.php) and use it. It is especially useful for files related to Models. The [`JsonStorage`](../../app/Services/Filesystem/JsonStorage.php) is another useful helper designed to save/load data into/from the JSON file stored on the Disk.
 
-## I18n
+### [I18n](../../app/Services/I18n)
 
 The service wraps all logic related to internationalization and localization. It is implements load/save functionality for translations, extends standard Translator to work with fallback JSON files, and defines few useful helpers:
 
@@ -129,31 +129,31 @@ The service wraps all logic related to internationalization and localization. It
 - [`CurrentTimezone`](../../app/Services/I18n/CurrentTimezone.php) - same as `CurrentLocale` but for Time Zone;
 - [`Formatter`](../../app/Services/I18n/Formatter.php) - converts different types (numbers/currencies/dates/etc) into string for End User according to its Locale/Timezone;
 
-## Keycloak
+### [Keycloak](../../app/Services/Keycloak)
 
 Provides [Custom User Provider](https://laravel.com/docs/authentication#adding-custom-user-providers) for [Keycloak](https://keycloak.org/) to authenticate users , Also defines processors to synchronize users and permissions with Keycloak.
 
-## Logger
+### [Logger](../../app/Services/Logger)
 
 Similar to [Telescope](https://laravel.com/docs/telescope) but more smart and can be used with long-running jobs. Currently used mostly to log queue jobs events.
 
-## Maintenance
+### [Maintenance](../../app/Services/Maintenance)
 
 Defines various helpers for maintenance, and jobs to enable/disable maintenance by schedule.
 
-## Notificator
+### [Notificator](../../app/Services/Notificator)
 
 Wrapper around standard [Notifications](https://laravel.com/docs/notifications) to simplify their translations.
 
-## Organization
+### [Organization](../../app/Services/Organization)
 
 Implements all logic related to Multi-tenancy the most used classes are [`CurrentOrganization`](../../app/Services/Organization/CurrentOrganization.php) and [`RootOrganization`](../../app/Services/Organization/RootOrganization.php). Behind the scenes, service use [eloquent scopes](https://laravel.com/docs/eloquent#query-scopes) to hide models from other organizations.
 
-## Passwords
+### [Passwords](../../app/Services/Passwords)
 
 Extends [passwords](https://laravel.com/docs/passwords) to provide better validation. Probably should be merged with the Auth service.
 
-## Queue
+### [Queue](../../app/Services/Queue)
 
 Application uses [Horizon](https://laravel.com/docs/horizon) as a supervisor. The service improves [queues](https://laravel.com/docs/queues) to satisfy application requirements:
 
