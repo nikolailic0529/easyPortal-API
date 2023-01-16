@@ -116,3 +116,7 @@ Probably the most important part of Application, that import data from external 
 - [`Finder`](../../app/Services/DataLoader/Finders) (internal) - contract which provides an implementation of how to find the model (in the database or in external source), used only in `Factory` and usually just call the `Loader`;
 
 The last important thing - the Service is also overrides and extends the `Container` contract to simplify memory management. The [Custom Container](../../app/Services/DataLoader/Container/Container.php) is needed to create singletons (`Factory`/`Resolver`) while processing and reset them between chunks and after the end (unfortunately standard container is not designed for this and will require too much the boilerplate code).
+
+## Filesystem
+
+The service provides helpers to simplify work with [standard disks](https://laravel.com/docs/filesystem) - you don't need to worry about name, setting, etc, just inject required [`Disk`](../../app/Services/Filesystem/Disk.php) and use it. It is especially useful for files related to Models. The [`JsonStorage`](../../app/Services/Filesystem/JsonStorage.php) is another useful helper designed to save/load data into/from the JSON file stored on the Disk.
