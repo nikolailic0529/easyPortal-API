@@ -140,3 +140,7 @@ Similar to [Telescope](https://laravel.com/docs/telescope) but more smart and ca
 ## Maintenance
 
 Defines various helpers for maintenance, and jobs to enable/disable maintenance by schedule.
+
+## Notificator
+
+Wrapper around standard [Notifications](https://laravel.com/docs/notifications) to simplify their translations.
