@@ -128,3 +128,7 @@ The service wraps all logic related to internationalization and localization. It
 - [`CurrentLocale`](../../app/Services/I18n/CurrentLocale.php) - the Application has several levels where Locale can be set: config (default), Organization, User Settings, Session. This helper must be used to get the actual Locale;
 - [`CurrentTimezone`](../../app/Services/I18n/CurrentTimezone.php) - same as `CurrentLocale` but for Time Zone;
 - [`Formatter`](../../app/Services/I18n/Formatter.php) - converts different types (numbers/currencies/dates/etc) into string for End User according to its Locale/Timezone;
+
+## Keycloak
+
+Provides [Custom User Provider](https://laravel.com/docs/authentication#adding-custom-user-providers) for [Keycloak](https://keycloak.org/) to authenticate users , Also defines processors to synchronize users and permissions with Keycloak.
