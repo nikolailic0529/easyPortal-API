@@ -152,3 +152,11 @@ Implements all logic related to Multi-tenancy the most used classes are [`Curren
 ## Passwords
 
 Extends [passwords](https://laravel.com/docs/passwords) to provide better validation. Probably should be merged with the Auth service.
+
+## Queue
+
+Application uses [Horizon](https://laravel.com/docs/horizon) as a supervisor. The service improves [queues](https://laravel.com/docs/queues) to satisfy application requirements:
+
+- each scheduled job can be paused/resumed (based on Processors, see [`ProcessorJob`](../../app/Services/Queue/Concerns/ProcessorJob.php))
+- each job may have progress/status that can be shown in UI (this is actually a Processor's State)
+- each job can be stopped (external signals like `queue:restart` are also handled)
