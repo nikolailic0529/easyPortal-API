@@ -99,3 +99,7 @@ Processors/Iterators are the main parts of how application import/process the da
 ## Audit
 
 Transparently records required events and changes of Models which are marked by [`Auditable`](../../app/Services/Audit/Contracts/Auditable.php) to provide an Audit Log for Administer Users.
+
+## Auth
+
+Defines the list of available permissions, its properties (eg which type of organization can use them) and implementation to check them when [Gates](https://laravel.com/docs/authorization#gates) call.
