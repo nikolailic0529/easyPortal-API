@@ -148,3 +148,7 @@ Wrapper around standard [Notifications](https://laravel.com/docs/notifications) 
 ## Organization
 
 Implements all logic related to Multi-tenancy the most used classes are [`CurrentOrganization`](../../app/Services/Organization/CurrentOrganization.php) and [`RootOrganization`](../../app/Services/Organization/RootOrganization.php). Behind the scenes, service use [eloquent scopes](https://laravel.com/docs/eloquent#query-scopes) to hide models from other organizations.
+
+## Passwords
+
+Extends [passwords](https://laravel.com/docs/passwords) to provide better validation. Probably should be merged with the Auth service.
