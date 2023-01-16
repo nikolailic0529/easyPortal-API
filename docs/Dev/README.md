@@ -64,6 +64,10 @@ This is a multi-tenant application - all data is related to a specific organizat
 
 Application use [Custom User Provider](https://laravel.com/docs/authentication#adding-custom-user-providers) for [Keycloak](https://keycloak.org/) to authenticate users (except root users that should sign in directly). And pretty simple implementation based on standard [Gates](https://laravel.com/docs/authorization#gates) to check permissions (implemetation is also respect multi-tenancy). Please see the [Keycloak](../../app/Services/Keycloak) and [Auth](../../app/Services/Auth) services for more details.
 
+### Localization
+
+Application uses out the box localization with few fixes/additions: all strings are stored in JSON files (php files should not be used) and strings from fallback locales will be loaded automatically (see [#36760](https://github.com/laravel/framework/issues/36760) for more details), Administer users can modify translations through UI.
+
 ## Services
 
 ### Utils
