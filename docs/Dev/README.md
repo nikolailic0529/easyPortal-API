@@ -60,6 +60,10 @@ PK is a UUID. The records must not be deleted from the database (including pivot
 
 This is a multi-tenant application - all data is related to a specific organization and can be viewed from different points of view (root/reseller/customer). The Root User and users from Root Org can see data from all organizations. But the Normal User can see data related to its own organization only. Application automatically applies scopes based on the current org/user to all queries and hides data which the current user should not see. In almost all cases, you should not worry about it, just keep this in mind.
 
+### Authentication & Authorization
+
+Application use [Custom User Provider](https://laravel.com/docs/authentication#adding-custom-user-providers) for [Keycloak](https://keycloak.org/) to authenticate users (except root users that should sign in directly). And pretty simple implementation based on standard [Gates](https://laravel.com/docs/authorization#gates) to check permissions (implemetation is also respect multi-tenancy). Please see the [Keycloak](../../app/Services/Keycloak) and [Auth](../../app/Services/Auth) services for more details.
+
 ## Services
 
 ### Utils
