@@ -95,3 +95,7 @@ By default, Laravel doesn't provide any way to iterate over a potentially infini
 The [Processor](../../app/Utils/Processor) that extends the concept of Iterators to provide a generic way to perform action(s) over the iterable items with ability to stop/pause/resume the processing. You can also combine multiple processors into one with [`CompositeProcessor`](../../app/Utils/Processor/CompositeProcessor.php) and/or easy convert any Processor into console command with [`ProcessorCommand`](../../app/Utils/Processor/Commands/ProcessorCommand.php).
 
 Processors/Iterators are the main parts of how application import/process the data and used for all jobs/commands, so it is very important to understand these concepts.
+
+## Audit
+
+Transparently records required events and changes of Models which are marked by [`Auditable`](../../app/Services/Audit/Contracts/Auditable.php) to provide an Audit Log for Administer Users.

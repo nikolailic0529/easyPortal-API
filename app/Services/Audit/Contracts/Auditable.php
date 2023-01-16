@@ -7,6 +7,8 @@ use App\Services\Auth\Permissions\Administer;
 use App\Utils\Eloquent\Model;
 
 /**
+ * Marks that the changes of the Model should be stored in Audit Log.
+ *
  * @see AuditableImpl
  *
  * @mixin Model
