@@ -160,3 +160,7 @@ Application uses [Horizon](https://laravel.com/docs/horizon) as a supervisor. Th
 - each scheduled job can be paused/resumed (based on Processors, see [`ProcessorJob`](../../app/Services/Queue/Concerns/ProcessorJob.php))
 - each job may have progress/status that can be shown in UI (this is actually a Processor's State)
 - each job can be stopped (external signals like `queue:restart` are also handled)
+
+### [Recalculator](../../app/Services/Recalculator)
+
+Defines the jobs to recalculate calculated properties of models, based on Processors and optimized to huge amount of object.
