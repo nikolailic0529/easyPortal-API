@@ -136,3 +136,7 @@ Provides [Custom User Provider](https://laravel.com/docs/authentication#adding-c
 ## Logger
 
 Similar to [Telescope](https://laravel.com/docs/telescope) but more smart and can be used with long-running jobs. Currently used mostly to log queue jobs events.
+
+## Maintenance
+
+Defines various helpers for maintenance, and jobs to enable/disable maintenance by schedule.
