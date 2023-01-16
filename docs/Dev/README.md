@@ -120,3 +120,11 @@ The last important thing - the Service is also overrides and extends the `Contai
 ## Filesystem
 
 The service provides helpers to simplify work with [standard disks](https://laravel.com/docs/filesystem) - you don't need to worry about name, setting, etc, just inject required [`Disk`](../../app/Services/Filesystem/Disk.php) and use it. It is especially useful for files related to Models. The [`JsonStorage`](../../app/Services/Filesystem/JsonStorage.php) is another useful helper designed to save/load data into/from the JSON file stored on the Disk.
+
+## I18n
+
+The service wraps all logic related to internationalization and localization. It is implements load/save functionality for translations, extends standard Translator to work with fallback JSON files, and defines few useful helpers:
+
+- [`CurrentLocale`](../../app/Services/I18n/CurrentLocale.php) - the Application has several levels where Locale can be set: config (default), Organization, User Settings, Session. This helper must be used to get the actual Locale;
+- [`CurrentTimezone`](../../app/Services/I18n/CurrentTimezone.php) - same as `CurrentLocale` but for Time Zone;
+- [`Formatter`](../../app/Services/I18n/Formatter.php) - converts different types (numbers/currencies/dates/etc) into string for End User according to its Locale/Timezone;
