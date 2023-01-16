@@ -103,3 +103,16 @@ Transparently records required events and changes of Models which are marked by 
 ## Auth
 
 Defines the list of available permissions, its properties (eg which type of organization can use them) and implementation to check them when [Gates](https://laravel.com/docs/authorization#gates) call.
+
+## DataLoader
+
+Probably the most important part of Application, that import data from external source and store it in the database. Because of huge amount of items which should be imported (few millions), the DataLoader is optimized to reduce resources usage and queries count - it is process items chunk by chunk with to free memory between each chunk. Implementation is fully based on Processors concept and split into several entities to simplify the logic:
+
+- [`Resolver`](../../app/Services/DataLoader/Resolver/Resolver.php) (internal) - performs a search of the model with given properties in the database and returns it or calls the factory if it does not exist (must be used in all cases when you need to find something in the database);
+- [`Factory`](../../app/Services/DataLoader/Factory/Factory.php) (internal) - implements logic on how to create an application's model from an external data;
+- [`Importer`](../../app/Services/DataLoader/Processors/Importer/Importer.php) (internal) - iterates over all external items and converts them into models though `Factory`, also implements prefetch logic to reduce the number of database queries and emit events with affected models (events contain not only imported but all models which related to the processed items in the current chunk; it is needed because may affect visibility of the model(s) for organizations);
+- [`Loader`](../../app/Services/DataLoader/Processors/Loader/Loader.php) - composite processor to sync single item by KEY (Asset/Reseller/etc);
+- [`Synchronizer`](../../app/Services/DataLoader/Processors/Synchronizer/Synchronizer.php) - composite processor to sync multiple items and perform sync of existing models which were missed while items iteration (eg if deleted from external source). Checking existing models is the fundamental difference over `Importer`;
+- [`Finder`](../../app/Services/DataLoader/Finders) (internal) - contract which provides an implementation of how to find the model (in the database or in external source), used only in `Factory` and usually just call the `Loader`;
+
+The last important thing - the Service is also overrides and extends the `Container` contract to simplify memory management. The [Custom Container](../../app/Services/DataLoader/Container/Container.php) is needed to create singletons (`Factory`/`Resolver`) while processing and reset them between chunks and after the end (unfortunately standard container is not designed for this and will require too much the boilerplate code).
