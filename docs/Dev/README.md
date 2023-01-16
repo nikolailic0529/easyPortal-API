@@ -132,3 +132,7 @@ The service wraps all logic related to internationalization and localization. It
 ## Keycloak
 
 Provides [Custom User Provider](https://laravel.com/docs/authentication#adding-custom-user-providers) for [Keycloak](https://keycloak.org/) to authenticate users , Also defines processors to synchronize users and permissions with Keycloak.
+
+## Logger
+
+Similar to [Telescope](https://laravel.com/docs/telescope) but more smart and can be used with long-running jobs. Currently used mostly to log queue jobs events.
