@@ -81,3 +81,13 @@ As mentioned in the [Coding Standards](Coding-Standards.md) all models are subcl
 While importing data the DataLoader may produce a lot of inserts. The [`SmartSave`](../../app/Utils/Eloquent/SmartSave) transparently groups the sequence of insert requests into one query, if possible. It is also allow delay saving/inserting relations until `Model::save()` called which makes code cleaner.
 
 All multi-tenancy works happen inside query scopes. It is good and makes sure that the User will see only allowed data. Unfortunately, Laravel doesn't provide a way to disable scopes completely for all models when it is necessary. Here the [`GlobalScopes`](../../app/Utils/Eloquent/GlobalScopes) comes into play. Please note that it is work only for our/app scopes.
+
+#### Iterators & Processors
+
+By default, Laravel doesn't provide any way to iterate over a potentially infinite count of objects with abilities to stop, pause and resume processing. It is one of the base requirements for the Application, so we have following cool things :)
+
+[Iterators](../../app/Utils/Iterators) which are specially designed to process a huge amount of items from different sources. They are supports iteration restoration from the specified offset, provides chunks support, and error handling to avoid stopping iteration if one item failed.
+
+The [Processor](../../app/Utils/Processor) that extends the concept of Iterators to provide a generic way to perform action(s) over the iterable items with ability to stop/pause/resume the processing. You can also combine multiple processors into one with [`CompositeProcessor`](../../app/Utils/Processor/CompositeProcessor.php) and/or easy convert any Processor into console command with [`ProcessorCommand`](../../app/Utils/Processor/Commands/ProcessorCommand.php).
+
+Processors/Iterators are the main parts of how application import/process the data and used for all jobs/commands, so it is very important to understand these concepts.

@@ -38,6 +38,10 @@ use const FILTER_VALIDATE_INT;
 use const PHP_EOL;
 
 /**
+ * Allow to run any {@see Processor} as a console command. It is also store the
+ * Processor state in the cache so User can resume execution if command was
+ * interrupted/unsuccessful.
+ *
  * @template TProcessor of Processor
  */
 abstract class ProcessorCommand extends Command {
