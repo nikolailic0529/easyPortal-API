@@ -37,6 +37,11 @@ use const JSON_THROW_ON_ERROR;
  * object.
  *
  * Features/Limitations (and TODOs)
+ * - Arrays are supported, but required to add {@see JsonObjectArray} to specify
+ *   the type of items (except scalars);
+ * - {@see JsonObjectNormalizer} can be used to specify how to convert original
+ *   JSON type into property's type (please not that it will not be used while
+ *   serialization to JSON);
  * - Type unions not supported;
  *
  * @internal

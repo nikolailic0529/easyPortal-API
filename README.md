@@ -49,6 +49,7 @@ Legend:
 
 ### Development
 
+* [Overview](docs/Dev)
 * [Coding Standards](docs/Dev/Coding-Standards.md)
 * [Commits & Versioning](docs/Dev/Commits-Versioning.md)
 * [Database Structure](./docs/database.mwb) ([MySQL Workbench](https://www.mysql.com/products/workbench/))
