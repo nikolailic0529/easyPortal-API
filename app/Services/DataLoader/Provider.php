@@ -2,7 +2,6 @@
 
 namespace App\Services\DataLoader;
 
-use App\Services\DataLoader\Commands\AssetsAnalyze;
 use App\Services\DataLoader\Commands\AssetsSync;
 use App\Services\DataLoader\Commands\AssetSync;
 use App\Services\DataLoader\Commands\CustomersSync;
@@ -43,7 +42,6 @@ class Provider extends ServiceProvider {
             CustomerSync::class,
             DocumentSync::class,
             AssetSync::class,
-            AssetsAnalyze::class,
         );
         $this->bootSchedule(
             DistributorsImporter::class,

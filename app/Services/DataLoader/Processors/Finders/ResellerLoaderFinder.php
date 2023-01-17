@@ -8,8 +8,14 @@ use App\Services\DataLoader\Finders\ResellerFinder;
 use App\Services\DataLoader\Processors\Loader\Loaders\ResellerLoader;
 
 class ResellerLoaderFinder extends Finder implements ResellerFinder {
+    public function __construct(
+        protected ResellerLoader $loader,
+    ) {
+        parent::__construct();
+    }
+
     public function find(string $key): ?Reseller {
-        $result = $this->container->make(ResellerLoader::class)->setObjectId($key)->start();
+        $result = $this->loader->setObjectId($key)->start();
         $model  = $result
             ? Reseller::query()->whereKey($key)->first()
             : null;

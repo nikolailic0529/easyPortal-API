@@ -4,14 +4,6 @@ namespace App\Services\DataLoader\Processors\Loader;
 
 use App\Services\DataLoader\Container\Container;
 use App\Services\DataLoader\Container\Isolated;
-use App\Services\DataLoader\Finders\AssetFinder;
-use App\Services\DataLoader\Finders\CustomerFinder;
-use App\Services\DataLoader\Finders\DistributorFinder;
-use App\Services\DataLoader\Finders\ResellerFinder;
-use App\Services\DataLoader\Processors\Finders\AssetLoaderFinder;
-use App\Services\DataLoader\Processors\Finders\CustomerLoaderFinder;
-use App\Services\DataLoader\Processors\Finders\DistributorLoaderFinder;
-use App\Services\DataLoader\Processors\Finders\ResellerLoaderFinder;
 use App\Services\DataLoader\Processors\Loader\Concerns\WithLoaderState;
 use App\Utils\Processor\CompositeProcessor;
 use Illuminate\Contracts\Config\Repository;
@@ -35,11 +27,6 @@ abstract class Loader extends CompositeProcessor implements Isolated {
         protected Container $container,
     ) {
         parent::__construct($exceptionHandler, $dispatcher, $config);
-
-        $container->bind(DistributorFinder::class, DistributorLoaderFinder::class);
-        $container->bind(ResellerFinder::class, ResellerLoaderFinder::class);
-        $container->bind(CustomerFinder::class, CustomerLoaderFinder::class);
-        $container->bind(AssetFinder::class, AssetLoaderFinder::class);
     }
 
     // <editor-fold desc="Getters / Setters">

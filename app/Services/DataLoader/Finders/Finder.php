@@ -2,13 +2,11 @@
 
 namespace App\Services\DataLoader\Finders;
 
-use App\Services\DataLoader\Container\Container;
 use App\Services\DataLoader\Container\Isolated;
+use App\Services\DataLoader\Container\Singleton;
 
-abstract class Finder implements Isolated {
-    public function __construct(
-        protected Container $container,
-    ) {
+abstract class Finder implements Isolated, Singleton {
+    public function __construct() {
         // empty
     }
 }

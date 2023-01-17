@@ -26,7 +26,7 @@ use Illuminate\Database\Eloquent\Collection;
  */
 abstract class BaseImporter extends Importer {
     protected function register(): void {
-        $this->getContainer()->bind(ResellerFinder::class, ResellerLoaderFinder::class);
+        $this->getContainer()->bindIf(ResellerFinder::class, ResellerLoaderFinder::class);
     }
 
     protected function preload(State $state, Data $data, Collection $models): void {
