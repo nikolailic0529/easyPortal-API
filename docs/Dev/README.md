@@ -184,3 +184,7 @@ Please see [Settings](../Application/Settings.md) for more details.
 ### [Tokens](../../app/Services/Tokens)
 
 External services usually required Access Token for access. The service defines [OAuth2Token](../../app/Services/Tokens/OAuth2Token.php) helper that encapsulates all logic related to obtaining OAuth 2.0 Access Token for Client Credentials Grant.
+
+### [View](../../app/Services/View)
+
+Defines custom directives for [Blade](https://laravel.com/docs/blade).
