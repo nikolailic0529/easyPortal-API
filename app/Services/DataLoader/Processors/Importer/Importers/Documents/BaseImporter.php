@@ -34,10 +34,10 @@ use Illuminate\Database\Eloquent\Collection;
  */
 abstract class BaseImporter extends Importer {
     protected function register(): void {
-        $this->getContainer()->bind(DistributorFinder::class, DistributorLoaderFinder::class);
-        $this->getContainer()->bind(ResellerFinder::class, ResellerLoaderFinder::class);
-        $this->getContainer()->bind(CustomerFinder::class, CustomerLoaderFinder::class);
-        $this->getContainer()->bind(AssetFinder::class, AssetLoaderFinder::class);
+        $this->getContainer()->bindIf(DistributorFinder::class, DistributorLoaderFinder::class);
+        $this->getContainer()->bindIf(ResellerFinder::class, ResellerLoaderFinder::class);
+        $this->getContainer()->bindIf(CustomerFinder::class, CustomerLoaderFinder::class);
+        $this->getContainer()->bindIf(AssetFinder::class, AssetLoaderFinder::class);
     }
 
     protected function preload(State $state, Data $data, Collection $models): void {
