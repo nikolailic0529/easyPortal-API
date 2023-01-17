@@ -180,3 +180,7 @@ Customized [Elastic](https://www.elastic.co/) search engine implementation for [
 One requirement was "all settings must be stored in one file", the second was "settings should be editable from UI". The service implements these requirements and a bit more, eg you can define settings type and validation rules, can use ENV, get the list of settings, group them, etc.
 
 Please see [Settings](../Application/Settings.md) for more details.
+
+### [Tokens](../../app/Services/Tokens)
+
+External services usually required Access Token for access. The service defines [OAuth2Token](../../app/Services/Tokens/OAuth2Token.php) helper that encapsulates all logic related to obtaining OAuth 2.0 Access Token for Client Credentials Grant.
