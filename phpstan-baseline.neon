@@ -2266,31 +2266,6 @@ parameters:
 			path: app/Models/Document.php
 
 		-
-			message: "#^Method App\\\\Models\\\\Logs\\\\Model\\:\\:newModelQuery\\(\\) return type with generic class Illuminate\\\\Database\\\\Eloquent\\\\Builder does not specify its types\\: TModelClass$#"
-			count: 1
-			path: app/Models/Logs/Model.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Logs\\\\Model\\:\\:performInsert\\(\\) has parameter \\$query with generic class Illuminate\\\\Database\\\\Eloquent\\\\Builder but does not specify its types\\: TModelClass$#"
-			count: 1
-			path: app/Models/Logs/Model.php
-
-		-
-			message: "#^PHPDoc type array\\<string, Illuminate\\\\Contracts\\\\Database\\\\Eloquent\\\\Castable\\|Illuminate\\\\Contracts\\\\Database\\\\Eloquent\\\\CastsAttributes\\|string\\> of property App\\\\Models\\\\Logs\\\\Model\\:\\:\\$casts is not the same as PHPDoc type array\\<string, string\\> of overridden property Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:\\$casts\\.$#"
-			count: 1
-			path: app/Models/Logs/Model.php
-
-		-
-			message: "#^PHPDoc type string of property App\\\\Models\\\\Logs\\\\Model\\:\\:\\$connection is not the same as PHPDoc type string\\|null of overridden property Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:\\$connection\\.$#"
-			count: 1
-			path: app/Models/Logs/Model.php
-
-		-
-			message: "#^Using nullsafe method call on non\\-nullable type App\\\\Utils\\\\Eloquent\\\\SmartSave\\\\BatchInsert\\. Use \\-\\> instead\\.$#"
-			count: 1
-			path: app/Models/Logs/Model.php
-
-		-
 			message: "#^Instanceof between Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\HasMany\\<\\$this\\(App\\\\Models\\\\Note\\)\\> and Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\HasMany will always evaluate to true\\.$#"
 			count: 1
 			path: app/Models/Note.php

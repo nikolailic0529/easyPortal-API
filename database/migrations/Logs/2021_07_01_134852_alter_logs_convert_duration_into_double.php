@@ -2,7 +2,7 @@
 
 // @phpcs:disable PSR1.Classes.ClassDeclaration.MissingNamespace
 
-use App\Models\Logs\Model;
+use App\Services\Logger\Logger;
 use LastDragon_ru\LaraASP\Migrator\Migrations\RawMigration;
 
 class AlterLogsConvertDurationIntoDouble extends RawMigration {
@@ -13,7 +13,7 @@ class AlterLogsConvertDurationIntoDouble extends RawMigration {
      *
      * @var string|null
      */
-    protected $connection = Model::CONNECTION;
+    protected $connection = Logger::CONNECTION;
 
     // Please see the associated SQL files
 }
