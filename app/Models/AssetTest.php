@@ -187,10 +187,16 @@ class AssetTest extends TestCase {
                             'id' => '2142bd10-8158-45b5-9f46-ccfd5b3de514',
                         ])
                         ->create([
-                            'type_id' => $type,
+                            'type_id'     => $type,
+                            'is_hidden'   => true,
+                            'is_contract' => true,
+                            'is_quote'    => false,
                         ]);
                     $contract   = Document::factory()->create([
-                        'type_id' => $type,
+                        'type_id'     => $type,
+                        'is_hidden'   => false,
+                        'is_contract' => true,
+                        'is_quote'    => false,
                     ]);
                     $document   = Document::factory()->create();
                     $warranties = Collection::make([

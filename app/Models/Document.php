@@ -66,6 +66,9 @@ use function count;
  * @property string|null                    $language_id
  * @property string|null                    $oem_amp_id
  * @property string|null                    $oem_sar_number
+ * @property bool                           $is_hidden
+ * @property bool                           $is_contract
+ * @property bool                           $is_quote
  * @property int                            $assets_count
  * @property int                            $entries_count
  * @property int                            $contacts_count
@@ -80,10 +83,7 @@ use function count;
  * @property Currency|null                  $currency
  * @property Customer|null                  $customer
  * @property Distributor|null               $distributor
- * @property-read bool                      $is_hidden
  * @property-read bool                      $is_visible
- * @property-read bool                      $is_contract
- * @property-read bool                      $is_quote
  * @property-read Collection<int, Asset>    $assets
  * @property Collection<int, DocumentEntry> $entries
  * @property Language|null                  $language
@@ -103,8 +103,6 @@ class Document extends Model implements OwnedByReseller, Searchable {
     use SearchableImpl;
     use OwnedByResellerImpl;
     use HasOemNullable;
-    use HasTypeNullable;
-    use HasStatuses;
     use HasResellerNullable;
     use HasCustomerNullable;
     use HasCurrency;
@@ -120,6 +118,14 @@ class Document extends Model implements OwnedByReseller, Searchable {
      */
     use DocumentTypeQueries;
 
+    use HasTypeNullable {
+        setTypeAttribute as private traitSetTypeAttribute;
+    }
+
+    use HasStatuses {
+        setStatusesAttribute as private traitSetStatusesAttribute;
+    }
+
     /**
      * The attributes that should be cast to native types.
      *
@@ -132,6 +138,9 @@ class Document extends Model implements OwnedByReseller, Searchable {
         'price_origin' => Origin::class,
         'start'        => 'date',
         'end'          => 'date',
+        'is_contract'  => 'bool',
+        'is_quote'     => 'bool',
+        'is_hidden'    => 'bool',
     ];
 
     /**
@@ -219,24 +228,29 @@ class Document extends Model implements OwnedByReseller, Searchable {
     protected function getStatusesPivot(): Pivot {
         return new DocumentStatus();
     }
+
+    public function setTypeAttribute(?Type $type): void {
+        $this->traitSetTypeAttribute($type);
+
+        $container         = Container::getInstance();
+        $this->is_quote    = $container->make(DocumentTypeQuoteType::class)->isQuoteType($this->type_id);
+        $this->is_contract = $container->make(DocumentTypeContractScope::class)->isContractType($this->type_id);
+    }
+
+    /**
+     * @param Collection<int, Status> $statuses
+     */
+    public function setStatusesAttribute(Collection $statuses): void {
+        $this->traitSetStatusesAttribute($statuses);
+
+        $this->is_hidden = Container::getInstance()->make(DocumentStatusScope::class)->isHidden($this->statuses);
+    }
     // </editor-fold>
 
     // <editor-fold desc="Attributes">
     // =========================================================================
-    public function getIsContractAttribute(): bool {
-        return Container::getInstance()->make(DocumentTypeContractScope::class)->isContractType($this->type_id);
-    }
-
-    public function getIsQuoteAttribute(): bool {
-        return Container::getInstance()->make(DocumentTypeQuoteType::class)->isQuoteType($this->type_id);
-    }
-
-    public function getIsHiddenAttribute(): bool {
-        return Container::getInstance()->make(DocumentStatusScope::class)->isHidden($this->statuses);
-    }
-
     public function getIsVisibleAttribute(): bool {
-        return !$this->getIsHiddenAttribute();
+        return $this->is_hidden === false;
     }
     // </editor-fold>
 
