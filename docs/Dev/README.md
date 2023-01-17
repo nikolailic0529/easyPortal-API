@@ -164,3 +164,13 @@ Application uses [Horizon](https://laravel.com/docs/horizon) as a supervisor. Th
 ### [Recalculator](../../app/Services/Recalculator)
 
 Defines the jobs to recalculate calculated properties of models, based on Processors and optimized to huge amount of object.
+
+### [Search](../../app/Services/Search)
+
+Customized [Elastic](https://www.elastic.co/) search engine implementation for [Scout](https://laravel.com/docs/scout) based on [elastic-scout-driver](https://github.com/babenkoivan/elastic-scout-driver) and [elastic-scout-driver-plus](https://github.com/babenkoivan/elastic-scout-driver-plus). The main goals of customization were:
+
+- Metadata support (for multi-tenancy)
+- Index settings/Fields types support (for better search by serial number/etc)
+- Provide a simple syntax for search (see [`SearchString`](../../graphql/Scalars/SearchString.graphql))
+- Search in multiple indexes (see [UnionModel](../../app/Services/Search/Eloquent/UnionModel.php))
+- Data migration with zero downtime
