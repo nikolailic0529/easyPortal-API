@@ -16,7 +16,6 @@ The application is based on Laravel and Lighthouse. It is uses standard/referenc
 * [Laravel Scout](https://laravel.com/docs/scout) and [Elasticsearch](https://www.elastic.co/)
 * [Keycloak](https://www.keycloak.org/) and [Oauth 2](https://oauth.net/2/)
 * [PHPStan](https://phpstan.org/), etc
-* [Settings hierarchy](../Application/Settings.md)
 * [Cache](../Application/Cache.md) structure and [GraphQL Cache](../Application/GraphQL-Cache.md) details
 * this document
 
@@ -188,3 +187,21 @@ External services usually required Access Token for access. The service defines 
 ### [View](../../app/Services/View)
 
 Defines custom directives for [Blade](https://laravel.com/docs/blade).
+
+## [GraphQL](../../app/GraphQL)
+
+One of the main parts of the Application that implements GraphQL API. It is based on [Lighthouse](https://lighthouse-php.com/) with custom directives which add required functionality:
+
+- `@authOrg`, `@authOrgRoot`, `@authOrgReseller`, [etc](../../app/GraphQL/Directives/Directives/Auth) - to check current Organization;
+- `@authGuest`, `@authMe`, `@authRoot`, [etc](../../app/GraphQL/Directives/Directives/Auth) - to check User and Permissions;
+- [`@paginated`](../../app/GraphQL/Directives/Directives/Paginated) (and `@paginatedRelation` for relations) - pagination support. Unlike similar Lighthouse directives, ours do not perform page counting and much faster for this reason. They are also automatically add queries to get aggregated data into the schema;
+- [`@aggregated`](../../app/GraphQL/Directives/Directives/Aggregated) - allow to get aggregated data (will be added automatically by `@paginated` so you need to use them directly);
+- [`@orgProperty`](../../app/GraphQL/Directives/Directives/Org) (and `@orgRelation` for relations) - model's property may have unique value for Root Organization and for each Reseller, these directive allow get the right value transparently;
+- [`@cached`](../../app/GraphQL/Directives/Directives/Cached) - advanced cache, please see [GraphQL Cache](../Application/GraphQL-Cache.md) for more details;
+- [`@translate`](../../app/GraphQL/Directives/Directives/Translate.php) - translate model's properties;
+- [`@mutation`](../../app/GraphQL/Directives/Directives/Cached) - nested mutations support and advanced input validation with [validation directives](../../app/GraphQL/Directives/Rules). The main reason it uses that some validation rules required context/parent object for correct validation, but, unfortunately, it is not possible out the box. Please note that you may find few mutations which are not use `@mutation`, all of them are deprecated and should/will be replaced in the future;
+- [`@relation`](../../app/GraphQL/Directives/Directives/Relation.php) - unified directive to get related models (required for `@paginated`);
+
+These directives replace Lighthouse's directives and should be used in all cases. The (almost) full list of not recommended directives and its replacements can be found [here](../../app/GraphQL/ServiceTest.php).
+
+Application also provides several [scalars](../../app/GraphQL/Scalars). The most important is `HtmlString`. It must be used in all cases when input contains HTML (to perform HTML sanitization).
