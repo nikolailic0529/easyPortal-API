@@ -2536,26 +2536,6 @@ parameters:
 			path: app/Services/DataLoader/Client/Token.php
 
 		-
-			message: "#^If condition is always true\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Commands/AssetsAnalyze.php
-
-		-
-			message: "#^Instanceof between string and App\\\\Services\\\\DataLoader\\\\Schema\\\\Type will always evaluate to false\\.$#"
-			count: 2
-			path: app/Services/DataLoader/Commands/AssetsAnalyze.php
-
-		-
-			message: "#^Method App\\\\Services\\\\DataLoader\\\\Commands\\\\AssetsAnalyze\\:\\:getPrefetcher\\(\\) return type has no signature specified for Closure\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Commands/AssetsAnalyze.php
-
-		-
-			message: "#^Offset 'index' on array\\{first\\: mixed, index\\: int, invalid\\: int, last\\: mixed\\} on left side of \\?\\? always exists and is not nullable\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Commands/AssetsAnalyze.php
-
-		-
 			message: "#^Parameter \\#1 \\$filePath of method App\\\\Services\\\\DataLoader\\\\Processors\\\\Importer\\\\Importers\\\\OemsImporter\\:\\:import\\(\\) expects string\\|Symfony\\\\Component\\\\HttpFoundation\\\\File\\\\UploadedFile\\|null, array\\|bool\\|string\\|null given\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Commands/OemsImport.php
