@@ -12,7 +12,7 @@ Global/Application settings has the following priorities (first win):
 
 Settings defined in `.env` are global and cannot be overwritten by `settings.json` (GraphQL endpoint mark these settings as `readonly`).
 
-Each time when `settings.json` was changed SettingsService will dispatch `ep-settings-config-update` (into `EP_SETTINGS_CONFIG_UPDATE_QUEUE` queue) that will call `config:cache` (if config cached) and `queue:restart`.
+Each time when `settings.json` was changed SettingsService will dispatch `ep-settings-config-update` that will call `config:cache` (if config cached) and `queue:restart`.
 
 
 ## `Constants.php`

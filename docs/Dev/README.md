@@ -174,3 +174,9 @@ Customized [Elastic](https://www.elastic.co/) search engine implementation for [
 - Provide a simple syntax for search (see [`SearchString`](../../graphql/Scalars/SearchString.graphql))
 - Search in multiple indexes (see [UnionModel](../../app/Services/Search/Eloquent/UnionModel.php))
 - Data migration with zero downtime
+
+### [Settings](../../app/Services/Settings)
+
+One requirement was "all settings must be stored in one file", the second was "settings should be editable from UI". The service implements these requirements and a bit more, eg you can define settings type and validation rules, can use ENV, get the list of settings, group them, etc.
+
+Please see [Settings](../Application/Settings.md) for more details.
