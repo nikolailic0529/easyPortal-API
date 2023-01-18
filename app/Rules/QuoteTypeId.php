@@ -2,14 +2,14 @@
 
 namespace App\Rules;
 
-use App\Models\Scopes\DocumentTypeQuoteType;
+use App\Models\Scopes\DocumentIsQuoteScope;
 use Illuminate\Contracts\Validation\Rule;
 
 use function trans;
 
 class QuoteTypeId implements Rule {
     public function __construct(
-        protected DocumentTypeQuoteType $scope,
+        protected DocumentIsQuoteScope $scope,
     ) {
         // empty
     }

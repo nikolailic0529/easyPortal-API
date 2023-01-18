@@ -8,7 +8,7 @@ use Illuminate\Container\Container;
 use Illuminate\Database\Eloquent\Builder;
 
 /**
- * @see DocumentTypeScope
+ * @see DocumentIsDocumentScope
  *
  * @mixin Model
  *
@@ -16,7 +16,7 @@ use Illuminate\Database\Eloquent\Builder;
  * @method Builder<Document> queryDocuments()
  * @method Builder<Document> queryQuotes()
  */
-trait DocumentTypeQueries {
+trait DocumentScopes {
     /**
      * @template T of Builder<Document>
      *
@@ -25,7 +25,7 @@ trait DocumentTypeQueries {
      * @return T
      */
     public function scopeQueryContracts(Builder $builder): Builder {
-        Container::getInstance()->make(DocumentTypeContractScope::class)->apply($builder, $this);
+        Container::getInstance()->make(DocumentIsContractScope::class)->apply($builder, $this);
 
         return $builder;
     }
@@ -38,7 +38,7 @@ trait DocumentTypeQueries {
      * @return T
      */
     public function scopeQueryQuotes(Builder $builder): Builder {
-        Container::getInstance()->make(DocumentTypeQuoteType::class)->apply($builder, $this);
+        Container::getInstance()->make(DocumentIsQuoteScope::class)->apply($builder, $this);
 
         return $builder;
     }

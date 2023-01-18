@@ -18,7 +18,7 @@ use function in_array;
  *
  * @implements SearchScope<Document>
  */
-class DocumentTypeContractScope implements SearchScope, EloquentScope {
+class DocumentIsContractScope implements SearchScope, EloquentScope {
     public function __construct(
         protected Repository $config,
     ) {
@@ -34,7 +34,7 @@ class DocumentTypeContractScope implements SearchScope, EloquentScope {
     }
 
     public function applyForSearch(SearchBuilder $builder, Model $model): void {
-        $builder->whereMetadata(DocumentTypeScope::SEARCH_METADATA_IS_CONTRACT, true);
+        $builder->whereMetadata(DocumentIsDocumentScope::SEARCH_METADATA_IS_CONTRACT, true);
     }
 
     /**

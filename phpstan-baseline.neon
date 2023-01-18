@@ -1716,7 +1716,7 @@ parameters:
 			path: app/GraphQL/Queries/Quotes/QuotesSearchTest.php
 
 		-
-			message: "#^Parameter \\#2 \\$scopes of method App\\\\Services\\\\Search\\\\Builders\\\\UnionBuilder\\:\\:addModel\\(\\) expects array\\<App\\\\Services\\\\Search\\\\Contracts\\\\Scope\\<App\\\\Services\\\\Search\\\\Eloquent\\\\Searchable&Illuminate\\\\Database\\\\Eloquent\\\\Model\\>\\>, array\\{\\}\\|array\\{'App\\\\\\\\Models\\\\\\\\Scopes\\\\\\\\DocumentTypeContractScope'\\}\\|array\\{'App\\\\\\\\Models\\\\\\\\Scopes\\\\\\\\DocumentTypeQuoteType'\\} given\\.$#"
+			message: "#^Parameter \\#2 \\$scopes of method App\\\\Services\\\\Search\\\\Builders\\\\UnionBuilder\\:\\:addModel\\(\\) expects array\\<App\\\\Services\\\\Search\\\\Contracts\\\\Scope\\<App\\\\Services\\\\Search\\\\Eloquent\\\\Searchable&Illuminate\\\\Database\\\\Eloquent\\\\Model\\>\\>, array\\{\\}\\|array\\{'App\\\\\\\\Models\\\\\\\\Scopes\\\\\\\\DocumentIsContractScope'\\}\\|array\\{'App\\\\\\\\Models\\\\\\\\Scopes\\\\\\\\DocumentIsQuoteScope'\\} given\\.$#"
 			count: 1
 			path: app/GraphQL/Queries/Search.php
 
@@ -2311,24 +2311,24 @@ parameters:
 			path: app/Models/Role.php
 
 		-
-			message: "#^Parameter \\#1 \\$builder \\(Illuminate\\\\Database\\\\Eloquent\\\\Builder\\<App\\\\Models\\\\Document\\>\\) of method App\\\\Models\\\\Scopes\\\\DocumentTypeContractScope\\:\\:apply\\(\\) should be contravariant with parameter \\$builder \\(Illuminate\\\\Database\\\\Eloquent\\\\Builder\\) of method Illuminate\\\\Database\\\\Eloquent\\\\Scope\\:\\:apply\\(\\)$#"
+			message: "#^Parameter \\#1 \\$builder \\(Illuminate\\\\Database\\\\Eloquent\\\\Builder\\<App\\\\Models\\\\Document\\>\\) of method App\\\\Models\\\\Scopes\\\\DocumentIsContractScope\\:\\:apply\\(\\) should be contravariant with parameter \\$builder \\(Illuminate\\\\Database\\\\Eloquent\\\\Builder\\) of method Illuminate\\\\Database\\\\Eloquent\\\\Scope\\:\\:apply\\(\\)$#"
 			count: 1
-			path: app/Models/Scopes/DocumentTypeContractScope.php
+			path: app/Models/Scopes/DocumentIsContractScope.php
 
 		-
-			message: "#^Parameter \\#2 \\$model \\(App\\\\Models\\\\Document\\) of method App\\\\Models\\\\Scopes\\\\DocumentTypeContractScope\\:\\:apply\\(\\) should be contravariant with parameter \\$model \\(Illuminate\\\\Database\\\\Eloquent\\\\Model\\) of method Illuminate\\\\Database\\\\Eloquent\\\\Scope\\:\\:apply\\(\\)$#"
+			message: "#^Parameter \\#2 \\$model \\(App\\\\Models\\\\Document\\) of method App\\\\Models\\\\Scopes\\\\DocumentIsContractScope\\:\\:apply\\(\\) should be contravariant with parameter \\$model \\(Illuminate\\\\Database\\\\Eloquent\\\\Model\\) of method Illuminate\\\\Database\\\\Eloquent\\\\Scope\\:\\:apply\\(\\)$#"
 			count: 1
-			path: app/Models/Scopes/DocumentTypeContractScope.php
+			path: app/Models/Scopes/DocumentIsContractScope.php
 
 		-
-			message: "#^Parameter \\#1 \\$builder \\(Illuminate\\\\Database\\\\Eloquent\\\\Builder\\<App\\\\Models\\\\Document\\>\\) of method App\\\\Models\\\\Scopes\\\\DocumentTypeQuoteType\\:\\:apply\\(\\) should be contravariant with parameter \\$builder \\(Illuminate\\\\Database\\\\Eloquent\\\\Builder\\) of method Illuminate\\\\Database\\\\Eloquent\\\\Scope\\:\\:apply\\(\\)$#"
+			message: "#^Parameter \\#1 \\$builder \\(Illuminate\\\\Database\\\\Eloquent\\\\Builder\\<App\\\\Models\\\\Document\\>\\) of method App\\\\Models\\\\Scopes\\\\DocumentIsQuoteScope\\:\\:apply\\(\\) should be contravariant with parameter \\$builder \\(Illuminate\\\\Database\\\\Eloquent\\\\Builder\\) of method Illuminate\\\\Database\\\\Eloquent\\\\Scope\\:\\:apply\\(\\)$#"
 			count: 1
-			path: app/Models/Scopes/DocumentTypeQuoteType.php
+			path: app/Models/Scopes/DocumentIsQuoteScope.php
 
 		-
-			message: "#^Parameter \\#2 \\$model \\(App\\\\Models\\\\Document\\) of method App\\\\Models\\\\Scopes\\\\DocumentTypeQuoteType\\:\\:apply\\(\\) should be contravariant with parameter \\$model \\(Illuminate\\\\Database\\\\Eloquent\\\\Model\\) of method Illuminate\\\\Database\\\\Eloquent\\\\Scope\\:\\:apply\\(\\)$#"
+			message: "#^Parameter \\#2 \\$model \\(App\\\\Models\\\\Document\\) of method App\\\\Models\\\\Scopes\\\\DocumentIsQuoteScope\\:\\:apply\\(\\) should be contravariant with parameter \\$model \\(Illuminate\\\\Database\\\\Eloquent\\\\Model\\) of method Illuminate\\\\Database\\\\Eloquent\\\\Scope\\:\\:apply\\(\\)$#"
 			count: 1
-			path: app/Models/Scopes/DocumentTypeQuoteType.php
+			path: app/Models/Scopes/DocumentIsQuoteScope.php
 
 		-
 			message: "#^Anonymous function should return string but returns mixed\\.$#"

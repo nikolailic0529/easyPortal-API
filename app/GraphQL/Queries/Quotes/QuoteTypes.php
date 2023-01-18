@@ -3,12 +3,12 @@
 namespace App\GraphQL\Queries\Quotes;
 
 use App\Models\Data\Type;
-use App\Models\Scopes\DocumentTypeQuoteType;
+use App\Models\Scopes\DocumentIsQuoteScope;
 use Illuminate\Database\Eloquent\Builder;
 
 class QuoteTypes {
     public function __construct(
-        protected DocumentTypeQuoteType $scope,
+        protected DocumentIsQuoteScope $scope,
     ) {
         // empty
     }

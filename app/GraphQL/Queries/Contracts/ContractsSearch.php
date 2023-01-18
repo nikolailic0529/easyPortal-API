@@ -3,7 +3,7 @@
 namespace App\GraphQL\Queries\Contracts;
 
 use App\Models\Document;
-use App\Models\Scopes\DocumentTypeContractScope;
+use App\Models\Scopes\DocumentIsContractScope;
 use App\Services\Search\Builders\Builder;
 
 class ContractsSearch {
@@ -13,6 +13,6 @@ class ContractsSearch {
      * @return Builder<Document>
      */
     public function __invoke(Builder $builder): Builder {
-        return $builder->applyScope(DocumentTypeContractScope::class);
+        return $builder->applyScope(DocumentIsContractScope::class);
     }
 }

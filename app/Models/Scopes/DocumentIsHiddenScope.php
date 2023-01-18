@@ -20,7 +20,7 @@ use function array_intersect;
  * @extends DisableableScope<Document>
  * @implements ScopeWithMetadata<Document>
  */
-class DocumentStatusScope extends DisableableScope implements ScopeWithMetadata {
+class DocumentIsHiddenScope extends DisableableScope implements ScopeWithMetadata {
     protected const SEARCH_METADATA = 'is_hidden';
 
     public function __construct(

@@ -17,12 +17,12 @@ use App\Models\Relations\HasOemNullable;
 use App\Models\Relations\HasResellerNullable;
 use App\Models\Relations\HasStatuses;
 use App\Models\Relations\HasTypeNullable;
-use App\Models\Scopes\DocumentStatusScope;
-use App\Models\Scopes\DocumentStatusScopeImpl;
-use App\Models\Scopes\DocumentTypeContractScope;
-use App\Models\Scopes\DocumentTypeQueries;
-use App\Models\Scopes\DocumentTypeQuoteType;
-use App\Models\Scopes\DocumentTypeScopeImpl;
+use App\Models\Scopes\DocumentIsHiddenScope;
+use App\Models\Scopes\DocumentIsHiddenScopeImpl;
+use App\Models\Scopes\DocumentIsContractScope;
+use App\Models\Scopes\DocumentScopes;
+use App\Models\Scopes\DocumentIsQuoteScope;
+use App\Models\Scopes\DocumentIsDocumentScopeImpl;
 use App\Services\Organization\Eloquent\OwnedByReseller;
 use App\Services\Organization\Eloquent\OwnedByResellerImpl;
 use App\Services\Search\Eloquent\Searchable;
@@ -111,9 +111,9 @@ class Document extends Model implements OwnedByReseller, Searchable {
     use HasContacts;
     use HasChangeRequests;
     use SyncHasMany;
-    use DocumentTypeQueries;
-    use DocumentTypeScopeImpl;
-    use DocumentStatusScopeImpl;
+    use DocumentScopes;
+    use DocumentIsDocumentScopeImpl;
+    use DocumentIsHiddenScopeImpl;
 
     use HasTypeNullable {
         setTypeAttribute as private traitSetTypeAttribute;
@@ -230,8 +230,8 @@ class Document extends Model implements OwnedByReseller, Searchable {
         $this->traitSetTypeAttribute($type);
 
         $container         = Container::getInstance();
-        $this->is_quote    = $container->make(DocumentTypeQuoteType::class)->isQuoteType($this->type_id);
-        $this->is_contract = $container->make(DocumentTypeContractScope::class)->isContractType($this->type_id);
+        $this->is_quote    = $container->make(DocumentIsQuoteScope::class)->isQuoteType($this->type_id);
+        $this->is_contract = $container->make(DocumentIsContractScope::class)->isContractType($this->type_id);
     }
 
     /**
@@ -240,7 +240,7 @@ class Document extends Model implements OwnedByReseller, Searchable {
     public function setStatusesAttribute(Collection $statuses): void {
         $this->traitSetStatusesAttribute($statuses);
 
-        $this->is_hidden = Container::getInstance()->make(DocumentStatusScope::class)->isHidden($this->statuses);
+        $this->is_hidden = Container::getInstance()->make(DocumentIsHiddenScope::class)->isHidden($this->statuses);
     }
     // </editor-fold>
 

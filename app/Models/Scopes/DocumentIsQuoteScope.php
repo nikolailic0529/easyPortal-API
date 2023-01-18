@@ -19,10 +19,10 @@ use function in_array;
  *
  * @implements SearchScope<Document>
  */
-class DocumentTypeQuoteType implements SearchScope, EloquentScope {
+class DocumentIsQuoteScope implements SearchScope, EloquentScope {
     public function __construct(
         protected Repository $config,
-        protected DocumentTypeContractScope $contractScope,
+        protected DocumentIsContractScope $contractScope,
     ) {
         // empty
     }
@@ -36,7 +36,7 @@ class DocumentTypeQuoteType implements SearchScope, EloquentScope {
     }
 
     public function applyForSearch(SearchBuilder $builder, Model $model): void {
-        $builder->whereMetadata(DocumentTypeScope::SEARCH_METADATA_IS_QUOTE, true);
+        $builder->whereMetadata(DocumentIsDocumentScope::SEARCH_METADATA_IS_QUOTE, true);
     }
 
     /**

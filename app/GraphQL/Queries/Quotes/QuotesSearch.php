@@ -3,7 +3,7 @@
 namespace App\GraphQL\Queries\Quotes;
 
 use App\Models\Document;
-use App\Models\Scopes\DocumentTypeQuoteType;
+use App\Models\Scopes\DocumentIsQuoteScope;
 use App\Services\Search\Builders\Builder;
 
 class QuotesSearch {
@@ -13,6 +13,6 @@ class QuotesSearch {
      * @return Builder<Document>
      */
     public function __invoke(Builder $builder): Builder {
-        return $builder->applyScope(DocumentTypeQuoteType::class);
+        return $builder->applyScope(DocumentIsQuoteScope::class);
     }
 }

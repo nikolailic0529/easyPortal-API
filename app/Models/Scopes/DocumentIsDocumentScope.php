@@ -14,14 +14,14 @@ use Illuminate\Database\Eloquent\Model;
  * @extends DisableableScope<Document>
  * @implements ScopeWithMetadata<Document>
  */
-class DocumentTypeScope extends DisableableScope implements ScopeWithMetadata {
+class DocumentIsDocumentScope extends DisableableScope implements ScopeWithMetadata {
     public const SEARCH_METADATA_IS_DOCUMENT = 'is_document';
     public const SEARCH_METADATA_IS_CONTRACT = 'is_contract';
     public const SEARCH_METADATA_IS_QUOTE    = 'is_quote';
 
     public function __construct(
-        private DocumentTypeContractScope $contractType,
-        private DocumentTypeQuoteType $quoteType,
+        private DocumentIsContractScope $contractType,
+        private DocumentIsQuoteScope $quoteType,
     ) {
         // empty
     }
