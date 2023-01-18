@@ -6,7 +6,7 @@ use App\Models\Data\Status;
 use App\Models\Document;
 use App\Services\Search\Builders\Builder as SearchBuilder;
 use App\Services\Search\Contracts\ScopeWithMetadata;
-use App\Services\Search\Properties\Uuid;
+use App\Services\Search\Properties\Boolean;
 use App\Utils\Eloquent\Callbacks\GetKey;
 use App\Utils\Eloquent\GlobalScopes\DisableableScope;
 use Illuminate\Contracts\Config\Repository;
@@ -21,7 +21,7 @@ use function array_intersect;
  * @implements ScopeWithMetadata<Document>
  */
 class DocumentStatusScope extends DisableableScope implements ScopeWithMetadata {
-    protected const SEARCH_METADATA = 'statuses';
+    protected const SEARCH_METADATA = 'is_hidden';
 
     public function __construct(
         protected Repository $config,
@@ -34,12 +34,7 @@ class DocumentStatusScope extends DisableableScope implements ScopeWithMetadata 
     }
 
     protected function handleForSearch(SearchBuilder $builder, Model $model): void {
-        $key      = self::SEARCH_METADATA;
-        $statuses = $this->getStatusesIds();
-
-        if ($statuses) {
-            $builder->whereMetadataNotIn($key, $statuses);
-        }
+        $builder->whereMetadata(self::SEARCH_METADATA, false);
     }
 
     /**
@@ -47,7 +42,7 @@ class DocumentStatusScope extends DisableableScope implements ScopeWithMetadata 
      */
     public function getSearchMetadata(Model $model): array {
         return [
-            self::SEARCH_METADATA => new Uuid('statuses.id'),
+            self::SEARCH_METADATA => new Boolean('is_hidden'),
         ];
     }
 

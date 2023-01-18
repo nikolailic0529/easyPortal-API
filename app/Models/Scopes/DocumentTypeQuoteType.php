@@ -36,18 +36,7 @@ class DocumentTypeQuoteType implements SearchScope, EloquentScope {
     }
 
     public function applyForSearch(SearchBuilder $builder, Model $model): void {
-        // if empty quotes type we will use ids not represented in contracts
-        $contractTypes = $this->contractScope->getTypeIds();
-        $quoteTypes    = $this->getTypeIds();
-        $key           = DocumentTypeScope::SEARCH_METADATA;
-
-        if ($quoteTypes) {
-            $builder->whereMetadataIn($key, $quoteTypes);
-        } elseif ($contractTypes) {
-            $builder->whereMetadataNotIn($key, $contractTypes);
-        } else {
-            $builder->whereMetadataIn($key, ['empty']);
-        }
+        $builder->whereMetadata(DocumentTypeScope::SEARCH_METADATA_IS_QUOTE, true);
     }
 
     /**

@@ -90,10 +90,7 @@ class ContractsSearchTest extends TestCase {
                     'ok' => [
                         new GraphQLPaginated('contractsSearch'),
                         [
-                            'ep.document_statuses_hidden' => [],
-                            'ep.contract_types'           => [
-                                'f9834bc1-2f2f-4c57-bb8d-7a224ac24985',
-                            ],
+                            // empty
                         ],
                         static function (TestCase $test, Organization $org): Document {
                             return Document::factory()->ownedBy($org)->create([
@@ -114,7 +111,7 @@ class ContractsSearchTest extends TestCase {
                     'contracts-view',
                 ]),
                 new ArrayDataProvider([
-                    'ok'             => [
+                    'ok'                  => [
                         new GraphQLPaginated(
                             'contractsSearch',
                             [
@@ -127,12 +124,7 @@ class ContractsSearchTest extends TestCase {
                             ],
                         ),
                         [
-                            'ep.document_statuses_hidden' => [
-                                'c466a12d-39f5-470f-b5a4-a161659855ae',
-                            ],
-                            'ep.contract_types'           => [
-                                'f9834bc1-2f2f-4c57-bb8d-7a224ac24985',
-                            ],
+                            // empty
                         ],
                         static function (TestCase $test, ?Organization $org): Collection {
                             return new Collection([
@@ -154,39 +146,33 @@ class ContractsSearchTest extends TestCase {
                             ]);
                         },
                     ],
-                    'no types'       => [
+                    'is_document = false' => [
                         new GraphQLPaginated('contractsSearch', [], [
                             'count' => 0,
                         ]),
                         [
-                            'ep.document_statuses_hidden' => [],
-                            'ep.contract_types'           => [
-                                // empty
-                            ],
+                            // empty
                         ],
                         static function (TestCase $test, Organization $org): Document {
                             return Document::factory()->ownedBy($org)->create([
                                 'is_hidden'   => false,
-                                'is_contract' => true,
+                                'is_contract' => false,
                                 'is_quote'    => false,
                             ]);
                         },
                     ],
-                    'type not match' => [
+                    'is_quote = true'     => [
                         new GraphQLPaginated('contractsSearch', [], [
                             'count' => 0,
                         ]),
                         [
-                            'ep.document_statuses_hidden' => [],
-                            'ep.contract_types'           => [
-                                'f9834bc1-2f2f-4c57-bb8d-7a224ac24985',
-                            ],
+                            // empty
                         ],
                         static function (TestCase $test, Organization $org): Document {
                             return Document::factory()->ownedBy($org)->create([
                                 'is_hidden'   => false,
-                                'is_contract' => true,
-                                'is_quote'    => false,
+                                'is_contract' => false,
+                                'is_quote'    => true,
                             ]);
                         },
                     ],

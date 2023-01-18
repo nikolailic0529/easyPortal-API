@@ -5,19 +5,19 @@ namespace App\Models\Scopes;
 use App\Models\Document;
 use App\Services\Search\Builders\Builder as SearchBuilder;
 use App\Services\Search\Contracts\ScopeWithMetadata;
-use App\Services\Search\Properties\Uuid;
+use App\Services\Search\Properties\Boolean;
 use App\Utils\Eloquent\GlobalScopes\DisableableScope;
 use Illuminate\Database\Eloquent\Builder as EloquentBuilder;
 use Illuminate\Database\Eloquent\Model;
-
-use function array_merge;
 
 /**
  * @extends DisableableScope<Document>
  * @implements ScopeWithMetadata<Document>
  */
 class DocumentTypeScope extends DisableableScope implements ScopeWithMetadata {
-    public const SEARCH_METADATA = 'type';
+    public const SEARCH_METADATA_IS_DOCUMENT = 'is_document';
+    public const SEARCH_METADATA_IS_CONTRACT = 'is_contract';
+    public const SEARCH_METADATA_IS_QUOTE    = 'is_quote';
 
     public function __construct(
         private DocumentTypeContractScope $contractType,
@@ -38,12 +38,7 @@ class DocumentTypeScope extends DisableableScope implements ScopeWithMetadata {
     }
 
     protected function handleForSearch(SearchBuilder $builder, Model $model): void {
-        $contractTypes = $this->contractType->getTypeIds();
-        $quoteTypes    = $this->quoteType->getTypeIds();
-
-        if ($contractTypes && $quoteTypes) {
-            $builder->whereMetadataIn(self::SEARCH_METADATA, array_merge($contractTypes, $quoteTypes));
-        }
+        $builder->whereMetadata(self::SEARCH_METADATA_IS_DOCUMENT, true);
     }
 
     /**
@@ -51,7 +46,9 @@ class DocumentTypeScope extends DisableableScope implements ScopeWithMetadata {
      */
     public function getSearchMetadata(Model $model): array {
         return [
-            self::SEARCH_METADATA => new Uuid('type_id'),
+            self::SEARCH_METADATA_IS_DOCUMENT => new Boolean('is_document'),
+            self::SEARCH_METADATA_IS_CONTRACT => new Boolean('is_contract'),
+            self::SEARCH_METADATA_IS_QUOTE    => new Boolean('is_quote'),
         ];
     }
 }

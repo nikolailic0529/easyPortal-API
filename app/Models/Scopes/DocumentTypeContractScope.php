@@ -34,10 +34,7 @@ class DocumentTypeContractScope implements SearchScope, EloquentScope {
     }
 
     public function applyForSearch(SearchBuilder $builder, Model $model): void {
-        $key   = DocumentTypeScope::SEARCH_METADATA;
-        $types = $this->getTypeIds() ?: ['empty'];
-
-        $builder->whereMetadataIn($key, $types);
+        $builder->whereMetadata(DocumentTypeScope::SEARCH_METADATA_IS_CONTRACT, true);
     }
 
     /**
