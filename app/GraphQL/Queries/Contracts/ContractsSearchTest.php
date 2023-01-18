@@ -52,9 +52,7 @@ class ContractsSearchTest extends TestCase {
         $org  = $this->setOrganization($orgFactory);
         $user = $this->setUser($userFactory, $org);
 
-        if ($settingsFactory) {
-            $this->setSettings($settingsFactory);
-        }
+        $this->setSettings($settingsFactory);
 
         if ($contractsFactory) {
             $this->makeSearchable($contractsFactory($this, $org, $user));
@@ -99,9 +97,12 @@ class ContractsSearchTest extends TestCase {
                         ],
                         static function (TestCase $test, Organization $org): Document {
                             return Document::factory()->ownedBy($org)->create([
-                                'type_id' => Type::factory()->create([
+                                'type_id'     => Type::factory()->create([
                                     'id' => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24985',
                                 ]),
+                                'is_hidden'   => false,
+                                'is_contract' => true,
+                                'is_quote'    => false,
                             ]);
                         },
                     ],
@@ -136,13 +137,19 @@ class ContractsSearchTest extends TestCase {
                         static function (TestCase $test, ?Organization $org): Collection {
                             return new Collection([
                                 Document::factory()->ownedBy($org)->create([
-                                    'id'      => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24981',
-                                    'type_id' => Type::factory()->create([
+                                    'id'          => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24981',
+                                    'type_id'     => Type::factory()->create([
                                         'id' => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24985',
                                     ]),
+                                    'is_hidden'   => false,
+                                    'is_contract' => true,
+                                    'is_quote'    => false,
                                 ]),
                                 Document::factory()->create([
-                                    'type_id' => Type::factory()->create(),
+                                    'type_id'     => Type::factory()->create(),
+                                    'is_hidden'   => false,
+                                    'is_contract' => true,
+                                    'is_quote'    => false,
                                 ]),
                             ]);
                         },
@@ -158,7 +165,11 @@ class ContractsSearchTest extends TestCase {
                             ],
                         ],
                         static function (TestCase $test, Organization $org): Document {
-                            return Document::factory()->ownedBy($org)->create();
+                            return Document::factory()->ownedBy($org)->create([
+                                'is_hidden'   => false,
+                                'is_contract' => true,
+                                'is_quote'    => false,
+                            ]);
                         },
                     ],
                     'type not match' => [
@@ -172,7 +183,11 @@ class ContractsSearchTest extends TestCase {
                             ],
                         ],
                         static function (TestCase $test, Organization $org): Document {
-                            return Document::factory()->ownedBy($org)->create();
+                            return Document::factory()->ownedBy($org)->create([
+                                'is_hidden'   => false,
+                                'is_contract' => true,
+                                'is_quote'    => false,
+                            ]);
                         },
                     ],
                 ]),

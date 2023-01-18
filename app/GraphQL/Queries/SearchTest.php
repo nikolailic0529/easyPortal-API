@@ -154,17 +154,26 @@ class SearchTest extends TestCase {
                 'reseller_id' => $reseller,
                 'number'      => 'Hidden Contract ABC',
                 'statuses'    => Collection::make([$status]),
+                'is_hidden'   => true,
+                'is_contract' => true,
+                'is_quote'    => false,
             ]);
             $contractIgnored = Document::factory()->create([
-                'id'      => '474bbaf1-a30f-4dfd-a81e-10ebabe6ccb5',
-                'type_id' => $contractType,
-                'number'  => 'Ignored Contract ABC',
+                'id'          => '474bbaf1-a30f-4dfd-a81e-10ebabe6ccb5',
+                'type_id'     => $contractType,
+                'number'      => 'Ignored Contract ABC',
+                'is_hidden'   => false,
+                'is_contract' => true,
+                'is_quote'    => false,
             ]);
             $contractVisible = Document::factory()->create([
                 'id'          => '9d9bb184-cf20-437e-a6f6-2d5268f8814b',
                 'type_id'     => $contractType,
                 'reseller_id' => $reseller,
                 'number'      => 'Visible Contract ABC',
+                'is_hidden'   => false,
+                'is_contract' => true,
+                'is_quote'    => false,
             ]);
 
             $quoteType    = Type::factory()->create([
@@ -175,23 +184,35 @@ class SearchTest extends TestCase {
                 'reseller_id' => $reseller,
                 'number'      => 'Hidden Quote ABC',
                 'statuses'    => Collection::make([$status]),
+                'is_hidden'   => true,
+                'is_contract' => false,
+                'is_quote'    => true,
             ]);
             $quoteIgnored = Document::factory()->create([
-                'id'      => '2d5a2cb9-b2b8-4a25-8f60-350af319fc0d',
-                'type_id' => $quoteType,
-                'number'  => 'Ignored Quote ABC',
+                'id'          => '2d5a2cb9-b2b8-4a25-8f60-350af319fc0d',
+                'type_id'     => $quoteType,
+                'number'      => 'Ignored Quote ABC',
+                'is_hidden'   => false,
+                'is_contract' => false,
+                'is_quote'    => true,
             ]);
             $quoteVisible = Document::factory()->create([
                 'id'          => 'a3e3d637-dc22-4283-a170-af950e1f2996',
                 'type_id'     => $quoteType,
                 'reseller_id' => $reseller,
                 'number'      => 'Visible Quote ABC',
+                'is_hidden'   => false,
+                'is_contract' => false,
+                'is_quote'    => true,
             ]);
 
             $document = Document::factory()->create([
                 'id'          => 'bee68abc-9b04-42c2-a78c-c35cf57aeb14',
                 'reseller_id' => $reseller,
                 'number'      => 'Quote OR Contract OR ABC',
+                'is_hidden'   => false,
+                'is_contract' => false,
+                'is_quote'    => false,
             ]);
 
             return new Collection([

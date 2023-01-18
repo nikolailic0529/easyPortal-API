@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Builder;
 
 class Contracts {
     /**
-     * @param Builder|Document $builder
+     * @param Builder<Document> $builder
      */
     public function __invoke(Builder $builder): Builder {
         return $builder->queryContracts();

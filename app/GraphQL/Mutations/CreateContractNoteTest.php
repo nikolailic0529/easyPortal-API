@@ -2,7 +2,6 @@
 
 namespace App\GraphQL\Mutations;
 
-use App\Models\Data\Type;
 use App\Models\Document;
 use App\Models\Organization;
 use App\Models\User;
@@ -69,20 +68,11 @@ class CreateContractNoteTest extends TestCase {
                 $org = $this->setOrganization(Organization::factory()->make());
             }
 
-            if (!$settingsFactory) {
-                $this->setSettings([
-                    'ep.document_statuses_hidden' => [],
-                    'ep.contract_types'           => ['f3cb1fac-b454-4f23-bbb4-f3d84a1699ac'],
-                ]);
-            }
-
-            $type = Type::factory()->create([
-                'id' => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ac',
-            ]);
-
             Document::factory()->ownedBy($org)->create([
-                'id'      => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699aa',
-                'type_id' => $type->getKey(),
+                'id'          => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699aa',
+                'is_hidden'   => false,
+                'is_contract' => true,
+                'is_quote'    => false,
             ]);
         }
 
@@ -160,17 +150,11 @@ class CreateContractNoteTest extends TestCase {
      */
     public function dataProviderInvoke(): array {
         $prepare  = static function (TestCase $test, ?Organization $org, ?User $user): void {
-            if ($user) {
-                $user->save();
-            }
-
-            $type = Type::factory()->create([
-                'id' => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ad',
-            ]);
-
             Document::factory()->ownedBy($org)->create([
-                'id'      => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ae',
-                'type_id' => $type->getKey(),
+                'id'          => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ae',
+                'is_hidden'   => false,
+                'is_contract' => true,
+                'is_quote'    => false,
             ]);
         };
         $input    = [
@@ -180,10 +164,8 @@ class CreateContractNoteTest extends TestCase {
             'files'       => [UploadedFile::fake()->create('document.csv', 200)],
         ];
         $settings = [
-            'ep.file.max_size'            => 250,
-            'ep.file.formats'             => ['csv'],
-            'ep.contract_types'           => ['f3cb1fac-b454-4f23-bbb4-f3d84a1699ad'],
-            'ep.document_statuses_hidden' => [],
+            'ep.file.max_size' => 250,
+            'ep.file.formats'  => ['csv'],
         ];
 
         return (new MergeDataProvider([
@@ -204,12 +186,14 @@ class CreateContractNoteTest extends TestCase {
                             return [trans('errors.validation_failed')];
                         }),
                         [
-                            'ep.document_statuses_hidden' => [],
-                            'ep.contract_types'           => ['f3cb1fac-b454-4f23-bbb4-f3d84a1699ac'],
+                            // empty
                         ],
                         static function (): void {
                             Document::factory()->create([
-                                'id' => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ae',
+                                'id'          => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ae',
+                                'is_hidden'   => false,
+                                'is_contract' => true,
+                                'is_quote'    => false,
                             ]);
                         },
                         [
@@ -228,7 +212,10 @@ class CreateContractNoteTest extends TestCase {
                         ],
                         static function (): void {
                             Document::factory()->create([
-                                'id' => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ae',
+                                'id'          => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ae',
+                                'is_hidden'   => false,
+                                'is_contract' => true,
+                                'is_quote'    => false,
                             ]);
                         },
                         [
@@ -247,7 +234,10 @@ class CreateContractNoteTest extends TestCase {
                         ],
                         static function (): void {
                             Document::factory()->create([
-                                'id' => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ae',
+                                'id'          => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ae',
+                                'is_hidden'   => false,
+                                'is_contract' => true,
+                                'is_quote'    => false,
                             ]);
                         },
                         [
@@ -266,7 +256,10 @@ class CreateContractNoteTest extends TestCase {
                         ],
                         static function (): void {
                             Document::factory()->create([
-                                'id' => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ae',
+                                'id'          => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ae',
+                                'is_hidden'   => false,
+                                'is_contract' => true,
+                                'is_quote'    => false,
                             ]);
                         },
                         [

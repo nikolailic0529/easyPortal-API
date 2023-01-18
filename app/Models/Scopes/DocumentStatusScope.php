@@ -10,7 +10,6 @@ use App\Services\Search\Properties\Uuid;
 use App\Utils\Eloquent\Callbacks\GetKey;
 use App\Utils\Eloquent\GlobalScopes\DisableableScope;
 use Illuminate\Contracts\Config\Repository;
-use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Builder as EloquentBuilder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
@@ -31,17 +30,7 @@ class DocumentStatusScope extends DisableableScope implements ScopeWithMetadata 
     }
 
     protected function handle(EloquentBuilder $builder, Model $model): void {
-        $statuses = $this->getStatusesIds();
-
-        if ($statuses) {
-            $key = $builder->getModel()->statuses()->getQualifiedRelatedKeyName();
-
-            $builder->whereDoesntHave('statuses', static function (Builder $builder) use ($key, $statuses): Builder {
-                $builder->whereIn($key, $statuses);
-
-                return $builder;
-            });
-        }
+        $builder->where('is_hidden', '=', 0);
     }
 
     protected function handleForSearch(SearchBuilder $builder, Model $model): void {

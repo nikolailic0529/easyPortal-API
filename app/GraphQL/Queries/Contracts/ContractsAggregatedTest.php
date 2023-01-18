@@ -4,7 +4,6 @@ namespace App\GraphQL\Queries\Contracts;
 
 use App\Models\Customer;
 use App\Models\Data\Currency;
-use App\Models\Data\Type;
 use App\Models\Document;
 use App\Models\Organization;
 use App\Models\Reseller;
@@ -96,8 +95,7 @@ class ContractsAggregatedTest extends TestCase {
      * @return array<mixed>
      */
     public function dataProviderQuery(): array {
-        $hiddenStatus = '5d9b319b-f69f-4ef1-94dc-749f89c0fe3d';
-        $params       = [
+        $params  = [
             'where' => [
                 'anyOf' => [
                     [
@@ -113,17 +111,7 @@ class ContractsAggregatedTest extends TestCase {
                 ],
             ],
         ];
-        $factory      = static function (
-            TestCase $test,
-            Organization $org,
-        ) use (
-            $hiddenStatus,
-        ): void {
-            // Type
-            $type = Type::factory()->create([
-                'id' => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24985',
-            ]);
-
+        $factory = static function (TestCase $test, Organization $org): void {
             // Resellers
             $resellerA = Reseller::factory()->create([
                 'id' => $org->getKey(),
@@ -155,62 +143,73 @@ class ContractsAggregatedTest extends TestCase {
 
             // Documents
             Document::factory()->create([
-                'type_id'     => $type,
                 'reseller_id' => $resellerA,
                 'customer_id' => $customerA,
                 'currency_id' => $currencyA,
                 'price'       => 10,
+                'is_hidden'   => false,
+                'is_contract' => true,
+                'is_quote'    => false,
             ]);
             Document::factory()->create([
-                'type_id'     => $type,
                 'reseller_id' => $resellerB,
                 'customer_id' => $customerB,
                 'currency_id' => $currencyA,
                 'price'       => 15,
+                'is_hidden'   => false,
+                'is_contract' => true,
+                'is_quote'    => false,
             ]);
             Document::factory()->create([
-                'type_id'     => $type,
                 'reseller_id' => $resellerB,
                 'customer_id' => $customerB,
                 'currency_id' => $currencyB,
                 'price'       => 10,
+                'is_hidden'   => false,
+                'is_contract' => true,
+                'is_quote'    => false,
             ]);
             Document::factory()->create([
-                'type_id'     => $type,
                 'reseller_id' => $resellerB,
                 'customer_id' => $customerB,
                 'currency_id' => null,
                 'price'       => 10,
+                'is_hidden'   => false,
+                'is_contract' => true,
+                'is_quote'    => false,
             ]);
 
             // Wrong price
             Document::factory()->create([
-                'type_id'     => $type,
                 'reseller_id' => $resellerA,
                 'customer_id' => $customerA,
                 'currency_id' => $currencyC,
                 'price'       => 1000,
+                'is_hidden'   => false,
+                'is_contract' => true,
+                'is_quote'    => false,
             ]);
 
-            // Wrong type
+            // Quote
             Document::factory()->create([
                 'reseller_id' => $resellerA,
                 'customer_id' => $customerA,
                 'currency_id' => $currencyA,
                 'price'       => 10,
+                'is_hidden'   => false,
+                'is_contract' => false,
+                'is_quote'    => true,
             ]);
 
-            // Hidden Status
-            Document::factory()
-                ->hasStatuses(1, [
-                    'id' => $hiddenStatus,
-                ])
-                ->create([
-                    'type_id'     => $type,
-                    'reseller_id' => $resellerA,
-                    'currency_id' => $currencyA,
-                    'price'       => 5,
-                ]);
+            // Hidden
+            Document::factory()->create([
+                'reseller_id' => $resellerA,
+                'currency_id' => $currencyA,
+                'price'       => 5,
+                'is_hidden'   => true,
+                'is_contract' => true,
+                'is_quote'    => false,
+            ]);
         };
 
         return (new MergeDataProvider([
@@ -253,12 +252,7 @@ class ContractsAggregatedTest extends TestCase {
                             ],
                         ]),
                         [
-                            'ep.document_statuses_hidden' => [
-                                $hiddenStatus,
-                            ],
-                            'ep.contract_types'           => [
-                                'f9834bc1-2f2f-4c57-bb8d-7a224ac24985',
-                            ],
+                            // empty
                         ],
                         $factory,
                         $params,
@@ -271,7 +265,7 @@ class ContractsAggregatedTest extends TestCase {
                     'contracts-view',
                 ]),
                 new ArrayDataProvider([
-                    'ok'             => [
+                    'ok' => [
                         new GraphQLSuccess('contractsAggregated', [
                             'count'  => 1,
                             'prices' => [
@@ -288,44 +282,7 @@ class ContractsAggregatedTest extends TestCase {
                             ],
                         ]),
                         [
-                            'ep.document_statuses_hidden' => [
-                                $hiddenStatus,
-                            ],
-                            'ep.contract_types'           => [
-                                'f9834bc1-2f2f-4c57-bb8d-7a224ac24985',
-                            ],
-                        ],
-                        $factory,
-                        $params,
-                    ],
-                    'no types'       => [
-                        new GraphQLSuccess('contractsAggregated', [
-                            'count'  => 0,
-                            'prices' => [],
-                        ]),
-                        [
-                            'ep.document_statuses_hidden' => [
-                                $hiddenStatus,
-                            ],
-                            'ep.contract_types'           => [
-                                // empty
-                            ],
-                        ],
-                        $factory,
-                        $params,
-                    ],
-                    'type not match' => [
-                        new GraphQLSuccess('contractsAggregated', [
-                            'count'  => 0,
-                            'prices' => [],
-                        ]),
-                        [
-                            'ep.document_statuses_hidden' => [
-                                $hiddenStatus,
-                            ],
-                            'ep.contract_types'           => [
-                                'da436d68-a6b5-424e-a25e-8394b697d191',
-                            ],
+                            // empty
                         ],
                         $factory,
                         $params,

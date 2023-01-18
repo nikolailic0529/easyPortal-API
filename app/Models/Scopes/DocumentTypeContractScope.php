@@ -14,12 +14,9 @@ use Illuminate\Database\Eloquent\Scope as EloquentScope;
 use function in_array;
 
 /**
- * @see Type
  * @see Document
  *
- * @template TModel of Document|Type
- *
- * @implements SearchScope<TModel>
+ * @implements SearchScope<Document>
  */
 class DocumentTypeContractScope implements SearchScope, EloquentScope {
     public function __construct(
@@ -29,14 +26,11 @@ class DocumentTypeContractScope implements SearchScope, EloquentScope {
     }
 
     /**
-     * @param EloquentBuilder<TModel> $builder
-     * @param TModel                  $model
+     * @param EloquentBuilder<Document> $builder
+     * @param Document                  $model
      */
     public function apply(EloquentBuilder $builder, Model $model): void {
-        $key   = $model instanceof Type ? $model->getKeyName() : 'type_id';
-        $types = $this->getTypeIds() ?: ['empty'];
-
-        $builder->whereIn($key, $types);
+        $builder->where('is_contract', '=', 1);
     }
 
     public function applyForSearch(SearchBuilder $builder, Model $model): void {
@@ -53,10 +47,17 @@ class DocumentTypeContractScope implements SearchScope, EloquentScope {
         return (array) $this->config->get('ep.contract_types');
     }
 
-    public function isContractType(Type|string|null $type): bool {
-        $type  = $type instanceof Type ? $type->getKey() : $type;
-        $types = $this->getTypeIds();
+    /**
+     * @return EloquentBuilder<Type>
+     */
+    public function getTypeQuery(): EloquentBuilder {
+        return Type::query()
+            ->where('object_type', '=', (new Document())->getMorphClass())
+            ->whereIn((new Type())->getKeyName(), $this->getTypeIds())
+            ->orderByKey();
+    }
 
-        return in_array($type, $types, true);
+    public function isContractType(string|null $type): bool {
+        return in_array($type, $this->getTypeIds(), true);
     }
 }

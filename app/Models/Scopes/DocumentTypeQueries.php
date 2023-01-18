@@ -2,7 +2,6 @@
 
 namespace App\Models\Scopes;
 
-use App\Models\Data\Type;
 use App\Models\Document;
 use App\Utils\Eloquent\Model;
 use Illuminate\Container\Container;
@@ -13,15 +12,13 @@ use Illuminate\Database\Eloquent\Builder;
  *
  * @mixin Model
  *
- * @template TModel of Document|Type
- *
- * @method Builder<TModel> queryContracts()
- * @method Builder<TModel> queryDocuments()
- * @method Builder<TModel> queryQuotes()
+ * @method Builder<Document> queryContracts()
+ * @method Builder<Document> queryDocuments()
+ * @method Builder<Document> queryQuotes()
  */
 trait DocumentTypeQueries {
     /**
-     * @template T of Builder<TModel>
+     * @template T of Builder<Document>
      *
      * @param T $builder
      *
@@ -34,7 +31,7 @@ trait DocumentTypeQueries {
     }
 
     /**
-     * @template T of Builder<TModel>
+     * @template T of Builder<Document>
      *
      * @param T $builder
      *
@@ -47,7 +44,7 @@ trait DocumentTypeQueries {
     }
 
     /**
-     * @template T of Builder<TModel>
+     * @template T of Builder<Document>
      *
      * @param T $builder
      *

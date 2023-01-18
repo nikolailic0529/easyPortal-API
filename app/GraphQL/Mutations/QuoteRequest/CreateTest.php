@@ -208,10 +208,16 @@ class CreateTest extends TestCase {
         $type      = Type::factory()->create();
         $mutation  = $this->app->make(Create::class);
         $documentA = Document::factory()->ownedBy($org)->create([
-            'type_id' => $type,
+            'type_id'     => $type,
+            'is_hidden'   => false,
+            'is_contract' => true,
+            'is_quote'    => false,
         ]);
         $documentB = Document::factory()->ownedBy($org)->create([
-            'type_id' => $type,
+            'type_id'     => $type,
+            'is_hidden'   => false,
+            'is_contract' => true,
+            'is_quote'    => false,
         ]);
         $durationA = QuoteRequestDuration::factory()->create();
         $durationB = QuoteRequestDuration::factory()->create();
@@ -233,10 +239,6 @@ class CreateTest extends TestCase {
                     'duration_id' => $durationB->getKey(),
                 ],
             ],
-        ]);
-
-        $this->setSettings([
-            'ep.contract_types' => [$type->getKey()],
         ]);
 
         // Request
@@ -312,8 +314,11 @@ class CreateTest extends TestCase {
                 'synced_at'       => '2021-10-19 10:25:00',
             ]);
             Document::factory()->ownedBy($org)->create([
-                'id'      => '047f06f5-e62f-464a-8df8-bd9834e21915',
-                'type_id' => $type,
+                'id'          => '047f06f5-e62f-464a-8df8-bd9834e21915',
+                'type_id'     => $type,
+                'is_hidden'   => false,
+                'is_contract' => true,
+                'is_quote'    => false,
             ]);
             Asset::factory()->ownedBy($org)->create([
                 'id' => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ae',
@@ -336,10 +341,9 @@ class CreateTest extends TestCase {
                 ]);
         };
         $settings = [
-            'ep.file.max_size'            => 250,
-            'ep.file.formats'             => ['csv'],
-            'ep.quote_types'              => [$type],
-            'ep.document_statuses_hidden' => [],
+            'ep.file.max_size' => 250,
+            'ep.file.formats'  => ['csv'],
+            'ep.quote_types'   => [$type],
         ];
 
         return (new CompositeDataProvider(

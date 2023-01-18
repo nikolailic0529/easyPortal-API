@@ -110,13 +110,9 @@ class Document extends Model implements OwnedByReseller, Searchable {
     use HasContacts;
     use HasChangeRequests;
     use SyncHasMany;
+    use DocumentTypeQueries;
     use DocumentTypeScopeImpl;
     use DocumentStatusScopeImpl;
-
-    /**
-     * @use DocumentTypeQueries<static>
-     */
-    use DocumentTypeQueries;
 
     use HasTypeNullable {
         setTypeAttribute as private traitSetTypeAttribute;

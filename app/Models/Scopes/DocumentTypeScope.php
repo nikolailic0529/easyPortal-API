@@ -2,7 +2,6 @@
 
 namespace App\Models\Scopes;
 
-use App\Models\Data\Type;
 use App\Models\Document;
 use App\Services\Search\Builders\Builder as SearchBuilder;
 use App\Services\Search\Contracts\ScopeWithMetadata;
@@ -14,18 +13,12 @@ use Illuminate\Database\Eloquent\Model;
 use function array_merge;
 
 /**
- * @template TModel of Document|Type
- *
- * @extends DisableableScope<TModel>
- * @implements ScopeWithMetadata<TModel>
+ * @extends DisableableScope<Document>
+ * @implements ScopeWithMetadata<Document>
  */
 class DocumentTypeScope extends DisableableScope implements ScopeWithMetadata {
     public const SEARCH_METADATA = 'type';
 
-    /**
-     * @param DocumentTypeContractScope<Document> $contractType
-     * @param DocumentTypeQuoteType<Document>     $quoteType
-     */
     public function __construct(
         private DocumentTypeContractScope $contractType,
         private DocumentTypeQuoteType $quoteType,
@@ -34,13 +27,14 @@ class DocumentTypeScope extends DisableableScope implements ScopeWithMetadata {
     }
 
     protected function handle(EloquentBuilder $builder, Model $model): void {
-        $contractTypes = $this->contractType->getTypeIds();
-        $quoteTypes    = $this->quoteType->getTypeIds();
-        $key           = $model instanceof Type ? $model->getKeyName() : 'type_id';
-
-        if ($contractTypes && $quoteTypes) {
-            $builder->whereIn($key, array_merge($contractTypes, $quoteTypes));
-        }
+        $builder->where(function (EloquentBuilder $builder) use ($model): void {
+            $builder->orWhere(function (EloquentBuilder $builder) use ($model): void {
+                $this->contractType->apply($builder, $model);
+            });
+            $builder->orWhere(function (EloquentBuilder $builder) use ($model): void {
+                $this->quoteType->apply($builder, $model);
+            });
+        });
     }
 
     protected function handleForSearch(SearchBuilder $builder, Model $model): void {

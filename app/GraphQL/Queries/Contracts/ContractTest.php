@@ -66,18 +66,9 @@ class ContractTest extends TestCase {
         // Prepare
         $org  = $this->setOrganization($orgFactory);
         $user = $this->setUser($userFactory, $org);
-
-        $contractId = 'wrong';
-
-        if ($contractFactory) {
-            $contract   = $contractFactory($this, $org, $user);
-            $contractId = $contract->getKey();
-
-            $this->setSettings([
-                'ep.document_statuses_hidden' => [],
-                'ep.contract_types'           => [$contract->type_id],
-            ]);
-        }
+        $key  = $contractFactory
+            ? $contractFactory($this, $org, $user)->getKey()
+            : $this->faker->uuid();
 
         // Test
         $this
@@ -297,7 +288,7 @@ class ContractTest extends TestCase {
                         synced_at
                     }
                 }
-            ', ['id' => $contractId])
+            ', ['id' => $key])
             ->assertThat($expected);
     }
 
@@ -315,18 +306,11 @@ class ContractTest extends TestCase {
         Closure $contractFactory = null,
     ): void {
         // Prepare
-        $org        = $this->setOrganization($orgFactory);
-        $user       = $this->setUser($userFactory, $org);
-        $contractId = $this->faker->uuid();
-
-        if ($contractFactory) {
-            $contract   = $contractFactory($this, $org, $user);
-            $contractId = $contract->getKey();
-
-            $this->setSettings([
-                'ep.contract_types' => [$contract->type_id],
-            ]);
-        }
+        $org  = $this->setOrganization($orgFactory);
+        $user = $this->setUser($userFactory, $org);
+        $key  = $contractFactory
+            ? $contractFactory($this, $org, $user)->getKey()
+            : $this->faker->uuid();
 
         // Test
         $this
@@ -372,7 +356,7 @@ class ContractTest extends TestCase {
                         }
                     }
                 }
-            ', ['id' => $contractId])
+            ', ['id' => $key])
             ->assertThat($expected);
     }
 
@@ -390,18 +374,11 @@ class ContractTest extends TestCase {
         Closure $contractFactory = null,
     ): void {
         // Prepare
-        $org        = $this->setOrganization($orgFactory);
-        $user       = $this->setUser($userFactory, $org);
-        $contractId = $this->faker->uuid();
-
-        if ($contractFactory) {
-            $contract   = $contractFactory($this, $org, $user);
-            $contractId = $contract->getKey();
-
-            $this->setSettings([
-                'ep.contract_types' => [$contract->type_id],
-            ]);
-        }
+        $org  = $this->setOrganization($orgFactory);
+        $user = $this->setUser($userFactory, $org);
+        $key  = $contractFactory
+            ? $contractFactory($this, $org, $user)->getKey()
+            : $this->faker->uuid();
 
         // Test
         $this
@@ -423,7 +400,7 @@ class ContractTest extends TestCase {
                         }
                     }
                 }
-            ', ['id' => $contractId])
+            ', ['id' => $key])
             ->assertThat($expected);
     }
     // </editor-fold>
@@ -444,7 +421,11 @@ class ContractTest extends TestCase {
                     'ok' => [
                         new GraphQLSuccess('contract'),
                         static function (TestCase $test, Organization $organization): Document {
-                            return Document::factory()->create();
+                            return Document::factory()->create([
+                                'is_hidden'   => false,
+                                'is_contract' => true,
+                                'is_quote'    => false,
+                            ]);
                         },
                     ],
                 ]),
@@ -832,6 +813,9 @@ class ContractTest extends TestCase {
                                     'price'          => '100',
                                     'start'          => '2021-01-01',
                                     'end'            => '2024-01-01',
+                                    'is_hidden'      => false,
+                                    'is_contract'    => true,
+                                    'is_quote'       => false,
                                     'assets_count'   => 1,
                                     'entries_count'  => 2,
                                     'contacts_count' => 3,
@@ -891,7 +875,11 @@ class ContractTest extends TestCase {
                     'ok' => [
                         new GraphQLSuccess('contract'),
                         static function (TestCase $test, Organization $organization): Document {
-                            return Document::factory()->create();
+                            return Document::factory()->create([
+                                'is_hidden'   => false,
+                                'is_contract' => true,
+                                'is_quote'    => false,
+                            ]);
                         },
                     ],
                 ]),
@@ -959,7 +947,10 @@ class ContractTest extends TestCase {
                                 ->ownedBy($org)
                                 ->for($type)
                                 ->create([
-                                    'id' => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24981',
+                                    'id'          => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24981',
+                                    'is_hidden'   => false,
+                                    'is_contract' => true,
+                                    'is_quote'    => false,
                                 ]);
                             // Note
                             Note::factory()
@@ -1022,7 +1013,11 @@ class ContractTest extends TestCase {
                     'ok' => [
                         new GraphQLSuccess('contract'),
                         static function (TestCase $test, Organization $org): Document {
-                            return Document::factory()->ownedBy($org)->create();
+                            return Document::factory()->ownedBy($org)->create([
+                                'is_hidden'   => false,
+                                'is_contract' => true,
+                                'is_quote'    => false,
+                            ]);
                         },
                     ],
                 ]),
@@ -1060,7 +1055,10 @@ class ContractTest extends TestCase {
                         static function (TestCase $test, Organization $org, User $user): Document {
                             $organization = Organization::factory()->create();
                             $document     = Document::factory()->ownedBy($org)->create([
-                                'type_id' => Type::factory(),
+                                'type_id'     => Type::factory(),
+                                'is_hidden'   => false,
+                                'is_contract' => true,
+                                'is_quote'    => false,
                             ]);
 
                             ChangeRequest::factory()

@@ -11,49 +11,33 @@ use Illuminate\Database\Eloquent\Builder as EloquentBuilder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Scope as EloquentScope;
 
+use function array_diff;
 use function in_array;
 
 /**
- * @see Type
  * @see Document
  *
- * @template TModel of Document|Type
- *
- * @implements SearchScope<TModel>
+ * @implements SearchScope<Document>
  */
 class DocumentTypeQuoteType implements SearchScope, EloquentScope {
-    /**
-     * @param DocumentTypeContractScope<TModel> $contractType
-     */
     public function __construct(
         protected Repository $config,
-        protected DocumentTypeContractScope $contractType,
+        protected DocumentTypeContractScope $contractScope,
     ) {
         // empty
     }
 
     /**
-     * @param EloquentBuilder<TModel> $builder
-     * @param TModel                  $model
+     * @param EloquentBuilder<Document> $builder
+     * @param Document                  $model
      */
     public function apply(EloquentBuilder $builder, Model $model): void {
-        // if empty quotes type we will use ids not represented in contracts
-        $contractTypes = $this->contractType->getTypeIds();
-        $quoteTypes    = $this->getTypeIds();
-        $key           = $model instanceof Type ? $model->getKeyName() : 'type_id';
-
-        if ($quoteTypes) {
-            $builder->whereIn($key, $quoteTypes);
-        } elseif ($contractTypes) {
-            $builder->whereNotIn($key, $contractTypes);
-        } else {
-            $builder->whereIn($key, ['empty']);
-        }
+        $builder->where('is_quote', '=', 1);
     }
 
     public function applyForSearch(SearchBuilder $builder, Model $model): void {
         // if empty quotes type we will use ids not represented in contracts
-        $contractTypes = $this->contractType->getTypeIds();
+        $contractTypes = $this->contractScope->getTypeIds();
         $quoteTypes    = $this->getTypeIds();
         $key           = DocumentTypeScope::SEARCH_METADATA;
 
@@ -70,13 +54,41 @@ class DocumentTypeQuoteType implements SearchScope, EloquentScope {
      * @return array<string>
      */
     public function getTypeIds(): array {
-        return (array) $this->config->get('ep.quote_types');
+        $quoteTypes    = (array) $this->config->get('ep.quote_types');
+        $contractTypes = $this->contractScope->getTypeIds();
+
+        if ($contractTypes) {
+            $quoteTypes = array_diff($quoteTypes, $contractTypes);
+        }
+
+        return $quoteTypes;
     }
 
-    public function isQuoteType(Type|string|null $type): bool {
-        $contractTypes = $this->contractType->getTypeIds();
+    /**
+     * @return EloquentBuilder<Type>
+     */
+    public function getTypeQuery(): EloquentBuilder {
+        $contractTypes = $this->contractScope->getTypeIds();
         $quoteTypes    = $this->getTypeIds();
-        $type          = $type instanceof Type ? $type->getKey() : $type;
+        $query         = Type::query()
+            ->where('object_type', '=', (new Document())->getMorphClass())
+            ->orderByKey();
+        $key           = $query->getModel()->getKeyName();
+
+        if ($quoteTypes) {
+            $query->whereIn($key, $quoteTypes);
+        } elseif ($contractTypes) {
+            $query->whereNotIn($key, $contractTypes);
+        } else {
+            $query->whereIn($key, ['empty']);
+        }
+
+        return $query;
+    }
+
+    public function isQuoteType(string|null $type): bool {
+        $contractTypes = $this->contractScope->getTypeIds();
+        $quoteTypes    = $this->getTypeIds();
         $is            = false;
 
         if ($quoteTypes) {

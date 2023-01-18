@@ -3,14 +3,20 @@
 namespace App\GraphQL\Queries\Quotes;
 
 use App\Models\Data\Type;
-use App\Models\Document;
+use App\Models\Scopes\DocumentTypeQuoteType;
 use Illuminate\Database\Eloquent\Builder;
 
 class QuoteTypes {
+    public function __construct(
+        protected DocumentTypeQuoteType $scope,
+    ) {
+        // empty
+    }
+
+    /**
+     * @return Builder<Type>
+     */
     public function __invoke(): Builder {
-        return Type::query()
-            ->queryQuotes()
-            ->where('object_type', '=', (new Document())->getMorphClass())
-            ->orderByKey();
+        return $this->scope->getTypeQuery();
     }
 }

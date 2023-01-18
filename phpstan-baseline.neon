@@ -1521,11 +1521,6 @@ parameters:
 			path: app/GraphQL/Queries/Contracts/ContractStatusesTest.php
 
 		-
-			message: "#^Method App\\\\GraphQL\\\\Queries\\\\Contracts\\\\ContractTypes\\:\\:__invoke\\(\\) return type with generic class Illuminate\\\\Database\\\\Eloquent\\\\Builder does not specify its types\\: TModelClass$#"
-			count: 1
-			path: app/GraphQL/Queries/Contracts/ContractTypes.php
-
-		-
 			message: "#^Method App\\\\GraphQL\\\\Queries\\\\Contracts\\\\ContractTypesTest\\:\\:testInvoke\\(\\) has parameter \\$contactFactory with no signature specified for Closure\\.$#"
 			count: 1
 			path: app/GraphQL/Queries/Contracts/ContractTypesTest.php
@@ -1546,11 +1541,6 @@ parameters:
 			path: app/GraphQL/Queries/Contracts/ContractsAggregatedTest.php
 
 		-
-			message: "#^Parameter \\#1 \\$scope of method App\\\\Services\\\\Search\\\\Builders\\\\Builder\\<App\\\\Models\\\\Document\\>\\:\\:applyScope\\(\\) expects App\\\\Services\\\\Search\\\\Contracts\\\\Scope\\<App\\\\Models\\\\Document\\>\\|class\\-string\\<App\\\\Services\\\\Search\\\\Contracts\\\\Scope\\<App\\\\Models\\\\Document\\>\\>, 'App\\\\\\\\Models\\\\\\\\Scopes\\\\\\\\DocumentTypeContractScope' given\\.$#"
-			count: 1
-			path: app/GraphQL/Queries/Contracts/ContractsSearch.php
-
-		-
 			message: "#^Method App\\\\GraphQL\\\\Queries\\\\Contracts\\\\ContractsSearchTest\\:\\:testQuery\\(\\) has parameter \\$contractsFactory with no signature specified for Closure\\.$#"
 			count: 1
 			path: app/GraphQL/Queries/Contracts/ContractsSearchTest.php
@@ -1559,16 +1549,6 @@ parameters:
 			message: "#^Unable to resolve the template type T in call to method App\\\\GraphQL\\\\Queries\\\\Contracts\\\\ContractsSearchTest\\:\\:makeSearchable\\(\\)$#"
 			count: 1
 			path: app/GraphQL/Queries/Contracts/ContractsSearchTest.php
-
-		-
-			message: "#^Parameter \\#3 \\$ of closure expects App\\\\GraphQL\\\\Queries\\\\Contracts\\\\User\\|null, App\\\\Models\\\\User\\|null given\\.$#"
-			count: 1
-			path: app/GraphQL/Queries/Contracts/ContractsTest.php
-
-		-
-			message: "#^Parameter \\$contractsFactory of method App\\\\GraphQL\\\\Queries\\\\Contracts\\\\ContractsTest\\:\\:testQuery\\(\\) has invalid type App\\\\GraphQL\\\\Queries\\\\Contracts\\\\User\\.$#"
-			count: 1
-			path: app/GraphQL/Queries/Contracts/ContractsTest.php
 
 		-
 			message: "#^Method App\\\\GraphQL\\\\Queries\\\\Customers\\\\CustomerStatuses\\:\\:__invoke\\(\\) return type with generic class Illuminate\\\\Database\\\\Eloquent\\\\Builder does not specify its types\\: TModelClass$#"
@@ -1711,11 +1691,6 @@ parameters:
 			path: app/GraphQL/Queries/Quotes/QuoteStatusesTest.php
 
 		-
-			message: "#^Method App\\\\GraphQL\\\\Queries\\\\Quotes\\\\QuoteTypes\\:\\:__invoke\\(\\) return type with generic class Illuminate\\\\Database\\\\Eloquent\\\\Builder does not specify its types\\: TModelClass$#"
-			count: 1
-			path: app/GraphQL/Queries/Quotes/QuoteTypes.php
-
-		-
 			message: "#^Method App\\\\GraphQL\\\\Queries\\\\Quotes\\\\QuoteTypesTest\\:\\:testInvoke\\(\\) has parameter \\$localeFactory with no signature specified for Closure\\.$#"
 			count: 1
 			path: app/GraphQL/Queries/Quotes/QuoteTypesTest.php
@@ -1729,11 +1704,6 @@ parameters:
 			message: "#^Method App\\\\GraphQL\\\\Queries\\\\Quotes\\\\Quotes\\:\\:__invoke\\(\\) return type with generic class Illuminate\\\\Database\\\\Eloquent\\\\Builder does not specify its types\\: TModelClass$#"
 			count: 1
 			path: app/GraphQL/Queries/Quotes/Quotes.php
-
-		-
-			message: "#^Parameter \\#1 \\$scope of method App\\\\Services\\\\Search\\\\Builders\\\\Builder\\<App\\\\Models\\\\Document\\>\\:\\:applyScope\\(\\) expects App\\\\Services\\\\Search\\\\Contracts\\\\Scope\\<App\\\\Models\\\\Document\\>\\|class\\-string\\<App\\\\Services\\\\Search\\\\Contracts\\\\Scope\\<App\\\\Models\\\\Document\\>\\>, 'App\\\\\\\\Models\\\\\\\\Scopes\\\\\\\\DocumentTypeQuoteType' given\\.$#"
-			count: 1
-			path: app/GraphQL/Queries/Quotes/QuotesSearch.php
 
 		-
 			message: "#^Method App\\\\GraphQL\\\\Queries\\\\Quotes\\\\QuotesSearchTest\\:\\:testQuery\\(\\) has parameter \\$quotesFactory with no signature specified for Closure\\.$#"
@@ -2341,22 +2311,22 @@ parameters:
 			path: app/Models/Role.php
 
 		-
-			message: "#^Parameter \\#1 \\$builder \\(Illuminate\\\\Database\\\\Eloquent\\\\Builder\\<TModel of App\\\\Models\\\\Data\\\\Type\\|App\\\\Models\\\\Document\\>\\) of method App\\\\Models\\\\Scopes\\\\DocumentTypeContractScope\\:\\:apply\\(\\) should be contravariant with parameter \\$builder \\(Illuminate\\\\Database\\\\Eloquent\\\\Builder\\) of method Illuminate\\\\Database\\\\Eloquent\\\\Scope\\:\\:apply\\(\\)$#"
+			message: "#^Parameter \\#1 \\$builder \\(Illuminate\\\\Database\\\\Eloquent\\\\Builder\\<App\\\\Models\\\\Document\\>\\) of method App\\\\Models\\\\Scopes\\\\DocumentTypeContractScope\\:\\:apply\\(\\) should be contravariant with parameter \\$builder \\(Illuminate\\\\Database\\\\Eloquent\\\\Builder\\) of method Illuminate\\\\Database\\\\Eloquent\\\\Scope\\:\\:apply\\(\\)$#"
 			count: 1
 			path: app/Models/Scopes/DocumentTypeContractScope.php
 
 		-
-			message: "#^Parameter \\#2 \\$model \\(TModel of App\\\\Models\\\\Data\\\\Type\\|App\\\\Models\\\\Document\\) of method App\\\\Models\\\\Scopes\\\\DocumentTypeContractScope\\:\\:apply\\(\\) should be contravariant with parameter \\$model \\(Illuminate\\\\Database\\\\Eloquent\\\\Model\\) of method Illuminate\\\\Database\\\\Eloquent\\\\Scope\\:\\:apply\\(\\)$#"
+			message: "#^Parameter \\#2 \\$model \\(App\\\\Models\\\\Document\\) of method App\\\\Models\\\\Scopes\\\\DocumentTypeContractScope\\:\\:apply\\(\\) should be contravariant with parameter \\$model \\(Illuminate\\\\Database\\\\Eloquent\\\\Model\\) of method Illuminate\\\\Database\\\\Eloquent\\\\Scope\\:\\:apply\\(\\)$#"
 			count: 1
 			path: app/Models/Scopes/DocumentTypeContractScope.php
 
 		-
-			message: "#^Parameter \\#1 \\$builder \\(Illuminate\\\\Database\\\\Eloquent\\\\Builder\\<TModel of App\\\\Models\\\\Data\\\\Type\\|App\\\\Models\\\\Document\\>\\) of method App\\\\Models\\\\Scopes\\\\DocumentTypeQuoteType\\:\\:apply\\(\\) should be contravariant with parameter \\$builder \\(Illuminate\\\\Database\\\\Eloquent\\\\Builder\\) of method Illuminate\\\\Database\\\\Eloquent\\\\Scope\\:\\:apply\\(\\)$#"
+			message: "#^Parameter \\#1 \\$builder \\(Illuminate\\\\Database\\\\Eloquent\\\\Builder\\<App\\\\Models\\\\Document\\>\\) of method App\\\\Models\\\\Scopes\\\\DocumentTypeQuoteType\\:\\:apply\\(\\) should be contravariant with parameter \\$builder \\(Illuminate\\\\Database\\\\Eloquent\\\\Builder\\) of method Illuminate\\\\Database\\\\Eloquent\\\\Scope\\:\\:apply\\(\\)$#"
 			count: 1
 			path: app/Models/Scopes/DocumentTypeQuoteType.php
 
 		-
-			message: "#^Parameter \\#2 \\$model \\(TModel of App\\\\Models\\\\Data\\\\Type\\|App\\\\Models\\\\Document\\) of method App\\\\Models\\\\Scopes\\\\DocumentTypeQuoteType\\:\\:apply\\(\\) should be contravariant with parameter \\$model \\(Illuminate\\\\Database\\\\Eloquent\\\\Model\\) of method Illuminate\\\\Database\\\\Eloquent\\\\Scope\\:\\:apply\\(\\)$#"
+			message: "#^Parameter \\#2 \\$model \\(App\\\\Models\\\\Document\\) of method App\\\\Models\\\\Scopes\\\\DocumentTypeQuoteType\\:\\:apply\\(\\) should be contravariant with parameter \\$model \\(Illuminate\\\\Database\\\\Eloquent\\\\Model\\) of method Illuminate\\\\Database\\\\Eloquent\\\\Scope\\:\\:apply\\(\\)$#"
 			count: 1
 			path: app/Models/Scopes/DocumentTypeQuoteType.php
 

@@ -938,8 +938,6 @@ class CustomerTest extends TestCase {
     }
 
     /**
-     * @covers       \App\GraphQL\Queries\Contracts\ContractsAggregated::prices
-     *
      * @dataProvider dataProviderQueryContractsAggregate
      *
      * @param OrganizationFactory                                  $orgFactory
@@ -1071,7 +1069,7 @@ class CustomerTest extends TestCase {
                     'customers-view',
                 ]),
                 new ArrayDataProvider([
-                    'ok'          => [
+                    'ok' => [
                         new GraphQLSuccess('customer', [
                             'assets'           => [
                                 [
@@ -1299,10 +1297,7 @@ class CustomerTest extends TestCase {
                             ],
                         ]),
                         [
-                            'ep.document_statuses_hidden' => [],
-                            'ep.contract_types'           => [
-                                'f3cb1fac-b454-4f23-bbb4-f3d84a1690ae',
-                            ],
+                            // empty
                         ],
                         static function (TestCase $test, Organization $organization): Customer {
                             $location = Location::factory()->create([
@@ -1420,16 +1415,14 @@ class CustomerTest extends TestCase {
                             ]);
 
                             // Document creation for support
-                            $documentType = Type::factory()->create([
-                                'id' => 'f3cb1fac-b454-4f23-bbb4-f3d84a1690ae',
-                            ]);
-                            $document     = Document::factory()
+                            $document = Document::factory()
                                 ->for($reseller)
                                 ->for($customer)
                                 ->create([
-                                    'id'      => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24988',
-                                    'type_id' => $documentType,
-                                    'number'  => 'f2f43b22-cc9a-4971-9342-b1389979c008',
+                                    'id'          => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24988',
+                                    'number'      => 'f2f43b22-cc9a-4971-9342-b1389979c008',
+                                    'is_hidden'   => false,
+                                    'is_contract' => true,
                                 ]);
                             // Asset creation
                             $asset = Asset::factory()
@@ -1491,15 +1484,6 @@ class CustomerTest extends TestCase {
                                     'start'           => '2021-01-01',
                                     'end'             => '2022-01-01',
                                 ]);
-
-                            return $customer;
-                        },
-                    ],
-                    'not allowed' => [
-                        new GraphQLSuccess('customer'),
-                        [],
-                        static function (TestCase $test, Organization $organization): Customer {
-                            $customer = Customer::factory()->create();
 
                             return $customer;
                         },
@@ -1763,33 +1747,6 @@ class CustomerTest extends TestCase {
      * @return array<mixed>
      */
     public function dataProviderQueryContracts(): array {
-        $customerContractFactory = static function (TestCase $test, Organization $organization): Customer {
-            $reseller = Reseller::factory()->create([
-                'id'              => $organization->getKey(),
-                'name'            => 'reseller1',
-                'customers_count' => 0,
-                'locations_count' => 1,
-                'assets_count'    => 0,
-                'contacts_count'  => 0,
-                'changed_at'      => '2021-10-19 10:15:00',
-                'synced_at'       => '2021-10-19 10:25:00',
-            ]);
-            Document::factory()->for($reseller)->create();
-            $customer = Customer::factory()
-                ->create([
-                    'id'              => 'f9396bc1-2f2f-4c57-bb8d-7a224ac20944',
-                    'name'            => 'name aaa',
-                    'assets_count'    => 0,
-                    'quotes_count'    => 0,
-                    'contracts_count' => 0,
-                    'contacts_count'  => 0,
-                    'locations_count' => 0,
-                ]);
-            $customer->resellers()->attach($reseller);
-
-            return $customer;
-        };
-
         $customerEmptyContract = [
             'contracts'           => [
                 // empty
@@ -1827,7 +1784,7 @@ class CustomerTest extends TestCase {
                     'customers-view',
                 ]),
                 new ArrayDataProvider([
-                    'ok'             => [
+                    'ok'                  => [
                         new GraphQLSuccess(
                             'customer',
                             [
@@ -2021,8 +1978,6 @@ class CustomerTest extends TestCase {
                             ],
                         ],
                         static function (TestCase $test, Organization $organization, User $user): Customer {
-                            $user->save();
-
                             $location = Location::factory()->create([
                                 'id'        => 'f9396bc1-2f2f-4c58-2f2f-7a224ac20944',
                                 'state'     => 'state1',
@@ -2173,6 +2128,8 @@ class CustomerTest extends TestCase {
                                     'price'          => 100,
                                     'start'          => '2021-01-01',
                                     'end'            => '2024-01-01',
+                                    'is_hidden'      => false,
+                                    'is_contract'    => true,
                                     'assets_count'   => 1,
                                     'entries_count'  => 2,
                                     'contacts_count' => 3,
@@ -2184,57 +2141,40 @@ class CustomerTest extends TestCase {
                             return $customer;
                         },
                     ],
-                    'no types'       => [
-                        new GraphQLSuccess(
-                            'customer',
-                            $customerEmptyContract,
-                        ),
+                    'is_hidden = true'    => [
+                        new GraphQLSuccess('customer', $customerEmptyContract),
                         [
-                            'ep.document_statuses_hidden' => [],
-                            'ep.contract_types'           => [
-                                // empty
-                            ],
+                            // empty
                         ],
-                        $customerContractFactory,
-                    ],
-                    'type not match' => [
-                        new GraphQLSuccess(
-                            'customer',
-                            $customerEmptyContract,
-                        ),
-                        [
-                            'ep.document_statuses_hidden' => [],
-                            'ep.contract_types'           => [
-                                'f9834bc1-2f2f-4c57-bb8d-7a224ac24985',
-                            ],
-                        ],
-                        $customerContractFactory,
-                    ],
-                    'not allowed'    => [
-                        new GraphQLSuccess('customer'),
-                        [
-                            'ep.document_statuses_hidden' => [],
-                            'ep.contract_types'           => [],
-                        ],
-                        static function (TestCase $test, Organization $organization): Customer {
-                            $reseller = Reseller::factory()->create([
-                                'id'              => $organization->getKey(),
-                                'name'            => 'reseller1',
-                                'customers_count' => 0,
-                                'locations_count' => 1,
-                                'assets_count'    => 0,
+                        static function (TestCase $test, Organization $org): Customer {
+                            $reseller = Reseller::factory()->create(['id' => $org]);
+                            $customer = Customer::factory()->create();
+
+                            $customer->resellers()->attach($reseller);
+
+                            Document::factory()->for($reseller)->for($customer)->create([
+                                'is_hidden'   => true,
+                                'is_contract' => true,
                             ]);
-                            Document::factory()->for($reseller)->create();
-                            $customer = Customer::factory()
-                                ->create([
-                                    'id'              => 'f9396bc1-2f2f-4c57-bb8d-7a224ac20944',
-                                    'name'            => 'name aaa',
-                                    'assets_count'    => 0,
-                                    'quotes_count'    => 0,
-                                    'contracts_count' => 0,
-                                    'contacts_count'  => 0,
-                                    'locations_count' => 0,
-                                ]);
+
+                            return $customer;
+                        },
+                    ],
+                    'is_contract = false' => [
+                        new GraphQLSuccess('customer', $customerEmptyContract),
+                        [
+                            // empty
+                        ],
+                        static function (TestCase $test, Organization $org): Customer {
+                            $reseller = Reseller::factory()->create(['id' => $org]);
+                            $customer = Customer::factory()->create();
+
+                            $customer->resellers()->attach($reseller);
+
+                            Document::factory()->for($reseller)->for($customer)->create([
+                                'is_hidden'   => false,
+                                'is_contract' => false,
+                            ]);
 
                             return $customer;
                         },
@@ -2248,46 +2188,6 @@ class CustomerTest extends TestCase {
      * @return array<mixed>
      */
     public function dataProviderQueryQuotes(): array {
-        $customerQuoteEmptyFactory = static function (TestCase $test, Organization $organization): Customer {
-            $reseller = Reseller::factory()->create([
-                'id'              => $organization->getKey(),
-                'name'            => 'reseller1',
-                'customers_count' => 0,
-                'locations_count' => 1,
-                'assets_count'    => 0,
-                'contacts_count'  => 0,
-                'changed_at'      => '2021-10-19 10:15:00',
-                'synced_at'       => '2021-10-19 10:25:00',
-            ]);
-            $type     = Type::factory()->create([
-                'id'   => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24985',
-                'name' => 'name aaa',
-            ]);
-            Document::factory()
-                ->for($reseller)
-                ->for($type)
-                ->create();
-            $customer = Customer::factory()
-                ->create([
-                    'id'              => 'f9396bc1-2f2f-4c57-bb8d-7a224ac20944',
-                    'name'            => 'name aaa',
-                    'assets_count'    => 2,
-                    'quotes_count'    => 2,
-                    'contracts_count' => 2,
-                    'contacts_count'  => 0,
-                    'locations_count' => 1,
-                    'changed_at'      => '2021-10-19 10:15:00',
-                    'synced_at'       => '2021-10-19 10:25:00',
-                ]);
-            $customer->resellers()->attach($reseller, [
-                'assets_count'    => 0,
-                'quotes_count'    => 0,
-                'contracts_count' => 0,
-            ]);
-
-            return $customer;
-        };
-
         $customerQuoteFactory = static function (TestCase $test, Organization $organization, User $user): Customer {
             $user->save();
             // Location
@@ -2441,6 +2341,8 @@ class CustomerTest extends TestCase {
                     'price'          => 100,
                     'start'          => '2021-01-01',
                     'end'            => '2024-01-01',
+                    'is_hidden'      => false,
+                    'is_quote'       => true,
                     'assets_count'   => 1,
                     'entries_count'  => 2,
                     'contacts_count' => 3,
@@ -2671,101 +2573,53 @@ class CustomerTest extends TestCase {
                     'customers-view',
                 ]),
                 new ArrayDataProvider([
-                    'ok'                                        => [
+                    'ok'               => [
                         new GraphQLSuccess(
                             'customer',
                             $customerQuote,
                         ),
                         [
-                            'ep.document_statuses_hidden' => [],
-                            'ep.quote_types'              => [
-                                'f9834bc1-2f2f-4c57-bb8d-7a224ac24985',
-                            ],
+                            // empty
                         ],
                         $customerQuoteFactory,
                     ],
-                    'not allowed'                               => [
-                        new GraphQLSuccess('customer'),
+                    'is_hidden = true' => [
+                        new GraphQLSuccess('customer', $customerEmptyQuote),
                         [
-                            'ep.document_statuses_hidden' => [],
-                            'ep.contract_types'           => [],
+                            // empty
                         ],
-                        static function (TestCase $test, Organization $organization): Customer {
-                            $reseller = Reseller::factory()->create([
-                                'id'              => $organization->getKey(),
-                                'name'            => 'reseller1',
-                                'customers_count' => 0,
-                                'locations_count' => 1,
-                                'assets_count'    => 0,
+                        static function (TestCase $test, Organization $org): Customer {
+                            $reseller = Reseller::factory()->create(['id' => $org]);
+                            $customer = Customer::factory()->create();
+
+                            $customer->resellers()->attach($reseller);
+
+                            Document::factory()->for($reseller)->for($customer)->create([
+                                'is_hidden' => true,
+                                'is_quote'  => true,
                             ]);
-                            Document::factory()->for($reseller)->create();
-                            $customer = Customer::factory()
-                                ->create([
-                                    'id'              => 'f9396bc1-2f2f-4c57-bb8d-7a224ac20944',
-                                    'name'            => 'name aaa',
-                                    'assets_count'    => 0,
-                                    'quotes_count'    => 0,
-                                    'contracts_count' => 0,
-                                    'contacts_count'  => 0,
-                                    'locations_count' => 0,
-                                ]);
 
                             return $customer;
                         },
                     ],
-                    'no quote_types + contract_types not match' => [
-                        new GraphQLSuccess(
-                            'customer',
-                            $customerQuote,
-                        ),
+                    'is_quote = false' => [
+                        new GraphQLSuccess('customer', $customerEmptyQuote),
                         [
-                            'ep.document_statuses_hidden' => [],
-                            'ep.contract_types'           => [
-                                'd4ad2f4f-7751-4cd2-a6be-71bcee84f37a',
-                            ],
-                            'ep.quote_types'              => [
-                                // empty
-                            ],
+                            // empty
                         ],
-                        $customerQuoteFactory,
-                    ],
-                    'no quote_types + contract_types match'     => [
-                        new GraphQLSuccess(
-                            'customer',
-                            $customerEmptyQuote,
-                        ),
-                        [
-                            'ep.document_statuses_hidden' => [],
-                            'ep.contract_types'           => [
-                                'f9834bc1-2f2f-4c57-bb8d-7a224ac24985',
-                            ],
-                        ],
-                        $customerQuoteEmptyFactory,
-                    ],
-                    'quote_types not match'                     => [
-                        new GraphQLSuccess(
-                            'customer',
-                            $customerEmptyQuote,
-                        ),
-                        [
-                            'ep.document_statuses_hidden' => [],
-                            'ep.quote_types'              => [
-                                'f9834bc1-2f2f-4c57-bb8d-7a224ac2498a',
-                            ],
-                        ],
-                        $customerQuoteEmptyFactory,
-                    ],
-                    'no quote_types + no contract_types'        => [
-                        new GraphQLSuccess(
-                            'customer',
-                            $customerEmptyQuote,
-                        ),
-                        [
-                            'ep.document_statuses_hidden' => [],
-                            'ep.contract_types'           => [],
-                            'ep.quote_types'              => [],
-                        ],
-                        $customerQuoteEmptyFactory,
+                        static function (TestCase $test, Organization $org): Customer {
+                            $reseller = Reseller::factory()->create(['id' => $org]);
+                            $customer = Customer::factory()->create();
+
+                            $customer->resellers()->attach($reseller);
+
+                            Document::factory()->for($reseller)->for($customer)->create([
+                                'is_hidden' => false,
+                                'is_quote'  => false,
+                            ]);
+
+                            return $customer;
+                        },
                     ],
                 ]),
             ),
@@ -2948,17 +2802,9 @@ class CustomerTest extends TestCase {
      * @return array<mixed>
      */
     public function dataProviderQueryContractsAggregate(): array {
-        $hiddenStatus = 'fc52c5b5-cbfc-4481-872a-ad35035f5890';
-        $type         = '184a9fb0-ba79-47fa-8a19-9f712876f16b';
-        $factory      = static function (
-            TestCase $test,
-            Organization $organization,
-        ) use (
-            $type,
-            $hiddenStatus,
-        ): Customer {
+        $factory = static function (TestCase $test, Organization $org): Customer {
             $reseller = Reseller::factory()->create([
-                'id' => $organization->getKey(),
+                'id' => $org->getKey(),
             ]);
             $customer = Customer::factory()->create();
 
@@ -2979,64 +2825,63 @@ class CustomerTest extends TestCase {
                 'code' => 'UNK',
                 'name' => 'UNK',
             ]);
-            $type      = Type::factory()->create([
-                'id' => $type,
-            ]);
 
             Document::factory()->create([
                 'reseller_id' => $reseller,
                 'customer_id' => $customer,
                 'currency_id' => $currencyA,
-                'type_id'     => $type,
                 'price'       => '123.45',
+                'is_hidden'   => false,
+                'is_contract' => true,
             ]);
             Document::factory()->create([
                 'reseller_id' => $reseller,
                 'customer_id' => $customer,
                 'currency_id' => $currencyA,
-                'type_id'     => $type,
                 'price'       => '123.45',
+                'is_hidden'   => false,
+                'is_contract' => true,
             ]);
             Document::factory()->create([
                 'reseller_id' => $reseller,
                 'customer_id' => $customer,
                 'currency_id' => $currencyB,
-                'type_id'     => $type,
                 'price'       => '123.45',
+                'is_hidden'   => false,
+                'is_contract' => true,
             ]);
             Document::factory()->create([
                 'reseller_id' => $reseller,
                 'customer_id' => $customer,
                 'currency_id' => $currencyC,
-                'type_id'     => $type,
                 'price'       => '10.00',
+                'is_hidden'   => false,
+                'is_contract' => true,
             ]);
 
             // Another customer
             Document::factory()->create([
                 'reseller_id' => $reseller,
                 'currency_id' => $currencyA,
-                'type_id'     => $type,
                 'price'       => '543.21',
+                'is_hidden'   => false,
+                'is_contract' => true,
             ]);
 
             // Hidden Status
-            Document::factory()
-                ->hasStatuses(1, [
-                    'id' => $hiddenStatus,
-                ])
-                ->create([
-                    'reseller_id' => $reseller,
-                    'customer_id' => $customer,
-                    'currency_id' => $currencyA,
-                    'type_id'     => $type,
-                    'price'       => 5,
-                ]);
+            Document::factory()->create([
+                'reseller_id' => $reseller,
+                'customer_id' => $customer,
+                'currency_id' => $currencyA,
+                'price'       => 5,
+                'is_hidden'   => true,
+                'is_contract' => true,
+            ]);
 
             // Return
             return $customer;
         };
-        $params       = [
+        $params  = [
             'where' => [
                 'anyOf' => [
                     [
@@ -3104,10 +2949,7 @@ class CustomerTest extends TestCase {
                         ],
                     ),
                     [
-                        'ep.document_statuses_hidden' => [
-                            $hiddenStatus,
-                        ],
-                        'ep.contract_types'           => $type,
+                        // empty
                     ],
                     $factory,
                     $params,

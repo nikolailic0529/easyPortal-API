@@ -307,6 +307,9 @@ class ModelsProvider {
             'currency_id'    => $currency,
             'language_id'    => $language,
             'type_id'        => $type,
+            'is_hidden'      => false,
+            'is_contract'    => true,
+            'is_quote'       => false,
         ]);
         $contractStatus                = DocumentStatus::factory()->create([
             'document_id' => $contract,
@@ -363,6 +366,9 @@ class ModelsProvider {
             'currency_id'    => $currency,
             'language_id'    => $language,
             'type_id'        => $type,
+            'is_hidden'      => false,
+            'is_contract'    => false,
+            'is_quote'       => true,
         ]);
         $quoteStatus                   = DocumentStatus::factory()->create([
             'document_id' => $quote,
