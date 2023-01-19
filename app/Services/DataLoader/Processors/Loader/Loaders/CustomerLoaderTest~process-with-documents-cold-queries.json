@@ -190,7 +190,7 @@
         ]
     },
     {
-        "query": "insert into `documents` (`id`, `hash`, `oem_id`, `oem_group_id`, `oem_said`, `oem_amp_id`, `oem_sar_number`, `type_id`, `statuses_count`, `reseller_id`, `customer_id`, `currency_id`, `language_id`, `distributor_id`, `start`, `end`, `price_origin`, `price`, `number`, `changed_at`, `contacts_count`, `entries_count`, `assets_count`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `documents` (`id`, `hash`, `oem_id`, `oem_group_id`, `oem_said`, `oem_amp_id`, `oem_sar_number`, `type_id`, `is_quote`, `is_contract`, `statuses_count`, `is_hidden`, `reseller_id`, `customer_id`, `currency_id`, `language_id`, `distributor_id`, `start`, `end`, `price_origin`, `price`, `number`, `changed_at`, `contacts_count`, `entries_count`, `assets_count`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "76148cc9-ada8-4219-b2c9-ba75ce8423fe",
             "e28117d5e92068bdf2851d37c76759f4a5a8efca",
@@ -200,7 +200,10 @@
             "83-B002420",
             "ANTON-RIETBERG-01",
             "000a8541-d46d-5609-92dd-ab0394157014",
+            false,
+            true,
             2,
+            false,
             "9d9e320d-4e44-4518-a4e6-6bfe7f1c7dd8",
             "004d6d19-4a7d-4216-8bd5-55dbfb038e09",
             "123e38fa-c1bf-5caa-aec0-0fe239da7119",
@@ -436,7 +439,7 @@
         ]
     },
     {
-        "query": "insert into `documents` (`id`, `hash`, `oem_id`, `oem_group_id`, `oem_said`, `oem_amp_id`, `oem_sar_number`, `type_id`, `statuses_count`, `reseller_id`, `customer_id`, `currency_id`, `language_id`, `distributor_id`, `start`, `end`, `price_origin`, `price`, `number`, `changed_at`, `contacts_count`, `entries_count`, `assets_count`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `documents` (`id`, `hash`, `oem_id`, `oem_group_id`, `oem_said`, `oem_amp_id`, `oem_sar_number`, `type_id`, `is_quote`, `is_contract`, `statuses_count`, `is_hidden`, `reseller_id`, `customer_id`, `currency_id`, `language_id`, `distributor_id`, `start`, `end`, `price_origin`, `price`, `number`, `changed_at`, `contacts_count`, `entries_count`, `assets_count`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "7d8fb7d1-092f-43e3-9437-09706ef9cbf6",
             "bbf24bd378de24db8a2cc06871065023aeeec5c2",
@@ -446,7 +449,10 @@
             "83-B002420",
             null,
             "000a8541-d46d-5609-92dd-ab0394157014",
+            false,
+            true,
             1,
+            false,
             "9d9e320d-4e44-4518-a4e6-6bfe7f1c7dd8",
             "004d6d19-4a7d-4216-8bd5-55dbfb038e09",
             "123e38fa-c1bf-5caa-aec0-0fe239da7119",
@@ -689,7 +695,7 @@
         ]
     },
     {
-        "query": "insert into `documents` (`id`, `hash`, `oem_id`, `oem_group_id`, `oem_said`, `oem_amp_id`, `oem_sar_number`, `type_id`, `statuses_count`, `reseller_id`, `customer_id`, `currency_id`, `language_id`, `distributor_id`, `start`, `end`, `price_origin`, `price`, `number`, `changed_at`, `contacts_count`, `entries_count`, `assets_count`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `documents` (`id`, `hash`, `oem_id`, `oem_group_id`, `oem_said`, `oem_amp_id`, `oem_sar_number`, `type_id`, `is_quote`, `is_contract`, `statuses_count`, `is_hidden`, `reseller_id`, `customer_id`, `currency_id`, `language_id`, `distributor_id`, `start`, `end`, `price_origin`, `price`, `number`, `changed_at`, `contacts_count`, `entries_count`, `assets_count`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "f3a8ba95-ce52-49bb-ba31-3402337e421d",
             "ffa3ad550ca0d5a403d0d728562a67280f264b93",
@@ -699,7 +705,10 @@
             null,
             null,
             "4bac8065-1da9-5bf3-a5b0-52c0301899b5",
+            true,
+            false,
             1,
+            false,
             "9d9e320d-4e44-4518-a4e6-6bfe7f1c7dd8",
             "004d6d19-4a7d-4216-8bd5-55dbfb038e09",
             "123e38fa-c1bf-5caa-aec0-0fe239da7119",
@@ -911,12 +920,6 @@
         ]
     },
     {
-        "query": "select `statuses`.*, `document_statuses`.`document_id` as `pivot_document_id`, `document_statuses`.`status_id` as `pivot_status_id`, `document_statuses`.`created_at` as `pivot_created_at`, `document_statuses`.`updated_at` as `pivot_updated_at` from `statuses` inner join `document_statuses` on `statuses`.`id` = `document_statuses`.`status_id` where `document_statuses`.`document_id` = ? and `document_statuses`.`deleted_at` is null and `statuses`.`deleted_at` is null",
-        "bindings": [
-            "00000000-0000-0000-0000-000000000000"
-        ]
-    },
-    {
         "query": "select `oem_groups`.* from `oem_groups` where (`key` = ? and `name` = ? and `oem_id` = ?) and `oem_groups`.`deleted_at` is null limit 1",
         "bindings": [
             "07cdeb11-0b67-3de4-9f0d-737d62d0a3e4",
@@ -1012,7 +1015,7 @@
         ]
     },
     {
-        "query": "update `documents` set `oem_said` = ?, `oem_group_id` = ?, `customer_id` = ?, `reseller_id` = ?, `distributor_id` = ?, `number` = ?, `start` = ?, `end` = ?, `price` = ?, `price_origin` = ?, `currency_id` = ?, `oem_amp_id` = ?, `assets_count` = ?, `entries_count` = ?, `contacts_count` = ?, `statuses_count` = ?, `hash` = ?, `changed_at` = ?, `documents`.`updated_at` = ? where `id` = ?",
+        "query": "update `documents` set `oem_said` = ?, `oem_group_id` = ?, `customer_id` = ?, `reseller_id` = ?, `distributor_id` = ?, `number` = ?, `start` = ?, `end` = ?, `price` = ?, `price_origin` = ?, `currency_id` = ?, `oem_amp_id` = ?, `is_contract` = ?, `is_hidden` = ?, `assets_count` = ?, `entries_count` = ?, `contacts_count` = ?, `statuses_count` = ?, `hash` = ?, `changed_at` = ?, `documents`.`updated_at` = ? where `id` = ?",
         "bindings": [
             "8897c643-d152-3de9-af86-7f0bb35f8e8f",
             "22b86c36-0bf0-5e52-8bbf-8fcdf0e111aa",
@@ -1026,6 +1029,8 @@
             "5649.60",
             "123e38fa-c1bf-5caa-aec0-0fe239da7119",
             "83-B015802-WW",
+            true,
+            false,
             2,
             5,
             2,
