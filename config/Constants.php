@@ -313,7 +313,8 @@ interface Constants {
     /**
      * Type IDs related to contracts.
      *
-     * If changed Resellers, Customers and Assets must be recalculated!
+     * If changed, Resellers, Customers, Documents and Assets (in this order)
+     * must be recalculated!
      */
     #[Setting('ep.contract_types')]
     #[SettingGroup('ep')]
@@ -324,7 +325,8 @@ interface Constants {
      * Types IDs related to quotes. Optional, if empty will use IDs which are
      * not in {@see \Config\Constants::EP_CONTRACT_TYPES}.
      *
-     * If changed Resellers, Customers and Assets must be recalculated!
+     * If changed, Resellers, Customers, Documents and Assets (in this order)
+     * must be recalculated!
      */
     #[Setting('ep.quote_types')]
     #[SettingGroup('ep')]
@@ -334,7 +336,8 @@ interface Constants {
     /**
      * Contracts/Quotes with these Statuses will not be visible on the Portal.
      *
-     * If changed Resellers, Customers and Assets must be recalculated!
+     * If changed, Resellers, Customers, Documents and Assets (in this order)
+     * must be recalculated!
      */
     #[Setting('ep.document_statuses_hidden')]
     #[SettingGroup('ep')]
