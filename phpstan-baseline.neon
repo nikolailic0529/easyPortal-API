@@ -1881,11 +1881,6 @@ parameters:
 			path: app/Http/Controllers/Export/Utils/RowsIterator.php
 
 		-
-			message: "#^Cannot call method getKey\\(\\) on App\\\\Models\\\\Organization\\|null\\.$#"
-			count: 1
-			path: app/Http/Controllers/FilesControllerTest.php
-
-		-
 			message: "#^Parameter \\#1 \\$string of function ltrim expects string, string\\|false\\|null given\\.$#"
 			count: 1
 			path: app/Http/Controllers/Horizon/HomeController.php

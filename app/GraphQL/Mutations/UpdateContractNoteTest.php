@@ -2,7 +2,6 @@
 
 namespace App\GraphQL\Mutations;
 
-use App\Models\Data\Type;
 use App\Models\Document;
 use App\Models\File;
 use App\Models\Note;
@@ -73,17 +72,6 @@ class UpdateContractNoteTest extends TestCase {
                 $org = $this->setOrganization(Organization::factory()->create());
             }
 
-            if (!$settingsFactory) {
-                $this->setSettings([
-                    'ep.document_statuses_hidden' => [],
-                    'ep.contract_types'           => ['f3cb1fac-b454-4f23-bbb4-f3d84a1699ac'],
-                ]);
-            }
-
-            $type = Type::factory()->create([
-                'id' => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ac',
-            ]);
-
             Document::factory()
                 ->ownedBy($org)
                 ->hasNotes(1, [
@@ -91,8 +79,10 @@ class UpdateContractNoteTest extends TestCase {
                     'organization_id' => $org,
                 ])
                 ->create([
-                    'id'      => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699aa',
-                    'type_id' => $type->getKey(),
+                    'id'          => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699aa',
+                    'is_hidden'   => false,
+                    'is_contract' => true,
+                    'is_quote'    => false,
                 ]);
         }
 
@@ -177,12 +167,12 @@ class UpdateContractNoteTest extends TestCase {
      */
     public function dataProviderInvoke(): array {
         $prepare  = static function (TestCase $test, ?Organization $org, User $user): void {
-            $type     = Type::factory()->create([
-                'id' => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ad',
-            ]);
             $document = Document::factory()->ownedBy($org)->create([
-                'type_id' => $type->getKey(),
+                'is_hidden'   => false,
+                'is_contract' => true,
+                'is_quote'    => false,
             ]);
+
             Note::factory()
                 ->ownedBy($org)
                 ->for($user)
@@ -195,10 +185,8 @@ class UpdateContractNoteTest extends TestCase {
                 ]);
         };
         $settings = [
-            'ep.file.max_size'            => 250,
-            'ep.file.formats'             => ['csv'],
-            'ep.contract_types'           => ['f3cb1fac-b454-4f23-bbb4-f3d84a1699ad'],
-            'ep.document_statuses_hidden' => [],
+            'ep.file.max_size' => 250,
+            'ep.file.formats'  => ['csv'],
         ];
 
         return (new MergeDataProvider([
@@ -229,14 +217,11 @@ class UpdateContractNoteTest extends TestCase {
                         new GraphQLSuccess('updateContractNote'),
                         $settings,
                         static function (TestCase $test, ?Organization $org, User $user): void {
-                            $type     = Type::factory()->create([
-                                'id' => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ad',
+                            $document = Document::factory()->ownedBy($org)->create([
+                                'is_hidden'   => false,
+                                'is_contract' => true,
+                                'is_quote'    => false,
                             ]);
-                            $document = Document::factory()
-                                ->ownedBy($org)
-                                ->create([
-                                    'type_id' => $type->getKey(),
-                                ]);
                             $note     = Note::factory()
                                 ->ownedBy($org)
                                 ->for($user)
@@ -313,11 +298,10 @@ class UpdateContractNoteTest extends TestCase {
                         new GraphQLSuccess('updateContractNote'),
                         $settings,
                         static function (TestCase $test, ?Organization $org, User $user): void {
-                            $type     = Type::factory()->create([
-                                'id' => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ad',
-                            ]);
                             $document = Document::factory()->ownedBy($org)->create([
-                                'type_id' => $type->getKey(),
+                                'is_hidden'   => false,
+                                'is_contract' => true,
+                                'is_quote'    => false,
                             ]);
                             // File should not be deleted if files is not updated
                             Note::factory()
@@ -343,8 +327,7 @@ class UpdateContractNoteTest extends TestCase {
                             return [trans('errors.validation_failed')];
                         }),
                         [
-                            'ep.document_statuses_hidden' => [],
-                            'ep.contract_types'           => ['f3cb1fac-b454-4f23-bbb4-f3d84a1699ac'],
+                            // empty
                         ],
                         static function (TestCase $test, ?Organization $org): void {
                             Note::factory()->ownedBy($org)->create([
@@ -367,8 +350,7 @@ class UpdateContractNoteTest extends TestCase {
                             return [trans('errors.validation_failed')];
                         }),
                         [
-                            'ep.document_statuses_hidden' => [],
-                            'ep.contract_types'           => ['f3cb1fac-b454-4f23-bbb4-f3d84a1699ac'],
+                            // empty
                         ],
                         static function (TestCase $test, ?Organization $org): void {
                             Note::factory()->ownedBy($org)->create([
@@ -438,14 +420,11 @@ class UpdateContractNoteTest extends TestCase {
                         new GraphQLUnauthorized('updateContractNote'),
                         $settings,
                         static function (TestCase $test, ?Organization $org, User $user): void {
-                            $type     = Type::factory()->create([
-                                'id' => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ad',
+                            $document = Document::factory()->ownedBy($org)->create([
+                                'is_hidden'   => false,
+                                'is_contract' => true,
+                                'is_quote'    => false,
                             ]);
-                            $document = Document::factory()
-                                ->ownedBy($org)
-                                ->create([
-                                    'type_id' => $type->getKey(),
-                                ]);
                             $user2    = User::factory()->create();
                             $note     = Note::factory()
                                 ->ownedBy($org)

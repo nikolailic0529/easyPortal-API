@@ -437,9 +437,10 @@ class ModelsProvider {
 
         // Settings
         $test->setSettings([
-            'ep.headquarter_type' => $type->getKey(),
-            'ep.contract_types'   => $type->getKey(),
-            'ep.quote_types'      => $type->getKey(),
+            'ep.document_statuses_hidden' => [],
+            'ep.headquarter_type'         => $type->getKey(),
+            'ep.contract_types'           => $type->getKey(),
+            'ep.quote_types'              => $type->getKey(),
         ]);
 
         // Return

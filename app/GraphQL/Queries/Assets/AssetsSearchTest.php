@@ -110,10 +110,7 @@ class AssetsSearchTest extends TestCase {
                             ],
                         ),
                         [
-                            'ep.document_statuses_hidden' => [],
-                            'ep.contract_types'           => [
-                                'f3cb1fac-b454-4f23-bbb4-f3d84a1690ae',
-                            ],
+                            // empty
                         ],
                         static function (TestCase $test, Organization $org): Asset {
                             return Asset::factory()->ownedBy($org)->create([

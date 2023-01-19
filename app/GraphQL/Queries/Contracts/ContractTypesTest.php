@@ -107,8 +107,7 @@ class ContractTypesTest extends TestCase {
                     return $locale;
                 },
                 [
-                    'ep.document_statuses_hidden' => [],
-                    'ep.contract_types'           => [
+                    'ep.contract_types' => [
                         'f9396bc1-2f2f-4c57-bb8d-7a224ac20944',
                         '6f19ef5f-5963-437e-a798-29296db08d59',
                         'f3cb1fac-b454-4f23-bbb4-f3d84a1699ae',
@@ -152,8 +151,7 @@ class ContractTypesTest extends TestCase {
                     return $test->app->getLocale();
                 },
                 [
-                    'ep.document_statuses_hidden' => [],
-                    'ep.contract_types'           => [],
+                    'ep.contract_types' => [],
                 ],
                 static function (TestCase $test): void {
                     Type::factory()->create([

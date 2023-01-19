@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-use App\Models\Data\Type;
 use Closure;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\Date;
@@ -173,27 +172,15 @@ class AssetTest extends TestCase {
             ],
             'mixed'  => [
                 '2975b9a3-f0dd-48e2-a402-565877d3fed7',
-                [
-                    'ep.contract_types'           => ['505a1732-dd94-4025-af9c-0df0548e8bf4'],
-                    'ep.document_statuses_hidden' => ['2142bd10-8158-45b5-9f46-ccfd5b3de514'],
-                ],
+                null,
                 static function (): Collection {
                     $date       = Date::now();
-                    $type       = Type::factory()->create([
-                        'id' => '505a1732-dd94-4025-af9c-0df0548e8bf4',
+                    $hidden     = Document::factory()->create([
+                        'is_hidden'   => true,
+                        'is_contract' => true,
+                        'is_quote'    => false,
                     ]);
-                    $hidden     = Document::factory()
-                        ->hasStatuses(1, [
-                            'id' => '2142bd10-8158-45b5-9f46-ccfd5b3de514',
-                        ])
-                        ->create([
-                            'type_id'     => $type,
-                            'is_hidden'   => true,
-                            'is_contract' => true,
-                            'is_quote'    => false,
-                        ]);
                     $contract   = Document::factory()->create([
-                        'type_id'     => $type,
                         'is_hidden'   => false,
                         'is_contract' => true,
                         'is_quote'    => false,

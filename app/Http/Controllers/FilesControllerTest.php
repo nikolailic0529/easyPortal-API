@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Data\Type;
 use App\Models\Document;
 use App\Models\Note;
 use App\Models\Organization;
@@ -21,7 +20,6 @@ use Tests\DataProviders\Http\Organizations\AuthOrgDataProvider;
 use Tests\DataProviders\Http\Users\OrgUserDataProvider;
 use Tests\TestCase;
 use Tests\WithOrganization;
-use Tests\WithSettings;
 use Tests\WithUser;
 
 /**
@@ -30,7 +28,6 @@ use Tests\WithUser;
  *
  * @phpstan-import-type OrganizationFactory from WithOrganization
  * @phpstan-import-type UserFactory from WithUser
- * @phpstan-import-type SettingsFactory from WithSettings
  */
 class FilesControllerTest extends TestCase {
     // <editor-fold desc="Tests">
@@ -40,21 +37,17 @@ class FilesControllerTest extends TestCase {
      *
      * @param OrganizationFactory                                $orgFactory
      * @param UserFactory                                        $userFactory
-     * @param SettingsFactory                                    $settingsFactory
      * @param Closure(static, ?Organization, ?User): string|null $prepare
      */
     public function testInvoke(
         Response $expected,
         mixed $orgFactory,
         mixed $userFactory = null,
-        mixed $settingsFactory = null,
         Closure $prepare = null,
     ): void {
         // Prepare
         $org  = $this->setOrganization($orgFactory);
         $user = $this->setUser($userFactory, $org);
-
-        $this->setSettings($settingsFactory);
 
         $id = $this->faker->uuid();
 
@@ -76,18 +69,17 @@ class FilesControllerTest extends TestCase {
      * @return array<mixed>
      */
     public function dataProviderInvoke(): array {
-        $prepare = static function (TestCase $test, ?Organization $org, User $user): string {
-            $type     = Type::factory()->create([
-                'id' => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ad',
-            ]);
+        $prepare = static function (TestCase $test, ?Organization $org, ?User $user, bool $isContract): string {
             $document = Document::factory()->ownedBy($org)->create([
-                'id'      => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ae',
-                'type_id' => $type->getKey(),
+                'id'          => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ae',
+                'is_hidden'   => false,
+                'is_contract' => $isContract,
+                'is_quote'    => !$isContract,
             ]);
             $note     = Note::factory()->create([
-                'organization_id' => $org->getKey(),
-                'document_id'     => $document->getKey(),
-                'user_id'         => $user->getKey(),
+                'organization_id' => $org,
+                'document_id'     => $document,
+                'user_id'         => $user,
             ]);
             $file     = $test->app()->make(ModelDiskFactory::class)->getDisk($note)->storeToFile(
                 UploadedFile::fake()->create('test.txt'),
@@ -105,31 +97,21 @@ class FilesControllerTest extends TestCase {
                 new ArrayDataProvider([
                     'ok'             => [
                         new Ok(),
-                        [
-                            'ep.quote_types' => ['f3cb1fac-b454-4f23-bbb4-f3d84a1699ad'],
-                        ],
-                        $prepare,
+                        static function (TestCase $test, ?Organization $org, ?User $user) use ($prepare): string {
+                            return $prepare($test, $org, $user, false);
+                        },
                     ],
                     'different user' => [
                         new ForbiddenResponse(),
-                        [
-                            'ep.quote_types' => ['f3cb1fac-b454-4f23-bbb4-f3d84a1699ad'],
-                        ],
-                        static function (
-                            TestCase $test,
-                            ?Organization $organization,
-                        ) use ($prepare): string {
-                            $user2 = User::factory()->create();
-
-                            return $prepare($test, $organization, $user2);
+                        static function (TestCase $test, ?Organization $org) use ($prepare): string {
+                            return $prepare($test, $org, User::factory()->create(), false);
                         },
                     ],
                     'wrong type'     => [
                         new ForbiddenResponse(),
-                        [
-                            'ep.contract_types' => ['f3cb1fac-b454-4f23-bbb4-f3d84a1699ad'],
-                        ],
-                        $prepare,
+                        static function (TestCase $test, ?Organization $org, ?User $user) use ($prepare): string {
+                            return $prepare($test, $org, $user, true);
+                        },
                     ],
                 ]),
             ),
@@ -141,10 +123,9 @@ class FilesControllerTest extends TestCase {
                 new ArrayDataProvider([
                     'ok' => [
                         new Ok(),
-                        [
-                            'ep.contract_types' => ['f3cb1fac-b454-4f23-bbb4-f3d84a1699ad'],
-                        ],
-                        $prepare,
+                        static function (TestCase $test, ?Organization $org, ?User $user) use ($prepare): string {
+                            return $prepare($test, $org, $user, true);
+                        },
                     ],
                 ]),
             ),

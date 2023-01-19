@@ -1972,10 +1972,7 @@ class CustomerTest extends TestCase {
                             ],
                         ),
                         [
-                            'ep.document_statuses_hidden' => [],
-                            'ep.contract_types'           => [
-                                'f9834bc1-2f2f-4c57-bb8d-7a224ac24985',
-                            ],
+                            // empty
                         ],
                         static function (TestCase $test, Organization $organization, User $user): Customer {
                             $location = Location::factory()->create([
