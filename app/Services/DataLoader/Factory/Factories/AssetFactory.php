@@ -407,9 +407,7 @@ class AssetFactory extends Factory {
             }
         }
 
-        $resolver->prefetch($keys, static function (EloquentCollection $documents): void {
-            $documents->loadMissing('statuses');
-        });
+        $resolver->prefetch($keys);
 
         // Return
         return $documents;
