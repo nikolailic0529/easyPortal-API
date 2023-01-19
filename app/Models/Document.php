@@ -84,7 +84,6 @@ use function in_array;
  * @property Currency|null                  $currency
  * @property Customer|null                  $customer
  * @property Distributor|null               $distributor
- * @property-read bool                      $is_visible
  * @property-read bool                      $is_document
  * @property-read Collection<int, Asset>    $assets
  * @property Collection<int, DocumentEntry> $entries
@@ -246,10 +245,6 @@ class Document extends Model implements OwnedByReseller, Searchable {
 
     // <editor-fold desc="Attributes">
     // =========================================================================
-    public function getIsVisibleAttribute(): bool {
-        return $this->is_hidden === false;
-    }
-
     public function getIsDocumentAttribute(): bool {
         return $this->is_contract || $this->is_quote;
     }

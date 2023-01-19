@@ -370,7 +370,7 @@ class Asset extends Model implements OwnedByReseller, Searchable {
         // Document?
         $document  = $warranty->document;
         $isVisible = $document
-            && $document->is_visible
+            && !$document->is_hidden
             && $document->is_contract;
 
         if (!$isVisible) {
