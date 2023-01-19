@@ -17,11 +17,8 @@ use App\Models\Relations\HasOemNullable;
 use App\Models\Relations\HasResellerNullable;
 use App\Models\Relations\HasStatuses;
 use App\Models\Relations\HasTypeNullable;
-use App\Models\Scopes\DocumentIsContractScope;
 use App\Models\Scopes\DocumentIsDocumentScopeImpl;
-use App\Models\Scopes\DocumentIsHiddenScope;
 use App\Models\Scopes\DocumentIsHiddenScopeImpl;
-use App\Models\Scopes\DocumentIsQuoteScope;
 use App\Models\Scopes\DocumentScopes;
 use App\Services\Organization\Eloquent\OwnedByReseller;
 use App\Services\Organization\Eloquent\OwnedByResellerImpl;
@@ -30,13 +27,13 @@ use App\Services\Search\Eloquent\SearchableImpl;
 use App\Services\Search\Properties\Date;
 use App\Services\Search\Properties\Relation;
 use App\Services\Search\Properties\Text;
+use App\Utils\Eloquent\Callbacks\GetKey;
 use App\Utils\Eloquent\Casts\Origin;
 use App\Utils\Eloquent\Concerns\SyncHasMany;
 use App\Utils\Eloquent\Model;
 use App\Utils\Eloquent\Pivot;
 use Carbon\CarbonImmutable;
 use Database\Factories\DocumentFactory;
-use Illuminate\Container\Container;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -44,7 +41,11 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 
+use function array_diff;
+use function array_intersect;
+use function config;
 use function count;
+use function in_array;
 
 /**
  * Document.
@@ -229,9 +230,8 @@ class Document extends Model implements OwnedByReseller, Searchable {
     public function setTypeAttribute(?Type $type): void {
         $this->traitSetTypeAttribute($type);
 
-        $container         = Container::getInstance();
-        $this->is_quote    = $container->make(DocumentIsQuoteScope::class)->isQuoteType($this->type_id);
-        $this->is_contract = $container->make(DocumentIsContractScope::class)->isContractType($this->type_id);
+        $this->is_quote    = self::isQuoteType($this->type_id);
+        $this->is_contract = self::isContractType($this->type_id);
     }
 
     /**
@@ -240,7 +240,7 @@ class Document extends Model implements OwnedByReseller, Searchable {
     public function setStatusesAttribute(Collection $statuses): void {
         $this->traitSetStatusesAttribute($statuses);
 
-        $this->is_hidden = Container::getInstance()->make(DocumentIsHiddenScope::class)->isHidden($this->statuses);
+        $this->is_hidden = self::isHidden($this->statuses);
     }
     // </editor-fold>
 
@@ -277,6 +277,68 @@ class Document extends Model implements OwnedByReseller, Searchable {
                 ]),
             ]),
         ];
+    }
+    // </editor-fold>
+
+    // <editor-fold desc="Helpers">
+    // =========================================================================
+    /**
+     * @param Collection<array-key, Status>|Status|string $status
+     */
+    public static function isHidden(Collection|Status|string $status): bool {
+        $hidden   = (array) config('ep.document_statuses_hidden');
+        $statuses = [];
+
+        if ($status instanceof Collection) {
+            $statuses = $status->map(new GetKey())->all();
+        } elseif ($status instanceof Status) {
+            $statuses = [$status->getKey()];
+        } else {
+            $statuses = [$status];
+        }
+
+        return !!array_intersect($statuses, $hidden);
+    }
+
+    /**
+     * @return array<string>
+     */
+    public static function getContractTypeIds(): array {
+        return (array) config('ep.contract_types');
+    }
+
+    public static function isContractType(string|null $type): bool {
+        return in_array($type, self::getContractTypeIds(), true);
+    }
+
+    /**
+     * @return array<string>
+     */
+    public static function getQuoteTypeIds(): array {
+        $quoteTypes    = (array) config('ep.quote_types');
+        $contractTypes = self::getContractTypeIds();
+
+        if ($contractTypes) {
+            $quoteTypes = array_diff($quoteTypes, $contractTypes);
+        }
+
+        return $quoteTypes;
+    }
+
+    public static function isQuoteType(string|null $type): bool {
+        $contractTypes = self::getContractTypeIds();
+        $quoteTypes    = self::getQuoteTypeIds();
+        $is            = false;
+
+        if ($quoteTypes) {
+            $is = in_array($type, $quoteTypes, true);
+        } elseif ($contractTypes) {
+            $is = !in_array($type, $contractTypes, true);
+        } else {
+            // empty
+        }
+
+        return $is;
     }
     // </editor-fold>
 }

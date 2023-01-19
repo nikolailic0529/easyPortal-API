@@ -6,12 +6,9 @@ use App\Models\Data\Type;
 use App\Models\Document;
 use App\Services\Search\Builders\Builder as SearchBuilder;
 use App\Services\Search\Contracts\Scope as SearchScope;
-use Illuminate\Contracts\Config\Repository;
 use Illuminate\Database\Eloquent\Builder as EloquentBuilder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Scope as EloquentScope;
-
-use function in_array;
 
 /**
  * @see Document
@@ -19,9 +16,7 @@ use function in_array;
  * @implements SearchScope<Document>
  */
 class DocumentIsContractScope implements SearchScope, EloquentScope {
-    public function __construct(
-        protected Repository $config,
-    ) {
+    public function __construct() {
         // empty
     }
 
@@ -38,23 +33,12 @@ class DocumentIsContractScope implements SearchScope, EloquentScope {
     }
 
     /**
-     * @return array<string>
-     */
-    public function getTypeIds(): array {
-        return (array) $this->config->get('ep.contract_types');
-    }
-
-    /**
      * @return EloquentBuilder<Type>
      */
     public function getTypeQuery(): EloquentBuilder {
         return Type::query()
             ->where('object_type', '=', (new Document())->getMorphClass())
-            ->whereIn((new Type())->getKeyName(), $this->getTypeIds())
+            ->whereIn((new Type())->getKeyName(), Document::getContractTypeIds())
             ->orderByKey();
-    }
-
-    public function isContractType(string|null $type): bool {
-        return in_array($type, $this->getTypeIds(), true);
     }
 }

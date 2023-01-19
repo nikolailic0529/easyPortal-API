@@ -6,13 +6,9 @@ use App\Models\Data\Type;
 use App\Models\Document;
 use App\Services\Search\Builders\Builder as SearchBuilder;
 use App\Services\Search\Contracts\Scope as SearchScope;
-use Illuminate\Contracts\Config\Repository;
 use Illuminate\Database\Eloquent\Builder as EloquentBuilder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Scope as EloquentScope;
-
-use function array_diff;
-use function in_array;
 
 /**
  * @see Document
@@ -20,10 +16,7 @@ use function in_array;
  * @implements SearchScope<Document>
  */
 class DocumentIsQuoteScope implements SearchScope, EloquentScope {
-    public function __construct(
-        protected Repository $config,
-        protected DocumentIsContractScope $contractScope,
-    ) {
+    public function __construct() {
         // empty
     }
 
@@ -40,25 +33,11 @@ class DocumentIsQuoteScope implements SearchScope, EloquentScope {
     }
 
     /**
-     * @return array<string>
-     */
-    public function getTypeIds(): array {
-        $quoteTypes    = (array) $this->config->get('ep.quote_types');
-        $contractTypes = $this->contractScope->getTypeIds();
-
-        if ($contractTypes) {
-            $quoteTypes = array_diff($quoteTypes, $contractTypes);
-        }
-
-        return $quoteTypes;
-    }
-
-    /**
      * @return EloquentBuilder<Type>
      */
     public function getTypeQuery(): EloquentBuilder {
-        $contractTypes = $this->contractScope->getTypeIds();
-        $quoteTypes    = $this->getTypeIds();
+        $contractTypes = Document::getContractTypeIds();
+        $quoteTypes    = Document::getQuoteTypeIds();
         $query         = Type::query()
             ->where('object_type', '=', (new Document())->getMorphClass())
             ->orderByKey();
@@ -73,21 +52,5 @@ class DocumentIsQuoteScope implements SearchScope, EloquentScope {
         }
 
         return $query;
-    }
-
-    public function isQuoteType(string|null $type): bool {
-        $contractTypes = $this->contractScope->getTypeIds();
-        $quoteTypes    = $this->getTypeIds();
-        $is            = false;
-
-        if ($quoteTypes) {
-            $is = in_array($type, $quoteTypes, true);
-        } elseif ($contractTypes) {
-            $is = !in_array($type, $contractTypes, true);
-        } else {
-            // empty
-        }
-
-        return $is;
     }
 }
