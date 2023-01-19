@@ -41,18 +41,20 @@
         ]
     },
     {
-        "query": "select `customer_id`, count(*) as count from `documents` where `type_id` in (?) and `customer_id` in (?, ?, ?) and `documents`.`deleted_at` is null group by `customer_id`",
+        "query": "select `customer_id`, count(*) as count from `documents` where `is_hidden` = ? and `is_quote` = ? and `customer_id` in (?, ?, ?) and `documents`.`deleted_at` is null group by `customer_id`",
         "bindings": [
-            "09cfeeb6-65a4-5226-ad70-b3f341bf5234",
+            0,
+            1,
             "c9ea0a80-78c9-51b0-b04e-305b6cea7a9a",
             "24f6313c-05e2-5f4f-b0a6-0b82191e8fc5",
             "93dff777-6006-5616-bdb5-a56ec97248bb"
         ]
     },
     {
-        "query": "select `customer_id`, count(*) as count from `documents` where `type_id` in (?) and `customer_id` in (?, ?, ?) and `documents`.`deleted_at` is null group by `customer_id`",
+        "query": "select `customer_id`, count(*) as count from `documents` where `is_hidden` = ? and `is_contract` = ? and `customer_id` in (?, ?, ?) and `documents`.`deleted_at` is null group by `customer_id`",
         "bindings": [
-            "78282ba7-a73f-59f8-9871-ba703198d433",
+            0,
+            1,
             "c9ea0a80-78c9-51b0-b04e-305b6cea7a9a",
             "24f6313c-05e2-5f4f-b0a6-0b82191e8fc5",
             "93dff777-6006-5616-bdb5-a56ec97248bb"

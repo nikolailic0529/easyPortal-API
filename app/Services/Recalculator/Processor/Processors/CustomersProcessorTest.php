@@ -76,11 +76,6 @@ class CustomersProcessorTest extends TestCase {
                 'id' => Str::uuid()->toString(),
             ]);
 
-        $this->setSettings([
-            'ep.contract_types' => [$contractType->getKey()],
-            'ep.quote_types'    => [$quoteType->getKey()],
-        ]);
-
         Asset::factory()->create([
             'id'          => Str::uuid()->toString(),
             'reseller_id' => null,
@@ -111,24 +106,36 @@ class CustomersProcessorTest extends TestCase {
             'type_id'     => $quoteType,
             'reseller_id' => null,
             'customer_id' => $customerA,
+            'is_hidden'   => false,
+            'is_contract' => false,
+            'is_quote'    => true,
         ]);
         Document::factory()->create([
             'id'          => Str::uuid()->toString(),
             'type_id'     => $contractType,
             'reseller_id' => null,
             'customer_id' => $customerB,
+            'is_hidden'   => false,
+            'is_contract' => true,
+            'is_quote'    => false,
         ]);
         Document::factory()->create([
             'id'          => Str::uuid()->toString(),
             'type_id'     => $contractType,
             'reseller_id' => null,
             'customer_id' => $customerB,
+            'is_hidden'   => false,
+            'is_contract' => true,
+            'is_quote'    => false,
         ]);
         Document::factory()->create([
             'id'          => Str::uuid()->toString(),
             'type_id'     => $type,
             'reseller_id' => null,
             'customer_id' => $customerA,
+            'is_hidden'   => true,
+            'is_contract' => true,
+            'is_quote'    => false,
         ]);
 
         // Test

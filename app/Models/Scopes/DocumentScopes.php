@@ -25,6 +25,7 @@ trait DocumentScopes {
      * @return T
      */
     public function scopeQueryContracts(Builder $builder): Builder {
+        Container::getInstance()->make(DocumentIsHiddenScope::class)->applyForce($builder, $this);
         Container::getInstance()->make(DocumentIsContractScope::class)->apply($builder, $this);
 
         return $builder;
@@ -38,6 +39,7 @@ trait DocumentScopes {
      * @return T
      */
     public function scopeQueryQuotes(Builder $builder): Builder {
+        Container::getInstance()->make(DocumentIsHiddenScope::class)->applyForce($builder, $this);
         Container::getInstance()->make(DocumentIsQuoteScope::class)->apply($builder, $this);
 
         return $builder;

@@ -19,8 +19,16 @@ abstract class DisableableScope implements Scope {
      */
     final public function apply(EloquentBuilder $builder, Model $model): void {
         if ($this->isEnabled()) {
-            $this->handle($builder, $model);
+            $this->applyForce($builder, $model);
         }
+    }
+
+    /**
+     * @param EloquentBuilder<TModel> $builder
+     * @param TModel                  $model
+     */
+    final public function applyForce(EloquentBuilder $builder, Model $model): void {
+        $this->handle($builder, $model);
     }
 
     /**
