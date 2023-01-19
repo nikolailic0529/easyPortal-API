@@ -22,7 +22,7 @@ class AssetsProcessor extends Processor {
      * @inheritDoc
      */
     protected function prefetch(State $state, array $items): mixed {
-        $items = (new Collection($items))->loadMissing(['coverages', 'contacts', 'warranties.document.statuses']);
+        $items = (new Collection($items))->loadMissing(['coverages', 'contacts', 'warranties.document']);
         $data  = new AssetsChunkData($items);
 
         return $data;

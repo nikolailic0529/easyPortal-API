@@ -36,15 +36,7 @@
         "query": "select `documents`.* from `documents` where `documents`.`id` in (?, ?, ?) and `documents`.`deleted_at` is null",
         "bindings": [
             "6ff253be-e2fc-50c1-a29a-b2d507635c90",
-            "ef377bd7-d902-50d1-8c29-5ecf3844ef38",
-            "f8e98d32-47aa-5579-8dde-180900ef2ca5"
-        ]
-    },
-    {
-        "query": "select `statuses`.*, `document_statuses`.`document_id` as `pivot_document_id`, `document_statuses`.`status_id` as `pivot_status_id`, `document_statuses`.`created_at` as `pivot_created_at`, `document_statuses`.`updated_at` as `pivot_updated_at` from `statuses` inner join `document_statuses` on `statuses`.`id` = `document_statuses`.`status_id` where `document_statuses`.`deleted_at` is null and `document_statuses`.`document_id` in (?, ?, ?) and `statuses`.`deleted_at` is null",
-        "bindings": [
-            "6ff253be-e2fc-50c1-a29a-b2d507635c90",
-            "ef377bd7-d902-50d1-8c29-5ecf3844ef38",
+            "c22ab4e0-e892-53c0-ab17-beb97b41274f",
             "f8e98d32-47aa-5579-8dde-180900ef2ca5"
         ]
     },
@@ -56,7 +48,7 @@
             null,
             0,
             1,
-            "2021-08-30 00:01:26",
+            "2021-08-30 00:01:17",
             "81f52c19-1b2c-53ab-8c20-05df3a36e367"
         ]
     },
@@ -65,7 +57,7 @@
         "bindings": [
             1,
             0,
-            "2021-08-30 00:01:38",
+            "2021-08-30 00:01:29",
             "bcad5775-d072-5354-9869-13a0ed45d98f"
         ]
     }

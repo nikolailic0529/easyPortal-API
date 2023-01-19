@@ -144,11 +144,6 @@ class ResellersProcessorTest extends TestCase {
             'id' => Str::uuid()->toString(),
         ]);
 
-        $this->setSettings([
-            'ep.contract_types' => [$contractType->getKey()],
-            'ep.quote_types'    => [$quoteType->getKey()],
-        ]);
-
         ResellerCustomer::factory()->create([
             'id'           => Str::uuid()->toString(),
             'reseller_id'  => $resellerA,

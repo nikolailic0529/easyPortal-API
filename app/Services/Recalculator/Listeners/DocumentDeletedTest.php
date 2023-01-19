@@ -42,16 +42,26 @@ class DocumentDeletedTest extends TestCase {
         $type              = Type::factory()->create();
         $status            = Status::factory()->create();
         $contractVisible   = Document::factory()->create([
-            'type_id' => $type,
-            'price'   => null,
-            'end'     => Date::now(),
+            'type_id'     => $type,
+            'price'       => null,
+            'end'         => Date::now(),
+            'is_hidden'   => false,
+            'is_contract' => true,
+            'is_quote'    => false,
         ]);
         $contractInvisible = Document::factory()->create([
-            'type_id' => $type,
-            'price'   => null,
-            'end'     => Date::now()->subDay(),
+            'type_id'     => $type,
+            'price'       => null,
+            'end'         => Date::now()->subDay(),
+            'is_hidden'   => true,
+            'is_contract' => true,
+            'is_quote'    => false,
         ]);
-        $quote             = Document::factory()->create();
+        $quote             = Document::factory()->create([
+            'is_hidden'   => false,
+            'is_contract' => false,
+            'is_quote'    => true,
+        ]);
         $assetA            = Asset::factory()->create([
             'warranty_end' => $contractVisible->end,
         ]);
@@ -78,11 +88,6 @@ class DocumentDeletedTest extends TestCase {
         AssetWarranty::factory()->create([
             'document_id' => $contractVisible,
             'asset_id'    => $assetB,
-        ]);
-
-        $this->setSettings([
-            'ep.document_statuses_hidden' => [$status->getKey()],
-            'ep.contract_types'           => [$type->getKey()],
         ]);
 
         $this->override(Recalculator::class, static function (MockInterface $mock) use ($assetA): void {
