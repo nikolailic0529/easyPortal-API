@@ -32,7 +32,6 @@ use Tests\DataProviders\GraphQL\Organizations\AuthOrgDataProvider;
 use Tests\DataProviders\GraphQL\Organizations\OrgRootDataProvider;
 use Tests\DataProviders\GraphQL\Users\OrgUserDataProvider;
 use Tests\GraphQL\GraphQLPaginated;
-use Tests\GraphQL\JsonFragment;
 use Tests\TestCase;
 use Tests\WithOrganization;
 use Tests\WithSettings;
@@ -365,7 +364,7 @@ class QuotesTest extends TestCase {
 
             $location->resellers()->attach($reseller);
 
-            // Customer Creation creation belongs to
+            // Customer
             $customer = Customer::factory()
                 ->hasContacts(1, [
                     'name'        => 'contact1',
@@ -381,6 +380,10 @@ class QuotesTest extends TestCase {
                     'changed_at'      => '2021-10-19 10:15:00',
                     'synced_at'       => '2021-10-19 10:25:00',
                 ]);
+
+            $customer->resellers()->attach($reseller, [
+                'assets_count' => 0,
+            ]);
 
             CustomerLocation::factory()->create([
                 'customer_id' => $customer,
@@ -500,6 +503,9 @@ class QuotesTest extends TestCase {
                     'price'          => 100,
                     'start'          => '2021-01-01',
                     'end'            => '2024-01-01',
+                    'is_hidden'      => false,
+                    'is_contract'    => false,
+                    'is_quote'       => true,
                     'assets_count'   => 1,
                     'entries_count'  => 2,
                     'contacts_count' => 3,
@@ -508,25 +514,29 @@ class QuotesTest extends TestCase {
                     'synced_at'      => '2021-10-19 10:25:00',
                 ]);
 
+            // Hidden
             Document::factory()
                 ->for($distributor)
                 ->for($reseller)
                 ->for($customer)
                 ->for($type)
-                ->hasStatuses(1, [
-                    'id' => '418cc9fb-4f64-49b7-b691-ebfcb7ae61d2',
-                ])
-                ->create();
+                ->create([
+                    'is_hidden'   => true,
+                    'is_contract' => false,
+                    'is_quote'    => true,
+                ]);
 
-            Document::factory()->ownedBy($org)->create([
-                'type_id' => Type::factory()->create([
-                    'id' => 'd4ad2f4f-7751-4cd2-a6be-71bcee84f37a',
-                ]),
-            ]);
-
-            $customer->resellers()->attach($reseller, [
-                'assets_count' => 0,
-            ]);
+            // Contract
+            Document::factory()
+                ->for($distributor)
+                ->for($reseller)
+                ->for($customer)
+                ->for($type)
+                ->create([
+                    'is_hidden'   => true,
+                    'is_contract' => true,
+                    'is_quote'    => false,
+                ]);
         };
         $objects = [
             [
@@ -758,19 +768,14 @@ class QuotesTest extends TestCase {
                     'ok' => [
                         new GraphQLPaginated('quotes'),
                         [
-                            'ep.quote_types' => [
-                                'f9834bc1-2f2f-4c57-bb8d-7a224ac24985',
-                            ],
+                            // true
                         ],
-                        static function (TestCase $test, Organization $organization): Document {
-                            $type     = Type::factory()->create([
-                                'id' => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24985',
+                        static function (): Document {
+                            return Document::factory()->create([
+                                'is_hidden'   => false,
+                                'is_contract' => false,
+                                'is_quote'    => true,
                             ]);
-                            $document = Document::factory()->create([
-                                'type_id' => $type,
-                            ]);
-
-                            return $document;
                         },
                     ],
                 ]),
@@ -781,7 +786,7 @@ class QuotesTest extends TestCase {
                     'quotes-view',
                 ]),
                 new ArrayDataProvider([
-                    'quote_types match'                         => [
+                    'ok' => [
                         new GraphQLPaginated('quotes', $objects, [
                             'count'            => count($objects),
                             'groups'           => [
@@ -795,104 +800,9 @@ class QuotesTest extends TestCase {
                             ],
                         ]),
                         [
-                            'ep.document_statuses_hidden' => [
-                                '418cc9fb-4f64-49b7-b691-ebfcb7ae61d2',
-                            ],
-                            'ep.quote_types'              => [
-                                'f9834bc1-2f2f-4c57-bb8d-7a224ac24985',
-                            ],
+                            // empty
                         ],
                         $factory,
-                    ],
-                    'no quote_types + contract_types not match' => [
-                        new GraphQLPaginated('quotes', $objects, [
-                            'count'            => count($objects),
-                            'groups'           => [
-                                [
-                                    'key'   => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24986',
-                                    'count' => count($objects),
-                                ],
-                            ],
-                            'groupsAggregated' => [
-                                'count' => 1,
-                            ],
-                        ]),
-                        [
-                            'ep.document_statuses_hidden' => [
-                                '418cc9fb-4f64-49b7-b691-ebfcb7ae61d2',
-                            ],
-                            'ep.contract_types'           => [
-                                'd4ad2f4f-7751-4cd2-a6be-71bcee84f37a',
-                            ],
-                            'ep.quote_types'              => [
-                                // empty
-                            ],
-                        ],
-                        $factory,
-                    ],
-                    'no quote_types + contract_types match'     => [
-                        new GraphQLPaginated(
-                            'quotes',
-                            new JsonFragment('0.id', '"2bf6d64b-df97-401c-9abd-dc2dd747e2b0"'),
-                        ),
-                        [
-                            'ep.contract_types' => [
-                                'f9834bc1-2f2f-4c57-bb8d-7a224ac24985',
-                            ],
-                            'ep.quote_types'    => [
-                                // empty
-                            ],
-                        ],
-                        static function (TestCase $test, Organization $org): void {
-                            $customer = Customer::factory()->create([
-                                'id' => $org,
-                            ]);
-                            $reseller = Reseller::factory()->create([
-                                'id' => $org,
-                            ]);
-
-                            $customer->resellers()->attach($reseller);
-
-                            Document::factory()->create([
-                                'id'          => '2bf6d64b-df97-401c-9abd-dc2dd747e2b0',
-                                'type_id'     => Type::factory(),
-                                'customer_id' => $customer,
-                                'reseller_id' => $reseller,
-                            ]);
-                        },
-                    ],
-                    'quote_types not match'                     => [
-                        new GraphQLPaginated('quotes', [], [
-                            'count'            => 0,
-                            'groups'           => [],
-                            'groupsAggregated' => [
-                                'count' => 0,
-                            ],
-                        ]),
-                        [
-                            'ep.quote_types' => [
-                                'f9834bc1-2f2f-4c57-bb8d-7a224ac24985',
-                            ],
-                        ],
-                        static function (TestCase $test, Organization $org): void {
-                            Document::factory()->ownedBy($org)->create();
-                        },
-                    ],
-                    'no quote_types + no contract_types'        => [
-                        new GraphQLPaginated('quotes', [], [
-                            'count'            => 0,
-                            'groups'           => [],
-                            'groupsAggregated' => [
-                                'count' => 0,
-                            ],
-                        ]),
-                        [
-                            'ep.contract_types' => [],
-                            'ep.quote_types'    => [],
-                        ],
-                        static function (TestCase $test, Organization $org): void {
-                            Document::factory()->ownedBy($org)->create();
-                        },
                     ],
                 ]),
             ),

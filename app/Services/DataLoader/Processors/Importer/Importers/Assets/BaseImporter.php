@@ -73,11 +73,9 @@ abstract class BaseImporter extends Importer {
             ->prefetch($data->get(Customer::class));
 
         // Documents
-        $documents = $documentsResolver
+        $documentsResolver
             ->prefetch($data->get(Document::class))
             ->getResolved();
-
-        $documents->loadMissing('statuses');
     }
 
     /**

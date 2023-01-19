@@ -21,8 +21,6 @@ use Tests\WithSearch;
 use Tests\WithSettings;
 use Tests\WithUser;
 
-use function count;
-
 /**
  * @internal
  * @covers \App\GraphQL\Queries\Quotes\QuotesSearch
@@ -54,9 +52,7 @@ class QuotesSearchTest extends TestCase {
         $org  = $this->setOrganization($orgFactory);
         $user = $this->setUser($userFactory, $org);
 
-        if ($settingsFactory) {
-            $this->setSettings($settingsFactory);
-        }
+        $this->setSettings($settingsFactory);
 
         if ($quotesFactory) {
             $this->makeSearchable($quotesFactory($this, $org, $user));
@@ -84,28 +80,6 @@ class QuotesSearchTest extends TestCase {
      * @return array<mixed>
      */
     public function dataProviderQuery(): array {
-        $factory = static function (TestCase $test, Organization $org): Collection {
-            return new Collection([
-                Document::factory()->ownedBy($org)->create([
-                    'id'      => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24981',
-                    'type_id' => Type::factory()->create([
-                        'id' => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24985',
-                    ]),
-                ]),
-                Document::factory()->ownedBy($org)->create([
-                    'id'      => 'af96eb34-def6-40e1-b346-ca449017f393',
-                    'type_id' => Type::factory()->create([
-                        'id' => 'd4ad2f4f-7751-4cd2-a6be-71bcee84f37a',
-                    ]),
-                ]),
-            ]);
-        };
-        $objects = [
-            [
-                'id' => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24981',
-            ],
-        ];
-
         return (new MergeDataProvider([
             'root'         => new CompositeDataProvider(
                 new OrgRootDataProvider('quotesSearch'),
@@ -116,16 +90,16 @@ class QuotesSearchTest extends TestCase {
                     'ok' => [
                         new GraphQLPaginated('quotesSearch'),
                         [
-                            'ep.document_statuses_hidden' => [],
-                            'ep.quote_types'              => [
-                                'f9834bc1-2f2f-4c57-bb8d-7a224ac24985',
-                            ],
+                            // empty
                         ],
                         static function (TestCase $test, Organization $org): Document {
                             return Document::factory()->ownedBy($org)->create([
-                                'type_id' => Type::factory()->create([
+                                'type_id'     => Type::factory()->create([
                                     'id' => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24985',
                                 ]),
+                                'is_hidden'   => false,
+                                'is_contract' => false,
+                                'is_quote'    => true,
                             ]);
                         },
                     ],
@@ -137,43 +111,12 @@ class QuotesSearchTest extends TestCase {
                     'quotes-view',
                 ]),
                 new ArrayDataProvider([
-                    'quote_types match'                         => [
-                        new GraphQLPaginated('quotesSearch', $objects, [
-                            'count' => count($objects),
-                        ]),
-                        [
-                            'ep.document_statuses_hidden' => [
-                                '12dcd0c7-2fac-4140-8808-4a72aa8600ab',
-                            ],
-                            'ep.quote_types'              => [
-                                'f9834bc1-2f2f-4c57-bb8d-7a224ac24985',
-                            ],
-                        ],
-                        $factory,
-                    ],
-                    'no quote_types + contract_types not match' => [
-                        new GraphQLPaginated('quotesSearch', $objects, [
-                            'count' => count($objects),
-                        ]),
-                        [
-                            'ep.document_statuses_hidden' => [
-                                '12dcd0c7-2fac-4140-8808-4a72aa8600ab',
-                            ],
-                            'ep.contract_types'           => [
-                                'd4ad2f4f-7751-4cd2-a6be-71bcee84f37a',
-                            ],
-                            'ep.quote_types'              => [
-                                // empty
-                            ],
-                        ],
-                        $factory,
-                    ],
-                    'no quote_types + contract_types match'     => [
+                    'ok'                  => [
                         new GraphQLPaginated(
                             'quotesSearch',
                             [
                                 [
-                                    'id' => '2bf6d64b-df97-401c-9abd-dc2dd747e2b0',
+                                    'id' => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24981',
                                 ],
                             ],
                             [
@@ -181,45 +124,56 @@ class QuotesSearchTest extends TestCase {
                             ],
                         ),
                         [
-                            'ep.document_statuses_hidden' => [],
-                            'ep.contract_types'           => [
-                                'f9834bc1-2f2f-4c57-bb8d-7a224ac24985',
-                            ],
-                            'ep.quote_types'              => [
-                                // empty
-                            ],
+                            // empty
                         ],
-                        static function (TestCase $test, Organization $org): Document {
-                            return Document::factory()->ownedBy($org)->create([
-                                'id' => '2bf6d64b-df97-401c-9abd-dc2dd747e2b0',
+                        static function (TestCase $test, ?Organization $org): Collection {
+                            return new Collection([
+                                Document::factory()->ownedBy($org)->create([
+                                    'id'          => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24981',
+                                    'type_id'     => Type::factory()->create([
+                                        'id' => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24985',
+                                    ]),
+                                    'is_hidden'   => false,
+                                    'is_contract' => false,
+                                    'is_quote'    => true,
+                                ]),
+                                Document::factory()->create([
+                                    'type_id'     => Type::factory()->create(),
+                                    'is_hidden'   => false,
+                                    'is_contract' => false,
+                                    'is_quote'    => true,
+                                ]),
                             ]);
                         },
                     ],
-                    'quote_types not match'                     => [
+                    'is_document = false' => [
                         new GraphQLPaginated('quotesSearch', [], [
                             'count' => 0,
                         ]),
                         [
-                            'ep.document_statuses_hidden' => [],
-                            'ep.quote_types'              => [
-                                'f9834bc1-2f2f-4c57-bb8d-7a224ac24985',
-                            ],
+                            // empty
                         ],
                         static function (TestCase $test, Organization $org): Document {
-                            return Document::factory()->ownedBy($org)->create();
+                            return Document::factory()->ownedBy($org)->create([
+                                'is_hidden'   => false,
+                                'is_contract' => false,
+                                'is_quote'    => false,
+                            ]);
                         },
                     ],
-                    'no quote_types + no contract_types'        => [
+                    'is_contract = true'  => [
                         new GraphQLPaginated('quotesSearch', [], [
                             'count' => 0,
                         ]),
                         [
-                            'ep.document_statuses_hidden' => [],
-                            'ep.contract_types'           => [],
-                            'ep.quote_types'              => [],
+                            // empty
                         ],
                         static function (TestCase $test, Organization $org): Document {
-                            return Document::factory()->ownedBy($org)->create();
+                            return Document::factory()->ownedBy($org)->create([
+                                'is_hidden'   => false,
+                                'is_contract' => true,
+                                'is_quote'    => false,
+                            ]);
                         },
                     ],
                 ]),

@@ -3,14 +3,20 @@
 namespace App\GraphQL\Queries\Contracts;
 
 use App\Models\Data\Type;
-use App\Models\Document;
+use App\Models\Scopes\DocumentIsContractScope;
 use Illuminate\Database\Eloquent\Builder;
 
 class ContractTypes {
+    public function __construct(
+        protected DocumentIsContractScope $scope,
+    ) {
+        // empty
+    }
+
+    /**
+     * @return Builder<Type>
+     */
     public function __invoke(): Builder {
-        return Type::query()
-            ->queryContracts()
-            ->where('object_type', '=', (new Document())->getMorphClass())
-            ->orderByKey();
+        return $this->scope->getTypeQuery();
     }
 }

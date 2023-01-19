@@ -2,52 +2,51 @@
 
 namespace App\Models\Scopes;
 
-use App\Models\Data\Type;
 use App\Models\Document;
 use App\Utils\Eloquent\Model;
 use Illuminate\Container\Container;
 use Illuminate\Database\Eloquent\Builder;
 
 /**
- * @see DocumentTypeScope
+ * @see DocumentIsDocumentScope
  *
  * @mixin Model
  *
- * @template TModel of Document|Type
- *
- * @method Builder<TModel> queryContracts()
- * @method Builder<TModel> queryDocuments()
- * @method Builder<TModel> queryQuotes()
+ * @method Builder<Document> queryContracts()
+ * @method Builder<Document> queryDocuments()
+ * @method Builder<Document> queryQuotes()
  */
-trait DocumentTypeQueries {
+trait DocumentScopes {
     /**
-     * @template T of Builder<TModel>
+     * @template T of Builder<Document>
      *
      * @param T $builder
      *
      * @return T
      */
     public function scopeQueryContracts(Builder $builder): Builder {
-        Container::getInstance()->make(DocumentTypeContractScope::class)->apply($builder, $this);
+        Container::getInstance()->make(DocumentIsHiddenScope::class)->applyForce($builder, $this);
+        Container::getInstance()->make(DocumentIsContractScope::class)->apply($builder, $this);
 
         return $builder;
     }
 
     /**
-     * @template T of Builder<TModel>
+     * @template T of Builder<Document>
      *
      * @param T $builder
      *
      * @return T
      */
     public function scopeQueryQuotes(Builder $builder): Builder {
-        Container::getInstance()->make(DocumentTypeQuoteType::class)->apply($builder, $this);
+        Container::getInstance()->make(DocumentIsHiddenScope::class)->applyForce($builder, $this);
+        Container::getInstance()->make(DocumentIsQuoteScope::class)->apply($builder, $this);
 
         return $builder;
     }
 
     /**
-     * @template T of Builder<TModel>
+     * @template T of Builder<Document>
      *
      * @param T $builder
      *

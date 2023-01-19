@@ -936,10 +936,7 @@ class AssetTest extends TestCase {
                             'synced_at'                 => '2021-10-19T10:25:00+00:00',
                         ]),
                         [
-                            'ep.document_statuses_hidden' => [],
-                            'ep.contract_types'           => [
-                                'f3cb1fac-b454-4f23-bbb4-f3d84a1690ae',
-                            ],
+                            // empty
                         ],
                         static function (TestCase $test, Organization $org, User $user): Asset {
                             // OEM Creation belongs to
@@ -1041,12 +1038,11 @@ class AssetTest extends TestCase {
                             ]);
 
                             // Document creation for support
-                            $documentType = Type::factory()->create([
-                                'id' => 'f3cb1fac-b454-4f23-bbb4-f3d84a1690ae',
-                            ]);
-                            $document     = Document::factory()->ownedBy($org)->create([
+                            $document = Document::factory()->ownedBy($org)->create([
                                 'id'          => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24988',
-                                'type_id'     => $documentType,
+                                'is_hidden'   => false,
+                                'is_contract' => true,
+                                'is_quote'    => false,
                                 'reseller_id' => $reseller,
                                 'number'      => 'b0a1c3e2-95a7-4ef3-a42e-33c3a7c577fe',
                             ]);
@@ -1334,6 +1330,9 @@ class AssetTest extends TestCase {
             $document = Document::factory()->ownedBy($org)->create([
                 'id'            => '2d275acf-b4a3-43f4-9604-61c82742753b',
                 'type_id'       => $type,
+                'is_hidden'     => false,
+                'is_contract'   => true,
+                'is_quote'      => false,
                 'entries_count' => 3,
             ]);
 
@@ -1394,7 +1393,7 @@ class AssetTest extends TestCase {
                     'contracts-view',
                 ]),
                 new ArrayDataProvider([
-                    'ok'             => [
+                    'ok'                  => [
                         new GraphQLSuccess(
                             'asset',
                             [
@@ -1433,51 +1432,47 @@ class AssetTest extends TestCase {
                             ],
                         ),
                         [
-                            'ep.document_statuses_hidden' => [],
-                            'ep.contract_types'           => [
-                                'f9834bc1-2f2f-4c57-bb8d-7a224ac24985',
-                            ],
+                            // empty
                         ],
                         $factory,
                     ],
-                    'no types'       => [
+                    'is_hidden = true'    => [
                         new GraphQLSuccess('asset', $empty),
                         [
-                            'ep.document_statuses_hidden' => [],
-                            'ep.contract_types'           => [
-                                // empty
-                            ],
-                        ],
-                        $factory,
-                    ],
-                    'type not match' => [
-                        new GraphQLSuccess('asset', $empty),
-                        [
-                            'ep.document_statuses_hidden' => [],
-                            'ep.contract_types'           => [
-                                '0b341ea2-044e-438a-af46-adfe23d73a39',
-                            ],
-                        ],
-                        $factory,
-                    ],
-                    'not allowed'    => [
-                        new GraphQLSuccess('asset', $empty),
-                        [
-                            'ep.document_statuses_hidden' => [],
-                            'ep.contract_types'           => [
-                                'f9834bc1-2f2f-4c57-bb8d-7a224ac24985',
-                            ],
+                            // empty
                         ],
                         static function (TestCase $test, Organization $org): Asset {
-                            $type     = Type::factory()->create();
                             $asset    = Asset::factory()->ownedBy($org)->create();
-                            $document = Document::factory()->create([
-                                'type_id' => $type,
+                            $document = Document::factory()->ownedBy($org)->create([
+                                'is_hidden'   => true,
+                                'is_contract' => true,
+                                'is_quote'    => false,
                             ]);
 
                             DocumentEntry::factory()->create([
-                                'document_id' => $document,
                                 'asset_id'    => $asset,
+                                'document_id' => $document,
+                            ]);
+
+                            return $asset;
+                        },
+                    ],
+                    'is_contract = false' => [
+                        new GraphQLSuccess('asset', $empty),
+                        [
+                            // empty
+                        ],
+                        static function (TestCase $test, Organization $org): Asset {
+                            $asset    = Asset::factory()->ownedBy($org)->create();
+                            $document = Document::factory()->ownedBy($org)->create([
+                                'is_hidden'   => false,
+                                'is_contract' => false,
+                                'is_quote'    => true,
+                            ]);
+
+                            DocumentEntry::factory()->create([
+                                'asset_id'    => $asset,
+                                'document_id' => $document,
                             ]);
 
                             return $asset;
@@ -1502,6 +1497,8 @@ class AssetTest extends TestCase {
             $document = Document::factory()->ownedBy($org)->create([
                 'id'            => '2d275acf-b4a3-43f4-9604-61c82742753b',
                 'type_id'       => $type,
+                'is_hidden'     => false,
+                'is_quote'      => true,
                 'entries_count' => 3,
             ]);
 
@@ -1596,78 +1593,52 @@ class AssetTest extends TestCase {
                     'quotes-view',
                 ]),
                 new ArrayDataProvider([
-                    'ok'                                        => [
+                    'ok'               => [
                         new GraphQLSuccess('asset', $quotes),
                         [
-                            'ep.document_statuses_hidden' => [],
-                            'ep.quote_types'              => [
-                                'f9834bc1-2f2f-4c57-bb8d-7a224ac24985',
-                            ],
+                            // empty
                         ],
                         $factory,
                     ],
-                    'not allowed'                               => [
+                    'is_hidden = true' => [
                         new GraphQLSuccess('asset', $empty),
                         [
-                            'ep.document_statuses_hidden' => [],
-                            'ep.contract_types'           => [],
+                            // empty
                         ],
                         static function (TestCase $test, Organization $org): Asset {
-                            $type     = Type::factory()->create();
                             $asset    = Asset::factory()->ownedBy($org)->create();
-                            $document = Document::factory()->create([
-                                'type_id' => $type,
+                            $document = Document::factory()->ownedBy($org)->create([
+                                'is_hidden' => true,
+                                'is_quote'  => true,
                             ]);
 
                             DocumentEntry::factory()->create([
-                                'document_id' => $document,
                                 'asset_id'    => $asset,
+                                'document_id' => $document,
                             ]);
 
                             return $asset;
                         },
                     ],
-                    'no quote_types + contract_types not match' => [
-                        new GraphQLSuccess('asset', $quotes),
-                        [
-                            'ep.document_statuses_hidden' => [],
-                            'ep.contract_types'           => [
-                                'd4ad2f4f-7751-4cd2-a6be-71bcee84f37a',
-                            ],
-                            'ep.quote_types'              => [
-                                // empty
-                            ],
-                        ],
-                        $factory,
-                    ],
-                    'no quote_types + contract_types match'     => [
+                    'is_quote = false' => [
                         new GraphQLSuccess('asset', $empty),
                         [
-                            'ep.document_statuses_hidden' => [],
-                            'ep.contract_types'           => [
-                                'f9834bc1-2f2f-4c57-bb8d-7a224ac24985',
-                            ],
+                            // empty
                         ],
-                        $factory,
-                    ],
-                    'quote_types not match'                     => [
-                        new GraphQLSuccess('asset', $empty),
-                        [
-                            'ep.document_statuses_hidden' => [],
-                            'ep.quote_types'              => [
-                                'f9834bc1-2f2f-4c57-bb8d-7a224ac2498a',
-                            ],
-                        ],
-                        $factory,
-                    ],
-                    'no quote_types + no contract_types'        => [
-                        new GraphQLSuccess('asset', $empty),
-                        [
-                            'ep.document_statuses_hidden' => [],
-                            'ep.contract_types'           => [],
-                            'ep.quote_types'              => [],
-                        ],
-                        $factory,
+                        static function (TestCase $test, Organization $org): Asset {
+                            $asset    = Asset::factory()->ownedBy($org)->create();
+                            $document = Document::factory()->ownedBy($org)->create([
+                                'is_hidden' => false,
+                                'is_quote'  => false,
+                            ]);
+
+                            DocumentEntry::factory()->create([
+                                'asset_id'    => $asset,
+                                'document_id' => $document,
+                            ]);
+
+                            return $asset;
+                        },
                     ],
                 ]),
             ),

@@ -5,8 +5,8 @@ namespace App\GraphQL\Queries;
 use App\Models\Asset;
 use App\Models\Customer;
 use App\Models\Document;
-use App\Models\Scopes\DocumentTypeContractScope;
-use App\Models\Scopes\DocumentTypeQuoteType;
+use App\Models\Scopes\DocumentIsContractScope;
+use App\Models\Scopes\DocumentIsQuoteScope;
 use App\Services\Search\Builders\UnionBuilder;
 use App\Services\Search\Eloquent\UnionModel;
 use Illuminate\Contracts\Auth\Access\Gate;
@@ -46,9 +46,9 @@ class Search {
         if ($this->gate->check(['contracts-view', 'quotes-view'])) {
             $models[Document::class] = [];
         } elseif ($this->gate->check(['contracts-view'])) {
-            $models[Document::class] = [DocumentTypeContractScope::class];
+            $models[Document::class] = [DocumentIsContractScope::class];
         } elseif ($this->gate->check(['quotes-view'])) {
-            $models[Document::class] = [DocumentTypeQuoteType::class];
+            $models[Document::class] = [DocumentIsQuoteScope::class];
         } else {
             // empty
         }

@@ -34,7 +34,10 @@ class DocumentsProcessor extends Processor {
      * @param Document                $item
      */
     protected function process(State $state, mixed $data, mixed $item): void {
-        $item = $this->syncAttributes($item);
+        $item              = $this->syncAttributes($item);
+        $item->is_hidden   = Document::isHidden($item->statuses);
+        $item->is_contract = Document::isContractType($item->type_id);
+        $item->is_quote    = Document::isQuoteType($item->type_id);
 
         foreach ($item->entries as $entry) {
             $this->syncAttributes($entry->setRelation('document', $item))->save();

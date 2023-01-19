@@ -23,6 +23,7 @@ use App\Models\Organization;
 use App\Models\Reseller;
 use App\Models\ResellerCustomer;
 use App\Models\ResellerLocation;
+use App\Models\User;
 use Closure;
 use LastDragon_ru\LaraASP\Testing\Constraints\Response\Response;
 use LastDragon_ru\LaraASP\Testing\Providers\ArrayDataProvider;
@@ -54,7 +55,7 @@ class ContractsTest extends TestCase {
      * @param OrganizationFactory                              $orgFactory
      * @param UserFactory                                      $userFactory
      * @param SettingsFactory                                  $settingsFactory
-     * @param Closure(static, ?Organization, ?User): void|null $contractsFactory ,
+     * @param Closure(static, ?Organization, ?User): void|null $contractsFactory
      */
     public function testQuery(
         Response $expected,
@@ -324,19 +325,14 @@ class ContractsTest extends TestCase {
                     'ok' => [
                         new GraphQLPaginated('contracts'),
                         [
-                            'ep.contract_types' => [
-                                'f9834bc1-2f2f-4c57-bb8d-7a224ac24985',
-                            ],
+                            // empty
                         ],
                         static function (TestCase $test, Organization $org): Document {
-                            $type     = Type::factory()->create([
-                                'id' => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24985',
+                            return Document::factory()->ownedBy($org)->create([
+                                'is_hidden'   => false,
+                                'is_contract' => true,
+                                'is_quote'    => false,
                             ]);
-                            $document = Document::factory()->ownedBy($org)->create([
-                                'type_id' => $type,
-                            ]);
-
-                            return $document;
                         },
                     ],
                 ]),
@@ -347,7 +343,7 @@ class ContractsTest extends TestCase {
                     'contracts-view',
                 ]),
                 new ArrayDataProvider([
-                    'ok'             => [
+                    'ok' => [
                         new GraphQLPaginated(
                             'contracts',
                             [
@@ -583,12 +579,7 @@ class ContractsTest extends TestCase {
                             ],
                         ),
                         [
-                            'ep.document_statuses_hidden' => [
-                                '23a609cc-fd52-4547-a731-143597b69e9b',
-                            ],
-                            'ep.contract_types'           => [
-                                'f9834bc1-2f2f-4c57-bb8d-7a224ac24985',
-                            ],
+                            // empty
                         ],
                         static function (TestCase $test, Organization $org): void {
                             // OEM Creation belongs to
@@ -774,6 +765,9 @@ class ContractsTest extends TestCase {
                                     'price'          => 100,
                                     'start'          => '2021-01-01',
                                     'end'            => '2024-01-01',
+                                    'is_hidden'      => false,
+                                    'is_contract'    => true,
+                                    'is_quote'       => false,
                                     'assets_count'   => 0,
                                     'entries_count'  => 2,
                                     'contacts_count' => 3,
@@ -782,53 +776,29 @@ class ContractsTest extends TestCase {
                                     'synced_at'      => '2021-10-19 10:25:00',
                                 ]);
 
-                            Document::factory()->create([
-                                'type_id' => Type::factory()->create(),
-                            ]);
-
+                            // Quote
                             Document::factory()
                                 ->for($distributor)
                                 ->for($reseller)
                                 ->for($customer)
                                 ->for($type)
-                                ->hasStatuses(1, [
-                                    'id' => '23a609cc-fd52-4547-a731-143597b69e9b',
-                                ])
-                                ->create();
-                        },
-                    ],
-                    'no types'       => [
-                        new GraphQLPaginated('contracts', [
-                            // empty
-                        ]),
-                        [
-                            'ep.contract_types' => [
-                                // empty
-                            ],
-                        ],
-                        static function (TestCase $test, Organization $organization): void {
-                            Document::factory()->create([
-                                'reseller_id' => Reseller::factory()->create([
-                                    'id' => $organization,
-                                ]),
-                            ]);
-                        },
-                    ],
-                    'type not match' => [
-                        new GraphQLPaginated('contracts', [
-                            // empty
-                        ]),
-                        [
-                            'ep.contract_types' => [
-                                'f9834bc1-2f2f-4c57-bb8d-7a224ac24985',
-                            ],
-                        ],
-                        static function (TestCase $test, Organization $organization): void {
-                            Document::factory()->create([
-                                'reseller_id' => Reseller::factory()->create([
-                                    'id' => $organization,
-                                ]),
-                            ]);
+                                ->create([
+                                    'is_hidden'   => false,
+                                    'is_contract' => false,
+                                    'is_quote'    => true,
+                                ]);
+
+                            // Hidden
+                            Document::factory()
+                                ->for($distributor)
+                                ->for($reseller)
+                                ->for($customer)
+                                ->for($type)
+                                ->create([
+                                    'is_hidden'   => true,
+                                    'is_contract' => true,
+                                    'is_quote'    => false,
+                                ]);
                         },
                     ],
                 ]),

@@ -513,7 +513,7 @@ class AssetFactoryTest extends TestCase {
         $resolver = Mockery::mock(DocumentResolver::class);
         $resolver
             ->shouldReceive('prefetch')
-            ->with(['a' => 'a', 'b' => 'b'], Mockery::any())
+            ->with(['a' => 'a', 'b' => 'b'])
             ->once()
             ->andReturns();
 

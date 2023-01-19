@@ -26,7 +26,7 @@ class DocumentDeleted implements EventsProvider {
     public function __invoke(Document $document): void {
         // Visible Contract?
         /* @see Asset::getLastWarranty() */
-        if (!$document->is_visible || !$document->is_contract) {
+        if ($document->is_hidden || !$document->is_contract) {
             return;
         }
 

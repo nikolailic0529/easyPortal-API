@@ -64,20 +64,11 @@ class QuoteTest extends TestCase {
         Closure $quoteFactory = null,
     ): void {
         // Prepare
-        $org  = $this->setOrganization($orgFactory);
-        $user = $this->setUser($userFactory, $org);
-
-        $quoteId = 'wrong';
-
-        if ($quoteFactory) {
-            $quote   = $quoteFactory($this, $org, $user);
-            $quoteId = $quote->getKey();
-
-            $this->setSettings([
-                'ep.document_statuses_hidden' => [],
-                'ep.quote_types'              => [$quote->type_id],
-            ]);
-        }
+        $org     = $this->setOrganization($orgFactory);
+        $user    = $this->setUser($userFactory, $org);
+        $quoteId = $quoteFactory
+            ? $quoteFactory($this, $org, $user)->getKey()
+            : $this->faker->uuid();
 
         // Test
         $this
@@ -315,20 +306,11 @@ class QuoteTest extends TestCase {
         Closure $quoteFactory = null,
     ): void {
         // Prepare
-        $org  = $this->setOrganization($orgFactory);
-        $user = $this->setUser($userFactory, $org);
-
-        $quoteId = 'wrong';
-
-        if ($quoteFactory) {
-            $quote   = $quoteFactory($this, $org, $user);
-            $quoteId = $quote->getKey();
-
-            $this->setSettings([
-                'ep.document_statuses_hidden' => [],
-                'ep.quote_types'              => [$quote->type_id],
-            ]);
-        }
+        $org     = $this->setOrganization($orgFactory);
+        $user    = $this->setUser($userFactory, $org);
+        $quoteId = $quoteFactory
+            ? $quoteFactory($this, $org, $user)->getKey()
+            : $this->faker->uuid();
 
         // Test
         $this
@@ -394,16 +376,9 @@ class QuoteTest extends TestCase {
         // Prepare
         $org     = $this->setOrganization($orgFactory);
         $user    = $this->setUser($userFactory, $org);
-        $quoteId = $this->faker->uuid();
-
-        if ($quoteFactory) {
-            $quote   = $quoteFactory($this, $org, $user);
-            $quoteId = $quote->getKey();
-
-            $this->setSettings([
-                'ep.quote_types' => [$quote->type_id],
-            ]);
-        }
+        $quoteId = $quoteFactory
+            ? $quoteFactory($this, $org, $user)->getKey()
+            : $this->faker->uuid();
 
         // Test
         $this
@@ -834,6 +809,9 @@ class QuoteTest extends TestCase {
                                     'price'          => 100,
                                     'start'          => '2021-01-01',
                                     'end'            => '2024-01-01',
+                                    'is_hidden'      => false,
+                                    'is_contract'    => false,
+                                    'is_quote'       => true,
                                     'assets_count'   => 1,
                                     'entries_count'  => 2,
                                     'contacts_count' => 3,
@@ -892,8 +870,12 @@ class QuoteTest extends TestCase {
                 new ArrayDataProvider([
                     'ok' => [
                         new GraphQLSuccess('quote'),
-                        static function (TestCase $test, Organization $organization): Document {
-                            return Document::factory()->create();
+                        static function (TestCase $test, Organization $org): Document {
+                            return Document::factory()->ownedBy($org)->create([
+                                'is_hidden'   => false,
+                                'is_contract' => false,
+                                'is_quote'    => true,
+                            ]);
                         },
                     ],
                 ]),
@@ -961,7 +943,10 @@ class QuoteTest extends TestCase {
                                 ->ownedBy($org)
                                 ->for($type)
                                 ->create([
-                                    'id' => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24981',
+                                    'id'          => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24981',
+                                    'is_hidden'   => false,
+                                    'is_contract' => false,
+                                    'is_quote'    => true,
                                 ]);
                             // Note
                             Note::factory()
@@ -1024,7 +1009,11 @@ class QuoteTest extends TestCase {
                     'ok' => [
                         new GraphQLSuccess('quote'),
                         static function (TestCase $test, Organization $org): Document {
-                            return Document::factory()->ownedBy($org)->create();
+                            return Document::factory()->ownedBy($org)->create([
+                                'is_hidden'   => false,
+                                'is_contract' => false,
+                                'is_quote'    => true,
+                            ]);
                         },
                     ],
                 ]),
@@ -1062,7 +1051,10 @@ class QuoteTest extends TestCase {
                         static function (TestCase $test, Organization $org, User $user): Document {
                             $organization = Organization::factory()->create();
                             $document     = Document::factory()->ownedBy($org)->create([
-                                'type_id' => Type::factory(),
+                                'type_id'     => Type::factory(),
+                                'is_hidden'   => false,
+                                'is_contract' => false,
+                                'is_quote'    => true,
                             ]);
 
                             ChangeRequest::factory()

@@ -82,9 +82,10 @@
         ]
     },
     {
-        "query": "select `reseller_id`, `customer_id`, count(*) as count from `documents` where `type_id` in (?) and (`customer_id` is null or `documents`.`customer_id` in (select distinct `customers`.`id` from `customers` where `customers`.`deleted_at` is null)) and `reseller_id` in (?, ?, ?, ?) and `documents`.`deleted_at` is null group by `reseller_id`, `customer_id`",
+        "query": "select `reseller_id`, `customer_id`, count(*) as count from `documents` where `is_hidden` = ? and `is_quote` = ? and (`customer_id` is null or `documents`.`customer_id` in (select distinct `customers`.`id` from `customers` where `customers`.`deleted_at` is null)) and `reseller_id` in (?, ?, ?, ?) and `documents`.`deleted_at` is null group by `reseller_id`, `customer_id`",
         "bindings": [
-            "09cfeeb6-65a4-5226-ad70-b3f341bf5234",
+            0,
+            1,
             "24f6313c-05e2-5f4f-b0a6-0b82191e8fc5",
             "81d95584-bdc4-5497-9ead-b81582b26bd2",
             "f6c8bd9b-1594-5e49-8bc1-353a52d0ad53",
@@ -92,9 +93,10 @@
         ]
     },
     {
-        "query": "select `reseller_id`, `customer_id`, count(*) as count from `documents` where `type_id` in (?) and (`customer_id` is null or `documents`.`customer_id` in (select distinct `customers`.`id` from `customers` where `customers`.`deleted_at` is null)) and `reseller_id` in (?, ?, ?, ?) and `documents`.`deleted_at` is null group by `reseller_id`, `customer_id`",
+        "query": "select `reseller_id`, `customer_id`, count(*) as count from `documents` where `is_hidden` = ? and `is_contract` = ? and (`customer_id` is null or `documents`.`customer_id` in (select distinct `customers`.`id` from `customers` where `customers`.`deleted_at` is null)) and `reseller_id` in (?, ?, ?, ?) and `documents`.`deleted_at` is null group by `reseller_id`, `customer_id`",
         "bindings": [
-            "78282ba7-a73f-59f8-9871-ba703198d433",
+            0,
+            1,
             "24f6313c-05e2-5f4f-b0a6-0b82191e8fc5",
             "81d95584-bdc4-5497-9ead-b81582b26bd2",
             "f6c8bd9b-1594-5e49-8bc1-353a52d0ad53",

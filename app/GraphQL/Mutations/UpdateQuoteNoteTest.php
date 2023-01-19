@@ -2,7 +2,6 @@
 
 namespace App\GraphQL\Mutations;
 
-use App\Models\Data\Type;
 use App\Models\Document;
 use App\Models\File;
 use App\Models\Note;
@@ -72,16 +71,6 @@ class UpdateQuoteNoteTest extends TestCase {
                 $org = $this->setOrganization(Organization::factory()->create());
             }
 
-            if (!$settingsFactory) {
-                $this->setSettings([
-                    'ep.document_statuses_hidden' => [],
-                    'ep.contract_types'           => ['f3cb1fac-b454-4f23-bbb4-f3d84a1699ac'],
-                ]);
-            }
-
-            $type = Type::factory()->create([
-                'id' => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ac',
-            ]);
             $data = [
                 'id'              => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699aa',
                 'organization_id' => $org->getKey(),
@@ -91,8 +80,10 @@ class UpdateQuoteNoteTest extends TestCase {
                 ->ownedBy($org)
                 ->hasNotes(1, $data)
                 ->create([
-                    'id'      => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699aa',
-                    'type_id' => $type->getKey(),
+                    'id'          => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699aa',
+                    'is_hidden'   => false,
+                    'is_contract' => false,
+                    'is_quote'    => true,
                 ]);
         }
 
@@ -179,13 +170,12 @@ class UpdateQuoteNoteTest extends TestCase {
      */
     public function dataProviderInvoke(): array {
         $prepare  = static function (TestCase $test, ?Organization $org, User $user): void {
-            $type     = Type::factory()->create([
-                'id' => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ad',
-            ]);
             $document = Document::factory()
                 ->ownedBy($org)
                 ->create([
-                    'type_id' => $type->getKey(),
+                    'is_hidden'   => false,
+                    'is_contract' => false,
+                    'is_quote'    => true,
                 ]);
             Note::factory()
                 ->ownedBy($org)
@@ -199,10 +189,8 @@ class UpdateQuoteNoteTest extends TestCase {
                 ]);
         };
         $settings = [
-            'ep.file.max_size'            => 250,
-            'ep.file.formats'             => ['csv'],
-            'ep.quote_types'              => ['f3cb1fac-b454-4f23-bbb4-f3d84a1699ad'],
-            'ep.document_statuses_hidden' => [],
+            'ep.file.max_size' => 250,
+            'ep.file.formats'  => ['csv'],
         ];
 
         return (new MergeDataProvider([
@@ -232,13 +220,12 @@ class UpdateQuoteNoteTest extends TestCase {
                         new GraphQLSuccess('updateQuoteNote'),
                         $settings,
                         static function (TestCase $test, ?Organization $org, User $user): void {
-                            $type     = Type::factory()->create([
-                                'id' => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ad',
-                            ]);
                             $document = Document::factory()
                                 ->ownedBy($org)
                                 ->create([
-                                    'type_id' => $type->getKey(),
+                                    'is_hidden'   => false,
+                                    'is_contract' => false,
+                                    'is_quote'    => true,
                                 ]);
                             $note     = Note::factory()
                                 ->ownedBy($org)
@@ -302,11 +289,10 @@ class UpdateQuoteNoteTest extends TestCase {
                         new GraphQLSuccess('updateQuoteNote'),
                         $settings,
                         static function (TestCase $test, ?Organization $org, User $user): void {
-                            $type     = Type::factory()->create([
-                                'id' => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ad',
-                            ]);
                             $document = Document::factory()->ownedBy($org)->create([
-                                'type_id' => $type->getKey(),
+                                'is_hidden'   => false,
+                                'is_contract' => false,
+                                'is_quote'    => true,
                             ]);
                             // File should not be deleted if files is not updated
                             Note::factory()
@@ -331,8 +317,7 @@ class UpdateQuoteNoteTest extends TestCase {
                             return [trans('errors.validation_failed')];
                         }),
                         [
-                            'ep.document_statuses_hidden' => [],
-                            'ep.contract_types'           => ['f3cb1fac-b454-4f23-bbb4-f3d84a1699ac'],
+                            // empty
                         ],
                         static function (TestCase $test, ?Organization $org): void {
                             Note::factory()->ownedBy($org)->create([
@@ -426,13 +411,12 @@ class UpdateQuoteNoteTest extends TestCase {
                         new GraphQLUnauthorized('updateQuoteNote'),
                         $settings,
                         static function (TestCase $test, ?Organization $org, User $user): void {
-                            $type     = Type::factory()->create([
-                                'id' => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ad',
-                            ]);
                             $document = Document::factory()
                                 ->ownedBy($org)
                                 ->create([
-                                    'type_id' => $type->getKey(),
+                                    'is_hidden'   => false,
+                                    'is_contract' => false,
+                                    'is_quote'    => true,
                                 ]);
                             $user2    = User::factory()->create();
                             $note     = Note::factory()

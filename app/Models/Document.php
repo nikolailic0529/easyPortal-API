@@ -17,12 +17,9 @@ use App\Models\Relations\HasOemNullable;
 use App\Models\Relations\HasResellerNullable;
 use App\Models\Relations\HasStatuses;
 use App\Models\Relations\HasTypeNullable;
-use App\Models\Scopes\DocumentStatusScope;
-use App\Models\Scopes\DocumentStatusScopeImpl;
-use App\Models\Scopes\DocumentTypeContractScope;
-use App\Models\Scopes\DocumentTypeQueries;
-use App\Models\Scopes\DocumentTypeQuoteType;
-use App\Models\Scopes\DocumentTypeScopeImpl;
+use App\Models\Scopes\DocumentIsDocumentScopeImpl;
+use App\Models\Scopes\DocumentIsHiddenScopeImpl;
+use App\Models\Scopes\DocumentScopes;
 use App\Services\Organization\Eloquent\OwnedByReseller;
 use App\Services\Organization\Eloquent\OwnedByResellerImpl;
 use App\Services\Search\Eloquent\Searchable;
@@ -30,13 +27,13 @@ use App\Services\Search\Eloquent\SearchableImpl;
 use App\Services\Search\Properties\Date;
 use App\Services\Search\Properties\Relation;
 use App\Services\Search\Properties\Text;
+use App\Utils\Eloquent\Callbacks\GetKey;
 use App\Utils\Eloquent\Casts\Origin;
 use App\Utils\Eloquent\Concerns\SyncHasMany;
 use App\Utils\Eloquent\Model;
 use App\Utils\Eloquent\Pivot;
 use Carbon\CarbonImmutable;
 use Database\Factories\DocumentFactory;
-use Illuminate\Container\Container;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -44,7 +41,11 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 
+use function array_diff;
+use function array_intersect;
+use function config;
 use function count;
+use function in_array;
 
 /**
  * Document.
@@ -66,6 +67,9 @@ use function count;
  * @property string|null                    $language_id
  * @property string|null                    $oem_amp_id
  * @property string|null                    $oem_sar_number
+ * @property bool                           $is_hidden
+ * @property bool                           $is_contract
+ * @property bool                           $is_quote
  * @property int                            $assets_count
  * @property int                            $entries_count
  * @property int                            $contacts_count
@@ -80,10 +84,7 @@ use function count;
  * @property Currency|null                  $currency
  * @property Customer|null                  $customer
  * @property Distributor|null               $distributor
- * @property-read bool                      $is_hidden
- * @property-read bool                      $is_visible
- * @property-read bool                      $is_contract
- * @property-read bool                      $is_quote
+ * @property-read bool                      $is_document
  * @property-read Collection<int, Asset>    $assets
  * @property Collection<int, DocumentEntry> $entries
  * @property Language|null                  $language
@@ -103,8 +104,6 @@ class Document extends Model implements OwnedByReseller, Searchable {
     use SearchableImpl;
     use OwnedByResellerImpl;
     use HasOemNullable;
-    use HasTypeNullable;
-    use HasStatuses;
     use HasResellerNullable;
     use HasCustomerNullable;
     use HasCurrency;
@@ -112,13 +111,17 @@ class Document extends Model implements OwnedByReseller, Searchable {
     use HasContacts;
     use HasChangeRequests;
     use SyncHasMany;
-    use DocumentTypeScopeImpl;
-    use DocumentStatusScopeImpl;
+    use DocumentScopes;
+    use DocumentIsDocumentScopeImpl;
+    use DocumentIsHiddenScopeImpl;
 
-    /**
-     * @use DocumentTypeQueries<static>
-     */
-    use DocumentTypeQueries;
+    use HasTypeNullable {
+        setTypeAttribute as private traitSetTypeAttribute;
+    }
+
+    use HasStatuses {
+        setStatusesAttribute as private traitSetStatusesAttribute;
+    }
 
     /**
      * The attributes that should be cast to native types.
@@ -132,6 +135,9 @@ class Document extends Model implements OwnedByReseller, Searchable {
         'price_origin' => Origin::class,
         'start'        => 'date',
         'end'          => 'date',
+        'is_contract'  => 'bool',
+        'is_quote'     => 'bool',
+        'is_hidden'    => 'bool',
     ];
 
     /**
@@ -219,24 +225,28 @@ class Document extends Model implements OwnedByReseller, Searchable {
     protected function getStatusesPivot(): Pivot {
         return new DocumentStatus();
     }
+
+    public function setTypeAttribute(?Type $type): void {
+        $this->traitSetTypeAttribute($type);
+
+        $this->is_quote    = self::isQuoteType($this->type_id);
+        $this->is_contract = self::isContractType($this->type_id);
+    }
+
+    /**
+     * @param Collection<int, Status> $statuses
+     */
+    public function setStatusesAttribute(Collection $statuses): void {
+        $this->traitSetStatusesAttribute($statuses);
+
+        $this->is_hidden = self::isHidden($this->statuses);
+    }
     // </editor-fold>
 
     // <editor-fold desc="Attributes">
     // =========================================================================
-    public function getIsContractAttribute(): bool {
-        return Container::getInstance()->make(DocumentTypeContractScope::class)->isContractType($this->type_id);
-    }
-
-    public function getIsQuoteAttribute(): bool {
-        return Container::getInstance()->make(DocumentTypeQuoteType::class)->isQuoteType($this->type_id);
-    }
-
-    public function getIsHiddenAttribute(): bool {
-        return Container::getInstance()->make(DocumentStatusScope::class)->isHidden($this->statuses);
-    }
-
-    public function getIsVisibleAttribute(): bool {
-        return !$this->getIsHiddenAttribute();
+    public function getIsDocumentAttribute(): bool {
+        return $this->is_contract || $this->is_quote;
     }
     // </editor-fold>
 
@@ -262,6 +272,68 @@ class Document extends Model implements OwnedByReseller, Searchable {
                 ]),
             ]),
         ];
+    }
+    // </editor-fold>
+
+    // <editor-fold desc="Helpers">
+    // =========================================================================
+    /**
+     * @param Collection<array-key, Status>|Status|string $status
+     */
+    public static function isHidden(Collection|Status|string $status): bool {
+        $hidden   = (array) config('ep.document_statuses_hidden');
+        $statuses = [];
+
+        if ($status instanceof Collection) {
+            $statuses = $status->map(new GetKey())->all();
+        } elseif ($status instanceof Status) {
+            $statuses = [$status->getKey()];
+        } else {
+            $statuses = [$status];
+        }
+
+        return !!array_intersect($statuses, $hidden);
+    }
+
+    /**
+     * @return array<string>
+     */
+    public static function getContractTypeIds(): array {
+        return (array) config('ep.contract_types');
+    }
+
+    public static function isContractType(string|null $type): bool {
+        return in_array($type, self::getContractTypeIds(), true);
+    }
+
+    /**
+     * @return array<string>
+     */
+    public static function getQuoteTypeIds(): array {
+        $quoteTypes    = (array) config('ep.quote_types');
+        $contractTypes = self::getContractTypeIds();
+
+        if ($contractTypes) {
+            $quoteTypes = array_diff($quoteTypes, $contractTypes);
+        }
+
+        return $quoteTypes;
+    }
+
+    public static function isQuoteType(string|null $type): bool {
+        $contractTypes = self::getContractTypeIds();
+        $quoteTypes    = self::getQuoteTypeIds();
+        $is            = false;
+
+        if ($quoteTypes) {
+            $is = in_array($type, $quoteTypes, true);
+        } elseif ($contractTypes) {
+            $is = !in_array($type, $contractTypes, true);
+        } else {
+            // empty
+        }
+
+        return $is;
     }
     // </editor-fold>
 }

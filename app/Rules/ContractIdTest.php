@@ -2,7 +2,6 @@
 
 namespace App\Rules;
 
-use App\Models\Data\Type;
 use App\Models\Document;
 use App\Models\Organization;
 use App\Models\Reseller;
@@ -64,23 +63,22 @@ class ContractIdTest extends TestCase {
         return [
             'exists'       => [
                 true,
-                static function (TestCase $test, Organization $organization): string {
+                static function (TestCase $test, Organization $org): string {
                     $reseller = Reseller::factory()->create([
-                        'id' => $organization->getKey(),
-                    ]);
-                    $type     = Type::factory()->create([
-                        'id' => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24983',
+                        'id' => $org->getKey(),
                     ]);
                     $document = Document::factory()->create([
                         'id'          => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24982',
                         'reseller_id' => $reseller->getKey(),
-                        'type_id'     => $type->getKey(),
+                        'is_hidden'   => false,
+                        'is_contract' => true,
+                        'is_quote'    => false,
                     ]);
 
                     return $document->getKey();
                 },
                 [
-                    'ep.contract_types' => ['f9834bc1-2f2f-4c57-bb8d-7a224ac24983'],
+                    // empty
                 ],
             ],
             'not-exists'   => [
@@ -91,24 +89,23 @@ class ContractIdTest extends TestCase {
             ],
             'soft-deleted' => [
                 false,
-                static function (TestCase $test, Organization $organization): string {
+                static function (TestCase $test, Organization $org): string {
                     $reseller = Reseller::factory()->create([
-                        'id' => $organization->getKey(),
-                    ]);
-                    $type     = Type::factory()->create([
-                        'id' => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24983',
+                        'id' => $org->getKey(),
                     ]);
                     $document = Document::factory()->create([
                         'id'          => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24982',
                         'reseller_id' => $reseller->getKey(),
-                        'type_id'     => $type->getKey(),
+                        'is_hidden'   => false,
+                        'is_contract' => true,
+                        'is_quote'    => false,
                         'deleted_at'  => Date::now(),
                     ]);
 
                     return $document->getKey();
                 },
                 [
-                    'ep.contract_types' => ['f9834bc1-2f2f-4c57-bb8d-7a224ac24983'],
+                    // empty
                 ],
             ],
             'empty string' => [

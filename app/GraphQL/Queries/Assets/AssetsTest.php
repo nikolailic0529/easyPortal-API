@@ -612,10 +612,7 @@ class AssetsTest extends TestCase {
                             ],
                         ),
                         [
-                            'ep.document_statuses_hidden' => [],
-                            'ep.contract_types'           => [
-                                'f3cb1fac-b454-4f23-bbb4-f3d84a1690ae',
-                            ],
+                            // empty,
                         ],
                         static function (TestCase $test, Organization $org): array {
                             // OEM Creation belongs to
@@ -720,12 +717,11 @@ class AssetsTest extends TestCase {
                             ]);
 
                             // Document creation for support
-                            $documentType = Type::factory()->create([
-                                'id' => 'f3cb1fac-b454-4f23-bbb4-f3d84a1690ae',
-                            ]);
-                            $document     = Document::factory()->ownedBy($org)->create([
+                            $document = Document::factory()->ownedBy($org)->create([
                                 'id'          => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24988',
-                                'type_id'     => $documentType,
+                                'is_hidden'   => false,
+                                'is_contract' => true,
+                                'is_quote'    => false,
                                 'reseller_id' => $reseller,
                             ]);
                             // Document entry creation for services

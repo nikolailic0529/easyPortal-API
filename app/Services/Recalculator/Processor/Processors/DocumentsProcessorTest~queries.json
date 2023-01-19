@@ -2,22 +2,22 @@
     {
         "query": "select `documents`.* from `documents` where `id` in (?, ?)",
         "bindings": [
-            "720feb7c-8d1a-5817-876f-6409000456a7",
-            "caaa494a-ba21-5920-be79-93b54f6879a7"
+            "0682a405-8d4a-57cf-8629-b96cc3e199ad",
+            "a47ad1a7-1abf-598b-ae36-3cd2dd197244"
         ]
     },
     {
         "query": "select `statuses`.*, `document_statuses`.`document_id` as `pivot_document_id`, `document_statuses`.`status_id` as `pivot_status_id`, `document_statuses`.`created_at` as `pivot_created_at`, `document_statuses`.`updated_at` as `pivot_updated_at` from `statuses` inner join `document_statuses` on `statuses`.`id` = `document_statuses`.`status_id` where `document_statuses`.`deleted_at` is null and `document_statuses`.`document_id` in (?, ?) and `statuses`.`deleted_at` is null",
         "bindings": [
-            "720feb7c-8d1a-5817-876f-6409000456a7",
-            "caaa494a-ba21-5920-be79-93b54f6879a7"
+            "0682a405-8d4a-57cf-8629-b96cc3e199ad",
+            "a47ad1a7-1abf-598b-ae36-3cd2dd197244"
         ]
     },
     {
         "query": "select `document_entries`.* from `document_entries` where `document_entries`.`document_id` in (?, ?) and `document_entries`.`deleted_at` is null",
         "bindings": [
-            "720feb7c-8d1a-5817-876f-6409000456a7",
-            "caaa494a-ba21-5920-be79-93b54f6879a7"
+            "0682a405-8d4a-57cf-8629-b96cc3e199ad",
+            "a47ad1a7-1abf-598b-ae36-3cd2dd197244"
         ]
     },
     {
@@ -27,35 +27,38 @@
             null,
             null,
             null,
-            "2022-10-12 00:01:01",
+            "2022-10-12 00:01:13",
+            "3f7c8ec0-c2b7-5c1f-8e53-ba2fe0a2332b"
+        ]
+    },
+    {
+        "query": "update `document_entries` set `list_price` = ?, `monthly_list_price` = ?, `monthly_retail_price` = ?, `renewal` = ?, `document_entries`.`updated_at` = ? where `id` = ?",
+        "bindings": [
+            null,
+            null,
+            null,
+            null,
+            "2022-10-12 00:01:21",
+            "5047bb76-6ddd-5d67-8cfe-d97c32e354ee"
+        ]
+    },
+    {
+        "query": "update `documents` set `price` = ?, `is_contract` = ?, `is_hidden` = ?, `documents`.`updated_at` = ? where `id` = ?",
+        "bindings": [
+            null,
+            true,
+            true,
+            "2022-10-12 00:01:29",
             "0682a405-8d4a-57cf-8629-b96cc3e199ad"
         ]
     },
     {
-        "query": "update `document_entries` set `list_price` = ?, `monthly_list_price` = ?, `monthly_retail_price` = ?, `renewal` = ?, `document_entries`.`updated_at` = ? where `id` = ?",
-        "bindings": [
-            null,
-            null,
-            null,
-            null,
-            "2022-10-12 00:01:09",
-            "871ea684-ba58-5ea9-a2d0-ab596e241862"
-        ]
-    },
-    {
-        "query": "update `documents` set `price` = ?, `documents`.`updated_at` = ? where `id` = ?",
-        "bindings": [
-            null,
-            "2022-10-12 00:01:17",
-            "720feb7c-8d1a-5817-876f-6409000456a7"
-        ]
-    },
-    {
-        "query": "update `documents` set `price` = ?, `documents`.`updated_at` = ? where `id` = ?",
+        "query": "update `documents` set `price` = ?, `is_quote` = ?, `documents`.`updated_at` = ? where `id` = ?",
         "bindings": [
             "543.21",
-            "2022-10-12 00:01:25",
-            "caaa494a-ba21-5920-be79-93b54f6879a7"
+            true,
+            "2022-10-12 00:01:37",
+            "a47ad1a7-1abf-598b-ae36-3cd2dd197244"
         ]
     }
 ]

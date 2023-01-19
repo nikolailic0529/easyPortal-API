@@ -4,7 +4,6 @@ namespace App\GraphQL\Mutations\Document\ChangeRequest;
 
 use App\GraphQL\Directives\Directives\Mutation\Exceptions\ObjectNotFound;
 use App\Mail\RequestChange;
-use App\Models\Data\Type;
 use App\Models\Document;
 use App\Models\Organization;
 use App\Models\User;
@@ -22,6 +21,7 @@ use Tests\GraphQL\GraphQLValidationError;
 use Tests\GraphQL\JsonFragment;
 use Tests\TestCase;
 use Tests\WithOrganization;
+use Tests\WithSettings;
 use Tests\WithUser;
 use Throwable;
 
@@ -33,6 +33,7 @@ use function trans;
  *
  * @phpstan-import-type OrganizationFactory from WithOrganization
  * @phpstan-import-type UserFactory from WithUser
+ * @phpstan-import-type SettingsFactory from WithSettings
  */
 class CreateTest extends TestCase {
     // <editor-fold desc="Tests">
@@ -40,38 +41,38 @@ class CreateTest extends TestCase {
     /**
      * @dataProvider dataProviderInvokeContract
      *
-     * @param OrganizationFactory                             $orgFactory
-     * @param UserFactory                                     $userFactory
-     * @param array<string,mixed>                             $input
-     * @param array<string,mixed>                             $settings
-     * @param Closure(static, ?Organization, ?User): Document $prepare
+     * @param OrganizationFactory                                  $orgFactory
+     * @param UserFactory                                          $userFactory
+     * @param SettingsFactory                                      $settings
+     * @param Closure(static, ?Organization, ?User): Document|null $prepare
+     * @param array<string,mixed>|null                             $input
      */
     public function testInvokeContract(
         Response $expected,
         mixed $orgFactory,
         mixed $userFactory = null,
-        array $settings = null,
+        mixed $settings = null,
         Closure $prepare = null,
         array $input = null,
     ): void {
         // Prepare
-        $org        = $this->setOrganization($orgFactory);
-        $user       = $this->setUser($userFactory, $org);
-        $typeId     = $settings['ep.contract_types'] ?? $this->faker->uuid();
-        $documentId = $this->faker->uuid();
+        $org  = $this->setOrganization($orgFactory);
+        $user = $this->setUser($userFactory, $org);
+        $key  = $this->faker->uuid();
 
-        $this->setSettings((array) $settings + ['ep.contract_types' => $typeId]);
+        $this->setSettings($settings);
 
         Mail::fake();
 
         if ($prepare) {
-            $documentId = $prepare($this, $org, $user)->getKey();
+            $key = $prepare($this, $org, $user)->getKey();
         } elseif ($org) {
-            $type       = Type::factory()->create(['id' => $typeId]);
-            $documentId = Document::factory()
+            $key = Document::factory()
                 ->ownedBy($org)
                 ->create([
-                    'type_id' => $type,
+                    'is_hidden'   => false,
+                    'is_contract' => true,
+                    'is_quote'    => false,
                 ])
                 ->getKey();
         } else {
@@ -111,7 +112,7 @@ class CreateTest extends TestCase {
                 }
                 GRAPHQL,
                 [
-                    'id'    => $documentId,
+                    'id'    => $key,
                     'input' => $input,
                 ],
             )
@@ -125,38 +126,38 @@ class CreateTest extends TestCase {
     /**
      * @dataProvider dataProviderInvokeQuote
      *
-     * @param OrganizationFactory                             $orgFactory
-     * @param UserFactory                                     $userFactory
-     * @param array<string,mixed>                             $input
-     * @param array<string,mixed>                             $settings
-     * @param Closure(static, ?Organization, ?User): Document $prepare
+     * @param OrganizationFactory                                  $orgFactory
+     * @param UserFactory                                          $userFactory
+     * @param SettingsFactory                                      $settings
+     * @param Closure(static, ?Organization, ?User): Document|null $prepare
+     * @param array<string,mixed>|null                             $input
      */
     public function testInvokeQuote(
         Response $expected,
         mixed $orgFactory,
         mixed $userFactory = null,
-        array $settings = null,
+        mixed $settings = null,
         Closure $prepare = null,
         array $input = null,
     ): void {
         // Prepare
-        $org        = $this->setOrganization($orgFactory);
-        $user       = $this->setUser($userFactory, $org);
-        $typeId     = $settings['ep.quote_types'] ?? $this->faker->uuid();
-        $documentId = $this->faker->uuid();
+        $org  = $this->setOrganization($orgFactory);
+        $user = $this->setUser($userFactory, $org);
+        $key  = $this->faker->uuid();
 
-        $this->setSettings((array) $settings + ['ep.quote_types' => $typeId]);
+        $this->setSettings($settings);
 
         Mail::fake();
 
         if ($prepare) {
-            $documentId = $prepare($this, $org, $user)->getKey();
+            $key = $prepare($this, $org, $user)->getKey();
         } elseif ($org) {
-            $type       = Type::factory()->create(['id' => $typeId]);
-            $documentId = Document::factory()
+            $key = Document::factory()
                 ->ownedBy($org)
                 ->create([
-                    'type_id' => $type,
+                    'is_hidden'   => false,
+                    'is_contract' => false,
+                    'is_quote'    => true,
                 ])
                 ->getKey();
         } else {
@@ -196,7 +197,7 @@ class CreateTest extends TestCase {
                 }
                 GRAPHQL,
                 [
-                    'id'    => $documentId,
+                    'id'    => $key,
                     'input' => $input,
                 ],
             )
@@ -214,11 +215,11 @@ class CreateTest extends TestCase {
      * @return array<mixed>
      */
     public function dataProviderInvokeContract(): array {
-        $type     = '9ddfa0cb-307a-476b-b859-32ab4e0ad5b5';
-        $prepare  = static function (TestCase $test, ?Organization $org, ?User $user) use ($type): Document {
-            $type     = Type::factory()->create(['id' => $type]);
+        $prepare  = static function (TestCase $test, ?Organization $org, ?User $user): Document {
             $document = Document::factory()->ownedBy($org)->create([
-                'type_id' => $type,
+                'is_hidden'   => false,
+                'is_contract' => true,
+                'is_quote'    => false,
             ]);
 
             if ($user) {
@@ -228,8 +229,7 @@ class CreateTest extends TestCase {
             return $document;
         };
         $settings = [
-            'ep.email_address'  => 'test@example.com',
-            'ep.contract_types' => [$type],
+            'ep.email_address' => 'test@example.com',
         ];
 
         return (new CompositeDataProvider(
@@ -324,11 +324,11 @@ class CreateTest extends TestCase {
      * @return array<mixed>
      */
     public function dataProviderInvokeQuote(): array {
-        $type     = '9ddfa0cb-307a-476b-b859-32ab4e0ad5b5';
-        $prepare  = static function (TestCase $test, ?Organization $org, ?User $user) use ($type): Document {
-            $type     = Type::factory()->create(['id' => $type]);
+        $prepare  = static function (TestCase $test, ?Organization $org, ?User $user): Document {
             $document = Document::factory()->ownedBy($org)->create([
-                'type_id' => $type,
+                'is_hidden'   => false,
+                'is_contract' => false,
+                'is_quote'    => true,
             ]);
 
             if ($user) {
@@ -339,7 +339,6 @@ class CreateTest extends TestCase {
         };
         $settings = [
             'ep.email_address' => 'test@example.com',
-            'ep.quote_types'   => [$type],
         ];
 
         return (new CompositeDataProvider(

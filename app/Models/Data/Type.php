@@ -11,7 +11,6 @@ use App\Models\Document;
 use App\Models\Relations\HasAssets;
 use App\Models\Relations\HasContracts;
 use App\Models\Relations\HasQuotes;
-use App\Models\Scopes\DocumentTypeQueries;
 use App\Services\I18n\Contracts\Translatable;
 use App\Services\I18n\Eloquent\TranslateProperties;
 use App\Utils\Eloquent\Contracts\DataModel;
@@ -50,11 +49,6 @@ class Type extends Model implements DataModel, Translatable {
     use HasAssets;
     use HasContracts;
     use HasQuotes;
-
-    /**
-     * @use DocumentTypeQueries<static>
-     */
-    use DocumentTypeQueries;
 
     /**
      * @phpcsSuppress SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint

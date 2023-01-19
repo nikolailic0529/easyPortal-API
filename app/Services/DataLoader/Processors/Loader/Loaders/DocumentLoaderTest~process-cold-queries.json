@@ -922,7 +922,7 @@
         ]
     },
     {
-        "query": "insert into `documents` (`id`, `hash`, `oem_id`, `oem_group_id`, `oem_said`, `oem_amp_id`, `oem_sar_number`, `type_id`, `statuses_count`, `reseller_id`, `customer_id`, `currency_id`, `language_id`, `distributor_id`, `start`, `end`, `price_origin`, `price`, `number`, `changed_at`, `contacts_count`, `entries_count`, `assets_count`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `documents` (`id`, `hash`, `oem_id`, `oem_group_id`, `oem_said`, `oem_amp_id`, `oem_sar_number`, `type_id`, `is_quote`, `is_contract`, `statuses_count`, `is_hidden`, `reseller_id`, `customer_id`, `currency_id`, `language_id`, `distributor_id`, `start`, `end`, `price_origin`, `price`, `number`, `changed_at`, `contacts_count`, `entries_count`, `assets_count`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "00122a07-53e5-4c70-ba6b-bf51fcdd6695",
             "720ccc6933b1194be3b266848abfc16810374ebd",
@@ -932,7 +932,10 @@
             "83-T00599-HW",
             null,
             "f10232e3-9024-567f-9383-55ba191f128d",
+            false,
+            true,
             1,
+            false,
             "a9233c9c-4634-493a-9f12-bef4d1cf3c5e",
             "60e73b13-f741-4c73-a32d-a23fa438d9ad",
             "95c7f4c2-b90c-522a-bc3a-0895aed08a17",

@@ -4,7 +4,6 @@ namespace App\GraphQL\Mutations\Document;
 
 use App\GraphQL\Directives\Directives\Mutation\Exceptions\ObjectNotFound;
 use App\Models\Asset;
-use App\Models\Data\Type;
 use App\Models\Document;
 use App\Models\Organization;
 use App\Models\User;
@@ -42,10 +41,10 @@ class SyncTest extends TestCase {
      * @dataProvider dataProviderInvoke
      *
      *
-     * @param OrganizationFactory                           $orgFactory
-     * @param UserFactory                                   $userFactory
-     * @param SettingsFactory                               $settingsFactory
-     * @param Closure(static, ?Organization, ?User): string $prepare
+     * @param OrganizationFactory                                  $orgFactory
+     * @param UserFactory                                          $userFactory
+     * @param SettingsFactory                                      $settingsFactory
+     * @param Closure(static, ?Organization, ?User): Document|null $prepare
      */
     public function testInvoke(
         Response $expected,
@@ -58,24 +57,18 @@ class SyncTest extends TestCase {
     ): void {
         $org  = $this->setOrganization($orgFactory);
         $user = $this->setUser($userFactory, $org);
-        $id   = $this->faker->uuid();
+        $key  = $this->faker->uuid();
 
         $this->setSettings($settingsFactory);
 
         if ($prepare) {
-            $id = $prepare($this, $org, $user);
+            $key = $prepare($this, $org, $user)->getKey();
         } elseif ($org) {
-            $type = Type::factory()->create();
-
-            if (!$settingsFactory) {
-                $this->setSettings([
-                    "ep.{$query}_types" => [$type->getKey()],
-                ]);
-            }
-
             Document::factory()->ownedBy($org)->create([
-                'id'      => $id,
-                'type_id' => $type,
+                'id'          => $key,
+                'is_hidden'   => false,
+                'is_contract' => true,
+                'is_quote'    => true,
             ]);
         } else {
             // empty
@@ -95,7 +88,7 @@ class SyncTest extends TestCase {
                 }
                 GRAPHQL,
                 [
-                    'id' => $id,
+                    'id' => $key,
                 ],
             )
             ->assertThat($expected);
@@ -108,19 +101,7 @@ class SyncTest extends TestCase {
      * @return array<mixed>
      */
     public function dataProviderInvoke(): array {
-        $type    = '9ddfa0cb-307a-476b-b859-32ab4e0ad5b5';
-        $factory = static function (TestCase $test, ?Organization $org) use ($type): string {
-            $type     = Type::factory()->create(['id' => $type]);
-            $asset    = Asset::factory()->ownedBy($org)->create();
-            $document = Document::factory()
-                ->ownedBy($org)
-                ->hasEntries(1, [
-                    'asset_id' => $asset,
-                ])
-                ->create([
-                    'type_id' => $type,
-                ]);
-
+        $override = static function (TestCase $test, Document $document): string {
             $test->override(
                 DocumentSync::class,
                 static function (MockInterface $mock) use ($document): void {
@@ -168,21 +149,39 @@ class SyncTest extends TestCase {
                             ]),
                         ),
                         [
-                            'ep.document_statuses_hidden' => [],
-                            'ep.contract_types'           => [$type],
+                            // empty
                         ],
-                        $factory,
+                        static function (TestCase $test, ?Organization $org) use ($override): Document {
+                            $asset    = Asset::factory()->ownedBy($org)->create();
+                            $document = Document::factory()
+                                ->ownedBy($org)
+                                ->hasEntries(1, [
+                                    'asset_id' => $asset,
+                                ])
+                                ->create([
+                                    'is_hidden'   => false,
+                                    'is_contract' => true,
+                                    'is_quote'    => false,
+                                ]);
+
+                            $override($test, $document);
+
+                            return $document;
+                        },
                     ],
                     'invalid type' => [
                         new GraphQLError('contract', static function (): Throwable {
                             return new ObjectNotFound((new Document())->getMorphClass());
                         }),
                         [
-                            'ep.document_statuses_hidden' => [],
-                            'ep.contract_types'           => ['90398f16-036f-4e6b-af90-06e19614c57c'],
+                            // empty
                         ],
-                        static function (self $test, Organization $org): string {
-                            return Document::factory()->ownedBy($org)->create()->getKey();
+                        static function (self $test, Organization $org): Document {
+                            return Document::factory()->ownedBy($org)->create([
+                                'is_hidden'   => false,
+                                'is_contract' => false,
+                                'is_quote'    => true,
+                            ]);
                         },
                     ],
                     'not found'    => [
@@ -190,11 +189,10 @@ class SyncTest extends TestCase {
                             return new ObjectNotFound((new Document())->getMorphClass());
                         }),
                         [
-                            'ep.document_statuses_hidden' => [],
-                            'ep.contract_types'           => [$type],
+                            // empty
                         ],
-                        static function (self $test): string {
-                            return $test->faker->uuid();
+                        static function (): Document {
+                            return Document::factory()->make();
                         },
                     ],
                 ]),
@@ -221,21 +219,39 @@ class SyncTest extends TestCase {
                             ]),
                         ),
                         [
-                            'ep.document_statuses_hidden' => [],
-                            'ep.quote_types'              => [$type],
+                            // empty
                         ],
-                        $factory,
+                        static function (TestCase $test, ?Organization $org) use ($override): Document {
+                            $asset    = Asset::factory()->ownedBy($org)->create();
+                            $document = Document::factory()
+                                ->ownedBy($org)
+                                ->hasEntries(1, [
+                                    'asset_id' => $asset,
+                                ])
+                                ->create([
+                                    'is_hidden'   => false,
+                                    'is_contract' => false,
+                                    'is_quote'    => true,
+                                ]);
+
+                            $override($test, $document);
+
+                            return $document;
+                        },
                     ],
                     'invalid type' => [
                         new GraphQLError('quote', static function (): Throwable {
                             return new ObjectNotFound((new Document())->getMorphClass());
                         }),
                         [
-                            'ep.document_statuses_hidden' => [],
-                            'ep.quote_types'              => ['0a0354b5-16e8-4173-acb3-69ef10304681'],
+                            // empty
                         ],
-                        static function (self $test, Organization $org): string {
-                            return Document::factory()->ownedBy($org)->create()->getKey();
+                        static function (self $test, Organization $org): Document {
+                            return Document::factory()->ownedBy($org)->create([
+                                'is_hidden'   => false,
+                                'is_contract' => true,
+                                'is_quote'    => false,
+                            ]);
                         },
                     ],
                     'not found'    => [
@@ -243,11 +259,10 @@ class SyncTest extends TestCase {
                             return new ObjectNotFound((new Document())->getMorphClass());
                         }),
                         [
-                            'ep.document_statuses_hidden' => [],
-                            'ep.quote_types'              => [$type],
+                            // empty
                         ],
-                        static function (self $test): string {
-                            return $test->faker->uuid();
+                        static function (): Document {
+                            return Document::factory()->make();
                         },
                     ],
                 ]),
