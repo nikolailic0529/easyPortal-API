@@ -1836,6 +1836,11 @@ parameters:
 			path: app/Http/Controllers/Export/ExportController.php
 
 		-
+			message: "#^Method App\\\\Http\\\\Controllers\\\\Export\\\\ExportRequest\\:\\:validated\\(\\) has parameter \\$key with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: app/Http/Controllers/Export/ExportRequest.php
+
+		-
 			message: "#^Method App\\\\Http\\\\Controllers\\\\Export\\\\ExportRequest\\:\\:validated\\(\\) should return array\\{root\\: string, columns\\: non\\-empty\\-list\\<array\\{name\\: string, value\\: string, group\\?\\: string\\|null\\}\\>, query\\: string, operationName\\?\\: string, variables\\?\\: array\\{limit\\?\\: int\\|null, offset\\?\\: int\\|null\\}\\|null\\} but returns mixed\\.$#"
 			count: 1
 			path: app/Http/Controllers/Export/ExportRequest.php
