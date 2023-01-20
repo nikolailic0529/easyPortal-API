@@ -32,6 +32,14 @@ Legend:
 
 ## Documentation
 
+### Branches
+
+- `main` - production (releases)
+- `staging` - staging (rc)
+- `dev` - development
+- `customer` - see #689 (outdated, but compatible with UI)
+- `customer-latest` - see #689 (contain all latest changes from dev, but not compatible with UI, so UI needs to be updated before use)
+
 ### Application
 
 * [Migration Guide](docs/Application/Migration-Guide.md)
