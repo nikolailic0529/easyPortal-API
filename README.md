@@ -37,8 +37,8 @@ Legend:
 - `main` - production (releases)
 - `staging` - staging (rc)
 - `dev` - development
-- `customer` - see #689 (outdated, but compatible with UI)
-- `customer-latest` - see #689 (contain all latest changes from dev, but not compatible with UI, so UI needs to be updated before use)
+- `customer` - see [#689](https://github.com/fakharanwar/easyPortal-API/issues/689) (outdated, but compatible with UI)
+- `customer-latest` - see [#689](https://github.com/fakharanwar/easyPortal-API/issues/689) (contain all latest changes from dev, but not compatible with UI, so UI needs to be updated before use)
 
 ### Application
 
