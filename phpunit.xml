@@ -34,6 +34,9 @@
         <env name="APP_URL" value="https://example.com"/>
         <env name="APP_ENV" value="testing"/>
         <env name="REDIS_PREFIX" value="testing_"/>
+        <env name="CACHE_PREFIX" value="testing_"/>
+        <env name="HORIZON_PREFIX" value="testing_"/>
+        <env name="SCOUT_PREFIX" value="testing_"/>
         <env name="BCRYPT_ROUNDS" value="4"/>
         <env name="CACHE_DRIVER" value="array"/>
         <env name="DB_DATABASE" value="testing"/>
