@@ -76,14 +76,14 @@ class Stop implements CacheKeyable {
         $marker = $this->service->get([$this, $stoppable], function (mixed $timestamp): ?float {
             return $this->getTimestamp($timestamp);
         });
-        $marked = $marker !== null && $marker >= $dispatched;
+        $marked = $marker !== null && $marker > $dispatched;
 
         return $marked;
     }
 
     protected function isMarkedByQueueRestart(float $dispatched): bool {
         $restart = $this->getTimestamp($this->cache->get('illuminate:queue:restart'));
-        $marked  = $restart !== null && $restart >= $dispatched;
+        $marked  = $restart !== null && $restart > $dispatched;
 
         return $marked;
     }
