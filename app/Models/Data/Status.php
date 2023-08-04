@@ -50,6 +50,8 @@ class Status extends Model implements DataModel, Translatable {
      */
     protected $table = 'statuses';
 
+    const Document_ORDERED = '2675cae9-4200-45f1-a920-fde8b8118ba3';
+
     protected function getTranslatableKey(): ?string {
         return "{$this->object_type}/{$this->key}";
     }

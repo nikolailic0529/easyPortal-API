@@ -1,0 +1,12 @@
+extend type QuoteMutation {
+    place_order: QuotePlaceOrderPayload
+    @authOrg
+    @authMe(permissions: ["quotes-sync"])
+    @mutationMutate(
+        resolver: "App\\GraphQL\\Mutations\\Document\\PlaceOrder"
+    )
+}
+
+type QuotePlaceOrderPayload {
+    result: Boolean!
+}
